@@ -1,0 +1,38 @@
+Twitter Spaces is a new feature that allows users to have live audio conversations on the platform. Users can host these conversations in an audio chat room called a "Space" and invite other users to participate.
+
+we will use :
+
+Flutter with state management libraries such as Bloc.----Bloc makes it easy to separate presentation from business logic, making your code fast, easy to test, and reusable.
+
+know what state our application is in at any point in time.
+easily test every case to make sure our app is responding appropriately.
+record every single user interaction in our application so that we can make data-driven decisions.
+work as efficiently as possible and reuse components both within our application and across other applications.
+have many developers seamlessly working within a single code base following the same patterns and conventions.
+develop fast and reactive apps.
+
+
+Simple: Easy to understand & can be used by developers with varying skill levels.
+Powerful: Help make amazing, complex applications by composing them of smaller components.
+Testable: Easily test every aspect of an application so that we can iterate with confidence.
+
+
+Firebase.
+Firebase Cloud Storage is an excellent cloud service built for app developers who need to store and serve content, such as photos or videos and other files. 
+Once uploaded, these files can be accessed using an SDK and delivered on a website or an app.
+
+100ms server-side APIs.
+100ms is a cloud-based live video infrastructure software that allows developers to create video and audio conferencing applications on the web, iOS, and Android 
+platforms using the 100ms software development kit (SDK), REST APIs, and account dashboard. 
+
+
+
+we can add functionalities like--
+1.Getting the permissions from users---To use the camera or microphone in our app, we need to get the required permissions from the users.
+2.Implement Listener---implement a listener class over the current SDK which will help us to interact with the SDK easily
+3.Joining the Room
+4.Creating a Room
+5.End Room
+6.Mute/ Unmute Audio
+7.Chat Feature
+8.Report a Speaker
