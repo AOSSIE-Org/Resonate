@@ -2,8 +2,17 @@ Twitter Spaces is a new feature that allows users to have live audio conversatio
 
 we will use :
 
-Flutter with state management libraries such as Bloc.----Bloc makes it easy to separate presentation from business logic, making your code fast, easy to test, and reusable.
+1.Flutter with state management libraries such as Bloc.----Bloc makes it easy to separate presentation from business logic, making your code fast, easy to test, and
+reusable.
 
+
+2.why state management used for---
+When you have state management in place data actually flows from your app to state and vice versa. You know exactly where your data is. These state management
+tools also give you a point-in-time snapshot of the entire data. In that way, you know exactly where your data is and that makes your development faster.
+
+
+
+3.
 know what state our application is in at any point in time.
 easily test every case to make sure our app is responding appropriately.
 record every single user interaction in our application so that we can make data-driven decisions.
@@ -16,17 +25,30 @@ Simple: Easy to understand & can be used by developers with varying skill levels
 Powerful: Help make amazing, complex applications by composing them of smaller components.
 Testable: Easily test every aspect of an application so that we can iterate with confidence.
 
-
+4.
 Firebase.
 Firebase Cloud Storage is an excellent cloud service built for app developers who need to store and serve content, such as photos or videos and other files. 
 Once uploaded, these files can be accessed using an SDK and delivered on a website or an app.
 
+5.
 100ms server-side APIs.
 100ms is a cloud-based live video infrastructure software that allows developers to create video and audio conferencing applications on the web, iOS, and Android 
 platforms using the 100ms software development kit (SDK), REST APIs, and account dashboard. 
 
+6.
+for frontend we can use---flutter framework
+
+7.
+for backend we can use--- Node JS, Express, MongoDB, WebRTC.
+
+WebRTC--WebRTC (Web Real-Time Communication) is a technology that enables Web applications and sites to capture and optionally stream audio and/or video media,
+as well as to exchange arbitrary data between browsers without requiring an intermediary. 
+
+8.
+for designing purpose we can use mvc pattern---It is a common architectural pattern that is used to design and create interfaces and the structure of an application
 
 
+9.
 we can add functionalities like--
 1.Getting the permissions from users---To use the camera or microphone in our app, we need to get the required permissions from the users.
 2.Implement Listener---implement a listener class over the current SDK which will help us to interact with the SDK easily
