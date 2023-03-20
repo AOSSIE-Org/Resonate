@@ -1,16 +1,25 @@
-# resonate
 
-A new Flutter project.
+# Resonate
 
-## Getting Started
+Clubhouse, but Open Source. With the social voice platforms getting so popular like Clubhouse, Twitter Spaces, etc Its time we have an Open Source version of this. Having an engagement platform like this will create a lot of credibility in the open-source community, drive traction and grow.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Tech Stack
+
+**Client:** Flutter 
+
+**Server:** Node, Firebase
+
+
+
+
+## Support
+
+For support, join our Discord channel or contact our mentor [Jaideep Prasad](https://github.com/jddeep)
+
+
+
+
