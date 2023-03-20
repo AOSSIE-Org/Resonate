@@ -32,3 +32,15 @@ Flutter will be used to develop the application for various platforms. We will b
 
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
+
+## Commit Structure
+
+Make sure to use conventional commit structure as follows:
+
+```
+<type>: <short summary>
+  │               │
+  │               └─⫸ Summary. Not capitalized. No period at the end.
+  │
+  └─⫸ Commit Type: docs|feat|fix|perf|refactor|test
+```
