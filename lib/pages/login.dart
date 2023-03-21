@@ -1,5 +1,7 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/pages/profile.dart';
+import 'package:resonate/pages/signup.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -12,9 +14,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String? loginError;
-  Credentials? _credentials;
   late Auth0 auth0;
   UserProfile? userProfile;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState(){
@@ -24,67 +28,30 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-  Future<void> loginAction() async{
+  Future<void> loginAction(BuildContext ctx) async{
     try{
-      final Credentials credentials =  await auth0.webAuthentication(scheme: "resonate").login();
+      final Credentials credentials = await auth0.api.login(
+          usernameOrEmail: emailController.text,
+          password: passwordController.text,
+          connectionOrRealm: 'Username-Password-Authentication'
+      );
+      await auth0.credentialsManager.storeCredentials(credentials);
+      print(credentials.user.email);
       setState(() {
-        _credentials = credentials;
         userProfile = credentials.user;
       });
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage(userProfile)),
+              (route) => false
+      );
     }
     catch (e) {
+      print(e);
       setState(() {
         loginError = e.toString();
       });
     }
-  }
-
-  Future<void> logoutAction() async{
-    try{
-      await auth0.webAuthentication(scheme: "resonate").logout();
-      setState(() {
-        _credentials = null;
-        userProfile = null;
-      });
-    }
-    catch (e) {
-      setState(() {
-        loginError = e.toString();
-      });
-    }
-  }
-
-
-  List<Widget> withoutLoginWidgets() {
-    return [
-      ElevatedButton(
-        onPressed: () async {
-          await loginAction();
-        },
-        child: const Text('Login'),
-      ),
-      Text(loginError ?? ''),
-    ];
-  }
-
-  List<Widget> withLoginWidget(){
-    return [
-      const Text("Logged in as:"),
-      userProfile?.pictureUrl == null ? const SizedBox() :
-        CircleAvatar(
-            backgroundImage: NetworkImage(userProfile!.pictureUrl.toString())
-        ),
-      Text("Name: ${userProfile?.name}"),
-      Text("Email: ${userProfile?.email}"),
-      const SizedBox(height: 15),
-      ElevatedButton(
-        onPressed: () async {
-          await logoutAction();
-        },
-        child: const Text('Logout'),
-      ),
-      Text(loginError ?? ''),
-    ];
   }
 
   @override
@@ -93,12 +60,60 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text("Login"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: _credentials == null
-              ? withoutLoginWidgets()
-              : withLoginWidget(),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              const CircleAvatar(
+                radius: 35,
+                backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/13849023?s=280&v=4"),
+              ),
+              const SizedBox(height: 15),
+              const Text("Welcome", style: TextStyle(fontSize: 25)),
+              TextField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+              ),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Text("New User? "),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SignupPage()),
+                          (route) => false
+                      );
+                    },
+                    child: const Text(
+                      "Signup",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              const SizedBox(height: 50),
+              ElevatedButton(
+                  onPressed: (){
+                    loginAction(context);
+                  },
+                  child: const Text("Login"),
+              )
+            ]
+          ),
         ),
       ),
     );
