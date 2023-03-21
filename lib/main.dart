@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/pages/login.dart';
-import 'package:resonate/pages/signup.dart';
+import 'package:get/get.dart';
+import 'package:resonate/modules/authentication/authentication_binding.dart';
+import 'package:resonate/modules/authentication/login_page.dart';
+import 'package:resonate/routes/app_pages.dart';
+import 'package:resonate/themes/colors_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +13,12 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const SignupPage(),
+      theme: ThemeColor().themeData,
+      home: const LoginPage(),
+      initialBinding: AuthenticationBinding(),
+      getPages: AppPages.pages,
     );
   }
 }
