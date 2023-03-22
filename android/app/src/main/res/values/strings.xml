@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="com_auth0_domain">dev-uhrj8p25nrczp3v8.au.auth0.com</string>
+    <string name="com_auth0_scheme">demo</string>
+</resources>
