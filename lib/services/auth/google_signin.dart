@@ -1,11 +1,12 @@
 import 'dart:io' show Platform;
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../utils/constants.dart';
+
 class GoogleSignInApi {
-  static String _clientId =
-      "375993303437-tsvpf8s7gbs653429utb1p1hgpto4gbv.apps.googleusercontent.com";
+
   static GoogleSignIn _googleSignIn =
-      (Platform.isAndroid) ? GoogleSignIn() : GoogleSignIn(clientId: _clientId);
+      (Platform.isAndroid) ? GoogleSignIn() : GoogleSignIn(clientId: gcpClientId);
 
   static Future login() async {
     try {
