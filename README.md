@@ -44,3 +44,5 @@ Make sure to use conventional commit structure as follows:
   │
   └─⫸ Commit Type: docs|feat|fix|perf|refactor|test
 ```
+## License
+This project is licensed under the GNU Public License v3.0. For more information, please refer to the [LICENSE](LICENSE) file.
