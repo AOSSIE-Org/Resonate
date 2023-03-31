@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   google_sign_in: ^6.0.2
+  auth0_flutter: ^1.1.0
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:

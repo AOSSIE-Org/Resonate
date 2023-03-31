@@ -5,6 +5,12 @@ PODS:
   - AppAuth/Core (1.6.0)
   - AppAuth/ExternalUserAgent (1.6.0):
     - AppAuth/Core
+  - Auth0 (2.3.2):
+    - JWTDecode (~> 3.0)
+    - SimpleKeychain (~> 1.0)
+  - auth0_flutter (1.1.0):
+    - Auth0 (~> 2.3)
+    - Flutter
   - Flutter (1.0.0)
   - google_sign_in_ios (0.0.1):
     - Flutter
@@ -17,19 +23,27 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.3.0)
+  - JWTDecode (3.0.1)
+  - SimpleKeychain (1.0.1)
 
 DEPENDENCIES:
+  - auth0_flutter (from `.symlinks/plugins/auth0_flutter/ios`)
   - Flutter (from `Flutter`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
 
 SPEC REPOS:
   trunk:
     - AppAuth
+    - Auth0
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - JWTDecode
+    - SimpleKeychain
 
 EXTERNAL SOURCES:
+  auth0_flutter:
+    :path: ".symlinks/plugins/auth0_flutter/ios"
   Flutter:
     :path: Flutter
   google_sign_in_ios:
@@ -37,12 +51,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  Auth0: 64da28fdc5cd499aa516dc4bfd0ace8efae2c1da
+  auth0_flutter: 2db6426f2a0489ff64318a0d2602a54aa9eef796
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   google_sign_in_ios: 1256ff9d941db546373826966720b0c24804bcdd
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
+  SimpleKeychain: 130211269f88f038d7dc5254cf0b1b9ce978c398
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
 COCOAPODS: 1.11.3

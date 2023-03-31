@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../utils/constants.dart';
 
 class GoogleSignInApi {
-
   static GoogleSignIn _googleSignIn =
       (Platform.isAndroid) ? GoogleSignIn() : GoogleSignIn(clientId: gcpClientId);
 
