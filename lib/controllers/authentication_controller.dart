@@ -20,8 +20,7 @@ class AuthenticationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    auth0 = Auth0("dev-5w4x3qxvszw8f0u6.us.auth0.com",
-        "4uYaXmTa00TbAZ8WLTQkxAusQAZ8HS0O");
+    auth0 = Auth0(auth0Domain, auth0ClientId);
     googleSignIn = (Platform.isAndroid)
         ? GoogleSignIn(clientId: gcpClientId)
         : GoogleSignIn(clientId: gcpClientId);
