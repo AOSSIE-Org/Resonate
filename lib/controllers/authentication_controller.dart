@@ -22,7 +22,7 @@ class AuthenticationController extends GetxController {
     super.onInit();
     auth0 = Auth0(auth0Domain, auth0ClientId);
     googleSignIn = (Platform.isAndroid)
-        ? GoogleSignIn(clientId: gcpClientId)
+        ? GoogleSignIn()
         : GoogleSignIn(clientId: gcpClientId);
   }
 
