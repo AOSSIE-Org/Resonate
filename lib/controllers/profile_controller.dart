@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
@@ -12,7 +14,6 @@ class ProfileController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    print("User");
-    print(userProfile.toString());
+    log(userProfile.toString());
   }
 }

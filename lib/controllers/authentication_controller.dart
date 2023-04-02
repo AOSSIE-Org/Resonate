@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
@@ -33,7 +35,6 @@ class AuthenticationController extends GetxController {
           password: passwordController.text,
           connectionOrRealm: 'Username-Password-Authentication');
       await auth0.credentialsManager.storeCredentials(credentials);
-      print(credentials.user.email);
       userProfile = credentials.user;
 
       user = User(
@@ -44,7 +45,7 @@ class AuthenticationController extends GetxController {
           signedInBy: SignedInBy.email);
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -54,18 +55,16 @@ class AuthenticationController extends GetxController {
           email: emailController.text,
           password: passwordController.text,
           connection: 'Username-Password-Authentication');
-      print(credentials.email);
-      print(credentials.isEmailVerified);
+      log(credentials.email);
       Get.toNamed(AppRoutes.emailVerification);
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
   Future<void> loginWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      print(googleUser?.displayName!);
       user = User(
         name: googleUser?.displayName,
         email: googleUser?.email,
@@ -74,7 +73,7 @@ class AuthenticationController extends GetxController {
       );
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (error) {
-      print(error);
+      log(error.toString());
     }
   }
 
