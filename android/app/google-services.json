@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976246452686",
+    "project_id": "resonate-6cb08",
+    "storage_bucket": "resonate-6cb08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976246452686:android:adf6cf4810d084e3617b9f",
+        "android_client_info": {
+          "package_name": "com.example.resonate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbYMmCC-Qdsb2KUvNv6jyQHDm-vWlttgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
