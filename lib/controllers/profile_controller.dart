@@ -1,15 +1,13 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:resonate/models/User.dart';
-import 'package:resonate/routes/app_routes.dart';
+
+import '../models/user_model.dart';
 
 
 class ProfileController extends GetxController{
   bool isLoading = false;
-  User userProfile = Get.arguments[0];
+  UserProfile userProfile = Get.arguments[0];
 
   @override
   void onInit() {

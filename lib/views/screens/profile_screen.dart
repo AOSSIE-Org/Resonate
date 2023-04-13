@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Name: ${controller.userProfile.name}'),
+              Text('Email: ${controller.userProfile.email}'),
               const SizedBox(height: 48),
               ElevatedButton(
                 onPressed: () {

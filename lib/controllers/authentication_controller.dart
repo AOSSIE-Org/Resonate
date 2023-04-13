@@ -1,28 +1,27 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:resonate/models/User.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'dart:io' show Platform;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/signed_in_by.dart';
 
+import '../models/user_model.dart';
+
 class AuthenticationController extends GetxController {
   bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late Auth0 auth0;
+  FirebaseAuth _auth = FirebaseAuth.instance;
   late GoogleSignIn googleSignIn;
-  UserProfile? userProfile;
-  User? user;
+  UserProfile? user;
 
   @override
   void onInit() {
     super.onInit();
-    auth0 = Auth0(auth0Domain, auth0ClientId);
     googleSignIn = (Platform.isAndroid)
         ? GoogleSignIn()
         : GoogleSignIn(clientId: gcpClientId);
@@ -30,18 +29,11 @@ class AuthenticationController extends GetxController {
 
   Future<void> login() async {
     try {
-      final Credentials credentials = await auth0.api.login(
-          usernameOrEmail: emailController.text,
-          password: passwordController.text,
-          connectionOrRealm: 'Username-Password-Authentication');
-      await auth0.credentialsManager.storeCredentials(credentials);
-      userProfile = credentials.user;
-
-      user = User(
-          name: credentials.user.name,
-          email: credentials.user.email,
-          phoneNumber: credentials.user.phoneNumber,
-          pictureUrl: credentials.user.pictureUrl.toString(),
+      final UserCredential firebaseUser = await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      user = UserProfile(
+          name: firebaseUser.user?.displayName,
+          email: firebaseUser.user?.email,
+          phoneNumber: firebaseUser.user?.phoneNumber,
           signedInBy: SignedInBy.email);
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (e) {
@@ -51,12 +43,13 @@ class AuthenticationController extends GetxController {
 
   Future<void> signup() async {
     try {
-      final DatabaseUser credentials = await auth0.api.signup(
-          email: emailController.text,
-          password: passwordController.text,
-          connection: 'Username-Password-Authentication');
-      log(credentials.email);
-      Get.toNamed(AppRoutes.emailVerification);
+      final UserCredential firebaseUser = await _auth.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      user = UserProfile(
+          name: firebaseUser.user?.displayName,
+          email: firebaseUser.user?.email,
+          phoneNumber: firebaseUser.user?.phoneNumber,
+          signedInBy: SignedInBy.email);
+      Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (e) {
       log(e.toString());
     }
@@ -65,7 +58,7 @@ class AuthenticationController extends GetxController {
   Future<void> loginWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      user = User(
+      user = UserProfile(
         name: googleUser?.displayName,
         email: googleUser?.email,
         pictureUrl: googleUser?.photoUrl,
@@ -80,6 +73,8 @@ class AuthenticationController extends GetxController {
   Future<void> logout() async {
     if (user?.signedInBy == SignedInBy.google) {
       await googleSignIn.signOut();
+    }else if (user?.signedInBy == SignedInBy.email) {
+      await _auth.signOut();
     }
     Get.offNamed(AppRoutes.login);
   }
