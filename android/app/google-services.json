@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "976246452686",
-    "project_id": "resonate-6cb08",
-    "storage_bucket": "resonate-6cb08.appspot.com"
+    "project_number": "913877755965",
+    "project_id": "resonate-firebase-8a120",
+    "storage_bucket": "resonate-firebase-8a120.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:976246452686:android:adf6cf4810d084e3617b9f",
+        "mobilesdk_app_id": "1:913877755965:android:4c4901384d3e9132c0a254",
         "android_client_info": {
           "package_name": "com.example.resonate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
+          "client_id": "913877755965-fr7vci6nq6fh8433hcp0l0v82tkh56sh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.resonate",
+            "certificate_hash": "aa388f5b5c662c197fbfbea87fced13d57fb669f"
+          }
+        },
+        {
+          "client_id": "913877755965-che7auml2tave2vjbp7fa2f1ssvit7ie.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbYMmCC-Qdsb2KUvNv6jyQHDm-vWlttgg"
+          "current_key": "AIzaSyBxz4wiqW22P7n7hqLv6U5XRMXaf3PbLd8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
+              "client_id": "913877755965-3c7njl6koi618s3m9cpdh6jabic4tke0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
