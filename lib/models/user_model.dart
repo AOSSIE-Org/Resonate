@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-class User{
+class UserProfile{
   String? id;
   String? name;
   String? email;
@@ -9,7 +9,7 @@ class User{
   String? phoneNumber;
   Enum? signedInBy;
 
-  User({this.name, this.email, this.isEmailVerified, this.pictureUrl, this.phoneNumber, this.signedInBy}){
+  UserProfile({this.name, this.email, this.isEmailVerified, this.pictureUrl, this.phoneNumber, this.signedInBy}){
     const uuid = Uuid();
     id = uuid.v4();
   }
