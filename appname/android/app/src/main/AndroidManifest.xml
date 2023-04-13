@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.resonate.resonate">
+    package="com.yourdomain.appname">
    <application
-        android:label="resonate"
+        android:label="appname"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
