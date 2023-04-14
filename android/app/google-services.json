@@ -20,6 +20,14 @@
             "package_name": "com.resonate.resonate",
             "certificate_hash": "aa388f5b5c662c197fbfbea87fced13d57fb669f"
           }
+        },
+        {
+          "client_id": "976246452686-r37g3vcs7erearojnonn08bsge6d2bl2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resonate.resonate",
+            "certificate_hash": "e3cbab256bbc7e437cea65d0cd334504ccdc87dc"
+          }
         }
       ],
       "api_key": [
@@ -29,7 +37,15 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976246452686-asmk22ajhrkcu4k2jv0rrjrmc0ll4c3k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.resonate.resonate"
+              }
+            }
+          ]
         }
       }
     }
