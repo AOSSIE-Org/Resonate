@@ -15,16 +15,13 @@ class AuthenticationController extends GetxController {
   bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  late GoogleSignIn googleSignIn;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   UserProfile? user;
 
   @override
   void onInit() {
     super.onInit();
-    googleSignIn = (Platform.isAndroid)
-        ? GoogleSignIn()
-        : GoogleSignIn(clientId: gcpClientId);
   }
 
   Future<void> login() async {
@@ -58,11 +55,17 @@ class AuthenticationController extends GetxController {
   Future<void> loginWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      final UserCredential firebaseUser = await _auth.signInWithCredential(credential);
       user = UserProfile(
-        name: googleUser?.displayName,
-        email: googleUser?.email,
-        pictureUrl: googleUser?.photoUrl,
-        signedInBy: SignedInBy.google,
+          name: firebaseUser.user?.displayName,
+          email: firebaseUser.user?.email,
+          phoneNumber: firebaseUser.user?.phoneNumber,
+          signedInBy: SignedInBy.email
       );
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (error) {

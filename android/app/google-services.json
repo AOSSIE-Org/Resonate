@@ -7,30 +7,29 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:976246452686:android:adf6cf4810d084e3617b9f",
+        "mobilesdk_app_id": "1:976246452686:android:407ef56eba6c6aa6617b9f",
         "android_client_info": {
-          "package_name": "com.example.resonate"
+          "package_name": "com.resonate.resonate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "976246452686-d8pm6hj0cthoni2s8jof5es5eop4bn5b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.resonate.resonate",
+            "certificate_hash": "aa388f5b5c662c197fbfbea87fced13d57fb669f"
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbYMmCC-Qdsb2KUvNv6jyQHDm-vWlttgg"
+          "current_key": "AIzaSyCw6eiQ9HsmZRp6hA55twa7hazYi2DUBcg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "976246452686-ug063ru36klolrqbbrkntecgaj6cctle.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
