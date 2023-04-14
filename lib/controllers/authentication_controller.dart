@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class AuthenticationController extends GetxController {
   bool isLoading = false;
   TextEditingController emailController = TextEditingController();
@@ -20,21 +19,19 @@ class AuthenticationController extends GetxController {
     await isUserLoggedIn();
   }
 
-
   Future<void> isUserLoggedIn() async {
     User? firebaseUser = await _auth.currentUser;
     if (firebaseUser != null) {
       Get.offNamed(AppRoutes.profile);
-    }else{
+    } else {
       return;
     }
   }
 
   Future<void> login() async {
     try {
-      final UserCredential firebaseUser =
-          await _auth.signInWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
+      await _auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
       Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
@@ -43,9 +40,8 @@ class AuthenticationController extends GetxController {
 
   Future<void> signup() async {
     try {
-      final UserCredential firebaseUser =
-          await _auth.createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text);
+      await _auth.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
       Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
@@ -61,8 +57,7 @@ class AuthenticationController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      final UserCredential firebaseUser =
-          await _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
       Get.offNamed(AppRoutes.profile);
     } catch (error) {
       log(error.toString());
