@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'dart:io' show Platform;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/signed_in_by.dart';
 
 import '../models/user_model.dart';
@@ -16,7 +14,7 @@ class AuthenticationController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   UserProfile? user;
 
   @override
@@ -54,7 +52,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> loginWithGoogle() async {
     try {
-      GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
@@ -64,8 +62,9 @@ class AuthenticationController extends GetxController {
       user = UserProfile(
           name: firebaseUser.user?.displayName,
           email: firebaseUser.user?.email,
+          pictureUrl: firebaseUser.user?.photoURL,
           phoneNumber: firebaseUser.user?.phoneNumber,
-          signedInBy: SignedInBy.email
+          signedInBy: SignedInBy.google
       );
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (error) {
@@ -75,7 +74,8 @@ class AuthenticationController extends GetxController {
 
   Future<void> logout() async {
     if (user?.signedInBy == SignedInBy.google) {
-      await googleSignIn.signOut();
+      await _googleSignIn.signOut();
+      await _auth.signOut();
     }else if (user?.signedInBy == SignedInBy.email) {
       await _auth.signOut();
     }
