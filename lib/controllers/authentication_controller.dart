@@ -18,13 +18,33 @@ class AuthenticationController extends GetxController {
   UserProfile? user;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await isUserLoggedIn();
+  }
+
+
+  Future<void> isUserLoggedIn() async {
+    User? firebaseUser = await _auth.currentUser;
+    if (firebaseUser != null) {
+      user = UserProfile(
+          name: firebaseUser.displayName,
+          email: firebaseUser.email,
+          phoneNumber: firebaseUser.phoneNumber,
+          signedInBy: (firebaseUser.providerData[0].providerId == "google.com")
+              ? SignedInBy.google
+              : SignedInBy.email);
+      Get.offNamed(AppRoutes.profile, arguments: [user]);
+    }else{
+      return;
+    }
   }
 
   Future<void> login() async {
     try {
-      final UserCredential firebaseUser = await _auth.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      final UserCredential firebaseUser =
+          await _auth.signInWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
       user = UserProfile(
           name: firebaseUser.user?.displayName,
           email: firebaseUser.user?.email,
@@ -38,7 +58,9 @@ class AuthenticationController extends GetxController {
 
   Future<void> signup() async {
     try {
-      final UserCredential firebaseUser = await _auth.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      final UserCredential firebaseUser =
+          await _auth.createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
       user = UserProfile(
           name: firebaseUser.user?.displayName,
           email: firebaseUser.user?.email,
@@ -53,19 +75,20 @@ class AuthenticationController extends GetxController {
   Future<void> loginWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      final UserCredential firebaseUser = await _auth.signInWithCredential(credential);
+      final UserCredential firebaseUser =
+          await _auth.signInWithCredential(credential);
       user = UserProfile(
           name: firebaseUser.user?.displayName,
           email: firebaseUser.user?.email,
           pictureUrl: firebaseUser.user?.photoURL,
           phoneNumber: firebaseUser.user?.phoneNumber,
-          signedInBy: SignedInBy.google
-      );
+          signedInBy: SignedInBy.google);
       Get.offNamed(AppRoutes.profile, arguments: [user]);
     } catch (error) {
       log(error.toString());
@@ -76,7 +99,7 @@ class AuthenticationController extends GetxController {
     if (user?.signedInBy == SignedInBy.google) {
       await _googleSignIn.signOut();
       await _auth.signOut();
-    }else if (user?.signedInBy == SignedInBy.email) {
+    } else if (user?.signedInBy == SignedInBy.email) {
       await _auth.signOut();
     }
     Get.offNamed(AppRoutes.login);
