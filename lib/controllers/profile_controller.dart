@@ -1,17 +1,13 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-
-import '../models/user_model.dart';
 
 
 class ProfileController extends GetxController{
   bool isLoading = false;
-  UserProfile userProfile = Get.arguments[0];
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void onInit() {
     super.onInit();
-    log(userProfile.toString());
   }
 }
