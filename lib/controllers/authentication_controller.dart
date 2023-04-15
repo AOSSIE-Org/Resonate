@@ -1,49 +1,38 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:resonate/models/User.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'dart:io' show Platform;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/signed_in_by.dart';
 
 class AuthenticationController extends GetxController {
   bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late Auth0 auth0;
-  late GoogleSignIn googleSignIn;
-  UserProfile? userProfile;
-  User? user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    auth0 = Auth0(auth0Domain, auth0ClientId);
-    googleSignIn = (Platform.isAndroid)
-        ? GoogleSignIn()
-        : GoogleSignIn(clientId: gcpClientId);
+    await isUserLoggedIn();
+  }
+
+  Future<void> isUserLoggedIn() async {
+    User? firebaseUser = await _auth.currentUser;
+    if (firebaseUser != null) {
+      Get.offNamed(AppRoutes.profile);
+    } else {
+      return;
+    }
   }
 
   Future<void> login() async {
     try {
-      final Credentials credentials = await auth0.api.login(
-          usernameOrEmail: emailController.text,
-          password: passwordController.text,
-          connectionOrRealm: 'Username-Password-Authentication');
-      await auth0.credentialsManager.storeCredentials(credentials);
-      userProfile = credentials.user;
-
-      user = User(
-          name: credentials.user.name,
-          email: credentials.user.email,
-          phoneNumber: credentials.user.phoneNumber,
-          pictureUrl: credentials.user.pictureUrl.toString(),
-          signedInBy: SignedInBy.email);
-      Get.offNamed(AppRoutes.profile, arguments: [user]);
+      await _auth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
     }
@@ -51,12 +40,9 @@ class AuthenticationController extends GetxController {
 
   Future<void> signup() async {
     try {
-      final DatabaseUser credentials = await auth0.api.signup(
-          email: emailController.text,
-          password: passwordController.text,
-          connection: 'Username-Password-Authentication');
-      log(credentials.email);
-      Get.toNamed(AppRoutes.emailVerification);
+      await _auth.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
     }
@@ -64,22 +50,27 @@ class AuthenticationController extends GetxController {
 
   Future<void> loginWithGoogle() async {
     try {
-      GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      user = User(
-        name: googleUser?.displayName,
-        email: googleUser?.email,
-        pictureUrl: googleUser?.photoUrl,
-        signedInBy: SignedInBy.google,
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
       );
-      Get.offNamed(AppRoutes.profile, arguments: [user]);
+      await _auth.signInWithCredential(credential);
+      Get.offNamed(AppRoutes.profile);
     } catch (error) {
       log(error.toString());
     }
   }
 
   Future<void> logout() async {
-    if (user?.signedInBy == SignedInBy.google) {
-      await googleSignIn.signOut();
+    User? firebaseUser = _auth.currentUser;
+    if ((firebaseUser?.providerData[0].providerId == "google.com")) {
+      await _googleSignIn.signOut();
+      await _auth.signOut();
+    } else {
+      await _auth.signOut();
     }
     Get.offNamed(AppRoutes.login);
   }

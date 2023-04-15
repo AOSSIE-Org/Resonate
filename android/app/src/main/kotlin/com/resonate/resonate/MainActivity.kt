@@ -1,4 +1,4 @@
-package com.example.resonate
+package com.resonate.resonate
 
 import io.flutter.embedding.android.FlutterActivity
 

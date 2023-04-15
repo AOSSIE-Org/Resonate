@@ -1,19 +1,13 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:resonate/models/User.dart';
-import 'package:resonate/routes/app_routes.dart';
 
 
 class ProfileController extends GetxController{
   bool isLoading = false;
-  User userProfile = Get.arguments[0];
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void onInit() {
     super.onInit();
-    log(userProfile.toString());
   }
 }

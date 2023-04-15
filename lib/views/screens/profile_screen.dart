@@ -25,12 +25,12 @@ class ProfileScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: NetworkImage(controller.userProfile.pictureUrl.toString() ?? ''),
+                    image: NetworkImage(controller.user?.photoURL.toString() ?? ''),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Name: ${controller.userProfile.name}'),
+              Text('Email: ${controller.user?.email}'),
               const SizedBox(height: 48),
               ElevatedButton(
                 onPressed: () {
