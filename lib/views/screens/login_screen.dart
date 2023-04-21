@@ -13,147 +13,170 @@ class LoginScreen extends StatelessWidget {
     return GetBuilder<AuthenticationController>(
       builder: (controller) => Scaffold(
         body: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(children: <Widget>[
-              SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Image.asset(
-                      "assets/images/aossie_logo.png")),
-              const SizedBox(height: 15),
-              Text(
-                "Login",
-                style: GoogleFonts.poppins(
-                    fontSize: 26, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.left,
-              ),
-              TextField(
-                controller: controller.emailController,
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  icon: Icon(
-                    Icons.alternate_email,
-                    color: Colors.black54,
-                  ),
-                  labelText: "Email ID",
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColor.greenColor, width: 2)),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54)),
-                ),
-              ),
-              TextField(
-                controller: controller.passwordController,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  icon: const Icon(
-                    Icons.lock_outline_rounded,
-                    color: Colors.black54,
-                  ),
-                  labelText: "Password",
-                  suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.visibility_off_outlined,
-                          color: Colors.black54)),
-                  focusedBorder: const UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColor.greenColor, width: 2)),
-                  enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54)),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    //TODO: Navigate to forgot password screen
-                  },
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.greenColor,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // <-- Radius
-                  ),
-                  minimumSize: const Size.fromHeight(45), // NEW
-                ),
-                onPressed: () async {
-                  await controller.login();
-                },
-                child: Text(
-                  'Login',
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height*0.9,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(children: <Widget>[
+                SizedBox(
+                    width: 180,
+                    height: 180,
+                    child: Image.asset("assets/images/aossie_logo.png")),
+                const SizedBox(height: 15),
+                Text(
+                  "Welcome Back",
                   style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500),
+                      fontSize: 25, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.left,
                 ),
-              ),
-              const SizedBox(height: 30),
-              Row(children: const <Widget>[
-                Expanded(
-                    child: Divider(
-                  indent: 20.0,
-                  endIndent: 10.0,
-                  thickness: 1,
-                )),
-                Text("OR"),
-                Expanded(
-                    child: Divider(
-                  indent: 10.0,
-                  endIndent: 20.0,
-                  thickness: 1,
-                )),
-              ]),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffF1F7F6),
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // <-- Radius
-                  ),
-                  minimumSize: const Size.fromHeight(45), // NEW
-                ),
-                onPressed: () async {
-                  await controller.loginWithGoogle();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height:30,width:30,
-                        child: Image.asset("assets/images/google_icon.png")),
-                    SizedBox(width: 10,),
-                    Text(
-                      'Login with Google',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black54,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500),
+                const SizedBox(height: 15),
+                TextField(
+                  controller: controller.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    icon: Icon(
+                      Icons.alternate_email,
+                      color: AppColor.yellowColor,
                     ),
-                  ],
+                    labelText: "Email ID",
+                    floatingLabelStyle: TextStyle(color: AppColor.yellowColor),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColor.yellowColor, width: 2)),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white60)),
+                  ),
                 ),
-              ),
-              Spacer(),
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: Row(
+                SizedBox(
+                  height: 10,
+                ),
+                Obx(
+                  () => TextField(
+                    controller: controller.passwordController,
+                    obscureText: !controller.isPasswordFieldVisible.value,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      icon: const Icon(
+                        Icons.lock_outline_rounded,
+                        color: AppColor.yellowColor,
+                      ),
+                      labelText: "Password",
+                      floatingLabelStyle:
+                          TextStyle(color: AppColor.yellowColor),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            controller.isPasswordFieldVisible.value =
+                                !controller.isPasswordFieldVisible.value;
+                          },
+                          splashRadius: 20,
+                          icon: Icon(
+                              controller.isPasswordFieldVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: AppColor.yellowColor)),
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor.yellowColor, width: 2)),
+                      enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white60)),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      //TODO: Navigate to forgot password screen
+                    },
+                    child: Text(
+                      "Forgot Password?",
+                      style: GoogleFonts.poppins(
+                        color: AppColor.yellowColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Obx(
+                  () => ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.yellowColor,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12), // <-- Radius
+                      ),
+                      minimumSize: const Size.fromHeight(45), // NEW
+                    ),
+                    onPressed: () async {
+                      await controller.login();
+                    },
+                    child: controller.isLoading.value
+                        ? const CircularProgressIndicator(color: AppColor.greenColor)
+                        : Text(
+                            'Login',
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w500),
+                          ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(children: const <Widget>[
+                  Expanded(
+                      child: Divider(
+                    indent: 20.0,
+                    endIndent: 10.0,
+                    thickness: 1,
+                  )),
+                  Text("OR"),
+                  Expanded(
+                      child: Divider(
+                    indent: 10.0,
+                    endIndent: 20.0,
+                    thickness: 1,
+                  )),
+                ]),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xffFFFFE0),
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12), // <-- Radius
+                    ),
+                    minimumSize: const Size.fromHeight(45), // NEW
+                  ),
+                  onPressed: () async {
+                    await controller.loginWithGoogle();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: Image.asset("assets/images/google_icon.png")),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Login with Google',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black54,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("New to Resonate?  "),
@@ -161,18 +184,18 @@ class LoginScreen extends StatelessWidget {
                       onTap: () {
                         Get.offNamed(AppRoutes.signup);
                       },
-                      child: const Text(
+                      child: Text(
                         "Register",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
+                        style: GoogleFonts.poppins(
+                          color: AppColor.yellowColor,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     )
                   ],
                 ),
-              ),
-            ]),
+              ]),
+            ),
           ),
         ),
       ),

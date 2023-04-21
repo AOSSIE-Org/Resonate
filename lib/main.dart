@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/bindings/authentication_binding.dart';
 import 'package:resonate/routes/app_pages.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 
 import 'firebase_options.dart';
@@ -22,9 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorSchemeSeed: Colors.yellow,
-        useMaterial3: true,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.yellow,
+        scaffoldBackgroundColor: AppColor.bgBlackColor
       ),
       home: const LoginScreen(),
       initialBinding: AuthenticationBinding(),
