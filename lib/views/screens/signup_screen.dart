@@ -27,7 +27,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     const Text(
-                      "Welcome Back",
+                      "Welcome to Resonate",
                       style: TextStyle(fontSize: 25),
                     ),
                     const SizedBox(height: 15),
