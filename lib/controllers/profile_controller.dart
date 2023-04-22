@@ -35,11 +35,9 @@ class ProfileController extends GetxController {
   }
 
   void getUserData() async {
-    print(user?.photoURL);
     DocumentSnapshot<Map<String, dynamic>> doc = await _firestore.collection("users").doc(user?.uid).get();
     if(doc.exists){
       resonateUser = ResonateUser.fromJson(doc.data()!);
-      print(resonateUser?.uid);
     }
 
     nameController.text = user?.displayName ?? "";
@@ -85,9 +83,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> pickImage() async{
-    print("here");
       XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery);
-      print("here too");
       if(file == null)  return;
       final metadata = SettableMetadata(
         contentType: 'image/jpeg',
