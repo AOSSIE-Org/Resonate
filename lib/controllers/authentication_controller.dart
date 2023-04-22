@@ -74,8 +74,14 @@ class AuthenticationController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      await _auth.signInWithCredential(credential);
-      Get.offNamed(AppRoutes.profile);
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      if(userCredential.additionalUserInfo!.isNewUser){
+        Get.offNamed(AppRoutes.onBoarding);
+      }
+      else{
+        Get.offNamed(AppRoutes.onBoarding);
+        // Get.offNamed(AppRoutes.profile);
+      }
     } catch (error) {
       log(error.toString());
     }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/bindings/authentication_binding.dart';
+import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/screens/login_screen.dart';
+import 'package:resonate/views/screens/onboarding_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -54,13 +56,14 @@ class MyApp extends StatelessWidget {
             elevation: 2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12), // <-- Radius
+              side: BorderSide(width: 1.0, color: Colors.grey[800]!)
             ),
             minimumSize: const Size.fromHeight(45), // NEW
           ),
         )
       ),
-      home: const LoginScreen(),
-      initialBinding: AuthenticationBinding(),
+      home: const OnBoardingScreen(),
+      initialBinding: ProfileBinding(),
       getPages: AppPages.pages,
     );
   }
