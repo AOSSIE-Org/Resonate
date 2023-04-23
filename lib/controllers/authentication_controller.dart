@@ -79,8 +79,7 @@ class AuthenticationController extends GetxController {
         Get.offNamed(AppRoutes.onBoarding);
       }
       else{
-        Get.offNamed(AppRoutes.onBoarding);
-        // Get.offNamed(AppRoutes.profile);
+        Get.offNamed(AppRoutes.profile);
       }
     } catch (error) {
       log(error.toString());

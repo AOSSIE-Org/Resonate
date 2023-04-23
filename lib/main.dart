@@ -62,8 +62,8 @@ class MyApp extends StatelessWidget {
           ),
         )
       ),
-      home: const OnBoardingScreen(),
-      initialBinding: ProfileBinding(),
+      home: const LoginScreen(),
+      initialBinding: AuthenticationBinding(),
       getPages: AppPages.pages,
     );
   }
