@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
@@ -116,7 +117,12 @@ class LoginScreen extends StatelessWidget {
                       await controller.login();
                     },
                     child: controller.isLoading.value
-                        ? const CircularProgressIndicator(color: AppColor.greenColor)
+                        ? Center(
+                      child: LoadingAnimationWidget.horizontalRotatingDots(
+                        color: Colors.black,
+                        size: 40,
+                      ),
+                    )
                         : Text(
                             'Login',
                             style: GoogleFonts.poppins(
