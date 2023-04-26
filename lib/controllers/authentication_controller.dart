@@ -57,7 +57,7 @@ class AuthenticationController extends GetxController {
       isLoading.value = true;
       await _auth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      Get.offNamed(AppRoutes.profile);
+      Get.offNamed(AppRoutes.onBoarding);
     } catch (e) {
       log(e.toString());
     } finally {
