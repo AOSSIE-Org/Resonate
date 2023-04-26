@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
@@ -45,7 +46,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Obx(
-                          () => TextFormField(
+                      () => TextFormField(
                         validator: (value) => value!.isValidPassword()
                             ? null
                             : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
@@ -61,7 +62,7 @@ class SignupScreen extends StatelessWidget {
                           suffixIcon: IconButton(
                             onPressed: () {
                               controller.isPasswordFieldVisible.value =
-                              !controller.isPasswordFieldVisible.value;
+                                  !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: 20,
                             icon: Icon(
@@ -75,8 +76,9 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Obx(
-                          () => TextFormField(
-                        validator: (value) => value!.isSamePassword(controller.passwordController.text)
+                      () => TextFormField(
+                        validator: (value) => value!.isSamePassword(
+                                controller.passwordController.text)
                             ? null
                             : "Password do not match",
                         controller: controller.confirmPasswordController,
@@ -91,7 +93,7 @@ class SignupScreen extends StatelessWidget {
                           suffixIcon: IconButton(
                             onPressed: () {
                               controller.isPasswordFieldVisible.value =
-                              !controller.isPasswordFieldVisible.value;
+                                  !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: 20,
                             icon: Icon(
@@ -105,20 +107,25 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 25),
                     Obx(
-                          () => ElevatedButton(
+                      () => ElevatedButton(
                         onPressed: () async {
                           await controller.signup();
                         },
                         child: controller.isLoading.value
-                            ? const CircularProgressIndicator(
-                            color: AppColor.greenColor)
+                            ? Center(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
+                                  color: Colors.black,
+                                  size: 40,
+                                ),
+                              )
                             : const Text(
-                          'Sign up',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                          ),
-                        ),
+                                'Sign up',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                ),
+                              ),
                       ),
                     ),
                     const SizedBox(height: 30),
