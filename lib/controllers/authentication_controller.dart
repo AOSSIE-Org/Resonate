@@ -7,7 +7,8 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationController extends GetxController {
-  bool isLoading = false;
+  var isLoading = false.obs;
+  var isPasswordFieldVisible = false.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,21 +31,27 @@ class AuthenticationController extends GetxController {
 
   Future<void> login() async {
     try {
+      isLoading.value = true;
       await _auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<void> signup() async {
     try {
+      isLoading.value = true;
       await _auth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Get.offNamed(AppRoutes.profile);
     } catch (e) {
       log(e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 
