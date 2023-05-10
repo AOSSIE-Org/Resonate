@@ -9,10 +9,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
   var isPasswordFieldVisible = false.obs;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: "");
+  TextEditingController passwordController = TextEditingController(text: "");
+  TextEditingController confirmPasswordController = TextEditingController(text: "");
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
 
   @override
   void onInit() async {
@@ -30,6 +34,9 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> login() async {
+    if(!loginFormKey.currentState!.validate()){
+      return;
+    }
     try {
       isLoading.value = true;
       await _auth.signInWithEmailAndPassword(
@@ -43,11 +50,14 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> signup() async {
+    if(!registrationFormKey.currentState!.validate()){
+      return;
+    }
     try {
       isLoading.value = true;
       await _auth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      Get.offNamed(AppRoutes.profile);
+      Get.offNamed(AppRoutes.onBoarding);
     } catch (e) {
       log(e.toString());
     } finally {
@@ -64,8 +74,13 @@ class AuthenticationController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      await _auth.signInWithCredential(credential);
-      Get.offNamed(AppRoutes.profile);
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      if(userCredential.additionalUserInfo!.isNewUser){
+        Get.offNamed(AppRoutes.onBoarding);
+      }
+      else{
+        Get.offNamed(AppRoutes.profile);
+      }
     } catch (error) {
       log(error.toString());
     }
@@ -80,5 +95,21 @@ class AuthenticationController extends GetxController {
       await _auth.signOut();
     }
     Get.offNamed(AppRoutes.login);
+  }
+}
+
+extension Validator on String{
+  bool isValidEmail(){
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
+  }
+
+  bool isValidPassword(){
+    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$').hasMatch(this);
+  }
+
+  bool isSamePassword(String password){
+    return this == password;
   }
 }
