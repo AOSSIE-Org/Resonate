@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
 class OnboardingController extends GetxController {
@@ -21,7 +22,7 @@ class OnboardingController extends GetxController {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController imageController = TextEditingController();
+  TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
   TextEditingController genderController = TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
@@ -52,7 +53,7 @@ class OnboardingController extends GetxController {
       await _auth.currentUser!.updateDisplayName(nameController.text);
       await _firestore.collection("users").doc(user!.uid).set({
         "username": usernameController.text,
-        "profileImage": imageController.text,
+        "profileImageUrl": imageController.text,
         "gender": genderController.text,
         "dateOfBirth": dobController.text,
       }, SetOptions(merge: true));
@@ -72,7 +73,7 @@ class OnboardingController extends GetxController {
       customMetadata: {'picked-file-path': file.path},
     );
 
-    Reference ref = _storageRef.child("users").child(user!.uid).child("${DateTime.now()}.jpeg");
+    Reference ref = _storageRef.child("users").child(user!.uid).child("profileImage.jpeg");
     UploadTask uploadTask = ref.putFile(File(file.path), metadata);
     uploadTask.whenComplete(() async {
       imageController.text = await ref.getDownloadURL();
