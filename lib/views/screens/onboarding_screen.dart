@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/profile_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/enums/gender.dart';
+
+import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProfileController>(
+    return GetBuilder<OnboardingController>(
       builder: (controller) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(

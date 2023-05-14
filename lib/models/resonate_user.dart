@@ -1,23 +1,18 @@
-class ResonateUser{
-  final String? uid;
-  final String? userName;
-  final String? profileImage;
-  final String? gender;
-  final String? dateOfBirth;
-  final List<String>? followers;
-  final List<String>? followings;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  ResonateUser({this.uid, this.userName, this.profileImage, this.gender, this.dateOfBirth, this.followers = const [], this.followings = const []});
+part 'resonate_user.freezed.dart';
+part 'resonate_user.g.dart';
 
-  factory ResonateUser.fromJson(Map<String, dynamic> json){
-    return ResonateUser(
-      uid: json["uid"],
-      userName: json["username"],
-      profileImage: json["profileImage"],
-      gender: json["gender"],
-      dateOfBirth: json["dateOfBirth"],
-      followers: List<String>.from(json["followers"] ?? []),
-      followings: List<String>.from(json["followings"]?? [])
-    );
-  }
+@freezed
+class ResonateUser with _$ResonateUser {
+  const factory ResonateUser({
+    String? uid,
+    String? userName,
+    String? profileImageUrl,
+    String? gender,
+    String? dateOfBirth,
+  }) = _ResonateUser;
+
+  factory ResonateUser.fromJson(Map<String, dynamic> json) =>
+      _$ResonateUserFromJson(json);
 }
