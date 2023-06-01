@@ -66,7 +66,7 @@ class OnboardingController extends GetxController {
   }
 
   Future<void> pickImage() async{
-    XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery);
+    XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     if(file == null)  return;
     final metadata = SettableMetadata(
       contentType: 'image/jpeg',
