@@ -48,9 +48,6 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Obx(
                       () => TextFormField(
-                        validator: (value) => value!.isValidPassword()
-                            ? null
-                            : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
@@ -93,7 +90,9 @@ class LoginScreen extends StatelessWidget {
                     Obx(
                       () => ElevatedButton(
                         onPressed: () async {
-                          await controller.login();
+                          if (!controller.isLoading.value){
+                            await controller.login();
+                          }
                         },
                         child: controller.isLoading.value
                             ? Center(

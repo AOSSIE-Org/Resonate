@@ -11,7 +11,8 @@ class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
-  TextEditingController confirmPasswordController = TextEditingController(text: "");
+  TextEditingController confirmPasswordController =
+      TextEditingController(text: "");
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -34,7 +35,7 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> login() async {
-    if(!loginFormKey.currentState!.validate()){
+    if (!loginFormKey.currentState!.validate()) {
       return;
     }
     try {
@@ -42,6 +43,16 @@ class AuthenticationController extends GetxController {
       await _auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Get.offNamed(AppRoutes.profile);
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
+        Get.snackbar(
+          'Try Again!',
+          "Incorrect Email Or Password",
+          icon: const Icon(Icons.disabled_by_default_outlined),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
     } catch (e) {
       log(e.toString());
     } finally {
@@ -50,7 +61,7 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> signup() async {
-    if(!registrationFormKey.currentState!.validate()){
+    if (!registrationFormKey.currentState!.validate()) {
       return;
     }
     try {
@@ -74,11 +85,11 @@ class AuthenticationController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential = await _auth.signInWithCredential(credential);
-      if(userCredential.additionalUserInfo!.isNewUser){
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+      if (userCredential.additionalUserInfo!.isNewUser) {
         Get.offNamed(AppRoutes.onBoarding);
-      }
-      else{
+      } else {
         Get.offNamed(AppRoutes.profile);
       }
     } catch (error) {
@@ -98,18 +109,19 @@ class AuthenticationController extends GetxController {
   }
 }
 
-extension Validator on String{
-  bool isValidEmail(){
+extension Validator on String {
+  bool isValidEmail() {
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(this);
   }
 
-  bool isValidPassword(){
-    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$').hasMatch(this);
+  bool isValidPassword() {
+    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+        .hasMatch(this);
   }
 
-  bool isSamePassword(String password){
+  bool isSamePassword(String password) {
     return this == password;
   }
 }
