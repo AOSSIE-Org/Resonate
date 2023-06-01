@@ -154,7 +154,9 @@ class SignupScreen extends StatelessWidget {
                         backgroundColor: const Color(0xffFFFFE0),
                       ),
                       onPressed: () async {
-                        await controller.loginWithGoogle();
+                        if (!controller.isLoading.value){
+                          await controller.loginWithGoogle();
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
