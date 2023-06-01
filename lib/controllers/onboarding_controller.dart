@@ -54,6 +54,8 @@ class OnboardingController extends GetxController {
 
   Future<void> saveProfile() async {
     try {
+      isLoading.value = true;
+
       // Upload profile image to firebase storage
       if (profileImage != null) {
         final metadata = SettableMetadata(
@@ -86,6 +88,8 @@ class OnboardingController extends GetxController {
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 

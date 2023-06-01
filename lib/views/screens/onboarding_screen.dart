@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
@@ -39,7 +40,10 @@ class OnBoardingScreen extends StatelessWidget {
                         radius: 50,
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
-                          backgroundImage: (controller.profileImage==null) ? NetworkImage(controller.imageController.text) : FileImage(controller.profileImage!) as ImageProvider,
+                          backgroundImage: (controller.profileImage == null)
+                              ? NetworkImage(controller.imageController.text)
+                              : FileImage(controller.profileImage!)
+                                  as ImageProvider,
                           radius: 50,
                           child: Stack(
                             children: const [
@@ -172,16 +176,30 @@ class OnBoardingScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 50),
-                    ElevatedButton(
-                      onPressed: () async => await controller.saveProfile(),
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
+                    Obx(() {
+                      return ElevatedButton(
+                        onPressed: () async {
+                          if (!controller.isLoading.value){
+                            await controller.saveProfile();
+                          }
+                        },
+                        child: controller.isLoading.value
+                            ? Center(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
+                                  color: Colors.black,
+                                  size: 40,
+                                ),
+                              )
+                            : Text(
+                                'Submit',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                ),
+                              ),
+                      );
+                    }),
                   ],
                 ),
               ),
