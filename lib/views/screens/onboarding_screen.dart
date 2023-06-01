@@ -39,9 +39,7 @@ class OnBoardingScreen extends StatelessWidget {
                         radius: 50,
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
-                          backgroundImage: controller.imageController.text == ""
-                              ? null
-                              : NetworkImage(controller.imageController.text),
+                          backgroundImage: (controller.profileImage==null) ? NetworkImage(controller.imageController.text) : FileImage(controller.profileImage!) as ImageProvider,
                           radius: 50,
                           child: Stack(
                             children: const [

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,13 +18,15 @@ class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
 
   RxBool isLoading = false.obs;
-  RxBool isImageUploading = false.obs;
+  File? profileImage;
   final User? user = FirebaseAuth.instance.currentUser;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController genderController = TextEditingController(text: Gender.male.name);
+  TextEditingController imageController =
+      TextEditingController(text: userProfileImagePlaceholderUrl);
+  TextEditingController genderController =
+      TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
   @override
@@ -38,18 +41,38 @@ class OnboardingController extends GetxController {
       firstDate: DateTime(1800),
       lastDate: DateTime.now(),
     );
-    if(pickedDate != null){
-      dobController.text = DateFormat("dd-MM-yyyy").format(pickedDate).toString();
+    if (pickedDate != null) {
+      dobController.text =
+          DateFormat("dd-MM-yyyy").format(pickedDate).toString();
     }
   }
 
-  void setGender(Gender gender){
+  void setGender(Gender gender) {
     genderController.text = gender.name;
     update();
   }
 
-  Future<void> saveProfile() async{
-    try{
+  Future<void> saveProfile() async {
+    try {
+      // Upload profile image to firebase storage
+      if (profileImage != null) {
+        final metadata = SettableMetadata(
+          contentType: 'image/jpeg',
+          customMetadata: {'picked-file-path': profileImage!.path},
+        );
+        Reference ref = _storageRef
+            .child("users")
+            .child(user!.uid)
+            .child("profileImage.jpeg");
+        UploadTask uploadTask = ref.putFile(profileImage!, metadata);
+        await uploadTask.whenComplete(() async {
+          imageController.text = await ref.getDownloadURL();
+          await _auth.currentUser!.updatePhotoURL(imageController.text);
+          log("Image uploaded successfully");
+        });
+      }
+
+      // Update user data on firestore
       await _auth.currentUser!.updateDisplayName(nameController.text);
       await _firestore.collection("users").doc(user!.uid).set({
         "username": usernameController.text,
@@ -57,27 +80,24 @@ class OnboardingController extends GetxController {
         "gender": genderController.text,
         "dateOfBirth": dobController.text,
       }, SetOptions(merge: true));
+
+      //TODO: Navigate to dashboard/home screen
       Get.snackbar("Saved Successfully", "");
-    }
-    catch(e){
-      print(e.toString());
-      Get.snackbar("Error Occured", e.toString());
+    } catch (e) {
+      log(e.toString());
+      Get.snackbar("Error!", e.toString());
     }
   }
 
-  Future<void> pickImage() async{
-    XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
-    if(file == null)  return;
-    final metadata = SettableMetadata(
-      contentType: 'image/jpeg',
-      customMetadata: {'picked-file-path': file.path},
-    );
-
-    Reference ref = _storageRef.child("users").child(user!.uid).child("profileImage.jpeg");
-    UploadTask uploadTask = ref.putFile(File(file.path), metadata);
-    uploadTask.whenComplete(() async {
-      imageController.text = await ref.getDownloadURL();
+  Future<void> pickImage() async {
+    try {
+      XFile? file = await _imagePicker.pickImage(
+          source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+      if (file == null) return;
+      profileImage = File(file.path);
       update();
-    });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
