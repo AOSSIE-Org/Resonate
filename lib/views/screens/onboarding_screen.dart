@@ -80,7 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       autocorrect: false,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
+                        icon: Icon(Icons.account_circle),
                         labelText: "Username",
                         prefixText: "@",
                       ),
@@ -94,7 +94,7 @@ class OnBoardingScreen extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       autocorrect: false,
                       decoration: InputDecoration(
-                        icon: const Icon(Icons.person),
+                        icon: const Icon(Icons.calendar_month),
                         labelText: "Date of Birth",
                         suffix: GestureDetector(
                           onTap: () async {
