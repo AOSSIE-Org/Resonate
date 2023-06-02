@@ -29,6 +29,8 @@ class OnboardingController extends GetxController {
       TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
+  final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     super.onInit();
@@ -53,6 +55,9 @@ class OnboardingController extends GetxController {
   }
 
   Future<void> saveProfile() async {
+    if (!userOnboardingFormKey.currentState!.validate()) {
+      return;
+    }
     try {
       isLoading.value = true;
 

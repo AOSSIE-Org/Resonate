@@ -20,17 +20,13 @@ class OnBoardingScreen extends StatelessWidget {
               width: Get.width,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Form(
+                key: controller.userOnboardingFormKey,
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset("assets/images/aossie_logo.png"),
-                    ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 20),
                     const Text(
                       "Complete your Profile",
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: 28),
                     ),
                     const SizedBox(height: 40),
                     GestureDetector(
@@ -179,7 +175,7 @@ class OnBoardingScreen extends StatelessWidget {
                     Obx(() {
                       return ElevatedButton(
                         onPressed: () async {
-                          if (!controller.isLoading.value){
+                          if (!controller.isLoading.value) {
                             await controller.saveProfile();
                           }
                         },
