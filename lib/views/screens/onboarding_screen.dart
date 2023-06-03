@@ -76,21 +76,21 @@ class OnBoardingScreen extends StatelessWidget {
                     Obx(
                       () => TextFormField(
                         validator: (value) {
-                          if (value!.isNotEmpty) {
-                            bool isUsernameAvailable =
-                                controller.isUsernameAvailable(value);
-                            if (!isUsernameAvailable) {
-                              return "Username is already taken";
-                            }
+                          if (value!.length>5) {
+                            return null;
                           } else {
-                            return "Enter Valid Username";
+                            return "Username should contain more than 5 characters.";
                           }
-                          return null;
                         },
                         controller: controller.usernameController,
-                        onChanged: (value){
-                          controller.usernameAvailable.value =
-                          controller.isUsernameAvailable(value);
+                        onChanged: (value) async{
+                          if (value.length>4){
+                            controller.usernameAvailable.value =
+                            await controller.isUsernameAvailable(value);
+                          }
+                          else{
+                            controller.usernameAvailable.value = false;
+                          }
                         },
                         keyboardType: TextInputType.text,
                         autocorrect: false,

@@ -36,18 +36,7 @@ class OnboardingController extends GetxController {
 
   @override
   void onInit() async {
-    //Used to check username availability
-    await getAllUsernames();
-
     super.onInit();
-  }
-
-  Future<void> getAllUsernames() async {
-    QuerySnapshot<Map<String, dynamic>> usernameSnapshot =
-        await _firestore.collection('usernames').get();
-    for (var usernameDoc in usernameSnapshot.docs) {
-      usernameList.add(usernameDoc.id);
-    }
   }
 
   Future<void> chooseDate() async {
@@ -70,6 +59,12 @@ class OnboardingController extends GetxController {
 
   Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
+      return;
+    }
+    var usernameAvail = await isUsernameAvailable(usernameController.text);
+    if (!usernameAvail){
+      usernameAvailable.value = false;
+      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.", snackPosition: SnackPosition.BOTTOM);
       return;
     }
     try {
@@ -124,7 +119,11 @@ class OnboardingController extends GetxController {
     }
   }
 
-  bool isUsernameAvailable(String username) {
-    return !usernameList.contains(username);
+  Future<bool> isUsernameAvailable(String username) async {
+    final documentSnapshot = await FirebaseFirestore.instance
+        .collection('usernames')
+        .doc(username)
+        .get();
+    return !documentSnapshot.exists;
   }
 }
