@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,10 +26,24 @@ class AuthenticationController extends GetxController {
     await isUserLoggedIn();
   }
 
+  Future<bool> isUserProfileComplete() async{
+    final documentSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .get();
+    return documentSnapshot.exists;
+  }
+
   Future<void> isUserLoggedIn() async {
     User? firebaseUser = await _auth.currentUser;
     if (firebaseUser != null) {
-      Get.offNamed(AppRoutes.profile);
+      bool isProfileComplete = await isUserProfileComplete();
+      if (isProfileComplete){
+        Get.offNamed(AppRoutes.profile);
+      }
+      else{
+        Get.offNamed(AppRoutes.onBoarding);
+      }
     } else {
       return;
     }
