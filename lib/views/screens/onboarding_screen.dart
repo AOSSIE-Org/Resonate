@@ -84,7 +84,7 @@ class OnBoardingScreen extends StatelessWidget {
                         },
                         controller: controller.usernameController,
                         onChanged: (value) async{
-                          if (value.length>4){
+                          if (value.length>5){
                             controller.usernameAvailable.value =
                             await controller.isUsernameAvailable(value);
                           }
