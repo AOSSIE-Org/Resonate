@@ -73,16 +73,34 @@ class OnBoardingScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    TextFormField(
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : "Enter Valid Username",
-                      controller: controller.usernameController,
-                      keyboardType: TextInputType.text,
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.account_circle),
-                        labelText: "Username",
-                        prefixText: "@",
+                    Obx(
+                      () => TextFormField(
+                        validator: (value) {
+                          if (value!.isNotEmpty) {
+                            bool isUsernameAvailable =
+                                controller.isUsernameAvailable(value);
+                            if (!isUsernameAvailable) {
+                              return "Username is already taken";
+                            }
+                          } else {
+                            return "Enter Valid Username";
+                          }
+                          return null;
+                        },
+                        controller: controller.usernameController,
+                        onChanged: (value){
+                          controller.usernameAvailable.value =
+                          controller.isUsernameAvailable(value);
+                        },
+                        keyboardType: TextInputType.text,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.account_circle),
+                            labelText: "Username",
+                            prefixText: "@",
+                            suffixIcon: controller.usernameAvailable.value
+                                ? Icon(Icons.verified_outlined)
+                                : null),
                       ),
                     ),
                     const SizedBox(height: 25),

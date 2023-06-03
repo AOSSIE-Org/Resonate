@@ -31,9 +31,23 @@ class OnboardingController extends GetxController {
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
 
+  final usernameList = [];
+  Rx<bool> usernameAvailable = false.obs;
+
   @override
-  void onInit() {
+  void onInit() async {
+    //Used to check username availability
+    await getAllUsernames();
+
     super.onInit();
+  }
+
+  Future<void> getAllUsernames() async {
+    QuerySnapshot<Map<String, dynamic>> usernameSnapshot =
+        await _firestore.collection('usernames').get();
+    for (var usernameDoc in usernameSnapshot.docs) {
+      usernameList.add(usernameDoc.id);
+    }
   }
 
   Future<void> chooseDate() async {
@@ -108,5 +122,9 @@ class OnboardingController extends GetxController {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  bool isUsernameAvailable(String username) {
+    return !usernameList.contains(username);
   }
 }
