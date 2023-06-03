@@ -31,7 +31,6 @@ class OnboardingController extends GetxController {
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
 
-  final usernameList = [];
   Rx<bool> usernameAvailable = false.obs;
 
   @override
@@ -69,6 +68,11 @@ class OnboardingController extends GetxController {
     }
     try {
       isLoading.value = true;
+
+      // Update usernames collection
+      await _firestore.collection("usernames").doc(usernameController.text).set({
+        "uid": _auth.currentUser!.uid
+      });
 
       // Upload profile image to firebase storage
       if (profileImage != null) {
