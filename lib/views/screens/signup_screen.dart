@@ -44,9 +44,7 @@ class SignupScreen extends StatelessWidget {
                         labelText: "Email ID",
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Obx(
-                      () => TextFormField(
+                    const SizedBox(height: 10),TextFormField(
                         validator: (value) => value!.isValidPassword()
                             ? null
                             : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
@@ -61,7 +59,6 @@ class SignupScreen extends StatelessWidget {
                           labelText: "Password",
                         ),
                       ),
-                    ),
                     const SizedBox(height: 10),
                     Obx(
                       () => TextFormField(
