@@ -29,8 +29,12 @@ class OnboardingController extends GetxController {
       TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
+  final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
+
+  Rx<bool> usernameAvailable = false.obs;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
   }
 
@@ -53,8 +57,22 @@ class OnboardingController extends GetxController {
   }
 
   Future<void> saveProfile() async {
+    if (!userOnboardingFormKey.currentState!.validate()) {
+      return;
+    }
+    var usernameAvail = await isUsernameAvailable(usernameController.text);
+    if (!usernameAvail){
+      usernameAvailable.value = false;
+      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.", snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
     try {
       isLoading.value = true;
+
+      // Update usernames collection
+      await _firestore.collection("usernames").doc(usernameController.text).set({
+        "uid": _auth.currentUser!.uid
+      });
 
       // Upload profile image to firebase storage
       if (profileImage != null) {
@@ -103,5 +121,13 @@ class OnboardingController extends GetxController {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<bool> isUsernameAvailable(String username) async {
+    final documentSnapshot = await FirebaseFirestore.instance
+        .collection('usernames')
+        .doc(username)
+        .get();
+    return !documentSnapshot.exists;
   }
 }

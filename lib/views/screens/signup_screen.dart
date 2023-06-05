@@ -44,36 +44,21 @@ class SignupScreen extends StatelessWidget {
                         labelText: "Email ID",
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Obx(
-                      () => TextFormField(
+                    const SizedBox(height: 10),TextFormField(
                         validator: (value) => value!.isValidPassword()
                             ? null
                             : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
                         controller: controller.passwordController,
-                        obscureText: !controller.isPasswordFieldVisible.value,
+                        obscureText: true,
                         enableSuggestions: false,
                         autocorrect: false,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           icon: const Icon(
                             Icons.lock_outline_rounded,
                           ),
                           labelText: "Password",
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
-                            },
-                            splashRadius: 20,
-                            icon: Icon(
-                              controller.isPasswordFieldVisible.value
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                            ),
-                          ),
                         ),
                       ),
-                    ),
                     const SizedBox(height: 10),
                     Obx(
                       () => TextFormField(
