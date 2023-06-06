@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/utils/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,15 +32,16 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.live_tv),
+                          FaIcon(FontAwesomeIcons.circlePlay, color: Colors.green,size: 20,),
                           SizedBox(
                             width: 5,
                           ),
-                          Text("LIVE"),
+                          Text("Happening Now", style: TextStyle(color: Colors.black45),),
                           Spacer(),
-                          Icon(Icons.menu_outlined)
+                          FaIcon(FontAwesomeIcons.ellipsis, color: Colors.black,),
                         ],
                       ),
+                      SizedBox(height: Get.height*0.01,),
                       Text(
                         "For the love of open source🧑‍💻 #flutter #resonate #aossie",
                         style: TextStyle(
@@ -45,40 +49,13 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: Colors.black),
                       ),
+                      SizedBox(height: Get.height*0.005,),
                       Text(
                         "Open Source · Voice Platform · New",
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54),
                       ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 6,
-                          ),
-                          for (int i = 0; i < 3; i++)
-                            Align(
-                              widthFactor: 0.5,
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.amber,
-                                child: CircleAvatar(
-                                  radius: 16,
-                                  backgroundImage: NetworkImage(
-                                      "https://avatars.githubusercontent.com/u/41890434?v=4"),
-                                ),
-                              ),
-                            ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text("26+ Members",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w100)),
-                          Spacer(),
-                          Icon(Icons.favorite_outlined, color: Colors.red,),
-                          SizedBox(width: 10,),
-                          Icon(Icons.share, color: Colors.black,),
-                        ],
-                      ),
+                      SizedBox(height: Get.height*0.01,),
+
                     ],
                   ),
                 ),
@@ -88,22 +65,51 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Featured"),
                       Row(
                         children: [
-                          CircleAvatar(
-                            radius:12,
-                            backgroundColor: Colors.amber,
-                            child: CircleAvatar(
-                              radius: 10,
-                              backgroundImage: NetworkImage(
-                                  "https://avatars.githubusercontent.com/u/41890434?v=4"),
-                            ),
+                          SizedBox(
+                            width: 6,
                           ),
-                          Text("Chandan S Gowda"),
+                          for (int i = 0; i < 3; i++)
+                            Align(
+                              widthFactor: 0.5,
+                              child: CircleAvatar(
+                                radius: 19,
+                                backgroundColor: Color.fromRGBO(230, 171, 49, 1),
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundImage: NetworkImage(
+                                      "https://avatars.githubusercontent.com/u/41890434?v=4"),
+                                ),
+                              ),
+                            ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text("26+ Joined",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54)),
+                          Spacer(),
+                          FaIcon(FontAwesomeIcons.thumbsUp, color: Colors.black,),
+                          SizedBox(width: 10,),
+                          Icon(Icons.share, color: Colors.black,),
                         ],
                       ),
-                      Text("Open Source Contributor, AOSSIE")
+                      // Row(
+                      //   children: [
+                      //     CircleAvatar(
+                      //       radius:12,
+                      //       backgroundColor: Colors.amber,
+                      //       child: CircleAvatar(
+                      //         radius: 10,
+                      //         backgroundImage: NetworkImage(
+                      //             "https://avatars.githubusercontent.com/u/41890434?v=4"),
+                      //       ),
+                      //     ),
+                      //     Text("Chandan S Gowda"),
+                      //   ],
+                      // ),
+                      // Text("Open Source Contributor, AOSSIE")
                     ],
                   ),
                 )
