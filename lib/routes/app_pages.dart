@@ -8,6 +8,8 @@ import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 
+import '../views/screens/home_screen.dart';
+
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
@@ -34,6 +36,12 @@ class AppPages {
       name: AppRoutes.onBoarding,
       page: () => const OnBoardingScreen(),
       binding: ProfileBinding(),
-    )
+    ),
+    GetPage(
+      name: AppRoutes.home,
+      page: () => const HomeScreen(),
+      //binding: ProfileBinding(),
+    ),
+
   ];
 }

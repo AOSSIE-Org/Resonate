@@ -4,4 +4,5 @@ class AppRoutes {
   static const profile = '/profile';
   static const emailVerification = '/emailVerification';
   static const onBoarding = "/onBoarding";
+  static const home = "/home";
 }
