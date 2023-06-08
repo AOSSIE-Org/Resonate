@@ -6,11 +6,13 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
+import '../../controllers/profile_controller.dart';
 import '../../utils/colors.dart';
 
 class TabViewScreen extends StatelessWidget {
 
   TabViewController controller = Get.find<TabViewController>();
+  ProfileController profileController = Get.put<ProfileController>(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,9 @@ class TabViewScreen extends StatelessWidget {
         title: Text("Resonate", style: TextStyle(color: Colors.black, fontSize: 26),),
         centerTitle: false,
         backgroundColor: Colors.amber,
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.exit_to_app_rounded, color: Colors.black87,))],
+        actions: [IconButton(onPressed: (){
+          profileController.logout();
+        }, icon: Icon(Icons.exit_to_app_rounded, color: Colors.black87,))],
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {  },
         backgroundColor: AppColor.yellowColor,
