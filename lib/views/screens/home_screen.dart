@@ -10,35 +10,40 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Screen"),
+        title: Text("Resonate", style: TextStyle(color: Colors.black, fontSize: 26),),
+        centerTitle: false,
+        backgroundColor: Colors.amber,
+        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.exit_to_app_rounded, color: Colors.black87,))],
       ),
-      body: Column(
-        children: [
-          RoomTile(
-            roomName:
-                'For the love of open source ♥️ #flutter #resonate #aossie',
-            roomState: RoomState.live,
-            totalActiveMembers: 263,
-            tags: ["Open Source", "Voice Platform", "New"],
-            memberAvatarUrls: [
-              "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",
-              "https://avatars.githubusercontent.com/u/41890434?v=4",
-              "https://avatars.githubusercontent.com/u/43133646?s=96&v=4",
-            ],
-          ),
-          RoomTile(
-            roomName:
-            'AOSSIE Team meeting',
-            roomState: RoomState.scheduled,
-            totalActiveMembers: 42,
-            tags: ["Audio", "Review meet"],
-            memberAvatarUrls: [
-              "https://avatars.githubusercontent.com/u/43133646?s=96&v=4",
-              "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",
-              "https://avatars.githubusercontent.com/u/41890434?v=4",
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            RoomTile(
+              roomName:
+                  'For the love of open source ♥️ #flutter #resonate #aossie',
+              roomState: RoomState.live,
+              totalActiveMembers: 263,
+              tags: ["Open Source", "Voice Platform", "New"],
+              memberAvatarUrls: [
+                "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",
+                "https://avatars.githubusercontent.com/u/41890434?v=4",
+                "https://avatars.githubusercontent.com/u/43133646?s=96&v=4",
+              ],
+            ),
+            RoomTile(
+              roomName:
+              'AOSSIE Team meeting',
+              roomState: RoomState.scheduled,
+              totalActiveMembers: 42,
+              tags: ["Audio", "Review meet"],
+              memberAvatarUrls: [
+                "https://avatars.githubusercontent.com/u/43133646?s=96&v=4",
+                "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",
+                "https://avatars.githubusercontent.com/u/41890434?v=4",
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
