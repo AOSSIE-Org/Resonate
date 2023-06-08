@@ -10,38 +10,56 @@ import '../../controllers/profile_controller.dart';
 import '../../utils/colors.dart';
 
 class TabViewScreen extends StatelessWidget {
-
   TabViewController controller = Get.find<TabViewController>();
-  ProfileController profileController = Get.put<ProfileController>(ProfileController());
+  ProfileController profileController =
+      Get.put<ProfileController>(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-      appBar: AppBar(
-        title: Text("Resonate", style: TextStyle(color: Colors.black, fontSize: 26),),
-        centerTitle: false,
-        backgroundColor: Colors.amber,
-        actions: [IconButton(onPressed: (){
-          profileController.logout();
-        }, icon: Icon(Icons.exit_to_app_rounded, color: Colors.black87,))],
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () {  },
-        backgroundColor: AppColor.yellowColor,
-        child: Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        backgroundColor: Colors.amber,
-        activeColor: Colors.black,
-        inactiveColor: Colors.black87,
-        icons: [Icons.home_outlined, Icons.search, Icons.person_outline, Icons.settings],
-        activeIndex: controller.getIndex(),
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.defaultEdge,
-        onTap: (index) => controller.setIndex(index),
-      ),
-      body: (controller.getIndex()==0) ? HomeScreen() : ProfileScreen(),
-    ));
+          appBar: AppBar(
+            title: Text(
+              "Resonate",
+              style: TextStyle(color: Colors.black, fontSize: 26),
+            ),
+            centerTitle: false,
+            backgroundColor: Colors.amber,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    profileController.logout();
+                  },
+                  icon: Icon(
+                    Icons.exit_to_app_rounded,
+                    color: Colors.black87,
+                  ))
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: AppColor.yellowColor,
+            child: Icon(Icons.add),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: AnimatedBottomNavigationBar(
+            backgroundColor: Colors.amber,
+            activeColor: Colors.black,
+            inactiveColor: Colors.black54,
+            splashColor: Colors.black,
+            icons: [
+              Icons.home_outlined,
+              Icons.search,
+              Icons.person_outline,
+              Icons.settings
+            ],
+            activeIndex: controller.getIndex(),
+            gapLocation: GapLocation.center,
+            notchSmoothness: NotchSmoothness.defaultEdge,
+            onTap: (index) => controller.setIndex(index),
+          ),
+          //TODO Connect all main screens to the tab view
+          body: (controller.getIndex() == 0) ? HomeScreen() : ProfileScreen(),
+        ));
   }
 }
-

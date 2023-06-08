@@ -14,10 +14,10 @@ class RoomTile extends StatelessWidget {
   final int totalActiveMembers;
   RoomTile(
       {required this.roomName,
-        required this.tags,
-        required this.roomState,
-        required this.memberAvatarUrls,
-        required this.totalActiveMembers});
+      required this.tags,
+      required this.roomState,
+      required this.memberAvatarUrls,
+      required this.totalActiveMembers});
 
   Text buildTags() {
     String tagString = tags[0] ?? "";
@@ -26,13 +26,12 @@ class RoomTile extends StatelessWidget {
     }
     return Text(
       tagString,
-      style: TextStyle(
-          fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54),
+      style: kTileSubtitleStyle,
     );
   }
 
-  String roomStateText(){
-    switch (roomState){
+  String roomStateText() {
+    switch (roomState) {
       case RoomState.live:
         return "Happening Now";
       case RoomState.scheduled:
@@ -42,8 +41,8 @@ class RoomTile extends StatelessWidget {
     }
   }
 
-  IconData roomStateIcon(){
-    switch (roomState){
+  IconData roomStateIcon() {
+    switch (roomState) {
       case RoomState.live:
         return Icons.play_circle_outline_rounded;
       case RoomState.scheduled:
@@ -53,15 +52,18 @@ class RoomTile extends StatelessWidget {
     }
   }
 
+  var kTileTitleStyle = const TextStyle(
+      fontSize: 23, fontWeight: FontWeight.w500, color: Colors.black);
+
+  var kTileSubtitleStyle = const TextStyle(
+      fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Colors.amber,
-            AppColor.yellowColor,
-          ]),
+          gradient: AppColor.gradientBg,
           borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
@@ -78,12 +80,9 @@ class RoomTile extends StatelessWidget {
                       size: 20,
                     ),
                     SizedBox(
-                      width: 5,
+                      width: Get.width*0.01,
                     ),
-                    Text(
-                      roomStateText(),
-                      style: TextStyle(color: Colors.black45),
-                    ),
+                    Text(roomStateText(), style: kTileSubtitleStyle),
                     Spacer(),
                     FaIcon(
                       FontAwesomeIcons.ellipsis,
@@ -97,10 +96,7 @@ class RoomTile extends StatelessWidget {
                 Text(
                   roomName,
                   maxLines: 3,
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
+                  style: kTileTitleStyle,
                 ),
                 SizedBox(
                   height: Get.height * 0.005,
@@ -121,7 +117,7 @@ class RoomTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      width: 6,
+                      width: Get.width*0.02,
                     ),
                     for (var avatarImageUrl in memberAvatarUrls)
                       Align(
@@ -136,20 +132,17 @@ class RoomTile extends StatelessWidget {
                         ),
                       ),
                     SizedBox(
-                      width: 15,
+                      width: Get.width*0.04,
                     ),
                     Text("$totalActiveMembers+ Joined",
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w100,
-                            color: Colors.black54)),
+                        style: kTileSubtitleStyle),
                     Spacer(),
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,
                     ),
                     SizedBox(
-                      width: 10,
+                      width: Get.width*0.04,
                     ),
                     Icon(
                       Icons.share,
