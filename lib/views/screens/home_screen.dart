@@ -8,14 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Resonate", style: TextStyle(color: Colors.black, fontSize: 26),),
-        centerTitle: false,
-        backgroundColor: Colors.amber,
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.exit_to_app_rounded, color: Colors.black87,))],
-      ),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
           children: [
             RoomTile(
@@ -44,8 +37,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
 

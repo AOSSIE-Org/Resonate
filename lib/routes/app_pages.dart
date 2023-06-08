@@ -7,7 +7,9 @@ import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
+import 'package:resonate/views/screens/tabview_screen.dart';
 
+import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
 
 class AppPages {
@@ -41,6 +43,11 @@ class AppPages {
       name: AppRoutes.home,
       page: () => const HomeScreen(),
       //binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tabview,
+      page: () => TabViewScreen(),
+      binding: TabViewBinding(),
     ),
 
   ];
