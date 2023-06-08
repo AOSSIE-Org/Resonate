@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/utils/colors.dart';
 
+import '../../utils/enums/room_state.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -18,8 +20,8 @@ class HomeScreen extends StatelessWidget {
           RoomTile(
             roomName:
                 'For the love of open source ♥️ #flutter #resonate #aossie',
-            roomState: 'Happening Now',
-            totalActiveMembers: 26,
+            roomState: RoomState.live,
+            totalActiveMembers: 263,
             tags: ["Open Source", "Voice Platform", "New"],
             memberAvatarUrls: [
               "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",
@@ -36,7 +38,7 @@ class HomeScreen extends StatelessWidget {
 class RoomTile extends StatelessWidget {
   final String roomName;
   final List<String> tags;
-  final String roomState;
+  final RoomState roomState;
   final List<String> memberAvatarUrls;
   final int totalActiveMembers;
   RoomTile(
@@ -56,6 +58,28 @@ class RoomTile extends StatelessWidget {
       style: TextStyle(
           fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54),
     );
+  }
+
+  String roomStateText(){
+    switch (roomState){
+      case RoomState.live:
+        return "Happening Now";
+      case RoomState.scheduled:
+        return "Scheduled";
+      case RoomState.recorded:
+        return "Recorded";
+    }
+  }
+
+  IconData roomStateIcon(){
+    switch (roomState){
+      case RoomState.live:
+        return Icons.play_circle_outline_rounded;
+      case RoomState.scheduled:
+        return Icons.calendar_month;
+      case RoomState.recorded:
+        return Icons.record_voice_over_outlined;
+    }
   }
 
   @override
@@ -78,7 +102,7 @@ class RoomTile extends StatelessWidget {
                 Row(
                   children: [
                     FaIcon(
-                      FontAwesomeIcons.circlePlay,
+                      roomStateIcon(),
                       color: Colors.green,
                       size: 20,
                     ),
@@ -86,7 +110,7 @@ class RoomTile extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      roomState,
+                      roomStateText(),
                       style: TextStyle(color: Colors.black45),
                     ),
                     Spacer(),
@@ -161,21 +185,6 @@ class RoomTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     CircleAvatar(
-                //       radius:12,
-                //       backgroundColor: Colors.amber,
-                //       child: CircleAvatar(
-                //         radius: 10,
-                //         backgroundImage: NetworkImage(
-                //             "https://avatars.githubusercontent.com/u/41890434?v=4"),
-                //       ),
-                //     ),
-                //     Text("Chandan S Gowda"),
-                //   ],
-                // ),
-                // Text("Open Source Contributor, AOSSIE")
               ],
             ),
           )
