@@ -22,18 +22,46 @@ class ProfileScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: NetworkImage(controller.auth.currentUser?.photoURL.toString() ?? ''),
+                    image: NetworkImage(
+                        controller.auth.currentUser?.photoURL.toString() ?? ''),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-              Text("@ ${controller.resonateUser!.userName!}", style: TextStyle(fontSize: 35, color: Colors.amber),),
-              Text(controller.auth.currentUser!.displayName.toString(), style: TextStyle(fontSize: 25),),
-              Text(controller.auth.currentUser!.email.toString(), style: TextStyle(fontSize: 18, color: Colors.white70),),
+              Text(
+                "@ ${controller.resonateUser!.userName!}",
+                style: TextStyle(fontSize: 35, color: Colors.amber),
+              ),
+              Text(
+                controller.auth.currentUser!.displayName.toString(),
+                style: TextStyle(fontSize: 25),
+              ),
+              Text(
+                controller.auth.currentUser!.email.toString(),
+                style: TextStyle(fontSize: 18, color: Colors.white70),
+              ),
               const SizedBox(height: 24),
-              CustomCard(title: "Contribute to the project", icon: FontAwesomeIcons.github),
-              CustomCard(title: "Terms and Conditions", icon: FontAwesomeIcons.fileInvoice),
-              CustomCard(title: "Privacy Policy", icon: FontAwesomeIcons.shieldHalved),
+              CustomCard(
+                title: "Contribute to the project",
+                icon: FontAwesomeIcons.github,
+                onTap: () {
+                  //TODO: Open Github Repo Link
+                },
+              ),
+              CustomCard(
+                title: "Terms and Conditions",
+                icon: FontAwesomeIcons.fileInvoice,
+                onTap: () {
+                  //TODO: Launch URL in webview
+                },
+              ),
+              CustomCard(
+                title: "Privacy Policy",
+                icon: FontAwesomeIcons.shieldHalved,
+                onTap: () {
+                  //TODO: Launch URL in webview
+                },
+              ),
             ],
           ),
         ),
@@ -45,15 +73,19 @@ class ProfileScreen extends StatelessWidget {
 class CustomCard extends StatelessWidget {
   final String title;
   final IconData icon;
-  CustomCard({required this.title, required this.icon});
+  final VoidCallback onTap;
+  CustomCard({required this.title, required this.icon, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-      child: ListTile(
-        leading: FaIcon(icon),
-        title: Text(title),
+      child: InkWell(
+        onTap: onTap,
+        child: ListTile(
+          leading: FaIcon(icon),
+          title: Text(title),
+        ),
       ),
     );
   }
