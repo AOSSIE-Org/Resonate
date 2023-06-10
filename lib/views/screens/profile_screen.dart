@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/profile_controller.dart';
 
+import '../widgets/custom_card.dart';
+
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 
@@ -64,27 +66,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final VoidCallback onTap;
-  CustomCard({required this.title, required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-      child: InkWell(
-        onTap: onTap,
-        child: ListTile(
-          leading: FaIcon(icon),
-          title: Text(title),
         ),
       ),
     );
