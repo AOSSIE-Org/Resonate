@@ -11,22 +11,21 @@ class ProfileController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
   ResonateUser? resonateUser;
 
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getUserData();
+    await getUserData();
   }
 
-  void getUserData() async {
+  Future<void> getUserData() async {
     DocumentSnapshot<Map<String, dynamic>> doc = await _firestore.collection("users").doc(auth.currentUser?.uid).get();
-    if(doc.exists){
-      resonateUser = ResonateUser.fromJson(doc.data()!);
-    }
-    //TODO: Get user data and update variables
+    var userData = doc.data()!;
+    userData["uid"] = auth.currentUser!.uid;
+    resonateUser = ResonateUser.fromJson(userData);
     update();
   }
 
