@@ -48,6 +48,8 @@ dependencies:
   image_picker: ^0.8.7+4
   loading_animation_widget: ^1.2.0+4
   json_annotation: ^4.8.1
+  font_awesome_flutter: ^10.4.0
+  animated_bottom_navigation_bar: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -39,7 +39,7 @@ class AuthenticationController extends GetxController {
     if (firebaseUser != null) {
       bool isProfileComplete = await isUserProfileComplete();
       if (isProfileComplete){
-        Get.offNamed(AppRoutes.profile);
+        Get.offNamed(AppRoutes.tabview);
       }
       else{
         Get.offNamed(AppRoutes.onBoarding);
@@ -57,7 +57,7 @@ class AuthenticationController extends GetxController {
       isLoading.value = true;
       await _auth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      Get.offNamed(AppRoutes.profile);
+      Get.offNamed(AppRoutes.tabview);
     } on FirebaseAuthException catch (e) {
       log(e.toString());
       if (e.code == 'wrong-password' || e.code == 'user-not-found') {
@@ -105,22 +105,11 @@ class AuthenticationController extends GetxController {
       if (userCredential.additionalUserInfo!.isNewUser) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
-        Get.offNamed(AppRoutes.profile);
+        Get.offNamed(AppRoutes.tabview);
       }
     } catch (error) {
       log(error.toString());
     }
-  }
-
-  Future<void> logout() async {
-    User? firebaseUser = _auth.currentUser;
-    if ((firebaseUser?.providerData[0].providerId == "google.com")) {
-      await _googleSignIn.signOut();
-      await _auth.signOut();
-    } else {
-      await _auth.signOut();
-    }
-    Get.offNamed(AppRoutes.login);
   }
 }
 

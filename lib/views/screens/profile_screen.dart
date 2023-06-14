@@ -6,13 +6,11 @@ import 'package:resonate/routes/app_routes.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
-  final AuthenticationController authenticationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(
       builder: (controller) => Scaffold(
-        appBar: AppBar(title: const Text("Profile")),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,17 +23,16 @@ class ProfileScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: NetworkImage(controller.user?.photoURL.toString() ?? ''),
+                    image: NetworkImage(controller.auth.currentUser?.photoURL.toString() ?? ''),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-              Text('Email: ${controller.user?.email}'),
+              Text('Email: ${controller.auth.currentUser?.email}'),
               const SizedBox(height: 48),
               ElevatedButton(
                 onPressed: () {
-                  authenticationController.logout();
-                  Get.offNamed(AppRoutes.login);
+                  controller.logout();
                 },
                 child: const Text('Logout'),
               ),
