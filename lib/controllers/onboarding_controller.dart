@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
+import '../routes/app_routes.dart';
+
 class OnboardingController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -72,8 +74,10 @@ class OnboardingController extends GetxController {
 
       // Upload Image placeholder if Image not provided by user
       if (profileImage == null) {
+        print('hi');
         await _auth.currentUser!.updatePhotoURL(userProfileImagePlaceholderUrl);
         log("Image Placeholder uploaded successfully");
+        print('yo');
       }
 
       // Upload profile image to firebase storage if selected one
@@ -94,9 +98,9 @@ class OnboardingController extends GetxController {
         });
       }
 
-      //Update Firebase auth Display name 
+      //Update Firebase auth Display name
       await _auth.currentUser!.updateDisplayName(nameController.text);
-      
+
       // Update user data on firestore
       await _firestore.collection("users").doc(user!.uid).set({
         "userName": usernameController.text,
@@ -111,7 +115,7 @@ class OnboardingController extends GetxController {
           .doc(usernameController.text)
           .set({"uid": _auth.currentUser!.uid});
 
-      //TODO: Navigate to dashboard/home screen
+      Get.offNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());
