@@ -74,10 +74,8 @@ class OnboardingController extends GetxController {
 
       // Upload Image placeholder if Image not provided by user
       if (profileImage == null) {
-        print('hi');
         await _auth.currentUser!.updatePhotoURL(userProfileImagePlaceholderUrl);
         log("Image Placeholder uploaded successfully");
-        print('yo');
       }
 
       // Upload profile image to firebase storage if selected one
