@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class CreateRoomScreen extends StatelessWidget {
@@ -13,19 +14,36 @@ class CreateRoomScreen extends StatelessWidget {
       child: Column(
             children: [
               SizedBox(height: Get.height*0.02,),
-              Text("Create New Room", style: TextStyle(fontSize: Get.textScaleFactor*30),),
+              Text("Create New Room", style: TextStyle(fontSize: Get.textScaleFactor*35),),
+              SizedBox(height: Get.height*0.03,),
               TextField(
+                style: TextStyle(fontSize: 25),
+                cursorColor: Colors.amber,
+                minLines: 1,
                 maxLines: 3,
                 decoration: InputDecoration(
+                  hintText: "Give a great name..",
+                  filled: true,
+                  fillColor: Color(0x15FFFFFF),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)
+                    borderSide: BorderSide(color: AppColor.yellowColor),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.amber),
+                      borderRadius: BorderRadius.circular(15)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.amber, width: 2),
+                      borderRadius: BorderRadius.circular(15)
                   ),
                 ),
               ),
+              SizedBox(height: Get.height*0.04,),
               TextFieldTags(
                 textfieldTagsController: _controller,
                 initialTags: const [
-                  'language'
+                  'sample-tag'
                 ],
                 textSeparators: const [' ', ','],
                 letterCase: LetterCase.normal,
@@ -40,24 +58,22 @@ class CreateRoomScreen extends StatelessWidget {
                       controller: tec,
                       focusNode: fn,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0x15FFFFFF),
                         isDense: true,
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 74, 137, 92),
-                            width: 3.0,
-                          ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: AppColor.yellowColor),
+                            borderRadius: BorderRadius.circular(15)
                         ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 74, 137, 92),
-                            width: 3.0,
-                          ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: AppColor.yellowColor),
+                            borderRadius: BorderRadius.circular(15)
                         ),
-                        helperText: 'Enter lRoom Tags (max 3)',
-                        helperStyle: const TextStyle(
-                          color: Color.fromARGB(255, 74, 137, 92),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.amber, width: 2),
+                            borderRadius: BorderRadius.circular(15)
                         ),
-                        hintText: "Enter tag...",
+                        hintText: "Enter tags",
                         errorText: error,
                         prefixIconConstraints:
                         BoxConstraints(maxWidth: Get.width * 0.74),
@@ -68,11 +84,11 @@ class CreateRoomScreen extends StatelessWidget {
                           child: Row(
                               children: tags.map((String tag) {
                                 return Container(
-                                  decoration: const BoxDecoration(
+                                  decoration:  BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20.0),
                                     ),
-                                    color: Color.fromARGB(255, 74, 137, 92),
+                                    color: Colors.black54,
                                   ),
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 5.0),
@@ -94,11 +110,10 @@ class CreateRoomScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 4.0),
                                       InkWell(
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.cancel,
                                           size: 14.0,
-                                          color: Color.fromARGB(
-                                              255, 233, 233, 233),
+                                          color: Colors.red.withOpacity(0.7),
                                         ),
                                         onTap: () {
                                           onTagDelete(tag);
