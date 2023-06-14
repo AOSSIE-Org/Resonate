@@ -7,6 +7,17 @@ import 'package:textfield_tags/textfield_tags.dart';
 class CreateRoomScreen extends StatelessWidget {
   var _controller = TextfieldTagsController();
 
+  OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.amber),
+      borderRadius: BorderRadius.circular(15)
+  );
+
+  OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.amber, width: 2),
+      borderRadius: BorderRadius.circular(15)
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,18 +36,9 @@ class CreateRoomScreen extends StatelessWidget {
                   hintText: "Give a great name..",
                   filled: true,
                   fillColor: Color(0x15FFFFFF),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColor.yellowColor),
-                      borderRadius: BorderRadius.circular(15)
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber),
-                      borderRadius: BorderRadius.circular(15)
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber, width: 2),
-                      borderRadius: BorderRadius.circular(15)
-                  ),
+                  border: kEnabledTextFieldBorder,
+                  enabledBorder: kEnabledTextFieldBorder,
+                  focusedBorder: kFocusedTextFieldBorder
                 ),
               ),
               SizedBox(height: Get.height*0.04,),
@@ -55,24 +57,16 @@ class CreateRoomScreen extends StatelessWidget {
                     (context, tec, fn, error, onChanged, onSubmitted) {
                   return ((context, sc, tags, onTagDelete) {
                     return TextField(
+                      style: TextStyle(fontSize: 20),
                       controller: tec,
                       focusNode: fn,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Color(0x15FFFFFF),
                         isDense: true,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.yellowColor),
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: AppColor.yellowColor),
-                            borderRadius: BorderRadius.circular(15)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber, width: 2),
-                            borderRadius: BorderRadius.circular(15)
-                        ),
+                        border: kEnabledTextFieldBorder,
+                        enabledBorder: kEnabledTextFieldBorder,
+                        focusedBorder: kFocusedTextFieldBorder,
                         hintText: "Enter tags",
                         errorText: error,
                         prefixIconConstraints:
@@ -102,7 +96,7 @@ class CreateRoomScreen extends StatelessWidget {
                                         child: Text(
                                           '#$tag',
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                              color: Colors.white, fontSize: 18),
                                         ),
                                         onTap: () {
                                           //print("$tag selected");
@@ -112,7 +106,7 @@ class CreateRoomScreen extends StatelessWidget {
                                       InkWell(
                                         child: Icon(
                                           Icons.cancel,
-                                          size: 14.0,
+                                          size: 18.0,
                                           color: Colors.red.withOpacity(0.7),
                                         ),
                                         onTap: () {
