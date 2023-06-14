@@ -99,7 +99,7 @@ class OnboardingController extends GetxController {
       
       // Update user data on firestore
       await _firestore.collection("users").doc(user!.uid).set({
-        "username": usernameController.text,
+        "userName": usernameController.text,
         "profileImageUrl": imageController.text,
         "gender": genderController.text,
         "dateOfBirth": dobController.text,
