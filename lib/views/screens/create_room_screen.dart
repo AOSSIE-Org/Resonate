@@ -126,6 +126,20 @@ class CreateRoomScreen extends StatelessWidget {
                   });
                 },
               ),
+              SizedBox(height: Get.height*0.04,),
+              TextField(
+                style: TextStyle(fontSize: 20),
+                cursorColor: Colors.amber,
+                maxLines: 10,
+                decoration: InputDecoration(
+                    hintText: "Room Description (optional)",
+                    filled: true,
+                    fillColor: Color(0x15FFFFFF),
+                    border: kEnabledTextFieldBorder,
+                    enabledBorder: kEnabledTextFieldBorder,
+                    focusedBorder: kFocusedTextFieldBorder
+                ),
+              ),
             ],
       ),
     );

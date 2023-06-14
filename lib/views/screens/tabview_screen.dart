@@ -41,7 +41,7 @@ class TabViewScreen extends StatelessWidget {
               controller.setIndex(2);
             },
             backgroundColor: AppColor.yellowColor,
-            child: Icon(Icons.add),
+            child: (controller.getIndex()==2) ? Text("Start") : Icon(Icons.add),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
