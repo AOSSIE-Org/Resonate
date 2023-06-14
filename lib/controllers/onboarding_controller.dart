@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -61,20 +60,23 @@ class OnboardingController extends GetxController {
       return;
     }
     var usernameAvail = await isUsernameAvailable(usernameController.text);
-    if (!usernameAvail){
+    if (!usernameAvail) {
       usernameAvailable.value = false;
-      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.", snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Username Unavailable!",
+          "This username is invalid or either taken already.",
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
     try {
       isLoading.value = true;
 
-      // Update usernames collection
-      await _firestore.collection("usernames").doc(usernameController.text).set({
-        "uid": _auth.currentUser!.uid
-      });
+      // Upload Image placeholder if Image not provided by user
+      if (profileImage == null) {
+        await _auth.currentUser!.updatePhotoURL(userProfileImagePlaceholderUrl);
+        log("Image Placeholder uploaded successfully");
+      }
 
-      // Upload profile image to firebase storage
+      // Upload profile image to firebase storage if selected one
       if (profileImage != null) {
         final metadata = SettableMetadata(
           contentType: 'image/jpeg',
@@ -92,8 +94,10 @@ class OnboardingController extends GetxController {
         });
       }
 
-      // Update user data on firestore
+      //Update Firebase auth Display name 
       await _auth.currentUser!.updateDisplayName(nameController.text);
+      
+      // Update user data on firestore
       await _firestore.collection("users").doc(user!.uid).set({
         "username": usernameController.text,
         "profileImageUrl": imageController.text,
@@ -101,12 +105,18 @@ class OnboardingController extends GetxController {
         "dateOfBirth": dobController.text,
       }, SetOptions(merge: true));
 
+      // Update usernames collection
+      await _firestore
+          .collection("usernames")
+          .doc(usernameController.text)
+          .set({"uid": _auth.currentUser!.uid});
+
       //TODO: Navigate to dashboard/home screen
-      Get.snackbar("Saved Successfully", "");
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());
     } finally {
+      Get.snackbar("Saved Successfully", "");
       isLoading.value = false;
     }
   }

@@ -17,17 +17,22 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 4),
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(controller.user?.photoURL.toString() ?? ''),
+              Column(
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 4),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                            controller.user?.photoURL.toString() ?? ''),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               const SizedBox(height: 24),
               Text('Email: ${controller.user?.email}'),
