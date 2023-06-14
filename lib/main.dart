@@ -27,41 +27,40 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: AppColor.bgBlackColor,
-        colorScheme: ColorScheme.fromSwatch(
-          brightness: Brightness.dark,
-          primaryColorDark: AppColor.yellowColor,
-          accentColor: Colors.white,
-          backgroundColor: AppColor.bgBlackColor,
-          errorColor: const Color(0xFDFF0000),
-        ),
-        fontFamily: GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
-        iconTheme: Get.theme.iconTheme.copyWith(
-          color: AppColor.yellowColor,
-        ),
-        inputDecorationTheme: const InputDecorationTheme(
-          iconColor: AppColor.yellowColor,
-          floatingLabelStyle: TextStyle(color: AppColor.yellowColor),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.yellowColor, width: 2),
+          scaffoldBackgroundColor: AppColor.bgBlackColor,
+          colorScheme: ColorScheme.fromSwatch(
+            brightness: Brightness.dark,
+            primaryColorDark: AppColor.yellowColor,
+            accentColor: Colors.white,
+            backgroundColor: AppColor.bgBlackColor,
+            errorColor: const Color(0xFDFF0000),
           ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white60),
+          fontFamily:
+              GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
+          iconTheme: Get.theme.iconTheme.copyWith(
+            color: AppColor.yellowColor,
           ),
-          suffixIconColor: AppColor.yellowColor,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColor.yellowColor,
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12), // <-- Radius
-              side: BorderSide(width: 1.0, color: Colors.grey[800]!)
+          inputDecorationTheme: const InputDecorationTheme(
+            iconColor: AppColor.yellowColor,
+            floatingLabelStyle: TextStyle(color: AppColor.yellowColor),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColor.yellowColor, width: 2),
             ),
-            minimumSize: const Size.fromHeight(45), // NEW
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white60),
+            ),
+            suffixIconColor: AppColor.yellowColor,
           ),
-        )
-      ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.yellowColor,
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // <-- Radius
+                  side: BorderSide(width: 1.0, color: Colors.grey[800]!)),
+              minimumSize: const Size.fromHeight(45), // NEW
+            ),
+          )),
       home: const LoginScreen(),
       initialBinding: AuthenticationBinding(),
       getPages: AppPages.pages,

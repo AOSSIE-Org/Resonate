@@ -10,7 +10,7 @@ class ProfileController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
+  
   RxBool isLoading = false.obs;
   ResonateUser? resonateUser;
 
