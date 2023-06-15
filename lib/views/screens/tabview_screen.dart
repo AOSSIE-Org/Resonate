@@ -21,10 +21,11 @@ class TabViewScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.black, fontSize: 26),
+              style: TextStyle(color: Colors.amber, fontSize: 26),
             ),
             centerTitle: false,
-            backgroundColor: Colors.amber,
+            elevation: 10,
+            backgroundColor: Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
                   onPressed: () {
@@ -32,7 +33,7 @@ class TabViewScreen extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.exit_to_app_rounded,
-                    color: Colors.black87,
+                    color: Colors.amber,
                   ))
             ],
           ),
@@ -51,10 +52,12 @@ class TabViewScreen extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
-            backgroundColor: Colors.amber,
-            activeColor: Colors.black,
-            inactiveColor: Colors.black54,
+            backgroundColor: Colors.transparent,
+            activeColor: Colors.amber,
+            inactiveColor: Colors.amber.withOpacity(0.5),
             splashColor: Colors.black,
+            shadow: Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
+            iconSize: 30,
             icons: [
               Icons.home_outlined,
               Icons.person_outline,
