@@ -8,6 +8,7 @@ import 'package:resonate/views/screens/profile_screen.dart';
 
 import '../../controllers/profile_controller.dart';
 import '../../utils/colors.dart';
+import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
   TabViewController controller = Get.find<TabViewController>();
@@ -36,9 +37,11 @@ class TabViewScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.setIndex(2);
+            },
             backgroundColor: AppColor.yellowColor,
-            child: Icon(Icons.add),
+            child: (controller.getIndex()==2) ? Text("Start") : Icon(Icons.add),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -49,9 +52,7 @@ class TabViewScreen extends StatelessWidget {
             splashColor: Colors.black,
             icons: [
               Icons.home_outlined,
-              Icons.search,
               Icons.person_outline,
-              Icons.settings
             ],
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
@@ -59,7 +60,11 @@ class TabViewScreen extends StatelessWidget {
             onTap: (index) => controller.setIndex(index),
           ),
           //TODO Connect all main screens to the tab view
-          body: (controller.getIndex() == 0) ? HomeScreen() : ProfileScreen(),
+          body: (controller.getIndex() == 0)
+              ? HomeScreen()
+              : (controller.getIndex() == 1)
+                  ? ProfileScreen()
+                  : CreateRoomScreen(),
         ));
   }
 }
