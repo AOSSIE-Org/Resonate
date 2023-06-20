@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../utils/enums/room_state.dart';
 import '../widgets/room_tile.dart';
@@ -11,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     return SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: Get.height*0.015,),
             RoomTile(
               roomName:
                   'For the love of open source ♥️ #flutter #resonate #aossie',

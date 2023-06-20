@@ -24,7 +24,7 @@ class CreateRoomScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
             children: [
-              SizedBox(height: Get.height*0.02,),
+              SizedBox(height: Get.height*0.03,),
               Text("Create New Room", style: TextStyle(fontSize: Get.textScaleFactor*35),),
               SizedBox(height: Get.height*0.03,),
               TextField(

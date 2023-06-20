@@ -14,8 +14,8 @@ class ProfileScreen extends StatelessWidget {
       builder: (controller) => Scaffold(
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: Get.height*0.06,),
               Container(
                 width: 150,
                 height: 150,
