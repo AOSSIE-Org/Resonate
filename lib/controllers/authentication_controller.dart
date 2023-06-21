@@ -23,7 +23,6 @@ class AuthenticationController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await isUserLoggedIn();
   }
 
   Future<bool> isUserProfileComplete() async{

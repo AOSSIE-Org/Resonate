@@ -51,6 +51,8 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   animated_bottom_navigation_bar: ^1.2.0
   textfield_tags: ^2.0.2
+  animated_splash_screen: ^1.3.0
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:

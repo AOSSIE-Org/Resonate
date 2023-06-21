@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
@@ -61,18 +62,21 @@ class OnboardingController extends GetxController {
       return;
     }
     var usernameAvail = await isUsernameAvailable(usernameController.text);
-    if (!usernameAvail){
+    if (!usernameAvail) {
       usernameAvailable.value = false;
-      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.", snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Username Unavailable!",
+          "This username is invalid or either taken already.",
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
     try {
       isLoading.value = true;
 
       // Update usernames collection
-      await _firestore.collection("usernames").doc(usernameController.text).set({
-        "uid": _auth.currentUser!.uid
-      });
+      await _firestore
+          .collection("usernames")
+          .doc(usernameController.text)
+          .set({"uid": _auth.currentUser!.uid});
 
       // Upload profile image to firebase storage
       if (profileImage != null) {
@@ -101,8 +105,9 @@ class OnboardingController extends GetxController {
         "dateOfBirth": dobController.text,
       }, SetOptions(merge: true));
 
-      //TODO: Navigate to dashboard/home screen
+      //Navigate to dashboard/home screen
       Get.snackbar("Saved Successfully", "");
+      Get.offNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());

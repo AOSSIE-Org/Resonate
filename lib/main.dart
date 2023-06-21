@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/bindings/authentication_binding.dart';
-import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/screens/login_screen.dart';
-import 'package:resonate/views/screens/onboarding_screen.dart';
-
+import 'package:resonate/views/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -62,7 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         )
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
       initialBinding: AuthenticationBinding(),
       getPages: AppPages.pages,
     );

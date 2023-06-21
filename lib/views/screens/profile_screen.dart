@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                "@ ${controller.resonateUser!.userName!}",
+                "@ ${controller.resonateUser!.userName}",
                 style: TextStyle(fontSize: 35, color: Colors.amber),
               ),
               Text(
