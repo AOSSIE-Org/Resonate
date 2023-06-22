@@ -19,13 +19,9 @@ class AuthenticationController extends GetxController {
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
+  
 
-  @override
-  void onInit() async {
-    super.onInit();
-  }
-
-  Future<bool> isUserProfileComplete() async{
+  Future<bool> isUserProfileComplete() async {
     final documentSnapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(_auth.currentUser!.uid)
@@ -37,14 +33,13 @@ class AuthenticationController extends GetxController {
     User? firebaseUser = await _auth.currentUser;
     if (firebaseUser != null) {
       bool isProfileComplete = await isUserProfileComplete();
-      if (isProfileComplete){
+      if (isProfileComplete) {
         Get.offNamed(AppRoutes.tabview);
-      }
-      else{
+      } else {
         Get.offNamed(AppRoutes.onBoarding);
       }
     } else {
-      return;
+      Get.offNamed(AppRoutes.login);
     }
   }
 

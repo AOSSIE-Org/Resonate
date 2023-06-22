@@ -1,11 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:page_transition/page_transition.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/views/screens/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
