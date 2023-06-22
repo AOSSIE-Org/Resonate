@@ -2,10 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:resonate/bindings/authentication_binding.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -52,15 +50,14 @@ class MyApp extends StatelessWidget {
             backgroundColor: AppColor.yellowColor,
             elevation: 2,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12), // <-- Radius
+              borderRadius: BorderRadius.circular(12),
               side: BorderSide(width: 1.0, color: Colors.grey[800]!)
             ),
-            minimumSize: const Size.fromHeight(45), // NEW
+            minimumSize: const Size.fromHeight(45), 
           ),
         )
       ),
-      home: const SplashScreen(),
-      initialBinding: AuthenticationBinding(),
+      initialRoute: '/splash',
       getPages: AppPages.pages,
     );
   }

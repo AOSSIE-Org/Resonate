@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
+
   var isPasswordFieldVisible = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
@@ -19,7 +20,6 @@ class AuthenticationController extends GetxController {
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
-  
 
   Future<bool> isUserProfileComplete() async {
     final documentSnapshot = await FirebaseFirestore.instance
@@ -30,7 +30,7 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> isUserLoggedIn() async {
-    User? firebaseUser = await _auth.currentUser;
+    User? firebaseUser = _auth.currentUser;
     if (firebaseUser != null) {
       bool isProfileComplete = await isUserProfileComplete();
       if (isProfileComplete) {
@@ -39,6 +39,7 @@ class AuthenticationController extends GetxController {
         Get.offNamed(AppRoutes.onBoarding);
       }
     } else {
+      print("moving to login");
       Get.offNamed(AppRoutes.login);
     }
   }

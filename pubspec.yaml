@@ -53,6 +53,7 @@ dependencies:
   textfield_tags: ^2.0.2
   animated_splash_screen: ^1.3.0
   flutter_native_splash: ^2.2.19
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:
