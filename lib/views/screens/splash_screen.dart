@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/colors.dart';
-
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -41,43 +39,65 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 300),
-          child: SizedBox(
-            height: 200,
-            child: AnimatedSplashScreen.withScreenFunction(
-                splashIconSize: 200,
-                splash: Image.asset("assets/images/resonate_logo.png"),
-                duration: 3000,
-                screenFunction: () async {
-                  return const SizedBox();
-                },
-                splashTransition: SplashTransition.fadeTransition,
-                pageTransitionType: PageTransitionType.fade,
-                backgroundColor: AppColor.bgBlackColor),
-          ),
+      body: SafeArea(
+        child: Center(
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SizedBox(
+              height: 200,
+              width: 140,
+              child: AnimatedSplashScreen.withScreenFunction(
+                  splashIconSize: 200,
+                  splash: Image.asset("assets/images/resonate_logo.png"),
+                  duration: 3000,
+                  screenFunction: () async {
+                    return const SizedBox();
+                  },
+                  splashTransition: SplashTransition.fadeTransition,
+                  pageTransitionType: PageTransitionType.fade,
+                  backgroundColor: AppColor.bgBlackColor),
+            ),
+            SizedBox(
+              height: 140,
+              width: 20,
+              child: AnimatedSplashScreen.withScreenFunction(
+                  splashIconSize: 200,
+                  splash: const VerticalDivider(
+                    width: 20,
+                    thickness: 1,
+                    color: Colors.grey,
+                  ),
+                  duration: 3000,
+                  screenFunction: () async {
+                    return const SizedBox();
+                  },
+                  splashTransition: SplashTransition.scaleTransition,
+                  pageTransitionType: PageTransitionType.fade,
+                  backgroundColor: AppColor.bgBlackColor),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            SizedBox(
+              height: 200,
+              width: 140,
+              child: Obx(
+                () => splashcontroller.allowedDisplay.value
+                    ? AnimatedSplashScreen.withScreenFunction(
+                        splash: Image.asset("assets/images/aossie_logo.png"),
+                        duration: 2000,
+                        screenFunction: () async {
+                          return const SizedBox();
+                        },
+                        splashIconSize: 200,
+                        splashTransition: SplashTransition.fadeTransition,
+                        pageTransitionType: PageTransitionType.fade,
+                        backgroundColor: AppColor.bgBlackColor)
+                    : const SizedBox(),
+              ),
+            )
+          ]),
         ),
-        Padding(
-            padding: const EdgeInsets.only(top: 150),
-            child: Obx(
-              () => splashcontroller.allowedDisplay.value
-                  ? SizedBox(
-                      height: 90,
-                      child: AnimatedSplashScreen.withScreenFunction(
-                          splash: Image.asset("assets/images/aossie_logo.png"),
-                          duration: 2000,
-                          screenFunction: () async {
-                            return const SizedBox();
-                          },
-                          splashIconSize: 90,
-                          splashTransition: SplashTransition.fadeTransition,
-                          pageTransitionType: PageTransitionType.fade,
-                          backgroundColor: AppColor.bgBlackColor),
-                    )
-                  : const SizedBox(),
-            ))
-      ]),
+      ),
     );
   }
 }
