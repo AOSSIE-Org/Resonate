@@ -43,10 +43,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
-              height: 200,
-              width: 140,
+              height: 0.2434*Get.height,
+              width: 0.34*Get.width,
               child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: 200,
+                  splashIconSize:  0.2434*Get.height,
                   splash: Image.asset("assets/images/resonate_logo.png"),
                   duration: 3000,
                   screenFunction: () async {
@@ -57,12 +57,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   backgroundColor: AppColor.bgBlackColor),
             ),
             SizedBox(
-              height: 140,
-              width: 20,
+              height:  0.34*Get.width,
+              width: 0.0486*Get.width,
               child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: 200,
-                  splash: const VerticalDivider(
-                    width: 20,
+                  splashIconSize: 0.2434*Get.height,
+                  splash: VerticalDivider(
+                    width: 0.0486*Get.width,
                     thickness: 1,
                     color: Colors.grey,
                   ),
@@ -74,12 +74,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   pageTransitionType: PageTransitionType.fade,
                   backgroundColor: AppColor.bgBlackColor),
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: 0.0243*Get.width,
             ),
             SizedBox(
-              height: 200,
-              width: 140,
+              height: 0.2434*Get.height,
+              width: 0.34*Get.width,
               child: Obx(
                 () => splashcontroller.allowedDisplay.value
                     ? AnimatedSplashScreen.withScreenFunction(
@@ -88,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         screenFunction: () async {
                           return const SizedBox();
                         },
-                        splashIconSize: 200,
+                        splashIconSize: 0.2434*Get.height,
                         splashTransition: SplashTransition.fadeTransition,
                         pageTransitionType: PageTransitionType.fade,
                         backgroundColor: AppColor.bgBlackColor)
