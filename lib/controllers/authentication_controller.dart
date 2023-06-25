@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,28 +16,12 @@ class AuthenticationController extends GetxController {
   TextEditingController confirmPasswordController = TextEditingController(text: "");
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  Client client = Client();
-  late final Account account;
 
   AuthStateContoller authStateController = Get.find<AuthStateContoller>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() async {
-    super.onInit();
-    client
-        .setEndpoint('http://192.168.1.102/v1')
-        .setProject('648c22fd861787e6f32c')
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
-    account = Account(client);
-  }
-
-  Future<bool> isUserProfileComplete() async {
-    final documentSnapshot = await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).get();
-    return documentSnapshot.exists;
-  }
 
   Future<void> login() async {
     if (!loginFormKey.currentState!.validate()) {

@@ -88,7 +88,8 @@ class OnboardingController extends GetxController {
       await authStateController.account.updatePrefs(prefs: {
         "username": usernameController.text,
         "profileImageUrl": imageController.text,
-        "dob": dobController.text
+        "dob": dobController.text,
+        "isUserProfileComplete": true
       });
       await authStateController.setUserProfileData();
 

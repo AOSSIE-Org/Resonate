@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
+import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
 
@@ -19,8 +20,8 @@ class AuthStateContoller extends GetxController{
   void onInit() async {
     super.onInit();
     client
-        .setEndpoint('http://localhost/v1')
-        .setProject('648c22fd861787e6f32c')
+        .setEndpoint(APPWRITE_ENDPOINT)
+        .setProject(APPWRITE_PROJECT_ID)
         .setSelfSigned(status: true); // For self signed certificates, only use for development
     account = Account(client);
     await isUserLoggedIn();
@@ -39,7 +40,12 @@ class AuthStateContoller extends GetxController{
   Future<void> isUserLoggedIn() async {
     try{
       await setUserProfileData();
-      Get.offNamed(AppRoutes.tabview);
+      if (profileImageUrl==null){
+        Get.toNamed(AppRoutes.onBoarding);
+      }
+      else{
+        Get.offNamed(AppRoutes.tabview);
+      }
     }catch(e){
       log(e.toString());
       Get.toNamed(AppRoutes.login);
