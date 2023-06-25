@@ -48,7 +48,6 @@ class AuthStateContoller extends GetxController{
       }
     }catch(e){
       log(e.toString());
-      Get.toNamed(AppRoutes.login);
     }
   }
 
