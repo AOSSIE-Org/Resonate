@@ -33,27 +33,12 @@ class AuthenticationController extends GetxController {
         .setProject('648c22fd861787e6f32c')
         .setSelfSigned(status: true); // For self signed certificates, only use for development
     account = Account(client);
-    // await isUserLoggedIn();
   }
 
   Future<bool> isUserProfileComplete() async {
     final documentSnapshot = await FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).get();
     return documentSnapshot.exists;
   }
-
-  // Future<void> isUserLoggedIn() async {
-  //   User? firebaseUser = await _auth.currentUser;
-  //   if (firebaseUser != null) {
-  //     bool isProfileComplete = await isUserProfileComplete();
-  //     if (isProfileComplete) {
-  //       Get.offNamed(AppRoutes.tabview);
-  //     } else {
-  //       Get.offNamed(AppRoutes.onBoarding);
-  //     }
-  //   } else {
-  //     return;
-  //   }
-  // }
 
   Future<void> login() async {
     if (!loginFormKey.currentState!.validate()) {
@@ -86,10 +71,7 @@ class AuthenticationController extends GetxController {
     }
     try {
       isLoading.value = true;
-      // await _auth.createUserWithEmailAndPassword(
-      //     email: emailController.text, password: passwordController.text);
-      await account.create(userId: ID.unique(), email: emailController.text, password: passwordController.text);
-      await account.createEmailSession(email: emailController.text, password: passwordController.text);
+      await authStateController.signup(emailController.text, passwordController.text);
       Get.offNamed(AppRoutes.onBoarding);
     } catch (e) {
       log(e.toString());
