@@ -32,7 +32,7 @@ class AuthStateContoller extends GetxController{
     email = appwriteUser.email;
     profileImageUrl = appwriteUser.prefs.data["profileImageUrl"];
     uid = appwriteUser.$id;
-    userName = appwriteUser.email;
+    userName = appwriteUser.prefs.data["username"] ?? "unavailable";
     update();
   }
 

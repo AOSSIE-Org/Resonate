@@ -7,15 +7,12 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
-import '../../controllers/profile_controller.dart';
 import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
   TabViewController controller = Get.put<TabViewController>(TabViewController());
-  ProfileController profileController =
-      Get.put<ProfileController>(ProfileController());
-  AuthStateContoller auth = Get.put<AuthStateContoller>(AuthStateContoller());
+  AuthStateContoller authStateContoller = Get.put<AuthStateContoller>(AuthStateContoller());
 
 
   @override
@@ -32,7 +29,7 @@ class TabViewScreen extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () async{
-                    await auth.logout();
+                    await authStateContoller.logout();
                   },
                   icon: Icon(
                     Icons.exit_to_app_rounded,
