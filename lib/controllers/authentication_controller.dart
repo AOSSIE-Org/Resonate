@@ -14,8 +14,6 @@ class AuthenticationController extends GetxController {
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmPasswordController = TextEditingController(text: "");
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   AuthStateContoller authStateController = Get.find<AuthStateContoller>();
 
@@ -65,18 +63,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> loginWithGoogle() async {
     try {
-      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      UserCredential userCredential = await _auth.signInWithCredential(credential);
-      if (userCredential.additionalUserInfo!.isNewUser) {
-        Get.offNamed(AppRoutes.onBoarding);
-      } else {
-        Get.offNamed(AppRoutes.tabview);
-      }
+      await authStateController.loginWithGoogle();
     } catch (error) {
       log(error.toString());
     }

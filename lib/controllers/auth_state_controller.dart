@@ -63,6 +63,11 @@ class AuthStateContoller extends GetxController{
     await setUserProfileData();
   }
 
+  Future<void> loginWithGoogle() async{
+    await account.createOAuth2Session(provider: 'google');
+    await isUserLoggedIn();
+  }
+
   Future<void> logout() async{
     await account.deleteSession(sessionId: 'current');
     Get.offNamed(AppRoutes.login);
