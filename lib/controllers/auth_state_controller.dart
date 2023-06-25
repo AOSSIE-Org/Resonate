@@ -54,7 +54,7 @@ class AuthStateContoller extends GetxController{
 
   Future<void> login(String email, String password) async {
     await account.createEmailSession(email: email, password: password);
-    await setUserProfileData();
+    await isUserLoggedIn();
   }
 
   Future<void> signup(String email, String password) async {

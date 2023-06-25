@@ -1,12 +1,10 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
@@ -28,7 +26,6 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.login(emailController.text, passwordController.text);
-      Get.offNamed(AppRoutes.tabview);
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
