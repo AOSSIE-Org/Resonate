@@ -1,8 +1,6 @@
 // This file contains constants that are used throughout the app.
 
-const String auth0Domain = "dev-5w4x3qxvszw8f0u6.us.auth0.com";
-const String auth0ClientId = "4uYaXmTa00TbAZ8WLTQkxAusQAZ8HS0O";
-
+//TODO: Update Appwrite Project Variables
 const String APPWRITE_PROJECT_ID = "648c22fd861787e6f32c";
 const String APPWRITE_ENDPOINT = "http://localhost/v1";
 

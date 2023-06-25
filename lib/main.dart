@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Resonate',
       theme: ThemeData(
           scaffoldBackgroundColor: AppColor.bgBlackColor,
           colorScheme: ColorScheme.fromSwatch(
@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
               minimumSize: const Size.fromHeight(45), // NEW
             ),
           )),
+      //TODO: Add a splash screen
       home: const LoginScreen(),
       initialBinding: AuthenticationBinding(),
       getPages: AppPages.pages,
