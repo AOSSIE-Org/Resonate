@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
@@ -11,9 +12,11 @@ import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  TabViewController controller = Get.find<TabViewController>();
+  TabViewController controller = Get.put<TabViewController>(TabViewController());
   ProfileController profileController =
       Get.put<ProfileController>(ProfileController());
+  AuthStateContoller auth = Get.put<AuthStateContoller>(AuthStateContoller());
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,8 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
-                  onPressed: () {
-                    profileController.logout();
+                  onPressed: () async{
+                    await auth.logout();
                   },
                   icon: Icon(
                     Icons.exit_to_app_rounded,
