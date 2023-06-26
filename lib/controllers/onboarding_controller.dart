@@ -1,9 +1,6 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,15 +8,16 @@ import 'package:intl/intl.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
+import 'auth_state_controller.dart';
+
 class OnboardingController extends GetxController {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final Reference _storageRef = FirebaseStorage.instance.ref();
   final ImagePicker _imagePicker = ImagePicker();
+  AuthStateContoller authStateController = Get.find<AuthStateContoller>();
+  late final Storage storage;
+  late final Databases databases;
 
   RxBool isLoading = false.obs;
-  File? profileImage;
-  final User? user = FirebaseAuth.instance.currentUser;
+  String? profileImagePath;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -36,6 +34,8 @@ class OnboardingController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    storage = Storage(authStateController.client);
+    databases = Databases(authStateController.client);
   }
 
   Future<void> chooseDate() async {
@@ -69,39 +69,30 @@ class OnboardingController extends GetxController {
     try {
       isLoading.value = true;
 
-      // Update usernames collection
-      await _firestore.collection("usernames").doc(usernameController.text).set({
-        "uid": _auth.currentUser!.uid
-      });
+      // Update username collection
+      databases.createDocument(
+        databaseId: 'user-data',
+        collectionId: 'usernames',
+        documentId: usernameController.text,
+        data: {
+          "uid": authStateController.uid
+        },
+      );
 
-      // Upload profile image to firebase storage
-      if (profileImage != null) {
-        final metadata = SettableMetadata(
-          contentType: 'image/jpeg',
-          customMetadata: {'picked-file-path': profileImage!.path},
-        );
-        Reference ref = _storageRef
-            .child("users")
-            .child(user!.uid)
-            .child("profileImage.jpeg");
-        UploadTask uploadTask = ref.putFile(profileImage!, metadata);
-        await uploadTask.whenComplete(() async {
-          imageController.text = await ref.getDownloadURL();
-          await _auth.currentUser!.updatePhotoURL(imageController.text);
-          log("Image uploaded successfully");
-        });
+      //Update User Meta Data
+      if (profileImagePath!=null){
+        final profileImage = await storage.createFile(bucketId: userProfileImageBucketId, fileId: ID.unique(), file: InputFile.fromPath(path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
+        imageController.text = "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
       }
-
-      // Update user data on firestore
-      await _auth.currentUser!.updateDisplayName(nameController.text);
-      await _firestore.collection("users").doc(user!.uid).set({
-        "userName": usernameController.text,
+      await authStateController.account.updateName(name: nameController.text);
+      await authStateController.account.updatePrefs(prefs: {
+        "username": usernameController.text,
         "profileImageUrl": imageController.text,
-        "gender": genderController.text,
-        "dateOfBirth": dobController.text,
-      }, SetOptions(merge: true));
+        "dob": dobController.text,
+        "isUserProfileComplete": true
+      });
+      await authStateController.setUserProfileData();
 
-      //TODO: Navigate to dashboard/home screen
       Get.snackbar("Saved Successfully", "");
     } catch (e) {
       log(e.toString());
@@ -116,7 +107,7 @@ class OnboardingController extends GetxController {
       XFile? file = await _imagePicker.pickImage(
           source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
       if (file == null) return;
-      profileImage = File(file.path);
+      profileImagePath = file.path;
       update();
     } catch (e) {
       log(e.toString());
@@ -124,10 +115,16 @@ class OnboardingController extends GetxController {
   }
 
   Future<bool> isUsernameAvailable(String username) async {
-    final documentSnapshot = await FirebaseFirestore.instance
-        .collection('usernames')
-        .doc(username)
-        .get();
-    return !documentSnapshot.exists;
+    try{
+      final document = await databases.getDocument(
+        databaseId: 'user-data',
+        collectionId: 'usernames',
+        documentId: username,
+      );
+      return false;
+    }catch(e){
+      log(e.toString());
+      return true;
+    }
   }
 }

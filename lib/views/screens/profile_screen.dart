@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/profile_controller.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 
 import '../widgets/custom_card.dart';
 
@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProfileController>(
+    return GetBuilder<AuthStateContoller>(
       builder: (controller) => Scaffold(
         body: Center(
           child: Column(
@@ -25,21 +25,21 @@ class ProfileScreen extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                        controller.auth.currentUser?.photoURL.toString() ?? ''),
+                        controller.profileImageUrl ?? ''),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
               Text(
-                "@ ${controller.resonateUser!.userName!}",
+                "@ ${controller.userName}",
                 style: TextStyle(fontSize: 35, color: Colors.amber),
               ),
               Text(
-                controller.auth.currentUser!.displayName.toString(),
+                controller.displayName.toString(),
                 style: TextStyle(fontSize: 25),
               ),
               Text(
-                controller.auth.currentUser!.email.toString(),
+                controller.email.toString(),
                 style: TextStyle(fontSize: 18, color: Colors.white70),
               ),
               const SizedBox(height: 24),
