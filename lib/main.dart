@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/routes/app_pages.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'firebase_options.dart';
 
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
           ),
         )
       ),
-      initialRoute: '/splash',
+      initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
     );
   }

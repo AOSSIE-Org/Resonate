@@ -6,6 +6,6 @@ class AuthSplashBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => AuthenticationController());
-    Get.put(SplashController());
+    Get.lazyPut(() => SplashController());
   }
 }
