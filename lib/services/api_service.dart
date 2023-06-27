@@ -37,4 +37,19 @@ class ApiService {
       throw Exception('ERROR: ${response.statusCode}}');
     }
   }
+
+  Future<dynamic> deleteRoom(String appwriteRoomDocId, String token) async{
+    final url = Uri.parse('$baseUrl/room/delete-room');
+    final headers = {'Content-Type': 'application/json'};
+    final data = {"appwriteRoomDocId": appwriteRoomDocId, "token": token};
+    final body = jsonEncode(data);
+
+    final response = await http.delete(url, headers: headers, body: body);
+
+    if (response.statusCode == 200){
+      log(response.body);
+    }else{
+      throw Exception('ERROR: ${response.statusCode}');
+    }
+  }
 }
