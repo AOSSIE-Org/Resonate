@@ -19,7 +19,7 @@ class ApiService {
     if (response.statusCode == 200) {
       log(response.body);
     } else {
-      throw Exception('ERROR: ${response.statusCode}}');
+      throw Exception('ERROR: ${response.statusCode}: ${response.reasonPhrase}');
     }
   }
 
@@ -34,7 +34,7 @@ class ApiService {
     if (response.statusCode == 200) {
       log(response.body);
     } else {
-      throw Exception('ERROR: ${response.statusCode}}');
+      throw Exception('ERROR: ${response.statusCode}: ${response.reasonPhrase}');
     }
   }
 
@@ -49,7 +49,7 @@ class ApiService {
     if (response.statusCode == 200){
       log(response.body);
     }else{
-      throw Exception('ERROR: ${response.statusCode}');
+      throw Exception('ERROR: ${response.statusCode}: ${response.reasonPhrase}');
     }
   }
 }
