@@ -32,9 +32,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
-                      validator: (value) => value!.isValidEmail()
-                          ? null
-                          : "Enter Valid Email Address",
+                      validator: (value) => value!.isValidEmail() ? null : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -57,8 +55,7 @@ class LoginScreen extends StatelessWidget {
                           labelText: "Password",
                           suffixIcon: IconButton(
                             onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
+                              controller.isPasswordFieldVisible.value = !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: 20,
                             icon: Icon(
@@ -88,14 +85,13 @@ class LoginScreen extends StatelessWidget {
                     Obx(
                       () => ElevatedButton(
                         onPressed: () async {
-                          if (!controller.isLoading.value){
+                          if (!controller.isLoading.value) {
                             await controller.login();
                           }
                         },
                         child: controller.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
+                                child: LoadingAnimationWidget.horizontalRotatingDots(
                                   color: Colors.black,
                                   size: 40,
                                 ),
@@ -164,7 +160,11 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         const Text("New to Resonate?  "),
                         GestureDetector(
-                          onTap: () => Get.offNamed(AppRoutes.signup),
+                          onTap: () {
+                            controller.emailController.clear();
+                            controller.passwordController.clear();
+                            Get.offNamed(AppRoutes.signup);
+                          },
                           child: const Text(
                             "Register",
                             style: TextStyle(color: AppColor.yellowColor),

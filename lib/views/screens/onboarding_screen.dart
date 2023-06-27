@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -36,9 +38,9 @@ class OnBoardingScreen extends StatelessWidget {
                         radius: 50,
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
-                          backgroundImage: (controller.profileImage == null)
+                          backgroundImage: (controller.profileImagePath == null)
                               ? NetworkImage(controller.imageController.text)
-                              : FileImage(controller.profileImage!)
+                              : FileImage(File(controller.profileImagePath!))
                                   as ImageProvider,
                           radius: 50,
                           child: Stack(
