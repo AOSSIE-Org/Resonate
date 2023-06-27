@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 24),
               Text(
                 "@ ${controller.userName}",
-                style: TextStyle(fontSize: 35, color: Colors.amber),
+                style: const TextStyle(fontSize: 35, color: Colors.amber),
               ),
               Text(
                 controller.displayName.toString(),
