@@ -22,4 +22,19 @@ class ApiService {
       throw Exception('ERROR: ${response.statusCode}}');
     }
   }
+
+  Future<dynamic> joinRoom(String roomName, String userName) async{
+    final url = Uri.parse('$baseUrl/room/join-room');
+    final headers = {'Content-Type': 'application/json'};
+    final data = {"room_nane": roomName, "username": userName};
+    final body = jsonEncode(data);
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      log(response.body);
+    } else {
+      throw Exception('ERROR: ${response.statusCode}}');
+    }
+  }
 }
