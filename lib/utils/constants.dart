@@ -8,4 +8,4 @@ const String userProfileImagePlaceholderUrl = "http://localhost/v1/storage/bucke
 const String userProfileImageBucketId = "6497ef0179e499860f44";
 
 // Resonate Backend Constants
-const String resonateApiUrl = "http://localhost:3000";
+const String resonateApiUrl = "http://127.0.0.1:3000";

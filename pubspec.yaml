@@ -63,6 +63,7 @@ dev_dependencies:
   freezed_annotation: ^2.2.0
   build_runner: ^2.3.3
   json_serializable: ^6.6.2
+  http: 1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
