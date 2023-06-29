@@ -26,7 +26,6 @@ class AuthStateContoller extends GetxController {
             status:
                 true); // For self signed certificates, only use for development
     account = Account(client);
-    await isUserLoggedIn();
   }
 
   Future<void> setUserProfileData() async {
