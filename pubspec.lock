@@ -145,6 +145,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  chopper:
+    dependency: "direct main"
+    description:
+      name: chopper
+      sha256: "23aac2db54f6a7854ed8984fba4b33222e53123c71a0ccf01d2b1087a1b5aab7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.4"
+  chopper_generator:
+    dependency: "direct dev"
+    description:
+      name: chopper_generator
+      sha256: ba6656f6f213910307b5bf5e4bbc49293d2f81c336266fb392cd6a57cb727d8c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   clock:
     dependency: transitive
     description:
@@ -241,6 +257,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -393,7 +417,7 @@ packages:
     source: hosted
     version: "0.15.4"
   http:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: http
       sha256: "4c3f04bfb64d3efd508d06b41b825542f08122d30bda4933fb95c069d22a4fa3"
