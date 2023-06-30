@@ -24,12 +24,12 @@ class ApiService {
       if (response.isSuccessful) {
         log(response.body.toString());
       } else {
-        throw Exception('ERROR: ${response.statusCode}: ${response.error}');
+        throw Exception('${response.statusCode}: ${response.error}');
       }
 
       return response;
     } catch (error) {
-      throw Exception('ERROR: $error');
+      throw Exception('ERROR $error');
     }
   }
 
@@ -45,12 +45,12 @@ class ApiService {
       if (response.isSuccessful) {
         log(response.body.toString());
       } else {
-        throw Exception('ERROR: ${response.statusCode}: ${response.error}');
+        throw Exception('${response.statusCode}: ${response.error}');
       }
 
       return response;
     } catch (error) {
-      throw Exception('ERROR: $error');
+      throw Exception('ERROR $error');
     }
   }
 
@@ -66,12 +66,12 @@ class ApiService {
       if (response.isSuccessful) {
         log(response.body.toString());
       } else {
-        throw Exception('ERROR: ${response.statusCode}: ${response.error}');
+        throw Exception('${response.statusCode}: ${response.error}');
       }
 
       return response;
     } catch (error) {
-      throw Exception('ERROR: $error');
+      throw Exception('ERROR $error');
     }
   }
 }
