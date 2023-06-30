@@ -4,6 +4,34 @@ import '../../utils/constants.dart';
 
 part 'room_api.chopper.dart';
 
+class RoomApiClient {
+  static final String baseUrl = resonateApiUrl;
+  static ChopperClient? _client;
+
+  static ChopperClient get client {
+    if (_client == null) {
+      final authHeaders = {
+        'Authorization': 'Bearer YOUR_AUTH_TOKEN', //TODO: Update Auth token dynamically
+        'Content-Type': 'application/json',
+      };
+
+      final interceptors = [
+        HeadersInterceptor(authHeaders),
+        // Add other interceptors if needed
+      ];
+
+      _client = ChopperClient(
+        baseUrl: Uri.parse(baseUrl),
+        services: [_$RoomApi()],
+        converter: JsonConverter(),
+        interceptors: interceptors,
+      );
+    }
+
+    return _client!;
+  }
+}
+
 @ChopperApi(baseUrl: '/room')
 abstract class RoomApi extends ChopperService {
   @Post(path: 'create-room')
@@ -22,11 +50,7 @@ abstract class RoomApi extends ChopperService {
       );
 
   static RoomApi create() {
-    final client = ChopperClient(
-      baseUrl: Uri.parse(resonateApiUrl),
-      services: [_$RoomApi()],
-      converter: const JsonConverter(),
-    );
+    final client = RoomApiClient.client;
     return _$RoomApi(client);
   }
 }
