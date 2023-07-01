@@ -32,7 +32,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
-                      validator: (value) => value!.isValidEmail() ? null : "Enter Valid Email Address",
+                      validator: (value) => value!.isValidEmail()
+                          ? null
+                          : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -55,7 +57,8 @@ class LoginScreen extends StatelessWidget {
                           labelText: "Password",
                           suffixIcon: IconButton(
                             onPressed: () {
-                              controller.isPasswordFieldVisible.value = !controller.isPasswordFieldVisible.value;
+                              controller.isPasswordFieldVisible.value =
+                                  !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: 20,
                             icon: Icon(
@@ -91,7 +94,8 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: controller.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget.horizontalRotatingDots(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
                                   color: Colors.black,
                                   size: 40,
                                 ),

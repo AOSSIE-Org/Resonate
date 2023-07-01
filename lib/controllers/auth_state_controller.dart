@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
@@ -26,6 +24,8 @@ class AuthStateContoller extends GetxController {
             status:
                 true); // For self signed certificates, only use for development
     account = Account(client);
+    await setUserProfileData();
+    
   }
 
   Future<void> setUserProfileData() async {
@@ -41,20 +41,21 @@ class AuthStateContoller extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      if (displayName == null) {
-        Get.toNamed(AppRoutes.onBoarding);
+      if (profileImageUrl == null) {
+        Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
-      print("Appwrite error");
-      log(e.toString());
+      Get.offNamed(AppRoutes.login);
     }
   }
 
   Future<void> login(String email, String password) async {
     await account.createEmailSession(email: email, password: password);
+    await setUserProfileData();
     await isUserLoggedIn();
+
   }
 
   Future<void> signup(String email, String password) async {

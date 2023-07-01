@@ -21,6 +21,11 @@ class AppPages {
       binding: AuthSplashBinding(),
     ),
     GetPage(
+      name: AppRoutes.signup,
+      page: () => const SignupScreen(),
+      binding: AuthSplashBinding(),
+    ),
+    GetPage(
       name: AppRoutes.login,
       page: () => const LoginScreen(),
       binding: AuthSplashBinding(),
