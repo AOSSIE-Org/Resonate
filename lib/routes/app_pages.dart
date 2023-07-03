@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings//authentication_binding.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
@@ -47,6 +48,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.tabview,
       page: () => TabViewScreen(),
+      binding: TabViewBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.createRoom,
+      page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
     ),
 

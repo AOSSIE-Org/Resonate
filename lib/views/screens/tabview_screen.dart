@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
@@ -12,7 +13,8 @@ import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
   TabViewController controller = Get.put<TabViewController>(TabViewController());
-  AuthStateContoller authStateContoller = Get.put<AuthStateContoller>(AuthStateContoller());
+  AuthStateContoller authStateController = Get.put<AuthStateContoller>(AuthStateContoller());
+  CreateRoomController createRoomController = Get.put<CreateRoomController>(CreateRoomController());
 
 
   @override
@@ -29,7 +31,7 @@ class TabViewScreen extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () async{
-                    await authStateContoller.logout();
+                    await authStateController.logout();
                   },
                   icon: Icon(
                     Icons.exit_to_app_rounded,
@@ -38,10 +40,12 @@ class TabViewScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {
+            onPressed: () async{
               if (controller.getIndex() == 2) {
+                await createRoomController.createRoom();
                 controller.openRoomSheet();
               } else {
+                Get.delete<CreateRoomController>();
                 controller.setIndex(2);
               }
             },
