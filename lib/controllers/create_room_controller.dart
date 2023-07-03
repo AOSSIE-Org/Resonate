@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class CreateRoomController extends GetxController {
@@ -20,6 +21,7 @@ class CreateRoomController extends GetxController {
       isLoading.value = true;
       log("${nameController.text} - ${descriptionController.text} - ${tagsController.getTags} ");
       //TODO: Make a call to createRoom method from RoomService class
+      Get.find<TabViewController>().openRoomSheet();
     } catch (e) {
       log(e.toString());
     } finally {

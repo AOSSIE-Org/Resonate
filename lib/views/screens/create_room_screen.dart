@@ -5,7 +5,7 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class CreateRoomScreen extends StatelessWidget {
-  CreateRoomController createRoomController = Get.put<CreateRoomController>(CreateRoomController(), permanent: true);
+  CreateRoomController createRoomController = Get.put<CreateRoomController>(CreateRoomController());
 
   OutlineInputBorder kEnabledTextFieldBorder =
       OutlineInputBorder(borderSide: BorderSide(color: Colors.amber), borderRadius: BorderRadius.circular(15));

@@ -40,8 +40,7 @@ class TabViewScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             onPressed: () async{
               if (controller.getIndex() == 2) {
-                ///await createRoomController.createRoom();
-                controller.openRoomSheet();
+                await Get.find<CreateRoomController>().createRoom();
               } else {
                 Get.delete<CreateRoomController>();
                 controller.setIndex(2);
