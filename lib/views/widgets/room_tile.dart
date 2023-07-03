@@ -8,7 +8,7 @@ import '../../utils/enums/room_state.dart';
 
 class RoomTile extends StatelessWidget {
   final String roomName;
-  final List<String> tags;
+  final List<dynamic> tags;
   final RoomState roomState;
   final List<String> memberAvatarUrls;
   final int totalActiveMembers;
