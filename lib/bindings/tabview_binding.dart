@@ -10,6 +10,5 @@ class TabViewBinding extends Bindings{
   void dependencies(){
     Get.lazyPut(() => TabViewController());
     Get.lazyPut(() => AuthStateContoller());
-    Get.lazyPut(() => CreateRoomController());
   }
 }

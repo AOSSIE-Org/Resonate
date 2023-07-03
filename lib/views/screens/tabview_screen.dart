@@ -14,8 +14,6 @@ import 'create_room_screen.dart';
 class TabViewScreen extends StatelessWidget {
   TabViewController controller = Get.put<TabViewController>(TabViewController());
   AuthStateContoller authStateController = Get.put<AuthStateContoller>(AuthStateContoller());
-  CreateRoomController createRoomController = Get.put<CreateRoomController>(CreateRoomController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class TabViewScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             onPressed: () async{
               if (controller.getIndex() == 2) {
-                await createRoomController.createRoom();
+                ///await createRoomController.createRoom();
                 controller.openRoomSheet();
               } else {
                 Get.delete<CreateRoomController>();

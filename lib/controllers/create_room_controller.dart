@@ -7,7 +7,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 class CreateRoomController extends GetxController {
   RxBool isLoading = false.obs;
 
-  final GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
