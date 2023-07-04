@@ -4,31 +4,23 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 
 ## Goals
 1.  Design and Develop a Flutter Mobile Application.
-2.  Develop a backend for the app using NodeJS, Firebase and LiveKit.
+2.  Develop a backend for the app using NodeJS, Appwrite and LiveKit.
 
 ## Technologies Used
 
-1.  **LiveKit** - Web Real Time Communication
-2.  **Firebase** - Authentication, Firestore for Room and Participant management, Storage for user/group data
-3.  **NodeJS** - REST API to talk to Livekit & Firebase
-4.  **Flutter** - Mobile application
+1.  **Flutter** - Mobile application
+2.  **Appwrite** - Authentication, Database for Room and Participant management, Storage for user/group data
+3.  **NodeJS** - REST API to talk to Livekit & Appwrite
+4.  **LiveKit** - Web Real Time Communication 
 
 ## High Level Architecture
 
-![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/201a07ff-0e96-41f1-b9a3-cd7c41e6db17)
+![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
 
-## Firebase Firestore Structure 
-
-| Rooms                     | Participants                      |
-| ------------------------------ | ------------------------------ |
-| ![Firebase Firestore Structure](https://github.com/chandansgowda/Resonate/assets/41890434/1082ed69-439a-495d-96d2-3097cb3b8798)       | ![Firebase Firestore Structure](https://github.com/chandansgowda/Resonate/assets/41890434/026a5fed-d0a3-4023-81e4-d6cb8c52621a)         |
-
-This is subject to change in future. You can join the discussion in [this issue](https://github.com/AOSSIE-Org/Resonate/issues/19)
 
 ## App Level Design Pattern
 
-Flutter will be used to develop the application for various platforms. We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management. 
-UI designs will be added soon - [Check this issue](https://github.com/AOSSIE-Org/Resonate/issues/1) 
+Flutter will be used to develop the application for various platforms. We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management.
 
 ## Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
