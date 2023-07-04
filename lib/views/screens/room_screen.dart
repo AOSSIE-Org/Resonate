@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/single_room_controller.dart';
 
 import '../../models/participant.dart';
 import '../../utils/colors.dart';
 import '../widgets/participant_block.dart';
 
 class RoomScreen extends StatelessWidget {
-  const RoomScreen({
-    super.key,
-  });
+
+  SingleRoomController s = Get.put(SingleRoomController());
 
   @override
   Widget build(BuildContext context) {
