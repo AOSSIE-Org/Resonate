@@ -78,19 +78,18 @@ class OnBoardingScreen extends StatelessWidget {
                     Obx(
                       () => TextFormField(
                         validator: (value) {
-                          if (value!.length>5) {
+                          if (value!.length > 5) {
                             return null;
                           } else {
                             return "Username should contain more than 5 characters.";
                           }
                         },
                         controller: controller.usernameController,
-                        onChanged: (value) async{
-                          if (value.length>5){
+                        onChanged: (value) async {
+                          if (value.length > 5) {
                             controller.usernameAvailable.value =
-                            await controller.isUsernameAvailable(value);
-                          }
-                          else{
+                                await controller.isUsernameAvailable(value);
+                          } else {
                             controller.usernameAvailable.value = false;
                           }
                         },
@@ -207,7 +206,7 @@ class OnBoardingScreen extends StatelessWidget {
                                   size: 40,
                                 ),
                               )
-                            : Text(
+                            : const Text(
                                 'Submit',
                                 style: TextStyle(
                                   color: Colors.black,

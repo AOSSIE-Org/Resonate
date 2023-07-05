@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
@@ -7,7 +5,7 @@ import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
 
-class AuthStateContoller extends GetxController{
+class AuthStateContoller extends GetxController {
   Client client = Client();
   late final Account account;
   late String? uid;
@@ -22,12 +20,15 @@ class AuthStateContoller extends GetxController{
     client
         .setEndpoint(APPWRITE_ENDPOINT)
         .setProject(APPWRITE_PROJECT_ID)
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
+        .setSelfSigned(
+            status:
+                true); // For self signed certificates, only use for development
     account = Account(client);
-    await isUserLoggedIn();
+    await setUserProfileData();
+    
   }
 
-  Future<void> setUserProfileData() async{
+  Future<void> setUserProfileData() async {
     User appwriteUser = await account.get();
     displayName = appwriteUser.name;
     email = appwriteUser.email;
@@ -38,22 +39,23 @@ class AuthStateContoller extends GetxController{
   }
 
   Future<void> isUserLoggedIn() async {
-    try{
+    try {
       await setUserProfileData();
-      if (profileImageUrl==null){
-        Get.toNamed(AppRoutes.onBoarding);
-      }
-      else{
+      if (profileImageUrl == null) {
+        Get.offNamed(AppRoutes.onBoarding);
+      } else {
         Get.offNamed(AppRoutes.tabview);
       }
-    }catch(e){
-      log(e.toString());
+    } catch (e) {
+      Get.offNamed(AppRoutes.login);
     }
   }
 
   Future<void> login(String email, String password) async {
     await account.createEmailSession(email: email, password: password);
+    await setUserProfileData();
     await isUserLoggedIn();
+
   }
 
   Future<void> signup(String email, String password) async {
@@ -62,12 +64,12 @@ class AuthStateContoller extends GetxController{
     await setUserProfileData();
   }
 
-  Future<void> loginWithGoogle() async{
+  Future<void> loginWithGoogle() async {
     await account.createOAuth2Session(provider: 'google');
     await isUserLoggedIn();
   }
 
-  Future<void> logout() async{
+  Future<void> logout() async {
     await account.deleteSession(sessionId: 'current');
     Get.offNamed(AppRoutes.login);
   }

@@ -31,8 +31,8 @@ class RoomScreen extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.015,
           ),
-          const Row(
-            children: [
+          Row(
+            children: const [
               Text(
                 "For the love of open source ♥",
                 style: TextStyle(fontSize: 20, color: Colors.amber),
