@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                           return RoomTile(
                             roomName: room["name"],
                             roomState: RoomState.live,
-                            totalActiveMembers: room["total_participants"],
+                            totalActiveMembers: room["totalParticipants"],
                             tags: room["tags"],
                             memberAvatarUrls: [
                               "https://avatars.githubusercontent.com/u/58695010?s=96&v=4",

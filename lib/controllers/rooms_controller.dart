@@ -22,7 +22,7 @@ class RoomsController extends GetxController {
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
-      var roomsCollectionRef = await databases.listDocuments(databaseId: "master", collectionId: "rooms");
+      var roomsCollectionRef = await databases.listDocuments(databaseId: masterDatabaseId, collectionId: roomsCollectionId);
       for (var room in roomsCollectionRef.documents) {
         rooms.add(room.data);
       }
