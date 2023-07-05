@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
 
@@ -61,28 +62,34 @@ class OnboardingController extends GetxController {
       return;
     }
     var usernameAvail = await isUsernameAvailable(usernameController.text);
-    if (!usernameAvail){
+    if (!usernameAvail) {
       usernameAvailable.value = false;
-      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.", snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Username Unavailable!",
+          "This username is invalid or either taken already.",
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
     try {
       isLoading.value = true;
 
       // Update username collection
-      databases.createDocument(
-        databaseId: 'user-data',
-        collectionId: 'usernames',
+      await databases.createDocument(
+        databaseId: DataBaseID,
+        collectionId: CollectionID,
         documentId: usernameController.text,
-        data: {
-          "uid": authStateController.uid
-        },
+        data: {"name": nameController.text},
       );
-
+      print("The document status");
       //Update User Meta Data
-      if (profileImagePath!=null){
-        final profileImage = await storage.createFile(bucketId: userProfileImageBucketId, fileId: ID.unique(), file: InputFile.fromPath(path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
-        imageController.text = "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
+      if (profileImagePath != null) {
+        final profileImage = await storage.createFile(
+            bucketId: userProfileImageBucketId,
+            fileId: ID.unique(),
+            file: InputFile.fromPath(
+                path: profileImagePath!,
+                filename: "${authStateController.email}.jpeg"));
+        imageController.text =
+            "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
       }
       await authStateController.account.updateName(name: nameController.text);
       await authStateController.account.updatePrefs(prefs: {
@@ -92,8 +99,9 @@ class OnboardingController extends GetxController {
         "isUserProfileComplete": true
       });
       await authStateController.setUserProfileData();
-
+      print("Hello i am here also");
       Get.snackbar("Saved Successfully", "");
+      Get.offNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());
@@ -115,14 +123,14 @@ class OnboardingController extends GetxController {
   }
 
   Future<bool> isUsernameAvailable(String username) async {
-    try{
+    try {
       final document = await databases.getDocument(
-        databaseId: 'user-data',
-        collectionId: 'usernames',
+        databaseId: DataBaseID,
+        collectionId: CollectionID,
         documentId: username,
       );
       return false;
-    }catch(e){
+    } catch (e) {
       log(e.toString());
       return true;
     }

@@ -8,6 +8,7 @@ import 'package:resonate/routes/app_routes.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
+
   var isPasswordFieldVisible = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");

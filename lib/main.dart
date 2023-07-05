@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:resonate/bindings/authentication_binding.dart';
 import 'package:resonate/routes/app_pages.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,8 @@ class MyApp extends StatelessWidget {
             backgroundColor: AppColor.bgBlackColor,
             errorColor: const Color(0xFDFF0000),
           ),
-          fontFamily: GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
+          fontFamily:
+              GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
           iconTheme: Get.theme.iconTheme.copyWith(
             color: AppColor.yellowColor,
           ),
@@ -52,9 +52,7 @@ class MyApp extends StatelessWidget {
               minimumSize: const Size.fromHeight(45), // NEW
             ),
           )),
-      //TODO: Add a splash screen
-      home: const LoginScreen(),
-      initialBinding: AuthenticationBinding(),
+      initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
     );
   }

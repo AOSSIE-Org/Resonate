@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -8,7 +7,6 @@ import 'package:resonate/utils/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthenticationController>(
@@ -34,7 +32,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
-                      validator: (value) => value!.isValidEmail() ? null : "Enter Valid Email Address",
+                      validator: (value) => value!.isValidEmail()
+                          ? null
+                          : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -57,7 +57,8 @@ class LoginScreen extends StatelessWidget {
                           labelText: "Password",
                           suffixIcon: IconButton(
                             onPressed: () {
-                              controller.isPasswordFieldVisible.value = !controller.isPasswordFieldVisible.value;
+                              controller.isPasswordFieldVisible.value =
+                                  !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: 20,
                             icon: Icon(
@@ -93,7 +94,8 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: controller.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget.horizontalRotatingDots(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
                                   color: Colors.black,
                                   size: 40,
                                 ),
