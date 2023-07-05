@@ -37,7 +37,6 @@ extension Validator on String {
 
     // Check if the hashtag starts with a letter or number
     if (!hashtag.startsWith(RegExp(r'[a-zA-Z0-9]'))) {
-      print("hu kano");
       return false;
     }
 

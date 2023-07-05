@@ -74,12 +74,12 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-        databaseId: DataBaseID,
-        collectionId: CollectionID,
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
         documentId: usernameController.text,
-        data: {"name": nameController.text},
+        data: {"email": authStateController.email},
       );
-      print("The document status");
+
       //Update User Meta Data
       if (profileImagePath != null) {
         final profileImage = await storage.createFile(
@@ -89,7 +89,7 @@ class OnboardingController extends GetxController {
                 path: profileImagePath!,
                 filename: "${authStateController.email}.jpeg"));
         imageController.text =
-            "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
+            "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
       }
       await authStateController.account.updateName(name: nameController.text);
       await authStateController.account.updatePrefs(prefs: {
@@ -99,7 +99,6 @@ class OnboardingController extends GetxController {
         "isUserProfileComplete": true
       });
       await authStateController.setUserProfileData();
-      print("Hello i am here also");
       Get.snackbar("Saved Successfully", "");
       Get.offNamed(AppRoutes.tabview);
     } catch (e) {
@@ -125,8 +124,8 @@ class OnboardingController extends GetxController {
   Future<bool> isUsernameAvailable(String username) async {
     try {
       final document = await databases.getDocument(
-        databaseId: DataBaseID,
-        collectionId: CollectionID,
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
         documentId: username,
       );
       return false;

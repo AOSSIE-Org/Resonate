@@ -18,8 +18,8 @@ class AuthStateContoller extends GetxController {
   void onInit() async {
     super.onInit();
     client
-        .setEndpoint(APPWRITE_ENDPOINT)
-        .setProject(APPWRITE_PROJECT_ID)
+        .setEndpoint(appwriteEndpoint)
+        .setProject(appwriteProjectId)
         .setSelfSigned(
             status:
                 true); // For self signed certificates, only use for development

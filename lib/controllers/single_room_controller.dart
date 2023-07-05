@@ -20,7 +20,7 @@ class SingleRoomController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    client.setEndpoint(APPWRITE_ENDPOINT).setProject(APPWRITE_PROJECT_ID).setSelfSigned(status: true);
+    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
     realtime = Realtime(client);
     databases = Databases(client);
     await getParticipants();

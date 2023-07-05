@@ -14,7 +14,7 @@ class RoomsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    client.setEndpoint(APPWRITE_ENDPOINT).setProject(APPWRITE_PROJECT_ID).setSelfSigned(status: true);
+    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
     databases = Databases(client);
     await getRooms();
   }

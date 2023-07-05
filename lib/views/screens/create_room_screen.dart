@@ -106,7 +106,7 @@ class CreateRoomScreen extends StatelessWidget {
                                                   style: const TextStyle(color: Colors.white, fontSize: 18),
                                                 ),
                                                 onTap: () {
-                                                  //print("$tag selected");
+                                                  //log("$tag selected");
                                                 },
                                               ),
                                               const SizedBox(width: 4.0),
