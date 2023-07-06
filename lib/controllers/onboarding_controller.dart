@@ -22,10 +22,8 @@ class OnboardingController extends GetxController {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController imageController =
-      TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController genderController =
-      TextEditingController(text: Gender.male.name);
+  TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
+  TextEditingController genderController = TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
@@ -47,8 +45,7 @@ class OnboardingController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (pickedDate != null) {
-      dobController.text =
-          DateFormat("dd-MM-yyyy").format(pickedDate).toString();
+      dobController.text = DateFormat("dd-MM-yyyy").format(pickedDate).toString();
     }
   }
 
@@ -64,8 +61,7 @@ class OnboardingController extends GetxController {
     var usernameAvail = await isUsernameAvailable(usernameController.text);
     if (!usernameAvail) {
       usernameAvailable.value = false;
-      Get.snackbar("Username Unavailable!",
-          "This username is invalid or either taken already.",
+      Get.snackbar("Username Unavailable!", "This username is invalid or either taken already.",
           snackPosition: SnackPosition.BOTTOM);
       return;
     }
@@ -74,32 +70,43 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-        databaseId: DataBaseID,
-        collectionId: CollectionID,
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
         documentId: usernameController.text,
-        data: {"name": nameController.text},
+        data: {"email": authStateController.email},
       );
-      print("The document status");
-      //Update User Meta Data
+
+      // Upload user profile image
       if (profileImagePath != null) {
         final profileImage = await storage.createFile(
             bucketId: userProfileImageBucketId,
             fileId: ID.unique(),
-            file: InputFile.fromPath(
-                path: profileImagePath!,
-                filename: "${authStateController.email}.jpeg"));
+            file: InputFile.fromPath(path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
         imageController.text =
-            "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
+            "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
       }
+
+      // Update User meta data
       await authStateController.account.updateName(name: nameController.text);
+      await databases.createDocument(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: authStateController.uid!,
+        data: {
+          "name": nameController.text,
+          "username": usernameController.text,
+          "profileImageUrl": imageController.text,
+          "dob": dobController.text,
+          "email": authStateController.email
+        },
+      );
       await authStateController.account.updatePrefs(prefs: {
-        "username": usernameController.text,
-        "profileImageUrl": imageController.text,
-        "dob": dobController.text,
         "isUserProfileComplete": true
       });
+
+      // Set user profile in authStateController
       await authStateController.setUserProfileData();
-      print("Hello i am here also");
+
       Get.snackbar("Saved Successfully", "");
       Get.offNamed(AppRoutes.tabview);
     } catch (e) {
@@ -112,8 +119,7 @@ class OnboardingController extends GetxController {
 
   Future<void> pickImage() async {
     try {
-      XFile? file = await _imagePicker.pickImage(
-          source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+      XFile? file = await _imagePicker.pickImage(source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
       if (file == null) return;
       profileImagePath = file.path;
       update();
@@ -125,8 +131,8 @@ class OnboardingController extends GetxController {
   Future<bool> isUsernameAvailable(String username) async {
     try {
       final document = await databases.getDocument(
-        databaseId: DataBaseID,
-        collectionId: CollectionID,
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
         documentId: username,
       );
       return false;
