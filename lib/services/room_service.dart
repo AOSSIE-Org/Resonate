@@ -1,17 +1,44 @@
 import 'dart:developer';
 
+import 'package:appwrite/appwrite.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/services/api/api_service.dart';
-
+import 'package:resonate/utils/constants.dart';
 
 class RoomService {
   static ApiService apiService = ApiService();
 
-  static Future<void> joinLiveKitRoom(String livekitUri, String roomToken) async {
+  Future<void> joinLiveKitRoom(String livekitUri, String roomToken) async {
     //TODO: Use Livekit SDK to intialize a room object
   }
 
-  static Future createRoom({required String roomName, required String roomDescription, required List<String> roomTags}) async {
-    //TODO: Use api service to create a new room and use the received token to call joinLiveKitRoom method
+  static Future<void> addParticipantToAppwriteCollection(
+      {required String roomId, required String uid, required bool isAdmin}) async {
+    //TODO: use common appwrite controller to access database (after refactoring)
+    RoomsController roomsController = Get.find<RoomsController>();
+    await roomsController.databases.createDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: ID.unique().toString(),
+        data: {
+          "roomId": roomId,
+          "uid": uid,
+          "isAdmin": isAdmin,
+          "isModerator": true,
+          "isSpeaker": true,
+          "isMicOn": false
+        });
+  }
+
+  static Future createRoom(
+      {required String roomName, required String roomDescription, required List<String> roomTags, required String adminEmail, required String adminUid}) async {
+    var response = await apiService.createRoom(roomName, roomDescription, "test@test.com", roomTags);
+    String appwriteRoomDocId = response.body["livekit_room"]["name"];
+    String livekitToken = response.body["access_token"];
+    await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
+    //TODO: Use the received token to call joinLiveKitRoom method
   }
 
   static Future deleteRoom({required roomName}) async {

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+import '../services/room_service.dart';
+
 class CreateRoomController extends GetxController {
   RxBool isLoading = false.obs;
 
@@ -19,8 +21,13 @@ class CreateRoomController extends GetxController {
     }
     try {
       isLoading.value = true;
-      log("${nameController.text} - ${descriptionController.text} - ${tagsController.getTags} ");
-      //TODO: Make a call to createRoom method from RoomService class
+      //TODO: Make admin email and uid dynamic
+      await RoomService.createRoom(
+          roomName: nameController.text,
+          roomDescription: descriptionController.text,
+          roomTags: tagsController.getTags!,
+          adminEmail: '',
+          adminUid: '');
       Get.find<TabViewController>().openRoomSheet();
     } catch (e) {
       log(e.toString());
