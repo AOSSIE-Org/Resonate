@@ -14,20 +14,20 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<RoomsController>(
         builder: (roomsController) => (!roomsController.isLoading.value)
-            ? CustomRefreshIndicator(
-                builder: MaterialIndicatorDelegate(
-                  builder: (context, controller) {
-                    return const Icon(
-                      Icons.ac_unit,
-                      color: Colors.amber,
-                      size: 30,
-                    );
+            ? SingleChildScrollView(
+              child: CustomRefreshIndicator(
+                  builder: MaterialIndicatorDelegate(
+                    builder: (context, controller) {
+                      return const Icon(
+                        Icons.ac_unit,
+                        color: Colors.amber,
+                        size: 30,
+                      );
+                    },
+                  ),
+                  onRefresh: () async {
+                    await roomsController.getRooms();
                   },
-                ),
-                onRefresh: () async {
-                  await roomsController.getRooms();
-                },
-                child: SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(
@@ -35,7 +35,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                       ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
                           itemCount: roomsController.rooms.length,
                           itemBuilder: (ctx, index) {
                             var room = roomsController.rooms[index];
@@ -54,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+            )
             : Center(
                 child: CircularProgressIndicator(
                   color: Colors.amber,
