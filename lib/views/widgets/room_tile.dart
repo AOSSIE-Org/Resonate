@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/enums/room_state.dart';
@@ -12,8 +13,11 @@ class RoomTile extends StatelessWidget {
   final RoomState roomState;
   final List<String> memberAvatarUrls;
   final int totalActiveMembers;
+  final String roomId;
+
   RoomTile(
       {required this.roomName,
+      required this.roomId,
       required this.tags,
       required this.roomState,
       required this.memberAvatarUrls,
@@ -52,60 +56,61 @@ class RoomTile extends StatelessWidget {
     }
   }
 
-  var kTileTitleStyle = const TextStyle(
-      fontSize: 23, fontWeight: FontWeight.w500, color: Colors.black);
+  var kTileTitleStyle = const TextStyle(fontSize: 23, fontWeight: FontWeight.w500, color: Colors.black);
 
-  var kTileSubtitleStyle = const TextStyle(
-      fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54);
+  var kTileSubtitleStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      decoration: BoxDecoration(
-          gradient: AppColor.gradientBg,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      decoration: BoxDecoration(gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    FaIcon(
-                      roomStateIcon(),
-                      color: Colors.green,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: Get.width*0.01,
-                    ),
-                    Text(roomStateText(), style: kTileSubtitleStyle),
-                    Spacer(),
-                    FaIcon(
-                      FontAwesomeIcons.ellipsis,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: Get.height * 0.01,
-                ),
-                Text(
-                  roomName,
-                  maxLines: 3,
-                  style: kTileTitleStyle,
-                ),
-                SizedBox(
-                  height: Get.height * 0.005,
-                ),
-                buildTags(),
-                SizedBox(
-                  height: Get.height * 0.01,
-                ),
-              ],
+          InkWell(
+            onTap: () async {
+              await Get.find<RoomsController>().joinRoom(roomId: roomId);
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      FaIcon(
+                        roomStateIcon(),
+                        color: Colors.green,
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: Get.width * 0.01,
+                      ),
+                      Text(roomStateText(), style: kTileSubtitleStyle),
+                      Spacer(),
+                      FaIcon(
+                        FontAwesomeIcons.ellipsis,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.01,
+                  ),
+                  Text(
+                    roomName,
+                    maxLines: 3,
+                    style: kTileTitleStyle,
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.005,
+                  ),
+                  buildTags(),
+                  SizedBox(
+                    height: Get.height * 0.01,
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
@@ -117,7 +122,7 @@ class RoomTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      width: Get.width*0.02,
+                      width: Get.width * 0.02,
                     ),
                     for (var avatarImageUrl in memberAvatarUrls)
                       Align(
@@ -132,17 +137,16 @@ class RoomTile extends StatelessWidget {
                         ),
                       ),
                     SizedBox(
-                      width: Get.width*0.04,
+                      width: Get.width * 0.04,
                     ),
-                    Text("$totalActiveMembers+ Joined",
-                        style: kTileSubtitleStyle),
+                    Text("$totalActiveMembers+ Joined", style: kTileSubtitleStyle),
                     Spacer(),
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,
                     ),
                     SizedBox(
-                      width: Get.width*0.04,
+                      width: Get.width * 0.04,
                     ),
                     Icon(
                       Icons.share,

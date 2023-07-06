@@ -40,6 +40,7 @@ class HomeScreen extends StatelessWidget {
                             var room = roomsController.rooms[index];
                             return RoomTile(
                               roomName: room["name"],
+                              roomId: room["\$id"],
                               roomState: RoomState.live,
                               totalActiveMembers: room["totalParticipants"],
                               tags: room["tags"],

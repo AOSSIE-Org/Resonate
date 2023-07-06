@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -16,8 +17,9 @@ class RoomService {
 
   static Future<void> addParticipantToAppwriteCollection(
       {required String roomId, required String uid, required bool isAdmin}) async {
-    //TODO: use common appwrite controller to access database (after refactoring)
     RoomsController roomsController = Get.find<RoomsController>();
+
+    // Add participant to collection
     await roomsController.databases.createDocument(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
@@ -26,10 +28,21 @@ class RoomService {
           "roomId": roomId,
           "uid": uid,
           "isAdmin": isAdmin,
-          "isModerator": true,
-          "isSpeaker": true,
+          "isModerator": isAdmin,
+          "isSpeaker": isAdmin,
           "isMicOn": false
         });
+
+    if (!isAdmin){
+      // Get present totalParticipants Attribute
+      Document roomDoc = await roomsController.databases.getDocument(databaseId: masterDatabaseId, collectionId: roomsCollectionId, documentId: roomId);
+
+      // Increment the totalParticipants Attribute
+      await roomsController.databases.updateDocument(databaseId: masterDatabaseId, collectionId: roomsCollectionId, documentId: roomId,data: {
+        "totalParticipants": roomDoc.data["totalParticipants"]+1
+      });
+    }
+
   }
 
   static Future createRoom(
@@ -37,16 +50,22 @@ class RoomService {
     var response = await apiService.createRoom(roomName, roomDescription, adminEmail, roomTags);
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
+    String livekitSocketUrl = response.body["livekit_socket_url"];
     await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
-    //TODO: Use the received token to call joinLiveKitRoom method
+    //TODO: Use the received token and url to call joinLiveKitRoom method
   }
 
   static Future deleteRoom({required roomName}) async {
     //TODO: Use api service to delete the room (only admins)
   }
 
-  static Future joinRoom({required roomName, required description}) async {
+  static Future joinRoom({required roomId, required String userEmail, required String userId}) async {
     //TODO: Use api service to generate token and pass it to joinLiveKitRoom method, add participant to collection and increment total_participants
+    var response = await apiService.joinRoom(roomId, userEmail);
+    String livekitToken = response.body["access_token"];
+    String livekitSocketUrl = response.body["livekit_socket_url"];
+    await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
+    //TODO: Use the received token and url to call joinLiveKitRoom method
   }
 
   static Future leaveRoom({required roomName}) async {
