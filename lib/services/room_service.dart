@@ -55,7 +55,7 @@ class RoomService {
     //TODO: Use the received token and url to call joinLiveKitRoom method
   }
 
-  static Future deleteRoom({required roomName}) async {
+  static Future deleteRoom({required roomId}) async {
     //TODO: Use api service to delete the room (only admins)
   }
 
@@ -68,8 +68,21 @@ class RoomService {
     //TODO: Use the received token and url to call joinLiveKitRoom method
   }
 
-  static Future leaveRoom({required roomName}) async {
-    //TODO: delete the user's document from participants collection and decrement total_participants
+  static Future leaveRoom({required String roomId, required String userId}) async {
+    RoomsController roomsController = Get.find<RoomsController>();
 
+    // Get all documents with participant uid and delete them
+    DocumentList participantDocsRef = await roomsController.databases.listDocuments(databaseId: masterDatabaseId, collectionId: participantsCollectionId, queries: [Query.equal("uid",userId)]);
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: document.$id);
+    }
+
+    // Get present totalParticipants Attribute
+    Document roomDoc = await roomsController.databases.getDocument(databaseId: masterDatabaseId, collectionId: roomsCollectionId, documentId: roomId);
+
+    // Increment the totalParticipants Attribute
+    await roomsController.databases.updateDocument(databaseId: masterDatabaseId, collectionId: roomsCollectionId, documentId: roomId,data: {
+      "totalParticipants": roomDoc.data["totalParticipants"]-1
+    });
   }
 }
