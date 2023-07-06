@@ -34,7 +34,7 @@ class RoomService {
 
   static Future createRoom(
       {required String roomName, required String roomDescription, required List<String> roomTags, required String adminEmail, required String adminUid}) async {
-    var response = await apiService.createRoom(roomName, roomDescription, "test@test.com", roomTags);
+    var response = await apiService.createRoom(roomName, roomDescription, adminEmail, roomTags);
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
     await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
@@ -46,10 +46,11 @@ class RoomService {
   }
 
   static Future joinRoom({required roomName, required description}) async {
-    //TODO: Use api service to generate token and pass it to joinLiveKitRoom method
+    //TODO: Use api service to generate token and pass it to joinLiveKitRoom method, add participant to collection and increment total_participants
   }
 
   static Future leaveRoom({required roomName}) async {
     //TODO: delete the user's document from participants collection and decrement total_participants
+
   }
 }

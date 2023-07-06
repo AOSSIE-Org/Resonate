@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -21,14 +22,19 @@ class CreateRoomController extends GetxController {
     }
     try {
       isLoading.value = true;
-      //TODO: Make admin email and uid dynamic
+
+      // Create a new room and add current user to participant list as admin and join livekit room
+      AuthStateController authStateController = Get.find<AuthStateController>();
       await RoomService.createRoom(
           roomName: nameController.text,
           roomDescription: descriptionController.text,
           roomTags: tagsController.getTags!,
-          adminEmail: '',
-          adminUid: '');
+          adminEmail: authStateController.email!,
+          adminUid: authStateController.uid!);
+
+      // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet();
+
     } catch (e) {
       log(e.toString());
     } finally {
