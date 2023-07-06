@@ -7,7 +7,7 @@ import 'package:resonate/controllers/onboarding_controller.dart';
 class ProfileBinding extends Bindings{
   @override
   void dependencies(){
-    Get.lazyPut(() => AuthStateContoller());
+    Get.lazyPut(() => AuthStateController());
     Get.lazyPut(() => AuthenticationController());
     Get.lazyPut(() => OnboardingController());
   }

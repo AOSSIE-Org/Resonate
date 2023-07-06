@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthStateContoller>(
+    return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         body: Center(
           child: Column(
