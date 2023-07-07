@@ -18,5 +18,5 @@ class AppwriteRoom{
   late final List tags;
   late final List<String> memberAvatarUrls;
   late final RoomState state;
-  late final String? myDocId;
+  late String? myDocId;
 }

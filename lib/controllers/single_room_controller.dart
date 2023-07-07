@@ -18,7 +18,7 @@ class SingleRoomController extends GetxController {
   late final Databases databases;
   late final User user;
   late final RealtimeSubscription? subscription;
-  RxList participants = <Participant>[].obs;
+  RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
 
   SingleRoomController({required this.appwriteRoom});
 
@@ -39,47 +39,106 @@ class SingleRoomController extends GetxController {
     super.onClose();
   }
 
-  Future<void> getParticipants() async{
-    try{
+  Future<void> addParticipantDataToList(Document participant) async {
+    Document userDataDoc = await databases.getDocument(
+        databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: participant.data["uid"]);
+    final p = Rx(Participant(
+        uid: participant.data["uid"],
+        email: userDataDoc.data["email"],
+        name: userDataDoc.data["name"],
+        dpUrl: userDataDoc.data["profileImageUrl"],
+        isAdmin: participant.data["isAdmin"],
+        isMicOn: participant.data["isMicOn"],
+        isModerator: participant.data["isModerator"],
+        isSpeaker: participant.data["isSpeaker"]));
+    participants.add(p);
+  }
+
+  Future<void> removeParticipantDataFromList(String uid) async {
+    participants.removeWhere((p) => p.value.uid == uid);
+  }
+
+  Future<void> updateParticipantDataInList(Map<String,dynamic> payload) async {
+    int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid==payload["uid"]);
+    participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
+    participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
+    log("Hello i am updating");
+    log('${participants[toBeUpdatedIndex].value.name}');
+    update();
+  }
+
+  Future<void> getParticipants() async {
+    try {
       isLoading.value = true;
-      participants.value = <Participant>[];
-      var participantCollectionRef = await databases.listDocuments(databaseId: masterDatabaseId, collectionId: participantsCollectionId,queries: [Query.equal('roomId', appwriteRoom.id)]);
-      for (var participant in participantCollectionRef.documents){
-        Document userDataDoc = await databases.getDocument(databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: participant.data["uid"]);
-        Participant p = Participant(email: userDataDoc.data["email"], name: userDataDoc.data["name"], dpUrl: userDataDoc.data["profileImageUrl"], isAdmin: participant.data["isAdmin"], isMicOn: participant.data["isAdmin"], isModerator: participant.data["isModerator"], isSpeaker: participant.data["isSpeaker"]);
-        participants.add(p);
+      participants.value = <Rx<Participant>>[];
+      var participantCollectionRef = await databases.listDocuments(
+          databaseId: masterDatabaseId,
+          collectionId: participantsCollectionId,
+          queries: [Query.equal('roomId', appwriteRoom.id)]);
+      for (Document participant in participantCollectionRef.documents) {
+        addParticipantDataToList(participant);
       }
       update();
-    }catch(e){
+    } catch (e) {
       log(e.toString());
-    }finally{
+    } finally {
       isLoading.value = false;
     }
   }
 
   void getRealtimeStream() {
-    //TODO: Make database ID dynamic
-    subscription = realtime.subscribe(['databases.$masterDatabaseId.collections.$participantsCollectionId.documents']);
-    subscription?.stream.listen((response) {
-      log(response.toString());
+    String channel = 'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
+    subscription = realtime.subscribe([channel]);
+    subscription?.stream.listen((data) {
+      if (data.payload.isNotEmpty) {
+        String roomId = data.payload["roomId"];
+        if (roomId == appwriteRoom.id) {
+          // This event belongs to the room current user is part of
+          String docId = data.payload["\$id"];
+          String action = data.events.first.substring(channel.length + 1 + docId.length + 1);
+
+          switch (action) {
+            case 'create':
+              {
+                addParticipantDataToList(Document.fromMap(data.payload));
+                break;
+              }
+            case 'update':
+              {
+                updateParticipantDataInList(data.payload);
+                break;
+              }
+            case 'delete':
+              {
+                removeParticipantDataFromList(data.payload["uid"]);
+                break;
+              }
+          }
+        }
+        log(data.payload.toString());
+      }
     });
   }
 
-  Future<void> leaveRoom() async{
+  Future<void> leaveRoom() async {
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
   }
 
-  Future<void> turnOnMic() async{
-    await databases.updateDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: appwriteRoom.myDocId!, data:{
-      "isMicOn": true
-    });
+  Future<void> turnOnMic() async {
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: appwriteRoom.myDocId!,
+        data: {"isMicOn": true});
     isMicOn.value = true;
   }
 
-  Future<void> turnOffMic() async{
-    await databases.updateDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: appwriteRoom.myDocId!, data:{
-      "isMicOn": false
-    });
+  Future<void> turnOffMic() async {
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: appwriteRoom.myDocId!,
+        data: {"isMicOn": false});
     isMicOn.value = false;
   }
 }

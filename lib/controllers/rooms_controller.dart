@@ -68,7 +68,8 @@ class RoomsController extends GetxController {
 
     // Get the token and livekit url and join livekit room
     AuthStateController authStateController = Get.find<AuthStateController>();
-    await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
+    String myDocId = await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
+    room.myDocId = myDocId;
 
     // Close the loading dialog
     Get.back();
