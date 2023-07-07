@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/services/api/api_service.dart';
@@ -57,9 +59,19 @@ class RoomsController extends GetxController {
   }
 
   Future<void> joinRoom({required AppwriteRoom room}) async {
+    // Display Loading Dialog
+    Get.dialog(
+        Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
+        barrierDismissible: false,
+        name: "Loading Dialog"
+    );
+
     // Get the token and livekit url and join livekit room
     AuthStateController authStateController = Get.find<AuthStateController>();
     await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
+
+    // Close the loading dialog
+    Get.back();
 
     // Open the Room Bottom Sheet to interact in the room
     Get.find<TabViewController>().openRoomSheet(room);

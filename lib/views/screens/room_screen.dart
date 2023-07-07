@@ -99,7 +99,7 @@ class _RoomScreenState extends State<RoomScreen> {
           ),
           SafeArea(
             child: SizedBox(
-              height: Get.height * 0.075,
+              height: Get.height * 0.08,
               child: Column(
                 children: [
                   SizedBox(

@@ -5,6 +5,7 @@ import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
+import 'package:resonate/services/room_service.dart';
 
 import '../utils/constants.dart';
 
@@ -31,8 +32,9 @@ class SingleRoomController extends GetxController {
   }
 
   @override
-  void onClose() {
+  void onClose() async {
     subscription?.close();
+    await leaveRoom();
     super.onClose();
   }
 
@@ -60,5 +62,9 @@ class SingleRoomController extends GetxController {
     subscription?.stream.listen((response) {
       log(response.toString());
     });
+  }
+
+  Future<void> leaveRoom() async{
+    await RoomService.leaveRoom(roomId: appwriteRoom.id);
   }
 }
