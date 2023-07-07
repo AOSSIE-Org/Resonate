@@ -56,10 +56,10 @@ class RoomsController extends GetxController {
     }
   }
 
-  Future<void> joinRoom({required String roomId}) async {
+  Future<void> joinRoom({required AppwriteRoom room}) async {
     // Get the token and livekit url and join livekit room
     AuthStateController authStateController = Get.find<AuthStateController>();
-    await RoomService.joinRoom(roomId: roomId, userEmail: authStateController.email!, userId: authStateController.uid!);
+    await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
 
     // Open the Room Bottom Sheet to interact in the room
     Get.find<TabViewController>().openRoomSheet();

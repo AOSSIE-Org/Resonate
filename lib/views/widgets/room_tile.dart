@@ -4,28 +4,19 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 
+import '../../models/appwrite_room.dart';
 import '../../utils/colors.dart';
 import '../../utils/enums/room_state.dart';
 
 class RoomTile extends StatelessWidget {
-  final String roomName;
-  final List<dynamic> tags;
-  final RoomState roomState;
-  final List<String> memberAvatarUrls;
-  final int totalActiveMembers;
-  final String roomId;
+  final AppwriteRoom room;
 
   RoomTile(
-      {required this.roomName,
-      required this.roomId,
-      required this.tags,
-      required this.roomState,
-      required this.memberAvatarUrls,
-      required this.totalActiveMembers});
+      {required this.room});
 
   Text buildTags() {
-    String tagString = tags[0] ?? "";
-    for (var tag in tags.sublist(1)) {
+    String tagString = room.tags[0] ?? "";
+    for (var tag in room.tags.sublist(1)) {
       tagString += " · $tag";
     }
     return Text(
@@ -35,7 +26,7 @@ class RoomTile extends StatelessWidget {
   }
 
   String roomStateText() {
-    switch (roomState) {
+    switch (room.state) {
       case RoomState.live:
         return "Happening Now";
       case RoomState.scheduled:
@@ -46,7 +37,7 @@ class RoomTile extends StatelessWidget {
   }
 
   IconData roomStateIcon() {
-    switch (roomState) {
+    switch (room.state) {
       case RoomState.live:
         return Icons.play_circle_outline_rounded;
       case RoomState.scheduled:
@@ -69,7 +60,7 @@ class RoomTile extends StatelessWidget {
         children: [
           InkWell(
             onTap: () async {
-              await Get.find<RoomsController>().joinRoom(roomId: roomId);
+              await Get.find<RoomsController>().joinRoom(roomId: room.id);
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -98,7 +89,7 @@ class RoomTile extends StatelessWidget {
                     height: Get.height * 0.01,
                   ),
                   Text(
-                    roomName,
+                    room.name,
                     maxLines: 3,
                     style: kTileTitleStyle,
                   ),
@@ -124,7 +115,7 @@ class RoomTile extends StatelessWidget {
                     SizedBox(
                       width: Get.width * 0.02,
                     ),
-                    for (var avatarImageUrl in memberAvatarUrls)
+                    for (var avatarImageUrl in room.memberAvatarUrls)
                       Align(
                         widthFactor: 0.5,
                         child: CircleAvatar(
@@ -139,7 +130,7 @@ class RoomTile extends StatelessWidget {
                     SizedBox(
                       width: Get.width * 0.04,
                     ),
-                    Text("$totalActiveMembers+ Joined", style: kTileSubtitleStyle),
+                    Text("${room.totalParticipants}+ Joined", style: kTileSubtitleStyle),
                     Spacer(),
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
