@@ -14,7 +14,7 @@ class TabViewController extends GetxController {
     showModalBottomSheet(
         context: Get.context!,
         builder: (ctx) {
-          return RoomScreen();
+          return RoomScreen(room: room);
         },
         useSafeArea: true,
         shape: RoundedRectangleBorder(

@@ -62,6 +62,6 @@ class RoomsController extends GetxController {
     await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
 
     // Open the Room Bottom Sheet to interact in the room
-    Get.find<TabViewController>().openRoomSheet();
+    Get.find<TabViewController>().openRoomSheet(room);
   }
 }

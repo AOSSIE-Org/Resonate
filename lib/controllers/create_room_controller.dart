@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/utils/enums/room_state.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
@@ -41,7 +43,7 @@ class CreateRoomController extends GetxController {
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
-      await RoomService.createRoom(
+      String newRoomId = await RoomService.createRoom(
           roomName: nameController.text,
           roomDescription: descriptionController.text,
           roomTags: tagsController.getTags!,
@@ -52,7 +54,8 @@ class CreateRoomController extends GetxController {
       Get.back();
 
       // Open the Room Bottom Sheet to interact in the room
-      Get.find<TabViewController>().openRoomSheet();
+      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live);
+      Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form
       nameController.clear();
