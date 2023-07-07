@@ -30,7 +30,7 @@ class RoomService {
           "uid": uid,
           "isAdmin": isAdmin,
           "isModerator": isAdmin,
-          "isSpeaker": isAdmin,
+          "isSpeaker": true,
           "isMicOn": false
         });
 

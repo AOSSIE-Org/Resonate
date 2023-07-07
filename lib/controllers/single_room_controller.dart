@@ -62,8 +62,7 @@ class SingleRoomController extends GetxController {
     int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid==payload["uid"]);
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
-    log("Hello i am updating");
-    log('${participants[toBeUpdatedIndex].value.name}');
+    participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
     update();
   }
 
