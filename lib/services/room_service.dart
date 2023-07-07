@@ -16,12 +16,12 @@ class RoomService {
     //TODO: Use Livekit SDK to intialize a room object
   }
 
-  static Future<void> addParticipantToAppwriteCollection(
+  static Future<String> addParticipantToAppwriteCollection(
       {required String roomId, required String uid, required bool isAdmin}) async {
     RoomsController roomsController = Get.find<RoomsController>();
 
     // Add participant to collection
-    await roomsController.databases.createDocument(
+    Document participantDoc = await roomsController.databases.createDocument(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
         documentId: ID.unique().toString(),
@@ -44,30 +44,33 @@ class RoomService {
       });
     }
 
+    return participantDoc.$id;
+
   }
 
-  static Future<String> createRoom(
+  static Future<List<String>> createRoom(
       {required String roomName, required String roomDescription, required List<String> roomTags, required String adminEmail, required String adminUid}) async {
     var response = await apiService.createRoom(roomName, roomDescription, adminEmail, roomTags);
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
-    await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
+    String myDocId = await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
     //TODO: Use the received token and url to call joinLiveKitRoom method
-    return appwriteRoomDocId;
+    return [appwriteRoomDocId, myDocId];
   }
 
   static Future deleteRoom({required roomId}) async {
     //TODO: Use api service to delete the room (only admins)
   }
 
-  static Future joinRoom({required roomId, required String userEmail, required String userId}) async {
+  static Future<String> joinRoom({required roomId, required String userEmail, required String userId}) async {
     //TODO: Use api service to generate token and pass it to joinLiveKitRoom method, add participant to collection and increment total_participants
     var response = await apiService.joinRoom(roomId, userEmail);
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
-    await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
+    String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
     //TODO: Use the received token and url to call joinLiveKitRoom method
+    return myDocId;
   }
 
   static Future leaveRoom({required String roomId}) async {

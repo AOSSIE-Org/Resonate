@@ -11,6 +11,7 @@ import '../utils/constants.dart';
 
 class SingleRoomController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isMicOn = false.obs;
   Client client = Client();
   final AppwriteRoom appwriteRoom;
   late final Realtime realtime;
@@ -66,5 +67,19 @@ class SingleRoomController extends GetxController {
 
   Future<void> leaveRoom() async{
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
+  }
+
+  Future<void> turnOnMic() async{
+    await databases.updateDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: appwriteRoom.myDocId!, data:{
+      "isMicOn": true
+    });
+    isMicOn.value = true;
+  }
+
+  Future<void> turnOffMic() async{
+    await databases.updateDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: appwriteRoom.myDocId!, data:{
+      "isMicOn": false
+    });
+    isMicOn.value = false;
   }
 }

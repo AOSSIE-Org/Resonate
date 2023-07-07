@@ -9,6 +9,7 @@ class AppwriteRoom{
     required this.tags,
     required this.memberAvatarUrls,
     required this.state,
+    this.myDocId
 });
   late final String id;
   late final String name;
@@ -17,4 +18,5 @@ class AppwriteRoom{
   late final List tags;
   late final List<String> memberAvatarUrls;
   late final RoomState state;
+  late final String? myDocId;
 }

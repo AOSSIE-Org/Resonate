@@ -18,12 +18,12 @@ class RoomScreen extends StatefulWidget {
 }
 
 class _RoomScreenState extends State<RoomScreen> {
-
   @override
   void initState() {
     Get.put(SingleRoomController(appwriteRoom: widget.room));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
@@ -60,8 +60,7 @@ class _RoomScreenState extends State<RoomScreen> {
           SizedBox(
             height: Get.height * 0.001,
           ),
-          Text(getTags(),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.white)),
+          Text(getTags(), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.white)),
           SizedBox(
             height: Get.height * 0.008,
           ),
@@ -76,24 +75,27 @@ class _RoomScreenState extends State<RoomScreen> {
             thickness: 2,
           ),
           Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Obx(() {
-                      return (!controller.isLoading.value) ? GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 20.0,
-                            mainAxisSpacing: 5.0,
-                            childAspectRatio: 2.5 / 3,
-                          ),
-                          itemCount: controller.participants.length,
-                          itemBuilder: (ctx, index) {
-                            return ParticipantBlock(participant: controller.participants[index]);
-                          }) : Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),);
-                    }
-                  ),
-                ),
-              ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Obx(() {
+                return (!controller.isLoading.value)
+                    ? GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 5.0,
+                          childAspectRatio: 2.5 / 3,
+                        ),
+                        itemCount: controller.participants.length,
+                        itemBuilder: (ctx, index) {
+                          return ParticipantBlock(participant: controller.participants[index]);
+                        })
+                    : Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio * 20),
+                      );
+              }),
+            ),
+          ),
           const Divider(
             thickness: 2,
           ),
@@ -125,27 +127,28 @@ class _RoomScreenState extends State<RoomScreen> {
                           )),
                         ),
                       ),
-                      FloatingActionButton(
-                        onPressed: () {},
-                        backgroundColor: Colors.lightGreen,
-                        child: const Icon(
-                          Icons.mic,
-                          color: Colors.black,
-                        ),
-                      ),
+                      Obx(() {
+                        return FloatingActionButton(
+                          onPressed: () =>
+                              (controller.isMicOn.value) ? controller.turnOffMic() : controller.turnOnMic(),
+                          backgroundColor: (controller.isMicOn.value) ? Colors.lightGreen : Colors.redAccent,
+                          child: Icon(
+                            (controller.isMicOn.value) ? Icons.mic : Icons.mic_off,
+                            color: Colors.black,
+                          ),
+                        );
+                      }),
                       Container(
                         height: 40,
                         width: 125,
                         decoration: const BoxDecoration(
                             gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(20))),
-                        child: Center(
-                            child: Obx((){
-                                return Text(
-                          "${controller.participants.length}+ Active",
-                          style: TextStyle(color: Colors.black87),
-                        );
-                              }
-                            )),
+                        child: Center(child: Obx(() {
+                          return Text(
+                            "${controller.participants.length}+ Active",
+                            style: TextStyle(color: Colors.black87),
+                          );
+                        })),
                       ),
                     ],
                   ),

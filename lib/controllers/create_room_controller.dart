@@ -43,18 +43,20 @@ class CreateRoomController extends GetxController {
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
-      String newRoomId = await RoomService.createRoom(
+      List<String> newRoomInfo = await RoomService.createRoom(
           roomName: nameController.text,
           roomDescription: descriptionController.text,
           roomTags: tagsController.getTags!,
           adminEmail: authStateController.email!,
           adminUid: authStateController.uid!);
+      String newRoomId = newRoomInfo[0];
+      String myDocId = newRoomInfo[1];
 
       // Close the loading dialog
       Get.back();
 
       // Open the Room Bottom Sheet to interact in the room
-      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live);
+      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live, myDocId: myDocId);
       Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form
