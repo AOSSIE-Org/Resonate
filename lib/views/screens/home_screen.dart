@@ -2,6 +2,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 
 import '../../utils/enums/room_state.dart';
@@ -50,15 +51,13 @@ class HomeScreen extends StatelessWidget {
                                 "https://avatars.githubusercontent.com/u/43133646?s=96&v=4",
                               ],
                             );
-                          }),
+                          })
                     ],
                   ),
                 ),
             )
             : Center(
-                child: CircularProgressIndicator(
-                  color: Colors.amber,
-                ),
+                child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),
               ));
   }
 }

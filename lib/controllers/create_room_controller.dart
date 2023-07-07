@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
@@ -16,12 +17,27 @@ class CreateRoomController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
 
+  @override
+  void dispose(){
+    nameController.dispose();
+    descriptionController.dispose();
+    tagsController.dispose();
+    super.dispose();
+  }
+
   Future<void> createRoom() async {
     if (!createRoomFormKey.currentState!.validate()) {
       return;
     }
     try {
       isLoading.value = true;
+
+      // Display Loading Dialog
+      Get.dialog(
+        Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
+        barrierDismissible: false,
+        name: "Loading Dialog"
+      );
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
@@ -32,11 +48,22 @@ class CreateRoomController extends GetxController {
           adminEmail: authStateController.email!,
           adminUid: authStateController.uid!);
 
+      // Close the loading dialog
+      Get.back();
+
       // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet();
 
+      // Clear Create Room Form
+      nameController.clear();
+      tagsController.clearTags();
+      descriptionController.clear();
+
     } catch (e) {
       log(e.toString());
+
+      // Close the loading dialog
+      Get.back();
     } finally {
       isLoading.value = false;
     }
