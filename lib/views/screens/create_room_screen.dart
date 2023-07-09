@@ -28,7 +28,7 @@ class CreateRoomScreen extends StatelessWidget {
                     ),
                     Text(
                       "Create New Room",
-                      style: TextStyle(fontSize: Get.textScaleFactor * 35),
+                      style: TextStyle(fontSize: Get.textScaleFactor * 31),
                     ),
                     SizedBox(
                       height: Get.height * 0.03,
