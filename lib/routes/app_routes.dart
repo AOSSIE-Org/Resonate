@@ -6,5 +6,6 @@ class AppRoutes {
   static const onBoarding = "/onBoarding";
   static const tabview = "/tabview";
   static const home = "/home";
+  static const createRoom = "/createRoom";
   static const splash = "/splash";
 }
