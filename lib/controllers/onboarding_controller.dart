@@ -69,8 +69,8 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-          databaseId: DataBaseID,
-          collectionId: CollectionID,
+          databaseId: userDatabaseID,
+          collectionId: usernameCollectionID,
           documentId: usernameController.text,
           data: {
             "email": email
