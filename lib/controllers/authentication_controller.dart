@@ -1,24 +1,36 @@
+import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:math' as math;
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/constants.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
 
   var isPasswordFieldVisible = false.obs;
-  TextEditingController emailController = TextEditingController(text: "");
+  late TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
-  TextEditingController confirmPasswordController = TextEditingController(text: "");
-
+  TextEditingController confirmPasswordController =
+      TextEditingController(text: "");
   AuthStateContoller authStateController = Get.find<AuthStateContoller>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
+  late final Functions functions;
+  late final Databases databases;
+  var otp_ID, verification_ID;
 
+  @override
+  void onInit() async {
+    super.onInit();
+    functions = Functions(authStateController.client);
+    databases = Databases(authStateController.client);
+  }
 
   Future<void> login() async {
     if (!loginFormKey.currentState!.validate()) {
@@ -26,7 +38,8 @@ class AuthenticationController extends GetxController {
     }
     try {
       isLoading.value = true;
-      await authStateController.login(emailController.text, passwordController.text);
+      await authStateController.login(
+          emailController.text, passwordController.text);
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
@@ -44,16 +57,17 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<void> signup() async {
-    if (!registrationFormKey.currentState!.validate()) {
-      return;
-    }
+  Future<void> signup(String email, String password) async {
     try {
       isLoading.value = true;
-      await authStateController.signup(emailController.text, passwordController.text);
-      Get.offNamed(AppRoutes.onBoarding);
+      await authStateController.signup(email, password);
+      Get.offNamed(AppRoutes.onBoarding, arguments: email);
     } catch (e) {
-      log(e.toString());
+      var error = e.toString().split(": ")[1];
+      error = error.split(".")[0];
+      error = error.split(",")[1];
+      error = error.split("in")[0];
+      Get.snackbar("Oops", error.toString());
     } finally {
       isLoading.value = false;
     }
@@ -66,6 +80,49 @@ class AuthenticationController extends GetxController {
       log(error.toString());
     }
   }
+
+  Future<bool> sendOTP(
+      String email, String password, String confpassword) async {
+    if (!registrationFormKey.currentState!.validate()) {
+      return false;
+    }
+    isLoading.value = true;
+    otp_ID = randomNumeric(10).toString() + emailController.text;
+    // Appwrite does not accept @ in document ID's
+    otp_ID = otp_ID.split("@")[0];
+    var sendOtpData = {"email": email, "otpID": otp_ID.toString()};
+    var data = json.encode(sendOtpData);
+    var send_result = await functions.createExecution(
+        functionId: sendOtpFunctionID, data: data.toString());
+
+    var passon_arguments = [email, password, confpassword, otp_ID];
+    isLoading.value = false;
+    Get.toNamed(AppRoutes.emailVerification, arguments: passon_arguments);
+    return true;
+  }
+
+  Future<void> verifyOTP(String userOTP, String otpID, String email) async {
+    verification_ID = randomNumeric(10).toString() + email;
+    verification_ID = verification_ID.split("@")[0];
+    var verifyOtpData = {
+      "otpID": otpID,
+      "userOTP": userOTP,
+      "verify_ID": verification_ID
+    };
+    var data = json.encode(verifyOtpData);
+    var verify_result = await functions.createExecution(
+        functionId: verifyOtpFunctionID, data: data.toString());
+  }
+
+  Future<String> checkVerificationStatus() async {
+    final document = await databases.getDocument(
+      databaseId: emailVerificationDatabaseID,
+      collectionId: verificationCollectionID,
+      documentId: verification_ID,
+    );
+    var isVerified = document.data['status'];
+    return isVerified;
+  }
 }
 
 extension Validator on String {
@@ -76,7 +133,8 @@ extension Validator on String {
   }
 
   bool isValidPassword() {
-    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$').hasMatch(this);
+    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+        .hasMatch(this);
   }
 
   bool isSamePassword(String password) {

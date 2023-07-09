@@ -19,7 +19,6 @@ class OnboardingController extends GetxController {
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
-
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController imageController =
@@ -57,7 +56,7 @@ class OnboardingController extends GetxController {
     update();
   }
 
-  Future<void> saveProfile() async {
+  Future<void> saveProfile(String email) async {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
@@ -74,20 +73,19 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-        databaseId: DataBaseID,
-        collectionId: CollectionID,
-        documentId: usernameController.text,
-        data: {"name": nameController.text},
-      );
-      print("The document status");
+          databaseId: DataBaseID,
+          collectionId: CollectionID,
+          documentId: usernameController.text,
+          data: {
+            "email": email
+          });
       //Update User Meta Data
       if (profileImagePath != null) {
         final profileImage = await storage.createFile(
             bucketId: userProfileImageBucketId,
             fileId: ID.unique(),
             file: InputFile.fromPath(
-                path: profileImagePath!,
-                filename: "${authStateController.email}.jpeg"));
+                path: profileImagePath!, filename: "${email}.jpeg"));
         imageController.text =
             "${APPWRITE_ENDPOINT}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${APPWRITE_PROJECT_ID}";
       }
@@ -99,7 +97,6 @@ class OnboardingController extends GetxController {
         "isUserProfileComplete": true
       });
       await authStateController.setUserProfileData();
-      print("Hello i am here also");
       Get.snackbar("Saved Successfully", "");
       Get.offNamed(AppRoutes.tabview);
     } catch (e) {

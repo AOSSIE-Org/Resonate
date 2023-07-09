@@ -25,7 +25,6 @@ class AuthStateContoller extends GetxController {
                 true); // For self signed certificates, only use for development
     account = Account(client);
     await setUserProfileData();
-    
   }
 
   Future<void> setUserProfileData() async {
@@ -55,7 +54,6 @@ class AuthStateContoller extends GetxController {
     await account.createEmailSession(email: email, password: password);
     await setUserProfileData();
     await isUserLoggedIn();
-
   }
 
   Future<void> signup(String email, String password) async {

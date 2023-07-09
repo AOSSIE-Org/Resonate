@@ -22,7 +22,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.signup,
-      page: () => const SignupScreen(),
+      page: () => SignupScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
@@ -32,7 +32,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.emailVerification,
-      page: () => const EmailVerificationScreen(),
+      page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
@@ -42,7 +42,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.onBoarding,
-      page: () => const OnBoardingScreen(),
+      page: () => OnBoardingScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(

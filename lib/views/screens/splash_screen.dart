@@ -34,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     startDisplayTimer();
     startAuthTimer();
+    super.initState();
   }
 
   @override

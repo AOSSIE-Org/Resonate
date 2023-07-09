@@ -52,6 +52,8 @@ dependencies:
   page_transition: ^2.0.9
   chopper: ^6.1.4
   http: 1.0.0
+  flutter_otp_text_field: ^1.1.1
+  random_string: ^2.3.1
 
 
 dev_dependencies:
