@@ -20,6 +20,7 @@ class CreateRoomScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: Form(
                 key: controller.createRoomFormKey,
+                child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
@@ -157,6 +158,7 @@ class CreateRoomScreen extends StatelessWidget {
                           focusedBorder: kFocusedTextFieldBorder),
                     ),
                   ],
+                )
                 ),
               ),
             ));
