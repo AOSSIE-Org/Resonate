@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -14,6 +16,15 @@ class _SignupScreenState extends State<SignupScreen> {
   var passedOnArgs = Get.arguments;
   var controller = Get.find<AuthenticationController>();
   var email;
+
+  void setTimmer() async {
+    controller.signup_isallowed.value = false;
+    var duration = const Duration(minutes: 1);
+    Timer(duration, () {
+      controller.signup_isallowed.value = true;
+    });
+  }
+
   @override
   void initState() {
     controller.emailController.text =
@@ -116,18 +127,21 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(height: 25),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: () async {
-                      var result =   await controller.sendOTP(
-                            !(email == null)
-                                ? email
-                                : controller.emailController.text,
-                            controller.passwordController.text,
-                            controller.confirmPasswordController.text);
-                        if (passedOnArgs != null && result) {
-                          Get.snackbar(
-                              "Email Updated", "OTP sent to the updates email");
-                        }
-                      },
+                      onPressed: controller.signup_isallowed.value
+                          ? () async {
+                              setTimmer();
+                              var result = await controller.sendOTP(
+                                  !(email == null)
+                                      ? email
+                                      : controller.emailController.text,
+                                  controller.passwordController.text,
+                                  controller.confirmPasswordController.text);
+                              if (passedOnArgs != null && result) {
+                                Get.snackbar("Email Updated",
+                                    "OTP sent to the updates email");
+                              }
+                            }
+                          : null,
                       child: controller.isLoading.value
                           ? Center(
                               child:

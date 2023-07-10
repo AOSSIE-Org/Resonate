@@ -11,7 +11,8 @@ import 'package:resonate/utils/constants.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
-
+  var signup_isallowed = true.obs;
+  var resendIsAllowed = false.obs;
   var isPasswordFieldVisible = false.obs;
   late TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
