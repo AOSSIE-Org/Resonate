@@ -7,12 +7,8 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 
-class SignupScreen extends StatefulWidget {
-  @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
 
-class _SignupScreenState extends State<SignupScreen> {
+class SignupScreen extends StatelessWidget {
 
   var controller = Get.find<AuthenticationController>();
 
