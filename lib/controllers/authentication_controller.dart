@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:math' as math;
@@ -58,11 +59,11 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<void> signup(String email, String password) async {
+  Future<void> signup() async {
     try {
       isLoading.value = true;
-      await authStateController.signup(email, password);
-      Get.offNamed(AppRoutes.onBoarding, arguments: email);
+      await authStateController.signup(emailController.text, passwordController.text);
+      Get.offNamed(AppRoutes.onBoarding, arguments: emailController.text);
     } catch (e) {
       var error = e.toString().split(": ")[1];
       error = error.split(".")[0];
@@ -82,31 +83,30 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<bool> sendOTP(
-      String email, String password, String confpassword) async {
-    if (!registrationFormKey.currentState!.validate()) {
-      return false;
-    }
+  Future<bool> sendOTP() async {
     isLoading.value = true;
     otp_ID = randomNumeric(10).toString() + emailController.text;
     // Appwrite does not accept @ in document ID's
     otp_ID = otp_ID.split("@")[0];
-    var sendOtpData = {"email": email, "otpID": otp_ID.toString()};
+    var sendOtpData = {"email": emailController.text, "otpID": otp_ID.toString()};
     var data = json.encode(sendOtpData);
     var send_result = await functions.createExecution(
         functionId: sendOtpFunctionID, data: data.toString());
-
-    var passon_arguments = [email, password, confpassword, otp_ID];
     isLoading.value = false;
-    Get.toNamed(AppRoutes.emailVerification, arguments: passon_arguments);
+    resendIsAllowed.value = false;
+    Timer(Duration(milliseconds: 300), () {
+      signup_isallowed.value = true;
+    });
+    Get.toNamed(AppRoutes.emailVerification);
+
     return true;
   }
 
-  Future<void> verifyOTP(String userOTP, String otpID, String email) async {
-    verification_ID = randomNumeric(10).toString() + email;
+  Future<void> verifyOTP(String userOTP) async {
+    verification_ID = randomNumeric(10).toString() + emailController.text;
     verification_ID = verification_ID.split("@")[0];
     var verifyOtpData = {
-      "otpID": otpID,
+      "otpID": otp_ID,
       "userOTP": userOTP,
       "verify_ID": verification_ID
     };

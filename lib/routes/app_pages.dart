@@ -26,14 +26,14 @@ class AppPages {
       page: () => SignupScreen(),
       binding: AuthSplashBinding(),
     ),
-    GetPage(
-      name: AppRoutes.login,
-      page: () => const LoginScreen(),
+        GetPage(
+      name: AppRoutes.emailVerification,
+      page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
-      name: AppRoutes.emailVerification,
-      page: () => EmailVerificationScreen(),
+      name: AppRoutes.login,
+      page: () => const LoginScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(

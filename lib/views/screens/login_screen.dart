@@ -167,7 +167,7 @@ class LoginScreen extends StatelessWidget {
                           onTap: () {
                             controller.emailController.clear();
                             controller.passwordController.clear();
-                            Get.offNamed(AppRoutes.signup);
+                            Get.toNamed(AppRoutes.signup);
                           },
                           child: const Text(
                             "Register",

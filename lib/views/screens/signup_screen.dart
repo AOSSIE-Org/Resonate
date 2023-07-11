@@ -13,30 +13,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  var passedOnArgs = Get.arguments;
+
   var controller = Get.find<AuthenticationController>();
-  var email;
-
-  void setTimmer() async {
-    controller.signup_isallowed.value = false;
-    var duration = const Duration(minutes: 1);
-    Timer(duration, () {
-      controller.signup_isallowed.value = true;
-    });
-  }
-
-  @override
-  void initState() {
-    controller.emailController.text =
-        !(passedOnArgs == null) ? "< please enter updated email >" : "";
-    if (!(passedOnArgs == null)) {
-      email = passedOnArgs[0];
-    }
-    controller.passwordController.text =
-        !(passedOnArgs == null) ? passedOnArgs[1] : "";
-    controller.confirmPasswordController.text =
-        !(passedOnArgs == null) ? passedOnArgs[2] : "";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +40,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
-                    style: TextStyle(
-                        color: !(passedOnArgs == null)
-                            ? AppColor.greenColor
-                            : Colors.white),
                     validator: (value) => value!.isValidEmail()
                         ? null
                         : "Enter Valid Email Address",
@@ -129,16 +103,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     () => ElevatedButton(
                       onPressed: controller.signup_isallowed.value
                           ? () async {
-                              setTimmer();
-                              var result = await controller.sendOTP(
-                                  !(email == null)
-                                      ? email
-                                      : controller.emailController.text,
-                                  controller.passwordController.text,
-                                  controller.confirmPasswordController.text);
-                              if (passedOnArgs != null && result) {
-                                Get.snackbar("Email Updated",
-                                    "OTP sent to the updates email");
+                              if (controller.registrationFormKey.currentState!
+                                  .validate()) {
+                                controller.signup_isallowed.value = false;
+                                var result = await controller.sendOTP();
                               }
                             }
                           : null,
