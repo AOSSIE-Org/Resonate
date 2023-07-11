@@ -72,7 +72,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       if (result == "true") {
                         Get.snackbar("Verification Complete",
                             "Congratulations you have verified your Email");
-                        await controller.signup();
+                        Get.toNamed(AppRoutes.onBoarding);
                       } else {
                         Get.snackbar("Verification Failed",
                             "OTP mismatch occured please try again");

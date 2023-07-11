@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
@@ -14,6 +15,7 @@ import 'auth_state_controller.dart';
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
   AuthStateContoller authStateController = Get.find<AuthStateContoller>();
+  AuthenticationController authController = Get.find<AuthenticationController>();
   late final Storage storage;
   late final Databases databases;
 
@@ -53,7 +55,7 @@ class OnboardingController extends GetxController {
     update();
   }
 
-  Future<void> saveProfile(String email) async {
+  Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
@@ -73,7 +75,7 @@ class OnboardingController extends GetxController {
           collectionId: usernameCollectionID,
           documentId: usernameController.text,
           data: {
-            "email": email
+            "email": authController.emailController.text
           });
       //Update User Meta Data
       if (profileImagePath != null) {
@@ -81,7 +83,7 @@ class OnboardingController extends GetxController {
             bucketId: userProfileImageBucketId,
             fileId: ID.unique(),
             file: InputFile.fromPath(
-                path: profileImagePath!, filename: "${email}.jpeg"));
+                path: profileImagePath!, filename: "${authController.emailController.text}.jpeg"));
         imageController.text =
             "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
       }

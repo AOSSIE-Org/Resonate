@@ -7,9 +7,7 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 
-
 class SignupScreen extends StatelessWidget {
-
   var controller = Get.find<AuthenticationController>();
 
   @override
@@ -102,7 +100,14 @@ class SignupScreen extends StatelessWidget {
                               if (controller.registrationFormKey.currentState!
                                   .validate()) {
                                 controller.signup_isallowed.value = false;
-                                var result = await controller.sendOTP();
+                                var isSignedin = await controller.signup();
+                                if(isSignedin){
+                                await controller.sendOTP();
+                                Get.snackbar("Signed Up Successfully",
+                                    "You have successfully created a new account");
+                                }else{
+                                  controller.signup_isallowed.value = true;
+                                }
                               }
                             }
                           : null,

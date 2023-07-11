@@ -10,7 +10,6 @@ import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
-  var email = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +195,7 @@ class OnBoardingScreen extends StatelessWidget {
                       return ElevatedButton(
                         onPressed: () async {
                           if (!controller.isLoading.value) {
-                            await controller.saveProfile(email);
+                            await controller.saveProfile();
                           }
                         },
                         child: controller.isLoading.value
