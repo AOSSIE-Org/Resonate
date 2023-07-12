@@ -12,10 +12,8 @@ import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
-  AuthStateContoller authStateController =
-      Get.put<AuthStateContoller>(AuthStateContoller());
+  TabViewController controller = Get.put<TabViewController>(TabViewController());
+  AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
 
   @override
   Widget build(BuildContext context) {

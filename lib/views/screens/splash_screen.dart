@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var splashcontroller = Get.find<SplashController>();
-  var authController = Get.find<AuthStateContoller>();
+  var authController = Get.find<AuthStateController>();
 
   startDisplayTimer() async {
     var duration = const Duration(seconds: 1);

@@ -56,7 +56,7 @@ dependencies:
   random_string: ^2.3.1
   circular_countdown_timer: ^0.2.3
   simple_progress_indicators: ^0.2.0
-
+  custom_refresh_indicator: ^2.2.1
 
 dev_dependencies:
   flutter_test:

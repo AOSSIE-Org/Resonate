@@ -7,7 +7,7 @@ import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
 
-class AuthStateContoller extends GetxController {
+class AuthStateController extends GetxController {
   Client client = Client();
   late final Account account;
   late final Databases databases;

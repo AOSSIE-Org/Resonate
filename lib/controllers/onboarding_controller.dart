@@ -14,7 +14,7 @@ import 'auth_state_controller.dart';
 
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
-  AuthStateContoller authStateController = Get.find<AuthStateContoller>();
+  AuthStateController authStateController = Get.find<AuthStateController>();
   AuthenticationController authController = Get.find<AuthenticationController>();
   late final Storage storage;
   late final Databases databases;

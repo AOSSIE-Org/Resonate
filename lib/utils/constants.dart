@@ -15,6 +15,7 @@ const String userProfileImageBucketId = "64a52ab306331f167ce6";
 // Rooms related Database Constants
 const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
+const String participantsCollectionId = "64a63e508145d1084abf";
 
 const String sendOtpFunctionID = "64a7ed662d8da1fb816dazx";
 const String verifyOtpFunctionID = "64a7efbeb4f559c2c9e56789";

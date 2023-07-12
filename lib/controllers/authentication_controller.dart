@@ -17,9 +17,8 @@ class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
   late TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
-  TextEditingController confirmPasswordController =
-      TextEditingController(text: "");
-  AuthStateContoller authStateController = Get.find<AuthStateContoller>();
+  TextEditingController confirmPasswordController = TextEditingController(text: "");
+  AuthStateController authStateController = Get.find<AuthStateController>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();

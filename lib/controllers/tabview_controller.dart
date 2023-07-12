@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/widgets/participant_block.dart';
 
-import '../models/participant.dart';
 import '../views/screens/room_screen.dart';
 
 class TabViewController extends GetxController {
@@ -12,11 +10,11 @@ class TabViewController extends GetxController {
   getIndex() => _selectedIndex.value;
   setIndex(index) => _selectedIndex.value = index;
 
-  void openRoomSheet() {
+  void openRoomSheet(AppwriteRoom room) {
     showModalBottomSheet(
         context: Get.context!,
         builder: (ctx) {
-          return RoomScreen();
+          return RoomScreen(room: room);
         },
         useSafeArea: true,
         shape: RoundedRectangleBorder(
@@ -24,7 +22,7 @@ class TabViewController extends GetxController {
         ),
         backgroundColor: AppColor.bgBlackColor,
         isScrollControlled: true,
-        enableDrag: true,
+        enableDrag: false,
         isDismissible: false);
   }
 }

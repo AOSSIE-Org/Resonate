@@ -6,7 +6,7 @@ import 'package:resonate/controllers/splash_controller.dart';
 class AuthSplashBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AuthStateContoller());
+    Get.lazyPut(() => AuthStateController());
     Get.lazyPut(() => AuthenticationController());
     Get.lazyPut(() => SplashController());
   }
