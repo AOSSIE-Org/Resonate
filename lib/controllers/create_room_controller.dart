@@ -1,9 +1,15 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/utils/enums/room_state.dart';
 import 'package:textfield_tags/textfield_tags.dart';
+
+import '../models/appwrite_room.dart';
+import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
   RxBool isLoading = false.obs;
@@ -13,17 +19,56 @@ class CreateRoomController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
 
+  @override
+  void dispose(){
+    nameController.dispose();
+    descriptionController.dispose();
+    tagsController.dispose();
+    super.dispose();
+  }
+
   Future<void> createRoom() async {
     if (!createRoomFormKey.currentState!.validate()) {
       return;
     }
     try {
       isLoading.value = true;
-      log("${nameController.text} - ${descriptionController.text} - ${tagsController.getTags} ");
-      //TODO: Make a call to createRoom method from RoomService class
-      Get.find<TabViewController>().openRoomSheet();
+
+      // Display Loading Dialog
+      Get.dialog(
+        Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
+        barrierDismissible: false,
+        name: "Loading Dialog"
+      );
+
+      // Create a new room and add current user to participant list as admin and join livekit room
+      AuthStateController authStateController = Get.find<AuthStateController>();
+      List<String> newRoomInfo = await RoomService.createRoom(
+          roomName: nameController.text,
+          roomDescription: descriptionController.text,
+          roomTags: tagsController.getTags!,
+          adminEmail: authStateController.email!,
+          adminUid: authStateController.uid!);
+      String newRoomId = newRoomInfo[0];
+      String myDocId = newRoomInfo[1];
+
+      // Close the loading dialog
+      Get.back();
+
+      // Open the Room Bottom Sheet to interact in the room
+      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live, myDocId: myDocId);
+      Get.find<TabViewController>().openRoomSheet(room);
+
+      // Clear Create Room Form
+      nameController.clear();
+      tagsController.clearTags();
+      descriptionController.clear();
+
     } catch (e) {
       log(e.toString());
+
+      // Close the loading dialog
+      Get.back();
     } finally {
       isLoading.value = false;
     }

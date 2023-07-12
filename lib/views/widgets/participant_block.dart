@@ -44,7 +44,7 @@ class ParticipantBlock extends StatelessWidget {
                   size: 18,
                 ),
               Text(
-                participant.name,
+                participant.name.split(' ').first,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
 

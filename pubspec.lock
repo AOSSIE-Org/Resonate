@@ -249,6 +249,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  custom_refresh_indicator:
+    dependency: "direct main"
+    description:
+      name: custom_refresh_indicator
+      sha256: "65a463f09623f6baf75e45e0c9034e9304810be3f5dfb00a54edde7252f4a524"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   dart_style:
     dependency: transitive
     description:

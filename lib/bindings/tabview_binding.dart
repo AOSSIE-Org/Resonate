@@ -10,7 +10,7 @@ class TabViewBinding extends Bindings{
   @override
   void dependencies(){
     Get.lazyPut(() => TabViewController());
-    Get.lazyPut(() => AuthStateContoller());
+    Get.lazyPut(() => AuthStateController());
     Get.lazyPut(() => RoomsController());
   }
 }

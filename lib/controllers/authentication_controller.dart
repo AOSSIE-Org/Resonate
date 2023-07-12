@@ -14,7 +14,7 @@ class AuthenticationController extends GetxController {
   TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmPasswordController = TextEditingController(text: "");
 
-  AuthStateContoller authStateController = Get.find<AuthStateContoller>();
+  AuthStateController authStateController = Get.find<AuthStateController>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();

@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
+import 'package:resonate/models/appwrite_room.dart';
 
 import '../../models/participant.dart';
 import '../../utils/colors.dart';
 import '../widgets/participant_block.dart';
 
-class RoomScreen extends StatelessWidget {
+class RoomScreen extends StatefulWidget {
+  final AppwriteRoom room;
+  RoomScreen({required this.room});
 
-  SingleRoomController s = Get.put(SingleRoomController());
+  @override
+  State<RoomScreen> createState() => _RoomScreenState();
+}
+
+class _RoomScreenState extends State<RoomScreen> {
+  @override
+  void initState() {
+    Get.put(SingleRoomController(appwriteRoom: widget.room));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    SingleRoomController controller = Get.find<SingleRoomController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -24,17 +38,16 @@ class RoomScreen extends StatelessWidget {
               height: 7,
               width: 80,
               decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+                  color: Colors.amber.withOpacity(0.5), borderRadius: const BorderRadius.all(Radius.circular(10))),
             ),
           ),
           SizedBox(
             height: Get.height * 0.015,
           ),
           Row(
-            children: const [
+            children: [
               Text(
-                "For the love of open source ♥",
+                widget.room.name,
                 style: TextStyle(fontSize: 20, color: Colors.amber),
               ),
               Spacer(),
@@ -47,16 +60,12 @@ class RoomScreen extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.001,
           ),
-          const Text("Open Source · Flutter",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w100,
-                  color: Colors.white)),
+          Text(getTags(), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.white)),
           SizedBox(
             height: Get.height * 0.008,
           ),
-          const Text(
-            "This is a simple description of the room. You can feature a participant or talk about an event.",
+          Text(
+            widget.room.description,
             style: TextStyle(color: Colors.white70),
           ),
           SizedBox(
@@ -68,29 +77,23 @@ class RoomScreen extends StatelessWidget {
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 5),
-              child: GridView.builder(
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 20.0,
-                    mainAxisSpacing: 5.0,
-                    childAspectRatio: 2.5 / 3,
-                  ),
-                  itemCount: 15,
-                  itemBuilder: (ctx, index) {
-                    // TODO: Sample Participant - replace it
-                    Participant participantObj = Participant(
-                        email: "c@c.com",
-                        name: "Chandan",
-                        dpUrl:
-                        "https://avatars.githubusercontent.com/u/41890434?v=4",
-                        isAdmin: index==0,
-                        isMicOn: index%2==0,
-                        isModerator: false,
-                        isSpeaker: index<6,
-                        isSpeaking: false);
-                    return ParticipantBlock(participant: participantObj);
-                  }),
+              child: Obx(() {
+                return (!controller.isLoading.value)
+                    ? GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 20.0,
+                          mainAxisSpacing: 5.0,
+                          childAspectRatio: 2.5 / 3,
+                        ),
+                        itemCount: controller.participants.length,
+                        itemBuilder: (ctx, index) {
+                          return GetBuilder<SingleRoomController>(builder: (controller) => ParticipantBlock(participant: controller.participants[index].value) );
+                        })
+                    : Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio * 20),
+                      );
+              }),
             ),
           ),
           const Divider(
@@ -98,46 +101,54 @@ class RoomScreen extends StatelessWidget {
           ),
           SafeArea(
             child: SizedBox(
-              height: Get.height * 0.075,
+              height: Get.height * 0.08,
               child: Column(
                 children: [
-                  SizedBox(height: Get.height*0.01,),
+                  SizedBox(
+                    height: Get.height * 0.01,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        height: 40,
-                        width: 125,
-                        decoration: const BoxDecoration(
-                            gradient: AppColor.gradientBg,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
-                        child: const Center(
-                            child: Text(
-                              "Leave Room",
-                              style: TextStyle(color: Colors.black87),
-                            )),
-                      ),
-                      FloatingActionButton(
-                        onPressed: () {},
-                        backgroundColor: Colors.lightGreen,
-                        child: const Icon(
-                          Icons.mic,
-                          color: Colors.black,
+                      InkWell(
+                        onTap: () {
+                          Get.delete<SingleRoomController>();
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 125,
+                          decoration: const BoxDecoration(
+                              gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: const Center(
+                              child: Text(
+                            "Leave Room",
+                            style: TextStyle(color: Colors.black87),
+                          )),
                         ),
                       ),
+                      Obx(() {
+                        return FloatingActionButton(
+                          onPressed: () =>
+                              (controller.isMicOn.value) ? controller.turnOffMic() : controller.turnOnMic(),
+                          backgroundColor: (controller.isMicOn.value) ? Colors.lightGreen : Colors.redAccent,
+                          child: Icon(
+                            (controller.isMicOn.value) ? Icons.mic : Icons.mic_off,
+                            color: Colors.black,
+                          ),
+                        );
+                      }),
                       Container(
                         height: 40,
                         width: 125,
                         decoration: const BoxDecoration(
-                            gradient: AppColor.gradientBg,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(20))),
-                        child: const Center(
-                            child: Text(
-                              "26+ Active",
-                              style: TextStyle(color: Colors.black87),
-                            )),
+                            gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(20))),
+                        child: Center(child: Obx(() {
+                          return Text(
+                            "${controller.participants.length}+ Active",
+                            style: TextStyle(color: Colors.black87),
+                          );
+                        })),
                       ),
                     ],
                   ),
@@ -148,5 +159,13 @@ class RoomScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getTags() {
+    String tagString = widget.room.tags[0] ?? "";
+    for (var tag in widget.room.tags.sublist(1)) {
+      tagString += " · $tag";
+    }
+    return tagString;
   }
 }
