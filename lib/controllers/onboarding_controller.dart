@@ -109,7 +109,7 @@ class OnboardingController extends GetxController {
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       Get.snackbar("Saved Successfully", "");
-      Get.offNamed(AppRoutes.tabview);
+      Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());

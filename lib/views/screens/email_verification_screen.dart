@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -6,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   EmailVerificationScreen({Key? key}) : super(key: key);
-
 
   var controller = Get.find<AuthenticationController>();
 
@@ -55,8 +52,7 @@ class EmailVerificationScreen extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                      'Enter the OTP sent to ' +
-                          controller.emailController.text,
+                      'Enter the OTP sent to ${controller.emailController.text}',
                       textAlign: TextAlign.center),
                   const SizedBox(height: 40),
                   OtpTextField(
@@ -72,6 +68,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       if (result == "true") {
                         Get.snackbar("Verification Complete",
                             "Congratulations you have verified your Email");
+                        // TODO: Call set verified
                         Get.toNamed(AppRoutes.onBoarding);
                       } else {
                         Get.snackbar("Verification Failed",

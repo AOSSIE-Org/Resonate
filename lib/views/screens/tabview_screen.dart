@@ -12,13 +12,16 @@ import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  TabViewController controller = Get.put<TabViewController>(TabViewController());
-  AuthStateContoller authStateController = Get.put<AuthStateContoller>(AuthStateContoller());
+  TabViewController controller =
+      Get.put<TabViewController>(TabViewController());
+  AuthStateContoller authStateController =
+      Get.put<AuthStateContoller>(AuthStateContoller());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
               style: TextStyle(color: Colors.amber, fontSize: 26),
@@ -28,7 +31,7 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     await authStateController.logout();
                   },
                   icon: Icon(
@@ -38,7 +41,7 @@ class TabViewScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () async{
+            onPressed: () async {
               if (controller.getIndex() == 2) {
                 await Get.find<CreateRoomController>().createRoom();
               } else {

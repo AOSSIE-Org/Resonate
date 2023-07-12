@@ -24,7 +24,9 @@ class AuthStateContoller extends GetxController {
     client
         .setEndpoint(appwriteEndpoint)
         .setProject(appwriteProjectId)
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
+        .setSelfSigned(
+            status:
+                true); // For self signed certificates, only use for development
     account = Account(client);
     databases = Databases(client);
     await setUserProfileData();
@@ -36,9 +38,13 @@ class AuthStateContoller extends GetxController {
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       uid = appwriteUser.$id;
-      isUserProfileComplete = appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
-      if (isUserProfileComplete==true){
-        Document userDataDoc = await databases.getDocument(databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: appwriteUser.$id);
+      isUserProfileComplete =
+          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+      if (isUserProfileComplete == true) {
+        Document userDataDoc = await databases.getDocument(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
@@ -51,7 +57,7 @@ class AuthStateContoller extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      if (isUserProfileComplete==false) {
+      if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);

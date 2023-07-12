@@ -86,8 +86,10 @@ class AuthenticationController extends GetxController {
   }
 
   Future<bool> sendOTP() async {
+
     isLoading.value = true;
     otp_ID = randomNumeric(10).toString() + emailController.text;
+
     // Appwrite does not accept @ in document ID's
     otp_ID = otp_ID.split("@")[0];
     var sendOtpData = {
@@ -95,19 +97,23 @@ class AuthenticationController extends GetxController {
       "otpID": otp_ID.toString()
     };
     var data = json.encode(sendOtpData);
-    var send_result = await functions.createExecution(
+
+    await functions.createExecution(
         functionId: sendOtpFunctionID, data: data.toString());
     isLoading.value = false;
     resendIsAllowed.value = false;
-    Timer(Duration(milliseconds: 300), () {
+    
+    Timer(const Duration(milliseconds: 300), () {
       signup_isallowed.value = true;
     });
-    Get.toNamed(AppRoutes.emailVerification);
 
+    Get.toNamed(AppRoutes.emailVerification);
     return true;
   }
 
+
   Future<void> verifyOTP(String userOTP) async {
+
     verification_ID = randomNumeric(10).toString() + emailController.text;
     verification_ID = verification_ID.split("@")[0];
     var verifyOtpData = {
@@ -118,9 +124,11 @@ class AuthenticationController extends GetxController {
     var data = json.encode(verifyOtpData);
     var verify_result = await functions.createExecution(
         functionId: verifyOtpFunctionID, data: data.toString());
+
   }
 
   Future<String> checkVerificationStatus() async {
+
     final document = await databases.getDocument(
       databaseId: emailVerificationDatabaseID,
       collectionId: verificationCollectionID,
@@ -128,6 +136,7 @@ class AuthenticationController extends GetxController {
     );
     var isVerified = document.data['status'];
     return isVerified;
+
   }
 }
 
