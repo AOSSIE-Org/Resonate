@@ -19,8 +19,11 @@ const String participantsCollectionId = "64a63e508145d1084abf";
 
 const String sendOtpFunctionID = "64a7ed662d8da1fb816dazx";
 const String verifyOtpFunctionID = "64a7efbeb4f559c2c9e56789";
+const String verifyUserFunctionID = "64aeeb939536ddc32f02zy";
+
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";
+
 
 // Resonate Backend Constants
 const String resonateApiUrl = "http://127.0.0.1:3000";

@@ -9,6 +9,7 @@ import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
   Client client = Client();
+  var isInitializing = false.obs;
   late final Account account;
   late final Databases databases;
   late String? uid;
@@ -17,6 +18,8 @@ class AuthStateController extends GetxController {
   late String? profileImageUrl;
   late String? userName;
   late bool? isUserProfileComplete;
+  late bool? isEmailVerified;
+  late User appwriteUser;
 
   @override
   void onInit() async {
@@ -33,11 +36,13 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> setUserProfileData() async {
+    isInitializing.value = true;
     try {
-      User appwriteUser = await account.get();
+      appwriteUser = await account.get();
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       uid = appwriteUser.$id;
+      isEmailVerified = appwriteUser!.emailVerification;
       isUserProfileComplete =
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
@@ -48,6 +53,7 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
+      isInitializing.value = false;
       update();
     } catch (e) {
       log(e.toString());
@@ -58,7 +64,11 @@ class AuthStateController extends GetxController {
     try {
       await setUserProfileData();
       if (isUserProfileComplete == false) {
-        Get.offNamed(AppRoutes.onBoarding);
+        if (isEmailVerified == true) {
+          Get.offNamed(AppRoutes.onBoarding);
+        } else {
+          Get.offNamed(AppRoutes.emailVerification);
+        }
       } else {
         Get.offNamed(AppRoutes.tabview);
       }
@@ -75,6 +85,7 @@ class AuthStateController extends GetxController {
   Future<void> signup(String email, String password) async {
     await account.create(userId: ID.unique(), email: email, password: password);
     await account.createEmailSession(email: email, password: password);
+
     await setUserProfileData();
   }
 

@@ -75,7 +75,7 @@ class OnboardingController extends GetxController {
           collectionId: usernameCollectionID,
           documentId: usernameController.text,
           data: {
-            "email": authController.emailController.text
+            "email": authStateController.email
           });
       //Update User Meta Data
       if (profileImagePath != null) {
@@ -83,7 +83,7 @@ class OnboardingController extends GetxController {
             bucketId: userProfileImageBucketId,
             fileId: ID.unique(),
             file: InputFile.fromPath(
-                path: profileImagePath!, filename: "${authController.emailController.text}.jpeg"));
+                path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
         imageController.text =
             "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
       }

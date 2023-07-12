@@ -14,17 +14,19 @@ class AuthenticationController extends GetxController {
   var isLoading = false.obs;
   var signup_isallowed = true.obs;
   var resendIsAllowed = false.obs;
+  var isVerifying = false.obs;
   var isPasswordFieldVisible = false.obs;
   late TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
-  TextEditingController confirmPasswordController = TextEditingController(text: "");
+  TextEditingController confirmPasswordController =
+      TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
   late final Functions functions;
   late final Databases databases;
-  var otp_ID, verification_ID;
+  var verification_ID;
 
   @override
   void onInit() async {
@@ -85,23 +87,23 @@ class AuthenticationController extends GetxController {
   }
 
   Future<bool> sendOTP() async {
-
     isLoading.value = true;
-    otp_ID = randomNumeric(10).toString() + emailController.text;
-
+    var otp_ID = randomNumeric(10).toString() + emailController.text;
     // Appwrite does not accept @ in document ID's
     otp_ID = otp_ID.split("@")[0];
     var sendOtpData = {
       "email": emailController.text,
       "otpID": otp_ID.toString()
     };
+    print(otp_ID);
+    await authStateController.account.updatePrefs(prefs: {"otp_ID": otp_ID});
     var data = json.encode(sendOtpData);
 
     await functions.createExecution(
         functionId: sendOtpFunctionID, data: data.toString());
     isLoading.value = false;
     resendIsAllowed.value = false;
-    
+
     Timer(const Duration(milliseconds: 300), () {
       signup_isallowed.value = true;
     });
@@ -110,24 +112,23 @@ class AuthenticationController extends GetxController {
     return true;
   }
 
-
   Future<void> verifyOTP(String userOTP) async {
-
     verification_ID = randomNumeric(10).toString() + emailController.text;
     verification_ID = verification_ID.split("@")[0];
+    var prefs = await authStateController.account.getPrefs();
+    var otp_ID = prefs.data['otp_ID'];
+    print(otp_ID);
     var verifyOtpData = {
       "otpID": otp_ID,
       "userOTP": userOTP,
       "verify_ID": verification_ID
     };
     var data = json.encode(verifyOtpData);
-    var verify_result = await functions.createExecution(
+    await functions.createExecution(
         functionId: verifyOtpFunctionID, data: data.toString());
-
   }
 
   Future<String> checkVerificationStatus() async {
-
     final document = await databases.getDocument(
       databaseId: emailVerificationDatabaseID,
       collectionId: verificationCollectionID,
@@ -135,7 +136,15 @@ class AuthenticationController extends GetxController {
     );
     var isVerified = document.data['status'];
     return isVerified;
+  }
 
+  Future<void> setVerified() async {
+    var verifyUserData = {
+      "userID": authStateController.uid,
+    };
+    var verifyData = json.encode(verifyUserData);
+    await functions.createExecution(
+        functionId: verifyUserFunctionID, data: verifyData.toString());
   }
 }
 
