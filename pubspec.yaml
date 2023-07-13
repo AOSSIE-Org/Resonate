@@ -53,6 +53,7 @@ dependencies:
   chopper: ^6.1.4
   http: 1.0.0
   custom_refresh_indicator: ^2.2.1
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:

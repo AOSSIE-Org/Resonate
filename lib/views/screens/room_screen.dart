@@ -111,19 +111,18 @@ class _RoomScreenState extends State<RoomScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {
-                          Get.delete<SingleRoomController>();
-                          Get.back();
+                        onTap: () async {
+                          controller.appwriteRoom.isUserAdmin ? await controller.deleteRoom() : await controller.leaveRoom();
                         },
                         child: Container(
                           height: 40,
                           width: 125,
                           decoration: const BoxDecoration(
                               gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: const Center(
+                          child: Center(
                               child: Text(
-                            "Leave Room",
-                            style: TextStyle(color: Colors.black87),
+                                (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
+                            style: const TextStyle(color: Colors.black87),
                           )),
                         ),
                       ),
@@ -162,6 +161,9 @@ class _RoomScreenState extends State<RoomScreen> {
   }
 
   String getTags() {
+    if (widget.room.tags.isEmpty) {
+      return "";
+    }
     String tagString = widget.room.tags[0] ?? "";
     for (var tag in widget.room.tags.sublist(1)) {
       tagString += " · $tag";

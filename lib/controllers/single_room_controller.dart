@@ -35,7 +35,7 @@ class SingleRoomController extends GetxController {
   @override
   void onClose() async {
     subscription?.close();
-    appwriteRoom.isUserAdmin ? await deleteRoom() : await leaveRoom();
+    Get.back();
     super.onClose();
   }
 
@@ -56,6 +56,9 @@ class SingleRoomController extends GetxController {
 
   Future<void> removeParticipantDataFromList(String uid) async {
     participants.removeWhere((p) => p.value.uid == uid);
+    if (participants.isEmpty){
+      Get.delete<SingleRoomController>();
+    }
   }
 
   Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
@@ -121,10 +124,12 @@ class SingleRoomController extends GetxController {
 
   Future<void> leaveRoom() async {
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
+    Get.delete<SingleRoomController>();
   }
 
   Future<void> deleteRoom() async {
     await RoomService.deleteRoom(roomId: appwriteRoom.id);
+    Get.delete<SingleRoomController>();
   }
 
   Future<void> turnOnMic() async {

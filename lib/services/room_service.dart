@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -60,14 +61,34 @@ class RoomService {
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
+
+    // Store Livekit Url and Token in Secure Storage
+    final storage = FlutterSecureStorage();
+    await storage.write(key: "createdRoomAdminToken", value: livekitToken);
+    await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
+
     String myDocId = await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
     //TODO: Use the received token and url to call joinLiveKitRoom method
     return [appwriteRoomDocId, myDocId];
   }
 
   static Future deleteRoom({required roomId}) async {
-    //TODO: Use api service to delete the room (only admins)
-    log("Delete room called");
+    RoomsController roomsController = Get.find<RoomsController>();
+    final storage = FlutterSecureStorage();
+
+    // Delete room on livekit and roomdoc on appwrite
+    String? livekitToken = await storage.read(key: "createdRoomAdminToken");
+    await apiService.deleteRoom(roomId, livekitToken!);
+
+    // Get all participant documents and delete them
+    DocumentList participantDocsRef = await roomsController.databases
+        .listDocuments(databaseId: masterDatabaseId, collectionId: participantsCollectionId, queries: [
+      Query.equal('roomId', [roomId])
+    ]);
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(
+          databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: document.$id);
+    }
   }
 
   static Future<String> joinRoom({required roomId, required String userEmail, required String userId}) async {
