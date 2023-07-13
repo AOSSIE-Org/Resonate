@@ -126,13 +126,13 @@ class _RoomScreenState extends State<RoomScreen> {
                           )),
                         ),
                       ),
-                      Obx(() {
+                      GetBuilder<SingleRoomController>(builder: (controller) {
                         return FloatingActionButton(
                           onPressed: () =>
-                              (controller.isMicOn.value) ? controller.turnOffMic() : controller.turnOnMic(),
-                          backgroundColor: (controller.isMicOn.value) ? Colors.lightGreen : Colors.redAccent,
+                              (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
+                          backgroundColor: (controller.me.value.isMicOn) ? Colors.lightGreen : Colors.redAccent,
                           child: Icon(
-                            (controller.isMicOn.value) ? Icons.mic : Icons.mic_off,
+                            (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
                             color: Colors.black,
                           ),
                         );

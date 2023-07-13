@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/services/room_service.dart';
@@ -10,13 +11,13 @@ import 'package:resonate/services/room_service.dart';
 import '../utils/constants.dart';
 
 class SingleRoomController extends GetxController {
+  AuthStateController auth = Get.find<AuthStateController>();
   RxBool isLoading = false.obs;
-  RxBool isMicOn = false.obs;
+  late Rx<Participant> me = Participant(uid: auth.uid!, email: auth.email!, name: auth.userName!, dpUrl: auth.profileImageUrl!, isAdmin: appwriteRoom.isUserAdmin, isMicOn: false, isModerator: appwriteRoom.isUserAdmin, isSpeaker: appwriteRoom.isUserAdmin).obs;
   Client client = Client();
   final AppwriteRoom appwriteRoom;
   late final Realtime realtime;
   late final Databases databases;
-  late final User user;
   late final RealtimeSubscription? subscription;
   RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
 
@@ -24,12 +25,12 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    super.onInit();
     client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
     realtime = Realtime(client);
     databases = Databases(client);
     await getParticipants();
     getRealtimeStream();
+    super.onInit();
   }
 
   @override
@@ -138,7 +139,7 @@ class SingleRoomController extends GetxController {
         collectionId: participantsCollectionId,
         documentId: appwriteRoom.myDocId!,
         data: {"isMicOn": true});
-    isMicOn.value = true;
+    me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
@@ -147,6 +148,6 @@ class SingleRoomController extends GetxController {
         collectionId: participantsCollectionId,
         documentId: appwriteRoom.myDocId!,
         data: {"isMicOn": false});
-    isMicOn.value = false;
+    me.value.isMicOn = false;
   }
 }
