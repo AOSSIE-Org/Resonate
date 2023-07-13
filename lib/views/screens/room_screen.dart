@@ -127,13 +127,20 @@ class _RoomScreenState extends State<RoomScreen> {
                         ),
                       ),
                       GetBuilder<SingleRoomController>(builder: (controller) {
-                        return FloatingActionButton(
+                        return (controller.me.value.isSpeaker) ? FloatingActionButton(
                           onPressed: () =>
                               (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
                           backgroundColor: (controller.me.value.isMicOn) ? Colors.lightGreen : Colors.redAccent,
                           child: Icon(
                             (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
                             color: Colors.black,
+                          ),
+                        ) : FloatingActionButton(
+                          onPressed: () => (controller.me.value.hasRequestedToBeSpeaker) ? controller.unRaiseHand() : controller.raiseHand(),
+                          backgroundColor: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.amber : Colors.black54,
+                          child: Icon(
+                            (controller.me.value.hasRequestedToBeSpeaker) ? Icons.back_hand : Icons.back_hand_outlined,
+                            color: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.black : Colors.amber,
                           ),
                         );
                       }),

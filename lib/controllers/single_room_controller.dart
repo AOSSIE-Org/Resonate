@@ -13,7 +13,17 @@ import '../utils/constants.dart';
 class SingleRoomController extends GetxController {
   AuthStateController auth = Get.find<AuthStateController>();
   RxBool isLoading = false.obs;
-  late Rx<Participant> me = Participant(uid: auth.uid!, email: auth.email!, name: auth.userName!, dpUrl: auth.profileImageUrl!, isAdmin: appwriteRoom.isUserAdmin, isMicOn: false, isModerator: appwriteRoom.isUserAdmin, isSpeaker: appwriteRoom.isUserAdmin).obs;
+  late Rx<Participant> me = Participant(
+          uid: auth.uid!,
+          email: auth.email!,
+          name: auth.userName!,
+          dpUrl: auth.profileImageUrl!,
+          isAdmin: appwriteRoom.isUserAdmin,
+          isMicOn: false,
+          isModerator: appwriteRoom.isUserAdmin,
+          isSpeaker: appwriteRoom.isUserAdmin,
+          hasRequestedToBeSpeaker: false)
+      .obs;
   Client client = Client();
   final AppwriteRoom appwriteRoom;
   late final Realtime realtime;
@@ -51,13 +61,14 @@ class SingleRoomController extends GetxController {
         isAdmin: participant.data["isAdmin"],
         isMicOn: participant.data["isMicOn"],
         isModerator: participant.data["isModerator"],
-        isSpeaker: participant.data["isSpeaker"]));
+        isSpeaker: participant.data["isSpeaker"],
+        hasRequestedToBeSpeaker: participant.data["hasRequestedToBeSpeaker"] ?? false));
     participants.add(p);
   }
 
   Future<void> removeParticipantDataFromList(String uid) async {
     participants.removeWhere((p) => p.value.uid == uid);
-    if (participants.isEmpty){
+    if (participants.isEmpty) {
       Get.delete<SingleRoomController>();
     }
   }
@@ -65,6 +76,7 @@ class SingleRoomController extends GetxController {
   Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
     int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid == payload["uid"]);
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
+    participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker = payload["hasRequestedToBeSpeaker"] ?? false;
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
     update();
@@ -149,5 +161,23 @@ class SingleRoomController extends GetxController {
         documentId: appwriteRoom.myDocId!,
         data: {"isMicOn": false});
     me.value.isMicOn = false;
+  }
+
+  Future<void> raiseHand() async {
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: appwriteRoom.myDocId!,
+        data: {"hasRequestedToBeSpeaker": true});
+    me.value.hasRequestedToBeSpeaker = true;
+  }
+
+  Future<void> unRaiseHand() async {
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: appwriteRoom.myDocId!,
+        data: {"hasRequestedToBeSpeaker": false});
+    me.value.hasRequestedToBeSpeaker = false;
   }
 }

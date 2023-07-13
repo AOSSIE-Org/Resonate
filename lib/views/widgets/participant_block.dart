@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../models/participant.dart';
@@ -30,6 +32,18 @@ class ParticipantBlock extends StatelessWidget {
             child: CircleAvatar(
               backgroundImage: NetworkImage(participant.dpUrl),
               radius: 30,
+              child: (participant.hasRequestedToBeSpeaker) ? Stack(
+                children: const [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(
+                      Icons.waving_hand_rounded,
+                      color: Colors.amber,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ) : null,
             ),
           ),
           Row(
