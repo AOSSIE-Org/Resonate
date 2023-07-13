@@ -31,6 +31,7 @@ class RoomsController extends GetxController {
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
+      String userEmail = Get.find<AuthStateController>().email!;
 
       // Get active rooms and add it to rooms list
       rooms = [];
@@ -46,8 +47,9 @@ class RoomsController extends GetxController {
           Document participantDoc = await databases.getDocument(databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: p.data["uid"]);
           memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
         }
+
         // Create appwrite room object and add it to rooms list
-        AppwriteRoom appwriteRoom = AppwriteRoom(id: room.data['\$id'], name: room.data["name"], description: room.data["description"], totalParticipants: room.data["totalParticipants"], tags: room.data["tags"], memberAvatarUrls: memberAvatarUrls, state: RoomState.live);
+        AppwriteRoom appwriteRoom = AppwriteRoom(id: room.data['\$id'], name: room.data["name"], description: room.data["description"], totalParticipants: room.data["totalParticipants"], tags: room.data["tags"], memberAvatarUrls: memberAvatarUrls, state: RoomState.live, isUserAdmin: room.data["adminEmail"] == userEmail);
         rooms.add(appwriteRoom);
       }
       update();

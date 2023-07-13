@@ -56,7 +56,7 @@ class CreateRoomController extends GetxController {
       Get.back();
 
       // Open the Room Bottom Sheet to interact in the room
-      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live, myDocId: myDocId);
+      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live, myDocId: myDocId, isUserAdmin: true);
       Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form

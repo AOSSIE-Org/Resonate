@@ -35,7 +35,7 @@ class SingleRoomController extends GetxController {
   @override
   void onClose() async {
     subscription?.close();
-    await leaveRoom();
+    appwriteRoom.isUserAdmin ? await deleteRoom() : await leaveRoom();
     super.onClose();
   }
 
@@ -58,8 +58,8 @@ class SingleRoomController extends GetxController {
     participants.removeWhere((p) => p.value.uid == uid);
   }
 
-  Future<void> updateParticipantDataInList(Map<String,dynamic> payload) async {
-    int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid==payload["uid"]);
+  Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
+    int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid == payload["uid"]);
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
@@ -121,6 +121,10 @@ class SingleRoomController extends GetxController {
 
   Future<void> leaveRoom() async {
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
+  }
+
+  Future<void> deleteRoom() async {
+    await RoomService.deleteRoom(roomId: appwriteRoom.id);
   }
 
   Future<void> turnOnMic() async {
