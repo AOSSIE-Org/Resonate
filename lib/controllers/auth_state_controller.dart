@@ -42,7 +42,7 @@ class AuthStateController extends GetxController {
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       uid = appwriteUser.$id;
-      isEmailVerified = appwriteUser!.emailVerification;
+      isEmailVerified = appwriteUser.emailVerification;
       isUserProfileComplete =
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {

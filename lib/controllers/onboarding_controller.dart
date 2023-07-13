@@ -131,7 +131,7 @@ class OnboardingController extends GetxController {
 
   Future<bool> isUsernameAvailable(String username) async {
     try {
-      final document = await databases.getDocument(
+      await databases.getDocument(
         databaseId: userDatabaseID,
         collectionId: usernameCollectionID,
         documentId: username,

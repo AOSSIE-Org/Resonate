@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,7 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 
 class SignupScreen extends StatelessWidget {
-  var controller = Get.find<AuthenticationController>();
+  final controller = Get.find<AuthenticationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,18 +94,18 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(height: 25),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: controller.signup_isallowed.value
+                      onPressed: controller.signupisallowed.value
                           ? () async {
                               if (controller.registrationFormKey.currentState!
                                   .validate()) {
-                                controller.signup_isallowed.value = false;
+                                controller.signupisallowed.value = false;
                                 var isSignedin = await controller.signup();
                                 if(isSignedin){
                                 await controller.sendOTP();
                                 Get.snackbar("Signed Up Successfully",
                                     "You have successfully created a new account");
                                 }else{
-                                  controller.signup_isallowed.value = true;
+                                  controller.signupisallowed.value = true;
                                 }
                               }
                             }

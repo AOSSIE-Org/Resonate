@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:math' as math;
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,11 +11,14 @@ import 'package:resonate/utils/constants.dart';
 
 class AuthenticationController extends GetxController {
   var isLoading = false.obs;
-  var signup_isallowed = true.obs;
+  var signupisallowed = true.obs;
   var resendIsAllowed = false.obs;
   var isVerifying = false.obs;
+  var isUpdateAllowed = true.obs;
   var isPasswordFieldVisible = false.obs;
-  late TextEditingController emailController = TextEditingController(text: "");
+  var status;
+  TextEditingController updateEmailController = TextEditingController(text: "");
+  TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmPasswordController =
       TextEditingController(text: "");
@@ -24,9 +26,10 @@ class AuthenticationController extends GetxController {
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> updateEmailFormKey = GlobalKey<FormState>();
   late final Functions functions;
   late final Databases databases;
-  var verification_ID;
+  var verificationID;
 
   @override
   void onInit() async {
@@ -88,11 +91,11 @@ class AuthenticationController extends GetxController {
 
   Future<bool> sendOTP() async {
     isLoading.value = true;
-    var otp_ID = randomNumeric(10).toString() + emailController.text;
+    var otp_ID = randomNumeric(10).toString() + authStateController.email!;
     // Appwrite does not accept @ in document ID's
     otp_ID = otp_ID.split("@")[0];
     var sendOtpData = {
-      "email": emailController.text,
+      "email": authStateController.email,
       "otpID": otp_ID.toString()
     };
     print(otp_ID);
@@ -105,7 +108,7 @@ class AuthenticationController extends GetxController {
     resendIsAllowed.value = false;
 
     Timer(const Duration(milliseconds: 300), () {
-      signup_isallowed.value = true;
+      signupisallowed.value = true;
     });
 
     Get.toNamed(AppRoutes.emailVerification);
@@ -113,15 +116,15 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> verifyOTP(String userOTP) async {
-    verification_ID = randomNumeric(10).toString() + emailController.text;
-    verification_ID = verification_ID.split("@")[0];
+    verificationID = randomNumeric(10).toString() + authStateController.email!;
+    verificationID = verificationID.split("@")[0];
     var prefs = await authStateController.account.getPrefs();
     var otp_ID = prefs.data['otp_ID'];
     print(otp_ID);
     var verifyOtpData = {
       "otpID": otp_ID,
       "userOTP": userOTP,
-      "verify_ID": verification_ID
+      "verify_ID": verificationID
     };
     var data = json.encode(verifyOtpData);
     await functions.createExecution(
@@ -132,7 +135,7 @@ class AuthenticationController extends GetxController {
     final document = await databases.getDocument(
       databaseId: emailVerificationDatabaseID,
       collectionId: verificationCollectionID,
-      documentId: verification_ID,
+      documentId: verificationID,
     );
     var isVerified = document.data['status'];
     return isVerified;
@@ -145,6 +148,16 @@ class AuthenticationController extends GetxController {
     var verifyData = json.encode(verifyUserData);
     await functions.createExecution(
         functionId: verifyUserFunctionID, data: verifyData.toString());
+  }
+
+  Future<void> updateEmail() async {
+    var updateEmailData = json.encode({
+      "User_ID": authStateController.uid,
+      "email": updateEmailController.text
+    });
+    var results = await functions.createExecution(
+        functionId: updateEmailFunctionID, data: updateEmailData.toString());
+    status = results.status;
   }
 }
 
