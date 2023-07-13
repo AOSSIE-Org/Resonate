@@ -98,7 +98,6 @@ class AuthenticationController extends GetxController {
       "email": authStateController.email,
       "otpID": otp_ID.toString()
     };
-    print(otp_ID);
     await authStateController.account.updatePrefs(prefs: {"otp_ID": otp_ID});
     var data = json.encode(sendOtpData);
 
@@ -120,7 +119,6 @@ class AuthenticationController extends GetxController {
     verificationID = verificationID.split("@")[0];
     var prefs = await authStateController.account.getPrefs();
     var otp_ID = prefs.data['otp_ID'];
-    print(otp_ID);
     var verifyOtpData = {
       "otpID": otp_ID,
       "userOTP": userOTP,

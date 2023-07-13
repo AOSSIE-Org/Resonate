@@ -1,4 +1,3 @@
-import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -131,14 +130,6 @@ class UpdateEmailScreen extends StatelessWidget {
             ),
           ),
         ),
-        // controller.isVerifying.value
-        //     ? BackdropFilter(
-        //         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        //         child: Center(
-        //             child: LoadingAnimationWidget.threeRotatingDots(
-        //                 color: Colors.amber, size: Get.pixelRatio * 20)),
-        //       )
-        //     : const SizedBox(),
       ]),
     ));
   }
