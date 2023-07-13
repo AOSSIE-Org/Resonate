@@ -7,7 +7,8 @@ class Participant {
     required this.isAdmin,
     required this.isMicOn,
     required this.isModerator,
-    required this.isSpeaker
+    required this.isSpeaker,
+    required this.hasRequestedToBeSpeaker
   });
   late final String uid;
   late final String email;
