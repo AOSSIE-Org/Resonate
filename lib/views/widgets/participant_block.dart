@@ -86,7 +86,9 @@ class ParticipantBlock extends StatelessWidget {
                         Icons.remove_circle_outline,
                         color: Colors.red,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.kickOutParticipant(participant);
+                      },
                       backgroundColor: Colors.black),
                 ]
           : [],

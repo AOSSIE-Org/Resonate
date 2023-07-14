@@ -221,4 +221,9 @@ class SingleRoomController extends GetxController {
         documentId: participantDocId,
         data: {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
   }
+
+  Future<void> kickOutParticipant(Participant participant) async {
+    String participantDocId = await getParticipantDocId(participant);
+    await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: participantDocId);
+  }
 }
