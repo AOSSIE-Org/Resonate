@@ -196,15 +196,29 @@ class SingleRoomController extends GetxController {
     me.value.hasRequestedToBeSpeaker = false;
   }
 
-  Future<void> makeSpeaker(Participant participant) async {
+  Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
         queries: [Query.equal('roomId', appwriteRoom.id), Query.equal('uid', participant.uid)]);
+    return participantDocsRef.documents.first.$id;
+  }
+
+  Future<void> makeSpeaker(Participant participant) async {
+    String participantDocId = await getParticipantDocId(participant);
     await databases.updateDocument(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
-        documentId: participantDocsRef.documents.first.$id,
+        documentId: participantDocId,
         data: {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
+  }
+
+  Future<void> makeListener(Participant participant) async {
+    String participantDocId = await getParticipantDocId(participant);
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocId,
+        data: {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
   }
 }

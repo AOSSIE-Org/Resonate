@@ -73,7 +73,9 @@ class ParticipantBlock extends StatelessWidget {
                           Icons.mic_off_sharp,
                           color: Colors.red,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.makeListener(participant);
+                        },
                         backgroundColor: Colors.black),
                   FocusedMenuItem(
                       title: Text(
