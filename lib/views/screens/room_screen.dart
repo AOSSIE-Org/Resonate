@@ -88,7 +88,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         ),
                         itemCount: controller.participants.length,
                         itemBuilder: (ctx, index) {
-                          return GetBuilder<SingleRoomController>(builder: (controller) => ParticipantBlock(participant: controller.participants[index].value) );
+                          return GetBuilder<SingleRoomController>(builder: (controller) => ParticipantBlock(participant: controller.participants[index].value, controller: controller,) );
                         })
                     : Center(
                         child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio * 20),
