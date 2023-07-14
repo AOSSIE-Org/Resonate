@@ -104,11 +104,12 @@ class SingleRoomController extends GetxController {
   void getRealtimeStream() {
     String channel = 'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
-    subscription?.stream.listen((data) {
+    subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
         String roomId = data.payload["roomId"];
         if (roomId == appwriteRoom.id) {
           // This event belongs to the room current user is part of
+          String updatedUserId = data.payload["uid"];
           String docId = data.payload["\$id"];
           String action = data.events.first.substring(channel.length + 1 + docId.length + 1);
 
@@ -120,15 +121,29 @@ class SingleRoomController extends GetxController {
               }
             case 'update':
               {
+                // if the change is related to the current user
+                if (updatedUserId==me.value.uid){
+                  me.value.isModerator = data.payload["isModerator"];
+                  me.value.hasRequestedToBeSpeaker = data.payload["hasRequestedToBeSpeaker"] ?? false;
+                  me.value.isMicOn = data.payload["isMicOn"];
+                  me.value.isSpeaker = data.payload["isSpeaker"];
+                }
                 updateParticipantDataInList(data.payload);
                 break;
               }
             case 'delete':
               {
-                removeParticipantDataFromList(data.payload["uid"]);
-                break;
+                if (updatedUserId==me.value.uid){
+                  await Get.delete<SingleRoomController>();
+                }
+                else{
+                  removeParticipantDataFromList(data.payload["uid"]);
+                  break;
+                }
+
               }
           }
+
         }
         log(data.payload.toString());
       }
@@ -179,5 +194,17 @@ class SingleRoomController extends GetxController {
         documentId: appwriteRoom.myDocId!,
         data: {"hasRequestedToBeSpeaker": false});
     me.value.hasRequestedToBeSpeaker = false;
+  }
+
+  Future<void> makeSpeaker(Participant participant) async {
+    var participantDocsRef = await databases.listDocuments(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        queries: [Query.equal('roomId', appwriteRoom.id), Query.equal('uid', participant.uid)]);
+    await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocsRef.documents.first.$id,
+        data: {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
   }
 }
