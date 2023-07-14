@@ -45,48 +45,50 @@ class ParticipantBlock extends StatelessWidget {
       duration: Duration(milliseconds: 100),
       animateMenuItems: true,
       blurBackgroundColor: Colors.black54,
-      menuItems: (participant.isAdmin)
-          ? []
-          : [
-              if (participant.hasRequestedToBeSpeaker)
-                FocusedMenuItem(
-                    title: Text(
-                      "Add Speaker",
-                      style: TextStyle(color: Colors.amber),
-                    ),
-                    trailingIcon: Icon(
-                      Icons.record_voice_over,
-                      color: Colors.green,
-                    ),
-                    onPressed: () {
-                      controller.makeSpeaker(participant);
-                    },
-                    backgroundColor: Colors.black),
-              if (!participant.hasRequestedToBeSpeaker)
-                FocusedMenuItem(
-                    title: Text(
-                      "Make Listener",
-                      style: TextStyle(color: Colors.amber),
-                    ),
-                    trailingIcon: Icon(
-                      Icons.mic_off_sharp,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {},
-                    backgroundColor: Colors.black),
-              FocusedMenuItem(
-                  title: Text(
-                    "Kick Out",
-                    style: TextStyle(color: Colors.amber),
-                  ),
-                  trailingIcon: Icon(
-                    Icons.remove_circle_outline,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {},
-                  backgroundColor: Colors.black),
-            ],
-      openWithTap: (participant.isAdmin) ? false : true,
+      menuItems: (controller.me.value.isAdmin)
+          ? (participant.isAdmin)
+              ? []
+              : [
+                  if (participant.hasRequestedToBeSpeaker)
+                    FocusedMenuItem(
+                        title: Text(
+                          "Add Speaker",
+                          style: TextStyle(color: Colors.amber),
+                        ),
+                        trailingIcon: Icon(
+                          Icons.record_voice_over,
+                          color: Colors.green,
+                        ),
+                        onPressed: () {
+                          controller.makeSpeaker(participant);
+                        },
+                        backgroundColor: Colors.black),
+                  if (!participant.hasRequestedToBeSpeaker)
+                    FocusedMenuItem(
+                        title: Text(
+                          "Make Listener",
+                          style: TextStyle(color: Colors.amber),
+                        ),
+                        trailingIcon: Icon(
+                          Icons.mic_off_sharp,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {},
+                        backgroundColor: Colors.black),
+                  FocusedMenuItem(
+                      title: Text(
+                        "Kick Out",
+                        style: TextStyle(color: Colors.amber),
+                      ),
+                      trailingIcon: Icon(
+                        Icons.remove_circle_outline,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {},
+                      backgroundColor: Colors.black),
+                ]
+          : [],
+      openWithTap: (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
       child: Container(
         padding: EdgeInsets.all(2),
         alignment: Alignment.center,
