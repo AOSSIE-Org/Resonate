@@ -63,7 +63,7 @@ class ParticipantBlock extends StatelessWidget {
                           controller.makeSpeaker(participant);
                         },
                         backgroundColor: Colors.black),
-                  if (!participant.hasRequestedToBeSpeaker)
+                  if (participant.isSpeaker)
                     FocusedMenuItem(
                         title: Text(
                           "Make Listener",
