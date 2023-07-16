@@ -10,6 +10,9 @@ import '../routes/app_routes.dart';
 class AuthStateController extends GetxController {
   Client client = Client();
   var isInitializing = false.obs;
+  var isPressed = false.obs;
+  var shouldDisplay = false.obs;
+  var isSending = false.obs;
   late final Account account;
   late final Databases databases;
   late String? uid;
@@ -41,8 +44,8 @@ class AuthStateController extends GetxController {
       appwriteUser = await account.get();
       displayName = appwriteUser.name;
       email = appwriteUser.email;
-      uid = appwriteUser.$id;
       isEmailVerified = appwriteUser.emailVerification;
+      uid = appwriteUser.$id;
       isUserProfileComplete =
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
@@ -64,11 +67,7 @@ class AuthStateController extends GetxController {
     try {
       await setUserProfileData();
       if (isUserProfileComplete == false) {
-        if (isEmailVerified == true) {
-          Get.offNamed(AppRoutes.onBoarding);
-        } else {
-          Get.offNamed(AppRoutes.emailVerification);
-        }
+        Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
       }

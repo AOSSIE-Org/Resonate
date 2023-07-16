@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -100,11 +99,11 @@ class SignupScreen extends StatelessWidget {
                                   .validate()) {
                                 controller.signupisallowed.value = false;
                                 var isSignedin = await controller.signup();
-                                if(isSignedin){
-                                await controller.sendOTP();
-                                Get.snackbar("Signed Up Successfully",
-                                    "You have successfully created a new account");
-                                }else{
+                                if (isSignedin) {
+                                  Get.toNamed(AppRoutes.onBoarding);
+                                  Get.snackbar("Signed Up Successfully",
+                                      "You have successfully created a new account");
+                                } else {
                                   controller.signupisallowed.value = true;
                                 }
                               }

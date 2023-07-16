@@ -10,7 +10,6 @@ import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
-import 'package:resonate/views/screens/update_email_screen.dart';
 
 import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
@@ -61,11 +60,6 @@ class AppPages {
       name: AppRoutes.createRoom,
       page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
-    ),
-    GetPage(
-      name: AppRoutes.updateEmail,
-      page: () => UpdateEmailScreen(),
-      binding: AuthSplashBinding(),
     ),
   ];
 }

@@ -94,11 +94,13 @@ class AuthenticationController extends GetxController {
     var otp_ID = randomNumeric(10).toString() + authStateController.email!;
     // Appwrite does not accept @ in document ID's
     otp_ID = otp_ID.split("@")[0];
+    print(authStateController.email);
     var sendOtpData = {
       "email": authStateController.email,
       "otpID": otp_ID.toString()
     };
-    await authStateController.account.updatePrefs(prefs: {"otp_ID": otp_ID});
+    await authStateController.account
+        .updatePrefs(prefs: {"otp_ID": otp_ID, "isUserProfileComplete": true});
     var data = json.encode(sendOtpData);
 
     await functions.createExecution(
@@ -109,7 +111,7 @@ class AuthenticationController extends GetxController {
     Timer(const Duration(milliseconds: 300), () {
       signupisallowed.value = true;
     });
-
+    authStateController.isSending.value= false;
     Get.toNamed(AppRoutes.emailVerification);
     return true;
   }

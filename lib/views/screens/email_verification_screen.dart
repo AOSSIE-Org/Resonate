@@ -80,7 +80,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                       "Congratulations you have verified your Email");
                                   controller.setVerified();
                                   controller.isVerifying.value = false;
-                                  Get.toNamed(AppRoutes.onBoarding);
+                                  controller.authStateController.setUserProfileData();
+                                  Get.toNamed(AppRoutes.tabview);
                                 } else {
                                   controller.isVerifying.value = false;
                                   Get.snackbar("Verification Failed",
@@ -152,23 +153,6 @@ class EmailVerificationScreen extends StatelessWidget {
                                         )),
                             ),
                             const SizedBox(height: 40),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text("Incorrect Email?  "),
-                                GestureDetector(
-                                  onTap: () {
-                                    controller.updateEmailController.clear();
-                                    Get.toNamed(AppRoutes.updateEmail);
-                                  },
-                                  child: const Text(
-                                    "Update Email",
-                                    style:
-                                        TextStyle(color: AppColor.yellowColor),
-                                  ),
-                                )
-                              ],
-                            ),
                           ],
                         ),
                       ],

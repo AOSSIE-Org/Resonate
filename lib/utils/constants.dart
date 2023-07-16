@@ -17,10 +17,10 @@ const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
 const String participantsCollectionId = "64a63e508145d1084abf";
 
-const String sendOtpFunctionID = "64a7ed662d8da1fb816dazx";
-const String verifyOtpFunctionID = "64a7efbeb4f559c2c9e56789";
-const String verifyUserFunctionID = "64aeeb939536ddc32f02zy";
-const String updateEmailFunctionID = "64afac6db399e43f28ez3";
+const String sendOtpFunctionID = "64b281652d75cced214d";
+const String verifyOtpFunctionID = "64b28abda38a121b12b1";
+const String verifyUserFunctionID = "64b291891e5beefab2be";
+const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";
