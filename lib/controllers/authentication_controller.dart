@@ -30,6 +30,8 @@ class AuthenticationController extends GetxController {
   late final Functions functions;
   late final Databases databases;
   var verificationID;
+  var res_verify;
+  var res_set_verified;
 
   @override
   void onInit() async {
@@ -103,16 +105,23 @@ class AuthenticationController extends GetxController {
         .updatePrefs(prefs: {"otp_ID": otp_ID, "isUserProfileComplete": true});
     var data = json.encode(sendOtpData);
 
-    await functions.createExecution(
+    var res = await functions.createExecution(
         functionId: sendOtpFunctionID, data: data.toString());
     isLoading.value = false;
-    resendIsAllowed.value = false;
+    if (res.response == '{"message":"null"}') {
+      resendIsAllowed.value = false;
 
-    Timer(const Duration(milliseconds: 300), () {
+      Timer(const Duration(milliseconds: 300), () {
+        signupisallowed.value = true;
+      });
+      authStateController.isSending.value = false;
+      Get.toNamed(AppRoutes.emailVerification);
+    } else {
+      authStateController.isSending.value = false;
       signupisallowed.value = true;
-    });
-    authStateController.isSending.value= false;
-    Get.toNamed(AppRoutes.emailVerification);
+      Get.snackbar('Oops', res.response);
+    }
+
     return true;
   }
 
@@ -127,7 +136,7 @@ class AuthenticationController extends GetxController {
       "verify_ID": verificationID
     };
     var data = json.encode(verifyOtpData);
-    await functions.createExecution(
+    res_verify = await functions.createExecution(
         functionId: verifyOtpFunctionID, data: data.toString());
   }
 
@@ -146,7 +155,7 @@ class AuthenticationController extends GetxController {
       "userID": authStateController.uid,
     };
     var verifyData = json.encode(verifyUserData);
-    await functions.createExecution(
+    res_set_verified = await functions.createExecution(
         functionId: verifyUserFunctionID, data: verifyData.toString());
   }
 

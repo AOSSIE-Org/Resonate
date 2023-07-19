@@ -73,19 +73,33 @@ class EmailVerificationScreen extends StatelessWidget {
                               onSubmit: (String verificationCode) async {
                                 controller.isVerifying.value = true;
                                 await controller.verifyOTP(verificationCode);
-                                String result =
-                                    await controller.checkVerificationStatus();
-                                if (result == "true") {
-                                  Get.snackbar("Verification Complete",
-                                      "Congratulations you have verified your Email");
-                                  controller.setVerified();
-                                  controller.isVerifying.value = false;
-                                  controller.authStateController.setUserProfileData();
-                                  Get.toNamed(AppRoutes.tabview);
+                                if (controller.res_verify.response ==
+                                    '{"message":"null"}') {
+                                  String result = await controller
+                                      .checkVerificationStatus();
+                                  if (result == "true") {
+                                    Get.snackbar("Verification Complete",
+                                        "Congratulations you have verified your Email");
+                                    await controller.setVerified();
+                                    if (controller.res_set_verified.response ==
+                                        '{"message":"null"}') {
+                                      controller.isVerifying.value = false;
+                                      controller.authStateController
+                                          .setUserProfileData();
+                                      Get.toNamed(AppRoutes.tabview);
+                                    } else {
+                                      controller.isVerifying.value = false;
+                                      Get.snackbar('Oops',
+                                          controller.res_set_verified.response);
+                                    }
+                                  } else {
+                                    controller.isVerifying.value = false;
+                                    Get.snackbar("Verification Failed",
+                                        "OTP mismatch occured please try again");
+                                  }
                                 } else {
-                                  controller.isVerifying.value = false;
-                                  Get.snackbar("Verification Failed",
-                                      "OTP mismatch occured please try again");
+                                  Get.snackbar(
+                                      'Oops', controller.res_verify.response);
                                 }
                               },
                             ),
