@@ -16,6 +16,8 @@ class AuthenticationController extends GetxController {
   var isVerifying = false.obs;
   var isUpdateAllowed = true.obs;
   var isPasswordFieldVisible = false.obs;
+  var Pressed = true.obs;
+  var shouldDisplay = true.obs;
   var status;
   TextEditingController updateEmailController = TextEditingController(text: "");
   TextEditingController emailController = TextEditingController(text: "");
