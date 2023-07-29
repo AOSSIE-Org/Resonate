@@ -31,7 +31,7 @@ class RoomsController extends GetxController {
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
-      String userEmail = Get.find<AuthStateController>().email!;
+      String userUid = Get.find<AuthStateController>().uid!;
 
       // Get active rooms and add it to rooms list
       rooms = [];
@@ -49,7 +49,7 @@ class RoomsController extends GetxController {
         }
 
         // Create appwrite room object and add it to rooms list
-        AppwriteRoom appwriteRoom = AppwriteRoom(id: room.data['\$id'], name: room.data["name"], description: room.data["description"], totalParticipants: room.data["totalParticipants"], tags: room.data["tags"], memberAvatarUrls: memberAvatarUrls, state: RoomState.live, isUserAdmin: room.data["adminEmail"] == userEmail);
+        AppwriteRoom appwriteRoom = AppwriteRoom(id: room.data['\$id'], name: room.data["name"], description: room.data["description"], totalParticipants: room.data["totalParticipants"], tags: room.data["tags"], memberAvatarUrls: memberAvatarUrls, state: RoomState.live, isUserAdmin: room.data["adminUid"] == userUid);
         rooms.add(appwriteRoom);
       }
       update();
@@ -70,7 +70,7 @@ class RoomsController extends GetxController {
 
     // Get the token and livekit url and join livekit room
     AuthStateController authStateController = Get.find<AuthStateController>();
-    String myDocId = await RoomService.joinRoom(roomId: room.id, userEmail: authStateController.email!, userId: authStateController.uid!);
+    String myDocId = await RoomService.joinRoom(roomId: room.id, userId: authStateController.uid!, isAdmin: room.isUserAdmin);
     room.myDocId = myDocId;
 
     // Close the loading dialog

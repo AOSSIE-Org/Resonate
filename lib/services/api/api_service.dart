@@ -33,10 +33,10 @@ class ApiService {
     }
   }
 
-  Future<Response<dynamic>> joinRoom(String roomName, String userEmail) async {
+  Future<Response<dynamic>> joinRoom(String roomName, String uid) async {
     final data = {
       "roomName": roomName,
-      "userEmail": userEmail,
+      "uid": uid,
     };
 
     try {
