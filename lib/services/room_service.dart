@@ -55,9 +55,8 @@ class RoomService {
       {required String roomName,
       required String roomDescription,
       required List<String> roomTags,
-      required String adminEmail,
       required String adminUid}) async {
-    var response = await apiService.createRoom(roomName, roomDescription, adminEmail, roomTags);
+    var response = await apiService.createRoom(roomName, roomDescription, adminUid, roomTags);
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];

@@ -10,11 +10,11 @@ class ApiService {
   final chopper = RoomApi.create();
 
   Future<Response<dynamic>> createRoom(
-      String roomName, String roomDescription, String adminEmail, List<String> roomTags) async {
+      String roomName, String roomDescription, String adminUid, List<String> roomTags) async {
     final data = {
       "name": roomName,
       "description": roomDescription,
-      "adminEmail": adminEmail,
+      "adminUid": adminUid,
       "tags": roomTags,
     };
 
