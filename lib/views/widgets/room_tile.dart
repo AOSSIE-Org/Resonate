@@ -15,9 +15,11 @@ class RoomTile extends StatelessWidget {
       {required this.room});
 
   Text buildTags() {
-    String tagString = room.tags[0] ?? "";
-    for (var tag in room.tags.sublist(1)) {
-      tagString += " · $tag";
+    String tagString = room.tags.isNotEmpty ? room.tags[0] : "";
+    if (room.tags.isNotEmpty) {
+      for (var tag in room.tags.sublist(1)) {
+        tagString += " · $tag";
+      }
     }
     return Text(
       tagString,
