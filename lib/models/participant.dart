@@ -7,7 +7,8 @@ class Participant {
     required this.isAdmin,
     required this.isMicOn,
     required this.isModerator,
-    required this.isSpeaker
+    required this.isSpeaker,
+    required this.hasRequestedToBeSpeaker
   });
   late final String uid;
   late final String email;
@@ -17,6 +18,7 @@ class Participant {
   late bool isMicOn;
   late bool isModerator;
   late bool isSpeaker;
+  late bool hasRequestedToBeSpeaker;
 
   Participant.fromJson(Map<String, dynamic> json){
     uid = json["uid"];
@@ -27,6 +29,7 @@ class Participant {
     isMicOn = json['isMicOn'];
     isModerator = json['isModerator'];
     isSpeaker = json['isSpeaker'];
+    hasRequestedToBeSpeaker = json["hasRequestedToBeSpeaker"];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,7 @@ class Participant {
     data['isMicOn'] = isMicOn;
     data['isModerator'] = isModerator;
     data['isSpeaker'] = isSpeaker;
+    data['hasRequestedToBeSpeaker'] = hasRequestedToBeSpeaker;
     return data;
   }
 }

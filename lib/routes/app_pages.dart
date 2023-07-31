@@ -49,7 +49,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.home,
       page: () => HomeScreen(),
-      //binding: ProfileBinding(),
+      binding: TabViewBinding(),
     ),
     GetPage(
       name: AppRoutes.tabview,

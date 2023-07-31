@@ -86,7 +86,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         ),
                         itemCount: controller.participants.length,
                         itemBuilder: (ctx, index) {
-                          return GetBuilder<SingleRoomController>(builder: (controller) => ParticipantBlock(participant: controller.participants[index].value) );
+                          return GetBuilder<SingleRoomController>(builder: (controller) => ParticipantBlock(participant: controller.participants[index].value, controller: controller,) );
                         })
                     : Center(
                         child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio * 20),
@@ -109,30 +109,36 @@ class _RoomScreenState extends State<RoomScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {
-                          Get.delete<SingleRoomController>();
-                          Get.back();
+                        onTap: () async {
+                          controller.appwriteRoom.isUserAdmin ? await controller.deleteRoom() : await controller.leaveRoom();
                         },
                         child: Container(
                           height: 40,
                           width: 125,
                           decoration: const BoxDecoration(
                               gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: const Center(
+                          child: Center(
                               child: Text(
-                            "Leave Room",
-                            style: TextStyle(color: Colors.black87),
+                                (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
+                            style: const TextStyle(color: Colors.black87),
                           )),
                         ),
                       ),
-                      Obx(() {
-                        return FloatingActionButton(
+                      GetBuilder<SingleRoomController>(builder: (controller) {
+                        return (controller.me.value.isSpeaker) ? FloatingActionButton(
                           onPressed: () =>
-                              (controller.isMicOn.value) ? controller.turnOffMic() : controller.turnOnMic(),
-                          backgroundColor: (controller.isMicOn.value) ? Colors.lightGreen : Colors.redAccent,
+                              (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
+                          backgroundColor: (controller.me.value.isMicOn) ? Colors.lightGreen : Colors.redAccent,
                           child: Icon(
-                            (controller.isMicOn.value) ? Icons.mic : Icons.mic_off,
+                            (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
                             color: Colors.black,
+                          ),
+                        ) : FloatingActionButton(
+                          onPressed: () => (controller.me.value.hasRequestedToBeSpeaker) ? controller.unRaiseHand() : controller.raiseHand(),
+                          backgroundColor: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.amber : Colors.black54,
+                          child: Icon(
+                            (controller.me.value.hasRequestedToBeSpeaker) ? Icons.back_hand : Icons.back_hand_outlined,
+                            color: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.black : Colors.amber,
                           ),
                         );
                       }),
@@ -160,6 +166,9 @@ class _RoomScreenState extends State<RoomScreen> {
   }
 
   String getTags() {
+    if (widget.room.tags.isEmpty) {
+      return "";
+    }
     String tagString = widget.room.tags[0] ?? "";
     for (var tag in widget.room.tags.sublist(1)) {
       tagString += " · $tag";
