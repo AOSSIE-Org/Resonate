@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/services/api/api_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -13,8 +14,8 @@ import 'package:resonate/utils/constants.dart';
 class RoomService {
   static ApiService apiService = ApiService();
 
-  Future<void> joinLiveKitRoom(String livekitUri, String roomToken) async {
-    //TODO: Use Livekit SDK to intialize a room object
+  static Future<void> joinLiveKitRoom(String livekitUri, String roomToken) async {
+    Get.put(LiveKitController(liveKitUri: livekitUri, roomToken: roomToken), permanent: true);
   }
 
   static Future<String> addParticipantToAppwriteCollection(
@@ -67,7 +68,8 @@ class RoomService {
     await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
 
     String myDocId = await addParticipantToAppwriteCollection(roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
-    //TODO: Use the received token and url to call joinLiveKitRoom method
+    await joinLiveKitRoom(livekitSocketUrl, livekitToken);
+
     return [appwriteRoomDocId, myDocId];
   }
 
@@ -95,7 +97,7 @@ class RoomService {
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
     String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
-    //TODO: Use the received token and url to call joinLiveKitRoom method
+    await joinLiveKitRoom(livekitSocketUrl, livekitToken);
     return myDocId;
   }
 

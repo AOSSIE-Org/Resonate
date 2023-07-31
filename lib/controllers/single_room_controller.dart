@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/services/room_service.dart';
@@ -46,6 +47,7 @@ class SingleRoomController extends GetxController {
   @override
   void onClose() async {
     subscription?.close();
+    await Get.delete<LiveKitController>(force: true);
     Get.back();
     super.onClose();
   }
