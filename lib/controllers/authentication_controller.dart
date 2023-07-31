@@ -42,7 +42,7 @@ class AuthenticationController extends GetxController {
     databases = Databases(authStateController.client);
   }
 
-  Future<void> login() async {
+  Future<void> login() async {  
     if (!loginFormKey.currentState!.validate()) {
       return;
     }

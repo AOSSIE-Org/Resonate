@@ -23,8 +23,9 @@ class EmailVerificationScreen extends StatelessWidget {
               ? SingleChildScrollView(
                   child: Container(
                     color: AppColor.bgBlackColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 0.048 * Get.width,
+                        vertical: 0.012 * Get.height),
                     child: Column(
                       children: [
                         Align(
@@ -32,20 +33,22 @@ class EmailVerificationScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 "Resonate",
                                 style: TextStyle(
-                                    color: Colors.amber, fontSize: 26),
+                                    color: Colors.amber,
+                                    fontSize: 10.4 * Get.pixelRatio),
                               ),
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius:
+                                    BorderRadius.circular(5.714 * Get.height),
                                 child: Material(
                                   child: InkWell(
                                     onTap: () =>
                                         {Get.toNamed(AppRoutes.tabview)},
                                     child: Ink(
-                                        height: 32,
-                                        width: 100,
+                                        height: 0.038 * Get.height,
+                                        width: 0.243 * Get.width,
                                         decoration: BoxDecoration(
                                           gradient: AppColor.gradientBg,
                                           borderRadius:
@@ -64,11 +67,11 @@ class EmailVerificationScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 80),
+                        SizedBox(height: 0.0973 * Get.height),
                         Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                            height: 40,
+                            height: 0.0486 * Get.height,
                             decoration: const BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(40)),
@@ -76,19 +79,20 @@ class EmailVerificationScreen extends StatelessWidget {
                                   Color.fromARGB(161, 112, 106, 80),
                                   Color.fromARGB(232, 60, 58, 52)
                                 ])),
-                            child: const Center(
+                            child: Center(
                                 child: Text(
                               "OTP Verification",
-                              style: TextStyle(fontSize: 20),
+                              style:
+                                  TextStyle(fontSize: 5.714 * Get.pixelRatio),
                             )),
                           ),
                         ),
-                        const SizedBox(height: 90),
+                        SizedBox(height: 0.1095 * Get.height),
                         Stack(children: [
                           Column(
                             children: [
-                              const SizedBox(
-                                height: 15,
+                              SizedBox(
+                                height: 0.01825 * Get.height,
                               ),
                               Container(
                                 decoration: const BoxDecoration(
@@ -101,23 +105,25 @@ class EmailVerificationScreen extends StatelessWidget {
                                         ]),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 30),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 0.0364 * Get.width,
+                                    vertical: 0.0365 * Get.height),
                                 child: Column(
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
+                                    SizedBox(
+                                      height: 0.012 * Get.height,
                                     ),
                                     Text(
                                         'Enter the OTP sent to ${controller.authStateController.email}',
                                         textAlign: TextAlign.center),
-                                    const SizedBox(height: 40),
+                                    SizedBox(height: 0.0486 * Get.height),
                                     OtpTextField(
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
                                           224, 68, 170, 50),
-                                      enabledBorderColor: const Color.fromARGB(
-                                          182, 255, 193, 7),
+                                      borderWidth: 1.5,
+                                      enabledBorderColor:
+                                          Color.fromARGB(155, 255, 193, 7),
                                       showFieldAsBox: true,
                                       //runs when every textfield is filled
                                       onSubmit:
@@ -162,15 +168,15 @@ class EmailVerificationScreen extends StatelessWidget {
                                         }
                                       },
                                     ),
-                                    const SizedBox(height: 60),
+                                    SizedBox(height: 0.073 * Get.height),
                                     Obx(
                                       () => Container(
-                                        width: 300,
+                                        width: 0.729 * Get.width,
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: const Color.fromARGB(
                                                     232, 235, 181, 19),
-                                                width: 3),
+                                                width: 0.0072 * Get.width),
                                             borderRadius:
                                                 BorderRadius.circular(70),
                                             gradient: controller
@@ -187,7 +193,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            70),
+                                                            20 *
+                                                                Get.pixelRatio),
                                                     side: const BorderSide(
                                                         width: 0,
                                                         color: Colors
@@ -226,12 +233,13 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       const Text(
                                                         "Resend OTP?",
                                                       ),
-                                                      const SizedBox(
-                                                        width: 120,
+                                                      SizedBox(
+                                                        width: 0.27 * Get.width,
                                                       ),
                                                       CircularCountDownTimer(
-                                                        textStyle: const TextStyle(
-                                                            fontSize: 12,
+                                                        textStyle: TextStyle(
+                                                            fontSize: 3.42 *
+                                                                Get.pixelRatio,
                                                             color: AppColor
                                                                 .bgBlackColor),
                                                         isTimerTextShown: true,
@@ -241,8 +249,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                                               .resendIsAllowed
                                                               .value = true
                                                         },
-                                                        width: 35,
-                                                        height: 35,
+                                                        width: 0.085075 *
+                                                            Get.width,
+                                                        height:
+                                                            0.0425 * Get.height,
                                                         duration: 30,
                                                         backgroundColor:
                                                             Colors.amber,
@@ -278,10 +288,13 @@ class EmailVerificationScreen extends StatelessWidget {
                                         controller.shouldDisplay.value = true;
                                       }
                                     },
-                                    height: 35,
-                                    width: controller.Pressed.value ? 180 : 35,
+                                    height: 0.042 * Get.height,
+                                    width: controller.Pressed.value
+                                        ? 0.437 * Get.width
+                                        : 0.085 * Get.width,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(
+                                          8.5714285714 * Get.pixelRatio),
                                       color: Color.fromARGB(186, 255, 255, 255),
                                     ),
                                     duration: const Duration(milliseconds: 200),
