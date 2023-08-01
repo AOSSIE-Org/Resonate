@@ -55,9 +55,8 @@ class RoomService {
       {required String roomName,
       required String roomDescription,
       required List<String> roomTags,
-      required String adminEmail,
       required String adminUid}) async {
-    var response = await apiService.createRoom(roomName, roomDescription, adminEmail, roomTags);
+    var response = await apiService.createRoom(roomName, roomDescription, adminUid, roomTags);
     String appwriteRoomDocId = response.body["livekit_room"]["name"];
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
@@ -91,9 +90,8 @@ class RoomService {
     }
   }
 
-  static Future<String> joinRoom({required roomId, required String userEmail, required String userId}) async {
-    //TODO: Use api service to generate token and pass it to joinLiveKitRoom method, add participant to collection and increment total_participants
-    var response = await apiService.joinRoom(roomId, userEmail);
+  static Future<String> joinRoom({required roomId, required String userId, required bool isAdmin}) async {
+    var response = await apiService.joinRoom(roomId, userId);
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
     String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
