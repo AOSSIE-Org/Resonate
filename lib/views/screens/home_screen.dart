@@ -73,11 +73,26 @@ class HomeScreen extends StatelessWidget {
                                   roomsController.getRooms();
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: Colors.amber),
+                                  maximumSize: Size.fromWidth(Get.width * 0.30),
+                                  side: const BorderSide(
+                                      color: Colors.amber, width: 1),
                                 ),
-                                child: const Text(
-                                  "Refresh",
-                                  style: TextStyle(color: Colors.amber),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Refresh",
+                                      style: TextStyle(color: Colors.amber),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.015,
+                                    ),
+                                    const Icon(
+                                      Icons.refresh,
+                                      color: Colors.amber,
+                                    ),
+                                  ],
                                 ),
                               )
                             ],
