@@ -31,11 +31,11 @@ class MyApp extends StatelessWidget {
           iconTheme: Get.theme.iconTheme.copyWith(
             color: AppColor.yellowColor,
           ),
-          inputDecorationTheme: const InputDecorationTheme(
+          inputDecorationTheme: InputDecorationTheme(
             iconColor: AppColor.yellowColor,
             floatingLabelStyle: TextStyle(color: AppColor.yellowColor),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColor.yellowColor, width: 2),
+              borderSide: BorderSide(color: AppColor.yellowColor, width: 0.0048*Get.width),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white60),
@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
               elevation: 2,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // <-- Radius
-                  side: BorderSide(width: 1.0, color: Colors.grey[800]!)),
-              minimumSize: const Size.fromHeight(45), // NEW
+                  side: BorderSide(width: 0.0024*Get.width, color: Colors.grey[800]!)),
+              minimumSize:  Size.fromHeight(0.054*Get.height), // NEW
             ),
           )),
       initialRoute: AppRoutes.splash,

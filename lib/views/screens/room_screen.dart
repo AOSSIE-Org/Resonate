@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
-
-import '../../models/participant.dart';
 import '../../utils/colors.dart';
 import '../widgets/participant_block.dart';
 

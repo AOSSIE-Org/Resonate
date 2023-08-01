@@ -17,5 +17,13 @@ const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
 const String participantsCollectionId = "64a63e508145d1084abf";
 
+const String sendOtpFunctionID = "64b281652d75cced214d";
+const String verifyOtpFunctionID = "64b28abda38a121b12b1";
+const String verifyUserFunctionID = "64b291891e5beefab2be";
+const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
+
+const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
+const String verificationCollectionID = "64a7c0100eabfe8d3844";
+
 // Resonate Backend Constants
 const String resonateApiUrl = "http://127.0.0.1:3000";

@@ -9,7 +9,7 @@ import 'package:resonate/utils/enums/gender.dart';
 import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({Key? key}) : super(key: key);
+  OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class OnBoardingScreen extends StatelessWidget {
                               : FileImage(File(controller.profileImagePath!))
                                   as ImageProvider,
                           radius: 50,
-                          child: Stack(
-                            children: const [
+                          child: const Stack(
+                            children: [
                               Align(
                                 alignment: Alignment.bottomRight,
                                 child: CircleAvatar(
@@ -96,11 +96,11 @@ class OnBoardingScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: InputDecoration(
-                            icon: Icon(Icons.account_circle),
+                            icon: const Icon(Icons.account_circle),
                             labelText: "Username",
                             prefixText: "@",
                             suffixIcon: controller.usernameAvailable.value
-                                ? Icon(Icons.verified_outlined)
+                                ? const Icon(Icons.verified_outlined)
                                 : null),
                       ),
                     ),
