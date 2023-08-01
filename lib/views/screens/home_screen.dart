@@ -1,7 +1,6 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 
@@ -49,9 +48,16 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: Get.height * 0.3,
+                                height: Get.height * 0.15,
                               ),
-                              Center(
+                              Image.asset(
+                                "assets/images/NoRoom.png",
+                                height: Get.height * 0.17,
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.035,
+                              ),
+                              const Center(
                                 child: Text(
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
@@ -62,14 +68,16 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: Get.height * 0.01,
                               ),
-                              MaterialButton(
+                              OutlinedButton(
                                 onPressed: () {
                                   roomsController.getRooms();
                                 },
-                                color: Colors.amber,
-                                child: Text(
+                                style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: Colors.amber),
+                                ),
+                                child: const Text(
                                   "Refresh",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.amber),
                                 ),
                               )
                             ],
