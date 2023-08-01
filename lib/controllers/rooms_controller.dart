@@ -61,22 +61,28 @@ class RoomsController extends GetxController {
   }
 
   Future<void> joinRoom({required AppwriteRoom room}) async {
-    // Display Loading Dialog
-    Get.dialog(
-        Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
-        barrierDismissible: false,
-        name: "Loading Dialog"
-    );
+    try{
+      // Display Loading Dialog
+      Get.dialog(
+          Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
+          barrierDismissible: false,
+          name: "Loading Dialog"
+      );
 
-    // Get the token and livekit url and join livekit room
-    AuthStateController authStateController = Get.find<AuthStateController>();
-    String myDocId = await RoomService.joinRoom(roomId: room.id, userId: authStateController.uid!, isAdmin: room.isUserAdmin);
-    room.myDocId = myDocId;
+      // Get the token and livekit url and join livekit room
+      AuthStateController authStateController = Get.find<AuthStateController>();
+      String myDocId = await RoomService.joinRoom(roomId: room.id, userId: authStateController.uid!, isAdmin: room.isUserAdmin);
+      room.myDocId = myDocId;
 
-    // Close the loading dialog
-    Get.back();
+      // Close the loading dialog
+      Get.back();
 
-    // Open the Room Bottom Sheet to interact in the room
-    Get.find<TabViewController>().openRoomSheet(room);
+      // Open the Room Bottom Sheet to interact in the room
+      Get.find<TabViewController>().openRoomSheet(room);
+    }catch(e){
+      log(e.toString());
+      // Close the loading dialog
+      Get.back();
+    }
   }
 }
