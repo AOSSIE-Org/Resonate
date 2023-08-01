@@ -37,7 +37,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                 "Resonate",
                                 style: TextStyle(
                                     color: Colors.amber,
-                                    fontSize: 10.4 * Get.pixelRatio),
+                                    fontSize:
+                                        0.015 * Get.height + 0.031 * Get.width),
                               ),
                               ClipRRect(
                                 borderRadius:
@@ -54,12 +55,13 @@ class EmailVerificationScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: const Center(
-                                          child: Text(
-                                            "Back",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
+                                        child: Center(
+                                          child: Text("Back",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize:
+                                                      0.0085 * Get.height +
+                                                          0.017 * Get.width)),
                                         )),
                                   ),
                                 ),
@@ -82,8 +84,9 @@ class EmailVerificationScreen extends StatelessWidget {
                             child: Center(
                                 child: Text(
                               "OTP Verification",
-                              style:
-                                  TextStyle(fontSize: 5.714 * Get.pixelRatio),
+                              style: TextStyle(
+                                  fontSize:
+                                      0.012 * Get.height + 0.024 * Get.width),
                             )),
                           ),
                         ),
@@ -114,14 +117,20 @@ class EmailVerificationScreen extends StatelessWidget {
                                       height: 0.012 * Get.height,
                                     ),
                                     Text(
-                                        'Enter the OTP sent to ${controller.authStateController.email}',
-                                        textAlign: TextAlign.center),
+                                      'Enter the OTP sent to ${controller.authStateController.email}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 0.0085 * Get.height +
+                                            0.017 * Get.width,
+                                      ),
+                                    ),
                                     SizedBox(height: 0.0486 * Get.height),
                                     OtpTextField(
+                                      fieldWidth: 0.09722 * Get.width,
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
                                           224, 68, 170, 50),
-                                      borderWidth: 1.5,
+                                      borderWidth: 0.00364 * Get.width,
                                       enabledBorderColor:
                                           Color.fromARGB(155, 255, 193, 7),
                                       showFieldAsBox: true,
@@ -188,83 +197,101 @@ class EmailVerificationScreen extends StatelessWidget {
                                                     Color.fromARGB(
                                                         255, 68, 63, 63)
                                                   ])),
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20 *
-                                                                Get.pixelRatio),
-                                                    side: const BorderSide(
-                                                        width: 0,
-                                                        color: Colors
-                                                            .transparent)),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                shadowColor:
-                                                    Colors.transparent),
-                                            onPressed:
-                                                controller.resendIsAllowed.value
-                                                    ? () {
-                                                        controller
-                                                            .resendIsAllowed
-                                                            .value = false;
-                                                        controller.sendOTP();
-                                                        Get.snackbar(
-                                                            "OTP Resent",
-                                                            "Please do check your mail for a new OTP");
-                                                      }
-                                                    : () {
-                                                        Get.snackbar("Hold on",
-                                                            "Please wait till the timer completes");
-                                                      },
-                                            child: controller
-                                                    .resendIsAllowed.value
-                                                ? const Text(
-                                                    "Resend OTP",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                  )
-                                                : Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      const Text(
-                                                        "Resend OTP?",
+                                        child: SizedBox(
+                                          height: 0.05476 * Get.height,
+                                          width: 0.7146 * Get.width,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius
+                                                          .circular(0.0425 *
+                                                                  Get.height +
+                                                              0.085 *
+                                                                  Get.width),
+                                                      side: const BorderSide(
+                                                          width: 0,
+                                                          color: Colors
+                                                              .transparent)),
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  shadowColor:
+                                                      Colors.transparent),
+                                              onPressed: controller
+                                                      .resendIsAllowed.value
+                                                  ? () {
+                                                      controller.resendIsAllowed
+                                                          .value = false;
+                                                      controller.sendOTP();
+                                                      Get.snackbar("OTP Resent",
+                                                          "Please do check your mail for a new OTP");
+                                                    }
+                                                  : () {
+                                                      Get.snackbar("Hold on",
+                                                          "Please wait till the timer completes");
+                                                    },
+                                              child: controller
+                                                      .resendIsAllowed.value
+                                                  ? Text(
+                                                      "Resend OTP",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 0.0085 *
+                                                                Get.height +
+                                                            0.017 * Get.width,
                                                       ),
-                                                      SizedBox(
-                                                        width: 0.27 * Get.width,
-                                                      ),
-                                                      CircularCountDownTimer(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 3.42 *
-                                                                Get.pixelRatio,
-                                                            color: AppColor
-                                                                .bgBlackColor),
-                                                        isTimerTextShown: true,
-                                                        isReverse: true,
-                                                        onComplete: () => {
-                                                          controller
-                                                              .resendIsAllowed
-                                                              .value = true
-                                                        },
-                                                        width: 0.085075 *
-                                                            Get.width,
-                                                        height:
-                                                            0.0425 * Get.height,
-                                                        duration: 30,
-                                                        backgroundColor:
-                                                            Colors.amber,
-                                                        fillColor: const Color
-                                                                .fromARGB(
-                                                            255, 74, 74, 74),
-                                                        ringColor: const Color
-                                                                .fromARGB(
-                                                            255, 130, 130, 130),
-                                                      ),
-                                                    ],
-                                                  )),
+                                                    )
+                                                  : Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Resend OTP?",
+                                                          style: TextStyle(
+                                                              fontSize: 0.0085 *
+                                                                      Get
+                                                                          .height +
+                                                                  0.017 *
+                                                                      Get.width),
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              0.27 * Get.width,
+                                                        ),
+                                                        CircularCountDownTimer(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 0.0073 *
+                                                                      Get
+                                                                          .height +
+                                                                  0.01458 *
+                                                                      Get.width,
+                                                              color: AppColor
+                                                                  .bgBlackColor),
+                                                          isTimerTextShown:
+                                                              true,
+                                                          isReverse: true,
+                                                          onComplete: () => {
+                                                            controller
+                                                                .resendIsAllowed
+                                                                .value = true
+                                                          },
+                                                          width: 0.085075 *
+                                                              Get.width,
+                                                          height: 0.0425 *
+                                                              Get.height,
+                                                          duration: 30,
+                                                          backgroundColor:
+                                                              Colors.amber,
+                                                          fillColor: const Color
+                                                                  .fromARGB(
+                                                              255, 74, 74, 74),
+                                                          ringColor: const Color
+                                                                  .fromARGB(255,
+                                                              130, 130, 130),
+                                                        ),
+                                                      ],
+                                                    )),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -288,7 +315,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         controller.shouldDisplay.value = true;
                                       }
                                     },
-                                    height: 0.042 * Get.height,
+                                    height: 0.042594 * Get.height,
                                     width: controller.Pressed.value
                                         ? 0.437 * Get.width
                                         : 0.085 * Get.width,
@@ -299,11 +326,14 @@ class EmailVerificationScreen extends StatelessWidget {
                                     ),
                                     duration: const Duration(milliseconds: 200),
                                     child: controller.shouldDisplay.value
-                                        ? const Center(
+                                        ? Center(
                                             child: Text(
                                               "Verify Your Email",
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                  color: Colors.black,
+                                                  fontSize:
+                                                      0.0085 * Get.height +
+                                                          0.017 * Get.width),
                                             ),
                                           )
                                         : SizedBox())),
