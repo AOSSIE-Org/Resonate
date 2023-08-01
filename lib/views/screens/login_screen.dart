@@ -14,77 +14,98 @@ class LoginScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              height: Get.height * 0.9,
+              height: Get.height * 0.95,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Form(
                 key: controller.loginFormKey,
                 child: Column(
                   children: <Widget>[
                     SizedBox(
-                      width: 180,
-                      height: 180,
+                      width: 0.437 * Get.width,
+                      height: 0.219 * Get.height,
                       child: Image.asset("assets/images/aossie_logo.png"),
                     ),
-                    const SizedBox(height: 15),
-                    const Text(
+                    SizedBox(height: 0.018 * Get.height),
+                    Text(
                       "Welcome Back",
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(
+                          fontSize: 0.015 * Get.height + 0.03 * Get.width),
                     ),
-                    const SizedBox(height: 15),
-                    TextFormField(
-                      validator: (value) => value!.isValidEmail()
-                          ? null
-                          : "Enter Valid Email Address",
-                      controller: controller.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.alternate_email),
-                        labelText: "Email ID",
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Obx(
-                      () => TextFormField(
-                        controller: controller.passwordController,
-                        obscureText: !controller.isPasswordFieldVisible.value,
-                        enableSuggestions: false,
+                    SizedBox(height: 0.018 * Get.height),
+                    Container(
+                      height: 0.08 * Get.height,
+                      child: TextFormField(
+                        validator: (value) => value!.isValidEmail()
+                            ? null
+                            : "Enter Valid Email Address",
+                        controller: controller.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         autocorrect: false,
                         decoration: InputDecoration(
-                          icon: const Icon(
-                            Icons.lock_outline_rounded,
+                          icon: Icon(
+                            Icons.alternate_email,
+                            size: 0.014 * Get.height + 0.029 * Get.width,
                           ),
-                          labelText: "Password",
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
-                            },
-                            splashRadius: 20,
+                          labelText: "Email ID",
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 0.012 * Get.height),
+                    Container(
+                      height: 0.08 * Get.height,
+                      child: Obx(
+                        () => TextFormField(
+                          controller: controller.passwordController,
+                          obscureText: !controller.isPasswordFieldVisible.value,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          style: TextStyle(
+                              fontSize:
+                                  0.0085 * Get.height + 0.017 * Get.width),
+                          decoration: InputDecoration(
                             icon: Icon(
-                              controller.isPasswordFieldVisible.value
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+                              size: 0.014 * Get.height + 0.029 * Get.width,
+                              Icons.lock_outline_rounded,
+                            ),
+                            labelText: "Password",
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                controller.isPasswordFieldVisible.value =
+                                    !controller.isPasswordFieldVisible.value;
+                              },
+                              splashRadius: 0.024 * Get.height,
+                              icon: Icon(
+                                size: 0.014 * Get.height + 0.029 * Get.width,
+                                controller.isPasswordFieldVisible.value
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.018 * Get.height),
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
                           //TODO: Navigate to forgot password screen
                         },
-                        child: const Text(
+                        child: Text(
                           "Forgot Password?",
-                          style: TextStyle(color: Colors.yellow),
+                          style: TextStyle(
+                              color: Colors.yellow,
+                              fontSize:
+                                  0.0085 * Get.height + 0.017 * Get.width),
                           textAlign: TextAlign.right,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 0.018 * Get.height),
                     Obx(
                       () => ElevatedButton(
                         onPressed: () async {
@@ -97,39 +118,45 @@ class LoginScreen extends StatelessWidget {
                                 child: LoadingAnimationWidget
                                     .horizontalRotatingDots(
                                   color: Colors.black,
-                                  size: 40,
+                                  size: 0.024 * Get.height + 0.048 * Get.width,
                                 ),
                               )
-                            : const Text(
+                            : Text(
                                 'Login',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 22,
+                                  fontSize:
+                                      0.024 * Get.width + 0.012 * Get.height,
                                 ),
                               ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 0.036 * Get.height),
                     Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
                           child: Divider(
-                            indent: 20.0,
-                            endIndent: 10.0,
-                            thickness: 1,
+                            indent: 0.048 * Get.width,
+                            endIndent: 0.024 * Get.width,
+                            thickness: 0.0012 * Get.height,
                           ),
                         ),
-                        Text("OR"),
+                        Text(
+                          "OR",
+                          style: TextStyle(
+                              fontSize:
+                                  0.0085 * Get.height + 0.017 * Get.width),
+                        ),
                         Expanded(
                           child: Divider(
-                            indent: 10.0,
-                            endIndent: 20.0,
-                            thickness: 1,
+                            indent: 0.048 * Get.width,
+                            endIndent: 0.024 * Get.width,
+                            thickness: 0.0012 * Get.height,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 0.036 * Get.height),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffFFFFE0),
@@ -141,37 +168,48 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 30,
-                            width: 30,
+                            height: 0.036 * Get.height,
+                            width: 0.072 * Get.width,
                             child: Image.asset("assets/images/google_icon.png"),
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: 0.024 * Get.width,
                           ),
-                          const Text(
+                          Text(
                             'Login with Google',
                             style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 18,
+                              fontSize: 0.01 * Get.height + 0.021 * Get.width,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("New to Resonate?  "),
+                        Text(
+                          "New to Resonate?",
+                          style: TextStyle(
+                              fontSize:
+                                  0.017 * Get.width + 0.0085 * Get.height),
+                        ),
+                        SizedBox(
+                          width: 0.012 * Get.width,
+                        ),
                         GestureDetector(
                           onTap: () {
                             controller.emailController.clear();
                             controller.passwordController.clear();
                             Get.toNamed(AppRoutes.signup);
                           },
-                          child: const Text(
+                          child: Text(
                             "Register",
-                            style: TextStyle(color: AppColor.yellowColor),
+                            style: TextStyle(
+                                color: AppColor.yellowColor,
+                                fontSize:
+                                    0.017 * Get.width + 0.0085 * Get.height),
                           ),
                         )
                       ],

@@ -72,7 +72,7 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
-      Get.toNamed(AppRoutes.login);
+      Get.offNamed(AppRoutes.login);
     }
   }
 
