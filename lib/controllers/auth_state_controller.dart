@@ -9,6 +9,10 @@ import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
   Client client = Client();
+  var isInitializing = false.obs;
+  var isPressed = false.obs;
+  var shouldDisplay = false.obs;
+  var isSending = false.obs;
   late final Account account;
   late final Databases databases;
   late String? uid;
@@ -17,6 +21,8 @@ class AuthStateController extends GetxController {
   late String? profileImageUrl;
   late String? userName;
   late bool? isUserProfileComplete;
+  late bool? isEmailVerified;
+  late User appwriteUser;
 
   @override
   void onInit() async {
@@ -24,24 +30,33 @@ class AuthStateController extends GetxController {
     client
         .setEndpoint(appwriteEndpoint)
         .setProject(appwriteProjectId)
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
+        .setSelfSigned(
+            status:
+                true); // For self signed certificates, only use for development
     account = Account(client);
     databases = Databases(client);
     await setUserProfileData();
   }
 
   Future<void> setUserProfileData() async {
+    isInitializing.value = true;
     try {
-      User appwriteUser = await account.get();
+      appwriteUser = await account.get();
       displayName = appwriteUser.name;
       email = appwriteUser.email;
+      isEmailVerified = appwriteUser.emailVerification;
       uid = appwriteUser.$id;
-      isUserProfileComplete = appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
-      if (isUserProfileComplete==true){
-        Document userDataDoc = await databases.getDocument(databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: appwriteUser.$id);
+      isUserProfileComplete =
+          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+      if (isUserProfileComplete == true) {
+        Document userDataDoc = await databases.getDocument(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
+      isInitializing.value = false;
       update();
     } catch (e) {
       log(e.toString());
@@ -51,7 +66,7 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      if (isUserProfileComplete==false) {
+      if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
@@ -69,6 +84,7 @@ class AuthStateController extends GetxController {
   Future<void> signup(String email, String password) async {
     await account.create(userId: ID.unique(), email: email, password: password);
     await account.createEmailSession(email: email, password: password);
+
     await setUserProfileData();
   }
 

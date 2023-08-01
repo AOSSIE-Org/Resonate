@@ -52,6 +52,10 @@ dependencies:
   page_transition: ^2.0.9
   chopper: ^6.1.4
   http: 0.13.6
+  flutter_otp_text_field: ^1.1.1
+  random_string: ^2.3.1
+  circular_countdown_timer: ^0.2.3
+  simple_progress_indicators: ^0.2.0
   custom_refresh_indicator: ^2.2.1
   flutter_secure_storage: ^8.0.0
   focused_menu: ^1.0.5

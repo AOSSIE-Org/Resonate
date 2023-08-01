@@ -1,14 +1,16 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 
 import '../widgets/room_tile.dart';
 
 class HomeScreen extends StatelessWidget {
-  RoomsController roomsController = Get.find<RoomsController>();
+  HomeScreen({super.key});
+
+  final RoomsController roomsController = Get.find<RoomsController>();
+
 
   @override
   Widget build(BuildContext context) {

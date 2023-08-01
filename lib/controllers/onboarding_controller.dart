@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/gender.dart';
@@ -14,12 +15,12 @@ import 'auth_state_controller.dart';
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
   AuthStateController authStateController = Get.find<AuthStateController>();
+  AuthenticationController authController = Get.find<AuthenticationController>();
   late final Storage storage;
   late final Databases databases;
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
-
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
@@ -70,18 +71,19 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-        databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: usernameController.text,
-        data: {"email": authStateController.email},
-      );
-
-      // Upload user profile image
+          databaseId: userDatabaseID,
+          collectionId: usernameCollectionID,
+          documentId: usernameController.text,
+          data: {
+            "email": authStateController.email
+          });
+      //Update User Meta Data
       if (profileImagePath != null) {
         final profileImage = await storage.createFile(
             bucketId: userProfileImageBucketId,
             fileId: ID.unique(),
-            file: InputFile.fromPath(path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
+            file: InputFile.fromPath(
+                path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
         imageController.text =
             "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
       }
@@ -106,9 +108,8 @@ class OnboardingController extends GetxController {
 
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
-
       Get.snackbar("Saved Successfully", "");
-      Get.offNamed(AppRoutes.tabview);
+      Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());
@@ -130,7 +131,7 @@ class OnboardingController extends GetxController {
 
   Future<bool> isUsernameAvailable(String username) async {
     try {
-      final document = await databases.getDocument(
+      await databases.getDocument(
         databaseId: userDatabaseID,
         collectionId: usernameCollectionID,
         documentId: username,
