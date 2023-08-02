@@ -15,7 +15,8 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               height: Get.height * 0.95,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 0.0486 * Get.width, vertical: 0.012 * Get.height),
               child: Form(
                 key: controller.loginFormKey,
                 child: Column(

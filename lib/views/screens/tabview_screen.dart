@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
@@ -15,6 +16,8 @@ class TabViewScreen extends StatelessWidget {
       Get.put<TabViewController>(TabViewController());
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
+  final AuthenticationController authController =
+      Get.put<AuthenticationController>(AuthenticationController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,13 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
-                  onPressed: () async {
-                    await authStateController.logout();
-                  },
+                  onPressed: authController.isSending.value
+                      ? () {
+                          Get.snackbar("Sending OTP...", "Please wait");
+                        }
+                      : () async {
+                          await authStateController.logout();
+                        },
                   icon: Icon(
                     Icons.exit_to_app_rounded,
                     color: Colors.amber,
@@ -57,7 +64,11 @@ class TabViewScreen extends StatelessWidget {
               },
               backgroundColor: AppColor.yellowColor,
               child: (controller.getIndex() == 2)
-                  ? const Text("Start")
+                  ? Text(
+                      "Start",
+                      style: TextStyle(
+                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                    )
                   : Icon(
                       Icons.add,
                       size: 0.0146 * Get.height + 0.02916 * Get.width,

@@ -20,10 +20,10 @@ class HomeScreen extends StatelessWidget {
               child: CustomRefreshIndicator(
                   builder: MaterialIndicatorDelegate(
                     builder: (context, controller) {
-                      return const Icon(
+                      return  Icon(
                         Icons.ac_unit,
                         color: Colors.amber,
-                        size: 30,
+                        size: 0.01825*Get.height+0.0364*Get.width,
                       );
                     },
                   ),

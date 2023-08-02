@@ -10,9 +10,6 @@ import '../routes/app_routes.dart';
 class AuthStateController extends GetxController {
   Client client = Client();
   var isInitializing = false.obs;
-  var isPressed = false.obs;
-  var shouldDisplay = false.obs;
-  var isSending = false.obs;
   late final Account account;
   late final Databases databases;
   late String? uid;

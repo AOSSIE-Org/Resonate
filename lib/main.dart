@@ -29,13 +29,15 @@ class MyApp extends StatelessWidget {
           fontFamily:
               GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
           iconTheme: Get.theme.iconTheme.copyWith(
+            size: 0.0146 * Get.height + 0.02916 * Get.width,
             color: AppColor.yellowColor,
           ),
           inputDecorationTheme: InputDecorationTheme(
             iconColor: AppColor.yellowColor,
             floatingLabelStyle: TextStyle(color: AppColor.yellowColor),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColor.yellowColor, width: 0.0048*Get.width),
+              borderSide: BorderSide(
+                  color: AppColor.yellowColor, width: 0.0048 * Get.width),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white60),
@@ -48,8 +50,9 @@ class MyApp extends StatelessWidget {
               elevation: 2,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // <-- Radius
-                  side: BorderSide(width: 0.0024*Get.width, color: Colors.grey[800]!)),
-              minimumSize:  Size.fromHeight(0.054*Get.height), // NEW
+                  side: BorderSide(
+                      width: 0.0024 * Get.width, color: Colors.grey[800]!)),
+              minimumSize: Size.fromHeight(0.054 * Get.height), // NEW
             ),
           )),
       initialRoute: AppRoutes.splash,

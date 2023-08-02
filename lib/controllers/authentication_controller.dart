@@ -14,6 +14,7 @@ class AuthenticationController extends GetxController {
   var signupisallowed = true.obs;
   var resendIsAllowed = false.obs;
   var isVerifying = false.obs;
+  var isSending = false.obs;
   var isUpdateAllowed = true.obs;
   var isPasswordFieldVisible = false.obs;
   var Pressed = true.obs;
@@ -116,10 +117,10 @@ class AuthenticationController extends GetxController {
       Timer(const Duration(milliseconds: 300), () {
         signupisallowed.value = true;
       });
-      authStateController.isSending.value = false;
+      isSending.value = false;
       Get.toNamed(AppRoutes.emailVerification);
     } else {
-      authStateController.isSending.value = false;
+      isSending.value = false;
       signupisallowed.value = true;
       Get.snackbar('Oops', res.response);
     }

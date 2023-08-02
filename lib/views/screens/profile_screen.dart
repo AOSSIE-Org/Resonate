@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Colors.amber, width: 0.009 * Get.width),
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                               image: NetworkImage(
                                   controller.profileImageUrl ?? ''),
                             ),
@@ -52,22 +52,24 @@ class ProfileScreen extends StatelessWidget {
                                 alignment: Alignment.bottomRight,
                                 child: GestureDetector(
                                   onTap: () {
-                                    controller.isPressed.value =
-                                        !(controller.isPressed.value);
-                                    if (controller.isPressed.value == false) {
-                                      controller.shouldDisplay.value = false;
+                                    authController.Pressed.value =
+                                        !(authController.Pressed.value);
+                                    if (authController.Pressed.value == false) {
+                                      authController.shouldDisplay.value =
+                                          false;
                                     }
                                   },
                                   child: AnimatedContainer(
                                       onEnd: () {
-                                        if (controller.isPressed.value ==
+                                        if (authController.Pressed.value ==
                                             true) {
-                                          controller.shouldDisplay.value = true;
+                                          authController.shouldDisplay.value =
+                                              true;
                                         }
                                       },
-                                      width: controller.isPressed.value
-                                          ? 0.34 * Get.width
-                                          : 0.07295 * Get.width,
+                                      width: authController.Pressed.value
+                                          ? 0.339 * Get.width
+                                          : 0.07286 * Get.width,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: Colors.white,
@@ -83,13 +85,15 @@ class ProfileScreen extends StatelessWidget {
                                                   size: 0.018 * Get.height +
                                                       0.036 * Get.width,
                                                 ),
-                                                controller.shouldDisplay.value
+                                                authController
+                                                        .shouldDisplay.value
                                                     ? SizedBox(
                                                         width:
                                                             0.012 * Get.width,
                                                       )
                                                     : const SizedBox(),
-                                                controller.shouldDisplay.value
+                                                authController
+                                                        .shouldDisplay.value
                                                     ? Text(
                                                         "Email Verified",
                                                         style: TextStyle(
@@ -104,22 +108,30 @@ class ProfileScreen extends StatelessWidget {
                                               ],
                                             )
                                           : Row(
+                                              mainAxisAlignment: authController
+                                                      .Pressed.value
+                                                  ? MainAxisAlignment.start
+                                                  : MainAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.cancel_rounded,
                                                   color: const Color.fromARGB(
                                                       255, 236, 53, 40),
-                                                  size:
-                                                      0.01824548 * Get.height +
-                                                          0.0364608 * Get.width,
+                                                  size: 0.018 * Get.height +
+                                                      0.036 * Get.width,
                                                 ),
-                                                controller.shouldDisplay.value
+                                                authController
+                                                        .shouldDisplay.value
                                                     ? SizedBox(
-                                                        width:
-                                                            0.012 * Get.width,
+                                                        width: 0.0121536 *
+                                                            Get.width,
                                                       )
-                                                    : const SizedBox(),
-                                                controller.shouldDisplay.value
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      ),
+                                                authController
+                                                        .shouldDisplay.value
                                                     ? Text(
                                                         "Verify Email",
                                                         style: TextStyle(
@@ -130,7 +142,10 @@ class ProfileScreen extends StatelessWidget {
                                                             color:
                                                                 Colors.black),
                                                       )
-                                                    : const SizedBox()
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      )
                                               ],
                                             )),
                                 ),
@@ -139,17 +154,32 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 0.024 * Get.height),
-                        Text(
-                          "@ ${controller.userName}",
-                          style: TextStyle(
-                              fontSize: 0.021 * Get.height + 0.0425 * Get.width,
-                              color: Colors.amber),
+                        SizedBox(
+                          width: 0.77783 * Get.width,
+                          height: 0.0633 * Get.height,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              "@ ${controller.userName}",
+                              style: TextStyle(
+                                  fontSize:
+                                      0.021 * Get.height + 0.0425 * Get.width,
+                                  color: Colors.amber),
+                            ),
+                          ),
                         ),
-                        Text(
-                          controller.displayName.toString(),
-                          style: TextStyle(
-                              fontSize:
-                                  0.01521 * Get.height + 0.03 * Get.width),
+                        SizedBox(
+                          width: 0.77783 * Get.width,
+                          height: 0.045 * Get.height,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              controller.displayName.toString(),
+                              style: TextStyle(
+                                  fontSize:
+                                      0.01521 * Get.height + 0.03 * Get.width),
+                            ),
+                          ),
                         ),
                         Text(
                           controller.email.toString(),
@@ -165,19 +195,19 @@ class ProfileScreen extends StatelessWidget {
                                 child: Material(
                                   child: InkWell(
                                     highlightColor:
-                                        Color.fromARGB(138, 33, 140, 14),
+                                        const Color.fromARGB(138, 33, 140, 14),
                                     splashColor:
-                                        Color.fromARGB(172, 43, 174, 20),
+                                        const Color.fromARGB(172, 43, 174, 20),
                                     onTap: () => {
-                                      controller.isSending.value = true,
+                                      authController.isSending.value = true,
                                       authController.sendOTP()
                                     },
                                     child: Ink(
                                         height: 0.048 * Get.height,
                                         width: 0.34 * Get.width,
                                         decoration: BoxDecoration(
-                                            color:
-                                                Color.fromARGB(235, 111, 88, 5),
+                                            color: const Color.fromARGB(
+                                                235, 111, 88, 5),
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             border: Border.all(
@@ -194,7 +224,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                         SizedBox(height: 0.0097 * Get.height),
                         CustomCard(
                           title: "Contribute to the project",
@@ -220,14 +250,14 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-            controller.isSending.value
+            authController.isSending.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
                             color: Colors.amber, size: Get.pixelRatio * 20)),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ])),
         ),
       ),

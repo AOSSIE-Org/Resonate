@@ -14,83 +14,106 @@ class SignupScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: Get.height * 0.9,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            height: Get.height * 0.92,
+            padding: EdgeInsets.symmetric(
+                horizontal: 0.048 * Get.width, vertical: 0.0121 * Get.height),
             child: Form(
               key: controller.registrationFormKey,
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    width: 180,
-                    height: 180,
+                    width: 0.4375 * Get.width,
+                    height: 0.219 * Get.height,
                     child: Image.asset("assets/images/aossie_logo.png"),
                   ),
-                  const SizedBox(height: 15),
-                  const Text(
+                  SizedBox(height: 0.01825 * Get.height),
+                  Text(
                     "Welcome to Resonate",
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(
+                        fontSize: 0.015 * Get.height + 0.03 * Get.width),
                   ),
-                  const SizedBox(height: 15),
-                  TextFormField(
-                    validator: (value) => value!.isValidEmail()
-                        ? null
-                        : "Enter Valid Email Address",
-                    controller: controller.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.alternate_email),
-                      labelText: "Email ID",
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    validator: (value) => value!.isValidPassword()
-                        ? null
-                        : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
-                    controller: controller.passwordController,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      icon: Icon(
-                        Icons.lock_outline_rounded,
-                      ),
-                      labelText: "Password",
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Obx(
-                    () => TextFormField(
-                      validator: (value) => value!.isSamePassword(
-                              controller.passwordController.text)
+                  SizedBox(height: 0.01825 * Get.height),
+                  SizedBox(
+                    height: 0.07995 * Get.height,
+                    child: TextFormField(
+                      validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Password do not match",
-                      controller: controller.confirmPasswordController,
-                      obscureText: !controller.isPasswordFieldVisible.value,
+                          : "Enter Valid Email Address",
+                      style: TextStyle(
+                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                      controller: controller.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          size: 0.014 * Get.height + 0.029 * Get.width,
+                          Icons.alternate_email,
+                        ),
+                        labelText: "Email ID",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.012 * Get.height),
+                  SizedBox(
+                    height: 0.07995 * Get.height,
+                    child: TextFormField(
+                      style: TextStyle(
+                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                      validator: (value) => value!.isValidPassword()
+                          ? null
+                          : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                      controller: controller.passwordController,
+                      obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
-                        icon: const Icon(
+                        icon: Icon(
+                          size: 0.014 * Get.height + 0.029 * Get.width,
                           Icons.lock_outline_rounded,
                         ),
-                        labelText: "Confirm Password",
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            controller.isPasswordFieldVisible.value =
-                                !controller.isPasswordFieldVisible.value;
-                          },
-                          splashRadius: 20,
+                        labelText: "Password",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 0.012 * Get.height),
+                  SizedBox(
+                    height: 0.07995 * Get.height,
+                    child: Obx(
+                      () => TextFormField(
+                        style: TextStyle(
+                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                        validator: (value) => value!.isSamePassword(
+                                controller.passwordController.text)
+                            ? null
+                            : "Password do not match",
+                        controller: controller.confirmPasswordController,
+                        obscureText: !controller.isPasswordFieldVisible.value,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecoration(
                           icon: Icon(
-                            controller.isPasswordFieldVisible.value
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
+                            size: 0.014 * Get.height + 0.029 * Get.width,
+                            Icons.lock_outline_rounded,
+                          ),
+                          labelText: "Confirm Password",
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              controller.isPasswordFieldVisible.value =
+                                  !controller.isPasswordFieldVisible.value;
+                            },
+                            splashRadius: 20,
+                            icon: Icon(
+                              size: 0.014 * Get.height + 0.029 * Get.width,
+                              controller.isPasswordFieldVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25),
+                  SizedBox(height: 0.03 * Get.height),
                   Obx(
                     () => ElevatedButton(
                       onPressed: controller.signupisallowed.value
@@ -114,64 +137,67 @@ class SignupScreen extends StatelessWidget {
                               child:
                                   LoadingAnimationWidget.horizontalRotatingDots(
                                 color: Colors.black,
-                                size: 40,
+                                size: 0.024 * Get.height + 0.048 * Get.width,
                               ),
                             )
-                          : const Text(
+                          : Text(
                               'Sign up',
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 22,
+                                fontSize:
+                                    0.024 * Get.width + 0.012 * Get.height,
                               ),
                             ),
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  const Row(
+                  SizedBox(height: 0.0206888 * Get.height),
+                  Row(
                     children: <Widget>[
                       Expanded(
                         child: Divider(
-                          indent: 20.0,
-                          endIndent: 10.0,
-                          thickness: 1,
+                          indent: 0.048 * Get.width,
+                          endIndent: 0.024 * Get.width,
+                          thickness: 0.0012 * Get.height,
                         ),
                       ),
-                      Text("OR"),
+                      Text(
+                        "OR",
+                        style: TextStyle(
+                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                      ),
                       Expanded(
                         child: Divider(
-                          indent: 10.0,
-                          endIndent: 20.0,
-                          thickness: 1,
+                          indent: 0.048 * Get.width,
+                          endIndent: 0.024 * Get.width,
+                          thickness: 0.0012 * Get.height,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 0.0206888 * Get.height),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffFFFFE0),
                     ),
                     onPressed: () async {
-                      if (!controller.isLoading.value) {
-                        await controller.loginWithGoogle();
-                      }
+                      await controller.loginWithGoogle();
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 30,
-                          width: 30,
+                          height: 0.0365 * Get.height,
+                          width: 0.0729 * Get.width,
                           child: Image.asset("assets/images/google_icon.png"),
                         ),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: 0.024 * Get.width,
                         ),
-                        const Text(
+                        Text(
                           'Sign up with Google',
                           style: TextStyle(
                             color: Colors.black54,
-                            fontSize: 18,
+                            fontSize: 0.0109 * Get.height + 0.02187 * Get.width,
                           ),
                         ),
                       ],
@@ -181,12 +207,19 @@ class SignupScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already on Resonate?  "),
+                      Text(
+                        "Already on Resonate?  ",
+                        style: TextStyle(
+                            fontSize: 0.017 * Get.width + 0.0085 * Get.height),
+                      ),
                       GestureDetector(
                         onTap: () => Get.offNamed(AppRoutes.login),
-                        child: const Text(
+                        child: Text(
                           "Login",
-                          style: TextStyle(color: AppColor.yellowColor),
+                          style: TextStyle(
+                              color: AppColor.yellowColor,
+                              fontSize:
+                                  0.017 * Get.width + 0.0085 * Get.height),
                         ),
                       )
                     ],
