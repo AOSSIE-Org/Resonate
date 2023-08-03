@@ -5,9 +5,11 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 
+import '../../controllers/email_verify_controller.dart';
+
 class SignupScreen extends StatelessWidget {
   final controller = Get.find<AuthenticationController>();
-
+  final  emailVerifyController= Get.find<EmailVerifyController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,18 +125,18 @@ class SignupScreen extends StatelessWidget {
                   SizedBox(height: 0.03 * Get.height),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: controller.signupisallowed.value
+                      onPressed: emailVerifyController.signupisallowed.value
                           ? () async {
                               if (controller.registrationFormKey.currentState!
                                   .validate()) {
-                                controller.signupisallowed.value = false;
+                                emailVerifyController.signupisallowed.value = false;
                                 var isSignedin = await controller.signup();
                                 if (isSignedin) {
                                   Get.toNamed(AppRoutes.onBoarding);
                                   Get.snackbar("Signed Up Successfully",
                                       "You have successfully created a new account");
                                 } else {
-                                  controller.signupisallowed.value = true;
+                                  emailVerifyController.signupisallowed.value = true;
                                 }
                               }
                             }

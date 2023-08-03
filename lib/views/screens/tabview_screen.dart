@@ -2,12 +2,12 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
+import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
@@ -16,8 +16,8 @@ class TabViewScreen extends StatelessWidget {
       Get.put<TabViewController>(TabViewController());
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
-  final AuthenticationController authController =
-      Get.put<AuthenticationController>(AuthenticationController());
+  final EmailVerifyController emailverifycontroller =
+      Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
-                  onPressed: authController.isSending.value
+                  onPressed: emailverifycontroller.isSending.value
                       ? () {
                           Get.snackbar("Sending OTP...", "Please wait");
                         }

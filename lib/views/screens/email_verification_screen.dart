@@ -8,11 +8,13 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 
+import '../../controllers/email_verify_controller.dart';
+
 class EmailVerificationScreen extends StatelessWidget {
   EmailVerificationScreen({Key? key}) : super(key: key);
 
   final controller = Get.find<AuthenticationController>();
-
+    final  emailVerifyController= Get.find<EmailVerifyController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,43 +139,43 @@ class EmailVerificationScreen extends StatelessWidget {
                                       //runs when every textfield is filled
                                       onSubmit:
                                           (String verificationCode) async {
-                                        controller.isVerifying.value = true;
-                                        await controller
+                                        emailVerifyController.isVerifying.value = true;
+                                        await emailVerifyController
                                             .verifyOTP(verificationCode);
-                                        if (controller.res_verify.response ==
+                                        if (emailVerifyController.responseVerify.response ==
                                             '{"message":"null"}') {
-                                          String result = await controller
+                                          String result = await emailVerifyController
                                               .checkVerificationStatus();
                                           if (result == "true") {
                                             Get.snackbar(
                                                 "Verification Complete",
                                                 "Congratulations you have verified your Email");
-                                            await controller.setVerified();
-                                            if (controller.res_set_verified
+                                            await emailVerifyController.setVerified();
+                                            if (emailVerifyController.responseSetVerified
                                                     .response ==
                                                 '{"message":"null"}') {
-                                              controller.isVerifying.value =
+                                              emailVerifyController.isVerifying.value =
                                                   false;
                                               controller.authStateController
                                                   .setUserProfileData();
                                               Get.toNamed(AppRoutes.tabview);
                                             } else {
-                                              controller.isVerifying.value =
+                                              emailVerifyController.isVerifying.value =
                                                   false;
                                               Get.snackbar(
                                                   'Oops',
-                                                  controller.res_set_verified
+                                                  emailVerifyController.responseSetVerified
                                                       .response);
                                             }
                                           } else {
-                                            controller.isVerifying.value =
+                                            emailVerifyController.isVerifying.value =
                                                 false;
                                             Get.snackbar("Verification Failed",
                                                 "OTP mismatch occured please try again");
                                           }
                                         } else {
                                           Get.snackbar('Oops',
-                                              controller.res_verify.response);
+                                              emailVerifyController.responseVerify.response);
                                         }
                                       },
                                     ),
@@ -188,7 +190,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 width: 0.0072 * Get.width),
                                             borderRadius:
                                                 BorderRadius.circular(70),
-                                            gradient: controller
+                                            gradient: emailVerifyController
                                                     .resendIsAllowed.value
                                                 ? AppColor.gradientBg
                                                 : const LinearGradient(colors: [
@@ -216,12 +218,12 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       Colors.transparent,
                                                   shadowColor:
                                                       Colors.transparent),
-                                              onPressed: controller
+                                              onPressed: emailVerifyController
                                                       .resendIsAllowed.value
                                                   ? () {
-                                                      controller.resendIsAllowed
+                                                      emailVerifyController.resendIsAllowed
                                                           .value = false;
-                                                      controller.sendOTP();
+                                                      emailVerifyController.sendOTP();
                                                       Get.snackbar("OTP Resent",
                                                           "Please do check your mail for a new OTP");
                                                     }
@@ -229,7 +231,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       Get.snackbar("Hold on",
                                                           "Please wait till the timer completes");
                                                     },
-                                              child: controller
+                                              child: emailVerifyController
                                                       .resendIsAllowed.value
                                                   ? Text(
                                                       "Resend OTP",
@@ -271,7 +273,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                               true,
                                                           isReverse: true,
                                                           onComplete: () => {
-                                                            controller
+                                                            emailVerifyController
                                                                 .resendIsAllowed
                                                                 .value = true
                                                           },
@@ -303,20 +305,20 @@ class EmailVerificationScreen extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: GestureDetector(
                                 onTap: () {
-                                  controller.Pressed.value =
-                                      !controller.Pressed.value;
-                                  if (controller.Pressed.value == false) {
-                                    controller.shouldDisplay.value = false;
+                                  emailVerifyController.pressed.value =
+                                      !emailVerifyController.pressed.value;
+                                  if (emailVerifyController.pressed.value == false) {
+                                    emailVerifyController.shouldDisplay.value = false;
                                   }
                                 },
                                 child: AnimatedContainer(
                                     onEnd: () {
-                                      if (controller.Pressed.value == true) {
-                                        controller.shouldDisplay.value = true;
+                                      if (emailVerifyController.pressed.value == true) {
+                                        emailVerifyController.shouldDisplay.value = true;
                                       }
                                     },
                                     height: 0.042594 * Get.height,
-                                    width: controller.Pressed.value
+                                    width: emailVerifyController.pressed.value
                                         ? 0.437 * Get.width
                                         : 0.085 * Get.width,
                                     decoration: BoxDecoration(
@@ -325,7 +327,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       color: Color.fromARGB(186, 255, 255, 255),
                                     ),
                                     duration: const Duration(milliseconds: 200),
-                                    child: controller.shouldDisplay.value
+                                    child: emailVerifyController.shouldDisplay.value
                                         ? Center(
                                             child: Text(
                                               "Verify Your Email",
@@ -349,7 +351,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       child: LoadingAnimationWidget.threeRotatingDots(
                           color: Colors.amber, size: Get.pixelRatio * 20)),
                 ),
-          controller.isVerifying.value
+          emailVerifyController.isVerifying.value
               ? BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Center(

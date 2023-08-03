@@ -13,7 +13,7 @@ class CreateRoomScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(15));
 
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.amber, width: 2),
+      borderSide: BorderSide(color: Colors.amber, width: 0.004861),
       borderRadius: BorderRadius.circular(15));
 
   @override
@@ -38,7 +38,8 @@ class CreateRoomScreen extends StatelessWidget {
                       ),
                       TextFormField(
                         controller: controller.nameController,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 0.01521 * Get.height + 0.03 * Get.width),
                         cursorColor: Colors.amber,
                         minLines: 1,
                         maxLines: 3,
@@ -75,7 +76,7 @@ class CreateRoomScreen extends StatelessWidget {
                             (context, tec, fn, error, onChanged, onSubmitted) {
                           return ((context, sc, tags, onTagDelete) {
                             return TextField(
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 0.012*Get.height+0.024*Get.width),
                               controller: tec,
                               focusNode: fn,
                               decoration: InputDecoration(
@@ -102,11 +103,11 @@ class CreateRoomScreen extends StatelessWidget {
                                               ),
                                               color: Colors.black54,
                                             ),
-                                            margin: const EdgeInsets.symmetric(
-                                                horizontal: 5.0),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10.0,
-                                                vertical: 5.0),
+                                            margin:  EdgeInsets.symmetric(
+                                                horizontal: 0.012*Get.width),
+                                            padding:  EdgeInsets.symmetric(
+                                                horizontal: 0.0243*Get.width,
+                                                vertical: 0.006*Get.height),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -115,19 +116,19 @@ class CreateRoomScreen extends StatelessWidget {
                                                 InkWell(
                                                   child: Text(
                                                     '#$tag',
-                                                    style: const TextStyle(
+                                                    style:  TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 18),
+                                                        fontSize: 0.02187*Get.width+0.01095*Get.height),
                                                   ),
                                                   onTap: () {
                                                     //log("$tag selected");
                                                   },
                                                 ),
-                                                const SizedBox(width: 4.0),
+                                                SizedBox(width: 0.0097*Get.width),
                                                 InkWell(
                                                   child: Icon(
                                                     Icons.cancel,
-                                                    size: 18.0,
+                                                    size: 0.02187*Get.width+0.01095*Get.height,
                                                     color: Colors.red
                                                         .withOpacity(0.7),
                                                   ),
@@ -153,7 +154,7 @@ class CreateRoomScreen extends StatelessWidget {
                       ),
                       TextFormField(
                         controller: controller.descriptionController,
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 0.012*Get.height+0.024*Get.width),
                         cursorColor: Colors.amber,
                         maxLines: 10,
                         validator: (value) {

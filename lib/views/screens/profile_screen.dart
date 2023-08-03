@@ -4,14 +4,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/colors.dart';
 
+import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
-  var authController = Get.find<AuthenticationController>();
+ 
+  final  emailVerifyController= Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +53,22 @@ class ProfileScreen extends StatelessWidget {
                                 alignment: Alignment.bottomRight,
                                 child: GestureDetector(
                                   onTap: () {
-                                    authController.Pressed.value =
-                                        !(authController.Pressed.value);
-                                    if (authController.Pressed.value == false) {
-                                      authController.shouldDisplay.value =
+                                    emailVerifyController.pressed.value =
+                                        !(emailVerifyController.pressed.value);
+                                    if (emailVerifyController.pressed.value == false) {
+                                      emailVerifyController.shouldDisplay.value =
                                           false;
                                     }
                                   },
                                   child: AnimatedContainer(
                                       onEnd: () {
-                                        if (authController.Pressed.value ==
+                                        if (emailVerifyController.pressed.value ==
                                             true) {
-                                          authController.shouldDisplay.value =
+                                          emailVerifyController.shouldDisplay.value =
                                               true;
                                         }
                                       },
-                                      width: authController.Pressed.value
+                                      width: emailVerifyController.pressed.value
                                           ? 0.339 * Get.width
                                           : 0.07286 * Get.width,
                                       decoration: BoxDecoration(
@@ -85,14 +86,14 @@ class ProfileScreen extends StatelessWidget {
                                                   size: 0.018 * Get.height +
                                                       0.036 * Get.width,
                                                 ),
-                                                authController
+                                                emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
                                                         width:
                                                             0.012 * Get.width,
                                                       )
                                                     : const SizedBox(),
-                                                authController
+                                                emailVerifyController
                                                         .shouldDisplay.value
                                                     ? Text(
                                                         "Email Verified",
@@ -108,8 +109,8 @@ class ProfileScreen extends StatelessWidget {
                                               ],
                                             )
                                           : Row(
-                                              mainAxisAlignment: authController
-                                                      .Pressed.value
+                                              mainAxisAlignment: emailVerifyController
+                                                      .pressed.value
                                                   ? MainAxisAlignment.start
                                                   : MainAxisAlignment.center,
                                               children: [
@@ -120,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                                                   size: 0.018 * Get.height +
                                                       0.036 * Get.width,
                                                 ),
-                                                authController
+                                                emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
                                                         width: 0.0121536 *
@@ -130,7 +131,7 @@ class ProfileScreen extends StatelessWidget {
                                                         height: 0,
                                                         width: 0,
                                                       ),
-                                                authController
+                                                emailVerifyController
                                                         .shouldDisplay.value
                                                     ? Text(
                                                         "Verify Email",
@@ -199,8 +200,8 @@ class ProfileScreen extends StatelessWidget {
                                     splashColor:
                                         const Color.fromARGB(172, 43, 174, 20),
                                     onTap: () => {
-                                      authController.isSending.value = true,
-                                      authController.sendOTP()
+                                      emailVerifyController.isSending.value = true,
+                                      emailVerifyController.sendOTP()
                                     },
                                     child: Ink(
                                         height: 0.048 * Get.height,
@@ -250,7 +251,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-            authController.isSending.value
+            emailVerifyController.isSending.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
