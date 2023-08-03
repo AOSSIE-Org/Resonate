@@ -125,7 +125,6 @@ class _RoomScreenState extends State<RoomScreen> {
                           )),
                         ),
                       ),
-                      //Get back to size the action button
                       GetBuilder<SingleRoomController>(builder: (controller) {
                         return (controller.me.value.isSpeaker) ? SizedBox(
                                       height: 0.06815 * Get.height,
