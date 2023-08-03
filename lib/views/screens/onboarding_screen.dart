@@ -27,13 +27,13 @@ class OnBoardingScreen extends StatelessWidget {
                   key: controller.userOnboardingFormKey,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 0.02 * Get.height),
+                      SizedBox(height: 0.04 * Get.height),
                       Text(
                         "Complete your Profile",
                         style: TextStyle(
                             fontSize: 0.017 * Get.height + 0.034 * Get.width),
                       ),
-                      SizedBox(height: 0.02 * Get.height),
+                      SizedBox(height: 0.04 * Get.height),
                       GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
@@ -63,7 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.024 * Get.height),
+                      SizedBox(height: 0.03 * Get.height),
                       SizedBox(
                         height: 0.07995 * Get.height,
                         child: TextFormField(
@@ -90,7 +90,7 @@ class OnBoardingScreen extends StatelessWidget {
                                       0.0085 * Get.height + 0.017 * Get.width)),
                         ),
                       ),
-                      SizedBox(height: 0.024 * Get.height),
+                      SizedBox(height: 0.03 * Get.height),
                       SizedBox(
                         height: 0.085 * Get.height,
                         child: Obx(
@@ -147,7 +147,7 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.024 * Get.height),
+                      SizedBox(height: 0.03 * Get.height),
                       SizedBox(
                         height: 0.07995 * Get.height,
                         child: TextFormField(
@@ -178,76 +178,7 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.06 * Get.height),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(
-                            width: Get.width * 0.4,
-                            child: ElevatedButton.icon(
-                              icon: Icon(
-                                Icons.male,
-                                color: controller.genderController.text ==
-                                        Gender.male.name
-                                    ? Colors.black
-                                    : Colors.white,
-                              ),
-                              onPressed: () =>
-                                  controller.setGender(Gender.male),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    controller.genderController.text ==
-                                            Gender.male.name
-                                        ? AppColor.yellowColor
-                                        : AppColor.bgBlackColor,
-                              ),
-                              label: Text(
-                                'Male',
-                                style: TextStyle(
-                                  color: controller.genderController.text ==
-                                          Gender.male.name
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontSize:
-                                      0.013 * Get.height + 0.026 * Get.width,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: Get.width * 0.4,
-                            child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    controller.genderController.text ==
-                                            Gender.female.name
-                                        ? AppColor.yellowColor
-                                        : AppColor.bgBlackColor,
-                              ),
-                              icon: Icon(
-                                Icons.female,
-                                color: controller.genderController.text ==
-                                        Gender.female.name
-                                    ? Colors.black
-                                    : Colors.white,
-                              ),
-                              onPressed: () =>
-                                  controller.setGender(Gender.female),
-                              label: Text(
-                                'Female',
-                                style: TextStyle(
-                                  color: controller.genderController.text ==
-                                          Gender.female.name
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontSize:
-                                      0.013 * Get.height + 0.026 * Get.width,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      SizedBox(height: 0.08 * Get.height),
                       SizedBox(
                         height: 0.0669 * Get.height,
                       ),

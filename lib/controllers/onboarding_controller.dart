@@ -24,7 +24,6 @@ class OnboardingController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController genderController = TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
@@ -50,10 +49,6 @@ class OnboardingController extends GetxController {
     }
   }
 
-  void setGender(Gender gender) {
-    genderController.text = gender.name;
-    update();
-  }
 
   Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
