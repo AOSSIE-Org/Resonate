@@ -49,6 +49,8 @@ class SignupScreen extends StatelessWidget {
                           size: 0.014 * Get.height + 0.029 * Get.width,
                           Icons.alternate_email,
                         ),
+                        errorStyle: TextStyle(
+                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         labelText: "Email ID",
                       ),
                     ),
@@ -71,6 +73,8 @@ class SignupScreen extends StatelessWidget {
                           size: 0.014 * Get.height + 0.029 * Get.width,
                           Icons.lock_outline_rounded,
                         ),
+                        errorStyle: TextStyle(
+                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         labelText: "Password",
                       ),
                     ),
@@ -96,6 +100,9 @@ class SignupScreen extends StatelessWidget {
                             Icons.lock_outline_rounded,
                           ),
                           labelText: "Confirm Password",
+                          errorStyle: TextStyle(
+                              fontSize:
+                                  0.0085 * Get.height + 0.017 * Get.width),
                           suffixIcon: IconButton(
                             onPressed: () {
                               controller.isPasswordFieldVisible.value =
@@ -203,7 +210,6 @@ class SignupScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

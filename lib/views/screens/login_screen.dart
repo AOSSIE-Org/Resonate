@@ -49,6 +49,9 @@ class LoginScreen extends StatelessWidget {
                             Icons.alternate_email,
                             size: 0.014 * Get.height + 0.029 * Get.width,
                           ),
+                          errorStyle: TextStyle(
+                              fontSize:
+                                  0.0085 * Get.height + 0.017 * Get.width),
                           labelText: "Email ID",
                         ),
                       ),
@@ -71,6 +74,9 @@ class LoginScreen extends StatelessWidget {
                               Icons.lock_outline_rounded,
                             ),
                             labelText: "Password",
+                            errorStyle: TextStyle(
+                                fontSize:
+                                    0.0085 * Get.height + 0.017 * Get.width),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.isPasswordFieldVisible.value =
