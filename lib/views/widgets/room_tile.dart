@@ -147,6 +147,7 @@ class RoomTile extends StatelessWidget {
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,
+                                                                        size: 0.02187*Get.width+0.01095*Get.height,
                     ),
                     SizedBox(
                       width: Get.width * 0.04,
@@ -154,6 +155,7 @@ class RoomTile extends StatelessWidget {
                     Icon(
                       Icons.share,
                       color: Colors.black,
+                                                                        size: 0.02187*Get.width+0.01095*Get.height,
                     ),
                   ],
                 ),
