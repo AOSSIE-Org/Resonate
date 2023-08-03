@@ -47,7 +47,6 @@ class CreateRoomController extends GetxController {
           roomName: nameController.text,
           roomDescription: descriptionController.text,
           roomTags: tagsController.getTags!,
-          adminEmail: authStateController.email!,
           adminUid: authStateController.uid!);
       String newRoomId = newRoomInfo[0];
       String myDocId = newRoomInfo[1];
