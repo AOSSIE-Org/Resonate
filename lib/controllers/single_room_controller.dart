@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/services/room_service.dart';
@@ -46,6 +47,7 @@ class SingleRoomController extends GetxController {
   @override
   void onClose() async {
     subscription?.close();
+    await Get.delete<LiveKitController>(force: true);
     Get.back();
     super.onClose();
   }
@@ -171,11 +173,13 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> turnOnMic() async {
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(true);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": true});
     me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(false);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": false});
     me.value.isMicOn = false;
   }
