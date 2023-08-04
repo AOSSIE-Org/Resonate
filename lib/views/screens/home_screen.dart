@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<RoomsController>(
         builder: (roomsController) => (!roomsController.isLoading.value)
             ? SingleChildScrollView(
-              child: CustomRefreshIndicator(
+                child: CustomRefreshIndicator(
                   builder: MaterialIndicatorDelegate(
                     builder: (context, controller) {
                       return const Icon(
@@ -35,20 +35,80 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: Get.height * 0.015,
                       ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: roomsController.rooms.length,
-                          itemBuilder: (ctx, index) {
-                            return RoomTile(
-                              room: roomsController.rooms[index]
-                            );
-                          })
+                      Visibility(
+                        visible: roomsController.rooms.isEmpty,
+                        replacement: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: roomsController.rooms.length,
+                            itemBuilder: (ctx, index) {
+                              return RoomTile(
+                                room: roomsController.rooms[index],
+                              );
+                            }),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: Get.height * 0.15,
+                              ),
+                              Image.asset(
+                                "assets/images/NoRoom.png",
+                                height: Get.height * 0.17,
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.035,
+                              ),
+                              const Center(
+                                child: Text(
+                                  "No Rooms Available\n Get Started by adding one below!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.0),
+                                ),
+                              ),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              OutlinedButton(
+                                onPressed: () {
+                                  roomsController.getRooms();
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  maximumSize: Size.fromWidth(Get.width * 0.30),
+                                  side: const BorderSide(
+                                      color: Colors.amber, width: 1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Refresh",
+                                      style: TextStyle(color: Colors.amber),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.015,
+                                    ),
+                                    const Icon(
+                                      Icons.refresh,
+                                      color: Colors.amber,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-            )
+              )
             : Center(
-                child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),
+                child: LoadingAnimationWidget.threeRotatingDots(
+                    color: Colors.amber, size: Get.pixelRatio * 20),
               ));
   }
 }
