@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../models/appwrite_room.dart';
 import '../../utils/colors.dart';
@@ -10,8 +11,7 @@ import '../../utils/enums/room_state.dart';
 class RoomTile extends StatelessWidget {
   final AppwriteRoom room;
 
-  RoomTile(
-      {required this.room});
+  RoomTile({required this.room});
 
   Text buildTags() {
     String tagString = room.tags.isNotEmpty ? room.tags[0] : "";
@@ -140,9 +140,17 @@ class RoomTile extends StatelessWidget {
                     SizedBox(
                       width: Get.width * 0.04,
                     ),
-                    Icon(
-                      Icons.share,
-                      color: Colors.black,
+                    GestureDetector(
+                      child: Icon(
+                        Icons.share,
+                        color: Colors.black,
+                      ),
+                      onTap: () {
+                        String roomLink = "https://resonate.aossie.org/room/${room.id}";
+                        Share.share('🎉 Let\'s Resonate 🎉\n'
+                            '🎙️ Room Topic: ${room.name}\n'
+                            '🔗 Link: $roomLink\n');
+                      },
                     ),
                   ],
                 ),
