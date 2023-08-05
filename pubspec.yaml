@@ -60,6 +60,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   focused_menu: ^1.0.5
   livekit_client: 1.3.3
+  app_links: ^3.4.3
 
 dev_dependencies:
   flutter_test:
