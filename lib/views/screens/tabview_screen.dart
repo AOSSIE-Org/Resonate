@@ -4,35 +4,43 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/views/widgets/profile_avatar.dart';
 
 import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  
-  final TabViewController controller = Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
+  final TabViewController controller =
+      Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController =
+      Get.put<AuthStateController>(AuthStateController());
+
+  TabViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text(
+            leading: GestureDetector(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
+                child: profileAvatar(context)),
+            title: const Text(
               "Resonate",
               style: TextStyle(color: Colors.amber, fontSize: 26),
             ),
             centerTitle: false,
             elevation: 10,
-            backgroundColor: Color.fromRGBO(17, 17, 20, 1),
+            backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
               IconButton(
                   onPressed: () async {
                     await authStateController.logout();
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.exit_to_app_rounded,
                     color: Colors.amber,
                   ))
@@ -48,8 +56,9 @@ class TabViewScreen extends StatelessWidget {
               }
             },
             backgroundColor: AppColor.yellowColor,
-            child:
-                (controller.getIndex() == 2) ? Text("Start") : Icon(Icons.add),
+            child: (controller.getIndex() == 2)
+                ? const Text("Start")
+                : const Icon(Icons.add),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -58,11 +67,12 @@ class TabViewScreen extends StatelessWidget {
             activeColor: Colors.amber,
             inactiveColor: Colors.amber.withOpacity(0.5),
             splashColor: Colors.black,
-            shadow: Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
+            shadow: const Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
             iconSize: 30,
-            icons: [
+            icons: const [
               Icons.home_outlined,
-              Icons.person_outline,
+              // Icons.person_outline, // move to the appbar and replaced with discussions icon
+              Icons.chat_rounded
             ],
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
@@ -72,9 +82,9 @@ class TabViewScreen extends StatelessWidget {
           //TODO Connect all main screens to the tab view
           body: (controller.getIndex() == 0)
               ? HomeScreen()
-              : (controller.getIndex() == 1)
-                  ? ProfileScreen()
-                  : CreateRoomScreen(),
+              : (controller.getIndex() == 2)
+                  ? CreateRoomScreen()
+                  : const DiscussionScreen(),
         ));
   }
 }

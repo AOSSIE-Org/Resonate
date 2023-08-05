@@ -77,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                                               Icon(
                                                 Icons.verified_rounded,
                                                 color: AppColor.greenColor,
-                                                size:  8.28 * Get.pixelRatio,
+                                                size: 8.28 * Get.pixelRatio,
                                               ),
                                               controller.shouldDisplay.value
                                                   ? SizedBox(
@@ -97,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                                             children: [
                                               Icon(
                                                 Icons.cancel_rounded,
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                     255, 236, 53, 40),
                                                 size: 8.28 * Get.pixelRatio,
                                               ),
@@ -143,8 +143,9 @@ class ProfileScreen extends StatelessWidget {
                               child: Material(
                                 child: InkWell(
                                   highlightColor:
-                                      Color.fromARGB(138, 33, 140, 14),
-                                  splashColor: Color.fromARGB(172, 43, 174, 20),
+                                      const Color.fromARGB(138, 33, 140, 14),
+                                  splashColor:
+                                      const Color.fromARGB(172, 43, 174, 20),
                                   onTap: () => {
                                     controller.isSending.value = true,
                                     authController.sendOTP()
@@ -153,8 +154,8 @@ class ProfileScreen extends StatelessWidget {
                                       height: 0.048 * Get.height,
                                       width: 0.34 * Get.width,
                                       decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(235, 111, 88, 5),
+                                          color: const Color.fromARGB(
+                                              235, 111, 88, 5),
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           border: Border.all(
@@ -165,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       SizedBox(height: 0.0097 * Get.height),
                       CustomCard(
                         title: "Contribute to the project",
@@ -197,7 +198,7 @@ class ProfileScreen extends StatelessWidget {
                         child: LoadingAnimationWidget.threeRotatingDots(
                             color: Colors.amber, size: Get.pixelRatio * 20)),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ])),
         ),
       ),

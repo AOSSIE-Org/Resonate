@@ -3,6 +3,7 @@ import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
+import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
@@ -16,7 +17,7 @@ import '../views/screens/home_screen.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
-      GetPage(
+    GetPage(
       name: AppRoutes.splash,
       page: () => SplashScreen(),
       binding: AuthSplashBinding(),
@@ -26,7 +27,7 @@ class AppPages {
       page: () => SignupScreen(),
       binding: AuthSplashBinding(),
     ),
-        GetPage(
+    GetPage(
       name: AppRoutes.emailVerification,
       page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
@@ -60,6 +61,11 @@ class AppPages {
       name: AppRoutes.createRoom,
       page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.discuss,
+      page: () => const DiscussionScreen(),
+      binding: AuthSplashBinding(),
     ),
   ];
 }
