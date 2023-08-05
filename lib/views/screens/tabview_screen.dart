@@ -15,7 +15,8 @@ import 'create_room_screen.dart';
 class TabViewScreen extends StatelessWidget {
   final TabViewController controller =
       Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController =
+
+  AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
 
   TabViewScreen({super.key});
@@ -25,9 +26,6 @@ class TabViewScreen extends StatelessWidget {
     return Obx(() => Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            leading: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
-                child: profileAvatar(context)),
             title: const Text(
               "Resonate",
               style: TextStyle(color: Colors.amber, fontSize: 26),
@@ -36,14 +34,9 @@ class TabViewScreen extends StatelessWidget {
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
-              IconButton(
-                  onPressed: () async {
-                    await authStateController.logout();
-                  },
-                  icon: const Icon(
-                    Icons.exit_to_app_rounded,
-                    color: Colors.amber,
-                  ))
+              GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
+                  child: profileAvatar(context))
             ],
           ),
           floatingActionButton: FloatingActionButton(
