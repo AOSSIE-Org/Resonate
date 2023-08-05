@@ -32,7 +32,7 @@ class TabViewScreen extends StatelessWidget {
             centerTitle: false,
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
-            actions: [SizedBox(width: 60, child: profileAvatar(context))],
+            actions: [profileAvatar(context)],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
