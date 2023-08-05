@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
@@ -33,11 +32,7 @@ class TabViewScreen extends StatelessWidget {
             centerTitle: false,
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
-            actions: [
-              GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
-                  child: profileAvatar(context))
-            ],
+            actions: [SizedBox(width: 60, child: profileAvatar(context))],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () async {

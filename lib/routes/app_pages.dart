@@ -19,7 +19,7 @@ class AppPages {
   static final List<GetPage> pages = [
     GetPage(
       name: AppRoutes.splash,
-      page: () => SplashScreen(),
+      page: () => const SplashScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(

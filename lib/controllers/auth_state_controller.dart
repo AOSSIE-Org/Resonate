@@ -53,7 +53,6 @@ class AuthStateController extends GetxController {
             databaseId: userDatabaseID,
             collectionId: usersCollectionID,
             documentId: appwriteUser.$id);
-        print(userDataDoc.data);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
