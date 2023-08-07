@@ -119,6 +119,7 @@ class SingleRoomController extends GetxController {
             case 'create':
               {
                 addParticipantDataToList(Document.fromMap(data.payload));
+                sortParticipants();
                 break;
               }
             case 'update':
@@ -131,6 +132,7 @@ class SingleRoomController extends GetxController {
                   me.value.isSpeaker = data.payload["isSpeaker"];
                 }
                 updateParticipantDataInList(data.payload);
+                sortParticipants();
                 break;
               }
             case 'delete':
@@ -146,6 +148,27 @@ class SingleRoomController extends GetxController {
         }
         log(data.payload.toString());
       }
+    });
+  }
+
+  void sortParticipants(){
+    participants.sort((a, b) {
+      // Sort by isAdmin (admins first, then non-admins)
+      if (b.value.isAdmin && !a.value.isAdmin) return 1;
+      if (!b.value.isAdmin && a.value.isAdmin) return -1;
+
+      // If isAdmin is the same, sort by isModerator (moderators first, then non-moderators)
+      if (b.value.isModerator && !a.value.isModerator) return 1;
+      if (!b.value.isModerator && a.value.isModerator) return -1;
+
+      // Continue sorting by isSpeaker, hasRequestedToBeSpeaker (true first, then false)
+      if (b.value.isSpeaker && !a.value.isSpeaker) return 1;
+      if (!b.value.isSpeaker && a.value.isSpeaker) return -1;
+
+      if (b.value.hasRequestedToBeSpeaker && !a.value.hasRequestedToBeSpeaker) return 1;
+      if (!b.value.hasRequestedToBeSpeaker && a.value.hasRequestedToBeSpeaker) return -1;
+
+      return 0; // If all properties are equal (or if Listener), maintain the current order.
     });
   }
 
