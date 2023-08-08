@@ -151,7 +151,7 @@ class SingleRoomController extends GetxController {
     });
   }
 
-  void sortParticipants(){
+  void sortParticipants() {
     participants.sort((a, b) {
       // Sort by isAdmin (admins first, then non-admins)
       if (b.value.isAdmin && !a.value.isAdmin) return 1;
@@ -178,8 +178,12 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> deleteRoom() async {
-    await RoomService.deleteRoom(roomId: appwriteRoom.id);
-    Get.delete<SingleRoomController>();
+    try {
+      await RoomService.deleteRoom(roomId: appwriteRoom.id);
+      Get.delete<SingleRoomController>();
+    } catch (e) {
+      log("Error in Delete Room Function (SingleRoomController): ${e.toString()}");
+    }
   }
 
   Future<String> getParticipantDocId(Participant participant) async {
