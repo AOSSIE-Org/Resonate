@@ -5,7 +5,7 @@ import '../../utils/constants.dart';
 part 'room_api.chopper.dart';
 
 class RoomApiClient {
-  static final String baseUrl = resonateApiUrl;
+  static const String baseUrl = resonateApiUrl;
   static ChopperClient? _client;
 
   static ChopperClient get client {
@@ -23,7 +23,7 @@ class RoomApiClient {
       _client = ChopperClient(
         baseUrl: Uri.parse(baseUrl),
         services: [_$RoomApi()],
-        converter: JsonConverter(),
+        converter: const JsonConverter(),
         interceptors: interceptors,
       );
     }

@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
-import 'package:resonate/services/api/api_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 

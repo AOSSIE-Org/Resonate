@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
-import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 
 import '../controllers/auth_state_controller.dart';
