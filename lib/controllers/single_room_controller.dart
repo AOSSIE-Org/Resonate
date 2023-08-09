@@ -36,7 +36,10 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
+    client
+        .setEndpoint(appwriteEndpoint)
+        .setProject(appwriteProjectId)
+        .setSelfSigned(status: true);
     realtime = Realtime(client);
     databases = Databases(client);
     await getParticipants();
@@ -54,7 +57,9 @@ class SingleRoomController extends GetxController {
 
   Future<void> addParticipantDataToList(Document participant) async {
     Document userDataDoc = await databases.getDocument(
-        databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: participant.data["uid"]);
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: participant.data["uid"]);
     final p = Rx(Participant(
         uid: participant.data["uid"],
         email: userDataDoc.data["email"],
@@ -64,7 +69,8 @@ class SingleRoomController extends GetxController {
         isMicOn: participant.data["isMicOn"],
         isModerator: participant.data["isModerator"],
         isSpeaker: participant.data["isSpeaker"],
-        hasRequestedToBeSpeaker: participant.data["hasRequestedToBeSpeaker"] ?? false));
+        hasRequestedToBeSpeaker:
+            participant.data["hasRequestedToBeSpeaker"] ?? false));
     participants.add(p);
   }
 
@@ -76,9 +82,11 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
-    int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid == payload["uid"]);
+    int toBeUpdatedIndex =
+        participants.indexWhere((p) => p.value.uid == payload["uid"]);
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
-    participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker = payload["hasRequestedToBeSpeaker"] ?? false;
+    participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker =
+        payload["hasRequestedToBeSpeaker"] ?? false;
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
     update();
@@ -104,7 +112,8 @@ class SingleRoomController extends GetxController {
   }
 
   void getRealtimeStream() {
-    String channel = 'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
+    String channel =
+        'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -113,7 +122,8 @@ class SingleRoomController extends GetxController {
           // This event belongs to the room current user is part of
           String updatedUserId = data.payload["uid"];
           String docId = data.payload["\$id"];
-          String action = data.events.first.substring(channel.length + 1 + docId.length + 1);
+          String action = data.events.first
+              .substring(channel.length + 1 + docId.length + 1);
 
           switch (action) {
             case 'create':
@@ -126,7 +136,8 @@ class SingleRoomController extends GetxController {
                 // if the change is related to the current user
                 if (updatedUserId == me.value.uid) {
                   me.value.isModerator = data.payload["isModerator"];
-                  me.value.hasRequestedToBeSpeaker = data.payload["hasRequestedToBeSpeaker"] ?? false;
+                  me.value.hasRequestedToBeSpeaker =
+                      data.payload["hasRequestedToBeSpeaker"] ?? false;
                   me.value.isMicOn = data.payload["isMicOn"];
                   me.value.isSpeaker = data.payload["isSpeaker"];
                 }
@@ -163,50 +174,69 @@ class SingleRoomController extends GetxController {
     var participantDocsRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
-        queries: [Query.equal('roomId', appwriteRoom.id), Query.equal('uid', participant.uid)]);
+        queries: [
+          Query.equal('roomId', appwriteRoom.id),
+          Query.equal('uid', participant.uid)
+        ]);
     return participantDocsRef.documents.first.$id;
   }
 
-  Future<void> updateParticipantDoc(String participantDocId, Map<String, dynamic> data) async {
+  Future<void> updateParticipantDoc(
+      String participantDocId, Map<String, dynamic> data) async {
     await databases.updateDocument(
-        databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: participantDocId, data: data);
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocId,
+        data: data);
   }
 
   Future<void> turnOnMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(true);
+    await Get.find<LiveKitController>()
+        .liveKitRoom
+        .localParticipant
+        ?.setMicrophoneEnabled(true);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": true});
     me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(false);
+    await Get.find<LiveKitController>()
+        .liveKitRoom
+        .localParticipant
+        ?.setMicrophoneEnabled(false);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": false});
     me.value.isMicOn = false;
   }
 
   Future<void> raiseHand() async {
-    await updateParticipantDoc(appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": true});
+    await updateParticipantDoc(
+        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": true});
     me.value.hasRequestedToBeSpeaker = true;
   }
 
   Future<void> unRaiseHand() async {
-    await updateParticipantDoc(appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(
+        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": false});
     me.value.hasRequestedToBeSpeaker = false;
   }
 
   Future<void> makeSpeaker(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId,
+        {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
   }
 
   Future<void> makeListener(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId,
+        {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
   }
 
   Future<void> kickOutParticipant(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
     await databases.deleteDocument(
-        databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: participantDocId);
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocId);
   }
 }

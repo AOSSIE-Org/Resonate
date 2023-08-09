@@ -77,7 +77,7 @@ class CreateRoomController extends GetxController {
 extension Validator on String {
   bool isValidTag() {
     // Remove any leading or trailing whitespaces
-    String hashtag = this.trim();
+    String hashtag = trim();
 
     // Check if the hashtag starts with a letter or number
     if (!hashtag.startsWith(RegExp(r'[a-zA-Z0-9]'))) {

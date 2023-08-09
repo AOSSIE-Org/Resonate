@@ -18,14 +18,15 @@ class ParticipantBlock extends StatelessWidget {
   SingleRoomController controller;
 
   String getUserRole() {
-    if (participant.isAdmin)
+    if (participant.isAdmin) {
       return "Admin";
-    else if (participant.isModerator)
+    } else if (participant.isModerator) {
       return "Moderator";
-    else if (participant.isSpeaker)
+    } else if (participant.isSpeaker) {
       return "Speaker";
-    else
+    } else {
       return "Listener";
+    }
   }
 
   @override
@@ -42,7 +43,7 @@ class ParticipantBlock extends StatelessWidget {
           width: 1.0,
         ),
       ),
-      duration: Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
       blurBackgroundColor: Colors.black54,
       menuItems: (controller.me.value.isAdmin)
@@ -51,11 +52,11 @@ class ParticipantBlock extends StatelessWidget {
               : [
                   if (participant.hasRequestedToBeSpeaker)
                     FocusedMenuItem(
-                        title: Text(
+                        title: const Text(
                           "Add Speaker",
                           style: TextStyle(color: Colors.amber),
                         ),
-                        trailingIcon: Icon(
+                        trailingIcon: const Icon(
                           Icons.record_voice_over,
                           color: Colors.green,
                         ),
@@ -65,11 +66,11 @@ class ParticipantBlock extends StatelessWidget {
                         backgroundColor: Colors.black),
                   if (participant.isSpeaker)
                     FocusedMenuItem(
-                        title: Text(
+                        title: const Text(
                           "Make Listener",
                           style: TextStyle(color: Colors.amber),
                         ),
-                        trailingIcon: Icon(
+                        trailingIcon: const Icon(
                           Icons.mic_off_sharp,
                           color: Colors.red,
                         ),
@@ -78,11 +79,11 @@ class ParticipantBlock extends StatelessWidget {
                         },
                         backgroundColor: Colors.black),
                   FocusedMenuItem(
-                      title: Text(
+                      title: const Text(
                         "Kick Out",
                         style: TextStyle(color: Colors.amber),
                       ),
-                      trailingIcon: Icon(
+                      trailingIcon: const Icon(
                         Icons.remove_circle_outline,
                         color: Colors.red,
                       ),
@@ -92,9 +93,10 @@ class ParticipantBlock extends StatelessWidget {
                       backgroundColor: Colors.black),
                 ]
           : [],
-      openWithTap: (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
+      openWithTap:
+          (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
       child: Container(
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -105,8 +107,8 @@ class ParticipantBlock extends StatelessWidget {
                 backgroundImage: NetworkImage(participant.dpUrl),
                 radius: 30,
                 child: (participant.hasRequestedToBeSpeaker)
-                    ? Stack(
-                        children: const [
+                    ? const Stack(
+                        children: [
                           Align(
                             alignment: Alignment.topRight,
                             child: Icon(
@@ -126,18 +128,20 @@ class ParticipantBlock extends StatelessWidget {
                 if (participant.isSpeaker)
                   Icon(
                     (participant.isMicOn) ? Icons.mic : Icons.mic_off,
-                    color: (participant.isMicOn) ? Colors.lightGreenAccent : Colors.red,
+                    color: (participant.isMicOn)
+                        ? Colors.lightGreenAccent
+                        : Colors.red,
                     size: 18,
                   ),
                 Text(
                   participant.name.split(' ').first,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ],
             ),
             Text(
               getUserRole(),
-              style: TextStyle(color: Colors.grey),
+              style: const TextStyle(color: Colors.grey),
             )
           ],
         ),

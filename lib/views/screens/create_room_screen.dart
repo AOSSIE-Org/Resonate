@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -8,16 +7,18 @@ class CreateRoomScreen extends StatelessWidget {
   final CreateRoomController createRoomController = Get.put<CreateRoomController>(CreateRoomController());
 
   OutlineInputBorder kEnabledTextFieldBorder =
-      OutlineInputBorder(borderSide: BorderSide(color: Colors.amber), borderRadius: BorderRadius.circular(15));
+      OutlineInputBorder(borderSide: const BorderSide(color: Colors.amber), borderRadius: BorderRadius.circular(15));
 
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.amber, width: 2), borderRadius: BorderRadius.circular(15));
+      borderSide: const BorderSide(color: Colors.amber, width: 2), borderRadius: BorderRadius.circular(15));
+
+  CreateRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CreateRoomController>(
         builder: (controller) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Form(
                 key: controller.createRoomFormKey,
                 child: Column(
@@ -34,7 +35,7 @@ class CreateRoomScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: controller.nameController,
-                      style: TextStyle(fontSize: 25),
+                      style: const TextStyle(fontSize: 25),
                       cursorColor: Colors.amber,
                       minLines: 1,
                       maxLines: 3,
@@ -51,7 +52,7 @@ class CreateRoomScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: "Give a great name..",
                         filled: true,
-                        fillColor: Color(0x15FFFFFF),
+                        fillColor: const Color(0x15FFFFFF),
                         border: kEnabledTextFieldBorder,
                         enabledBorder: kEnabledTextFieldBorder,
                         focusedBorder: kFocusedTextFieldBorder,
@@ -69,12 +70,12 @@ class CreateRoomScreen extends StatelessWidget {
                       inputfieldBuilder: (context, tec, fn, error, onChanged, onSubmitted) {
                         return ((context, sc, tags, onTagDelete) {
                           return TextField(
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                             controller: tec,
                             focusNode: fn,
                             decoration: InputDecoration(
                               filled: true,
-                              fillColor: Color(0x15FFFFFF),
+                              fillColor: const Color(0x15FFFFFF),
                               isDense: true,
                               border: kEnabledTextFieldBorder,
                               enabledBorder: kEnabledTextFieldBorder,
@@ -89,7 +90,7 @@ class CreateRoomScreen extends StatelessWidget {
                                       child: Row(
                                           children: tags.map((String tag) {
                                         return Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20.0),
                                             ),
@@ -138,7 +139,7 @@ class CreateRoomScreen extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: controller.descriptionController,
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                       cursorColor: Colors.amber,
                       maxLines: 10,
                       validator: (value) {
@@ -151,7 +152,7 @@ class CreateRoomScreen extends StatelessWidget {
                       decoration: InputDecoration(
                           hintText: "Room Description (optional)",
                           filled: true,
-                          fillColor: Color(0x15FFFFFF),
+                          fillColor: const Color(0x15FFFFFF),
                           border: kEnabledTextFieldBorder,
                           enabledBorder: kEnabledTextFieldBorder,
                           focusedBorder: kFocusedTextFieldBorder),

@@ -8,6 +8,8 @@ import 'package:resonate/utils/colors.dart';
 class SignupScreen extends StatelessWidget {
   final controller = Get.find<AuthenticationController>();
 
+  SignupScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
