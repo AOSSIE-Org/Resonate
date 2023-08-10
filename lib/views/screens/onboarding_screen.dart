@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/utils/enums/gender.dart';
 
 import '../../controllers/onboarding_controller.dart';
 

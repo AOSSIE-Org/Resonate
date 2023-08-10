@@ -8,7 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/gender.dart';
 
 import 'auth_state_controller.dart';
 

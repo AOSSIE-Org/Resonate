@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,77 +15,69 @@ class LoginScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              height: Get.height * 0.95,
+              height: UiSizes.height_780,
               padding: EdgeInsets.symmetric(
-                  horizontal: 0.0486 * Get.width, vertical: 0.012 * Get.height),
+                  horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
               child: Form(
                 key: controller.loginFormKey,
                 child: Column(
                   children: <Widget>[
                     SizedBox(
-                      width: 0.437 * Get.width,
-                      height: 0.219 * Get.height,
+                      width: UiSizes.width_180,
+                      height: UiSizes.height_180,
                       child: Image.asset("assets/images/aossie_logo.png"),
                     ),
-                    SizedBox(height: 0.018 * Get.height),
+                    SizedBox(height: UiSizes.height_15),
                     Text(
                       "Welcome Back",
-                      style: TextStyle(
-                          fontSize: 0.015 * Get.height + 0.03 * Get.width),
+                      style: TextStyle(fontSize: UiSizes.size_24_6),
                     ),
-                    SizedBox(height: 0.018 * Get.height),
+                    SizedBox(height: UiSizes.height_15),
                     Container(
-                      height: 0.08 * Get.height,
+                      height: UiSizes.height_65_7,
                       child: TextFormField(
                         validator: (value) => value!.isValidEmail()
                             ? null
                             : "Enter Valid Email Address",
                         controller: controller.emailController,
                         keyboardType: TextInputType.emailAddress,
-                        style: TextStyle(
-                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                        style: TextStyle(fontSize: UiSizes.size_14),
                         autocorrect: false,
                         decoration: InputDecoration(
                           icon: Icon(
                             Icons.alternate_email,
-                            size: 0.014 * Get.height + 0.029 * Get.width,
+                            size: UiSizes.size_23,
                           ),
-                          errorStyle: TextStyle(
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
                           labelText: "Email ID",
                         ),
                       ),
                     ),
-                    SizedBox(height: 0.012 * Get.height),
+                    SizedBox(height: UiSizes.height_10),
                     Container(
-                      height: 0.08 * Get.height,
+                      height: UiSizes.height_65_7,
                       child: Obx(
                         () => TextFormField(
                           controller: controller.passwordController,
                           obscureText: !controller.isPasswordFieldVisible.value,
                           enableSuggestions: false,
                           autocorrect: false,
-                          style: TextStyle(
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                          style: TextStyle(fontSize: UiSizes.size_14),
                           decoration: InputDecoration(
                             icon: Icon(
-                              size: 0.014 * Get.height + 0.029 * Get.width,
+                              size: UiSizes.size_23,
                               Icons.lock_outline_rounded,
                             ),
                             labelText: "Password",
-                            errorStyle: TextStyle(
-                                fontSize:
-                                    0.0085 * Get.height + 0.017 * Get.width),
+                            errorStyle: TextStyle(fontSize: UiSizes.size_14),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.isPasswordFieldVisible.value =
                                     !controller.isPasswordFieldVisible.value;
                               },
-                              splashRadius: 0.024 * Get.height,
+                              splashRadius: UiSizes.height_19_7,
                               icon: Icon(
-                                size: 0.014 * Get.height + 0.029 * Get.width,
+                                size: UiSizes.size_23,
                                 controller.isPasswordFieldVisible.value
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
@@ -96,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 0.018 * Get.height),
+                          EdgeInsets.symmetric(vertical: UiSizes.height_15),
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
@@ -105,14 +98,12 @@ class LoginScreen extends StatelessWidget {
                         child: Text(
                           "Forgot Password?",
                           style: TextStyle(
-                              color: Colors.yellow,
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                              color: Colors.yellow, fontSize: UiSizes.size_14),
                           textAlign: TextAlign.right,
                         ),
                       ),
                     ),
-                    SizedBox(height: 0.018 * Get.height),
+                    SizedBox(height: UiSizes.height_15),
                     Obx(
                       () => ElevatedButton(
                         onPressed: () async {
@@ -125,45 +116,42 @@ class LoginScreen extends StatelessWidget {
                                 child: LoadingAnimationWidget
                                     .horizontalRotatingDots(
                                   color: Colors.black,
-                                  size: 0.024 * Get.height + 0.048 * Get.width,
+                                  size: UiSizes.size_40,
                                 ),
                               )
                             : Text(
                                 'Login',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize:
-                                      0.024 * Get.width + 0.012 * Get.height,
+                                  fontSize: UiSizes.size_19,
                                 ),
                               ),
                       ),
                     ),
-                    SizedBox(height: 0.036 * Get.height),
+                    SizedBox(height: UiSizes.height_29_6),
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: Divider(
-                            indent: 0.048 * Get.width,
-                            endIndent: 0.024 * Get.width,
-                            thickness: 0.0012 * Get.height,
+                            indent: UiSizes.width_20,
+                            endIndent: UiSizes.width_10,
+                            thickness: UiSizes.height_1,
                           ),
                         ),
                         Text(
                           "OR",
-                          style: TextStyle(
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                          style: TextStyle(fontSize: UiSizes.size_14),
                         ),
                         Expanded(
                           child: Divider(
-                            indent: 0.048 * Get.width,
-                            endIndent: 0.024 * Get.width,
-                            thickness: 0.0012 * Get.height,
+                            indent: UiSizes.width_20,
+                            endIndent: UiSizes.width_10,
+                            thickness: UiSizes.height_1,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 0.036 * Get.height),
+                    SizedBox(height: UiSizes.height_29_6),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffFFFFE0),
@@ -175,18 +163,18 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 0.036 * Get.height,
-                            width: 0.072 * Get.width,
+                            height: UiSizes.height_29_6,
+                            width: UiSizes.width_29_6,
                             child: Image.asset("assets/images/google_icon.png"),
                           ),
                           SizedBox(
-                            width: 0.024 * Get.width,
+                            width: UiSizes.width_10,
                           ),
                           Text(
                             'Login with Google',
                             style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 0.01 * Get.height + 0.021 * Get.width,
+                              fontSize: UiSizes.size_17,
                             ),
                           ),
                         ],
@@ -198,12 +186,10 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           "New to Resonate?",
-                          style: TextStyle(
-                              fontSize:
-                                  0.017 * Get.width + 0.0085 * Get.height),
+                          style: TextStyle(fontSize: UiSizes.size_14),
                         ),
                         SizedBox(
-                          width: 0.012 * Get.width,
+                          width: UiSizes.width_5,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -215,8 +201,7 @@ class LoginScreen extends StatelessWidget {
                             "Register",
                             style: TextStyle(
                                 color: AppColor.yellowColor,
-                                fontSize:
-                                    0.017 * Get.width + 0.0085 * Get.height),
+                                fontSize: UiSizes.size_14),
                           ),
                         )
                       ],
