@@ -48,7 +48,7 @@ class TabViewScreen extends StatelessWidget {
                       foregroundColor: AppColor.yellowColor,
                       label: "Instant",
                       onTap: () async {
-                        Get.delete<CreateRoomController>();
+                        await Get.delete<CreateRoomController>();
                         controller.setIndex(2);
                       },
                     ),
