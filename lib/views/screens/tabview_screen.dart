@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
@@ -12,11 +13,9 @@ import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
+  final TabViewController controller = Get.put<TabViewController>(TabViewController());
 
-  AuthStateController authStateController =
-      Get.put<AuthStateController>(AuthStateController());
+  AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
 
   TabViewScreen({super.key});
 
@@ -34,22 +33,40 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [profileAvatar(context)],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              if (controller.getIndex() == 2) {
-                await Get.find<CreateRoomController>().createRoom();
-              } else {
-                Get.delete<CreateRoomController>();
-                controller.setIndex(2);
-              }
-            },
-            backgroundColor: AppColor.yellowColor,
-            child: (controller.getIndex() == 2)
-                ? const Text("Start")
-                : const Icon(Icons.add),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: (controller.getIndex() != 2)
+              ? SpeedDial(
+                  icon: Icons.add,
+                  activeIcon: Icons.close,
+                  backgroundColor: AppColor.yellowColor,
+                  elevation: 8.0,
+                  spacing: 10,
+                  spaceBetweenChildren: 6,
+                  animationCurve: Curves.elasticInOut,
+                  children: [
+                    SpeedDialChild(
+                      child: const Icon(Icons.multitrack_audio),
+                      foregroundColor: AppColor.yellowColor,
+                      label: "Instant",
+                      onTap: () async {
+                        Get.delete<CreateRoomController>();
+                        controller.setIndex(2);
+                      },
+                    ),
+                    SpeedDialChild(
+                      child: const Icon(Icons.date_range),
+                      foregroundColor: AppColor.yellowColor,
+                      label: "Schedule",
+                      onTap: () => {},
+                    ),
+                  ],
+                )
+              : FloatingActionButton(
+                  onPressed: () async {
+                    await Get.find<CreateRoomController>().createRoom();
+                  },
+                  backgroundColor: AppColor.yellowColor,
+                  child: const Icon(Icons.done)),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             backgroundColor: Colors.transparent,
             activeColor: Colors.amber,
@@ -67,7 +84,6 @@ class TabViewScreen extends StatelessWidget {
             notchSmoothness: NotchSmoothness.defaultEdge,
             onTap: (index) => controller.setIndex(index),
           ),
-          //TODO Connect all main screens to the tab view
           body: (controller.getIndex() == 0)
               ? HomeScreen()
               : (controller.getIndex() == 2)
