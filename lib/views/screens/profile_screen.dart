@@ -229,7 +229,6 @@ class ProfileScreen extends StatelessWidget {
                               title: "Logout",
                               icon: Icons.exit_to_app_outlined,
                               onTap: () async {
-                                //TODO: Launch URL in webview
                                 await authStateController.logout();
                               },
                             ),
