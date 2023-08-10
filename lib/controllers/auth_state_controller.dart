@@ -53,10 +53,11 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
-      isInitializing.value = false;
       update();
     } catch (e) {
       log(e.toString());
+    }finally{
+      isInitializing.value = false;
     }
   }
 
