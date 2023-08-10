@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,7 +7,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../utils/constants.dart';
 import '../widgets/custom_card.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -200,7 +203,12 @@ class ProfileScreen extends StatelessWidget {
                               title: "Contribute to the project",
                               icon: FontAwesomeIcons.github,
                               onTap: () {
-                                //TODO: Open Github Repo Link
+                                Uri url = Uri.parse(githubRepoUrl);
+                                try{
+                                  launchUrl(url);
+                                }catch(e){
+                                  log("Error launching URL: ${e.toString()}");
+                                }
                               },
                             ),
                             CustomCard(
