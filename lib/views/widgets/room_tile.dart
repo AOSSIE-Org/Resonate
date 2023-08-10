@@ -10,11 +10,14 @@ import '../../utils/enums/room_state.dart';
 class RoomTile extends StatelessWidget {
   final AppwriteRoom room;
 
-  RoomTile({required this.room});
+  RoomTile({super.key, required this.room});
 
   Text buildTags() {
-    String tagString = room.tags.isNotEmpty ? room.tags[0] : "";
+    String tagString = "";
     if (room.tags.isNotEmpty) {
+      // this fixes error for rooms without tags
+      tagString = room.tags[0]; // fixes error accessing a nonexistent index
+
       for (var tag in room.tags.sublist(1)) {
         tagString += " · $tag";
       }
@@ -88,8 +91,8 @@ class RoomTile extends StatelessWidget {
                         width: Get.width * 0.01,
                       ),
                       Text(roomStateText(), style: kTileSubtitleStyle),
-                      Spacer(),
-                      FaIcon(
+                      const Spacer(),
+                      const FaIcon(
                         FontAwesomeIcons.ellipsis,
                         color: Colors.black,
                       ),
@@ -131,7 +134,8 @@ class RoomTile extends StatelessWidget {
                         widthFactor: 0.5,
                         child: CircleAvatar(
                           radius: 19,
-                          backgroundColor: Color.fromRGBO(230, 171, 49, 1),
+                          backgroundColor:
+                              const Color.fromRGBO(230, 171, 49, 1),
                           child: CircleAvatar(
                             radius: 15,
                             backgroundImage: NetworkImage(avatarImageUrl),

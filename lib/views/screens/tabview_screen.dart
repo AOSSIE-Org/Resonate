@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/views/widgets/profile_avatar.dart';
 
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
@@ -88,7 +89,8 @@ class TabViewScreen extends StatelessWidget {
             iconSize: 0.01825 * Get.height + 0.0364 * Get.width,
             icons: const [
               Icons.home_outlined,
-              Icons.person_outline,
+              // Icons.person_outline, // move to the appbar and replaced with discussions icon
+              Icons.chat_rounded
             ],
             notchMargin: 0.009722 * Get.width + 0.00486 * Get.height,
             activeIndex: controller.getIndex(),
@@ -98,9 +100,9 @@ class TabViewScreen extends StatelessWidget {
           ),
           body: (controller.getIndex() == 0)
               ? HomeScreen()
-              : (controller.getIndex() == 1)
-                  ? ProfileScreen()
-                  : CreateRoomScreen(),
+              : (controller.getIndex() == 2)
+                  ? CreateRoomScreen()
+                  : const DiscussionScreen(),
         ));
   }
 }

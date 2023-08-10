@@ -18,14 +18,15 @@ class ParticipantBlock extends StatelessWidget {
   SingleRoomController controller;
 
   String getUserRole() {
-    if (participant.isAdmin)
+    if (participant.isAdmin) {
       return "Admin";
-    else if (participant.isModerator)
+    } else if (participant.isModerator) {
       return "Moderator";
-    else if (participant.isSpeaker)
+    } else if (participant.isSpeaker) {
       return "Speaker";
-    else
+    } else {
       return "Listener";
+    }
   }
 
   @override
@@ -42,7 +43,7 @@ class ParticipantBlock extends StatelessWidget {
           width: 0.0024*Get.width,
         ),
       ),
-      duration: Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
       blurBackgroundColor: Colors.black54,
       menuItems: (controller.me.value.isAdmin)
@@ -51,11 +52,11 @@ class ParticipantBlock extends StatelessWidget {
               : [
                   if (participant.hasRequestedToBeSpeaker)
                     FocusedMenuItem(
-                        title: Text(
+                        title:  Text(
                           "Add Speaker",
                           style: TextStyle(color: Colors.amber, fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         ),
-                        trailingIcon: Icon(
+                        trailingIcon:  Icon(
                           Icons.record_voice_over,
                           color: Colors.green,
                         size: 0.02187*Get.width+0.01095*Get.height,
@@ -66,7 +67,7 @@ class ParticipantBlock extends StatelessWidget {
                         backgroundColor: Colors.black),
                   if (participant.isSpeaker)
                     FocusedMenuItem(
-                        title: Text(
+                        title: const Text(
                           "Make Listener",
                           style: TextStyle(color: Colors.amber, fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         ),
@@ -95,7 +96,8 @@ class ParticipantBlock extends StatelessWidget {
                       backgroundColor: Colors.black),
                 ]
           : [],
-      openWithTap: (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
+      openWithTap:
+          (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 0.00243*Get.height, horizontal: 0.00486*Get.width),
         alignment: Alignment.center,

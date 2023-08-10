@@ -79,7 +79,7 @@ class OnboardingController extends GetxController {
             file: InputFile.fromPath(
                 path: profileImagePath!, filename: "${authStateController.email}.jpeg"));
         imageController.text =
-            "${appwriteEndpoint}/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=${appwriteProjectId}";
+            "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
       }
 
       // Update User meta data
