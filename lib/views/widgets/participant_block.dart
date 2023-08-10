@@ -67,7 +67,7 @@ class ParticipantBlock extends StatelessWidget {
                         backgroundColor: Colors.black),
                   if (participant.isSpeaker)
                     FocusedMenuItem(
-                        title: const Text(
+                        title: Text(
                           "Make Listener",
                           style: TextStyle(color: Colors.amber, fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                         ),

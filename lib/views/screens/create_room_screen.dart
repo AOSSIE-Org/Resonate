@@ -273,6 +273,6 @@ class CreateRoomScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ));
+            );
   }
 }

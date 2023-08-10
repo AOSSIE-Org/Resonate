@@ -50,7 +50,7 @@ class _RoomScreenState extends State<RoomScreen> {
                 style: TextStyle(fontSize: 0.012*Get.height+0.0243*Get.width, color: Colors.amber),
               ),
               const Spacer(),
-              const FaIcon(
+               FaIcon(
                 FontAwesomeIcons.ellipsis,
                 color: Colors.amber,
                 size: 0.0146*Get.height+0.029*Get.width,
@@ -132,20 +132,12 @@ class _RoomScreenState extends State<RoomScreen> {
                                   BorderRadius.all(Radius.circular(20))),
                           child: Center(
                               child: Text(
-<<<<<<< HEAD
                                 (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
                             style:  TextStyle(color: Colors.black87,fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-=======
-                            (controller.appwriteRoom.isUserAdmin)
-                                ? "Delete Room"
-                                : "Leave Room",
-                            style: const TextStyle(color: Colors.black87),
->>>>>>> a31f6c08e59d7fb322d7f66ba2f74839f01d3936
                           )),
                         ),
                       ),
                       GetBuilder<SingleRoomController>(builder: (controller) {
-<<<<<<< HEAD
                         return (controller.me.value.isSpeaker) ? SizedBox(
                                       height: 0.06815 * Get.height,
             width: 0.1361 * Get.width,
@@ -172,42 +164,6 @@ class _RoomScreenState extends State<RoomScreen> {
                             ),
                           ),
                         );
-=======
-                        return (controller.me.value.isSpeaker)
-                            ? FloatingActionButton(
-                                onPressed: () => (controller.me.value.isMicOn)
-                                    ? controller.turnOffMic()
-                                    : controller.turnOnMic(),
-                                backgroundColor: (controller.me.value.isMicOn)
-                                    ? Colors.lightGreen
-                                    : Colors.redAccent,
-                                child: Icon(
-                                  (controller.me.value.isMicOn)
-                                      ? Icons.mic
-                                      : Icons.mic_off,
-                                  color: Colors.black,
-                                ),
-                              )
-                            : FloatingActionButton(
-                                onPressed: () => (controller
-                                        .me.value.hasRequestedToBeSpeaker)
-                                    ? controller.unRaiseHand()
-                                    : controller.raiseHand(),
-                                backgroundColor: (controller
-                                        .me.value.hasRequestedToBeSpeaker)
-                                    ? Colors.amber
-                                    : Colors.black54,
-                                child: Icon(
-                                  (controller.me.value.hasRequestedToBeSpeaker)
-                                      ? Icons.back_hand
-                                      : Icons.back_hand_outlined,
-                                  color: (controller
-                                          .me.value.hasRequestedToBeSpeaker)
-                                      ? Colors.black
-                                      : Colors.amber,
-                                ),
-                              );
->>>>>>> a31f6c08e59d7fb322d7f66ba2f74839f01d3936
                       }),
                       Container(
                           height: 0.0486*Get.height,
@@ -219,11 +175,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",
-<<<<<<< HEAD
                             style: TextStyle(color: Colors.black87, fontSize:   0.0085 * Get.height + 0.017 * Get.width),
-=======
-                            style: const TextStyle(color: Colors.black87),
->>>>>>> a31f6c08e59d7fb322d7f66ba2f74839f01d3936
                           );
                         })),
                       ),
