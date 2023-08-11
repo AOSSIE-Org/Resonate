@@ -7,6 +7,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/email_verify_controller.dart';
 
@@ -26,8 +27,8 @@ class EmailVerificationScreen extends StatelessWidget {
                   child: Container(
                     color: AppColor.bgBlackColor,
                     padding: EdgeInsets.symmetric(
-                        horizontal: 0.048 * Get.width,
-                        vertical: 0.012 * Get.height),
+                        horizontal: UiSizes.width_20,
+                        vertical: UiSizes.height_10),
                     child: Column(
                       children: [
                         Align(
@@ -40,7 +41,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.amber,
                                     fontSize:
-                                        0.015 * Get.height + 0.031 * Get.width),
+                                       UiSizes.size_24_6),
                               ),
                               ClipRRect(
                                 borderRadius:

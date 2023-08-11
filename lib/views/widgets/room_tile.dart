@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../models/appwrite_room.dart';
@@ -52,12 +53,12 @@ class RoomTile extends StatelessWidget {
   }
 
   var kTileTitleStyle = TextStyle(
-      fontSize: 0.01399 * Get.height + 0.02795 * Get.width,
+      fontSize: UiSizes.size_23,
       fontWeight: FontWeight.w500,
       color: Colors.black);
 
   var kTileSubtitleStyle = TextStyle(
-      fontSize: 0.0182 * Get.width + 0.009127 * Get.height,
+      fontSize: UiSizes.size_15,
       fontWeight: FontWeight.w100,
       color: Colors.black54);
 
@@ -65,7 +66,7 @@ class RoomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: 0.012 * Get.height, horizontal: 0.024 * Get.width),
+          vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
           gradient: AppColor.gradientBg,
           borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -77,7 +78,7 @@ class RoomTile extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: 0.012 * Get.height, horizontal: 0.024 * Get.width),
+                  vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -86,10 +87,10 @@ class RoomTile extends StatelessWidget {
                       FaIcon(
                         roomStateIcon(),
                         color: Colors.green,
-                        size: 0.012 * Get.height + 0.024 * Get.width,
+                        size: UiSizes.size_20,
                       ),
                       SizedBox(
-                        width: Get.width * 0.01,
+                        width: UiSizes.width_5,
                       ),
                       Text(roomStateText(), style: kTileSubtitleStyle),
                       const Spacer(),
@@ -100,7 +101,7 @@ class RoomTile extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: Get.height * 0.01,
+                    height: UiSizes.width_5,
                   ),
                   Text(
                     room.name,
@@ -108,11 +109,11 @@ class RoomTile extends StatelessWidget {
                     style: kTileTitleStyle,
                   ),
                   SizedBox(
-                    height: Get.height * 0.005,
+                    height: UiSizes.height_4_1,
                   ),
                   buildTags(),
                   SizedBox(
-                    height: Get.height * 0.01,
+                    height: UiSizes.width_5,
                   ),
                 ],
               ),
@@ -121,14 +122,14 @@ class RoomTile extends StatelessWidget {
           Container(
             color: Colors.black12,
             padding: EdgeInsets.symmetric(
-                vertical: 0.012 * Get.height, horizontal: 0.024 * Get.width),
+                vertical: UiSizes.height_10, horizontal: UiSizes.width_20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     SizedBox(
-                      width: Get.width * 0.02,
+                      width: UiSizes.width_8_2,
                     ),
                     for (var avatarImageUrl in room.memberAvatarUrls)
                       Align(
@@ -144,7 +145,7 @@ class RoomTile extends StatelessWidget {
                         ),
                       ),
                     SizedBox(
-                      width: Get.width * 0.04,
+                      width: UiSizes.width_16,
                     ),
                     Text("${room.totalParticipants}+ Joined",
                         style: kTileSubtitleStyle),
@@ -152,19 +153,20 @@ class RoomTile extends StatelessWidget {
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,
-                      size: 0.02187 * Get.width + 0.01095 * Get.height,
+                      size: UiSizes.size_16,
                     ),
                     SizedBox(
-                      width: Get.width * 0.04,
+                      width: UiSizes.width_16,
                     ),
                     GestureDetector(
                       child: Icon(
                         Icons.share,
                         color: Colors.black,
-                        size: 0.02187 * Get.width + 0.01095 * Get.height,
+                        size: UiSizes.size_16,
                       ),
                       onTap: () {
-                        String roomLink = "https://resonate.aossie.org/room/${room.id}";
+                        String roomLink =
+                            "https://resonate.aossie.org/room/${room.id}";
                         Share.share('🎉 Let\'s Resonate 🎉\n'
                             '🎙️ Room Topic: ${room.name}\n'
                             '🔗 Link: $roomLink\n');
