@@ -8,5 +8,6 @@ class AppRoutes {
   static const home = "/home";
   static const createRoom = "/createRoom";
   static const splash = "/splash";
-    static const updateEmail = "/updateEmail";
+  static const updateEmail = "/updateEmail";
+  static const discuss = "/discuss";
 }

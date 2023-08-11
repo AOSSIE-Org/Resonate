@@ -13,7 +13,7 @@ import 'package:resonate/views/widgets/room_tile.dart';
 import '../views/screens/room_screen.dart';
 
 class TabViewController extends GetxController {
-  RxInt _selectedIndex = 0.obs;
+  final RxInt _selectedIndex = 0.obs;
   getIndex() => _selectedIndex.value;
   setIndex(index) => _selectedIndex.value = index;
 
