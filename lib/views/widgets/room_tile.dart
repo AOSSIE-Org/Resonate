@@ -14,8 +14,11 @@ class RoomTile extends StatelessWidget {
   RoomTile({required this.room});
 
   Text buildTags() {
-    String tagString = room.tags.isNotEmpty ? room.tags[0] : "";
+    String tagString = "";
     if (room.tags.isNotEmpty) {
+      // this fixes error for rooms without tags
+      tagString = room.tags[0]; // fixes error accessing a nonexistent index
+
       for (var tag in room.tags.sublist(1)) {
         tagString += " · $tag";
       }
@@ -48,15 +51,19 @@ class RoomTile extends StatelessWidget {
     }
   }
 
-  var kTileTitleStyle = const TextStyle(fontSize: 23, fontWeight: FontWeight.w500, color: Colors.black);
+  var kTileTitleStyle = const TextStyle(
+      fontSize: 23, fontWeight: FontWeight.w500, color: Colors.black);
 
-  var kTileSubtitleStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54);
+  var kTileSubtitleStyle = const TextStyle(
+      fontSize: 15, fontWeight: FontWeight.w100, color: Colors.black54);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      decoration: BoxDecoration(gradient: AppColor.gradientBg, borderRadius: BorderRadius.all(Radius.circular(15))),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      decoration: const BoxDecoration(
+          gradient: AppColor.gradientBg,
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         children: [
           InkWell(
@@ -64,7 +71,7 @@ class RoomTile extends StatelessWidget {
               await Get.find<RoomsController>().joinRoom(room: room);
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -79,8 +86,8 @@ class RoomTile extends StatelessWidget {
                         width: Get.width * 0.01,
                       ),
                       Text(roomStateText(), style: kTileSubtitleStyle),
-                      Spacer(),
-                      FaIcon(
+                      const Spacer(),
+                      const FaIcon(
                         FontAwesomeIcons.ellipsis,
                         color: Colors.black,
                       ),
@@ -107,7 +114,7 @@ class RoomTile extends StatelessWidget {
           ),
           Container(
             color: Colors.black12,
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -121,7 +128,8 @@ class RoomTile extends StatelessWidget {
                         widthFactor: 0.5,
                         child: CircleAvatar(
                           radius: 19,
-                          backgroundColor: Color.fromRGBO(230, 171, 49, 1),
+                          backgroundColor:
+                              const Color.fromRGBO(230, 171, 49, 1),
                           child: CircleAvatar(
                             radius: 15,
                             backgroundImage: NetworkImage(avatarImageUrl),
@@ -131,9 +139,10 @@ class RoomTile extends StatelessWidget {
                     SizedBox(
                       width: Get.width * 0.04,
                     ),
-                    Text("${room.totalParticipants}+ Joined", style: kTileSubtitleStyle),
-                    Spacer(),
-                    FaIcon(
+                    Text("${room.totalParticipants}+ Joined",
+                        style: kTileSubtitleStyle),
+                    const Spacer(),
+                    const FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,
                     ),
