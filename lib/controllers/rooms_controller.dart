@@ -27,6 +27,33 @@ class RoomsController extends GetxController {
     await getRooms();
   }
 
+  Future<AppwriteRoom> createRoomObject(Document room, String userUid) async{
+    // Get three particpant data to use for memberAvatar widget
+    var participantCollectionRef = await databases.listDocuments(
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)]);
+    List<String> memberAvatarUrls = [];
+    for (var p in participantCollectionRef.documents) {
+      Document participantDoc = await databases.getDocument(
+          databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: p.data["uid"]);
+      memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
+    }
+
+    // Create appwrite room object and add it to rooms list
+    AppwriteRoom appwriteRoom = AppwriteRoom(
+        id: room.data['\$id'],
+        name: room.data["name"],
+        description: room.data["description"],
+        totalParticipants: room.data["totalParticipants"],
+        tags: room.data["tags"],
+        memberAvatarUrls: memberAvatarUrls,
+        state: RoomState.live,
+        isUserAdmin: room.data["adminUid"] == userUid);
+
+    return appwriteRoom;
+  }
+
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
@@ -38,17 +65,7 @@ class RoomsController extends GetxController {
           await databases.listDocuments(databaseId: masterDatabaseId, collectionId: roomsCollectionId);
 
       for (var room in roomsCollectionRef.documents) {
-
-        // Get three particpant data to use for memberAvatar widget
-        var participantCollectionRef = await databases.listDocuments(databaseId: masterDatabaseId, collectionId: participantsCollectionId, queries:[Query.equal("roomId", room.data["\$id"]), Query.limit(3)]);
-        List<String> memberAvatarUrls = [];
-        for (var p in participantCollectionRef.documents){
-          Document participantDoc = await databases.getDocument(databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: p.data["uid"]);
-          memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
-        }
-
-        // Create appwrite room object and add it to rooms list
-        AppwriteRoom appwriteRoom = AppwriteRoom(id: room.data['\$id'], name: room.data["name"], description: room.data["description"], totalParticipants: room.data["totalParticipants"], tags: room.data["tags"], memberAvatarUrls: memberAvatarUrls, state: RoomState.live, isUserAdmin: room.data["adminUid"] == userUid);
+        AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
         rooms.add(appwriteRoom);
       }
       update();
@@ -59,18 +76,33 @@ class RoomsController extends GetxController {
     }
   }
 
+  Future getRoomById(String roomId) async {
+    try {
+      Document room = await databases.getDocument(
+          databaseId: masterDatabaseId, collectionId: roomsCollectionId, documentId: roomId);
+      String userUid = Get.find<AuthStateController>().uid!;
+
+      AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
+      return appwriteRoom;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<void> joinRoom({required AppwriteRoom room}) async {
-    try{
+    try {
       // Display Loading Dialog
       Get.dialog(
-          Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
+          Center(
+            child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio * 20),
+          ),
           barrierDismissible: false,
-          name: "Loading Dialog"
-      );
+          name: "Loading Dialog");
 
       // Get the token and livekit url and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
-      String myDocId = await RoomService.joinRoom(roomId: room.id, userId: authStateController.uid!, isAdmin: room.isUserAdmin);
+      String myDocId =
+          await RoomService.joinRoom(roomId: room.id, userId: authStateController.uid!, isAdmin: room.isUserAdmin);
       room.myDocId = myDocId;
 
       // Close the loading dialog
@@ -78,7 +110,7 @@ class RoomsController extends GetxController {
 
       // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet(room);
-    }catch(e){
+    } catch (e) {
       log(e.toString());
       // Close the loading dialog
       Get.back();
