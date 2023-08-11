@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../widgets/room_tile.dart';
 
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                       return  Icon(
                         Icons.ac_unit,
                         color: Colors.amber,
-                        size: 0.01825*Get.height+0.0364*Get.width,
+                        size:UiSizes.size_30,
                       );
                     },
                   ),
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: Get.height * 0.015,
+                        height: UiSizes.height_12_3,
                       ),
                       Visibility(
                         visible: roomsController.rooms.isEmpty,
@@ -50,32 +51,32 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: Get.height * 0.15,
+                                height: UiSizes.height_12_3,
                               ),
                               Image.asset(
                                 "assets/images/NoRoom.png",
-                                height: Get.height * 0.17,
+                                height: UiSizes.height_140,
                               ),
                               SizedBox(
-                                height: Get.height * 0.035,
+                                height: UiSizes.height_29_6,
                               ),
-                              const Center(
+                              Center(
                                 child: Text(
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18.0),
+                                      color: Colors.white, fontSize: UiSizes.size_19),
                                 ),
                               ),
                               SizedBox(
-                                height: Get.height * 0.01,
+                                height: UiSizes.height_10,
                               ),
                               OutlinedButton(
                                 onPressed: () {
                                   roomsController.getRooms();
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  maximumSize: Size.fromWidth(Get.width * 0.30),
+                                  maximumSize: Size.fromWidth(UiSizes.width_123_4),
                                   side: const BorderSide(
                                       color: Colors.amber, width: 1),
                                 ),
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                                       style: TextStyle(color: Colors.amber),
                                     ),
                                     SizedBox(
-                                      width: Get.width * 0.015,
+                                      width: UiSizes.width_6_2,
                                     ),
                                     const Icon(
                                       Icons.refresh,
