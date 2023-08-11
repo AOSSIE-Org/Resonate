@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                                 height: Get.height * 0.15,
                               ),
                               Image.asset(
-                                "assets/images/NoRoom.png",
+                                "assets/images/no_room.png",
                                 height: Get.height * 0.17,
                               ),
                               SizedBox(
