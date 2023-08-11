@@ -35,6 +35,15 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
   }
 
+  Future<bool> get getLoginState async {
+    try{
+      appwriteUser = await account.get();
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
   Future<void> setUserProfileData() async {
     isInitializing.value = true;
     try {

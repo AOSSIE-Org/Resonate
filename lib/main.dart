@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             errorColor: const Color(0xFDFF0000),
           ),
           fontFamily:
-              GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
+          GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
           iconTheme: Get.theme.iconTheme.copyWith(
             size: 0.0146 * Get.height + 0.02916 * Get.width,
             color: AppColor.yellowColor,
