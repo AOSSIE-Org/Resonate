@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   final RoomsController roomsController = Get.find<RoomsController>();
 
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RoomsController>(
