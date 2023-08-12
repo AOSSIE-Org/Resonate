@@ -1,8 +1,24 @@
-import 'package:chopper/chopper.dart';
+import 'dart:async';
+
+import 'package:chopper/chopper.dart' hide Get;
+import 'package:get/get.dart' hide Response;
+import 'package:resonate/controllers/auth_state_controller.dart';
 
 import '../../utils/constants.dart';
 
 part 'room_api.chopper.dart';
+
+class AuthInterceptor implements RequestInterceptor {
+  @override
+  FutureOr<Request> onRequest(Request request) async {
+    final authToken = await Get.find<AuthStateController>().getAppwriteToken();
+    final authHeaders = {
+      'Authorization': 'Bearer $authToken',
+      'Content-Type': 'application/json',
+    };
+    return request.copyWith(headers: {...request.headers, ...authHeaders});
+  }
+}
 
 class RoomApiClient {
   static const String baseUrl = resonateApiUrl;
@@ -10,13 +26,9 @@ class RoomApiClient {
 
   static ChopperClient get client {
     if (_client == null) {
-      final authHeaders = {
-        'Authorization': 'Bearer YOUR_AUTH_TOKEN', //TODO: Update Auth token dynamically
-        'Content-Type': 'application/json',
-      };
 
       final interceptors = [
-        HeadersInterceptor(authHeaders),
+        AuthInterceptor(),
         // Add other interceptors if needed
       ];
 
