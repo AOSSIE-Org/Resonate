@@ -1,36 +1,34 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
-
 import '../routes/app_routes.dart';
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
 
+
 class EmailVerifyController extends GetxController {
-  var isSending = false.obs;
-  var pressed = true.obs;
-  var shouldDisplay = true.obs;
   late String verificationID;
   late Execution responseVerify;
   late Execution responseSetVerified;
-  var resendIsAllowed = false.obs;
   late String status;
-  var isVerifying = false.obs;
-  var isUpdateAllowed = true.obs;
   late final Functions functions;
   late final Databases databases;
-  AuthStateController authStateController = Get.find<AuthStateController>();
-  AuthenticationController authController =
-      Get.find<AuthenticationController>();
-  TextEditingController updateEmailController = TextEditingController(text: "");
+  var resendIsAllowed = false.obs;
+  var isSending = false.obs;
+  var pressed = true.obs;
+  var shouldDisplay = true.obs;
+  var isVerifying = false.obs;
+  var isUpdateAllowed = true.obs;
   var signupisallowed = true.obs;
+  AuthStateController authStateController = Get.find<AuthStateController>();
+  AuthenticationController authController = Get.find<AuthenticationController>();
+  TextEditingController updateEmailController = TextEditingController(text: "");
+  
   @override
   void onInit() async {
     super.onInit();
@@ -40,21 +38,23 @@ class EmailVerifyController extends GetxController {
 
   Future<bool> sendOTP() async {
     authController.isLoading.value = true;
-    var otp_ID = randomNumeric(10).toString() + authStateController.email!;
+    var otpID = randomNumeric(10).toString() + authStateController.email!;
     // Appwrite does not accept @ in document ID's
-    otp_ID = otp_ID.split("@")[0];
-    print(authStateController.email);
+    otpID = otpID.split("@")[0];
     var sendOtpData = {
       "email": authStateController.email,
-      "otpID": otp_ID.toString()
+      "otpID": otpID.toString()
     };
+
     await authStateController.account
-        .updatePrefs(prefs: {"otp_ID": otp_ID, "isUserProfileComplete": true});
+        .updatePrefs(prefs: {"otp_ID": otpID, "isUserProfileComplete": true});
     var data = json.encode(sendOtpData);
 
     var res = await functions.createExecution(
         functionId: sendOtpFunctionID, data: data.toString());
+
     authController.isLoading.value = false;
+
     if (res.response == '{"message":"null"}') {
       resendIsAllowed.value = false;
 
