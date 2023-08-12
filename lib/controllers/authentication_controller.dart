@@ -10,16 +10,8 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 
 class AuthenticationController extends GetxController {
-  var isLoading = false.obs;
-  var signupisallowed = true.obs;
-  var resendIsAllowed = false.obs;
-  var isVerifying = false.obs;
-  var isUpdateAllowed = true.obs;
   var isPasswordFieldVisible = false.obs;
-  var Pressed = true.obs;
-  var shouldDisplay = true.obs;
-  var status;
-  TextEditingController updateEmailController = TextEditingController(text: "");
+  var isLoading = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmPasswordController =
@@ -28,19 +20,7 @@ class AuthenticationController extends GetxController {
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> updateEmailFormKey = GlobalKey<FormState>();
-  late final Functions functions;
-  late final Databases databases;
-  var verificationID;
-  var res_verify;
-  var res_set_verified;
 
-  @override
-  void onInit() async {
-    super.onInit();
-    functions = Functions(authStateController.client);
-    databases = Databases(authStateController.client);
-  }
 
   Future<void> login() async {  
     if (!loginFormKey.currentState!.validate()) {
@@ -91,84 +71,6 @@ class AuthenticationController extends GetxController {
     } catch (error) {
       log(error.toString());
     }
-  }
-
-  Future<bool> sendOTP() async {
-    isLoading.value = true;
-    var otp_ID = randomNumeric(10).toString() + authStateController.email!;
-    // Appwrite does not accept @ in document ID's
-    otp_ID = otp_ID.split("@")[0];
-    print(authStateController.email);
-    var sendOtpData = {
-      "email": authStateController.email,
-      "otpID": otp_ID.toString()
-    };
-    await authStateController.account
-        .updatePrefs(prefs: {"otp_ID": otp_ID, "isUserProfileComplete": true});
-    var data = json.encode(sendOtpData);
-
-    var res = await functions.createExecution(
-        functionId: sendOtpFunctionID, data: data.toString());
-    isLoading.value = false;
-    if (res.response == '{"message":"null"}') {
-      resendIsAllowed.value = false;
-
-      Timer(const Duration(milliseconds: 300), () {
-        signupisallowed.value = true;
-      });
-      authStateController.isSending.value = false;
-      Get.toNamed(AppRoutes.emailVerification);
-    } else {
-      authStateController.isSending.value = false;
-      signupisallowed.value = true;
-      Get.snackbar('Oops', res.response);
-    }
-
-    return true;
-  }
-
-  Future<void> verifyOTP(String userOTP) async {
-    verificationID = randomNumeric(10).toString() + authStateController.email!;
-    verificationID = verificationID.split("@")[0];
-    var prefs = await authStateController.account.getPrefs();
-    var otp_ID = prefs.data['otp_ID'];
-    var verifyOtpData = {
-      "otpID": otp_ID,
-      "userOTP": userOTP,
-      "verify_ID": verificationID
-    };
-    var data = json.encode(verifyOtpData);
-    res_verify = await functions.createExecution(
-        functionId: verifyOtpFunctionID, data: data.toString());
-  }
-
-  Future<String> checkVerificationStatus() async {
-    final document = await databases.getDocument(
-      databaseId: emailVerificationDatabaseID,
-      collectionId: verificationCollectionID,
-      documentId: verificationID,
-    );
-    var isVerified = document.data['status'];
-    return isVerified;
-  }
-
-  Future<void> setVerified() async {
-    var verifyUserData = {
-      "userID": authStateController.uid,
-    };
-    var verifyData = json.encode(verifyUserData);
-    res_set_verified = await functions.createExecution(
-        functionId: verifyUserFunctionID, data: verifyData.toString());
-  }
-
-  Future<void> updateEmail() async {
-    var updateEmailData = json.encode({
-      "User_ID": authStateController.uid,
-      "email": updateEmailController.text
-    });
-    var results = await functions.createExecution(
-        functionId: updateEmailFunctionID, data: updateEmailData.toString());
-    status = results.status;
   }
 }
 

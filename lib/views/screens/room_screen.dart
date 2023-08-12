@@ -26,15 +26,15 @@ class _RoomScreenState extends State<RoomScreen> {
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: 0.0365*Get.width),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              height: 7,
-              width: 80,
+              margin:  EdgeInsets.symmetric(vertical: 0.01825),
+              height: 0.0085*Get.height,
+              width: 0.1944*Get.width,
               decoration: BoxDecoration(
                   color: Colors.amber.withOpacity(0.5),
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -47,47 +47,44 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Text(
                 widget.room.name,
-                style: const TextStyle(fontSize: 20, color: Colors.amber),
+                style: TextStyle(fontSize: 0.012*Get.height+0.0243*Get.width, color: Colors.amber),
               ),
               const Spacer(),
-              const FaIcon(
+               FaIcon(
                 FontAwesomeIcons.ellipsis,
                 color: Colors.amber,
+                size: 0.0146*Get.height+0.029*Get.width,
               ),
             ],
           ),
           SizedBox(
             height: Get.height * 0.001,
           ),
-          Text(getTags(),
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w100,
-                  color: Colors.white)),
+          Text(getTags(), style: TextStyle(fontSize: 0.009127*Get.height+0.01823*Get.width, fontWeight: FontWeight.w100, color: Colors.white)),
           SizedBox(
             height: Get.height * 0.008,
           ),
           Text(
             widget.room.description,
-            style: const TextStyle(color: Colors.white70),
+            style: TextStyle(color: Colors.white70, fontSize: 0.0085 * Get.height + 0.017 * Get.width),
           ),
           SizedBox(
             height: Get.height * 0.008,
           ),
-          const Divider(
-            thickness: 2,
+          Divider(
+            thickness: 0.0024*Get.height,
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 0.006*Get.height),
               child: Obx(() {
                 return (!controller.isLoading.value)
                     ? GridView.builder(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                            SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          crossAxisSpacing: 20.0,
-                          mainAxisSpacing: 5.0,
+                          crossAxisSpacing: 0.0486*Get.width,
+                          mainAxisSpacing: 0.006*Get.height,
                           childAspectRatio: 2.5 / 3,
                         ),
                         itemCount: controller.participants.length,
@@ -106,8 +103,8 @@ class _RoomScreenState extends State<RoomScreen> {
               }),
             ),
           ),
-          const Divider(
-            thickness: 2,
+          Divider(
+            thickness: 0.0024*Get.height,
           ),
           SafeArea(
             child: SizedBox(
@@ -127,60 +124,50 @@ class _RoomScreenState extends State<RoomScreen> {
                               : await controller.leaveRoom();
                         },
                         child: Container(
-                          height: 40,
-                          width: 125,
+                          height: 0.0486*Get.height,
+                          width: 0.3*Get.width,
                           decoration: const BoxDecoration(
                               gradient: AppColor.gradientBg,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           child: Center(
                               child: Text(
-                            (controller.appwriteRoom.isUserAdmin)
-                                ? "Delete Room"
-                                : "Leave Room",
-                            style: const TextStyle(color: Colors.black87),
+                                (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
+                            style:  TextStyle(color: Colors.black87,fontSize: 0.0085 * Get.height + 0.017 * Get.width),
                           )),
                         ),
                       ),
                       GetBuilder<SingleRoomController>(builder: (controller) {
-                        return (controller.me.value.isSpeaker)
-                            ? FloatingActionButton(
-                                onPressed: () => (controller.me.value.isMicOn)
-                                    ? controller.turnOffMic()
-                                    : controller.turnOnMic(),
-                                backgroundColor: (controller.me.value.isMicOn)
-                                    ? Colors.lightGreen
-                                    : Colors.redAccent,
-                                child: Icon(
-                                  (controller.me.value.isMicOn)
-                                      ? Icons.mic
-                                      : Icons.mic_off,
-                                  color: Colors.black,
-                                ),
-                              )
-                            : FloatingActionButton(
-                                onPressed: () => (controller
-                                        .me.value.hasRequestedToBeSpeaker)
-                                    ? controller.unRaiseHand()
-                                    : controller.raiseHand(),
-                                backgroundColor: (controller
-                                        .me.value.hasRequestedToBeSpeaker)
-                                    ? Colors.amber
-                                    : Colors.black54,
-                                child: Icon(
-                                  (controller.me.value.hasRequestedToBeSpeaker)
-                                      ? Icons.back_hand
-                                      : Icons.back_hand_outlined,
-                                  color: (controller
-                                          .me.value.hasRequestedToBeSpeaker)
-                                      ? Colors.black
-                                      : Colors.amber,
-                                ),
-                              );
+                        return (controller.me.value.isSpeaker) ? SizedBox(
+                                      height: 0.06815 * Get.height,
+            width: 0.1361 * Get.width,
+                          child: FloatingActionButton(
+                            onPressed: () =>
+                                (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
+                            backgroundColor: (controller.me.value.isMicOn) ? Colors.lightGreen : Colors.redAccent,
+                            child: Icon(
+                              (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
+                              color: Colors.black,
+                              size: 0.0146*Get.height+0.029*Get.width,
+                            ),
+                          ),
+                        ) : SizedBox(
+                                      height: 0.06815 * Get.height,
+            width: 0.1361 * Get.width,
+                          child: FloatingActionButton(
+                            onPressed: () => (controller.me.value.hasRequestedToBeSpeaker) ? controller.unRaiseHand() : controller.raiseHand(),
+                            backgroundColor: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.amber : Colors.black54,
+                            child: Icon(
+                              (controller.me.value.hasRequestedToBeSpeaker) ? Icons.back_hand : Icons.back_hand_outlined,
+                              color: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.black : Colors.amber,
+                              size: 0.0146*Get.height+0.029*Get.width,
+                            ),
+                          ),
+                        );
                       }),
                       Container(
-                        height: 40,
-                        width: 125,
+                          height: 0.0486*Get.height,
+                          width: 0.3*Get.width,
                         decoration: const BoxDecoration(
                             gradient: AppColor.gradientBg,
                             borderRadius:
@@ -188,7 +175,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",
-                            style: const TextStyle(color: Colors.black87),
+                            style: TextStyle(color: Colors.black87, fontSize:   0.0085 * Get.height + 0.017 * Get.width),
                           );
                         })),
                       ),

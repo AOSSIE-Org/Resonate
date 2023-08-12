@@ -8,66 +8,84 @@ import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
+import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
   final TabViewController controller =
       Get.put<TabViewController>(TabViewController());
-
-  AuthStateController authStateController =
+  final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
-
-  TabViewScreen({super.key});
+  final EmailVerifyController emailverifycontroller =
+      Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: AppBar(
+            toolbarHeight: (0.068 * Get.width + 0.034 * Get.height),
             automaticallyImplyLeading: false,
-            title: const Text(
+            title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: 26),
+              style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
             ),
             centerTitle: false,
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
-            actions: [profileAvatar(context)],
+            actions: [
+              profileAvatar(context),
+            ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              if (controller.getIndex() == 2) {
-                await Get.find<CreateRoomController>().createRoom();
-              } else {
-                Get.delete<CreateRoomController>();
-                controller.setIndex(2);
-              }
-            },
-            backgroundColor: AppColor.yellowColor,
-            child: (controller.getIndex() == 2)
-                ? const Text("Start")
-                : const Icon(Icons.add),
+          floatingActionButton: SizedBox(
+            height: 0.06815 * Get.height,
+            width: 0.1361 * Get.width,
+            child: FloatingActionButton(
+              onPressed: () async {
+                print("pressed");
+                if (controller.getIndex() == 2) {
+                  await Get.find<CreateRoomController>().createRoom();
+                } else {
+                  Get.delete<CreateRoomController>();
+                  controller.setIndex(2);
+                }
+              },
+              backgroundColor: AppColor.yellowColor,
+              child: (controller.getIndex() == 2)
+                  ? Text(
+                      "Start",
+                      style: TextStyle(
+                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                    )
+                  : Icon(
+                      Icons.add,
+                      size: 0.0146 * Get.height + 0.02916 * Get.width,
+                    ),
+            ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
+            height: 0.034 * Get.height + 0.068 * Get.width,
             backgroundColor: Colors.transparent,
             activeColor: Colors.amber,
             inactiveColor: Colors.amber.withOpacity(0.5),
             splashColor: Colors.black,
             shadow: const Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
-            iconSize: 30,
+            iconSize: 0.01825 * Get.height + 0.0364 * Get.width,
             icons: const [
               Icons.home_outlined,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
               Icons.chat_rounded
             ],
+            notchMargin: 0.009722 * Get.width + 0.00486 * Get.height,
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
             notchSmoothness: NotchSmoothness.defaultEdge,
             onTap: (index) => controller.setIndex(index),
           ),
-          //TODO Connect all main screens to the tab view
           body: (controller.getIndex() == 0)
               ? HomeScreen()
               : (controller.getIndex() == 2)

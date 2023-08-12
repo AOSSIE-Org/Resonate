@@ -8,7 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/gender.dart';
 
 import 'auth_state_controller.dart';
 
@@ -24,7 +23,6 @@ class OnboardingController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController imageController = TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController genderController = TextEditingController(text: Gender.male.name);
   TextEditingController dobController = TextEditingController(text: "");
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
@@ -50,10 +48,6 @@ class OnboardingController extends GetxController {
     }
   }
 
-  void setGender(Gender gender) {
-    genderController.text = gender.name;
-    update();
-  }
 
   Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
