@@ -46,16 +46,16 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child: const Icon(Icons.multitrack_audio),
                       foregroundColor: AppColor.yellowColor,
-                      label: "Instant",
+                      label: "Audio Room",
                       onTap: () async {
                         await Get.delete<CreateRoomController>();
                         controller.setIndex(2);
                       },
                     ),
                     SpeedDialChild(
-                      child: const Icon(Icons.date_range),
+                      child: const Icon(Icons.people_alt_rounded),
                       foregroundColor: AppColor.yellowColor,
-                      label: "Schedule",
+                      label: "Pair Chat",
                       onTap: () => {},
                     ),
                   ],
