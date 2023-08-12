@@ -36,19 +36,7 @@ class TabViewScreen extends StatelessWidget {
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
-              IconButton(
-                  onPressed: emailverifycontroller.isSending.value
-                      ? () {
-                          Get.snackbar("Sending OTP...", "Please wait");
-                        }
-                      : () async {
-                          await authStateController.logout();
-                        },
-                  icon: Icon(
-                    Icons.exit_to_app_rounded,
-                    color: Colors.amber,
-                    size: 0.0146 * Get.height + 0.02916 * Get.width,
-                  ))
+              profileAvatar(context),
             ],
           ),
           floatingActionButton: SizedBox(
