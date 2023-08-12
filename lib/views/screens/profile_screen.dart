@@ -5,166 +5,180 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../utils/constants.dart';
+import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
-  var authController = Get.find<AuthenticationController>();
+
+  final emailVerifyController = Get.find<EmailVerifyController>();
 
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
-        builder: (controller) => Scaffold(
-              appBar: AppBar(
-                title: const Text("Profile"),
-              ),
-              body: Obx(
-                () => Center(
-                    child: Stack(children: [
-                  controller.isInitializing.value
-                      ? BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Center(
-                              child: LoadingAnimationWidget.threeRotatingDots(
-                                  color: Colors.amber,
-                                  size: Get.pixelRatio * 20)),
-                        )
-                      : Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: Get.height * 0.06,
+      builder: (controller) => Scaffold(
+        body: Obx(
+          () => Center(
+              child: Stack(children: [
+            controller.isInitializing.value
+                ? BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(
+                            color: Colors.amber, size: Get.pixelRatio * 20)),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: UiSizes.width_200,
+                          height: UiSizes.height_200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.amber, width: UiSizes.width_4),
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(
+                                  controller.profileImageUrl ?? ''),
                             ),
-                            Container(
-                              width: 0.364 * Get.width,
-                              height: 0.182 * Get.height,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.amber,
-                                    width: 0.009 * Get.width),
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                      controller.profileImageUrl ?? ''),
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.isPressed.value =
-                                            !(controller.isPressed.value);
-                                        if (controller.isPressed.value ==
-                                            false) {
-                                          controller.shouldDisplay.value =
-                                              false;
+                          ),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    emailVerifyController.isExpanded.value =
+                                        !(emailVerifyController
+                                            .isExpanded.value);
+                                    if (emailVerifyController
+                                            .isExpanded.value ==
+                                        false) {
+                                      emailVerifyController
+                                          .shouldDisplay.value = false;
+                                    }
+                                  },
+                                  child: AnimatedContainer(
+                                      onEnd: () {
+                                        if (emailVerifyController
+                                                .isExpanded.value ==
+                                            true) {
+                                          emailVerifyController
+                                              .shouldDisplay.value = true;
                                         }
                                       },
-                                      child: AnimatedContainer(
-                                          onEnd: () {
-                                            if (controller.isPressed.value ==
-                                                true) {
-                                              controller.shouldDisplay.value =
-                                                  true;
-                                            }
-                                          },
-                                          width: controller.isPressed.value
-                                              ? 0.34 * Get.width
-                                              : 0.073 * Get.width,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: Colors.white,
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          child: controller.isEmailVerified!
-                                              ? Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.verified_rounded,
-                                                      color:
-                                                          AppColor.greenColor,
-                                                      size:
-                                                          8.28 * Get.pixelRatio,
-                                                    ),
-                                                    controller
-                                                            .shouldDisplay.value
-                                                        ? SizedBox(
-                                                            width: 0.012 *
-                                                                Get.width,
-                                                          )
-                                                        : const SizedBox(),
-                                                    controller
-                                                            .shouldDisplay.value
-                                                        ? const Text(
-                                                            "Email Verified",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          )
-                                                        : const SizedBox()
-                                                  ],
-                                                )
-                                              : Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.cancel_rounded,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 236, 53, 40),
-                                                      size:
-                                                          8.28 * Get.pixelRatio,
-                                                    ),
-                                                    controller
-                                                            .shouldDisplay.value
-                                                        ? SizedBox(
-                                                            width: 0.012 *
-                                                                Get.width,
-                                                          )
-                                                        : const SizedBox(),
-                                                    controller
-                                                            .shouldDisplay.value
-                                                        ? const Text(
-                                                            "Verify Email",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          )
-                                                        : const SizedBox()
-                                                  ],
-                                                )),
-                                    ),
-                                  ),
-                                ],
+                                      width:
+                                          emailVerifyController.isExpanded.value
+                                              ? UiSizes.width_190
+                                              : UiSizes.width_40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white,
+                                      ),
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      child: controller.isEmailVerified!
+                                          ? Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.verified_rounded,
+                                                  color: AppColor.greenColor,
+                                                  size: UiSizes.size_40,
+                                                ),
+                                                emailVerifyController
+                                                        .shouldDisplay.value
+                                                    ? SizedBox(
+                                                        width: UiSizes.width_20,
+                                                      )
+                                                    : const SizedBox(),
+                                                emailVerifyController
+                                                        .shouldDisplay.value
+                                                    ? Text(
+                                                        "Email Verified",
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                UiSizes.size_15,
+                                                            color:
+                                                                Colors.black),
+                                                      )
+                                                    : const SizedBox()
+                                              ],
+                                            )
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  emailVerifyController
+                                                          .isExpanded.value
+                                                      ? MainAxisAlignment.start
+                                                      : MainAxisAlignment
+                                                          .center,
+                                              children: [
+                                                Icon(
+                                                  Icons.cancel_rounded,
+                                                  color: const Color.fromARGB(
+                                                      255, 236, 53, 40),
+                                                  size: UiSizes.size_40,
+                                                ),
+                                                emailVerifyController
+                                                        .shouldDisplay.value
+                                                    ? SizedBox(
+                                                        width: UiSizes.width_20,
+                                                      )
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      ),
+                                                emailVerifyController
+                                                        .shouldDisplay.value
+                                                    ? Text(
+                                                        "Verify Email",
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                UiSizes.size_15,
+                                                            color:
+                                                                Colors.black),
+                                                      )
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      )
+                                              ],
+                                            )),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 0.029 * Get.height),
-                            Text(
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: UiSizes.height_20),
+                        SizedBox(
+                          width: UiSizes.width_320,
+                          height: UiSizes.height_55,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
                               "@ ${controller.userName}",
                               style: TextStyle(
-                                  fontSize: 10 * Get.pixelRatio,
+                                  fontSize: UiSizes.size_35,
                                   color: Colors.amber),
                             ),
-                            Text(
+                          ),
+                        ),
+                        SizedBox(
+                          width: UiSizes.width_320,
+                          height: UiSizes.height_40,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
                               controller.displayName.toString(),
-                              style:
-                                  TextStyle(fontSize: 7.142 * Get.pixelRatio),
-                            ),
-                            Text(
-                              controller.email.toString(),
-                              style: TextStyle(
-                                  fontSize: 5.142 * Get.pixelRatio,
-                                  color: Colors.white70),
+                              style: TextStyle(fontSize: UiSizes.size_25),
                             ),
                             SizedBox(height: 0.017 * Get.height),
                             !(controller.isEmailVerified!)
@@ -234,17 +248,20 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                  controller.isSending.value
-                      ? BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Center(
-                              child: LoadingAnimationWidget.threeRotatingDots(
-                                  color: Colors.amber,
-                                  size: Get.pixelRatio * 20)),
-                        )
-                      : const SizedBox(),
-                ])),
-              ),
-            ));
+                      ],
+                    ),
+                  ),
+            emailVerifyController.isSending.value
+                ? BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Center(
+                        child: LoadingAnimationWidget.threeRotatingDots(
+                            color: Colors.amber, size: Get.pixelRatio * 20)),
+                  )
+                : const SizedBox(),
+          ])),
+        ),
+      ),
+    );
   }
 }

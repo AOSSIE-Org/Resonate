@@ -7,12 +7,15 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+
+import '../../controllers/email_verify_controller.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   EmailVerificationScreen({Key? key}) : super(key: key);
 
   final controller = Get.find<AuthenticationController>();
-
+    final  emailVerifyController= Get.find<EmailVerifyController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +27,8 @@ class EmailVerificationScreen extends StatelessWidget {
                   child: Container(
                     color: AppColor.bgBlackColor,
                     padding: EdgeInsets.symmetric(
-                        horizontal: 0.048 * Get.width,
-                        vertical: 0.012 * Get.height),
+                        horizontal: UiSizes.width_20,
+                        vertical: UiSizes.height_10),
                     child: Column(
                       children: [
                         Align(
@@ -37,7 +40,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                 "Resonate",
                                 style: TextStyle(
                                     color: Colors.amber,
-                                    fontSize: 10.4 * Get.pixelRatio),
+                                    fontSize:
+                                       UiSizes.size_25),
                               ),
                               ClipRRect(
                                 borderRadius:
@@ -54,12 +58,13 @@ class EmailVerificationScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: const Center(
-                                          child: Text(
-                                            "Back",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
+                                        child: Center(
+                                          child: Text("Back",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize:
+                                                      0.0085 * Get.height +
+                                                          0.017 * Get.width)),
                                         )),
                                   ),
                                 ),
@@ -82,8 +87,9 @@ class EmailVerificationScreen extends StatelessWidget {
                             child: Center(
                                 child: Text(
                               "OTP Verification",
-                              style:
-                                  TextStyle(fontSize: 5.714 * Get.pixelRatio),
+                              style: TextStyle(
+                                  fontSize:
+                                      0.012 * Get.height + 0.024 * Get.width),
                             )),
                           ),
                         ),
@@ -114,57 +120,63 @@ class EmailVerificationScreen extends StatelessWidget {
                                       height: 0.012 * Get.height,
                                     ),
                                     Text(
-                                        'Enter the OTP sent to ${controller.authStateController.email}',
-                                        textAlign: TextAlign.center),
+                                      'Enter the OTP sent to ${controller.authStateController.email}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 0.0085 * Get.height +
+                                            0.017 * Get.width,
+                                      ),
+                                    ),
                                     SizedBox(height: 0.0486 * Get.height),
                                     OtpTextField(
+                                      fieldWidth: 0.09722 * Get.width,
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
                                           224, 68, 170, 50),
-                                      borderWidth: 1.5,
+                                      borderWidth: 0.00364 * Get.width,
                                       enabledBorderColor:
                                           Color.fromARGB(155, 255, 193, 7),
                                       showFieldAsBox: true,
                                       //runs when every textfield is filled
                                       onSubmit:
                                           (String verificationCode) async {
-                                        controller.isVerifying.value = true;
-                                        await controller
+                                        emailVerifyController.isVerifying.value = true;
+                                        await emailVerifyController
                                             .verifyOTP(verificationCode);
-                                        if (controller.res_verify.response ==
+                                        if (emailVerifyController.responseVerify.response ==
                                             '{"message":"null"}') {
-                                          String result = await controller
+                                          String result = await emailVerifyController
                                               .checkVerificationStatus();
                                           if (result == "true") {
                                             Get.snackbar(
                                                 "Verification Complete",
                                                 "Congratulations you have verified your Email");
-                                            await controller.setVerified();
-                                            if (controller.res_set_verified
+                                            await emailVerifyController.setVerified();
+                                            if (emailVerifyController.responseSetVerified
                                                     .response ==
                                                 '{"message":"null"}') {
-                                              controller.isVerifying.value =
+                                              emailVerifyController.isVerifying.value =
                                                   false;
                                               controller.authStateController
                                                   .setUserProfileData();
                                               Get.toNamed(AppRoutes.tabview);
                                             } else {
-                                              controller.isVerifying.value =
+                                              emailVerifyController.isVerifying.value =
                                                   false;
                                               Get.snackbar(
                                                   'Oops',
-                                                  controller.res_set_verified
+                                                  emailVerifyController.responseSetVerified
                                                       .response);
                                             }
                                           } else {
-                                            controller.isVerifying.value =
+                                            emailVerifyController.isVerifying.value =
                                                 false;
                                             Get.snackbar("Verification Failed",
                                                 "OTP mismatch occured please try again");
                                           }
                                         } else {
                                           Get.snackbar('Oops',
-                                              controller.res_verify.response);
+                                              emailVerifyController.responseVerify.response);
                                         }
                                       },
                                     ),
@@ -179,7 +191,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 width: 0.0072 * Get.width),
                                             borderRadius:
                                                 BorderRadius.circular(70),
-                                            gradient: controller
+                                            gradient: emailVerifyController
                                                     .resendIsAllowed.value
                                                 ? AppColor.gradientBg
                                                 : const LinearGradient(colors: [
@@ -188,83 +200,101 @@ class EmailVerificationScreen extends StatelessWidget {
                                                     Color.fromARGB(
                                                         255, 68, 63, 63)
                                                   ])),
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20 *
-                                                                Get.pixelRatio),
-                                                    side: const BorderSide(
-                                                        width: 0,
-                                                        color: Colors
-                                                            .transparent)),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                shadowColor:
-                                                    Colors.transparent),
-                                            onPressed:
-                                                controller.resendIsAllowed.value
-                                                    ? () {
-                                                        controller
-                                                            .resendIsAllowed
-                                                            .value = false;
-                                                        controller.sendOTP();
-                                                        Get.snackbar(
-                                                            "OTP Resent",
-                                                            "Please do check your mail for a new OTP");
-                                                      }
-                                                    : () {
-                                                        Get.snackbar("Hold on",
-                                                            "Please wait till the timer completes");
-                                                      },
-                                            child: controller
-                                                    .resendIsAllowed.value
-                                                ? const Text(
-                                                    "Resend OTP",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                  )
-                                                : Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      const Text(
-                                                        "Resend OTP?",
+                                        child: SizedBox(
+                                          height: 0.05476 * Get.height,
+                                          width: 0.7146 * Get.width,
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius
+                                                          .circular(0.0425 *
+                                                                  Get.height +
+                                                              0.085 *
+                                                                  Get.width),
+                                                      side: const BorderSide(
+                                                          width: 0,
+                                                          color: Colors
+                                                              .transparent)),
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  shadowColor:
+                                                      Colors.transparent),
+                                              onPressed: emailVerifyController
+                                                      .resendIsAllowed.value
+                                                  ? () {
+                                                      emailVerifyController.resendIsAllowed
+                                                          .value = false;
+                                                      emailVerifyController.sendOTP();
+                                                      Get.snackbar("OTP Resent",
+                                                          "Please do check your mail for a new OTP");
+                                                    }
+                                                  : () {
+                                                      Get.snackbar("Hold on",
+                                                          "Please wait till the timer completes");
+                                                    },
+                                              child: emailVerifyController
+                                                      .resendIsAllowed.value
+                                                  ? Text(
+                                                      "Resend OTP",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 0.0085 *
+                                                                Get.height +
+                                                            0.017 * Get.width,
                                                       ),
-                                                      SizedBox(
-                                                        width: 0.27 * Get.width,
-                                                      ),
-                                                      CircularCountDownTimer(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 3.42 *
-                                                                Get.pixelRatio,
-                                                            color: AppColor
-                                                                .bgBlackColor),
-                                                        isTimerTextShown: true,
-                                                        isReverse: true,
-                                                        onComplete: () => {
-                                                          controller
-                                                              .resendIsAllowed
-                                                              .value = true
-                                                        },
-                                                        width: 0.085075 *
-                                                            Get.width,
-                                                        height:
-                                                            0.0425 * Get.height,
-                                                        duration: 30,
-                                                        backgroundColor:
-                                                            Colors.amber,
-                                                        fillColor: const Color
-                                                                .fromARGB(
-                                                            255, 74, 74, 74),
-                                                        ringColor: const Color
-                                                                .fromARGB(
-                                                            255, 130, 130, 130),
-                                                      ),
-                                                    ],
-                                                  )),
+                                                    )
+                                                  : Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Resend OTP?",
+                                                          style: TextStyle(
+                                                              fontSize: 0.0085 *
+                                                                      Get
+                                                                          .height +
+                                                                  0.017 *
+                                                                      Get.width),
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              0.27 * Get.width,
+                                                        ),
+                                                        CircularCountDownTimer(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 0.0073 *
+                                                                      Get
+                                                                          .height +
+                                                                  0.01458 *
+                                                                      Get.width,
+                                                              color: AppColor
+                                                                  .bgBlackColor),
+                                                          isTimerTextShown:
+                                                              true,
+                                                          isReverse: true,
+                                                          onComplete: () => {
+                                                            emailVerifyController
+                                                                .resendIsAllowed
+                                                                .value = true
+                                                          },
+                                                          width: 0.085075 *
+                                                              Get.width,
+                                                          height: 0.0425 *
+                                                              Get.height,
+                                                          duration: 30,
+                                                          backgroundColor:
+                                                              Colors.amber,
+                                                          fillColor: const Color
+                                                                  .fromARGB(
+                                                              255, 74, 74, 74),
+                                                          ringColor: const Color
+                                                                  .fromARGB(255,
+                                                              130, 130, 130),
+                                                        ),
+                                                      ],
+                                                    )),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -276,20 +306,20 @@ class EmailVerificationScreen extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: GestureDetector(
                                 onTap: () {
-                                  controller.Pressed.value =
-                                      !controller.Pressed.value;
-                                  if (controller.Pressed.value == false) {
-                                    controller.shouldDisplay.value = false;
+                                  emailVerifyController.isExpanded.value =
+                                      !emailVerifyController.isExpanded.value;
+                                  if (emailVerifyController.isExpanded.value == false) {
+                                    emailVerifyController.shouldDisplay.value = false;
                                   }
                                 },
                                 child: AnimatedContainer(
                                     onEnd: () {
-                                      if (controller.Pressed.value == true) {
-                                        controller.shouldDisplay.value = true;
+                                      if (emailVerifyController.isExpanded.value == true) {
+                                        emailVerifyController.shouldDisplay.value = true;
                                       }
                                     },
-                                    height: 0.042 * Get.height,
-                                    width: controller.Pressed.value
+                                    height: 0.042594 * Get.height,
+                                    width: emailVerifyController.isExpanded.value
                                         ? 0.437 * Get.width
                                         : 0.085 * Get.width,
                                     decoration: BoxDecoration(
@@ -298,12 +328,15 @@ class EmailVerificationScreen extends StatelessWidget {
                                       color: Color.fromARGB(186, 255, 255, 255),
                                     ),
                                     duration: const Duration(milliseconds: 200),
-                                    child: controller.shouldDisplay.value
-                                        ? const Center(
+                                    child: emailVerifyController.shouldDisplay.value
+                                        ? Center(
                                             child: Text(
                                               "Verify Your Email",
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                  color: Colors.black,
+                                                  fontSize:
+                                                      0.0085 * Get.height +
+                                                          0.017 * Get.width),
                                             ),
                                           )
                                         : SizedBox())),
@@ -319,7 +352,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       child: LoadingAnimationWidget.threeRotatingDots(
                           color: Colors.amber, size: Get.pixelRatio * 20)),
                 ),
-          controller.isVerifying.value
+          emailVerifyController.isVerifying.value
               ? BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Center(

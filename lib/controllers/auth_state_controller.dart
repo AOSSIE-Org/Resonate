@@ -12,9 +12,6 @@ import '../routes/app_routes.dart';
 class AuthStateController extends GetxController {
   Client client = Client();
   var isInitializing = false.obs;
-  var isPressed = false.obs;
-  var shouldDisplay = false.obs;
-  var isSending = false.obs;
   late final Account account;
   late final Databases databases;
   late String? uid;
@@ -39,10 +36,10 @@ class AuthStateController extends GetxController {
   }
 
   Future<bool> get getLoginState async {
-    try{
+    try {
       appwriteUser = await account.get();
       return true;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }
@@ -68,6 +65,11 @@ class AuthStateController extends GetxController {
     }finally{
       isInitializing.value = false;
     }
+  }
+
+  Future<String> getAppwriteToken() async {
+    Jwt authToken = await account.createJWT();
+    return authToken.jwt;
   }
 
   Future<void> isUserLoggedIn() async {

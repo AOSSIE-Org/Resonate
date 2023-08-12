@@ -51,7 +51,7 @@ dependencies:
   flutter_native_splash: ^2.2.19
   page_transition: ^2.0.9
   chopper: ^6.1.4
-  http: 0.13.6
+  http: 
   flutter_otp_text_field: ^1.1.1
   random_string: ^2.3.1
   circular_countdown_timer: ^0.2.3
@@ -65,12 +65,11 @@ dependencies:
   app_links: ^3.4.3
   share_plus: ^7.1.0
   flutter_svg: ^2.0.7
-  observe_internet_connectivity: ^1.0.2
+  internet_connection_checker_plus: 1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

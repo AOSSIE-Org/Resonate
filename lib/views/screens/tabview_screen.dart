@@ -9,29 +9,36 @@ import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
+import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller = Get.put<TabViewController>(TabViewController());
-
-  AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
-
-  TabViewScreen({super.key});
+  final TabViewController controller =
+      Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController =
+      Get.put<AuthStateController>(AuthStateController());
+  final EmailVerifyController emailverifycontroller =
+      Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: AppBar(
+            toolbarHeight: (0.068 * Get.width + 0.034 * Get.height),
             automaticallyImplyLeading: false,
-            title: const Text(
+            title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: 26),
+              style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
             ),
             centerTitle: false,
             elevation: 10,
             backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
-            actions: [profileAvatar(context)],
+            actions: [
+              profileAvatar(context),
+            ],
           ),
           floatingActionButton: (controller.getIndex() != 2)
               ? SpeedDial(
@@ -68,17 +75,19 @@ class TabViewScreen extends StatelessWidget {
                   child: const Icon(Icons.done)),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
+            height: 0.034 * Get.height + 0.068 * Get.width,
             backgroundColor: Colors.transparent,
             activeColor: Colors.amber,
             inactiveColor: Colors.amber.withOpacity(0.5),
             splashColor: Colors.black,
             shadow: const Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
-            iconSize: 30,
+            iconSize: 0.01825 * Get.height + 0.0364 * Get.width,
             icons: const [
               Icons.home_outlined,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
               Icons.chat_rounded
             ],
+            notchMargin: 0.009722 * Get.width + 0.00486 * Get.height,
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
             notchSmoothness: NotchSmoothness.defaultEdge,
