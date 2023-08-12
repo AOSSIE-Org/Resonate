@@ -179,7 +179,7 @@ class ProfileScreen extends StatelessWidget {
                             child: Text(
                               controller.displayName.toString(),
                               style: TextStyle(fontSize: UiSizes.size_25),
-                            ),
+                            ),),),
                             SizedBox(height: 0.017 * Get.height),
                             !(controller.isEmailVerified!)
                                 ? ClipRRect(
@@ -191,8 +191,8 @@ class ProfileScreen extends StatelessWidget {
                                         splashColor: const Color.fromARGB(
                                             172, 43, 174, 20),
                                         onTap: () => {
-                                          controller.isSending.value = true,
-                                          authController.sendOTP()
+                                          // controller.isSending.value = true,
+                                          // authController.sendOTP()
                                         },
                                         child: Ink(
                                             height: 0.048 * Get.height,
@@ -246,9 +246,7 @@ class ProfileScreen extends StatelessWidget {
                                 await authStateController.logout();
                               },
                             ),
-                          ],
-                        ),
-                      ],
+                        ],
                     ),
                   ),
             emailVerifyController.isSending.value
