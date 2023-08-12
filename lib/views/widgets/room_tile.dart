@@ -109,7 +109,7 @@ class RoomTile extends StatelessWidget {
                     style: kTileTitleStyle,
                   ),
                   SizedBox(
-                    height: UiSizes.height_4_1,
+                    height: UiSizes.height_4,
                   ),
                   buildTags(),
                   SizedBox(
@@ -129,7 +129,7 @@ class RoomTile extends StatelessWidget {
                 Row(
                   children: [
                     SizedBox(
-                      width: UiSizes.width_8_2,
+                      width: UiSizes.width_8,
                     ),
                     for (var avatarImageUrl in room.memberAvatarUrls)
                       Align(

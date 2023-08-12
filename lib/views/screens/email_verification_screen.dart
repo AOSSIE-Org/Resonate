@@ -41,7 +41,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.amber,
                                     fontSize:
-                                       UiSizes.size_24_6),
+                                       UiSizes.size_25),
                               ),
                               ClipRRect(
                                 borderRadius:
@@ -306,20 +306,20 @@ class EmailVerificationScreen extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: GestureDetector(
                                 onTap: () {
-                                  emailVerifyController.pressed.value =
-                                      !emailVerifyController.pressed.value;
-                                  if (emailVerifyController.pressed.value == false) {
+                                  emailVerifyController.isExpanded.value =
+                                      !emailVerifyController.isExpanded.value;
+                                  if (emailVerifyController.isExpanded.value == false) {
                                     emailVerifyController.shouldDisplay.value = false;
                                   }
                                 },
                                 child: AnimatedContainer(
                                     onEnd: () {
-                                      if (emailVerifyController.pressed.value == true) {
+                                      if (emailVerifyController.isExpanded.value == true) {
                                         emailVerifyController.shouldDisplay.value = true;
                                       }
                                     },
                                     height: 0.042594 * Get.height,
-                                    width: emailVerifyController.pressed.value
+                                    width: emailVerifyController.isExpanded.value
                                         ? 0.437 * Get.width
                                         : 0.085 * Get.width,
                                     decoration: BoxDecoration(

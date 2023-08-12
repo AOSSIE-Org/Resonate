@@ -15,12 +15,12 @@ class EmailVerifyController extends GetxController {
   late String verificationID;
   late Execution responseVerify;
   late Execution responseSetVerified;
-  late String status;
+  late String updateStatus;
   late final Functions functions;
   late final Databases databases;
   var resendIsAllowed = false.obs;
   var isSending = false.obs;
-  var pressed = true.obs;
+  var isExpanded = true.obs;
   var shouldDisplay = true.obs;
   var isVerifying = false.obs;
   var isUpdateAllowed = true.obs;
@@ -113,6 +113,6 @@ class EmailVerifyController extends GetxController {
     });
     var results = await functions.createExecution(
         functionId: updateEmailFunctionID, data: updateEmailData.toString());
-    status = results.status;
+    updateStatus = results.status;
   }
 }

@@ -30,11 +30,11 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: UiSizes.height_15),
                     Text(
                       "Welcome Back",
-                      style: TextStyle(fontSize: UiSizes.size_24_6),
+                      style: TextStyle(fontSize: UiSizes.size_25),
                     ),
                     SizedBox(height: UiSizes.height_15),
                     Container(
-                      height: UiSizes.height_65_7,
+                      height: UiSizes.height_66,
                       child: TextFormField(
                         validator: (value) => value!.isValidEmail()
                             ? null
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: UiSizes.height_10),
                     Container(
-                      height: UiSizes.height_65_7,
+                      height: UiSizes.height_66,
                       child: Obx(
                         () => TextFormField(
                           controller: controller.passwordController,
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                                 controller.isPasswordFieldVisible.value =
                                     !controller.isPasswordFieldVisible.value;
                               },
-                              splashRadius: UiSizes.height_19_7,
+                              splashRadius: UiSizes.height_20,
                               icon: Icon(
                                 size: UiSizes.size_23,
                                 controller.isPasswordFieldVisible.value
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                               ),
                       ),
                     ),
-                    SizedBox(height: UiSizes.height_29_6),
+                    SizedBox(height: UiSizes.height_30),
                     Row(
                       children: <Widget>[
                         Expanded(
@@ -151,7 +151,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: UiSizes.height_29_6),
+                    SizedBox(height: UiSizes.height_30),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffFFFFE0),
@@ -163,8 +163,8 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: UiSizes.height_29_6,
-                            width: UiSizes.width_29_6,
+                            height: UiSizes.height_30,
+                            width: UiSizes.width_30,
                             child: Image.asset("assets/images/google_icon.png"),
                           ),
                           SizedBox(

@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: UiSizes.height_12_3,
+                        height: UiSizes.height_12,
                       ),
                       Visibility(
                         visible: roomsController.rooms.isEmpty,
@@ -51,14 +51,14 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: UiSizes.height_12_3,
+                                height: UiSizes.height_12,
                               ),
                               Image.asset(
                                 "assets/images/no_room.png",
                                 height: UiSizes.height_140,
                               ),
                               SizedBox(
-                                height: UiSizes.height_29_6,
+                                height: UiSizes.height_30,
                               ),
                               Center(
                                 child: Text(
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                                       style: TextStyle(color: Colors.amber),
                                     ),
                                     SizedBox(
-                                      width: UiSizes.width_6_2,
+                                      width: UiSizes.width_6,
                                     ),
                                     const Icon(
                                       Icons.refresh,
