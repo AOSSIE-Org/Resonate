@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide(
                   color: AppColor.yellowColor, width: 0.0048 * Get.width),
             ),
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white60),
             ),
             suffixIconColor: AppColor.yellowColor,

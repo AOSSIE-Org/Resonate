@@ -18,11 +18,10 @@ class AuthenticationController extends GetxController {
       TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
 
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
+  var loginFormKey;
+  var registrationFormKey;
 
-
-  Future<void> login() async {  
+  Future<void> login() async {
     if (!loginFormKey.currentState!.validate()) {
       return;
     }

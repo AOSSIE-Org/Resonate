@@ -23,6 +23,35 @@ class ProfileScreen extends StatelessWidget {
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: const Text("Profile"),
+          actions: [
+            Row(
+              children: [
+                InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () async {
+                      await authStateController.logout();
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 238, 49, 36)),
+                          gradient: AppColor.gradientBg,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor:
+                              const Color.fromARGB(0, 255, 255, 255),
+                          child: Icon(
+                            Icons.logout_rounded,
+                            color: Colors.black,
+                          )),
+                    )),
+                SizedBox(
+                  width: 20,
+                ),
+              ],
+            )
+          ],
         ),
         body: Obx(
           () => Center(
@@ -187,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: UiSizes.size_18, color: Colors.white70),
                         ),
-                        SizedBox(height: UiSizes.size_14),
+                        SizedBox(height: UiSizes.height_20),
                         !(controller.isEmailVerified!)
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
@@ -224,13 +253,16 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
-                        SizedBox(height: UiSizes.height_8),
+                        SizedBox(height: UiSizes.height_30),
                         CustomCard(
                           title: "Contribute to the project",
                           icon: FontAwesomeIcons.github,
                           onTap: () {
                             //TODO: Open Github Repo Link
                           },
+                        ),
+                        SizedBox(
+                          height: UiSizes.height_10,
                         ),
                         CustomCard(
                           title: "Terms and Conditions",
@@ -239,18 +271,14 @@ class ProfileScreen extends StatelessWidget {
                             //TODO: Launch URL in webview
                           },
                         ),
+                        SizedBox(
+                          height: UiSizes.height_10,
+                        ),
                         CustomCard(
                           title: "Privacy Policy",
                           icon: FontAwesomeIcons.shieldHalved,
                           onTap: () {
                             //TODO: Launch URL in webview
-                          },
-                        ),
-                        CustomCard(
-                          title: "Logout",
-                          icon: Icons.exit_to_app_outlined,
-                          onTap: () async {
-                            await authStateController.logout();
                           },
                         ),
                       ],
