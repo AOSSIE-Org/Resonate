@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
@@ -57,10 +59,11 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
-      isInitializing.value = false;
       update();
     } catch (e) {
       log(e.toString());
+    }finally{
+      isInitializing.value = false;
     }
   }
 
@@ -100,7 +103,17 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> logout() async {
-    await account.deleteSession(sessionId: 'current');
-    Get.offNamed(AppRoutes.login);
+    Get.defaultDialog(
+      title: "Are you sure?",
+      middleText: "You are logging out of Resonate",
+      textConfirm: "Yes",
+      textCancel: "No",
+      buttonColor: AppColor.yellowColor,
+      contentPadding: const EdgeInsets.only(bottom: 20),
+      onConfirm: () async {
+        await account.deleteSession(sessionId: 'current');
+        Get.offNamed(AppRoutes.login);
+      },
+    );
   }
 }

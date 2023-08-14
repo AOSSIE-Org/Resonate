@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,10 +6,13 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../utils/constants.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
@@ -175,77 +179,74 @@ class ProfileScreen extends StatelessWidget {
                             child: Text(
                               controller.displayName.toString(),
                               style: TextStyle(fontSize: UiSizes.size_25),
+                            ),),),
+                            SizedBox(height: 0.017 * Get.height),
+                            !(controller.isEmailVerified!)
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Material(
+                                      child: InkWell(
+                                        highlightColor: const Color.fromARGB(
+                                            138, 33, 140, 14),
+                                        splashColor: const Color.fromARGB(
+                                            172, 43, 174, 20),
+                                        onTap: () => {
+                                          // controller.isSending.value = true,
+                                          // authController.sendOTP()
+                                        },
+                                        child: Ink(
+                                            height: 0.048 * Get.height,
+                                            width: 0.34 * Get.width,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    235, 111, 88, 5),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                border: Border.all(
+                                                    color: Colors.amber,
+                                                    width: 3)),
+                                            child: const Center(
+                                              child: Text("Verify Email"),
+                                            )),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                            SizedBox(height: 0.0097 * Get.height),
+                            CustomCard(
+                              title: "Contribute to the project",
+                              icon: FontAwesomeIcons.github,
+                              onTap: () {
+                                Uri url = Uri.parse(githubRepoUrl);
+                                try{
+                                  launchUrl(url);
+                                }catch(e){
+                                  log("Error launching URL: ${e.toString()}");
+                                }
+                              },
                             ),
-                          ),
-                        ),
-                        Text(
-                          controller.email.toString(),
-                          style: TextStyle(
-                              fontSize:
-                                  0.0109 * Get.height + 0.0218 * Get.width,
-                              color: Colors.white70),
-                        ),
-                        SizedBox(height: 0.017 * Get.height),
-                        !(controller.isEmailVerified!)
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Material(
-                                  child: InkWell(
-                                    highlightColor:
-                                        const Color.fromARGB(138, 33, 140, 14),
-                                    splashColor:
-                                        const Color.fromARGB(172, 43, 174, 20),
-                                    onTap: () => {
-                                      emailVerifyController.isSending.value =
-                                          true,
-                                      emailVerifyController.sendOTP()
-                                    },
-                                    child: Ink(
-                                        height: 0.048 * Get.height,
-                                        width: 0.34 * Get.width,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                235, 111, 88, 5),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border: Border.all(
-                                                color: Colors.amber, width: 3)),
-                                        child: Center(
-                                          child: Text(
-                                            "Verify Email",
-                                            style: TextStyle(
-                                              fontSize: 0.0085 * Get.height +
-                                                  0.017 * Get.width,
-                                            ),
-                                          ),
-                                        )),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
-                        SizedBox(height: 0.0097 * Get.height),
-                        CustomCard(
-                          title: "Contribute to the project",
-                          icon: FontAwesomeIcons.github,
-                          onTap: () {
-                            //TODO: Open Github Repo Link
-                          },
-                        ),
-                        CustomCard(
-                          title: "Terms and Conditions",
-                          icon: FontAwesomeIcons.fileInvoice,
-                          onTap: () {
-                            //TODO: Launch URL in webview
-                          },
-                        ),
-                        CustomCard(
-                          title: "Privacy Policy",
-                          icon: FontAwesomeIcons.shieldHalved,
-                          onTap: () {
-                            //TODO: Launch URL in webview
-                          },
-                        ),
-                      ],
+                            CustomCard(
+                              title: "Terms and Conditions",
+                              icon: FontAwesomeIcons.fileInvoice,
+                              onTap: () {
+                                //TODO: Launch URL in webview
+                              },
+                            ),
+                            CustomCard(
+                              title: "Privacy Policy",
+                              icon: FontAwesomeIcons.shieldHalved,
+                              onTap: () {
+                                //TODO: Launch URL in webview
+                              },
+                            ),
+                            CustomCard(
+                              title: "Logout",
+                              icon: Icons.exit_to_app_outlined,
+                              onTap: () async {
+                                await authStateController.logout();
+                              },
+                            ),
+                        ],
                     ),
                   ),
             emailVerifyController.isSending.value

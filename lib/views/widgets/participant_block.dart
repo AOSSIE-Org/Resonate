@@ -136,7 +136,7 @@ class ParticipantBlock extends StatelessWidget {
                   ),
                 Text(
                   participant.name.split(' ').first,
-                  style: TextStyle(color: Colors.white, fontSize: 0.01944*Get.width+0.009735),
+                  style: TextStyle(color: Colors.white, fontSize: 0.01944*Get.height+0.009735),
                 ),
               ],
             ),

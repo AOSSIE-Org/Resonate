@@ -32,7 +32,7 @@ class _RoomScreenState extends State<RoomScreen> {
         children: [
           Center(
             child: Container(
-              margin:  EdgeInsets.symmetric(vertical: 0.01825),
+              margin:  EdgeInsets.symmetric(vertical: 15),
               height: 0.0085*Get.height,
               width: 0.1944*Get.width,
               decoration: BoxDecoration(

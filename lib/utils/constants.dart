@@ -27,3 +27,6 @@ const String verificationCollectionID = "64a7c0100eabfe8d3844";
 
 // Resonate Backend Constants
 const String resonateApiUrl = "http://127.0.0.1:3000";
+
+// Github Constants
+const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";

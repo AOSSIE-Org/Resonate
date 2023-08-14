@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
@@ -39,34 +40,40 @@ class TabViewScreen extends StatelessWidget {
               profileAvatar(context),
             ],
           ),
-          floatingActionButton: SizedBox(
-            height: 0.06815 * Get.height,
-            width: 0.1361 * Get.width,
-            child: FloatingActionButton(
-              onPressed: () async {
-                print("pressed");
-                if (controller.getIndex() == 2) {
-                  await Get.find<CreateRoomController>().createRoom();
-                } else {
-                  Get.delete<CreateRoomController>();
-                  controller.setIndex(2);
-                }
-              },
-              backgroundColor: AppColor.yellowColor,
-              child: (controller.getIndex() == 2)
-                  ? Text(
-                      "Start",
-                      style: TextStyle(
-                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                    )
-                  : Icon(
-                      Icons.add,
-                      size: 0.0146 * Get.height + 0.02916 * Get.width,
+          floatingActionButton: (controller.getIndex() != 2)
+              ? SpeedDial(
+                  icon: Icons.add,
+                  activeIcon: Icons.close,
+                  backgroundColor: AppColor.yellowColor,
+                  elevation: 8.0,
+                  spacing: 10,
+                  spaceBetweenChildren: 6,
+                  animationCurve: Curves.elasticInOut,
+                  children: [
+                    SpeedDialChild(
+                      child: const Icon(Icons.multitrack_audio),
+                      foregroundColor: AppColor.yellowColor,
+                      label: "Audio Room",
+                      onTap: () async {
+                        await Get.delete<CreateRoomController>();
+                        controller.setIndex(2);
+                      },
                     ),
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+                    SpeedDialChild(
+                      child: const Icon(Icons.people_alt_rounded),
+                      foregroundColor: AppColor.yellowColor,
+                      label: "Pair Chat",
+                      onTap: () => {},
+                    ),
+                  ],
+                )
+              : FloatingActionButton(
+                  onPressed: () async {
+                    await Get.find<CreateRoomController>().createRoom();
+                  },
+                  backgroundColor: AppColor.yellowColor,
+                  child: const Icon(Icons.done)),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             height: 0.034 * Get.height + 0.068 * Get.width,
             backgroundColor: Colors.transparent,
