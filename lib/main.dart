@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
               minimumSize: Size.fromHeight(0.054 * Get.height), // NEW
             ),
           )),
-      initialRoute: AppRoutes.pairChat,
+      initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
     );
   }
