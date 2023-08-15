@@ -11,4 +11,5 @@ class AppRoutes {
   static const updateEmail = "/updateEmail";
   static const discuss = "/discuss";
   static const pairing = "/pairing";
+  static const pairChat = "/pairChat";
 }

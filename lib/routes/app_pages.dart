@@ -15,6 +15,7 @@ import 'package:resonate/views/screens/tabview_screen.dart';
 
 import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
+import '../views/screens/pair_chat_screen.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
@@ -71,6 +72,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.pairing,
       page: () => PairingScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.pairChat,
+      page: () => PairChatScreen(),
     ),
   ];
 }
