@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:resonate/routes/app_routes.dart';
 
 class PairChatController extends GetxController{
   RxBool isLoading = false.obs;
@@ -10,5 +11,6 @@ class PairChatController extends GetxController{
   void quickMatch(){
     log("isAnonymous: ${isAnonymous.value}");
     log("languageIso: $languageIso");
+    Get.toNamed(AppRoutes.pairing);
   }
 }

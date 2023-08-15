@@ -7,6 +7,7 @@ import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
+import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
@@ -66,6 +67,10 @@ class AppPages {
       name: AppRoutes.discuss,
       page: () => const DiscussionScreen(),
       binding: AuthSplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.pairing,
+      page: () => PairingScreen(),
     ),
   ];
 }
