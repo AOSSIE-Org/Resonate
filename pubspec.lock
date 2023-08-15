@@ -728,6 +728,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.6.2"
+  language_picker:
+    dependency: "direct main"
+    description:
+      name: language_picker
+      sha256: "1f5293675ec1359b72979dac8f8d4662d18d6d1b0a484343367cfbbbbcfca3f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.3"
   lints:
     dependency: transitive
     description:
@@ -984,6 +992,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   share_plus:
     dependency: "direct main"
     description:

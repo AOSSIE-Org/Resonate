@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
+import 'package:language_picker/language_picker_dropdown.dart';
+import 'package:language_picker/languages.dart';
+import 'package:language_picker/languages.g.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -14,12 +19,9 @@ import '../../utils/colors.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController =
-      Get.put<AuthStateController>(AuthStateController());
-  final EmailVerifyController emailverifycontroller =
-      Get.find<EmailVerifyController>();
+  final TabViewController controller = Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
+  final EmailVerifyController emailverifycontroller = Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,7 @@ class TabViewScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
+              style: TextStyle(color: Colors.amber, fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
             ),
             centerTitle: false,
             elevation: 10,
@@ -63,7 +63,101 @@ class TabViewScreen extends StatelessWidget {
                       child: const Icon(Icons.people_alt_rounded),
                       foregroundColor: AppColor.yellowColor,
                       label: "Pair Chat",
-                      onTap: () => {},
+                      onTap: () => {
+                        Get.defaultDialog(
+                            title: "Pair Chat",
+                            titleStyle: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 10),
+                            content: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Divider(),
+                                  Text(
+                                    "Choose Identity",
+                                    style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: ElevatedButton(
+                                            onPressed: () => {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: true ? AppColor.yellowColor : AppColor.bgBlackColor,
+                                            ),
+                                            child: Text(
+                                              'Anonymous',
+                                              style: TextStyle(
+                                                color: true ? Colors.black : Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: false ? AppColor.yellowColor : AppColor.bgBlackColor,
+                                            ),
+                                            onPressed: () => {},
+                                            child: FittedBox(
+                                              fit: BoxFit.fitWidth,
+                                              child: Text(
+                                                Get.find<AuthStateController>().displayName!,
+                                                style: TextStyle(
+                                                  color: false ? Colors.black : Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Divider(),
+                                  Text(
+                                    "Select Language",
+                                    style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
+                                  ),
+                                  LanguagePickerDropdown(
+                                      initialValue: Languages.english,
+                                      onValuePicked: (Language language) {
+                                        log(language.isoCode);
+                                      }),
+                                  const Divider(),
+                                  ElevatedButton.icon(
+                                    icon: Icon(
+                                      Icons.people_outlined,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: () =>{},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.yellowColor,
+                                    ),
+                                    label: Text(
+                                      "Quick Match",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize:
+                                        0.013 * Get.height + 0.026 * Get.width,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+                      },
                     ),
                   ],
                 )
