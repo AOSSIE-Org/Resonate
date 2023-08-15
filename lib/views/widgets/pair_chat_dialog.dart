@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
+import 'package:resonate/controllers/pair_chat_controller.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../utils/colors.dart';
 
 Future<dynamic> buildPairChatDialog() {
+  PairChatController controller = Get.find<PairChatController>();
   return Get.defaultDialog(
       title: "Pair Chat",
       titleStyle: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 10),
@@ -26,47 +28,53 @@ Future<dynamic> buildPairChatDialog() {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    child: ElevatedButton(
-                      onPressed: () => {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: true ? AppColor.yellowColor : AppColor.bgBlackColor,
-                      ),
-                      child: Text(
-                        'Anonymous',
-                        style: TextStyle(
-                          color: true ? Colors.black : Colors.white,
+            Obx(
+              () => Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.isAnonymous.value = true;
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: controller.isAnonymous.value ? AppColor.yellowColor : AppColor.bgBlackColor,
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: SizedBox(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: false ? AppColor.yellowColor : AppColor.bgBlackColor,
-                      ),
-                      onPressed: () => {},
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
                         child: Text(
-                          Get.find<AuthStateController>().displayName!,
+                          'Anonymous',
                           style: TextStyle(
-                            color: false ? Colors.black : Colors.white,
+                            color: controller.isAnonymous.value ? Colors.black : Colors.white,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: !controller.isAnonymous.value ? AppColor.yellowColor : AppColor.bgBlackColor,
+                        ),
+                        onPressed: () {
+                          controller.isAnonymous.value = false;
+                        },
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            Get.find<AuthStateController>().displayName!,
+                            style: TextStyle(
+                              color: !controller.isAnonymous.value ? Colors.black : Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 10,
@@ -80,6 +88,7 @@ Future<dynamic> buildPairChatDialog() {
                 initialValue: Languages.english,
                 onValuePicked: (Language language) {
                   log(language.isoCode);
+                  controller.languageIso = language.isoCode;
                 }),
             const Divider(),
             ElevatedButton.icon(
@@ -87,8 +96,9 @@ Future<dynamic> buildPairChatDialog() {
                 Icons.people_outlined,
                 color: Colors.black,
               ),
-              onPressed: () => {
-                //Add user request to appwrite requests collection
+              onPressed: () {
+                //TODO: Add user request to appwrite requests collection
+                controller.quickMatch();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColor.yellowColor,
