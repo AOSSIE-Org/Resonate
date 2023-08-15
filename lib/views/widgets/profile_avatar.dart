@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 Widget profileAvatar(BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
     child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.symmetric(
+            horizontal: UiSizes.width_10, vertical: UiSizes.height_10),
         child: GetBuilder<AuthStateController>(
           builder: (controller) => Stack(
             children: [
-              const SizedBox(
-                width: 35,
-                height: 35,
+              SizedBox(
+                width: UiSizes.width_35,
+                height: UiSizes.height_45,
                 child: CircularProgressIndicator(
                   color: Colors.amber,
-                  strokeWidth: 2,
+                  strokeWidth: UiSizes.width_2,
                   value: 1,
                 ),
               ),
@@ -27,6 +29,7 @@ Widget profileAvatar(BuildContext context) {
                 bottom: 0,
                 child: Center(
                   child: CircleAvatar(
+                    radius: UiSizes.size_20,
                     onBackgroundImageError: (exception, stackTrace) =>
                         const Icon(
                       Icons.person_outline,

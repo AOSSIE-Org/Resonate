@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -46,10 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
-              height: 0.2434 * Get.height,
-              width: 0.34 * Get.width,
+              height: UiSizes.height_200,
+              width: UiSizes.width_140,
               child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: 0.2434 * Get.height,
+                  splashIconSize: UiSizes.height_200,
                   splash: Image.asset("assets/images/resonate_logo.png"),
                   duration: 3000,
                   screenFunction: () async {
@@ -60,12 +61,15 @@ class _SplashScreenState extends State<SplashScreen> {
                   backgroundColor: AppColor.bgBlackColor),
             ),
             SizedBox(
-              height: 0.34 * Get.width,
-              width: 0.0486 * Get.width,
+              width: UiSizes.width_5,
+            ),
+            SizedBox(
+              height: UiSizes.height_140,
+              width: UiSizes.width_20,
               child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: 0.2434 * Get.height,
+                  splashIconSize: UiSizes.size_200,
                   splash: VerticalDivider(
-                    width: 0.0486 * Get.width,
+                    width: UiSizes.width_20,
                     thickness: 1,
                     color: Colors.grey,
                   ),
@@ -78,11 +82,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   backgroundColor: AppColor.bgBlackColor),
             ),
             SizedBox(
-              width: 0.0243 * Get.width,
+              width: UiSizes.width_10,
             ),
             SizedBox(
-              height: 0.2434 * Get.height,
-              width: 0.34 * Get.width,
+              height: UiSizes.height_200,
+              width: UiSizes.width_140,
               child: Obx(
                 () => splashcontroller.allowedDisplay.value
                     ? AnimatedSplashScreen.withScreenFunction(
@@ -91,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         screenFunction: () async {
                           return const SizedBox();
                         },
-                        splashIconSize: 0.2434 * Get.height,
+                        splashIconSize: UiSizes.size_200,
                         splashTransition: SplashTransition.fadeTransition,
                         pageTransitionType: PageTransitionType.fade,
                         backgroundColor: AppColor.bgBlackColor)

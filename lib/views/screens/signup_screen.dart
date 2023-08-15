@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/email_verify_controller.dart';
 
@@ -20,7 +21,6 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     controller.registrationFormKey = GlobalKey<FormState>();
-
     super.initState();
   }
 
@@ -29,223 +29,220 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          height: Get.height * 0.92,
+          height: UiSizes.height_756,
           padding: EdgeInsets.symmetric(
-              horizontal: 0.048 * Get.width, vertical: 0.0121 * Get.height),
+              horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
           child: Form(
             key: controller.registrationFormKey,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  width: 0.4375 * Get.width,
-                  height: 0.219 * Get.height,
-                  child: Image.asset("assets/images/aossie_logo.png"),
-                ),
-                SizedBox(height: 0.01825 * Get.height),
-                Text(
-                  "Welcome to Resonate",
-                  style: TextStyle(
-                      fontSize: 0.015 * Get.height + 0.03 * Get.width),
-                ),
-                SizedBox(height: 0.01825 * Get.height),
-                SizedBox(
-                  height: 0.07995 * Get.height,
-                  child: TextFormField(
-                    validator: (value) => value!.isValidEmail()
-                        ? null
-                        : "Enter Valid Email Address",
-                    style: TextStyle(
-                        fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                    controller: controller.emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        size: 0.014 * Get.height + 0.029 * Get.width,
-                        Icons.alternate_email,
-                      ),
-                      errorStyle: TextStyle(
-                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                      labelText: "Email ID",
-                    ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    width: UiSizes.width_180,
+                    height: UiSizes.height_180,
+                    child: Image.asset("assets/images/aossie_logo.png"),
                   ),
-                ),
-                SizedBox(height: 0.012 * Get.height),
-                SizedBox(
-                  height: 0.07995 * Get.height,
-                  child: TextFormField(
-                    style: TextStyle(
-                        fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                    validator: (value) => value!.isValidPassword()
-                        ? null
-                        : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
-                    controller: controller.passwordController,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        size: 0.014 * Get.height + 0.029 * Get.width,
-                        Icons.lock_outline_rounded,
-                      ),
-                      errorStyle: TextStyle(
-                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                      labelText: "Password",
-                    ),
+                  SizedBox(height: UiSizes.height_15),
+                  Text(
+                    "Welcome to Resonate",
+                    style: TextStyle(fontSize: UiSizes.size_25),
                   ),
-                ),
-                SizedBox(height: 0.012 * Get.height),
-                SizedBox(
-                  height: 0.07995 * Get.height,
-                  child: Obx(
-                    () => TextFormField(
-                      style: TextStyle(
-                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                      validator: (value) => value!.isSamePassword(
-                              controller.passwordController.text)
+                  SizedBox(height: UiSizes.height_15),
+                  SizedBox(
+                    height: UiSizes.height_66,
+                    child: TextFormField(
+                      validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Password do not match",
-                      controller: controller.confirmPasswordController,
-                      obscureText: !controller.isPasswordFieldVisible.value,
+                          : "Enter Valid Email Address",
+                      style: TextStyle(fontSize: UiSizes.size_14),
+                      controller: controller.emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          size: UiSizes.size_23,
+                          Icons.alternate_email,
+                        ),
+                        errorStyle: TextStyle(fontSize: UiSizes.size_14),
+                        labelText: "Email ID",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: UiSizes.height_10),
+                  SizedBox(
+                    height: UiSizes.height_66,
+                    child: TextFormField(
+                      style: TextStyle(fontSize: UiSizes.size_14),
+                      validator: (value) => value!.isValidPassword()
+                          ? null
+                          : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                      controller: controller.passwordController,
+                      obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
                         icon: Icon(
-                          size: 0.014 * Get.height + 0.029 * Get.width,
+                          size: UiSizes.size_23,
                           Icons.lock_outline_rounded,
                         ),
-                        labelText: "Confirm Password",
-                        errorStyle: TextStyle(
-                            fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            controller.isPasswordFieldVisible.value =
-                                !controller.isPasswordFieldVisible.value;
-                          },
-                          splashRadius: 20,
+                        errorStyle: TextStyle(fontSize: UiSizes.size_14),
+                        labelText: "Password",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: UiSizes.height_10),
+                  SizedBox(
+                    height: UiSizes.height_66,
+                    child: Obx(
+                      () => TextFormField(
+                        style: TextStyle(fontSize: UiSizes.size_14),
+                        validator: (value) => value!.isSamePassword(
+                                controller.passwordController.text)
+                            ? null
+                            : "Password do not match",
+                        controller: controller.confirmPasswordController,
+                        obscureText: !controller.isPasswordFieldVisible.value,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecoration(
                           icon: Icon(
-                            size: 0.014 * Get.height + 0.029 * Get.width,
-                            controller.isPasswordFieldVisible.value
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
+                            size: UiSizes.size_23,
+                            Icons.lock_outline_rounded,
+                          ),
+                          labelText: "Confirm Password",
+                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              controller.isPasswordFieldVisible.value =
+                                  !controller.isPasswordFieldVisible.value;
+                            },
+                            splashRadius: 20,
+                            icon: Icon(
+                              size: UiSizes.size_23,
+                              controller.isPasswordFieldVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(height: 0.03 * Get.height),
-                Obx(
-                  () => ElevatedButton(
-                    onPressed: emailVerifyController.signupisallowed.value
-                        ? () async {
-                            if (controller.registrationFormKey.currentState!
-                                .validate()) {
-                              emailVerifyController.signupisallowed.value =
-                                  false;
-                              var isSignedin = await controller.signup();
-                              if (isSignedin) {
-                                Get.toNamed(AppRoutes.onBoarding);
-                                Get.snackbar("Signed Up Successfully",
-                                    "You have successfully created a new account");
-                              } else {
+                  SizedBox(height: UiSizes.height_24_6),
+                  Obx(
+                    () => ElevatedButton(
+                      onPressed: emailVerifyController.signupisallowed.value
+                          ? () async {
+                              if (controller.registrationFormKey.currentState!
+                                  .validate()) {
                                 emailVerifyController.signupisallowed.value =
-                                    true;
+                                    false;
+                                var isSignedin = await controller.signup();
+                                if (isSignedin) {
+                                  Get.toNamed(AppRoutes.onBoarding);
+                                  Get.snackbar("Signed Up Successfully",
+                                      "You have successfully created a new account");
+                                  emailVerifyController.signupisallowed.value =
+                                      true;
+                                } else {
+                                  emailVerifyController.signupisallowed.value =
+                                      true;
+                                }
                               }
                             }
-                          }
-                        : null,
-                    child: controller.isLoading.value
-                        ? Center(
-                            child:
-                                LoadingAnimationWidget.horizontalRotatingDots(
-                              color: Colors.black,
-                              size: 0.024 * Get.height + 0.048 * Get.width,
+                          : null,
+                      child: controller.isLoading.value
+                          ? Center(
+                              child:
+                                  LoadingAnimationWidget.horizontalRotatingDots(
+                                color: Colors.black,
+                                size: UiSizes.size_20,
+                              ),
+                            )
+                          : Text(
+                              'Sign up',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: UiSizes.size_19,
+                              ),
                             ),
-                          )
-                        : Text(
-                            'Sign up',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 0.024 * Get.width + 0.012 * Get.height,
-                            ),
-                          ),
+                    ),
                   ),
-                ),
-                SizedBox(height: 0.0206888 * Get.height),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Divider(
-                        indent: 0.048 * Get.width,
-                        endIndent: 0.024 * Get.width,
-                        thickness: 0.0012 * Get.height,
-                      ),
-                    ),
-                    Text(
-                      "OR",
-                      style: TextStyle(
-                          fontSize: 0.0085 * Get.height + 0.017 * Get.width),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        indent: 0.048 * Get.width,
-                        endIndent: 0.024 * Get.width,
-                        thickness: 0.0012 * Get.height,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 0.0206888 * Get.height),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFFE0),
-                  ),
-                  onPressed: () async {
-                    await controller.loginWithGoogle();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 0.0365 * Get.height,
-                        width: 0.0729 * Get.width,
-                        child: Image.asset("assets/images/google_icon.png"),
-                      ),
-                      SizedBox(
-                        width: 0.024 * Get.width,
+                  SizedBox(height: UiSizes.height_16),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Divider(
+                          indent: UiSizes.width_20,
+                          endIndent: UiSizes.width_10,
+                          thickness: UiSizes.height_1,
+                        ),
                       ),
                       Text(
-                        'Sign up with Google',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 0.0109 * Get.height + 0.02187 * Get.width,
+                        "OR",
+                        style: TextStyle(fontSize: UiSizes.size_14),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          indent: UiSizes.width_10,
+                          endIndent: UiSizes.width_20,
+                          thickness: UiSizes.height_1,
                         ),
                       ),
                     ],
                   ),
-                ),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already on Resonate?  ",
-                      style: TextStyle(
-                          fontSize: 0.017 * Get.width + 0.0085 * Get.height),
+                  SizedBox(height: UiSizes.size_16),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffFFFFE0),
                     ),
-                    GestureDetector(
-                      onTap: () => Get.offNamed(AppRoutes.login),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: AppColor.yellowColor,
-                            fontSize: 0.017 * Get.width + 0.0085 * Get.height),
+                    onPressed: () async {
+                      await controller.loginWithGoogle();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: UiSizes.height_30,
+                          width: UiSizes.width_30,
+                          child: Image.asset("assets/images/google_icon.png"),
+                        ),
+                        SizedBox(
+                          width: UiSizes.width_10,
+                        ),
+                        Text(
+                          'Sign up with Google',
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: UiSizes.size_17,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: UiSizes.height_15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already on Resonate?  ",
+                        style: TextStyle(fontSize: UiSizes.size_14),
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      GestureDetector(
+                        onTap: () => Get.offNamed(AppRoutes.login),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              color: AppColor.yellowColor,
+                              fontSize: UiSizes.size_14),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
