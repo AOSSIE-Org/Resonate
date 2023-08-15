@@ -16,6 +16,7 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
+import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
@@ -25,7 +26,8 @@ class TabViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Obx(() =>
+        Scaffold(
           appBar: AppBar(
             toolbarHeight: (0.068 * Get.width + 0.034 * Get.height),
             automaticallyImplyLeading: false,
@@ -42,131 +44,40 @@ class TabViewScreen extends StatelessWidget {
           ),
           floatingActionButton: (controller.getIndex() != 2)
               ? SpeedDial(
-                  icon: Icons.add,
-                  activeIcon: Icons.close,
-                  backgroundColor: AppColor.yellowColor,
-                  elevation: 8.0,
-                  spacing: 10,
-                  spaceBetweenChildren: 6,
-                  animationCurve: Curves.elasticInOut,
-                  children: [
-                    SpeedDialChild(
-                      child: const Icon(Icons.multitrack_audio),
-                      foregroundColor: AppColor.yellowColor,
-                      label: "Audio Room",
-                      onTap: () async {
-                        await Get.delete<CreateRoomController>();
-                        controller.setIndex(2);
-                      },
-                    ),
-                    SpeedDialChild(
-                      child: const Icon(Icons.people_alt_rounded),
-                      foregroundColor: AppColor.yellowColor,
-                      label: "Pair Chat",
-                      onTap: () => {
-                        Get.defaultDialog(
-                            title: "Pair Chat",
-                            titleStyle: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 10),
-                            content: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Divider(),
-                                  Text(
-                                    "Choose Identity",
-                                    style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: ElevatedButton(
-                                            onPressed: () => {},
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: true ? AppColor.yellowColor : AppColor.bgBlackColor,
-                                            ),
-                                            child: Text(
-                                              'Anonymous',
-                                              style: TextStyle(
-                                                color: true ? Colors.black : Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: false ? AppColor.yellowColor : AppColor.bgBlackColor,
-                                            ),
-                                            onPressed: () => {},
-                                            child: FittedBox(
-                                              fit: BoxFit.fitWidth,
-                                              child: Text(
-                                                Get.find<AuthStateController>().displayName!,
-                                                style: TextStyle(
-                                                  color: false ? Colors.black : Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Divider(),
-                                  Text(
-                                    "Select Language",
-                                    style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
-                                  ),
-                                  LanguagePickerDropdown(
-                                      initialValue: Languages.english,
-                                      onValuePicked: (Language language) {
-                                        log(language.isoCode);
-                                      }),
-                                  const Divider(),
-                                  ElevatedButton.icon(
-                                    icon: Icon(
-                                      Icons.people_outlined,
-                                      color: Colors.black,
-                                    ),
-                                    onPressed: () =>{},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColor.yellowColor,
-                                    ),
-                                    label: Text(
-                                      "Quick Match",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize:
-                                        0.013 * Get.height + 0.026 * Get.width,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
-                      },
-                    ),
-                  ],
-                )
+            icon: Icons.add,
+            activeIcon: Icons.close,
+            backgroundColor: AppColor.yellowColor,
+            elevation: 8.0,
+            spacing: 10,
+            spaceBetweenChildren: 6,
+            animationCurve: Curves.elasticInOut,
+            children: [
+              SpeedDialChild(
+                child: const Icon(Icons.multitrack_audio),
+                foregroundColor: AppColor.yellowColor,
+                label: "Audio Room",
+                onTap: () async {
+                  await Get.delete<CreateRoomController>();
+                  controller.setIndex(2);
+                },
+              ),
+              SpeedDialChild(
+                child: const Icon(Icons.people_alt_rounded),
+                foregroundColor: AppColor.yellowColor,
+                label: "Pair Chat",
+                onTap: () =>
+                {
+                  buildPairChatDialog()
+                },
+              ),
+            ],
+          )
               : FloatingActionButton(
-                  onPressed: () async {
-                    await Get.find<CreateRoomController>().createRoom();
-                  },
-                  backgroundColor: AppColor.yellowColor,
-                  child: const Icon(Icons.done)),
+              onPressed: () async {
+                await Get.find<CreateRoomController>().createRoom();
+              },
+              backgroundColor: AppColor.yellowColor,
+              child: const Icon(Icons.done)),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             height: 0.034 * Get.height + 0.068 * Get.width,
@@ -190,8 +101,9 @@ class TabViewScreen extends StatelessWidget {
           body: (controller.getIndex() == 0)
               ? HomeScreen()
               : (controller.getIndex() == 2)
-                  ? CreateRoomScreen()
-                  : const DiscussionScreen(),
+              ? CreateRoomScreen()
+              : const DiscussionScreen(),
         ));
   }
+
 }
