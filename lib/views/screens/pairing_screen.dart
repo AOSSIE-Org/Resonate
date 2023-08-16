@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -66,7 +67,7 @@ class PairingScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.back();
+                        Get.toNamed(AppRoutes.pairChat);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.yellowColor,

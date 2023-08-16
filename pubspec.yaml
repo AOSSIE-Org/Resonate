@@ -68,6 +68,7 @@ dependencies:
   flutter_svg: ^2.0.7
   internet_connection_checker_plus: 1.0.1
   language_picker: ^0.4.3
+  stop_watch_timer: ^3.0.1
 
 dev_dependencies:
   flutter_test:
