@@ -17,6 +17,10 @@ const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
 const String participantsCollectionId = "64a63e508145d1084abf";
 
+//Pair chat database constants
+const String pairRequestCollectionId = "64d980211f1395263ebe";
+const String activePairsCollectionId = "64d980cd65ff2e08ab97";
+
 const String sendOtpFunctionID = "64b281652d75cced214d";
 const String verifyOtpFunctionID = "64b28abda38a121b12b1";
 const String verifyUserFunctionID = "64b291891e5beefab2be";
