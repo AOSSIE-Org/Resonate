@@ -103,7 +103,7 @@ Future<dynamic> buildPairChatDialog() {
                 backgroundColor: AppColor.yellowColor,
               ),
               label: Text(
-                "Quick Match",
+                "Resonate",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 0.013 * Get.height + 0.026 * Get.width,

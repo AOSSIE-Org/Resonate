@@ -14,6 +14,7 @@ class PairChatController extends GetxController {
 
   RxBool isMicOn = false.obs;
   RxBool isLoudSpeakerOn = true.obs;
+  String? requestDocId;
   String? activePairDocId;
   int? myRoomUserId;
 
@@ -37,11 +38,12 @@ class PairChatController extends GetxController {
     getRealtimeStream();
 
     // Add request to pair-request collection
-    await databases.createDocument(
+    Document requestDoc = await databases.createDocument(
         databaseId: masterDatabaseId,
         collectionId: pairRequestCollectionId,
         documentId: ID.unique(),
         data: {"languageIso": languageIso, "isAnonymous": isAnonymous.value, "uid": uid});
+    requestDocId = requestDoc.$id;
 
     // Go to pairing screen
     Get.toNamed(AppRoutes.pairing);
@@ -81,6 +83,12 @@ class PairChatController extends GetxController {
         }
       }
     });
+  }
+
+  Future<void> cancelRequest() async{
+    await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: pairRequestCollectionId, documentId: requestDocId!);
+    subscription?.close();
+    Get.offAllNamed(AppRoutes.tabview);
   }
 
   void toggleMic() {

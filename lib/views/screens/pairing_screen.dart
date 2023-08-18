@@ -66,8 +66,8 @@ class PairingScreen extends StatelessWidget {
                       height: Get.height * 0.08,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed(AppRoutes.pairChat);
+                      onPressed: () async {
+                        await controller.cancelRequest();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.yellowColor,
