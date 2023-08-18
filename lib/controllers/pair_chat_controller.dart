@@ -12,6 +12,7 @@ class PairChatController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isAnonymous = true.obs;
   String languageIso = "en";
+  String? activePairDocId;
 
   Client client = Client();
   late final Realtime realtime;
@@ -28,24 +29,9 @@ class PairChatController extends GetxController {
 
   void quickMatch() async {
     String uid = Get.find<AuthStateController>().uid!;
-    String channel = 'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
 
     // Open realtime stream to check whether the request is paired
-    subscription = realtime.subscribe([channel]);
-    subscription?.stream.listen((data) async {
-      if (data.payload.isNotEmpty) {
-        String uid1 = data.payload["uid1"];
-        String uid2 = data.payload["uid2"];
-
-        // If the request was served and the user was paired
-        if (uid1 == uid || uid2 == uid) {
-          log(data.toString());
-          String pairChatRoomId = data.payload["\$id"];
-          await subscription?.close();
-          Get.toNamed(AppRoutes.pairChat);
-        }
-      }
-    });
+    getRealtimeStream();
 
     // Add request to pair-request collection
     await databases.createDocument(
@@ -56,5 +42,30 @@ class PairChatController extends GetxController {
 
     // Go to pairing screen
     Get.toNamed(AppRoutes.pairing);
+  }
+
+  void getRealtimeStream(){
+    String uid = Get.find<AuthStateController>().uid!;
+    String channel = 'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
+    subscription = realtime.subscribe([channel]);
+    subscription?.stream.listen((data) async {
+      if (data.payload.isNotEmpty) {
+        String uid1 = data.payload["uid1"];
+        String uid2 = data.payload["uid2"];
+
+        // If the request was served and the user was paired
+        if (uid1 == uid || uid2 == uid) {
+          log(data.toString());
+          Document activePairDoc = await databases.getDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: data.payload["\$id"]);
+          String action = data.events.first.substring(channel.length + 1 + activePairDoc.$id.length + 1);
+          switch (action){
+            case 'create':{
+              activePairDocId = activePairDoc.$id;
+              Get.toNamed(AppRoutes.pairChat);
+            }
+          }
+        }
+      }
+    });
   }
 }
