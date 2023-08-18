@@ -18,7 +18,6 @@ import 'create_room_screen.dart';
 class TabViewScreen extends StatelessWidget {
   final TabViewController controller = Get.put<TabViewController>(TabViewController());
   final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
-  final EmailVerifyController emailverifycontroller = Get.find<EmailVerifyController>();
 
   @override
   Widget build(BuildContext context) {
