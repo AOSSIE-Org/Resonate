@@ -105,6 +105,7 @@ class PairChatScreen extends StatelessWidget {
                         Column(
                           children: [
                             FloatingActionButton(
+                              heroTag: "mic",
                               onPressed: () {
                                 controller.toggleMic();
                               },
@@ -120,6 +121,7 @@ class PairChatScreen extends StatelessWidget {
                         Column(
                           children: [
                             FloatingActionButton(
+                              heroTag: "speaker",
                               onPressed: () {
                                 controller.toggleLoudSpeaker();
                               },
@@ -135,8 +137,9 @@ class PairChatScreen extends StatelessWidget {
                         Column(
                           children: [
                             FloatingActionButton(
-                              onPressed: () {
-                                Get.offAllNamed(AppRoutes.tabview);
+                              heroTag: "end-chat",
+                              onPressed: () async {
+                                await controller.endChat();
                               },
                               child: Icon(Icons.cancel_outlined),
                               backgroundColor: Colors.redAccent,

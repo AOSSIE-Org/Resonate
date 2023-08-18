@@ -59,9 +59,8 @@ class PairChatController extends GetxController {
         // If the request was served and the user was paired
         if (uid1 == uid || uid2 == uid) {
           log(data.toString());
-          Document activePairDoc = await databases.getDocument(
-              databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: data.payload["\$id"]);
-          String action = data.events.first.substring(channel.length + 1 + activePairDoc.$id.length + 1);
+          var docId = data.payload["\$id"].toString();
+          String action = data.events.first.substring(channel.length + 1 + (docId.length) + 1);
           switch (action) {
             case 'create':
               {
@@ -70,10 +69,14 @@ class PairChatController extends GetxController {
                 } else {
                   myRoomUserId = 2;
                 }
-                activePairDocId = activePairDoc.$id;
+                activePairDocId = data.payload["\$id"];
                 Get.toNamed(AppRoutes.pairChat);
                 break;
               }
+            case 'delete':{
+              subscription?.close;
+              Get.offAllNamed(AppRoutes.tabview);
+            }
           }
         }
       }
@@ -86,5 +89,11 @@ class PairChatController extends GetxController {
 
   void toggleLoudSpeaker(){
     isLoudSpeakerOn.value = !isLoudSpeakerOn.value;
+  }
+
+  Future<void> endChat() async{
+    subscription?.close;
+    await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: activePairDocId!);
+    Get.offAllNamed(AppRoutes.tabview);
   }
 }
