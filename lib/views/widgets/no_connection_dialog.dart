@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/controllers/network_controller.dart';
 
 import '../../utils/colors.dart';
 
@@ -35,7 +36,7 @@ class NoConnectionDialog extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  //This is just use to improve the UI. The dialog will be dismissed as soon as the connection is restored.
+                  Get.find<NetworkController>().tryAgain();
                 },
                 child: const Text(
                   "Try Again",
