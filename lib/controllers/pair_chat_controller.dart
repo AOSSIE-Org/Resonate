@@ -4,7 +4,6 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -12,7 +11,11 @@ class PairChatController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isAnonymous = true.obs;
   String languageIso = "en";
+
+  RxBool isMicOn = false.obs;
+  RxBool isLoudSpeakerOn = true.obs;
   String? activePairDocId;
+  int? myRoomUserId;
 
   Client client = Client();
   late final Realtime realtime;
@@ -44,7 +47,7 @@ class PairChatController extends GetxController {
     Get.toNamed(AppRoutes.pairing);
   }
 
-  void getRealtimeStream(){
+  void getRealtimeStream() {
     String uid = Get.find<AuthStateController>().uid!;
     String channel = 'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
@@ -56,16 +59,32 @@ class PairChatController extends GetxController {
         // If the request was served and the user was paired
         if (uid1 == uid || uid2 == uid) {
           log(data.toString());
-          Document activePairDoc = await databases.getDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: data.payload["\$id"]);
+          Document activePairDoc = await databases.getDocument(
+              databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: data.payload["\$id"]);
           String action = data.events.first.substring(channel.length + 1 + activePairDoc.$id.length + 1);
-          switch (action){
-            case 'create':{
-              activePairDocId = activePairDoc.$id;
-              Get.toNamed(AppRoutes.pairChat);
-            }
+          switch (action) {
+            case 'create':
+              {
+                if (uid1 == uid) {
+                  myRoomUserId = 1;
+                } else {
+                  myRoomUserId = 2;
+                }
+                activePairDocId = activePairDoc.$id;
+                Get.toNamed(AppRoutes.pairChat);
+                break;
+              }
           }
         }
       }
     });
+  }
+
+  void toggleMic() {
+    isMicOn.value = !isMicOn.value;
+  }
+
+  void toggleLoudSpeaker(){
+    isLoudSpeakerOn.value = !isLoudSpeakerOn.value;
   }
 }
