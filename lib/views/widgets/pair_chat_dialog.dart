@@ -97,7 +97,6 @@ Future<dynamic> buildPairChatDialog() {
                 color: Colors.black,
               ),
               onPressed: () {
-                //TODO: Add user request to appwrite requests collection
                 controller.quickMatch();
               },
               style: ElevatedButton.styleFrom(
