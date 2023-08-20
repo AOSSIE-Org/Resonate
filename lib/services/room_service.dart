@@ -132,4 +132,11 @@ class RoomService {
     }
     return true;
   }
+
+  static Future<void> joinLivekitPairChat({required roomId, required String userId}) async {
+    var response = await apiService.joinRoom(roomId, userId);
+    String livekitToken = response.body["access_token"];
+    String livekitSocketUrl = response.body["livekit_socket_url"];
+    await joinLiveKitRoom(livekitSocketUrl, livekitToken);
+  }
 }

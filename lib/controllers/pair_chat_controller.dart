@@ -5,6 +5,7 @@ import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class PairChatController extends GetxController {
@@ -72,7 +73,7 @@ class PairChatController extends GetxController {
                   myRoomUserId = 2;
                 }
                 activePairDocId = data.payload["\$id"];
-                Get.toNamed(AppRoutes.pairChat);
+                await joinPairChat(activePairDocId, uid);
                 break;
               }
             case 'delete':{
@@ -83,6 +84,11 @@ class PairChatController extends GetxController {
         }
       }
     });
+  }
+
+  Future<void> joinPairChat(roomId, userId) async{
+    await RoomService.joinLivekitPairChat(roomId: roomId, userId: userId);
+    Get.toNamed(AppRoutes.pairChat);
   }
 
   Future<void> cancelRequest() async{
