@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
+import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/room_service.dart';
@@ -106,6 +107,7 @@ class PairChatController extends GetxController {
 
   void toggleLoudSpeaker(){
     isLoudSpeakerOn.value = !isLoudSpeakerOn.value;
+    Hardware.instance.setSpeakerphoneOn(isLoudSpeakerOn.value);
   }
 
   Future<void> endChat() async{
