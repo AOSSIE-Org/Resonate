@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
+import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 
 class LiveKitController extends GetxController{
@@ -68,7 +69,14 @@ class LiveKitController extends GetxController{
         log('Room disconnected: reason => ${event.reason}');
       }
       WidgetsBindingCompatible.instance
-          ?.addPostFrameCallback((timeStamp) => Get.find<SingleRoomController>().leaveRoom());
+          ?.addPostFrameCallback((timeStamp) {
+            if (Get.isRegistered<SingleRoomController>()){
+              Get.find<SingleRoomController>().leaveRoom();
+            }
+            else if (Get.isRegistered<PairChatController>()){
+              Get.find<PairChatController>().endChat();
+            }
+      });
     })
     ..on<RoomRecordingStatusChanged>((event) {
       //context.showRecordingStatusChangedDialog(event.activeRecording);
