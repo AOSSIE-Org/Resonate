@@ -8,6 +8,8 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
 
+import 'livekit_controller.dart';
+
 class PairChatController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isAnonymous = true.obs;
@@ -97,8 +99,9 @@ class PairChatController extends GetxController {
     Get.offAllNamed(AppRoutes.tabview);
   }
 
-  void toggleMic() {
+  void toggleMic() async {
     isMicOn.value = !isMicOn.value;
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(isMicOn.value);
   }
 
   void toggleLoudSpeaker(){
@@ -108,6 +111,7 @@ class PairChatController extends GetxController {
   Future<void> endChat() async{
     subscription?.close;
     await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: activePairDocId!);
+    await Get.delete<LiveKitController>(force: true);
     Get.offAllNamed(AppRoutes.tabview);
   }
 }
