@@ -4,6 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
+import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
@@ -11,15 +12,12 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
+import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController =
-      Get.put<AuthStateController>(AuthStateController());
-  final EmailVerifyController emailverifycontroller =
-      Get.find<EmailVerifyController>();
+  final TabViewController controller = Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +27,7 @@ class TabViewScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
+              style: TextStyle(color: Colors.amber, fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
             ),
             centerTitle: false,
             elevation: 10,
@@ -63,7 +59,10 @@ class TabViewScreen extends StatelessWidget {
                       child: const Icon(Icons.people_alt_rounded),
                       foregroundColor: AppColor.yellowColor,
                       label: "Pair Chat",
-                      onTap: () => {},
+                      onTap: () {
+                        Get.put<PairChatController>(PairChatController());
+                        buildPairChatDialog();
+                      },
                     ),
                   ],
                 )
