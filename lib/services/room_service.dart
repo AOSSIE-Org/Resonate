@@ -20,6 +20,17 @@ class RoomService {
       {required String roomId, required String uid, required bool isAdmin}) async {
     RoomsController roomsController = Get.find<RoomsController>();
 
+    // Get all documents with participant uid and roomid and delete them before adding the participant again
+    DocumentList participantDocsRef = await roomsController.databases
+        .listDocuments(databaseId: masterDatabaseId, collectionId: participantsCollectionId, queries: [
+      Query.equal("uid", [uid]),
+      Query.equal('roomId', [roomId])
+    ]);
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(
+          databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: document.$id);
+    }
+
     // Add participant to collection
     Document participantDoc = await roomsController.databases.createDocument(
         databaseId: masterDatabaseId,
@@ -44,7 +55,7 @@ class RoomService {
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId,
-          data: {"totalParticipants": roomDoc.data["totalParticipants"] + 1});
+          data: {"totalParticipants": roomDoc.data["totalParticipants"] - participantDocsRef.documents.length  + 1});
     }
 
     return participantDoc.$id;
@@ -94,7 +105,7 @@ class RoomService {
     var response = await apiService.joinRoom(roomId, userId);
     String livekitToken = response.body["access_token"];
     String livekitSocketUrl = response.body["livekit_socket_url"];
-    String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: false);
+    String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: isAdmin);
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
     return myDocId;
   }
