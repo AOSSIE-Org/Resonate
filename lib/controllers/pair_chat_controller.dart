@@ -3,9 +3,13 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
+import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
+
+import 'livekit_controller.dart';
 
 class PairChatController extends GetxController {
   RxBool isLoading = false.obs;
@@ -72,7 +76,7 @@ class PairChatController extends GetxController {
                   myRoomUserId = 2;
                 }
                 activePairDocId = data.payload["\$id"];
-                Get.toNamed(AppRoutes.pairChat);
+                await joinPairChat(activePairDocId, uid);
                 break;
               }
             case 'delete':{
@@ -85,23 +89,31 @@ class PairChatController extends GetxController {
     });
   }
 
+  Future<void> joinPairChat(roomId, userId) async{
+    await RoomService.joinLivekitPairChat(roomId: roomId, userId: userId);
+    Get.toNamed(AppRoutes.pairChat);
+  }
+
   Future<void> cancelRequest() async{
     await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: pairRequestCollectionId, documentId: requestDocId!);
     subscription?.close();
     Get.offAllNamed(AppRoutes.tabview);
   }
 
-  void toggleMic() {
+  void toggleMic() async {
     isMicOn.value = !isMicOn.value;
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(isMicOn.value);
   }
 
   void toggleLoudSpeaker(){
     isLoudSpeakerOn.value = !isLoudSpeakerOn.value;
+    Hardware.instance.setSpeakerphoneOn(isLoudSpeakerOn.value);
   }
 
   Future<void> endChat() async{
     subscription?.close;
     await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: activePairDocId!);
+    await Get.delete<LiveKitController>(force: true);
     Get.offAllNamed(AppRoutes.tabview);
   }
 }

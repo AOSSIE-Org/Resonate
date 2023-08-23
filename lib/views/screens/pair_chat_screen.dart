@@ -40,7 +40,7 @@ class PairChatScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
-                        height: Get.height * 0.03,
+                        height: Get.height * 0.15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -115,7 +115,7 @@ class PairChatScreen extends StatelessWidget {
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Text(controller.isMicOn.value ? "Mute" : "Unmute")
+                            Text("Mute")
                           ],
                         ),
                         Column(
@@ -126,12 +126,12 @@ class PairChatScreen extends StatelessWidget {
                                 controller.toggleLoudSpeaker();
                               },
                               backgroundColor: controller.isLoudSpeakerOn.value ? Colors.white : Colors.white24,
-                              child: controller.isLoudSpeakerOn.value ? Icon(Icons.surround_sound_outlined, color: Colors.black,) : Icon(Icons.volume_up, color: Colors.white),
+                              child: controller.isLoudSpeakerOn.value ? Icon(Icons.volume_up, color: Colors.black,) : Icon(Icons.volume_up, color: Colors.white),
                             ),
                             SizedBox(
                               height: Get.height * 0.005,
                             ),
-                            Text(controller.isLoudSpeakerOn.value ? "Ear" : "Speaker")
+                            Text("Speaker")
                           ],
                         ),
                         Column(
