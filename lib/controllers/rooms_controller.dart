@@ -112,6 +112,8 @@ class RoomsController extends GetxController {
       Get.find<TabViewController>().openRoomSheet(room);
     } catch (e) {
       log(e.toString());
+      getRooms();
+      update();
       // Close the loading dialog
       Get.back();
     }
