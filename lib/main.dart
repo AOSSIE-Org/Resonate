@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColor.bgBlackColor,
           colorScheme: ColorScheme.fromSwatch(
             brightness: Brightness.dark,
-            primaryColorDark: AppColor.yellowColor,
+            primarySwatch: AppColor.yellowMaterialColor,
             accentColor: Colors.white,
             backgroundColor: AppColor.bgBlackColor,
             errorColor: const Color(0xFDFF0000),
