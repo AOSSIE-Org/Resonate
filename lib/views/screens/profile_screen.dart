@@ -16,7 +16,7 @@ import '../widgets/custom_card.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 
-  final emailVerifyController = Get.find<EmailVerifyController>();
+  final emailVerifyController = Get.put<EmailVerifyController>(EmailVerifyController());
 
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
