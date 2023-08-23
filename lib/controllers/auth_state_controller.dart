@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
@@ -27,7 +29,9 @@ class AuthStateController extends GetxController {
     client
         .setEndpoint(appwriteEndpoint)
         .setProject(appwriteProjectId)
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
+        .setSelfSigned(
+            status:
+                true); // For self signed certificates, only use for development
     account = Account(client);
     databases = Databases(client);
     await setUserProfileData();
@@ -50,22 +54,27 @@ class AuthStateController extends GetxController {
       email = appwriteUser.email;
       isEmailVerified = appwriteUser.emailVerification;
       uid = appwriteUser.$id;
-      isUserProfileComplete = appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+      isUserProfileComplete =
+          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
         Document userDataDoc = await databases.getDocument(
-            databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: appwriteUser.$id);
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
-      isInitializing.value = false;
       update();
     } catch (e) {
       log(e.toString());
+    } finally {
+      isInitializing.value = false;
     }
   }
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
+    print(authToken);
     return authToken.jwt;
   }
 
@@ -100,7 +109,17 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> logout() async {
-    await account.deleteSession(sessionId: 'current');
-    Get.offNamed(AppRoutes.login);
+    Get.defaultDialog(
+      title: "Are you sure?",
+      middleText: "You are logging out of Resonate",
+      textConfirm: "Yes",
+      textCancel: "No",
+      buttonColor: AppColor.yellowColor,
+      contentPadding: const EdgeInsets.only(bottom: 20),
+      onConfirm: () async {
+        await account.deleteSession(sessionId: 'current');
+        Get.offNamed(AppRoutes.login);
+      },
+    );
   }
 }

@@ -13,21 +13,19 @@ class CreateRoomScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(15));
 
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.amber, width: 2),
+      borderSide: BorderSide(color: Colors.amber, width: UiSizes.width_2),
       borderRadius: BorderRadius.circular(15));
-
-  CreateRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CreateRoomController>(
       builder: (controller) => GestureDetector(
         onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+          }
         },
         child: SingleChildScrollView(
           child: Container(
@@ -51,7 +49,7 @@ class CreateRoomScreen extends StatelessWidget {
                     style: TextStyle(fontSize: UiSizes.size_25),
                     cursorColor: Colors.amber,
                     minLines: 1,
-                    maxLines: 3,
+                    maxLines: 13,
                     validator: (value) {
                       if (value!.isNotEmpty) {
                         if (value.length < 80) {
@@ -106,9 +104,9 @@ class CreateRoomScreen extends StatelessWidget {
                                     child: Row(
                                         children: tags.map((String tag) {
                                       return Container(
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0),
+                                            Radius.circular(UiSizes.size_20),
                                           ),
                                           color: Colors.black54,
                                         ),
@@ -162,7 +160,7 @@ class CreateRoomScreen extends StatelessWidget {
                   ),
                   TextFormField(
                     controller: controller.descriptionController,
-                    style: const TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: UiSizes.size_20),
                     cursorColor: Colors.amber,
                     maxLines: 10,
                     validator: (value) {

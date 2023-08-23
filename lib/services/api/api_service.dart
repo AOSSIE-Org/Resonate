@@ -20,7 +20,6 @@ class ApiService {
 
     try {
       final response = await chopper.createRoom(data);
-
       if (response.isSuccessful) {
         log(response.body.toString());
       } else {

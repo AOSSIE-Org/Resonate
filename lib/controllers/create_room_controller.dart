@@ -20,7 +20,7 @@ class CreateRoomController extends GetxController {
   TextfieldTagsController tagsController = TextfieldTagsController();
 
   @override
-  void dispose(){
+  void dispose() {
     nameController.dispose();
     descriptionController.dispose();
     tagsController.dispose();
@@ -36,10 +36,12 @@ class CreateRoomController extends GetxController {
 
       // Display Loading Dialog
       Get.dialog(
-        Center(child: LoadingAnimationWidget.threeRotatingDots(color: Colors.amber, size: Get.pixelRatio*20),),
-        barrierDismissible: false,
-        name: "Loading Dialog"
-      );
+          Center(
+            child: LoadingAnimationWidget.threeRotatingDots(
+                color: Colors.amber, size: Get.pixelRatio * 20),
+          ),
+          barrierDismissible: false,
+          name: "Loading Dialog");
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
@@ -55,14 +57,22 @@ class CreateRoomController extends GetxController {
       Get.back();
 
       // Open the Room Bottom Sheet to interact in the room
-      AppwriteRoom room = AppwriteRoom(id: newRoomId, name: nameController.text, description: descriptionController.text, totalParticipants: 1, tags: tagsController.getTags!, memberAvatarUrls: [], state: RoomState.live, myDocId: myDocId, isUserAdmin: true);
+      AppwriteRoom room = AppwriteRoom(
+          id: newRoomId,
+          name: nameController.text,
+          description: descriptionController.text,
+          totalParticipants: 1,
+          tags: tagsController.getTags!,
+          memberAvatarUrls: [],
+          state: RoomState.live,
+          myDocId: myDocId,
+          isUserAdmin: true);
       Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form
       nameController.clear();
       tagsController.clearTags();
       descriptionController.clear();
-
     } catch (e) {
       log(e.toString());
 

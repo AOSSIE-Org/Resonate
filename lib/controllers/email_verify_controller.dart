@@ -10,7 +10,6 @@ import '../routes/app_routes.dart';
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
 
-
 class EmailVerifyController extends GetxController {
   late String verificationID;
   late Execution responseVerify;
@@ -26,9 +25,10 @@ class EmailVerifyController extends GetxController {
   var isUpdateAllowed = true.obs;
   var signupisallowed = true.obs;
   AuthStateController authStateController = Get.find<AuthStateController>();
-  AuthenticationController authController = Get.find<AuthenticationController>();
+  AuthenticationController authController =
+      Get.find<AuthenticationController>();
   TextEditingController updateEmailController = TextEditingController(text: "");
-  
+
   @override
   void onInit() async {
     super.onInit();

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../utils/constants.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
 
@@ -38,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                           gradient: AppColor.gradientBg,
                           borderRadius: BorderRadius.circular(100)),
                       child: CircleAvatar(
-                          radius: 18,
+                          radius: UiSizes.size_18,
                           backgroundColor:
                               const Color.fromARGB(0, 255, 255, 255),
                           child: Icon(
@@ -67,8 +70,8 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          width: UiSizes.width_170,
-                          height: UiSizes.height_170,
+                          width: UiSizes.width_180,
+                          height: UiSizes.height_180,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: Colors.amber, width: UiSizes.width_4),
@@ -207,14 +210,9 @@ class ProfileScreen extends StatelessWidget {
                             fit: BoxFit.contain,
                             child: Text(
                               controller.displayName.toString(),
-                              style: TextStyle(fontSize: UiSizes.size_25),
+                              style: TextStyle(fontSize: UiSizes.size_40),
                             ),
                           ),
-                        ),
-                        Text(
-                          controller.email.toString(),
-                          style: TextStyle(
-                              fontSize: UiSizes.size_18, color: Colors.white70),
                         ),
                         SizedBox(height: UiSizes.height_20),
                         !(controller.isEmailVerified!)
@@ -241,29 +239,27 @@ class ProfileScreen extends StatelessWidget {
                                                 BorderRadius.circular(20),
                                             border: Border.all(
                                                 color: Colors.amber, width: 3)),
-                                        child: Center(
-                                          child: Text(
-                                            "Verify Email",
-                                            style: TextStyle(
-                                              fontSize: UiSizes.size_14,
-                                            ),
-                                          ),
+                                        child: const Center(
+                                          child: Text("Verify Email"),
                                         )),
                                   ),
                                 ),
                               )
                             : const SizedBox(),
-                        SizedBox(height: UiSizes.height_30),
+                        SizedBox(height: UiSizes.height_20),
                         CustomCard(
                           title: "Contribute to the project",
                           icon: FontAwesomeIcons.github,
                           onTap: () {
-                            //TODO: Open Github Repo Link
+                            Uri url = Uri.parse(githubRepoUrl);
+                            try {
+                              launchUrl(url);
+                            } catch (e) {
+                              log("Error launching URL: ${e.toString()}");
+                            }
                           },
                         ),
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
+                        SizedBox(height: UiSizes.height_10),
                         CustomCard(
                           title: "Terms and Conditions",
                           icon: FontAwesomeIcons.fileInvoice,
@@ -271,9 +267,7 @@ class ProfileScreen extends StatelessWidget {
                             //TODO: Launch URL in webview
                           },
                         ),
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
+                        SizedBox(height: UiSizes.height_10),
                         CustomCard(
                           title: "Privacy Policy",
                           icon: FontAwesomeIcons.shieldHalved,
