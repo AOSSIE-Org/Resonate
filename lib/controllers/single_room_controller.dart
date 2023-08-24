@@ -182,10 +182,13 @@ class SingleRoomController extends GetxController {
 
   Future<void> deleteRoom() async {
     try {
+      isLoading.value = true;
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       Get.delete<SingleRoomController>();
     } catch (e) {
       log("Error in Delete Room Function (SingleRoomController): ${e.toString()}");
+    } finally{
+      isLoading.value = false;
     }
   }
 
