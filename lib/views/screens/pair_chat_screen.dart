@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
@@ -14,11 +15,11 @@ class PairChatScreen extends StatelessWidget {
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
-            toolbarHeight: (0.068 * Get.width + 0.034 * Get.height),
+            toolbarHeight: (UiSizes.size_56),
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
+              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_26),
             ),
             centerTitle: true,
             elevation: 10,
@@ -28,19 +29,21 @@ class PairChatScreen extends StatelessWidget {
             children: [
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: UiSizes.height_10,
+                      horizontal: UiSizes.width_20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //Image.asset("assets/images/resonate_logo.png", height: Get.height*0.2,),
-                      Text(
+                      const Text(
                         "Be polite and respect the other person's opinion. Avoid rude comments.",
                         style: TextStyle(color: Colors.amber),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
-                        height: Get.height * 0.03,
+                        height: UiSizes.height_24_6,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -48,46 +51,48 @@ class PairChatScreen extends StatelessWidget {
                           Column(
                             children: [
                               CircleAvatar(
-                                backgroundImage: NetworkImage(userProfileImagePlaceholderUrl),
-                                radius: Get.width * 0.16,
+                                backgroundImage: const NetworkImage(
+                                    userProfileImagePlaceholderUrl),
+                                radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: Get.height * 0.015,
+                                height: UiSizes.height_12,
                               ),
                               FittedBox(
-                                child: Text(
-                                  "User 1",
-                                ),
-                                fit: BoxFit.fitWidth,
+                                child: Text("User 1",
+                                    style:
+                                        TextStyle(fontSize: UiSizes.size_14)),
                               )
                             ],
                           ),
                           Container(
-                            width: Get.width * 0.08,
+                            width: UiSizes.width_33,
                             height: 2,
                             color: Colors.amber,
                           ),
                           Column(
                             children: [
                               CircleAvatar(
-                                backgroundImage: NetworkImage(userProfileImagePlaceholderUrl),
-                                radius: Get.width * 0.16,
+                                backgroundImage: const NetworkImage(
+                                    userProfileImagePlaceholderUrl),
+                                radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: Get.height * 0.015,
+                                height: UiSizes.height_12,
                               ),
                               FittedBox(
+                                fit: BoxFit.fitWidth,
                                 child: Text(
                                   "User 2",
+                                  style: TextStyle(fontSize: UiSizes.size_14),
                                 ),
-                                fit: BoxFit.fitWidth,
                               )
                             ],
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: Get.height * 0.03,
+                        height: UiSizes.height_24_6,
                       ),
                     ],
                   ),
@@ -95,65 +100,112 @@ class PairChatScreen extends StatelessWidget {
               ),
               Spacer(),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                 color: Colors.black,
-                height: Get.height * 0.16,
+                height: UiSizes.height_131,
                 child: Obx(() {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            FloatingActionButton(
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: UiSizes.height_56,
+                            width: UiSizes.width_56,
+                            child: FloatingActionButton(
                               heroTag: "mic",
                               onPressed: () {
                                 controller.toggleMic();
                               },
-                              backgroundColor: controller.isMicOn.value ? Colors.amber : Colors.white24,
-                              child: controller.isMicOn.value ? Icon(Icons.mic, color: Colors.black,) : Icon(Icons.mic_off, color: Colors.white),
+                              backgroundColor: controller.isMicOn.value
+                                  ? Colors.amber
+                                  : Colors.white24,
+                              child: controller.isMicOn.value
+                                  ? Icon(
+                                      Icons.mic,
+                                      color: Colors.black,
+                                      size: UiSizes.size_24,
+                                    )
+                                  : Icon(Icons.mic_off,
+                                      color: Colors.white,
+                                      size: UiSizes.size_24),
                             ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
-                            Text(controller.isMicOn.value ? "Mute" : "Unmute")
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            FloatingActionButton(
+                          ),
+                          SizedBox(
+                            height: UiSizes.height_4,
+                          ),
+                          Text(
+                            controller.isMicOn.value ? "Mute" : "Unmute",
+                            style: TextStyle(fontSize: UiSizes.height_14),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: UiSizes.height_56,
+                            width: UiSizes.width_56,
+                            child: FloatingActionButton(
                               heroTag: "speaker",
                               onPressed: () {
                                 controller.toggleLoudSpeaker();
                               },
-                              backgroundColor: controller.isLoudSpeakerOn.value ? Colors.white : Colors.white24,
-                              child: controller.isLoudSpeakerOn.value ? Icon(Icons.surround_sound_outlined, color: Colors.black,) : Icon(Icons.volume_up, color: Colors.white),
+                              backgroundColor: controller.isLoudSpeakerOn.value
+                                  ? Colors.white
+                                  : Colors.white24,
+                              child: controller.isLoudSpeakerOn.value
+                                  ? Icon(
+                                      Icons.surround_sound_outlined,
+                                      color: Colors.black,
+                                      size: UiSizes.size_24,
+                                    )
+                                  : Icon(
+                                      Icons.volume_up,
+                                      color: Colors.white,
+                                      size: UiSizes.size_24,
+                                    ),
                             ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
-                            Text(controller.isLoudSpeakerOn.value ? "Ear" : "Speaker")
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            FloatingActionButton(
+                          ),
+                          SizedBox(
+                            height: UiSizes.height_4,
+                          ),
+                          Text(
+                            controller.isLoudSpeakerOn.value
+                                ? "Ear"
+                                : "Speaker",
+                            style: TextStyle(fontSize: UiSizes.height_14),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: UiSizes.height_56,
+                            width: UiSizes.width_56,
+                            child: FloatingActionButton(
                               heroTag: "end-chat",
                               onPressed: () async {
                                 await controller.endChat();
                               },
-                              child: Icon(Icons.cancel_outlined),
                               backgroundColor: Colors.redAccent,
+                              child: Icon(
+                                Icons.cancel_outlined,
+                                size: UiSizes.size_24,
+                              ),
                             ),
-                            SizedBox(
-                              height: Get.height * 0.005,
-                            ),
-                            Text("End")
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                ),
+                          ),
+                          SizedBox(
+                            height: UiSizes.height_4,
+                          ),
+                          Text(
+                            "End",
+                            style: TextStyle(fontSize: UiSizes.height_14),
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                }),
               )
             ],
           ),

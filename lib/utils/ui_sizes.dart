@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class UiSizes {
-  
   // Height expressions
   static var height_1 = Get.height * 0.0012;
   static var height_2 = Get.height * 0.0024;
@@ -30,6 +29,7 @@ class UiSizes {
   static var height_80 = Get.height * 0.0973;
   static var height_82 = Get.height * 0.1;
   static var height_90 = Get.height * 0.1095;
+  static var height_131 = Get.height * 0.16;
   static var height_140 = Get.height * 0.17;
   static var height_170 = Get.height * 0.2;
   static var height_180 = Get.height * 0.219;
@@ -53,10 +53,12 @@ class UiSizes {
   static var width_20 = 0.0486 * Get.width;
   static var width_25 = 0.0608 * Get.width;
   static var width_30 = 0.072 * Get.width;
+  static var width_33 = 0.08 * Get.width;
   static var width_35 = 0.085 * Get.width;
   static var width_40 = 0.0972 * Get.width;
   static var width_45 = 0.109 * Get.width;
   static var width_56 = 0.1361 * Get.width;
+  static var width_66 = 0.16 * Get.width;
   static var width_80 = 0.1944 * Get.width;
   static var width_100 = 0.243 * Get.width;
   static var width_111 = 0.27 * Get.width;

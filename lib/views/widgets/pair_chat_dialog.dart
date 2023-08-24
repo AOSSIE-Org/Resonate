@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../utils/colors.dart';
@@ -16,17 +17,18 @@ Future<dynamic> buildPairChatDialog() {
       title: "Pair Chat",
       titleStyle: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 10),
       content: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Divider(),
             Text(
               "Choose Identity",
-              style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
+              style:
+                  TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: UiSizes.height_10,
             ),
             Obx(
               () => Row(
@@ -38,13 +40,17 @@ Future<dynamic> buildPairChatDialog() {
                           controller.isAnonymous.value = true;
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: controller.isAnonymous.value ? AppColor.yellowColor : AppColor.bgBlackColor,
+                          backgroundColor: controller.isAnonymous.value
+                              ? AppColor.yellowColor
+                              : AppColor.bgBlackColor,
                         ),
                         child: Text(
                           'Anonymous',
                           style: TextStyle(
-                            color: controller.isAnonymous.value ? Colors.black : Colors.white,
-                          ),
+                              color: controller.isAnonymous.value
+                                  ? Colors.black
+                                  : Colors.white,
+                              fontSize: UiSizes.size_14),
                         ),
                       ),
                     ),
@@ -56,7 +62,9 @@ Future<dynamic> buildPairChatDialog() {
                     child: SizedBox(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: !controller.isAnonymous.value ? AppColor.yellowColor : AppColor.bgBlackColor,
+                          backgroundColor: !controller.isAnonymous.value
+                              ? AppColor.yellowColor
+                              : AppColor.bgBlackColor,
                         ),
                         onPressed: () {
                           controller.isAnonymous.value = false;
@@ -66,8 +74,10 @@ Future<dynamic> buildPairChatDialog() {
                           child: Text(
                             Get.find<AuthStateController>().displayName!,
                             style: TextStyle(
-                              color: !controller.isAnonymous.value ? Colors.black : Colors.white,
-                            ),
+                                color: !controller.isAnonymous.value
+                                    ? Colors.black
+                                    : Colors.white,
+                                fontSize: UiSizes.size_14),
                           ),
                         ),
                       ),
@@ -76,13 +86,16 @@ Future<dynamic> buildPairChatDialog() {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: UiSizes.height_10,
             ),
             const Divider(),
             Text(
               "Select Language",
-              style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
+              style: TextStyle(
+                color: Colors.amber,
+                fontSize: Get.pixelRatio * 6,
+              ),
             ),
             LanguagePickerDropdown(
                 initialValue: Languages.english,
@@ -106,7 +119,7 @@ Future<dynamic> buildPairChatDialog() {
                 "Resonate",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 0.013 * Get.height + 0.026 * Get.width,
+                  fontSize: UiSizes.size_21_3,
                 ),
               ),
             ),

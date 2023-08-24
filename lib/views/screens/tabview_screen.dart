@@ -10,14 +10,15 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
-import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller = Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
+  final TabViewController controller =
+      Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController =
+      Get.put<AuthStateController>(AuthStateController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class TabViewScreen extends StatelessWidget {
                           Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
                       foregroundColor: AppColor.yellowColor,
                       label: "Pair Chat",
-                         labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                      labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());
                         buildPairChatDialog();
@@ -73,8 +74,8 @@ class TabViewScreen extends StatelessWidget {
                   ],
                 )
               : SizedBox(
-                  height: 0.06815 * Get.height,
-                  width: 0.1361 * Get.width,
+                  height: UiSizes.height_56,
+                  width: UiSizes.width_56,
                   child: FloatingActionButton(
                       onPressed: () async {
                         await Get.find<CreateRoomController>().createRoom();

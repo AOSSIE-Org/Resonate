@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,17 +31,17 @@ class MyApp extends StatelessWidget {
           fontFamily:
               GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
           iconTheme: Get.theme.iconTheme.copyWith(
-            size: 0.0146 * Get.height + 0.02916 * Get.width,
+            size: UiSizes.size_24,
             color: AppColor.yellowColor,
           ),
           inputDecorationTheme: InputDecorationTheme(
             iconColor: AppColor.yellowColor,
             floatingLabelStyle: TextStyle(
                 color: AppColor.yellowColor,
-                fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                fontSize: UiSizes.size_14),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                  color: AppColor.yellowColor, width: 0.0048 * Get.width),
+                  color: AppColor.yellowColor, width: UiSizes.width_2),
             ),
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white60),
@@ -54,8 +55,8 @@ class MyApp extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12), // <-- Radius
                   side: BorderSide(
-                      width: 0.0024 * Get.width, color: Colors.grey[800]!)),
-              minimumSize: Size.fromHeight(0.054 * Get.height), // NEW
+                      width: UiSizes.width_1, color: Colors.grey[800]!)),
+              minimumSize: Size.fromHeight(UiSizes.height_45), // NEW
             ),
           )),
       initialRoute: AppRoutes.splash,
