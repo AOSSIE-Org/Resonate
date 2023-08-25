@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/pair_chat_controller.dart';

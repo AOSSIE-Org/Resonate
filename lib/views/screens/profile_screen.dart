@@ -16,7 +16,8 @@ import '../widgets/custom_card.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 
-  final emailVerifyController = Get.put<EmailVerifyController>(EmailVerifyController());
+  final emailVerifyController =
+      Get.put<EmailVerifyController>(EmailVerifyController());
 
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
@@ -44,12 +45,12 @@ class ProfileScreen extends StatelessWidget {
                           radius: UiSizes.size_18,
                           backgroundColor:
                               const Color.fromARGB(0, 255, 255, 255),
-                          child: Icon(
+                          child: const Icon(
                             Icons.logout_rounded,
                             color: Colors.black,
                           )),
                     )),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
               ],
@@ -239,8 +240,12 @@ class ProfileScreen extends StatelessWidget {
                                                 BorderRadius.circular(20),
                                             border: Border.all(
                                                 color: Colors.amber, width: 3)),
-                                        child: const Center(
-                                          child: Text("Verify Email"),
+                                        child: Center(
+                                          child: Text(
+                                            "Verify Email",
+                                            style: TextStyle(
+                                                fontSize: UiSizes.size_14),
+                                          ),
                                         )),
                                   ),
                                 ),

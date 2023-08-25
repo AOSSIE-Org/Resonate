@@ -48,7 +48,8 @@ class MyApp extends StatelessWidget {
             ),
             suffixIconColor: AppColor.yellowColor,
           ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
+          elevatedButtonTheme: 
+          ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.yellowColor,
               elevation: 2,

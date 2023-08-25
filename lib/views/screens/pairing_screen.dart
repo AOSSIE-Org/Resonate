@@ -27,7 +27,10 @@ class PairingScreen extends StatelessWidget {
               SizedBox(
                 height: UiSizes.height_5,
               ),
-              Text("Hang on, Good Things take time  🔍", style: TextStyle(fontSize: UiSizes.size_14),),
+              Text(
+                "Hang on, Good Things take time  🔍",
+                style: TextStyle(fontSize: UiSizes.size_14),
+              ),
               Spacer(),
               //Image.asset("assets/images/pairing.gif"),
               Stack(
@@ -74,7 +77,7 @@ class PairingScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: UiSizes.height_66,
+                      height: UiSizes.height_15,
                     ),
                     ElevatedButton(
                       onPressed: () async {
