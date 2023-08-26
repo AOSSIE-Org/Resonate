@@ -55,7 +55,7 @@ class EmailVerifyController extends GetxController {
 
     authController.isLoading.value = false;
 
-    if (res.response == '{"message":"null"}') {
+    if (res.response == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 
       Timer(const Duration(milliseconds: 300), () {

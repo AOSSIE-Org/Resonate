@@ -122,6 +122,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: UiSizes.height_40),
                                     OtpTextField(
+                                      textStyle:
+                                          TextStyle(fontSize: UiSizes.size_14),
                                       fieldWidth: UiSizes.width_40,
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
@@ -251,9 +253,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                                         Text(
                                                           "Resend OTP?",
                                                           style: TextStyle(
-                                                            fontSize:
-                                                                UiSizes.size_14,
-                                                          ),
+                                                              fontSize: UiSizes
+                                                                  .size_14,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                         SizedBox(
                                                           width:
@@ -274,17 +277,17 @@ class EmailVerificationScreen extends StatelessWidget {
                                                                 .value = true
                                                           },
                                                           width:
-                                                              UiSizes.width_35,
+                                                              UiSizes.width_33,
                                                           height:
-                                                              UiSizes.heigth_35,
+                                                              UiSizes.heigth_33,
                                                           duration: 30,
                                                           backgroundColor:
                                                               Colors.amber,
                                                           fillColor: const Color
-                                                                  .fromARGB(
+                                                              .fromARGB(
                                                               255, 74, 74, 74),
                                                           ringColor: const Color
-                                                                  .fromARGB(255,
+                                                              .fromARGB(255,
                                                               130, 130, 130),
                                                         ),
                                                       ],
