@@ -26,7 +26,10 @@ class ProfileScreen extends StatelessWidget {
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: const Text("Profile"),
+          title: const Text(
+            "Profile",
+          ),
+          titleTextStyle: TextStyle(fontSize: UiSizes.size_23),
           actions: [
             Row(
               children: [
