@@ -28,15 +28,15 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          height: UiSizes.height_756,
-          padding: EdgeInsets.symmetric(
-              horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
-          child: Form(
-            key: controller.registrationFormKey,
-            child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Container(
+            height: UiSizes.height_765,
+            padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
+            child: Form(
+              key: controller.registrationFormKey,
               child: Column(
-                children: <Widget>[
+                children:  <Widget>[
                   SizedBox(
                     width: UiSizes.width_180,
                     height: UiSizes.height_180,
@@ -220,9 +220,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: UiSizes.height_15,
-                  ),
+                  Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

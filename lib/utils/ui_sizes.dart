@@ -37,6 +37,7 @@ class UiSizes {
   static var height_246 = Get.height * 0.3;
   static var height_740 = Get.height * 0.9;
   static var height_756 = Get.height * 0.92;
+  static var height_765 = Get.height * 0.93;
   static var height_780 = Get.height * 0.95;
 
   // Width expressions

@@ -21,7 +21,7 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_300,
               child: SvgPicture.asset(
-                "assets/images/timmer.svg",
+                "assets/images/timer.svg",
               ),
             ),
             SizedBox(
