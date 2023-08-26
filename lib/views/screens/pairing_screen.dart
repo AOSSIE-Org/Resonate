@@ -75,6 +75,7 @@ class PairingScreen extends StatelessWidget {
                     Text(
                       "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: UiSizes.size_14),
                     ),
                     SizedBox(
                       height: UiSizes.height_15,
