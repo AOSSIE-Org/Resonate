@@ -6,28 +6,29 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
-
-import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller = Get.put<TabViewController>(TabViewController());
-  final AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
+  final TabViewController controller =
+      Get.put<TabViewController>(TabViewController());
+  final AuthStateController authStateController =
+      Get.put<AuthStateController>(AuthStateController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           appBar: AppBar(
-            toolbarHeight: (0.068 * Get.width + 0.034 * Get.height),
+            toolbarHeight: UiSizes.size_56,
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: 0.0315 * Get.width + 0.01582 * Get.height),
+              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_26),
             ),
             centerTitle: false,
             elevation: 10,
@@ -39,6 +40,8 @@ class TabViewScreen extends StatelessWidget {
           floatingActionButton: (controller.getIndex() != 2)
               ? SpeedDial(
                   icon: Icons.add,
+                  buttonSize: Size(UiSizes.width_56, UiSizes.height_56),
+                  childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
                   backgroundColor: AppColor.yellowColor,
                   elevation: 8.0,
@@ -47,18 +50,22 @@ class TabViewScreen extends StatelessWidget {
                   animationCurve: Curves.elasticInOut,
                   children: [
                     SpeedDialChild(
-                      child: const Icon(Icons.multitrack_audio),
+                      child:
+                          Icon(Icons.multitrack_audio, size: UiSizes.size_24),
                       foregroundColor: AppColor.yellowColor,
                       label: "Audio Room",
+                      labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         await Get.delete<CreateRoomController>();
                         controller.setIndex(2);
                       },
                     ),
                     SpeedDialChild(
-                      child: const Icon(Icons.people_alt_rounded),
+                      child:
+                          Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
                       foregroundColor: AppColor.yellowColor,
                       label: "Pair Chat",
+                      labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());
                         buildPairChatDialog();
@@ -66,27 +73,32 @@ class TabViewScreen extends StatelessWidget {
                     ),
                   ],
                 )
-              : FloatingActionButton(
-                  onPressed: () async {
-                    await Get.find<CreateRoomController>().createRoom();
-                  },
-                  backgroundColor: AppColor.yellowColor,
-                  child: const Icon(Icons.done)),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+              : SizedBox(
+                  height: UiSizes.height_56,
+                  width: UiSizes.width_56,
+                  child: FloatingActionButton(
+                      onPressed: () async {
+                        await Get.find<CreateRoomController>().createRoom();
+                      },
+                      backgroundColor: AppColor.yellowColor,
+                      child: Icon(Icons.done, size: UiSizes.size_24)),
+                ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
-            height: 0.034 * Get.height + 0.068 * Get.width,
+            height: UiSizes.size_56,
             backgroundColor: Colors.transparent,
             activeColor: Colors.amber,
             inactiveColor: Colors.amber.withOpacity(0.5),
             splashColor: Colors.black,
             shadow: const Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
-            iconSize: 0.01825 * Get.height + 0.0364 * Get.width,
+            iconSize: UiSizes.size_30,
             icons: const [
               Icons.home_outlined,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
               Icons.chat_rounded
             ],
-            notchMargin: 0.009722 * Get.width + 0.00486 * Get.height,
+            notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
             notchSmoothness: NotchSmoothness.defaultEdge,

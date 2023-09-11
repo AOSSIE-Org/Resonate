@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import '../../utils/colors.dart';
 import '../widgets/participant_block.dart';
 
@@ -26,65 +27,65 @@ class _RoomScreenState extends State<RoomScreen> {
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0.0365*Get.width),
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: Container(
-              margin:  EdgeInsets.symmetric(vertical: 15),
-              height: 0.0085*Get.height,
-              width: 0.1944*Get.width,
+              margin:  EdgeInsets.symmetric(vertical: UiSizes.height_15),
+              height: UiSizes.height_7,
+              width: UiSizes.height_80,
               decoration: BoxDecoration(
                   color: Colors.amber.withOpacity(0.5),
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
             ),
           ),
           SizedBox(
-            height: Get.height * 0.015,
+            height: UiSizes.height_12,
           ),
           Row(
             children: [
               Text(
                 widget.room.name,
-                style: TextStyle(fontSize: 0.012*Get.height+0.0243*Get.width, color: Colors.amber),
+                style: TextStyle(fontSize: UiSizes.size_20, color: Colors.amber),
               ),
               const Spacer(),
                FaIcon(
                 FontAwesomeIcons.ellipsis,
                 color: Colors.amber,
-                size: 0.0146*Get.height+0.029*Get.width,
+                size: UiSizes.size_24,
               ),
             ],
           ),
           SizedBox(
-            height: Get.height * 0.001,
+            height: UiSizes.height_8,
           ),
-          Text(getTags(), style: TextStyle(fontSize: 0.009127*Get.height+0.01823*Get.width, fontWeight: FontWeight.w100, color: Colors.white)),
+          Text(getTags(), style: TextStyle(fontSize: UiSizes.size_15, fontWeight: FontWeight.w100, color: Colors.white)),
           SizedBox(
-            height: Get.height * 0.008,
+            height: UiSizes.height_7,
           ),
           Text(
             widget.room.description,
-            style: TextStyle(color: Colors.white70, fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+            style: TextStyle(color: Colors.white70, fontSize: UiSizes.size_14),
           ),
-          SizedBox(
-            height: Get.height * 0.008,
+  SizedBox(
+            height: UiSizes.height_7,
           ),
           Divider(
-            thickness: 0.0024*Get.height,
+            thickness: UiSizes.height_2,
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 0.006*Get.height),
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),
               child: Obx(() {
                 return (!controller.isLoading.value)
                     ? GridView.builder(
                         gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          crossAxisSpacing: 0.0486*Get.width,
-                          mainAxisSpacing: 0.006*Get.height,
+                          crossAxisSpacing: UiSizes.width_20,
+                          mainAxisSpacing: UiSizes.height_5,
                           childAspectRatio: 2.5 / 3,
                         ),
                         itemCount: controller.participants.length,
@@ -104,15 +105,15 @@ class _RoomScreenState extends State<RoomScreen> {
             ),
           ),
           Divider(
-            thickness: 0.0024*Get.height,
+            thickness: UiSizes.height_2,
           ),
           SafeArea(
             child: SizedBox(
-              height: Get.height * 0.08,
+              height: UiSizes.height_66,
               child: Column(
                 children: [
                   SizedBox(
-                    height: Get.height * 0.01,
+                    height: UiSizes.height_8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,8 +125,8 @@ class _RoomScreenState extends State<RoomScreen> {
                               : await controller.leaveRoom();
                         },
                         child: Container(
-                          height: 0.0486*Get.height,
-                          width: 0.3*Get.width,
+                          height: UiSizes.height_40,
+                          width: UiSizes.width_123_4,
                           decoration: const BoxDecoration(
                               gradient: AppColor.gradientBg,
                               borderRadius:
@@ -133,14 +134,14 @@ class _RoomScreenState extends State<RoomScreen> {
                           child: Center(
                               child: Text(
                                 (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
-                            style:  TextStyle(color: Colors.black87,fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                            style:  TextStyle(color: Colors.black87,fontSize: UiSizes.size_14),
                           )),
                         ),
                       ),
                       GetBuilder<SingleRoomController>(builder: (controller) {
                         return (controller.me.value.isSpeaker) ? SizedBox(
-                                      height: 0.06815 * Get.height,
-            width: 0.1361 * Get.width,
+                                      height: UiSizes.height_56,
+            width: UiSizes.width_56,
                           child: FloatingActionButton(
                             onPressed: () =>
                                 (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
@@ -148,26 +149,26 @@ class _RoomScreenState extends State<RoomScreen> {
                             child: Icon(
                               (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
                               color: Colors.black,
-                              size: 0.0146*Get.height+0.029*Get.width,
+                              size: UiSizes.size_24,
                             ),
                           ),
                         ) : SizedBox(
-                                      height: 0.06815 * Get.height,
-            width: 0.1361 * Get.width,
+                                      height: UiSizes.height_56,
+            width: UiSizes.width_56,
                           child: FloatingActionButton(
                             onPressed: () => (controller.me.value.hasRequestedToBeSpeaker) ? controller.unRaiseHand() : controller.raiseHand(),
                             backgroundColor: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.amber : Colors.black54,
                             child: Icon(
                               (controller.me.value.hasRequestedToBeSpeaker) ? Icons.back_hand : Icons.back_hand_outlined,
                               color: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.black : Colors.amber,
-                              size: 0.0146*Get.height+0.029*Get.width,
+                              size: UiSizes.size_24,
                             ),
                           ),
                         );
                       }),
                       Container(
-                          height: 0.0486*Get.height,
-                          width: 0.3*Get.width,
+                          height: UiSizes.height_40,
+                          width: UiSizes.width_123_4,
                         decoration: const BoxDecoration(
                             gradient: AppColor.gradientBg,
                             borderRadius:
@@ -175,7 +176,7 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",
-                            style: TextStyle(color: Colors.black87, fontSize:   0.0085 * Get.height + 0.017 * Get.width),
+                            style: TextStyle(color: Colors.black87, fontSize:  UiSizes.size_14),
                           );
                         })),
                       ),

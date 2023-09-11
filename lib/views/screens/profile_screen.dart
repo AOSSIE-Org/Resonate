@@ -13,11 +13,11 @@ import '../../utils/constants.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
 
-
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 
-  final emailVerifyController = Get.put<EmailVerifyController>(EmailVerifyController());
+  final emailVerifyController =
+      Get.put<EmailVerifyController>(EmailVerifyController());
 
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
@@ -25,6 +25,41 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Profile",
+          ),
+          titleTextStyle: TextStyle(fontSize: UiSizes.size_23),
+          actions: [
+            Row(
+              children: [
+                InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () async {
+                      await authStateController.logout();
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 238, 49, 36)),
+                          gradient: AppColor.gradientBg,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                          radius: UiSizes.size_18,
+                          backgroundColor:
+                              const Color.fromARGB(0, 255, 255, 255),
+                          child: const Icon(
+                            Icons.logout_rounded,
+                            color: Colors.black,
+                          )),
+                    )),
+                const SizedBox(
+                  width: 20,
+                ),
+              ],
+            )
+          ],
+        ),
         body: Obx(
           () => Center(
               child: Stack(children: [
@@ -39,8 +74,8 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          width: UiSizes.width_200,
-                          height: UiSizes.height_200,
+                          width: UiSizes.width_180,
+                          height: UiSizes.height_180,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: Colors.amber, width: UiSizes.width_4),
@@ -78,10 +113,11 @@ class ProfileScreen extends StatelessWidget {
                                       },
                                       width:
                                           emailVerifyController.isExpanded.value
-                                              ? UiSizes.width_190
-                                              : UiSizes.width_40,
+                                              ? UiSizes.width_160
+                                              : UiSizes.width_35,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
                                         color: Colors.white,
                                       ),
                                       duration:
@@ -92,12 +128,12 @@ class ProfileScreen extends StatelessWidget {
                                                 Icon(
                                                   Icons.verified_rounded,
                                                   color: AppColor.greenColor,
-                                                  size: UiSizes.size_40,
+                                                  size: UiSizes.size_35,
                                                 ),
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
-                                                        width: UiSizes.width_20,
+                                                        width: UiSizes.width_10,
                                                       )
                                                     : const SizedBox(),
                                                 emailVerifyController
@@ -125,12 +161,12 @@ class ProfileScreen extends StatelessWidget {
                                                   Icons.cancel_rounded,
                                                   color: const Color.fromARGB(
                                                       255, 236, 53, 40),
-                                                  size: UiSizes.size_40,
+                                                  size: UiSizes.size_35,
                                                 ),
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
-                                                        width: UiSizes.width_20,
+                                                        width: UiSizes.width_10,
                                                       )
                                                     : const SizedBox(
                                                         height: 0,
@@ -178,75 +214,76 @@ class ProfileScreen extends StatelessWidget {
                             fit: BoxFit.contain,
                             child: Text(
                               controller.displayName.toString(),
-                              style: TextStyle(fontSize: UiSizes.size_25),
-                            ),),),
-                            SizedBox(height: 0.017 * Get.height),
-                            !(controller.isEmailVerified!)
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Material(
-                                      child: InkWell(
-                                        highlightColor: const Color.fromARGB(
-                                            138, 33, 140, 14),
-                                        splashColor: const Color.fromARGB(
-                                            172, 43, 174, 20),
-                                        onTap: () => {
-                                          // controller.isSending.value = true,
-                                          // authController.sendOTP()
-                                        },
-                                        child: Ink(
-                                            height: 0.048 * Get.height,
-                                            width: 0.34 * Get.width,
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    235, 111, 88, 5),
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: Border.all(
-                                                    color: Colors.amber,
-                                                    width: 3)),
-                                            child: const Center(
-                                              child: Text("Verify Email"),
-                                            )),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(),
-                            SizedBox(height: 0.0097 * Get.height),
-                            CustomCard(
-                              title: "Contribute to the project",
-                              icon: FontAwesomeIcons.github,
-                              onTap: () {
-                                Uri url = Uri.parse(githubRepoUrl);
-                                try{
-                                  launchUrl(url);
-                                }catch(e){
-                                  log("Error launching URL: ${e.toString()}");
-                                }
-                              },
+                              style: TextStyle(fontSize: UiSizes.size_40),
                             ),
-                            CustomCard(
-                              title: "Terms and Conditions",
-                              icon: FontAwesomeIcons.fileInvoice,
-                              onTap: () {
-                                //TODO: Launch URL in webview
-                              },
-                            ),
-                            CustomCard(
-                              title: "Privacy Policy",
-                              icon: FontAwesomeIcons.shieldHalved,
-                              onTap: () {
-                                //TODO: Launch URL in webview
-                              },
-                            ),
-                            CustomCard(
-                              title: "Logout",
-                              icon: Icons.exit_to_app_outlined,
-                              onTap: () async {
-                                await authStateController.logout();
-                              },
-                            ),
-                        ],
+                          ),
+                        ),
+                        SizedBox(height: UiSizes.height_20),
+                        !(controller.isEmailVerified!)
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Material(
+                                  child: InkWell(
+                                    highlightColor:
+                                        const Color.fromARGB(138, 33, 140, 14),
+                                    splashColor:
+                                        const Color.fromARGB(172, 43, 174, 20),
+                                    onTap: () => {
+                                      emailVerifyController.isSending.value =
+                                          true,
+                                      emailVerifyController.sendOTP()
+                                    },
+                                    child: Ink(
+                                        height: UiSizes.height_40,
+                                        width: UiSizes.width_140,
+                                        decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                235, 111, 88, 5),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                                color: Colors.amber, width: 3)),
+                                        child: Center(
+                                          child: Text(
+                                            "Verify Email",
+                                            style: TextStyle(
+                                                fontSize: UiSizes.size_14),
+                                          ),
+                                        )),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                        SizedBox(height: UiSizes.height_20),
+                        CustomCard(
+                          title: "Contribute to the project",
+                          icon: FontAwesomeIcons.github,
+                          onTap: () {
+                            Uri url = Uri.parse(githubRepoUrl);
+                            try {
+                              launchUrl(url);
+                            } catch (e) {
+                              log("Error launching URL: ${e.toString()}");
+                            }
+                          },
+                        ),
+                        SizedBox(height: UiSizes.height_10),
+                        CustomCard(
+                          title: "Terms and Conditions",
+                          icon: FontAwesomeIcons.fileInvoice,
+                          onTap: () {
+                            //TODO: Launch URL in webview
+                          },
+                        ),
+                        SizedBox(height: UiSizes.height_10),
+                        CustomCard(
+                          title: "Privacy Policy",
+                          icon: FontAwesomeIcons.shieldHalved,
+                          onTap: () {
+                            //TODO: Launch URL in webview
+                          },
+                        ),
+                      ],
                     ),
                   ),
             emailVerifyController.isSending.value

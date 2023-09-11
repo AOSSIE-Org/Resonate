@@ -30,7 +30,7 @@ const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";
 
 // Resonate Backend Constants
-const String resonateApiUrl = "http://127.0.0.1:3000";
+const String resonateApiUrl = "http://10.12.52.227:3000";
 
 // Github Constants
 const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class CustomCard extends StatelessWidget {
   final String title;
@@ -16,28 +17,27 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 0.0921 * Get.height,
+      height: UiSizes.height_76,
       child: Card(
         margin: EdgeInsets.symmetric(
-            vertical: 0.0121 * Get.height, horizontal: 0.0608 * Get.width),
+            vertical: UiSizes.height_10, horizontal: UiSizes.width_25),
         child: InkWell(
           onTap: onTap,
           child: Row(
             children: [
               SizedBox(
-                width: 0.0486 * Get.width,
+                width: UiSizes.width_20,
               ),
               FaIcon(
                 icon,
-                size: 0.0146 * Get.height + 0.029 * Get.width,
+                size: UiSizes.size_24,
               ),
               SizedBox(
-                width: 0.0972 * Get.width,
+                width: UiSizes.width_40,
               ),
               Text(
                 title,
-                style: TextStyle(
-                    fontSize: 0.0085 * Get.height + 0.017 * Get.width),
+                style: TextStyle(fontSize: UiSizes.size_14),
               )
             ],
           ),

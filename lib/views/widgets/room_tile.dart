@@ -69,7 +69,7 @@ class RoomTile extends StatelessWidget {
           vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
           gradient: AppColor.gradientBg,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
       child: Column(
         children: [
           InkWell(
@@ -135,11 +135,11 @@ class RoomTile extends StatelessWidget {
                       Align(
                         widthFactor: 0.5,
                         child: CircleAvatar(
-                          radius: 19,
+                          radius: UiSizes.size_19,
                           backgroundColor:
                               const Color.fromRGBO(230, 171, 49, 1),
                           child: CircleAvatar(
-                            radius: 15,
+                            radius: UiSizes.size_15,
                             backgroundImage: NetworkImage(avatarImageUrl),
                           ),
                         ),

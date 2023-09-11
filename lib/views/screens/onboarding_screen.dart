@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/onboarding_controller.dart';
 
@@ -17,22 +18,21 @@ class OnBoardingScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              height: Get.height * 0.9,
+              height: UiSizes.height_740,
               width: Get.width,
               padding: EdgeInsets.symmetric(
-                  horizontal: 0.0486 * Get.width, vertical: 0.012 * Get.height),
+                  horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
               child: SingleChildScrollView(
                 child: Form(
                   key: controller.userOnboardingFormKey,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 0.04 * Get.height),
+                      SizedBox(height: UiSizes.heigth_33),
                       Text(
                         "Complete your Profile",
-                        style: TextStyle(
-                            fontSize: 0.017 * Get.height + 0.034 * Get.width),
+                        style: TextStyle(fontSize: UiSizes.size_28),
                       ),
-                      SizedBox(height: 0.04 * Get.height),
+                      SizedBox(height: UiSizes.heigth_33),
                       GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
@@ -41,20 +41,19 @@ class OnBoardingScreen extends StatelessWidget {
                               ? NetworkImage(controller.imageController.text)
                               : FileImage(File(controller.profileImagePath!))
                                   as ImageProvider,
-                          radius: 0.0395 * Get.height + 0.0789 * Get.width,
+                          radius: UiSizes.size_70,
                           child: Stack(
                             children: [
                               Align(
                                 alignment: Alignment.bottomRight,
                                 child: CircleAvatar(
-                                  radius: 0.009127 * Get.height +
-                                      0.01823 * Get.width,
+                                  radius: UiSizes.size_15,
                                   backgroundColor: Colors.yellow,
+                                  // TO CONTINUE`
                                   child: Icon(
                                     Icons.edit,
                                     color: Colors.black,
-                                    size: 0.0121 * Get.height +
-                                        0.0243 * Get.width,
+                                    size: UiSizes.size_20,
                                   ),
                                 ),
                               ),
@@ -62,14 +61,12 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.03 * Get.height),
+                      SizedBox(height: UiSizes.height_30),
                       SizedBox(
-                        height: 0.07995 * Get.height,
+                        height: UiSizes.height_66,
                         child: TextFormField(
                           cursorRadius: Radius.circular(10),
-                          style: TextStyle(
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                          style: TextStyle(fontSize: UiSizes.size_14),
                           validator: (value) =>
                               value!.isNotEmpty ? null : "Enter Valid Name",
                           controller: controller.nameController,
@@ -78,26 +75,20 @@ class OnBoardingScreen extends StatelessWidget {
                           decoration: InputDecoration(
                               icon: Icon(
                                 Icons.person,
-                                size: 0.014 * Get.height + 0.029 * Get.width,
+                                size: UiSizes.size_23,
                               ),
-                              errorStyle: TextStyle(
-                                  fontSize:
-                                      0.0085 * Get.height + 0.017 * Get.width),
+                              errorStyle: TextStyle(fontSize: UiSizes.size_14),
                               labelText: "Full Name",
-                              labelStyle: TextStyle(
-                                  fontSize:
-                                      0.0085 * Get.height + 0.017 * Get.width)),
+                              labelStyle: TextStyle(fontSize: UiSizes.size_14)),
                         ),
                       ),
-                      SizedBox(height: 0.03 * Get.height),
+                      SizedBox(height: UiSizes.height_24_6),
                       SizedBox(
-                        height: 0.085 * Get.height,
+                        height: UiSizes.height_70,
                         child: Obx(
                           () => TextFormField(
                             cursorRadius: Radius.circular(10),
-                            style: TextStyle(
-                                fontSize:
-                                    0.0085 * Get.height + 0.017 * Get.width),
+                            style: TextStyle(fontSize: UiSizes.height_14),
                             validator: (value) {
                               if (value!.length > 5) {
                                 return null;
@@ -118,41 +109,34 @@ class OnBoardingScreen extends StatelessWidget {
                             autocorrect: false,
                             decoration: InputDecoration(
                                 floatingLabelStyle: TextStyle(
-                                    fontSize:
-                                        0.0085 * Get.height + 0.017 * Get.width,
+                                    fontSize: UiSizes.height_14,
                                     color: AppColor.yellowColor),
-                                prefixStyle: TextStyle(
-                                    fontSize: 0.0085 * Get.height +
-                                        0.017 * Get.width),
-                                errorStyle: TextStyle(
-                                    fontSize: 0.0085 * Get.height +
-                                        0.017 * Get.width),
+                                prefixStyle:
+                                    TextStyle(fontSize: UiSizes.height_14),
+                                errorStyle:
+                                    TextStyle(fontSize: UiSizes.height_14),
                                 icon: Icon(
                                   Icons.account_circle,
-                                  size: 0.014 * Get.height + 0.029 * Get.width,
+                                  size: UiSizes.size_23,
                                 ),
                                 labelText: "Username",
                                 prefixText: "@",
-                                labelStyle: TextStyle(
-                                    fontSize:
-                                        0.008 * Get.height + 0.015 * Get.width),
+                                labelStyle:
+                                    TextStyle(fontSize: UiSizes.size_13),
                                 suffixIcon: controller.usernameAvailable.value
                                     ? Icon(
                                         Icons.verified_outlined,
-                                        size: 0.014 * Get.height +
-                                            0.029 * Get.width,
+                                        size: UiSizes.size_23,
                                       )
                                     : null),
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.03 * Get.height),
+                      SizedBox(height: UiSizes.height_24_6),
                       SizedBox(
-                        height: 0.07995 * Get.height,
+                        height: UiSizes.height_66,
                         child: TextFormField(
-                          style: TextStyle(
-                              fontSize:
-                                  0.0085 * Get.height + 0.017 * Get.width),
+                          style: TextStyle(fontSize: UiSizes.size_14),
                           validator: (value) =>
                               value!.isNotEmpty ? null : "Enter Valid DOB",
                           readOnly: true,
@@ -162,12 +146,10 @@ class OnBoardingScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             icon: Icon(
                               Icons.calendar_month,
-                              size: 0.014 * Get.height + 0.029 * Get.width,
+                              size: UiSizes.size_23,
                             ),
                             labelText: "Date of Birth",
-                            labelStyle: TextStyle(
-                                fontSize:
-                                    0.0085 * Get.height + 0.017 * Get.width),
+                            labelStyle: TextStyle(fontSize: UiSizes.size_14),
                             suffix: GestureDetector(
                               onTap: () async {
                                 await controller.chooseDate();
@@ -177,9 +159,9 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.08 * Get.height),
+                      SizedBox(height: UiSizes.height_66),
                       SizedBox(
-                        height: 0.0669 * Get.height,
+                        height: UiSizes.height_55,
                       ),
                       Obx(() {
                         return ElevatedButton(
@@ -193,16 +175,14 @@ class OnBoardingScreen extends StatelessWidget {
                                   child: LoadingAnimationWidget
                                       .horizontalRotatingDots(
                                     color: Colors.black,
-                                    size:
-                                        0.024 * Get.height + 0.048 * Get.width,
+                                    size: UiSizes.size_40,
                                   ),
                                 )
                               : Text(
                                   'Submit',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize:
-                                        0.013 * Get.height + 0.026 * Get.width,
+                                    fontSize: UiSizes.size_21_3,
                                   ),
                                 ),
                         );

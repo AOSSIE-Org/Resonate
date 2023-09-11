@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingScreen extends StatelessWidget {
   PairChatController controller = Get.find<PairChatController>();
@@ -16,26 +16,36 @@ class PairingScreen extends StatelessWidget {
       backgroundColor: AppColor.bgBlackColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
           child: Column(
             children: [
               Text(
                 "Finding a Random Partner For You",
-                style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio*6.5),
+                style: TextStyle(
+                    color: Colors.amber, fontSize: Get.pixelRatio * 6.5),
               ),
               SizedBox(
-                height: 5,
+                height: UiSizes.height_5,
               ),
-              Text("Hang on, Good Things take time  🔍"),
+              Text(
+                "Hang on, Good Things take time  🔍",
+                style: TextStyle(fontSize: UiSizes.size_14),
+              ),
               Spacer(),
               //Image.asset("assets/images/pairing.gif"),
               Stack(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: LoadingIndicator(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: UiSizes.width_20,
+                        vertical: UiSizes.height_20),
+                    child: const LoadingIndicator(
                       indicatorType: Indicator.ballScaleMultiple,
-                      colors: [AppColor.yellowColor, Colors.amber, Colors.yellow],
+                      colors: [
+                        AppColor.yellowColor,
+                        Colors.amber,
+                        Colors.yellow
+                      ],
                       strokeWidth: 2,
                     ),
                   ),
@@ -43,8 +53,9 @@ class PairingScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: CircleAvatar(
-                        radius: Get.size.height*0.05,
-                        backgroundImage: NetworkImage((controller.isAnonymous.value)
+                        radius: Get.size.height * 0.05,
+                        backgroundImage: NetworkImage((controller
+                                .isAnonymous.value)
                             ? userProfileImagePlaceholderUrl
                             : Get.find<AuthStateController>().profileImageUrl!),
                       ),
@@ -54,16 +65,20 @@ class PairingScreen extends StatelessWidget {
               ),
               Spacer(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                 child: Column(
                   children: [
-                    Text("Quick fact", style: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio*6.5)),
+                    Text("Quick fact",
+                        style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: Get.pixelRatio * 6.5)),
                     Text(
                       "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: UiSizes.size_14),
                     ),
                     SizedBox(
-                      height: Get.height * 0.08,
+                      height: UiSizes.height_15,
                     ),
                     ElevatedButton(
                       onPressed: () async {

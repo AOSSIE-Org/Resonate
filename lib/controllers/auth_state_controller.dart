@@ -29,7 +29,9 @@ class AuthStateController extends GetxController {
     client
         .setEndpoint(appwriteEndpoint)
         .setProject(appwriteProjectId)
-        .setSelfSigned(status: true); // For self signed certificates, only use for development
+        .setSelfSigned(
+            status:
+                true); // For self signed certificates, only use for development
     account = Account(client);
     databases = Databases(client);
     await setUserProfileData();
@@ -52,23 +54,27 @@ class AuthStateController extends GetxController {
       email = appwriteUser.email;
       isEmailVerified = appwriteUser.emailVerification;
       uid = appwriteUser.$id;
-      isUserProfileComplete = appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+      isUserProfileComplete =
+          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
         Document userDataDoc = await databases.getDocument(
-            databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: appwriteUser.$id);
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
       update();
     } catch (e) {
       log(e.toString());
-    }finally{
+    } finally {
       isInitializing.value = false;
     }
   }
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
+    print(authToken);
     return authToken.jwt;
   }
 
