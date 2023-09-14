@@ -5,9 +5,14 @@ import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool? initScreen = await prefs.getBool("initScreenShown");
+  // await prefs.setBool("initScreen", true);
+  debugPrint('initval ${initScreen}');
   runApp(const MyApp());
 }
 
@@ -37,8 +42,7 @@ class MyApp extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             iconColor: AppColor.yellowColor,
             floatingLabelStyle: TextStyle(
-                color: AppColor.yellowColor,
-                fontSize: UiSizes.size_14),
+                color: AppColor.yellowColor, fontSize: UiSizes.size_14),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                   color: AppColor.yellowColor, width: UiSizes.width_2),
@@ -48,13 +52,13 @@ class MyApp extends StatelessWidget {
             ),
             suffixIconColor: AppColor.yellowColor,
           ),
-          elevatedButtonTheme: 
-          ElevatedButtonThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.yellowColor,
               elevation: 2,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(UiSizes.size_12), // <-- Radius
+                  borderRadius:
+                      BorderRadius.circular(UiSizes.size_12), // <-- Radius
                   side: BorderSide(
                       width: UiSizes.width_1, color: Colors.grey[800]!)),
               minimumSize: Size.fromHeight(UiSizes.height_45), // NEW

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routes/app_routes.dart';
 
@@ -87,7 +88,11 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
-      Get.offNamed(AppRoutes.login);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool? initScreen = prefs.getBool("initScreenShown");
+      initScreen == null
+          ? Get.offNamed(AppRoutes.landing)
+          : Get.offNamed(AppRoutes.login);
     }
   }
 
