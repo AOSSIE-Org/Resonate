@@ -30,27 +30,28 @@ class LandingScreen extends StatelessWidget {
         onFinish: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool("initScreenShown", true);
-
           Get.offNamed(AppRoutes.login);
         },
         finishButtonText: 'Get Started',
         skipTextButton: Text('Skip'),
         background: [
           LandingImage(
-            ImagePath: 'assets/images/no_room.png',
-            InitialHeight: UiSizes.height_140,
-            ImageHeight: UiSizes.height_200,
+            ImagePath: 'assets/images/landing_first.png',
+            InitialHeight: UiSizes.height_82,
+            ImageHeight: UiSizes.height_246 * 1.008,
+            ImageWidth: UiSizes.width_45,
           ),
           LandingImage(
-            ImagePath: 'assets/images/no_room.png',
-            InitialHeight: UiSizes.height_140,
-            ImageHeight: UiSizes.height_200,
+            ImagePath: 'assets/images/landing_second.png',
+            InitialHeight: UiSizes.height_90,
+            ImageHeight: UiSizes.height_246,
+            ImageWidth: UiSizes.width_40,
           ),
           LandingImage(
-            ImagePath: 'assets/images/no_room.png',
-            InitialHeight: UiSizes.height_140,
-            ImageHeight: UiSizes.height_200,
-          ),
+              ImagePath: 'assets/images/landing_third.png',
+              InitialHeight: UiSizes.height_90,
+              ImageHeight: UiSizes.height_246,
+              ImageWidth: UiSizes.width_56),
         ],
         totalPage: 3,
         speed: 1,
@@ -62,7 +63,18 @@ class LandingScreen extends StatelessWidget {
                 SizedBox(
                   height: UiSizes.height_200 * 2,
                 ),
-                Text('Description Text 1'),
+                Text(
+                  'Welcome to Resonate',
+                  style: TextStyle(fontSize: UiSizes.size_23),
+                ),
+                SizedBox(
+                  height: UiSizes.height_16,
+                ),
+                Text(
+                  "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+                  style: TextStyle(fontSize: UiSizes.size_16),
+                  textAlign: TextAlign.center,
+                )
               ],
             ),
           ),
@@ -73,7 +85,19 @@ class LandingScreen extends StatelessWidget {
                 SizedBox(
                   height: UiSizes.height_200 * 2,
                 ),
-                Text('Description Text 2'),
+                Text(
+                  'Explore Diverse Conversations',
+                  style: TextStyle(fontSize: UiSizes.size_23),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: UiSizes.height_20,
+                ),
+                Text(
+                  "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",
+                  style: TextStyle(fontSize: UiSizes.size_16),
+                  textAlign: TextAlign.center,
+                )
               ],
             ),
           ),
@@ -84,7 +108,18 @@ class LandingScreen extends StatelessWidget {
                 SizedBox(
                   height: UiSizes.height_200 * 2,
                 ),
-                Text('Description Text 3'),
+                Text(
+                  'Your Voice Matters',
+                  style: TextStyle(fontSize: UiSizes.size_23),
+                ),
+                SizedBox(
+                  height: UiSizes.height_16,
+                ),
+                Text(
+                  "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
+                  style: TextStyle(fontSize: UiSizes.size_16),
+                  textAlign: TextAlign.center,
+                )
               ],
             ),
           ),
@@ -101,10 +136,12 @@ class LandingImage extends StatelessWidget {
     required this.ImagePath,
     required this.InitialHeight,
     required this.ImageHeight,
+    required this.ImageWidth,
   });
   String ImagePath;
   double InitialHeight;
   double ImageHeight;
+  double ImageWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +153,7 @@ class LandingImage extends StatelessWidget {
         Row(
           children: [
             SizedBox(
-              width: UiSizes.width_16,
+              width: ImageWidth,
             ),
             Image.asset(
               ImagePath,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +13,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? initScreen = await prefs.getBool("initScreenShown");
-  // await prefs.setBool("initScreen", true);
-  debugPrint('initval ${initScreen}');
+  log('initval ${initScreen}');
+
   runApp(const MyApp());
 }
 
