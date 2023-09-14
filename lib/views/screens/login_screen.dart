@@ -45,8 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(fontSize: UiSizes.size_25),
                 ),
                 SizedBox(height: UiSizes.height_15),
-                Container(
-                  height: UiSizes.height_66,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
                   child: TextFormField(
                     validator: (value) => value!.isValidEmail()
                         ? null
@@ -66,8 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: UiSizes.height_10),
-                Container(
-                  height: UiSizes.height_66,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
                   child: Obx(
                     () => TextFormField(
                       controller: controller.passwordController,
