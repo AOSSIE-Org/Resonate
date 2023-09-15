@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
@@ -15,14 +16,13 @@ import 'auth_state_controller.dart';
 
 class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
-  Client client = Client();
+  Client client = AppwriteService.getClient();
   late final Databases databases;
   List<AppwriteRoom> rooms = [];
 
   @override
   void onInit() async {
     super.onInit();
-    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
     databases = Databases(client);
     await getRooms();
   }
