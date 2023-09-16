@@ -13,6 +13,10 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnBoardingSlider(
+        leading: Image.asset(
+          "assets/images/resonate_logo.png",
+          height: UiSizes.height_24_6,
+        ),
         controllerColor: AppColor.yellowColor,
         hasFloatingButton: true,
         headerBackgroundColor: AppColor.bgBlackColor,
