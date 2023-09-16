@@ -24,16 +24,9 @@ class PairChatController extends GetxController {
   int? myRoomUserId;
 
   Client client = AppwriteService.getClient();
-  late final Realtime realtime;
-  late final Databases databases;
+  final Realtime realtime = AppwriteService.getRealtime();
+  final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
-
-  @override
-  void onInit() async {
-    realtime = Realtime(client);
-    databases = Databases(client);
-    super.onInit();
-  }
 
   void quickMatch() async {
     String uid = Get.find<AuthStateController>().uid!;

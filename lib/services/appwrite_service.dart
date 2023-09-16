@@ -3,6 +3,8 @@ import 'package:resonate/utils/constants.dart';
 
 class AppwriteService {
   static Client? _client;
+  static Databases? _database;
+  static Realtime? _realtime;
 
   // Instantiates a new AppWrite Client if it doesn't exist
   static Client getClient() {
@@ -13,5 +15,17 @@ class AppwriteService {
           status: true
         ); // For self signed certificates, only use for development
     return _client!;
+  }
+
+  // Instantiates a new Databases Instance if it doesn't exist
+  static Databases getDatabases() {
+    _database ??= Databases(getClient());
+    return _database!;
+  }
+
+  // Instantiates a new Realtime Instance if it doesn't exist
+  static Realtime getRealtime() {
+    _realtime ??= Realtime(getClient());
+    return _realtime!;
   }
 }

@@ -28,8 +28,8 @@ class SingleRoomController extends GetxController {
       .obs;
   Client client = AppwriteService.getClient();
   final AppwriteRoom appwriteRoom;
-  late final Realtime realtime;
-  late final Databases databases;
+  final Realtime realtime = AppwriteService.getRealtime();
+  final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
   RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
 
@@ -37,8 +37,6 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    realtime = Realtime(client);
-    databases = Databases(client);
     await Future.delayed(Duration(milliseconds: 500));
     await getParticipants();
     getRealtimeStream();

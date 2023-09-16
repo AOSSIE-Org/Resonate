@@ -12,9 +12,9 @@ import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();
+  final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
   late final Account account;
-  late final Databases databases;
   late String? uid;
   late String? displayName;
   late String? email;
@@ -28,7 +28,6 @@ class AuthStateController extends GetxController {
   void onInit() async {
     super.onInit();
     account = Account(client);
-    databases = Databases(client);
     await setUserProfileData();
   }
 

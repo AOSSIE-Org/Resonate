@@ -17,13 +17,12 @@ import 'auth_state_controller.dart';
 class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
   Client client = AppwriteService.getClient();
-  late final Databases databases;
+  final Databases databases = AppwriteService.getDatabases();
   List<AppwriteRoom> rooms = [];
 
   @override
   void onInit() async {
     super.onInit();
-    databases = Databases(client);
     await getRooms();
   }
 
