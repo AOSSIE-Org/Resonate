@@ -90,6 +90,11 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 -   [Discord Server](https://discord.com/invite/6mFZ2S846n)
 -   [Email](mailto:aossie.oss@gmail.com)
 
+## Maintainers
+
+-   [Jaideep Prasad](https://github.com/jddeep)
+-   [Chandan S. Gowda](https://github.com/chandansgowda)
+
 We appreciate your contributions and look forward to working with you to make this project even better!
 
 By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!
