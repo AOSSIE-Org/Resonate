@@ -71,6 +71,14 @@ class AuthenticationController extends GetxController {
       log(error.toString());
     }
   }
+
+  Future<void> loginWithGithub() async {
+    try {
+      await authStateController.loginWithGithub();
+    } catch (error) {
+      log(error.toString());
+    }
+  }
 }
 
 extension Validator on String {

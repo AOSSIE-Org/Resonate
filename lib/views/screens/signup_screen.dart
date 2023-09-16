@@ -168,7 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                   ),
                 ),
-                SizedBox(height: UiSizes.height_16),
+                SizedBox(height: UiSizes.height_12),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -191,7 +191,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: UiSizes.size_16),
+                SizedBox(height: UiSizes.size_12),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffFFFFE0),
@@ -212,6 +212,35 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       Text(
                         'Sign up with Google',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: UiSizes.size_17,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_10),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffFFFFE0),
+                  ),
+                  onPressed: () async {
+                    await controller.loginWithGithub();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: UiSizes.height_30,
+                        width: UiSizes.width_30,
+                        child: Image.asset("assets/images/github_icon.png"),
+                      ),
+                      SizedBox(
+                        width: UiSizes.width_10,
+                      ),
+                      Text(
+                        'Sign up with Github',
                         style: TextStyle(
                           color: Colors.black54,
                           fontSize: UiSizes.size_17,
