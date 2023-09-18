@@ -5,6 +5,7 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/auth_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -163,62 +164,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: UiSizes.height_20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFFE0),
-                  ),
+                AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGoogle();
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: UiSizes.height_30,
-                        width: UiSizes.width_30,
-                        child: Image.asset("assets/images/google_icon.png"),
-                      ),
-                      SizedBox(
-                        width: UiSizes.width_10,
-                      ),
-                      Text(
-                        'Login with Google',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: UiSizes.size_17,
-                        ),
-                      ),
-                    ],
-                  ),
+                  logoPath: "assets/images/google_icon.png",
+                  authText: "Login with Google",
                 ),
                 SizedBox(height: UiSizes.height_12),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFFE0),
-                  ),
+                AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGithub();
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: UiSizes.height_30,
-                        width: UiSizes.width_30,
-                        child: Image.asset("assets/images/github_icon.png"),
-                      ),
-                      SizedBox(
-                        width: UiSizes.width_10,
-                      ),
-                      Text(
-                        'Login with Github',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: UiSizes.size_17,
-                        ),
-                      ),
-                    ],
-                  ),
+                  logoPath: "assets/images/github_icon.png",
+                  authText: "Login with Github",
                 ),
                 Spacer(),
                 Row(
