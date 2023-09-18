@@ -48,8 +48,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: TextStyle(fontSize: UiSizes.size_25),
                 ),
                 SizedBox(height: UiSizes.height_15),
-                SizedBox(
-                  height: UiSizes.height_66,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                   child: TextFormField(
                     validator: (value) => value!.isValidEmail()
                         ? null
@@ -69,8 +69,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 SizedBox(height: UiSizes.height_10),
-                SizedBox(
-                  height: UiSizes.height_66,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                   child: TextFormField(
                     style: TextStyle(fontSize: UiSizes.size_14),
                     validator: (value) => value!.isValidPassword()
@@ -91,8 +91,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 SizedBox(height: UiSizes.height_10),
-                SizedBox(
-                  height: UiSizes.height_66,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                   child: Obx(
                     () => TextFormField(
                       style: TextStyle(fontSize: UiSizes.size_14),
