@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? initScreen = await prefs.getBool("initScreenShown");
+  bool? initScreen = prefs.getBool("landingScreenShown");
   log('initval ${initScreen}');
 
   runApp(const MyApp());
