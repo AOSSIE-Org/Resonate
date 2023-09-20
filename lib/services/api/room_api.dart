@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart' hide Get;
+import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:resonate/controllers/auth_state_controller.dart';
 
@@ -33,6 +35,7 @@ class RoomApiClient {
       ];
 
       _client = ChopperClient(
+        client: RetryClient(http.Client()),
         baseUrl: Uri.parse(baseUrl),
         services: [_$RoomApi()],
         converter: const JsonConverter(),
