@@ -39,8 +39,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  width: UiSizes.width_180,
-                  height: UiSizes.height_180,
+                  width: UiSizes.width_140,
+                  height: UiSizes.height_131,
                   child: Image.asset("assets/images/aossie_logo.png"),
                 ),
                 SizedBox(height: UiSizes.height_15),
@@ -192,7 +192,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: UiSizes.size_12),
+                SizedBox(height: UiSizes.size_14),
                 AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGoogle();
@@ -200,7 +200,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   logoPath: "assets/images/google_icon.png",
                   authText: "Signup with Google",
                 ),
-                SizedBox(height: UiSizes.height_10),
+                SizedBox(height: UiSizes.height_14),
                 AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGithub();
