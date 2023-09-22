@@ -33,7 +33,7 @@ class LandingScreen extends StatelessWidget {
         ),
         onFinish: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setBool("initScreenShown", true);
+          await prefs.setBool("landingScreenShown", true);
           Get.offNamed(AppRoutes.login);
         },
         finishButtonText: 'Get Started',
