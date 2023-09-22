@@ -89,8 +89,8 @@ class AuthStateController extends GetxController {
       }
     } catch (e) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool? initScreen = prefs.getBool("landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
-      initScreen == null
+      bool? landingScreenShown = prefs.getBool("landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+      landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
           : Get.offNamed(AppRoutes.login);
     }
