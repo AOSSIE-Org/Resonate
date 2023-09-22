@@ -12,8 +12,6 @@ import 'package:get_storage/get_storage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  bool? landingScreenShown = GetStorage().read("landingScreenShown");
-  log('initval ${landingScreenShown}');
   runApp(const MyApp());
 }
 
