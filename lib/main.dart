@@ -7,14 +7,13 @@ import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? landingScreenShown = prefs.getBool("landingScreenShown");
+  await GetStorage.init();
+  bool? landingScreenShown = GetStorage().read("landingScreenShown");
   log('initval ${landingScreenShown}');
-
   runApp(const MyApp());
 }
 

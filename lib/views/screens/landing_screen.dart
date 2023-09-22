@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -32,8 +32,7 @@ class LandingScreen extends StatelessWidget {
           color: AppColor.bgBlackColor,
         ),
         onFinish: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setBool("landingScreenShown", true);
+          await GetStorage().write("landingScreenShown", true);
           Get.offNamed(AppRoutes.login);
         },
         finishButtonText: 'Get Started',
