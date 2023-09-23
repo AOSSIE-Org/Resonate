@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -87,7 +88,10 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
-      Get.offNamed(AppRoutes.login);
+      bool? landingScreenShown = GetStorage().read("landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+      landingScreenShown == null
+          ? Get.offNamed(AppRoutes.landing)
+          : Get.offNamed(AppRoutes.login);
     }
   }
 

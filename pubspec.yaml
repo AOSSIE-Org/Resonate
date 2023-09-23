@@ -69,6 +69,8 @@ dependencies:
   internet_connection_checker_plus: 1.0.1
   language_picker: ^0.4.3
   stop_watch_timer: ^3.0.1
+  flutter_onboarding_slider: ^1.0.10
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
