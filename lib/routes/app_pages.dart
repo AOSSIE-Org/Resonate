@@ -5,6 +5,7 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
+import 'package:resonate/views/screens/landing_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
@@ -22,6 +23,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.splash,
       page: () => const SplashScreen(),
+      binding: AuthSplashBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.landing,
+      page: () => const LandingScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
