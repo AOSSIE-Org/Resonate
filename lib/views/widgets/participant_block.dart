@@ -7,6 +7,13 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../models/participant.dart';
 
+class FocusedMenuItemData {
+  final String textContent;
+  final Function action;
+
+  FocusedMenuItemData(this.textContent, this.action);
+}
+
 class ParticipantBlock extends StatelessWidget {
   ParticipantBlock({
     super.key,
@@ -29,12 +36,100 @@ class ParticipantBlock extends StatelessWidget {
     }
   }
 
+  List<FocusedMenuItem> makeMenuItems(List<FocusedMenuItemData> items) {
+    return items
+        .map((item) => FocusedMenuItem(
+            title: Text(
+              item.textContent,
+              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_14),
+            ),
+            trailingIcon: Icon(
+              Icons.remove_circle_outline,
+              color: Colors.red,
+              size: UiSizes.size_18,
+            ),
+            onPressed: item.action,
+            backgroundColor: Colors.black))
+        .toList();
+  }
+
+  List<FocusedMenuItem> getMenuItems() {
+    if ((!controller.me.value.isAdmin && !controller.me.value.isModerator) ||
+        participant.isAdmin) {
+      return [];
+    }
+
+    if (controller.me.value.isAdmin) {
+      if (participant.isModerator) {
+        return makeMenuItems([
+          FocusedMenuItemData(
+            "Remove Moderator",
+            () {
+              controller.removeModerator(participant);
+            },
+          ),
+          FocusedMenuItemData(
+            "Kick Out",
+            () {
+              controller.kickOutParticipant(participant);
+            },
+          )
+        ]);
+      } else {
+        return makeMenuItems([
+          FocusedMenuItemData("Add Moderator", () {
+            controller.makeModerator(participant);
+          }),
+          if (participant.hasRequestedToBeSpeaker)
+            FocusedMenuItemData("Add Speaker", () {
+              controller.makeSpeaker(participant);
+            }),
+          if (participant.isSpeaker)
+            FocusedMenuItemData("Make Listener", () {
+              controller.makeListener(participant);
+            }),
+          FocusedMenuItemData(
+            "Kick Out",
+            () {
+              controller.kickOutParticipant(participant);
+            },
+          ),
+        ]);
+      }
+    }
+
+    if (controller.me.value.isModerator) {
+      if (participant.isModerator) {
+        return [];
+      } else {
+        return makeMenuItems([
+          if (participant.hasRequestedToBeSpeaker)
+            FocusedMenuItemData("Add Speaker", () {
+              controller.makeSpeaker(participant);
+            }),
+          if (participant.isSpeaker)
+            FocusedMenuItemData("Make Listener", () {
+              controller.makeListener(participant);
+            }),
+          FocusedMenuItemData(
+            "Kick Out",
+            () {
+              controller.kickOutParticipant(participant);
+            },
+          ),
+        ]);
+      }
+    }
+
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return FocusedMenuHolder(
       onPressed: () {},
       menuItemExtent: UiSizes.width_45,
-      menuWidth: UiSizes.width_180,
+      menuWidth: UiSizes.width_200 * 1.05,
       menuBoxDecoration: BoxDecoration(
         color: Colors.amber,
         borderRadius: BorderRadius.circular(5.0),
@@ -46,61 +141,13 @@ class ParticipantBlock extends StatelessWidget {
       duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
       blurBackgroundColor: Colors.black54,
-      menuItems: (controller.me.value.isAdmin)
-          ? (participant.isAdmin)
-              ? []
-              : [
-                  if (participant.hasRequestedToBeSpeaker)
-                    FocusedMenuItem(
-                        title: Text(
-                          "Add Speaker",
-                          style: TextStyle(
-                              color: Colors.amber, fontSize: UiSizes.size_14),
-                        ),
-                        trailingIcon: Icon(
-                          Icons.record_voice_over,
-                          color: Colors.green,
-                          size: UiSizes.size_18,
-                        ),
-                        onPressed: () {
-                          controller.makeSpeaker(participant);
-                        },
-                        backgroundColor: Colors.black),
-                  if (participant.isSpeaker)
-                    FocusedMenuItem(
-                        title: Text(
-                          "Make Listener",
-                          style: TextStyle(
-                              color: Colors.amber, fontSize: UiSizes.size_14),
-                        ),
-                        trailingIcon: Icon(
-                          Icons.mic_off_sharp,
-                          color: Colors.red,
-                          size: UiSizes.size_18,
-                        ),
-                        onPressed: () {
-                          controller.makeListener(participant);
-                        },
-                        backgroundColor: Colors.black),
-                  FocusedMenuItem(
-                      title: Text(
-                        "Kick Out",
-                        style: TextStyle(
-                            color: Colors.amber, fontSize: UiSizes.size_14),
-                      ),
-                      trailingIcon: Icon(
-                        Icons.remove_circle_outline,
-                        color: Colors.red,
-                        size: UiSizes.size_18,
-                      ),
-                      onPressed: () {
-                        controller.kickOutParticipant(participant);
-                      },
-                      backgroundColor: Colors.black),
-                ]
-          : [],
-      openWithTap:
-          (controller.me.value.isAdmin && !participant.isAdmin) ? true : false,
+      menuItems: getMenuItems(),
+      openWithTap: ((controller.me.value.isAdmin ||
+                  (controller.me.value.isModerator &&
+                      !participant.isModerator)) &&
+              !participant.isAdmin)
+          ? true
+          : false,
       child: Container(
         padding: EdgeInsets.symmetric(
             vertical: UiSizes.height_2, horizontal: UiSizes.width_2),
@@ -129,23 +176,26 @@ class ParticipantBlock extends StatelessWidget {
                     : null,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (participant.isSpeaker)
-                  Icon(
-                    (participant.isMicOn) ? Icons.mic : Icons.mic_off,
-                    color: (participant.isMicOn)
-                        ? Colors.lightGreenAccent
-                        : Colors.red,
-                    size: UiSizes.size_16,
-                  ),
-                Text(
-                  participant.name.split(' ').first,
-                  style:
-                      TextStyle(color: Colors.white, fontSize: UiSizes.size_16),
-                ),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (participant.isSpeaker)
+                    Icon(
+                      (participant.isMicOn) ? Icons.mic : Icons.mic_off,
+                      color: (participant.isMicOn)
+                          ? Colors.lightGreenAccent
+                          : Colors.red,
+                      size: UiSizes.size_16,
+                    ),
+                  Text(
+                    participant.name.split(' ').first,
+                    style: TextStyle(
+                        color: Colors.white, fontSize: UiSizes.size_16),
+                  )
+                ],
+              ),
             ),
             Text(
               getUserRole(),
