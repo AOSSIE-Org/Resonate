@@ -122,7 +122,7 @@ class AuthStateController extends GetxController {
       contentPadding: const EdgeInsets.only(bottom: 20),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
-        Get.offNamed(AppRoutes.login);
+        Get.offAllNamed(AppRoutes.login);
       },
     );
   }
