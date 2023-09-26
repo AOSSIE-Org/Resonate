@@ -106,6 +106,11 @@ class AuthStateController extends GetxController {
     await isUserLoggedIn();
   }
 
+  Future<void> loginWithGithub() async {
+    await account.createOAuth2Session(provider: 'github');
+    await isUserLoggedIn();
+  }
+
   Future<void> logout() async {
     Get.defaultDialog(
       title: "Are you sure?",

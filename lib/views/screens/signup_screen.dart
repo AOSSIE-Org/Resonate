@@ -5,6 +5,7 @@ import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/auth_button.dart';
 
 import '../../controllers/email_verify_controller.dart';
 
@@ -38,8 +39,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  width: UiSizes.width_180,
-                  height: UiSizes.height_180,
+                  width: UiSizes.width_140,
+                  height: UiSizes.height_131,
                   child: Image.asset("assets/images/aossie_logo.png"),
                 ),
                 SizedBox(height: UiSizes.height_15),
@@ -168,7 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                   ),
                 ),
-                SizedBox(height: UiSizes.height_16),
+                SizedBox(height: UiSizes.height_12),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -191,34 +192,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: UiSizes.size_16),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFFE0),
-                  ),
+                SizedBox(height: UiSizes.size_14),
+                AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGoogle();
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: UiSizes.height_30,
-                        width: UiSizes.width_30,
-                        child: Image.asset("assets/images/google_icon.png"),
-                      ),
-                      SizedBox(
-                        width: UiSizes.width_10,
-                      ),
-                      Text(
-                        'Sign up with Google',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: UiSizes.size_17,
-                        ),
-                      ),
-                    ],
-                  ),
+                  logoPath: "assets/images/google_icon.png",
+                  authText: "Signup with Google",
+                ),
+                SizedBox(height: UiSizes.height_14),
+                AuthButtonWidget(
+                  onPressed: () async {
+                    await controller.loginWithGithub();
+                  },
+                  logoPath: "assets/images/github_icon.png",
+                  authText: "Signup with Github",
                 ),
                 Spacer(),
                 Row(
