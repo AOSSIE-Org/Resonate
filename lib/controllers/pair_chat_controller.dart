@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -22,18 +23,10 @@ class PairChatController extends GetxController {
   String? activePairDocId;
   int? myRoomUserId;
 
-  Client client = Client();
-  late final Realtime realtime;
-  late final Databases databases;
+  Client client = AppwriteService.getClient();
+  final Realtime realtime = AppwriteService.getRealtime();
+  final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
-
-  @override
-  void onInit() async {
-    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
-    realtime = Realtime(client);
-    databases = Databases(client);
-    super.onInit();
-  }
 
   void quickMatch() async {
     String uid = Get.find<AuthStateController>().uid!;

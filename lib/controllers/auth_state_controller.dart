@@ -5,16 +5,17 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
-  Client client = Client();
+  Client client = AppwriteService.getClient();
+  final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
   late final Account account;
-  late final Databases databases;
   late String? uid;
   late String? displayName;
   late String? email;
@@ -27,14 +28,7 @@ class AuthStateController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    client
-        .setEndpoint(appwriteEndpoint)
-        .setProject(appwriteProjectId)
-        .setSelfSigned(
-            status:
-                true); // For self signed certificates, only use for development
     account = Account(client);
-    databases = Databases(client);
     await setUserProfileData();
   }
 

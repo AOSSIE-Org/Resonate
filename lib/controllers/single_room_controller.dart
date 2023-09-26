@@ -7,6 +7,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
+import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 
 import '../utils/constants.dart';
@@ -25,10 +26,10 @@ class SingleRoomController extends GetxController {
           isSpeaker: appwriteRoom.isUserAdmin,
           hasRequestedToBeSpeaker: false)
       .obs;
-  Client client = Client();
+  Client client = AppwriteService.getClient();
   final AppwriteRoom appwriteRoom;
-  late final Realtime realtime;
-  late final Databases databases;
+  final Realtime realtime = AppwriteService.getRealtime();
+  final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
   RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
 
@@ -36,9 +37,6 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    client.setEndpoint(appwriteEndpoint).setProject(appwriteProjectId).setSelfSigned(status: true);
-    realtime = Realtime(client);
-    databases = Databases(client);
     await Future.delayed(Duration(milliseconds: 500));
     await getParticipants();
     getRealtimeStream();
