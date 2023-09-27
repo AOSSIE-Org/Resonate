@@ -225,6 +225,16 @@ class SingleRoomController extends GetxController {
     me.value.hasRequestedToBeSpeaker = false;
   }
 
+  Future<void> makeModerator(Participant participant) async {
+    String participantDocId = await getParticipantDocId(participant);
+    await updateParticipantDoc(participantDocId, {"isSpeaker": true, "hasRequestedToBeSpeaker": false, "isModerator": true});
+  }
+
+  Future<void> removeModerator(Participant participant) async {
+    String participantDocId = await getParticipantDocId(participant);
+    await updateParticipantDoc(participantDocId, {"isSpeaker": false, "hasRequestedToBeSpeaker": false, "isModerator": false});
+  }
+
   Future<void> makeSpeaker(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
     await updateParticipantDoc(participantDocId, {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
