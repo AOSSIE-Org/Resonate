@@ -21,9 +21,9 @@ const String participantsCollectionId = "64a63e508145d1084abf";
 const String pairRequestCollectionId = "64d980211f1395263ebe";
 const String activePairsCollectionId = "64d980cd65ff2e08ab97";
 
-const String sendOtpFunctionID = "64b281652d75cced214d";
-const String verifyOtpFunctionID = "64b28abda38a121b12b1";
-const String verifyUserFunctionID = "64b291891e5beefab2be";
+const String sendOtpFunctionID = "6513e9d40b57c6ec156f";
+const String verifyOtpFunctionID = "651303df122abc151bf3";
+const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
