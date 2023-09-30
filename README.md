@@ -1,7 +1,7 @@
 <div align="center">
  <img src="assets/images/resonate_logo.png" alt="Resonate logo" width="200" height="auto" />
 
-# Resonate - An Open Source Social Voice Platform
+# :microphone: Resonate - An Open Source Social Voice Platform
 <a href="https://livekit.io" target="_blank"><img width="200" src="https://livekit.io/images/livekit-open-graph.png" alt="Livekit Logo"></a>
 
 <span>
@@ -23,37 +23,56 @@
 </div>
 
 
-With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community, but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
 
-## Goals
+## :rocket: Goals
 1.  Design and Develop a Flutter Mobile Application.
-2.  Develop a backend for the app using NodeJS, Appwrite and LiveKit.
+2.  Develop a backend for the app using NodeJS, Appwrite, and LiveKit.
 
-## Technologies Used
+## :computer: Technologies Used
 
 1.  **Flutter** - Mobile application
 2.  **Appwrite** - Authentication, Database for Room and Participant management, Storage for user/group data
 3.  **NodeJS** - REST API to talk to Livekit & Appwrite
-4.  **LiveKit** - Web Real Time Communication 
+4.  **LiveKit** - Web Real-Time Communication 
 
-## High Level Architecture
+## :mag_right: High Level Architecture
 
 ![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
 
 
-## App Level Design Pattern
+## :iphone: App Level Design Pattern
 
-Flutter will be used to develop the application for various platforms. We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management.
+Flutter will be used to develop the application for various platforms. 
 
-## Repository Links
+We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management.
+
+## :link: Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
-## Contributing
+## :movie_camera: App Screenshots
+<div align="center">
+<span>
+<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/465a4aac-8ce5-466e-b0c7-3dee45d929ea" width="250" height="auto" />
+<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/e36186e5-c10f-4767-9f93-bb9a8a2a0cbf" width="250" height="auto" />
+<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/9b853396-cc1a-416e-bb48-82dc830e1973" width="250" height="auto" />
+</span>
+<br/>
+ <br/>
+<span>
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/6f660459-93df-4c64-8dec-83aa84139e99" width="250" height="auto" />
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/c9b165ff-aaa3-458e-879b-8692e0a7aea4" width="250" height="auto" />
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/09ffddd7-437c-4a3c-95cf-681e5e99f6e1" width="250" height="auto" />
+</span> 
+</div>
+
+
+## :raised_hands: Contributing
 
 Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
-## Communication Channels
+## :mailbox: Communication Channels
 
 If you have any questions, need clarifications, or want to discuss ideas, feel free to reach out through the following channels:
 
@@ -61,11 +80,11 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 -   [Email](mailto:aossie.oss@gmail.com)
 
 <!-- License -->
-## License
+## :round_pushpin: License
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
 
-## Maintainers
+## :v: Maintainers
 
 -   [Jaideep Prasad](https://github.com/jddeep)
 -   [Chandan S. Gowda](https://github.com/chandansgowda)
