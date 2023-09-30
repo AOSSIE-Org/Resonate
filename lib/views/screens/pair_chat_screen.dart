@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
+  AuthStateController authStateController = Get.find<AuthStateController>();
   PairChatController controller = Get.find<PairChatController>();
 
   @override
@@ -49,15 +51,20 @@ class PairChatScreen extends StatelessWidget {
                           Column(
                             children: [
                               CircleAvatar(
-                                backgroundImage: const NetworkImage(
-                                    userProfileImagePlaceholderUrl),
+                                backgroundImage: NetworkImage(
+                                    controller.isAnonymous.value
+                                        ? userProfileImagePlaceholderUrl
+                                        : authStateController.profileImageUrl!),
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
                                 height: UiSizes.height_12,
                               ),
                               FittedBox(
-                                child: Text("User 1",
+                                child: Text(
+                                    controller.isAnonymous.value
+                                        ? "User1"
+                                        : authStateController.userName!,
                                     style:
                                         TextStyle(fontSize: UiSizes.size_14)),
                               )
@@ -71,8 +78,10 @@ class PairChatScreen extends StatelessWidget {
                           Column(
                             children: [
                               CircleAvatar(
-                                backgroundImage: const NetworkImage(
-                                    userProfileImagePlaceholderUrl),
+                                backgroundImage: NetworkImage(
+                                    controller.isAnonymous.value
+                                        ? userProfileImagePlaceholderUrl
+                                        : controller.pairProfileImageUrl!),
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
@@ -81,7 +90,9 @@ class PairChatScreen extends StatelessWidget {
                               FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Text(
-                                  "User 2",
+                                  controller.isAnonymous.value
+                                      ? "User2"
+                                      : controller.pairUsername!,
                                   style: TextStyle(fontSize: UiSizes.size_14),
                                 ),
                               )
