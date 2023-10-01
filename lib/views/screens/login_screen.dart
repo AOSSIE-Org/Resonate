@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          height: UiSizes.height_765,
+          height: UiSizes.height_780,
           padding: EdgeInsets.symmetric(
               horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
           child: Form(
@@ -171,7 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   logoPath: "assets/images/google_icon.png",
                   authText: "Login with Google",
                 ),
-                SizedBox(height: UiSizes.height_16),
+
+                SizedBox(height: UiSizes.height_15),
                 AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGithub();
@@ -179,32 +180,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   logoPath: "assets/images/github_icon.png",
                   authText: "Login with Github",
                 ),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "New to Resonate?",
-                      style: TextStyle(fontSize: UiSizes.size_14),
-                    ),
-                    SizedBox(
-                      width: UiSizes.width_5,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        controller.emailController.clear();
-                        controller.passwordController.clear();
-                        Get.toNamed(AppRoutes.signup);
-                      },
-                      child: Text(
-                        "Register",
-                        style: TextStyle(
-                            color: AppColor.yellowColor,
-                            fontSize: UiSizes.size_14),
+                SizedBox(height: UiSizes.height_15),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "New to Resonate?",
+                        style: TextStyle(fontSize: UiSizes.size_14),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        width: UiSizes.width_5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          controller.emailController.clear();
+                          controller.passwordController.clear();
+                          Get.toNamed(AppRoutes.signup);
+                        },
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                              color: AppColor.yellowColor,
+                              fontSize: UiSizes.size_14),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
+
               ],
             ),
           ),

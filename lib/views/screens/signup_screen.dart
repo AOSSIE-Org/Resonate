@@ -31,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          height: UiSizes.height_765,
+          height: UiSizes.height_765 * 1.1,
           padding: EdgeInsets.symmetric(
               horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
           child: Form(
@@ -69,14 +69,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: UiSizes.height_10),
+                SizedBox(height: UiSizes.height_8),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                   child: TextFormField(
                     style: TextStyle(fontSize: UiSizes.size_14),
                     validator: (value) => value!.isValidPassword()
                         ? null
-                        : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                        : "Password must be at least 6 digit, with one lowercase,\none uppercase and one numeric value.",
                     controller: controller.passwordController,
                     obscureText: true,
                     enableSuggestions: false,
@@ -192,7 +192,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: UiSizes.size_14),
+                SizedBox(height: UiSizes.height_14),
                 AuthButtonWidget(
                   onPressed: () async {
                     await controller.loginWithGoogle();
@@ -208,24 +208,25 @@ class _SignupScreenState extends State<SignupScreen> {
                   logoPath: "assets/images/github_icon.png",
                   authText: "Signup with Github",
                 ),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already on Resonate?  ",
-                      style: TextStyle(fontSize: UiSizes.size_14),
-                    ),
-                    GestureDetector(
-                      onTap: () => Get.offNamed(AppRoutes.login),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: AppColor.yellowColor,
-                            fontSize: UiSizes.size_14),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already on Resonate?  ",
+                        style: TextStyle(fontSize: UiSizes.size_14),
                       ),
-                    )
-                  ],
+                      GestureDetector(
+                        onTap: () => Get.offNamed(AppRoutes.login),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              color: AppColor.yellowColor,
+                              fontSize: UiSizes.size_14),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
