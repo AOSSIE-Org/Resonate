@@ -76,12 +76,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(fontSize: UiSizes.size_14),
                     validator: (value) => value!.isValidPassword()
                         ? null
-                        : "Password must be at least 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                        : "Password must be at least 6 digits, with one lowercase,\none uppercase and one numeric value.",
                     controller: controller.passwordController,
                     obscureText: true,
                     enableSuggestions: false,
                     autocorrect: false,
                     decoration: InputDecoration(
+                      errorMaxLines: 2, // number of lines the error text would wrap
                       icon: Icon(
                         size: UiSizes.size_23,
                         Icons.lock_outline_rounded,
@@ -193,41 +194,51 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
                 SizedBox(height: UiSizes.height_14),
-                AuthButtonWidget(
-                  onPressed: () async {
-                    await controller.loginWithGoogle();
-                  },
-                  logoPath: "assets/images/google_icon.png",
-                  authText: "Signup with Google",
-                ),
-                SizedBox(height: UiSizes.height_14),
-                AuthButtonWidget(
-                  onPressed: () async {
-                    await controller.loginWithGithub();
-                  },
-                  logoPath: "assets/images/github_icon.png",
-                  authText: "Signup with Github",
-                ),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already on Resonate?  ",
-                        style: TextStyle(fontSize: UiSizes.size_14),
-                      ),
-                      GestureDetector(
-                        onTap: () => Get.offNamed(AppRoutes.login),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: AppColor.yellowColor,
-                              fontSize: UiSizes.size_14),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        AuthButtonWidget(
+                          onPressed: () async {
+                            await controller.loginWithGoogle();
+                          },
+                          logoPath: "assets/images/google_icon.png",
+                          authText: "Signup with Google",
+
                         ),
-                      )
-                    ],
+
+                        SizedBox(height: UiSizes.height_14),
+                        AuthButtonWidget(
+                          onPressed: () async {
+                            await controller.loginWithGithub();
+                          },
+                          logoPath: "assets/images/github_icon.png",
+                          authText: "Signup with Github",
+                        ),
+                        SizedBox(height: UiSizes.height_30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Already on Resonate?  ",
+                              style: TextStyle(fontSize: UiSizes.size_14),
+                            ),
+                            GestureDetector(
+                              onTap: () => Get.offNamed(AppRoutes.login),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: AppColor.yellowColor,
+                                    fontSize: UiSizes.size_14),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+
               ],
             ),
           ),
