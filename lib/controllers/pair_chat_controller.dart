@@ -23,6 +23,9 @@ class PairChatController extends GetxController {
   String? activePairDocId;
   int? myRoomUserId;
 
+  String? pairUsername;
+  String? pairProfileImageUrl;
+
   Client client = AppwriteService.getClient();
   final Realtime realtime = AppwriteService.getRealtime();
   final Databases databases = AppwriteService.getDatabases();
@@ -30,16 +33,20 @@ class PairChatController extends GetxController {
 
   void quickMatch() async {
     String uid = Get.find<AuthStateController>().uid!;
+    String userName = Get.find<AuthStateController>().userName!;
 
     // Open realtime stream to check whether the request is paired
     getRealtimeStream();
+
+    Map<String, dynamic> requestData = {"languageIso": languageIso, "isAnonymous": isAnonymous.value, "uid": uid};
+    requestData.addIf(!isAnonymous.value, "userName", userName);
 
     // Add request to pair-request collection
     Document requestDoc = await databases.createDocument(
         databaseId: masterDatabaseId,
         collectionId: pairRequestCollectionId,
         documentId: ID.unique(),
-        data: {"languageIso": languageIso, "isAnonymous": isAnonymous.value, "uid": uid});
+        data: requestData);
     requestDocId = requestDoc.$id;
 
     // Go to pairing screen
@@ -65,8 +72,16 @@ class PairChatController extends GetxController {
               {
                 if (uid1 == uid) {
                   myRoomUserId = 1;
+                  pairUsername = data.payload["userName2"];
+                  Document participantDoc = await databases.getDocument(
+                      databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: data.payload["uid2"]);
+                  pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 } else {
                   myRoomUserId = 2;
+                  pairUsername = data.payload["userName1"];
+                  Document participantDoc = await databases.getDocument(
+                      databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: data.payload["uid1"]);
+                  pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 }
                 activePairDocId = data.payload["\$id"];
                 await joinPairChat(activePairDocId, uid);
