@@ -129,6 +129,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       focusedBorderColor: const Color.fromARGB(
                                           224, 68, 170, 50),
                                       borderWidth: UiSizes.width_1_5,
+                                      clearText: emailVerifyController.clearTextField.value,
                                       enabledBorderColor:
                                           Color.fromARGB(155, 255, 193, 7),
                                       showFieldAsBox: true,
