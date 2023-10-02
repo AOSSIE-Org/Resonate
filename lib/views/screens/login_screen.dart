@@ -35,15 +35,19 @@ class _LoginScreenState extends State<LoginScreen> {
             key: controller.loginFormKey,
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  width: UiSizes.width_140,
-                  height: UiSizes.height_140,
-                  child: Image.asset("assets/images/aossie_logo.png"),
-                ),
-                SizedBox(height: UiSizes.height_15),
-                Text(
-                  "Welcome Back",
-                  style: TextStyle(fontSize: UiSizes.size_25),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Welcome ",
+                      style: TextStyle(fontSize: UiSizes.size_25),
+                    ),
+                    Text(
+                      "Back",
+                      style: TextStyle(fontSize: UiSizes.size_25,fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
                 SizedBox(height: UiSizes.height_15),
                 Padding(
