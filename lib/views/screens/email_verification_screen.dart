@@ -159,7 +159,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                   .isVerifying.value = false;
                                               controller.authStateController
                                                   .setUserProfileData();
-                                              Get.toNamed(AppRoutes.tabview);
+                                              Get.offAllNamed(AppRoutes.tabview);
                                             } else {
                                               emailVerifyController
                                                   .isVerifying.value = false;
@@ -226,6 +226,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       emailVerifyController
                                                           .resendIsAllowed
                                                           .value = false;
+                                                      emailVerifyController.clearTextField.value=true;
                                                       emailVerifyController
                                                           .sendOTP();
                                                       Get.snackbar("OTP Resent",
