@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:get/get.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 

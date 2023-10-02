@@ -76,9 +76,9 @@ class EmailVerifyController extends GetxController {
     verificationID = randomNumeric(10).toString() + authStateController.email!;
     verificationID = verificationID.split("@")[0];
     var prefs = await authStateController.account.getPrefs();
-    var otp_ID = prefs.data['otp_ID'];
+    var otpId = prefs.data['otp_ID'];
     var verifyOtpData = {
-      "otpID": otp_ID,
+      "otpID": otpId,
       "userOTP": userOTP,
       "verify_ID": verificationID
     };

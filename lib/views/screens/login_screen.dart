@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
             key: controller.loginFormKey,
             child: Column(
               children: <Widget>[
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

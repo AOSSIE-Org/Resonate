@@ -10,6 +10,8 @@ class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
   PairChatController controller = Get.find<PairChatController>();
 
+  PairChatScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -107,7 +109,7 @@ class PairChatScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                 color: Colors.black,
