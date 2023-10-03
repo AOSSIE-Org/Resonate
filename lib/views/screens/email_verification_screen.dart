@@ -25,7 +25,6 @@ class EmailVerificationScreen extends StatelessWidget {
           !controller.authStateController.isInitializing.value
               ? SingleChildScrollView(
                   child: Container(
-                    color: AppColor.bgBlackColor,
                     padding: EdgeInsets.symmetric(
                         horizontal: UiSizes.width_20,
                         vertical: UiSizes.height_10),
@@ -74,16 +73,13 @@ class EmailVerificationScreen extends StatelessWidget {
                           child: Container(
                             height: UiSizes.height_40,
                             decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40)),
-                                gradient: LinearGradient(colors: [
-                                  Color.fromARGB(161, 112, 106, 80),
-                                  Color.fromARGB(232, 60, 58, 52)
-                                ])),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40)),
+                            ),
                             child: Center(
                                 child: Text(
                               "OTP Verification",
-                              style: TextStyle(fontSize: UiSizes.size_20),
+                              style: TextStyle(fontSize: UiSizes.size_24),
                             )),
                           ),
                         ),
@@ -96,13 +92,6 @@ class EmailVerificationScreen extends StatelessWidget {
                               ),
                               Container(
                                 decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color.fromARGB(255, 45, 42, 42),
-                                          Color.fromARGB(255, 57, 53, 53),
-                                        ]),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20))),
                                 padding: EdgeInsets.symmetric(
@@ -338,7 +327,6 @@ class EmailVerificationScreen extends StatelessWidget {
                                             child: Text(
                                               "Verify Your Email",
                                               style: TextStyle(
-                                                  color: Colors.black,
                                                   fontSize: UiSizes.size_14),
                                             ),
                                           )
