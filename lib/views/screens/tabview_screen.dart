@@ -20,6 +20,8 @@ class TabViewScreen extends StatelessWidget {
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
 
+  TabViewScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(

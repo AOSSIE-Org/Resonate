@@ -13,6 +13,7 @@ import '../../utils/constants.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 

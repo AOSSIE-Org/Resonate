@@ -69,7 +69,6 @@ class AuthStateController extends GetxController {
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
-    print(authToken);
     return authToken.jwt;
   }
 
