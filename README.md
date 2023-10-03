@@ -1,14 +1,17 @@
 <div align="center">
- <img src="assets/images/resonate_logo.png" alt="Resonate logo" width="200" height="auto" />
+ <span>
+ <img src="assets/images/resonate_logo.png" alt="Resonate logo" width="150" height="auto" />
+  <img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
+ </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
-<a href="https://livekit.io" target="_blank"><img width="200" src="https://livekit.io/images/livekit-open-graph.png" alt="Livekit Logo"></a>
-
 <span>
 <a href="https://vercel.com/?utm_source=AOSSIE-org&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Powered by Vercel">
-<img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by Vercel" />
+<img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" width="250" alt="Powered by Vercel" />
+  <a href="https://livekit.io" target="_blank"><img width="100" height="auto" src="https://github.com/ShivamMenda/Resonate/assets/74780977/23b69ec4-ef62-4b46-9b21-3f384ce4e685" alt="Livekit Logo"></a>
 </a>  
-<a href="https://appwrite.io" target="_blank"><img width="200" height="42" src="https://appwrite.io/images/appwrite.svg" alt="Appwrite Logo"></a>
+<a href="https://appwrite.io" target="_blank"><img width="250" height="40" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"
+ alt="Appwrite Logo"></a>
   
 </span>
 
@@ -25,9 +28,12 @@
 
 With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
 
-## :rocket: Goals
-1.  Design and Develop a Flutter Mobile Application.
-2.  Develop a backend for the app using NodeJS, Appwrite, and LiveKit.
+## :rocket: Features
+1. Authentication(Login/Signup)
+2. Real-time Audio Communication by joining rooms and talking to people.
+3. Ability to create rooms and moderate speakers and events.
+4. Pair chatting to enable users to find random partners to talk to in the app.
+5. Real-time messaging(Coming Soon) 
 
 ## :computer: Technologies Used
 
@@ -41,36 +47,31 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 ![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
 
 
-## :iphone: App Level Design Pattern
-
-Flutter will be used to develop the application for various platforms. 
-
-We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management.
-
 ## :link: Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
 ## :movie_camera: App Screenshots
 <div align="center">
-<span>
-<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/465a4aac-8ce5-466e-b0c7-3dee45d929ea" width="250" height="auto" />
-<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/e36186e5-c10f-4767-9f93-bb9a8a2a0cbf" width="250" height="auto" />
-<img src="https://github.com/ShivamMenda/Resonate/assets/74780977/9b853396-cc1a-416e-bb48-82dc830e1973" width="250" height="auto" />
-</span>
-<br/>
- <br/>
-<span>
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/6f660459-93df-4c64-8dec-83aa84139e99" width="250" height="auto" />
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/c9b165ff-aaa3-458e-879b-8692e0a7aea4" width="250" height="auto" />
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/09ffddd7-437c-4a3c-95cf-681e5e99f6e1" width="250" height="auto" />
-</span> 
-</div>
+ 
+| Splash Screen | Onboarding Screen | Signup Screen |
+| :---         |     :---      |          :--- |
+| <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/465a4aac-8ce5-466e-b0c7-3dee45d929ea" width="250" height="auto" />  | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/e36186e5-c10f-4767-9f93-bb9a8a2a0cbf" width="250" height="auto" />    | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/9b853396-cc1a-416e-bb48-82dc830e1973" width="250" height="auto" />    |
 
+| Rooms Screen | Create Room Screen | Pairchat Screen |
+| :---         |     :---      |          :--- |
+|  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/6f660459-93df-4c64-8dec-83aa84139e99" width="250" height="auto" /> | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/c9b165ff-aaa3-458e-879b-8692e0a7aea4" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/09ffddd7-437c-4a3c-95cf-681e5e99f6e1" width="250" height="auto" />    |
+
+</div>
 
 ## :raised_hands: Contributing
 
 Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
+
+## :v: Maintainers
+
+-   [Jaideep Prasad](https://github.com/jddeep)
+-   [Chandan S. Gowda](https://github.com/chandansgowda)
 
 ## :mailbox: Communication Channels
 
@@ -83,11 +84,6 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 ## :round_pushpin: License
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
-
-## :v: Maintainers
-
--   [Jaideep Prasad](https://github.com/jddeep)
--   [Chandan S. Gowda](https://github.com/chandansgowda)
 
 We appreciate your contributions and look forward to working with you to make this project even better!
 
