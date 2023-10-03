@@ -5,6 +5,10 @@
  </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
+:star: Don't forget to star this repository if you find it useful! :star:
+
+</div>
+<div align="center"
 <span>
 <a href="https://vercel.com/?utm_source=AOSSIE-org&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Powered by Vercel">
 <img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" width="250" alt="Powered by Vercel" />
@@ -14,7 +18,6 @@
  alt="Appwrite Logo"></a>
   
 </span>
-
 </div>
 <br>
 
