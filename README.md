@@ -5,8 +5,6 @@
  </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
-:star: Don't forget to star this repository if you find it useful! :star:
-
 </div>
 <div align="center"
 <span>
@@ -32,11 +30,10 @@
 With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
 
 ## :rocket: Features
-1. Authentication(Login/Signup)
-2. Real-time Audio Communication by joining rooms and talking to people.
-3. Ability to create rooms and moderate speakers and events.
-4. Pair chatting to enable users to find random partners to talk to in the app.
-5. Real-time messaging(Coming Soon) 
+1. Real-time Audio Communication by joining rooms and talking to people.
+2. Ability to create rooms and moderate speakers and events.
+3. Pair chatting to enable users to find random partners to talk to in the app.
+4. Real-time messaging(Coming Soon) 
 
 ## :computer: Technologies Used
 
@@ -45,29 +42,29 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 3.  **NodeJS** - REST API to talk to Livekit & Appwrite
 4.  **LiveKit** - Web Real-Time Communication 
 
-## :mag_right: High Level Architecture
-
-![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
-
-
 ## :link: Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
+## :mag_right: High Level Architecture
+
+![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
+
 ## :movie_camera: App Screenshots
 <div align="center">
  
-| Splash Screen | Onboarding Screen | Signup Screen |
+| Login Screen | Home Screen | Create Room Screen |
 | :---         |     :---      |          :--- |
-| <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/465a4aac-8ce5-466e-b0c7-3dee45d929ea" width="250" height="auto" />  | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/e36186e5-c10f-4767-9f93-bb9a8a2a0cbf" width="250" height="auto" />    | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/9b853396-cc1a-416e-bb48-82dc830e1973" width="250" height="auto" />    |
+| <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/7c996c0a-1201-44e4-86bb-832ded1aae15" width="260" height="auto" />  | <img src="https://user-images.githubusercontent.com/41890434/246064681-16cfa072-af71-4e1f-97b8-2c429a875483.png" width="250" height="auto" />    | <img src="https://user-images.githubusercontent.com/41890434/246064943-82e83ead-dcf3-45fa-b3ba-c0a60455946a.png" width="250" height="auto" />    |
 
-| Rooms Screen | Create Room Screen | Pairchat Screen |
+| Room Screen | Profile Screen | Pairchat Screen |
 | :---         |     :---      |          :--- |
-|  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/6f660459-93df-4c64-8dec-83aa84139e99" width="250" height="auto" /> | <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/c9b165ff-aaa3-458e-879b-8692e0a7aea4" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/09ffddd7-437c-4a3c-95cf-681e5e99f6e1" width="250" height="auto" />    |
+|  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="" width="250" height="auto" />    |
 
 </div>
 
 ## :raised_hands: Contributing
+:star: Don't forget to star this repository if you find it useful! :star:
 
 Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
