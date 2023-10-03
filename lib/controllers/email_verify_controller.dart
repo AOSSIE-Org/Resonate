@@ -24,6 +24,7 @@ class EmailVerifyController extends GetxController {
   var isVerifying = false.obs;
   var isUpdateAllowed = true.obs;
   var signupisallowed = true.obs;
+  var clearTextField=false.obs;
   AuthStateController authStateController = Get.find<AuthStateController>();
   AuthenticationController authController =
       Get.find<AuthenticationController>();
