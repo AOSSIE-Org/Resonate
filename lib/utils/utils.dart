@@ -32,11 +32,11 @@ class AppUtils {
       actions: [
         ElevatedButton(
           onPressed: onFirstBtnPressed,
-          child: Text(firstBtnText!),
+          child: Text(firstBtnText),
         ),
         ElevatedButton(
           onPressed: onSecondBtnPressed,
-          child: Text(secondBtnText!),
+          child: Text(secondBtnText),
         ),
       ],
     );
