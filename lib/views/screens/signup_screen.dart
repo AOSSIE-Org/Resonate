@@ -217,9 +217,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: TextStyle(fontSize: UiSizes.size_14),
                     ),
                     GestureDetector(
-                        onTap: () => {
-                        controller.confirmPasswordController.value = const TextEditingValue(), //Reset the Confirm Password Textfield Value
-                        Get.offNamed(AppRoutes.login)},
+                        onTap: () => Get.offNamed(AppRoutes.login),
                       child: Text(
                         "Login",
                         style: TextStyle(
