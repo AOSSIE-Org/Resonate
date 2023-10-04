@@ -20,10 +20,10 @@ class HomeScreen extends StatelessWidget {
                 child: CustomRefreshIndicator(
                   builder: MaterialIndicatorDelegate(
                     builder: (context, controller) {
-                      return  Icon(
+                      return Icon(
                         Icons.ac_unit,
                         color: Colors.amber,
-                        size:UiSizes.size_30,
+                        size: UiSizes.size_30,
                       );
                     },
                   ),
@@ -65,7 +65,8 @@ class HomeScreen extends StatelessWidget {
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: UiSizes.size_19),
+                                      color: Colors.white,
+                                      fontSize: UiSizes.size_19),
                                 ),
                               ),
                               SizedBox(
@@ -76,7 +77,8 @@ class HomeScreen extends StatelessWidget {
                                   roomsController.getRooms();
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  maximumSize: Size.fromWidth(UiSizes.width_123_4),
+                                  maximumSize:
+                                      Size.fromWidth(UiSizes.width_123_4),
                                   side: const BorderSide(
                                       color: Colors.amber, width: 1),
                                 ),
