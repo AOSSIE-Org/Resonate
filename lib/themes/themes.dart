@@ -19,7 +19,7 @@ class Themes {
         secondary: Colors.amber,
         onPrimary: Colors.black,
         onSecondary: Colors.black,
-        surface: AppColor.bgBlackColor,
+        surface: Color.fromRGBO(17, 17, 20, 1),
         onSurface: Colors.amber),
     appBarTheme: AppBarTheme(
         foregroundColor: Colors.amber,

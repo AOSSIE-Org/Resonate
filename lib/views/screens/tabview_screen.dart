@@ -10,8 +10,6 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
-import '../../routes/app_routes.dart';
-import '../../utils/colors.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
@@ -81,11 +79,10 @@ class TabViewScreen extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
-            borderColor: Colors.white24,
             height: UiSizes.size_56,
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.white
-                : Colors.black,
+                : const Color.fromRGBO(17, 17, 20, 1),
             activeColor: Colors.amber,
             inactiveColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.black.withOpacity(0.3)
