@@ -10,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
+import '../../controllers/email_verify_controller.dart';
 import '../../utils/colors.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
@@ -58,9 +59,15 @@ class TabViewScreen extends StatelessWidget {
                       label: "Audio Room",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
-                        await Get.delete<CreateRoomController>();
-                        controller.setIndex(2);
-                      },
+
+                        if (authStateController.isEmailVerified!) {
+                          await Get.delete<CreateRoomController>();
+                          controller.setIndex(2);
+                        }else {
+                          Get.snackbar('Email Verification Required',
+                              "To proceed, verify your email address first.");
+                        }
+                        },
                     ),
                     SpeedDialChild(
                       child:
