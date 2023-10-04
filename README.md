@@ -6,17 +6,15 @@
 
 # :microphone: Resonate - An Open Source Social Voice Platform
 </div>
-<div align="center"
+<div align="center">
 <span>
-<a href="https://vercel.com/?utm_source=AOSSIE-org&utm_campaign=oss" target="_blank" rel="noreferrer noopener" aria-label="Powered by Vercel">
-<img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" width="250" alt="Powered by Vercel" />
-  <a href="https://livekit.io" target="_blank"><img width="100" height="auto" src="https://github.com/ShivamMenda/Resonate/assets/74780977/23b69ec4-ef62-4b46-9b21-3f384ce4e685" alt="Livekit Logo"></a>
+  <a href="https://livekit.io" target="_blank"><img style="height:85px;" src="https://github.com/ShivamMenda/Resonate/assets/74780977/f3e6f455-f375-4a32-8c56-1a3ad95211ff" alt="Livekit Logo"></a>
 </a>  
-<a href="https://appwrite.io" target="_blank"><img width="250" height="40" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"
- alt="Appwrite Logo"></a>
-  
+<a href="https://appwrite.io" target="_blank"><img style="height:50px;" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"
+ alt="Appwrite Logo"></a>  
 </span>
 </div>
+<br>
 <br>
 
 <div align="center">
@@ -59,8 +57,7 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 
 | Room Screen | Profile Screen | Pairchat Screen |
 | :---         |     :---      |          :--- |
-|  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="" width="250" height="auto" />    |
-
+|  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/8d7c5da5-0b2f-4d8f-8f12-d1059b0e4a01" width="250" height="auto"/>    |
 </div>
 
 ## :raised_hands: Contributing
