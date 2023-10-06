@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   logoPath: "assets/images/github_icon.png",
                   authText: "Login with Github",
                 ),
-                Spacer(),
+               const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

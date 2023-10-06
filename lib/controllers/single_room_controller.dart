@@ -37,7 +37,7 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     await getParticipants();
     getRealtimeStream();
     super.onInit();
@@ -164,10 +164,12 @@ class SingleRoomController extends GetxController {
       if (b.value.isSpeaker && !a.value.isSpeaker) return 1;
       if (!b.value.isSpeaker && a.value.isSpeaker) return -1;
 
-      if (b.value.hasRequestedToBeSpeaker && !a.value.hasRequestedToBeSpeaker)
+      if (b.value.hasRequestedToBeSpeaker && !a.value.hasRequestedToBeSpeaker) {
         return 1;
-      if (!b.value.hasRequestedToBeSpeaker && a.value.hasRequestedToBeSpeaker)
+      }
+      if (!b.value.hasRequestedToBeSpeaker && a.value.hasRequestedToBeSpeaker) {
         return -1;
+      }
 
       return 0; // If all properties are equal (or if Listener), maintain the current order.
     });

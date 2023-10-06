@@ -6,9 +6,12 @@ import 'package:resonate/utils/ui_sizes.dart';
 import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
 
+// ignore: must_be_immutable
 class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
   PairChatController controller = Get.find<PairChatController>();
+
+  PairChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class PairChatScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+             const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                 color: Colors.black,

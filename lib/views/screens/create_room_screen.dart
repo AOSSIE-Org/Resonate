@@ -4,6 +4,7 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+// ignore: must_be_immutable
 class CreateRoomScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
       Get.put<CreateRoomController>(CreateRoomController());
@@ -15,6 +16,8 @@ class CreateRoomScreen extends StatelessWidget {
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
       borderSide: BorderSide(color: Colors.amber, width: UiSizes.width_2),
       borderRadius: BorderRadius.circular(15));
+
+  CreateRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

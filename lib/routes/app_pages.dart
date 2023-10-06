@@ -32,7 +32,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.signup,
-      page: () => SignupScreen(),
+      page: () => const SignupScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
@@ -52,7 +52,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.onBoarding,
-      page: () => OnBoardingScreen(),
+      page: () => const OnBoardingScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(

@@ -208,7 +208,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   logoPath: "assets/images/github_icon.png",
                   authText: "Signup with Github",
                 ),
-                Spacer(),
+               const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -217,7 +217,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: TextStyle(fontSize: UiSizes.size_14),
                     ),
                     GestureDetector(
-                      onTap: () => Get.offNamed(AppRoutes.login),
+                        onTap: () => {
+                        controller.confirmPasswordController.value = const TextEditingValue(), //Reset the Confirm Password Textfield Value
+                        Get.offNamed(AppRoutes.login)},
                       child: Text(
                         "Login",
                         style: TextStyle(
