@@ -118,6 +118,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       focusedBorderColor: const Color.fromARGB(
                                           224, 68, 170, 50),
                                       borderWidth: UiSizes.width_1_5,
+                                      clearText: emailVerifyController.clearTextField.value,
                                       enabledBorderColor:
                                           Color.fromARGB(155, 255, 193, 7),
                                       showFieldAsBox: true,
@@ -148,7 +149,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                   .isVerifying.value = false;
                                               controller.authStateController
                                                   .setUserProfileData();
-                                              Get.toNamed(AppRoutes.tabview);
+                                              Get.offAllNamed(AppRoutes.tabview);
                                             } else {
                                               emailVerifyController
                                                   .isVerifying.value = false;
@@ -215,6 +216,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       emailVerifyController
                                                           .resendIsAllowed
                                                           .value = false;
+                                                      emailVerifyController.clearTextField.value=true;
                                                       emailVerifyController
                                                           .sendOTP();
                                                       Get.snackbar("OTP Resent",
