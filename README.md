@@ -1,21 +1,20 @@
 <div align="center">
  <span>
- <img src="assets/images/resonate_logo.png" alt="Resonate logo" width="150" height="auto" />
-  <img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/ca9e88d2-f4ca-4d8c-8a8a-289286b91e54" alt="Resonate logo" width="150" height="auto" />
+<img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
  </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
 </div>
-<div align="center">
+<div align="center"> 
 <span>
-  <a href="https://livekit.io" target="_blank"><img style="height:85px;" src="https://github.com/ShivamMenda/Resonate/assets/74780977/f3e6f455-f375-4a32-8c56-1a3ad95211ff" alt="Livekit Logo"></a>
-</a>  
-<a href="https://appwrite.io" target="_blank"><img style="height:50px;" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"
- alt="Appwrite Logo"></a>  
+ <a href="https://appwrite.io" target="_blank"><img src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg" alt="Appwrite Logo" width="200"></a> 
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/38823d33-edfb-4d90-9c4b-823cbe33c0a5" alt="Livekit Logo" width="200"></a>
 </span>
 </div>
 <br>
 <br>
+
 
 <div align="center">
   
@@ -36,17 +35,12 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 ## :computer: Technologies Used
 
 1.  **Flutter** - Mobile application
-2.  **Appwrite** - Authentication, Database for Room and Participant management, Storage for user/group data
-3.  **NodeJS** - REST API to talk to Livekit & Appwrite
-4.  **LiveKit** - Web Real-Time Communication 
+2.  **Appwrite** - Authentication, Database, Storage and Cloud functions.
+3.  **LiveKit** - Web Real-Time Communication 
 
 ## :link: Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
-
-## :mag_right: High Level Architecture
-
-![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
 
 ## :movie_camera: App Screenshots
 <div align="center">
@@ -65,10 +59,14 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 
 Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
+We appreciate your contributions and look forward to working with you to make this project even better!
+
+By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!
+
 ## :v: Maintainers
 
 -   [Jaideep Prasad](https://github.com/jddeep)
--   [Chandan S. Gowda](https://github.com/chandansgowda)
+-   [Chandan S Gowda](https://github.com/chandansgowda)
 
 ## :mailbox: Communication Channels
 
@@ -82,6 +80,3 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
 
-We appreciate your contributions and look forward to working with you to make this project even better!
-
-By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!
