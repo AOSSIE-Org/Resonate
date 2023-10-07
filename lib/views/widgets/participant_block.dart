@@ -35,15 +35,16 @@ class ParticipantBlock extends StatelessWidget {
     }
   }
 
-  List<FocusedMenuItem> makeMenuItems(List<FocusedMenuItemData> items, Brightness currentBrightness) {
+  List<FocusedMenuItem> makeMenuItems(
+      List<FocusedMenuItemData> items, Brightness currentBrightness) {
     return items
         .map(
           (item) => FocusedMenuItem(
             title: Text(
               item.textContent,
               style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: UiSizes.size_14,
+                color: Colors.amber,
+                fontSize: UiSizes.size_14,
               ),
             ),
             trailingIcon: Icon(
@@ -52,7 +53,9 @@ class ParticipantBlock extends StatelessWidget {
               size: UiSizes.size_18,
             ),
             onPressed: item.action,
-            backgroundColor: currentBrightness == Brightness.light ? Colors.white : Colors.black,
+            backgroundColor: currentBrightness == Brightness.light
+                ? Colors.white
+                : Colors.black,
           ),
         )
         .toList();
@@ -131,7 +134,6 @@ class ParticipantBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Brightness currentBrightness = Theme.of(context).brightness;
 
     return FocusedMenuHolder(
@@ -148,7 +150,9 @@ class ParticipantBlock extends StatelessWidget {
       ),
       duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
-      blurBackgroundColor: currentBrightness == Brightness.light ? Colors.white54 : Colors.black54,
+      blurBackgroundColor: currentBrightness == Brightness.light
+          ? Colors.white54
+          : Colors.black54,
       menuItems: getMenuItems(currentBrightness),
       openWithTap: ((controller.me.value.isAdmin ||
                   (controller.me.value.isModerator &&
@@ -200,7 +204,7 @@ class ParticipantBlock extends StatelessWidget {
                   Text(
                     participant.name.split(' ').first,
                     style: TextStyle(
-                        fontSize: UiSizes.size_16,
+                      fontSize: UiSizes.size_16,
                     ),
                   )
                 ],
@@ -208,10 +212,7 @@ class ParticipantBlock extends StatelessWidget {
             ),
             Text(
               getUserRole(),
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: UiSizes.size_14
-              ),
+              style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
             )
           ],
         ),

@@ -48,11 +48,10 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Text(
                 widget.room.name,
-                style:
-                    TextStyle(
-                      fontSize: UiSizes.size_20,
-                        color: Colors.amber,
-                    ),
+                style: TextStyle(
+                  fontSize: UiSizes.size_20,
+                  color: Colors.amber,
+                ),
               ),
               const Spacer(),
               FaIcon(
@@ -67,8 +66,8 @@ class _RoomScreenState extends State<RoomScreen> {
           ),
           Text(getTags(),
               style: TextStyle(
-                  fontSize: UiSizes.size_15,
-                  fontWeight: FontWeight.w100,
+                fontSize: UiSizes.size_15,
+                fontWeight: FontWeight.w100,
               )),
           SizedBox(
             height: UiSizes.height_7,
@@ -76,8 +75,8 @@ class _RoomScreenState extends State<RoomScreen> {
           Text(
             widget.room.description,
             style: TextStyle(
-                color: Colors.grey,
-                fontSize: UiSizes.size_14,
+              color: Colors.grey,
+              fontSize: UiSizes.size_14,
             ),
           ),
           SizedBox(
@@ -184,7 +183,10 @@ class _RoomScreenState extends State<RoomScreen> {
                                   backgroundColor: (controller
                                           .me.value.hasRequestedToBeSpeaker)
                                       ? Colors.amber
-                                      : Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black54,
+                                      : Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.white
+                                          : Colors.black54,
                                   child: Icon(
                                     (controller
                                             .me.value.hasRequestedToBeSpeaker)
@@ -193,7 +195,10 @@ class _RoomScreenState extends State<RoomScreen> {
                                     color: (controller
                                             .me.value.hasRequestedToBeSpeaker)
                                         ? Colors.black
-                                        : Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white54,
+                                        : Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white54,
                                     size: UiSizes.size_24,
                                   ),
                                 ),

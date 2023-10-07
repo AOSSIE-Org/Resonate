@@ -142,9 +142,9 @@ class PairChatScreen extends StatelessWidget {
                                       : Colors.white54
                                   : Colors.amber,
                               child: Icon(
-                                      Icons.mic_off,
-                                      size: UiSizes.size_24,
-                                    ),
+                                Icons.mic_off,
+                                size: UiSizes.size_24,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -173,9 +173,9 @@ class PairChatScreen extends StatelessWidget {
                                       ? Colors.white
                                       : Colors.white54,
                               child: Icon(
-                                      Icons.volume_up,
-                                      size: UiSizes.size_24,
-                                    ),
+                                Icons.volume_up,
+                                size: UiSizes.size_24,
+                              ),
                             ),
                           ),
                           SizedBox(

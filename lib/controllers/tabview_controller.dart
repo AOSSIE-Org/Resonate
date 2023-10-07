@@ -54,14 +54,15 @@ class TabViewController extends GetxController {
       String roomId = uri.pathSegments.last;
       bool isUserLoggedIn = await Get.find<AuthStateController>().getLoginState;
       if (isUserLoggedIn) {
-        AppwriteRoom appwriteRoom = await Get.find<RoomsController>().getRoomById(roomId);
+        AppwriteRoom appwriteRoom =
+            await Get.find<RoomsController>().getRoomById(roomId);
         Get.defaultDialog(
             title: "Join Room",
             titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
             content: Column(
               children: [RoomTile(room: appwriteRoom)],
             ),
-        backgroundColor: AppColor.bgBlackColor);
+            backgroundColor: AppColor.bgBlackColor);
       }
     } catch (e) {
       log("Open App Link ERROR : ${e.toString()}");
