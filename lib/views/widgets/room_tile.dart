@@ -120,7 +120,10 @@ class RoomTile extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black12,
+            decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(UiSizes.size_15))),
             padding: EdgeInsets.symmetric(
                 vertical: UiSizes.height_10, horizontal: UiSizes.width_20),
             child: Column(

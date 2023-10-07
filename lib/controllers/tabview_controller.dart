@@ -75,10 +75,9 @@ class TabViewController extends GetxController {
           return RoomScreen(room: room);
         },
         useSafeArea: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
         ),
-        backgroundColor: AppColor.bgBlackColor,
         isScrollControlled: true,
         enableDrag: false,
         isDismissible: false);

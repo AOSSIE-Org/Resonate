@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:get/get.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -36,12 +35,16 @@ class ParticipantBlock extends StatelessWidget {
     }
   }
 
-  List<FocusedMenuItem> makeMenuItems(List<FocusedMenuItemData> items) {
+  List<FocusedMenuItem> makeMenuItems(List<FocusedMenuItemData> items, Brightness currentBrightness) {
     return items
-        .map((item) => FocusedMenuItem(
+        .map(
+          (item) => FocusedMenuItem(
             title: Text(
               item.textContent,
-              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_14),
+              style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: UiSizes.size_14,
+              ),
             ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
@@ -49,11 +52,13 @@ class ParticipantBlock extends StatelessWidget {
               size: UiSizes.size_18,
             ),
             onPressed: item.action,
-            backgroundColor: Colors.black))
+            backgroundColor: currentBrightness == Brightness.light ? Colors.white : Colors.black,
+          ),
+        )
         .toList();
   }
 
-  List<FocusedMenuItem> getMenuItems() {
+  List<FocusedMenuItem> getMenuItems(Brightness currentBrightness) {
     if ((!controller.me.value.isAdmin && !controller.me.value.isModerator) ||
         participant.isAdmin) {
       return [];
@@ -74,7 +79,7 @@ class ParticipantBlock extends StatelessWidget {
               controller.kickOutParticipant(participant);
             },
           )
-        ]);
+        ], currentBrightness);
       } else {
         return makeMenuItems([
           FocusedMenuItemData("Add Moderator", () {
@@ -94,7 +99,7 @@ class ParticipantBlock extends StatelessWidget {
               controller.kickOutParticipant(participant);
             },
           ),
-        ]);
+        ], currentBrightness);
       }
     }
 
@@ -117,7 +122,7 @@ class ParticipantBlock extends StatelessWidget {
               controller.kickOutParticipant(participant);
             },
           ),
-        ]);
+        ], currentBrightness);
       }
     }
 
@@ -126,6 +131,9 @@ class ParticipantBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Brightness currentBrightness = Theme.of(context).brightness;
+
     return FocusedMenuHolder(
       onPressed: () {},
       menuItemExtent: UiSizes.width_45,
@@ -140,8 +148,8 @@ class ParticipantBlock extends StatelessWidget {
       ),
       duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
-      blurBackgroundColor: Colors.black54,
-      menuItems: getMenuItems(),
+      blurBackgroundColor: currentBrightness == Brightness.light ? Colors.white54 : Colors.black54,
+      menuItems: getMenuItems(currentBrightness),
       openWithTap: ((controller.me.value.isAdmin ||
                   (controller.me.value.isModerator &&
                       !participant.isModerator)) &&
@@ -185,21 +193,25 @@ class ParticipantBlock extends StatelessWidget {
                     Icon(
                       (participant.isMicOn) ? Icons.mic : Icons.mic_off,
                       color: (participant.isMicOn)
-                          ? Colors.lightGreenAccent
+                          ? Colors.lightGreen
                           : Colors.red,
                       size: UiSizes.size_16,
                     ),
                   Text(
                     participant.name.split(' ').first,
                     style: TextStyle(
-                        color: Colors.white, fontSize: UiSizes.size_16),
+                        fontSize: UiSizes.size_16,
+                    ),
                   )
                 ],
               ),
             ),
             Text(
               getUserRole(),
-              style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: UiSizes.size_14
+              ),
             )
           ],
         ),

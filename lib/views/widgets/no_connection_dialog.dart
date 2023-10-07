@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/controllers/network_controller.dart';
 
-import '../../utils/colors.dart';
 
 class NoConnectionDialog extends StatelessWidget {
   const NoConnectionDialog({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class NoConnectionDialog extends StatelessWidget {
     return WillPopScope(child: Scaffold(
       body: Container(
         padding:  EdgeInsets.symmetric(vertical: UiSizes.height_24_6, horizontal: UiSizes.width_25),
-        color: AppColor.bgBlackColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

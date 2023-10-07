@@ -33,7 +33,7 @@ class _RoomScreenState extends State<RoomScreen> {
         children: [
           Center(
             child: Container(
-              margin:  EdgeInsets.symmetric(vertical: UiSizes.height_15),
+              margin: EdgeInsets.symmetric(vertical: UiSizes.height_15),
               height: UiSizes.height_7,
               width: UiSizes.height_80,
               decoration: BoxDecoration(
@@ -48,10 +48,14 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Text(
                 widget.room.name,
-                style: TextStyle(fontSize: UiSizes.size_20, color: Colors.amber),
+                style:
+                    TextStyle(
+                      fontSize: UiSizes.size_20,
+                        color: Colors.amber,
+                    ),
               ),
               const Spacer(),
-               FaIcon(
+              FaIcon(
                 FontAwesomeIcons.ellipsis,
                 color: Colors.amber,
                 size: UiSizes.size_24,
@@ -61,15 +65,22 @@ class _RoomScreenState extends State<RoomScreen> {
           SizedBox(
             height: UiSizes.height_8,
           ),
-          Text(getTags(), style: TextStyle(fontSize: UiSizes.size_15, fontWeight: FontWeight.w100, color: Colors.white)),
+          Text(getTags(),
+              style: TextStyle(
+                  fontSize: UiSizes.size_15,
+                  fontWeight: FontWeight.w100,
+              )),
           SizedBox(
             height: UiSizes.height_7,
           ),
           Text(
             widget.room.description,
-            style: TextStyle(color: Colors.white70, fontSize: UiSizes.size_14),
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: UiSizes.size_14,
+            ),
           ),
-  SizedBox(
+          SizedBox(
             height: UiSizes.height_7,
           ),
           Divider(
@@ -81,8 +92,7 @@ class _RoomScreenState extends State<RoomScreen> {
               child: Obx(() {
                 return (!controller.isLoading.value)
                     ? GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: UiSizes.width_20,
                           mainAxisSpacing: UiSizes.height_5,
@@ -133,42 +143,65 @@ class _RoomScreenState extends State<RoomScreen> {
                                   BorderRadius.all(Radius.circular(20))),
                           child: Center(
                               child: Text(
-                                (controller.appwriteRoom.isUserAdmin) ? "Delete Room" : "Leave Room",
-                            style:  TextStyle(color: Colors.black87,fontSize: UiSizes.size_14),
+                            (controller.appwriteRoom.isUserAdmin)
+                                ? "Delete Room"
+                                : "Leave Room",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: UiSizes.size_14),
                           )),
                         ),
                       ),
                       GetBuilder<SingleRoomController>(builder: (controller) {
-                        return (controller.me.value.isSpeaker) ? SizedBox(
-                                      height: UiSizes.height_56,
-            width: UiSizes.width_56,
-                          child: FloatingActionButton(
-                            onPressed: () =>
-                                (controller.me.value.isMicOn) ? controller.turnOffMic() : controller.turnOnMic(),
-                            backgroundColor: (controller.me.value.isMicOn) ? Colors.lightGreen : Colors.redAccent,
-                            child: Icon(
-                              (controller.me.value.isMicOn) ? Icons.mic : Icons.mic_off,
-                              color: Colors.black,
-                              size: UiSizes.size_24,
-                            ),
-                          ),
-                        ) : SizedBox(
-                                      height: UiSizes.height_56,
-            width: UiSizes.width_56,
-                          child: FloatingActionButton(
-                            onPressed: () => (controller.me.value.hasRequestedToBeSpeaker) ? controller.unRaiseHand() : controller.raiseHand(),
-                            backgroundColor: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.amber : Colors.black54,
-                            child: Icon(
-                              (controller.me.value.hasRequestedToBeSpeaker) ? Icons.back_hand : Icons.back_hand_outlined,
-                              color: (controller.me.value.hasRequestedToBeSpeaker) ? Colors.black : Colors.amber,
-                              size: UiSizes.size_24,
-                            ),
-                          ),
-                        );
+                        return (controller.me.value.isSpeaker)
+                            ? SizedBox(
+                                height: UiSizes.height_56,
+                                width: UiSizes.width_56,
+                                child: FloatingActionButton(
+                                  onPressed: () => (controller.me.value.isMicOn)
+                                      ? controller.turnOffMic()
+                                      : controller.turnOnMic(),
+                                  backgroundColor: (controller.me.value.isMicOn)
+                                      ? Colors.lightGreen
+                                      : Colors.redAccent,
+                                  child: Icon(
+                                    (controller.me.value.isMicOn)
+                                        ? Icons.mic
+                                        : Icons.mic_off,
+                                    color: Colors.black,
+                                    size: UiSizes.size_24,
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                height: UiSizes.height_56,
+                                width: UiSizes.width_56,
+                                child: FloatingActionButton(
+                                  onPressed: () => (controller
+                                          .me.value.hasRequestedToBeSpeaker)
+                                      ? controller.unRaiseHand()
+                                      : controller.raiseHand(),
+                                  backgroundColor: (controller
+                                          .me.value.hasRequestedToBeSpeaker)
+                                      ? Colors.amber
+                                      : Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black54,
+                                  child: Icon(
+                                    (controller
+                                            .me.value.hasRequestedToBeSpeaker)
+                                        ? Icons.back_hand
+                                        : Icons.back_hand_outlined,
+                                    color: (controller
+                                            .me.value.hasRequestedToBeSpeaker)
+                                        ? Colors.black
+                                        : Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white54,
+                                    size: UiSizes.size_24,
+                                  ),
+                                ),
+                              );
                       }),
                       Container(
-                          height: UiSizes.height_40,
-                          width: UiSizes.width_123_4,
+                        height: UiSizes.height_40,
+                        width: UiSizes.width_123_4,
                         decoration: const BoxDecoration(
                             gradient: AppColor.gradientBg,
                             borderRadius:
@@ -176,7 +209,9 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",
-                            style: TextStyle(color: Colors.black87, fontSize:  UiSizes.size_14),
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: UiSizes.size_14),
                           );
                         })),
                       ),
