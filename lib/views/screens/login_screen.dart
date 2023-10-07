@@ -193,6 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         controller.emailController.clear();
                         controller.passwordController.clear();
+                        controller.confirmPasswordController.clear();
                         Get.toNamed(AppRoutes.signup);
                       },
                       child: Text(
