@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: OnBoardingSlider(
         leading: Image.asset(
-          "assets/images/resonate_logo.png",
+          AppImages.resonateLogoImage,
           height: UiSizes.height_24_6,
         ),
         controllerColor: AppColor.yellowColor,
@@ -39,19 +40,19 @@ class LandingScreen extends StatelessWidget {
         skipTextButton: const Text('Skip'),
         background: [
           LandingImage(
-            ImagePath: 'assets/images/landing_first.png',
+            ImagePath: AppImages.landingFirstImage,
             InitialHeight: UiSizes.height_82,
             ImageHeight: UiSizes.height_246 * 1.008,
             ImageWidth: UiSizes.width_45,
           ),
           LandingImage(
-            ImagePath: 'assets/images/landing_second.png',
+            ImagePath: AppImages.landingSecondImage,
             InitialHeight: UiSizes.height_90,
             ImageHeight: UiSizes.height_246,
             ImageWidth: UiSizes.width_40,
           ),
           LandingImage(
-              ImagePath: 'assets/images/landing_third.png',
+              ImagePath: AppImages.landingThirdImage,
               InitialHeight: UiSizes.height_90,
               ImageHeight: UiSizes.height_246,
               ImageWidth: UiSizes.width_56),
@@ -135,12 +136,14 @@ class LandingScreen extends StatelessWidget {
 
 // ignore: must_be_immutable
 class LandingImage extends StatelessWidget {
-  LandingImage({super.key, 
+  LandingImage({
+    super.key,
     required this.ImagePath,
     required this.InitialHeight,
     required this.ImageHeight,
     required this.ImageWidth,
   });
+
   String ImagePath;
   double InitialHeight;
   double ImageHeight;

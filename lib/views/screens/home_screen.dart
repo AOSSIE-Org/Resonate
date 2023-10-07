@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../widgets/room_tile.dart';
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                                 height: UiSizes.height_12,
                               ),
                               Image.asset(
-                                "assets/images/no_room.png",
+                                AppImages.noRoomImage,
                                 height: UiSizes.height_140,
                               ),
                               SizedBox(

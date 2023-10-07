@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
@@ -16,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var controller = Get.find<AuthenticationController>();
+
   @override
   void initState() {
     controller.loginFormKey = GlobalKey<FormState>();
@@ -35,7 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
             key: controller.loginFormKey,
             child: SingleChildScrollView(
               child: SizedBox(
-                height: UiSizes.height_765 - UiSizes.height_20, // minus 20 was added in order to avoid unnecessary scrolling when screen had required size
+                height: UiSizes.height_765 - UiSizes.height_20,
+                // minus 20 was added in order to avoid unnecessary scrolling when screen had required size
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: UiSizes.height_40),
@@ -118,7 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: UiSizes.height_15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: UiSizes.height_15),
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
@@ -142,8 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: controller.isLoading.value
                             ? Center(
-                                child:
-                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
                                   color: Colors.black,
                                   size: UiSizes.size_40,
                                 ),
@@ -188,13 +192,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       logoPath: "assets/images/google_icon.png",
                       authText: "Login with Google",
                     ),
-
                     SizedBox(height: UiSizes.height_15),
                     AuthButtonWidget(
                       onPressed: () async {
                         await controller.loginWithGithub();
                       },
-                      logoPath: "assets/images/github_icon.png",
+                      logoPath: AppImages.githubIconImage,
                       authText: "Login with Github",
                     ),
                     SizedBox(height: UiSizes.height_15),
@@ -225,7 +228,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),

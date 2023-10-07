@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class DiscussionScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_300,
               child: SvgPicture.asset(
-                "assets/images/timer.svg",
+                AppImages.timerImage,
               ),
             ),
             SizedBox(

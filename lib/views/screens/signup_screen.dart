@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
@@ -19,6 +20,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   var controller = Get.find<AuthenticationController>();
   var emailVerifyController = Get.find<EmailVerifyController>();
+
   @override
   void initState() {
     controller.registrationFormKey = GlobalKey<FormState>();
@@ -163,19 +165,19 @@ class _SignupScreenState extends State<SignupScreen> {
                                     Get.toNamed(AppRoutes.onBoarding);
                                     Get.snackbar("Signed Up Successfully",
                                         "You have successfully created a new account");
-                                    emailVerifyController.signupisallowed.value =
-                                        true;
+                                    emailVerifyController
+                                        .signupisallowed.value = true;
                                   } else {
-                                    emailVerifyController.signupisallowed.value =
-                                        true;
+                                    emailVerifyController
+                                        .signupisallowed.value = true;
                                   }
                                 }
                               }
                             : null,
                         child: controller.isLoading.value
                             ? Center(
-                                child:
-                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
                                   color: Colors.black,
                                   size: UiSizes.size_20,
                                 ),
@@ -225,7 +227,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () async {
                         await controller.loginWithGithub();
                       },
-                      logoPath: "assets/images/github_icon.png",
+                      logoPath: AppImages.githubIconImage,
                       authText: "Signup with Github",
                     ),
                     Expanded(
