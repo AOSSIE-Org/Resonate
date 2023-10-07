@@ -1,100 +1,82 @@
-# Resonate - An Open Source Social Voice Platform
+<div align="center">
+ <span>
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/ca9e88d2-f4ca-4d8c-8a8a-289286b91e54" alt="Resonate logo" width="150" height="auto" />
+<img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
+ </span>
 
-With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community, but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+# :microphone: Resonate - An Open Source Social Voice Platform
+</div>
+<div align="center"> 
+<span>
+ <a href="https://appwrite.io" target="_blank"><img src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg" alt="Appwrite Logo" width="200"></a> 
+ <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/38823d33-edfb-4d90-9c4b-823cbe33c0a5" alt="Livekit Logo" width="200"></a>
+</span>
+</div>
+<br>
+<br>
 
-## Goals
-1.  Design and Develop a Flutter Mobile Application.
-2.  Develop a backend for the app using NodeJS, Appwrite and LiveKit.
 
-## Technologies Used
+<div align="center">
+  
+[![License:GPL-3.0](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/license/gpl-3-0/)
+![GitHub Org's stars](https://img.shields.io/github/stars/AOSSIE-Org/Resonate?style=social)
+
+</div>
+
+
+With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+
+## :rocket: Features
+1. Real-time Audio Communication by joining rooms and talking to people.
+2. Ability to create rooms and moderate speakers and events.
+3. Pair chatting to enable users to find random partners to talk to in the app.
+4. Real-time messaging(Coming Soon) 
+
+## :computer: Technologies Used
 
 1.  **Flutter** - Mobile application
-2.  **Appwrite** - Authentication, Database for Room and Participant management, Storage for user/group data
-3.  **NodeJS** - REST API to talk to Livekit & Appwrite
-4.  **LiveKit** - Web Real Time Communication 
+2.  **Appwrite** - Authentication, Database, Storage and Cloud functions.
+3.  **LiveKit** - Web Real-Time Communication 
 
-## High Level Architecture
-
-![Architecture](https://github.com/chandansgowda/Resonate/assets/41890434/5ae85891-27e9-45d3-a023-9e043a0f7835)
-
-
-## App Level Design Pattern
-
-Flutter will be used to develop the application for various platforms. We will be designing the app using MVC (Model View Controller) architecture and we will be using GetX for state management.
-
-## Repository Links
+## :link: Repository Links
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
-## Contributing
+## :movie_camera: App Screenshots
+<div align="center">
+ 
+| Login Screen | Home Screen | Create Room Screen |
+| :---         |     :---      |          :--- |
+| <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/7c996c0a-1201-44e4-86bb-832ded1aae15" width="260" height="auto" />  | <img src="https://user-images.githubusercontent.com/41890434/246064681-16cfa072-af71-4e1f-97b8-2c429a875483.png" width="250" height="auto" />    | <img src="https://user-images.githubusercontent.com/41890434/246064943-82e83ead-dcf3-45fa-b3ba-c0a60455946a.png" width="250" height="auto" />    |
 
-Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, please review the following guidelines.
+| Room Screen | Profile Screen | Pairchat Screen |
+| :---         |     :---      |          :--- |
+|  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/8d7c5da5-0b2f-4d8f-8f12-d1059b0e4a01" width="250" height="auto"/>    |
+</div>
 
-### Reporting Issues
+## :raised_hands: Contributing
+:star: Don't forget to star this repository if you find it useful! :star:
 
-If you come across any issues or bugs while using this project, please help us by reporting them. To submit an issue, follow these steps:
+Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
-1.  Go to the [Issues](https://github.com/AOSSIE-Org/Resonate/issues) tab on the GitHub repository.
-2.  Click on the "New Issue" button.
-3.  Provide a descriptive title and detailed description of the issue, including any error messages or steps to reproduce.
-4.  If applicable, add relevant labels or tags to categorize the issue.
-5.  Submit the issue and wait for further instructions or clarifications.
+We appreciate your contributions and look forward to working with you to make this project even better!
 
-### Feature Requests
+By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!
 
-Have a great idea for a new feature or improvement? We'd love to hear it! Follow these steps to suggest a feature:
+## :v: Maintainers
 
-1.  Go to the [Issues](https://github.com/AOSSIE-Org/Resonate/issues) tab on the GitHub repository.
-2.  Click on the "New Issue" button.
-3.  Clearly describe the proposed feature or improvement, including any use cases or benefits.
-4.  Submit the feature request and engage in any discussions or feedback related to it.
+-   [Jaideep Prasad](https://github.com/jddeep)
+-   [Chandan S Gowda](https://github.com/chandansgowda)
 
-### Pull Requests
-
-We welcome contributions in the form of pull requests. To submit a pull request, please follow these guidelines:
-
-1.  Fork the repository and create your branch.
-2.  Make the necessary code changes or improvements in your branch.
-3.  Ensure your code adheres to the project's coding style and guidelines.
-4.  Document any relevant changes or updates in the project's documentation.
-5.  Submit the pull request, providing a clear title and description of the changes made.
-6.  Engage in any feedback or discussions related to your pull request.
-
-### Code Style and Guidelines
-
-To maintain consistency throughout the project's codebase, please adhere to the following guidelines:
-
--   Follow the Dart coding style conventions.
--   Use meaningful variable and function names.
--   Add comments when necessary to explain complex logic or intent.
--   Ensure code is properly formatted by using `dartfmt`.
-
-### Commit Structure
-
-Make sure to use conventional commit structure as follows:
-
-```
-<type>: <short summary>
-  │               │
-  │               └─⫸ Summary. Not capitalized. No period at the end.
-  │
-  └─⫸ Commit Type: docs|feat|fix|perf|refactor|test
-```
-
-Know more about Conventional Commits [here](https://www.conventionalcommits.org/en/v1.0.0/).
-
-## Communication Channels
+## :mailbox: Communication Channels
 
 If you have any questions, need clarifications, or want to discuss ideas, feel free to reach out through the following channels:
 
 -   [Discord Server](https://discord.com/invite/6mFZ2S846n)
 -   [Email](mailto:aossie.oss@gmail.com)
 
-## Maintainers
+<!-- License -->
+## :round_pushpin: License
 
--   [Jaideep Prasad](https://github.com/jddeep)
--   [Chandan S. Gowda](https://github.com/chandansgowda)
+Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
 
-We appreciate your contributions and look forward to working with you to make this project even better!
-
-By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!

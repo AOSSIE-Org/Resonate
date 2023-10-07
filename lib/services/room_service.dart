@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
-import 'package:resonate/services/api/api_service.dart';
+import 'package:resonate/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class RoomService {
@@ -67,9 +67,9 @@ class RoomService {
       required List<String> roomTags,
       required String adminUid}) async {
     var response = await apiService.createRoom(roomName, roomDescription, adminUid, roomTags);
-    String appwriteRoomDocId = response.body["livekit_room"]["name"];
-    String livekitToken = response.body["access_token"];
-    String livekitSocketUrl = response.body["livekit_socket_url"];
+    String appwriteRoomDocId = response["livekit_room"]["name"];
+    String livekitToken = response["access_token"];
+    String livekitSocketUrl = response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
     const storage = FlutterSecureStorage();
@@ -103,8 +103,8 @@ class RoomService {
 
   static Future<String> joinRoom({required roomId, required String userId, required bool isAdmin}) async {
     var response = await apiService.joinRoom(roomId, userId);
-    String livekitToken = response.body["access_token"];
-    String livekitSocketUrl = response.body["livekit_socket_url"];
+    String livekitToken = response["access_token"];
+    String livekitSocketUrl = response["livekit_socket_url"];
     String myDocId = await addParticipantToAppwriteCollection(roomId: roomId, uid: userId, isAdmin: isAdmin);
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
     return myDocId;
@@ -146,8 +146,8 @@ class RoomService {
 
   static Future<void> joinLivekitPairChat({required roomId, required String userId}) async {
     var response = await apiService.joinRoom(roomId, userId);
-    String livekitToken = response.body["access_token"];
-    String livekitSocketUrl = response.body["livekit_socket_url"];
+    String livekitToken = response["access_token"];
+    String livekitSocketUrl = response["livekit_socket_url"];
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
   }
 }
