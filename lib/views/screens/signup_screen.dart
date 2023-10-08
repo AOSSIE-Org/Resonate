@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
 
@@ -42,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(
                     width: UiSizes.width_140,
                     height: UiSizes.height_131,
-                    child: Image.asset("assets/images/aossie_logo.png"),
+                    child: Image.asset(AppImages.aossieLogoImage),
                   ),
                   SizedBox(height: UiSizes.height_15),
                   Text(
@@ -206,7 +207,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () async {
                       await controller.loginWithGithub();
                     },
-                    logoPath: "assets/images/github_icon.png",
+                    logoPath: AppImages.githubIconImage,
                     authText: "Signup with Github",
                   ),
                   Spacer(),
