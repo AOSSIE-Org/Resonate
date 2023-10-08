@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
 
@@ -76,7 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     style: TextStyle(fontSize: UiSizes.size_14),
                     validator: (value) => value!.isValidPassword()
                         ? null
-                        : "Password must be atleast 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                        : "Password must be at least 6 digit, with one lowercase,\none uppercase and one numeric value.",
                     controller: controller.passwordController,
                     obscureText: true,
                     enableSuggestions: false,
@@ -221,8 +220,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: AppColor.yellowColor,
-                            fontSize: UiSizes.size_14),
+                            color: Colors.amber, fontSize: UiSizes.size_14),
                       ),
                     )
                   ],

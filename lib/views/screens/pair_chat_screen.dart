@@ -12,6 +12,8 @@ class PairChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
+
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
@@ -19,11 +21,11 @@ class PairChatScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_26),
+              style: TextStyle(
+                fontSize: UiSizes.size_26,
+              ),
             ),
             centerTitle: true,
-            elevation: 10,
-            backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
           ),
           body: Column(
             children: [
@@ -60,13 +62,16 @@ class PairChatScreen extends StatelessWidget {
                               SizedBox(
                                 height: UiSizes.height_12,
                               ),
-                              FittedBox(
+                              Container(
+                                alignment: Alignment.center,
+                                width: UiSizes.width_100,
                                 child: Text(
-                                    controller.isAnonymous.value
-                                        ? "User1"
-                                        : authStateController.userName!,
-                                    style:
-                                        TextStyle(fontSize: UiSizes.size_14)),
+                                  controller.isAnonymous.value
+                                      ? "User1"
+                                      : authStateController.userName!,
+                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               )
                             ],
                           ),
@@ -87,13 +92,15 @@ class PairChatScreen extends StatelessWidget {
                               SizedBox(
                                 height: UiSizes.height_12,
                               ),
-                              FittedBox(
-                                fit: BoxFit.fitWidth,
+                              Container(
+                                alignment: Alignment.center,
+                                width: UiSizes.width_100,
                                 child: Text(
                                   controller.isAnonymous.value
                                       ? "User2"
                                       : controller.pairUsername!,
                                   style: TextStyle(fontSize: UiSizes.size_14),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               )
                             ],
@@ -107,10 +114,12 @@ class PairChatScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
-                color: Colors.black,
+                color: currentBrightness == Brightness.light
+                    ? Colors.amber[100]
+                    : Colors.black,
                 height: UiSizes.height_131,
                 child: Obx(() {
                   return Row(
@@ -122,29 +131,27 @@ class PairChatScreen extends StatelessWidget {
                             height: UiSizes.height_56,
                             width: UiSizes.width_56,
                             child: FloatingActionButton(
+                              elevation: 0,
                               heroTag: "mic",
                               onPressed: () {
                                 controller.toggleMic();
                               },
                               backgroundColor: controller.isMicOn.value
-                                  ? Colors.amber
-                                  : Colors.white24,
-                              child: controller.isMicOn.value
-                                  ? Icon(
-                                      Icons.mic,
-                                      color: Colors.black,
-                                      size: UiSizes.size_24,
-                                    )
-                                  : Icon(Icons.mic_off,
-                                      color: Colors.white,
-                                      size: UiSizes.size_24),
+                                  ? currentBrightness == Brightness.light
+                                      ? Colors.white
+                                      : Colors.white54
+                                  : Colors.amber,
+                              child: Icon(
+                                Icons.mic_off,
+                                size: UiSizes.size_24,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: UiSizes.height_4,
                           ),
                           Text(
-                            controller.isMicOn.value ? "Mute" : "Unmute",
+                            'Mute',
                             style: TextStyle(fontSize: UiSizes.height_14),
                           )
                         ],
@@ -155,33 +162,27 @@ class PairChatScreen extends StatelessWidget {
                             height: UiSizes.height_56,
                             width: UiSizes.width_56,
                             child: FloatingActionButton(
+                              elevation: 0,
                               heroTag: "speaker",
                               onPressed: () {
                                 controller.toggleLoudSpeaker();
                               },
                               backgroundColor: controller.isLoudSpeakerOn.value
-                                  ? Colors.white
-                                  : Colors.white24,
-                              child: controller.isLoudSpeakerOn.value
-                                  ? Icon(
-                                      Icons.surround_sound_outlined,
-                                      color: Colors.black,
-                                      size: UiSizes.size_24,
-                                    )
-                                  : Icon(
-                                      Icons.volume_up,
-                                      color: Colors.white,
-                                      size: UiSizes.size_24,
-                                    ),
+                                  ? Colors.amber
+                                  : currentBrightness == Brightness.light
+                                      ? Colors.white
+                                      : Colors.white54,
+                              child: Icon(
+                                Icons.volume_up,
+                                size: UiSizes.size_24,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: UiSizes.height_4,
                           ),
                           Text(
-                            controller.isLoudSpeakerOn.value
-                                ? "Ear"
-                                : "Speaker",
+                            'Speaker',
                             style: TextStyle(fontSize: UiSizes.height_14),
                           )
                         ],
@@ -192,6 +193,7 @@ class PairChatScreen extends StatelessWidget {
                             height: UiSizes.height_56,
                             width: UiSizes.width_56,
                             child: FloatingActionButton(
+                              elevation: 0,
                               heroTag: "end-chat",
                               onPressed: () async {
                                 await controller.endChat();

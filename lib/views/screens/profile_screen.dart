@@ -9,6 +9,7 @@ import 'package:resonate/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../routes/app_routes.dart';
 import '../../utils/constants.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
@@ -29,7 +30,6 @@ class ProfileScreen extends StatelessWidget {
           title: const Text(
             "Profile",
           ),
-          titleTextStyle: TextStyle(fontSize: UiSizes.size_23),
           actions: [
             Row(
               children: [
@@ -118,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(100),
-                                        color: Colors.white,
+                                        color: Colors.amber,
                                       ),
                                       duration:
                                           const Duration(milliseconds: 300),
@@ -159,8 +159,7 @@ class ProfileScreen extends StatelessWidget {
                                               children: [
                                                 Icon(
                                                   Icons.cancel_rounded,
-                                                  color: const Color.fromARGB(
-                                                      255, 236, 53, 40),
+                                                  color: Colors.red,
                                                   size: UiSizes.size_35,
                                                 ),
                                                 emailVerifyController
@@ -237,8 +236,7 @@ class ProfileScreen extends StatelessWidget {
                                         height: UiSizes.height_40,
                                         width: UiSizes.width_140,
                                         decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                235, 111, 88, 5),
+                                            color: Colors.amber,
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             border: Border.all(
@@ -247,7 +245,9 @@ class ProfileScreen extends StatelessWidget {
                                           child: Text(
                                             "Verify Email",
                                             style: TextStyle(
-                                                fontSize: UiSizes.size_14),
+                                                color: Colors.black,
+                                                fontSize: UiSizes.size_14,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         )),
                                   ),
@@ -282,6 +282,13 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () {
                             //TODO: Launch URL in webview
                           },
+                        ),
+                        SizedBox(height: UiSizes.height_10),
+                        CustomCard(
+                          title: "Settings",
+                          icon: FontAwesomeIcons.gear,
+                          onTap: () =>
+                              Navigator.pushNamed(context, AppRoutes.settings),
                         ),
                       ],
                     ),

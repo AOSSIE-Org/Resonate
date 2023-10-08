@@ -16,13 +16,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var splashcontroller = Get.find<SplashController>();
+  var splashController = Get.find<SplashController>();
   var authController = Get.find<AuthStateController>();
 
   startDisplayTimer() async {
     var duration = const Duration(seconds: 1);
     return Timer(duration, () {
-      splashcontroller.allowedDisplay.value = true;
+      splashController.allowedDisplay.value = true;
     });
   }
 
@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.bgBlackColor,
       body: SafeArea(
         child: Center(
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -88,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_140,
               child: Obx(
-                () => splashcontroller.allowedDisplay.value
+                () => splashController.allowedDisplay.value
                     ? AnimatedSplashScreen.withScreenFunction(
                         splash: Image.asset("assets/images/aossie_logo.png"),
                         duration: 2000,

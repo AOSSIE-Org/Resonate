@@ -20,14 +20,14 @@ class LandingScreen extends StatelessWidget {
         controllerColor: AppColor.yellowColor,
         hasFloatingButton: true,
         headerBackgroundColor: AppColor.bgBlackColor,
-        finishButtonTextStyle: TextStyle(
-          color: AppColor.bgBlackColor,
-        ),
-        finishButtonStyle: FinishButtonStyle(
+        finishButtonStyle: const FinishButtonStyle(
           backgroundColor: AppColor.yellowMaterialColor,
           elevation: 10,
         ),
-        skipIcon: Icon(
+        finishButtonTextStyle: const TextStyle(
+          color: AppColor.bgBlackColor,
+        ),
+        skipIcon: const Icon(
           Icons.arrow_forward,
           color: AppColor.bgBlackColor,
         ),
@@ -36,7 +36,7 @@ class LandingScreen extends StatelessWidget {
           Get.offNamed(AppRoutes.login);
         },
         finishButtonText: 'Get Started',
-        skipTextButton: Text('Skip'),
+        skipTextButton: const Text('Skip'),
         background: [
           LandingImage(
             ImagePath: 'assets/images/landing_first.png',

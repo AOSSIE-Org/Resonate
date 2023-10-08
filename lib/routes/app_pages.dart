@@ -10,6 +10,7 @@ import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
@@ -82,6 +83,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.pairChat,
       page: () => PairChatScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.settings,
+      page: () => const SettingsScreen(),
+      binding: ProfileBinding(),
     ),
   ];
 }

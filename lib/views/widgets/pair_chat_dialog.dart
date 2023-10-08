@@ -15,7 +15,7 @@ Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
   return Get.defaultDialog(
       title: "Pair Chat",
-      titleStyle: TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 10),
+      titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
       content: Padding(
         padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
         child: Column(
@@ -25,7 +25,7 @@ Future<dynamic> buildPairChatDialog() {
             Text(
               "Choose Identity",
               style:
-                  TextStyle(color: Colors.amber, fontSize: Get.pixelRatio * 6),
+                  TextStyle(fontSize: Get.pixelRatio * 6),
             ),
             SizedBox(
               height: UiSizes.height_10,
@@ -42,7 +42,9 @@ Future<dynamic> buildPairChatDialog() {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: controller.isAnonymous.value
                               ? AppColor.yellowColor
-                              : AppColor.bgBlackColor,
+                              : Colors.black26,
+                            shadowColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent
                         ),
                         child: Text(
                           'Anonymous',
@@ -64,7 +66,9 @@ Future<dynamic> buildPairChatDialog() {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: !controller.isAnonymous.value
                               ? AppColor.yellowColor
-                              : AppColor.bgBlackColor,
+                              : Colors.black26,
+                          shadowColor: Colors.transparent,
+                          surfaceTintColor: Colors.transparent
                         ),
                         onPressed: () {
                           controller.isAnonymous.value = false;
@@ -74,9 +78,9 @@ Future<dynamic> buildPairChatDialog() {
                           child: Text(
                             Get.find<AuthStateController>().displayName!,
                             style: TextStyle(
-                                color: !controller.isAnonymous.value
-                                    ? Colors.black
-                                    : Colors.white,
+                                color: controller.isAnonymous.value
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontSize: UiSizes.size_14),
                           ),
                         ),
@@ -93,7 +97,6 @@ Future<dynamic> buildPairChatDialog() {
             Text(
               "Select Language",
               style: TextStyle(
-                color: Colors.amber,
                 fontSize: Get.pixelRatio * 6,
               ),
             ),

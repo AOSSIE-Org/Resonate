@@ -117,7 +117,6 @@ class AuthStateController extends GetxController {
       middleText: "You are logging out of Resonate",
       textConfirm: "Yes",
       textCancel: "No",
-      buttonColor: AppColor.yellowColor,
       contentPadding: const EdgeInsets.only(bottom: 20),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
