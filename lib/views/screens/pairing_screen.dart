@@ -30,7 +30,8 @@ class PairingScreen extends StatelessWidget {
               ),
               Text(
                 "Hang on, Good Things take time  🔍",
-                style: TextStyle(fontSize: UiSizes.size_14),
+                style:
+                    TextStyle(fontSize: UiSizes.size_14, color: Colors.white),
               ),
               const Spacer(),
               //Image.asset("assets/images/pairing.gif"),
@@ -76,7 +77,8 @@ class PairingScreen extends StatelessWidget {
                     Text(
                       "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: UiSizes.size_14),
+                      style: TextStyle(
+                          fontSize: UiSizes.size_14, color: Colors.white),
                     ),
                     SizedBox(
                       height: UiSizes.height_15,

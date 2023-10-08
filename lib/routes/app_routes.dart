@@ -13,4 +13,5 @@ class AppRoutes {
   static const discuss = "/discuss";
   static const pairing = "/pairing";
   static const pairChat = "/pairChat";
+  static const settings = "/settings";
 }

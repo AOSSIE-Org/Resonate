@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -15,20 +14,20 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: OnBoardingSlider(
         leading: Image.asset(
-          AppImages.resonateLogoImage,
+          "assets/images/resonate_logo.png",
           height: UiSizes.height_24_6,
         ),
         controllerColor: AppColor.yellowColor,
         hasFloatingButton: true,
         headerBackgroundColor: AppColor.bgBlackColor,
-        finishButtonTextStyle: const TextStyle(
+        finishButtonTextStyle: TextStyle(
           color: AppColor.bgBlackColor,
         ),
-        finishButtonStyle: const FinishButtonStyle(
+        finishButtonStyle: FinishButtonStyle(
           backgroundColor: AppColor.yellowMaterialColor,
           elevation: 10,
         ),
-        skipIcon: const Icon(
+        skipIcon: Icon(
           Icons.arrow_forward,
           color: AppColor.bgBlackColor,
         ),
@@ -37,22 +36,22 @@ class LandingScreen extends StatelessWidget {
           Get.offNamed(AppRoutes.login);
         },
         finishButtonText: 'Get Started',
-        skipTextButton: const Text('Skip'),
+        skipTextButton: Text('Skip'),
         background: [
           LandingImage(
-            ImagePath: AppImages.landingFirstImage,
+            ImagePath: 'assets/images/landing_first.png',
             InitialHeight: UiSizes.height_82,
             ImageHeight: UiSizes.height_246 * 1.008,
             ImageWidth: UiSizes.width_45,
           ),
           LandingImage(
-            ImagePath: AppImages.landingSecondImage,
+            ImagePath: 'assets/images/landing_second.png',
             InitialHeight: UiSizes.height_90,
             ImageHeight: UiSizes.height_246,
             ImageWidth: UiSizes.width_40,
           ),
           LandingImage(
-              ImagePath: AppImages.landingThirdImage,
+              ImagePath: 'assets/images/landing_third.png',
               InitialHeight: UiSizes.height_90,
               ImageHeight: UiSizes.height_246,
               ImageWidth: UiSizes.width_56),
@@ -137,13 +136,11 @@ class LandingScreen extends StatelessWidget {
 // ignore: must_be_immutable
 class LandingImage extends StatelessWidget {
   LandingImage({
-    super.key,
     required this.ImagePath,
     required this.InitialHeight,
     required this.ImageHeight,
     required this.ImageWidth,
   });
-
   String ImagePath;
   double InitialHeight;
   double ImageHeight;

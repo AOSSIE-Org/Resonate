@@ -7,13 +7,9 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/utils/utils.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
-
-import '../../controllers/email_verify_controller.dart';
-import '../../utils/colors.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
@@ -22,10 +18,6 @@ class TabViewScreen extends StatelessWidget {
       Get.put<TabViewController>(TabViewController());
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
-  final EmailVerifyController emailVerifyController =
-      Get.put<EmailVerifyController>(EmailVerifyController());
-
-  TabViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +27,9 @@ class TabViewScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_26),
+              style: TextStyle(fontSize: UiSizes.size_26),
             ),
             centerTitle: false,
-            elevation: 10,
-            backgroundColor: const Color.fromRGBO(17, 17, 20, 1),
             actions: [
               profileAvatar(context),
             ],
@@ -50,7 +40,6 @@ class TabViewScreen extends StatelessWidget {
                   buttonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
-                  backgroundColor: AppColor.yellowColor,
                   elevation: 8.0,
                   spacing: 10,
                   spaceBetweenChildren: 6,
@@ -59,34 +48,16 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.multitrack_audio, size: UiSizes.size_24),
-                      foregroundColor: AppColor.yellowColor,
                       label: "Audio Room",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
-                        if (authStateController.isEmailVerified!) {
-                          await Get.delete<CreateRoomController>();
-                          controller.setIndex(2);
-                        } else {
-                          AppUtils.showDialog(
-                            title: "Email Verification Required",
-                            middleText:
-                                "To proceed, verify your email address first.",
-                            onFirstBtnPressed: () {
-                              Get.back();
-                              emailVerifyController.isSending.value = true;
-                              emailVerifyController.sendOTP();
-                              AppUtils.showBlurredLoaderDialog();
-                            },
-                            onSecondBtnPressed: () => Get.back(),
-                            firstBtnText: "Verify",
-                          );
-                        }
+                        await Get.delete<CreateRoomController>();
+                        controller.setIndex(2);
                       },
                     ),
                     SpeedDialChild(
                       child:
                           Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
-                      foregroundColor: AppColor.yellowColor,
                       label: "Pair Chat",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
@@ -103,21 +74,24 @@ class TabViewScreen extends StatelessWidget {
                       onPressed: () async {
                         await Get.find<CreateRoomController>().createRoom();
                       },
-                      backgroundColor: AppColor.yellowColor,
                       child: Icon(Icons.done, size: UiSizes.size_24)),
                 ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             height: UiSizes.size_56,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? Colors.white
+                : const Color.fromRGBO(17, 17, 20, 1),
             activeColor: Colors.amber,
-            inactiveColor: Colors.amber.withOpacity(0.5),
-            splashColor: Colors.black,
-            shadow: const Shadow(color: Color.fromRGBO(17, 17, 20, 1)),
+            inactiveColor: Theme.of(context).brightness == Brightness.light
+                ? Colors.black.withOpacity(0.3)
+                : Colors.white.withOpacity(0.3),
+            splashRadius: 0,
+            shadow: const Shadow(color: Colors.transparent),
             iconSize: UiSizes.size_30,
             icons: const [
-              Icons.home_outlined,
+              Icons.home_rounded,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
               Icons.chat_rounded
             ],

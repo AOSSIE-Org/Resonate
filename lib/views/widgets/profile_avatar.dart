@@ -33,7 +33,6 @@ Widget profileAvatar(BuildContext context) {
                     onBackgroundImageError: (exception, stackTrace) =>
                         const Icon(
                       Icons.person_outline,
-                      color: Colors.amber,
                     ),
                     backgroundImage: controller.profileImageUrl == null ||
                             controller.profileImageUrl!.isEmpty
