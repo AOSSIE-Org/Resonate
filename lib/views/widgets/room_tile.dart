@@ -12,7 +12,7 @@ import '../../utils/enums/room_state.dart';
 class RoomTile extends StatelessWidget {
   final AppwriteRoom room;
 
-  RoomTile({required this.room});
+  RoomTile({super.key, required this.room});
 
   Text buildTags() {
     String tagString = "";
@@ -152,7 +152,7 @@ class RoomTile extends StatelessWidget {
                     ),
                     Text("${room.totalParticipants}+ Joined",
                         style: kTileSubtitleStyle),
-                    Spacer(),
+                    const Spacer(),
                     FaIcon(
                       FontAwesomeIcons.thumbsUp,
                       color: Colors.black,

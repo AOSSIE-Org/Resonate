@@ -24,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
       Get.put<AuthStateController>(AuthStateController());
   @override
   Widget build(BuildContext context) {
+
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(

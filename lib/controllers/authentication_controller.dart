@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/utils/constants.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;

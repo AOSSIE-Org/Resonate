@@ -72,7 +72,7 @@ class RoomService {
     String livekitSocketUrl = response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
-    final storage = FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
     await storage.write(key: "createdRoomAdminToken", value: livekitToken);
     await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
 
@@ -84,7 +84,7 @@ class RoomService {
 
   static Future deleteRoom({required roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
-    final storage = FlutterSecureStorage();
+    const storage = FlutterSecureStorage();
 
     // Delete room on livekit and roomdoc on appwrite
     String? livekitToken = await storage.read(key: "createdRoomAdminToken");
