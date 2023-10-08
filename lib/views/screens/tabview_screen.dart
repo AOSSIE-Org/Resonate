@@ -10,6 +10,9 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
+
+import '../../controllers/email_verify_controller.dart';
+import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
@@ -18,6 +21,8 @@ class TabViewScreen extends StatelessWidget {
       Get.put<TabViewController>(TabViewController());
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
+  final emailVerifyController =
+      Get.put<EmailVerifyController>(EmailVerifyController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +56,24 @@ class TabViewScreen extends StatelessWidget {
                       label: "Audio Room",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
-                        await Get.delete<CreateRoomController>();
-                        controller.setIndex(2);
+                        if (authStateController.isEmailVerified!) {
+                          await Get.delete<CreateRoomController>();
+                          controller.setIndex(2);
+                        } else {
+                          AppUtils.showDialog(
+                            title: "Email Verification Required",
+                            middleText:
+                                "To proceed, verify your email address first.",
+                            onFirstBtnPressed: () {
+                              Get.back();
+                              emailVerifyController.isSending.value = true;
+                              emailVerifyController.sendOTP();
+                              AppUtils.showBlurredLoaderDialog();
+                            },
+                            onSecondBtnPressed: () => Get.back(),
+                            firstBtnText: "Verify",
+                          );
+                        }
                       },
                     ),
                     SpeedDialChild(
