@@ -8,6 +8,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
 
 import '../../controllers/email_verify_controller.dart';
+import '../../controllers/password_strength_checker_controller.dart';
+import '../widgets/password_strength_indicator.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -19,6 +21,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   var controller = Get.find<AuthenticationController>();
   var emailVerifyController = Get.find<EmailVerifyController>();
+  var passwordStrengthCheckerController =
+      Get.find<PasswordStrengthCheckerController>();
 
   @override
   void initState() {
@@ -33,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: UiSizes.height_780 + 20,
+            height: UiSizes.height_780 + 75,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
@@ -60,6 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: TextStyle(fontSize: UiSizes.size_14),
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       autocorrect: false,
                       decoration: InputDecoration(
                         icon: Icon(
@@ -76,14 +81,18 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                     child: TextFormField(
                       style: TextStyle(fontSize: UiSizes.size_14),
-                      validator: (value) => value!.isValidPassword()
-                          ? null
-                          : "Password must be at least 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: controller.passwordController,
+                      validator: (value) =>
+                          value! == "" ? "Password can't be empty" : null,
                       obscureText: true,
+                      onChanged: (value) => passwordStrengthCheckerController
+                          .passwordValidator(value),
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
+                        errorMaxLines:
+                            2, // number of lines the error text would wrap
                         icon: Icon(
                           size: UiSizes.size_23,
                           Icons.lock_outline_rounded,
@@ -107,6 +116,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
                           icon: Icon(
                             size: UiSizes.size_23,
@@ -127,6 +137,46 @@ class _SignupScreenState extends State<SignupScreen> {
                                   : Icons.visibility_off_outlined,
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Obx(
+                    () => Visibility(
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible:
+                          passwordStrengthCheckerController.isVisible.value,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            passwordStrengthCheckerController.isVisible.value
+                                ? 1
+                                : 0,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: UiSizes.height_20),
+                          child: SizedBox(
+                              height: UiSizes.height_45,
+                              child: PasswordStrengthIndicator(
+                                isPasswordSixCharacters:
+                                    passwordStrengthCheckerController
+                                        .isPasswordSixCharacters.value,
+                                hasOneDigit: passwordStrengthCheckerController
+                                    .hasOneDigit.value,
+                                hasUpperCase: passwordStrengthCheckerController
+                                    .hasUpperCase.value,
+                                hasLowerCase: passwordStrengthCheckerController
+                                    .hasLowerCase.value,
+                                passwordSixCharactersTitle:
+                                    "Password should be at least 6 characters long",
+                                hasOneDigitTitle:
+                                    "Include at least 1 numeric digit",
+                                hasUpperCaseTitle:
+                                    "Include at least 1 uppercase letter",
+                                hasLowerCaseTitle:
+                                    "Include at least 1 lowercase letter",
+                              )),
                         ),
                       ),
                     ),
@@ -228,7 +278,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       )
                     ],
                   ),
-                  const Spacer(),
+                  const Spacer(
+                    flex: 3,
+                  ),
                 ],
               ),
             ),

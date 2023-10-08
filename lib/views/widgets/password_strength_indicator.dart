@@ -68,6 +68,23 @@ class PasswordStrengthIndicator extends StatelessWidget {
   }
 
   AnimatedContainer buildAnimatedStrengthContainer(bool isCheck) {
+    Color containerColor = Colors.grey.shade400; // Default color
+
+    if (isCheck) {
+      if (isPasswordSixCharacters && hasOneDigit) {
+        if (hasUpperCase && hasLowerCase) {
+          containerColor =
+              AppColor.greenColor; // All checks are true, green color
+        } else {
+          containerColor =
+              AppColor.yellowColor; // Two checks are true, yellow color
+        }
+      } else {
+        containerColor =
+            AppColor.amberRedColor; // One check is true, amberRed color
+      }
+    }
+
     return AnimatedContainer(
       duration: const Duration(
         milliseconds: 500,
@@ -76,7 +93,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
       height: 5,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: isCheck ? AppColor.yellowColor : Colors.white24,
+        color: containerColor,
         borderRadius: BorderRadius.circular(5),
       ),
     );
