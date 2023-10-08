@@ -63,7 +63,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.tabview,
-      page: () =>  TabViewScreen(),
+      page: () => TabViewScreen(),
       binding: TabViewBinding(),
     ),
     GetPage(

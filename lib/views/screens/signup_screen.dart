@@ -210,7 +210,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     logoPath: AppImages.githubIconImage,
                     authText: "Signup with Github",
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -228,7 +228,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),

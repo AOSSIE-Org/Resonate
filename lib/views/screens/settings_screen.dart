@@ -4,9 +4,6 @@ import 'package:get/get.dart';
 import 'package:resonate/themes/theme_controller.dart';
 
 import '../../themes/choose_theme_bottom_sheet.dart';
-import '../../utils/enums/themes_enum.dart';
-import '../../utils/ui_sizes.dart';
-import '../widgets/custom_card.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: UiSizes.width_140,
                     height: UiSizes.height_140,
-                    child: Image.asset(AppImages.resonateLogoImage),
+                    child: Image.asset(AppImages.aossieLogoImage),
                   ),
                   SizedBox(height: UiSizes.height_15),
                   Text(
@@ -181,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     logoPath: "assets/images/github_icon.png",
                     authText: "Login with Github",
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

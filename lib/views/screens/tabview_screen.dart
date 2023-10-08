@@ -24,6 +24,8 @@ class TabViewScreen extends StatelessWidget {
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
 
+  TabViewScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
