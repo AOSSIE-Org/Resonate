@@ -73,6 +73,7 @@ class ProfileScreen extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        SizedBox(height: UiSizes.height_45,),
                         Container(
                           width: UiSizes.width_180,
                           height: UiSizes.height_180,
@@ -254,7 +255,17 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
+
                         SizedBox(height: UiSizes.height_20),
+
+                        CustomCard(
+                          title: "Edit Profile",
+                          icon: FontAwesomeIcons.userPen,
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.editProfile);
+                          },
+                        ),
+                        SizedBox(height: UiSizes.height_10),
                         CustomCard(
                           title: "Contribute to the project",
                           icon: FontAwesomeIcons.github,
@@ -290,6 +301,7 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () =>
                               Navigator.pushNamed(context, AppRoutes.settings),
                         ),
+                        SizedBox(height: UiSizes.height_45,),
                       ],
                     ),
                   ),
