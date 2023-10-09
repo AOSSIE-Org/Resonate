@@ -7,6 +7,13 @@ class PasswordStrengthCheckerController extends GetxController {
   RxBool hasUpperCase = false.obs;
   RxBool hasLowerCase = false.obs;
 
+  RxInt get validatedChecks => RxInt([
+        isPasswordSixCharacters,
+        hasOneDigit,
+        hasUpperCase,
+        hasLowerCase
+      ].where((check) => check.value).length);
+
   void passwordValidator(String pass) {
     isVisible.value = false;
     if (pass.isNotEmpty) {
