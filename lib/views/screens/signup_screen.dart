@@ -186,6 +186,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   SizedBox(height: UiSizes.height_24_6),
+                  Obx(() {
+                    if (passwordStrengthCheckerController.isVisible.value) {
+                      return Spacer();
+                    } else {
+                      return Container();
+                    }
+                  }),
                   Obx(
                     () => ElevatedButton(
                       onPressed: emailVerifyController.signupisallowed.value
@@ -226,43 +233,63 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   SizedBox(height: UiSizes.height_12),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
+                  Obx(
+                    () => Visibility(
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible:
+                          !passwordStrengthCheckerController.isVisible.value,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            !passwordStrengthCheckerController.isVisible.value
+                                ? 1
+                                : 0,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Divider(
+                                    indent: UiSizes.width_20,
+                                    endIndent: UiSizes.width_10,
+                                    thickness: UiSizes.height_1,
+                                  ),
+                                ),
+                                Text(
+                                  "OR",
+                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    indent: UiSizes.width_10,
+                                    endIndent: UiSizes.width_20,
+                                    thickness: UiSizes.height_1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: UiSizes.size_14),
+                            AuthButtonWidget(
+                              onPressed: () async {
+                                await controller.loginWithGoogle();
+                              },
+                              logoPath: "assets/images/google_icon.png",
+                              authText: "Signup with Google",
+                            ),
+                            SizedBox(height: UiSizes.height_14),
+                            AuthButtonWidget(
+                              onPressed: () async {
+                                await controller.loginWithGithub();
+                              },
+                              logoPath: AppImages.githubIconImage,
+                              authText: "Signup with Github",
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        "OR",
-                        style: TextStyle(fontSize: UiSizes.size_14),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_10,
-                          endIndent: UiSizes.width_20,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: UiSizes.size_14),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGoogle();
-                    },
-                    logoPath: "assets/images/google_icon.png",
-                    authText: "Signup with Google",
-                  ),
-                  SizedBox(height: UiSizes.height_14),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGithub();
-                    },
-                    logoPath: AppImages.githubIconImage,
-                    authText: "Signup with Github",
+                    ),
                   ),
                   const Spacer(),
                   Row(
