@@ -8,6 +8,7 @@ import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
+
   PairChatController controller = Get.find<PairChatController>();
 
   @override
@@ -47,10 +48,12 @@ class PairChatScreen extends StatelessWidget {
                       SizedBox(
                         height: UiSizes.height_24_6,
                       ),
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
+                          // Row 1
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
@@ -60,7 +63,7 @@ class PairChatScreen extends StatelessWidget {
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: UiSizes.height_12,
+                                width: UiSizes.width_16,
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -69,18 +72,18 @@ class PairChatScreen extends StatelessWidget {
                                   controller.isAnonymous.value
                                       ? "User1"
                                       : authStateController.userName!,
-                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                  style: TextStyle(fontSize: UiSizes.size_16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                          Container(
-                            width: UiSizes.width_33,
-                            height: 2,
-                            color: Colors.amber,
+                          SizedBox(
+                            height: UiSizes.height_20,
                           ),
-                          Column(
+                          // Row 2
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
@@ -90,7 +93,7 @@ class PairChatScreen extends StatelessWidget {
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: UiSizes.height_12,
+                                width: UiSizes.width_16,
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -99,10 +102,10 @@ class PairChatScreen extends StatelessWidget {
                                   controller.isAnonymous.value
                                       ? "User2"
                                       : controller.pairUsername!,
-                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                  style: TextStyle(fontSize: UiSizes.size_16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
