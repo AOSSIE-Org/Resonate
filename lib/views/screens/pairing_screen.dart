@@ -9,6 +9,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingScreen extends StatelessWidget {
   PairChatController controller = Get.find<PairChatController>();
+
+  PairingScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +65,7 @@ class PairingScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                 child: Column(

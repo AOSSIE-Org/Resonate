@@ -11,6 +11,8 @@ class PairChatScreen extends StatelessWidget {
 
   PairChatController controller = Get.find<PairChatController>();
 
+  PairChatScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;

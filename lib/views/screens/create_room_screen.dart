@@ -16,6 +16,8 @@ class CreateRoomScreen extends StatelessWidget {
       borderSide: BorderSide(color: Colors.amber, width: UiSizes.width_2),
       borderRadius: BorderRadius.circular(15));
 
+  CreateRoomScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CreateRoomController>(

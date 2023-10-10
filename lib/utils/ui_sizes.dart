@@ -96,6 +96,7 @@ class UiSizes {
   static var size_32 = 0.01947 * Get.height + 0.03889 * Get.width;
   static var size_35 = 0.021 * Get.height + 0.0425 * Get.width;
   static var size_40 = 0.024 * Get.height + 0.048 * Get.width;
+
   static var size_56 = 0.068 * Get.width + 0.034 * Get.height;
   static var size_65 = 0.0395 * Get.height + 0.0789 * Get.width;
   static var size_70 = 0.0425 * Get.height + 0.085 * Get.width;

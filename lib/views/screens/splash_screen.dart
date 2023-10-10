@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -52,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: UiSizes.width_140,
               child: AnimatedSplashScreen.withScreenFunction(
                   splashIconSize: UiSizes.height_200,
-                  splash: Image.asset("assets/images/resonate_logo.png"),
+                  splash: Image.asset(AppImages.resonateLogoImage),
                   duration: 3000,
                   screenFunction: () async {
                     return const SizedBox();
@@ -91,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Obx(
                 () => splashController.allowedDisplay.value
                     ? AnimatedSplashScreen.withScreenFunction(
-                        splash: Image.asset("assets/images/aossie_logo.png"),
+                        splash: Image.asset(AppImages.aossieLogoImage),
                         duration: 2000,
                         screenFunction: () async {
                           return const SizedBox();
