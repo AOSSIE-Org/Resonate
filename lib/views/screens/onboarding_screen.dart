@@ -65,7 +65,7 @@ class OnBoardingScreen extends StatelessWidget {
                       SizedBox(
                         height: UiSizes.height_66,
                         child: TextFormField(
-                          cursorRadius: Radius.circular(10),
+                          cursorRadius: const Radius.circular(10),
                           style: TextStyle(fontSize: UiSizes.size_14),
                           validator: (value) =>
                               value!.isNotEmpty ? null : "Enter Valid Name",
