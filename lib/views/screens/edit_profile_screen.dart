@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/edit_profile_controller.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/ui_sizes.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -34,17 +35,20 @@ class EditProfileScreen extends StatelessWidget {
     ),
   );
 
+  // Initializing controllers
+  final EditProfileController editProfileController =
+      Get.put(EditProfileController());
+  final AuthStateController authStateController =
+      Get.put(AuthStateController());
+
   @override
   Widget build(BuildContext context) {
-    // Initializing controllers
-    final EditProfileController editProfileController =
-        Get.put(EditProfileController());
-    final AuthStateController authStateController =
-        Get.put(AuthStateController());
-
     return WillPopScope(
       onWillPop: () async {
+        // await editProfileController.saveChangesDialogue();
+
         editProfileController.profileImagePath = null;
+        editProfileController.removeImage = false;
 
         return editProfileController.isLoading.value
             ? Future<bool>.value(false)
@@ -72,14 +76,21 @@ class EditProfileScreen extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.black,
                       backgroundImage: (controller.profileImagePath == null)
-                          ? NetworkImage(authStateController.profileImageUrl!)
+                          ? controller.removeImage
+                              ? const NetworkImage(
+                                  userProfileImagePlaceholderUrl)
+                              : NetworkImage(
+                                  authStateController.profileImageUrl!)
                           : FileImage(File(controller.profileImagePath!))
                               as ImageProvider,
                       radius: UiSizes.size_70,
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                          onTap: () async => await controller.pickImage(),
+                          onTap: () {
+                            showBottomSheet();
+                          },
+                          // onTap: () async => await controller.pickImage(),
                           child: const CircleAvatar(
                             backgroundColor: Colors.amber,
                             child: Icon(
@@ -183,6 +194,89 @@ class EditProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void showBottomSheet() {
+    showModalBottomSheet(
+      context: Get.context!,
+      builder: (_) {
+        return changeProfilePictureBottomSheet(Get.context!);
+      },
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+    );
+  }
+
+  Widget changeProfilePictureBottomSheet(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      padding:
+          EdgeInsets.only(top: UiSizes.height_30, bottom: UiSizes.height_56),
+      children: [
+        Text(
+          'Change profile picture',
+          style:
+              TextStyle(fontSize: UiSizes.size_20, fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+          height: UiSizes.height_30,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    editProfileController.pickImageFromCamera();
+                  },
+                  icon: const Icon(
+                    Icons.camera_alt,
+                  ),
+                  iconSize: UiSizes.size_56,
+                ),
+                const Text('Camera')
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    editProfileController.pickImageFromGallery();
+                  },
+                  icon: const Icon(
+                    Icons.image,
+                  ),
+                  iconSize: UiSizes.size_56,
+                ),
+                const Text('Gallery')
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    editProfileController.removeProfilePicture();
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                  ),
+                  iconSize: UiSizes.size_56,
+                ),
+                const Text('Remove')
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

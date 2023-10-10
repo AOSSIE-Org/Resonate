@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -21,6 +22,8 @@ class EditProfileController extends GetxController {
 
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
+
+  bool removeImage = false;
 
   late String oldUsername;
   late String oldDisplayName;
@@ -44,7 +47,78 @@ class EditProfileController extends GetxController {
     usernameController.text = authStateController.userName!;
   }
 
-  Future<void> pickImage() async {
+  Future<void> saveChangesDialogue() async {
+    // ToDo: logic
+
+    Get.defaultDialog(
+        title: 'Save changes',
+        titleStyle: const TextStyle(fontWeight: FontWeight.w500),
+        titlePadding: const EdgeInsets.symmetric(vertical: 20),
+        content: Text(
+          "If you proceed without saving, any unsaved changes will be lost.",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: UiSizes.size_14,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, right: 5),
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Discard',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, left: 5),
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Save',
+                style: TextStyle(color: Colors.blue),
+              ),
+            ),
+          ),
+        ]);
+  }
+
+  Future<void> pickImageFromCamera() async {
+    try {
+      // Display Loading Dialog
+      Get.dialog(
+          Center(
+            child: LoadingAnimationWidget.threeRotatingDots(
+                color: Colors.amber, size: Get.pixelRatio * 20),
+          ),
+          barrierDismissible: false,
+          name: "Loading Dialog");
+
+      XFile? file = await _imagePicker.pickImage(
+          source: ImageSource.camera, maxHeight: 400, maxWidth: 400);
+      if (file == null) return;
+      profileImagePath = file.path;
+      update();
+
+      removeImage = false;
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      // Close the loading dialog
+      Get.back();
+    }
+  }
+
+  void removeProfilePicture() {
+    removeImage = true;
+    profileImagePath = null;
+    update();
+  }
+
+  Future<void> pickImageFromGallery() async {
     try {
       // Display Loading Dialog
       Get.dialog(
@@ -60,6 +134,8 @@ class EditProfileController extends GetxController {
       if (file == null) return;
       profileImagePath = file.path;
       update();
+
+      removeImage = false;
     } catch (e) {
       log(e.toString());
     } finally {
@@ -75,7 +151,6 @@ class EditProfileController extends GetxController {
         collectionId: usernameCollectionID,
         documentId: username,
       );
-      print('gotit');
       return false;
     } catch (e) {
       log(e.toString());
@@ -124,11 +199,21 @@ class EditProfileController extends GetxController {
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
           data: {
-            // "name": nameController.text,
-            // "username": usernameController.text,
             "profileImageUrl": imageController.text,
-            // "dob": dobController.text,
-            // "email": authStateController.email
+          },
+        );
+      }
+
+      if (removeImage) {
+        imageController.text = userProfileImagePlaceholderUrl;
+
+        // Update user profile picture URL in Database
+        await databases.updateDocument(
+          databaseId: userDatabaseID,
+          collectionId: usersCollectionID,
+          documentId: authStateController.uid!,
+          data: {
+            "profileImageUrl": imageController.text,
           },
         );
       }
@@ -145,7 +230,6 @@ class EditProfileController extends GetxController {
           );
           return;
         }
-        print(oldUsername);
 
         // Delete Old Username doc, so Username can be re-usable
         await databases.deleteDocument(
