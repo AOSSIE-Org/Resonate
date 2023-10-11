@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -47,43 +46,11 @@ class EditProfileController extends GetxController {
     usernameController.text = authStateController.userName!;
   }
 
-  Future<void> saveChangesDialogue() async {
-    // ToDo: logic
-
-    Get.defaultDialog(
-        title: 'Save changes',
-        titleStyle: const TextStyle(fontWeight: FontWeight.w500),
-        titlePadding: const EdgeInsets.symmetric(vertical: 20),
-        content: Text(
-          "If you proceed without saving, any unsaved changes will be lost.",
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: UiSizes.size_14,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, right: 5),
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Discard',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 5),
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Save',
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ),
-        ]);
+  bool isThereUnsavedChanges() {
+    if (isPfpChanged() || isUsernameChanged() || isDisplayNameChanged()) {
+      return true;
+    }
+    return false;
   }
 
   Future<void> pickImageFromCamera() async {
@@ -113,7 +80,9 @@ class EditProfileController extends GetxController {
   }
 
   void removeProfilePicture() {
-    removeImage = true;
+    if (authStateController.profileImageUrl != userProfileImagePlaceholderUrl) {
+      removeImage = true;
+    }
     profileImagePath = null;
     update();
   }
@@ -170,6 +139,13 @@ class EditProfileController extends GetxController {
       return false;
     }
     return true;
+  }
+
+  bool isPfpChanged() {
+    if (profileImagePath != null || removeImage) {
+      return true;
+    }
+    return false;
   }
 
   Future<void> saveProfile() async {
@@ -231,13 +207,6 @@ class EditProfileController extends GetxController {
           return;
         }
 
-        // Delete Old Username doc, so Username can be re-usable
-        await databases.deleteDocument(
-          databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: oldUsername,
-        );
-
         // Create new doc of New Username
         await databases.createDocument(
           databaseId: userDatabaseID,
@@ -247,6 +216,17 @@ class EditProfileController extends GetxController {
             'email': authStateController.email,
           },
         );
+
+        try {
+          // Delete Old Username doc, so Username can be re-usable
+          await databases.deleteDocument(
+            databaseId: userDatabaseID,
+            collectionId: usernameCollectionID,
+            documentId: oldUsername,
+          );
+        } catch (e) {
+          log(e.toString());
+        }
 
         await databases.updateDocument(
           databaseId: userDatabaseID,
@@ -279,6 +259,10 @@ class EditProfileController extends GetxController {
       // Change all old values with new values
       oldDisplayName = authStateController.displayName!;
       oldUsername = authStateController.userName!;
+
+      removeImage = false;
+      profileImagePath = null;
+      // update();
     } catch (e) {
       log(e.toString());
       Get.snackbar("Error!", e.toString());

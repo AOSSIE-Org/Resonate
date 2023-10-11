@@ -9,7 +9,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class OnBoardingScreen extends StatelessWidget {
                         height: UiSizes.height_70,
                         child: Obx(
                           () => TextFormField(
-                            cursorRadius: Radius.circular(10),
+                            cursorRadius: const Radius.circular(10),
                             style: TextStyle(fontSize: UiSizes.height_14),
                             validator: (value) {
                               if (value!.length > 5) {

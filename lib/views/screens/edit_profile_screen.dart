@@ -45,14 +45,15 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // await editProfileController.saveChangesDialogue();
+        if (editProfileController.isLoading.value) {
+          return false;
+        } else {
+          if (editProfileController.isThereUnsavedChanges()) {
+            saveChangesDialogue();
+          }
 
-        editProfileController.profileImagePath = null;
-        editProfileController.removeImage = false;
-
-        return editProfileController.isLoading.value
-            ? Future<bool>.value(false)
-            : Future<bool>.value(true);
+          return true;
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -159,9 +160,9 @@ class EditProfileScreen extends StatelessWidget {
                     verticalGap(UiSizes.height_60),
                     Obx(
                       () => ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (!controller.isLoading.value) {
-                            controller.saveProfile();
+                            await controller.saveProfile();
                           }
                         },
                         child: controller.isLoading.value
@@ -209,6 +210,49 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void saveChangesDialogue() {
+    Get.defaultDialog(
+        title: 'Save changes',
+        titleStyle: const TextStyle(fontWeight: FontWeight.w500),
+        titlePadding: const EdgeInsets.symmetric(vertical: 20),
+        content: Text(
+          "If you proceed without saving, any unsaved changes will be lost.",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: UiSizes.size_14,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, right: 5),
+            child: TextButton(
+              onPressed: () {
+                Get.back();
+                Navigator.pop(Get.context!);
+              },
+              child: const Text(
+                'Discard',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, left: 5),
+            child: TextButton(
+              onPressed: () async {
+                Get.back();
+                await editProfileController.saveProfile();
+              },
+              child: const Text(
+                'Save',
+                style: TextStyle(color: Colors.blue),
+              ),
+            ),
+          ),
+        ]);
   }
 
   Widget changeProfilePictureBottomSheet(BuildContext context) {
