@@ -7,6 +7,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 
