@@ -19,8 +19,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  <a href="https://livekit.io" target="_blank">
   <picture>
-   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/ShivamMenda/Resonate/assets/74780977/38823d33-edfb-4d90-9c4b-   
-    823cbe33c0a5" alt="Livekit Logo" width="140" height="30">
+   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/AKASHANGADII/Resonate/assets/81625153/87bb173f-d5b0-4386-b9ca-6e69cd53578f" alt="Livekit Logo" width="140" height="30">
    <img alt="Livekit Logo" align="center" src="https://github.com/AKASHANGADII/Resonate/assets/81625153/1466de84-d00e-4db7-9b51-a99f3c1997ff"  width="140" 
     height="30">
   </picture>
