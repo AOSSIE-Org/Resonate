@@ -51,7 +51,6 @@ class EditProfileScreen extends StatelessWidget {
           if (editProfileController.isThereUnsavedChanges()) {
             saveChangesDialogue();
           }
-
           return true;
         }
       },
@@ -103,7 +102,6 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                     ),
                     verticalGap(UiSizes.height_60),
-
                     TextFormField(
                       controller: controller.nameController,
                       validator: (value) =>
@@ -118,9 +116,7 @@ class EditProfileScreen extends StatelessWidget {
                         labelText: "Full Name",
                       ),
                     ),
-
                     verticalGap(UiSizes.height_20),
-
                     Obx(
                       () => TextFormField(
                         controller: controller.usernameController,
@@ -156,7 +152,6 @@ class EditProfileScreen extends StatelessWidget {
                                 : null),
                       ),
                     ),
-
                     verticalGap(UiSizes.height_60),
                     Obx(
                       () => ElevatedButton(
@@ -179,15 +174,6 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                       ),
                     ),
-
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     if(controller.profileImagePath != null){
-                    //       controller.saveProfile();
-                    //     }
-                    //   },
-                    //   child: const Text('Save changes', style: TextStyle(fontSize: 18),),
-                    // ),
                   ],
                 ),
               ),
@@ -214,45 +200,57 @@ class EditProfileScreen extends StatelessWidget {
 
   void saveChangesDialogue() {
     Get.defaultDialog(
-        title: 'Save changes',
-        titleStyle: const TextStyle(fontWeight: FontWeight.w500),
-        titlePadding: const EdgeInsets.symmetric(vertical: 20),
-        content: Text(
-          "If you proceed without saving, any unsaved changes will be lost.",
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: UiSizes.size_14,
+      title: 'Save changes',
+      titleStyle: const TextStyle(fontWeight: FontWeight.w500),
+      titlePadding: const EdgeInsets.symmetric(vertical: 20),
+      content: Text(
+        "If you proceed without saving, any unsaved changes will be lost.",
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: UiSizes.size_14,
+        ),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.blueGrey),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                  Navigator.pop(Get.context!);
+                },
+                child: const Text(
+                  'Discard',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                  await editProfileController.saveProfile();
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ],
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, right: 5),
-            child: TextButton(
-              onPressed: () {
-                Get.back();
-                Navigator.pop(Get.context!);
-              },
-              child: const Text(
-                'Discard',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 5),
-            child: TextButton(
-              onPressed: () async {
-                Get.back();
-                await editProfileController.saveProfile();
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ),
-        ]);
+      ],
+    );
   }
 
   Widget changeProfilePictureBottomSheet(BuildContext context) {
