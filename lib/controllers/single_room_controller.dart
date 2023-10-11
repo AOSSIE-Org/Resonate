@@ -47,7 +47,7 @@ class SingleRoomController extends GetxController {
   void onClose() async {
     await subscription?.close();
     await Get.delete<LiveKitController>(force: true);
-    Get.back();
+    Get.offAllNamed(AppRoutes.tabview);
     super.onClose();
   }
 

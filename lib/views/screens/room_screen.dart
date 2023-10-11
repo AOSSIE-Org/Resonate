@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -23,9 +25,14 @@ class _RoomScreenState extends State<RoomScreen> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
+    Future<Void> deleteRoomDialog(String text,Function() onTap) async{
+      return await Get.defaultDialog(title: "Are you sure?",middleText: "To $text the room",onConfirm: onTap,onCancel: (){print("abc");});
+    }
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(
@@ -129,10 +136,10 @@ class _RoomScreenState extends State<RoomScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          controller.appwriteRoom.isUserAdmin
-                              ? await controller.deleteRoom()
-                              : await controller.leaveRoom();
-                        },
+                          await deleteRoomDialog(controller.appwriteRoom.isUserAdmin
+                              ?"delete":"leave", () async=> controller.appwriteRoom.isUserAdmin
+                              ?await controller.deleteRoom():await controller.leaveRoom());
+                         },
                         child: Container(
                           height: UiSizes.height_40,
                           width: UiSizes.width_123_4,
