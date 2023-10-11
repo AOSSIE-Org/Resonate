@@ -49,8 +49,10 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo Library Access Warning</string>
-	<key>NSMicrophoneUsageDescription</key>
-      <string>Resonate uses your microphone</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Camera Access Warning</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Resonate uses your microphone</string>
     <key>UIBackgroundModes</key>
       <array>
         <string>audio</string>
