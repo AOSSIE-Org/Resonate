@@ -13,7 +13,7 @@ import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
   RxBool isLoading = false.obs;
-
+  RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();

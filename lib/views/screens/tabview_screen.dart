@@ -4,6 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
+import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -23,6 +24,11 @@ class TabViewScreen extends StatelessWidget {
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
+  final createRoomController =
+      Get.put<CreateRoomController>(CreateRoomController());
+
+  final discussionsController =
+      Get.put<DiscussionsController>(DiscussionsController());
 
   TabViewScreen({super.key});
 
@@ -95,7 +101,11 @@ class TabViewScreen extends StatelessWidget {
                   width: UiSizes.width_56,
                   child: FloatingActionButton(
                       onPressed: () async {
-                        await Get.find<CreateRoomController>().createRoom();
+                        if (createRoomController.isScheduled.value) {
+                          // discussionsController.createDiscussion();
+                        } else {
+                          await Get.find<CreateRoomController>().createRoom();
+                        }
                       },
                       child: Icon(Icons.done, size: UiSizes.size_24)),
                 ),
