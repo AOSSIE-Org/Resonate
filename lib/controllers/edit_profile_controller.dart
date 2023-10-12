@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/services/appwrite_service.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -36,8 +37,9 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    storage = Storage(authStateController.client);
-    databases = Databases(authStateController.client);
+
+    storage = AppwriteService.getStorage();
+    databases = AppwriteService.getDatabases();
 
     oldDisplayName = authStateController.displayName!;
     oldUsername = authStateController.userName!;
@@ -47,7 +49,9 @@ class EditProfileController extends GetxController {
   }
 
   bool isThereUnsavedChanges() {
-    if (isPfpChanged() || isUsernameChanged() || isDisplayNameChanged()) {
+    if (isProfilePictureChanged() ||
+        isUsernameChanged() ||
+        isDisplayNameChanged()) {
       return true;
     }
     return false;
@@ -141,7 +145,7 @@ class EditProfileController extends GetxController {
     return true;
   }
 
-  bool isPfpChanged() {
+  bool isProfilePictureChanged() {
     if (profileImagePath != null || removeImage) {
       return true;
     }
