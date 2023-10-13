@@ -126,6 +126,12 @@ class ProfileScreen extends StatelessWidget {
                                           const Duration(milliseconds: 300),
                                       child: controller.isEmailVerified!
                                           ? Row(
+                                              mainAxisAlignment:
+                                                  emailVerifyController
+                                                          .isExpanded.value
+                                                      ? MainAxisAlignment.start
+                                                      : MainAxisAlignment
+                                                          .center,
                                               children: [
                                                 Icon(
                                                   Icons.verified_rounded,
@@ -135,9 +141,12 @@ class ProfileScreen extends StatelessWidget {
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
-                                                        width: UiSizes.width_10,
+                                                        width: UiSizes.width_5,
                                                       )
-                                                    : const SizedBox(),
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      ),
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? Text(
@@ -148,7 +157,10 @@ class ProfileScreen extends StatelessWidget {
                                                             color:
                                                                 Colors.black),
                                                       )
-                                                    : const SizedBox()
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      )
                                               ],
                                             )
                                           : Row(
