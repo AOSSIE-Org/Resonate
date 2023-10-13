@@ -24,8 +24,7 @@ class TabViewScreen extends StatelessWidget {
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-  final createRoomController =
-      Get.put<CreateRoomController>(CreateRoomController());
+  final createRoomController = Get.find<CreateRoomController>();
 
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
@@ -65,7 +64,6 @@ class TabViewScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
-                          await Get.delete<CreateRoomController>();
                           controller.setIndex(2);
                         } else {
                           AppUtils.showDialog(
@@ -102,7 +100,7 @@ class TabViewScreen extends StatelessWidget {
                   child: FloatingActionButton(
                       onPressed: () async {
                         if (createRoomController.isScheduled.value) {
-                          // discussionsController.createDiscussion();
+                          discussionsController.createDiscussion();
                         } else {
                           await Get.find<CreateRoomController>().createRoom();
                         }

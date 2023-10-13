@@ -9,9 +9,12 @@ import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class CreateRoomScreen extends StatelessWidget {
+  final CreateRoomController createRoomController =
+      Get.find<CreateRoomController>();
+
   final DiscussionsController discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
-  
+
   OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
       borderSide: const BorderSide(color: Colors.amber),
       borderRadius: BorderRadius.circular(15));
@@ -50,88 +53,99 @@ class CreateRoomScreen extends StatelessWidget {
                   SizedBox(
                     height: UiSizes.height_24_6,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  //   children: [
-                  //     Obx(
-                  //       () => TextButton(
-                  //           style: TextButton.styleFrom(
-                  //             backgroundColor:
-                  //                 !controller.isScheduled.value
-                  //                     ? const Color.fromARGB(53, 253, 212, 31)
-                  //                     : Colors.transparent,
-                  //             shape: RoundedRectangleBorder(
-                  //                 side: BorderSide(
-                  //                     color: !controller
-                  //                             .isScheduled.value
-                  //                         ? AppColor.yellowColor
-                  //                         : Colors.transparent),
-                  //                 borderRadius:
-                  //                     BorderRadius.circular(UiSizes.size_15)),
-                  //             textStyle: TextStyle(),
-                  //           ),
-                  //           onPressed: () {
-                  //             controller.isScheduled.value = false;
-                  //           },
-                  //           child: Text(
-                  //             'Start Now',
-                  //             style: TextStyle(fontSize: UiSizes.size_14),
-                  //           )),
-                  //     ),
-                  //     Obx(
-                  //       () => TextButton(
-                  //           style: TextButton.styleFrom(
-                  //             backgroundColor:
-                  //                 controller.isScheduled.value
-                  //                     ? const Color.fromARGB(53, 253, 212, 31)
-                  //                     : Colors.transparent,
-                  //             shape: RoundedRectangleBorder(
-                  //                 side: BorderSide(
-                  //                     color: !controller
-                  //                             .isScheduled.value
-                  //                         ? Colors.transparent
-                  //                         : AppColor.yellowColor),
-                  //                 borderRadius:
-                  //                     BorderRadius.circular(UiSizes.size_15)),
-                  //           ),
-                  //           onPressed: () {
-                  //             controller.isScheduled.value = true;
-                  //           },
-                  //           child: Text(
-                  //             'Scheduled',
-                  //             style: TextStyle(fontSize: UiSizes.size_14),
-                  //           )),
-                  //     )
-                  //   ],
-                  // ),
-                  // controller.isScheduled.value? SizedBox(
-                  //       height: UiSizes.height_66,
-                  //       child: TextFormField(
-                  //         style: TextStyle(fontSize: UiSizes.size_14),
-                  //         validator: (value) =>
-                  //             value!.isNotEmpty ? null : "Enter Valid DOB",
-                  //         readOnly: true,
-                  //         controller: discussionsController.dateTimeController,
-                  //         keyboardType: TextInputType.text,
-                  //         autocorrect: false,
-                  //         decoration: InputDecoration(
-                  //           icon: Icon(
-                  //             Icons.calendar_month,
-                  //             size: UiSizes.size_23,
-                  //           ),
-                  //           labelText: "Date of Birth",
-                  //           labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                  //           suffix: GestureDetector(
-                  //             onTap: () async {
-                  //               await discussionsController.chooseDateTime();
-                  //             },
-                  //             child: const Icon(Icons.date_range),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ):SizedBox(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Obx(
+                        () => TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: !controller.isScheduled.value
+                                  ? const Color.fromARGB(53, 253, 212, 31)
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: !controller.isScheduled.value
+                                          ? AppColor.yellowColor
+                                          : Colors.transparent),
+                                  borderRadius:
+                                      BorderRadius.circular(UiSizes.size_15)),
+                              textStyle: TextStyle(),
+                            ),
+                            onPressed: () {
+                              controller.isScheduled.value = false;
+                            },
+                            child: Text(
+                              'Start Now',
+                              style: TextStyle(fontSize: UiSizes.size_14),
+                            )),
+                      ),
+                      Obx(
+                        () => TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: controller.isScheduled.value
+                                  ? const Color.fromARGB(53, 253, 212, 31)
+                                  : Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: !controller.isScheduled.value
+                                          ? Colors.transparent
+                                          : AppColor.yellowColor),
+                                  borderRadius:
+                                      BorderRadius.circular(UiSizes.size_15)),
+                            ),
+                            onPressed: () {
+                              controller.isScheduled.value = true;
+                            },
+                            child: Text(
+                              'Scheduled',
+                              style: TextStyle(fontSize: UiSizes.size_14),
+                            )),
+                      )
+                    ],
+                  ),
                   SizedBox(
                     height: UiSizes.height_24_6,
+                  ),
+                  Obx(
+                    () => controller.isScheduled.value
+                        ? SizedBox(
+                            height: UiSizes.height_66,
+                            child: TextFormField(
+                              style: TextStyle(fontSize: UiSizes.size_14),
+                              validator: (value) => value!.isNotEmpty
+                                  ? null
+                                  : "Please Enter Scheduled Date-Time",
+                              readOnly: true,
+                              controller:
+                                  discussionsController.dateTimeController,
+                              keyboardType: TextInputType.text,
+                              autocorrect: false,
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.calendar_month,
+                                  size: UiSizes.size_23,
+                                ),
+                                labelText: "Schedule Date Time",
+                                labelStyle:
+                                    TextStyle(fontSize: UiSizes.size_14),
+                                suffix: GestureDetector(
+                                  onTap: () async {
+                                    await discussionsController
+                                        .chooseDateTime();
+                                  },
+                                  child: const Icon(Icons.date_range),
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
+                  ),
+                  Obx(
+                    () => controller.isScheduled.value
+                        ? SizedBox(
+                            height: UiSizes.heigth_33,
+                          )
+                        : SizedBox(),
                   ),
                   TextFormField(
                     controller: controller.nameController,
