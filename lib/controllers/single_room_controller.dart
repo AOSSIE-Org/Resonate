@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
@@ -177,6 +179,13 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> leaveRoom() async {
+    Get.dialog(
+        Center(
+          child: LoadingAnimationWidget.threeRotatingDots(
+              color: Colors.amber, size: Get.pixelRatio * 20),
+        ),
+        barrierDismissible: false,
+        name: "Loading Dialog");
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
     Get.delete<SingleRoomController>();
   }
@@ -184,6 +193,13 @@ class SingleRoomController extends GetxController {
   Future<void> deleteRoom() async {
     try {
       isLoading.value = true;
+      Get.dialog(
+          Center(
+            child: LoadingAnimationWidget.threeRotatingDots(
+                color: Colors.amber, size: Get.pixelRatio * 20),
+          ),
+          barrierDismissible: false,
+          name: "Loading Dialog");
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       Get.delete<SingleRoomController>();
     } catch (e) {
