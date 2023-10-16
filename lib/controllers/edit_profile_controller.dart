@@ -26,6 +26,7 @@ class EditProfileController extends GetxController {
   Rx<bool> usernameAvailable = false.obs;
 
   bool removeImage = false;
+  bool showSuccessSnackbar = false;
 
   late String oldUsername;
   late String oldDisplayName;
@@ -159,6 +160,12 @@ class EditProfileController extends GetxController {
       return;
     }
 
+    if (isProfilePictureChanged() ||
+        isUsernameChanged() ||
+        isDisplayNameChanged()) {
+      showSuccessSnackbar = true;
+    }
+
     try {
       isLoading.value = true;
 
@@ -265,12 +272,21 @@ class EditProfileController extends GetxController {
 
       removeImage = false;
       profileImagePath = null;
-      // update();
+
+      // The Success snackbar is only shown when there is change made, otherwise it is not shown
+      if(showSuccessSnackbar){
+        customSnackbar('Profile updated', 'All changes are saved successfully.', MessageType.success);
+      }else{
+        // This snackbar is to show user that profile is up to date and there are no changes done by user
+        customSnackbar('Profile is up to date', 'There are no new changes made, Nothing to save.', MessageType.info);
+      }
+
     } catch (e) {
       log(e.toString());
       customSnackbar('Error!', e.toString(), MessageType.error);
     } finally {
       isLoading.value = false;
+      showSuccessSnackbar = false;
     }
   }
 }
