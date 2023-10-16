@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -269,7 +271,8 @@ class EditProfileController extends GetxController {
       // update();
     } catch (e) {
       log(e.toString());
-      Get.snackbar("Error!", e.toString());
+      // Get.snackbar("Error!", e.toString());
+      customSnackbar('Error!', e.toString(), MessageType.error);
     } finally {
       isLoading.value = false;
     }
