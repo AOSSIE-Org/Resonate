@@ -103,7 +103,7 @@ class RoomsController extends GetxController {
       for (var doc in roomsCollectionRef.documents) {
         tagsList.add(doc.data["tags"]);
       }
-      debugPrint("Tags: $tagsList");
+      log("Tags: $tagsList");
       update();
     } catch (e) {
       log(e.toString());
@@ -130,7 +130,7 @@ class RoomsController extends GetxController {
         AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
         rooms.add(appwriteRoom);
       }
-      debugPrint("Rooms: ${rooms.map((e) => e.name).toList()}");
+      log("Rooms: ${rooms.map((e) => e.name).toList()}");
       update();
     } catch (e) {
       log(e.toString());
