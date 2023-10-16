@@ -206,10 +206,7 @@ class EditProfileController extends GetxController {
 
         if (!usernameAvail) {
           usernameAvailable.value = false;
-          Get.snackbar(
-            "Username Unavailable!",
-            "This username is invalid or either taken already.",
-          );
+          customSnackbar("Username Unavailable!", "This username is invalid or either taken already.", MessageType.error);
           return;
         }
 
@@ -271,7 +268,6 @@ class EditProfileController extends GetxController {
       // update();
     } catch (e) {
       log(e.toString());
-      // Get.snackbar("Error!", e.toString());
       customSnackbar('Error!', e.toString(), MessageType.error);
     } finally {
       isLoading.value = false;

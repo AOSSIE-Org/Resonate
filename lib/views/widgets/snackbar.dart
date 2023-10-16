@@ -11,6 +11,8 @@ SnackbarController customSnackbar(
     switch (messageType) {
       case MessageType.success:
         return Colors.green;
+      case MessageType.warning:
+        return Colors.amber;
       case MessageType.error:
         return Colors.red;
       case MessageType.info:
@@ -30,7 +32,7 @@ SnackbarController customSnackbar(
       title,
       style: TextStyle(
         color: messageTypeColor(),
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
     ),
