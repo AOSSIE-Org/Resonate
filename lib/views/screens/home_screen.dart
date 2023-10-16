@@ -66,7 +66,6 @@ class HomeScreen extends StatelessWidget {
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white,
                                       fontSize: UiSizes.size_19),
                                 ),
                               ),
