@@ -12,6 +12,7 @@ import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/views/widgets/loading_widget.dart';
 
 import '../utils/constants.dart';
 
@@ -179,13 +180,7 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> leaveRoom() async {
-    Get.dialog(
-        Center(
-          child: LoadingAnimationWidget.threeRotatingDots(
-              color: Colors.amber, size: Get.pixelRatio * 20),
-        ),
-        barrierDismissible: false,
-        name: "Loading Dialog");
+    LoadingWidget();
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
     Get.delete<SingleRoomController>();
   }
@@ -193,13 +188,7 @@ class SingleRoomController extends GetxController {
   Future<void> deleteRoom() async {
     try {
       isLoading.value = true;
-      Get.dialog(
-          Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-                color: Colors.amber, size: Get.pixelRatio * 20),
-          ),
-          barrierDismissible: false,
-          name: "Loading Dialog");
+      LoadingWidget();
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       Get.delete<SingleRoomController>();
     } catch (e) {
@@ -208,6 +197,7 @@ class SingleRoomController extends GetxController {
       isLoading.value = false;
     }
   }
+
 
   Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(
