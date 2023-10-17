@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import 'auth_state_controller.dart';
 
@@ -58,9 +60,7 @@ class OnboardingController extends GetxController {
     var usernameAvail = await isUsernameAvailable(usernameController.text);
     if (!usernameAvail) {
       usernameAvailable.value = false;
-      Get.snackbar("Username Unavailable!",
-          "This username is invalid or either taken already.",
-          snackPosition: SnackPosition.BOTTOM);
+      customSnackbar("Username Unavailable!", "This username is invalid or either taken already.", MessageType.error);
       return;
     }
     try {
@@ -103,12 +103,11 @@ class OnboardingController extends GetxController {
 
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
-
-      Get.snackbar("Saved Successfully", "");
+      customSnackbar("Saved Successfully", "", MessageType.success);
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
-      Get.snackbar("Error!", e.toString());
+      customSnackbar("Error!", e.toString(), MessageType.error);
     } finally {
       isLoading.value = false;
     }

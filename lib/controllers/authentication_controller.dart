@@ -4,6 +4,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
@@ -28,12 +30,7 @@ class AuthenticationController extends GetxController {
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
-        Get.snackbar(
-          'Try Again!',
-          "Incorrect Email Or Password",
-          icon: const Icon(Icons.disabled_by_default_outlined),
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        customSnackbar('Try Again!', "Incorrect Email Or Password", MessageType.error);
       }
     } catch (e) {
       log(e.toString());
@@ -53,7 +50,7 @@ class AuthenticationController extends GetxController {
       error = error.split(".")[0];
       error = error.split(",")[1];
       error = error.split("in")[0];
-      Get.snackbar("Oops", error.toString());
+      customSnackbar('Oops', error.toString(), MessageType.error);
       return false;
     } finally {
       isLoading.value = false;
