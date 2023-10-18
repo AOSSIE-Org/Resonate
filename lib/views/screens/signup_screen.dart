@@ -4,8 +4,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/app_images.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../../controllers/email_verify_controller.dart';
 import '../../controllers/password_strength_checker_controller.dart';
@@ -204,8 +206,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 var isSignedin = await controller.signup();
                                 if (isSignedin) {
                                   Get.toNamed(AppRoutes.onBoarding);
-                                  Get.snackbar("Signed Up Successfully",
-                                      "You have successfully created a new account");
+                                  customSnackbar("Signed Up Successfully",
+                                      "You have successfully created a new account", MessageType.success);
                                   emailVerifyController.signupisallowed.value =
                                       true;
                                 } else {

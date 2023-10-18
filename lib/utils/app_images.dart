@@ -8,7 +8,7 @@ class AppImages {
   
   static const landingFirstImage = 'assets/images/landing_first.png';
   static const landingSecondImage = 'assets/images/landing_second.png';
-  static const landingThirdImage = 'assets/images/lading_third.png';
+  static const landingThirdImage = 'assets/images/landing_third.png';
 
 
   static const noConnectionImage = 'assets/images/no_connection.svg';
