@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: UiSizes.height_12,
+                                height: UiSizes.height_140,
                               ),
                               Image.asset(
                                 AppImages.noRoomImage,
