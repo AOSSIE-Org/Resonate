@@ -188,13 +188,6 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   SizedBox(height: UiSizes.height_24_6),
-                  Obx(() {
-                    if (passwordStrengthCheckerController.isVisible.value) {
-                      return Spacer();
-                    } else {
-                      return Container();
-                    }
-                  }),
                   Obx(
                     () => ElevatedButton(
                       onPressed: emailVerifyController.signupisallowed.value
@@ -206,8 +199,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 var isSignedin = await controller.signup();
                                 if (isSignedin) {
                                   Get.toNamed(AppRoutes.onBoarding);
-                                  customSnackbar("Signed Up Successfully",
-                                      "You have successfully created a new account", MessageType.success);
+                                  customSnackbar(
+                                      "Signed Up Successfully",
+                                      "You have successfully created a new account",
+                                      MessageType.success);
                                   emailVerifyController.signupisallowed.value =
                                       true;
                                 } else {
@@ -293,7 +288,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ),
-                  const Spacer(),
+                  Obx(() {
+                    if (passwordStrengthCheckerController.isVisible.value) {
+                      return const Spacer(
+                        flex: 3,
+                      );
+                    } else {
+                      return const Spacer();
+                    }
+                  }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
