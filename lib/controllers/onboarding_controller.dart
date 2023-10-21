@@ -23,6 +23,7 @@ class OnboardingController extends GetxController {
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
+  String? uniqueIdForProfileImage;
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController imageController =
@@ -60,7 +61,10 @@ class OnboardingController extends GetxController {
     var usernameAvail = await isUsernameAvailable(usernameController.text);
     if (!usernameAvail) {
       usernameAvailable.value = false;
-      customSnackbar("Username Unavailable!", "This username is invalid or either taken already.", MessageType.error);
+      customSnackbar(
+          "Username Unavailable!",
+          "This username is invalid or either taken already.",
+          MessageType.error);
       return;
     }
     try {
@@ -74,9 +78,12 @@ class OnboardingController extends GetxController {
           data: {"email": authStateController.email});
       //Update User Meta Data
       if (profileImagePath != null) {
+        uniqueIdForProfileImage =
+            DateTime.now().millisecondsSinceEpoch.toString();
+
         final profileImage = await storage.createFile(
             bucketId: userProfileImageBucketId,
-            fileId: ID.unique(),
+            fileId: uniqueIdForProfileImage!,
             file: InputFile.fromPath(
                 path: profileImagePath!,
                 filename: "${authStateController.email}.jpeg"));
@@ -95,7 +102,8 @@ class OnboardingController extends GetxController {
           "username": usernameController.text,
           "profileImageUrl": imageController.text,
           "dob": dobController.text,
-          "email": authStateController.email
+          "email": authStateController.email,
+          "profileImageID": uniqueIdForProfileImage,
         },
       );
       await authStateController.account
@@ -103,7 +111,7 @@ class OnboardingController extends GetxController {
 
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
-      customSnackbar("Saved Successfully", "", MessageType.success);
+      customSnackbar("Profile created successfully", "Your user profile is successfully created.", MessageType.success);
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
