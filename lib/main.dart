@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.put(ThemeController());
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Resonate',

@@ -270,7 +270,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                           width:
                                                               UiSizes.width_33,
                                                           height:
-                                                              UiSizes.heigth_33,
+                                                              UiSizes.height_33,
                                                           duration: 30,
                                                           backgroundColor:
                                                               Colors.amber,
@@ -312,7 +312,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                             .shouldDisplay.value = true;
                                       }
                                     },
-                                    height: UiSizes.heigth_35,
+                                    height: UiSizes.height_35,
                                     width:
                                         emailVerifyController.isExpanded.value
                                             ? UiSizes.width_180

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -19,12 +20,10 @@ class ProfileScreen extends StatelessWidget {
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
@@ -117,10 +116,9 @@ class ProfileScreen extends StatelessWidget {
                                               ? UiSizes.width_160
                                               : UiSizes.width_35,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: Colors.amber,
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          color: Colors.white),
                                       duration:
                                           const Duration(milliseconds: 300),
                                       child: controller.isEmailVerified!
@@ -142,10 +140,10 @@ class ProfileScreen extends StatelessWidget {
                                                     ? Text(
                                                         "Email Verified",
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                UiSizes.size_15,
-                                                            color:
-                                                                Colors.black),
+                                                          color: Colors.black,
+                                                          fontSize:
+                                                              UiSizes.size_15,
+                                                        ),
                                                       )
                                                     : const SizedBox()
                                               ],

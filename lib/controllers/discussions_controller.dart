@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,91 @@ class DiscussionsController extends GetxController {
       Get.find<CreateRoomController>();
   late List<Document> discussions;
   late String scheduledDateTime;
-
+  late Document currentUserDoc;
+  Rx<bool> isLoading = false.obs;
+  final Map<String, String> monthMap = {
+    "1": "Jan",
+    "2": "Feb",
+    "3": "March",
+    "5": "May",
+    "4": "April",
+    "6": "June",
+    "7": "July",
+    "8": "Aug",
+    "9": "Sep",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec",
+  };
   @override
   void onInit() async {
     super.onInit();
     await getDiscussions();
+  }
+
+  Future<void> addUserToSubscriberList(String discussionId) async {
+    await databases.createDocument(
+        databaseId: "6522fcf27a1bbc4238df",
+        collectionId: "6522fd267db6fdad3392",
+        documentId: ID.unique(),
+        data: {
+          "UserID": authStateController.uid,
+          "DiscussionID": discussionId,
+          "RegistrationID": "Test",
+          "isCreator": false,
+          "UserProfileUrl": authStateController.profileImageUrl
+        });
+  }
+
+  Future<void> removeUserFromSubscriberList(String subscriberId) async {
+    await databases.deleteDocument(
+        databaseId: "6522fcf27a1bbc4238df",
+        collectionId: "6522fd267db6fdad3392",
+        documentId: subscriberId);
+  }
+
+  Future<List<dynamic>> fetchDiscussionDetails(String discussionId) async {
+    try {
+      List<Document> discussionSubscribers;
+      int totalSubscriberCount;
+      bool? userIsCreator = null;
+      String? subscriberId = null;
+      discussionSubscribers = await databases.listDocuments(
+          databaseId: '6522fcf27a1bbc4238df',
+          collectionId: '6522fd267db6fdad3392',
+          queries: [
+            Query.equal('DiscussionID', ['${discussionId}']),
+          ]).then((value) => value.documents);
+      totalSubscriberCount = discussionSubscribers.length;
+
+      List<String> subscribersProfileUrls = [];
+
+      for (var doc in discussionSubscribers) {
+        subscribersProfileUrls.add(doc.data["UserProfileUrl"]);
+      }
+
+      print(subscribersProfileUrls);
+      for (var doc in discussionSubscribers) {
+        if (doc.data["UserID"] == authStateController.uid) {
+          userIsCreator = doc.data["isCreator"];
+
+          if (doc.data["isCreator"] == false) {
+            subscriberId = doc.$id;
+          }
+        }
+      }
+      print(userIsCreator);
+      List<dynamic> fetchedData = [
+        totalSubscriberCount,
+        userIsCreator,
+        subscribersProfileUrls,
+        subscriberId
+      ];
+      return fetchedData;
+    } catch (e) {
+      log(e.toString());
+      return [];
+    }
   }
 
   Future<void> createDiscussion() async {
@@ -36,6 +115,7 @@ class DiscussionsController extends GetxController {
           data: {
             "Name": createRoomController.nameController.text,
             "ScheduledDateTime": scheduledDateTime,
+            "Tags": createRoomController.tagsController.getTags
           });
       String discussionId = discussion.$id;
       await databases.createDocument(
@@ -46,46 +126,33 @@ class DiscussionsController extends GetxController {
             "UserID": authStateController.uid,
             "DiscussionID": discussionId,
             "RegistrationID": "Test",
-            "isCreator": true
+            "isCreator": true,
+            "UserProfileUrl": authStateController.profileImageUrl
           });
     } catch (e) {
       log(e.toString());
     }
   }
 
-  bool isTimeValid(TimeOfDay time) {
-    bool isValidTime;
-    int nowHour = TimeOfDay.now().hour;
-    int nowMinute = TimeOfDay.now().minute;
-    print('${time.hour}.  ${time.minute}');
-    print('${nowHour}.  ${nowMinute}');
-    if (nowHour < time.hour) {
-      isValidTime = true;
-    } else if (nowHour == time.hour && nowMinute < time.minute) {
-      isValidTime = true;
-    } else {
-      isValidTime = false;
-    }
-    return isValidTime;
-  }
-
   Future<void> chooseDateTime() async {
+    DateTime now = DateTime.now();
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(
-          DateTime.now().year + 1, DateTime.now().month, DateTime.now().day),
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(DateTime.now().year + 1, now.month, now.day),
     );
-    int initialMinute = TimeOfDay.now().minute + 5;
-    TimeOfDay initalTime =
-        TimeOfDay(hour: TimeOfDay.now().hour, minute: initialMinute);
+    DateTime initialTime = now.add(const Duration(minutes: 5));
+
     TimeOfDay? pickedTime = await showTimePicker(
       context: Get.context!,
-      initialTime: initalTime,
+      initialTime:
+          TimeOfDay(hour: initialTime.hour, minute: initialTime.minute),
     );
     if (pickedDate != null && pickedTime != null) {
-      if (!isTimeValid(pickedTime)) {
+      DateTime pickedDateTime = DateTime(pickedDate.year, pickedDate.month,
+          pickedDate.day, pickedTime.hour, pickedTime.minute);
+      if (!pickedDateTime.isAfter(now)) {
         Get.snackbar("Invalid Scheduled Date Time",
             "Scheduled Date Time cannot be in past");
         return;
@@ -93,17 +160,25 @@ class DiscussionsController extends GetxController {
       scheduledDateTime =
           '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00';
       dateTimeController.text =
-          'Date: ${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}   Time: ${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00';
+          '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour.toString()}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
       print(dateTimeController.text);
     }
   }
 
   Future<void> getDiscussions() async {
-    discussions = await databases
-        .listDocuments(
-          databaseId: '6522fcf27a1bbc4238df',
-          collectionId: '6522fd163103bd453183',
-        )
-        .then((value) => value.documents);
+    isLoading.value = true;
+    try {
+      discussions = await databases
+          .listDocuments(
+            databaseId: '6522fcf27a1bbc4238df',
+            collectionId: '6522fd163103bd453183',
+          )
+          .then((value) => value.documents);
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      isLoading.value = false;
+      update();
+    }
   }
 }

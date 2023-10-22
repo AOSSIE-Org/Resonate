@@ -100,7 +100,11 @@ class TabViewScreen extends StatelessWidget {
                   child: FloatingActionButton(
                       onPressed: () async {
                         if (createRoomController.isScheduled.value) {
-                          discussionsController.createDiscussion();
+                          createRoomController.isLoading.value = true;
+                          await discussionsController.createDiscussion();
+                          discussionsController.getDiscussions();
+                          createRoomController.isLoading.value = false;
+                          controller.setIndex(3);
                         } else {
                           await Get.find<CreateRoomController>().createRoom();
                         }
@@ -136,7 +140,7 @@ class TabViewScreen extends StatelessWidget {
               ? HomeScreen()
               : (controller.getIndex() == 2)
                   ? CreateRoomScreen()
-                  : const DiscussionScreen(),
+                  : DiscussionScreen(),
         ));
   }
 }

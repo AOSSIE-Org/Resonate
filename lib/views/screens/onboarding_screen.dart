@@ -27,12 +27,12 @@ class OnBoardingScreen extends StatelessWidget {
                   key: controller.userOnboardingFormKey,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: UiSizes.heigth_33),
+                      SizedBox(height: UiSizes.height_33),
                       Text(
                         "Complete your Profile",
                         style: TextStyle(fontSize: UiSizes.size_28),
                       ),
-                      SizedBox(height: UiSizes.heigth_33),
+                      SizedBox(height: UiSizes.height_33),
                       GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(

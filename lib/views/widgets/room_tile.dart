@@ -74,6 +74,7 @@ class RoomTile extends StatelessWidget {
         children: [
           InkWell(
             onTap: () async {
+              print(room.isUserAdmin.toString());
               await Get.find<RoomsController>().joinRoom(room: room);
             },
             child: Container(

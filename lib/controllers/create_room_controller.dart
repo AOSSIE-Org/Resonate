@@ -18,7 +18,7 @@ class CreateRoomController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
-
+  
   @override
   void dispose() {
     nameController.dispose();
