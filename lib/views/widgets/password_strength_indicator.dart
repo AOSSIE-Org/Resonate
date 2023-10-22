@@ -97,8 +97,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     // Check if 1 condition is true
     else if (validatedChecks == 1) {
       // If index is 0, set the color to amberRed, else set it to gray
-      containerColor =
-          index == 0 ? AppColor.amberRedColor : AppColor.greyShadeColor;
+      containerColor = index == 0 ? AppColor.redColor : AppColor.greyShadeColor;
     }
     // No conditions are true, set the color to gray
     else {
