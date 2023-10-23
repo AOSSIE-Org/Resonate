@@ -25,7 +25,6 @@ class TabViewScreen extends StatelessWidget {
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
   final createRoomController = Get.find<CreateRoomController>();
-
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
 
@@ -106,7 +105,7 @@ class TabViewScreen extends StatelessWidget {
                           createRoomController.isLoading.value = false;
                           controller.setIndex(3);
                         } else {
-                          await Get.find<CreateRoomController>().createRoom();
+                          await createRoomController.createRoom(createRoomController.nameController.text, createRoomController.descriptionController.text, createRoomController.tagsController.getTags!, true);
                         }
                       },
                       child: Icon(Icons.done, size: UiSizes.size_24)),

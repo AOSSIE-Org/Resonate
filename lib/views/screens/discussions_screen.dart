@@ -51,7 +51,7 @@ class DiscussionScreen extends StatelessWidget {
                                 subscriberCount: snapshot.data![0].toString(),
                                 userIsCreator: snapshot.data![1],
                                 subscriberProfileUrl: snapshot.data![2],
-                                subscriberId: snapshot.data![3],
+                                userSubscriberId: snapshot.data![3],
                               );
                             }
                             return Shimmer.fromColors(

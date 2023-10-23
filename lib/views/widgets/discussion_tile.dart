@@ -2,6 +2,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -13,7 +14,7 @@ class DiscussionTile extends StatelessWidget {
   final Document discussion;
   final String subscriberCount;
   final bool? userIsCreator;
-  final String? subscriberId;
+  final String? userSubscriberId;
   final List<String> subscriberProfileUrl;
   DiscussionsController disscussionController =
       Get.find<DiscussionsController>();
@@ -23,7 +24,7 @@ class DiscussionTile extends StatelessWidget {
       required this.subscriberCount,
       required this.userIsCreator,
       required this.subscriberProfileUrl,
-      required this.subscriberId});
+      required this.userSubscriberId});
   Text buildTags() {
     String tagString = "";
     if (discussion.data["Tags"].isNotEmpty) {
@@ -48,25 +49,37 @@ class DiscussionTile extends StatelessWidget {
     String time = splittedStrings[1];
     List<String> exploreDate = date.split("-");
     List<String> exploreTime = time.split(":");
+    String year = exploreDate[0];
     String day = exploreDate[2];
-    String month = disscussionController.monthMap[exploreDate[1]]!;
+    String month = exploreDate[1];
     int hour = int.parse(exploreTime[0]);
     String minute = exploreTime[1];
+    DateTime UTCDateTime = DateTime(int.parse(year), int.parse(month),
+        int.parse(day), hour, int.parse(minute));
+    DateTime localDateTime = disscussionController.isOffsetNegetive
+        ? UTCDateTime.subtract(disscussionController.localTimeZoneOffset)
+        : UTCDateTime.add(disscussionController.localTimeZoneOffset);
+    String month_name =
+        disscussionController.monthMap[localDateTime.month.toString()]!;
+
+    hour = localDateTime.hour;
     late String formattedTime;
-    if (hour >= 12) {
+    if (hour > 12) {
       if (hour != 12) {
         hour = hour - 12;
       }
-      formattedTime = '${hour}:${minute} PM  IST';
+      formattedTime =
+          '${hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
     } else {
-      formattedTime = '${hour}:${minute} AM  IST';
+      formattedTime =
+          '${hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
     }
     print(dateTime);
     print(formattedTime);
     return Row(
       children: [
         Text(
-          '${day} ${month}',
+          '${localDateTime.day} ${month_name}',
           style: kTileSubtitleStyle,
         ),
         SizedBox(
@@ -213,7 +226,7 @@ class DiscussionTile extends StatelessWidget {
                                         ? () {
                                             disscussionController
                                                 .removeUserFromSubscriberList(
-                                                    subscriberId!);
+                                                    userSubscriberId!);
                                             disscussionController
                                                 .getDiscussions();
                                           }
@@ -221,6 +234,16 @@ class DiscussionTile extends StatelessWidget {
                                                 discussion.data['isTime']
                                             ? () {
                                                 // Start the Room as User is Creator
+                                                List<String> tags = [];
+                                                for (var tag in discussion
+                                                    .data["Tags"]) {
+                                                  tags.add(tag.toString());
+                                                }
+                                                disscussionController.startRoom(
+                                                    discussion.$id,
+                                                    discussion.data["Name"],
+                                                    '',
+                                                    tags);
                                               }
                                             : null,
                             child: Text(
@@ -236,6 +259,56 @@ class DiscussionTile extends StatelessWidget {
                                   fontSize: UiSizes.size_14,
                                   fontWeight: FontWeight.w100,
                                 ))),
+                        userIsCreator == null
+                            ? SizedBox()
+                            : userIsCreator!
+                                ? Row(
+                                    children: [
+                                      SizedBox(
+                                        width: UiSizes.width_8,
+                                      ),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              side: BorderSide(
+                                                  color: Color.fromARGB(
+                                                      198, 100, 8, 3),
+                                                  width: 1),
+                                              backgroundColor: Color.fromARGB(
+                                                  246, 233, 61, 61),
+                                              minimumSize: Size(
+                                                  UiSizes.width_80,
+                                                  UiSizes.height_30),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20))),
+                                          onPressed: () {
+                                            Get.defaultDialog(
+                                              title: "Are you sure?",
+                                              middleText:
+                                                  "You want to delete this Discussion",
+                                              textConfirm: "Yes",
+                                              confirmTextColor: Colors.white,
+                                              textCancel: "No",
+                                              contentPadding: EdgeInsets.all(
+                                                  UiSizes.size_15),
+                                              onConfirm: () async {
+                                                await disscussionController
+                                                    .deleteDiscussion(
+                                                        discussion.$id);
+                                                Navigator.pop(context);
+                                              },
+                                            );
+                                          },
+                                          child: Text("Cancel",
+                                              style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: UiSizes.size_14,
+                                                fontWeight: FontWeight.w100,
+                                              )))
+                                    ],
+                                  )
+                                : SizedBox(),
                       ],
                     )
                   ],
