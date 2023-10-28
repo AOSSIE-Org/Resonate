@@ -73,13 +73,18 @@ class OnBoardingScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           autocorrect: false,
                           decoration: InputDecoration(
-                              icon: Icon(
-                                Icons.person,
-                                size: UiSizes.size_23,
-                              ),
-                              errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                              labelText: "Full Name",
-                              labelStyle: TextStyle(fontSize: UiSizes.size_14)),
+                            icon: Icon(
+                              Icons.person,
+                              size: UiSizes.size_23,
+                            ),
+                            errorStyle: TextStyle(
+                              fontSize: UiSizes.size_14,
+                            ),
+                            labelText: "Full Name",
+                            labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: UiSizes.height_1),
+                          ),
                         ),
                       ),
                       SizedBox(height: UiSizes.height_24_6),
@@ -115,6 +120,8 @@ class OnBoardingScreen extends StatelessWidget {
                                     TextStyle(fontSize: UiSizes.height_14),
                                 errorStyle:
                                     TextStyle(fontSize: UiSizes.height_14),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: UiSizes.height_1),
                                 icon: Icon(
                                   Icons.account_circle,
                                   size: UiSizes.size_23,
@@ -148,6 +155,8 @@ class OnBoardingScreen extends StatelessWidget {
                               Icons.calendar_month,
                               size: UiSizes.size_23,
                             ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: UiSizes.height_1),
                             labelText: "Date of Birth",
                             labelStyle: TextStyle(fontSize: UiSizes.size_14),
                             suffix: GestureDetector(
