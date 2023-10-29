@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,8 +29,23 @@ class AuthStateController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+
     account = Account(client);
+
     await setUserProfileData();
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    final fcmToken = await messaging.getToken();
+    print(fcmToken);
   }
 
   Future<bool> get getLoginState async {

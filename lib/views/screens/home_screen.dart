@@ -29,72 +29,71 @@ class HomeScreen extends StatelessWidget {
                 onRefresh: () async {
                   await roomsController.getRooms();
                 },
-                child: Padding(
-                  padding: EdgeInsets.only(top: UiSizes.height_12),
-                  child: Visibility(
-                    visible: roomsController.rooms.isEmpty,
-                    replacement: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: roomsController.rooms.length,
-                        itemBuilder: (ctx, index) {
-                          return RoomTile(
-                            room: roomsController.rooms[index],
-                          );
-                        }),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: UiSizes.height_12,
+                child: Visibility(
+                  visible: roomsController.rooms.isEmpty,
+                  replacement: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: roomsController.rooms.length,
+                      itemBuilder: (ctx, index) {
+                        return RoomTile(
+                          room: roomsController.rooms[index],
+                        );
+                      }),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: UiSizes.height_12,
+                        ),
+                        Image.asset(
+                          AppImages.noRoomImage,
+                          height: UiSizes.height_140,
+                        ),
+                        SizedBox(
+                          height: UiSizes.height_30,
+                        ),
+                        Center(
+                          child: Text(
+                            "No Rooms Available\n Get Started by adding one below!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: UiSizes.size_19),
                           ),
-                          Image.asset(
-                            AppImages.noRoomImage,
-                            height: UiSizes.height_140,
+                        ),
+                        SizedBox(
+                          height: UiSizes.height_10,
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
+                            roomsController.getRooms();
+                          },
+                          style: OutlinedButton.styleFrom(
+                            maximumSize: Size.fromWidth(UiSizes.width_140),
+                            side:
+                                const BorderSide(color: Colors.amber, width: 1),
                           ),
-                          SizedBox(
-                            height: UiSizes.height_30,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Refresh",
+                                style: TextStyle(
+                                    color: Colors.amber,
+                                    fontSize: UiSizes.size_15),
+                              ),
+                              SizedBox(
+                                width: UiSizes.width_6,
+                              ),
+                              const Icon(
+                                Icons.refresh,
+                                color: Colors.amber,
+                              ),
+                            ],
                           ),
-                          Center(
-                            child: Text(
-                              "No Rooms Available\n Get Started by adding one below!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: UiSizes.size_19),
-                            ),
-                          ),
-                          SizedBox(
-                            height: UiSizes.height_10,
-                          ),
-                          OutlinedButton(
-                            onPressed: () {
-                              roomsController.getRooms();
-                            },
-                            style: OutlinedButton.styleFrom(
-                              maximumSize: Size.fromWidth(UiSizes.width_123_4),
-                              side: const BorderSide(
-                                  color: Colors.amber, width: 1),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "Refresh",
-                                  style: TextStyle(color: Colors.amber),
-                                ),
-                                SizedBox(
-                                  width: UiSizes.width_6,
-                                ),
-                                const Icon(
-                                  Icons.refresh,
-                                  color: Colors.amber,
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ),

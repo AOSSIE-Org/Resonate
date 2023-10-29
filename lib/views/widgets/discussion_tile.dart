@@ -64,15 +64,12 @@ class DiscussionTile extends StatelessWidget {
 
     hour = localDateTime.hour;
     late String formattedTime;
-    if (hour > 12) {
-      if (hour != 12) {
-        hour = hour - 12;
-      }
+    if (hour >= 12) {
       formattedTime =
-          '${hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
+          '${hour != 12 ? (hour - 12) : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
     } else {
       formattedTime =
-          '${hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
+          '${hour == 0 ? 00 : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
     }
     print(dateTime);
     print(formattedTime);
@@ -211,49 +208,44 @@ class DiscussionTile extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),
                             onPressed: userIsCreator == null
-                                ? () {
-                                    disscussionController
+                                ? () async {
+                                    await disscussionController
                                         .addUserToSubscriberList(
                                             discussion.$id);
-                                    disscussionController.getDiscussions();
+                                    await disscussionController
+                                        .getDiscussions();
                                   }
-                                : !userIsCreator! & discussion.data['isLive']
-                                    ? () {
-                                        // Add user to Room
+                                : !userIsCreator!
+                                    ? () async {
+                                        await disscussionController
+                                            .removeUserFromSubscriberList(
+                                                userSubscriberId!);
+                                        await disscussionController
+                                            .getDiscussions();
                                       }
-                                    : !userIsCreator! &
-                                            !discussion.data['isLive']
+                                    : userIsCreator! & discussion.data['isTime']
                                         ? () {
+                                            // Start the Room as User is Creator
+                                            List<String> tags = [];
+                                            for (var tag
+                                                in discussion.data["Tags"]) {
+                                              tags.add(tag.toString());
+                                            }
                                             disscussionController
-                                                .removeUserFromSubscriberList(
-                                                    userSubscriberId!);
-                                            disscussionController
-                                                .getDiscussions();
-                                          }
-                                        : userIsCreator! &
-                                                discussion.data['isTime']
-                                            ? () {
-                                                // Start the Room as User is Creator
-                                                List<String> tags = [];
-                                                for (var tag in discussion
-                                                    .data["Tags"]) {
-                                                  tags.add(tag.toString());
-                                                }
-                                                disscussionController.startRoom(
+                                                .convertDiscussiontoRoom(
                                                     discussion.$id,
                                                     discussion.data["Name"],
                                                     '',
                                                     tags);
-                                              }
-                                            : null,
+                                           
+                                          }
+                                        : null,
                             child: Text(
                                 userIsCreator == null
                                     ? "Subscribe"
                                     : userIsCreator!
                                         ? "Start"
-                                        : discussion.data['isLive']
-                                            ? "Join"
-                                            : "Unsubscribe",
+                                        : "Unsubscribe",
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: UiSizes.size_14,

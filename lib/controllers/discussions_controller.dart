@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
@@ -16,6 +18,8 @@ class DiscussionsController extends GetxController {
   final CreateRoomController createRoomController =
       Get.find<CreateRoomController>();
   final TabViewController controller = Get.find<TabViewController>();
+  final ThemeController themeController = Get.find<ThemeController>();
+  final RoomsController roomsController = Get.find<RoomsController>();
   late List<Document> discussions;
   late String scheduledDateTime;
   late Document currentUserDoc;
@@ -58,6 +62,20 @@ class DiscussionsController extends GetxController {
         });
   }
 
+  Map<String, Color> getShimmerColor() {
+    Map<String, Color> shimmerColor;
+    themeController.loadTheme() == 'light'
+        ? shimmerColor = {
+            "baseColor": Colors.grey.shade300,
+            "highlightColor": Colors.grey.shade100
+          }
+        : shimmerColor = {
+            "baseColor": Color.fromARGB(255, 71, 70, 70),
+            "highlightColor": Color.fromARGB(255, 94, 94, 94)
+          };
+    return shimmerColor;
+  }
+
   Future<void> removeUserFromSubscriberList(String subscriberId) async {
     await databases.deleteDocument(
         databaseId: "6522fcf27a1bbc4238df",
@@ -95,10 +113,10 @@ class DiscussionsController extends GetxController {
           }
         }
       }
-    currentTimeInstance = DateTime.now();
-    localTimeZoneOffset = currentTimeInstance.timeZoneOffset;
-    localTimeZoneName = currentTimeInstance.timeZoneName;
-    isOffsetNegetive = localTimeZoneOffset.isNegative;
+      currentTimeInstance = DateTime.now();
+      localTimeZoneOffset = currentTimeInstance.timeZoneOffset;
+      localTimeZoneName = currentTimeInstance.timeZoneName;
+      isOffsetNegetive = localTimeZoneOffset.isNegative;
       print(userIsCreator);
       List<dynamic> fetchedData = [
         totalSubscriberCount,
@@ -113,17 +131,19 @@ class DiscussionsController extends GetxController {
     }
   }
 
-  Future<void> startRoom(String discussionId, String name, String description,
-      List<String> tags) async {
+  Future<void> convertDiscussiontoRoom(String discussionId, String name,
+      String description, List<String> tags) async {
     await createRoomController.createRoom(name, description, tags, false);
     controller.setIndex(0);
 
-    // Make isLive parameter for this discussion to true
-    await databases.updateDocument(
-        databaseId: '6522fcf27a1bbc4238df',
-        collectionId: '6522fd163103bd453183',
-        documentId: '${discussionId}',
-        data: {'isLive': true});
+    await roomsController.getRooms();
+    // Delete Discussion as it is now a room
+    await databases.deleteDocument(
+      databaseId: '6522fcf27a1bbc4238df',
+      collectionId: '6522fd163103bd453183',
+      documentId: '${discussionId}',
+    );
+    await getDiscussions();
   }
 
   Future<void> createDiscussion() async {
@@ -206,7 +226,7 @@ class DiscussionsController extends GetxController {
           '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00${isOffsetNegetive ? '-' : '+'}${formattedOffset}';
       print(scheduledDateTime);
       dateTimeController.text =
-          '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12? (pickedTime.hour - 12): pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
+          '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12 ? (pickedTime.hour - 12) : pickedTime.hour == 0 ? '00' : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
       print(dateTimeController.text);
     }
   }
@@ -216,7 +236,7 @@ class DiscussionsController extends GetxController {
         databaseId: "6522fcf27a1bbc4238df",
         collectionId: "6522fd163103bd453183",
         documentId: discussionId);
-    getDiscussions();
+    await getDiscussions();
     deleteAllDeletedDiscussionsSubscribers(discussionId);
   }
 

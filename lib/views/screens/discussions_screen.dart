@@ -55,10 +55,12 @@ class DiscussionScreen extends StatelessWidget {
                               );
                             }
                             return Shimmer.fromColors(
-                                baseColor: Colors.grey.shade300,
-                                highlightColor: Colors.grey.shade100,
+                                baseColor: discussionsController
+                                    .getShimmerColor()['baseColor']!,
+                                highlightColor: discussionsController
+                                    .getShimmerColor()['highlightColor']!,
                                 child: Container(
-                                  height: UiSizes.height_110,
+                                  height: UiSizes.height_160,
                                   margin: EdgeInsets.symmetric(
                                       vertical: UiSizes.height_10,
                                       horizontal: UiSizes.width_10),

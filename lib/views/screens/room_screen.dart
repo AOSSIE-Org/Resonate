@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -26,6 +27,7 @@ class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
+    RoomsController roomsController = Get.find<RoomsController>();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(
@@ -132,6 +134,8 @@ class _RoomScreenState extends State<RoomScreen> {
                           controller.appwriteRoom.isUserAdmin
                               ? await controller.deleteRoom()
                               : await controller.leaveRoom();
+
+                          await roomsController.getRooms();
                         },
                         child: Container(
                           height: UiSizes.height_40,

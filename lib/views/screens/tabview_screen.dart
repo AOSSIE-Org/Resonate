@@ -6,6 +6,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
@@ -24,7 +25,9 @@ class TabViewScreen extends StatelessWidget {
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-  final createRoomController = Get.find<CreateRoomController>();
+  final CreateRoomController createRoomController =
+      Get.find<CreateRoomController>();
+  final RoomsController roomsController = Get.find<RoomsController>();
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
 
@@ -105,7 +108,12 @@ class TabViewScreen extends StatelessWidget {
                           createRoomController.isLoading.value = false;
                           controller.setIndex(3);
                         } else {
-                          await createRoomController.createRoom(createRoomController.nameController.text, createRoomController.descriptionController.text, createRoomController.tagsController.getTags!, true);
+                          await createRoomController.createRoom(
+                              createRoomController.nameController.text,
+                              createRoomController.descriptionController.text,
+                              createRoomController.tagsController.getTags!,
+                              true);
+                          await roomsController.getRooms();
                         }
                       },
                       child: Icon(Icons.done, size: UiSizes.size_24)),
@@ -127,7 +135,7 @@ class TabViewScreen extends StatelessWidget {
             icons: const [
               Icons.home_rounded,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
-              Icons.chat_rounded
+              Icons.timelapse_rounded
             ],
             notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),

@@ -33,6 +33,7 @@ class UiSizes {
   static double height_110 = Get.height * 0.133;
   static double height_131 = Get.height * 0.16;
   static double height_140 = Get.height * 0.17;
+  static double height_160 = Get.height * 0.1945;
   static double height_170 = Get.height * 0.2;
   static double height_180 = Get.height * 0.219;
   static double height_200 = Get.height * 0.243;
