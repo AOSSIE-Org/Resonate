@@ -30,6 +30,7 @@ class EditProfileController extends GetxController {
 
   late String oldUsername;
   late String oldDisplayName;
+  late String uniqueIdForProfileImage;
 
   TextEditingController imageController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -171,10 +172,21 @@ class EditProfileController extends GetxController {
 
       // Update user PROFILE PICTURE
       if (profileImagePath != null) {
+        try {
+          await storage.deleteFile(
+              bucketId: userProfileImageBucketId,
+              fileId: authStateController.profileImageID!);
+        } catch (e) {
+          log(e.toString());
+        }
+
+        uniqueIdForProfileImage = authStateController.uid! +
+            DateTime.now().millisecondsSinceEpoch.toString();
+
         // Create new user profile picture file in Storage
         final profileImage = await storage.createFile(
             bucketId: userProfileImageBucketId,
-            fileId: ID.unique(),
+            fileId: uniqueIdForProfileImage,
             file: InputFile.fromPath(
                 path: profileImagePath!,
                 filename: "${authStateController.email}.jpeg"));
@@ -189,6 +201,7 @@ class EditProfileController extends GetxController {
           documentId: authStateController.uid!,
           data: {
             "profileImageUrl": imageController.text,
+            "profileImageID": uniqueIdForProfileImage,
           },
         );
       }
@@ -213,7 +226,10 @@ class EditProfileController extends GetxController {
 
         if (!usernameAvail) {
           usernameAvailable.value = false;
-          customSnackbar("Username Unavailable!", "This username is invalid or either taken already.", MessageType.error);
+          customSnackbar(
+              "Username Unavailable!",
+              "This username is invalid or either taken already.",
+              MessageType.error);
           return;
         }
 
@@ -274,13 +290,16 @@ class EditProfileController extends GetxController {
       profileImagePath = null;
 
       // The Success snackbar is only shown when there is change made, otherwise it is not shown
-      if(showSuccessSnackbar){
-        customSnackbar('Profile updated', 'All changes are saved successfully.', MessageType.success);
-      }else{
+      if (showSuccessSnackbar) {
+        customSnackbar('Profile updated', 'All changes are saved successfully.',
+            MessageType.success);
+      } else {
         // This snackbar is to show user that profile is up to date and there are no changes done by user
-        customSnackbar('Profile is up to date', 'There are no new changes made, Nothing to save.', MessageType.info);
+        customSnackbar(
+            'Profile is up to date',
+            'There are no new changes made, Nothing to save.',
+            MessageType.info);
       }
-
     } catch (e) {
       log(e.toString());
       customSnackbar('Error!', e.toString(), MessageType.error);

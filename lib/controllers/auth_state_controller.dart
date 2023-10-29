@@ -16,6 +16,7 @@ class AuthStateController extends GetxController {
   var isInitializing = false.obs;
   late final Account account;
   late String? uid;
+  late String? profileImageID;
   late String? displayName;
   late String? email;
   late String? profileImageUrl;
@@ -56,6 +57,7 @@ class AuthStateController extends GetxController {
             collectionId: usersCollectionID,
             documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
+        profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
       update();
@@ -68,7 +70,7 @@ class AuthStateController extends GetxController {
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
-    print(authToken);
+    log(authToken.toString());
     return authToken.jwt;
   }
 
@@ -81,7 +83,8 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
-      bool? landingScreenShown = GetStorage().read("landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+      bool? landingScreenShown = GetStorage().read(
+          "landingScreenShown"); // landingScreenShown is the boolean value that is used to check whether to show the user the onBoarding screen or not on the first launch of the app.
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
           : Get.offNamed(AppRoutes.login);
