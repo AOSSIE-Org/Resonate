@@ -180,7 +180,7 @@ class EditProfileController extends GetxController {
           log(e.toString());
         }
 
-        uniqueIdForProfileImage =
+        uniqueIdForProfileImage = authStateController.uid! +
             DateTime.now().millisecondsSinceEpoch.toString();
 
         // Create new user profile picture file in Storage

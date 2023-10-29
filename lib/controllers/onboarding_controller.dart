@@ -78,7 +78,7 @@ class OnboardingController extends GetxController {
           data: {"email": authStateController.email});
       //Update User Meta Data
       if (profileImagePath != null) {
-        uniqueIdForProfileImage =
+        uniqueIdForProfileImage = authStateController.uid! +
             DateTime.now().millisecondsSinceEpoch.toString();
 
         final profileImage = await storage.createFile(
@@ -111,7 +111,8 @@ class OnboardingController extends GetxController {
 
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
-      customSnackbar("Profile created successfully", "Your user profile is successfully created.", MessageType.success);
+      customSnackbar("Profile created successfully",
+          "Your user profile is successfully created.", MessageType.success);
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
