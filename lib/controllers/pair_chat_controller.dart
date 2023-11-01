@@ -100,7 +100,7 @@ class PairChatController extends GetxController {
             case 'delete':
               {
                 subscription?.close;
-                Get.back();
+                Get.offNamedUntil(AppRoutes.tabview, (route) => false);
               }
           }
         }
@@ -119,7 +119,7 @@ class PairChatController extends GetxController {
         collectionId: pairRequestCollectionId,
         documentId: requestDocId!);
     subscription?.close();
-    Get.back();
+    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 
   void toggleMic() async {
@@ -142,6 +142,6 @@ class PairChatController extends GetxController {
         collectionId: activePairsCollectionId,
         documentId: activePairDocId!);
     await Get.delete<LiveKitController>(force: true);
-    Get.back();
+    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 }
