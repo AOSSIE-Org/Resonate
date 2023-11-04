@@ -105,10 +105,11 @@ class AuthStateController extends GetxController {
   Future<void> login(String email, String password) async {
     await account.createEmailSession(email: email, password: password);
     await isUserLoggedIn();
-    addRegistrationTokentoSubscribedDiscussions();
+    await addRegistrationTokentoSubscribedDiscussions();
   }
 
   Future<void> addRegistrationTokentoSubscribedDiscussions() async {
+    print("fetching current subscribed discussions");
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: "6522fcf27a1bbc4238df",
@@ -116,22 +117,25 @@ class AuthStateController extends GetxController {
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
-
     subscribedDiscussions.forEach((subscribtion) {
-      List<String> registrationTokens = subscribtion.data['registrationTokens'];
+      print("getting current registration tokens of subscribed discussions");
+      List<dynamic> registrationTokens =
+          subscribtion.data['registrationTokens'];
+      print("adding current registration token to registration tokens of subscribed discussions");
       registrationTokens.add(fcmToken!);
-
+      print("updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
+      print("successfully added current registration token to subscribed discussion's registration token list");
     });
   }
 
   Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
-    
+    print("fetching current subscribed discussions");
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: "6522fcf27a1bbc4238df",
         collectionId: "6522fd267db6fdad3392",
@@ -139,13 +143,18 @@ class AuthStateController extends GetxController {
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
     subscribedDiscussions.forEach((subscribtion) {
-      List<String> registrationTokens = subscribtion.data['registrationTokens'];
+      print("getting current registration tokens of subscribed discussions");
+      List<dynamic> registrationTokens =
+          subscribtion.data['registrationTokens'];
+      print("removing current registration token from registration tokens of subscribed discussions");
       registrationTokens.remove(fcmToken!);
+      print("updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
+      print("successfully removed current registration token from subscribed discussion's registration token list");
     });
   }
 
@@ -176,8 +185,8 @@ class AuthStateController extends GetxController {
       contentPadding: EdgeInsets.all(UiSizes.size_15),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
+        await removeRegistrationTokenfromSubscribedDiscussions();
         Get.offAllNamed(AppRoutes.login);
-        removeRegistrationTokenfromSubscribedDiscussions();
       },
     );
   }
