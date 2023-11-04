@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
       Get.put<EmailVerifyController>(EmailVerifyController());
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
@@ -73,6 +74,7 @@ class ProfileScreen extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        SizedBox(height: UiSizes.height_45,),
                         Container(
                           width: UiSizes.width_180,
                           height: UiSizes.height_180,
@@ -81,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Colors.amber, width: UiSizes.width_4),
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                               image: NetworkImage(
                                   controller.profileImageUrl ?? ''),
                             ),
@@ -123,6 +125,12 @@ class ProfileScreen extends StatelessWidget {
                                           const Duration(milliseconds: 300),
                                       child: controller.isEmailVerified!
                                           ? Row(
+                                              mainAxisAlignment:
+                                                  emailVerifyController
+                                                          .isExpanded.value
+                                                      ? MainAxisAlignment.start
+                                                      : MainAxisAlignment
+                                                          .center,
                                               children: [
                                                 Icon(
                                                   Icons.verified_rounded,
@@ -132,9 +140,12 @@ class ProfileScreen extends StatelessWidget {
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? SizedBox(
-                                                        width: UiSizes.width_10,
+                                                        width: UiSizes.width_5,
                                                       )
-                                                    : const SizedBox(),
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      ),
                                                 emailVerifyController
                                                         .shouldDisplay.value
                                                     ? Text(
@@ -145,7 +156,10 @@ class ProfileScreen extends StatelessWidget {
                                                               UiSizes.size_15,
                                                         ),
                                                       )
-                                                    : const SizedBox()
+                                                    : const SizedBox(
+                                                        height: 0,
+                                                        width: 0,
+                                                      )
                                               ],
                                             )
                                           : Row(
@@ -253,7 +267,17 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
+
                         SizedBox(height: UiSizes.height_20),
+
+                        CustomCard(
+                          title: "Edit Profile",
+                          icon: FontAwesomeIcons.userPen,
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.editProfile);
+                          },
+                        ),
+                        SizedBox(height: UiSizes.height_10),
                         CustomCard(
                           title: "Contribute to the project",
                           icon: FontAwesomeIcons.github,
@@ -271,7 +295,7 @@ class ProfileScreen extends StatelessWidget {
                           title: "Terms and Conditions",
                           icon: FontAwesomeIcons.fileInvoice,
                           onTap: () {
-                            //TODO: Launch URL in webview
+                            //TODO: Launch URL in webView
                           },
                         ),
                         SizedBox(height: UiSizes.height_10),
@@ -279,7 +303,7 @@ class ProfileScreen extends StatelessWidget {
                           title: "Privacy Policy",
                           icon: FontAwesomeIcons.shieldHalved,
                           onTap: () {
-                            //TODO: Launch URL in webview
+                            //TODO: Launch URL in webView
                           },
                         ),
                         SizedBox(height: UiSizes.height_10),
@@ -289,6 +313,7 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () =>
                               Navigator.pushNamed(context, AppRoutes.settings),
                         ),
+                        SizedBox(height: UiSizes.height_45,),
                       ],
                     ),
                   ),

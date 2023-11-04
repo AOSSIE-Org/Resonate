@@ -80,3 +80,13 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
 
+## 💪 Thanks To All Contributors
+
+Thanks a lot for spending your time helping Resonate grow. Keep rocking 🥂
+
+<a href="https://github.com/AOSSIE-Org/Resonate/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AOSSIE-Org/Resonate" alt="Contributors"/>
+</a>
+<br>
+ 
+

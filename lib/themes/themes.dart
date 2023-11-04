@@ -26,8 +26,6 @@ class Themes {
 
     inputDecorationTheme: InputDecorationTheme(
       iconColor: Colors.amber,
-      floatingLabelStyle:
-          TextStyle(color: Colors.amber, fontSize: UiSizes.size_14),
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.amber, width: UiSizes.width_2),
       ),
@@ -77,8 +75,6 @@ class Themes {
     ),
     inputDecorationTheme: InputDecorationTheme(
       iconColor: AppColor.yellowColor,
-      floatingLabelStyle:
-          TextStyle(color: AppColor.yellowColor, fontSize: UiSizes.size_14),
       focusedBorder: UnderlineInputBorder(
         borderSide:
             BorderSide(color: AppColor.yellowColor, width: UiSizes.width_2),

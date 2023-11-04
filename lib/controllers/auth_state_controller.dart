@@ -18,6 +18,7 @@ class AuthStateController extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late final Account account;
   late String? uid;
+  late String? profileImageID;
   late String? displayName;
   late String? email;
   late String? profileImageUrl;
@@ -69,6 +70,7 @@ class AuthStateController extends GetxController {
             collectionId: usersCollectionID,
             documentId: appwriteUser.$id);
         profileImageUrl = userDataDoc.data["profileImageUrl"];
+        profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
       update();
@@ -81,7 +83,7 @@ class AuthStateController extends GetxController {
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
-    print(authToken);
+    log(authToken.toString());
     return authToken.jwt;
   }
 

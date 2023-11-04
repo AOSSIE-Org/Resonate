@@ -4,10 +4,14 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/app_images.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../../controllers/email_verify_controller.dart';
+import '../../controllers/password_strength_checker_controller.dart';
+import '../widgets/password_strength_indicator.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -19,6 +23,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   var controller = Get.find<AuthenticationController>();
   var emailVerifyController = Get.find<EmailVerifyController>();
+  var passwordStrengthCheckerController =
+      Get.find<PasswordStrengthCheckerController>();
 
   @override
   void initState() {
@@ -33,7 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: UiSizes.height_780 + 20,
+            height: UiSizes.height_780 + 75,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
@@ -60,6 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: TextStyle(fontSize: UiSizes.size_14),
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       autocorrect: false,
                       decoration: InputDecoration(
                         icon: Icon(
@@ -76,14 +83,18 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                     child: TextFormField(
                       style: TextStyle(fontSize: UiSizes.size_14),
-                      validator: (value) => value!.isValidPassword()
-                          ? null
-                          : "Password must be at least 6 digit, with one lowercase,\none uppercase and one numeric value.",
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: controller.passwordController,
+                      validator: (value) =>
+                          value! == "" ? "Password can't be empty" : null,
                       obscureText: true,
+                      onChanged: (value) => passwordStrengthCheckerController
+                          .passwordValidator(value),
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
+                        errorMaxLines:
+                            2, // number of lines the error text would wrap
                         icon: Icon(
                           size: UiSizes.size_23,
                           Icons.lock_outline_rounded,
@@ -107,6 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
                           icon: Icon(
                             size: UiSizes.size_23,
@@ -131,6 +143,50 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ),
+                  Obx(
+                    () => Visibility(
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible:
+                          passwordStrengthCheckerController.isVisible.value,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            passwordStrengthCheckerController.isVisible.value
+                                ? 1
+                                : 0,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: UiSizes.height_20),
+                          child: SizedBox(
+                              height: UiSizes.height_45,
+                              width: Get.width,
+                              child: PasswordStrengthIndicator(
+                                isPasswordSixCharacters:
+                                    passwordStrengthCheckerController
+                                        .isPasswordSixCharacters.value,
+                                hasOneDigit: passwordStrengthCheckerController
+                                    .hasOneDigit.value,
+                                hasUpperCase: passwordStrengthCheckerController
+                                    .hasUpperCase.value,
+                                hasLowerCase: passwordStrengthCheckerController
+                                    .hasLowerCase.value,
+                                passwordSixCharactersTitle:
+                                    "Password should be at least 6 characters long",
+                                hasOneDigitTitle:
+                                    "Include at least 1 numeric digit",
+                                hasUpperCaseTitle:
+                                    "Include at least 1 uppercase letter",
+                                hasLowerCaseTitle:
+                                    "Include at least 1 lowercase letter",
+                                validatedChecks:
+                                    passwordStrengthCheckerController
+                                        .validatedChecks.value,
+                              )),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: UiSizes.height_24_6),
                   Obx(
                     () => ElevatedButton(
@@ -143,8 +199,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 var isSignedin = await controller.signup();
                                 if (isSignedin) {
                                   Get.toNamed(AppRoutes.onBoarding);
-                                  Get.snackbar("Signed Up Successfully",
-                                      "You have successfully created a new account");
+                                  customSnackbar(
+                                      "Signed Up Successfully",
+                                      "You have successfully created a new account",
+                                      MessageType.success);
                                   emailVerifyController.signupisallowed.value =
                                       true;
                                 } else {
@@ -172,45 +230,73 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   SizedBox(height: UiSizes.height_12),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
+                  Obx(
+                    () => Visibility(
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible:
+                          !passwordStrengthCheckerController.isVisible.value,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            !passwordStrengthCheckerController.isVisible.value
+                                ? 1
+                                : 0,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Divider(
+                                    indent: UiSizes.width_20,
+                                    endIndent: UiSizes.width_10,
+                                    thickness: UiSizes.height_1,
+                                  ),
+                                ),
+                                Text(
+                                  "OR",
+                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    indent: UiSizes.width_10,
+                                    endIndent: UiSizes.width_20,
+                                    thickness: UiSizes.height_1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: UiSizes.size_14),
+                            AuthButtonWidget(
+                              onPressed: () async {
+                                await controller.loginWithGoogle();
+                              },
+                              logoPath: "assets/images/google_icon.png",
+                              authText: "Signup with Google",
+                            ),
+                            SizedBox(height: UiSizes.height_14),
+                            AuthButtonWidget(
+                              onPressed: () async {
+                                await controller.loginWithGithub();
+                              },
+                              logoPath: AppImages.githubIconImage,
+                              authText: "Signup with Github",
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        "OR",
-                        style: TextStyle(fontSize: UiSizes.size_14),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_10,
-                          endIndent: UiSizes.width_20,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  SizedBox(height: UiSizes.size_14),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGoogle();
-                    },
-                    logoPath: "assets/images/google_icon.png",
-                    authText: "Signup with Google",
-                  ),
-                  SizedBox(height: UiSizes.height_14),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGithub();
-                    },
-                    logoPath: AppImages.githubIconImage,
-                    authText: "Signup with Github",
-                  ),
-                  const Spacer(),
+                  Obx(() {
+                    if (passwordStrengthCheckerController.isVisible.value) {
+                      return const Spacer(
+                        flex: 3,
+                      );
+                    } else {
+                      return const Spacer();
+                    }
+                  }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -228,7 +314,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       )
                     ],
                   ),
-                  const Spacer(),
+                  const Spacer(
+                    flex: 3,
+                  ),
                 ],
               ),
             ),
