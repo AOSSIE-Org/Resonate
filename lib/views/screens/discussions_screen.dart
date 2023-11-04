@@ -101,16 +101,18 @@ class DiscussionScreen extends StatelessWidget {
                           discussionsController.getDiscussions();
                         },
                         style: OutlinedButton.styleFrom(
-                          maximumSize: Size.fromWidth(UiSizes.width_123_4),
+                          maximumSize: Size.fromWidth(UiSizes.width_140),
                           side: const BorderSide(color: Colors.amber, width: 1),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Refresh",
-                              style: TextStyle(color: Colors.amber),
+                              style: TextStyle(
+                                  color: Colors.amber,
+                                  fontSize: UiSizes.size_15),
                             ),
                             SizedBox(
                               width: UiSizes.width_6,

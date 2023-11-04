@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -20,6 +21,7 @@ class DiscussionsController extends GetxController {
   final TabViewController controller = Get.find<TabViewController>();
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   late List<Document> discussions;
   late String scheduledDateTime;
   late Document currentUserDoc;
@@ -49,16 +51,17 @@ class DiscussionsController extends GetxController {
   }
 
   Future<void> addUserToSubscriberList(String discussionId) async {
+    final fcmToken = await messaging.getToken();
     await databases.createDocument(
         databaseId: "6522fcf27a1bbc4238df",
         collectionId: "6522fd267db6fdad3392",
         documentId: ID.unique(),
         data: {
-          "UserID": authStateController.uid,
-          "DiscussionID": discussionId,
-          "RegistrationID": "Test",
+          "userID": authStateController.uid,
+          "discussionID": discussionId,
+          "registrationTokens": [fcmToken],
           "isCreator": false,
-          "UserProfileUrl": authStateController.profileImageUrl
+          "userProfileUrl": authStateController.profileImageUrl
         });
   }
 
@@ -93,19 +96,19 @@ class DiscussionsController extends GetxController {
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           queries: [
-            Query.equal('DiscussionID', ['${discussionId}']),
+            Query.equal('discussionID', ['${discussionId}']),
           ]).then((value) => value.documents);
       totalSubscriberCount = discussionSubscribers.length;
 
       List<String> subscribersProfileUrls = [];
 
       for (var doc in discussionSubscribers) {
-        subscribersProfileUrls.add(doc.data["UserProfileUrl"]);
+        subscribersProfileUrls.add(doc.data["userProfileUrl"]);
       }
 
       print(subscribersProfileUrls);
       for (var doc in discussionSubscribers) {
-        if (doc.data["UserID"] == authStateController.uid) {
+        if (doc.data["userID"] == authStateController.uid) {
           userIsCreator = doc.data["isCreator"];
 
           if (doc.data["isCreator"] == false) {
@@ -147,6 +150,7 @@ class DiscussionsController extends GetxController {
   }
 
   Future<void> createDiscussion() async {
+    final fcmToken = await messaging.getToken();
     if (!createRoomController.createRoomFormKey.currentState!.validate()) {
       return;
     }
@@ -156,9 +160,9 @@ class DiscussionsController extends GetxController {
           collectionId: "6522fd163103bd453183",
           documentId: ID.unique(),
           data: {
-            "Name": createRoomController.nameController.text,
-            "ScheduledDateTime": scheduledDateTime,
-            "Tags": createRoomController.tagsController.getTags
+            "name": createRoomController.nameController.text,
+            "scheduledDateTime": scheduledDateTime,
+            "tags": createRoomController.tagsController.getTags
           });
       String discussionId = discussion.$id;
       await databases.createDocument(
@@ -166,11 +170,11 @@ class DiscussionsController extends GetxController {
           collectionId: "6522fd267db6fdad3392",
           documentId: ID.unique(),
           data: {
-            "UserID": authStateController.uid,
-            "DiscussionID": discussionId,
-            "RegistrationID": "Test",
+            "userID": authStateController.uid,
+            "discussionID": discussionId,
+            "registrationTokens": [fcmToken],
             "isCreator": true,
-            "UserProfileUrl": authStateController.profileImageUrl
+            "userProfileUrl": authStateController.profileImageUrl
           });
     } catch (e) {
       log(e.toString());
@@ -246,7 +250,7 @@ class DiscussionsController extends GetxController {
         databaseId: '6522fcf27a1bbc4238df',
         collectionId: '6522fd267db6fdad3392',
         queries: [
-          Query.equal('DiscussionID', ['${discussionId}']),
+          Query.equal('discussionID', ['${discussionId}']),
         ]).then((value) => value.documents);
 
     for (Document subscriber in deletedDiscussionSubscribers) {

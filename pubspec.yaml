@@ -72,6 +72,7 @@ dependencies:
   get_storage: ^2.1.1
   shimmer: ^3.0.0
   firebase_messaging: ^14.7.2
+  firebase_core: ^2.20.0
 
 dev_dependencies:
   flutter_test:

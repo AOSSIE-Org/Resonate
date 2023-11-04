@@ -113,7 +113,7 @@ class ProfileScreen extends StatelessWidget {
                                       },
                                       width:
                                           emailVerifyController.isExpanded.value
-                                              ? UiSizes.width_160
+                                              ? UiSizes.width_170
                                               : UiSizes.width_35,
                                       decoration: BoxDecoration(
                                           borderRadius:
@@ -127,7 +127,7 @@ class ProfileScreen extends StatelessWidget {
                                                 Icon(
                                                   Icons.verified_rounded,
                                                   color: AppColor.greenColor,
-                                                  size: UiSizes.size_35,
+                                                  size: UiSizes.size_32,
                                                 ),
                                                 emailVerifyController
                                                         .shouldDisplay.value

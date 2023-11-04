@@ -9,13 +9,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   late final Account account;
   late String? uid;
   late String? displayName;
@@ -33,8 +33,6 @@ class AuthStateController extends GetxController {
     account = Account(client);
 
     await setUserProfileData();
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -44,8 +42,6 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
-    final fcmToken = await messaging.getToken();
-    print(fcmToken);
   }
 
   Future<bool> get getLoginState async {
@@ -109,6 +105,48 @@ class AuthStateController extends GetxController {
   Future<void> login(String email, String password) async {
     await account.createEmailSession(email: email, password: password);
     await isUserLoggedIn();
+    addRegistrationTokentoSubscribedDiscussions();
+  }
+
+  Future<void> addRegistrationTokentoSubscribedDiscussions() async {
+    final fcmToken = await messaging.getToken();
+    List<Document> subscribedDiscussions = await databases.listDocuments(
+        databaseId: "6522fcf27a1bbc4238df",
+        collectionId: "6522fd267db6fdad3392",
+        queries: [
+          Query.equal("userID", [uid])
+        ]).then((value) => value.documents);
+
+    subscribedDiscussions.forEach((subscribtion) {
+      List<String> registrationTokens = subscribtion.data['registrationTokens'];
+      registrationTokens.add(fcmToken!);
+
+      databases.updateDocument(
+          databaseId: '6522fcf27a1bbc4238df',
+          collectionId: '6522fd267db6fdad3392',
+          documentId: subscribtion.$id,
+          data: {"registrationTokens": registrationTokens});
+    });
+  }
+
+  Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
+    final fcmToken = await messaging.getToken();
+    
+    List<Document> subscribedDiscussions = await databases.listDocuments(
+        databaseId: "6522fcf27a1bbc4238df",
+        collectionId: "6522fd267db6fdad3392",
+        queries: [
+          Query.equal("userID", [uid])
+        ]).then((value) => value.documents);
+    subscribedDiscussions.forEach((subscribtion) {
+      List<String> registrationTokens = subscribtion.data['registrationTokens'];
+      registrationTokens.remove(fcmToken!);
+      databases.updateDocument(
+          databaseId: '6522fcf27a1bbc4238df',
+          collectionId: '6522fd267db6fdad3392',
+          documentId: subscribtion.$id,
+          data: {"registrationTokens": registrationTokens});
+    });
   }
 
   Future<void> signup(String email, String password) async {
@@ -139,6 +177,7 @@ class AuthStateController extends GetxController {
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
         Get.offAllNamed(AppRoutes.login);
+        removeRegistrationTokenfromSubscribedDiscussions();
       },
     );
   }

@@ -27,7 +27,8 @@ class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
-    RoomsController roomsController = Get.find<RoomsController>();
+    RoomsController roomsController =
+        Get.put<RoomsController>(RoomsController());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(

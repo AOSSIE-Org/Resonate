@@ -27,12 +27,12 @@ class DiscussionTile extends StatelessWidget {
       required this.userSubscriberId});
   Text buildTags() {
     String tagString = "";
-    if (discussion.data["Tags"].isNotEmpty) {
+    if (discussion.data["tags"].isNotEmpty) {
       // this fixes error for rooms without tags
-      tagString = discussion.data["Tags"]
+      tagString = discussion.data["tags"]
           [0]; // fixes error accessing a nonexistent index
 
-      for (var tag in discussion.data["Tags"].sublist(1)) {
+      for (var tag in discussion.data["tags"].sublist(1)) {
         tagString += "  ·  $tag";
       }
     }
@@ -43,7 +43,7 @@ class DiscussionTile extends StatelessWidget {
   }
 
   Row buildDateTimeToReadableFormat() {
-    String dateTime = discussion.data["ScheduledDateTime"];
+    String dateTime = discussion.data["scheduledDateTime"];
     List<String> splittedStrings = dateTime.split("T");
     String date = splittedStrings[0];
     String time = splittedStrings[1];
@@ -159,7 +159,7 @@ class DiscussionTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      discussion.data["Name"],
+                      discussion.data["name"],
                       maxLines: 3,
                       style: kTileTitleStyle,
                     ),
@@ -199,8 +199,7 @@ class DiscussionTile extends StatelessWidget {
                                         width: 1),
                                 backgroundColor: userIsCreator == null
                                     ? Color.fromARGB(194, 63, 218, 35)
-                                    : (!userIsCreator! &
-                                            !discussion.data['isLive'])
+                                    : (!userIsCreator!)
                                         ? Color.fromARGB(155, 58, 190, 34)
                                         : Color.fromARGB(194, 63, 218, 35),
                                 minimumSize:
@@ -228,16 +227,15 @@ class DiscussionTile extends StatelessWidget {
                                             // Start the Room as User is Creator
                                             List<String> tags = [];
                                             for (var tag
-                                                in discussion.data["Tags"]) {
+                                                in discussion.data["tags"]) {
                                               tags.add(tag.toString());
                                             }
                                             disscussionController
                                                 .convertDiscussiontoRoom(
                                                     discussion.$id,
-                                                    discussion.data["Name"],
+                                                    discussion.data["name"],
                                                     '',
                                                     tags);
-                                           
                                           }
                                         : null,
                             child: Text(

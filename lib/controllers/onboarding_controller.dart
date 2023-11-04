@@ -99,7 +99,6 @@ class OnboardingController extends GetxController {
       await authStateController.account.updatePrefs(prefs: {
         "isUserProfileComplete": true
       });
-
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       Get.snackbar("Saved Successfully", "");
