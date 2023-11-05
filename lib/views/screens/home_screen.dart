@@ -65,39 +65,45 @@ class HomeScreen extends StatelessWidget {
                                 child: Text(
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: UiSizes.size_19),
+                                  style: TextStyle(fontSize: UiSizes.size_19),
                                 ),
                               ),
                               SizedBox(
                                 height: UiSizes.height_10,
                               ),
-                              OutlinedButton(
-                                onPressed: () {
-                                  roomsController.getRooms();
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  maximumSize:
-                                      Size.fromWidth(UiSizes.width_123_4),
-                                  side: const BorderSide(
-                                      color: Colors.amber, width: 1),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Refresh",
-                                      style: TextStyle(color: Colors.amber),
-                                    ),
-                                    SizedBox(
-                                      width: UiSizes.width_6,
-                                    ),
-                                    const Icon(
-                                      Icons.refresh,
-                                      color: Colors.amber,
-                                    ),
-                                  ],
+                              Container(
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width *
+                                            0.4),
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    roomsController.getRooms();
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    // maximumSize:
+                                    //     Size.fromWidth(UiSizes.width_123_4),
+                                    side: const BorderSide(
+                                        color: Colors.amber, width: 1),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "Refresh",
+                                        style: TextStyle(color: Colors.amber),
+                                      ),
+                                      SizedBox(
+                                        width: UiSizes.width_6,
+                                      ),
+                                      const Icon(
+                                        Icons.refresh,
+                                        color: Colors.amber,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
