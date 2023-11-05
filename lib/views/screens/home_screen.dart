@@ -81,8 +81,6 @@ class HomeScreen extends StatelessWidget {
                                     roomsController.getRooms();
                                   },
                                   style: OutlinedButton.styleFrom(
-                                    // maximumSize:
-                                    //     Size.fromWidth(UiSizes.width_123_4),
                                     side: const BorderSide(
                                         color: Colors.amber, width: 1),
                                   ),
