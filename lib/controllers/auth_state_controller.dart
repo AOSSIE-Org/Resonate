@@ -43,6 +43,14 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
+    
+    // List to notitifcations in foreground 
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        print('Notification: ${message.notification!.title}');
+        print('Notification: ${message.notification!.body}');
+      }
+    });
   }
 
   Future<bool> get getLoginState async {
@@ -123,15 +131,18 @@ class AuthStateController extends GetxController {
       print("getting current registration tokens of subscribed discussions");
       List<dynamic> registrationTokens =
           subscribtion.data['registrationTokens'];
-      print("adding current registration token to registration tokens of subscribed discussions");
+      print(
+          "adding current registration token to registration tokens of subscribed discussions");
       registrationTokens.add(fcmToken!);
-      print("updating new registration tokens list to the subscribed discussion");
+      print(
+          "updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
-      print("successfully added current registration token to subscribed discussion's registration token list");
+      print(
+          "successfully added current registration token to subscribed discussion's registration token list");
     });
   }
 
@@ -148,15 +159,18 @@ class AuthStateController extends GetxController {
       print("getting current registration tokens of subscribed discussions");
       List<dynamic> registrationTokens =
           subscribtion.data['registrationTokens'];
-      print("removing current registration token from registration tokens of subscribed discussions");
+      print(
+          "removing current registration token from registration tokens of subscribed discussions");
       registrationTokens.remove(fcmToken!);
-      print("updating new registration tokens list to the subscribed discussion");
+      print(
+          "updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
-      print("successfully removed current registration token from subscribed discussion's registration token list");
+      print(
+          "successfully removed current registration token from subscribed discussion's registration token list");
     });
   }
 

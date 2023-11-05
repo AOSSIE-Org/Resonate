@@ -189,6 +189,8 @@ class DiscussionTile extends StatelessWidget {
                                 : SizedBox(),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
+                                disabledBackgroundColor:
+                                    Color.fromARGB(183, 120, 118, 118),
                                 side: userIsCreator == null
                                     ? BorderSide(
                                         color: Color.fromARGB(198, 60, 244, 28),
