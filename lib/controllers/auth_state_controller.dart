@@ -4,11 +4,13 @@ import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/screens/discussions_screen.dart';
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
@@ -26,6 +28,17 @@ class AuthStateController extends GetxController {
   late bool? isUserProfileComplete;
   late bool? isEmailVerified;
   late User appwriteUser;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse) async {
+    final String? payload = notificationResponse.payload;
+    if (notificationResponse.payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    await Get.to(DiscussionScreen());
+  }
 
   @override
   void onInit() async {
@@ -34,6 +47,8 @@ class AuthStateController extends GetxController {
     account = Account(client);
 
     await setUserProfileData();
+
+    // ask for settings permissions
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
@@ -43,12 +58,26 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
-    
-    // List to notitifcations in foreground 
+    const AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails('your channel id', 'your channel name',
+            channelDescription: 'your channel description',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker');
+    const NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+
+
+    // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (message.notification != null) {
-        print('Notification: ${message.notification!.title}');
-        print('Notification: ${message.notification!.body}');
+        print('Notification Title: ${message.notification!.title}');
+        print('Notification body: ${message.notification!.body}');
+
+        // send local notification
+        await flutterLocalNotificationsPlugin.show(
+            0, message.notification!.title, message.notification!.body, notificationDetails,
+            payload: 'item x');
       }
     });
   }

@@ -71,8 +71,10 @@ dependencies:
   flutter_onboarding_slider: ^1.0.10
   get_storage: ^2.1.1
   shimmer: ^3.0.0
-  firebase_messaging: ^14.7.2
+  firebase_messaging: 14.7.3
   firebase_core: ^2.20.0
+  flutter_local_notifications: ^16.1.0
+  firebase_analytics: ^10.6.3
 
 dev_dependencies:
   flutter_test:
