@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
+import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
@@ -28,8 +30,21 @@ class AuthStateController extends GetxController {
   late bool? isUserProfileComplete;
   late bool? isEmailVerified;
   late User appwriteUser;
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  Future<void> initializeLocalNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('ic_launcher');
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+  }
 
   void onDidReceiveNotificationResponse(
       NotificationResponse notificationResponse) async {
@@ -37,7 +52,9 @@ class AuthStateController extends GetxController {
     if (notificationResponse.payload != null) {
       debugPrint('notification payload: $payload');
     }
-    await Get.to(DiscussionScreen());
+    await Get.to(TabViewScreen());
+    final TabViewController tabViewController = Get.find<TabViewController>();
+    tabViewController.setIndex(1);
   }
 
   @override
@@ -58,6 +75,8 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
+    await initializeLocalNotifications();
+
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('your channel id', 'your channel name',
             channelDescription: 'your channel description',
@@ -67,7 +86,6 @@ class AuthStateController extends GetxController {
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
-
     // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (message.notification != null) {
@@ -76,7 +94,10 @@ class AuthStateController extends GetxController {
 
         // send local notification
         await flutterLocalNotificationsPlugin.show(
-            0, message.notification!.title, message.notification!.body, notificationDetails,
+            0,
+            message.notification!.title,
+            message.notification!.body,
+            notificationDetails,
             payload: 'item x');
       }
     });

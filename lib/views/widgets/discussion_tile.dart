@@ -64,12 +64,13 @@ class DiscussionTile extends StatelessWidget {
 
     hour = localDateTime.hour;
     late String formattedTime;
+    print(hour);
     if (hour >= 12) {
       formattedTime =
           '${hour != 12 ? (hour - 12) : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
     } else {
       formattedTime =
-          '${hour == 0 ? 00 : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
+          '${hour == 0 ? '00' : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
     }
     print(dateTime);
     print(formattedTime);

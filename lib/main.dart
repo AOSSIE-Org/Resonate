@@ -8,6 +8,7 @@ import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/themes.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/views/screens/discussions_screen.dart';
 import 'themes/theme_controller.dart';
 
 Future<void> main() async {
@@ -19,32 +20,8 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+
   await GetStorage.init();
-
-  void onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse) async {
-    final String? payload = notificationResponse.payload;
-    if (notificationResponse.payload != null) {
-      debugPrint('notification payload: $payload');
-    }
-    print("handled");
-  }
-
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()!
-      .requestNotificationsPermission();
-
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('ic_launcher');
-
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-  );
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
   runApp(const MyApp());
 }
 
