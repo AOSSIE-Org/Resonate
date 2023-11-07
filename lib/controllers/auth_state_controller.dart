@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -48,13 +49,16 @@ class AuthStateController extends GetxController {
 
   void onDidReceiveNotificationResponse(
       NotificationResponse notificationResponse) async {
-    final String? payload = notificationResponse.payload;
-    if (notificationResponse.payload != null) {
-      debugPrint('notification payload: $payload');
-    }
-    await Get.to(TabViewScreen());
+    String name = notificationResponse.payload!;
+    DiscussionsController discussionsController = Get.find<DiscussionsController>();
+    int index = discussionsController.discussions
+        .indexWhere((discussion) => discussion.data["name"] == name);
+
+    discussionsController.discussionScrollController.value = ScrollController(initialScrollOffset: UiSizes.height_170*index);
+  
     final TabViewController tabViewController = Get.find<TabViewController>();
     tabViewController.setIndex(1);
+    await Get.to(TabViewScreen());
   }
 
   @override
@@ -92,13 +96,18 @@ class AuthStateController extends GetxController {
         print('Notification Title: ${message.notification!.title}');
         print('Notification body: ${message.notification!.body}');
 
+        RegExp exp = RegExp(r'The room (\w+) will Start Soon');
+        RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
+        print(matches!.group(1));
+        String discussionName = matches!.group(1)!;
+        
         // send local notification
         await flutterLocalNotificationsPlugin.show(
             0,
             message.notification!.title,
             message.notification!.body,
             notificationDetails,
-            payload: 'item x');
+            payload: discussionName);
       }
     });
   }

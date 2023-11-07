@@ -18,6 +18,7 @@ class DiscussionsController extends GetxController {
   AuthStateController authStateController = Get.find<AuthStateController>();
   final CreateRoomController createRoomController =
       Get.find<CreateRoomController>();
+  Rx<ScrollController> discussionScrollController = ScrollController().obs;
   final TabViewController controller = Get.find<TabViewController>();
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();

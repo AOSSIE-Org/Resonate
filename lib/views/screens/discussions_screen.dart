@@ -36,42 +36,45 @@ class DiscussionScreen extends StatelessWidget {
                 },
                 child: Visibility(
                   visible: discussionsController.discussions.isEmpty,
-                  replacement: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: discussionsController.discussions.length,
-                      itemBuilder: (ctx, index) {
-                        return FutureBuilder(
-                          future: discussionsController.fetchDiscussionDetails(
-                              discussionsController.discussions[index].$id),
-                          builder: ((context, snapshot) {
-                            if (snapshot.hasData) {
-                              return DiscussionTile(
-                                discussion:
-                                    discussionsController.discussions[index],
-                                subscriberCount: snapshot.data![0].toString(),
-                                userIsCreator: snapshot.data![1],
-                                subscriberProfileUrl: snapshot.data![2],
-                                userSubscriberId: snapshot.data![3],
-                              );
-                            }
-                            return Shimmer.fromColors(
-                                baseColor: discussionsController
-                                    .getShimmerColor()['baseColor']!,
-                                highlightColor: discussionsController
-                                    .getShimmerColor()['highlightColor']!,
-                                child: Container(
-                                  height: UiSizes.height_160,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: UiSizes.height_10,
-                                      horizontal: UiSizes.width_10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(UiSizes.size_15))),
-                                ));
-                          }),
-                        );
-                      }),
+                  replacement: Obx(
+                    ()=> ListView.builder(
+                      controller: discussionsController.discussionScrollController.value,
+                        shrinkWrap: true,
+                        itemCount: discussionsController.discussions.length,
+                        itemBuilder: (ctx, index) {
+                          return FutureBuilder(
+                            future: discussionsController.fetchDiscussionDetails(
+                                discussionsController.discussions[index].$id),
+                            builder: ((context, snapshot) {
+                              if (snapshot.hasData) {
+                                return DiscussionTile(
+                                  discussion:
+                                      discussionsController.discussions[index],
+                                  subscriberCount: snapshot.data![0].toString(),
+                                  userIsCreator: snapshot.data![1],
+                                  subscriberProfileUrl: snapshot.data![2],
+                                  userSubscriberId: snapshot.data![3],
+                                );
+                              }
+                              return Shimmer.fromColors(
+                                  baseColor: discussionsController
+                                      .getShimmerColor()['baseColor']!,
+                                  highlightColor: discussionsController
+                                      .getShimmerColor()['highlightColor']!,
+                                  child: Container(
+                                    height: UiSizes.height_160,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: UiSizes.height_10,
+                                        horizontal: UiSizes.width_10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(UiSizes.size_15))),
+                                  ));
+                            }),
+                          );
+                        }),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
