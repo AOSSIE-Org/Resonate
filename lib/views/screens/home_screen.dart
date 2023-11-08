@@ -71,39 +71,34 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: UiSizes.height_10,
                               ),
-                              Container(
-                                constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width *
-                                            0.4),
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    roomsController.getRooms();
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: Colors.amber, width: 1),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "Refresh",
-                                        style: TextStyle(color: Colors.amber),
-                                      ),
-                                      SizedBox(
-                                        width: UiSizes.width_6,
-                                      ),
-                                      const Icon(
-                                        Icons.refresh,
-                                        color: Colors.amber,
-                                      ),
-                                    ],
-                                  ),
+                              OutlinedButton(
+                                onPressed: () {
+                                  roomsController.getRooms();
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  maximumSize:
+                                      Size.fromWidth(UiSizes.width_170),
+                                  side: const BorderSide(
+                                      color: Colors.amber, width: 1),
                                 ),
-                              )
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Refresh",
+                                      style: TextStyle(color: Colors.amber),
+                                    ),
+                                    SizedBox(
+                                      width: UiSizes.width_6,
+                                    ),
+                                    const Icon(
+                                      Icons.refresh,
+                                      color: Colors.amber,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
