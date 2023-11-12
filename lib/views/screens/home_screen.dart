@@ -65,8 +65,7 @@ class HomeScreen extends StatelessWidget {
                                 child: Text(
                                   "No Rooms Available\n Get Started by adding one below!",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: UiSizes.size_19),
+                                  style: TextStyle(fontSize: UiSizes.size_19),
                                 ),
                               ),
                               SizedBox(
@@ -78,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                                 },
                                 style: OutlinedButton.styleFrom(
                                   maximumSize:
-                                      Size.fromWidth(UiSizes.width_123_4),
+                                      Size.fromWidth(UiSizes.width_170),
                                   side: const BorderSide(
                                       color: Colors.amber, width: 1),
                                 ),
@@ -99,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
