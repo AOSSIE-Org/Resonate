@@ -54,6 +54,62 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 |  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/8d7c5da5-0b2f-4d8f-8f12-d1059b0e4a01" width="250" height="auto"/>    |
 </div>
 
+##Appwrite Setup
+This project utilizes Appwrite as a backend service. Appwrite is an open-source platform that helps you build applications faster with real-time APIs for authentication, databases, file storage, and more.
+
+### Prerequisites
+
+Before you begin, make sure you have the following installed on your machine:
+
+- Docker: [Install Docker](https://docs.docker.com/get-docker/)
+- Docker Compose: [Install Docker Compose](https://docs.docker.com/compose/install/)
+
+### Step 1: Clone the Repository
+
+Clone the Resonate repository to your local machine:
+
+```bash
+git clone https://github.com/AOSSIE-Org/Resonate.git
+cd resonate
+
+### Step 2: Configure Appwrite
+In the project directory, create a new file named .env:
+bash
+touch .env
+
+Open .env in a text editor and add the following configuration:
+env
+# Appwrite Configuration
+APPWRITE_ENDPOINT=http://appwrite-api:80
+APPWRITE_PROJECT_ID=your_project_id
+APPWRITE_API_KEY=your_api_key
+
+# Other Configuration
+# Add any other environment variables or configurations specific to Resonate here
+
+### Step 3: Start Appwrite
+Run the following commands to start Appwrite services using Docker Compose:
+
+bash
+docker-compose up -d appwrite
+This will start the Appwrite services in the background
+
+### Step 4: Access Appwrite Console
+Open your browser and navigate to http://localhost:8000/console to access the Appwrite console. Log in with the default credentials:
+
+Email: admin@example.com
+Password: password
+### Step 5: Configure Appwrite in Resonate
+Integrate Appwrite SDK into Resonate by following the Appwrite documentation: Appwrite SDKs.
+
+### Step 6: Run Your Project
+Now that Appwrite is set up and configured in your project, you can run Resonate 
+
+bash
+# Run your project command (e.g., npm start, yarn start, etc.)
+ Resonate should now be running and connected to the Appwrite backend.
+
+
 ## :raised_hands: Contributing
 :star: Don't forget to star this repository if you find it useful! :star:
 
