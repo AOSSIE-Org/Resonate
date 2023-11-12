@@ -36,3 +36,17 @@ class AppwriteService {
     return _realtime!;
   }
 }
+
+  // Checks the Appwrite server status
+  static Future<bool> checkServerStatus() async {
+    try {
+      final response = await _client!.getHealth();
+      return response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
+
+
