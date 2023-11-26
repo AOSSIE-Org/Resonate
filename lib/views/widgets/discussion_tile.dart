@@ -102,7 +102,6 @@ class DiscussionTile extends StatelessWidget {
       fontSize: UiSizes.size_20,
       fontWeight: FontWeight.w500,
       color: Colors.black);
-
   var kTileSubtitleStyle = TextStyle(
       fontSize: UiSizes.size_14,
       fontWeight: FontWeight.w100,
@@ -336,14 +335,22 @@ class DiscussionTile extends StatelessWidget {
                     for (var avatarImageUrl in subscriberProfileUrl)
                       Align(
                         widthFactor: 0.5,
-                        child: CircleAvatar(
-                          radius: UiSizes.size_19,
-                          backgroundColor:
-                              const Color.fromRGBO(230, 171, 49, 1),
-                          child: CircleAvatar(
-                            radius: UiSizes.size_15,
-                            backgroundImage: NetworkImage(avatarImageUrl),
-                          ),
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.amber,
+                              radius: UiSizes.size_19,
+                            ),
+                            Positioned(
+                              left: 2,
+                              top: 2,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: UiSizes.size_16,
+                                backgroundImage: NetworkImage(avatarImageUrl),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     SizedBox(
