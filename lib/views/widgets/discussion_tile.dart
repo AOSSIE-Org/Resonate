@@ -342,8 +342,8 @@ class DiscussionTile extends StatelessWidget {
                               radius: UiSizes.size_19,
                             ),
                             Positioned(
-                              left: 2,
-                              top: 2,
+                              left: UiSizes.width_2,
+                              top: UiSizes.height_2,
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
                                 radius: UiSizes.size_16,

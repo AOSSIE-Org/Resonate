@@ -3,24 +3,33 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   var controller = Get.find<AuthenticationController>();
+  var themeController = Get.find<ThemeController>();
 
   @override
   void initState() {
     controller.loginFormKey = GlobalKey<FormState>();
     super.initState();
+  }
+
+  double size(double h) {
+    print("Hiiiiiiiiiiiiiiiiiii");
+    print(Get.height);
+    print(h);
+    return h;
   }
 
   @override
@@ -30,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: UiSizes.height_780,
+            height: 780,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
@@ -45,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: UiSizes.height_15),
                   Text(
                     "Welcome Back",
-                    style: TextStyle(fontSize: UiSizes.size_25),
+                    style: TextStyle(
+                        fontSize: UiSizes.size_25, color: Colors.amber),
                   ),
                   SizedBox(height: UiSizes.height_15),
                   Padding(
@@ -56,16 +66,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(fontSize: UiSizes.size_14),
+                      style: TextStyle(
+                          fontSize: UiSizes.size_14,
+                          color: themeController.loadTheme() == 'dark'
+                              ? Colors.white
+                              : Colors.black),
                       autocorrect: false,
                       decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.alternate_email,
-                          size: UiSizes.size_23,
-                        ),
-                        errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                        labelText: "Email ID",
-                      ),
+                          icon: Icon(
+                            Icons.alternate_email,
+                            size: UiSizes.size_23,
+                          ),
+                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
+                          labelText: "Email ID",
+                          labelStyle: TextStyle(
+                              color: themeController.loadTheme() == 'dark'
+                                  ? Colors.white
+                                  : Colors.black)),
                     ),
                   ),
                   SizedBox(height: UiSizes.height_10),
@@ -77,14 +94,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
-                        style: TextStyle(fontSize: UiSizes.size_14),
+                        style: TextStyle(
+                            fontSize: UiSizes.size_14,
+                            color: themeController.loadTheme() == 'dark'
+                                ? Colors.white
+                                : Colors.black),
                         decoration: InputDecoration(
                           icon: Icon(
                             size: UiSizes.size_23,
                             Icons.lock_outline_rounded,
                           ),
                           labelText: "Password",
-                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
+                          labelStyle: TextStyle(
+                              color: themeController.loadTheme() == 'dark'
+                                  ? Colors.white
+                                  : Colors.black),
+                          errorStyle: TextStyle(
+                            fontSize: UiSizes.size_14,
+                          ),
                           suffixIcon: IconButton(
                             onPressed: () {
                               controller.isPasswordFieldVisible.value =
@@ -181,13 +208,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     logoPath: "assets/images/github_icon.png",
                     authText: "Login with Github",
                   ),
-                  const Spacer(),
+                  SizedBox(
+                    height: UiSizes.height_40,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "New to Resonate?",
-                        style: TextStyle(fontSize: UiSizes.size_14),
+                        style: TextStyle(
+                            fontSize: UiSizes.size_14,
+                            color: themeController.loadTheme() == 'dark'
+                                ? Colors.white
+                                : Colors.black),
                       ),
                       SizedBox(
                         width: UiSizes.width_5,
