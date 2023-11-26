@@ -301,21 +301,23 @@ class EditProfileScreen extends StatelessWidget {
                 const Text('Gallery')
               ],
             ),
-            Column(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    editProfileController.removeProfilePicture();
-                  },
-                  icon: const Icon(
-                    Icons.delete,
+            if (authStateController.profileImageUrl !=
+              userProfileImagePlaceholderUrl)
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      editProfileController.removeProfilePicture();
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                    ),
+                    iconSize: UiSizes.size_56,
                   ),
-                  iconSize: UiSizes.size_56,
-                ),
-                const Text('Remove')
-              ],
-            ),
+                  const Text('Remove')
+                ],
+              ),
           ],
         ),
       ],
