@@ -7,7 +7,12 @@ import 'package:resonate/utils/ui_sizes.dart';
 class Themes {
   static final lightTheme = ThemeData(
     fontFamily: GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
-
+    colorScheme: const ColorScheme.light(
+      primary: Colors.amber,
+      onPrimary: Colors.white,
+      error: Color(0xFDFF0000),
+      onError: Colors.white,
+    ),
     appBarTheme: AppBarTheme(
       elevation: 0,
       toolbarHeight: UiSizes.size_56,

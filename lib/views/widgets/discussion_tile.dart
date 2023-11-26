@@ -250,6 +250,7 @@ class DiscussionTile extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: UiSizes.size_14,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w100,
                                 ))),
                         userIsCreator == null
@@ -296,6 +297,7 @@ class DiscussionTile extends StatelessWidget {
                                           child: Text("Cancel",
                                               style: TextStyle(
                                                 fontFamily: 'Montserrat',
+                                                color: Colors.black,
                                                 fontSize: UiSizes.size_14,
                                                 fontWeight: FontWeight.w100,
                                               )))

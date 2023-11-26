@@ -20,8 +20,7 @@ import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.find<TabViewController>();
+  final TabViewController controller = Get.find<TabViewController>();
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =

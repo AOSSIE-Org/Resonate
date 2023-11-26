@@ -29,6 +29,7 @@ Widget profileAvatar(BuildContext context) {
                 bottom: 0,
                 child: Center(
                   child: CircleAvatar(
+                    backgroundColor: Colors.white,
                     radius: UiSizes.size_20,
                     onBackgroundImageError: (exception, stackTrace) =>
                         const Icon(

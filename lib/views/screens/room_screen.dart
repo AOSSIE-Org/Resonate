@@ -27,7 +27,6 @@ class _RoomScreenState extends State<RoomScreen> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
