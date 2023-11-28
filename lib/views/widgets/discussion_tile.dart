@@ -64,7 +64,6 @@ class DiscussionTile extends StatelessWidget {
 
     hour = localDateTime.hour;
     late String formattedTime;
-    print(hour);
     if (hour >= 12) {
       formattedTime =
           '${hour != 12 ? (hour - 12) : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
@@ -72,8 +71,6 @@ class DiscussionTile extends StatelessWidget {
       formattedTime =
           '${hour == 0 ? '00' : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
     }
-    print(dateTime);
-    print(formattedTime);
     return Row(
       children: [
         Text(
@@ -281,7 +278,9 @@ class DiscussionTile extends StatelessWidget {
                                               middleText:
                                                   "You want to delete this Discussion",
                                               textConfirm: "Yes",
+                                              buttonColor: Colors.amber,
                                               confirmTextColor: Colors.white,
+                                              cancelTextColor: Colors.amber,
                                               textCancel: "No",
                                               contentPadding: EdgeInsets.all(
                                                   UiSizes.size_15),

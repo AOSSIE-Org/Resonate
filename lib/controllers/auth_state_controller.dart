@@ -50,12 +50,14 @@ class AuthStateController extends GetxController {
   void onDidReceiveNotificationResponse(
       NotificationResponse notificationResponse) async {
     String name = notificationResponse.payload!;
-    DiscussionsController discussionsController = Get.find<DiscussionsController>();
+    DiscussionsController discussionsController =
+        Get.find<DiscussionsController>();
     int index = discussionsController.discussions
         .indexWhere((discussion) => discussion.data["name"] == name);
 
-    discussionsController.discussionScrollController.value = ScrollController(initialScrollOffset: UiSizes.height_170*index);
-  
+    discussionsController.discussionScrollController.value =
+        ScrollController(initialScrollOffset: UiSizes.height_170 * index);
+
     final TabViewController tabViewController = Get.find<TabViewController>();
     tabViewController.setIndex(1);
     await Get.to(TabViewScreen());
@@ -93,14 +95,10 @@ class AuthStateController extends GetxController {
     // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (message.notification != null) {
-        print('Notification Title: ${message.notification!.title}');
-        print('Notification body: ${message.notification!.body}');
-
         RegExp exp = RegExp(r'The room (\w+) will Start Soon');
         RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
-        print(matches!.group(1));
         String discussionName = matches!.group(1)!;
-        
+
         // send local notification
         await flutterLocalNotificationsPlugin.show(
             0,
@@ -178,7 +176,6 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> addRegistrationTokentoSubscribedDiscussions() async {
-    print("fetching current subscribed discussions");
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: "6522fcf27a1bbc4238df",
@@ -187,27 +184,19 @@ class AuthStateController extends GetxController {
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
     subscribedDiscussions.forEach((subscribtion) {
-      print("getting current registration tokens of subscribed discussions");
       List<dynamic> registrationTokens =
           subscribtion.data['registrationTokens'];
-      print(
-          "adding current registration token to registration tokens of subscribed discussions");
       registrationTokens.add(fcmToken!);
-      print(
-          "updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
-      print(
-          "successfully added current registration token to subscribed discussion's registration token list");
     });
   }
 
   Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
-    print("fetching current subscribed discussions");
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: "6522fcf27a1bbc4238df",
         collectionId: "6522fd267db6fdad3392",
@@ -215,21 +204,14 @@ class AuthStateController extends GetxController {
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
     subscribedDiscussions.forEach((subscribtion) {
-      print("getting current registration tokens of subscribed discussions");
       List<dynamic> registrationTokens =
           subscribtion.data['registrationTokens'];
-      print(
-          "removing current registration token from registration tokens of subscribed discussions");
       registrationTokens.remove(fcmToken!);
-      print(
-          "updating new registration tokens list to the subscribed discussion");
       databases.updateDocument(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
-      print(
-          "successfully removed current registration token from subscribed discussion's registration token list");
     });
   }
 
@@ -255,8 +237,10 @@ class AuthStateController extends GetxController {
       title: "Are you sure?",
       middleText: "You are logging out of Resonate",
       textConfirm: "Yes",
+      buttonColor: Colors.amber,
       confirmTextColor: Colors.white,
       textCancel: "No",
+      cancelTextColor: Colors.amber,
       contentPadding: EdgeInsets.all(UiSizes.size_15),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');

@@ -113,7 +113,6 @@ class RoomsController extends GetxController {
 
       // Close the loading dialog
       Get.back();
-      print("OKay I got here as well");
       // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet(room);
     } catch (e) {

@@ -26,15 +26,21 @@ class _RoomScreenState extends State<RoomScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
     RoomsController roomsController =
         Get.put<RoomsController>(RoomsController());
-    Future<Void> deleteRoomDialog(String text,Function() onTap) async{
-      return await Get.defaultDialog(title: "Are you sure?",middleText: "To $text the room",onConfirm: onTap,onCancel: (){print("abc");});
+    Future<Void> deleteRoomDialog(String text, Function() onTap) async {
+      return await Get.defaultDialog(
+          title: "Are you sure?",
+          middleText: "To $text the room",
+          onConfirm: onTap,
+          onCancel: () {
+            print("canceled");
+          });
     }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(
@@ -138,10 +144,14 @@ class _RoomScreenState extends State<RoomScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          await deleteRoomDialog(controller.appwriteRoom.isUserAdmin
-                              ?"delete":"leave", () async=> controller.appwriteRoom.isUserAdmin
-                              ?await controller.deleteRoom():await controller.leaveRoom());
-                         },
+                          await deleteRoomDialog(
+                              controller.appwriteRoom.isUserAdmin
+                                  ? "delete"
+                                  : "leave",
+                              () async => controller.appwriteRoom.isUserAdmin
+                                  ? await controller.deleteRoom()
+                                  : await controller.leaveRoom());
+                        },
                         child: Container(
                           height: UiSizes.height_40,
                           width: UiSizes.width_123_4,

@@ -25,13 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  double size(double h) {
-    print("Hiiiiiiiiiiiiiiiiiii");
-    print(Get.height);
-    print(h);
-    return h;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

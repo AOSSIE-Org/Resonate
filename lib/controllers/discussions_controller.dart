@@ -106,8 +106,6 @@ class DiscussionsController extends GetxController {
       for (var doc in discussionSubscribers) {
         subscribersProfileUrls.add(doc.data["userProfileUrl"]);
       }
-
-      print(subscribersProfileUrls);
       for (var doc in discussionSubscribers) {
         if (doc.data["userID"] == authStateController.uid) {
           userIsCreator = doc.data["isCreator"];
@@ -121,7 +119,6 @@ class DiscussionsController extends GetxController {
       localTimeZoneOffset = currentTimeInstance.timeZoneOffset;
       localTimeZoneName = currentTimeInstance.timeZoneName;
       isOffsetNegetive = localTimeZoneOffset.isNegative;
-      print(userIsCreator);
       List<dynamic> fetchedData = [
         totalSubscriberCount,
         userIsCreator,
@@ -202,10 +199,8 @@ class DiscussionsController extends GetxController {
     Duration timeZoneOffset = now.timeZoneOffset;
     String timeZoneOffsetString = timeZoneOffset.toString();
     bool isOffsetNegetive = timeZoneOffset.isNegative;
-    print(timeZoneOffsetString);
     String formattedOffset =
         formatTimeZoneOffset(timeZoneOffsetString, isOffsetNegetive);
-    print(formattedOffset);
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: now,
@@ -229,10 +224,8 @@ class DiscussionsController extends GetxController {
       }
       scheduledDateTime =
           '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00${isOffsetNegetive ? '-' : '+'}${formattedOffset}';
-      print(scheduledDateTime);
       dateTimeController.text =
           '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12 ? (pickedTime.hour - 12) : pickedTime.hour == 0 ? '00' : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
-      print(dateTimeController.text);
     }
   }
 
