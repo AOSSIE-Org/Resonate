@@ -34,7 +34,9 @@ class _RoomScreenState extends State<RoomScreen> {
     Future<Void> deleteRoomDialog(String text, Function() onTap) async {
       return await Get.defaultDialog(
           title: "Are you sure?",
+          buttonColor: Colors.amber,
           middleText: "To $text the room",
+          cancelTextColor: Colors.amber,
           onConfirm: onTap,
           onCancel: () {
             print("canceled");
