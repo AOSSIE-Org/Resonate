@@ -13,8 +13,8 @@ class AuthSplashBinding extends Bindings {
   void dependencies() {
     Get.put(AuthStateController(), permanent: true);
     Get.put<NetworkController>(NetworkController(), permanent: true);
-    Get.put(() => AuthenticationController(), permanent: true);
     Get.lazyPut(() => EmailVerifyController());
+    Get.put(AuthenticationController(), permanent: true);
     Get.lazyPut(() => SplashController());
     Get.lazyPut(() => PasswordStrengthCheckerController());
     Get.lazyPut(() => CreateRoomController());
