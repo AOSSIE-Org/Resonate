@@ -160,7 +160,8 @@ class DiscussionsController extends GetxController {
           data: {
             "name": createRoomController.nameController.text,
             "scheduledDateTime": scheduledDateTime,
-            "tags": createRoomController.tagsController.getTags
+            "tags": createRoomController.tagsController.getTags,
+            "description": createRoomController.descriptionController.text
           });
       String discussionId = discussion.$id;
       await databases.createDocument(

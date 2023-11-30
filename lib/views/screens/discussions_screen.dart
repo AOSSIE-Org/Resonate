@@ -37,14 +37,16 @@ class DiscussionScreen extends StatelessWidget {
                 child: Visibility(
                   visible: discussionsController.discussions.isEmpty,
                   replacement: Obx(
-                    ()=> ListView.builder(
-                      controller: discussionsController.discussionScrollController.value,
+                    () => ListView.builder(
+                        controller: discussionsController
+                            .discussionScrollController.value,
                         shrinkWrap: true,
                         itemCount: discussionsController.discussions.length,
                         itemBuilder: (ctx, index) {
                           return FutureBuilder(
-                            future: discussionsController.fetchDiscussionDetails(
-                                discussionsController.discussions[index].$id),
+                            future: discussionsController
+                                .fetchDiscussionDetails(discussionsController
+                                    .discussions[index].$id),
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 return DiscussionTile(
@@ -100,33 +102,22 @@ class DiscussionScreen extends StatelessWidget {
                         height: UiSizes.height_10,
                       ),
                       OutlinedButton(
-                        onPressed: () {
-                          discussionsController.getDiscussions();
-                        },
-                        style: OutlinedButton.styleFrom(
-                          maximumSize: Size.fromWidth(UiSizes.width_140),
-                          side: const BorderSide(color: Colors.amber, width: 1),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
+                          onPressed: () {
+                            discussionsController.getDiscussions();
+                          },
+                          style: OutlinedButton.styleFrom(
+                            maximumSize: Size.fromWidth(UiSizes.width_140),
+                            side:
+                                const BorderSide(color: Colors.amber, width: 1),
+                          ),
+                          child: Center(
+                            child: Text(
                               "Refresh",
                               style: TextStyle(
                                   color: Colors.amber,
                                   fontSize: UiSizes.size_15),
                             ),
-                            SizedBox(
-                              width: UiSizes.width_6,
-                            ),
-                            const Icon(
-                              Icons.refresh,
-                              color: Colors.amber,
-                            ),
-                          ],
-                        ),
-                      )
+                          ))
                     ],
                   ),
                 ),

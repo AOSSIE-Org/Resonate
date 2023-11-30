@@ -273,31 +273,26 @@ class CreateRoomScreen extends StatelessWidget {
                         SizedBox(
                           height: UiSizes.height_33,
                         ),
-                        Obx(
-                          () => controller.isScheduled.value
-                              ? SizedBox()
-                              : TextFormField(
-                                  controller: controller.descriptionController,
-                                  style: TextStyle(fontSize: UiSizes.size_20),
-                                  cursorColor: Colors.amber,
-                                  maxLines: 10,
-                                  validator: (value) {
-                                    if (value!.isNotEmpty &&
-                                        value.length > 500) {
-                                      return "Can't be longer than 500 chars";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText: "Room Description (optional)",
-                                    filled: true,
-                                    fillColor: const Color(0x15FFFFFF),
-                                    border: kEnabledTextFieldBorder,
-                                    enabledBorder: kEnabledTextFieldBorder,
-                                    focusedBorder: kFocusedTextFieldBorder,
-                                  ),
-                                ),
+                        TextFormField(
+                          controller: controller.descriptionController,
+                          style: TextStyle(fontSize: UiSizes.size_20),
+                          cursorColor: Colors.amber,
+                          maxLines: 10,
+                          validator: (value) {
+                            if (value!.isNotEmpty && value.length > 500) {
+                              return "Can't be longer than 500 chars";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            hintText: "Room Description (optional)",
+                            filled: true,
+                            fillColor: const Color(0x15FFFFFF),
+                            border: kEnabledTextFieldBorder,
+                            enabledBorder: kEnabledTextFieldBorder,
+                            focusedBorder: kFocusedTextFieldBorder,
+                          ),
                         ),
                       ],
                     ),

@@ -103,6 +103,10 @@ class DiscussionTile extends StatelessWidget {
       fontSize: UiSizes.size_14,
       fontWeight: FontWeight.w100,
       color: Colors.black54);
+  var kTileDescriptionStyle = TextStyle(
+      fontSize: UiSizes.size_13,
+      fontWeight: FontWeight.w100,
+      color: const Color.fromARGB(100, 0, 0, 0));
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +237,8 @@ class DiscussionTile extends StatelessWidget {
                                                 .convertDiscussiontoRoom(
                                                     discussion.$id,
                                                     discussion.data["name"],
-                                                    '',
+                                                    discussion
+                                                        .data["description"],
                                                     tags);
                                           }
                                         : null,
@@ -310,9 +315,24 @@ class DiscussionTile extends StatelessWidget {
                   height: UiSizes.height_4,
                 ),
                 buildTags(),
+                discussion.data["description"] == null
+                    ? SizedBox()
+                    : Column(
+                        children: [
+                          SizedBox(
+                            height: UiSizes.height_10,
+                          ),
+                          Text(
+                            discussion.data["description"],
+                            style: kTileDescriptionStyle,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ],
+                      ),
                 SizedBox(
-                  height: UiSizes.width_5,
-                ),
+                  height: UiSizes.height_4,
+                )
               ],
             ),
           ),
