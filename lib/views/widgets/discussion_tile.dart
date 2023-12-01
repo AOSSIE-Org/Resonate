@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../utils/colors.dart';
@@ -18,6 +19,7 @@ class DiscussionTile extends StatelessWidget {
   final List<String> subscriberProfileUrl;
   DiscussionsController disscussionController =
       Get.find<DiscussionsController>();
+  var themeController = Get.find<ThemeController>();
   DiscussionTile(
       {super.key,
       required this.discussion,
@@ -192,19 +194,25 @@ class DiscussionTile extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 disabledBackgroundColor:
                                     Color.fromARGB(183, 120, 118, 118),
-                                side: userIsCreator == null
-                                    ? BorderSide(
-                                        color: Color.fromARGB(198, 60, 244, 28),
-                                        width: 1)
-                                    : BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 111, 111, 111),
-                                        width: 1),
+                                side: BorderSide(
+                                    color: userIsCreator == null
+                                        ? Colors.amber
+                                        : (userIsCreator! &
+                                                !discussion.data['isTime'])
+                                            ? Colors.black
+                                            : themeController.loadTheme() ==
+                                                    'dark'
+                                                ? Colors.white
+                                                : Colors.black,
+                                    width: 1),
                                 backgroundColor: userIsCreator == null
-                                    ? Color.fromARGB(194, 63, 218, 35)
+                                    ? Colors.black
                                     : (!userIsCreator!)
                                         ? Color.fromARGB(155, 58, 190, 34)
-                                        : Color.fromARGB(194, 63, 218, 35),
+                                        : themeController.loadTheme() == 'dark'
+                                            ? Color.fromARGB(51, 0, 143, 0)
+                                            : Color.fromARGB(
+                                                220, 229, 248, 229),
                                 minimumSize:
                                     Size(UiSizes.width_80, UiSizes.height_30),
                                 shape: RoundedRectangleBorder(
@@ -251,7 +259,12 @@ class DiscussionTile extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: UiSizes.size_14,
-                                  color: Colors.black,
+                                  color: userIsCreator! &
+                                          !discussion.data['isTime']
+                                      ? Colors.black
+                                      : themeController.loadTheme() == 'dark'
+                                          ? Colors.white
+                                          : Colors.black,
                                   fontWeight: FontWeight.w100,
                                 ))),
                         userIsCreator == null
@@ -269,7 +282,7 @@ class DiscussionTile extends StatelessWidget {
                                                       198, 100, 8, 3),
                                                   width: 1),
                                               backgroundColor: Color.fromARGB(
-                                                  246, 233, 61, 61),
+                                                  246, 243, 81, 81),
                                               minimumSize: Size(
                                                   UiSizes.width_80,
                                                   UiSizes.height_30),
