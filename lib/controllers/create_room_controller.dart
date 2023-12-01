@@ -13,7 +13,7 @@ import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
   RxBool isLoading = false.obs;
-
+  RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -27,10 +27,14 @@ class CreateRoomController extends GetxController {
     super.dispose();
   }
 
-  Future<void> createRoom() async {
-    if (!createRoomFormKey.currentState!.validate()) {
-      return;
+  Future<void> createRoom(String name, String description, List<String> tags,
+      bool fromCreateScreen) async {
+    if (fromCreateScreen) {
+      if (!createRoomFormKey.currentState!.validate()) {
+        return;
+      }
     }
+
     try {
       isLoading.value = true;
 
@@ -46,9 +50,9 @@ class CreateRoomController extends GetxController {
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
       List<String> newRoomInfo = await RoomService.createRoom(
-          roomName: nameController.text,
-          roomDescription: descriptionController.text,
-          roomTags: tagsController.getTags!,
+          roomName: name,
+          roomDescription: description,
+          roomTags: tags,
           adminUid: authStateController.uid!);
       String newRoomId = newRoomInfo[0];
       String myDocId = newRoomInfo[1];
@@ -59,10 +63,10 @@ class CreateRoomController extends GetxController {
       // Open the Room Bottom Sheet to interact in the room
       AppwriteRoom room = AppwriteRoom(
           id: newRoomId,
-          name: nameController.text,
-          description: descriptionController.text,
+          name: name,
+          description: description,
           totalParticipants: 1,
-          tags: tagsController.getTags!,
+          tags: tags,
           memberAvatarUrls: [],
           state: RoomState.live,
           myDocId: myDocId,

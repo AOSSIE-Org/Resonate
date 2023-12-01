@@ -20,7 +20,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     subText = themeController.loadTheme();
-
     if (subText == 'systemDefault') {
       subText = 'System Default';
     } else if (subText == 'light') {

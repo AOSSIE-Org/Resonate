@@ -74,7 +74,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.discuss,
-      page: () => const DiscussionScreen(),
+      page: () => DiscussionScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(

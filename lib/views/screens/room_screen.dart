@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -25,14 +26,23 @@ class _RoomScreenState extends State<RoomScreen> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
-    Future<Void> deleteRoomDialog(String text,Function() onTap) async{
-      return await Get.defaultDialog(title: "Are you sure?",middleText: "To $text the room",onConfirm: onTap,onCancel: (){print("abc");});
+    RoomsController roomsController =
+        Get.put<RoomsController>(RoomsController());
+    Future<Void> deleteRoomDialog(String text, Function() onTap) async {
+      return await Get.defaultDialog(
+          title: "Are you sure?",
+          buttonColor: Colors.amber,
+          middleText: "To $text the room",
+          cancelTextColor: Colors.amber,
+          onConfirm: onTap,
+          onCancel: () {
+            print("canceled");
+          });
     }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
       child: Column(
@@ -136,10 +146,14 @@ class _RoomScreenState extends State<RoomScreen> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          await deleteRoomDialog(controller.appwriteRoom.isUserAdmin
-                              ?"delete":"leave", () async=> controller.appwriteRoom.isUserAdmin
-                              ?await controller.deleteRoom():await controller.leaveRoom());
-                         },
+                          await deleteRoomDialog(
+                              controller.appwriteRoom.isUserAdmin
+                                  ? "delete"
+                                  : "leave",
+                              () async => controller.appwriteRoom.isUserAdmin
+                                  ? await controller.deleteRoom()
+                                  : await controller.leaveRoom());
+                        },
                         child: Container(
                           height: UiSizes.height_40,
                           width: UiSizes.width_123_4,

@@ -1,10 +1,13 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
+import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
@@ -17,12 +20,16 @@ import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
+  final TabViewController controller = Get.find<TabViewController>();
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
+  final CreateRoomController createRoomController =
+      Get.find<CreateRoomController>();
+  final RoomsController roomsController = Get.find<RoomsController>();
+  final discussionsController =
+      Get.put<DiscussionsController>(DiscussionsController());
 
   TabViewScreen({super.key});
 
@@ -59,7 +66,6 @@ class TabViewScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
-                          await Get.delete<CreateRoomController>();
                           controller.setIndex(2);
                         } else {
                           AppUtils.showDialog(
@@ -95,7 +101,20 @@ class TabViewScreen extends StatelessWidget {
                   width: UiSizes.width_56,
                   child: FloatingActionButton(
                       onPressed: () async {
-                        await Get.find<CreateRoomController>().createRoom();
+                        if (createRoomController.isScheduled.value) {
+                          createRoomController.isLoading.value = true;
+                          await discussionsController.createDiscussion();
+                          discussionsController.getDiscussions();
+                          createRoomController.isLoading.value = false;
+                          controller.setIndex(3);
+                        } else {
+                          await createRoomController.createRoom(
+                              createRoomController.nameController.text,
+                              createRoomController.descriptionController.text,
+                              createRoomController.tagsController.getTags!,
+                              true);
+                          await roomsController.getRooms();
+                        }
                       },
                       child: Icon(Icons.done, size: UiSizes.size_24)),
                 ),
@@ -116,7 +135,7 @@ class TabViewScreen extends StatelessWidget {
             icons: const [
               Icons.home_rounded,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
-              Icons.chat_rounded
+              Icons.timelapse_rounded
             ],
             notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),
@@ -128,7 +147,7 @@ class TabViewScreen extends StatelessWidget {
               ? HomeScreen()
               : (controller.getIndex() == 2)
                   ? CreateRoomScreen()
-                  : const DiscussionScreen(),
+                  : DiscussionScreen(),
         ));
   }
 }

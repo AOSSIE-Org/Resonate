@@ -106,9 +106,9 @@ class OnboardingController extends GetxController {
           "profileImageID": uniqueIdForProfileImage,
         },
       );
-      await authStateController.account
-          .updatePrefs(prefs: {"isUserProfileComplete": true});
-
+      await authStateController.account.updatePrefs(prefs: {
+        "isUserProfileComplete": true
+      });
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       customSnackbar("Profile created successfully",
