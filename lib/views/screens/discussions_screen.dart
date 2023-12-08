@@ -53,26 +53,25 @@ class DiscussionScreen extends StatelessWidget {
                                   discussion:
                                       discussionsController.discussions[index],
                                   subscriberCount: (snapshot.data != null &&
-                                          snapshot.data!.length > 0 &&
+                                          snapshot.data!.isNotEmpty &&
                                           snapshot.data![0] != null)
-                                      ? snapshot.data![0].toString()
-                                      : "", // Provide a default value or handle it accordingly
+                                      ? snapshot.data![0].toString(): "",
                                   userIsCreator: (snapshot.data != null &&
                                           snapshot.data!.length > 1 &&
                                           snapshot.data![1] != null)
                                       ? snapshot.data![1]
-                                      : false, // Provide a default value or handle it accordingly
+                                      : false, 
                                   subscriberProfileUrl: (snapshot.data !=
                                               null &&
                                           snapshot.data!.length > 2 &&
                                           snapshot.data![2] != null)
                                       ? snapshot.data![2]
-                                      : "", // Provide a default value or handle it accordingly
+                                      :"",
                                   userSubscriberId: (snapshot.data != null &&
                                           snapshot.data!.length > 3 &&
                                           snapshot.data![3] != null)
                                       ? snapshot.data![3]
-                                      : "", // Provide a default value or handle it accordingly
+                                      : "",
                                 );
                               }
                               return Shimmer.fromColors(
