@@ -52,10 +52,26 @@ class DiscussionScreen extends StatelessWidget {
                                 return DiscussionTile(
                                   discussion:
                                       discussionsController.discussions[index],
-                                  subscriberCount: snapshot.data![0].toString(),
-                                  userIsCreator: snapshot.data![1],
-                                  subscriberProfileUrl: snapshot.data![2],
-                                  userSubscriberId: snapshot.data![3],
+                                  subscriberCount: (snapshot.data != null &&
+                                          snapshot.data!.isNotEmpty &&
+                                          snapshot.data![0] != null)
+                                      ? snapshot.data![0].toString(): "",
+                                  userIsCreator: (snapshot.data != null &&
+                                          snapshot.data!.length > 1 &&
+                                          snapshot.data![1] != null)
+                                      ? snapshot.data![1]
+                                      : false, 
+                                  subscriberProfileUrl: (snapshot.data !=
+                                              null &&
+                                          snapshot.data!.length > 2 &&
+                                          snapshot.data![2] != null)
+                                      ? snapshot.data![2]
+                                      :"",
+                                  userSubscriberId: (snapshot.data != null &&
+                                          snapshot.data!.length > 3 &&
+                                          snapshot.data![3] != null)
+                                      ? snapshot.data![3]
+                                      : "",
                                 );
                               }
                               return Shimmer.fromColors(
