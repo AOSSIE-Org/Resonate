@@ -1,5 +1,6 @@
 import 'dart:developer';
-
+import 'package:image_cropper/image_cropper.dart';
+import 'dart:io';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,65 +63,115 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> pickImageFromCamera() async {
-    try {
-      // Display Loading Dialog
-      Get.dialog(
-          Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-                color: Colors.amber, size: Get.pixelRatio * 20),
-          ),
-          barrierDismissible: false,
-          name: "Loading Dialog");
+  try {
+    // Display Loading Dialog
+    Get.dialog(
+      Center(
+        child: LoadingAnimationWidget.threeRotatingDots(
+          color: Colors.amber,
+          size: Get.pixelRatio * 20,
+        ),
+      ),
+      barrierDismissible: false,
+      name: "Loading Dialog",
+    );
 
-      XFile? file = await _imagePicker.pickImage(
-          source: ImageSource.camera, maxHeight: 400, maxWidth: 400);
-      if (file == null) return;
-      profileImagePath = file.path;
+    XFile? file = await _imagePicker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 400,
+      maxWidth: 400,
+    );
+
+    if (file == null) return;
+
+    // Crop the image
+    final croppedFile = await _cropImage(file.path);
+
+    if (croppedFile != null) {
+      profileImagePath = croppedFile.path;
       update();
-
       removeImage = false;
-    } catch (e) {
-      log(e.toString());
-    } finally {
-      // Close the loading dialog
-      Get.back();
     }
+  } catch (e) {
+    log(e.toString());
+  } finally {
+    // Close the loading dialog
+    Get.back();
   }
+}
 
-  void removeProfilePicture() {
-    if (authStateController.profileImageUrl != userProfileImagePlaceholderUrl) {
-      removeImage = true;
-    }
-    profileImagePath = null;
-    update();
+void removeProfilePicture() {
+  if (authStateController.profileImageUrl !=
+      userProfileImagePlaceholderUrl) {
+    removeImage = true;
   }
+  profileImagePath = null;
+  update();
+}
 
-  Future<void> pickImageFromGallery() async {
-    try {
-      // Display Loading Dialog
-      Get.dialog(
-          Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-                color: Colors.amber, size: Get.pixelRatio * 20),
-          ),
-          barrierDismissible: false,
-          name: "Loading Dialog");
+Future<void> pickImageFromGallery() async {
+  try {
+    // Display Loading Dialog
+    Get.dialog(
+      Center(
+        child: LoadingAnimationWidget.threeRotatingDots(
+          color: Colors.amber,
+          size: Get.pixelRatio * 20,
+        ),
+      ),
+      barrierDismissible: false,
+      name: "Loading Dialog",
+    );
 
-      XFile? file = await _imagePicker.pickImage(
-          source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
-      if (file == null) return;
-      profileImagePath = file.path;
+    XFile? file = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 400,
+      maxWidth: 400,
+    );
+
+    if (file == null) return;
+
+    // Crop the image
+    final croppedFile = await _cropImage(file.path);
+
+    if (croppedFile != null) {
+      profileImagePath = croppedFile.path;
       update();
-
       removeImage = false;
-    } catch (e) {
-      log(e.toString());
-    } finally {
-      // Close the loading dialog
-      Get.back();
     }
+  } catch (e) {
+    log(e.toString());
+  } finally {
+    // Close the loading dialog
+    Get.back();
   }
+}
 
+Future<File?> _cropImage(String imagePath) async {
+  File? croppedFile = await ImageCropper().cropImage(
+    sourcePath: imagePath,
+    aspectRatioPresets: [
+      CropAspectRatioPreset.square,
+      CropAspectRatioPreset.ratio3x2,
+      CropAspectRatioPreset.original,
+      CropAspectRatioPreset.ratio4x3,
+      CropAspectRatioPreset.ratio16x9,
+    ],
+    androidUiSettings: AndroidUiSettings(
+      toolbarColor: Colors.amber,
+      statusBarColor: Colors.amber.shade900,
+      toolbarWidgetColor: Colors.white,
+      cropFrameColor: Colors.amber,
+      initAspectRatio: CropAspectRatioPreset.original,
+      lockAspectRatio: false,
+    ),
+    iosUiSettings: IOSUiSettings(
+      minimumAspectRatio: 1.0,
+    ),
+  );
+
+  return croppedFile;
+}
   Future<bool> isUsernameAvailable(String username) async {
     try {
       await databases.getDocument(
