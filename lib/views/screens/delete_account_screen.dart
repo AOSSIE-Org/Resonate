@@ -31,9 +31,6 @@ class DeleteAccountScreen extends StatelessWidget {
               ),
               const Text(
                 "This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.",
-                style: TextStyle(
-                  color: Colors.black54,
-                ),
               ),
               const SizedBox(
                 height: 50,
@@ -41,7 +38,7 @@ class DeleteAccountScreen extends StatelessWidget {
               RichText(
                 text: TextSpan(
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: Colors.redAccent,
                       fontSize: 16,
                     ),
                     children: [
@@ -93,7 +90,7 @@ class DeleteAccountScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
                     foregroundColor: Colors.white,
-                    disabledForegroundColor: Colors.white,
+                    disabledForegroundColor: Colors.redAccent.withAlpha(100),
                     disabledBackgroundColor: Colors.redAccent.withAlpha(50),
                   ),
                   onPressed: (controller.isButtonActive.value)
