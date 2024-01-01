@@ -21,7 +21,7 @@ class VersionCheckController extends GetxController {
     String appVersion = packageInfo.version;
 
     // Fetching the minimum App Version
-    String minimumAppVersion = "1.9";
+    String minimumAppVersion = "0.9";
 
     // print('Current version is: ${appVersion} and minimum Version is ${minimumAppVersion}');
 
