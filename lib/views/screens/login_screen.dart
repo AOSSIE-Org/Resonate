@@ -7,8 +7,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
-import 'package:package_info/package_info.dart';
-import 'package:version/version.dart';
+import 'package:resonate/controllers/version_check_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,43 +19,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var controller = Get.find<AuthenticationController>();
   var themeController = Get.find<ThemeController>();
-  late Future<bool> versionCheck;
-  String appUpgradeMsg =
-      "Hey! You should update our app because we've fixed some bugs and made some improvements. Plus, it's always good to have the latest and greatest features.";
+  var versionCheckController = Get.put(VersionCheckController());
 
-  //Minimum app version check function :
-  Future<bool> minimumVersionCheck() async {
-    //Fetching current app version
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String appVersion = packageInfo.version;
-
-    //Fetching the minimum App Version
-    String minimumAppVersion = "0.9";
-
-    print(
-        'Current version is: ${appVersion} and minimum Version is ${minimumAppVersion}');
-
-    //comparing the prefix with different lengths
-    Version version1 = Version.parse(appVersion);
-    Version version2 = Version.parse(minimumAppVersion);
-
-    bool versionValidation = false;
-    if (version1 > version2) {
-      versionValidation = true;
-    } else {
-      versionValidation = false;
-    }
-
-    print('Version answer is : ${versionValidation}');
-
-    return versionValidation;
-  }
+  late String appUpgradeMsg;
+  late Future<VersionCheckResult> versionCheckObject;
 
   @override
   void initState() {
     controller.loginFormKey = GlobalKey<FormState>();
     super.initState();
-    versionCheck = minimumVersionCheck();
+
+    appUpgradeMsg = versionCheckController.appUpgradeMsg;
+    versionCheckObject = versionCheckController.minimumVersionCheck();
   }
 
   @override
@@ -70,7 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: FutureBuilder<bool>(
-              future: versionCheck,
+              future: versionCheckObject.then((value) {
+                return value.versionValid;
+              }),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
