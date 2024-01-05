@@ -3,6 +3,7 @@ import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
+import 'package:resonate/views/screens/delete_account_screen.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
@@ -93,6 +94,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.editProfile,
       page: () => EditProfileScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.deleteAccount,
+      page: () => const DeleteAccountScreen(),
       binding: ProfileBinding(),
     ),
   ];
