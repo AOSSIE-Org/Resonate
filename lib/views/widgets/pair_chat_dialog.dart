@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
@@ -12,6 +13,7 @@ import '../../utils/colors.dart';
 
 Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
+
   return Get.defaultDialog(
       title: "Pair Chat",
       titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
@@ -23,8 +25,7 @@ Future<dynamic> buildPairChatDialog() {
             const Divider(),
             Text(
               "Choose Identity",
-              style:
-                  TextStyle(fontSize: Get.pixelRatio * 6),
+              style: TextStyle(fontSize: Get.pixelRatio * 6),
             ),
             SizedBox(
               height: UiSizes.height_10,
@@ -39,12 +40,11 @@ Future<dynamic> buildPairChatDialog() {
                           controller.isAnonymous.value = true;
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: controller.isAnonymous.value
-                              ? AppColor.yellowColor
-                              : Colors.black26,
+                            backgroundColor: controller.isAnonymous.value
+                                ? AppColor.yellowColor
+                                : Colors.black26,
                             shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent
-                        ),
+                            surfaceTintColor: Colors.transparent),
                         child: Text(
                           'Anonymous',
                           style: TextStyle(
@@ -63,12 +63,11 @@ Future<dynamic> buildPairChatDialog() {
                     child: SizedBox(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: !controller.isAnonymous.value
-                              ? AppColor.yellowColor
-                              : Colors.black26,
-                          shadowColor: Colors.transparent,
-                          surfaceTintColor: Colors.transparent
-                        ),
+                            backgroundColor: !controller.isAnonymous.value
+                                ? AppColor.yellowColor
+                                : Colors.black26,
+                            shadowColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent),
                         onPressed: () {
                           controller.isAnonymous.value = false;
                         },
