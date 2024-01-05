@@ -26,10 +26,10 @@ class VersionCheckController extends GetxController {
     // print('Current version is: ${appVersion} and minimum Version is ${minimumAppVersion}');
 
     // Comparing the prefix with different lengths
-    Version version1 = Version.parse(appVersion);
-    Version version2 = Version.parse(minimumAppVersion);
+    Version currentVersion = Version.parse(appVersion);
+    Version minVersion = Version.parse(minimumAppVersion);
 
-    bool versionValidation = version1 > version2;
+    bool versionValidation = currentVersion > minVersion;
     versionCheck = Future.value(versionValidation);
 
     // print('Version answer is : ${versionValidation}');

@@ -55,10 +55,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 } else {
                   bool shouldRenderWidget1 = snapshot.data ?? false;
                   return shouldRenderWidget1
-                      ? loginFormWidget(
+                      ? LoginFormWidget(
                           controller: controller,
                           themeController: themeController)
-                      : updateAppWidget(appUpgradeMsg: appUpgradeMsg);
+                      : UpdateAppWidget(appUpgradeMsg: appUpgradeMsg);
                 }
               },
             ),
@@ -69,8 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class updateAppWidget extends StatelessWidget {
-  const updateAppWidget({
+class UpdateAppWidget extends StatelessWidget {
+  const UpdateAppWidget({
     super.key,
     required this.appUpgradeMsg,
   });
@@ -156,8 +156,8 @@ class updateAppWidget extends StatelessWidget {
   }
 }
 
-class loginFormWidget extends StatelessWidget {
-  const loginFormWidget({
+class LoginFormWidget extends StatelessWidget {
+  const LoginFormWidget({
     super.key,
     required this.controller,
     required this.themeController,
