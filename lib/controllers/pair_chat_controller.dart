@@ -29,7 +29,7 @@ class PairChatController extends GetxController {
   Client client = AppwriteService.getClient();
   final Realtime realtime = AppwriteService.getRealtime();
   final Databases databases = AppwriteService.getDatabases();
-  late final RealtimeSubscription? subscription;
+  late RealtimeSubscription? subscription;
 
   void quickMatch() async {
     String uid = Get.find<AuthStateController>().uid!;
@@ -38,7 +38,11 @@ class PairChatController extends GetxController {
     // Open realtime stream to check whether the request is paired
     getRealtimeStream();
 
-    Map<String, dynamic> requestData = {"languageIso": languageIso, "isAnonymous": isAnonymous.value, "uid": uid};
+    Map<String, dynamic> requestData = {
+      "languageIso": languageIso,
+      "isAnonymous": isAnonymous.value,
+      "uid": uid
+    };
     requestData.addIf(!isAnonymous.value, "userName", userName);
 
     // Add request to pair-request collection
@@ -55,7 +59,8 @@ class PairChatController extends GetxController {
 
   void getRealtimeStream() {
     String uid = Get.find<AuthStateController>().uid!;
-    String channel = 'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
+    String channel =
+        'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -66,7 +71,8 @@ class PairChatController extends GetxController {
         if (uid1 == uid || uid2 == uid) {
           log(data.toString());
           var docId = data.payload["\$id"].toString();
-          String action = data.events.first.substring(channel.length + 1 + (docId.length) + 1);
+          String action = data.events.first
+              .substring(channel.length + 1 + (docId.length) + 1);
           switch (action) {
             case 'create':
               {
@@ -74,54 +80,68 @@ class PairChatController extends GetxController {
                   myRoomUserId = 1;
                   pairUsername = data.payload["userName2"];
                   Document participantDoc = await databases.getDocument(
-                      databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: data.payload["uid2"]);
+                      databaseId: userDatabaseID,
+                      collectionId: usersCollectionID,
+                      documentId: data.payload["uid2"]);
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 } else {
                   myRoomUserId = 2;
                   pairUsername = data.payload["userName1"];
                   Document participantDoc = await databases.getDocument(
-                      databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: data.payload["uid1"]);
+                      databaseId: userDatabaseID,
+                      collectionId: usersCollectionID,
+                      documentId: data.payload["uid1"]);
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 }
                 activePairDocId = data.payload["\$id"];
                 await joinPairChat(activePairDocId, uid);
                 break;
               }
-            case 'delete':{
-              subscription?.close;
-              Get.offAllNamed(AppRoutes.tabview);
-            }
+            case 'delete':
+              {
+                subscription?.close;
+                Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+              }
           }
         }
       }
     });
   }
 
-  Future<void> joinPairChat(roomId, userId) async{
+  Future<void> joinPairChat(roomId, userId) async {
     await RoomService.joinLivekitPairChat(roomId: roomId, userId: userId);
     Get.toNamed(AppRoutes.pairChat);
   }
 
-  Future<void> cancelRequest() async{
-    await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: pairRequestCollectionId, documentId: requestDocId!);
+  Future<void> cancelRequest() async {
+    await databases.deleteDocument(
+        databaseId: masterDatabaseId,
+        collectionId: pairRequestCollectionId,
+        documentId: requestDocId!);
     subscription?.close();
-    Get.offAllNamed(AppRoutes.tabview);
+    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 
   void toggleMic() async {
     isMicOn.value = !isMicOn.value;
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(isMicOn.value);
+    await Get.find<LiveKitController>()
+        .liveKitRoom
+        .localParticipant
+        ?.setMicrophoneEnabled(isMicOn.value);
   }
 
-  void toggleLoudSpeaker(){
+  void toggleLoudSpeaker() {
     isLoudSpeakerOn.value = !isLoudSpeakerOn.value;
     Hardware.instance.setSpeakerphoneOn(isLoudSpeakerOn.value);
   }
 
-  Future<void> endChat() async{
+  Future<void> endChat() async {
     subscription?.close;
-    await databases.deleteDocument(databaseId: masterDatabaseId, collectionId: activePairsCollectionId, documentId: activePairDocId!);
+    await databases.deleteDocument(
+        databaseId: masterDatabaseId,
+        collectionId: activePairsCollectionId,
+        documentId: activePairDocId!);
     await Get.delete<LiveKitController>(force: true);
-    Get.offAllNamed(AppRoutes.tabview);
+    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 }
