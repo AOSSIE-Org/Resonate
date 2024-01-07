@@ -150,7 +150,7 @@ class EditProfileScreen extends StatelessWidget {
                                     color: Colors.green,
                                   )
                                 : null,
-                            errorStyle: TextStyle(
+                            errorStyle: const TextStyle(
                                fontSize: 10,
                             ),
                          ),
