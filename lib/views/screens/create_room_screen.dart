@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -32,6 +30,7 @@ class CreateRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         tabViewController.setIndex(0);
@@ -86,7 +85,7 @@ class CreateRoomScreen extends StatelessWidget {
                                                       : Colors.transparent),
                                           borderRadius: BorderRadius.circular(
                                               UiSizes.size_15)),
-                                      textStyle: TextStyle(),
+                                      textStyle: const TextStyle(),
                                     ),
                                     onPressed: () {
                                       controller.isScheduled.value = false;
@@ -161,14 +160,14 @@ class CreateRoomScreen extends StatelessWidget {
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           Obx(
                             () => controller.isScheduled.value
                                 ? SizedBox(
                                     height: UiSizes.height_33,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           TextFormField(
                             controller: controller.nameController,
