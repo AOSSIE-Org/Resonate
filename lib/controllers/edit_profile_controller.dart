@@ -165,7 +165,7 @@ Future<File?> _cropImage(String imagePath) async {
       initAspectRatio: CropAspectRatioPreset.original,
       lockAspectRatio: false,
     ),
-    iosUiSettings: IOSUiSettings(
+    iosUiSettings: const IOSUiSettings(
       minimumAspectRatio: 1.0,
     ),
   );

@@ -2,14 +2,10 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
-import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../utils/colors.dart';
-import '../../utils/enums/room_state.dart';
 
 class DiscussionTile extends StatelessWidget {
   final Document discussion;
@@ -169,7 +165,7 @@ class DiscussionTile extends StatelessWidget {
                     Row(
                       children: [
                         userIsCreator == null
-                            ? SizedBox.shrink()
+                            ? const SizedBox.shrink()
                             : !userIsCreator!
                                 ? Row(
                                     children: [
@@ -189,11 +185,11 @@ class DiscussionTile extends StatelessWidget {
                                       ),
                                     ],
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 disabledBackgroundColor:
-                                    Color.fromARGB(183, 120, 118, 118),
+                                   const Color.fromARGB(183, 120, 118, 118),
                                 side: BorderSide(
                                     color: userIsCreator == null
                                         ? Colors.amber
@@ -208,10 +204,10 @@ class DiscussionTile extends StatelessWidget {
                                 backgroundColor: userIsCreator == null
                                     ? Colors.black
                                     : (!userIsCreator!)
-                                        ? Color.fromARGB(155, 58, 190, 34)
+                                        ? const Color.fromARGB(155, 58, 190, 34)
                                         : themeController.loadTheme() == 'dark'
-                                            ? Color.fromARGB(51, 0, 143, 0)
-                                            : Color.fromARGB(
+                                            ? const Color.fromARGB(51, 0, 143, 0)
+                                            : const Color.fromARGB(
                                                 220, 229, 248, 229),
                                 minimumSize:
                                     Size(UiSizes.width_80, UiSizes.height_30),

@@ -26,7 +26,7 @@ class TabViewController extends GetxController {
     initAppLinks();
   }
 
-  @override
+  
   void onDispose() {
     _linkSubscription?.cancel();
     super.dispose();
