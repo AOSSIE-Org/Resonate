@@ -45,6 +45,7 @@ class Themes {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.amber,
         elevation: 2,
+        foregroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(UiSizes.size_12), // <-- Radius
           // side: BorderSide(width: UiSizes.width_1, color: Colors.black),
@@ -92,6 +93,7 @@ class Themes {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.yellowColor,
+        foregroundColor: Colors.black,
         elevation: 2,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(UiSizes.size_12), // <-- Radius
