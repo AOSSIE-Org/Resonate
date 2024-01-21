@@ -16,6 +16,7 @@ import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
+import 'package:resonate/views/screens/reset_password_screen.dart';
 
 import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
