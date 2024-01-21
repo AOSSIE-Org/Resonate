@@ -33,14 +33,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             SizedBox(height: 10),
             Container(
-              width: 300, // Adjust the width as needed
+              width: 300,
               padding: EdgeInsets.symmetric(vertical: 10),
               child: TextFormField(
                 controller: passwordController,
                 obscureText: true,
                 style: TextStyle(
                   fontSize: 14,
-                  // You can customize the text style
                 ),
                 decoration: InputDecoration(
                   icon: Icon(
