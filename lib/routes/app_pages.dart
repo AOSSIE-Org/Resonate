@@ -59,6 +59,11 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
+      name: AppRoutes.resetPassword,
+      page: () => ResetPasswordScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
       name: AppRoutes.home,
       page: () => HomeScreen(),
       binding: TabViewBinding(),
