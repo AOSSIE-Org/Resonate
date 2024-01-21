@@ -42,7 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             SizedBox(height: 10),
             Container(
-              width: 300, // Adjust the width as needed
+              width: 300, 
               padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
               child: TextFormField(
                 validator: (value) {
