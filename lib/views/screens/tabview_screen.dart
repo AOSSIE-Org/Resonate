@@ -71,7 +71,7 @@ class TabViewScreen extends StatelessWidget {
                           AppUtils.showDialog(
                             title: "Email Verification Required",
                             middleText:
-                                "To proceed, verify your email address first.",
+                                "To proceed, verify your email address.",
                             onFirstBtnPressed: () {
                               Get.back();
                               emailVerifyController.isSending.value = true;
