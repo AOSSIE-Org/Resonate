@@ -15,6 +15,8 @@ class AppUtils {
     String secondBtnText = "Cancel",
     required VoidCallback onFirstBtnPressed,
     required VoidCallback onSecondBtnPressed,
+    TextStyle? firstBtnTextStyle,
+    TextStyle? secondBtnTextStyle,
   }) {
     Get.defaultDialog(
       title: title,
@@ -25,18 +27,39 @@ class AppUtils {
         fontSize: UiSizes.size_16,
       ),
       middleTextStyle: TextStyle(
-        fontSize: UiSizes.size_14,
+        fontSize: UiSizes.size_12,
         overflow: TextOverflow.ellipsis,
       ),
-      radius: UiSizes.size_15,
+      radius: UiSizes.size_20,
+      titlePadding: EdgeInsets.only(top: UiSizes.size_25),
+      contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.size_20, vertical: UiSizes.size_20),
       actions: [
         ElevatedButton(
           onPressed: onFirstBtnPressed,
-          child: Text(firstBtnText),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          ),
+          child: Text(
+            firstBtnText,
+            style: TextStyle(
+              color: Color(0xFF725001),
+              fontSize: UiSizes.size_14,
+            ),
+          ),
         ),
         ElevatedButton(
           onPressed: onSecondBtnPressed,
-          child: Text(secondBtnText),
+          style: ElevatedButton.styleFrom(
+            textStyle: secondBtnTextStyle,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10 ),
+          ),
+          child: Text(
+              secondBtnText,
+              style: TextStyle(
+              color: Color(0xFF725001), 
+              fontSize: UiSizes.size_14,
+          ),
+        ),
         ),
       ],
     );
