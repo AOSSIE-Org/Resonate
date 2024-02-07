@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 class PasswordStrengthCheckerController extends GetxController {
   RxBool isVisible = false.obs;
+  RxBool isVisibleAtLogin = false.obs;
+  RxBool isVisibleAtSignUp = false.obs;
   RxBool isPasswordSixCharacters = false.obs;
   RxBool hasOneDigit = false.obs;
   RxBool hasUpperCase = false.obs;
@@ -14,10 +16,18 @@ class PasswordStrengthCheckerController extends GetxController {
         hasLowerCase
       ].where((check) => check.value).length);
 
-  void passwordValidator(String pass) {
+  void passwordValidator(String pass, String page) {
     isVisible.value = false;
     if (pass.isNotEmpty) {
+      if (page == 'login') {
+        isVisibleAtLogin.value = true;
+      } else {
+        isVisibleAtSignUp.value = true;
+      }
       isVisible.value = true;
+    } else {
+      isVisibleAtLogin.value = false;
+      isVisibleAtSignUp.value = false;
     }
     isPasswordSixCharacters.value = false;
     if (pass.length >= 6) isPasswordSixCharacters.value = true;

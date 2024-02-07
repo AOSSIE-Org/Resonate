@@ -89,7 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           value! == "" ? "Password can't be empty" : null,
                       obscureText: true,
                       onChanged: (value) => passwordStrengthCheckerController
-                          .passwordValidator(value),
+                          .passwordValidator(value, "signup"),
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
@@ -148,7 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       maintainAnimation: true,
                       maintainState: true,
                       visible:
-                          passwordStrengthCheckerController.isVisible.value,
+                          passwordStrengthCheckerController.isVisibleAtSignUp.value,
                       child: AnimatedOpacity(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.fastOutSlowIn,
