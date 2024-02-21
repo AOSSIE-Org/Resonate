@@ -30,7 +30,11 @@ class AuthenticationController extends GetxController {
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
-        customSnackbar('Try Again!', "Incorrect Email Or Password", MessageType.error);
+        customSnackbar(
+            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+      } else if (e.type == 'general_argument_invalid') {
+        customSnackbar('Try Again!', "Password is less than 8 characters",
+            MessageType.error);
       }
     } catch (e) {
       log(e.toString());

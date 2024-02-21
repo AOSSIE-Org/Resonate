@@ -143,6 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         if (!controller.isLoading.value) {
                           await controller.login();
+                          controller.emailController.clear();
+                          controller.passwordController.clear();
+                          controller.confirmPasswordController.clear();
                         }
                       },
                       child: controller.isLoading.value
@@ -213,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: UiSizes.size_14,
                             color: themeController.loadTheme() == 'dark'
                                 ? Colors.white
-                                : Colors.black),
+                                : const Color.fromRGBO(0, 0, 0, 1)),
                       ),
                       SizedBox(
                         width: UiSizes.width_5,
