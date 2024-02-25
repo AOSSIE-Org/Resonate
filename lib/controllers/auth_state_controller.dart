@@ -13,7 +13,6 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
