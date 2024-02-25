@@ -74,8 +74,8 @@ class DiscussionsController extends GetxController {
             "highlightColor": Colors.grey.shade100
           }
         : shimmerColor = {
-            "baseColor": Color.fromARGB(255, 71, 70, 70),
-            "highlightColor": Color.fromARGB(255, 94, 94, 94)
+            "baseColor": const Color.fromARGB(255, 71, 70, 70),
+            "highlightColor": const Color.fromARGB(255, 94, 94, 94)
           };
     return shimmerColor;
   }

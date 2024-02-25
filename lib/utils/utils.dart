@@ -32,17 +32,18 @@ class AppUtils {
       ),
       radius: UiSizes.size_20,
       titlePadding: EdgeInsets.only(top: UiSizes.size_25),
-      contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.size_20, vertical: UiSizes.size_20),
+      contentPadding: EdgeInsets.symmetric(
+          horizontal: UiSizes.size_20, vertical: UiSizes.size_20),
       actions: [
         ElevatedButton(
           onPressed: onFirstBtnPressed,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
           child: Text(
             firstBtnText,
             style: TextStyle(
-              color: Color(0xFF725001),
+              color: const Color(0xFF725001),
               fontSize: UiSizes.size_14,
             ),
           ),
@@ -51,15 +52,15 @@ class AppUtils {
           onPressed: onSecondBtnPressed,
           style: ElevatedButton.styleFrom(
             textStyle: secondBtnTextStyle,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10 ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
           child: Text(
-              secondBtnText,
-              style: TextStyle(
-              color: Color(0xFF725001), 
+            secondBtnText,
+            style: TextStyle(
+              color: const Color(0xFF725001),
               fontSize: UiSizes.size_14,
+            ),
           ),
-        ),
         ),
       ],
     );
