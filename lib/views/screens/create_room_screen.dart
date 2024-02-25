@@ -89,7 +89,7 @@ class CreateRoomScreen extends StatelessWidget {
                                                       : Colors.transparent),
                                           borderRadius: BorderRadius.circular(
                                               UiSizes.size_15)),
-                                      textStyle: TextStyle(),
+                                      textStyle: const TextStyle(),
                                     ),
                                     onPressed: () {
                                       controller.isScheduled.value = false;
@@ -165,14 +165,14 @@ class CreateRoomScreen extends StatelessWidget {
                                       ),
                                     ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           Obx(
                             () => controller.isScheduled.value
                                 ? SizedBox(
                                     height: UiSizes.height_33,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                           TextFormField(
                             controller: controller.nameController,
