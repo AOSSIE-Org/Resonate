@@ -26,12 +26,11 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.login(
-          emailController.text.trim(), passwordController.text);
+          emailController.text, passwordController.text);
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
-        customSnackbar(
-            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+        customSnackbar('Try Again!', "Incorrect Email Or Password", MessageType.error);
       }
     } catch (e) {
       log(e.toString());
@@ -44,7 +43,7 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.signup(
-          emailController.text.trim(), passwordController.text);
+           emailController.text, passwordController.text);
       return true;
     } catch (e) {
       var error = e.toString().split(": ")[1];
@@ -77,10 +76,9 @@ class AuthenticationController extends GetxController {
 
 extension Validator on String {
   bool isValidEmail() {
-    // Updated regex to allow trailing spaces
-    final emailRegex = RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$');
-    return emailRegex.hasMatch(this);
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
   }
 
   bool isValidPassword() {
