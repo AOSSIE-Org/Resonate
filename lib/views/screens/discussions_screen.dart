@@ -19,10 +19,10 @@ class DiscussionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) {
         tabViewController.setIndex(0);
-        return false;
       },
       child: GetBuilder<DiscussionsController>(
           builder: (discussionsController) => (!discussionsController
