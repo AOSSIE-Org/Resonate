@@ -2,14 +2,10 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
-import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../utils/colors.dart';
-import '../../utils/enums/room_state.dart';
 
 class DiscussionTile extends StatelessWidget {
   final Document discussion;
