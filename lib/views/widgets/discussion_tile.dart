@@ -52,12 +52,12 @@ class DiscussionTile extends StatelessWidget {
     String month = exploreDate[1];
     int hour = int.parse(exploreTime[0]);
     String minute = exploreTime[1];
-    DateTime UTCDateTime = DateTime(int.parse(year), int.parse(month),
+    DateTime utcDateTime = DateTime(int.parse(year), int.parse(month),
         int.parse(day), hour, int.parse(minute));
     DateTime localDateTime = disscussionController.isOffsetNegetive
-        ? UTCDateTime.subtract(disscussionController.localTimeZoneOffset)
-        : UTCDateTime.add(disscussionController.localTimeZoneOffset);
-    String month_name =
+        ? utcDateTime.subtract(disscussionController.localTimeZoneOffset)
+        : utcDateTime.add(disscussionController.localTimeZoneOffset);
+    String monthName =
         disscussionController.monthMap[localDateTime.month.toString()]!;
 
     hour = localDateTime.hour;
@@ -72,7 +72,7 @@ class DiscussionTile extends StatelessWidget {
     return Row(
       children: [
         Text(
-          '${localDateTime.day} ${month_name}',
+          '${localDateTime.day} ${monthName}',
           style: kTileSubtitleStyle,
         ),
         SizedBox(

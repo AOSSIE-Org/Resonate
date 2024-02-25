@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-Future<dynamic> LoadingWidget() {
+Future<dynamic> loadingWidget() {
   return Get.dialog(
       Center(
         child: LoadingAnimationWidget.threeRotatingDots(
