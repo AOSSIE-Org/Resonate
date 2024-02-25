@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -38,8 +39,8 @@ class RoomService {
           collectionId: participantsCollectionId,
           documentId: document.$id);
     }
-    print("Heyy");
-    print(isAdmin.toString());
+    debugPrint("Heyy");
+    debugPrint(isAdmin.toString());
     // Add participant to collection
     Document participantDoc = await roomsController.databases.createDocument(
         databaseId: masterDatabaseId,
@@ -53,27 +54,27 @@ class RoomService {
           "isSpeaker": isAdmin,
           "isMicOn": false
         });
-    print(isAdmin.toString());
+    debugPrint(isAdmin.toString());
     if (!isAdmin) {
-      print("I am here also");
+      debugPrint("I am here also");
       // Get present totalParticipants Attribute
       Document roomDoc = await roomsController.databases.getDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId);
 
-      print("I am here also again");
+      debugPrint("I am here also again");
       // Increment the totalParticipants Attribute
       int newParticipantCount = roomDoc.data["totalParticipants"] -
           participantDocsRef.documents.length +
           1;
-      print(newParticipantCount);
+      debugPrint(newParticipantCount.toString());
       await roomsController.databases.updateDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId,
           data: {"totalParticipants": newParticipantCount});
-      print("I am here also again and again");
+      debugPrint("I am here also again and again");
     }
 
     return participantDoc.$id;

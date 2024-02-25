@@ -39,7 +39,7 @@ class _RoomScreenState extends State<RoomScreen> {
           cancelTextColor: Colors.amber,
           onConfirm: onTap,
           onCancel: () {
-            print("canceled");
+            debugPrint("canceled");
           });
     }
 
