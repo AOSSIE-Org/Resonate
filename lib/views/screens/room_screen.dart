@@ -41,7 +41,7 @@ class _RoomScreenState extends State<RoomScreen> {
           cancelTextColor: themeController.primaryColor.value,
           onConfirm: onTap,
           onCancel: () {
-            print("canceled");
+            debugPrint("canceled");
           });
     }
 
