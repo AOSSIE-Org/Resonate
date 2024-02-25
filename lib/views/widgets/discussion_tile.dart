@@ -72,7 +72,7 @@ class DiscussionTile extends StatelessWidget {
     return Row(
       children: [
         Text(
-          '${localDateTime.day} ${monthName}',
+          '${localDateTime.day} $monthName',
           style: kTileSubtitleStyle,
         ),
         SizedBox(
@@ -386,7 +386,7 @@ class DiscussionTile extends StatelessWidget {
                     SizedBox(
                       width: UiSizes.width_16,
                     ),
-                    Text("${subscriberCount}+ Subscribed",
+                    Text("$subscriberCount + Subscribed",
                         style: kTileSubtitleStyle),
                     const Spacer(),
                     FaIcon(
