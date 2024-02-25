@@ -43,7 +43,7 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.signup(
-           emailController.text, passwordController.text);
+          emailController.text, passwordController.text);
       return true;
     } catch (e) {
       var error = e.toString().split(": ")[1];
