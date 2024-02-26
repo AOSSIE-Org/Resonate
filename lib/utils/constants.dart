@@ -1,7 +1,8 @@
 // This file contains constants that are used throughout the app.
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // Appwrite Project Constants
-const String appwriteProjectId = "64a12ff22a44f02f0545";
+String appwriteProjectId = dotenv.env['APPWRITE_PROJECT_ID']!;
 const String appwriteEndpoint = "https://cloud.appwrite.io/v1";
 
 // User related Database Constants
