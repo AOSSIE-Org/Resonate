@@ -76,6 +76,7 @@ dependencies:
   flutter_local_notifications: ^16.1.0
   firebase_analytics: ^10.6.3
   image_cropper: ^4.0.1
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -105,6 +106,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
+     - env/.env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

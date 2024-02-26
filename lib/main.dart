@@ -10,9 +10,11 @@ import 'package:resonate/themes/themes.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'themes/theme_controller.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: "env/.env");
   //Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
