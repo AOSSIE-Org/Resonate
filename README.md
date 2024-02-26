@@ -1,3 +1,10 @@
+## NOTE
+This branch contains the documentation for resonate code which can be found [here](https://github.com/AOSSIE-Org/Resonate).
+
+**I am documenting the code so that it is easier to understand the code for anyone who is working on or has worked and needs a quick revision of what the code does.**
+
+
+##
 <div align="center">
  <span>
  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/ca9e88d2-f4ca-4d8c-8a8a-289286b91e54" alt="Resonate logo" width="150" height="auto" />
