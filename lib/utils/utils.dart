@@ -7,7 +7,14 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 class AppUtils {
   AppUtils._();
+  //showDialog function that uses Get.defaultDialog to displplay a dialog on screen.
 
+  //showDialog defines various parameters that which allows specifying the
+  //title,middleText, onFirstBtnPressed, onSecondBtnPressed,firstBtnTextStyle, secondBtnTextStyle
+  //whenever showDialog is called.
+
+  //firstBtnText and secondBtnText are initialized with default values of "Confirm" & "Cancel" respectively
+  //These values can be changes by using firstBtnText & secondBtnText and specifying different vaalues.
   static void showDialog({
     required String title,
     required String middleText,
@@ -18,7 +25,10 @@ class AppUtils {
     TextStyle? firstBtnTextStyle,
     TextStyle? secondBtnTextStyle,
   }) {
+    //NOTE: get state management provides some handy ways to use certain widget without using context.
+    //Get.defaultDialog displays a dialog on screen which is similar to flutters showDialog.
     Get.defaultDialog(
+      //customize the dialog
       title: title,
       middleText: middleText,
       barrierDismissible: false,
@@ -33,7 +43,9 @@ class AppUtils {
       radius: UiSizes.size_20,
       titlePadding: EdgeInsets.only(top: UiSizes.size_25),
       contentPadding: EdgeInsets.symmetric(
-          horizontal: UiSizes.size_20, vertical: UiSizes.size_20),
+        horizontal: UiSizes.size_20,
+        vertical: UiSizes.size_20,
+      ),
       actions: [
         ElevatedButton(
           onPressed: onFirstBtnPressed,
@@ -66,17 +78,23 @@ class AppUtils {
     );
   }
 
+  //show showBlurredLoaderDialog function that diaplays a dialog whenever the function is called.
   static void showBlurredLoaderDialog() {
+    //Get.dialog is used to display a dialog
     Get.dialog(
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-              color: Colors.amber,
-              size: Get.pixelRatio * 20,
-            ),
+      //use BackdropFiler (a widget provided by flutter) to create a blurred effect using filter property.
+      BackdropFilter(
+        //entire screen except the child placed insied BackdropFilter will be blurred
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Center(
+          //display three rotating dots using LoadingAnimationWidget provided by loading_animation_widget package
+          child: LoadingAnimationWidget.threeRotatingDots(
+            color: Colors.amber,
+            size: Get.pixelRatio * 20,
           ),
         ),
-        barrierDismissible: false);
+      ),
+      barrierDismissible: false,
+    );
   }
 }
