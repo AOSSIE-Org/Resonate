@@ -32,9 +32,15 @@ class AuthStateController extends GetxController {
   late bool? isEmailVerified;
   late User appwriteUser;
 
+  // initializes FlutterLocalNotifications Plugin provides cross-platform to display local notifications.
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  /*
+  - Sets up Android notification settings.
+  - Registers callback to handle Notification taps(onDidRecieveNotificationResponse)
+  - Enables overall notification capability.
+  */
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('ic_launcher');
@@ -47,11 +53,24 @@ class AuthStateController extends GetxController {
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
   }
 
+  /*Code Explaination of onDidReceiveNotificationResponse.
+    The below method handles the logic of tapping on a notification
+    1.Extract the discussion name from the notification payload.
+    2.Fetch the index of the discussion that is obtained after tapping on notification.
+    3.Lookup the matching discussion in the controller's list.
+    4.Make the ScrollController to get initialized to that offset.
+    5.Update tab Controller to switch to discussions tab.
+    6.Navigate user to the tabs screen.
+   */
+
   void onDidReceiveNotificationResponse(
       NotificationResponse notificationResponse) async {
-    String name = notificationResponse.payload!;
+    String name = notificationResponse
+        .payload!; //fetching the payload(custom key value pairs).
+
     DiscussionsController discussionsController =
         Get.find<DiscussionsController>();
+
     int index = discussionsController.discussions
         .indexWhere((discussion) => discussion.data["name"] == name);
 
@@ -119,6 +138,11 @@ class AuthStateController extends GetxController {
     }
   }
 
+  /*
+  In the below method,
+    it Fetches and sets the user Profile info from Appwrite ,
+    and later updates the widgets. 
+   */
   Future<void> setUserProfileData() async {
     isInitializing.value = true;
     try {
@@ -146,12 +170,27 @@ class AuthStateController extends GetxController {
     }
   }
 
+  /*
+    In this below method (getAppwriteToken)
+    1.Call createJWT() on the account object
+    2.This returns a JWT class containing the signed token.
+    3.We return just the raw JWT string portion.
+   */
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
     log(authToken.toString());
     return authToken.jwt;
   }
 
+  /*
+    In the below method(isUserLoggedIn)
+    - all we are trying to know is whether the userProfile is successfully setup or not.
+    - If yes then route the ui to tabView.
+    - If no then route the ui to onBoarding.
+    - If error, check if its a first launch
+    - On first launch, show landing page.
+    - Otherwise redirect to login screen.
+   */
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
@@ -195,6 +234,16 @@ class AuthStateController extends GetxController {
     });
   }
 
+/*
+  1. Get the current FCM token for the user's device.
+  2. Fetch the list of subscribed Discussion from appwrite collection.
+  3. Loop through subscribed discussion.
+  4. Get the list of tokens and remove current user's token.
+  5. Update the discusion.
+
+  Result: This keeps each discussion's tokens list uptodate as user 
+  subscribe/unsubscribe over time.
+ */
   Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
@@ -232,6 +281,8 @@ class AuthStateController extends GetxController {
     await isUserLoggedIn();
   }
 
+  //Displays dialog box for confirming the logout decision of user.
+  //Then it performs the corresponding task.
   Future<void> logout() async {
     Get.defaultDialog(
       title: "Are you sure?",
