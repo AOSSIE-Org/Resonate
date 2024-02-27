@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
+import 'package:resonate/controllers/password_strength_checker_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
+import 'package:resonate/views/widgets/password_strength_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,7 +20,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var controller = Get.find<AuthenticationController>();
   var themeController = Get.find<ThemeController>();
-
+  var passwordStrengthCheckerController =
+      Get.find<PasswordStrengthCheckerController>();
   @override
   void initState() {
     controller.loginFormKey = GlobalKey<FormState>();
@@ -32,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: 780,
+            height: UiSizes.height_780 + 75,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
@@ -87,6 +90,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) =>
+                            value! == "" ? "Password can't be empty" : null,
+                        onChanged: (value) => passwordStrengthCheckerController
+                            .passwordValidator(value, 'login'),
                         style: TextStyle(
                             fontSize: UiSizes.size_14,
                             color: themeController.loadTheme() == 'dark'
@@ -118,6 +126,50 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : Icons.visibility_off_outlined,
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Obx(
+                    () => Visibility(
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible: passwordStrengthCheckerController
+                          .isVisibleAtLogin.value,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastOutSlowIn,
+                        opacity:
+                            passwordStrengthCheckerController.isVisible.value
+                                ? 1
+                                : 0,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: UiSizes.height_20),
+                          child: SizedBox(
+                              height: UiSizes.height_45,
+                              width: Get.width,
+                              child: PasswordStrengthIndicator(
+                                isPasswordSixCharacters:
+                                    passwordStrengthCheckerController
+                                        .isPasswordSixCharacters.value,
+                                hasOneDigit: passwordStrengthCheckerController
+                                    .hasOneDigit.value,
+                                hasUpperCase: passwordStrengthCheckerController
+                                    .hasUpperCase.value,
+                                hasLowerCase: passwordStrengthCheckerController
+                                    .hasLowerCase.value,
+                                passwordSixCharactersTitle:
+                                    "Password should be at least 6 characters long",
+                                hasOneDigitTitle:
+                                    "Include at least 1 numeric digit",
+                                hasUpperCaseTitle:
+                                    "Include at least 1 uppercase letter",
+                                hasLowerCaseTitle:
+                                    "Include at least 1 lowercase letter",
+                                validatedChecks:
+                                    passwordStrengthCheckerController
+                                        .validatedChecks.value,
+                              )),
                         ),
                       ),
                     ),
