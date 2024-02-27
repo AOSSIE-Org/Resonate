@@ -1,3 +1,7 @@
+//AppRoutes class has named routes used by GetPage name property.
+//This approach simplifies navigation as all the routes are present in same class.
+//Also improves code manageability
+//AppRoutes are used in AppPages which can be found in lib\routes\app_pages.dart
 class AppRoutes {
   static const login = '/login';
   static const signup = '/signup';

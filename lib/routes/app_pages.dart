@@ -1,3 +1,4 @@
+//import required packages
 import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
@@ -21,13 +22,23 @@ import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
 import '../views/screens/pair_chat_screen.dart';
 
+//AppRoutes can be found in lib\routes\app_routes.dart
+//AppPages contains a list of pages of type GetPage
+//GetPage is an handy way of managing app navigation
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
+      //name takes a string which acts as route name associated with the page
       name: AppRoutes.splash,
+      //page is a function that returns a widget.
+      //whenever I navigate to AppRoutes.splash SplashScreen widget will be created.
       page: () => const SplashScreen(),
+      //binding is used to perform certain actions on page before the page is created.
       binding: AuthSplashBinding(),
     ),
+    //In this list member,
+    //The landing screen has the route name AppRoutes.landing, displays the LandingScreen widget when we move to AppRoutes.landing,
+    //and also uses the AuthSplashBinding for binding.
     GetPage(
       name: AppRoutes.landing,
       page: () => const LandingScreen(),
