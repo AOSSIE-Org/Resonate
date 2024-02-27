@@ -91,8 +91,8 @@ class DiscussionsController extends GetxController {
     try {
       List<Document> discussionSubscribers;
       int totalSubscriberCount;
-      bool? userIsCreator = null;
-      String? subscriberId = null;
+      bool? userIsCreator;
+      String? subscriberId;
       discussionSubscribers = await databases.listDocuments(
           databaseId: '6522fcf27a1bbc4238df',
           collectionId: '6522fd267db6fdad3392',
