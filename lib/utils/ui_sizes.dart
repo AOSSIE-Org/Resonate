@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 
+//UiSizes has various values for heights and width.
+//This class is important as it makes sure that the ui design is responsive,
+// and can run on mobile device of any size by resizing itself based on screen size.
 class UiSizes {
   // Height expressions
+  //Get.height is used to get the maximum display height of a device.
+  //height_1 takes 0.012% of screen height
   static double height_1 = Get.height * 0.0012;
   static double height_2 = Get.height * 0.0024;
   static double height_4 = Get.height * 0.005;
@@ -28,6 +33,7 @@ class UiSizes {
   static double height_70 = Get.height * 0.085;
   static double height_76 = Get.height * 0.0921;
   static double height_80 = Get.height * 0.0973;
+  //height_82 takes 10% of screen height
   static double height_82 = Get.height * 0.1;
   static double height_90 = Get.height * 0.1095;
   static double height_110 = Get.height * 0.133;
@@ -45,9 +51,12 @@ class UiSizes {
   static double height_740 = Get.height * 0.9;
   static double height_756 = Get.height * 0.92;
   static double height_765 = Get.height * 0.93;
+  //height_780 takes 95% of screen height
   static double height_780 = Get.height * 0.95;
 
   // Width expressions
+  //Get.width is used to get the maximum display width of a device.
+  //width_1 takes 0.024% of screen width.
   static double width_1 = 0.0024 * Get.width;
   static double width_1_5 = 0.00364 * Get.width;
   static double width_2 = 0.00486 * Get.width;
@@ -66,6 +75,7 @@ class UiSizes {
   static double width_40 = 0.0972 * Get.width;
   static double width_45 = 0.109 * Get.width;
   static double width_56 = 0.1361 * Get.width;
+  //width_66 takes 16% of screen width.
   static double width_66 = 0.16 * Get.width;
   static double width_80 = 0.1944 * Get.width;
   static double width_100 = 0.243 * Get.width;
@@ -80,9 +90,11 @@ class UiSizes {
   static double width_294 = 0.7146 * Get.width;
   static double width_300 = 0.729 * Get.width;
   static double width_304 = 0.74 * Get.width;
+  //width_320 takes 77.783% of screen width.
   static double width_320 = 0.77783 * Get.width;
 
   // Size expressions
+  //calculates the size by multiplying width and height.
   static double size_8 = 0.009722 * Get.width + 0.00486 * Get.height;
   static double size_12 = 0.0073 * Get.height + 0.01458 * Get.width;
   static double size_13 = 0.008 * Get.height + 0.015 * Get.width;

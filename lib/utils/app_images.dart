@@ -1,3 +1,5 @@
+//AppImages class contain the path to image assets used in resonate
+//Thiss way makes it easier to mannage code
 class AppImages {
   static const aossieLogoImage = 'assets/images/aossie_logo.png';
   static const resonateLogoImage = 'assets/images/resonate_logo.png';

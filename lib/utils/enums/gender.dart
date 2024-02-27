@@ -1,4 +1,2 @@
-enum Gender{
-  male,
-  female
-}
+//Gender enum.
+enum Gender { male, female }
