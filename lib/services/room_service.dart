@@ -11,12 +11,23 @@ import 'package:resonate/utils/constants.dart';
 class RoomService {
   static ApiService apiService = ApiService();
 
+  /*
+    - Constructs a liveKitController with the given URI and roomToken
+      in its constructor parameters.
+    - Registers the controller as a permanent , singleton Instance via Get.
+    - Get.put() -> Its a dependency injection to register new instance.
+    - Returns a future that completes when this is done. 
+   */
   static Future<void> joinLiveKitRoom(
       String livekitUri, String roomToken) async {
     Get.put(LiveKitController(liveKitUri: livekitUri, roomToken: roomToken),
         permanent: true);
   }
 
+  /*
+   - This below method performs the task of updating/adds the total number
+      of participants in meet room.  
+   */
   static Future<String> addParticipantToAppwriteCollection(
       {required String roomId,
       required String uid,
@@ -32,6 +43,11 @@ class RoomService {
           Query.equal("uid", [uid]),
           Query.equal('roomId', [roomId])
         ]);
+
+    /*
+      We delete the previous participants data of past meeting , so that
+      we can add fresh and new participants.
+    */
     for (var document in participantDocsRef.documents) {
       await roomsController.databases.deleteDocument(
           databaseId: masterDatabaseId,
@@ -68,6 +84,10 @@ class RoomService {
           participantDocsRef.documents.length +
           1;
       print(newParticipantCount);
+
+      /*
+        Updating the total participants of the meeting room.
+      */
       await roomsController.databases.updateDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
@@ -95,6 +115,10 @@ class RoomService {
     await storage.write(key: "createdRoomAdminToken", value: livekitToken);
     await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
 
+    /*
+      Updates/Adds the participants in appwrite collection with ID as adminUid,
+      associated with the Room ID.
+     */
     String myDocId = await addParticipantToAppwriteCollection(
         roomId: appwriteRoomDocId, uid: adminUid, isAdmin: true);
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
@@ -102,6 +126,7 @@ class RoomService {
     return [appwriteRoomDocId, myDocId];
   }
 
+//This method deletes the previously created chat room whose ID is associated with 'roomId'.
   static Future deleteRoom({required roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
     const storage = FlutterSecureStorage();
@@ -126,6 +151,9 @@ class RoomService {
     }
   }
 
+/* 
+  This method fetches liveKitToken and liveKitSocketUrl,which is necessary to send user to a chat room.
+*/
   static Future<String> joinRoom(
       {required roomId, required String userId, required bool isAdmin}) async {
     var response = await apiService.joinRoom(roomId, userId);
@@ -137,6 +165,10 @@ class RoomService {
     return myDocId;
   }
 
+/*
+  This method removes the leaving user's presence from the room,
+  checks if room is now empty, and deletes or updates total-participants accordingly.
+ */
   static Future<bool> leaveRoom({required String roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
     String userId = Get.find<AuthStateController>().uid!;

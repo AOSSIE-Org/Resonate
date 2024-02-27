@@ -1,4 +1,9 @@
 class AppRoutes {
+  /*
+  - These appRoutes act as unique representation of naming of routes.
+  - It promotes cleaner navigation code.
+  - Each appRoute is associated with specific appPage.
+  */
   static const login = '/login';
   static const signup = '/signup';
   static const profile = '/profile';

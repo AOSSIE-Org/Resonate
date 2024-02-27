@@ -21,6 +21,14 @@ import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
 import '../views/screens/pair_chat_screen.dart';
 
+/*
+ - Here we are using Get Package to define a named route in app.
+ - The constructor of Get Page takes 3 args(but you can even use the other args of GetPage).
+ - name --> It represents the unique name of route.
+ - page --> This tells the routing system which widget to display on this route.
+ - binding--> Used to define configs or dependencies specific to a route.
+ */
+
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
