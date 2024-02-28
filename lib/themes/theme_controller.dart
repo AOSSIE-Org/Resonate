@@ -35,5 +35,8 @@ class ThemeController extends GetxController {
    */
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
 
+/*
+- This function saves the user preferred theme in Database called as GetStorage() [key-value pair db].
+ */
   void saveTheme(ThemeValues themeValues) => _box.write(_key, themeValues.name);
 }
