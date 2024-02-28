@@ -1,5 +1,6 @@
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
@@ -19,7 +20,7 @@ class DiscussionTile extends StatelessWidget {
   final List<String> subscriberProfileUrl;
   DiscussionsController disscussionController =
       Get.find<DiscussionsController>();
-  var themeController = Get.find<ThemeController>();
+  var themeController = Get.put<ThemeController>(ThemeController());
   DiscussionTile(
       {super.key,
       required this.discussion,
@@ -161,10 +162,12 @@ class DiscussionTile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      discussion.data["name"],
-                      maxLines: 3,
-                      style: kTileTitleStyle,
+                    Expanded(
+                      child: Text(
+                        discussion.data["name"],
+                        maxLines: 3,
+                        style: kTileTitleStyle,
+                      ),
                     ),
                     Row(
                       children: [
@@ -196,7 +199,7 @@ class DiscussionTile extends StatelessWidget {
                                     Color.fromARGB(183, 120, 118, 118),
                                 side: BorderSide(
                                     color: userIsCreator == null
-                                        ? Colors.amber
+                                        ? themeController.primaryColor.value
                                         : (userIsCreator! &
                                                 !discussion.data['isTime'])
                                             ? Colors.black
@@ -296,9 +299,11 @@ class DiscussionTile extends StatelessWidget {
                                               middleText:
                                                   "You want to delete this Discussion",
                                               textConfirm: "Yes",
-                                              buttonColor: Colors.amber,
+                                              buttonColor: themeController
+                                                  .primaryColor.value,
                                               confirmTextColor: Colors.white,
-                                              cancelTextColor: Colors.amber,
+                                              cancelTextColor: themeController
+                                                  .primaryColor.value,
                                               textCancel: "No",
                                               contentPadding: EdgeInsets.all(
                                                   UiSizes.size_15),
@@ -370,7 +375,8 @@ class DiscussionTile extends StatelessWidget {
                         child: Stack(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.amber,
+                              backgroundColor:
+                                  themeController.primaryColor.value,
                               radius: UiSizes.size_19,
                             ),
                             Positioned(

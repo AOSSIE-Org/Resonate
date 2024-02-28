@@ -20,6 +20,12 @@ class ThemeController extends GetxController {
     }
   }
 
+  Rx<Color> primaryColor = Colors.blue.obs;
+
+  void changePrimaryColor(Color newColor) {
+    primaryColor.value = newColor;
+  }
+
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
   void saveTheme(ThemeValues themeValues) => _box.write(_key, themeValues.name);

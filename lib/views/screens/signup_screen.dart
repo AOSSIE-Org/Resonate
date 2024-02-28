@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -25,6 +26,8 @@ class _SignupScreenState extends State<SignupScreen> {
   var emailVerifyController = Get.find<EmailVerifyController>();
   var passwordStrengthCheckerController =
       Get.find<PasswordStrengthCheckerController>();
+  final ThemeController themeController =
+      Get.put<ThemeController>(ThemeController());
 
   @override
   void initState() {
@@ -309,7 +312,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Text(
                           "Login",
                           style: TextStyle(
-                              color: Colors.amber, fontSize: UiSizes.size_14),
+                              color: themeController.primaryColor.value,
+                              fontSize: UiSizes.size_14),
                         ),
                       )
                     ],

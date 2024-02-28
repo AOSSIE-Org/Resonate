@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/network_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class NoConnectionDialog extends StatelessWidget {
-  const NoConnectionDialog({Key? key}) : super(key: key);
+  NoConnectionDialog({Key? key}) : super(key: key);
+  final ThemeController themeController =
+      Get.put<ThemeController>(ThemeController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class NoConnectionDialog extends StatelessWidget {
                       style: TextStyle(
                           fontSize: UiSizes.size_40,
                           fontWeight: FontWeight.w600,
-                          color: Colors.amber),
+                          color: themeController.primaryColor.value),
                     ),
                     Text(
                       "There is a connection error. Please check your internet and try again.",

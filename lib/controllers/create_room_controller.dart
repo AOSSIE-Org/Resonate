@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -12,6 +13,7 @@ import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
+  final themeController = Get.put<ThemeController>(ThemeController());
   RxBool isLoading = false.obs;
   RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
@@ -42,7 +44,8 @@ class CreateRoomController extends GetxController {
       Get.dialog(
           Center(
             child: LoadingAnimationWidget.threeRotatingDots(
-                color: Colors.amber, size: Get.pixelRatio * 20),
+                color: themeController.primaryColor.value,
+                size: Get.pixelRatio * 20),
           ),
           barrierDismissible: false,
           name: "Loading Dialog");

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -16,6 +17,8 @@ class DiscussionScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final DiscussionsController discussionsController =
       Get.find<DiscussionsController>();
+  final ThemeController themeController =
+      Get.put<ThemeController>(ThemeController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class DiscussionScreen extends StatelessWidget {
                     builder: (context, controller) {
                       return Icon(
                         Icons.ac_unit,
-                        color: Colors.amber,
+                        color: themeController.primaryColor.value,
                         size: UiSizes.size_30,
                       );
                     },
@@ -131,14 +134,15 @@ class DiscussionScreen extends StatelessWidget {
                             },
                             style: OutlinedButton.styleFrom(
                               maximumSize: Size.fromWidth(UiSizes.width_140),
-                              side: const BorderSide(
-                                  color: Colors.amber, width: 1),
+                              side: BorderSide(
+                                  color: themeController.primaryColor.value,
+                                  width: 1),
                             ),
                             child: Center(
                               child: Text(
                                 "Refresh",
                                 style: TextStyle(
-                                    color: Colors.amber,
+                                    color: themeController.primaryColor.value,
                                     fontSize: UiSizes.size_15),
                               ),
                             ))
@@ -148,7 +152,8 @@ class DiscussionScreen extends StatelessWidget {
                 )
               : Center(
                   child: LoadingAnimationWidget.threeRotatingDots(
-                      color: Colors.amber, size: Get.pixelRatio * 20),
+                      color: themeController.primaryColor.value,
+                      size: Get.pixelRatio * 20),
                 )),
     );
   }
