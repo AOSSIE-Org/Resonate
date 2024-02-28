@@ -10,6 +10,7 @@ import 'package:resonate/views/widgets/snackbar.dart';
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
   var isLoading = false.obs;
+
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
   TextEditingController confirmPasswordController =
@@ -19,6 +20,7 @@ class AuthenticationController extends GetxController {
   var loginFormKey;
   var registrationFormKey;
 
+//Login the user using email and password.
   Future<void> login() async {
     if (!loginFormKey.currentState!.validate()) {
       return;
@@ -30,7 +32,8 @@ class AuthenticationController extends GetxController {
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
-        customSnackbar('Try Again!', "Incorrect Email Or Password", MessageType.error);
+        customSnackbar(
+            'Try Again!', "Incorrect Email Or Password", MessageType.error);
       }
     } catch (e) {
       log(e.toString());
@@ -39,6 +42,10 @@ class AuthenticationController extends GetxController {
     }
   }
 
+  /*
+    This method(signup) helps  to sign the user through
+    email,password
+   */
   Future<bool> signup() async {
     try {
       isLoading.value = true;
@@ -57,6 +64,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
+  //Sign in with Google .
   Future<void> loginWithGoogle() async {
     try {
       await authStateController.loginWithGoogle();
@@ -65,6 +73,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
+//Sign in with Github.
   Future<void> loginWithGithub() async {
     try {
       await authStateController.loginWithGithub();
