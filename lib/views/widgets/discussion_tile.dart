@@ -161,10 +161,12 @@ class DiscussionTile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      discussion.data["name"],
-                      maxLines: 3,
-                      style: kTileTitleStyle,
+                    Expanded(
+                      child: Text(
+                        discussion.data["name"],
+                        maxLines: 3,
+                        style: kTileTitleStyle,
+                      ),
                     ),
                     Row(
                       children: [

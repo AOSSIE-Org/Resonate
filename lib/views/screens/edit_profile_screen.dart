@@ -149,7 +149,11 @@ class EditProfileScreen extends StatelessWidget {
                                     Icons.verified_outlined,
                                     color: Colors.green,
                                   )
-                                : null),
+                                : null,
+                            errorStyle: const TextStyle(
+                               fontSize: 10,
+                            ),
+                         ),
                       ),
                     ),
                     verticalGap(UiSizes.height_60),
