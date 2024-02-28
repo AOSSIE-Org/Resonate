@@ -16,21 +16,28 @@ class DiscussionsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   TextEditingController dateTimeController = TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
+
   final CreateRoomController createRoomController =
       Get.find<CreateRoomController>();
+
   Rx<ScrollController> discussionScrollController = ScrollController().obs;
   final TabViewController controller = Get.find<TabViewController>();
+
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   late List<Document> discussions;
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
   late String localTimeZoneName;
   late bool isOffsetNegetive;
+
   Rx<bool> isLoading = false.obs;
   late DateTime currentTimeInstance;
+
   final Map<String, String> monthMap = {
     "1": "Jan",
     "2": "Feb",
@@ -45,6 +52,7 @@ class DiscussionsController extends GetxController {
     "11": "Nov",
     "12": "Dec",
   };
+
   @override
   void onInit() async {
     super.onInit();

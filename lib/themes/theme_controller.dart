@@ -9,6 +9,8 @@ class ThemeController extends GetxController {
   final _key = 'themeValue';
 
   ThemeMode get theme {
+    //The loadTheme() function provides the theme saved by user,
+    // or else it returns systemDefaultTheme by default.
     String themeVal = loadTheme();
 
     if (themeVal == ThemeValues.systemDefault.name) {
@@ -20,7 +22,18 @@ class ThemeController extends GetxController {
     }
   }
 
+  /*
+    - This code retrieves the currently selected theme for the application.
+    - It prioritizes loading previously saved user preference,but defaults to system's default theme,
+      if a preference is not found.
+   */
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
+
+  /*
+  - This function offers a convenient way to switch between different theme 
+    modes in app using GetX package
+   */
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
+
   void saveTheme(ThemeValues themeValues) => _box.write(_key, themeValues.name);
 }

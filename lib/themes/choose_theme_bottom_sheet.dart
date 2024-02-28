@@ -4,6 +4,10 @@ import 'package:resonate/utils/ui_sizes.dart';
 import '../utils/enums/themes_enum.dart';
 import 'theme_controller.dart';
 
+/*
+  This below Widget function provides a Widget UI, to user 
+  that helps to choos the type of theme system default , light or dark theme.
+ */
 Widget chooseThemeBottomSheet(
     BuildContext context, Function(String) onChangedCallback) {
   final themeController = Get.find<ThemeController>();
