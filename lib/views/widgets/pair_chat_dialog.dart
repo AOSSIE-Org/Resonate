@@ -1,3 +1,4 @@
+//import required packages
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,16 +6,15 @@ import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../utils/colors.dart';
 
+//buildPairChatDialog is a Future that builds PairChatDialog and obtains necessary values from PairChatController
 Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController = Get.find<ThemeController>();
-
+  //UI implementation of PairChatDialog
   return Get.defaultDialog(
       title: "Pair Chat",
       titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
@@ -31,6 +31,7 @@ Future<dynamic> buildPairChatDialog() {
             SizedBox(
               height: UiSizes.height_10,
             ),
+            //Obx listenes to the changes made by PairChatController and updates the ui if value is changes
             Obx(
               () => Row(
                 children: [
@@ -42,7 +43,7 @@ Future<dynamic> buildPairChatDialog() {
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: controller.isAnonymous.value
-                                ? themeController.primaryColor.value
+                                ? AppColor.yellowColor
                                 : Colors.black26,
                             shadowColor: Colors.transparent,
                             surfaceTintColor: Colors.transparent),
@@ -57,6 +58,7 @@ Future<dynamic> buildPairChatDialog() {
                       ),
                     ),
                   ),
+                  //Seperation
                   const SizedBox(
                     width: 5,
                   ),
@@ -65,7 +67,7 @@ Future<dynamic> buildPairChatDialog() {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: !controller.isAnonymous.value
-                                ? themeController.primaryColor.value
+                                ? AppColor.yellowColor
                                 : Colors.black26,
                             shadowColor: Colors.transparent,
                             surfaceTintColor: Colors.transparent),
@@ -99,6 +101,7 @@ Future<dynamic> buildPairChatDialog() {
                 fontSize: Get.pixelRatio * 6,
               ),
             ),
+            //LanguagePickerDropdown is defined in language_picker_dropdown packages which makes it easy to change language of app
             LanguagePickerDropdown(
                 initialValue: Languages.english,
                 onValuePicked: (Language language) {
@@ -115,7 +118,7 @@ Future<dynamic> buildPairChatDialog() {
                 controller.quickMatch();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: themeController.primaryColor.value,
+                backgroundColor: AppColor.yellowColor,
               ),
               label: Text(
                 "Resonate",
@@ -127,5 +130,6 @@ Future<dynamic> buildPairChatDialog() {
             ),
           ],
         ),
-      ));
+      ),
+    );
 }
