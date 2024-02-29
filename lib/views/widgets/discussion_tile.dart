@@ -155,12 +155,17 @@ class DiscussionTile extends StatelessWidget {
                   height: UiSizes.width_5,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //change the main axis alignment to add space before and after children of row
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      discussion.data["name"],
-                      maxLines: 3,
-                      style: kTileTitleStyle,
+                    //RelderFlex overflowed error is caused when discussion.data["name"] is long
+                    //use the expanded widget to fix RelderFlex overflowed error
+                    Expanded(
+                      child: Text(
+                        discussion.data["name"],
+                        maxLines: 3,
+                        style: kTileTitleStyle,
+                      ),
                     ),
                     Row(
                       children: [
