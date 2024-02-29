@@ -42,11 +42,26 @@ class SingleRoomController extends GetxController {
   @override
   void onInit() async {
     await Future.delayed(const Duration(milliseconds: 500));
+
+    /*
+      The below method fetches all the possible 
+      participant details , and adds the each participant of chat room
+      to 'participants' Rxlist variable. 
+     */
     await getParticipants();
+
+    /*
+      Provides the real time updates like
+      - Updating the information of participants of chat room
+      - Deleting the participant of chat room.
+      - creating the Participant(model) and monitoring the total 
+        number of participants in chat room.
+     */
     getRealtimeStream();
     super.onInit();
   }
 
+//Release all the resources in onClose method.
   @override
   void onClose() async {
     await subscription?.close();
@@ -56,8 +71,16 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> addParticipantDataToList(Document participant) async {
+    /*
+      The main purpose of getting userData-document is , to provide name , profileImage
+      ,and email of the user who are participants of chat room.
+     */
     Document userDataDoc = await databases.getDocument(
-        databaseId: userDatabaseID, collectionId: usersCollectionID, documentId: participant.data["uid"]);
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: participant.data["uid"]);
+
+    //Construct the Participant data model and later add to the participant list.
     final p = Rx(Participant(
         uid: participant.data["uid"],
         email: userDataDoc.data["email"],
@@ -67,26 +90,48 @@ class SingleRoomController extends GetxController {
         isMicOn: participant.data["isMicOn"],
         isModerator: participant.data["isModerator"],
         isSpeaker: participant.data["isSpeaker"],
-        hasRequestedToBeSpeaker: participant.data["hasRequestedToBeSpeaker"] ?? false));
+        hasRequestedToBeSpeaker:
+            participant.data["hasRequestedToBeSpeaker"] ?? false));
     participants.add(p);
   }
 
   Future<void> removeParticipantDataFromList(String uid) async {
     participants.removeWhere((p) => p.value.uid == uid);
     if (participants.isEmpty) {
+      /*
+        This below line of code , will remove the instance of 
+        SingleRoomController , its a practice of Resource Cleanup,when not 
+        in used.
+       */
       Get.delete<SingleRoomController>();
     }
   }
 
+  /*
+    The below method [updateParticipantDataInList] updates list of participants by
+    updating the properties like 
+    - Is the updated user is moderator or not.(bool)
+    - Is the updated user is requested to speak or not (bool).
+    - Has the updated user turned the mic On or Off(bool).
+    - Whether the updater user is a speaker of chat room or not.
+
+    Note: Here the updater user is related to current user.
+   */
   Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
-    int toBeUpdatedIndex = participants.indexWhere((p) => p.value.uid == payload["uid"]);
+    int toBeUpdatedIndex =
+        participants.indexWhere((p) => p.value.uid == payload["uid"]);
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
-    participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker = payload["hasRequestedToBeSpeaker"] ?? false;
+    participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker =
+        payload["hasRequestedToBeSpeaker"] ?? false;
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
     update();
   }
 
+/*
+ This below method [getParticipants] fetches the participants in the chat room whos room id 
+ is 'appwriteRoom.id'.
+*/
   Future<void> getParticipants() async {
     try {
       isLoading.value = true;
@@ -95,9 +140,11 @@ class SingleRoomController extends GetxController {
           databaseId: masterDatabaseId,
           collectionId: participantsCollectionId,
           queries: [Query.equal('roomId', appwriteRoom.id)]);
+
       for (Document participant in participantCollectionRef.documents) {
         addParticipantDataToList(participant);
       }
+
       update();
     } catch (e) {
       log(e.toString());
@@ -107,16 +154,19 @@ class SingleRoomController extends GetxController {
   }
 
   void getRealtimeStream() {
-    String channel = 'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
+    String channel =
+        'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
         String roomId = data.payload["roomId"];
+
         if (roomId == appwriteRoom.id) {
           // This event belongs to the room current user is part of
           String updatedUserId = data.payload["uid"];
           String docId = data.payload["\$id"];
-          String action = data.events.first.substring(channel.length + 1 + docId.length + 1);
+          String action = data.events.first
+              .substring(channel.length + 1 + docId.length + 1);
 
           switch (action) {
             case 'create':
@@ -130,7 +180,8 @@ class SingleRoomController extends GetxController {
                 // if the change is related to the current user
                 if (updatedUserId == me.value.uid) {
                   me.value.isModerator = data.payload["isModerator"];
-                  me.value.hasRequestedToBeSpeaker = data.payload["hasRequestedToBeSpeaker"] ?? false;
+                  me.value.hasRequestedToBeSpeaker =
+                      data.payload["hasRequestedToBeSpeaker"] ?? false;
                   me.value.isMicOn = data.payload["isMicOn"];
                   me.value.isSpeaker = data.payload["isSpeaker"];
                 }
@@ -140,6 +191,13 @@ class SingleRoomController extends GetxController {
               }
             case 'delete':
               {
+                /*
+                 1. The if statement executes if the current user,leaves the 
+                    chat room.
+                 2. The else-statement executes if the other user participant leaves the 
+                 chat room, as a result it updates the participants list and the change is 
+                 reflected in UI,which can be observed by user.
+                 */
                 if (updatedUserId == me.value.uid) {
                   await Get.delete<SingleRoomController>();
                 } else {
@@ -154,6 +212,15 @@ class SingleRoomController extends GetxController {
     });
   }
 
+/*
+  Sorting the items of Participants on the priority of either properties,they are:
+  - isAdmin
+  - isModerator
+  - isSpeaker
+  - hasRequestedToBeSpeaker
+
+  Note:All these mentioned properties are boolean values.
+ */
   void sortParticipants() {
     participants.sort((a, b) {
       // Sort by isAdmin (admins first, then non-admins)
@@ -193,70 +260,96 @@ class SingleRoomController extends GetxController {
       Get.delete<SingleRoomController>();
     } catch (e) {
       log("Error in Delete Room Function (SingleRoomController): ${e.toString()}");
-    } finally{
+    } finally {
       isLoading.value = false;
     }
   }
-
 
   Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
-        queries: [Query.equal('roomId', appwriteRoom.id), Query.equal('uid', participant.uid)]);
+        queries: [
+          Query.equal('roomId', appwriteRoom.id),
+          Query.equal('uid', participant.uid)
+        ]);
     return participantDocsRef.documents.first.$id;
   }
 
-  Future<void> updateParticipantDoc(String participantDocId, Map<String, dynamic> data) async {
+  Future<void> updateParticipantDoc(
+      String participantDocId, Map<String, dynamic> data) async {
     await databases.updateDocument(
-        databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: participantDocId, data: data);
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocId,
+        data: data);
   }
 
   Future<void> turnOnMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(true);
+    await Get.find<LiveKitController>()
+        .liveKitRoom
+        .localParticipant
+        ?.setMicrophoneEnabled(true);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": true});
     me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant?.setMicrophoneEnabled(false);
+    await Get.find<LiveKitController>()
+        .liveKitRoom
+        .localParticipant
+        ?.setMicrophoneEnabled(false);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": false});
     me.value.isMicOn = false;
   }
 
   Future<void> raiseHand() async {
-    await updateParticipantDoc(appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": true});
+    await updateParticipantDoc(
+        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": true});
     me.value.hasRequestedToBeSpeaker = true;
   }
 
   Future<void> unRaiseHand() async {
-    await updateParticipantDoc(appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(
+        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": false});
     me.value.hasRequestedToBeSpeaker = false;
   }
 
   Future<void> makeModerator(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": true, "hasRequestedToBeSpeaker": false, "isModerator": true});
+    await updateParticipantDoc(participantDocId, {
+      "isSpeaker": true,
+      "hasRequestedToBeSpeaker": false,
+      "isModerator": true
+    });
   }
 
   Future<void> removeModerator(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": false, "hasRequestedToBeSpeaker": false, "isModerator": false});
+    await updateParticipantDoc(participantDocId, {
+      "isSpeaker": false,
+      "hasRequestedToBeSpeaker": false,
+      "isModerator": false
+    });
   }
 
   Future<void> makeSpeaker(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId,
+        {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
   }
 
   Future<void> makeListener(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId, {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId,
+        {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
   }
 
   Future<void> kickOutParticipant(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
     await databases.deleteDocument(
-        databaseId: masterDatabaseId, collectionId: participantsCollectionId, documentId: participantDocId);
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        documentId: participantDocId);
   }
 }
