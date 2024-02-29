@@ -43,15 +43,12 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (editProfileController.isLoading.value) {
-          return false;
-        } else {
-          if (editProfileController.isThereUnsavedChanges()) {
-            saveChangesDialogue();
-          }
-          return true;
+    return PopScope(
+      canPop: !editProfileController.isLoading.value &&
+          !editProfileController.isThereUnsavedChanges(),
+      onPopInvoked: (bool didPop) {
+        if (didPop && editProfileController.isThereUnsavedChanges()) {
+          saveChangesDialogue();
         }
       },
       child: Scaffold(
@@ -139,21 +136,21 @@ class EditProfileScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: inputDecoration.copyWith(
-                            prefixIcon: const Icon(
-                              Icons.account_circle,
-                            ),
-                            labelText: "Username",
-                            prefixText: "@",
-                            suffixIcon: controller.usernameAvailable.value
-                                ? const Icon(
-                                    Icons.verified_outlined,
-                                    color: Colors.green,
-                                  )
-                                : null,
-                            errorStyle: const TextStyle(
-                               fontSize: 10,
-                            ),
-                         ),
+                          prefixIcon: const Icon(
+                            Icons.account_circle,
+                          ),
+                          labelText: "Username",
+                          prefixText: "@",
+                          suffixIcon: controller.usernameAvailable.value
+                              ? const Icon(
+                                  Icons.verified_outlined,
+                                  color: Colors.green,
+                                )
+                              : null,
+                          errorStyle: const TextStyle(
+                            fontSize: 10,
+                          ),
+                        ),
                       ),
                     ),
                     verticalGap(UiSizes.height_60),
@@ -306,7 +303,7 @@ class EditProfileScreen extends StatelessWidget {
               ],
             ),
             if (authStateController.profileImageUrl !=
-              userProfileImagePlaceholderUrl)
+                userProfileImagePlaceholderUrl)
               Column(
                 children: [
                   IconButton(
