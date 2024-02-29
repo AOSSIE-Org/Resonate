@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-//CustomCard is a widget that creates a Card widget with modified properties
 class CustomCard extends StatelessWidget {
-  final String title; //the title of the card
-  final IconData icon; //icon displayed on the card
-  final VoidCallback
-      onTap; //voidcallback onTap which will be executed when card is tapped
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
 
   const CustomCard(
       {super.key,
@@ -19,35 +17,41 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: UiSizes.height_76,
-      child: Card(
+      //Use Container instead of Card
+      child: Container(
         margin: EdgeInsets.symmetric(
-            vertical: UiSizes.height_10, horizontal: UiSizes.width_25),
-        //using InkWell to make card tappable and display a splash when user tapps
-        child: InkWell(
-          //execute the VoidCallback onTap(from parameter list) when the card is tapped.
-          onTap: onTap,
-          //Contents of the card
-          child: Row(
-            children: [
-              //Seperation
-              SizedBox(
-                width: UiSizes.width_20,
-              ),
-              //FaIcon is provided by font_awesome_flutter package.
-              FaIcon(
-                icon,
-                size: UiSizes.size_24,
-              ),
-              //Seperation
-              SizedBox(
-                width: UiSizes.width_40,
-              ),
-              //The title of the card
-              Text(
-                title,
-                style: TextStyle(fontSize: UiSizes.size_14),
-              )
-            ],
+          vertical: UiSizes.height_10,
+          horizontal: UiSizes.width_25,
+        ),
+        //Use Material to see splash effect of InkWell
+        child: Material(
+          color: const Color.fromARGB(255, 255, 250, 239),
+          //specify the border radius to create a rounded edge
+          borderRadius: BorderRadius.circular(15),
+          elevation: 1,
+          child: InkWell(
+            //adjust the borderRadius of inkwell to match with material widet
+            // to fix splash overlow issue.
+            borderRadius: BorderRadius.circular(15),
+            onTap: onTap,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: UiSizes.width_20,
+                ),
+                FaIcon(
+                  icon,
+                  size: UiSizes.size_24,
+                ),
+                SizedBox(
+                  width: UiSizes.width_40,
+                ),
+                Text(
+                  title,
+                  style: TextStyle(fontSize: UiSizes.size_14),
+                )
+              ],
+            ),
           ),
         ),
       ),
