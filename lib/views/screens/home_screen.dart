@@ -12,8 +12,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final RoomsController roomsController = Get.find<RoomsController>();
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {

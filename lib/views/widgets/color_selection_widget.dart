@@ -11,7 +11,7 @@ class ColorSelectionWidget extends StatelessWidget {
     Colors.blue,
     Colors.green,
     Colors.red,
-    Colors.yellow,
+    Colors.amber,
     Colors.purple,
   ];
 

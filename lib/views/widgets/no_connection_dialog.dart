@@ -8,8 +8,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 class NoConnectionDialog extends StatelessWidget {
   NoConnectionDialog({Key? key}) : super(key: key);
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {

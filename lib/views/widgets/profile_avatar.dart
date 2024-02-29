@@ -6,8 +6,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 Widget profileAvatar(BuildContext context) {
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
 

@@ -20,7 +20,7 @@ class DiscussionTile extends StatelessWidget {
   final List<String> subscriberProfileUrl;
   DiscussionsController disscussionController =
       Get.find<DiscussionsController>();
-  var themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
   DiscussionTile(
       {super.key,
       required this.discussion,
@@ -117,7 +117,7 @@ class DiscussionTile extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
-          gradient: AppColor.gradientBg,
+          gradient: themeController.createDynamicGradient(),
           borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
       child: Column(
         children: [

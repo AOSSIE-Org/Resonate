@@ -26,9 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
   var emailVerifyController = Get.find<EmailVerifyController>();
   var passwordStrengthCheckerController =
       Get.find<PasswordStrengthCheckerController>();
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
-
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   void initState() {
     controller.registrationFormKey = GlobalKey<FormState>();

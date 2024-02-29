@@ -17,8 +17,7 @@ class DiscussionScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final DiscussionsController discussionsController =
       Get.find<DiscussionsController>();
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {

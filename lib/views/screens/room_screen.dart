@@ -27,8 +27,7 @@ class _RoomScreenState extends State<RoomScreen> {
     super.initState();
   }
 
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -162,10 +161,10 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Container(
                           height: UiSizes.height_40,
                           width: UiSizes.width_123_4,
-                          decoration: const BoxDecoration(
-                              gradient: AppColor.gradientBg,
+                          decoration: BoxDecoration(
+                              gradient: themeController.createDynamicGradient(),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(const Radius.circular(20))),
                           child: Center(
                               child: Text(
                             (controller.appwriteRoom.isUserAdmin)
@@ -233,10 +232,10 @@ class _RoomScreenState extends State<RoomScreen> {
                       Container(
                         height: UiSizes.height_40,
                         width: UiSizes.width_123_4,
-                        decoration: const BoxDecoration(
-                            gradient: AppColor.gradientBg,
+                        decoration: BoxDecoration(
+                            gradient: themeController.createDynamicGradient(),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",

@@ -23,8 +23,7 @@ class ProfileScreen extends StatelessWidget {
       Get.put<EmailVerifyController>(EmailVerifyController());
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
-  final themeController = Get.put<ThemeController>(ThemeController());
-
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(

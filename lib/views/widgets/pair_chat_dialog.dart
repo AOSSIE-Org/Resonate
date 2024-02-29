@@ -14,8 +14,7 @@ import '../../utils/colors.dart';
 
 Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   return Get.defaultDialog(
       title: "Pair Chat",

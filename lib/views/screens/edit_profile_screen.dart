@@ -12,8 +12,7 @@ import '../../utils/ui_sizes.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   Widget verticalGap(double height) {
     return SizedBox(
@@ -28,8 +27,7 @@ class EditProfileScreen extends StatelessWidget {
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        //!
-        color: ThemeController().primaryColor.value,
+        color: Get.find<ThemeController>().primaryColor.value,
         width: UiSizes.width_2,
       ),
     ),

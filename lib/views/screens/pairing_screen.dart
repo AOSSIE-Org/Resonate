@@ -12,7 +12,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingScreen extends StatelessWidget {
   PairChatController controller = Get.find<PairChatController>();
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   PairingScreen({super.key});
   @override

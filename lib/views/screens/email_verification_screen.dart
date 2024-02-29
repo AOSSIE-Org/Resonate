@@ -19,7 +19,7 @@ class EmailVerificationScreen extends StatelessWidget {
 
   final controller = Get.find<AuthenticationController>();
   final emailVerifyController = Get.find<EmailVerifyController>();
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +55,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                         height: UiSizes.height_30,
                                         width: UiSizes.width_100,
                                         decoration: BoxDecoration(
-                                          gradient: AppColor.gradientBg,
+                                          gradient: themeController
+                                              .createDynamicGradient(),
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -198,7 +199,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 BorderRadius.circular(70),
                                             gradient: emailVerifyController
                                                     .resendIsAllowed.value
-                                                ? AppColor.gradientBg
+                                                ? themeController
+                                                    .createDynamicGradient()
                                                 : const LinearGradient(colors: [
                                                     Color.fromARGB(
                                                         255, 74, 74, 74),

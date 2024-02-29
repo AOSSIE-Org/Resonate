@@ -31,8 +31,7 @@ class TabViewScreen extends StatelessWidget {
   final RoomsController roomsController = Get.find<RoomsController>();
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   TabViewScreen({super.key});
 

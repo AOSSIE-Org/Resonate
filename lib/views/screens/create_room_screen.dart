@@ -19,18 +19,16 @@ class CreateRoomScreen extends StatelessWidget {
 
   final DiscussionsController discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-          color:
-              Get.put<ThemeController>(ThemeController()).primaryColor.value),
+      borderSide:
+          BorderSide(color: Get.find<ThemeController>().primaryColor.value),
       borderRadius: BorderRadius.circular(15));
 
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
       borderSide: BorderSide(
-          color: Get.put<ThemeController>(ThemeController()).primaryColor.value,
+          color: Get.find<ThemeController>().primaryColor.value,
           width: UiSizes.width_2),
       borderRadius: BorderRadius.circular(15));
 

@@ -18,7 +18,7 @@ import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;

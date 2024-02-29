@@ -11,8 +11,7 @@ class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
 
   PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController =
-      Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});
 

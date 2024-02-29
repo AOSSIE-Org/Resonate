@@ -20,10 +20,19 @@ class ThemeController extends GetxController {
     }
   }
 
-  Rx<Color> primaryColor = Colors.blue.obs;
+  Rx<Color> primaryColor = Colors.amber.obs;
 
   void changePrimaryColor(Color newColor) {
     primaryColor.value = newColor;
+  }
+
+  LinearGradient createDynamicGradient() {
+    return LinearGradient(
+      colors: [
+        primaryColor.value,
+        primaryColor.value.withOpacity(0.6),
+      ],
+    );
   }
 
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;

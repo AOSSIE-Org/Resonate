@@ -20,7 +20,7 @@ class RoomsController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   List<AppwriteRoom> rooms = [];
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   void onInit() async {

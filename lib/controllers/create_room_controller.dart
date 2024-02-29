@@ -13,7 +13,7 @@ import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
 
 class CreateRoomController extends GetxController {
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
   RxBool isLoading = false.obs;
   RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();

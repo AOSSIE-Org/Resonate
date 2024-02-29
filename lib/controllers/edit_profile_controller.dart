@@ -19,7 +19,7 @@ class EditProfileController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
 
   AuthStateController authStateController = Get.find<AuthStateController>();
-  final themeController = Get.put<ThemeController>(ThemeController());
+  final ThemeController themeController = Get.find<ThemeController>();
 
   late final Storage storage;
   late final Databases databases;
