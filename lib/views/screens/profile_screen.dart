@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -74,7 +73,9 @@ class ProfileScreen extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: UiSizes.height_45,),
+                        SizedBox(
+                          height: UiSizes.height_45,
+                        ),
                         Container(
                           width: UiSizes.width_180,
                           height: UiSizes.height_180,
@@ -267,9 +268,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
-
                         SizedBox(height: UiSizes.height_20),
-
                         CustomCard(
                           title: "Edit Profile",
                           icon: FontAwesomeIcons.userPen,
@@ -313,7 +312,9 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () =>
                               Navigator.pushNamed(context, AppRoutes.settings),
                         ),
-                        SizedBox(height: UiSizes.height_45,),
+                        SizedBox(
+                          height: UiSizes.height_45,
+                        ),
                       ],
                     ),
                   ),

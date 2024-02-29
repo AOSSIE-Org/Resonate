@@ -2,14 +2,10 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
-import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../utils/colors.dart';
-import '../../utils/enums/room_state.dart';
 
 class DiscussionTile extends StatelessWidget {
   final Document discussion;
@@ -56,12 +52,12 @@ class DiscussionTile extends StatelessWidget {
     String month = exploreDate[1];
     int hour = int.parse(exploreTime[0]);
     String minute = exploreTime[1];
-    DateTime UTCDateTime = DateTime(int.parse(year), int.parse(month),
+    DateTime uTCDateTime = DateTime(int.parse(year), int.parse(month),
         int.parse(day), hour, int.parse(minute));
     DateTime localDateTime = disscussionController.isOffsetNegetive
-        ? UTCDateTime.subtract(disscussionController.localTimeZoneOffset)
-        : UTCDateTime.add(disscussionController.localTimeZoneOffset);
-    String month_name =
+        ? uTCDateTime.subtract(disscussionController.localTimeZoneOffset)
+        : uTCDateTime.add(disscussionController.localTimeZoneOffset);
+    String monthName =
         disscussionController.monthMap[localDateTime.month.toString()]!;
 
     hour = localDateTime.hour;
@@ -76,7 +72,7 @@ class DiscussionTile extends StatelessWidget {
     return Row(
       children: [
         Text(
-          '${localDateTime.day} ${month_name}',
+          '${localDateTime.day} ${monthName}',
           style: kTileSubtitleStyle,
         ),
         SizedBox(
@@ -171,7 +167,7 @@ class DiscussionTile extends StatelessWidget {
                     Row(
                       children: [
                         userIsCreator == null
-                            ? SizedBox.shrink()
+                            ? const SizedBox.shrink()
                             : !userIsCreator!
                                 ? Row(
                                     children: [
@@ -191,11 +187,11 @@ class DiscussionTile extends StatelessWidget {
                                       ),
                                     ],
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 disabledBackgroundColor:
-                                    Color.fromARGB(183, 120, 118, 118),
+                                    const Color.fromARGB(183, 120, 118, 118),
                                 side: BorderSide(
                                     color: userIsCreator == null
                                         ? Colors.amber
@@ -210,10 +206,11 @@ class DiscussionTile extends StatelessWidget {
                                 backgroundColor: userIsCreator == null
                                     ? Colors.black
                                     : (!userIsCreator!)
-                                        ? Color.fromARGB(155, 58, 190, 34)
+                                        ? const Color.fromARGB(155, 58, 190, 34)
                                         : themeController.loadTheme() == 'dark'
-                                            ? Color.fromARGB(51, 0, 143, 0)
-                                            : Color.fromARGB(
+                                            ? const Color.fromARGB(
+                                                51, 0, 143, 0)
+                                            : const Color.fromARGB(
                                                 220, 229, 248, 229),
                                 minimumSize:
                                     Size(UiSizes.width_80, UiSizes.height_30),
@@ -270,7 +267,7 @@ class DiscussionTile extends StatelessWidget {
                                   fontWeight: FontWeight.w100,
                                 ))),
                         userIsCreator == null
-                            ? SizedBox()
+                            ? const SizedBox()
                             : userIsCreator!
                                 ? Row(
                                     children: [
@@ -279,12 +276,13 @@ class DiscussionTile extends StatelessWidget {
                                       ),
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              side: BorderSide(
+                                              side: const BorderSide(
                                                   color: Color.fromARGB(
                                                       198, 100, 8, 3),
                                                   width: 1),
-                                              backgroundColor: Color.fromARGB(
-                                                  246, 243, 81, 81),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      246, 243, 81, 81),
                                               minimumSize: Size(
                                                   UiSizes.width_80,
                                                   UiSizes.height_30),
@@ -321,7 +319,7 @@ class DiscussionTile extends StatelessWidget {
                                               )))
                                     ],
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                       ],
                     )
                   ],
@@ -331,7 +329,7 @@ class DiscussionTile extends StatelessWidget {
                 ),
                 buildTags(),
                 discussion.data["description"] == null
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Column(
                         children: [
                           SizedBox(
