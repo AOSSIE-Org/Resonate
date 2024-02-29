@@ -15,21 +15,25 @@ import 'auth_state_controller.dart';
 
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
+
   AuthStateController authStateController = Get.find<AuthStateController>();
   AuthenticationController authController =
       Get.find<AuthenticationController>();
+
   late final Storage storage;
   late final Databases databases;
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
   String? uniqueIdForProfileImage;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
+
   TextEditingController imageController =
       TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController dobController = TextEditingController(text: "");
 
+  TextEditingController dobController = TextEditingController(text: "");
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
 
   Rx<bool> usernameAvailable = false.obs;
@@ -106,9 +110,8 @@ class OnboardingController extends GetxController {
           "profileImageID": uniqueIdForProfileImage,
         },
       );
-      await authStateController.account.updatePrefs(prefs: {
-        "isUserProfileComplete": true
-      });
+      await authStateController.account
+          .updatePrefs(prefs: {"isUserProfileComplete": true});
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       customSnackbar("Profile created successfully",
