@@ -40,22 +40,22 @@ class LandingScreen extends StatelessWidget {
         skipTextButton: const Text('Skip'),
         background: [
           LandingImage(
-            ImagePath: AppImages.landingFirstImage,
-            InitialHeight: UiSizes.height_82,
-            ImageHeight: UiSizes.height_246 * 1.008,
-            ImageWidth: UiSizes.width_45,
+            imagePath: AppImages.landingFirstImage,
+            initialHeight: UiSizes.height_82,
+            imageHeight: UiSizes.height_246 * 1.008,
+            imageWidth: UiSizes.width_45,
           ),
           LandingImage(
-            ImagePath: AppImages.landingSecondImage,
-            InitialHeight: UiSizes.height_90,
-            ImageHeight: UiSizes.height_246,
-            ImageWidth: UiSizes.width_40,
+            imagePath: AppImages.landingSecondImage,
+            initialHeight: UiSizes.height_90,
+            imageHeight: UiSizes.height_246,
+            imageWidth: UiSizes.width_40,
           ),
           LandingImage(
-              ImagePath: AppImages.landingThirdImage,
-              InitialHeight: UiSizes.height_90,
-              ImageHeight: UiSizes.height_246,
-              ImageWidth: UiSizes.width_56),
+              imagePath: AppImages.landingThirdImage,
+              initialHeight: UiSizes.height_90,
+              imageHeight: UiSizes.height_246,
+              imageWidth: UiSizes.width_56),
         ],
         totalPage: 3,
         speed: 1,
@@ -136,33 +136,34 @@ class LandingScreen extends StatelessWidget {
 
 // ignore: must_be_immutable
 class LandingImage extends StatelessWidget {
-  LandingImage({super.key, 
-    required this.ImagePath,
-    required this.InitialHeight,
-    required this.ImageHeight,
-    required this.ImageWidth,
+  LandingImage({
+    super.key,
+    required this.imagePath,
+    required this.initialHeight,
+    required this.imageHeight,
+    required this.imageWidth,
   });
 
-  String ImagePath;
-  double InitialHeight;
-  double ImageHeight;
-  double ImageWidth;
+  String imagePath;
+  double initialHeight;
+  double imageHeight;
+  double imageWidth;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: InitialHeight,
+          height: initialHeight,
         ),
         Row(
           children: [
             SizedBox(
-              width: ImageWidth,
+              width: imageWidth,
             ),
             Image.asset(
-              ImagePath,
-              height: ImageHeight,
+              imagePath,
+              height: imageHeight,
             ),
           ],
         ),

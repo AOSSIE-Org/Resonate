@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+// import 'package:get/get_core/src/get_main.dart'; //Unnecessary Import
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
