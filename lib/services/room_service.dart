@@ -1,3 +1,4 @@
+//import required packages
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/foundation.dart';
@@ -10,14 +11,17 @@ import 'package:resonate/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class RoomService {
+  //create an instance of ApiService to handel API calls
   static ApiService apiService = ApiService();
 
+  //allows users to join a room using LiveKitController
   static Future<void> joinLiveKitRoom(
       String livekitUri, String roomToken) async {
     Get.put(LiveKitController(liveKitUri: livekitUri, roomToken: roomToken),
         permanent: true);
   }
 
+  //use RoomsController to add Participant to the room
   static Future<String> addParticipantToAppwriteCollection(
       {required String roomId,
       required String uid,
@@ -80,6 +84,7 @@ class RoomService {
     return participantDoc.$id;
   }
 
+  //create a room and add it to Appwrite db
   static Future<List<String>> createRoom(
       {required String roomName,
       required String roomDescription,
@@ -103,6 +108,7 @@ class RoomService {
     return [appwriteRoomDocId, myDocId];
   }
 
+  //delete the room from the Appwrite db
   static Future deleteRoom({required roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
     const storage = FlutterSecureStorage();
@@ -127,6 +133,7 @@ class RoomService {
     }
   }
 
+  //allows the users to join the room and adds user to the db
   static Future<String> joinRoom(
       {required roomId, required String userId, required bool isAdmin}) async {
     var response = await apiService.joinRoom(roomId, userId);
@@ -138,6 +145,7 @@ class RoomService {
     return myDocId;
   }
 
+  //leave the room and update the appwrite document
   static Future<bool> leaveRoom({required String roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
     String userId = Get.find<AuthStateController>().uid!;
@@ -186,6 +194,7 @@ class RoomService {
     return true;
   }
 
+  //allows the user to join the pair chart
   static Future<void> joinLivekitPairChat(
       {required roomId, required String userId}) async {
     var response = await apiService.joinRoom(roomId, userId);
