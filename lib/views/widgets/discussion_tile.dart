@@ -1,3 +1,4 @@
+//import required libraries
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +8,8 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import '../../utils/colors.dart';
 
+//Disusssion tile displays information from an appwrite Document
+//this Document class contains information about a database document
 class DiscussionTile extends StatelessWidget {
   final Document discussion;
   final String subscriberCount;
@@ -23,6 +26,7 @@ class DiscussionTile extends StatelessWidget {
       required this.userIsCreator,
       required this.subscriberProfileUrl,
       required this.userSubscriberId});
+  //generates tags from the discussion Document by assessing data fetched from Appwrite
   Text buildTags() {
     String tagString = "";
     if (discussion.data["tags"].isNotEmpty) {
@@ -40,6 +44,7 @@ class DiscussionTile extends StatelessWidget {
     );
   }
 
+  //Converts the scheduled date and time from UTC to local time, formats it and returns a Row which displays the data.
   Row buildDateTimeToReadableFormat() {
     String dateTime = discussion.data["scheduledDateTime"];
     List<String> splittedStrings = dateTime.split("T");
@@ -93,6 +98,7 @@ class DiscussionTile extends StatelessWidget {
     );
   }
 
+  //predefined TextStyle variables to maintain same textual look across the code
   var kTileTitleStyle = TextStyle(
       fontSize: UiSizes.size_20,
       fontWeight: FontWeight.w500,
@@ -105,15 +111,18 @@ class DiscussionTile extends StatelessWidget {
       fontSize: UiSizes.size_13,
       fontWeight: FontWeight.w100,
       color: const Color.fromARGB(100, 0, 0, 0));
-
+  //Construction of UI for discussion tile
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
-          gradient: AppColor.gradientBg,
-          borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
+        gradient: AppColor.gradientBg,
+        borderRadius: BorderRadius.all(
+          Radius.circular(UiSizes.size_15),
+        ),
+      ),
       child: Column(
         children: [
           Container(
@@ -122,6 +131,7 @@ class DiscussionTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //Content displayed  at the top of discussion tile
                 Row(
                   children: [
                     FaIcon(
@@ -151,9 +161,11 @@ class DiscussionTile extends StatelessWidget {
                     ),
                   ],
                 ),
+                //Seperation
                 SizedBox(
                   height: UiSizes.width_5,
                 ),
+                //Content displays data from the Appwrite document
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -186,84 +198,83 @@ class DiscussionTile extends StatelessWidget {
                                     ],
                                   )
                                 : const SizedBox(),
+                        //Display Subscribe, Unsubscribe or Start based on bool userIsCreator.
                         ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                disabledBackgroundColor:
-                                    const Color.fromARGB(183, 120, 118, 118),
-                                side: BorderSide(
-                                    color: userIsCreator == null
-                                        ? Colors.amber
-                                        : (userIsCreator! &
-                                                !discussion.data['isTime'])
-                                            ? Colors.black
-                                            : themeController.loadTheme() ==
-                                                    'dark'
-                                                ? Colors.white
-                                                : Colors.black,
-                                    width: 1),
-                                backgroundColor: userIsCreator == null
-                                    ? Colors.black
-                                    : (!userIsCreator!)
-                                        ? const Color.fromARGB(155, 58, 190, 34)
-                                        : themeController.loadTheme() == 'dark'
-                                            ? const Color.fromARGB(
-                                                51, 0, 143, 0)
-                                            : const Color.fromARGB(
-                                                220, 229, 248, 229),
-                                minimumSize:
-                                    Size(UiSizes.width_80, UiSizes.height_30),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                            onPressed: userIsCreator == null
-                                ? () async {
-                                    await disscussionController
-                                        .addUserToSubscriberList(
-                                            discussion.$id);
-                                    await disscussionController
-                                        .getDiscussions();
-                                  }
-                                : !userIsCreator!
-                                    ? () async {
-                                        await disscussionController
-                                            .removeUserFromSubscriberList(
-                                                userSubscriberId!);
-                                        await disscussionController
-                                            .getDiscussions();
-                                      }
-                                    : userIsCreator! & discussion.data['isTime']
-                                        ? () {
-                                            // Start the Room as User is Creator
-                                            List<String> tags = [];
-                                            for (var tag
-                                                in discussion.data["tags"]) {
-                                              tags.add(tag.toString());
-                                            }
-                                            disscussionController
-                                                .convertDiscussiontoRoom(
-                                                    discussion.$id,
-                                                    discussion.data["name"],
-                                                    discussion
-                                                        .data["description"],
-                                                    tags);
-                                          }
-                                        : null,
-                            child: Text(
-                                userIsCreator == null
-                                    ? "Subscribe"
-                                    : userIsCreator!
-                                        ? "Start"
-                                        : "Unsubscribe",
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: UiSizes.size_14,
-                                  color: userIsCreator! &
-                                          !discussion.data['isTime']
-                                      ? Colors.black
+                          style: ElevatedButton.styleFrom(
+                              disabledBackgroundColor:
+                                  const Color.fromARGB(183, 120, 118, 118),
+                              side: BorderSide(
+                                  color: userIsCreator == null
+                                      ? Colors.amber
+                                      : (userIsCreator! &
+                                              !discussion.data['isTime'],)
+                                          ? Colors.black
+                                          : themeController.loadTheme() ==
+                                                  'dark'
+                                              ? Colors.white
+                                              : Colors.black,
+                                  width: 1,),
+                              backgroundColor: userIsCreator == null
+                                  ? Colors.black
+                                  : (!userIsCreator!)
+                                      ? const Color.fromARGB(155, 58, 190, 34)
                                       : themeController.loadTheme() == 'dark'
-                                          ? Colors.white
-                                          : Colors.black,
-                                  fontWeight: FontWeight.w100,
-                                ))),
+                                          ? const Color.fromARGB(51, 0, 143, 0)
+                                          : const Color.fromARGB(
+                                              220, 229, 248, 229,),
+                              minimumSize:
+                                  Size(UiSizes.width_80, UiSizes.height_30),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),),),
+                          onPressed: userIsCreator == null
+                              ? () async {
+                                  await disscussionController
+                                      .addUserToSubscriberList(discussion.$id);
+                                  await disscussionController.getDiscussions();
+                                }
+                              : !userIsCreator!
+                                  ? () async {
+                                      await disscussionController
+                                          .removeUserFromSubscriberList(
+                                              userSubscriberId!);
+                                      await disscussionController
+                                          .getDiscussions();
+                                    }
+                                  : userIsCreator! & discussion.data['isTime']
+                                      ? () {
+                                          // Start the Room as User is Creator
+                                          List<String> tags = [];
+                                          for (var tag
+                                              in discussion.data["tags"]) {
+                                            tags.add(tag.toString());
+                                          }
+                                          disscussionController
+                                              .convertDiscussiontoRoom(
+                                                  discussion.$id,
+                                                  discussion.data["name"],
+                                                  discussion
+                                                      .data["description"],
+                                                  tags);
+                                        }
+                                      : null,
+                          child: Text(
+                            userIsCreator == null
+                                ? "Subscribe"
+                                : userIsCreator!
+                                    ? "Start"
+                                    : "Unsubscribe",
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: UiSizes.size_14,
+                              color: userIsCreator! & !discussion.data['isTime']
+                                  ? Colors.black
+                                  : themeController.loadTheme() == 'dark'
+                                      ? Colors.white
+                                      : Colors.black,
+                              fontWeight: FontWeight.w100,
+                            ),
+                          ),
+                        ),
                         userIsCreator == null
                             ? const SizedBox()
                             : userIsCreator!
@@ -276,18 +287,19 @@ class DiscussionTile extends StatelessWidget {
                                           style: ElevatedButton.styleFrom(
                                               side: const BorderSide(
                                                   color: Color.fromARGB(
-                                                      198, 100, 8, 3),
+                                                      198, 100, 8, 3,),
                                                   width: 1),
                                               backgroundColor:
                                                   const Color.fromARGB(
-                                                      246, 243, 81, 81),
+                                                      246, 243, 81, 81,),
                                               minimumSize: Size(
                                                   UiSizes.width_80,
-                                                  UiSizes.height_30),
+                                                  UiSizes.height_30,),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          20))),
+                                                          20),),),
+                                          //Display a dialog if user presses Cancel
                                           onPressed: () {
                                             Get.defaultDialog(
                                               title: "Are you sure?",
@@ -314,7 +326,7 @@ class DiscussionTile extends StatelessWidget {
                                                 color: Colors.black,
                                                 fontSize: UiSizes.size_14,
                                                 fontWeight: FontWeight.w100,
-                                              )))
+                                              ),),),
                                     ],
                                   )
                                 : const SizedBox(),
@@ -347,11 +359,12 @@ class DiscussionTile extends StatelessWidget {
               ],
             ),
           ),
+          //Display the svatar if users subscribed to discusssion
           Container(
             decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius:
-                    BorderRadius.all(Radius.circular(UiSizes.size_15))),
+                    BorderRadius.all(Radius.circular(UiSizes.size_15),),),
             padding: EdgeInsets.symmetric(
                 vertical: UiSizes.height_10, horizontal: UiSizes.width_20),
             child: Column(
@@ -383,9 +396,11 @@ class DiscussionTile extends StatelessWidget {
                           ],
                         ),
                       ),
+                      //Seperation
                     SizedBox(
                       width: UiSizes.width_16,
                     ),
+                    //Display the no of users subscribed to the discussion Document
                     Text("$subscriberCount + Subscribed",
                         style: kTileSubtitleStyle),
                     const Spacer(),
