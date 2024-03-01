@@ -1,3 +1,4 @@
+//import required packages
 import 'package:get/get.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -6,6 +7,7 @@ import '../controllers/auth_state_controller.dart';
 import '../controllers/email_verify_controller.dart';
 import '../controllers/tabview_controller.dart';
 
+//create instances of controllers before rendering TabViewScreen
 class TabViewBinding extends Bindings {
   @override
   void dependencies() {
