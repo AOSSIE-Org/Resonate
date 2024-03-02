@@ -1,3 +1,4 @@
+//import required packages
 import 'dart:async';
 import 'dart:developer';
 
@@ -13,25 +14,33 @@ import 'package:resonate/views/widgets/room_tile.dart';
 import '../views/screens/room_screen.dart';
 
 class TabViewController extends GetxController {
+  //reactive variable
   final RxInt _selectedIndex = 0.obs;
-  getIndex() => _selectedIndex.value;
-  setIndex(index) => _selectedIndex.value = index;
 
+  //getter returning value stored in _selectedIndex
+  getIndex() => _selectedIndex.value;
+  //setter modifying the value stored in _selectedIndex
+  setIndex(index) => _selectedIndex.value = index;
+  //AppLinks is provided by app_links package
+  //AppLinks allows the links to be opened in app instead of Browser
   late AppLinks _appLinks;
+  //StreamSubscription listens to the events and holds the callback
   StreamSubscription<Uri>? _linkSubscription;
 
+  //call initAppLinks() method when controller initializes
   @override
   void onInit() {
     super.onInit();
     initAppLinks();
   }
 
+  //cancel the _linkSubscription when the controller is removed from memory
   @override
   void onDispose() {
     _linkSubscription?.cancel();
     super.dispose();
   }
-
+  
   Future<void> initAppLinks() async {
     _appLinks = AppLinks();
 
@@ -49,6 +58,7 @@ class TabViewController extends GetxController {
     });
   }
 
+  //openAppLink() method takes a URL(URL to join AppWrite Room) and display option to join the room
   void openAppLink(Uri uri) async {
     try {
       String roomId = uri.pathSegments.last;
@@ -69,6 +79,7 @@ class TabViewController extends GetxController {
     }
   }
 
+  //openRoomSheet() takes an AppwriteRoom called room and uses showModalBottomSheet() from flutter material library to build rooms 
   void openRoomSheet(AppwriteRoom room) {
     showModalBottomSheet(
         context: Get.context!,
