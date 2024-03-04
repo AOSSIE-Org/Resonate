@@ -32,7 +32,7 @@ This guide will walk you through setting up and running the Resonate Flutter app
 
     - Duplicate `env/.env.sample` and rename as `.env`
     - Create a Firebase project [here](https://console.firebase.google.com/)
-    - Set up firebase app as mentioned [here]()
+    - Set up firebase app as mentioned [here](https://firebase.google.com/docs/flutter/setup?platform=android)
     - Overwrite `firebase_options.dart`
     - Copy respective values into `.env` file
     - Discard changes made to `firebase_options.dart`
