@@ -1,3 +1,10 @@
+//Explaination:
+//buildscript is not needed anymore in gradle's declarative plugin method
+//the dependencies are moved to plugins block of android\settings.gradle
+//kotlin_version: '1.8.0' and (android gradle plugin version)agpVersion:'7.1.2' are taken from here
+//also the version: 4.3.10 of 'com.google.gms:google-services' required for Firebase
+//are used in plugins block of android\settings.gradle
+
 /*buildscript {
     ext.kotlin_version = '1.8.0'
     repositories {

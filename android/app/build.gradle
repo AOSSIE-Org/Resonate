@@ -1,3 +1,7 @@
+//Explaination:
+//move plugins block at the top
+//define th plugins block using Plugin DSL syntax to migrate to declarative plugin method from imperative
+
 plugins {
     id "com.android.application"
     // START: FlutterFire Configuration
@@ -14,6 +18,8 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
+//Explaination:
+//remove this block of code as it is not needed any more in declarative plugin method
 
 /*def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
