@@ -1,3 +1,4 @@
+//import required packages
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
@@ -15,29 +16,42 @@ import '../utils/constants.dart';
 import 'auth_state_controller.dart';
 
 class RoomsController extends GetxController {
-  RxBool isLoading = false.obs;
+  RxBool isLoading = false.obs; //reactive variable indicating the state of RoomsController
+  //create an instance of Client class using getClient() method of AppwriteService class provided by appwrite package
+  //this allows app to communicate with AppWrite servers
   Client client = AppwriteService.getClient();
+  //fetch the database from AppWrite server using getDatabases() method of AppwriteService class 
   final Databases databases = AppwriteService.getDatabases();
+  //create a list of AppWriteRoom called rooms
+  //AppWriteRoom is defined in lib/models/appwrite_room.dart
+  //AppWriteRoom class stores information about room like id,name, description etc.
   List<AppwriteRoom> rooms = [];
-
+  
+  //call getRooms() function when RoomsController is initialized
   @override
   void onInit() async {
     super.onInit();
     await getRooms();
   }
 
+  //createRoomObject is a method that is used to create room and update the database
   Future<AppwriteRoom> createRoomObject(Document room, String userUid) async {
     // Get three particpant data to use for memberAvatar widget
     var participantCollectionRef = await databases.listDocuments(
+        //constants defined in //lib/utils/constants.dart
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
+        //use queries check if the document has "roomId" value of key of db is equal to the value of key "id" of Document room
+        //if the query is matched the documents from db will be stored in participantCollectionRef
         queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)]);
-    List<String> memberAvatarUrls = [];
+    List<String> memberAvatarUrls = [];//List of string storing the links to avatar images of members of room
     for (var p in participantCollectionRef.documents) {
+      //get document of members based on "uid"
       Document participantDoc = await databases.getDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: p.data["uid"]);
+      //add link to members avatar image to the document
       memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
     }
 
@@ -55,6 +69,7 @@ class RoomsController extends GetxController {
     return appwriteRoom;
   }
 
+  //getRooms() method is used to get the list of available rooms
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
@@ -76,15 +91,17 @@ class RoomsController extends GetxController {
       isLoading.value = false;
     }
   }
-
+  
+  //getRoomById function is used to find the room based on roomId
   Future getRoomById(String roomId) async {
     try {
+      //use getDocument() method of appwrite package to access document from db
       Document room = await databases.getDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId);
-      String userUid = Get.find<AuthStateController>().uid!;
-
+      String userUid = Get.find<AuthStateController>().uid!; //find the user id from AuthStateController
+      //call createRoomObject() method to create a AppwriteRoom based on Document room and userId
       AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
       return appwriteRoom;
     } catch (e) {
@@ -92,6 +109,7 @@ class RoomsController extends GetxController {
     }
   }
 
+  //joinRoom() method allows users to join room
   Future<void> joinRoom({required AppwriteRoom room}) async {
     try {
       // Display Loading Dialog
@@ -104,6 +122,8 @@ class RoomsController extends GetxController {
           name: "Loading Dialog");
 
       // Get the token and livekit url and join livekit room
+      //joinRoom() method of RoomService class defined in lib/services/room_service.dart
+      //allows users to join room
       AuthStateController authStateController = Get.find<AuthStateController>();
       String myDocId = await RoomService.joinRoom(
           roomId: room.id,
