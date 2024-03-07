@@ -1,3 +1,16 @@
+//Explaination:
+//move plugins block at the top
+//define th plugins block using Plugin DSL syntax to migrate to declarative plugin method from imperative
+
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id "com.google.gms.google-services"
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -5,11 +18,13 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
+//Explaination:
+//remove this block of code as it is not needed any more in declarative plugin method
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
+/*def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
+}*/
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
@@ -21,16 +36,16 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
+/*apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
 // END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"*/
 
 android {
     namespace "com.resonate.resonate"
-    compileSdkVersion 34
+    compileSdkVersion 34 //change from 33 to 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -74,7 +89,7 @@ flutter {
 }
 
 dependencies {
-     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
      implementation 'androidx.window:window:1.0.0'
      implementation 'androidx.window:window-java:1.0.0'
