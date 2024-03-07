@@ -110,136 +110,114 @@ class UiSizes {
   static late double size_200;
 
   static void init(BuildContext context) {
+    double screenHight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     // Height expressions
-    height_1 = MediaQuery.of(context).size.height * 0.0012;
-    height_2 = MediaQuery.of(context).size.height * 0.0024;
-    height_4 = MediaQuery.of(context).size.height * 0.005;
-    height_5 = MediaQuery.of(context).size.height * 0.006;
-    height_7 = MediaQuery.of(context).size.height * 0.0085;
-    height_8 = MediaQuery.of(context).size.height * 0.0097;
-    height_10 = MediaQuery.of(context).size.height * 0.012;
-    height_12 = MediaQuery.of(context).size.height * 0.015;
-    height_14 = MediaQuery.of(context).size.height * 0.017;
-    height_15 = MediaQuery.of(context).size.height * 0.018;
-    height_16 = MediaQuery.of(context).size.height * 0.0206888;
-    height_20 = MediaQuery.of(context).size.height * 0.024;
-    height_24_6 = MediaQuery.of(context).size.height * 0.03;
-    height_26 = MediaQuery.of(context).size.height * 0.0316;
-    height_30 = MediaQuery.of(context).size.height * 0.036;
-    height_33 = MediaQuery.of(context).size.height * 0.04;
-    height_35 = MediaQuery.of(context).size.height * 0.0425;
-    height_40 = MediaQuery.of(context).size.height * 0.045;
-    height_45 = MediaQuery.of(context).size.height * 0.05476;
-    height_55 = MediaQuery.of(context).size.height * 0.067;
-    height_56 = MediaQuery.of(context).size.height * 0.06815;
-    height_60 = MediaQuery.of(context).size.height * 0.073;
-    height_66 = MediaQuery.of(context).size.height * 0.08;
-    height_70 = MediaQuery.of(context).size.height * 0.085;
-    height_76 = MediaQuery.of(context).size.height * 0.0921;
-    height_80 = MediaQuery.of(context).size.height * 0.0973;
-    height_82 = MediaQuery.of(context).size.height * 0.1;
-    height_90 = MediaQuery.of(context).size.height * 0.1095;
-    height_110 = MediaQuery.of(context).size.height * 0.133;
-    height_131 = MediaQuery.of(context).size.height * 0.16;
-    height_140 = MediaQuery.of(context).size.height * 0.17;
-    height_160 = MediaQuery.of(context).size.height * 0.1945;
-    height_170 = MediaQuery.of(context).size.height * 0.2;
-    height_180 = MediaQuery.of(context).size.height * 0.219;
-    height_200 = MediaQuery.of(context).size.height * 0.243;
-    height_246 = MediaQuery.of(context).size.height * 0.3;
-    height_600 = MediaQuery.of(context).size.height * 0.73;
-    height_660 = MediaQuery.of(context).size.height * 0.8;
-    height_700 = MediaQuery.of(context).size.height * 0.85;
-    height_710 = MediaQuery.of(context).size.height * 0.864;
-    height_740 = MediaQuery.of(context).size.height * 0.9;
-    height_756 = MediaQuery.of(context).size.height * 0.92;
-    height_765 = MediaQuery.of(context).size.height * 0.93;
-    height_780 = MediaQuery.of(context).size.height * 0.95;
+    height_1 = screenHight * 0.0012;
+    height_2 = screenHight * 0.0024;
+    height_4 = screenHight * 0.005;
+    height_5 = screenHight * 0.006;
+    height_7 = screenHight * 0.0085;
+    height_8 = screenHight * 0.0097;
+    height_10 = screenHight * 0.012;
+    height_12 = screenHight * 0.015;
+    height_14 = screenHight * 0.017;
+    height_15 = screenHight * 0.018;
+    height_16 = screenHight * 0.0206888;
+    height_20 = screenHight * 0.024;
+    height_24_6 = screenHight * 0.03;
+    height_26 = screenHight * 0.0316;
+    height_30 = screenHight * 0.036;
+    height_33 = screenHight * 0.04;
+    height_35 = screenHight * 0.0425;
+    height_40 = screenHight * 0.045;
+    height_45 = screenHight * 0.05476;
+    height_55 = screenHight * 0.067;
+    height_56 = screenHight * 0.06815;
+    height_60 = screenHight * 0.073;
+    height_66 = screenHight * 0.08;
+    height_70 = screenHight * 0.085;
+    height_76 = screenHight * 0.0921;
+    height_80 = screenHight * 0.0973;
+    height_82 = screenHight * 0.1;
+    height_90 = screenHight * 0.1095;
+    height_110 = screenHight * 0.133;
+    height_131 = screenHight * 0.16;
+    height_140 = screenHight * 0.17;
+    height_160 = screenHight * 0.1945;
+    height_170 = screenHight * 0.2;
+    height_180 = screenHight * 0.219;
+    height_200 = screenHight * 0.243;
+    height_246 = screenHight * 0.3;
+    height_600 = screenHight * 0.73;
+    height_660 = screenHight * 0.8;
+    height_700 = screenHight * 0.85;
+    height_710 = screenHight * 0.864;
+    height_740 = screenHight * 0.9;
+    height_756 = screenHight * 0.92;
+    height_765 = screenHight * 0.93;
+    height_780 = screenHight * 0.95;
 
     // Width expressions
-    width_1 = 0.0024 * MediaQuery.of(context).size.width;
-    width_1_5 = 0.00364 * MediaQuery.of(context).size.width;
-    width_2 = 0.00486 * MediaQuery.of(context).size.width;
-    width_3 = 0.0072 * MediaQuery.of(context).size.width;
-    width_4 = 0.009 * MediaQuery.of(context).size.width;
-    width_5 = 0.012 * MediaQuery.of(context).size.width;
-    width_6 = 0.015 * MediaQuery.of(context).size.width;
-    width_8 = 0.02 * MediaQuery.of(context).size.width;
-    width_10 = 0.024 * MediaQuery.of(context).size.width;
-    width_16 = 0.04 * MediaQuery.of(context).size.width;
-    width_20 = 0.0486 * MediaQuery.of(context).size.width;
-    width_25 = 0.0608 * MediaQuery.of(context).size.width;
-    width_30 = 0.072 * MediaQuery.of(context).size.width;
-    width_33 = 0.08 * MediaQuery.of(context).size.width;
-    width_35 = 0.085 * MediaQuery.of(context).size.width;
-    width_40 = 0.0972 * MediaQuery.of(context).size.width;
-    width_45 = 0.109 * MediaQuery.of(context).size.width;
-    width_56 = 0.1361 * MediaQuery.of(context).size.width;
-    width_66 = 0.16 * MediaQuery.of(context).size.width;
-    width_80 = 0.1944 * MediaQuery.of(context).size.width;
-    width_100 = 0.243 * MediaQuery.of(context).size.width;
-    width_111 = 0.27 * MediaQuery.of(context).size.width;
-    width_123_4 = 0.30 * MediaQuery.of(context).size.width;
-    width_140 = 0.34 * MediaQuery.of(context).size.width;
-    width_160 = 0.3889 * MediaQuery.of(context).size.width;
-    width_170 = 0.413 * MediaQuery.of(context).size.width;
-    width_180 = 0.437 * MediaQuery.of(context).size.width;
-    width_190 = 0.461 * MediaQuery.of(context).size.width;
-    width_200 = 0.486 * MediaQuery.of(context).size.width;
-    width_294 = 0.7146 * MediaQuery.of(context).size.width;
-    width_300 = 0.729 * MediaQuery.of(context).size.width;
-    width_304 = 0.74 * MediaQuery.of(context).size.width;
-    width_320 = 0.77783 * MediaQuery.of(context).size.width;
+    width_1 = 0.0024 * screenWidth;
+    width_1_5 = 0.00364 * screenWidth;
+    width_2 = 0.00486 * screenWidth;
+    width_3 = 0.0072 * screenWidth;
+    width_4 = 0.009 * screenWidth;
+    width_5 = 0.012 * screenWidth;
+    width_6 = 0.015 * screenWidth;
+    width_8 = 0.02 * screenWidth;
+    width_10 = 0.024 * screenWidth;
+    width_16 = 0.04 * screenWidth;
+    width_20 = 0.0486 * screenWidth;
+    width_25 = 0.0608 * screenWidth;
+    width_30 = 0.072 * screenWidth;
+    width_33 = 0.08 * screenWidth;
+    width_35 = 0.085 * screenWidth;
+    width_40 = 0.0972 * screenWidth;
+    width_45 = 0.109 * screenWidth;
+    width_56 = 0.1361 * screenWidth;
+    width_66 = 0.16 * screenWidth;
+    width_80 = 0.1944 * screenWidth;
+    width_100 = 0.243 * screenWidth;
+    width_111 = 0.27 * screenWidth;
+    width_123_4 = 0.30 * screenWidth;
+    width_140 = 0.34 * screenWidth;
+    width_160 = 0.3889 * screenWidth;
+    width_170 = 0.413 * screenWidth;
+    width_180 = 0.437 * screenWidth;
+    width_190 = 0.461 * screenWidth;
+    width_200 = 0.486 * screenWidth;
+    width_294 = 0.7146 * screenWidth;
+    width_300 = 0.729 * screenWidth;
+    width_304 = 0.74 * screenWidth;
+    width_320 = 0.77783 * screenWidth;
 
     // Size expressions
-    size_8 = 0.009722 * MediaQuery.of(context).size.width +
-        0.00486 * MediaQuery.of(context).size.height;
-    size_12 = 0.0073 * MediaQuery.of(context).size.height +
-        0.01458 * MediaQuery.of(context).size.width;
-    size_13 = 0.008 * MediaQuery.of(context).size.height +
-        0.015 * MediaQuery.of(context).size.width;
-    size_14 = 0.0085 * MediaQuery.of(context).size.height +
-        0.017 * MediaQuery.of(context).size.width;
-    size_15 = 0.0182 * MediaQuery.of(context).size.width +
-        0.009127 * MediaQuery.of(context).size.height;
-    size_16 = 0.02187 * MediaQuery.of(context).size.width +
-        0.01095 * MediaQuery.of(context).size.height;
-    size_17 = 0.01 * MediaQuery.of(context).size.height +
-        0.021 * MediaQuery.of(context).size.width;
-    size_18 = 0.0109 * MediaQuery.of(context).size.height +
-        0.0218 * MediaQuery.of(context).size.width;
-    size_19 = 0.024 * MediaQuery.of(context).size.width +
-        0.012 * MediaQuery.of(context).size.height;
-    size_20 = 0.012 * MediaQuery.of(context).size.height +
-        0.024 * MediaQuery.of(context).size.width;
-    size_21_3 = 0.013 * MediaQuery.of(context).size.height +
-        0.026 * MediaQuery.of(context).size.width;
-    size_23 = 0.014 * MediaQuery.of(context).size.height +
-        0.029 * MediaQuery.of(context).size.width;
-    size_24 = 0.0146 * MediaQuery.of(context).size.height +
-        0.029 * MediaQuery.of(context).size.width;
-    size_25 = 0.015 * MediaQuery.of(context).size.height +
-        0.03 * MediaQuery.of(context).size.width;
-    size_26 = 0.0315 * MediaQuery.of(context).size.width +
-        0.01582 * MediaQuery.of(context).size.height;
-    size_28 = 0.017 * MediaQuery.of(context).size.height +
-        0.034 * MediaQuery.of(context).size.width;
-    size_30 = 0.01825 * MediaQuery.of(context).size.height +
-        0.0364 * MediaQuery.of(context).size.width;
-    size_32 = 0.01947 * MediaQuery.of(context).size.height +
-        0.03889 * MediaQuery.of(context).size.width;
-    size_35 = 0.021 * MediaQuery.of(context).size.height +
-        0.0425 * MediaQuery.of(context).size.width;
-    size_40 = 0.024 * MediaQuery.of(context).size.height +
-        0.048 * MediaQuery.of(context).size.width;
+    size_8 = 0.009722 * screenWidth + 0.00486 * screenHight;
+    size_12 = 0.0073 * screenHight + 0.01458 * screenWidth;
+    size_13 = 0.008 * screenHight + 0.015 * screenWidth;
+    size_14 = 0.0085 * screenHight + 0.017 * screenWidth;
+    size_15 = 0.0182 * screenWidth + 0.009127 * screenHight;
+    size_16 = 0.02187 * screenWidth + 0.01095 * screenHight;
+    size_17 = 0.01 * screenHight + 0.021 * screenWidth;
+    size_18 = 0.0109 * screenHight + 0.0218 * screenWidth;
+    size_19 = 0.024 * screenWidth + 0.012 * screenHight;
+    size_20 = 0.012 * screenHight + 0.024 * screenWidth;
+    size_21_3 = 0.013 * screenHight + 0.026 * screenWidth;
+    size_23 = 0.014 * screenHight + 0.029 * screenWidth;
+    size_24 = 0.0146 * screenHight + 0.029 * screenWidth;
+    size_25 = 0.015 * screenHight + 0.03 * screenWidth;
+    size_26 = 0.0315 * screenWidth + 0.01582 * screenHight;
+    size_28 = 0.017 * screenHight + 0.034 * screenWidth;
+    size_30 = 0.01825 * screenHight + 0.0364 * screenWidth;
+    size_32 = 0.01947 * screenHight + 0.03889 * screenWidth;
+    size_35 = 0.021 * screenHight + 0.0425 * screenWidth;
+    size_40 = 0.024 * screenHight + 0.048 * screenWidth;
 
-    size_56 = 0.068 * MediaQuery.of(context).size.width +
-        0.034 * MediaQuery.of(context).size.height;
-    size_65 = 0.0395 * MediaQuery.of(context).size.height +
-        0.0789 * MediaQuery.of(context).size.width;
-    size_70 = 0.0425 * MediaQuery.of(context).size.height +
-        0.085 * MediaQuery.of(context).size.width;
-    size_200 = 0.1216 * MediaQuery.of(context).size.height +
-        0.243 * MediaQuery.of(context).size.width;
+    size_56 = 0.068 * screenWidth + 0.034 * screenHight;
+    size_65 = 0.0395 * screenHight + 0.0789 * screenWidth;
+    size_70 = 0.0425 * screenHight + 0.085 * screenWidth;
+    size_200 = 0.1216 * screenHight + 0.243 * screenWidth;
   }
 }
