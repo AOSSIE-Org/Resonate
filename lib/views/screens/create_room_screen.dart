@@ -199,19 +199,19 @@ class CreateRoomScreen extends StatelessWidget {
                             height: UiSizes.height_33,
                           ),
                           TextFieldTags(
-                            textfieldTagsController: controller.tagsController,
-                            initialTags: const ['sample-tag'],
-                            textSeparators: const [' ', ','],
-                            letterCase: LetterCase.normal,
-                            validator: (String tag) =>
-                                tag.isValidTag() ? null : "Invalid Tag",
-                            inputfieldBuilder: (context, tec, fn, error,
-                                onChanged, onSubmitted) {
-                              return ((context, sc, tags, onTagDelete) {
+                              textfieldTagsController:
+                                  controller.tagsController,
+                              initialTags: const ['sample-tag'],
+                              textSeparators: const [' ', ','],
+                              letterCase: LetterCase.normal,
+                              validator: (tag) =>
+                                  tag.isValidTag() ? null : "Invalid Tag",
+                              inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
                                   style: TextStyle(fontSize: UiSizes.size_20),
-                                  controller: tec,
-                                  focusNode: fn,
+                                  controller:
+                                      inputFieldValues.textEditingController,
+                                  focusNode: inputFieldValues.focusNode,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: const Color(0x15FFFFFF),
@@ -220,16 +220,17 @@ class CreateRoomScreen extends StatelessWidget {
                                     enabledBorder: kEnabledTextFieldBorder,
                                     focusedBorder: kFocusedTextFieldBorder,
                                     hintText: "Enter tags",
-                                    errorText: error,
+                                    errorText: inputFieldValues.error,
                                     prefixIconConstraints: BoxConstraints(
                                         maxWidth: UiSizes.width_304),
-                                    prefixIcon: tags.isNotEmpty
+                                    prefixIcon: inputFieldValues.tags.isNotEmpty
                                         ? SingleChildScrollView(
-                                            controller: sc,
+                                            controller: inputFieldValues
+                                                .tagScrollController,
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
-                                                children:
-                                                    tags.map((String tag) {
+                                                children: inputFieldValues.tags
+                                                    .map((tag) {
                                               return Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -273,22 +274,21 @@ class CreateRoomScreen extends StatelessWidget {
                                                             .withOpacity(0.7),
                                                       ),
                                                       onTap: () {
-                                                        onTagDelete(tag);
+                                                        inputFieldValues
+                                                            .onTagDelete(tag);
                                                       },
                                                     )
                                                   ],
                                                 ),
                                               );
-                                            }).toList()),
+                                            }).toList() as List<Widget>),
                                           )
                                         : null,
                                   ),
-                                  onChanged: onChanged,
-                                  onSubmitted: onSubmitted,
+                                  onChanged: inputFieldValues.onChanged,
+                                  onSubmitted: inputFieldValues.onSubmitted,
                                 );
-                              });
-                            },
-                          ),
+                              }),
                           SizedBox(
                             height: UiSizes.height_33,
                           ),

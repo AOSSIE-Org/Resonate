@@ -8,6 +8,7 @@ import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/themes.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'themes/theme_controller.dart';
 
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UiSizes.init(context);
+
     final themeController = Get.put(ThemeController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
