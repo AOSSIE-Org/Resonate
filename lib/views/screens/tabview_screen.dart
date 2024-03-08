@@ -113,7 +113,8 @@ class TabViewScreen extends StatelessWidget {
                           await createRoomController.createRoom(
                               createRoomController.nameController.text,
                               createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags!,
+                              createRoomController.tagsController.getTags!
+                                  as List<String>,
                               true);
                           await roomsController.getRooms();
                         }
