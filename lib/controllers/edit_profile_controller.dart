@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
@@ -18,6 +19,7 @@ class EditProfileController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
 
   AuthStateController authStateController = Get.find<AuthStateController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   late final Storage storage;
   late final Databases databases;
@@ -67,7 +69,7 @@ class EditProfileController extends GetxController {
       Get.dialog(
         Center(
           child: LoadingAnimationWidget.threeRotatingDots(
-            color: Colors.amber,
+            color: themeController.primaryColor.value,
             size: Get.pixelRatio * 20,
           ),
         ),
@@ -113,7 +115,7 @@ class EditProfileController extends GetxController {
       Get.dialog(
         Center(
           child: LoadingAnimationWidget.threeRotatingDots(
-            color: Colors.amber,
+            color: themeController.primaryColor.value,
             size: Get.pixelRatio * 20,
           ),
         ),
@@ -152,11 +154,11 @@ class EditProfileController extends GetxController {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
-          toolbarColor: Colors.amber,
-          statusBarColor: Colors.amber,
+          toolbarColor: themeController.primaryColor.value,
+          statusBarColor: themeController.primaryColor.value,
           toolbarWidgetColor: Colors.black,
           cropFrameColor: Colors.white,
-          activeControlsWidgetColor: Colors.amber,
+          activeControlsWidgetColor: themeController.primaryColor.value,
         ),
         IOSUiSettings(
           minimumAspectRatio: 1.0,

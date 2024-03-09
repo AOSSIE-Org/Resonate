@@ -2,22 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 Widget profileAvatar(BuildContext context) {
+  final ThemeController themeController = Get.find<ThemeController>();
+  final AuthStateController authStateController =
+      Get.put<AuthStateController>(AuthStateController());
+
   return GestureDetector(
     onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
     child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: UiSizes.width_10, vertical: UiSizes.height_10),
-        child: GetBuilder<AuthStateController>(
-          builder: (controller) => Stack(
+        child: Obx(
+          () => Stack(
             children: [
               SizedBox(
                 width: UiSizes.width_35,
                 height: UiSizes.height_45,
                 child: CircularProgressIndicator(
-                  color: Colors.amber,
+                  color: themeController.primaryColor.value,
                   strokeWidth: UiSizes.width_2,
                   value: 1,
                 ),
@@ -35,10 +40,11 @@ Widget profileAvatar(BuildContext context) {
                         const Icon(
                       Icons.person_outline,
                     ),
-                    backgroundImage: controller.profileImageUrl == null ||
-                            controller.profileImageUrl!.isEmpty
+                    backgroundImage: authStateController.profileImageUrl ==
+                                null ||
+                            authStateController.profileImageUrl!.isEmpty
                         ? null
-                        : NetworkImage(controller.profileImageUrl!),
+                        : NetworkImage(authStateController.profileImageUrl!),
                   ),
                 ),
               ),
