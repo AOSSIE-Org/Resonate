@@ -34,14 +34,16 @@ class MyApp extends StatelessWidget {
     UiSizes.init(context);
 
     final themeController = Get.put(ThemeController());
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Resonate',
-      theme: Themes.lightTheme,
-      darkTheme: Themes.darkTheme,
-      themeMode: themeController.theme,
-      initialRoute: AppRoutes.splash,
-      getPages: AppPages.pages,
+    return Obx(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Resonate',
+        theme: Themes.getLightTheme(themeController.primaryColor.value),
+        darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
+        themeMode: themeController.theme,
+        initialRoute: AppRoutes.splash,
+        getPages: AppPages.pages,
+      ),
     );
   }
 }

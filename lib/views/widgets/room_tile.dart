@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -11,6 +12,7 @@ import '../../utils/enums/room_state.dart';
 
 class RoomTile extends StatelessWidget {
   final AppwriteRoom room;
+  final ThemeController themeController = Get.find<ThemeController>();
 
   RoomTile({super.key, required this.room});
 
@@ -68,7 +70,7 @@ class RoomTile extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
-          gradient: AppColor.gradientBg,
+          gradient: themeController.createDynamicGradient(),
           borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
       child: Column(
         children: [

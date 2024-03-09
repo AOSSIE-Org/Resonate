@@ -1380,7 +1380,7 @@ packages:
       sha256: "5c2f730018264d276c20e4f1503fd1308dfbbae39ec8ee63c5236311ac06954b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.1"
+    version: "0.7.0"
   textfield_tags:
     dependency: "direct main"
     description:
@@ -1548,8 +1548,8 @@ packages:
       sha256: "3d2ad6751b3c16cf07c7fca317a1413b3f26530319181b37e3b9039b84fc01d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
-  web:
+    version: "14.0.0"
+  watcher:
     dependency: transitive
     description:
       name: web

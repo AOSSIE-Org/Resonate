@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../utils/colors.dart';
@@ -25,6 +26,8 @@ class _RoomScreenState extends State<RoomScreen> {
     super.initState();
   }
 
+  final ThemeController themeController = Get.find<ThemeController>();
+
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
@@ -32,14 +35,14 @@ class _RoomScreenState extends State<RoomScreen> {
         Get.put<RoomsController>(RoomsController());
     Future<dynamic> deleteRoomDialog(String text, Function() onTap) async {
       return await Get.defaultDialog(
-        title: "Are you sure?",
-        buttonColor: Colors.amber,
-        middleText: "To $text the room",
-        cancelTextColor: Colors.amber,
-        onConfirm: onTap,
-        barrierDismissible: true,
-        onCancel: () {},
-      );
+          title: "Are you sure?",
+          buttonColor: themeController.primaryColor.value,
+          middleText: "To $text the room",
+          cancelTextColor: themeController.primaryColor.value,
+          onConfirm: onTap,
+          onCancel: () {
+            print("canceled");
+          });
     }
 
     return Padding(
@@ -53,7 +56,7 @@ class _RoomScreenState extends State<RoomScreen> {
               height: UiSizes.height_7,
               width: UiSizes.height_80,
               decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.5),
+                  color: themeController.primaryColor.value.withOpacity(0.5),
                   borderRadius: const BorderRadius.all(Radius.circular(10))),
             ),
           ),
@@ -66,13 +69,13 @@ class _RoomScreenState extends State<RoomScreen> {
                 widget.room.name,
                 style: TextStyle(
                   fontSize: UiSizes.size_20,
-                  color: Colors.amber,
+                  color: themeController.primaryColor.value,
                 ),
               ),
               const Spacer(),
               FaIcon(
                 FontAwesomeIcons.ellipsis,
-                color: Colors.amber,
+                color: themeController.primaryColor.value,
                 size: UiSizes.size_24,
               ),
             ],
@@ -124,7 +127,8 @@ class _RoomScreenState extends State<RoomScreen> {
                         })
                     : Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
-                            color: Colors.amber, size: Get.pixelRatio * 20),
+                            color: themeController.primaryColor.value,
+                            size: Get.pixelRatio * 20),
                       );
               }),
             ),
@@ -156,10 +160,10 @@ class _RoomScreenState extends State<RoomScreen> {
                         child: Container(
                           height: UiSizes.height_40,
                           width: UiSizes.width_123_4,
-                          decoration: const BoxDecoration(
-                              gradient: AppColor.gradientBg,
+                          decoration: BoxDecoration(
+                              gradient: themeController.createDynamicGradient(),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(const Radius.circular(20))),
                           child: Center(
                               child: Text(
                             (controller.appwriteRoom.isUserAdmin)
@@ -202,7 +206,7 @@ class _RoomScreenState extends State<RoomScreen> {
                                       : controller.raiseHand(),
                                   backgroundColor: (controller
                                           .me.value.hasRequestedToBeSpeaker)
-                                      ? Colors.amber
+                                      ? themeController.primaryColor.value
                                       : Theme.of(context).brightness ==
                                               Brightness.light
                                           ? Colors.white
@@ -227,10 +231,10 @@ class _RoomScreenState extends State<RoomScreen> {
                       Container(
                         height: UiSizes.height_40,
                         width: UiSizes.width_123_4,
-                        decoration: const BoxDecoration(
-                            gradient: AppColor.gradientBg,
+                        decoration: BoxDecoration(
+                            gradient: themeController.createDynamicGradient(),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Center(child: Obx(() {
                           return Text(
                             "${controller.participants.length}+ Active",
