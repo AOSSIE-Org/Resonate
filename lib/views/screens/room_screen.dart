@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -9,6 +7,7 @@ import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+
 import '../../utils/colors.dart';
 import '../widgets/participant_block.dart';
 
@@ -34,7 +33,7 @@ class _RoomScreenState extends State<RoomScreen> {
     SingleRoomController controller = Get.find<SingleRoomController>();
     RoomsController roomsController =
         Get.put<RoomsController>(RoomsController());
-    Future<Void> deleteRoomDialog(String text, Function() onTap) async {
+    Future<dynamic> deleteRoomDialog(String text, Function() onTap) async {
       return await Get.defaultDialog(
           title: "Are you sure?",
           buttonColor: themeController.primaryColor.value,
