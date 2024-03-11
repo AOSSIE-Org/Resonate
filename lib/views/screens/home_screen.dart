@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import '../widgets/room_tile.dart';
@@ -11,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final RoomsController roomsController = Get.find<RoomsController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                   builder: (context, controller) {
                     return Icon(
                       Icons.ac_unit,
-                      color: Colors.amber,
+                      color: themeController.primaryColor.value,
                       size: UiSizes.size_30,
                     );
                   },
@@ -70,8 +72,9 @@ class HomeScreen extends StatelessWidget {
                           },
                           style: OutlinedButton.styleFrom(
                             maximumSize: Size.fromWidth(UiSizes.width_140),
-                            side:
-                                const BorderSide(color: Colors.amber, width: 1),
+                            side: BorderSide(
+                                color: themeController.primaryColor.value,
+                                width: 1),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                               Text(
                                 "Refresh",
                                 style: TextStyle(
-                                    color: Colors.amber,
+                                    color: themeController.primaryColor.value,
                                     fontSize: UiSizes.size_15),
                               ),
                               SizedBox(
@@ -96,7 +99,8 @@ class HomeScreen extends StatelessWidget {
               )
             : Center(
                 child: LoadingAnimationWidget.threeRotatingDots(
-                    color: Colors.amber, size: Get.pixelRatio * 20),
+                    color: themeController.primaryColor.value,
+                    size: Get.pixelRatio * 20),
               ));
   }
 }
