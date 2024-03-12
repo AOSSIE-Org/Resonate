@@ -9,6 +9,7 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
 import '../utils/constants.dart';
@@ -19,6 +20,7 @@ class RoomsController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   List<AppwriteRoom> rooms = [];
+  final ThemeController themeController = Get.find<ThemeController>();
 
   @override
   void onInit() async {
@@ -98,7 +100,8 @@ class RoomsController extends GetxController {
       Get.dialog(
           Center(
             child: LoadingAnimationWidget.threeRotatingDots(
-                color: Colors.amber, size: Get.pixelRatio * 20),
+                color: themeController.primaryColor.value,
+                size: Get.pixelRatio * 20),
           ),
           barrierDismissible: false,
           name: "Loading Dialog");
