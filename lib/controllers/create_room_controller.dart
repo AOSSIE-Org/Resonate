@@ -14,13 +14,9 @@ import '../services/room_service.dart';
 
 // CreateRoomController handles the creation of rooms
 class CreateRoomController extends GetxController {
-  RxBool isLoading = false
-      .obs; //reactive variable for checking the state of CreateRoomController
-  RxBool isScheduled = false
-      .obs; //reactive variable for check weather the room creation is scheduled
-  GlobalKey<FormState> createRoomFormKey = GlobalKey<
-      FormState>(); //Global Key for managing the form state. Usually used for validating the text forms
-  //controllers for managing various text fields
+  RxBool isLoading = false.obs;
+  RxBool isScheduled = false.obs;
+  GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();

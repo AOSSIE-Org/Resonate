@@ -17,8 +17,6 @@ import '../routes/app_routes.dart';
 
 //AuthStateController is responsible for managing the authentication state of the application, handling user login, signup, logout.
 class AuthStateController extends GetxController {
-  //client is an instance of Client class provided by appwrite package
-  //it is responsible for connecting to AppWrite server.
   Client client = AppwriteService.getClient();
   //fetch the databases from Appwrite server
   final Databases databases = AppwriteService.getDatabases();

@@ -8,7 +8,6 @@ import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
@@ -30,7 +29,6 @@ class TabViewScreen extends StatelessWidget {
   final RoomsController roomsController = Get.find<RoomsController>();
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
-  final ThemeController themeController = Get.find<ThemeController>();
 
   TabViewScreen({super.key});
 
@@ -112,8 +110,7 @@ class TabViewScreen extends StatelessWidget {
                           await createRoomController.createRoom(
                               createRoomController.nameController.text,
                               createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags!
-                                  as List<String>,
+                              createRoomController.tagsController.getTags!,
                               true);
                           await roomsController.getRooms();
                         }
@@ -127,7 +124,7 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.white
                 : const Color.fromRGBO(17, 17, 20, 1),
-            activeColor: themeController.primaryColor.value,
+            activeColor: Colors.amber,
             inactiveColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.black.withOpacity(0.3)
                 : Colors.white.withOpacity(0.3),

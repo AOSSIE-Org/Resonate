@@ -11,8 +11,7 @@ import '../../utils/colors.dart';
 import '../../utils/enums/room_state.dart';
 
 class RoomTile extends StatelessWidget {
-  final AppwriteRoom
-      room; //RoomTile requires an instance of AppwriteRoom named room
+  final AppwriteRoom room;
 
   RoomTile({super.key, required this.room});
   //buildTags is a function which returns a tagString
@@ -81,15 +80,8 @@ class RoomTile extends StatelessWidget {
       ),
       //customize the container
       decoration: BoxDecoration(
-        //use gradientBg of AppColor which creates a linear gradient
-        gradient: AppColor.gradientBg,
-        //makes the edges of container more rounded
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            UiSizes.size_15,
-          ),
-        ),
-      ),
+          gradient: AppColor.gradientBg,
+          borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
       child: Column(
         children: [
           //Make the RoomTile tappable

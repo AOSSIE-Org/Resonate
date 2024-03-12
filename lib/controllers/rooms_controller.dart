@@ -16,18 +16,18 @@ import '../utils/constants.dart';
 import 'auth_state_controller.dart';
 
 class RoomsController extends GetxController {
-  RxBool isLoading = false.obs; //reactive variable indicating the state of RoomsController
+  RxBool isLoading =
+      false.obs; //reactive variable indicating the state of RoomsController
   //create an instance of Client class using getClient() method of AppwriteService class provided by appwrite package
   //this allows app to communicate with AppWrite servers
   Client client = AppwriteService.getClient();
-  //fetch the database from AppWrite server using getDatabases() method of AppwriteService class 
+  //fetch the database from AppWrite server using getDatabases() method of AppwriteService class
   final Databases databases = AppwriteService.getDatabases();
   //create a list of AppWriteRoom called rooms
   //AppWriteRoom is defined in lib/models/appwrite_room.dart
   //AppWriteRoom class stores information about room like id,name, description etc.
   List<AppwriteRoom> rooms = [];
-  
-  //call getRooms() function when RoomsController is initialized
+
   @override
   void onInit() async {
     super.onInit();
@@ -44,7 +44,8 @@ class RoomsController extends GetxController {
         //use queries check if the document has "roomId" value of key of db is equal to the value of key "id" of Document room
         //if the query is matched the documents from db will be stored in participantCollectionRef
         queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)]);
-    List<String> memberAvatarUrls = [];//List of string storing the links to avatar images of members of room
+    List<String> memberAvatarUrls =
+        []; //List of string storing the links to avatar images of members of room
     for (var p in participantCollectionRef.documents) {
       //get document of members based on "uid"
       Document participantDoc = await databases.getDocument(
@@ -91,7 +92,7 @@ class RoomsController extends GetxController {
       isLoading.value = false;
     }
   }
-  
+
   //getRoomById function is used to find the room based on roomId
   Future getRoomById(String roomId) async {
     try {
@@ -100,7 +101,8 @@ class RoomsController extends GetxController {
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId);
-      String userUid = Get.find<AuthStateController>().uid!; //find the user id from AuthStateController
+      String userUid = Get.find<AuthStateController>()
+          .uid!; //find the user id from AuthStateController
       //call createRoomObject() method to create a AppwriteRoom based on Document room and userId
       AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
       return appwriteRoom;

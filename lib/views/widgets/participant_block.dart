@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:get/get.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../models/participant.dart';
@@ -19,7 +17,6 @@ class FocusedMenuItemData {
 
 //ParticipantBlock widget has the Ui for participants
 class ParticipantBlock extends StatelessWidget {
-  final ThemeController themeController = Get.find<ThemeController>();
   ParticipantBlock({
     super.key,
     required this.participant,
@@ -51,7 +48,7 @@ class ParticipantBlock extends StatelessWidget {
             title: Text(
               item.textContent,
               style: TextStyle(
-                color: themeController.primaryColor.value,
+                color: Colors.amber,
                 fontSize: UiSizes.size_14,
               ),
             ),
@@ -159,10 +156,10 @@ class ParticipantBlock extends StatelessWidget {
       menuItemExtent: UiSizes.width_45,
       menuWidth: UiSizes.width_200 * 1.05,
       menuBoxDecoration: BoxDecoration(
-        color: themeController.primaryColor.value,
+        color: Colors.amber,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(
-          color: themeController.primaryColor.value,
+          color: Colors.amber,
           width: UiSizes.width_1,
         ),
       ),
@@ -187,7 +184,7 @@ class ParticipantBlock extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: UiSizes.size_32,
-              backgroundColor: themeController.primaryColor.value,
+              backgroundColor: Colors.amber,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(participant.dpUrl),
                 radius: UiSizes.size_30,
@@ -198,7 +195,7 @@ class ParticipantBlock extends StatelessWidget {
                             alignment: Alignment.topRight,
                             child: Icon(
                               Icons.waving_hand_rounded,
-                              color: themeController.primaryColor.value,
+                              color: Colors.amber,
                               size: UiSizes.size_20,
                             ),
                           ),

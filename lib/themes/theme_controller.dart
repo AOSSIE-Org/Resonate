@@ -35,8 +35,6 @@ class ThemeController extends GetxController {
     }
   }
 
-  //loadTheme is used to read the ThemeValue stored in _box which is an instance of GetStorage.
-  //loadTheme returns a string containing System theme.
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
   //changeThemeMode is recursive function used to change theme of app based on themeMode.
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);

@@ -117,11 +117,8 @@ class DiscussionTile extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           vertical: UiSizes.height_10, horizontal: UiSizes.width_10),
       decoration: BoxDecoration(
-        gradient: AppColor.gradientBg,
-        borderRadius: BorderRadius.all(
-          Radius.circular(UiSizes.size_15),
-        ),
-      ),
+          gradient: AppColor.gradientBg,
+          borderRadius: BorderRadius.all(Radius.circular(UiSizes.size_15))),
       child: Column(
         children: [
           Container(
@@ -204,81 +201,83 @@ class DiscussionTile extends StatelessWidget {
                                 : const SizedBox(),
                         //Display Subscribe, Unsubscribe or Start based on bool userIsCreator.
                         ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              disabledBackgroundColor:
-                                  const Color.fromARGB(183, 120, 118, 118),
-                              side: BorderSide(
-                                  color: userIsCreator == null
-                                      ? Colors.amber
-                                      : (userIsCreator! &
-                                              !discussion.data['isTime'])
-                                          ? Colors.black
-                                          : themeController.loadTheme() ==
-                                                  'dark'
-                                              ? Colors.white
-                                              : Colors.black,
-                                  width: 1),
-                              backgroundColor: userIsCreator == null
-                                  ? Colors.black
-                                  : (!userIsCreator!)
-                                      ? const Color.fromARGB(155, 58, 190, 34)
-                                      : themeController.loadTheme() == 'dark'
-                                          ? const Color.fromARGB(51, 0, 143, 0)
-                                          : const Color.fromARGB(
-                                              220, 229, 248, 229),
-                              minimumSize:
-                                  Size(UiSizes.width_80, UiSizes.height_30),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
-                          onPressed: userIsCreator == null
-                              ? () async {
-                                  await disscussionController
-                                      .addUserToSubscriberList(discussion.$id);
-                                  await disscussionController.getDiscussions();
-                                }
-                              : !userIsCreator!
-                                  ? () async {
-                                      await disscussionController
-                                          .removeUserFromSubscriberList(
-                                              userSubscriberId!);
-                                      await disscussionController
-                                          .getDiscussions();
-                                    }
-                                  : userIsCreator! & discussion.data['isTime']
-                                      ? () {
-                                          // Start the Room as User is Creator
-                                          List<String> tags = [];
-                                          for (var tag
-                                              in discussion.data["tags"]) {
-                                            tags.add(tag.toString());
+                            style: ElevatedButton.styleFrom(
+                                disabledBackgroundColor:
+                                    const Color.fromARGB(183, 120, 118, 118),
+                                side: BorderSide(
+                                    color: userIsCreator == null
+                                        ? Colors.amber
+                                        : (userIsCreator! &
+                                                !discussion.data['isTime'])
+                                            ? Colors.black
+                                            : themeController.loadTheme() ==
+                                                    'dark'
+                                                ? Colors.white
+                                                : Colors.black,
+                                    width: 1),
+                                backgroundColor: userIsCreator == null
+                                    ? Colors.black
+                                    : (!userIsCreator!)
+                                        ? const Color.fromARGB(155, 58, 190, 34)
+                                        : themeController.loadTheme() == 'dark'
+                                            ? const Color.fromARGB(
+                                                51, 0, 143, 0)
+                                            : const Color.fromARGB(
+                                                220, 229, 248, 229),
+                                minimumSize:
+                                    Size(UiSizes.width_80, UiSizes.height_30),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20))),
+                            onPressed: userIsCreator == null
+                                ? () async {
+                                    await disscussionController
+                                        .addUserToSubscriberList(
+                                            discussion.$id);
+                                    await disscussionController
+                                        .getDiscussions();
+                                  }
+                                : !userIsCreator!
+                                    ? () async {
+                                        await disscussionController
+                                            .removeUserFromSubscriberList(
+                                                userSubscriberId!);
+                                        await disscussionController
+                                            .getDiscussions();
+                                      }
+                                    : userIsCreator! & discussion.data['isTime']
+                                        ? () {
+                                            // Start the Room as User is Creator
+                                            List<String> tags = [];
+                                            for (var tag
+                                                in discussion.data["tags"]) {
+                                              tags.add(tag.toString());
+                                            }
+                                            disscussionController
+                                                .convertDiscussiontoRoom(
+                                                    discussion.$id,
+                                                    discussion.data["name"],
+                                                    discussion
+                                                        .data["description"],
+                                                    tags);
                                           }
-                                          disscussionController
-                                              .convertDiscussiontoRoom(
-                                                  discussion.$id,
-                                                  discussion.data["name"],
-                                                  discussion
-                                                      .data["description"],
-                                                  tags);
-                                        }
-                                      : null,
-                          child: Text(
-                            userIsCreator == null
-                                ? "Subscribe"
-                                : userIsCreator!
-                                    ? "Start"
-                                    : "Unsubscribe",
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: UiSizes.size_14,
-                              color: userIsCreator! & !discussion.data['isTime']
-                                  ? Colors.black
-                                  : themeController.loadTheme() == 'dark'
-                                      ? Colors.white
-                                      : Colors.black,
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
-                        ),
+                                        : null,
+                            child: Text(
+                                userIsCreator == null
+                                    ? "Subscribe"
+                                    : userIsCreator!
+                                        ? "Start"
+                                        : "Unsubscribe",
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: UiSizes.size_14,
+                                  color: userIsCreator! &
+                                          !discussion.data['isTime']
+                                      ? Colors.black
+                                      : themeController.loadTheme() == 'dark'
+                                          ? Colors.white
+                                          : Colors.black,
+                                  fontWeight: FontWeight.w100,
+                                ))),
                         userIsCreator == null
                             ? const SizedBox()
                             : userIsCreator!
@@ -288,61 +287,48 @@ class DiscussionTile extends StatelessWidget {
                                         width: UiSizes.width_8,
                                       ),
                                       ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          side: const BorderSide(
-                                              color: Color.fromARGB(
-                                                198,
-                                                100,
-                                                8,
-                                                3,
-                                              ),
-                                              width: 1),
-                                          backgroundColor: const Color.fromARGB(
-                                            246,
-                                            243,
-                                            81,
-                                            81,
-                                          ),
-                                          minimumSize: Size(
-                                            UiSizes.width_80,
-                                            UiSizes.height_30,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                        ),
-                                        //Display a dialog if user presses Cancel
-                                        onPressed: () {
-                                          Get.defaultDialog(
-                                            title: "Are you sure?",
-                                            middleText:
-                                                "You want to delete this Discussion",
-                                            textConfirm: "Yes",
-                                            buttonColor: Colors.amber,
-                                            confirmTextColor: Colors.white,
-                                            cancelTextColor: Colors.amber,
-                                            textCancel: "No",
-                                            contentPadding:
-                                                EdgeInsets.all(UiSizes.size_15),
-                                            onConfirm: () async {
-                                              await disscussionController
-                                                  .deleteDiscussion(
-                                                      discussion.$id);
-                                              Navigator.pop(context);
-                                            },
-                                          );
-                                        },
-                                        child: Text(
-                                          "Cancel",
-                                          style: TextStyle(
-                                            fontFamily: 'Montserrat',
-                                            color: Colors.black,
-                                            fontSize: UiSizes.size_14,
-                                            fontWeight: FontWeight.w100,
-                                          ),
-                                        ),
-                                      ),
+                                          style: ElevatedButton.styleFrom(
+                                              side: const BorderSide(
+                                                  color: Color.fromARGB(
+                                                      198, 100, 8, 3),
+                                                  width: 1),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      246, 243, 81, 81),
+                                              minimumSize: Size(
+                                                  UiSizes.width_80,
+                                                  UiSizes.height_30),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20))),
+                                          onPressed: () {
+                                            Get.defaultDialog(
+                                              title: "Are you sure?",
+                                              middleText:
+                                                  "You want to delete this Discussion",
+                                              textConfirm: "Yes",
+                                              buttonColor: Colors.amber,
+                                              confirmTextColor: Colors.white,
+                                              cancelTextColor: Colors.amber,
+                                              textCancel: "No",
+                                              contentPadding: EdgeInsets.all(
+                                                  UiSizes.size_15),
+                                              onConfirm: () async {
+                                                await disscussionController
+                                                    .deleteDiscussion(
+                                                        discussion.$id);
+                                                Navigator.pop(context);
+                                              },
+                                            );
+                                          },
+                                          child: Text("Cancel",
+                                              style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                color: Colors.black,
+                                                fontSize: UiSizes.size_14,
+                                                fontWeight: FontWeight.w100,
+                                              )))
                                     ],
                                   )
                                 : const SizedBox(),
