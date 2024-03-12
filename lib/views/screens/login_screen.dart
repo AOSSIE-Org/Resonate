@@ -48,7 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Welcome Back",
                     style: TextStyle(
-                        fontSize: UiSizes.size_25, color: Colors.amber),
+                        fontSize: UiSizes.size_25,
+                        color: themeController.primaryColor.value),
                   ),
                   SizedBox(height: UiSizes.height_15),
                   Padding(
@@ -132,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Forgot Password?",
                         style: TextStyle(
-                            color: Colors.amber, fontSize: UiSizes.size_14),
+                            color: themeController.primaryColor.value,
+                            fontSize: UiSizes.size_14),
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -228,7 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "Register",
                           style: TextStyle(
-                              color: Colors.amber, fontSize: UiSizes.size_14),
+                              color: themeController.primaryColor.value,
+                              fontSize: UiSizes.size_14),
                         ),
                       )
                     ],
