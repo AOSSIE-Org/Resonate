@@ -167,10 +167,10 @@ class DiscussionTile extends StatelessWidget {
                 //Content displays data from the Appwrite document
                 Row(
                   //change the main axis alignment to add space before and after children of row
+                  //RelderFlex overflowed error is caused when discussion.data["name"] is long
+                  //use the expanded widget to fix RelderFlex overflowed error
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    //RelderFlex overflowed error is caused when discussion.data["name"] is long
-                    //use the expanded widget to fix RelderFlex overflowed error
                     Expanded(
                       child: Text(
                         discussion.data["name"],

@@ -1,15 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:resonate/firebase_options.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/themes.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'themes/theme_controller.dart';
 
 Future<void> main() async {
@@ -31,19 +28,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UiSizes.init(context);
-
     final themeController = Get.put(ThemeController());
-    return Obx(
-      () => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Resonate',
-        theme: Themes.getLightTheme(themeController.primaryColor.value),
-        darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
-        themeMode: themeController.theme,
-        initialRoute: AppRoutes.splash,
-        getPages: AppPages.pages,
-      ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Resonate',
+      theme: Themes.lightTheme,
+      darkTheme: Themes.darkTheme,
+      themeMode: themeController.theme,
+      initialRoute: AppRoutes.splash,
+      getPages: AppPages.pages,
     );
   }
 }

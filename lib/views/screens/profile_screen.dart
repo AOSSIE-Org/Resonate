@@ -5,9 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/widgets/color_selection_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -23,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
       Get.put<EmailVerifyController>(EmailVerifyController());
   AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
-  final ThemeController themeController = Get.find<ThemeController>();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
@@ -40,9 +38,20 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () async {
                       await authStateController.logout();
                     },
-                    child: const Icon(
-                      Icons.logout_rounded,
-                      color: Colors.black,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 238, 49, 36)),
+                          gradient: AppColor.gradientBg,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                          radius: UiSizes.size_18,
+                          backgroundColor:
+                              const Color.fromARGB(0, 255, 255, 255),
+                          child: const Icon(
+                            Icons.logout_rounded,
+                            color: Colors.black,
+                          )),
                     )),
                 const SizedBox(
                   width: 20,
@@ -59,8 +68,7 @@ class ProfileScreen extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                            color: Colors.amber, size: Get.pixelRatio * 20)),
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -73,8 +81,7 @@ class ProfileScreen extends StatelessWidget {
                           height: UiSizes.height_180,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: themeController.primaryColor.value,
-                                width: UiSizes.width_4),
+                                color: Colors.amber, width: UiSizes.width_4),
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
@@ -209,7 +216,7 @@ class ProfileScreen extends StatelessWidget {
                               "@ ${controller.userName}",
                               style: TextStyle(
                                   fontSize: UiSizes.size_35,
-                                  color: themeController.primaryColor.value),
+                                  color: Colors.amber),
                             ),
                           ),
                         ),
@@ -243,14 +250,11 @@ class ProfileScreen extends StatelessWidget {
                                         height: UiSizes.height_40,
                                         width: UiSizes.width_140,
                                         decoration: BoxDecoration(
-                                            color: themeController
-                                                .primaryColor.value,
+                                            color: Colors.amber,
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             border: Border.all(
-                                                color: themeController
-                                                    .primaryColor.value,
-                                                width: 3)),
+                                                color: Colors.amber, width: 3)),
                                         child: Center(
                                           child: Text(
                                             "Verify Email",
@@ -265,12 +269,6 @@ class ProfileScreen extends StatelessWidget {
                               )
                             : const SizedBox(),
                         SizedBox(height: UiSizes.height_20),
-                        ColorSelectionWidget(
-                          themeController: themeController,
-                        ),
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
                         CustomCard(
                           title: "Edit Profile",
                           icon: FontAwesomeIcons.userPen,
@@ -315,7 +313,7 @@ class ProfileScreen extends StatelessWidget {
                               Navigator.pushNamed(context, AppRoutes.settings),
                         ),
                         SizedBox(
-                          height: UiSizes.height_10,
+                          height: UiSizes.height_45,
                         ),
                       ],
                     ),
@@ -325,8 +323,7 @@ class ProfileScreen extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                            color: Colors.amber, size: Get.pixelRatio * 20)),
                   )
                 : const SizedBox(),
           ])),
