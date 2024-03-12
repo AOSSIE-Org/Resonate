@@ -17,17 +17,13 @@ class CreateRoomScreen extends StatelessWidget {
 
   final DiscussionsController discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
-  final ThemeController themeController = Get.find<ThemeController>();
 
   OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
-      borderSide:
-          BorderSide(color: Get.find<ThemeController>().primaryColor.value),
+      borderSide: const BorderSide(color: Colors.amber),
       borderRadius: BorderRadius.circular(15));
 
   OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-          color: Get.find<ThemeController>().primaryColor.value,
-          width: UiSizes.width_2),
+      borderSide: BorderSide(color: Colors.amber, width: UiSizes.width_2),
       borderRadius: BorderRadius.circular(15));
 
   CreateRoomScreen({super.key});
@@ -84,8 +80,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           side: BorderSide(
                                               color:
                                                   !controller.isScheduled.value
-                                                      ? themeController
-                                                          .primaryColor.value
+                                                      ? AppColor.yellowColor
                                                       : Colors.transparent),
                                           borderRadius: BorderRadius.circular(
                                               UiSizes.size_15)),
@@ -113,8 +108,7 @@ class CreateRoomScreen extends StatelessWidget {
                                               color:
                                                   !controller.isScheduled.value
                                                       ? Colors.transparent
-                                                      : themeController
-                                                          .primaryColor.value),
+                                                      : AppColor.yellowColor),
                                           borderRadius: BorderRadius.circular(
                                               UiSizes.size_15)),
                                     ),
@@ -177,7 +171,7 @@ class CreateRoomScreen extends StatelessWidget {
                           TextFormField(
                             controller: controller.nameController,
                             style: TextStyle(fontSize: UiSizes.size_25),
-                            cursorColor: themeController.primaryColor.value,
+                            cursorColor: Colors.amber,
                             minLines: 1,
                             maxLines: 13,
                             validator: (value) {
@@ -203,19 +197,19 @@ class CreateRoomScreen extends StatelessWidget {
                             height: UiSizes.height_33,
                           ),
                           TextFieldTags(
-                              textfieldTagsController:
-                                  controller.tagsController,
-                              initialTags: const ['sample-tag'],
-                              textSeparators: const [' ', ','],
-                              letterCase: LetterCase.normal,
-                              validator: (tag) =>
-                                  tag.isValidTag() ? null : "Invalid Tag",
-                              inputFieldBuilder: (context, inputFieldValues) {
+                            textfieldTagsController: controller.tagsController,
+                            initialTags: const ['sample-tag'],
+                            textSeparators: const [' ', ','],
+                            letterCase: LetterCase.normal,
+                            validator: (String tag) =>
+                                tag.isValidTag() ? null : "Invalid Tag",
+                            inputfieldBuilder: (context, tec, fn, error,
+                                onChanged, onSubmitted) {
+                              return ((context, sc, tags, onTagDelete) {
                                 return TextField(
                                   style: TextStyle(fontSize: UiSizes.size_20),
-                                  controller:
-                                      inputFieldValues.textEditingController,
-                                  focusNode: inputFieldValues.focusNode,
+                                  controller: tec,
+                                  focusNode: fn,
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: const Color(0x15FFFFFF),
@@ -224,17 +218,16 @@ class CreateRoomScreen extends StatelessWidget {
                                     enabledBorder: kEnabledTextFieldBorder,
                                     focusedBorder: kFocusedTextFieldBorder,
                                     hintText: "Enter tags",
-                                    errorText: inputFieldValues.error,
+                                    errorText: error,
                                     prefixIconConstraints: BoxConstraints(
                                         maxWidth: UiSizes.width_304),
-                                    prefixIcon: inputFieldValues.tags.isNotEmpty
+                                    prefixIcon: tags.isNotEmpty
                                         ? SingleChildScrollView(
-                                            controller: inputFieldValues
-                                                .tagScrollController,
+                                            controller: sc,
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
-                                                children: inputFieldValues.tags
-                                                    .map((tag) {
+                                                children:
+                                                    tags.map((String tag) {
                                               return Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -278,28 +271,29 @@ class CreateRoomScreen extends StatelessWidget {
                                                             .withOpacity(0.7),
                                                       ),
                                                       onTap: () {
-                                                        inputFieldValues
-                                                            .onTagDelete(tag);
+                                                        onTagDelete(tag);
                                                       },
                                                     )
                                                   ],
                                                 ),
                                               );
-                                            }).toList() as List<Widget>),
+                                            }).toList()),
                                           )
                                         : null,
                                   ),
-                                  onChanged: inputFieldValues.onChanged,
-                                  onSubmitted: inputFieldValues.onSubmitted,
+                                  onChanged: onChanged,
+                                  onSubmitted: onSubmitted,
                                 );
-                              }),
+                              });
+                            },
+                          ),
                           SizedBox(
                             height: UiSizes.height_33,
                           ),
                           TextFormField(
                             controller: controller.descriptionController,
                             style: TextStyle(fontSize: UiSizes.size_20),
-                            cursorColor: themeController.primaryColor.value,
+                            cursorColor: Colors.amber,
                             maxLines: 10,
                             validator: (value) {
                               if (value!.isNotEmpty && value.length > 500) {
@@ -328,8 +322,7 @@ class CreateRoomScreen extends StatelessWidget {
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Center(
                           child: LoadingAnimationWidget.threeRotatingDots(
-                              color: themeController.primaryColor.value,
-                              size: Get.pixelRatio * 20)),
+                              color: Colors.amber, size: Get.pixelRatio * 20)),
                     )
                   : const SizedBox(),
             ],

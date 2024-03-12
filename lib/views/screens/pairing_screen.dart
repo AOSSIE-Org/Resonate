@@ -1,18 +1,14 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingScreen extends StatelessWidget {
   PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController = Get.find<ThemeController>();
 
   PairingScreen({super.key});
   @override
@@ -27,8 +23,7 @@ class PairingScreen extends StatelessWidget {
               Text(
                 "Finding a Random Partner For You",
                 style: TextStyle(
-                    color: themeController.primaryColor.value,
-                    fontSize: Get.pixelRatio * 6.5),
+                    color: Colors.amber, fontSize: Get.pixelRatio * 6.5),
               ),
               SizedBox(
                 height: UiSizes.height_5,
@@ -46,12 +41,12 @@ class PairingScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: UiSizes.width_20,
                         vertical: UiSizes.height_20),
-                    child: LoadingIndicator(
+                    child: const LoadingIndicator(
                       indicatorType: Indicator.ballScaleMultiple,
                       colors: [
-                        themeController.primaryColor.value.withOpacity(0.2),
-                        themeController.primaryColor.value,
-                        themeController.primaryColor.value.withOpacity(0.6),
+                        AppColor.yellowColor,
+                        Colors.amber,
+                        Colors.yellow
                       ],
                       strokeWidth: 2,
                     ),
@@ -77,7 +72,7 @@ class PairingScreen extends StatelessWidget {
                   children: [
                     Text("Quick fact",
                         style: TextStyle(
-                            color: themeController.primaryColor.value,
+                            color: Colors.amber,
                             fontSize: Get.pixelRatio * 6.5)),
                     Text(
                       "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
@@ -93,7 +88,7 @@ class PairingScreen extends StatelessWidget {
                         await controller.cancelRequest();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: themeController.primaryColor.value,
+                        backgroundColor: AppColor.yellowColor,
                       ),
                       child: Text(
                         "Cancel",

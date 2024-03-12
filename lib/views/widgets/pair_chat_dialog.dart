@@ -16,120 +16,120 @@ Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
   //UI implementation of PairChatDialog
   return Get.defaultDialog(
-      title: "Pair Chat",
-      titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
-      content: Padding(
-        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Divider(),
-            Text(
-              "Choose Identity",
-              style: TextStyle(fontSize: Get.pixelRatio * 6),
-            ),
-            SizedBox(
-              height: UiSizes.height_10,
-            ),
-            //Obx listenes to the changes made by PairChatController and updates the ui if value is changes
-            Obx(
-              () => Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          controller.isAnonymous.value = true;
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: controller.isAnonymous.value
-                                ? AppColor.yellowColor
-                                : Colors.black26,
-                            shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent),
+    title: "Pair Chat",
+    titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
+    content: Padding(
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Divider(),
+          Text(
+            "Choose Identity",
+            style: TextStyle(fontSize: Get.pixelRatio * 6),
+          ),
+          SizedBox(
+            height: UiSizes.height_10,
+          ),
+          //Obx listenes to the changes made by PairChatController and updates the ui if value is changes
+          Obx(
+            () => Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        controller.isAnonymous.value = true;
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: controller.isAnonymous.value
+                              ? AppColor.yellowColor
+                              : Colors.black26,
+                          shadowColor: Colors.transparent,
+                          surfaceTintColor: Colors.transparent),
+                      child: Text(
+                        'Anonymous',
+                        style: TextStyle(
+                            color: controller.isAnonymous.value
+                                ? Colors.black
+                                : Colors.white,
+                            fontSize: UiSizes.size_14),
+                      ),
+                    ),
+                  ),
+                ),
+                //Seperation
+                const SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: !controller.isAnonymous.value
+                              ? AppColor.yellowColor
+                              : Colors.black26,
+                          shadowColor: Colors.transparent,
+                          surfaceTintColor: Colors.transparent),
+                      onPressed: () {
+                        controller.isAnonymous.value = false;
+                      },
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
                         child: Text(
-                          'Anonymous',
+                          Get.find<AuthStateController>().displayName!,
                           style: TextStyle(
                               color: controller.isAnonymous.value
-                                  ? Colors.black
-                                  : Colors.white,
+                                  ? Colors.white
+                                  : Colors.black,
                               fontSize: UiSizes.size_14),
                         ),
                       ),
                     ),
                   ),
-                  //Seperation
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: !controller.isAnonymous.value
-                                ? AppColor.yellowColor
-                                : Colors.black26,
-                            shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent),
-                        onPressed: () {
-                          controller.isAnonymous.value = false;
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            Get.find<AuthStateController>().displayName!,
-                            style: TextStyle(
-                                color: controller.isAnonymous.value
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: UiSizes.size_14),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: UiSizes.height_10,
-            ),
-            const Divider(),
-            Text(
-              "Select Language",
-              style: TextStyle(
-                fontSize: Get.pixelRatio * 6,
-              ),
-            ),
-            //LanguagePickerDropdown is defined in language_picker_dropdown packages which makes it easy to change language of app
-            LanguagePickerDropdown(
-                initialValue: Languages.english,
-                onValuePicked: (Language language) {
-                  log(language.isoCode);
-                  controller.languageIso = language.isoCode;
-                }),
-            const Divider(),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.people_outlined,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                controller.quickMatch();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.yellowColor,
-              ),
-              label: Text(
-                "Resonate",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: UiSizes.size_21_3,
                 ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: UiSizes.height_10,
+          ),
+          const Divider(),
+          Text(
+            "Select Language",
+            style: TextStyle(
+              fontSize: Get.pixelRatio * 6,
+            ),
+          ),
+          //LanguagePickerDropdown is defined in language_picker_dropdown packages which makes it easy to change language of app
+          LanguagePickerDropdown(
+              initialValue: Languages.english,
+              onValuePicked: (Language language) {
+                log(language.isoCode);
+                controller.languageIso = language.isoCode;
+              }),
+          const Divider(),
+          ElevatedButton.icon(
+            icon: const Icon(
+              Icons.people_outlined,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              controller.quickMatch();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColor.yellowColor,
+            ),
+            label: Text(
+              "Resonate",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: UiSizes.size_21_3,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
 }

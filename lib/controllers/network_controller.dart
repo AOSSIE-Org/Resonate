@@ -13,7 +13,7 @@ class NetworkController extends GetxController {
 
     _connectivity.onStatusChange.listen((status) {
       if (status == InternetConnectionStatus.disconnected) {
-        Get.dialog(NoConnectionDialog(), barrierDismissible: false);
+        Get.dialog(const NoConnectionDialog(), barrierDismissible: false);
       } else {
         if (Get.isDialogOpen!) {
           Get.back();
@@ -22,10 +22,10 @@ class NetworkController extends GetxController {
     });
   }
 
-  void tryAgain() async {
+  void tryAgain()async {
     var status = await _connectivity.connectionStatus;
     log(status.toString());
-    if (status == InternetConnectionStatus.connected) {
+    if (status == InternetConnectionStatus.connected){
       if (Get.isDialogOpen!) {
         Get.back();
       }

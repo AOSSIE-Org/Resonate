@@ -5,14 +5,12 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/edit_profile_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/ui_sizes.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
-  final ThemeController themeController = Get.find<ThemeController>();
 
   Widget verticalGap(double height) {
     return SizedBox(
@@ -27,7 +25,7 @@ class EditProfileScreen extends StatelessWidget {
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide(
-        color: Get.find<ThemeController>().primaryColor.value,
+        color: Colors.amber,
         width: UiSizes.width_2,
       ),
     ),
@@ -93,9 +91,9 @@ class EditProfileScreen extends StatelessWidget {
                             showBottomSheet();
                           },
                           // onTap: () async => await controller.pickImage(),
-                          child: CircleAvatar(
-                            backgroundColor: themeController.primaryColor.value,
-                            child: const Icon(
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            child: Icon(
                               Icons.edit,
                               color: Colors.black,
                             ),
@@ -141,21 +139,21 @@ class EditProfileScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: inputDecoration.copyWith(
-                          prefixIcon: const Icon(
-                            Icons.account_circle,
-                          ),
-                          labelText: "Username",
-                          prefixText: "@",
-                          suffixIcon: controller.usernameAvailable.value
-                              ? const Icon(
-                                  Icons.verified_outlined,
-                                  color: Colors.green,
-                                )
-                              : null,
-                          errorStyle: const TextStyle(
-                            fontSize: 10,
-                          ),
-                        ),
+                            prefixIcon: const Icon(
+                              Icons.account_circle,
+                            ),
+                            labelText: "Username",
+                            prefixText: "@",
+                            suffixIcon: controller.usernameAvailable.value
+                                ? const Icon(
+                                    Icons.verified_outlined,
+                                    color: Colors.green,
+                                  )
+                                : null,
+                            errorStyle: const TextStyle(
+                               fontSize: 10,
+                            ),
+                         ),
                       ),
                     ),
                     verticalGap(UiSizes.height_60),
@@ -308,7 +306,7 @@ class EditProfileScreen extends StatelessWidget {
               ],
             ),
             if (authStateController.profileImageUrl !=
-                userProfileImagePlaceholderUrl)
+              userProfileImagePlaceholderUrl)
               Column(
                 children: [
                   IconButton(

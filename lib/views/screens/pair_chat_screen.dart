@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/pair_chat_controller.dart';
@@ -11,7 +10,6 @@ class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
 
   PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});
 
@@ -44,10 +42,9 @@ class PairChatScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //Image.asset("assets/images/resonate_logo.png", height: Get.height*0.2,),
-                      Text(
+                      const Text(
                         "Be polite and respect the other person's opinion. Avoid rude comments.",
-                        style: TextStyle(
-                            color: themeController.primaryColor.value),
+                        style: TextStyle(color: Colors.amber),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
@@ -126,7 +123,7 @@ class PairChatScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                 color: currentBrightness == Brightness.light
-                    ? themeController.primaryColor.value
+                    ? Colors.amber[100]
                     : Colors.black,
                 height: UiSizes.height_131,
                 child: Obx(() {
@@ -148,7 +145,7 @@ class PairChatScreen extends StatelessWidget {
                                   ? currentBrightness == Brightness.light
                                       ? Colors.white
                                       : Colors.white54
-                                  : themeController.primaryColor.value,
+                                  : Colors.amber,
                               child: Icon(
                                 Icons.mic_off,
                                 size: UiSizes.size_24,
@@ -176,7 +173,7 @@ class PairChatScreen extends StatelessWidget {
                                 controller.toggleLoudSpeaker();
                               },
                               backgroundColor: controller.isLoudSpeakerOn.value
-                                  ? themeController.primaryColor.value
+                                  ? Colors.amber
                                   : currentBrightness == Brightness.light
                                       ? Colors.white
                                       : Colors.white54,

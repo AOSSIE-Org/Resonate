@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -19,7 +18,6 @@ class EmailVerificationScreen extends StatelessWidget {
 
   final controller = Get.find<AuthenticationController>();
   final emailVerifyController = Get.find<EmailVerifyController>();
-  final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +40,7 @@ class EmailVerificationScreen extends StatelessWidget {
                               Text(
                                 "Resonate",
                                 style: TextStyle(
-                                    color: themeController.primaryColor.value,
+                                    color: Colors.amber,
                                     fontSize: UiSizes.size_25),
                               ),
                               ClipRRect(
@@ -55,8 +53,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         height: UiSizes.height_30,
                                         width: UiSizes.width_100,
                                         decoration: BoxDecoration(
-                                          gradient: themeController
-                                              .createDynamicGradient(),
+                                          gradient: AppColor.gradientBg,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -171,17 +168,11 @@ class EmailVerificationScreen extends StatelessWidget {
                                           } else {
                                             emailVerifyController
                                                 .isVerifying.value = false;
-                                            customSnackbar(
-                                                "Verification Failed",
-                                                "OTP mismatch occured please try again",
-                                                MessageType.error);
+                                            customSnackbar("Verification Failed", "OTP mismatch occured please try again", MessageType.error);
                                           }
                                         } else {
-                                          customSnackbar(
-                                              'Oops',
-                                              emailVerifyController
-                                                  .responseVerify.response,
-                                              MessageType.error);
+                                          customSnackbar('Oops', emailVerifyController
+                                              .responseVerify.response, MessageType.error);
                                         }
                                       },
                                     ),
@@ -191,16 +182,14 @@ class EmailVerificationScreen extends StatelessWidget {
                                         width: UiSizes.width_300,
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: themeController
-                                                    .primaryColor.value
-                                                    .withOpacity(0.6),
+                                                color: const Color.fromARGB(
+                                                    232, 235, 181, 19),
                                                 width: UiSizes.width_3),
                                             borderRadius:
                                                 BorderRadius.circular(70),
                                             gradient: emailVerifyController
                                                     .resendIsAllowed.value
-                                                ? themeController
-                                                    .createDynamicGradient()
+                                                ? AppColor.gradientBg
                                                 : const LinearGradient(colors: [
                                                     Color.fromARGB(
                                                         255, 74, 74, 74),
@@ -235,16 +224,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                                           .value = true;
                                                       emailVerifyController
                                                           .sendOTP();
-                                                      customSnackbar(
-                                                          "OTP Resent",
-                                                          "Please do check your mail for a new OTP",
-                                                          MessageType.info);
+                                                      customSnackbar("OTP Resent", "Please do check your mail for a new OTP", MessageType.info);
                                                     }
                                                   : () {
-                                                      customSnackbar(
-                                                          "Hold on",
-                                                          "Please wait till the timer completes",
-                                                          MessageType.warning);
+                                                      customSnackbar("Hold on", "Please wait till the timer completes", MessageType.warning);
                                                     },
                                               child: emailVerifyController
                                                       .resendIsAllowed.value
@@ -293,9 +276,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                               UiSizes.height_33,
                                                           duration: 30,
                                                           backgroundColor:
-                                                              themeController
-                                                                  .primaryColor
-                                                                  .value,
+                                                              Colors.amber,
                                                           fillColor: const Color
                                                               .fromARGB(
                                                               255, 74, 74, 74),
@@ -366,16 +347,14 @@ class EmailVerificationScreen extends StatelessWidget {
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Center(
                       child: LoadingAnimationWidget.threeRotatingDots(
-                          color: themeController.primaryColor.value,
-                          size: Get.pixelRatio * 20)),
+                          color: Colors.amber, size: Get.pixelRatio * 20)),
                 ),
           emailVerifyController.isVerifying.value
               ? BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Center(
                       child: LoadingAnimationWidget.threeRotatingDots(
-                          color: themeController.primaryColor.value,
-                          size: Get.pixelRatio * 20)),
+                          color: Colors.amber, size: Get.pixelRatio * 20)),
                 )
               : const SizedBox(),
         ]),

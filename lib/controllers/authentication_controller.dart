@@ -50,8 +50,7 @@ class AuthenticationController extends GetxController {
       //display a customSnackbar() dfined in lib\views\widgets\snackbar.dart
       log(e.toString());
       if (e.type == 'user_invalid_credentials') {
-        customSnackbar(
-            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+        customSnackbar('Try Again!', "Incorrect Email Or Password", MessageType.error);
       }
     } catch (e) {
       log(e.toString());

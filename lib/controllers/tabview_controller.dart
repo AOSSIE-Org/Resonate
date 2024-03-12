@@ -82,17 +82,16 @@ class TabViewController extends GetxController {
   //openRoomSheet() takes an AppwriteRoom called room and uses showModalBottomSheet() from flutter material library to build rooms 
   void openRoomSheet(AppwriteRoom room) {
     showModalBottomSheet(
-      context: Get.context!,
-      builder: (ctx) {
-        return RoomScreen(room: room);
-      },
-      useSafeArea: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-      ),
-      isScrollControlled: true,
-      enableDrag: true,
-      isDismissible: false,
-    );
+        context: Get.context!,
+        builder: (ctx) {
+          return RoomScreen(room: room);
+        },
+        useSafeArea: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+        ),
+        isScrollControlled: true,
+        enableDrag: false,
+        isDismissible: false);
   }
 }
