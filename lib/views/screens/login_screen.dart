@@ -31,214 +31,228 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            height: 780,
+          child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
-            child: Form(
-              key: controller.loginFormKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: UiSizes.width_140,
-                    height: UiSizes.height_140,
-                    child: Image.asset(AppImages.aossieLogoImage),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Text(
-                    "Welcome Back",
-                    style: TextStyle(
-                        fontSize: UiSizes.size_25,
-                        color: themeController.primaryColor.value),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
-                    child: TextFormField(
-                      validator: (value) => value!.isValidEmail()
-                          ? null
-                          : "Enter Valid Email Address",
-                      controller: controller.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(
-                          fontSize: UiSizes.size_14,
-                          color: themeController.loadTheme() == 'dark'
-                              ? Colors.white
-                              : Colors.black),
-                      autocorrect: false,
-                      decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.alternate_email,
-                            size: UiSizes.size_23,
+              vertical: UiSizes.height_16,
+            ),
+            child: Column(
+              children: [
+                Image.asset(
+                  AppImages.aossieLogoImage,
+                  height: UiSizes.height_140,
+                  width: UiSizes.width_140,
+                ),
+                SizedBox(height: UiSizes.height_15),
+                Text(
+                  "Welcome Back",
+                  style:
+                      TextStyle(fontSize: UiSizes.size_25, color: Colors.amber),
+                ),
+                Container(
+                  height: UiSizes.height_710,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: UiSizes.width_20,
+                      vertical: UiSizes.height_10),
+                  child: Form(
+                    key: controller.loginFormKey,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: UiSizes.height_4),
+                          child: TextFormField(
+                            validator: (value) => value!.isValidEmail()
+                                ? null
+                                : "Enter Valid Email Address",
+                            controller: controller.emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: TextStyle(
+                                fontSize: UiSizes.size_14,
+                                color: themeController.loadTheme() == 'dark'
+                                    ? Colors.white
+                                    : Colors.black),
+                            autocorrect: false,
+                            decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.alternate_email,
+                                  size: UiSizes.size_23,
+                                ),
+                                errorStyle:
+                                    TextStyle(fontSize: UiSizes.size_14),
+                                labelText: "Email ID",
+                                labelStyle: TextStyle(
+                                    color: themeController.loadTheme() == 'dark'
+                                        ? Colors.white
+                                        : Colors.black)),
                           ),
-                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                          labelText: "Email ID",
-                          labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black)),
-                    ),
-                  ),
-                  SizedBox(height: UiSizes.height_10),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
-                    child: Obx(
-                      () => TextFormField(
-                        controller: controller.passwordController,
-                        obscureText: !controller.isPasswordFieldVisible.value,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : Colors.black),
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            size: UiSizes.size_23,
-                            Icons.lock_outline_rounded,
-                          ),
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black),
-                          errorStyle: TextStyle(
-                            fontSize: UiSizes.size_14,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
-                            },
-                            splashRadius: UiSizes.height_20,
-                            icon: Icon(
-                              size: UiSizes.size_23,
-                              controller.isPasswordFieldVisible.value
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+                        ),
+                        SizedBox(height: UiSizes.height_10),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: UiSizes.height_4),
+                          child: Obx(
+                            () => TextFormField(
+                              controller: controller.passwordController,
+                              obscureText:
+                                  !controller.isPasswordFieldVisible.value,
+                              enableSuggestions: false,
+                              autocorrect: false,
+                              style: TextStyle(
+                                  fontSize: UiSizes.size_14,
+                                  color: themeController.loadTheme() == 'dark'
+                                      ? Colors.white
+                                      : Colors.black),
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  size: UiSizes.size_23,
+                                  Icons.lock_outline_rounded,
+                                ),
+                                labelText: "Password",
+                                labelStyle: TextStyle(
+                                    color: themeController.loadTheme() == 'dark'
+                                        ? Colors.white
+                                        : Colors.black),
+                                errorStyle: TextStyle(
+                                  fontSize: UiSizes.size_14,
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller.isPasswordFieldVisible.value =
+                                        !controller
+                                            .isPasswordFieldVisible.value;
+                                  },
+                                  splashRadius: UiSizes.height_20,
+                                  icon: Icon(
+                                    size: UiSizes.size_23,
+                                    controller.isPasswordFieldVisible.value
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_15),
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        //TODO: Navigate to forgot password screen
-                      },
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                            color: themeController.primaryColor.value,
-                            fontSize: UiSizes.size_14),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Obx(
-                    () => ElevatedButton(
-                      onPressed: () async {
-                        if (!controller.isLoading.value) {
-                          await controller.login();
-                        }
-                      },
-                      child: controller.isLoading.value
-                          ? Center(
-                              child:
-                                  LoadingAnimationWidget.horizontalRotatingDots(
-                                color: Colors.black,
-                                size: UiSizes.size_40,
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: UiSizes.height_15),
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              //TODO: Navigate to forgot password screen
+                            },
+                            child: Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                  color: Colors.amber,
+                                  fontSize: UiSizes.size_14),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: UiSizes.height_15),
+                        Obx(
+                          () => ElevatedButton(
+                            onPressed: () async {
+                              if (!controller.isLoading.value) {
+                                await controller.login();
+                              }
+                            },
+                            child: controller.isLoading.value
+                                ? Center(
+                                    child: LoadingAnimationWidget
+                                        .horizontalRotatingDots(
+                                      color: Colors.black,
+                                      size: UiSizes.size_40,
+                                    ),
+                                  )
+                                : Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: UiSizes.size_19,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        SizedBox(height: UiSizes.height_20),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Divider(
+                                indent: UiSizes.width_20,
+                                endIndent: UiSizes.width_10,
+                                thickness: UiSizes.height_1,
+                              ),
+                            ),
+                            Text(
+                              "OR",
+                              style: TextStyle(fontSize: UiSizes.size_14),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                indent: UiSizes.width_20,
+                                endIndent: UiSizes.width_10,
+                                thickness: UiSizes.height_1,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: UiSizes.height_24_6),
+                        AuthButtonWidget(
+                          onPressed: () async {
+                            await controller.loginWithGoogle();
+                          },
+                          logoPath: "assets/images/google_icon.png",
+                          authText: "Login with Google",
+                        ),
+                        SizedBox(height: UiSizes.height_16),
+                        AuthButtonWidget(
+                          onPressed: () async {
+                            await controller.loginWithGithub();
+                          },
+                          logoPath: "assets/images/github_icon.png",
+                          authText: "Login with Github",
+                        ),
+                        SizedBox(
+                          height: UiSizes.height_40,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "New to Resonate?",
+                              style: TextStyle(
+                                  fontSize: UiSizes.size_14,
+                                  color: themeController.loadTheme() == 'dark'
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
+                            SizedBox(
+                              width: UiSizes.width_5,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.emailController.clear();
+                                controller.passwordController.clear();
+                                controller.confirmPasswordController.clear();
+                                Get.toNamed(AppRoutes.signup);
+                              },
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.amber,
+                                    fontSize: UiSizes.size_14),
                               ),
                             )
-                          : Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: UiSizes.size_19,
-                              ),
-                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
                     ),
                   ),
-                  SizedBox(height: UiSizes.height_20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                      Text(
-                        "OR",
-                        style: TextStyle(fontSize: UiSizes.size_14),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: UiSizes.height_24_6),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGoogle();
-                    },
-                    logoPath: "assets/images/google_icon.png",
-                    authText: "Login with Google",
-                  ),
-                  SizedBox(height: UiSizes.height_16),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGithub();
-                    },
-                    logoPath: "assets/images/github_icon.png",
-                    authText: "Login with Github",
-                  ),
-                  SizedBox(
-                    height: UiSizes.height_40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "New to Resonate?",
-                        style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : Colors.black),
-                      ),
-                      SizedBox(
-                        width: UiSizes.width_5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.emailController.clear();
-                          controller.passwordController.clear();
-                          controller.confirmPasswordController.clear();
-                          Get.toNamed(AppRoutes.signup);
-                        },
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                              color: themeController.primaryColor.value,
-                              fontSize: UiSizes.size_14),
-                        ),
-                      )
-                    ],
-                  ),
-                  const Spacer(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
