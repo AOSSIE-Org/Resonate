@@ -1,3 +1,4 @@
+//import required packages
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
@@ -13,34 +14,37 @@ import 'package:resonate/views/widgets/snackbar.dart';
 
 import 'auth_state_controller.dart';
 
+//OnboardingController is responsible for displaying the onboarding screens to the user on first login
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
-  AuthStateController authStateController = Get.find<AuthStateController>();
+  AuthStateController authStateController = Get.find<AuthStateController>(); //create an instance of AuthStateController
   AuthenticationController authController =
-      Get.find<AuthenticationController>();
-  late final Storage storage;
-  late final Databases databases;
+      Get.find<AuthenticationController>(); //create an instance of AuthenticationController
+  late final Storage storage; //create an instance of Storage class to connect to AppWrite storage bucket
+  late final Databases databases; //create an instance of Database class to connect to AppWrite database
 
-  RxBool isLoading = false.obs;
-  String? profileImagePath;
-  String? uniqueIdForProfileImage;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
+  RxBool isLoading = false.obs; //reactive bool to indicate state of controller
+  String? profileImagePath; //url to users profile image
+  String? uniqueIdForProfileImage; //unique id associated with users profile image
+  TextEditingController nameController = TextEditingController(); //TextEditingController for storing users name
+  TextEditingController usernameController = TextEditingController(); //TextEditingController for storing users username
   TextEditingController imageController =
-      TextEditingController(text: userProfileImagePlaceholderUrl);
-  TextEditingController dobController = TextEditingController(text: "");
+      TextEditingController(text: userProfileImagePlaceholderUrl); //TextEditingController for storing users profile image
+      //the imageController will have userProfileImagePlaceholderUrl text by default
+  TextEditingController dobController = TextEditingController(text: ""); //TextEditingController for storing users date of birth
 
-  final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>(); //Form key used in validating form
 
-  Rx<bool> usernameAvailable = false.obs;
+  Rx<bool> usernameAvailable = false.obs; //reactive bool informing about username availability
 
   @override
   void onInit() async {
     super.onInit();
-    storage = Storage(authStateController.client);
-    databases = Databases(authStateController.client);
+    storage = Storage(authStateController.client); //connect to AppWrite storage bucket
+    databases = Databases(authStateController.client); //connect to AppWrite storage database
   }
-
+  //function displaying date picker provided by flutters material package
+  //User can set his DOB using chooseDate() function
   Future<void> chooseDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
@@ -53,12 +57,15 @@ class OnboardingController extends GetxController {
           DateFormat("dd-MM-yyyy").format(pickedDate).toString();
     }
   }
-
+  
+  //saveProfile() method update the users profile information
+  //and saves the updated information to AppWrite servers
   Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
     var usernameAvail = await isUsernameAvailable(usernameController.text);
+    //is the username is not available then display customSnackbar() defined in lib/views/widgets/snackbar.dart
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
@@ -122,6 +129,7 @@ class OnboardingController extends GetxController {
     }
   }
 
+  //allows the user to choose image from gallery and 
   Future<void> pickImage() async {
     try {
       XFile? file = await _imagePicker.pickImage(
@@ -134,6 +142,7 @@ class OnboardingController extends GetxController {
     }
   }
 
+  //checks for username availability by searching for similar usernames in database
   Future<bool> isUsernameAvailable(String username) async {
     try {
       await databases.getDocument(
