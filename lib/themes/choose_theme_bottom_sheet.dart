@@ -28,7 +28,7 @@ Widget chooseThemeBottomSheet(
         value: ThemeValues.systemDefault.name,
         title: const Text('System default'),
         groupValue: selectedThemeValue,
-        activeColor: Colors.amber,
+        activeColor: themeController.primaryColor.value,
         onChanged: (value) {
           themeController.changeThemeMode(ThemeMode.system);
           themeController.saveTheme(ThemeValues.systemDefault);
@@ -41,7 +41,7 @@ Widget chooseThemeBottomSheet(
         value: ThemeValues.light.name,
         title: const Text('Light'),
         groupValue: selectedThemeValue,
-        activeColor: Colors.amber,
+        activeColor: themeController.primaryColor.value,
         onChanged: (value) {
           themeController.changeThemeMode(ThemeMode.light);
           themeController.saveTheme(ThemeValues.light);
@@ -54,7 +54,7 @@ Widget chooseThemeBottomSheet(
         value: ThemeValues.dark.name,
         title: const Text('Dark'),
         groupValue: selectedThemeValue,
-        activeColor: Colors.amber,
+        activeColor: themeController.primaryColor.value,
         onChanged: (value) {
           themeController.changeThemeMode(ThemeMode.dark);
           themeController.saveTheme(ThemeValues.dark);
