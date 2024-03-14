@@ -37,14 +37,7 @@ class AuthStateController extends GetxController {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  void onDidReceiveLocalNotification(int id, String? title, String? body, String? payload){
-    Get.dialog(
-      Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: const Text("You get notification"),
-      )
-    );
-  }
+  
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -61,6 +54,22 @@ class AuthStateController extends GetxController {
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+  }
+
+  void onDidReceiveLocalNotification(
+      int id, String? title, String? body, String? payload) async {
+    String name = payload!;
+    DiscussionsController discussionsController =
+        Get.find<DiscussionsController>();
+    int index = discussionsController.discussions
+        .indexWhere((discussion) => discussion.data["name"] == name);
+
+    discussionsController.discussionScrollController.value =
+        ScrollController(initialScrollOffset: UiSizes.height_170 * index);
+
+    final TabViewController tabViewController = Get.find<TabViewController>();
+    tabViewController.setIndex(1);
+    await Get.to(TabViewScreen());
   }
 
   void onDidReceiveNotificationResponse(
