@@ -37,16 +37,39 @@ class AuthStateController extends GetxController {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  
+
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('ic_launcher');
+    
+     DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+  }
+
+  void onDidReceiveLocalNotification(
+      int id, String? title, String? body, String? payload) async {
+    String name = payload!;
+    DiscussionsController discussionsController =
+        Get.find<DiscussionsController>();
+    int index = discussionsController.discussions
+        .indexWhere((discussion) => discussion.data["name"] == name);
+
+    discussionsController.discussionScrollController.value =
+        ScrollController(initialScrollOffset: UiSizes.height_170 * index);
+
+    final TabViewController tabViewController = Get.find<TabViewController>();
+    tabViewController.setIndex(1);
+    await Get.to(TabViewScreen());
   }
 
   void onDidReceiveNotificationResponse(
