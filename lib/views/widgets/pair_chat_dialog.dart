@@ -53,7 +53,7 @@ Future<dynamic> buildPairChatDialog() {
                               color: controller.isAnonymous.value
                                   ? Colors.black
                                   : Colors.white,
-                              fontSize: UiSizes.size_14),
+                              fontSize: UiSizes.size_12),
                         ),
                       ),
                     ),
