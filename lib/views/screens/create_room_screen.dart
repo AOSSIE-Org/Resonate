@@ -211,17 +211,7 @@ class CreateRoomScreen extends StatelessWidget {
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
                               validator: (tag) {
-                                String? validateTag(dynamic tag) {
-                                  if (tag != null &&
-                                      tag is String &&
-                                      tag.isValidTag()) {
-                                    return null; // Tag is valid
-                                  } else {
-                                    return 'Invalid Tag: $tag'; // Return an error message for invalid tags
-                                  }
-                                }
-
-                                return validateTag(tag);
+                                return createRoomController.validateTag(tag);
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
