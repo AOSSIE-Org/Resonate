@@ -31,7 +31,7 @@ class CreateRoomController extends GetxController {
 
   void resetTagController() {
     if (tagsController != null) {
-      tagsController.dispose();   //Dispose the previously created tagcontroller
+      tagsController.dispose(); //Dispose the previously created tagcontroller
       tagsController = TextfieldTagsController();
     }
   }
