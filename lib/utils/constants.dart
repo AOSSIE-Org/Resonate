@@ -36,3 +36,7 @@ const String verificationCollectionID = "64a7c0100eabfe8d3844";
 
 // Github Constants
 const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";
+
+//Authentication Error types
+const String userInvalidCredentials = 'user_invalid_credentials';
+const String generalArgumentInvalid = 'general_argument_invalid';
