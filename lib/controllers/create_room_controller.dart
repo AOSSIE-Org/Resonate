@@ -85,7 +85,7 @@ class CreateRoomController extends GetxController {
 
       // Clear Create Room Form
       nameController.clear();
-      resetTagController();
+      tagsController.clearTags();
       descriptionController.clear();
     } catch (e) {
       log(e.toString());
