@@ -26,7 +26,6 @@ class ProfileScreen extends StatelessWidget {
   final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
