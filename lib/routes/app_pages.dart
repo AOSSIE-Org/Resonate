@@ -16,6 +16,7 @@ import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
+import 'package:resonate/views/screens/reset_password_screen.dart';
 
 import '../bindings/tabview_binding.dart';
 import '../views/screens/home_screen.dart';
@@ -56,6 +57,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.onBoarding,
       page: () => const OnBoardingScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.resetPassword,
+      page: () => ResetPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(

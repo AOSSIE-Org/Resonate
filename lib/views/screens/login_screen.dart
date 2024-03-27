@@ -8,6 +8,8 @@ import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/auth_button.dart';
 
+import 'forgot_password_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -128,7 +130,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        //TODO: Navigate to forgot password screen
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return ForgotPasswordScreen();
+                        },
+                        ),
+                        );
                       },
                       child: Text(
                         "Forgot Password?",
