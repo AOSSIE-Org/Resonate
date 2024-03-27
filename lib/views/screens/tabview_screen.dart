@@ -67,6 +67,7 @@ class TabViewScreen extends StatelessWidget {
                       label: "Audio Room",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
+                        createRoomController.resetTagController();
                         if (authStateController.isEmailVerified!) {
                           controller.setIndex(2);
                         } else {

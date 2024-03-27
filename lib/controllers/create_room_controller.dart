@@ -29,6 +29,13 @@ class CreateRoomController extends GetxController {
     super.dispose();
   }
 
+  void resetTagController() {
+    if (tagsController != null) {
+      tagsController.dispose(); //Dispose the previously created tagcontroller
+      tagsController = TextfieldTagsController();
+    }
+  }
+
   Future<void> createRoom(String name, String description, List<String> tags,
       bool fromCreateScreen) async {
     if (fromCreateScreen) {
