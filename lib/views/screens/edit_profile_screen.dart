@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/edit_profile_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/utils.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/ui_sizes.dart';
@@ -45,15 +46,20 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (editProfileController.isLoading.value) {
-          return false;
+    return PopScope(
+      onPopInvoked: (bool didPop) {
+        if (didPop) {
+          return;
+        }
+        if (editProfileController.isThereUnsavedChanges()) {
+          AppUtils.saveChangesDialogue(
+            onSaved: () async {
+              Get.back();
+              await editProfileController.saveProfile();
+            },
+          );
         } else {
-          if (editProfileController.isThereUnsavedChanges()) {
-            saveChangesDialogue();
-          }
-          return true;
+          Navigator.pop(context);
         }
       },
       child: Scaffold(
@@ -201,61 +207,6 @@ class EditProfileScreen extends StatelessWidget {
           top: Radius.circular(24),
         ),
       ),
-    );
-  }
-
-  void saveChangesDialogue() {
-    Get.defaultDialog(
-      title: 'Save changes',
-      titleStyle: const TextStyle(fontWeight: FontWeight.w500),
-      titlePadding: const EdgeInsets.symmetric(vertical: 20),
-      content: Text(
-        "If you proceed without saving, any unsaved changes will be lost.",
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: UiSizes.size_14,
-        ),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.blueGrey),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                  Navigator.pop(Get.context!);
-                },
-                child: const Text(
-                  'Discard',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-              TextButton(
-                onPressed: () async {
-                  Get.back();
-                  await editProfileController.saveProfile();
-                },
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
