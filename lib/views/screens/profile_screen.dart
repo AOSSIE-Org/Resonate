@@ -26,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
   final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
@@ -40,9 +41,9 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () async {
                       await authStateController.logout();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.logout_rounded,
-                      color: Colors.black,
+                      color: themeController.primaryColor.value,
                     )),
                 const SizedBox(
                   width: 20,
