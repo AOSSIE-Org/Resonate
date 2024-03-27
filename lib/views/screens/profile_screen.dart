@@ -36,14 +36,23 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                    borderRadius: BorderRadius.circular(100),
-                    onTap: () async {
-                      await authStateController.logout();
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: () async {
+                    await authStateController.logout();
+                  },
+                  child: StreamBuilder<Color>(
+                    stream: themeController.primaryColor.stream,
+                    initialData: themeController.primaryColor.value,
+                    builder: (context, snapshot) {
+                      final color = snapshot.data ??
+                          Colors.black; // Default color if snapshot is null
+                      return Icon(
+                        Icons.logout_rounded,
+                        color: color,
+                      );
                     },
-                    child: Icon(
-                      Icons.logout_rounded,
-                      color: themeController.primaryColor.value,
-                    )),
+                  ),
+                ),
                 const SizedBox(
                   width: 20,
                 ),
