@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                     },
                     child: const Icon(
                       Icons.logout_rounded,
-                      color: Colors.black,
+                      color: themeController.primaryColor.value,
                     )),
                 const SizedBox(
                   width: 20,
