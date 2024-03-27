@@ -146,13 +146,18 @@ class PairChatScreen extends StatelessWidget {
                               },
                               backgroundColor: controller.isMicOn.value
                                   ? currentBrightness == Brightness.light
-                                      ? Colors.white
+                                      ? Colors.white.withOpacity(0.5)
                                       : Colors.white54
                                   : themeController.primaryColor.value,
-                              child: Icon(
-                                Icons.mic_off,
-                                size: UiSizes.size_24,
-                              ),
+                              child: controller.isMicOn.value
+                                  ? Icon(
+                                      Icons.mic,
+                                      size: UiSizes.size_24,
+                                    )
+                                  : Icon(
+                                      Icons.mic_off,
+                                      size: UiSizes.size_24,
+                                    ),
                             ),
                           ),
                           SizedBox(
@@ -178,7 +183,7 @@ class PairChatScreen extends StatelessWidget {
                               backgroundColor: controller.isLoudSpeakerOn.value
                                   ? themeController.primaryColor.value
                                   : currentBrightness == Brightness.light
-                                      ? Colors.white
+                                      ? Colors.white.withOpacity(0.5)
                                       : Colors.white54,
                               child: Icon(
                                 Icons.volume_up,
