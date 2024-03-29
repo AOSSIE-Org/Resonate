@@ -27,40 +27,33 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
-      builder: (controller) => Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "Profile",
-          ),
-          actions: [
-            Row(
-              children: [
-                InkWell(
-                  borderRadius: BorderRadius.circular(100),
-                  onTap: () async {
-                    await authStateController.logout();
-                  },
-                  child: StreamBuilder<Color>(
-                    stream: themeController.primaryColor.stream,
-                    initialData: themeController.primaryColor.value,
-                    builder: (context, snapshot) {
-                      final color = snapshot.data;
-                      return Icon(
-                        Icons.logout_rounded,
-                        color: color,
-                      );
+      builder: (controller) => Obx(() {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "Profile",
+            ),
+            actions: [
+              Row(
+                children: [
+                  InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: () async {
+                      await authStateController.logout();
                     },
+                    child: Icon(
+                      Icons.logout_rounded,
+                      color: themeController.primaryColor.value,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ],
-            )
-          ],
-        ),
-        body: Obx(
-          () => Center(
+                  const SizedBox(
+                    width: 20,
+                  ),
+                ],
+              )
+            ],
+          ),
+          body: Center(
               child: Stack(children: [
             controller.isInitializing.value
                 ? BackdropFilter(
@@ -338,8 +331,8 @@ class ProfileScreen extends StatelessWidget {
                   )
                 : const SizedBox(),
           ])),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
