@@ -21,9 +21,12 @@ class ProfileScreen extends StatelessWidget {
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-  AuthStateController authStateController =
+
+  final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
+
   final ThemeController themeController = Get.find<ThemeController>();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
@@ -240,26 +243,29 @@ class ProfileScreen extends StatelessWidget {
                                       emailVerifyController.sendOTP()
                                     },
                                     child: Ink(
-                                        height: UiSizes.height_40,
-                                        width: UiSizes.width_140,
-                                        decoration: BoxDecoration(
-                                            color: themeController
-                                                .primaryColor.value,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border: Border.all(
-                                                color: themeController
-                                                    .primaryColor.value,
-                                                width: 3)),
-                                        child: Center(
-                                          child: Text(
-                                            "Verify Email",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: UiSizes.size_14,
-                                                fontWeight: FontWeight.bold),
+                                      height: UiSizes.height_40,
+                                      width: UiSizes.width_140,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            themeController.primaryColor.value,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                          color: themeController
+                                              .primaryColor.value,
+                                          width: 3,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Verify Email",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: UiSizes.size_14,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                        )),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               )

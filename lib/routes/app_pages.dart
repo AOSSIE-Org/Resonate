@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
@@ -61,7 +62,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.resetPassword,
-      page: () => ResetPasswordScreen(),
+      page: () => const ResetPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -106,6 +107,10 @@ class AppPages {
       name: AppRoutes.deleteAccount,
       page: () => const DeleteAccountScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.changeEmail,
+      page: () => ChangeEmailScreen(),
     ),
   ];
 }

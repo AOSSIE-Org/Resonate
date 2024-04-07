@@ -25,11 +25,14 @@ class EmailVerifyController extends GetxController {
   var shouldDisplay = true.obs;
   var isVerifying = false.obs;
   var isUpdateAllowed = true.obs;
-  var signupisallowed = true.obs;
-  var clearTextField=false.obs;
+  var signUpIsAllowed = true.obs;
+  var clearTextField = false.obs;
+
   AuthStateController authStateController = Get.find<AuthStateController>();
+
   AuthenticationController authController =
       Get.find<AuthenticationController>();
+
   TextEditingController updateEmailController = TextEditingController(text: "");
 
   @override
@@ -62,13 +65,13 @@ class EmailVerifyController extends GetxController {
       resendIsAllowed.value = false;
 
       Timer(const Duration(milliseconds: 300), () {
-        signupisallowed.value = true;
+        signUpIsAllowed.value = true;
       });
       isSending.value = false;
       Get.toNamed(AppRoutes.emailVerification);
     } else {
       isSending.value = false;
-      signupisallowed.value = true;
+      signUpIsAllowed.value = true;
       customSnackbar('Oops', res.response, MessageType.error);
     }
 

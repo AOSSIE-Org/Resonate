@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/edit_profile_controller.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/theme_controller.dart';
 
 import '../../utils/constants.dart';
@@ -158,6 +159,39 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    verticalGap(UiSizes.height_20),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          side: const BorderSide(color: Colors.grey),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 20,
+                            horizontal: 15,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.changeEmail);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Change Email',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: themeController.primaryColor.value),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_rounded,
+                              color: themeController.primaryColor.value,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     verticalGap(UiSizes.height_60),
                     Obx(
                       () => ElevatedButton(
@@ -180,6 +214,7 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                       ),
                     ),
+                    verticalGap(UiSizes.height_20),
                   ],
                 ),
               ),
