@@ -1,6 +1,6 @@
 //Explaination:
 //move plugins block at the top
-//define th plugins block using Plugin DSL syntax to migrate to declarative plugin method from imperative
+//define the plugins block using Plugin DSL syntax to migrate to declarative plugin method from imperative
 
 plugins {
     id "com.android.application"
