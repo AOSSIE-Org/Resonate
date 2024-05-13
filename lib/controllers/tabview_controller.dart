@@ -71,16 +71,17 @@ class TabViewController extends GetxController {
 
   void openRoomSheet(AppwriteRoom room) {
     showModalBottomSheet(
-        context: Get.context!,
-        builder: (ctx) {
-          return RoomScreen(room: room);
-        },
-        useSafeArea: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-        ),
-        isScrollControlled: true,
-        enableDrag: false,
-        isDismissible: false);
+      context: Get.context!,
+      builder: (ctx) {
+        return RoomScreen(room: room);
+      },
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      isScrollControlled: true,
+      enableDrag: true,
+      isDismissible: false,
+    );
   }
 }
