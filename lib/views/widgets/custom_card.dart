@@ -18,6 +18,8 @@ class CustomCard extends StatelessWidget {
     return SizedBox(
       height: UiSizes.height_76,
       child: Card(
+        //set clip behavior to antiAlias to prevent the inkwell splash from overflowing the card
+        clipBehavior: Clip.antiAlias,
         margin: EdgeInsets.symmetric(
             vertical: UiSizes.height_10, horizontal: UiSizes.width_25),
         child: InkWell(

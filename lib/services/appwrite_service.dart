@@ -3,6 +3,7 @@ import 'package:resonate/utils/constants.dart';
 
 class AppwriteService {
   static Client? _client;
+  static Account? _account;
   static Databases? _database;
   static Storage? _storage;
   static Realtime? _realtime;
@@ -16,6 +17,11 @@ class AppwriteService {
             status:
                 true); // For self signed certificates, only use for development
     return _client!;
+  }
+
+  static Account getAccount() {
+    _account ??= Account(_client!);
+    return _account!;
   }
 
   // Instantiates a new Databases Instance if it doesn't exist
@@ -36,3 +42,31 @@ class AppwriteService {
     return _realtime!;
   }
 }
+
+  // Checks the Appwrite server status
+  static Future<bool> checkServerStatus() async {
+    try {
+      final response = await _client!.getHealth();
+      return response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
+// Function to check server status and navigate accordingly
+  static Future<void> checkServerAndNavigate(BuildContext context) async {
+    bool isServerUp = await checkServerStatus();
+
+    if (isServerUp) {
+      // Server is up, you can proceed with your normal flow
+    } else {
+      // Server is down, navigate to a screen informing the user
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ServerDownScreen()),
+      );
+    }
+  }
+}
+

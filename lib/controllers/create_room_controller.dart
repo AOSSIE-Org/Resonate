@@ -29,6 +29,14 @@ class CreateRoomController extends GetxController {
     super.dispose();
   }
 
+  String? validateTag(dynamic tag) {
+    if (tag != null && tag is String && tag.isValidTag()) {
+      return null; // Tag is valid
+    } else {
+      return 'Invalid Tag: $tag'; // Return an error message for invalid tags
+    }
+  }
+
   Future<void> createRoom(String name, String description, List<String> tags,
       bool fromCreateScreen) async {
     if (fromCreateScreen) {
