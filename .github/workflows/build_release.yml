@@ -1,0 +1,66 @@
+name: "Build & Release Flutter App"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+        #1 Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+        #2 setup java
+      - name: Set Up Java
+        uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+
+        #3 setup Flutter
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.5'
+          channel: 'stable'
+
+        #4 install dependencies
+      - name: Install Dependencies
+        run: flutter pub get
+
+        #5 build apk
+      - name: Build APK
+        run: flutter build apk --release
+
+        #6 build aab
+      - name: Build appBundle
+        run: flutter build appbundle
+
+        #7 get those build to be available to download
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Releases
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+      - name: SemanticVersioning
+        uses: codfish/semantic-release-action@v3
+        id: semantic
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - run: echo ${{ steps.semantic.outputs.release-version }}
+
+        #10 create release with those builds 
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab"
+          tag: v${{ steps.semantic.outputs.release-version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
