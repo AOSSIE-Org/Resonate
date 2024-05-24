@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -7,13 +8,13 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/color_selection_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/constants.dart';
-import '../../controllers/email_verify_controller.dart';
 import '../widgets/custom_card.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -164,10 +165,12 @@ class ProfileScreen extends StatelessWidget {
                                                       : MainAxisAlignment
                                                           .center,
                                               children: [
-                                                Icon(
-                                                  Icons.cancel_rounded,
-                                                  color: Colors.red,
-                                                  size: UiSizes.size_35,
+                                                Expanded(
+                                                  child: Icon(
+                                                    Icons.cancel_rounded,
+                                                    color: Colors.red,
+                                                    size: UiSizes.size_35,
+                                                  ),
                                                 ),
                                                 emailVerifyController
                                                         .shouldDisplay.value

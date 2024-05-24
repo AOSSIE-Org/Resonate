@@ -34,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: 780,
+            //Use height value from UiSizes to make the app responsive
+            height: UiSizes.height_780,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
@@ -130,10 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return ForgotPasswordScreen();
-                        },
-                        ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ForgotPasswordScreen();
+                            },
+                          ),
                         );
                       },
                       child: Text(

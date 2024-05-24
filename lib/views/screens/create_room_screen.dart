@@ -210,8 +210,9 @@ class CreateRoomScreen extends StatelessWidget {
                               initialTags: const ['sample-tag'],
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
-                              validator: (tag) =>
-                                  tag.isValidTag() ? null : "Invalid Tag",
+                              validator: (tag) {
+                                return createRoomController.validateTag(tag);
+                              },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
                                   style: TextStyle(fontSize: UiSizes.size_20),
