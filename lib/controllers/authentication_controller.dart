@@ -1,13 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
+import 'package:resonate/services/appwrite_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
+import '../routes/app_routes.dart';
+import '../views/screens/reset_password_screen.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
@@ -31,13 +33,12 @@ class AuthenticationController extends GetxController {
           emailController.text, passwordController.text);
     } on AppwriteException catch (e) {
       log(e.toString());
-      if (e.type == 'user_invalid_credentials') {
-        Get.snackbar(
-          'Try Again!',
-          "Incorrect Email Or Password",
-          icon: const Icon(Icons.disabled_by_default_outlined),
-          snackPosition: SnackPosition.BOTTOM,
-        );
+      if (e.type == userInvalidCredentials) {
+        customSnackbar(
+            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+      } else if (e.type == generalArgumentInvalid) {
+        customSnackbar('Try Again!', "Password is less than 8 characters",
+            MessageType.error);
       }
     } catch (e) {
       log(e.toString());
@@ -57,7 +58,7 @@ class AuthenticationController extends GetxController {
       error = error.split(".")[0];
       error = error.split(",")[1];
       error = error.split("in")[0];
-      Get.snackbar("Oops", error.toString());
+      customSnackbar('Oops', error.toString(), MessageType.error);
       return false;
     } finally {
       isLoading.value = false;
@@ -79,6 +80,27 @@ class AuthenticationController extends GetxController {
       log(error.toString());
     }
   }
+  
+  Future<void> resetPassword(String email) async {
+    try {
+      print('Email before validation: $email');
+      if (!email.isValidEmail()) {
+        print('Invalid email address');
+        return;
+      }
+
+      var account = AppwriteService.getAccount();
+      await account.createRecovery(
+        email: email,
+        url: 'https://localhost/reset-password', // Replace with actual reset password URL
+      );
+      customSnackbar('Success', 'Password reset email sent!', MessageType.success);
+      //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
+    } on AppwriteException catch (e) {
+      print('Error during password reset: ${e.message}');
+      customSnackbar('Error', e.message.toString(), MessageType.error);
+    }
+  }
 }
 
 extension Validator on String {
@@ -97,3 +119,4 @@ extension Validator on String {
     return this == password;
   }
 }
+

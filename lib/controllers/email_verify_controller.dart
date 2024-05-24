@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
+import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import '../routes/app_routes.dart';
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -67,7 +69,7 @@ class EmailVerifyController extends GetxController {
     } else {
       isSending.value = false;
       signupisallowed.value = true;
-      Get.snackbar('Oops', res.response);
+      customSnackbar('Oops', res.response, MessageType.error);
     }
 
     return true;
@@ -77,9 +79,9 @@ class EmailVerifyController extends GetxController {
     verificationID = randomNumeric(10).toString() + authStateController.email!;
     verificationID = verificationID.split("@")[0];
     var prefs = await authStateController.account.getPrefs();
-    var otp_ID = prefs.data['otp_ID'];
+    var otpId = prefs.data['otp_ID'];
     var verifyOtpData = {
-      "otpID": otp_ID,
+      "otpID": otpId,
       "userOTP": userOTP,
       "verify_ID": verificationID
     };

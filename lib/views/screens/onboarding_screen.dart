@@ -9,7 +9,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import '../../controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class OnBoardingScreen extends StatelessWidget {
                   key: controller.userOnboardingFormKey,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: UiSizes.heigth_33),
+                      SizedBox(height: UiSizes.height_33),
                       Text(
                         "Complete your Profile",
                         style: TextStyle(fontSize: UiSizes.size_28),
                       ),
-                      SizedBox(height: UiSizes.heigth_33),
+                      SizedBox(height: UiSizes.height_33),
                       GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
@@ -65,7 +65,7 @@ class OnBoardingScreen extends StatelessWidget {
                       SizedBox(
                         height: UiSizes.height_66,
                         child: TextFormField(
-                          cursorRadius: Radius.circular(10),
+                          cursorRadius: const Radius.circular(10),
                           style: TextStyle(fontSize: UiSizes.size_14),
                           validator: (value) =>
                               value!.isNotEmpty ? null : "Enter Valid Name",
@@ -73,13 +73,18 @@ class OnBoardingScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           autocorrect: false,
                           decoration: InputDecoration(
-                              icon: Icon(
-                                Icons.person,
-                                size: UiSizes.size_23,
-                              ),
-                              errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                              labelText: "Full Name",
-                              labelStyle: TextStyle(fontSize: UiSizes.size_14)),
+                            icon: Icon(
+                              Icons.person,
+                              size: UiSizes.size_23,
+                            ),
+                            errorStyle: TextStyle(
+                              fontSize: UiSizes.size_14,
+                            ),
+                            labelText: "Full Name",
+                            labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: UiSizes.height_1),
+                          ),
                         ),
                       ),
                       SizedBox(height: UiSizes.height_24_6),
@@ -87,7 +92,7 @@ class OnBoardingScreen extends StatelessWidget {
                         height: UiSizes.height_70,
                         child: Obx(
                           () => TextFormField(
-                            cursorRadius: Radius.circular(10),
+                            cursorRadius: const Radius.circular(10),
                             style: TextStyle(fontSize: UiSizes.height_14),
                             validator: (value) {
                               if (value!.length > 5) {
@@ -100,7 +105,8 @@ class OnBoardingScreen extends StatelessWidget {
                             onChanged: (value) async {
                               if (value.length > 5) {
                                 controller.usernameAvailable.value =
-                                    await controller.isUsernameAvailable(value);
+                                    await controller
+                                        .isUsernameAvailable(value.trim());
                               } else {
                                 controller.usernameAvailable.value = false;
                               }
@@ -115,6 +121,8 @@ class OnBoardingScreen extends StatelessWidget {
                                     TextStyle(fontSize: UiSizes.height_14),
                                 errorStyle:
                                     TextStyle(fontSize: UiSizes.height_14),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: UiSizes.height_1),
                                 icon: Icon(
                                   Icons.account_circle,
                                   size: UiSizes.size_23,
@@ -148,6 +156,8 @@ class OnBoardingScreen extends StatelessWidget {
                               Icons.calendar_month,
                               size: UiSizes.size_23,
                             ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: UiSizes.height_1),
                             labelText: "Date of Birth",
                             labelStyle: TextStyle(fontSize: UiSizes.size_14),
                             suffix: GestureDetector(

@@ -2,13 +2,17 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/views/widgets/loading_widget.dart';
 
 import '../utils/constants.dart';
 
@@ -37,7 +41,7 @@ class SingleRoomController extends GetxController {
 
   @override
   void onInit() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     await getParticipants();
     getRealtimeStream();
     super.onInit();
@@ -47,7 +51,7 @@ class SingleRoomController extends GetxController {
   void onClose() async {
     await subscription?.close();
     await Get.delete<LiveKitController>(force: true);
-    Get.back();
+    Get.offAllNamed(AppRoutes.tabview);
     super.onClose();
   }
 
@@ -164,16 +168,19 @@ class SingleRoomController extends GetxController {
       if (b.value.isSpeaker && !a.value.isSpeaker) return 1;
       if (!b.value.isSpeaker && a.value.isSpeaker) return -1;
 
-      if (b.value.hasRequestedToBeSpeaker && !a.value.hasRequestedToBeSpeaker)
+      if (b.value.hasRequestedToBeSpeaker && !a.value.hasRequestedToBeSpeaker) {
         return 1;
-      if (!b.value.hasRequestedToBeSpeaker && a.value.hasRequestedToBeSpeaker)
+      }
+      if (!b.value.hasRequestedToBeSpeaker && a.value.hasRequestedToBeSpeaker) {
         return -1;
+      }
 
       return 0; // If all properties are equal (or if Listener), maintain the current order.
     });
   }
 
   Future<void> leaveRoom() async {
+    LoadingWidget();
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
     Get.delete<SingleRoomController>();
   }
@@ -181,6 +188,7 @@ class SingleRoomController extends GetxController {
   Future<void> deleteRoom() async {
     try {
       isLoading.value = true;
+      LoadingWidget();
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       Get.delete<SingleRoomController>();
     } catch (e) {
@@ -189,6 +197,7 @@ class SingleRoomController extends GetxController {
       isLoading.value = false;
     }
   }
+
 
   Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(

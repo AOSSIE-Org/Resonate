@@ -1,23 +1,39 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
+import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
+
+import '../../controllers/email_verify_controller.dart';
+import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
-  final TabViewController controller =
-      Get.put<TabViewController>(TabViewController());
+  final TabViewController controller = Get.find<TabViewController>();
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
+  final emailVerifyController =
+      Get.put<EmailVerifyController>(EmailVerifyController());
+  final CreateRoomController createRoomController =
+      Get.find<CreateRoomController>();
+  final RoomsController roomsController = Get.find<RoomsController>();
+  final discussionsController =
+      Get.put<DiscussionsController>(DiscussionsController());
+  final ThemeController themeController = Get.find<ThemeController>();
+
+  TabViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +67,23 @@ class TabViewScreen extends StatelessWidget {
                       label: "Audio Room",
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
-                        await Get.delete<CreateRoomController>();
-                        controller.setIndex(2);
+                        if (authStateController.isEmailVerified!) {
+                          controller.setIndex(2);
+                        } else {
+                          AppUtils.showDialog(
+                            title: "Email Verification Required",
+                            middleText:
+                                "To proceed, verify your email address.",
+                            onFirstBtnPressed: () {
+                              Get.back();
+                              emailVerifyController.isSending.value = true;
+                              emailVerifyController.sendOTP();
+                              AppUtils.showBlurredLoaderDialog();
+                            },
+                            onSecondBtnPressed: () => Get.back(),
+                            firstBtnText: "Verify",
+                          );
+                        }
                       },
                     ),
                     SpeedDialChild(
@@ -72,7 +103,21 @@ class TabViewScreen extends StatelessWidget {
                   width: UiSizes.width_56,
                   child: FloatingActionButton(
                       onPressed: () async {
-                        await Get.find<CreateRoomController>().createRoom();
+                        if (createRoomController.isScheduled.value) {
+                          createRoomController.isLoading.value = true;
+                          await discussionsController.createDiscussion();
+                          discussionsController.getDiscussions();
+                          createRoomController.isLoading.value = false;
+                          controller.setIndex(3);
+                        } else {
+                          await createRoomController.createRoom(
+                              createRoomController.nameController.text,
+                              createRoomController.descriptionController.text,
+                              createRoomController.tagsController.getTags!
+                                  as List<String>,
+                              true);
+                          await roomsController.getRooms();
+                        }
                       },
                       child: Icon(Icons.done, size: UiSizes.size_24)),
                 ),
@@ -83,7 +128,7 @@ class TabViewScreen extends StatelessWidget {
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.white
                 : const Color.fromRGBO(17, 17, 20, 1),
-            activeColor: Colors.amber,
+            activeColor: themeController.primaryColor.value,
             inactiveColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.black.withOpacity(0.3)
                 : Colors.white.withOpacity(0.3),
@@ -93,7 +138,7 @@ class TabViewScreen extends StatelessWidget {
             icons: const [
               Icons.home_rounded,
               // Icons.person_outline, // move to the appbar and replaced with discussions icon
-              Icons.chat_rounded
+              Icons.timelapse_rounded
             ],
             notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),
@@ -105,7 +150,7 @@ class TabViewScreen extends StatelessWidget {
               ? HomeScreen()
               : (controller.getIndex() == 2)
                   ? CreateRoomScreen()
-                  : const DiscussionScreen(),
+                  : DiscussionScreen(),
         ));
   }
 }

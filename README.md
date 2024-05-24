@@ -6,10 +6,24 @@
 
 # :microphone: Resonate - An Open Source Social Voice Platform
 </div>
-<div align="center"> 
+<div align="center" style="text-align:center;"> 
 <span>
- <a href="https://appwrite.io" target="_blank"><img src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg" alt="Appwrite Logo" width="200"></a> 
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/38823d33-edfb-4d90-9c4b-823cbe33c0a5" alt="Livekit Logo" width="200"></a>
+ <a href="https://appwrite.io" target="_blank">
+  <picture>
+   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"      
+    alt="Appwrite Logo" width="200">
+   <img alt="Appwrite Logo" align="center" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite-light.svg" alt="Appwrite Logo" 
+    width="200">
+  </picture>
+ </a>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <a href="https://livekit.io" target="_blank">
+  <picture>
+   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/AKASHANGADII/Resonate/assets/81625153/87bb173f-d5b0-4386-b9ca-6e69cd53578f" alt="Livekit Logo" width="140" height="30">
+   <img alt="Livekit Logo" align="center" src="https://github.com/AKASHANGADII/Resonate/assets/81625153/1466de84-d00e-4db7-9b51-a99f3c1997ff"  width="140" 
+    height="30">
+  </picture>
+ </a>
 </span>
 </div>
 <br>
@@ -79,4 +93,14 @@ If you have any questions, need clarifications, or want to discuss ideas, feel f
 ## :round_pushpin: License
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
+
+## 💪 Thanks To All Contributors
+
+Thanks a lot for spending your time helping Resonate grow. Keep rocking 🥂
+
+<a href="https://github.com/AOSSIE-Org/Resonate/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AOSSIE-Org/Resonate" alt="Contributors"/>
+</a>
+<br>
+ 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/pair_chat_controller.dart';
@@ -8,7 +9,11 @@ import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
   AuthStateController authStateController = Get.find<AuthStateController>();
+
   PairChatController controller = Get.find<PairChatController>();
+  final ThemeController themeController = Get.find<ThemeController>();
+
+  PairChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +44,21 @@ class PairChatScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       //Image.asset("assets/images/resonate_logo.png", height: Get.height*0.2,),
-                      const Text(
+                      Text(
                         "Be polite and respect the other person's opinion. Avoid rude comments.",
-                        style: TextStyle(color: Colors.amber),
+                        style: TextStyle(
+                            color: themeController.primaryColor.value),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
                         height: UiSizes.height_24_6,
                       ),
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
+                          // Row 1
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
@@ -60,7 +68,7 @@ class PairChatScreen extends StatelessWidget {
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: UiSizes.height_12,
+                                width: UiSizes.width_16,
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -69,18 +77,18 @@ class PairChatScreen extends StatelessWidget {
                                   controller.isAnonymous.value
                                       ? "User1"
                                       : authStateController.userName!,
-                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                  style: TextStyle(fontSize: UiSizes.size_16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                          Container(
-                            width: UiSizes.width_33,
-                            height: 2,
-                            color: Colors.amber,
+                          SizedBox(
+                            height: UiSizes.height_20,
                           ),
-                          Column(
+                          // Row 2
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
@@ -90,7 +98,7 @@ class PairChatScreen extends StatelessWidget {
                                 radius: UiSizes.width_66,
                               ),
                               SizedBox(
-                                height: UiSizes.height_12,
+                                width: UiSizes.width_16,
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -99,10 +107,10 @@ class PairChatScreen extends StatelessWidget {
                                   controller.isAnonymous.value
                                       ? "User2"
                                       : controller.pairUsername!,
-                                  style: TextStyle(fontSize: UiSizes.size_14),
+                                  style: TextStyle(fontSize: UiSizes.size_16),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
@@ -118,7 +126,7 @@ class PairChatScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                 color: currentBrightness == Brightness.light
-                    ? Colors.amber[100]
+                    ? themeController.primaryColor.value
                     : Colors.black,
                 height: UiSizes.height_131,
                 child: Obx(() {
@@ -138,13 +146,18 @@ class PairChatScreen extends StatelessWidget {
                               },
                               backgroundColor: controller.isMicOn.value
                                   ? currentBrightness == Brightness.light
-                                      ? Colors.white
+                                      ? Colors.white.withOpacity(0.5)
                                       : Colors.white54
-                                  : Colors.amber,
-                              child: Icon(
-                                Icons.mic_off,
-                                size: UiSizes.size_24,
-                              ),
+                                  : themeController.primaryColor.value,
+                              child: controller.isMicOn.value
+                                  ? Icon(
+                                      Icons.mic,
+                                      size: UiSizes.size_24,
+                                    )
+                                  : Icon(
+                                      Icons.mic_off,
+                                      size: UiSizes.size_24,
+                                    ),
                             ),
                           ),
                           SizedBox(
@@ -168,9 +181,9 @@ class PairChatScreen extends StatelessWidget {
                                 controller.toggleLoudSpeaker();
                               },
                               backgroundColor: controller.isLoudSpeakerOn.value
-                                  ? Colors.amber
+                                  ? themeController.primaryColor.value
                                   : currentBrightness == Brightness.light
-                                      ? Colors.white
+                                      ? Colors.white.withOpacity(0.5)
                                       : Colors.white54,
                               child: Icon(
                                 Icons.volume_up,

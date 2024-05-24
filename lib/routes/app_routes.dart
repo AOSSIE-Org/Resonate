@@ -1,6 +1,8 @@
 class AppRoutes {
   static const login = '/login';
   static const signup = '/signup';
+  static const forgotPassword = '/forgotPassword';
+  static const resetPassword = '/resetPassword';
   static const profile = '/profile';
   static const emailVerification = '/emailVerification';
   static const onBoarding = "/onBoarding";
@@ -14,4 +16,6 @@ class AppRoutes {
   static const pairing = "/pairing";
   static const pairChat = "/pairChat";
   static const settings = "/settings";
+  static const editProfile = "/editProfile";
+  static const deleteAccount = "/deleteAccount";
 }

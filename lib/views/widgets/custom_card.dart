@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class CustomCard extends StatelessWidget {
@@ -19,6 +18,8 @@ class CustomCard extends StatelessWidget {
     return SizedBox(
       height: UiSizes.height_76,
       child: Card(
+        //set clip behavior to antiAlias to prevent the inkwell splash from overflowing the card
+        clipBehavior: Clip.antiAlias,
         margin: EdgeInsets.symmetric(
             vertical: UiSizes.height_10, horizontal: UiSizes.width_25),
         child: InkWell(
