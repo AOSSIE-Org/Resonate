@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: 780,
+            height: UiSizes.height_780,
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
               key: controller.loginFormKey,

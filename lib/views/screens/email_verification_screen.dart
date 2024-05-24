@@ -85,7 +85,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                 height: UiSizes.height_15,
                               ),
                               Container(
-                                decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                ),
                                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16, vertical: UiSizes.height_30),
                                 child: Column(
                                   children: [
@@ -213,6 +215,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                   }
                                 },
                                 child: AnimatedContainer(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.surfaceTint,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                     onEnd: () {
                                       if (emailVerifyController.isExpanded.value == true) {
                                         emailVerifyController.shouldDisplay.value = true;
@@ -229,7 +235,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         ? Center(
                                             child: Text(
                                               "Verify Your Email",
-                                              style: TextStyle(fontSize: UiSizes.size_14),
+                                              style: TextStyle(fontSize: UiSizes.size_14, color: Colors.black),
                                             ),
                                           )
                                         : const SizedBox())),
