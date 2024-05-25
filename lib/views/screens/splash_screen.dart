@@ -9,9 +9,11 @@ import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/routes/app_routes.dart';
+
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -32,14 +34,15 @@ class _SplashScreenState extends State<SplashScreen> {
     var duration = const Duration(seconds: 2, milliseconds: 500);
     return Timer(duration, () {
       authController.isUserLoggedIn();
+      Get.offNamed(AppRoutes.landing);
     });
   }
 
-  @override
+ @override
   void initState() {
+    super.initState();
     startDisplayTimer();
     startAuthTimer();
-    super.initState();
   }
 
   @override
@@ -52,59 +55,76 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: UiSizes.height_200,
               width: UiSizes.width_140,
-              child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: UiSizes.height_200,
-                  splash: Image.asset(AppImages.resonateLogoImage),
-                  duration: 3000,
-                  screenFunction: () async {
+              child: Obx(() {
+                  if (splashController.allowedDisplay.value ?? false) {
+                    return AnimatedSplashScreen.withScreenFunction(
+                      splashIconSize: UiSizes.height_200,
+                      splash: Image.asset(AppImages.resonateLogoImage),
+                      duration: 3000,
+                      screenFunction: () async {
+                        return const SizedBox();
+                      },
+                      splashTransition: SplashTransition.fadeTransition,
+                      pageTransitionType: PageTransitionType.fade,
+                      backgroundColor: AppColor.bgBlackColor,
+                    );
+                  } else {
                     return const SizedBox();
-                  },
-                  splashTransition: SplashTransition.fadeTransition,
-                  pageTransitionType: PageTransitionType.fade,
-                  backgroundColor: AppColor.bgBlackColor),
-            ),
+                  }
+                }),
+              ),
             SizedBox(
               width: UiSizes.width_5,
             ),
             SizedBox(
               height: UiSizes.height_140,
               width: UiSizes.width_20,
-              child: AnimatedSplashScreen.withScreenFunction(
-                  splashIconSize: UiSizes.size_200,
-                  splash: VerticalDivider(
-                    width: UiSizes.width_20,
-                    thickness: 1,
-                    color: Colors.grey,
-                  ),
-                  duration: 3000,
-                  screenFunction: () async {
+              child: Obx(() {
+                  if (splashController.allowedDisplay.value ?? false) {
+                    return AnimatedSplashScreen.withScreenFunction(
+                      splashIconSize: UiSizes.size_200,
+                      splash: VerticalDivider(
+                        width: UiSizes.width_20,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      duration: 3000,
+                      screenFunction: () async {
+                        return const SizedBox();
+                      },
+                      splashTransition: SplashTransition.scaleTransition,
+                      pageTransitionType: PageTransitionType.fade,
+                      backgroundColor: AppColor.bgBlackColor,
+                    );
+                  } else {
                     return const SizedBox();
-                  },
-                  splashTransition: SplashTransition.scaleTransition,
-                  pageTransitionType: PageTransitionType.fade,
-                  backgroundColor: AppColor.bgBlackColor),
-            ),
+                  }
+                }),
+              ),
             SizedBox(
               width: UiSizes.width_10,
             ),
             SizedBox(
               height: UiSizes.height_200,
               width: UiSizes.width_140,
-              child: Obx(
-                () => splashController.allowedDisplay.value
-                    ? AnimatedSplashScreen.withScreenFunction(
-                        splash: Image.asset(AppImages.aossieLogoImage),
-                        duration: 2000,
-                        screenFunction: () async {
-                          return const SizedBox();
-                        },
-                        splashIconSize: UiSizes.size_200,
-                        splashTransition: SplashTransition.fadeTransition,
-                        pageTransitionType: PageTransitionType.fade,
-                        backgroundColor: AppColor.bgBlackColor)
-                    : const SizedBox(),
+              child: Obx(() {
+                  if (splashController.allowedDisplay.value ?? false) {
+                    return AnimatedSplashScreen.withScreenFunction(
+                      splash: Image.asset(AppImages.aossieLogoImage),
+                      duration: 2000,
+                      screenFunction: () async {
+                        return const SizedBox();
+                      },
+                      splashIconSize: UiSizes.size_200,
+                      splashTransition: SplashTransition.fadeTransition,
+                      pageTransitionType: PageTransitionType.fade,
+                      backgroundColor: AppColor.bgBlackColor,
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
               ),
-            )
           ]),
         ),
       ),

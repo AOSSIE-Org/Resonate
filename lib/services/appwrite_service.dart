@@ -42,3 +42,31 @@ class AppwriteService {
     return _realtime!;
   }
 }
+
+  // Checks the Appwrite server status
+  static Future<bool> checkServerStatus() async {
+    try {
+      final response = await _client!.getHealth();
+      return response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
+// Function to check server status and navigate accordingly
+  static Future<void> checkServerAndNavigate(BuildContext context) async {
+    bool isServerUp = await checkServerStatus();
+
+    if (isServerUp) {
+      // Server is up, you can proceed with your normal flow
+    } else {
+      // Server is down, navigate to a screen informing the user
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ServerDownScreen()),
+      );
+    }
+  }
+}
+
