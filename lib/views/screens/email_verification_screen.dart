@@ -85,8 +85,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                 height: UiSizes.height_15,
                               ),
                               Container(
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.15),
                                 ),
                                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16, vertical: UiSizes.height_30),
                                 child: Column(
@@ -217,7 +218,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                 child: AnimatedContainer(
                                     decoration: BoxDecoration(
                                       color: Theme.of(context).colorScheme.surfaceTint,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(100),
                                     ),
                                     onEnd: () {
                                       if (emailVerifyController.isExpanded.value == true) {
@@ -235,7 +236,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                         ? Center(
                                             child: Text(
                                               "Verify Your Email",
-                                              style: TextStyle(fontSize: UiSizes.size_14, color: Colors.black),
+                                              style: TextStyle(
+                                                fontSize: UiSizes.size_14,
+                                                color: Theme.of(context).colorScheme.surface,
+                                              ),
                                             ),
                                           )
                                         : const SizedBox())),
