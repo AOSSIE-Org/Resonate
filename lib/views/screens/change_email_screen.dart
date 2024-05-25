@@ -54,7 +54,7 @@ class ChangeEmailScreen extends StatelessWidget {
                   prefixIcon: const Icon(
                     Icons.alternate_email_rounded,
                   ),
-                  labelText: "Email",
+                  labelText: "New Email",
                 ),
               ),
               SizedBox(
@@ -74,7 +74,7 @@ class ChangeEmailScreen extends StatelessWidget {
                     prefixIcon: const Icon(
                       Icons.lock_outline_rounded,
                     ),
-                    labelText: "Password",
+                    labelText: "Current Password",
                     suffixIcon: IconButton(
                       onPressed: () {
                         controller.isPasswordFieldVisible.value =
@@ -95,7 +95,7 @@ class ChangeEmailScreen extends StatelessWidget {
                 height: UiSizes.height_30,
               ),
               const Text(
-                  'For added security, you must provide a password when changing your email address. After changing your email, use the updated address for future logins.'),
+                  'For added security, you must provide your account\'s current password when changing your email address. After changing your email, use the updated email for future logins.'),
               SizedBox(
                 height: UiSizes.height_30,
               ),
