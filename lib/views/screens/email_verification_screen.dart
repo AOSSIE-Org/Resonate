@@ -54,7 +54,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(20),
                                         ),
                                         child: Center(
-                                          child: Text("Back", style: TextStyle(color: Colors.black, fontSize: UiSizes.size_14)),
+                                          child: Text("Back", style: TextStyle(color: Theme.of(context).colorScheme.surface, fontSize: UiSizes.size_14)),
                                         )),
                                   ),
                                 ),
