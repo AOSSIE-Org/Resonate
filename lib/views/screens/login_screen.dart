@@ -34,10 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            //Use height value from UiSizes to make the app responsive
             height: UiSizes.height_780,
-            padding: EdgeInsets.symmetric(
-                horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
+            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
             child: Form(
               key: controller.loginFormKey,
               child: Column(
@@ -50,24 +48,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: UiSizes.height_15),
                   Text(
                     "Welcome Back",
-                    style: TextStyle(
-                        fontSize: UiSizes.size_25,
-                        color: themeController.primaryColor.value),
+                    style: TextStyle(fontSize: UiSizes.size_25, color: themeController.primaryColor.value),
                   ),
                   SizedBox(height: UiSizes.height_15),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
                     child: TextFormField(
-                      validator: (value) => value!.isValidEmail()
-                          ? null
-                          : "Enter Valid Email Address",
+                      validator: (value) => value!.isValidEmail() ? null : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(
-                          fontSize: UiSizes.size_14,
-                          color: themeController.loadTheme() == 'dark'
-                              ? Colors.white
-                              : Colors.black),
+                      style: TextStyle(fontSize: UiSizes.size_14, color: Theme.of(context).colorScheme.onPrimary),
                       autocorrect: false,
                       decoration: InputDecoration(
                           icon: Icon(
@@ -76,10 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           errorStyle: TextStyle(fontSize: UiSizes.size_14),
                           labelText: "Email ID",
-                          labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black)),
+                          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
                     ),
                   ),
                   SizedBox(height: UiSizes.height_10),
@@ -91,35 +78,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: !controller.isPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
-                        style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : Colors.black),
+                        style: TextStyle(fontSize: UiSizes.size_14, color: Theme.of(context).colorScheme.onPrimary),
                         decoration: InputDecoration(
                           icon: Icon(
                             size: UiSizes.size_23,
                             Icons.lock_outline_rounded,
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black),
+                          labelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                           errorStyle: TextStyle(
                             fontSize: UiSizes.size_14,
                           ),
                           suffixIcon: IconButton(
                             onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
+                              controller.isPasswordFieldVisible.value = !controller.isPasswordFieldVisible.value;
                             },
                             splashRadius: UiSizes.height_20,
                             icon: Icon(
                               size: UiSizes.size_23,
-                              controller.isPasswordFieldVisible.value
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+                              controller.isPasswordFieldVisible.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                             ),
                           ),
                         ),
@@ -142,9 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         "Forgot Password?",
-                        style: TextStyle(
-                            color: themeController.primaryColor.value,
-                            fontSize: UiSizes.size_14),
+                        style: TextStyle(color: themeController.primaryColor.value, fontSize: UiSizes.size_14),
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -162,8 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: controller.isLoading.value
                           ? Center(
-                              child:
-                                  LoadingAnimationWidget.horizontalRotatingDots(
+                              child: LoadingAnimationWidget.horizontalRotatingDots(
                                 color: Colors.black,
                                 size: UiSizes.size_40,
                               ),
@@ -224,11 +198,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         "New to Resonate?",
-                        style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : const Color.fromRGBO(0, 0, 0, 1)),
+                        style: TextStyle(fontSize: UiSizes.size_14, color: Theme.of(context).colorScheme.onPrimary),
+
                       ),
                       SizedBox(
                         width: UiSizes.width_5,
@@ -242,9 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           "Register",
-                          style: TextStyle(
-                              color: themeController.primaryColor.value,
-                              fontSize: UiSizes.size_14),
+                          style: TextStyle(color: themeController.primaryColor.value, fontSize: UiSizes.size_14),
                         ),
                       )
                     ],

@@ -20,10 +20,8 @@ import '../widgets/custom_card.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({final Key? key}) : super(key: key);
 
-  final emailVerifyController =
-      Get.put<EmailVerifyController>(EmailVerifyController());
-  AuthStateController authStateController =
-      Get.put<AuthStateController>(AuthStateController());
+  final emailVerifyController = Get.put<EmailVerifyController>(EmailVerifyController());
+  AuthStateController authStateController = Get.put<AuthStateController>(AuthStateController());
   final ThemeController themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
@@ -41,9 +39,9 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () async {
                       await authStateController.logout();
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.logout_rounded,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.primary,
                     )),
                 const SizedBox(
                   width: 20,
@@ -58,10 +56,7 @@ class ProfileScreen extends StatelessWidget {
             controller.isInitializing.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Center(
-                        child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                    child: Center(child: LoadingAnimationWidget.threeRotatingDots(color: themeController.primaryColor.value, size: Get.pixelRatio * 20)),
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -73,14 +68,11 @@ class ProfileScreen extends StatelessWidget {
                           width: UiSizes.width_180,
                           height: UiSizes.height_180,
                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: themeController.primaryColor.value,
-                                width: UiSizes.width_4),
+                            border: Border.all(color: themeController.primaryColor.value, width: UiSizes.width_4),
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  controller.profileImageUrl ?? ''),
+                              image: NetworkImage(controller.profileImageUrl ?? ''),
                             ),
                           ),
                           child: Stack(
@@ -89,51 +81,30 @@ class ProfileScreen extends StatelessWidget {
                                 alignment: Alignment.bottomRight,
                                 child: GestureDetector(
                                   onTap: () {
-                                    emailVerifyController.isExpanded.value =
-                                        !(emailVerifyController
-                                            .isExpanded.value);
-                                    if (emailVerifyController
-                                            .isExpanded.value ==
-                                        false) {
-                                      emailVerifyController
-                                          .shouldDisplay.value = false;
+                                    emailVerifyController.isExpanded.value = !(emailVerifyController.isExpanded.value);
+                                    if (emailVerifyController.isExpanded.value == false) {
+                                      emailVerifyController.shouldDisplay.value = false;
                                     }
                                   },
                                   child: AnimatedContainer(
                                       onEnd: () {
-                                        if (emailVerifyController
-                                                .isExpanded.value ==
-                                            true) {
-                                          emailVerifyController
-                                              .shouldDisplay.value = true;
+                                        if (emailVerifyController.isExpanded.value == true) {
+                                          emailVerifyController.shouldDisplay.value = true;
                                         }
                                       },
-                                      width:
-                                          emailVerifyController.isExpanded.value
-                                              ? UiSizes.width_170
-                                              : UiSizes.width_35,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: Colors.white),
-                                      duration:
-                                          const Duration(milliseconds: 300),
+                                      width: emailVerifyController.isExpanded.value ? UiSizes.width_170 : UiSizes.width_35,
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.white),
+                                      duration: const Duration(milliseconds: 300),
                                       child: controller.isEmailVerified!
                                           ? Row(
-                                              mainAxisAlignment:
-                                                  emailVerifyController
-                                                          .isExpanded.value
-                                                      ? MainAxisAlignment.start
-                                                      : MainAxisAlignment
-                                                          .center,
+                                              mainAxisAlignment: emailVerifyController.isExpanded.value ? MainAxisAlignment.start : MainAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.verified_rounded,
                                                   color: AppColor.greenColor,
                                                   size: UiSizes.size_32,
                                                 ),
-                                                emailVerifyController
-                                                        .shouldDisplay.value
+                                                emailVerifyController.shouldDisplay.value
                                                     ? SizedBox(
                                                         width: UiSizes.width_5,
                                                       )
@@ -141,14 +112,12 @@ class ProfileScreen extends StatelessWidget {
                                                         height: 0,
                                                         width: 0,
                                                       ),
-                                                emailVerifyController
-                                                        .shouldDisplay.value
+                                                emailVerifyController.shouldDisplay.value
                                                     ? Text(
                                                         "Email Verified",
                                                         style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize:
-                                                              UiSizes.size_15,
+                                                          fontSize: UiSizes.size_15,
                                                         ),
                                                       )
                                                     : const SizedBox(
@@ -158,12 +127,7 @@ class ProfileScreen extends StatelessWidget {
                                               ],
                                             )
                                           : Row(
-                                              mainAxisAlignment:
-                                                  emailVerifyController
-                                                          .isExpanded.value
-                                                      ? MainAxisAlignment.start
-                                                      : MainAxisAlignment
-                                                          .center,
+                                              mainAxisAlignment: emailVerifyController.isExpanded.value ? MainAxisAlignment.start : MainAxisAlignment.center,
                                               children: [
                                                 Expanded(
                                                   child: Icon(
@@ -172,8 +136,7 @@ class ProfileScreen extends StatelessWidget {
                                                     size: UiSizes.size_35,
                                                   ),
                                                 ),
-                                                emailVerifyController
-                                                        .shouldDisplay.value
+                                                emailVerifyController.shouldDisplay.value
                                                     ? SizedBox(
                                                         width: UiSizes.width_10,
                                                       )
@@ -181,15 +144,10 @@ class ProfileScreen extends StatelessWidget {
                                                         height: 0,
                                                         width: 0,
                                                       ),
-                                                emailVerifyController
-                                                        .shouldDisplay.value
+                                                emailVerifyController.shouldDisplay.value
                                                     ? Text(
                                                         "Verify Email",
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                UiSizes.size_15,
-                                                            color:
-                                                                Colors.black),
+                                                        style: TextStyle(fontSize: UiSizes.size_15, color: Colors.black),
                                                       )
                                                     : const SizedBox(
                                                         height: 0,
@@ -210,9 +168,7 @@ class ProfileScreen extends StatelessWidget {
                             fit: BoxFit.contain,
                             child: Text(
                               "@ ${controller.userName}",
-                              style: TextStyle(
-                                  fontSize: UiSizes.size_35,
-                                  color: themeController.primaryColor.value),
+                              style: TextStyle(fontSize: UiSizes.size_35, color: themeController.primaryColor.value),
                             ),
                           ),
                         ),
@@ -233,34 +189,20 @@ class ProfileScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                                 child: Material(
                                   child: InkWell(
-                                    highlightColor:
-                                        const Color.fromARGB(138, 33, 140, 14),
-                                    splashColor:
-                                        const Color.fromARGB(172, 43, 174, 20),
-                                    onTap: () => {
-                                      emailVerifyController.isSending.value =
-                                          true,
-                                      emailVerifyController.sendOTP()
-                                    },
+                                    highlightColor: const Color.fromARGB(138, 33, 140, 14),
+                                    splashColor: const Color.fromARGB(172, 43, 174, 20),
+                                    onTap: () => {emailVerifyController.isSending.value = true, emailVerifyController.sendOTP()},
                                     child: Ink(
                                         height: UiSizes.height_40,
                                         width: UiSizes.width_140,
                                         decoration: BoxDecoration(
-                                            color: themeController
-                                                .primaryColor.value,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border: Border.all(
-                                                color: themeController
-                                                    .primaryColor.value,
-                                                width: 3)),
+                                            color: themeController.primaryColor.value,
+                                            borderRadius: BorderRadius.circular(20),
+                                            border: Border.all(color: themeController.primaryColor.value, width: 3)),
                                         child: Center(
                                           child: Text(
                                             "Verify Email",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: UiSizes.size_14,
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(color: Colors.black, fontSize: UiSizes.size_14, fontWeight: FontWeight.bold),
                                           ),
                                         )),
                                   ),
@@ -314,8 +256,7 @@ class ProfileScreen extends StatelessWidget {
                         CustomCard(
                           title: "Settings",
                           icon: FontAwesomeIcons.gear,
-                          onTap: () =>
-                              Navigator.pushNamed(context, AppRoutes.settings),
+                          onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
                         ),
                         SizedBox(
                           height: UiSizes.height_10,
@@ -326,10 +267,7 @@ class ProfileScreen extends StatelessWidget {
             emailVerifyController.isSending.value
                 ? BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Center(
-                        child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                    child: Center(child: LoadingAnimationWidget.threeRotatingDots(color: themeController.primaryColor.value, size: Get.pixelRatio * 20)),
                   )
                 : const SizedBox(),
           ])),
