@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import '../../themes/theme_controller.dart';
-import 'reset_password_screen.dart';
 import '../../utils/ui_sizes.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -22,6 +21,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     emailController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +32,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
+            const Padding(
+              padding: EdgeInsets.all(24.0),
               child: Text(
                 'Enter your email and we will send you a reset link',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
-              width: 300, 
+              width: 300,
               padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
               child: TextFormField(
                 validator: (value) {
@@ -72,18 +72,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             MaterialButton(
               onPressed: () {
                 authController.resetPassword(emailController.text);
               },
-              child: Text(
+              color: Colors.amber,
+              child: const Text(
                 'Reset Password',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
-              color: Colors.amber,
             ),
           ],
         ),

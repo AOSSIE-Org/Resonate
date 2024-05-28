@@ -38,7 +38,10 @@ class AppUtils {
         ElevatedButton(
           onPressed: onFirstBtnPressed,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
+            ),
           ),
           child: Text(
             firstBtnText,
@@ -52,7 +55,10 @@ class AppUtils {
           onPressed: onSecondBtnPressed,
           style: ElevatedButton.styleFrom(
             textStyle: secondBtnTextStyle,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
+            ),
           ),
           child: Text(
             secondBtnText,
