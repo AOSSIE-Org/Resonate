@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:resonate/firebase_options.dart';
 import 'package:resonate/routes/app_pages.dart';
@@ -9,7 +8,6 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/themes.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'themes/theme_controller.dart';
 
 Future<void> main() async {

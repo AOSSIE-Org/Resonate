@@ -26,15 +26,15 @@ class ColorSelectionWidget extends StatelessWidget {
               vertical: UiSizes.height_10, horizontal: UiSizes.width_25),
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
-              Icon(Icons.color_lens),
-              SizedBox(
+              const Icon(Icons.color_lens),
+              const SizedBox(
                 width: 12,
               ),
-              Text("App Color"),
-              Spacer(),
+              const Text("App Color"),
+              const Spacer(),
               ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
@@ -46,7 +46,7 @@ class ColorSelectionWidget extends StatelessWidget {
                       themeController.changePrimaryColor(color);
                     },
                     child: Container(
-                      margin: EdgeInsets.all(2),
+                      margin: const EdgeInsets.all(2),
                       decoration:
                           BoxDecoration(shape: BoxShape.circle, color: color),
                       width: 30,
@@ -55,7 +55,7 @@ class ColorSelectionWidget extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],

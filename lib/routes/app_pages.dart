@@ -61,7 +61,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.resetPassword,
-      page: () => ResetPasswordScreen(),
+      page: () => const ResetPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
