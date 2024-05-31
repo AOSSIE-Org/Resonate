@@ -10,7 +10,7 @@ class Themes {
       fontFamily: GoogleFonts.poppins(fontWeight: FontWeight.w500).fontFamily,
       colorScheme: ColorScheme.light(
         primary: primaryColor,
-        onPrimary: Colors.white,
+        onPrimary: Colors.black,
         error: const Color(0xFDFF0000),
         onError: Colors.white,
       ),
@@ -63,7 +63,7 @@ class Themes {
       colorScheme: ColorScheme.dark(
         primary: primaryColor,
         secondary: primaryColor,
-        onPrimary: Colors.black,
+        onPrimary: const Color(0xFFF4F4F4),
         onSecondary: Colors.black,
         surface: const Color.fromRGBO(17, 17, 20, 1),
         onSurface: primaryColor,

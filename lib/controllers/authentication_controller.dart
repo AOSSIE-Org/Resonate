@@ -8,8 +8,6 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
-import '../routes/app_routes.dart';
-import '../views/screens/reset_password_screen.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
@@ -80,7 +78,7 @@ class AuthenticationController extends GetxController {
       log(error.toString());
     }
   }
-  
+
   Future<void> resetPassword(String email) async {
     try {
       print('Email before validation: $email');
@@ -92,9 +90,11 @@ class AuthenticationController extends GetxController {
       var account = AppwriteService.getAccount();
       await account.createRecovery(
         email: email,
-        url: 'https://localhost/reset-password', // Replace with actual reset password URL
+        url:
+            'https://localhost/reset-password', // Replace with actual reset password URL
       );
-      customSnackbar('Success', 'Password reset email sent!', MessageType.success);
+      customSnackbar(
+          'Success', 'Password reset email sent!', MessageType.success);
       //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
     } on AppwriteException catch (e) {
       print('Error during password reset: ${e.message}');
@@ -119,4 +119,3 @@ extension Validator on String {
     return this == password;
   }
 }
-

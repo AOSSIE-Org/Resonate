@@ -34,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            //Use height value from UiSizes to make the app responsive
             height: UiSizes.height_780,
             padding: EdgeInsets.symmetric(
                 horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
@@ -65,9 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(
                           fontSize: UiSizes.size_14,
-                          color: themeController.loadTheme() == 'dark'
-                              ? Colors.white
-                              : Colors.black),
+                          color: Theme.of(context).colorScheme.onPrimary),
                       autocorrect: false,
                       decoration: InputDecoration(
                           icon: Icon(
@@ -77,9 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           errorStyle: TextStyle(fontSize: UiSizes.size_14),
                           labelText: "Email ID",
                           labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black)),
+                              color: Theme.of(context).colorScheme.onPrimary)),
                     ),
                   ),
                   SizedBox(height: UiSizes.height_10),
@@ -93,9 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         autocorrect: false,
                         style: TextStyle(
                             fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : Colors.black),
+                            color: Theme.of(context).colorScheme.onPrimary),
                         decoration: InputDecoration(
                           icon: Icon(
                             size: UiSizes.size_23,
@@ -103,9 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           labelText: "Password",
                           labelStyle: TextStyle(
-                              color: themeController.loadTheme() == 'dark'
-                                  ? Colors.white
-                                  : Colors.black),
+                              color: Theme.of(context).colorScheme.onPrimary),
                           errorStyle: TextStyle(
                             fontSize: UiSizes.size_14,
                           ),
@@ -135,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return ForgotPasswordScreen();
+                              return const ForgotPasswordScreen();
                             },
                           ),
                         );
@@ -226,9 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         "New to Resonate?",
                         style: TextStyle(
                             fontSize: UiSizes.size_14,
-                            color: themeController.loadTheme() == 'dark'
-                                ? Colors.white
-                                : const Color.fromRGBO(0, 0, 0, 1)),
+                            color: Theme.of(context).colorScheme.onPrimary),
                       ),
                       SizedBox(
                         width: UiSizes.width_5,

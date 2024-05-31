@@ -63,7 +63,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                         child: Center(
                                           child: Text("Back",
                                               style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
                                                   fontSize: UiSizes.size_14)),
                                         )),
                                   ),
@@ -96,12 +98,18 @@ class EmailVerificationScreen extends StatelessWidget {
                                 height: UiSizes.height_15,
                               ),
                               Container(
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer
+                                      .withOpacity(.15),
+                                ),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: UiSizes.width_16,
-                                    vertical: UiSizes.height_30),
+                                  horizontal: UiSizes.width_16,
+                                  vertical: UiSizes.height_30,
+                                ),
                                 child: Column(
                                   children: [
                                     SizedBox(
@@ -125,8 +133,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                       borderWidth: UiSizes.width_1_5,
                                       clearText: emailVerifyController
                                           .clearTextField.value,
-                                      enabledBorderColor: const Color.fromARGB(
-                                          155, 255, 193, 7),
+                                      enabledBorderColor:
+                                          themeController.primaryColor.value,
                                       showFieldAsBox: true,
                                       //runs when every textfield is filled
                                       onSubmit:
@@ -326,6 +334,12 @@ class EmailVerificationScreen extends StatelessWidget {
                                   }
                                 },
                                 child: AnimatedContainer(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceTint,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
                                     onEnd: () {
                                       if (emailVerifyController
                                               .isExpanded.value ==
@@ -339,12 +353,10 @@ class EmailVerificationScreen extends StatelessWidget {
                                         emailVerifyController.isExpanded.value
                                             ? UiSizes.width_180
                                             : UiSizes.width_35,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          8.5714285714 * Get.pixelRatio),
-                                      color: const Color.fromARGB(
-                                          186, 255, 255, 255),
-                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   borderRadius: BorderRadius.circular(8.5714285714 * Get.pixelRatio),
+                                    //   color: Theme.of(context).colorScheme.onPrimary,
+                                    // ),
                                     duration: const Duration(milliseconds: 200),
                                     child: emailVerifyController
                                             .shouldDisplay.value
@@ -352,7 +364,11 @@ class EmailVerificationScreen extends StatelessWidget {
                                             child: Text(
                                               "Verify Your Email",
                                               style: TextStyle(
-                                                  fontSize: UiSizes.size_14),
+                                                fontSize: UiSizes.size_14,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              ),
                                             ),
                                           )
                                         : const SizedBox())),

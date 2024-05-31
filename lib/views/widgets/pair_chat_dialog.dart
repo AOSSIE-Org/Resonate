@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
@@ -10,7 +9,6 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/auth_state_controller.dart';
-import '../../utils/colors.dart';
 
 Future<dynamic> buildPairChatDialog() {
   PairChatController controller = Get.find<PairChatController>();
