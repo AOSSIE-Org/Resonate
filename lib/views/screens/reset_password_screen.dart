@@ -23,25 +23,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
+            const Padding(
+              padding: EdgeInsets.all(24.0),
               child: Text(
                 'Enter your new password',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               width: 300,
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: TextFormField(
                 controller: passwordController,
                 obscureText: true,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                 ),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   icon: Icon(
                     Icons.lock,
                     size: 23,
@@ -50,18 +52,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(
+              height: 10,
+            ),
             MaterialButton(
               onPressed: () {
                 authController.resetPassword(passwordController.text);
               },
-              child: Text(
+              color: Colors.amber,
+              child: const Text(
                 'Set New Password',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
-              color: Colors.amber,
             ),
           ],
         ),

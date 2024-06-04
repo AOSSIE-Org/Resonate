@@ -1,13 +1,11 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
-import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/discussion_tile.dart';
 import 'package:shimmer/shimmer.dart';
