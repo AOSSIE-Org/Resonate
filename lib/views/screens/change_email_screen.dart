@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
@@ -32,7 +31,6 @@ class ChangeEmailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ChangeEmailController());
-    final themeController = Get.find<ThemeController>();
 
     return Scaffold(
       appBar: AppBar(
