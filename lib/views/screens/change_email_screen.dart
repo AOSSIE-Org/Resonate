@@ -38,7 +38,7 @@ class ChangeEmailScreen extends StatelessWidget {
         title: const Text('Change Email'),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: UiSizes.height_20, horizontal: UiSizes.width_20),
         child: Form(
           key: controller.changeEmailFormKey,
           child: Column(

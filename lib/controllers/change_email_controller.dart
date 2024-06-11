@@ -31,7 +31,7 @@ class ChangeEmailController extends GetxController {
     emailController.text = authStateController.email!;
 
     databases = AppwriteService.getDatabases();
-    account = Account(AppwriteService.getClient());
+    account = AppwriteService.getAccount();
   }
 
   Future<bool> isEmailAvailable(String changedEmail) async {
@@ -58,7 +58,7 @@ class ChangeEmailController extends GetxController {
         collectionId: usersCollectionID,
         documentId: authStateController.uid!,
         data: {
-          'email': emailController.text,
+          'email': changedEmail,
         },
       );
 
@@ -68,7 +68,7 @@ class ChangeEmailController extends GetxController {
         collectionId: usernameCollectionID,
         documentId: authStateController.userName!,
         data: {
-          'email': emailController.text,
+          'email': changedEmail,
         },
       );
 
