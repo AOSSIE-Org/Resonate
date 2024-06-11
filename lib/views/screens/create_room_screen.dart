@@ -37,8 +37,6 @@ class CreateRoomScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         tabViewController.setIndex(0);
-        print("called");
-        createRoomController.tagsController.dispose();
         return false;
       },
       child: GetBuilder<CreateRoomController>(
