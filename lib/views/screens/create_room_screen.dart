@@ -34,10 +34,9 @@ class CreateRoomScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     createRoomController.initializeTagsController();
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (canPop) async {
         tabViewController.setIndex(0);
-        return false;
       },
       child: GetBuilder<CreateRoomController>(
         builder: (controller) => Obx(
