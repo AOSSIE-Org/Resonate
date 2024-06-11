@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -170,7 +171,8 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> login(String email, String password) async {
-    await account.createEmailSession(email: email, password: password);
+    await account.createEmailPasswordSession
+    (email: email, password: password);
     await isUserLoggedIn();
     await addRegistrationTokentoSubscribedDiscussions();
   }
@@ -217,18 +219,17 @@ class AuthStateController extends GetxController {
 
   Future<void> signup(String email, String password) async {
     await account.create(userId: ID.unique(), email: email, password: password);
-    await account.createEmailSession(email: email, password: password);
-
+    await account.createEmailPasswordSession(email: email, password: password);
     await setUserProfileData();
   }
 
   Future<void> loginWithGoogle() async {
-    await account.createOAuth2Session(provider: 'google');
+    await account.createOAuth2Session(provider: OAuthProvider.google);
     await isUserLoggedIn();
   }
 
   Future<void> loginWithGithub() async {
-    await account.createOAuth2Session(provider: 'github');
+    await account.createOAuth2Session(provider: OAuthProvider.github);
     await isUserLoggedIn();
   }
 

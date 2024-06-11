@@ -38,8 +38,6 @@ class RoomService {
           collectionId: participantsCollectionId,
           documentId: document.$id);
     }
-    print("Heyy");
-    print(isAdmin.toString());
     // Add participant to collection
     Document participantDoc = await roomsController.databases.createDocument(
         databaseId: masterDatabaseId,
@@ -53,27 +51,22 @@ class RoomService {
           "isSpeaker": isAdmin,
           "isMicOn": false
         });
-    print(isAdmin.toString());
     if (!isAdmin) {
-      print("I am here also");
       // Get present totalParticipants Attribute
       Document roomDoc = await roomsController.databases.getDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId);
 
-      print("I am here also again");
       // Increment the totalParticipants Attribute
       int newParticipantCount = roomDoc.data["totalParticipants"] -
           participantDocsRef.documents.length +
           1;
-      print(newParticipantCount);
       await roomsController.databases.updateDocument(
           databaseId: masterDatabaseId,
           collectionId: roomsCollectionId,
           documentId: roomId,
           data: {"totalParticipants": newParticipantCount});
-      print("I am here also again and again");
     }
 
     return participantDoc.$id;
@@ -118,6 +111,7 @@ class RoomService {
             queries: [
           Query.equal('roomId', [roomId])
         ]);
+        
     for (var document in participantDocsRef.documents) {
       await roomsController.databases.deleteDocument(
           databaseId: masterDatabaseId,

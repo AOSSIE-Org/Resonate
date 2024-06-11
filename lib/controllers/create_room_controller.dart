@@ -19,7 +19,11 @@ class CreateRoomController extends GetxController {
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextfieldTagsController tagsController = TextfieldTagsController();
+  late TextfieldTagsController tagsController;
+
+  void initializeTagsController() {
+    tagsController = TextfieldTagsController();
+  }
 
   @override
   void dispose() {
@@ -49,14 +53,14 @@ class CreateRoomController extends GetxController {
       isLoading.value = true;
 
       // Display Loading Dialog
-      Get.dialog(
-          Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-                color: themeController.primaryColor.value,
-                size: Get.pixelRatio * 20),
-          ),
-          barrierDismissible: false,
-          name: "Loading Dialog");
+      // Get.dialog(
+      //     Center(
+      //       child: LoadingAnimationWidget.threeRotatingDots(
+      //           color: themeController.primaryColor.value,
+      //           size: Get.pixelRatio * 20),
+      //     ),
+      //     barrierDismissible: false,
+      //     name: "Loading Dialog");
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
