@@ -191,23 +191,23 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: UiSizes.height_24_6),
                   Obx(
                     () => ElevatedButton(
-                      onPressed: emailVerifyController.signupisallowed.value
+                      onPressed: emailVerifyController.signUpIsAllowed.value
                           ? () async {
                               if (controller.registrationFormKey.currentState!
                                   .validate()) {
-                                emailVerifyController.signupisallowed.value =
+                                emailVerifyController.signUpIsAllowed.value =
                                     false;
-                                var isSignedin = await controller.signup();
-                                if (isSignedin) {
+                                var isSignedIn = await controller.signup();
+                                if (isSignedIn) {
                                   Get.toNamed(AppRoutes.onBoarding);
                                   customSnackbar(
                                       "Signed Up Successfully",
                                       "You have successfully created a new account",
                                       MessageType.success);
-                                  emailVerifyController.signupisallowed.value =
+                                  emailVerifyController.signUpIsAllowed.value =
                                       true;
                                 } else {
-                                  emailVerifyController.signupisallowed.value =
+                                  emailVerifyController.signUpIsAllowed.value =
                                       true;
                                 }
                               }
