@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/new_screens/new_welcome_screen.dart';
+import 'package:resonate/views/new_screens/theme_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
@@ -27,7 +29,7 @@ class AppPages {
   static final List<GetPage> pages = [
     GetPage(
       name: AppRoutes.splash,
-      page: () => const SplashScreen(),
+      page: () => ThemeScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
