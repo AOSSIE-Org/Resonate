@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/models/themes_model.dart';
 
 import '../utils/enums/themes_enum.dart';
 
@@ -20,6 +21,7 @@ class ThemeController extends GetxController {
     }
   }
 
+
   Rx<Color> primaryColor = Colors.amber.obs;
 
   void changePrimaryColor(Color newColor) {
@@ -34,6 +36,7 @@ class ThemeController extends GetxController {
       ],
     );
   }
+
 
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
