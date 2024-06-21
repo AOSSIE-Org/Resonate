@@ -3,6 +3,8 @@ enum NewThemes {
   classic,
   vintage,
   forest,
-  retro
+  cream,
+  amber,
+  time
 
 }

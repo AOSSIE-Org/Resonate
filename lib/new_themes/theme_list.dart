@@ -16,7 +16,7 @@ class ThemeList {
       themeMode: ThemeMode.light,
     ),
     ThemeModel(
-      name: "8008",
+      name: "Time",
       primaryColor: Color(0xfff20073),
       onPrimaryColor: Colors.white,
       secondaryColor: Color(0xff21252f),
@@ -38,7 +38,7 @@ class ThemeList {
       themeMode: ThemeMode.light,
     ),
     ThemeModel(
-      name: "Amber dark",
+      name: "Amber",
       primaryColor: Colors.amber,
       onPrimaryColor: Colors.black,
       secondaryColor: Color(0xff21252f),
@@ -81,15 +81,15 @@ class ThemeList {
     }
 
     return const ThemeModel(
-      name: "8008",
-      primaryColor: Color(0xfff20073),
+      name: "Classic",
+      primaryColor: Color(0xff292C31),
       onPrimaryColor: Colors.white,
-      secondaryColor: Color(0xff21252f),
-      onSecondaryColor: Colors.white,
-      surfaceColor: Color(0xff21252f),
-      onSurfaceColor: Colors.white,
-      backgroundColor: Color(0xff181b22),
-      themeMode: ThemeMode.dark,
+      secondaryColor: Color(0xffEDEFEE),
+      onSecondaryColor: Colors.black45,
+      surfaceColor: Color(0xffEDEFEE),
+      onSurfaceColor: Colors.black,
+      backgroundColor: Colors.white,
+      themeMode: ThemeMode.light,
     );
   }
 }
