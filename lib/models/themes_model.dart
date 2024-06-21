@@ -4,30 +4,22 @@ class ThemeModel {
   final String name;
   final Color primaryColor;
   final Color onPrimaryColor;
+  final Color secondaryColor;
+  final Color onSecondaryColor;
+  final Color surfaceColor;
+  final Color onSurfaceColor;
   final Color backgroundColor;
+  final ThemeMode themeMode;
 
   const ThemeModel({
     required this.name,
     required this.primaryColor,
     required this.onPrimaryColor,
+    required this.secondaryColor,
+    required this.onSecondaryColor,
+    required this.surfaceColor,
+    required this.onSurfaceColor,
     required this.backgroundColor,
+    required this.themeMode,
   });
-
-  factory ThemeModel.fromMap(Map<String, dynamic> map) {
-    return ThemeModel(
-      name: map["themeName"],
-      primaryColor: Color(map["primaryColor"]),
-      onPrimaryColor: Color(map["onPrimaryColor"]),
-      backgroundColor: Color(map["backgroundColor"]),
-    );
-  }
-
-  static Map<String, dynamic> toMap(ThemeModel model) {
-    return {
-      "themeName": model.name,
-      "primaryColor": model.primaryColor.value,
-      "onPrimaryColor": model.onPrimaryColor.value,
-      "backgroundColor": model.backgroundColor.value,
-    };
-  }
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/new_screens/new_login_screen.dart';
 import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/new_screens/theme_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
@@ -29,7 +30,7 @@ class AppPages {
   static final List<GetPage> pages = [
     GetPage(
       name: AppRoutes.splash,
-      page: () => ThemeScreen(),
+      page: () => const SplashScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
@@ -47,11 +48,11 @@ class AppPages {
       page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
-    GetPage(
-      name: AppRoutes.login,
-      page: () => const LoginScreen(),
-      binding: AuthSplashBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.login,
+    //   page: () => const LoginScreen(),
+    //   binding: AuthSplashBinding(),
+    // ),
     GetPage(
       name: AppRoutes.profile,
       page: () => ProfileScreen(),
@@ -113,6 +114,15 @@ class AppPages {
     GetPage(
       name: AppRoutes.changeEmail,
       page: () => ChangeEmailScreen(),
+    ),
+    // New Screens
+    GetPage(
+      name: AppRoutes.newWelcomeScreen,
+      page: () => const NewWelcomeScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newLoginScreen,
+      page: () => const NewLoginScreen(),
     ),
   ];
 }
