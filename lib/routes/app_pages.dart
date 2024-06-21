@@ -4,7 +4,7 @@ import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/new_screens/new_login_screen.dart';
 import 'package:resonate/views/new_screens/new_welcome_screen.dart';
-import 'package:resonate/views/new_screens/theme_screen.dart';
+import 'package:resonate/new_themes/theme_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';

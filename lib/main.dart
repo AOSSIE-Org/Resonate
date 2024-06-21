@@ -7,9 +7,9 @@ import 'package:resonate/new_themes/new_theme.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/utils/theme_list.dart';
+import 'package:resonate/new_themes/theme_list.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'controllers/new_theme_screen_controller.dart';
+import 'new_themes/new_theme_screen_controller.dart';
 import 'themes/theme_controller.dart';
 
 Future<void> main() async {
@@ -24,12 +24,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.transparent,
-  //   ),
-  // );
-
   await GetStorage.init();
   runApp(const MyApp());
 }
@@ -41,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     UiSizes.init(context);
 
-    // This line is just for initialization of theme controller
+    // This line is just for initialization of theme controller. This will prevent some breaking changes in old ui, until it gets fixed
     Get.put(ThemeController());
 
     final newThemeController = Get.put(NewThemeController());

@@ -37,24 +37,21 @@ class ThemeColorsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container(
-              alignment: Alignment.center,
-              width: double.maxFinite,
-              height: 100,
-              color: list[index].color,
-              child: Text(list[index].name, style: TextStyle(
-                color: list[index].onColor,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),),
-            );
-          },
-          itemCount: list.length,
-        ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Container(
+            alignment: Alignment.center,
+            width: double.maxFinite,
+            height: 100,
+            color: list[index].color,
+            child: Text(list[index].name, style: TextStyle(
+              color: list[index].onColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),),
+          );
+        },
+        itemCount: list.length,
       ),
     );
   }

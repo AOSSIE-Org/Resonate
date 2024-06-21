@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/new_theme_screen_controller.dart';
+import 'package:resonate/new_themes/new_theme_screen_controller.dart';
 import 'package:resonate/models/themes_model.dart';
-import 'package:resonate/utils/theme_list.dart';
+import 'package:resonate/new_themes/theme_list.dart';
 
 class ThemeScreen extends StatelessWidget {
   ThemeScreen({super.key});
