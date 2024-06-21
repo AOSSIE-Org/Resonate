@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:resonate/new_themes/colors.dart';
-import 'package:resonate/new_themes/new_theme.dart';
+import 'package:resonate/for_developers/theme_colors_page.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/new_screens/theme_screen.dart';
+import 'package:resonate/views/widgets/welcome_screen_dialog.dart';
 
 class NewWelcomeScreen extends StatelessWidget {
   const NewWelcomeScreen({super.key});
@@ -15,7 +16,7 @@ class NewWelcomeScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(
-          vertical: UiSizes.height_30,
+          vertical: UiSizes.height_20,
           horizontal: UiSizes.width_30,
         ),
         width: double.maxFinite,
@@ -28,7 +29,10 @@ class NewWelcomeScreen extends StatelessWidget {
                 SvgPicture.asset(
                   "assets/svg/resonate_logo_white.svg",
                   height: UiSizes.height_110,
-                  colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.primary,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 SizedBox(
                   height: UiSizes.height_10,
@@ -36,52 +40,53 @@ class NewWelcomeScreen extends StatelessWidget {
                 Text(
                   "Resonate",
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: UiSizes.size_28
-                  ),
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: UiSizes.size_28),
                 ),
               ],
             ),
-            Text(
-              '"Enter a world of limitless conversations."',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyLarge
-            ),
+            Text('"Enter a world of limitless \n conversations."',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium),
             Column(
               children: [
                 SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton(
-                    onPressed: () {},
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: UiSizes.height_10),
-                      child: Text(
-                        "Sign in with Email",
-                        style: TextStyle(
-                          fontSize: UiSizes.size_16,
+                    onPressed: () {
+                      showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
                         ),
-                      ),
+                        context: context,
+                        builder: (context) => welcomeScreenDialog(context),
+                      );
+                    },
+                    child: const Text(
+                      "Sign in with Email",
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_30),
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
                   child: Row(
                     children: [
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: UiSizes.width_20,
+                            horizontal: UiSizes.width_20,
                           ),
                           child: const Divider(),
                         ),
                       ),
-                      Text("OR", style: Theme.of(context).textTheme.bodyLarge,),
+                      Text(
+                        "OR",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: UiSizes.width_20,
+                            horizontal: UiSizes.width_20,
                           ),
                           child: const Divider(),
                         ),
@@ -96,7 +101,9 @@ class NewWelcomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: UiSizes.height_20,),
+                SizedBox(
+                  height: UiSizes.height_20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,20 +111,46 @@ class NewWelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        onPressed: () {},
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ThemeScreen(),
+                            ),
+                          );
+                        },
                         icon: const FaIcon(
                           FontAwesomeIcons.google,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: UiSizes.width_30,
+                      width: UiSizes.width_20,
                     ),
                     SizedBox(
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        onPressed: () {},
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ThemeColorsPage(),
+                            ),
+                          );
+                        },
                         icon: const FaIcon(
                           FontAwesomeIcons.github,
                         ),

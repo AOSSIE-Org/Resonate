@@ -1,51 +1,31 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/new_themes/theme_enum.dart';
 
-import '../models/themes_model.dart';
 
 class NewThemeController extends GetxController {
   final _box = GetStorage();
-  final _key = 'newTheme';
+  final _key = 'theme';
 
   @override
   void onInit() {
     super.onInit();
 
-    themeModel.value = newTheme;
-
-
+    currentTheme.value = theme;
   }
 
-  ThemeModel get newTheme {
-    if(_box.read(_key) != null){
-      return ThemeModel.fromMap(_box.read(_key));
-    }else{
-      return const ThemeModel(
-        name: "Classic",
-        primaryColor: Colors.black,
-        onPrimaryColor: Colors.white,
-        backgroundColor: Colors.white,
-      );
-    }
+  String get theme => _box.read(_key) ?? NewThemes.vintage.name;
 
-  }
+  Rx<String> currentTheme = NewThemes.vintage.name.obs;
 
-  Rx<ThemeModel> themeModel =  const ThemeModel(
-    name: "Classic",
-    primaryColor: Colors.black,
-    onPrimaryColor: Colors.white,
-    backgroundColor: Colors.white,
-  ).obs;
-
-  void updateTheme(ThemeModel newThemeModel){
-    themeModel.value = newThemeModel;
+  void updateTheme(String theme){
+    currentTheme.value = theme;
   }
 
 
-  void setTheme(ThemeModel themeModel) {
-    _box.write(_key, ThemeModel.toMap(themeModel));
-    updateTheme(themeModel);
+  void setTheme(String newTheme) {
+    _box.write(_key, newTheme);
+    updateTheme(newTheme);
   }
 
 

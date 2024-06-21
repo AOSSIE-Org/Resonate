@@ -34,7 +34,7 @@ class LandingScreen extends StatelessWidget {
         ),
         onFinish: () async {
           await GetStorage().write("landingScreenShown", true);
-          Get.offNamed(AppRoutes.login);
+          Get.offNamed(AppRoutes.newWelcomeScreen);
         },
         finishButtonText: 'Get Started',
         skipTextButton: const Text('Skip'),
@@ -55,7 +55,8 @@ class LandingScreen extends StatelessWidget {
               imagePath: AppImages.landingThirdImage,
               initialHeight: UiSizes.height_90,
               imageHeight: UiSizes.height_246,
-              imageWidth: UiSizes.width_56),
+              imageWidth: UiSizes.width_56,
+          ),
         ],
         totalPage: 3,
         speed: 1,

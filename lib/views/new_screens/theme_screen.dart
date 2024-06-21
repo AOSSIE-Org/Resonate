@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,19 +11,8 @@ class ThemeScreen extends StatelessWidget {
   static const List<ThemeModel> list = ThemeList.themesList;
   final newThemeController = Get.put(NewThemeController());
 
-
-
-
   @override
   Widget build(BuildContext context) {
-
-    print("Theme: ${newThemeController.themeModel.value.name}");
-
-
-
-
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -32,54 +20,32 @@ class ThemeScreen extends StatelessWidget {
       ),
       body: Obx(
         ()=> Container(
-            child: (newThemeController.themeModel.value.name == 'jhgfksfg') ? const Text("hehe"): ListView.builder(
+            child: (newThemeController.currentTheme.value == 'none') ? const Text("none"): ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    newThemeController.setTheme(
-                      ThemeModel(
-                        name: list[index].name,
-                        primaryColor: list[index].primaryColor,
-                        onPrimaryColor: list[index].onPrimaryColor,
-                        backgroundColor: list[index].backgroundColor,
-                      ),
-                    );
+                    newThemeController.setTheme(list[index].name.toLowerCase());
                   },
-                  selected: (newThemeController.themeModel.value.name == list[index].name),
-                  selectedColor: newThemeController.themeModel.value.onPrimaryColor,
-                  selectedTileColor: newThemeController.themeModel.value.primaryColor,
+                  selected: (newThemeController.currentTheme.value == list[index].name.toLowerCase()),
+                  selectedColor: list[index].onPrimaryColor,
+                  selectedTileColor: list[index].primaryColor,
                   title: Text(list[index].name),
                   trailing: Container(
-                    width: 80,
+                    width: 50,
                     height: 30,
                     decoration: BoxDecoration(
+                      border: Border.all(color: list[index].primaryColor),
                       borderRadius: BorderRadius.circular(50),
                       color: list[index].backgroundColor,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             color: list[index].primaryColor,
-                          ),
-                          width: 15,
-                          height: 15,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: list[index].onPrimaryColor,
-                          ),
-                          width: 15,
-                          height: 15,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.red,
                           ),
                           width: 15,
                           height: 15,
