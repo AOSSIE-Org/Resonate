@@ -11,12 +11,14 @@ class NewThemeController extends GetxController {
   void onInit() {
     super.onInit();
 
-    currentTheme.value = theme;
+    currentTheme.value = getCurrentTheme;
   }
 
-  String get theme => _box.read(_key) ?? NewThemes.vintage.name;
-
   Rx<String> currentTheme = NewThemes.vintage.name.obs;
+
+
+  String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
+
 
   void updateTheme(String theme){
     currentTheme.value = theme;
