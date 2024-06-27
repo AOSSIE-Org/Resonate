@@ -26,7 +26,7 @@ class EmailVerifyController extends GetxController {
   var isVerifying = false.obs;
   var isUpdateAllowed = true.obs;
   var signupisallowed = true.obs;
-  var clearTextField=false.obs;
+  var clearTextField = false.obs;
   AuthStateController authStateController = Get.find<AuthStateController>();
   AuthenticationController authController =
       Get.find<AuthenticationController>();
@@ -49,15 +49,16 @@ class EmailVerifyController extends GetxController {
       "otpID": otpID.toString()
     };
 
+    print("updating prefs");
     await authStateController.account
         .updatePrefs(prefs: {"otp_ID": otpID, "isUserProfileComplete": true});
     var data = json.encode(sendOtpData);
-
+    print("updated prefs");
     var res = await functions.createExecution(
         functionId: sendOtpFunctionID, body: data.toString());
-
+    print("executed");
     authController.isLoading.value = false;
-
+    print(res.responseBody);
     if (res.responseBody == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 
@@ -65,6 +66,7 @@ class EmailVerifyController extends GetxController {
         signupisallowed.value = true;
       });
       isSending.value = false;
+      print("routing to email vrificatioon page");
       Get.toNamed(AppRoutes.emailVerification);
     } else {
       isSending.value = false;

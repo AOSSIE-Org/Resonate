@@ -19,11 +19,7 @@ class CreateRoomController extends GetxController {
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  late TextfieldTagsController tagsController;
-
-  void initializeTagsController() {
-    tagsController = TextfieldTagsController();
-  }
+  late TextfieldTagsController tagsController = TextfieldTagsController();
 
   @override
   void dispose() {
@@ -51,7 +47,7 @@ class CreateRoomController extends GetxController {
 
     try {
       isLoading.value = true;
-
+      print("here this should start loading");
       // Display Loading Dialog
       // Get.dialog(
       //     Center(

@@ -81,7 +81,10 @@ class RoomService {
         roomName, roomDescription, adminUid, roomTags);
     String appwriteRoomDocId = response["livekit_room"]["name"];
     String livekitToken = response["access_token"];
-    String livekitSocketUrl = response["livekit_socket_url"];
+    String livekitSocketUrl =
+        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
+            ? localhostLivekitEndpoint
+            : response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
     const storage = FlutterSecureStorage();
@@ -111,7 +114,7 @@ class RoomService {
             queries: [
           Query.equal('roomId', [roomId])
         ]);
-        
+
     for (var document in participantDocsRef.documents) {
       await roomsController.databases.deleteDocument(
           databaseId: masterDatabaseId,
@@ -124,7 +127,11 @@ class RoomService {
       {required roomId, required String userId, required bool isAdmin}) async {
     var response = await apiService.joinRoom(roomId, userId);
     String livekitToken = response["access_token"];
-    String livekitSocketUrl = response["livekit_socket_url"];
+    String livekitSocketUrl =
+        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
+            ? localhostLivekitEndpoint
+            : response["livekit_socket_url"];
+
     String myDocId = await addParticipantToAppwriteCollection(
         roomId: roomId, uid: userId, isAdmin: isAdmin);
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
@@ -183,7 +190,11 @@ class RoomService {
       {required roomId, required String userId}) async {
     var response = await apiService.joinRoom(roomId, userId);
     String livekitToken = response["access_token"];
-    String livekitSocketUrl = response["livekit_socket_url"];
+    String livekitSocketUrl =
+        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
+            ? localhostLivekitEndpoint
+            : response["livekit_socket_url"];
+
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
   }
 }

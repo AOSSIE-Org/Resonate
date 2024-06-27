@@ -1,8 +1,11 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String appwriteProjectId = "64a12ff22a44f02f0545";
-const String appwriteEndpoint = "https://cloud.appwrite.io/v1";
+const String appwriteProjectId = "resonate";
+
+const String baseIp = "192.168.29.57";
+const String appwriteEndpoint = "http://$baseIp:80/v1";
+const String localhostLivekitEndpoint = "wss://$baseIp:7880";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";

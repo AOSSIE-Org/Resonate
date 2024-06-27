@@ -21,13 +21,13 @@ import '../widgets/pair_chat_dialog.dart';
 import 'create_room_screen.dart';
 
 class TabViewScreen extends StatelessWidget {
+  final CreateRoomController createRoomController =
+      Get.find<CreateRoomController>();
   final TabViewController controller = Get.find<TabViewController>();
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-  final CreateRoomController createRoomController =
-      Get.find<CreateRoomController>();
   final RoomsController roomsController = Get.find<RoomsController>();
   final discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
@@ -113,7 +113,7 @@ class TabViewScreen extends StatelessWidget {
                           await createRoomController.createRoom(
                               createRoomController.nameController.text,
                               createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags!
+                              createRoomController.tagsController.getTags
                                   as List<String>,
                               true);
                           await roomsController.getRooms();

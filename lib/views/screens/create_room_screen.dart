@@ -10,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+
 class CreateRoomScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final CreateRoomController createRoomController =
@@ -33,7 +34,6 @@ class CreateRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    createRoomController.initializeTagsController();
     return PopScope(
       onPopInvoked: (canPop) async {
         tabViewController.setIndex(0);
