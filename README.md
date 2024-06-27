@@ -61,7 +61,7 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you. 
-Please go through and strictly follow the **Onboarding Guide** for setting up the project for development and further contribution
+Please go through and strictly follow the [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
 
 ## :movie_camera: App Screenshots
 <div align="center">
