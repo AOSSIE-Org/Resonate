@@ -42,5 +42,6 @@ class AppwriteService {
     _realtime ??= Realtime(getClient());
     return _realtime!;
   }
+
 }
 
