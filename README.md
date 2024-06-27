@@ -56,6 +56,13 @@ With the rising popularity of social voice platforms such as Clubhouse and Twitt
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
+
+## :four_leaf_clover: Getting Started
+Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
+
+We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you. 
+Please go through and strictly follow the **Onboarding Guide** for setting up the project for development and further contribution
+
 ## :movie_camera: App Screenshots
 <div align="center">
  
