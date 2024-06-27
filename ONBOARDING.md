@@ -1,4 +1,4 @@
-## Onboarding (Getting Started) Guide
+## Onboarding Guide
 
 ### Backend Env 
 
