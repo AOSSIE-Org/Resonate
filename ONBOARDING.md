@@ -1,5 +1,5 @@
-# Onboarding (Getting Started) Guide
+## Onboarding (Getting Started) Guide
 
-## Backend Env 
+### Backend Env 
 
 Git Clone the Resonate Backend Repo
