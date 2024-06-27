@@ -1,5 +1,4 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter/material.dart';
 import 'package:resonate/utils/constants.dart';
 
 class AppwriteService {
