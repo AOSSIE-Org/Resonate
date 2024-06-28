@@ -1,0 +1,37 @@
+name: Greet Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Print GitHub context
+      run: echo "${{ toJson(github) }}"
+      
+    - name: Send greeting message for issues
+      if: github.event_name == 'issues'
+      uses: actions-ecosystem/action-create-comment@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        number: ${{ github.event.issue.number }}
+        body: |
+          Hi @${{ github.event.issue.user.login }}!  
+          Thanks for opening this issue, would you like to work on this?
+
+    - name: Send greeting message for PRs
+      if: github.event_name == 'pull_request'
+      uses: actions-ecosystem/action-create-comment@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        number: ${{ github.event.pull_request.number }}
+        body: |
+          Hi @${{ github.event.pull_request.user.login }}! 🎉 
+          Thanks for opening this pull request. We appreciate your contribution.
