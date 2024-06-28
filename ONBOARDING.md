@@ -46,5 +46,13 @@ Authorized redirect URIs: http://localhost/v1/account/sessions/oauth2/callback/g
   
 Get yourself your Github Oauth credentials via following [Github Oauth Credential Guide](https://support.heateor.com/get-github-client-id-client-secret/)
 
-http://localhost/v1/account/sessions/oauth2/callback/github/resonate
+While creating the Oauth credentials for Github add the following urls as 
+
+Homepage URL: https://{your laptop Ip}  so for me it is http://192.168.29.57
+Authorization callback URL: http://{your laptop Ip}/v1/account/sessions/oauth2/callback/github/resonate 
+so for me it is http://192.168.29.57/v1/account/sessions/oauth2/callback/github/resonate
+
+
+
+
 
