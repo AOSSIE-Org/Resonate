@@ -48,7 +48,9 @@ Get yourself your Github Oauth credentials via following [Github Oauth Credentia
 
 While creating the Oauth credentials for Github add the following urls as 
 
-Homepage URL: https://{your laptop Ip}  so for me it is http://192.168.29.57
+Homepage URL: https://{your laptop Ip}  
+so for me it is http://192.168.29.57
+
 Authorization callback URL: http://{your laptop Ip}/v1/account/sessions/oauth2/callback/github/resonate 
 so for me it is http://192.168.29.57/v1/account/sessions/oauth2/callback/github/resonate
 
