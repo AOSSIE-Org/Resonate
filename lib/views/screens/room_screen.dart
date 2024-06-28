@@ -30,8 +30,6 @@ class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
     SingleRoomController controller = Get.find<SingleRoomController>();
-    RoomsController roomsController =
-        Get.put<RoomsController>(RoomsController());
     Future<dynamic> deleteRoomDialog(String text, Function() onTap) async {
       return await Get.defaultDialog(
           title: "Are you sure?",
@@ -40,7 +38,6 @@ class _RoomScreenState extends State<RoomScreen> {
           cancelTextColor: themeController.primaryColor.value,
           onConfirm: onTap,
           onCancel: () {
-            print("canceled");
           });
     }
 

@@ -81,10 +81,15 @@ class DiscussionsController extends GetxController {
   }
 
   Future<void> removeUserFromSubscriberList(String subscriberId) async {
-    await databases.deleteDocument(
-        databaseId: "6522fcf27a1bbc4238df",
-        collectionId: "6522fd267db6fdad3392",
-        documentId: subscriberId);
+    try {
+      await databases.deleteDocument(
+          databaseId: "6522fcf27a1bbc4238df",
+          collectionId: "6522fd267db6fdad3392",
+          documentId: subscriberId);
+    } on AppwriteException catch (error) {
+      log(error.toString());
+    }
+
   }
 
   Future<List<dynamic>> fetchDiscussionDetails(String discussionId) async {
@@ -175,7 +180,7 @@ class DiscussionsController extends GetxController {
             "isCreator": true,
             "userProfileUrl": authStateController.profileImageUrl
           });
-    } catch (e) {
+    } on AppwriteException catch (e) {
       log(e.toString());
     }
   }

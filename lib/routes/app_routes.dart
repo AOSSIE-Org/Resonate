@@ -18,4 +18,5 @@ class AppRoutes {
   static const settings = "/settings";
   static const editProfile = "/editProfile";
   static const deleteAccount = "/deleteAccount";
+  static const changeEmail = "/changeEmail";
 }

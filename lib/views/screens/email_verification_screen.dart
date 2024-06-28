@@ -144,7 +144,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                         await emailVerifyController
                                             .verifyOTP(verificationCode);
                                         if (emailVerifyController
-                                                .responseVerify.response ==
+                                                .responseVerify.responseBody ==
                                             '{"message":"null"}') {
                                           String result =
                                               await emailVerifyController
@@ -158,7 +158,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 .setVerified();
                                             if (emailVerifyController
                                                     .responseSetVerified
-                                                    .response ==
+                                                    .responseBody ==
                                                 '{"message":"null"}') {
                                               emailVerifyController
                                                   .isVerifying.value = false;
@@ -173,7 +173,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                   'Oops',
                                                   emailVerifyController
                                                       .responseSetVerified
-                                                      .response,
+                                                      .responseBody,
                                                   MessageType.error);
                                             }
                                           } else {
@@ -188,7 +188,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                           customSnackbar(
                                               'Oops',
                                               emailVerifyController
-                                                  .responseVerify.response,
+                                                  .responseVerify.responseBody,
                                               MessageType.error);
                                         }
                                       },
