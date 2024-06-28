@@ -37,7 +37,14 @@ Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, o
 ![Screenshot 2024-06-28 at 3 06 57 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9d645a06-a823-4cd7-b5ed-6866dd2be1c8)
 
 
-// Add here references for them to create there Oauth2 credentials
+To create your Google Oauth credentials visit [Google Oauth Credential Guide](https://www.balbooa.com/help/gridbox-documentation/integrations/other/google-client-id) before that please read the few lines below 
 
+While creating the Oauth credentials for Google add the following urls as 
 
+Authorized JavaScript origins: https://localhost
+Authorized redirect URIs: http://localhost/v1/account/sessions/oauth2/callback/google/resonate
+  
+Get yourself your Github Oauth credentials via following [Github Oauth Credential Guide](https://support.heateor.com/get-github-client-id-client-secret/)
+
+http://localhost/v1/account/sessions/oauth2/callback/github/resonate
 
