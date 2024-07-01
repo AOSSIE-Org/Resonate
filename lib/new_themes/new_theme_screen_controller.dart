@@ -7,6 +7,9 @@ class NewThemeController extends GetxController {
   final _box = GetStorage();
   final _key = 'theme';
 
+  Rx<String> currentTheme = NewThemes.classic.name.obs;
+
+
   @override
   void onInit() {
     super.onInit();
@@ -14,7 +17,6 @@ class NewThemeController extends GetxController {
     currentTheme.value = getCurrentTheme;
   }
 
-  Rx<String> currentTheme = NewThemes.vintage.name.obs;
 
 
   String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;

@@ -20,17 +20,14 @@ class NewTheme {
         background: theme.backgroundColor,
       ),
       appBarTheme: AppBarTheme(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: theme.backgroundColor
-      ),
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: theme.backgroundColor),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(
           // Flutter uses this TextStyle in InputFormField for styling user input text
           color: Colors.black,
         ),
-        titleMedium: TextStyle(
-          color: Colors.black54
-        ),
+        titleMedium: TextStyle(color: Colors.black54),
       ),
       dividerTheme: const DividerThemeData(
         color: Colors.black54,
@@ -39,6 +36,20 @@ class NewTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primaryColor,
           foregroundColor: theme.onPrimaryColor,
+          fixedSize: const Size.fromHeight(48),
+          // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
+          textStyle: TextStyle(
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontWeight: FontWeight.w500,
+            fontSize: UiSizes.size_16,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: theme.primaryColor,
+          ),
           padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
             fontFamily: GoogleFonts.poppins().fontFamily,
@@ -94,9 +105,7 @@ class NewTheme {
           // Flutter uses this TextStyle in InputFormField for styling user input text
           color: Colors.white,
         ),
-        titleMedium: TextStyle(
-            color: Colors.white54
-        ),
+        titleMedium: TextStyle(color: Colors.white54),
       ),
       dividerTheme: const DividerThemeData(
         color: Colors.white54,
@@ -113,11 +122,23 @@ class NewTheme {
           ),
         ),
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: theme.primaryColor,
+          ),
+          padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
+          textStyle: TextStyle(
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontWeight: FontWeight.w500,
+            fontSize: UiSizes.size_16,
+          ),
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
-
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

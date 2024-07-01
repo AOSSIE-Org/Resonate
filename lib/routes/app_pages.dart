@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/new_screens/new_forgot_password_screen.dart';
 import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_signup_screen.dart';
 import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
@@ -36,9 +38,14 @@ class AppPages {
       page: () => const LandingScreen(),
       binding: AuthSplashBinding(),
     ),
+    // GetPage(
+    //   name: AppRoutes.signup,
+    //   page: () => const SignupScreen(),
+    //   binding: AuthSplashBinding(),
+    // ),
     GetPage(
       name: AppRoutes.signup,
-      page: () => const SignupScreen(),
+      page: () => const NewSignupScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
@@ -52,6 +59,11 @@ class AppPages {
     //   binding: AuthSplashBinding(),
     // ),
     GetPage(
+      name: AppRoutes.login,
+      page: () => const NewLoginScreen(),
+      binding: AuthSplashBinding(),
+    ),
+    GetPage(
       name: AppRoutes.profile,
       page: () => ProfileScreen(),
       binding: ProfileBinding(),
@@ -59,6 +71,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.onBoarding,
       page: () => const OnBoardingScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.forgotPassword,
+      page: () => const NewForgotPasswordScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.resetPassword,
+      page: () => const ResetPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -118,9 +140,6 @@ class AppPages {
       name: AppRoutes.newWelcomeScreen,
       page: () => const NewWelcomeScreen(),
     ),
-    GetPage(
-      name: AppRoutes.newLoginScreen,
-      page: () => const NewLoginScreen(),
-    ),
+
   ];
 }

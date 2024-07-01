@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/for_developers/theme_colors_page.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/new_themes/theme_screen.dart';
+import 'package:resonate/views/new_screens/new_email_verification_screen.dart';
 import 'package:resonate/views/widgets/welcome_screen_dialog.dart';
 
 class NewWelcomeScreen extends StatelessWidget {
@@ -144,10 +145,17 @@ class NewWelcomeScreen extends StatelessWidget {
                               Theme.of(context).colorScheme.onPrimary,
                         ),
                         onPressed: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const ThemeColorsPage(),
+                          //   ),
+                          // );
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ThemeColorsPage(),
+                              builder: (context) => const NewEmailVerificationScreen(),
                             ),
                           );
                         },

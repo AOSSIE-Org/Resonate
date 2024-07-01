@@ -136,7 +136,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                       enabledBorderColor:
                                           themeController.primaryColor.value,
                                       showFieldAsBox: true,
-                                      //runs when every textfield is filled
+                                      //runs when every text-field is filled
                                       onSubmit:
                                           (String verificationCode) async {
                                         emailVerifyController

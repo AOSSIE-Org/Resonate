@@ -29,7 +29,7 @@ Widget welcomeScreenDialog(BuildContext context) {
           children: [
             GestureDetector(
               onTap: () {
-                Get.offNamed(AppRoutes.newLoginScreen);
+                Get.offNamed(AppRoutes.login);
               },
               child: Container(
                 color: Colors.transparent,
@@ -54,24 +54,29 @@ Widget welcomeScreenDialog(BuildContext context) {
             SizedBox(
               height: UiSizes.height_20,
             ),
-            Container(
-              color: Colors.transparent,
-              height: UiSizes.height_40,
-              padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+            GestureDetector(
+              onTap: () {
+                Get.offNamed(AppRoutes.signup);
+              },
+              child: Container(
+                color: Colors.transparent,
+                height: UiSizes.height_40,
+                padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
 
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Create new account",
-                    style: TextStyle(
-                      fontSize: UiSizes.size_15,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Create new account",
+                      style: TextStyle(
+                        fontSize: UiSizes.size_15,
+                      ),
                     ),
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                  )
-                ],
+                    const Icon(
+                      Icons.arrow_forward_rounded,
+                    )
+                  ],
+                ),
               ),
             ),
           ],

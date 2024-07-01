@@ -80,16 +80,7 @@ class ThemeList {
       }
     }
 
-    return const ThemeModel(
-      name: "Classic",
-      primaryColor: Color(0xff292C31),
-      onPrimaryColor: Colors.white,
-      secondaryColor: Color(0xffEDEFEE),
-      onSecondaryColor: Colors.black45,
-      surfaceColor: Color(0xffEDEFEE),
-      onSurfaceColor: Colors.black,
-      backgroundColor: Colors.white,
-      themeMode: ThemeMode.light,
-    );
+    // Return Classic Theme
+    return themesList.first;
   }
 }

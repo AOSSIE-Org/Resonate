@@ -1,5 +1,5 @@
 class AppRoutes {
-  // static const login = '/login';
+  static const login = '/login';
   static const signup = '/signup';
   static const forgotPassword = '/forgotPassword';
   static const resetPassword = '/resetPassword';
@@ -19,7 +19,5 @@ class AppRoutes {
   static const editProfile = "/editProfile";
   static const deleteAccount = "/deleteAccount";
   static const changeEmail = "/changeEmail";
-  // New Screens
   static const newWelcomeScreen = '/newWelcomeScreen';
-  static const newLoginScreen = '/newLoginScreen';
 }
