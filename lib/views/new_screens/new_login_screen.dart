@@ -107,27 +107,29 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                     ),
                     SizedBox(
                       width: double.maxFinite,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (!controller.isLoading.value) {
-                            if (controller.loginFormKey.currentState!
-                                .validate()) {
-                              await controller.login();
+                      child: Obx(
+                        () => ElevatedButton(
+                          onPressed: () async {
+                            if (!controller.isLoading.value) {
+                              if (controller.loginFormKey.currentState!
+                                  .validate()) {
+                                await controller.login();
+                              }
                             }
-                          }
-                        },
-                        child: controller.isLoading.value
-                            ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_40,
+                          },
+                          child: controller.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget
+                                      .horizontalRotatingDots(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    size: UiSizes.size_40,
+                                  ),
+                                )
+                              : const Text(
+                                  "Login",
                                 ),
-                              )
-                            : const Text(
-                                "Login",
-                              ),
+                        ),
                       ),
                     ),
                     SizedBox(

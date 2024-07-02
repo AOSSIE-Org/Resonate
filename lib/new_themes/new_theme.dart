@@ -71,8 +71,16 @@ class NewTheme {
         ),
         fillColor: theme.secondaryColor,
         filled: true,
+        prefixIconColor: theme.onSecondaryColor,
         hintStyle: TextStyle(
           color: theme.onSecondaryColor,
+        ),
+        labelStyle: TextStyle(
+          color: theme.onSecondaryColor,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: theme.primaryColor,
+
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,

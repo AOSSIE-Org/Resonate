@@ -8,8 +8,10 @@ const String appwriteEndpoint = "http://192.168.29.202:80/v1";
 const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
+// const String userProfileImagePlaceholderUrl =
+//     "http://192.168.41.207:80/v1/storage/buckets/64a13095a4c87fd78bc6/files/64a130ec38af1a3f0d61/view?project=resonate";
 const String userProfileImagePlaceholderUrl =
-    "http://192.168.41.207:80/v1/storage/buckets/64a13095a4c87fd78bc6/files/64a130ec38af1a3f0d61/view?project=resonate";
+    "http://192.168.29.202:80/v1/storage/buckets/64a13095a4c87fd78bc6/files/6683cda00038915a0424/view?project=resonate";
 const String userProfileImageBucketId = "64a52ab306331f167ce6";
 
 // Rooms related Database Constants

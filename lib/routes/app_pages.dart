@@ -4,6 +4,7 @@ import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/new_screens/new_forgot_password_screen.dart';
 import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_onboarding_screen.dart';
 import 'package:resonate/views/new_screens/new_signup_screen.dart';
 import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
@@ -70,9 +71,14 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.onBoarding,
-      page: () => const OnBoardingScreen(),
+      page: () => const NewOnBoardingScreen(),
       binding: ProfileBinding(),
     ),
+    // GetPage(
+    //   name: AppRoutes.onBoarding,
+    //   page: () => const OnBoardingScreen(),
+    //   binding: ProfileBinding(),
+    // ),
     GetPage(
       name: AppRoutes.forgotPassword,
       page: () => const NewForgotPasswordScreen(),
