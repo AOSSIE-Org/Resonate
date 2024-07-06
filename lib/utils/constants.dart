@@ -3,9 +3,14 @@
 // Appwrite Project Constants
 const String appwriteProjectId = "resonate";
 
-const String baseIp = "192.168.29.57";
-const String appwriteEndpoint = "http://$baseIp:80/v1";
-const String localhostLivekitEndpoint = "wss://$baseIp:7880";
+const String baseDomain = "fdb3-49-36-144-88.ngrok-free.app";
+const String appwriteEndpoint = "http://$baseDomain/v1";
+const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
+
+// Discussion related Database Constants
+const String discussionDatabaseId = "6522fcf27a1bbc4238df";
+const String subscribedUserCollectionId = "6522fd267db6fdad3392";
+const String discussionsCollectionId = "6522fd163103bd453183";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";

@@ -11,6 +11,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/utils/constants.dart';
 
 class DiscussionsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -54,8 +55,8 @@ class DiscussionsController extends GetxController {
   Future<void> addUserToSubscriberList(String discussionId) async {
     final fcmToken = await messaging.getToken();
     await databases.createDocument(
-        databaseId: "6522fcf27a1bbc4238df",
-        collectionId: "6522fd267db6fdad3392",
+        databaseId: discussionDatabaseId,
+        collectionId: subscribedUserCollectionId,
         documentId: ID.unique(),
         data: {
           "userID": authStateController.uid,
@@ -83,8 +84,8 @@ class DiscussionsController extends GetxController {
   Future<void> removeUserFromSubscriberList(String subscriberId) async {
     try {
       await databases.deleteDocument(
-          databaseId: "6522fcf27a1bbc4238df",
-          collectionId: "6522fd267db6fdad3392",
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           documentId: subscriberId);
     } on AppwriteException catch (error) {
       log(error.toString());
@@ -99,8 +100,8 @@ class DiscussionsController extends GetxController {
       bool? userIsCreator;
       String? subscriberId;
       discussionSubscribers = await databases.listDocuments(
-          databaseId: '6522fcf27a1bbc4238df',
-          collectionId: '6522fd267db6fdad3392',
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           queries: [
             Query.equal('discussionID', ['${discussionId}']),
           ]).then((value) => value.documents);
@@ -145,8 +146,8 @@ class DiscussionsController extends GetxController {
     await roomsController.getRooms();
     // Delete Discussion as it is now a room
     await databases.deleteDocument(
-      databaseId: '6522fcf27a1bbc4238df',
-      collectionId: '6522fd163103bd453183',
+      databaseId: discussionDatabaseId,
+      collectionId: discussionsCollectionId,
       documentId: '${discussionId}',
     );
     await getDiscussions();
@@ -159,8 +160,8 @@ class DiscussionsController extends GetxController {
     }
     try {
       Document discussion = await databases.createDocument(
-          databaseId: "6522fcf27a1bbc4238df",
-          collectionId: "6522fd163103bd453183",
+          databaseId: discussionDatabaseId,
+          collectionId: discussionsCollectionId,
           documentId: ID.unique(),
           data: {
             "name": createRoomController.nameController.text,
@@ -170,8 +171,8 @@ class DiscussionsController extends GetxController {
           });
       String discussionId = discussion.$id;
       await databases.createDocument(
-          databaseId: "6522fcf27a1bbc4238df",
-          collectionId: "6522fd267db6fdad3392",
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           documentId: ID.unique(),
           data: {
             "userID": authStateController.uid,
@@ -237,8 +238,8 @@ class DiscussionsController extends GetxController {
 
   Future<void> deleteDiscussion(String discussionId) async {
     await databases.deleteDocument(
-        databaseId: "6522fcf27a1bbc4238df",
-        collectionId: "6522fd163103bd453183",
+        databaseId: discussionDatabaseId,
+        collectionId: discussionsCollectionId,
         documentId: discussionId);
     await getDiscussions();
     deleteAllDeletedDiscussionsSubscribers(discussionId);
@@ -247,16 +248,16 @@ class DiscussionsController extends GetxController {
   Future<void> deleteAllDeletedDiscussionsSubscribers(
       String discussionId) async {
     List<Document> deletedDiscussionSubscribers = await databases.listDocuments(
-        databaseId: '6522fcf27a1bbc4238df',
-        collectionId: '6522fd267db6fdad3392',
+        databaseId: discussionDatabaseId,
+        collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal('discussionID', ['${discussionId}']),
         ]).then((value) => value.documents);
 
     for (Document subscriber in deletedDiscussionSubscribers) {
       await databases.deleteDocument(
-          databaseId: "6522fcf27a1bbc4238df",
-          collectionId: "6522fd267db6fdad3392",
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           documentId: subscriber.$id);
     }
   }
@@ -266,8 +267,8 @@ class DiscussionsController extends GetxController {
     try {
       discussions = await databases
           .listDocuments(
-            databaseId: '6522fcf27a1bbc4238df',
-            collectionId: '6522fd163103bd453183',
+            databaseId: discussionDatabaseId,
+            collectionId: discussionsCollectionId,
           )
           .then((value) => value.documents);
     } catch (e) {

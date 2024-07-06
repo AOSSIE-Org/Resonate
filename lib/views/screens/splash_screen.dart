@@ -51,7 +51,9 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColor.bgBlackColor,
       body: SafeArea(
         child: Center(
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center, 
+            children: [
             SizedBox(
               height: UiSizes.height_200,
               width: UiSizes.width_140,

@@ -120,7 +120,9 @@ class AuthStateController extends GetxController {
   Future<void> setUserProfileData() async {
     isInitializing.value = true;
     try {
+      print("here before getting account");
       appwriteUser = await account.get();
+      print("ran get account success fully");
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       isEmailVerified = appwriteUser.emailVerification;
@@ -176,8 +178,8 @@ class AuthStateController extends GetxController {
   Future<void> addRegistrationTokentoSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
-        databaseId: "6522fcf27a1bbc4238df",
-        collectionId: "6522fd267db6fdad3392",
+        databaseId: discussionDatabaseId,
+        collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
@@ -186,8 +188,8 @@ class AuthStateController extends GetxController {
           subscribtion.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: '6522fcf27a1bbc4238df',
-          collectionId: '6522fd267db6fdad3392',
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
     });
@@ -196,8 +198,8 @@ class AuthStateController extends GetxController {
   Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
-        databaseId: "6522fcf27a1bbc4238df",
-        collectionId: "6522fd267db6fdad3392",
+        databaseId: discussionDatabaseId,
+        collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
@@ -206,8 +208,8 @@ class AuthStateController extends GetxController {
           subscribtion.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: '6522fcf27a1bbc4238df',
-          collectionId: '6522fd267db6fdad3392',
+          databaseId: discussionDatabaseId,
+          collectionId: subscribedUserCollectionId,
           documentId: subscribtion.$id,
           data: {"registrationTokens": registrationTokens});
     });
