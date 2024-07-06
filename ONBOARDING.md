@@ -84,11 +84,11 @@ After livekit set up the script will start the caddy web server, and this would 
 The logs for the ngrok service could be viewed at http://localhost:4040/inspect/http, apart from ngrok all the other services logs i.e
 livekit, caddy can be seen in the .log files generated during the execution of the script.
 
-![Screenshot 2024-07-06 at 5 33 01 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/3a788ffd-968a-4129-ae48-446833e44fac)
+![Screenshot 2024-07-06 at 5 37 30 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/4aa9a6b7-5035-4bfa-81c7-fb9f814d018e)
 
 why two caddy log files?
 
-caddy.log: captures the server's operational logs, including startup and error messages.
+caddy.log: captures the server's operational logs, including startup and error messages.   
 caddy_access.log: captures the access logs, detailing each HTTP request handled by the server.
 
 
