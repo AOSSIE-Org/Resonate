@@ -67,9 +67,16 @@ class EmailVerifyController extends GetxController {
       Timer(const Duration(milliseconds: 300), () {
         signUpIsAllowed.value = true;
       });
+
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
       Get.toNamed(AppRoutes.emailVerification);
     } else {
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
       signUpIsAllowed.value = true;
       customSnackbar('Oops', res.response, MessageType.error);

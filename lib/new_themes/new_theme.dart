@@ -50,7 +50,8 @@ class NewTheme {
           side: BorderSide(
             color: theme.primaryColor,
           ),
-          padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
+          fixedSize: const Size.fromHeight(48),
+          // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
             fontFamily: GoogleFonts.poppins().fontFamily,
             fontWeight: FontWeight.w500,
@@ -80,7 +81,6 @@ class NewTheme {
         ),
         floatingLabelStyle: TextStyle(
           color: theme.primaryColor,
-
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,
@@ -122,7 +122,8 @@ class NewTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primaryColor,
           foregroundColor: theme.onPrimaryColor,
-          padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
+          fixedSize: const Size.fromHeight(48),
+          // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
             fontFamily: GoogleFonts.poppins().fontFamily,
             fontWeight: FontWeight.w500,
@@ -135,7 +136,8 @@ class NewTheme {
           side: BorderSide(
             color: theme.primaryColor,
           ),
-          padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
+          fixedSize: const Size.fromHeight(48),
+          // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
             fontFamily: GoogleFonts.poppins().fontFamily,
             fontWeight: FontWeight.w500,
@@ -156,8 +158,15 @@ class NewTheme {
         ),
         fillColor: theme.secondaryColor,
         filled: true,
+        prefixIconColor: theme.onSecondaryColor,
         hintStyle: TextStyle(
           color: theme.onSecondaryColor,
+        ),
+        labelStyle: TextStyle(
+          color: theme.onSecondaryColor,
+        ),
+        floatingLabelStyle: TextStyle(
+          color: theme.primaryColor,
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,

@@ -58,7 +58,7 @@ class OnboardingController extends GetxController {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
-    var usernameAvail = await isUsernameAvailable(usernameController.text);
+    var usernameAvail = await isUsernameAvailable(usernameController.text.trim());
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
@@ -74,7 +74,7 @@ class OnboardingController extends GetxController {
       await databases.createDocument(
           databaseId: userDatabaseID,
           collectionId: usernameCollectionID,
-          documentId: usernameController.text,
+          documentId: usernameController.text.trim(),
           data: {"email": authStateController.email});
       //Update User Meta Data
       if (profileImagePath != null) {
@@ -92,14 +92,14 @@ class OnboardingController extends GetxController {
       }
 
       // Update User meta data
-      await authStateController.account.updateName(name: nameController.text);
+      await authStateController.account.updateName(name: nameController.text.trim());
       await databases.createDocument(
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
         documentId: authStateController.uid!,
         data: {
-          "name": nameController.text,
-          "username": usernameController.text,
+          "name": nameController.text.trim(),
+          "username": usernameController.text.trim(),
           "profileImageUrl": imageController.text,
           "dob": dobController.text,
           "email": authStateController.email,

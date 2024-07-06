@@ -155,7 +155,7 @@ class NewWelcomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const NewEmailVerificationScreen(),
+                              builder: (context) => NewEmailVerificationScreen(),
                             ),
                           );
                         },

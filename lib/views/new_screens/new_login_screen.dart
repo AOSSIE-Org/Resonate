@@ -78,6 +78,8 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                       () => TextFormField(
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
+                        validator: (value) =>
+                            value! == "" ? "Password can't be empty" : null,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(

@@ -3,41 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/controllers/edit_profile_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/new_widgets/new_loading_dialog.dart';
 
+import '../../controllers/auth_state_controller.dart';
+import '../../controllers/edit_profile_controller.dart';
+import '../../routes/app_routes.dart';
 import '../../utils/constants.dart';
-import '../../utils/ui_sizes.dart';
 
-class EditProfileScreen extends StatelessWidget {
-  EditProfileScreen({super.key});
-
-  final ThemeController themeController = Get.find<ThemeController>();
-
-  Widget verticalGap(double height) {
-    return SizedBox(
-      height: height,
-    );
-  }
-
-  final InputDecoration inputDecoration = InputDecoration(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide(
-        color: Get.find<ThemeController>().primaryColor.value,
-        width: UiSizes.width_2,
-      ),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(color: Colors.grey),
-    ),
-  );
+class NewEditProfileScreen extends StatelessWidget {
+  NewEditProfileScreen({super.key});
 
   // Initializing controllers
   final EditProfileController editProfileController =
@@ -47,35 +22,45 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (editProfileController.isLoading.value) {
-          return false;
-        } else {
-          if (editProfileController.isThereUnsavedChanges()) {
-            saveChangesDialogue();
-          }
+    return PopScope(
+      canPop: !(editProfileController.isLoading.value ||
+          editProfileController.isThereUnsavedChanges()),
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
 
-          return true;
+        if (!editProfileController.isLoading.value &&
+            editProfileController.isThereUnsavedChanges()) {
+          await saveChangesDialogue(context);
+        } else {
+          if (!editProfileController.isLoading.value) {
+            Get.back();
+          }
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Profile'),
+          title: const Text("Edit Profile"),
         ),
         body: GetBuilder<EditProfileController>(
           builder: (controller) => Container(
-            height: double.maxFinite,
             width: double.maxFinite,
-            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_45),
+            padding: EdgeInsets.symmetric(
+              vertical: UiSizes.height_20,
+              horizontal: UiSizes.width_20,
+            ),
             child: Form(
               key: controller.editProfileFormKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    verticalGap(UiSizes.height_60),
+                    SizedBox(
+                      height: UiSizes.height_20,
+                    ),
                     CircleAvatar(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       backgroundImage: (controller.profileImagePath == null)
                           ? controller.removeImage
                               ? const NetworkImage(
@@ -84,44 +69,42 @@ class EditProfileScreen extends StatelessWidget {
                                   authStateController.profileImageUrl!)
                           : FileImage(File(controller.profileImagePath!))
                               as ImageProvider,
-                      radius: UiSizes.size_70,
+                      radius: UiSizes.width_80,
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
                           onTap: () {
                             showBottomSheet();
                           },
-                          // onTap: () async => await controller.pickImage(),
                           child: CircleAvatar(
-                            backgroundColor: themeController.primaryColor.value,
-                            child: const Icon(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            child: Icon(
                               Icons.edit,
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_60),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
                     TextFormField(
-                      controller: controller.nameController,
                       validator: (value) =>
                           value!.isNotEmpty ? null : 'Required field',
+                      controller: controller.nameController,
                       keyboardType: TextInputType.text,
                       autocorrect: false,
-                      cursorRadius: const Radius.circular(10),
-                      decoration: inputDecoration.copyWith(
-                        prefixIcon: const Icon(
-                          Icons.person,
-                        ),
-                        labelText: "Full Name",
+                      decoration: const InputDecoration(
+                        // hintText: "Name",
+                        labelText: "Name",
+                        prefixIcon: Icon(Icons.abc_rounded),
                       ),
                     ),
-                    verticalGap(UiSizes.height_20),
+                    SizedBox(height: UiSizes.height_20),
                     Obx(
                       () => TextFormField(
-                        controller: controller.usernameController,
-                        cursorRadius: const Radius.circular(10),
                         validator: (value) {
                           if (value!.length > 5) {
                             return null;
@@ -129,6 +112,7 @@ class EditProfileScreen extends StatelessWidget {
                             return "Username must contain more than 5 characters.";
                           }
                         },
+                        controller: controller.usernameController,
                         onChanged: (value) async {
                           if (value.length > 5) {
                             controller.usernameAvailable.value =
@@ -140,80 +124,66 @@ class EditProfileScreen extends StatelessWidget {
                         },
                         keyboardType: TextInputType.text,
                         autocorrect: false,
-                        decoration: inputDecoration.copyWith(
-                          prefixIcon: const Icon(
-                            Icons.account_circle,
-                          ),
+                        decoration: InputDecoration(
+                          // hintText: "Username",
                           labelText: "Username",
-                          prefixText: "@",
+                          prefixIcon: const Icon(Icons.person),
                           suffixIcon: controller.usernameAvailable.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
                                 )
                               : null,
-                          errorStyle: const TextStyle(
-                            fontSize: 10,
-                          ),
                         ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_20),
+                    SizedBox(height: UiSizes.height_20),
                     SizedBox(
                       width: double.maxFinite,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          side: const BorderSide(color: Colors.grey),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20,
-                            horizontal: 15,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.changeEmail);
+                        },
+                        style: OutlinedButton.styleFrom(
+                          fixedSize: Size.fromHeight(UiSizes.height_60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.changeEmail);
-                        },
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Change Email',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: themeController.primaryColor.value),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_rounded,
-                              color: themeController.primaryColor.value,
-                            )
+                            Text('Change Email'),
+                            Icon(Icons.arrow_forward_rounded),
                           ],
                         ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_60),
+                    SizedBox(height: UiSizes.height_60),
                     Obx(
-                      () => ElevatedButton(
-                        onPressed: () async {
-                          if (!controller.isLoading.value) {
-                            await controller.saveProfile();
-                          }
-                        },
-                        child: controller.isLoading.value
-                            ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color: Colors.black,
-                                  size: UiSizes.size_40,
+                      () => SizedBox(
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (!controller.isLoading.value) {
+                              await controller.saveProfile();
+                            }
+                          },
+                          child: controller.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget
+                                      .horizontalRotatingDots(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    size: UiSizes.size_40,
+                                  ),
+                                )
+                              : const Text(
+                                  'Save changes',
                                 ),
-                              )
-                            : const Text(
-                                'Save changes',
-                                style: TextStyle(fontSize: 18),
-                              ),
+                        ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_20),
                   ],
                 ),
               ),
@@ -224,44 +194,54 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
-  void saveChangesDialogue() {
+  Future<void> saveChangesDialogue(BuildContext context) async {
     Get.defaultDialog(
       title: 'Save changes',
       titleStyle: const TextStyle(fontWeight: FontWeight.w500),
-      titlePadding: const EdgeInsets.symmetric(vertical: 20),
+      titlePadding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
       content: Text(
+        textAlign: TextAlign.center,
         "If you proceed without saving, any unsaved changes will be lost.",
         style: TextStyle(
-          color: Colors.grey,
           fontSize: UiSizes.size_14,
         ),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 10, right: 5),
-          child: TextButton(
-            onPressed: () {
-              Get.back();
-              Navigator.pop(Get.context!);
-            },
-            child: const Text(
-              'Discard',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10, left: 5),
-          child: TextButton(
-            onPressed: () async {
-              Get.back();
-              await editProfileController.saveProfile();
-            },
-            child: const Text(
-              'Save',
-              style: TextStyle(color: Colors.blue),
-            ),
+          padding: EdgeInsets.only(bottom: UiSizes.height_5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                  Get.back();
+                },
+                child: const Text(
+                  'DISCARD',
+                  style: TextStyle(
+                    letterSpacing: 2,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Get.back();
+                  await editProfileController.saveProfile();
+                },
+                child: Text(
+                  'SAVE',
+                  style: TextStyle(
+                    letterSpacing: 2,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -285,13 +265,17 @@ class EditProfileScreen extends StatelessWidget {
   Widget changeProfilePictureBottomSheet(BuildContext context) {
     return ListView(
       shrinkWrap: true,
-      padding:
-          EdgeInsets.only(top: UiSizes.height_30, bottom: UiSizes.height_56),
+      padding: EdgeInsets.only(
+        top: UiSizes.height_30,
+        bottom: UiSizes.height_60,
+      ),
       children: [
         Text(
           'Change profile picture',
-          style:
-              TextStyle(fontSize: UiSizes.size_20, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            fontSize: UiSizes.size_20,
+            fontWeight: FontWeight.w500,
+          ),
           textAlign: TextAlign.center,
         ),
         SizedBox(
@@ -305,10 +289,13 @@ class EditProfileScreen extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    // Display Loading Dialog
+                    newLoadingDialog(context);
                     editProfileController.pickImageFromCamera();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.camera_alt,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   iconSize: UiSizes.size_56,
                 ),
@@ -320,10 +307,14 @@ class EditProfileScreen extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
+
+                    // Display Loading Dialog
+                    newLoadingDialog(context);
                     editProfileController.pickImageFromGallery();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.image,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   iconSize: UiSizes.size_56,
                 ),
@@ -339,8 +330,9 @@ class EditProfileScreen extends StatelessWidget {
                       Navigator.pop(context);
                       editProfileController.removeProfilePicture();
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.delete,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     iconSize: UiSizes.size_56,
                   ),

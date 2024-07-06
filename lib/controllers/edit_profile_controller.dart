@@ -4,9 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/services/appwrite_service.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
@@ -20,7 +18,7 @@ class EditProfileController extends GetxController {
 
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
-  final ThemeController themeController = Get.find<ThemeController>();
+  // final ThemeController themeController = Get.find<ThemeController>();
 
   late final Storage storage;
   late final Databases databases;
@@ -48,11 +46,11 @@ class EditProfileController extends GetxController {
     storage = AppwriteService.getStorage();
     databases = AppwriteService.getDatabases();
 
-    oldDisplayName = authStateController.displayName!;
-    oldUsername = authStateController.userName!;
+    oldDisplayName = authStateController.displayName!.trim();
+    oldUsername = authStateController.userName!.trim();
 
-    nameController.text = authStateController.displayName!;
-    usernameController.text = authStateController.userName!;
+    nameController.text = authStateController.displayName!.trim();
+    usernameController.text = authStateController.userName!.trim();
   }
 
   bool isThereUnsavedChanges() {
@@ -66,18 +64,6 @@ class EditProfileController extends GetxController {
 
   Future<void> pickImageFromCamera() async {
     try {
-      // Display Loading Dialog
-      Get.dialog(
-        Center(
-          child: LoadingAnimationWidget.threeRotatingDots(
-            color: themeController.primaryColor.value,
-            size: Get.pixelRatio * 20,
-          ),
-        ),
-        barrierDismissible: false,
-        name: "Loading Dialog",
-      );
-
       XFile? file = await _imagePicker.pickImage(
         source: ImageSource.camera,
         // maxHeight: 400,
@@ -112,18 +98,6 @@ class EditProfileController extends GetxController {
 
   Future<void> pickImageFromGallery() async {
     try {
-      // Display Loading Dialog
-      Get.dialog(
-        Center(
-          child: LoadingAnimationWidget.threeRotatingDots(
-            color: themeController.primaryColor.value,
-            size: Get.pixelRatio * 20,
-          ),
-        ),
-        barrierDismissible: false,
-        name: "Loading Dialog",
-      );
-
       XFile? file = await _imagePicker.pickImage(
         source: ImageSource.gallery,
         // maxHeight: 400,
@@ -155,11 +129,11 @@ class EditProfileController extends GetxController {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
-          toolbarColor: themeController.primaryColor.value,
-          statusBarColor: themeController.primaryColor.value,
-          toolbarWidgetColor: Colors.black,
-          cropFrameColor: Colors.white,
-          activeControlsWidgetColor: themeController.primaryColor.value,
+          // toolbarColor: themeController.primaryColor.value,
+          // statusBarColor: themeController.primaryColor.value,
+          // toolbarWidgetColor: Colors.black,
+          // cropFrameColor: Colors.white,
+          // activeControlsWidgetColor: themeController.primaryColor.value,
         ),
         IOSUiSettings(
           minimumAspectRatio: 1.0,
@@ -186,21 +160,21 @@ class EditProfileController extends GetxController {
   }
 
   bool isUsernameChanged() {
-    if (usernameController.text == oldUsername) {
+    if (usernameController.text.trim() == oldUsername) {
       return false;
     }
     return true;
   }
 
   bool isDisplayNameChanged() {
-    if (nameController.text == oldDisplayName) {
+    if (nameController.text.trim() == oldDisplayName) {
       return false;
     }
     return true;
   }
 
   bool isProfilePictureChanged() {
-    if (profileImagePath != null || removeImage) {
+    if ((profileImagePath != null) || removeImage) {
       return true;
     }
     return false;
@@ -272,7 +246,7 @@ class EditProfileController extends GetxController {
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail = await isUsernameAvailable(usernameController.text);
+        var usernameAvail = await isUsernameAvailable(usernameController.text.trim());
 
         if (!usernameAvail) {
           usernameAvailable.value = false;
@@ -287,7 +261,7 @@ class EditProfileController extends GetxController {
         await databases.createDocument(
           databaseId: userDatabaseID,
           collectionId: usernameCollectionID,
-          documentId: usernameController.text,
+          documentId: usernameController.text.trim(),
           data: {
             'email': authStateController.email,
           },
@@ -309,7 +283,7 @@ class EditProfileController extends GetxController {
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
           data: {
-            "username": usernameController.text,
+            "username": usernameController.text.trim(),
           },
         );
       }
@@ -317,14 +291,14 @@ class EditProfileController extends GetxController {
       //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
-        await authStateController.account.updateName(name: nameController.text);
+        await authStateController.account.updateName(name: nameController.text.trim());
 
         await databases.updateDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
           data: {
-            "name": nameController.text,
+            "name": nameController.text.trim(),
           },
         );
       }

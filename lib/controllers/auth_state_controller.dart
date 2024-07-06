@@ -16,7 +16,6 @@ import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
-  final ThemeController themeController = Get.find<ThemeController>();
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
@@ -195,7 +194,7 @@ class AuthStateController extends GetxController {
     });
   }
 
-  Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
+  Future<void> removeRegistrationTokenFromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: "6522fcf27a1bbc4238df",
@@ -232,19 +231,23 @@ class AuthStateController extends GetxController {
     await isUserLoggedIn();
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     Get.defaultDialog(
       title: "Are you sure?",
-      middleText: "You are logging out of Resonate",
+      middleText: "You are logging out of Resonate.",
       textConfirm: "Yes",
-      buttonColor: themeController.primaryColor.value,
-      confirmTextColor: Colors.white,
+      buttonColor: Theme.of(context).colorScheme.primary,
+      confirmTextColor: Theme.of(context).colorScheme.onPrimary,
       textCancel: "No",
-      cancelTextColor: themeController.primaryColor.value,
-      contentPadding: EdgeInsets.all(UiSizes.size_15),
+      cancelTextColor: Theme.of(context).colorScheme.primary,
+      titlePadding: EdgeInsets.only(top: UiSizes.height_15),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: UiSizes.height_20,
+        horizontal: UiSizes.width_20,
+      ),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
-        await removeRegistrationTokenfromSubscribedDiscussions();
+        await removeRegistrationTokenFromSubscribedDiscussions();
         Get.offAllNamed(AppRoutes.newWelcomeScreen);
       },
     );

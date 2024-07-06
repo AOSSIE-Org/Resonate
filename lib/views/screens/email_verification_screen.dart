@@ -19,7 +19,9 @@ class EmailVerificationScreen extends StatelessWidget {
 
   final controller = Get.find<AuthenticationController>();
   final emailVerifyController = Get.find<EmailVerifyController>();
+
   final ThemeController themeController = Get.find<ThemeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,8 +126,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: UiSizes.height_40),
                                     OtpTextField(
+                                      contentPadding: EdgeInsets.zero,
                                       textStyle:
-                                          TextStyle(fontSize: UiSizes.size_14),
+                                          TextStyle(fontSize: UiSizes.size_14, color: Colors.red),
                                       fieldWidth: UiSizes.width_40,
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
@@ -181,7 +184,7 @@ class EmailVerificationScreen extends StatelessWidget {
                                                 .isVerifying.value = false;
                                             customSnackbar(
                                                 "Verification Failed",
-                                                "OTP mismatch occured please try again",
+                                                "OTP mismatch occurred please try again",
                                                 MessageType.error);
                                           }
                                         } else {
@@ -246,13 +249,15 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       customSnackbar(
                                                           "OTP Resent",
                                                           "Please do check your mail for a new OTP",
-                                                          MessageType.info);
+                                                          MessageType.info,
+                                                      );
                                                     }
                                                   : () {
                                                       customSnackbar(
                                                           "Hold on",
                                                           "Please wait till the timer completes",
-                                                          MessageType.warning);
+                                                          MessageType.warning,
+                                                      );
                                                     },
                                               child: emailVerifyController
                                                       .resendIsAllowed.value
