@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:resonate/for_developers/theme_colors_page.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/new_themes/theme_screen.dart';
 import 'package:resonate/views/new_screens/new_email_verification_screen.dart';

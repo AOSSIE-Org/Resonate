@@ -47,175 +47,162 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (editProfileController.isLoading.value) {
-          return false;
-        } else {
-          if (editProfileController.isThereUnsavedChanges()) {
-            saveChangesDialogue();
-          }
-
-          return true;
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Edit Profile'),
-        ),
-        body: GetBuilder<EditProfileController>(
-          builder: (controller) => Container(
-            height: double.maxFinite,
-            width: double.maxFinite,
-            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_45),
-            child: Form(
-              key: controller.editProfileFormKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    verticalGap(UiSizes.height_60),
-                    CircleAvatar(
-                      backgroundColor: Colors.black,
-                      backgroundImage: (controller.profileImagePath == null)
-                          ? controller.removeImage
-                              ? const NetworkImage(
-                                  userProfileImagePlaceholderUrl)
-                              : NetworkImage(
-                                  authStateController.profileImageUrl!)
-                          : FileImage(File(controller.profileImagePath!))
-                              as ImageProvider,
-                      radius: UiSizes.size_70,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            showBottomSheet();
-                          },
-                          // onTap: () async => await controller.pickImage(),
-                          child: CircleAvatar(
-                            backgroundColor: themeController.primaryColor.value,
-                            child: const Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Profile'),
+      ),
+      body: GetBuilder<EditProfileController>(
+        builder: (controller) => Container(
+          height: double.maxFinite,
+          width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal: UiSizes.width_45),
+          child: Form(
+            key: controller.editProfileFormKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  verticalGap(UiSizes.height_60),
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    backgroundImage: (controller.profileImagePath == null)
+                        ? controller.removeImage
+                            ? const NetworkImage(
+                                userProfileImagePlaceholderUrl)
+                            : NetworkImage(
+                                authStateController.profileImageUrl!)
+                        : FileImage(File(controller.profileImagePath!))
+                            as ImageProvider,
+                    radius: UiSizes.size_70,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          showBottomSheet();
+                        },
+                        // onTap: () async => await controller.pickImage(),
+                        child: CircleAvatar(
+                          backgroundColor: themeController.primaryColor.value,
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.black,
                           ),
                         ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_60),
-                    TextFormField(
-                      controller: controller.nameController,
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : 'Required field',
+                  ),
+                  verticalGap(UiSizes.height_60),
+                  TextFormField(
+                    controller: controller.nameController,
+                    validator: (value) =>
+                        value!.isNotEmpty ? null : 'Required field',
+                    keyboardType: TextInputType.text,
+                    autocorrect: false,
+                    cursorRadius: const Radius.circular(10),
+                    decoration: inputDecoration.copyWith(
+                      prefixIcon: const Icon(
+                        Icons.person,
+                      ),
+                      labelText: "Full Name",
+                    ),
+                  ),
+                  verticalGap(UiSizes.height_20),
+                  Obx(
+                    () => TextFormField(
+                      controller: controller.usernameController,
+                      cursorRadius: const Radius.circular(10),
+                      validator: (value) {
+                        if (value!.length > 5) {
+                          return null;
+                        } else {
+                          return "Username must contain more than 5 characters.";
+                        }
+                      },
+                      onChanged: (value) async {
+                        if (value.length > 5) {
+                          controller.usernameAvailable.value =
+                              await controller
+                                  .isUsernameAvailable(value.trim());
+                        } else {
+                          controller.usernameAvailable.value = false;
+                        }
+                      },
                       keyboardType: TextInputType.text,
                       autocorrect: false,
-                      cursorRadius: const Radius.circular(10),
                       decoration: inputDecoration.copyWith(
                         prefixIcon: const Icon(
-                          Icons.person,
+                          Icons.account_circle,
                         ),
-                        labelText: "Full Name",
-                      ),
-                    ),
-                    verticalGap(UiSizes.height_20),
-                    Obx(
-                      () => TextFormField(
-                        controller: controller.usernameController,
-                        cursorRadius: const Radius.circular(10),
-                        validator: (value) {
-                          if (value!.length > 5) {
-                            return null;
-                          } else {
-                            return "Username must contain more than 5 characters.";
-                          }
-                        },
-                        onChanged: (value) async {
-                          if (value.length > 5) {
-                            controller.usernameAvailable.value =
-                                await controller
-                                    .isUsernameAvailable(value.trim());
-                          } else {
-                            controller.usernameAvailable.value = false;
-                          }
-                        },
-                        keyboardType: TextInputType.text,
-                        autocorrect: false,
-                        decoration: inputDecoration.copyWith(
-                          prefixIcon: const Icon(
-                            Icons.account_circle,
-                          ),
-                          labelText: "Username",
-                          prefixText: "@",
-                          suffixIcon: controller.usernameAvailable.value
-                              ? const Icon(
-                                  Icons.verified_outlined,
-                                  color: Colors.green,
-                                )
-                              : null,
-                          errorStyle: const TextStyle(
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                    ),
-                    verticalGap(UiSizes.height_20),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          side: const BorderSide(color: Colors.grey),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20,
-                            horizontal: 15,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.changeEmail);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Change Email',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: themeController.primaryColor.value),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_rounded,
-                              color: themeController.primaryColor.value,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    verticalGap(UiSizes.height_60),
-                    Obx(
-                      () => ElevatedButton(
-                        onPressed: () async {
-                          if (!controller.isLoading.value) {
-                            await controller.saveProfile();
-                          }
-                        },
-                        child: controller.isLoading.value
-                            ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color: Colors.black,
-                                  size: UiSizes.size_40,
-                                ),
+                        labelText: "Username",
+                        prefixText: "@",
+                        suffixIcon: controller.usernameAvailable.value
+                            ? const Icon(
+                                Icons.verified_outlined,
+                                color: Colors.green,
                               )
-                            : const Text(
-                                'Save changes',
-                                style: TextStyle(fontSize: 18),
-                              ),
+                            : null,
+                        errorStyle: const TextStyle(
+                          fontSize: 10,
+                        ),
                       ),
                     ),
-                    verticalGap(UiSizes.height_20),
-                  ],
-                ),
+                  ),
+                  verticalGap(UiSizes.height_20),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        side: const BorderSide(color: Colors.grey),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 15,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.changeEmail);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Change Email',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: themeController.primaryColor.value),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_rounded,
+                            color: themeController.primaryColor.value,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  verticalGap(UiSizes.height_60),
+                  Obx(
+                    () => ElevatedButton(
+                      onPressed: () async {
+                        if (!controller.isLoading.value) {
+                          await controller.saveProfile();
+                        }
+                      },
+                      child: controller.isLoading.value
+                          ? Center(
+                              child: LoadingAnimationWidget
+                                  .horizontalRotatingDots(
+                                color: Colors.black,
+                                size: UiSizes.size_40,
+                              ),
+                            )
+                          : const Text(
+                              'Save changes',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                    ),
+                  ),
+                  verticalGap(UiSizes.height_20),
+                ],
               ),
             ),
           ),

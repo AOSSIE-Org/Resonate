@@ -9,7 +9,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';

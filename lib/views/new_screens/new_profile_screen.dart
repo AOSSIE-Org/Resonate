@@ -14,8 +14,8 @@ class NewProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final emailVerifyController =
         Get.put<EmailVerifyController>(EmailVerifyController());
-    final authStateController =
-        Get.put<AuthStateController>(AuthStateController());
+    // final authStateController =
+    //     Get.put<AuthStateController>(AuthStateController());
 
     return GetBuilder<AuthStateController>(
       builder: (controller) => Scaffold(
