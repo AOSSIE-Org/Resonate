@@ -10,7 +10,7 @@ Git Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate
 <br/>
 
 Navigate to the root directory of the project in your terminal, and run the command
-```
+```bash
 ./init.sh
 ```
 This will start the backend initialisation script thus start pulling Appwrite's docker image, this may take some time but after a few minutes it will ask you for some inputs let everything be the default and just press enter for it to take the default value, once all inputs are taken your it will compose the image into a container this might take a few minutes as well but after that appwrite will be successfully installed, started and up for action.
@@ -62,7 +62,7 @@ Get yourself your Github Oauth credentials via following [Github Oauth Credentia
 While creating the Oauth credentials for Github add the following urls as 
 
 Homepage URL: `http://{your ngrok tunnel domain name}`  
-so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app.app
+so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app
 
 Authorization callback URL: `http://{your ngrok tunnel domain name}/v1/account/sessions/oauth2/callback/github/resonate`  
 so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app/v1/account/sessions/oauth2/callback/github/resonate
@@ -81,6 +81,8 @@ After livekit set up the script will start the caddy web server, and this would 
 
 ![Screenshot 2024-07-06 at 5 29 09 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/c18d726f-2a59-415c-8f03-483fe8e31097)
 
+![Screenshot 2024-07-06 at 6 13 59 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/105a7b36-b151-4ca3-a470-842ec8e5183a)
+
 The logs for the ngrok service could be viewed at http://localhost:4040/inspect/http, apart from ngrok all the other services logs i.e
 livekit, caddy can be seen in the .log files generated during the execution of the script.
 
@@ -90,6 +92,39 @@ why two caddy log files?
 
 caddy.log: captures the server's operational logs, including startup and error messages.   
 caddy_access.log: captures the access logs, detailing each HTTP request handled by the server.
+
+All the three services
+- caddy
+- livekit
+- ngrok
+
+are running in the background, to stop 
+
+##### Cady
+
+```
+cady stop
+```
+
+##### Livekit
+
+```bash
+ ps aux | grep livekit-server
+```
+
+now copy its Process Id and kill it using the kill command
+
+```bash
+kill <Pid>
+```
+![Screenshot 2024-07-06 at 5 49 17 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/602af879-3038-4d72-b91f-6fb33a535399)
+
+
+##### ngrok
+
+killing process similar to that of livekit
+
+![Screenshot 2024-07-06 at 5 53 23 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/73bf1c1b-3fb8-4e0a-823a-b1d34bed8ac2)
 
 
 
