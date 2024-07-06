@@ -34,33 +34,62 @@ For the team Id, while the creation of an appwrite account you must be asked of 
 
 Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will set up some stuff for you and then it will ask for Oauth provider credentials 
 
-![Screenshot 2024-06-28 at 3 06 57 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9d645a06-a823-4cd7-b5ed-6866dd2be1c8)
+![Screenshot 2024-07-06 at 5 24 10 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/76c37da6-b69f-4335-9528-368fab979166)
 
-##### Google Oauth Creds 
+#### Google Oauth Creds 
 
 To create your Google Oauth credentials visit [Google Oauth Credential Guide](https://www.balbooa.com/help/gridbox-documentation/integrations/other/google-client-id) before that please read the few lines below 
 
 While creating the Oauth credentials for Google add the following urls as 
+you will be able to see a ngrok tunnel url that is required in these steps
 
-Authorized JavaScript origins: https://localhost                          
-Authorized redirect URIs: http://localhost/v1/account/sessions/oauth2/callback/google/resonate
- 
- 
- 
+Authorized JavaScript origins: `http://{your ngrok tunnel domain name}`     
+so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app   
 
-##### Github Oauth Creds 
+> #### **Very Important Info**
+> The url should start with `http://` not `https://` please make sure that you striclty follow the instructions listed in this guide assuming every step to be case sensitive
+<br/>
+
+Authorized redirect URIs: `http://{your ngrok tunnel domain name}/v1/account/sessions/oauth2/callback/google/resonate`    
+so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app/v1/account/sessions/oauth2/callback/google/resonate
+ 
+After successful creation of Oauth credentials provide the App/Client  Id and Secret in the Terminal
+
+#### Github Oauth Creds 
 
 Get yourself your Github Oauth credentials via following [Github Oauth Credential Guide](https://support.heateor.com/get-github-client-id-client-secret/)
 
 While creating the Oauth credentials for Github add the following urls as 
 
-Homepage URL: https://{your laptop Ip}  
-so for me it is http://192.168.29.57
+Homepage URL: `http://{your ngrok tunnel domain name}`  
+so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app.app
 
-Authorization callback URL: http://{your laptop Ip}/v1/account/sessions/oauth2/callback/github/resonate  
-so for me it is http://192.168.29.57/v1/account/sessions/oauth2/callback/github/resonate
+Authorization callback URL: `http://{your ngrok tunnel domain name}/v1/account/sessions/oauth2/callback/github/resonate`  
+so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app/v1/account/sessions/oauth2/callback/github/resonate
 
+After Oauth you will be prompted for collections set up 
 
+![Screenshot 2024-07-06 at 5 14 46 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/5155b124-07e4-4769-a9f1-ac574816f85e)
+
+Press "a" to select all and press enter, same goes for functions and buckets set up comming after this
+
+This completes the Appwrite Set Up, now you will be asked to choose between Livekit Cloud or Livekit Self hosted if you have a have an old laptop that is most likely not able to take up much processing load then opt for cloud else having it locally i.e self hosted is recommended 
+
+![Screenshot 2024-07-06 at 5 20 00 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/348dc245-165e-490c-ba50-f699cd05bbee)
+
+After livekit set up the script will start the caddy web server, and this would complete the script execution, printing out your ngrok tunnel Domain for you in the end. This tunnel domain needs to be entered in the constants.dart in the client side flutter project, copy the tunnel domain and save it with your self as well 
+
+![Screenshot 2024-07-06 at 5 29 09 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/c18d726f-2a59-415c-8f03-483fe8e31097)
+
+The logs for the ngrok service could be viewed at http://localhost:4040/inspect/http, apart from ngrok all the other services logs i.e
+livekit, caddy can be seen in the .log files generated during the execution of the script.
+
+![Screenshot 2024-07-06 at 5 33 01 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/3a788ffd-968a-4129-ae48-446833e44fac)
+
+why two caddy log files?
+
+caddy.log: captures the server's operational logs, including startup and error messages.
+caddy_access.log: captures the access logs, detailing each HTTP request handled by the server.
 
 
 
