@@ -6,6 +6,7 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 - Docker
 - Caddy
+- Ngrok
 
 
 ### Starting Off (Clone Repo, Run Script, Script Install Appwrite locally)
