@@ -3,8 +3,8 @@
 // Appwrite Project Constants
 const String appwriteProjectId = "resonate";
 
-const String baseDomain = "fdb3-49-36-144-88.ngrok-free.app";
-const String appwriteEndpoint = "http://$baseDomain/v1";
+const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+const String appwriteEndpoint = "https://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
 
 // Discussion related Database Constants
