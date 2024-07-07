@@ -5,6 +5,7 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
 - Appwrite CLI
+- Docker
 - ngrok 
 - caddy
 - brew (MacOS)
