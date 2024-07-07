@@ -4,11 +4,8 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
-- Appwrite CLI
 - Docker
-- ngrok 
-- caddy
-- brew (MacOS)
+- Caddy
 
 
 ### Starting Off (Clone Repo, Run Script, Script Install Appwrite locally)
@@ -24,6 +21,12 @@ Navigate to the root directory of the project in your terminal, and run the comm
 ```bash
 ./init.sh
 ```
+
+The script will identify your Operating System, will start installing the dependencies for the script to execute
+- Appwrite CLI
+- Livekit Server CLI
+- Livekit CLI
+
 This will start the backend initialisation script thus start pulling Appwrite's docker image, this may take some time but after a few minutes it will ask you for some inputs let everything be the default and just press enter for it to take the default value, once all inputs are taken your it will compose the image into a container this might take a few minutes as well but after that appwrite will be successfully installed, started and up for action.
 
 <br/>
