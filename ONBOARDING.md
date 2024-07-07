@@ -81,7 +81,15 @@ After livekit set up the script will start the caddy web server, and this would 
 
 ![Screenshot 2024-07-06 at 5 29 09 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/c18d726f-2a59-415c-8f03-483fe8e31097)
 
-![Screenshot 2024-07-06 at 6 13 59 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/105a7b36-b151-4ca3-a470-842ec8e5183a)
+
+![Screenshot 2024-07-07 at 8 49 29 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/42fa4370-50b9-43b9-a356-444380ce5141)
+
+Make sure on the client side you keep everything as it is just swap the baseDomain with you ngrok tunnel domain, even if accidently you make the appwrite end point from "https://$baseDomain/v1" to "http://$baseDomain/v1" appwrite will throw an error 
+
+`[log] AppwriteException: general_unauthorized_scope, User (role: guests) missing scope (account) (401)`
+
+Hence make sure to keep things as it is and just swap the baseDomain.
+
 
 The logs for the ngrok service could be viewed at http://localhost:4040/inspect/http, apart from ngrok all the other services logs i.e
 livekit, caddy can be seen in the .log files generated during the execution of the script.
