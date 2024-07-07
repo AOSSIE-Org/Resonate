@@ -3,6 +3,8 @@ import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
+import 'package:resonate/views/new_screens/new_room_screen.dart';
 import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
@@ -121,6 +123,14 @@ class AppPages {
     GetPage(
       name: AppRoutes.newLoginScreen,
       page: () => const NewLoginScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => const NewRoomScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => NewRoomChatScreen(),
     ),
   ];
 }
