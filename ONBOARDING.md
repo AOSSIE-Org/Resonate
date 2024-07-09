@@ -6,8 +6,6 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 - Docker
 - Caddy
-- Ngrok
-
 
 ### Starting Off (Clone Repo, Run Script, Script Install Appwrite locally)
 
@@ -52,9 +50,13 @@ For the team Id, while the creation of an appwrite account you must be asked of 
 
 ![Screenshot 2024-06-28 at 3 05 06 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9717d9e5-41ad-4fd8-8f71-bac79e73cea7)
 
-Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will set up some stuff for you and then it will ask for Oauth provider credentials 
+Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will set up some stuff for you and then it will ask for ngrok set Up 
 
 ![Screenshot 2024-07-06 at 5 24 10 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/76c37da6-b69f-4335-9528-368fab979166)
+
+#### Ngrok Set Up
+
+You will be prompted for a ngrok auth token, sign up to ngrok.com, to get your self an auth token and give it in the terminal
 
 
 #### Oauth Set Up
@@ -152,7 +154,7 @@ are running in the background, to stop
 
 #### Appwrite
 
-Just stop the docker container
+Just stop the appwrite's docker container
 
 
 #### Cady
@@ -172,14 +174,13 @@ now copy its Process Id and kill it using the kill command
 ```bash
 kill <Pid>
 ```
+
 ![Screenshot 2024-07-06 at 5 49 17 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/602af879-3038-4d72-b91f-6fb33a535399)
 
 
 #### Ngrok
 
-killing process similar to that of livekit
-
-![Screenshot 2024-07-06 at 5 53 23 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/73bf1c1b-3fb8-4e0a-823a-b1d34bed8ac2)
+Just stop the ngrok's docker container
 
 
 
