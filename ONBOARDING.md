@@ -26,7 +26,12 @@ The script will identify your Operating System, will start installing the depend
 - Livekit Server CLI
 - Livekit CLI
 
-This will start the backend initialisation script thus start pulling Appwrite's docker image, this may take some time but after a few minutes it will ask you for some inputs let everything be the default and just press enter for it to take the default value, once all inputs are taken your it will compose the image into a container this might take a few minutes as well but after that appwrite will be successfully installed, started and up for action.
+This will ask for sudo access, give it
+
+![Screenshot 2024-07-09 at 3 38 32 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/bd3235a5-2ab9-47b5-94a9-e2f9d61deb14)
+
+
+After installing the dependancies it will start the backend initialisation script thus start pulling Appwrite's docker image, this may take some time but after a few minutes it will ask you for some inputs let everything be the default and just press enter for it to take the default value, once all inputs are taken your it will compose the image into a container this might take a few minutes as well but after that appwrite will be successfully installed, started and up for action.
 
 <br/>
 
@@ -38,25 +43,31 @@ After entering your email, password you will be asked for Endpoint of Appwrite S
 <br/>
 
 
+
+### Ngrok Set Up
+
+You will be prompted for a ngrok auth token, sign up to [ngrok](https://ngrok.com/), to get your self an auth token and give it in the terminal
+
+![Screenshot 2024-07-09 at 3 41 23 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/8b5dc583-c6f7-4a3c-a74a-9d50cb6a398e)
+
+After successful Ngrok set up you will be given an ngrok domain as a result please copy it and save it with you, though for ease of use whenever it is required it will be given to you again during the initialization process via the script
+
 ### Resonate Project Set Up in Appwrite
 
 #### Project Creation
 
-If you are signed in successfully you will be asked for a team ID
+After Ngrok set Up you will be asked for a team ID
 
-![Screenshot 2024-06-28 at 2 58 50 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/3c401e60-3a64-4a6e-9c94-42863dccddd0)
+![Screenshot 2024-07-09 at 4 16 17 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/29ad09a2-d8e8-4c95-bcb3-98e583c46f3e)
 
 For the team Id, while the creation of an appwrite account you must be asked of a team name for your default team. Head over to your [appwrite console](http://localhost:80) i.e. Localhost Port 80, and observe the URl in the end of the url, you will see your teamId
 
 ![Screenshot 2024-06-28 at 3 05 06 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9717d9e5-41ad-4fd8-8f71-bac79e73cea7)
 
-Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will set up some stuff for you and then it will ask for ngrok set Up 
+Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will set up some stuff for you and then it will ask for auth credentials 
 
-![Screenshot 2024-07-06 at 5 24 10 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/76c37da6-b69f-4335-9528-368fab979166)
 
-#### Ngrok Set Up
-
-You will be prompted for a ngrok auth token, sign up to ngrok.com, to get your self an auth token and give it in the terminal
+![Screenshot 2024-07-09 at 4 17 02 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/6de9cd8d-508b-4b06-8c23-632015dab97e)
 
 
 #### Oauth Set Up
@@ -69,14 +80,14 @@ While creating the Oauth credentials for Google add the following urls as
 you will be able to see a ngrok tunnel url that is required in these steps
 
 Authorized JavaScript origins: `http://{your ngrok tunnel domain name}`     
-so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app   
+so for me it is http://bb58-49-36-144-88.ngrok-free.app   
 
 > ##### **Very Important Info**
 > The url should start with `http://` not `https://` please make sure that you striclty follow the instructions listed in this guide assuming every step to be case sensitive
 <br/>
 
 Authorized redirect URIs: `http://{your ngrok tunnel domain name}/v1/account/sessions/oauth2/callback/google/resonate`    
-so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app/v1/account/sessions/oauth2/callback/google/resonate
+so for me it is http://bb58-49-36-144-88.ngrok-free.app/v1/account/sessions/oauth2/callback/google/resonate
  
 After successful creation of Oauth credentials provide the App/Client  Id and Secret in the Terminal 
 
@@ -88,10 +99,10 @@ Get yourself your Github Oauth credentials via following [Github Oauth Credentia
 While creating the Oauth credentials for Github add the following urls as 
 
 Homepage URL: `http://{your ngrok tunnel domain name}`  
-so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app
+so for me it is http://bb58-49-36-144-88.ngrok-free.app
 
 Authorization callback URL: `http://{your ngrok tunnel domain name}/v1/account/sessions/oauth2/callback/github/resonate`  
-so for me it is http://de17-2405-201-4015-c117-887-2249-1a1-8581.ngrok-free.app/v1/account/sessions/oauth2/callback/github/resonate
+so for me it is http://bb58-49-36-144-88.ngrok-free.app/v1/account/sessions/oauth2/callback/github/resonate
 
 
 Oauth set up is complete 🚀
@@ -117,7 +128,8 @@ now you will be asked to choose between Livekit Cloud or Livekit Self hosted if 
 
 After livekit set up the script will start the caddy web server, and this would complete the script execution, printing out your ngrok tunnel Domain for you in the end. This tunnel domain needs to be entered in the constants.dart in the client side flutter project, copy the tunnel domain and save it with your self as well 
 
-![Screenshot 2024-07-06 at 5 29 09 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/c18d726f-2a59-415c-8f03-483fe8e31097)
+
+![Screenshot 2024-07-09 at 4 22 36 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/92e6b877-a650-4aa3-b0e1-9b7534e3145a)
 
 
 ![Screenshot 2024-07-07 at 8 49 29 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/42fa4370-50b9-43b9-a356-444380ce5141)
