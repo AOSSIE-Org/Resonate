@@ -170,9 +170,7 @@ Just stop the appwrite's docker container
 
 #### Cady
 
-```
-cady stop
-```
+Just stop the Caddy container
 
 #### Livekit
 
