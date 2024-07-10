@@ -5,6 +5,7 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
 - Docker
+- [Livekit](https://github.com/livekit/livekit#windows) (needed only for Windows)
 
 ### Starting Off (Clone Repo, Run Script, Script Install Appwrite locally)
 
@@ -15,9 +16,18 @@ Git Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate
 > The backend initialisation script installs Appwrite locally with additional custom flags to the install command available in the appwrite documentation so if you already have Installed Appwrite locally please delete the image and the container and start fresh
 <br/>
 
-Navigate to the root directory of the project in your terminal, and run the command
+Navigate to the root directory of the project in your terminal (for windows power shell), and run the command
+
+##### Linux / Mac OS
+
 ```bash
 ./init.sh
+```
+
+##### Windows
+
+```bash
+./init.ps1
 ```
 
 The script will identify your Operating System, will start installing the dependencies for the script to execute
