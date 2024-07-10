@@ -5,7 +5,7 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
 - Docker
-- [Livekit](https://github.com/livekit/livekit#windows) (needed only for Windows)
+- [Livekit](https://github.com/livekit/livekit#windows) (needed only for Windows, make sure to add it to you path var)
 
 ### Starting Off (Clone Repo, Run Script, Script Install Appwrite locally)
 
