@@ -21,8 +21,9 @@ Navigate to the root directory of the project in your terminal (for windows powe
 ##### Linux / Mac OS
 
 ```bash
-./init.sh
+sudo ./init.sh
 ```
+sudo is important incase of linux
 
 ##### Windows
 
