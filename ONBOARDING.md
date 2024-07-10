@@ -50,7 +50,7 @@ After installing the dependancies it will start the backend initialisation scrip
 
 <br/>
 
-Once your appwrite is intalled and running, you will be prompted with login credentials to login to appwrite but first you must go to [appwrite localhost](http://localhost:80) and create your account, then provide the created accounts credentials to prompted messages
+Once your appwrite is intalled and running, you will be prompted with login credentials to login to appwrite but first you must go to [appwrite localhost](http://localhost:80) and create your account, account creation will ask to create a team as well please do so and proceed to the home page of the console, then provide the created accounts credentials to prompted messages
 
 ![Screenshot 2024-06-28 at 2 52 28 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/802d96c1-0ad5-4922-b49a-56eb56e39904)
 
