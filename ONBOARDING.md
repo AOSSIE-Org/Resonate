@@ -18,12 +18,17 @@ Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate-Bac
 
 Navigate to the root directory of the project in your terminal (for windows power shell), and run the command
 
-##### Linux / Mac OS
+##### Linux 
 
 ```bash
 sudo ./init.sh
 ```
-sudo is important incase of linux
+
+##### Mac OS
+
+```bash
+./init.sh
+```
 
 ##### Windows
 
