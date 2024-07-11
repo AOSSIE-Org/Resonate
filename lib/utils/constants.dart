@@ -1,8 +1,16 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String appwriteProjectId = "64a12ff22a44f02f0545";
-const String appwriteEndpoint = "https://cloud.appwrite.io/v1";
+const String appwriteProjectId = "resonate";
+
+const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+const String appwriteEndpoint = "https://$baseDomain/v1";
+const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
+
+// Discussion related Database Constants
+const String discussionDatabaseId = "6522fcf27a1bbc4238df";
+const String subscribedUserCollectionId = "6522fd267db6fdad3392";
+const String discussionsCollectionId = "6522fd163103bd453183";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";
