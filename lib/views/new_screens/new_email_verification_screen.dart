@@ -90,7 +90,7 @@ class NewEmailVerificationScreen extends StatelessWidget {
                   emailVerifyController.isVerifying.value = true;
                   await emailVerifyController.verifyOTP(verificationCode);
 
-                  if (emailVerifyController.responseVerify.response ==
+                  if (emailVerifyController.responseVerify.responseBody ==
                       '{"message":"null"}') {
                     String result =
                         await emailVerifyController.checkVerificationStatus();
@@ -101,7 +101,7 @@ class NewEmailVerificationScreen extends StatelessWidget {
                         MessageType.success,
                       );
                       await emailVerifyController.setVerified();
-                      if (emailVerifyController.responseSetVerified.response ==
+                      if (emailVerifyController.responseSetVerified.responseBody ==
                           '{"message":"null"}') {
                         emailVerifyController.isVerifying.value = false;
 
@@ -118,7 +118,7 @@ class NewEmailVerificationScreen extends StatelessWidget {
 
                         customSnackbar(
                           'Oops',
-                          emailVerifyController.responseSetVerified.response,
+                          emailVerifyController.responseSetVerified.responseBody,
                           MessageType.error,
                         );
                       }
@@ -137,7 +137,7 @@ class NewEmailVerificationScreen extends StatelessWidget {
                   } else {
                     customSnackbar(
                       'Oops',
-                      emailVerifyController.responseVerify.response,
+                      emailVerifyController.responseVerify.responseBody,
                       MessageType.error,
                     );
                   }
