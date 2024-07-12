@@ -50,6 +50,9 @@ class NewEmailVerificationScreen extends StatelessWidget {
                   text: TextSpan(
                     style: TextStyle(
                       fontFamily: GoogleFonts.poppins().fontFamily,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.white,
                     ),
                     children: [
                       const TextSpan(

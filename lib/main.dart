@@ -61,19 +61,5 @@ class MyApp extends StatelessWidget {
         getPages: AppPages.pages,
       ),
     );
-
-    // return Obx(
-    //   () => GetMaterialApp(
-    //     debugShowCheckedModeBanner: false,
-    //     title: 'Resonate',
-    //     theme: NewTheme.classicLightTheme,
-    //     // theme: Themes.getLightTheme(themeController.primaryColor.value),
-    //     // darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
-    //     darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
-    //     themeMode: themeController.theme,
-    //     initialRoute: AppRoutes.splash,
-    //     getPages: AppPages.pages,
-    //   ),
-    // );
   }
 }
