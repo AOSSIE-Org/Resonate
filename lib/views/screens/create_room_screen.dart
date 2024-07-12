@@ -10,11 +10,11 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
+
 class CreateRoomScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final CreateRoomController createRoomController =
-      Get.find<CreateRoomController>();
-
+      Get.put<CreateRoomController>(CreateRoomController());
   final DiscussionsController discussionsController =
       Get.put<DiscussionsController>(DiscussionsController());
   final ThemeController themeController = Get.find<ThemeController>();
@@ -34,10 +34,9 @@ class CreateRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (canPop) async {
         tabViewController.setIndex(0);
-        return false;
       },
       child: GetBuilder<CreateRoomController>(
         builder: (controller) => Obx(
@@ -209,7 +208,7 @@ class CreateRoomScreen extends StatelessWidget {
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
                               validator: (tag) {
-                                return createRoomController.validateTag(tag);
+                                return controller.validateTag(tag);
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
@@ -324,7 +323,7 @@ class CreateRoomScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              createRoomController.isLoading.value
+              controller.isLoading.value
                   ? BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Center(

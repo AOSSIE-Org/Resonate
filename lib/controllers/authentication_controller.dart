@@ -81,9 +81,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> resetPassword(String email) async {
     try {
-      print('Email before validation: $email');
       if (!email.isValidEmail()) {
-        print('Invalid email address');
         return;
       }
 
@@ -97,7 +95,6 @@ class AuthenticationController extends GetxController {
           'Success', 'Password reset email sent!', MessageType.success);
       //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
     } on AppwriteException catch (e) {
-      print('Error during password reset: ${e.message}');
       customSnackbar('Error', e.message.toString(), MessageType.error);
     }
   }
