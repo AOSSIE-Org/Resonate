@@ -15,9 +15,7 @@ import 'themes/theme_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   //Initialize Firebase
   await Firebase.initializeApp(
@@ -57,7 +55,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeList.getThemeModel(
           newThemeController.currentTheme.value,
         ).themeMode,
-        initialRoute: AppRoutes.splash,
+        initialRoute: AppRoutes.newBottomNavBar,
         getPages: AppPages.pages,
       ),
     );

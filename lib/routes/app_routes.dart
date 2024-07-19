@@ -24,4 +24,7 @@ class AppRoutes {
   static const newLoginScreen = '/newLoginScreen';
   static const newRoomScreen = '/newRoomScreen';
   static const newRoomChatScreen = '/newRoomChatScreen';
+  static const newBottomNavBar = '/newBottomNavBar';
+  static const newHomeScreen = '/newHomeScreen';
+  static const newCreateRoom = '/newCreateRoom';
 }
