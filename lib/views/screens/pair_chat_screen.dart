@@ -8,9 +8,9 @@ import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
-  AuthStateController authStateController = Get.find<AuthStateController>();
+  final AuthStateController authStateController = Get.find<AuthStateController>();
 
-  PairChatController controller = Get.find<PairChatController>();
+  final PairChatController controller = Get.find<PairChatController>();
   final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});

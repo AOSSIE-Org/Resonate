@@ -19,4 +19,7 @@ class AppRoutes {
   static const editProfile = "/editProfile";
   static const deleteAccount = "/deleteAccount";
   static const changeEmail = "/changeEmail";
+  static const newWelcomeScreen = '/newWelcomeScreen';
+  static const themeScreen = '/themeScreen';
+  static const userAccountScreen = '/userAccountScreen';
 }

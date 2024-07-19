@@ -20,6 +20,7 @@ class ThemeController extends GetxController {
     }
   }
 
+
   Rx<Color> primaryColor = Colors.amber.obs;
 
   void changePrimaryColor(Color newColor) {
@@ -34,6 +35,7 @@ class ThemeController extends GetxController {
       ],
     );
   }
+
 
   String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
   void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);

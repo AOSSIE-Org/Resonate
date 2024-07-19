@@ -10,14 +10,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/controllers/discussions_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
 class AuthStateController extends GetxController {
-  final ThemeController themeController = Get.find<ThemeController>();
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
@@ -70,15 +68,16 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
 
     // ask for settings permissions
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+    // NotificationSettings settings = await messaging.requestPermission(
+    //   alert: true,
+    //   announcement: false,
+    //   badge: true,
+    //   carPlay: false,
+    //   criticalAlert: false,
+    //   provisional: false,
+    //   sound: true,
+    // );
+
     await initializeLocalNotifications();
 
     const AndroidNotificationDetails androidNotificationDetails =
@@ -165,7 +164,7 @@ class AuthStateController extends GetxController {
           "landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
-          : Get.offNamed(AppRoutes.login);
+          : Get.offNamed(AppRoutes.newWelcomeScreen);
     }
   }
 
@@ -195,7 +194,7 @@ class AuthStateController extends GetxController {
     });
   }
 
-  Future<void> removeRegistrationTokenfromSubscribedDiscussions() async {
+  Future<void> removeRegistrationTokenFromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
         databaseId: discussionDatabaseId,
@@ -233,20 +232,24 @@ class AuthStateController extends GetxController {
     await isUserLoggedIn();
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     Get.defaultDialog(
       title: "Are you sure?",
-      middleText: "You are logging out of Resonate",
+      middleText: "You are logging out of Resonate.",
       textConfirm: "Yes",
-      buttonColor: themeController.primaryColor.value,
-      confirmTextColor: Colors.white,
+      buttonColor: Theme.of(context).colorScheme.primary,
+      confirmTextColor: Theme.of(context).colorScheme.onPrimary,
       textCancel: "No",
-      cancelTextColor: themeController.primaryColor.value,
-      contentPadding: EdgeInsets.all(UiSizes.size_15),
+      cancelTextColor: Theme.of(context).colorScheme.primary,
+      titlePadding: EdgeInsets.only(top: UiSizes.height_15),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: UiSizes.height_20,
+        horizontal: UiSizes.width_20,
+      ),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
-        await removeRegistrationTokenfromSubscribedDiscussions();
-        Get.offAllNamed(AppRoutes.login);
+        await removeRegistrationTokenFromSubscribedDiscussions();
+        Get.offAllNamed(AppRoutes.newWelcomeScreen);
       },
     );
   }

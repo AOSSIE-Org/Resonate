@@ -52,26 +52,31 @@ class EmailVerifyController extends GetxController {
       "otpID": otpID.toString()
     };
 
-    print("updating prefs");
     await authStateController.account
         .updatePrefs(prefs: {"otp_ID": otpID, "isUserProfileComplete": true});
-    var data = json.encode(sendOtpData);
-    print("updated prefs");
+    var body = json.encode(sendOtpData);
+
     var res = await functions.createExecution(
-        functionId: sendOtpFunctionID, body: data.toString());
-    print("executed");
+        functionId: sendOtpFunctionID, body: body.toString());
+
     authController.isLoading.value = false;
-    print(res.responseBody);
+
     if (res.responseBody == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 
       Timer(const Duration(milliseconds: 300), () {
         signUpIsAllowed.value = true;
       });
+
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
-      print("routing to email vrificatioon page");
       Get.toNamed(AppRoutes.emailVerification);
     } else {
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
       signUpIsAllowed.value = true;
       customSnackbar('Oops', res.responseBody, MessageType.error);
@@ -90,9 +95,9 @@ class EmailVerifyController extends GetxController {
       "userOTP": userOTP,
       "verify_ID": verificationID
     };
-    var data = json.encode(verifyOtpData);
+    var body = json.encode(verifyOtpData);
     responseVerify = await functions.createExecution(
-        functionId: verifyOtpFunctionID, body: data.toString());
+        functionId: verifyOtpFunctionID, body: body.toString());
   }
 
   Future<String> checkVerificationStatus() async {

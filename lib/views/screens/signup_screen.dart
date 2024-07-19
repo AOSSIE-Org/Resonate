@@ -163,15 +163,17 @@ class _SignupScreenState extends State<SignupScreen> {
                               height: UiSizes.height_45,
                               width: Get.width,
                               child: PasswordStrengthIndicator(
-                                isPasswordSixCharacters:
+                                isPasswordEightCharacters:
                                     passwordStrengthCheckerController
-                                        .isPasswordSixCharacters.value,
+                                        .isPasswordEightCharacters.value,
                                 hasOneDigit: passwordStrengthCheckerController
                                     .hasOneDigit.value,
                                 hasUpperCase: passwordStrengthCheckerController
                                     .hasUpperCase.value,
                                 hasLowerCase: passwordStrengthCheckerController
                                     .hasLowerCase.value,
+                                hasOneSymbol: passwordStrengthCheckerController
+                                    .hasOneSymbol.value,
                                 passwordSixCharactersTitle:
                                     "Password should be at least 6 characters long",
                                 hasOneDigitTitle:
@@ -180,6 +182,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     "Include at least 1 uppercase letter",
                                 hasLowerCaseTitle:
                                     "Include at least 1 lowercase letter",
+                                hasOneSymbolTitle:
+                                    "Include at least 1 symbol",
                                 validatedChecks:
                                     passwordStrengthCheckerController
                                         .validatedChecks.value,

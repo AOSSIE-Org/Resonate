@@ -301,10 +301,10 @@ packages:
     dependency: transitive
     description:
       name: dart_webrtc
-      sha256: d663abfe6ed95afadcb64083e364aa16dbeaadead193bb03047cf6913e57b65e
+      sha256: dc97a87e8d8c168fc5401ef18eaa0e06e1ac8fc099812de27a002860d021e227
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.6+hotfix.1"
+    version: "1.4.7"
   dbus:
     dependency: transitive
     description:

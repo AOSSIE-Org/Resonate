@@ -22,9 +22,11 @@ class ProfileScreen extends StatelessWidget {
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
-  AuthStateController authStateController =
+  final authStateController =
       Get.put<AuthStateController>(AuthStateController());
+
   final ThemeController themeController = Get.find<ThemeController>();
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthStateController>(
@@ -39,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                 InkWell(
                     borderRadius: BorderRadius.circular(100),
                     onTap: () async {
-                      await authStateController.logout();
+                      await authStateController.logout(context);
                     },
                     child: Icon(
                       Icons.logout_rounded,
@@ -60,8 +62,7 @@ class ProfileScreen extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                            color: Colors.red, size: Get.pixelRatio * 20)),
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -165,10 +166,12 @@ class ProfileScreen extends StatelessWidget {
                                                       : MainAxisAlignment
                                                           .center,
                                               children: [
-                                                Icon(
-                                                  Icons.cancel_rounded,
-                                                  color: Colors.red,
-                                                  size: UiSizes.size_32,
+                                                Expanded(
+                                                  child: Icon(
+                                                    Icons.cancel_rounded,
+                                                    color: Colors.red,
+                                                    size: UiSizes.size_35,
+                                                  ),
                                                 ),
                                                 emailVerifyController
                                                         .shouldDisplay.value
@@ -326,8 +329,7 @@ class ProfileScreen extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Center(
                         child: LoadingAnimationWidget.threeRotatingDots(
-                            color: themeController.primaryColor.value,
-                            size: Get.pixelRatio * 20)),
+                            color: Colors.blue, size: Get.pixelRatio * 20)),
                   )
                 : const SizedBox(),
           ])),

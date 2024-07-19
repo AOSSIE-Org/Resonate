@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_140,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value ?? false) {
+                  if (splashController.allowedDisplay.value) {
                     return AnimatedSplashScreen.withScreenFunction(
                       splashIconSize: UiSizes.height_200,
                       splash: Image.asset(AppImages.resonateLogoImage),
@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_140,
               width: UiSizes.width_20,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value ?? false) {
+                  if (splashController.allowedDisplay.value) {
                     return AnimatedSplashScreen.withScreenFunction(
                       splashIconSize: UiSizes.size_200,
                       splash: VerticalDivider(
@@ -110,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_140,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value ?? false) {
+                  if (splashController.allowedDisplay.value) {
                     return AnimatedSplashScreen.withScreenFunction(
                       splash: Image.asset(AppImages.aossieLogoImage),
                       duration: 2000,

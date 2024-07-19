@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -47,7 +46,7 @@ class CreateRoomController extends GetxController {
 
     try {
       isLoading.value = true;
-      print("here this should start loading");
+      // print("here this should start loading");
       // Display Loading Dialog
       // Get.dialog(
       //     Center(

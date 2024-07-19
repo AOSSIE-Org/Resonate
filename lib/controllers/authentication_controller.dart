@@ -11,6 +11,7 @@ import 'package:resonate/views/widgets/snackbar.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
+  var isConfirmPasswordFieldVisible = false.obs;
   var isLoading = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
@@ -18,17 +19,16 @@ class AuthenticationController extends GetxController {
       TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
 
-  var loginFormKey;
-  var registrationFormKey;
+  late GlobalKey<FormState> loginFormKey;
+  late GlobalKey<FormState> registrationFormKey;
 
   Future<void> login() async {
-    if (!loginFormKey.currentState!.validate()) {
-      return;
-    }
     try {
       isLoading.value = true;
       await authStateController.login(
           emailController.text, passwordController.text);
+      emailController.clear();
+      passwordController.clear();
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
