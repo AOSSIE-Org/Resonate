@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeList.getThemeModel(
           newThemeController.currentTheme.value,
         ).themeMode,
-        initialRoute: AppRoutes.newBottomNavBar,
+        initialRoute: AppRoutes.splash,
         getPages: AppPages.pages,
       ),
     );
