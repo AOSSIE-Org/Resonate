@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/app_images.dart';
-import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -13,28 +13,37 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: OnBoardingSlider(
-        leading: Image.asset(
-          AppImages.resonateLogoImage,
-          height: UiSizes.height_24_6,
+        leading: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: SvgPicture.asset(
+            "assets/svg/resonate_logo_white.svg",
+            height: 30,
+            fit: BoxFit.contain,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).colorScheme.primary,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
-        controllerColor: AppColor.yellowColor,
+        controllerColor: Theme.of(context).colorScheme.primary,
         hasFloatingButton: true,
-        headerBackgroundColor: AppColor.bgBlackColor,
-        finishButtonTextStyle: const TextStyle(
-          color: AppColor.bgBlackColor,
+        headerBackgroundColor: Theme.of(context).colorScheme.background,
+        finishButtonTextStyle: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: UiSizes.size_18,
         ),
-        finishButtonStyle: const FinishButtonStyle(
-          backgroundColor: AppColor.yellowMaterialColor,
-          elevation: 10,
-        ),
-        skipIcon: const Icon(
+        skipIcon: Icon(
           Icons.arrow_forward,
-          color: AppColor.bgBlackColor,
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         onFinish: () async {
           await GetStorage().write("landingScreenShown", true);
-          Get.offNamed(AppRoutes.login);
+          Get.offNamed(AppRoutes.newWelcomeScreen);
         },
         finishButtonText: 'Get Started',
         skipTextButton: const Text('Skip'),
@@ -42,7 +51,7 @@ class LandingScreen extends StatelessWidget {
           LandingImage(
             imagePath: AppImages.landingFirstImage,
             initialHeight: UiSizes.height_82,
-            imageHeight: UiSizes.height_246 * 1.008,
+            imageHeight: UiSizes.height_246,
             imageWidth: UiSizes.width_45,
           ),
           LandingImage(
@@ -52,16 +61,17 @@ class LandingScreen extends StatelessWidget {
             imageWidth: UiSizes.width_40,
           ),
           LandingImage(
-              imagePath: AppImages.landingThirdImage,
-              initialHeight: UiSizes.height_90,
-              imageHeight: UiSizes.height_246,
-              imageWidth: UiSizes.width_56),
+            imagePath: AppImages.landingThirdImage,
+            initialHeight: UiSizes.height_90,
+            imageHeight: UiSizes.height_246,
+            imageWidth: UiSizes.width_56,
+          ),
         ],
         totalPage: 3,
         speed: 1,
         pageBodies: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_10),
+            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -76,14 +86,14 @@ class LandingScreen extends StatelessWidget {
                 ),
                 Text(
                   "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
-                  style: TextStyle(fontSize: UiSizes.size_16),
+                  style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_10),
+            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -99,14 +109,14 @@ class LandingScreen extends StatelessWidget {
                 ),
                 Text(
                   "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",
-                  style: TextStyle(fontSize: UiSizes.size_16),
+                  style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_10),
+            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -121,7 +131,7 @@ class LandingScreen extends StatelessWidget {
                 ),
                 Text(
                   "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
-                  style: TextStyle(fontSize: UiSizes.size_16),
+                  style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )
               ],
@@ -129,7 +139,6 @@ class LandingScreen extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: AppColor.bgBlackColor,
     );
   }
 }

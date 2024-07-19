@@ -2,6 +2,13 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/new_screens/new_create_room_screen.dart';
+import 'package:resonate/views/new_screens/new_home_screen.dart';
+import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
+import 'package:resonate/views/new_screens/new_room_screen.dart';
+import 'package:resonate/views/new_screens/new_tab_view.dart';
+import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
@@ -9,7 +16,6 @@ import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/landing_screen.dart';
-import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
@@ -45,11 +51,11 @@ class AppPages {
       page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
-    GetPage(
-      name: AppRoutes.login,
-      page: () => const LoginScreen(),
-      binding: AuthSplashBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.login,
+    //   page: () => const LoginScreen(),
+    //   binding: AuthSplashBinding(),
+    // ),
     GetPage(
       name: AppRoutes.profile,
       page: () => ProfileScreen(),
@@ -111,6 +117,35 @@ class AppPages {
     GetPage(
       name: AppRoutes.changeEmail,
       page: () => ChangeEmailScreen(),
+    ),
+    // New Screens
+    GetPage(
+      name: AppRoutes.newWelcomeScreen,
+      page: () => const NewWelcomeScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newLoginScreen,
+      page: () => const NewLoginScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => const NewRoomScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => NewRoomChatScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newBottomNavBar,
+      page: () => const BottomNavBar(),
+    ),
+    GetPage(
+      name: AppRoutes.newHomeScreen,
+      page: () => const NewHomeScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newCreateRoom,
+      page: () => const StartRoomBottomSheet(),
     ),
   ];
 }
