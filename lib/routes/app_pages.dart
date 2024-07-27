@@ -163,7 +163,7 @@ class AppPages {
     // New Screens
     GetPage(
       name: AppRoutes.newWelcomeScreen,
-      page: () => const NewWelcomeScreen(),
+      page: () => NewWelcomeScreen(),
     ),
     GetPage(
       name: AppRoutes.themeScreen,

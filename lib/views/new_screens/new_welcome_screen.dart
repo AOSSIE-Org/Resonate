@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/new_themes/theme_screen.dart';
 import 'package:resonate/views/new_widgets/welcome_screen_dialog.dart';
 
 class NewWelcomeScreen extends StatelessWidget {
-  const NewWelcomeScreen({super.key});
+  var controller = Get.find<AuthenticationController>();
+  NewWelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,13 +119,8 @@ class NewWelcomeScreen extends StatelessWidget {
                           foregroundColor:
                               Theme.of(context).colorScheme.onPrimary,
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ThemeScreen(),
-                            ),
-                          );
+                        onPressed: () async {
+                          await controller.loginWithGoogle();
                         },
                         icon: const FaIcon(
                           FontAwesomeIcons.google,
