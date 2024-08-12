@@ -5,6 +5,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/new_themes/theme_screen.dart';
 import 'package:resonate/views/new_widgets/welcome_screen_dialog.dart';
 
+
 class NewWelcomeScreen extends StatelessWidget {
   const NewWelcomeScreen({super.key});
 
@@ -142,6 +143,7 @@ class NewWelcomeScreen extends StatelessWidget {
                           foregroundColor:
                               Theme.of(context).colorScheme.onPrimary,
                         ),
+
                         onPressed: () {},
                         icon: const FaIcon(
                           FontAwesomeIcons.github,

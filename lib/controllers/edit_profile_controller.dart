@@ -18,8 +18,8 @@ class EditProfileController extends GetxController {
 
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
-  // final ThemeController themeController = Get.find<ThemeController>();
 
+  // final ThemeController themeController = Get.find<ThemeController>();
   late final Storage storage;
   late final Databases databases;
 

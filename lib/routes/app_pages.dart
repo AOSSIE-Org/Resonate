@@ -3,6 +3,14 @@ import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/new_themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/new_screens/new_create_room_screen.dart';
+import 'package:resonate/views/new_screens/new_home_screen.dart';
+import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
+import 'package:resonate/views/new_screens/new_room_screen.dart';
+import 'package:resonate/views/new_screens/new_tab_view.dart';
+import 'package:resonate/views/new_screens/new_welcome_screen.dart';
+
 import 'package:resonate/views/new_screens/new_edit_profile_screen.dart';
 import 'package:resonate/views/new_screens/new_email_verification_screen.dart';
 import 'package:resonate/views/new_screens/new_forgot_password_screen.dart';
@@ -166,6 +174,30 @@ class AppPages {
       page: () => const NewWelcomeScreen(),
     ),
     GetPage(
+
+      name: AppRoutes.newLoginScreen,
+      page: () => const NewLoginScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => const NewRoomScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newRoomScreen,
+      page: () => NewRoomChatScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newBottomNavBar,
+      page: () => const BottomNavBar(),
+    ),
+    GetPage(
+      name: AppRoutes.newHomeScreen,
+      page: () => const NewHomeScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newCreateRoom,
+      page: () => const StartRoomBottomSheet(),
+    ),
       name: AppRoutes.themeScreen,
       page: () => ThemeScreen(),
     ),

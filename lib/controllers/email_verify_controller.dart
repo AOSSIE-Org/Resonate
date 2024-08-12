@@ -80,6 +80,7 @@ class EmailVerifyController extends GetxController {
       isSending.value = false;
       signUpIsAllowed.value = true;
       customSnackbar('Oops', res.responseBody, MessageType.error);
+
     }
 
     return true;

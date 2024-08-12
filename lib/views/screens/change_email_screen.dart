@@ -101,6 +101,7 @@ class ChangeEmailScreen extends StatelessWidget {
                   height: UiSizes.height_30,
                 ),
                 Obx(
+
                   () => SizedBox(
                     width: double.maxFinite,
                     child: ElevatedButton(
