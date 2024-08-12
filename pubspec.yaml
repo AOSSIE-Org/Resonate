@@ -42,6 +42,7 @@ dependencies:
   firebase_messaging: 14.7.3
   flutter:
     sdk: flutter
+
   flutter_local_notifications: ^16.1.0
   flutter_native_splash: ^2.2.19
   flutter_onboarding_slider: ^1.0.10
@@ -51,6 +52,14 @@ dependencies:
   flutter_svg: ^2.0.7
   focused_menu: ^1.0.5
   font_awesome_flutter: ^10.4.0
+
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  appwrite: ^12.0.4
+
   get: ^4.6.5
   get_storage: ^2.1.1
   google_fonts: ^4.0.3
@@ -67,6 +76,15 @@ dependencies:
   page_transition: ^2.0.9
   persistent_bottom_nav_bar: ^6.2.1
   random_string: ^2.3.1
+  circular_countdown_timer: ^0.2.3
+  simple_progress_indicators: ^0.2.0
+  custom_refresh_indicator: ^2.2.1
+  flutter_secure_storage: ^8.0.0
+  focused_menu: ^1.0.5
+  livekit_client: ^2.2.0
+  flutter_speed_dial: ^7.0.0
+  url_launcher: ^6.1.12
+  app_links: ^3.4.3
   share_plus: ^7.1.0
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
@@ -103,6 +121,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -11,7 +11,7 @@ Widget profileAvatar(BuildContext context) {
       Get.put<AuthStateController>(AuthStateController());
 
   return GestureDetector(
-    onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
+    onTap: () => Get.toNamed(AppRoutes.profile),
     child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: UiSizes.width_10, vertical: UiSizes.height_10),

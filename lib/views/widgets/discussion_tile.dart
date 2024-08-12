@@ -12,7 +12,7 @@ class DiscussionTile extends StatelessWidget {
   final bool? userIsCreator;
   final String? userSubscriberId;
   final List<String> subscriberProfileUrl;
-  DiscussionsController disscussionController =
+  DiscussionsController discussionController =
       Get.find<DiscussionsController>();
   final ThemeController themeController = Get.find<ThemeController>();
   DiscussionTile(
@@ -53,20 +53,20 @@ class DiscussionTile extends StatelessWidget {
     String minute = exploreTime[1];
     DateTime uTCDateTime = DateTime(int.parse(year), int.parse(month),
         int.parse(day), hour, int.parse(minute));
-    DateTime localDateTime = disscussionController.isOffsetNegetive
-        ? uTCDateTime.subtract(disscussionController.localTimeZoneOffset)
-        : uTCDateTime.add(disscussionController.localTimeZoneOffset);
+    DateTime localDateTime = discussionController.isOffsetNegetive
+        ? uTCDateTime.subtract(discussionController.localTimeZoneOffset)
+        : uTCDateTime.add(discussionController.localTimeZoneOffset);
     String monthName =
-        disscussionController.monthMap[localDateTime.month.toString()]!;
+        discussionController.monthMap[localDateTime.month.toString()]!;
 
     hour = localDateTime.hour;
     late String formattedTime;
     if (hour >= 12) {
       formattedTime =
-          '${hour != 12 ? (hour - 12) : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${disscussionController.localTimeZoneName}';
+          '${hour != 12 ? (hour - 12) : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} PM  ${discussionController.localTimeZoneName}';
     } else {
       formattedTime =
-          '${hour == 0 ? '00' : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${disscussionController.localTimeZoneName}';
+          '${hour == 0 ? '00' : hour}:${localDateTime.minute.toString().length < 2 ? '0${localDateTime.minute}' : localDateTime.minute} AM  ${discussionController.localTimeZoneName}';
     }
     return Row(
       children: [
@@ -217,18 +217,18 @@ class DiscussionTile extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20))),
                             onPressed: userIsCreator == null
                                 ? () async {
-                                    await disscussionController
+                                    await discussionController
                                         .addUserToSubscriberList(
                                             discussion.$id);
-                                    await disscussionController
+                                    await discussionController
                                         .getDiscussions();
                                   }
                                 : !userIsCreator!
                                     ? () async {
-                                        await disscussionController
+                                        await discussionController
                                             .removeUserFromSubscriberList(
                                                 userSubscriberId!);
-                                        await disscussionController
+                                        await discussionController
                                             .getDiscussions();
                                       }
                                     : userIsCreator! & discussion.data['isTime']
@@ -239,7 +239,7 @@ class DiscussionTile extends StatelessWidget {
                                                 in discussion.data["tags"]) {
                                               tags.add(tag.toString());
                                             }
-                                            disscussionController
+                                            discussionController
                                                 .convertDiscussiontoRoom(
                                                     discussion.$id,
                                                     discussion.data["name"],
@@ -304,7 +304,7 @@ class DiscussionTile extends StatelessWidget {
                                               contentPadding: EdgeInsets.all(
                                                   UiSizes.size_15),
                                               onConfirm: () async {
-                                                await disscussionController
+                                                await discussionController
                                                     .deleteDiscussion(
                                                         discussion.$id);
                                                 Navigator.pop(context);

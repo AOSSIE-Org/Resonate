@@ -28,8 +28,6 @@ class ChangeEmailController extends GetxController {
   void onInit() {
     super.onInit();
 
-    emailController.text = authStateController.email!;
-
     databases = AppwriteService.getDatabases();
     account = AppwriteService.getAccount();
   }

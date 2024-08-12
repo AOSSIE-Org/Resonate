@@ -1,16 +1,28 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String appwriteProjectId = "64a12ff22a44f02f0545";
-const String appwriteEndpoint = "https://cloud.appwrite.io/v1";
+const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+
+const String appwriteProjectId = "resonate";
+const String appwriteEndpoint = "https://$baseDomain/v1";
+const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
+
+// const String appwriteEndpoint = "http://192.168.29.202:80/v1";
+
+
+// Discussion related Database Constants
+const String discussionDatabaseId = "6522fcf27a1bbc4238df";
+const String subscribedUserCollectionId = "6522fd267db6fdad3392";
+const String discussionsCollectionId = "6522fd163103bd453183";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
 const String userProfileImagePlaceholderUrl =
-    "https://cloud.appwrite.io/v1/storage/buckets/64a13095a4c87fd78bc6/files/64a130ec38af1a3f0d61/view?project=64a12ff22a44f02f0545";
-const String userProfileImageBucketId = "64a52ab306331f167ce6";
+    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/66856231000ff23eea70/view?project=resonate";
+
+const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 
 // Rooms related Database Constants
 const String masterDatabaseId = "64a521785f5be62b796f";

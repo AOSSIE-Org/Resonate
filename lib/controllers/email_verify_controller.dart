@@ -54,25 +54,33 @@ class EmailVerifyController extends GetxController {
 
     await authStateController.account
         .updatePrefs(prefs: {"otp_ID": otpID, "isUserProfileComplete": true});
-    var data = json.encode(sendOtpData);
+    var body = json.encode(sendOtpData);
 
     var res = await functions.createExecution(
-        functionId: sendOtpFunctionID, data: data.toString());
+        functionId: sendOtpFunctionID, body: body.toString());
 
     authController.isLoading.value = false;
 
-    if (res.response == '{"message":"mail sent"}') {
+    if (res.responseBody == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 
       Timer(const Duration(milliseconds: 300), () {
         signUpIsAllowed.value = true;
       });
+
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
       Get.toNamed(AppRoutes.emailVerification);
     } else {
+      // Close the loading dialog
+      Get.back();
+
       isSending.value = false;
       signUpIsAllowed.value = true;
-      customSnackbar('Oops', res.response, MessageType.error);
+      customSnackbar('Oops', res.responseBody, MessageType.error);
+
     }
 
     return true;
@@ -88,9 +96,9 @@ class EmailVerifyController extends GetxController {
       "userOTP": userOTP,
       "verify_ID": verificationID
     };
-    var data = json.encode(verifyOtpData);
+    var body = json.encode(verifyOtpData);
     responseVerify = await functions.createExecution(
-        functionId: verifyOtpFunctionID, data: data.toString());
+        functionId: verifyOtpFunctionID, body: body.toString());
   }
 
   Future<String> checkVerificationStatus() async {
@@ -109,7 +117,7 @@ class EmailVerifyController extends GetxController {
     };
     var verifyData = json.encode(verifyUserData);
     responseSetVerified = await functions.createExecution(
-        functionId: verifyUserFunctionID, data: verifyData.toString());
+        functionId: verifyUserFunctionID, body: verifyData.toString());
   }
 
   Future<void> updateEmail() async {
@@ -118,7 +126,7 @@ class EmailVerifyController extends GetxController {
       "email": updateEmailController.text
     });
     var results = await functions.createExecution(
-        functionId: updateEmailFunctionID, data: updateEmailData.toString());
+        functionId: updateEmailFunctionID, body: updateEmailData.toString());
     updateStatus = results.status;
   }
 }
