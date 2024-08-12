@@ -108,7 +108,8 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                                 controller.isPasswordFieldVisible.value
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
-                                color: Theme.of(context).colorScheme.onSecondary,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
                               ),
                             ),
                           ),
@@ -125,7 +126,8 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                             ? null
                             : "Password do not match",
                         controller: controller.confirmPasswordController,
-                        obscureText: !controller.isConfirmPasswordFieldVisible.value,
+                        obscureText:
+                            !controller.isConfirmPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
@@ -133,7 +135,8 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                           suffixIcon: GestureDetector(
                             onTap: () {
                               controller.isConfirmPasswordFieldVisible.value =
-                                  !controller.isConfirmPasswordFieldVisible.value;
+                                  !controller
+                                      .isConfirmPasswordFieldVisible.value;
                             },
                             child: Container(
                               width: 56,
@@ -142,7 +145,8 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                                 controller.isConfirmPasswordFieldVisible.value
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
-                                color: Theme.of(context).colorScheme.onSecondary,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
                               ),
                             ),
                           ),
@@ -178,7 +182,8 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                                     .hasUpperCase.value,
                                 hasLowerCase: passwordStrengthCheckerController
                                     .hasLowerCase.value,
-                                hasOneSymbol: passwordStrengthCheckerController.hasOneSymbol.value,
+                                hasOneSymbol: passwordStrengthCheckerController
+                                    .hasOneSymbol.value,
                                 passwordSixCharactersTitle:
                                     "Password must be at least 8 characters long",
                                 hasOneDigitTitle:
@@ -203,31 +208,32 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                       child: ElevatedButton(
                         onPressed: emailVerifyController.signUpIsAllowed.value
                             ? () async {
-                          if (controller.registrationFormKey.currentState!
-                              .validate()) {
-                            emailVerifyController.signUpIsAllowed.value =
-                            false;
-                            var isSignedIn = await controller.signup();
-                            if (isSignedIn) {
-                              Get.toNamed(AppRoutes.onBoarding);
-                              customSnackbar(
-                                  "Signed Up Successfully",
-                                  "You have successfully created a new account",
-                                  MessageType.success);
-                              emailVerifyController.signUpIsAllowed.value =
-                              true;
-                            } else {
-                              emailVerifyController.signUpIsAllowed.value =
-                              true;
-                            }
-                          }
-                        }
+                                if (controller.registrationFormKey.currentState!
+                                    .validate()) {
+                                  emailVerifyController.signUpIsAllowed.value =
+                                      false;
+                                  var isSignedIn = await controller.signup();
+                                  if (isSignedIn) {
+                                    Get.toNamed(AppRoutes.onBoarding);
+                                    customSnackbar(
+                                        "Signed Up Successfully",
+                                        "You have successfully created a new account",
+                                        MessageType.success);
+                                    emailVerifyController
+                                        .signUpIsAllowed.value = true;
+                                  } else {
+                                    emailVerifyController
+                                        .signUpIsAllowed.value = true;
+                                  }
+                                }
+                              }
                             : null,
                         child: controller.isLoading.value
                             ? Center(
-                                child:
-                                    LoadingAnimationWidget.horizontalRotatingDots(
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   size: UiSizes.size_40,
                                 ),
                               )
@@ -249,7 +255,7 @@ class _NewSignupScreenState extends State<NewSignupScreen> {
                         controller.confirmPasswordController.clear();
                         controller.isPasswordFieldVisible.value = false;
                         controller.isConfirmPasswordFieldVisible.value = false;
-                        Get.offNamed(AppRoutes.login);
+                        Get.offNamed(AppRoutes.newLoginScreen);
                       },
                       child: Text(
                         "Login",

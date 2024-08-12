@@ -72,11 +72,6 @@ class AppPages {
     //   page: () => const LoginScreen(),
     //   binding: AuthSplashBinding(),
     // ),
-    GetPage(
-      name: AppRoutes.login,
-      page: () => const NewLoginScreen(),
-      binding: AuthSplashBinding(),
-    ),
     // GetPage(
     //   name: AppRoutes.profile,
     //   page: () => ProfileScreen(),
@@ -174,7 +169,6 @@ class AppPages {
       page: () => const NewWelcomeScreen(),
     ),
     GetPage(
-
       name: AppRoutes.newLoginScreen,
       page: () => const NewLoginScreen(),
     ),
@@ -198,13 +192,9 @@ class AppPages {
       name: AppRoutes.newCreateRoom,
       page: () => const StartRoomBottomSheet(),
     ),
-      name: AppRoutes.themeScreen,
-      page: () => ThemeScreen(),
-    ),
     GetPage(
       name: AppRoutes.userAccountScreen,
       page: () => const UserAccountScreen(),
     ),
-
   ];
 }
