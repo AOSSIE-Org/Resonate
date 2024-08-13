@@ -29,7 +29,7 @@ Widget welcomeScreenDialog(BuildContext context) {
           children: [
             GestureDetector(
               onTap: () {
-                Get.offNamed(AppRoutes.login);
+                Get.offNamed(AppRoutes.newLoginScreen);
               },
               child: Container(
                 color: Colors.transparent,
@@ -62,7 +62,6 @@ Widget welcomeScreenDialog(BuildContext context) {
                 color: Colors.transparent,
                 height: UiSizes.height_40,
                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -81,8 +80,6 @@ Widget welcomeScreenDialog(BuildContext context) {
             ),
           ],
         ),
-
-
       ],
     ),
   );

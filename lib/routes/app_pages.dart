@@ -14,12 +14,10 @@ import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/new_screens/new_edit_profile_screen.dart';
 import 'package:resonate/views/new_screens/new_email_verification_screen.dart';
 import 'package:resonate/views/new_screens/new_forgot_password_screen.dart';
-import 'package:resonate/views/new_screens/new_login_screen.dart';
 import 'package:resonate/views/new_screens/new_onboarding_screen.dart';
 import 'package:resonate/views/new_screens/new_profile_screen.dart';
 import 'package:resonate/views/new_screens/new_settings_screen.dart';
 import 'package:resonate/views/new_screens/new_signup_screen.dart';
-import 'package:resonate/views/new_screens/new_welcome_screen.dart';
 import 'package:resonate/views/new_screens/user_account_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
@@ -32,6 +30,8 @@ import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
 
 import '../bindings/tabview_binding.dart';
+import '../views/new_screens/about_app_screen.dart';
+import '../views/new_screens/contribute_screen.dart';
 import '../views/screens/home_screen.dart';
 import '../views/screens/pair_chat_screen.dart';
 
@@ -73,7 +73,7 @@ class AppPages {
     //   binding: AuthSplashBinding(),
     // ),
     GetPage(
-      name: AppRoutes.login,
+      name: AppRoutes.newLoginScreen,
       page: () => const NewLoginScreen(),
       binding: AuthSplashBinding(),
     ),
@@ -174,7 +174,6 @@ class AppPages {
       page: () => const NewWelcomeScreen(),
     ),
     GetPage(
-
       name: AppRoutes.newLoginScreen,
       page: () => const NewLoginScreen(),
     ),
@@ -198,6 +197,7 @@ class AppPages {
       name: AppRoutes.newCreateRoom,
       page: () => const StartRoomBottomSheet(),
     ),
+    GetPage(
       name: AppRoutes.themeScreen,
       page: () => ThemeScreen(),
     ),
@@ -205,6 +205,13 @@ class AppPages {
       name: AppRoutes.userAccountScreen,
       page: () => const UserAccountScreen(),
     ),
-
+    GetPage(
+      name: AppRoutes.aboutApp,
+      page: () => AboutAppScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.contributeScreen,
+      page: () => const ContributeScreen(),
+    ),
   ];
 }
