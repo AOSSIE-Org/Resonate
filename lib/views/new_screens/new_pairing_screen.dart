@@ -7,11 +7,11 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class PairingScreen extends StatelessWidget {
+class NewPairingScreen extends StatelessWidget {
   final PairChatController controller = Get.find<PairChatController>();
   final ThemeController themeController = Get.find<ThemeController>();
 
-  PairingScreen({super.key});
+  NewPairingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

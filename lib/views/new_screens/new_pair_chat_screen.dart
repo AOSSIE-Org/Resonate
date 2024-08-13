@@ -9,13 +9,13 @@ import 'package:resonate/views/new_widgets/new_room_header.dart';
 import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
 
-class PairChatScreen extends StatelessWidget {
+class NewPairChatScreen extends StatelessWidget {
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
   final PairChatController controller = Get.find<PairChatController>();
   final ThemeController themeController = Get.find<ThemeController>();
 
-  PairChatScreen({super.key});
+  NewPairChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
