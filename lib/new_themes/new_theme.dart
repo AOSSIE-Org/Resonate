@@ -21,7 +21,8 @@ class NewTheme {
       ),
       appBarTheme: AppBarTheme(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: theme.backgroundColor),
+          backgroundColor: theme.backgroundColor,
+      ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(
           // Flutter uses this TextStyle in InputFormField for styling user input text

@@ -4,9 +4,10 @@ import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 
 SnackbarController customSnackbar(
-    String title, String message, MessageType messageType) {
-  Brightness currentBrightness = Theme.of(Get.context!).brightness;
-
+  String title,
+  String message,
+  MessageType messageType,
+) {
   Color messageTypeColor() {
     switch (messageType) {
       case MessageType.success:
@@ -23,11 +24,7 @@ SnackbarController customSnackbar(
   return Get.snackbar(
     title,
     message,
-    backgroundColor: currentBrightness == Brightness.light
-        ? Colors.white
-        : AppColor.bgBlackColor,
-    colorText:
-        currentBrightness == Brightness.light ? Colors.black : Colors.white,
+    backgroundColor: Theme.of(Get.context!).colorScheme.background,
     titleText: Text(
       title,
       style: TextStyle(

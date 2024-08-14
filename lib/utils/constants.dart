@@ -1,8 +1,8 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
-// const String baseDomain = "192.168.29.202:80";
+// const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+const String baseDomain = "192.168.29.202:80";
 
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain/v1";
