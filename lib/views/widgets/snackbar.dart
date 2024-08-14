@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/enums/message_type_enum.dart';
 
 SnackbarController customSnackbar(
