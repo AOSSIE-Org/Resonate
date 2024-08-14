@@ -7,7 +7,6 @@ import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../themes/theme_controller.dart';
 
-
 class NewLoginScreen extends StatefulWidget {
   const NewLoginScreen({super.key});
 
