@@ -23,7 +23,7 @@ SnackbarController customSnackbar(
   return Get.snackbar(
     title,
     message,
-    backgroundColor: Theme.of(Get.context!).colorScheme.background,
+    backgroundColor: Theme.of(Get.context!).colorScheme.surface,
     titleText: Text(
       title,
       style: TextStyle(

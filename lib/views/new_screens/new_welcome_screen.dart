@@ -11,7 +11,6 @@ class NewWelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(

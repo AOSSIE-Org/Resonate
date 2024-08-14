@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 
 import '../../utils/ui_sizes.dart';

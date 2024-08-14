@@ -159,7 +159,7 @@ class _RoomScreenState extends State<RoomScreen> {
                           decoration: BoxDecoration(
                               gradient: themeController.createDynamicGradient(),
                               borderRadius:
-                                  BorderRadius.all(const Radius.circular(20))),
+                                  const BorderRadius.all(Radius.circular(20))),
                           child: Center(
                               child: Text(
                             (controller.appwriteRoom.isUserAdmin)

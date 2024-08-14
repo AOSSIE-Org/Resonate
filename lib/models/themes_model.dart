@@ -8,7 +8,6 @@ class ThemeModel {
   final Color onSecondaryColor;
   final Color surfaceColor;
   final Color onSurfaceColor;
-  final Color backgroundColor;
   final ThemeMode themeMode;
 
   const ThemeModel({
@@ -19,7 +18,6 @@ class ThemeModel {
     required this.onSecondaryColor,
     required this.surfaceColor,
     required this.onSurfaceColor,
-    required this.backgroundColor,
     required this.themeMode,
   });
 }
