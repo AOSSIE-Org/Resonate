@@ -111,6 +111,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/mock/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

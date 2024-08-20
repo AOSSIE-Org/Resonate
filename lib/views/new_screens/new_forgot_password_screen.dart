@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
+import 'package:resonate/controllers/forgot_password_controller.dart';
 
 import '../../utils/ui_sizes.dart';
 
@@ -13,15 +14,9 @@ class NewForgotPasswordScreen extends StatefulWidget {
 
 class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
 
+  final forgotPasswordController = Get.put(ForgotPasswordController());
 
-  final authController = Get.find<AuthenticationController>();
-  TextEditingController emailController = TextEditingController();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +30,7 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
         ),
         width: double.maxFinite,
         child: Form(
+          key: forgotPasswordController.forgotPasswordFormKey,
           child: Column(
             children: [
               SizedBox(
@@ -60,7 +56,7 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
                 height: UiSizes.height_20,
               ),
               TextFormField(
-                controller: emailController,
+                controller: forgotPasswordController.emailController,
                 validator: (value) => value!.isValidEmail()
                     ? null
                     : "Enter Valid Email Address",
@@ -76,7 +72,15 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
               SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                    if(forgotPasswordController.forgotPasswordFormKey.currentState!.validate()){
+                      forgotPasswordController.sendRecoveryEmail();
+                    }
+
+
+
+                  },
                   child: const Text(
                     "Next",
                   ),

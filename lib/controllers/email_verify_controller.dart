@@ -61,6 +61,7 @@ class EmailVerifyController extends GetxController {
 
     authController.isLoading.value = false;
 
+
     if (res.responseBody == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 

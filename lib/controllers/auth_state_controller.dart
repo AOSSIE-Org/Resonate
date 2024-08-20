@@ -137,6 +137,7 @@ class AuthStateController extends GetxController {
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
+
       update();
     } catch (e) {
       log(e.toString());
