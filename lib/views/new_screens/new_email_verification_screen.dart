@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,8 +101,14 @@ class NewEmailVerificationScreen extends StatelessWidget {
                         "Congratulations you have verified your Email",
                         MessageType.success,
                       );
+
+                      SemanticsService.announce(
+                        "Congratulations you have verified your Email",
+                        TextDirection.ltr,
+                      );
                       await emailVerifyController.setVerified();
-                      if (emailVerifyController.responseSetVerified.responseBody ==
+                      if (emailVerifyController
+                              .responseSetVerified.responseBody ==
                           '{"message":"null"}') {
                         emailVerifyController.isVerifying.value = false;
 
@@ -118,8 +125,15 @@ class NewEmailVerificationScreen extends StatelessWidget {
 
                         customSnackbar(
                           'Oops',
-                          emailVerifyController.responseSetVerified.responseBody,
+                          emailVerifyController
+                              .responseSetVerified.responseBody,
                           MessageType.error,
+                        );
+
+                        SemanticsService.announce(
+                          emailVerifyController
+                              .responseSetVerified.responseBody,
+                          TextDirection.ltr,
                         );
                       }
                     } else {
@@ -133,12 +147,22 @@ class NewEmailVerificationScreen extends StatelessWidget {
                         "OTP mismatch occurred please try again",
                         MessageType.error,
                       );
+
+                      SemanticsService.announce(
+                        "OTP mismatch occurred please try again",
+                        TextDirection.ltr,
+                      );
                     }
                   } else {
                     customSnackbar(
                       'Oops',
                       emailVerifyController.responseVerify.responseBody,
                       MessageType.error,
+                    );
+
+                    SemanticsService.announce(
+                      emailVerifyController.responseVerify.responseBody,
+                      TextDirection.ltr,
                     );
                   }
                 },
@@ -156,6 +180,11 @@ class NewEmailVerificationScreen extends StatelessWidget {
                             "OTP resent",
                             "Please check your mail for a new OTP.",
                             MessageType.info,
+                          );
+
+                          SemanticsService.announce(
+                            "Please check your mail for a new OTP.",
+                            TextDirection.ltr,
                           );
                         },
                         child: Text(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
@@ -61,7 +62,6 @@ class EmailVerifyController extends GetxController {
 
     authController.isLoading.value = false;
 
-
     if (res.responseBody == '{"message":"mail sent"}') {
       resendIsAllowed.value = false;
 
@@ -80,8 +80,16 @@ class EmailVerifyController extends GetxController {
 
       isSending.value = false;
       signUpIsAllowed.value = true;
-      customSnackbar('Oops', res.responseBody, MessageType.error);
+      customSnackbar(
+        'Oops',
+        res.responseBody,
+        MessageType.error,
+      );
 
+      SemanticsService.announce(
+        res.responseBody,
+        TextDirection.ltr,
+      );
     }
 
     return true;

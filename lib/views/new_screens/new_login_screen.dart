@@ -84,20 +84,24 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                         autocorrect: false,
                         decoration: InputDecoration(
                           hintText: "Password",
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
-                            },
-                            child: Container(
-                              width: 56,
-                              color: Colors.transparent,
-                              child: Icon(
-                                controller.isPasswordFieldVisible.value
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                          suffixIcon: Semantics(
+                            label: (controller.isPasswordFieldVisible.value) ? "Hide password" : "Show password",
+                            child: GestureDetector(
+
+                              onTap: () {
+                                controller.isPasswordFieldVisible.value =
+                                    !controller.isPasswordFieldVisible.value;
+                              },
+                              child: Container(
+                                width: 56,
+                                color: Colors.transparent,
+                                child: Icon(
+                                  controller.isPasswordFieldVisible.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                ),
                               ),
                             ),
                           ),
