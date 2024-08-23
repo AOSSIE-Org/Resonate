@@ -35,41 +35,48 @@ class NewEmailVerificationScreen extends StatelessWidget {
               SizedBox(
                 height: UiSizes.height_60,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your\nVerification Code",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black
-                          : Colors.white,
-                    ),
-                    children: [
-                      const TextSpan(
-                        text: "We sent a 6-digit verification code to\n",
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Enter your\nVerification Code",
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      TextSpan(
-                        text: controller.authStateController.email,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: Theme.of(context).brightness == Brightness.light
+                                ? Colors.black
+                                : Colors.white,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: "We sent a 6-digit verification code to\n",
+                            ),
+                            TextSpan(
+                              text: controller.authStateController.email,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+
               SizedBox(
                 height: UiSizes.height_60,
               ),
@@ -195,48 +202,50 @@ class NewEmailVerificationScreen extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Request a new code in",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                    : MergeSemantics(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Request a new code in",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSecondary,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: UiSizes.width_10,
-                            ),
-                            child: CircularCountDownTimer(
-                              textStyle: TextStyle(
-                                color:
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: UiSizes.width_10,
+                              ),
+                              child: CircularCountDownTimer(
+                                textStyle: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                ),
+                                isTimerTextShown: true,
+                                isReverse: true,
+                                onComplete: () {
+                                  emailVerifyController.resendIsAllowed.value =
+                                      true;
+                                },
+                                width: 30,
+                                height: 30,
+                                duration: 30,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                fillColor: Theme.of(context).colorScheme.primary,
+                                ringColor:
                                     Theme.of(context).colorScheme.onSecondary,
                               ),
-                              isTimerTextShown: true,
-                              isReverse: true,
-                              onComplete: () {
-                                emailVerifyController.resendIsAllowed.value =
-                                    true;
-                              },
-                              width: 30,
-                              height: 30,
-                              duration: 30,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              fillColor: Theme.of(context).colorScheme.primary,
-                              ringColor:
-                                  Theme.of(context).colorScheme.onSecondary,
                             ),
-                          ),
-                          Text(
-                            "seconds.",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                            Text(
+                              "seconds.",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSecondary,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                    ),
               ),
             ],
           ),

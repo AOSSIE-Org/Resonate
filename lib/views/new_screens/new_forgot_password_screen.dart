@@ -9,14 +9,12 @@ class NewForgotPasswordScreen extends StatefulWidget {
   const NewForgotPasswordScreen({super.key});
 
   @override
-  State<NewForgotPasswordScreen> createState() => _NewForgotPasswordScreenState();
+  State<NewForgotPasswordScreen> createState() =>
+      _NewForgotPasswordScreenState();
 }
 
 class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
-
   final forgotPasswordController = Get.put(ForgotPasswordController());
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +34,26 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
               SizedBox(
                 height: UiSizes.height_60,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Forgot Password",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your registered email address to reset your password.",
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Forgot Password",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Enter your registered email address to reset your password.",
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -57,9 +61,8 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
               ),
               TextFormField(
                 controller: forgotPasswordController.emailController,
-                validator: (value) => value!.isValidEmail()
-                    ? null
-                    : "Enter Valid Email Address",
+                validator: (value) =>
+                    value!.isValidEmail() ? null : "Enter Valid Email Address",
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: const InputDecoration(
@@ -73,13 +76,11 @@ class _NewForgotPasswordScreenState extends State<NewForgotPasswordScreen> {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () {
-
-                    if(forgotPasswordController.forgotPasswordFormKey.currentState!.validate()){
+                    if (forgotPasswordController
+                        .forgotPasswordFormKey.currentState!
+                        .validate()) {
                       forgotPasswordController.sendRecoveryEmail();
                     }
-
-
-
                   },
                   child: const Text(
                     "Next",

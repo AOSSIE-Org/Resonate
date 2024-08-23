@@ -34,7 +34,8 @@ class NewProfileScreen extends StatelessWidget {
   final List<StoriesModel> continueWithStories = [
     StoriesModel(
       title: "Podcast",
-      description: "The sun dipped below the horizon, casting a warm, golden hue over the tranquil landscape. Birds began their evening songs, filling the air with a gentle melody that blended perfectly with the rustling of the leaves in the cool breeze.",
+      description:
+          "The sun dipped below the horizon, casting a warm, golden hue over the tranquil landscape. Birds began their evening songs, filling the air with a gentle melody that blended perfectly with the rustling of the leaves in the cool breeze.",
       imgUrl: "assets/mock/podcast.jpeg",
     ),
     StoriesModel(
@@ -80,46 +81,48 @@ class NewProfileScreen extends StatelessWidget {
                             width: UiSizes.width_20,
                           ),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  controller.displayName.toString(),
-                                  style: TextStyle(
-                                    fontSize: UiSizes.size_24,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
+                            child: MergeSemantics(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.displayName.toString(),
+                                    style: TextStyle(
+                                      fontSize: UiSizes.size_24,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "@${controller.userName}",
-                                  style: TextStyle(
-                                    fontSize: UiSizes.size_14,
-                                    overflow: TextOverflow.ellipsis,
+                                  Text(
+                                    "@${controller.userName}",
+                                    style: TextStyle(
+                                      fontSize: UiSizes.size_14,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                ),
-                                (controller.isEmailVerified!)
-                                    ? const Padding(
-                                        padding: EdgeInsets.only(top: 10),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.verified_user_outlined,
-                                              color: Colors.green,
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "Verified user",
-                                              style: TextStyle(
-                                                  color: Colors.green),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                              ],
+                                  (controller.isEmailVerified!)
+                                      ? const Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.verified_user_outlined,
+                                                color: Colors.green,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "Verified user",
+                                                style: TextStyle(
+                                                    color: Colors.green),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : const SizedBox(),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -273,8 +276,8 @@ class NewProfileScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color: Colors.black,
                                       image: DecorationImage(
-                                        image:
-                                            AssetImage(yourStories[index].imgUrl),
+                                        image: AssetImage(
+                                            yourStories[index].imgUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     ),

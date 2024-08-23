@@ -90,6 +90,7 @@ class ContributeScreen extends StatelessWidget {
                           Icons.telegram_rounded,
                           size: UiSizes.size_40,
                         ),
+                        tooltip: "Join telegram channel",
                       ),
                       IconButton(
                         onPressed: () {},
@@ -97,6 +98,8 @@ class ContributeScreen extends StatelessWidget {
                           Icons.discord,
                           size: UiSizes.size_40,
                         ),
+                        tooltip: "Join discord server",
+
                       )
                     ],
                   ),

@@ -38,39 +38,44 @@ class AboutAppScreen extends StatelessWidget {
                         SizedBox(
                           height: UiSizes.height_10,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                "assets/images/resonate_logo.png",
+                        Semantics(
+                          label: "Resonate logo",
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                  "assets/images/resonate_logo.png",
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
+                              // color: Colors.red,
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            // color: Colors.red,
-                            borderRadius: BorderRadius.circular(12),
+                            height: UiSizes.height_131,
                           ),
-                          height: UiSizes.height_131,
                         ),
                         Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Resonate",
-                                style: TextStyle(
-                                  fontSize: UiSizes.size_20,
-                                ),
-                              ),
-                              Obx(
-                                () => Text(
-                                  "${aboutAppScreenController.appVersion} | ${aboutAppScreenController.appBuildNumber} | Stable",
-                                  // "0.0.0 | 1 | Stable",
+                          child: MergeSemantics(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Resonate",
                                   style: TextStyle(
-                                    fontSize: UiSizes.size_12,
+                                    fontSize: UiSizes.size_20,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Obx(
+                                  () => Text(
+                                    "${aboutAppScreenController.appVersion} | ${aboutAppScreenController.appBuildNumber} | Stable",
+                                    // "0.0.0 | 1 | Stable",
+                                    style: TextStyle(
+                                      fontSize: UiSizes.size_12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -95,23 +100,27 @@ class AboutAppScreen extends StatelessWidget {
                         SizedBox(
                           height: UiSizes.height_10,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            image: const DecorationImage(
-                              image:
-                                  AssetImage("assets/images/aossie_logo.png"),
-                              scale: 4,
+                        Semantics(
+                          label: "aossie logo",
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage("assets/images/aossie_logo.png"),
+                                scale: 4,
+                              ),
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(12),
+                            height: UiSizes.height_131,
                           ),
-                          height: UiSizes.height_131,
                         ),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
+                                semanticsLabel: "aossie",
                                 "AOSSIE",
                                 style: TextStyle(
                                   fontSize: UiSizes.size_20,
@@ -191,24 +200,27 @@ class AboutAppScreen extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Description",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+              child: MergeSemantics(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      semanticsLabel: "About Resonate",
+                      "Description",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: UiSizes.height_5,
-                  ),
-                  const Text(
-                    "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
+                    SizedBox(
+                      height: UiSizes.height_5,
+                    ),
+                    const Text(
+                      "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

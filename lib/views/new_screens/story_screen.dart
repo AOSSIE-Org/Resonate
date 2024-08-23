@@ -25,14 +25,19 @@ class StoryScreen extends StatelessWidget {
               SizedBox(
                 height: UiSizes.height_40,
               ),
-              Container(
-                width: mq.width * 0.7,
-                height: mq.width * 0.7,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(storyModel.imgUrl),
-                    fit: BoxFit.cover,
+              Semantics(
+                label: "${storyModel.title} image",
+                child: Container(
+                  width: mq.width * 0.7,
+                  height: mq.width * 0.7,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        storyModel.imgUrl,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -65,29 +70,35 @@ class StoryScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(
+                    semanticLabel: "Replay 10 seconds",
                     Icons.replay_10_rounded,
                     size: 50,
                   ),
                   SizedBox(
                     width: UiSizes.width_30,
                   ),
-                  Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(70),
-                    ),
-                    child: Icon(
-                      Icons.play_arrow_rounded,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      size: 50,
+                  Semantics(
+                    label: "Play/Pause",
+                    child: GestureDetector(
+                      child: Container(
+                        width: 70,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(70),
+                        ),
+                        child: Icon(
+                          Icons.play_arrow_rounded,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 50,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: UiSizes.width_30,
                   ),
-                  const Icon(
+                  const Icon(semanticLabel: "Forward 10 seconds",
                     Icons.forward_10_rounded,
                     size: 50,
                   ),
@@ -96,29 +107,36 @@ class StoryScreen extends StatelessWidget {
               SizedBox(
                 height: UiSizes.height_40,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Description",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: UiSizes.size_15,
-                  ),
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Description",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: UiSizes.size_15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_5,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        storyModel.description,
+                        style: TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: UiSizes.size_12,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_5,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  storyModel.description,
-                  style: TextStyle(
-                    // fontWeight: FontWeight.bold,
-                    fontSize: UiSizes.size_12,
-                  ),
-                ),
-              ),
+
             ],
           ),
         ),
