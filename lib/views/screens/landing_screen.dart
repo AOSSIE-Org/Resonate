@@ -13,7 +13,7 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         toolbarHeight: 0,
       ),
@@ -32,7 +32,7 @@ class LandingScreen extends StatelessWidget {
         ),
         controllerColor: Theme.of(context).colorScheme.primary,
         hasFloatingButton: true,
-        headerBackgroundColor: Theme.of(context).colorScheme.background,
+        headerBackgroundColor: Theme.of(context).colorScheme.surface,
         finishButtonTextStyle: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
           fontSize: UiSizes.size_18,

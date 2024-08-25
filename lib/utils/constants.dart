@@ -1,14 +1,12 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+// const String baseDomain = "2043-49-36-144-88.ngrok-free.app";
+const String baseDomain = "192.168.29.202:80";
 
 const String appwriteProjectId = "resonate";
-const String appwriteEndpoint = "https://$baseDomain/v1";
+const String appwriteEndpoint = "http://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
-
-// const String appwriteEndpoint = "http://192.168.29.202:80/v1";
-
 
 // Discussion related Database Constants
 const String discussionDatabaseId = "6522fcf27a1bbc4238df";

@@ -72,16 +72,19 @@ class NewEditProfileScreen extends StatelessWidget {
                       radius: UiSizes.width_80,
                       child: Align(
                         alignment: Alignment.bottomRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            showBottomSheet();
-                          },
-                          child: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            child: Icon(
-                              Icons.edit,
-                              color: Theme.of(context).colorScheme.onPrimary,
+                        child: Semantics(
+                          label: "Upload profile picture",
+                          child: GestureDetector(
+                            onTap: () {
+                              showBottomSheet();
+                            },
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              child: Icon(
+                                Icons.edit,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
@@ -287,6 +290,7 @@ class NewEditProfileScreen extends StatelessWidget {
             Column(
               children: [
                 IconButton(
+                  tooltip: "Click picture using camera",
                   onPressed: () {
                     Navigator.pop(context);
                     // Display Loading Dialog
@@ -305,6 +309,7 @@ class NewEditProfileScreen extends StatelessWidget {
             Column(
               children: [
                 IconButton(
+                  tooltip: "Pick image from gallery",
                   onPressed: () {
                     Navigator.pop(context);
 

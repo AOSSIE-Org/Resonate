@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/rendering.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,10 +34,25 @@ class AuthenticationController extends GetxController {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
         customSnackbar(
-            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+          'Try Again!',
+          "Incorrect Email or Password",
+          MessageType.error,
+        );
+        SemanticsService.announce(
+          "Incorrect Email or Password",
+          TextDirection.ltr,
+        );
       } else if (e.type == generalArgumentInvalid) {
-        customSnackbar('Try Again!', "Password is less than 8 characters",
-            MessageType.error);
+        customSnackbar(
+          'Try Again!',
+          "Password is less than 8 characters",
+          MessageType.error,
+        );
+
+        SemanticsService.announce(
+          "Password is less than 8 characters",
+          TextDirection.ltr,
+        );
       }
     } catch (e) {
       log(e.toString());
@@ -49,14 +65,25 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.signup(
-          emailController.text, passwordController.text);
+        emailController.text,
+        passwordController.text,
+      );
       return true;
     } catch (e) {
       var error = e.toString().split(": ")[1];
       error = error.split(".")[0];
       error = error.split(",")[1];
       error = error.split("in")[0];
-      customSnackbar('Oops', error.toString(), MessageType.error);
+      customSnackbar(
+        'Oops',
+        error.toString(),
+        MessageType.error,
+      );
+      SemanticsService.announce(
+        error.toString(),
+        TextDirection.ltr,
+      );
+
       return false;
     } finally {
       isLoading.value = false;
@@ -92,10 +119,27 @@ class AuthenticationController extends GetxController {
             'https://localhost/reset-password', // Replace with actual reset password URL
       );
       customSnackbar(
-          'Success', 'Password reset email sent!', MessageType.success);
+        'Success',
+        'Password reset email sent!',
+        MessageType.success,
+      );
+
+      SemanticsService.announce(
+        "Password reset email sent!",
+        TextDirection.ltr,
+      );
       //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
     } on AppwriteException catch (e) {
-      customSnackbar('Error', e.message.toString(), MessageType.error);
+      customSnackbar(
+        'Error',
+        e.message.toString(),
+        MessageType.error,
+      );
+
+      SemanticsService.announce(
+        e.message.toString(),
+        TextDirection.ltr,
+      );
     }
   }
 }

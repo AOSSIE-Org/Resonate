@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,41 +35,48 @@ class NewEmailVerificationScreen extends StatelessWidget {
               SizedBox(
                 height: UiSizes.height_60,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your\nVerification Code",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black
-                          : Colors.white,
-                    ),
-                    children: [
-                      const TextSpan(
-                        text: "We sent a 6-digit verification code to\n",
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Enter your\nVerification Code",
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      TextSpan(
-                        text: controller.authStateController.email,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: Theme.of(context).brightness == Brightness.light
+                                ? Colors.black
+                                : Colors.white,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: "We sent a 6-digit verification code to\n",
+                            ),
+                            TextSpan(
+                              text: controller.authStateController.email,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+
               SizedBox(
                 height: UiSizes.height_60,
               ),
@@ -100,8 +108,14 @@ class NewEmailVerificationScreen extends StatelessWidget {
                         "Congratulations you have verified your Email",
                         MessageType.success,
                       );
+
+                      SemanticsService.announce(
+                        "Congratulations you have verified your Email",
+                        TextDirection.ltr,
+                      );
                       await emailVerifyController.setVerified();
-                      if (emailVerifyController.responseSetVerified.responseBody ==
+                      if (emailVerifyController
+                              .responseSetVerified.responseBody ==
                           '{"message":"null"}') {
                         emailVerifyController.isVerifying.value = false;
 
@@ -118,8 +132,15 @@ class NewEmailVerificationScreen extends StatelessWidget {
 
                         customSnackbar(
                           'Oops',
-                          emailVerifyController.responseSetVerified.responseBody,
+                          emailVerifyController
+                              .responseSetVerified.responseBody,
                           MessageType.error,
+                        );
+
+                        SemanticsService.announce(
+                          emailVerifyController
+                              .responseSetVerified.responseBody,
+                          TextDirection.ltr,
                         );
                       }
                     } else {
@@ -133,12 +154,22 @@ class NewEmailVerificationScreen extends StatelessWidget {
                         "OTP mismatch occurred please try again",
                         MessageType.error,
                       );
+
+                      SemanticsService.announce(
+                        "OTP mismatch occurred please try again",
+                        TextDirection.ltr,
+                      );
                     }
                   } else {
                     customSnackbar(
                       'Oops',
                       emailVerifyController.responseVerify.responseBody,
                       MessageType.error,
+                    );
+
+                    SemanticsService.announce(
+                      emailVerifyController.responseVerify.responseBody,
+                      TextDirection.ltr,
                     );
                   }
                 },
@@ -157,6 +188,11 @@ class NewEmailVerificationScreen extends StatelessWidget {
                             "Please check your mail for a new OTP.",
                             MessageType.info,
                           );
+
+                          SemanticsService.announce(
+                            "Please check your mail for a new OTP.",
+                            TextDirection.ltr,
+                          );
                         },
                         child: Text(
                           "Request a new code",
@@ -166,48 +202,50 @@ class NewEmailVerificationScreen extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Request a new code in",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                    : MergeSemantics(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Request a new code in",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSecondary,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: UiSizes.width_10,
-                            ),
-                            child: CircularCountDownTimer(
-                              textStyle: TextStyle(
-                                color:
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: UiSizes.width_10,
+                              ),
+                              child: CircularCountDownTimer(
+                                textStyle: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                ),
+                                isTimerTextShown: true,
+                                isReverse: true,
+                                onComplete: () {
+                                  emailVerifyController.resendIsAllowed.value =
+                                      true;
+                                },
+                                width: 30,
+                                height: 30,
+                                duration: 30,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                fillColor: Theme.of(context).colorScheme.primary,
+                                ringColor:
                                     Theme.of(context).colorScheme.onSecondary,
                               ),
-                              isTimerTextShown: true,
-                              isReverse: true,
-                              onComplete: () {
-                                emailVerifyController.resendIsAllowed.value =
-                                    true;
-                              },
-                              width: 30,
-                              height: 30,
-                              duration: 30,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              fillColor: Theme.of(context).colorScheme.primary,
-                              ringColor:
-                                  Theme.of(context).colorScheme.onSecondary,
                             ),
-                          ),
-                          Text(
-                            "seconds.",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                            Text(
+                              "seconds.",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSecondary,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                    ),
               ),
             ],
           ),
