@@ -119,9 +119,9 @@ class AuthStateController extends GetxController {
   Future<void> setUserProfileData() async {
     isInitializing.value = true;
     try {
-      print("here before getting account");
+      log("here before getting account");
       appwriteUser = await account.get();
-      print("ran get account success fully");
+      log("ran get account success fully");
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       isEmailVerified = appwriteUser.emailVerification;
@@ -137,6 +137,7 @@ class AuthStateController extends GetxController {
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
       }
+
       update();
     } catch (e) {
       log(e.toString());
@@ -182,16 +183,16 @@ class AuthStateController extends GetxController {
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
-    subscribedDiscussions.forEach((subscribtion) {
+    for (var subscription in subscribedDiscussions) {
       List<dynamic> registrationTokens =
-          subscribtion.data['registrationTokens'];
+          subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
       databases.updateDocument(
           databaseId: discussionDatabaseId,
           collectionId: subscribedUserCollectionId,
-          documentId: subscribtion.$id,
+          documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});
-    });
+    }
   }
 
   Future<void> removeRegistrationTokenFromSubscribedDiscussions() async {
@@ -202,22 +203,22 @@ class AuthStateController extends GetxController {
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
-    subscribedDiscussions.forEach((subscribtion) {
+    for (var subscription in subscribedDiscussions) {
       List<dynamic> registrationTokens =
-          subscribtion.data['registrationTokens'];
+          subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
       databases.updateDocument(
           databaseId: discussionDatabaseId,
           collectionId: subscribedUserCollectionId,
-          documentId: subscribtion.$id,
+          documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});
-    });
+    }
   }
 
   Future<void> signup(String email, String password) async {
-    print("About to create");
+    log("About to create");
     await account.create(userId: ID.unique(), email: email, password: password);
-    print("Created");
+    log("Created");
     await account.createEmailPasswordSession(email: email, password: password);
     await setUserProfileData();
   }
@@ -237,6 +238,7 @@ class AuthStateController extends GetxController {
       title: "Are you sure?",
       middleText: "You are logging out of Resonate.",
       textConfirm: "Yes",
+      backgroundColor: Theme.of(context).colorScheme.surface,
       buttonColor: Theme.of(context).colorScheme.primary,
       confirmTextColor: Theme.of(context).colorScheme.onPrimary,
       textCancel: "No",

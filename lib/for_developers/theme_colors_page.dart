@@ -23,9 +23,9 @@ class ThemeColorsPage extends StatelessWidget {
         onColor: Theme.of(context).colorScheme.onTertiary,
       ),
       ThemeColorModel(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         name: "background",
-        onColor: Theme.of(context).colorScheme.onBackground,
+        onColor: Theme.of(context).colorScheme.onSurface,
       ),
       ThemeColorModel(
         color: Theme.of(context).colorScheme.surface,

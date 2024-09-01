@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -187,7 +189,7 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
       middleText: "To $text the room",
       cancelTextColor: themeController.primaryColor.value,
       onConfirm: onTap,
-      onCancel: () => print("canceled"),
+      onCancel: () => log("canceled"),
     );
   }
 
@@ -217,6 +219,7 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
       ),
     );
   }
+
 
   Widget _buildParticipantsList() {
     // return Obx(() {

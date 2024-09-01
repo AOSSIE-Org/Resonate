@@ -184,7 +184,7 @@ class CustomLiveRoomTile extends StatelessWidget {
                   appwriteRoom.name,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 15,
                   ),
                 ),
@@ -612,7 +612,7 @@ class UpCommingListTile extends StatelessWidget {
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 15,
             ),
           ),

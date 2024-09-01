@@ -11,7 +11,6 @@ import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/routes/app_routes.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -38,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
- @override
+  @override
   void initState() {
     super.initState();
     startDisplayTimer();
@@ -51,30 +50,28 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColor.bgBlackColor,
       body: SafeArea(
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center, 
-            children: [
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
               height: UiSizes.height_200,
               width: UiSizes.width_140,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value) {
-                    return AnimatedSplashScreen.withScreenFunction(
-                      splashIconSize: UiSizes.height_200,
-                      splash: Image.asset(AppImages.resonateLogoImage),
-                      duration: 3000,
-                      screenFunction: () async {
-                        return const SizedBox();
-                      },
-                      splashTransition: SplashTransition.fadeTransition,
-                      pageTransitionType: PageTransitionType.fade,
-                      backgroundColor: AppColor.bgBlackColor,
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-              ),
+                if (splashController.allowedDisplay.value) {
+                  return AnimatedSplashScreen.withScreenFunction(
+                    splashIconSize: UiSizes.height_200,
+                    splash: Image.asset(AppImages.resonateLogoImage),
+                    duration: 3000,
+                    screenFunction: () async {
+                      return const SizedBox();
+                    },
+                    splashTransition: SplashTransition.fadeTransition,
+                    pageTransitionType: PageTransitionType.fade,
+                    backgroundColor: AppColor.bgBlackColor,
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }),
+            ),
             SizedBox(
               width: UiSizes.width_5,
             ),
@@ -82,27 +79,27 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_140,
               width: UiSizes.width_20,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value) {
-                    return AnimatedSplashScreen.withScreenFunction(
-                      splashIconSize: UiSizes.size_200,
-                      splash: VerticalDivider(
-                        width: UiSizes.width_20,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                      duration: 3000,
-                      screenFunction: () async {
-                        return const SizedBox();
-                      },
-                      splashTransition: SplashTransition.scaleTransition,
-                      pageTransitionType: PageTransitionType.fade,
-                      backgroundColor: AppColor.bgBlackColor,
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-              ),
+                if (splashController.allowedDisplay.value) {
+                  return AnimatedSplashScreen.withScreenFunction(
+                    splashIconSize: UiSizes.size_200,
+                    splash: VerticalDivider(
+                      width: UiSizes.width_20,
+                      thickness: 1,
+                      color: Colors.grey,
+                    ),
+                    duration: 3000,
+                    screenFunction: () async {
+                      return const SizedBox();
+                    },
+                    splashTransition: SplashTransition.scaleTransition,
+                    pageTransitionType: PageTransitionType.fade,
+                    backgroundColor: AppColor.bgBlackColor,
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }),
+            ),
             SizedBox(
               width: UiSizes.width_10,
             ),
@@ -110,23 +107,23 @@ class _SplashScreenState extends State<SplashScreen> {
               height: UiSizes.height_200,
               width: UiSizes.width_140,
               child: Obx(() {
-                  if (splashController.allowedDisplay.value) {
-                    return AnimatedSplashScreen.withScreenFunction(
-                      splash: Image.asset(AppImages.aossieLogoImage),
-                      duration: 2000,
-                      screenFunction: () async {
-                        return const SizedBox();
-                      },
-                      splashIconSize: UiSizes.size_200,
-                      splashTransition: SplashTransition.fadeTransition,
-                      pageTransitionType: PageTransitionType.fade,
-                      backgroundColor: AppColor.bgBlackColor,
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-              ),
+                if (splashController.allowedDisplay.value) {
+                  return AnimatedSplashScreen.withScreenFunction(
+                    splash: Image.asset(AppImages.aossieLogoImage),
+                    duration: 2000,
+                    screenFunction: () async {
+                      return const SizedBox();
+                    },
+                    splashIconSize: UiSizes.size_200,
+                    splashTransition: SplashTransition.fadeTransition,
+                    pageTransitionType: PageTransitionType.fade,
+                    backgroundColor: AppColor.bgBlackColor,
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }),
+            ),
           ]),
         ),
       ),

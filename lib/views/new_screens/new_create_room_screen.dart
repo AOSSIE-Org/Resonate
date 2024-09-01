@@ -81,7 +81,7 @@ class StartRoomBottomSheet extends StatelessWidget {
             TextField(
               maxLines: 3,
               decoration: InputDecoration(
-                hintText: 'Discriptions',
+                hintText: 'Descriptions',
                 filled: true,
                 //! check it in ui
                 fillColor: Colors.white,
