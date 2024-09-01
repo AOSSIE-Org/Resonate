@@ -79,14 +79,18 @@ class NewSettingsScreen extends StatelessWidget {
             },
           ),
           customTile(
-            str: "About app",
-            func: () {},
+            str: "About",
+            func: () {
+              Get.toNamed(AppRoutes.aboutApp);
+            },
           ),
           customDivider(),
           titleText("Other"),
           customTile(
             str: "Contribute",
-            func: () {},
+            func: () {
+              Get.toNamed(AppRoutes.contributeScreen);
+            },
           ),
           customDivider(),
           ListTile(

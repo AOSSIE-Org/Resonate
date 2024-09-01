@@ -10,11 +10,15 @@ Widget profileAvatar(BuildContext context) {
   final AuthStateController authStateController =
       Get.put<AuthStateController>(AuthStateController());
 
-  return GestureDetector(
-    onTap: () => Get.toNamed(AppRoutes.profile),
-    child: Padding(
+  return Semantics(
+    label: "User profile",
+    child: GestureDetector(
+      onTap: () => Get.toNamed(AppRoutes.profile),
+      child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: UiSizes.width_10, vertical: UiSizes.height_10),
+          horizontal: UiSizes.width_10,
+          vertical: UiSizes.height_10,
+        ),
         child: Obx(
           () => Stack(
             children: [
@@ -36,20 +40,23 @@ Widget profileAvatar(BuildContext context) {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: UiSizes.size_20,
-                    onBackgroundImageError: (exception, stackTrace) =>
-                        const Icon(
+                    onBackgroundImageError: (exception, stackTrace) => const Icon(
                       Icons.person_outline,
                     ),
-                    backgroundImage: authStateController.profileImageUrl ==
-                                null ||
-                            authStateController.profileImageUrl!.isEmpty
-                        ? null
-                        : NetworkImage(authStateController.profileImageUrl!),
+                    backgroundImage:
+                        authStateController.profileImageUrl == null ||
+                                authStateController.profileImageUrl!.isEmpty
+                            ? null
+                            : NetworkImage(
+                                authStateController.profileImageUrl!,
+                              ),
                   ),
                 ),
               ),
             ],
           ),
-        )),
+        ),
+      ),
+    ),
   );
 }

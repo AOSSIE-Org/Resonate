@@ -37,7 +37,7 @@ class ThemeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: list[index].primaryColor),
                       borderRadius: BorderRadius.circular(50),
-                      color: list[index].backgroundColor,
+                      color: list[index].surfaceColor,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -10,9 +10,8 @@ class ThemeList {
       onPrimaryColor: Colors.white,
       secondaryColor: Color(0xffEDEFEE),
       onSecondaryColor: Colors.black45,
-      surfaceColor: Color(0xffEDEFEE),
+      surfaceColor: Colors.white,
       onSurfaceColor: Colors.black,
-      backgroundColor: Colors.white,
       themeMode: ThemeMode.light,
     ),
     ThemeModel(
@@ -21,9 +20,8 @@ class ThemeList {
       onPrimaryColor: Colors.white,
       secondaryColor: Color(0xff21252f),
       onSecondaryColor: Colors.white38,
-      surfaceColor: Color(0xff21252f),
+      surfaceColor: Color(0xff181b22),
       onSurfaceColor: Colors.white,
-      backgroundColor: Color(0xff181b22),
       themeMode: ThemeMode.dark,
     ),
     ThemeModel(
@@ -32,9 +30,8 @@ class ThemeList {
       onPrimaryColor: Colors.white,
       secondaryColor: Color(0xffF3F0F0),
       onSecondaryColor: Colors.black45,
-      surfaceColor: Color(0xffEDEFEE),
+      surfaceColor: Colors.white,
       onSurfaceColor: Colors.black,
-      backgroundColor: Colors.white,
       themeMode: ThemeMode.light,
     ),
     ThemeModel(
@@ -43,9 +40,8 @@ class ThemeList {
       onPrimaryColor: Colors.black,
       secondaryColor: Color(0xff21252f),
       onSecondaryColor: Colors.white38,
-      surfaceColor: Color(0xff21252f),
+      surfaceColor: Color(0xff181b22),
       onSurfaceColor: Colors.white,
-      backgroundColor: Color(0xff181b22),
       themeMode: ThemeMode.dark,
     ),
     ThemeModel(
@@ -54,9 +50,8 @@ class ThemeList {
       onPrimaryColor: Colors.white,
       secondaryColor: Color(0xffedefed),
       onSecondaryColor: Colors.black45,
-      surfaceColor: Color(0xffEDEFEE),
+      surfaceColor: Colors.white,
       onSurfaceColor: Colors.black,
-      backgroundColor: Colors.white,
       themeMode: ThemeMode.light,
     ),
     ThemeModel(
@@ -67,7 +62,6 @@ class ThemeList {
       onSecondaryColor: Colors.white38,
       surfaceColor: Color(0xff2D3250),
       onSurfaceColor: Colors.white,
-      backgroundColor: Color(0xff2D3250),
       themeMode: ThemeMode.dark,
     ),
 

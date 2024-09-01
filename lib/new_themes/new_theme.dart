@@ -8,6 +8,7 @@ class NewTheme {
   static ThemeData setLightTheme(ThemeModel theme) {
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
+      scaffoldBackgroundColor: theme.surfaceColor,
       colorScheme: ColorScheme.light(
         brightness: Brightness.light,
         primary: theme.primaryColor,
@@ -17,11 +18,11 @@ class NewTheme {
         surface: theme.surfaceColor,
         onSurface: theme.onSurfaceColor,
         surfaceTint: Colors.transparent,
-        background: theme.backgroundColor,
       ),
       appBarTheme: AppBarTheme(
-          surfaceTintColor: Colors.transparent,
-          backgroundColor: theme.backgroundColor),
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: theme.surfaceColor,
+      ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(
           // Flutter uses this TextStyle in InputFormField for styling user input text
@@ -93,6 +94,7 @@ class NewTheme {
   static ThemeData setDarkTheme(ThemeModel theme) {
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
+      scaffoldBackgroundColor: theme.surfaceColor,
       colorScheme: ColorScheme.dark(
         brightness: Brightness.dark,
         primary: theme.primaryColor,
@@ -102,11 +104,10 @@ class NewTheme {
         surface: theme.surfaceColor,
         onSurface: theme.onSurfaceColor,
         surfaceTint: Colors.transparent,
-        background: theme.backgroundColor,
       ),
       appBarTheme: AppBarTheme(
         surfaceTintColor: Colors.transparent,
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.surfaceColor,
       ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -127,8 +128,9 @@ class EmailVerificationScreen extends StatelessWidget {
                                     SizedBox(height: UiSizes.height_40),
                                     OtpTextField(
                                       contentPadding: EdgeInsets.zero,
-                                      textStyle:
-                                          TextStyle(fontSize: UiSizes.size_14, color: Colors.red),
+                                      textStyle: TextStyle(
+                                          fontSize: UiSizes.size_14,
+                                          color: Colors.red),
                                       fieldWidth: UiSizes.width_40,
                                       numberOfFields: 6,
                                       focusedBorderColor: const Color.fromARGB(
@@ -154,9 +156,15 @@ class EmailVerificationScreen extends StatelessWidget {
                                                   .checkVerificationStatus();
                                           if (result == "true") {
                                             customSnackbar(
-                                                "Verification Complete",
-                                                "Congratulations you have verified your Email",
-                                                MessageType.success);
+                                              "Verification Complete",
+                                              "Congratulations you have verified your Email",
+                                              MessageType.success,
+                                            );
+
+                                            SemanticsService.announce(
+                                              "Congratulations you have verified your Email",
+                                              TextDirection.ltr,
+                                            );
                                             await emailVerifyController
                                                 .setVerified();
                                             if (emailVerifyController
@@ -173,26 +181,47 @@ class EmailVerificationScreen extends StatelessWidget {
                                               emailVerifyController
                                                   .isVerifying.value = false;
                                               customSnackbar(
-                                                  'Oops',
-                                                  emailVerifyController
-                                                      .responseSetVerified
-                                                      .responseBody,
-                                                  MessageType.error);
+                                                'Oops',
+                                                emailVerifyController
+                                                    .responseSetVerified
+                                                    .responseBody,
+                                                MessageType.error,
+                                              );
+
+                                              SemanticsService.announce(
+                                                emailVerifyController
+                                                    .responseSetVerified
+                                                    .responseBody,
+                                                TextDirection.ltr,
+                                              );
                                             }
                                           } else {
                                             emailVerifyController
                                                 .isVerifying.value = false;
                                             customSnackbar(
-                                                "Verification Failed",
-                                                "OTP mismatch occurred please try again",
-                                                MessageType.error);
+                                              "Verification Failed",
+                                              "OTP mismatch occurred please try again",
+                                              MessageType.error,
+                                            );
+
+                                            SemanticsService.announce(
+                                              "OTP mismatch occurred please try again",
+                                              TextDirection.ltr,
+                                            );
                                           }
                                         } else {
                                           customSnackbar(
-                                              'Oops',
-                                              emailVerifyController
-                                                  .responseVerify.responseBody,
-                                              MessageType.error);
+                                            'Oops',
+                                            emailVerifyController
+                                                .responseVerify.responseBody,
+                                            MessageType.error,
+                                          );
+
+                                          SemanticsService.announce(
+                                            emailVerifyController
+                                                .responseVerify.responseBody,
+                                            TextDirection.ltr,
+                                          );
                                         }
                                       },
                                     ),
@@ -247,16 +276,26 @@ class EmailVerificationScreen extends StatelessWidget {
                                                       emailVerifyController
                                                           .sendOTP();
                                                       customSnackbar(
-                                                          "OTP Resent",
-                                                          "Please do check your mail for a new OTP",
-                                                          MessageType.info,
+                                                        "OTP Resent",
+                                                        "Please do check your mail for a new OTP",
+                                                        MessageType.info,
+                                                      );
+
+                                                      SemanticsService.announce(
+                                                        "Please do check your mail for a new OTP",
+                                                        TextDirection.ltr,
                                                       );
                                                     }
                                                   : () {
                                                       customSnackbar(
-                                                          "Hold on",
-                                                          "Please wait till the timer completes",
-                                                          MessageType.warning,
+                                                        "Hold on",
+                                                        "Please wait till the timer completes",
+                                                        MessageType.warning,
+                                                      );
+
+                                                      SemanticsService.announce(
+                                                        "Please wait till the timer completes",
+                                                        TextDirection.ltr,
                                                       );
                                                     },
                                               child: emailVerifyController
