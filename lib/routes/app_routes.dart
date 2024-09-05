@@ -1,5 +1,5 @@
 class AppRoutes {
-  static const login = '/login';
+  // static const login = '/login';
   static const signup = '/signup';
   static const forgotPassword = '/forgotPassword';
   static const resetPassword = '/resetPassword';
@@ -19,7 +19,15 @@ class AppRoutes {
   static const editProfile = "/editProfile";
   static const deleteAccount = "/deleteAccount";
   static const changeEmail = "/changeEmail";
+  static const newLoginScreen = '/newLoginScreen';
+  static const newRoomScreen = '/newRoomScreen';
+  static const newRoomChatScreen = '/newRoomChatScreen';
+  static const newBottomNavBar = '/newBottomNavBar';
+  static const newHomeScreen = '/newHomeScreen';
+  static const newCreateRoom = '/newCreateRoom';
   static const newWelcomeScreen = '/newWelcomeScreen';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
+  static const aboutApp = "/aboutApp";
+  static const contributeScreen = "/contributeScreen";
 }

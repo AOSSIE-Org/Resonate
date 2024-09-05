@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
@@ -182,8 +183,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     "Include at least 1 uppercase letter",
                                 hasLowerCaseTitle:
                                     "Include at least 1 lowercase letter",
-                                hasOneSymbolTitle:
-                                    "Include at least 1 symbol",
+                                hasOneSymbolTitle: "Include at least 1 symbol",
                                 validatedChecks:
                                     passwordStrengthCheckerController
                                         .validatedChecks.value,
@@ -205,9 +205,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                 if (isSignedIn) {
                                   Get.toNamed(AppRoutes.onBoarding);
                                   customSnackbar(
-                                      "Signed Up Successfully",
-                                      "You have successfully created a new account",
-                                      MessageType.success);
+                                    "Signed Up Successfully",
+                                    "You have successfully created a new account",
+                                    MessageType.success,
+                                  );
+                                  SemanticsService.announce(
+                                    "You have successfully created a new account",
+                                    TextDirection.ltr,
+                                  );
                                   emailVerifyController.signUpIsAllowed.value =
                                       true;
                                 } else {
@@ -310,7 +315,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         style: TextStyle(fontSize: UiSizes.size_14),
                       ),
                       GestureDetector(
-                        onTap: () => Get.offNamed(AppRoutes.login),
+                        onTap: () => Get.offNamed(AppRoutes.newLoginScreen),
                         child: Text(
                           "Login",
                           style: TextStyle(

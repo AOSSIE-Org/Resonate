@@ -15,9 +15,7 @@ import 'themes/theme_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   //Initialize Firebase
   await Firebase.initializeApp(
@@ -61,5 +59,19 @@ class MyApp extends StatelessWidget {
         getPages: AppPages.pages,
       ),
     );
+
+    // return Obx(
+    //   () => GetMaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'Resonate',
+    //     theme: NewTheme.classicLightTheme,
+    //     // theme: Themes.getLightTheme(themeController.primaryColor.value),
+    //     // darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
+    //     darkTheme: Themes.getDarkTheme(themeController.primaryColor.value),
+    //     themeMode: themeController.theme,
+    //     initialRoute: AppRoutes.splash,
+    //     getPages: AppPages.pages,
+    //   ),
+    // );
   }
 }

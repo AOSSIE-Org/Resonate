@@ -59,19 +59,22 @@ class ChangeEmailScreen extends StatelessWidget {
                         Icons.lock_outline_rounded,
                       ),
                       labelText: "Current Password",
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          controller.isPasswordFieldVisible.value =
-                              !controller.isPasswordFieldVisible.value;
-                        },
-                        child: Container(
-                          width: 56,
-                          color: Colors.transparent,
-                          child: Icon(
-                            controller.isPasswordFieldVisible.value
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Theme.of(context).colorScheme.onSecondary,
+                      suffixIcon: Semantics(
+                        label: (controller.isPasswordFieldVisible.value) ? "Hide password" : "Show password",
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.isPasswordFieldVisible.value =
+                                !controller.isPasswordFieldVisible.value;
+                          },
+                          child: Container(
+                            width: 56,
+                            color: Colors.transparent,
+                            child: Icon(
+                              controller.isPasswordFieldVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
                           ),
                         ),
                       ),
@@ -87,15 +90,21 @@ class ChangeEmailScreen extends StatelessWidget {
                 SizedBox(
                   height: UiSizes.height_30,
                 ),
-                const Text(
-                  '(Only for users who logged in using Google or Github)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
+                const MergeSemantics(
+                  child: Column(
+                    children: [
+                      Text(
+                        '(Only for users who logged in using Google or Github)',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                      Text(
+                        'To change your email, please enter a new password in the "Current Password" field. Be sure to remember this password, as you\'ll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.',
+                      ),
+                    ],
                   ),
-                ),
-                const Text(
-                  'To change your email, please enter a new password in the "Current Password" field. Be sure to remember this password, as you\'ll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.',
                 ),
                 SizedBox(
                   height: UiSizes.height_30,

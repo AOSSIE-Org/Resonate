@@ -14,7 +14,6 @@ class NewWelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(
@@ -30,6 +29,7 @@ class NewWelcomeScreen extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   "assets/svg/resonate_logo_white.svg",
+                  semanticsLabel: "Resonate Logo",
                   height: UiSizes.height_110,
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.primary,
@@ -42,12 +42,13 @@ class NewWelcomeScreen extends StatelessWidget {
                 Text(
                   "Resonate",
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: UiSizes.size_28),
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: UiSizes.size_28,
+                  ),
                 ),
               ],
             ),
-            Text('"Enter a world of limitless \n conversations."',
+            Text('"Enter a world of limitless\nconversations."',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium),
             Column(
@@ -82,7 +83,7 @@ class NewWelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "OR",
+                        "Or",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Expanded(
@@ -113,6 +114,7 @@ class NewWelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
+                        tooltip: "Continue with Google",
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
@@ -134,6 +136,7 @@ class NewWelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
+                        tooltip: "Continue with GitHub",
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,

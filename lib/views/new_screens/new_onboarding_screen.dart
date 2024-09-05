@@ -36,31 +36,35 @@ class NewOnBoardingScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(height: UiSizes.height_60),
-                    GestureDetector(
-                      onTap: () async => await controller.pickImage(),
-                      child: CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
-                        backgroundImage: (controller.profileImagePath == null)
-                            ? NetworkImage(controller.imageController.text)
-                            : FileImage(File(controller.profileImagePath!))
-                                as ImageProvider,
-                        radius: UiSizes.width_80,
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: CircleAvatar(
-                                radius: UiSizes.width_20,
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
-                                child: Icon(
-                                  Icons.edit,
-                                  color: Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_20,
+                    Semantics(
+                      label: "Upload profile picture",
+                      child: GestureDetector(
+
+                        onTap: () async => await controller.pickImage(),
+                        child: CircleAvatar(
+                          backgroundColor: Theme.of(context).colorScheme.secondary,
+                          backgroundImage: (controller.profileImagePath == null)
+                              ? NetworkImage(controller.imageController.text)
+                              : FileImage(File(controller.profileImagePath!))
+                                  as ImageProvider,
+                          radius: UiSizes.width_80,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: CircleAvatar(
+                                  radius: UiSizes.width_20,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Theme.of(context).colorScheme.onPrimary,
+                                    size: UiSizes.size_20,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

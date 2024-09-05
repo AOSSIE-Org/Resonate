@@ -103,7 +103,7 @@ class DiscussionsController extends GetxController {
           databaseId: discussionDatabaseId,
           collectionId: subscribedUserCollectionId,
           queries: [
-            Query.equal('discussionID', ['${discussionId}']),
+            Query.equal('discussionID', [discussionId]),
           ]).then((value) => value.documents);
       totalSubscriberCount = discussionSubscribers.length;
 
@@ -148,7 +148,7 @@ class DiscussionsController extends GetxController {
     await databases.deleteDocument(
       databaseId: discussionDatabaseId,
       collectionId: discussionsCollectionId,
-      documentId: '${discussionId}',
+      documentId: discussionId,
     );
     await getDiscussions();
   }
@@ -193,7 +193,7 @@ class DiscussionsController extends GetxController {
       List<String> removingMinus = splittedOffset[0].split('-');
       String removedMinusHour = removingMinus[1];
       formattedOffset =
-          '${removedMinusHour.length < 2 ? '0${removedMinusHour}' : removedMinusHour}:${splittedOffset[1].length < 2 ? '0${splittedOffset[1]}' : splittedOffset[1]}';
+          '${removedMinusHour.length < 2 ? '0$removedMinusHour' : removedMinusHour}:${splittedOffset[1].length < 2 ? '0${splittedOffset[1]}' : splittedOffset[1]}';
     } else {
       formattedOffset =
           '${splittedOffset[0].length < 2 ? '0${splittedOffset[0]}' : splittedOffset[0]}:${splittedOffset[1].length < 2 ? '0${splittedOffset[1]}' : splittedOffset[1]}';
@@ -230,7 +230,7 @@ class DiscussionsController extends GetxController {
         return;
       }
       scheduledDateTime =
-          '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00${isOffsetNegetive ? '-' : '+'}${formattedOffset}';
+          '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00${isOffsetNegetive ? '-' : '+'}$formattedOffset';
       dateTimeController.text =
           '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12 ? (pickedTime.hour - 12) : pickedTime.hour == 0 ? '00' : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
     }
@@ -251,7 +251,7 @@ class DiscussionsController extends GetxController {
         databaseId: discussionDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
-          Query.equal('discussionID', ['${discussionId}']),
+          Query.equal('discussionID', [discussionId]),
         ]).then((value) => value.documents);
 
     for (Document subscriber in deletedDiscussionSubscribers) {

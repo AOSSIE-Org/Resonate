@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/semantics.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,8 @@ class EditProfileController extends GetxController {
 
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
-  // final ThemeController themeController = Get.find<ThemeController>();
 
+  // final ThemeController themeController = Get.find<ThemeController>();
   late final Storage storage;
   late final Databases databases;
 
@@ -246,14 +247,21 @@ class EditProfileController extends GetxController {
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail = await isUsernameAvailable(usernameController.text.trim());
+        var usernameAvail =
+            await isUsernameAvailable(usernameController.text.trim());
 
         if (!usernameAvail) {
           usernameAvailable.value = false;
           customSnackbar(
-              "Username Unavailable!",
-              "This username is invalid or either taken already.",
-              MessageType.error);
+            "Username Unavailable!",
+            "This username is invalid or either taken already.",
+            MessageType.error,
+          );
+
+          SemanticsService.announce(
+            "This username is invalid or either taken already.",
+            TextDirection.ltr,
+          );
           return;
         }
 
@@ -291,7 +299,8 @@ class EditProfileController extends GetxController {
       //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
-        await authStateController.account.updateName(name: nameController.text.trim());
+        await authStateController.account
+            .updateName(name: nameController.text.trim());
 
         await databases.updateDocument(
           databaseId: userDatabaseID,
@@ -315,18 +324,41 @@ class EditProfileController extends GetxController {
 
       // The Success snackbar is only shown when there is change made, otherwise it is not shown
       if (showSuccessSnackbar) {
-        customSnackbar('Profile updated', 'All changes are saved successfully.',
-            MessageType.success);
+        customSnackbar(
+          'Profile updated',
+          'All changes are saved successfully.',
+          MessageType.success,
+        );
+
+        SemanticsService.announce(
+          'All changes are saved successfully.',
+          TextDirection.ltr,
+        );
       } else {
         // This snackbar is to show user that profile is up to date and there are no changes done by user
         customSnackbar(
-            'Profile is up to date',
-            'There are no new changes made, Nothing to save.',
-            MessageType.info);
+          'Profile is up to date',
+          'There are no new changes made, Nothing to save.',
+          MessageType.info,
+        );
+
+        SemanticsService.announce(
+          'There are no new changes made, Nothing to save.',
+          TextDirection.ltr,
+        );
       }
     } catch (e) {
       log(e.toString());
-      customSnackbar('Error!', e.toString(), MessageType.error);
+      customSnackbar(
+        'Error!',
+        e.toString(),
+        MessageType.error,
+      );
+
+      SemanticsService.announce(
+        e.toString(),
+        TextDirection.ltr,
+      );
     } finally {
       isLoading.value = false;
       showSuccessSnackbar = false;

@@ -4,11 +4,8 @@
 const String baseDomain = "z7mbl3vk-5050.inc1.devtunnels.ms";
 
 const String appwriteProjectId = "resonate";
-const String appwriteEndpoint = "https://$baseDomain/v1";
+const String appwriteEndpoint = "http://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
-
-// const String appwriteEndpoint = "http://192.168.29.202:80/v1";
-
 
 // Discussion related Database Constants
 const String discussionDatabaseId = "6522fcf27a1bbc4238df";
