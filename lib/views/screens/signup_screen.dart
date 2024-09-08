@@ -190,44 +190,47 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: UiSizes.height_24_6),
                   Obx(
-                    () => ElevatedButton(
-                      onPressed: emailVerifyController.signUpIsAllowed.value
-                          ? () async {
-                              if (controller.registrationFormKey.currentState!
-                                  .validate()) {
-                                emailVerifyController.signUpIsAllowed.value =
-                                    false;
-                                var isSignedIn = await controller.signup();
-                                if (isSignedIn) {
-                                  Get.toNamed(AppRoutes.onBoarding);
-                                  customSnackbar(
-                                      "Signed Up Successfully",
-                                      "You have successfully created a new account",
-                                      MessageType.success);
+                    () => SizedBox(
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        onPressed: emailVerifyController.signUpIsAllowed.value
+                            ? () async {
+                                if (controller.registrationFormKey.currentState!
+                                    .validate()) {
                                   emailVerifyController.signUpIsAllowed.value =
-                                      true;
-                                } else {
-                                  emailVerifyController.signUpIsAllowed.value =
-                                      true;
+                                      false;
+                                  var isSignedIn = await controller.signup();
+                                  if (isSignedIn) {
+                                    Get.toNamed(AppRoutes.onBoarding);
+                                    customSnackbar(
+                                        "Signed Up Successfully",
+                                        "You have successfully created a new account",
+                                        MessageType.success);
+                                    emailVerifyController
+                                        .signUpIsAllowed.value = true;
+                                  } else {
+                                    emailVerifyController
+                                        .signUpIsAllowed.value = true;
+                                  }
                                 }
                               }
-                            }
-                          : null,
-                      child: controller.isLoading.value
-                          ? Center(
-                              child:
-                                  LoadingAnimationWidget.horizontalRotatingDots(
-                                color: Colors.black,
-                                size: UiSizes.size_20,
+                            : null,
+                        child: controller.isLoading.value
+                            ? Center(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
+                                  color: Colors.black,
+                                  size: UiSizes.size_20,
+                                ),
+                              )
+                            : Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: UiSizes.size_19,
+                                ),
                               ),
-                            )
-                          : Text(
-                              'Sign up',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: UiSizes.size_19,
-                              ),
-                            ),
+                      ),
                     ),
                   ),
                   SizedBox(height: UiSizes.height_12),
