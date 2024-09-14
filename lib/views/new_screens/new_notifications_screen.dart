@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:resonate/models/mock_models/notification_model.dart';
 import 'package:resonate/views/new_screens/new_profile_screen.dart';
 
 class NewNotificationsScreen extends StatelessWidget {
@@ -28,11 +28,12 @@ class NewNotificationsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16.0, left: 16),
             child: InkWell(
               child: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?ga=GA1.1.338869508.1708106114&semt=sph'),
+                backgroundImage: AssetImage(
+                  "assets/images/user.jpeg",
+                ),
               ),
               onTap: () {
-                Get.to(const NewProfileScreen());
+                Get.to(NewProfileScreen());
               },
             ),
           ),
@@ -122,20 +123,6 @@ class NewNotificationsScreen extends StatelessWidget {
       return dateTime.toIso8601String();
     }
   }
-}
-
-class NotificationModel {
-  final String title;
-  final String message;
-  final DateTime dateTime;
-  final bool isRead;
-
-  NotificationModel({
-    required this.title,
-    required this.message,
-    required this.dateTime,
-    this.isRead = false,
-  });
 }
 
 List<NotificationModel> getMockNotifications() {

@@ -207,10 +207,12 @@ class AppPages {
       page: () => const UserAccountScreen(),
     ),
     GetPage(
-      name: AppRoutes.newNotificationsScreen,
-      page: () => NewNotificationsScreen(),
       name: AppRoutes.aboutApp,
       page: () => AboutAppScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newNotificationsScreen,
+      page: () => NewNotificationsScreen(),
     ),
     GetPage(
       name: AppRoutes.contributeScreen,
