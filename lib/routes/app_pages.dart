@@ -214,13 +214,14 @@ class AppPages {
     GetPage(
       name: AppRoutes.newPairingScreen,
       page: () => NewPairingScreen(),
+    ),
+    GetPage(
       name: AppRoutes.aboutApp,
       page: () => AboutAppScreen(),
     ),
     GetPage(
       name: AppRoutes.contributeScreen,
       page: () => const ContributeScreen(),
-
     ),
   ];
 }

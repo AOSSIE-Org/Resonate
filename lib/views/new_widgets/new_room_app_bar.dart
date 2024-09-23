@@ -32,7 +32,7 @@ class NewRoomAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16.0, left: 16),
           child: GestureDetector(
-            onTap: () => Get.to(const NewProfileScreen()),
+            onTap: () => Get.to(NewProfileScreen()),
             child: const CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?ga=GA1.1.338869508.1708106114&semt=sph'),
