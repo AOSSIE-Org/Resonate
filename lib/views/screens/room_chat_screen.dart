@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NewRoomChatScreen extends StatelessWidget {
+class RoomChatScreen extends StatelessWidget {
   final List<Message> messages = [
     Message(
       name: 'Amar',
@@ -53,7 +53,7 @@ class NewRoomChatScreen extends StatelessWidget {
     ),
   ];
 
-  NewRoomChatScreen({super.key});
+  RoomChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

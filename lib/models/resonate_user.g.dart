@@ -6,8 +6,8 @@ part of 'resonate_user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ResonateUser _$$_ResonateUserFromJson(Map<String, dynamic> json) =>
-    _$_ResonateUser(
+_$ResonateUserImpl _$$ResonateUserImplFromJson(Map<String, dynamic> json) =>
+    _$ResonateUserImpl(
       uid: json['uid'] as String?,
       userName: json['userName'] as String?,
       profileImageUrl: json['profileImageUrl'] as String?,
@@ -15,7 +15,7 @@ _$_ResonateUser _$$_ResonateUserFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['dateOfBirth'] as String?,
     );
 
-Map<String, dynamic> _$$_ResonateUserToJson(_$_ResonateUser instance) =>
+Map<String, dynamic> _$$ResonateUserImplToJson(_$ResonateUserImpl instance) =>
     <String, dynamic>{
       'uid': instance.uid,
       'userName': instance.userName,

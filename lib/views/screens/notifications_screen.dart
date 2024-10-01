@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:resonate/models/mock_models/notification_model.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
-class NewNotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatelessWidget {
   final List<NotificationModel> notifications = getMockNotifications();
 
-  NewNotificationsScreen({super.key});
+  NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

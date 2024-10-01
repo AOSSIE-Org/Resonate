@@ -21,16 +21,14 @@ class AppRoutes {
   static const changeEmail = "/changeEmail";
   static const newLoginScreen = '/newLoginScreen';
   static const newRoomScreen = '/newRoomScreen';
-  static const newRoomChatScreen = '/newRoomChatScreen';
+  static const roomChatScreen = '/roomChatScreen';
   static const newBottomNavBar = '/newBottomNavBar';
   static const newHomeScreen = '/newHomeScreen';
   static const newCreateRoom = '/newCreateRoom';
   static const newWelcomeScreen = '/newWelcomeScreen';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
-  static const newNotificationsScreen = '/newNotificationsScreen';
-  static const newPairChatScreen = '/newPairChatScreen';
-  static const newPairingScreen = '/newPairingScreen';
+  static const notificationsScreen = '/notificationsScreen';
   static const aboutApp = "/aboutApp";
   static const contributeScreen = "/contributeScreen";
 }
