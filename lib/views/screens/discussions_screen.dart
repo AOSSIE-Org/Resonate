@@ -123,7 +123,7 @@ class DiscussionScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: UiSizes.height_10,
+                          height: UiSizes.height_20,
                         ),
                         OutlinedButton(
                             onPressed: () {
@@ -131,16 +131,10 @@ class DiscussionScreen extends StatelessWidget {
                             },
                             style: OutlinedButton.styleFrom(
                               maximumSize: Size.fromWidth(UiSizes.width_140),
-                              side: BorderSide(
-                                  color: themeController.primaryColor.value,
-                                  width: 1),
                             ),
                             child: Center(
                               child: Text(
                                 "Refresh",
-                                style: TextStyle(
-                                    color: themeController.primaryColor.value,
-                                    fontSize: UiSizes.size_15),
                               ),
                             ))
                       ],

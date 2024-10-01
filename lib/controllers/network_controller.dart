@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/views/new_widgets/new_no_connection_dialog.dart';
+import 'package:resonate/views/widgets/no_connection_dialog.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class NetworkController extends GetxController {
@@ -18,7 +18,7 @@ class NetworkController extends GetxController {
       if (status == InternetConnectionStatus.disconnected) {
         Get.dialog(
           barrierColor: Colors.transparent,
-          NewNoConnectionDialog(),
+          NoConnectionDialog(),
           barrierDismissible: false,
         );
       } else {

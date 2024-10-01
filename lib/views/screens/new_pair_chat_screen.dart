@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/new_widgets/new_room_app_bar.dart';
-import 'package:resonate/views/new_widgets/new_room_header.dart';
+import 'package:resonate/views/widgets/room_app_bar.dart';
+import 'package:resonate/views/widgets/room_header.dart';
 
 import '../../controllers/pair_chat_controller.dart';
 import '../../utils/constants.dart';
@@ -27,7 +27,7 @@ class NewPairChatScreen extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              const NewRoomAppBar(),
+              const RoomAppBar(),
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: UiSizes.height_10,
@@ -35,7 +35,7 @@ class NewPairChatScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const NewRoomHeader(
+                    const RoomHeader(
                       roomName: 'Resonate',
                       roomDescription:
                           "Be polite and respect the other person's opinion. Avoid rude comments.",

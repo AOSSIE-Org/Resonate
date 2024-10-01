@@ -1,27 +1,27 @@
 import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
-import 'package:resonate/new_themes/theme_screen.dart';
+import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/views/new_screens/new_create_room_screen.dart';
-import 'package:resonate/views/new_screens/new_home_screen.dart';
-import 'package:resonate/views/new_screens/new_login_screen.dart';
-import 'package:resonate/views/new_screens/new_notifications_screen.dart';
-import 'package:resonate/views/new_screens/new_pair_chat_screen.dart';
-import 'package:resonate/views/new_screens/new_pairing_screen.dart';
-import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
-import 'package:resonate/views/new_screens/new_room_screen.dart';
-import 'package:resonate/views/new_screens/new_tab_view.dart';
-import 'package:resonate/views/new_screens/new_welcome_screen.dart';
+import 'package:resonate/views/screens/new_create_room_screen.dart';
+import 'package:resonate/views/screens/home_screen.dart';
+import 'package:resonate/views/screens/login_screen.dart';
+import 'package:resonate/views/screens/new_notifications_screen.dart';
+import 'package:resonate/views/screens/new_pair_chat_screen.dart';
+import 'package:resonate/views/screens/new_pairing_screen.dart';
+import 'package:resonate/views/screens/new_room_chat_screen.dart';
+import 'package:resonate/views/screens/new_room_screen.dart';
+import 'package:resonate/views/screens/new_tab_view.dart';
+import 'package:resonate/views/screens/welcome_screen.dart';
 
-import 'package:resonate/views/new_screens/new_edit_profile_screen.dart';
-import 'package:resonate/views/new_screens/new_email_verification_screen.dart';
-import 'package:resonate/views/new_screens/new_forgot_password_screen.dart';
-import 'package:resonate/views/new_screens/new_onboarding_screen.dart';
-import 'package:resonate/views/new_screens/new_profile_screen.dart';
-import 'package:resonate/views/new_screens/new_settings_screen.dart';
-import 'package:resonate/views/new_screens/new_signup_screen.dart';
-import 'package:resonate/views/new_screens/user_account_screen.dart';
+import 'package:resonate/views/screens/edit_profile_screen.dart';
+import 'package:resonate/views/screens/email_verification_screen.dart';
+import 'package:resonate/views/screens/forgot_password_screen.dart';
+import 'package:resonate/views/screens/onboarding_screen.dart';
+import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/views/screens/settings_screen.dart';
+import 'package:resonate/views/screens/signup_screen.dart';
+import 'package:resonate/views/screens/user_account_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
@@ -33,8 +33,8 @@ import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
 
 import '../bindings/tabview_binding.dart';
-import '../views/new_screens/about_app_screen.dart';
-import '../views/new_screens/contribute_screen.dart';
+import '../views/screens/about_app_screen.dart';
+import '../views/screens/contribute_screen.dart';
 import '../views/screens/home_screen.dart';
 import '../views/screens/pair_chat_screen.dart';
 
@@ -57,12 +57,12 @@ class AppPages {
     // ),
     GetPage(
       name: AppRoutes.signup,
-      page: () => const NewSignupScreen(),
+      page: () => const SignupScreen(),
       binding: AuthSplashBinding(),
     ),
     GetPage(
       name: AppRoutes.emailVerification,
-      page: () => NewEmailVerificationScreen(),
+      page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
     // GetPage(
@@ -77,7 +77,7 @@ class AppPages {
     // ),
     GetPage(
       name: AppRoutes.newLoginScreen,
-      page: () => const NewLoginScreen(),
+      page: () => const LoginScreen(),
       binding: AuthSplashBinding(),
     ),
     // GetPage(
@@ -87,12 +87,12 @@ class AppPages {
     // ),
     GetPage(
       name: AppRoutes.profile,
-      page: () => NewProfileScreen(),
+      page: () => ProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
       name: AppRoutes.onBoarding,
-      page: () => const NewOnBoardingScreen(),
+      page: () => const OnBoardingScreen(),
       binding: ProfileBinding(),
     ),
     // GetPage(
@@ -102,7 +102,7 @@ class AppPages {
     // ),
     GetPage(
       name: AppRoutes.forgotPassword,
-      page: () => const NewForgotPasswordScreen(),
+      page: () => const ForgotPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -145,7 +145,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.settings,
-      page: () => NewSettingsScreen(),
+      page: () => SettingsScreen(),
     ),
     // GetPage(
     //   name: AppRoutes.settings,
@@ -159,7 +159,7 @@ class AppPages {
     // ),
     GetPage(
       name: AppRoutes.editProfile,
-      page: () => NewEditProfileScreen(),
+      page: () => EditProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -174,11 +174,11 @@ class AppPages {
     // New Screens
     GetPage(
       name: AppRoutes.newWelcomeScreen,
-      page: () => const NewWelcomeScreen(),
+      page: () => WelcomeScreen(),
     ),
     GetPage(
       name: AppRoutes.newLoginScreen,
-      page: () => const NewLoginScreen(),
+      page: () => const LoginScreen(),
     ),
     GetPage(
       name: AppRoutes.newRoomScreen,
@@ -194,7 +194,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.newHomeScreen,
-      page: () => const NewHomeScreen(),
+      page: () => const HomeScreen(),
     ),
     GetPage(
       name: AppRoutes.newCreateRoom,

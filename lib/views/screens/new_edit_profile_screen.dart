@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/new_widgets/new_loading_dialog.dart';
+import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/edit_profile_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/constants.dart';
 
-class NewEditProfileScreen extends StatelessWidget {
-  NewEditProfileScreen({super.key});
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({super.key});
 
   // Initializing controllers
   final EditProfileController editProfileController =
@@ -294,7 +294,7 @@ class NewEditProfileScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                     // Display Loading Dialog
-                    newLoadingDialog(context);
+                    loadingDialog(context);
                     editProfileController.pickImageFromCamera();
                   },
                   icon: Icon(
@@ -314,7 +314,7 @@ class NewEditProfileScreen extends StatelessWidget {
                     Navigator.pop(context);
 
                     // Display Loading Dialog
-                    newLoadingDialog(context);
+                    loadingDialog(context);
                     editProfileController.pickImageFromGallery();
                   },
                   icon: Icon(

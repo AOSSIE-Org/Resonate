@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'new_home_screen.dart';
+import 'home_screen.dart';
 
-class NewNoRoomScreen extends StatelessWidget {
-  NewNoRoomScreen({super.key});
+class NoRoomScreen extends StatelessWidget {
+  NoRoomScreen({super.key});
 
   final List<String> categories = [
     'Popular',

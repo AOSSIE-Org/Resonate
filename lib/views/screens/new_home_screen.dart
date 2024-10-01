@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/enums/room_state.dart';
-import 'package:resonate/views/new_screens/new_notifications_screen.dart';
+import 'package:resonate/views/screens/new_notifications_screen.dart';
 
 class NewHomeScreen extends StatefulWidget {
   const NewHomeScreen({super.key});

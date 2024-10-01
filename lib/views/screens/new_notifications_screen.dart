@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/models/mock_models/notification_model.dart';
-import 'package:resonate/views/new_screens/new_profile_screen.dart';
+import 'package:resonate/views/screens/profile_screen.dart';
 
 class NewNotificationsScreen extends StatelessWidget {
   final List<NotificationModel> notifications = getMockNotifications();
@@ -33,7 +33,7 @@ class NewNotificationsScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(NewProfileScreen());
+                Get.to(ProfileScreen());
               },
             ),
           ),

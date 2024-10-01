@@ -17,6 +17,7 @@ import 'auth_state_controller.dart';
 
 class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isOnActive = false.obs;
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   List<AppwriteRoom> rooms = [];
