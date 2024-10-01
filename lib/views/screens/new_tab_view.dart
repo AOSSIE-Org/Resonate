@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:resonate/views/new_screens/new_create_no_room_screen.dart';
-import 'package:resonate/views/new_screens/new_create_room_screen.dart';
-import 'package:resonate/views/new_screens/new_home_screen.dart';
+import 'package:resonate/views/screens/create_no_room_screen.dart';
+import 'package:resonate/views/screens/new_create_room_screen.dart';
+import 'package:resonate/views/screens/home_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -47,10 +47,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
 List<Widget> _buildScreens() {
   return [
-    // NewNoRoomScreen(),
-    const NewHomeScreen(),
+    // NoRoomScreen(),
+    const HomeScreen(),
     Container(), // empty screen
-    NewNoRoomScreen(),
+    NoRoomScreen(),
   ];
 }
 

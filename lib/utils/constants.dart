@@ -1,11 +1,10 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "z7mbl3vk-5050.inc1.devtunnels.ms";
-
+const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
-const String appwriteEndpoint = "http://$baseDomain/v1";
-const String localhostLivekitEndpoint = "http://$baseDomain/livekit";
+const String appwriteEndpoint = "http://$baseDomain:80/v1";
+const String localhostLivekitEndpoint = "http://$baseDomain:7880";
 
 // Discussion related Database Constants
 const String discussionDatabaseId = "6522fcf27a1bbc4238df";

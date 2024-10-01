@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
-import '../../themes/theme_controller.dart';
+import 'package:resonate/controllers/forgot_password_controller.dart';
+
 import '../../utils/ui_sizes.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -12,80 +13,81 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final authController = Get.find<AuthenticationController>();
-  TextEditingController emailController = TextEditingController();
-  var themeController = Get.find<ThemeController>();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    super.dispose();
-  }
+  final forgotPasswordController = Get.put(ForgotPasswordController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset Password'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(24.0),
-              child: Text(
-                'Enter your email and we will send you a reset link',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(),
+      body: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: UiSizes.width_20,
+          vertical: UiSizes.height_20,
+        ),
+        width: double.maxFinite,
+        child: Form(
+          key: forgotPasswordController.forgotPasswordFormKey,
+          child: Column(
+            children: [
+              SizedBox(
+                height: UiSizes.height_60,
               ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: 300,
-              padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
-              child: TextFormField(
-                validator: (value) {
-                  return null;
-                },
-                controller: emailController,
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Forgot Password",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Enter your registered email address to reset your password.",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: UiSizes.height_20,
+              ),
+              TextFormField(
+                controller: forgotPasswordController.emailController,
+                validator: (value) =>
+                    value!.isValidEmail() ? null : "Enter Valid Email Address",
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(
-                  fontSize: UiSizes.size_14,
-                  color: themeController.loadTheme() == 'dark'
-                      ? Colors.white
-                      : Colors.black,
-                ),
                 autocorrect: false,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.alternate_email,
-                    size: UiSizes.size_23,
-                  ),
-                  errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                  labelText: "Email ID",
-                  labelStyle: TextStyle(
-                    color: themeController.loadTheme() == 'dark'
-                        ? Colors.white
-                        : Colors.black,
+                decoration: const InputDecoration(
+                  hintText: "Email",
+                ),
+              ),
+              SizedBox(
+                height: UiSizes.height_30,
+              ),
+              SizedBox(
+                width: double.maxFinite,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (forgotPasswordController
+                        .forgotPasswordFormKey.currentState!
+                        .validate()) {
+                      forgotPasswordController.sendRecoveryEmail();
+                    }
+                  },
+                  child: const Text(
+                    "Next",
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            MaterialButton(
-              onPressed: () {
-                authController.resetPassword(emailController.text);
-              },
-              color: Colors.amber,
-              child: const Text(
-                'Reset Password',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

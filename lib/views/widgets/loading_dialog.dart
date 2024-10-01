@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-Future<Widget?> newLoadingDialog(BuildContext context) {
+Future<Widget?> loadingDialog(BuildContext context) {
 
   return Get.dialog<Widget>(
       Center(

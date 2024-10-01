@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/auth_button.dart';
 
-import 'forgot_password_screen.dart';
+import '../../controllers/authentication_controller.dart';
+import '../../routes/app_routes.dart';
+import '../../themes/theme_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,218 +26,159 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            height: UiSizes.height_780,
-            padding: EdgeInsets.symmetric(
-                horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
-            child: Form(
-              key: controller.loginFormKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: UiSizes.width_140,
-                    height: UiSizes.height_140,
-                    child: Image.asset(AppImages.aossieLogoImage),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Text(
-                    "Welcome Back",
-                    style: TextStyle(
-                        fontSize: UiSizes.size_25,
-                        color: themeController.primaryColor.value),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
-                    child: TextFormField(
+    return PopScope(
+      onPopInvoked: (didPop) {
+        controller.emailController.clear();
+        controller.passwordController.clear();
+        controller.confirmPasswordController.clear();
+        controller.isPasswordFieldVisible.value = false;
+        controller.isConfirmPasswordFieldVisible.value = false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(),
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: UiSizes.width_20,
+            vertical: UiSizes.height_20,
+          ),
+          width: double.maxFinite,
+          child: Form(
+            key: controller.loginFormKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: UiSizes.height_60,
+                    ),
+                    Text(
+                      "Login",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    TextFormField(
                       validator: (value) => value!.isValidEmail()
                           ? null
                           : "Enter Valid Email Address",
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(
-                          fontSize: UiSizes.size_14,
-                          color: Theme.of(context).colorScheme.onPrimary),
                       autocorrect: false,
-                      decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.alternate_email,
-                            size: UiSizes.size_23,
-                          ),
-                          errorStyle: TextStyle(fontSize: UiSizes.size_14),
-                          labelText: "Email ID",
-                          labelStyle: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary)),
+                      decoration: const InputDecoration(
+                        hintText: "Email",
+                      ),
                     ),
-                  ),
-                  SizedBox(height: UiSizes.height_10),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_4),
-                    child: Obx(
+                    SizedBox(
+                      height: UiSizes.height_10,
+                    ),
+                    Obx(
                       () => TextFormField(
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
+                        validator: (value) =>
+                            value! == "" ? "Password can't be empty" : null,
                         enableSuggestions: false,
                         autocorrect: false,
-                        style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: Theme.of(context).colorScheme.onPrimary),
                         decoration: InputDecoration(
-                          icon: Icon(
-                            size: UiSizes.size_23,
-                            Icons.lock_outline_rounded,
-                          ),
-                          labelText: "Password",
-                          labelStyle: TextStyle(
-                              color: Theme.of(context).colorScheme.onPrimary),
-                          errorStyle: TextStyle(
-                            fontSize: UiSizes.size_14,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              controller.isPasswordFieldVisible.value =
-                                  !controller.isPasswordFieldVisible.value;
-                            },
-                            splashRadius: UiSizes.height_20,
-                            icon: Icon(
-                              size: UiSizes.size_23,
-                              controller.isPasswordFieldVisible.value
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+                          hintText: "Password",
+                          suffixIcon: Semantics(
+                            label: (controller.isPasswordFieldVisible.value)
+                                ? "Hide password"
+                                : "Show password",
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.isPasswordFieldVisible.value =
+                                    !controller.isPasswordFieldVisible.value;
+                              },
+                              child: Container(
+                                width: 56,
+                                color: Colors.transparent,
+                                child: Icon(
+                                  controller.isPasswordFieldVisible.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: UiSizes.height_15),
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
+                    SizedBox(
+                      height: UiSizes.height_30,
+                    ),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: Obx(
+                        () => ElevatedButton(
+                          onPressed: () async {
+                            if (!controller.isLoading.value) {
+                              if (controller.loginFormKey.currentState!
+                                  .validate()) {
+                                await controller.login();
+                              }
+                            }
+                          },
+                          child: controller.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget
+                                      .horizontalRotatingDots(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    size: UiSizes.size_40,
+                                  ),
+                                )
+                              : const Text(
+                                  "Login",
+                                ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: UiSizes.height_40,
+                    ),
+                    GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const ForgotPasswordScreen();
-                            },
-                          ),
-                        );
+                        Get.offNamed(AppRoutes.forgotPassword);
                       },
                       child: Text(
                         "Forgot Password?",
                         style: TextStyle(
-                            color: themeController.primaryColor.value,
-                            fontSize: UiSizes.size_14),
-                        textAlign: TextAlign.right,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: UiSizes.height_15),
-                  Obx(
-                    () => ElevatedButton(
-                      onPressed: () async {
-                        if (!controller.isLoading.value) {
-                          await controller.login();
-                          controller.emailController.clear();
-                          controller.passwordController.clear();
-                          controller.confirmPasswordController.clear();
-                        }
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("New to Resonate? "),
+                    GestureDetector(
+                      onTap: () {
+                        controller.emailController.clear();
+                        controller.passwordController.clear();
+                        controller.confirmPasswordController.clear();
+                        controller.isPasswordFieldVisible.value = false;
+                        controller.isConfirmPasswordFieldVisible.value = false;
+                        Get.offNamed(AppRoutes.signup);
                       },
-                      child: controller.isLoading.value
-                          ? Center(
-                              child:
-                                  LoadingAnimationWidget.horizontalRotatingDots(
-                                color: Colors.black,
-                                size: UiSizes.size_40,
-                              ),
-                            )
-                          : Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: UiSizes.size_19,
-                              ),
-                            ),
-                    ),
-                  ),
-                  SizedBox(height: UiSizes.height_20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                      Text(
-                        "OR",
-                        style: TextStyle(fontSize: UiSizes.size_14),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          indent: UiSizes.width_20,
-                          endIndent: UiSizes.width_10,
-                          thickness: UiSizes.height_1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: UiSizes.height_24_6),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGoogle();
-                    },
-                    logoPath: "assets/images/google_icon.png",
-                    authText: "Login with Google",
-                  ),
-                  SizedBox(height: UiSizes.height_16),
-                  AuthButtonWidget(
-                    onPressed: () async {
-                      await controller.loginWithGithub();
-                    },
-                    logoPath: "assets/images/github_icon.png",
-                    authText: "Login with Github",
-                  ),
-                  SizedBox(
-                    height: UiSizes.height_40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "New to Resonate?",
+                      child: Text(
+                        "Register",
                         style: TextStyle(
-                            fontSize: UiSizes.size_14,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ),
-                      SizedBox(
-                        width: UiSizes.width_5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          controller.emailController.clear();
-                          controller.passwordController.clear();
-                          controller.confirmPasswordController.clear();
-                          Get.toNamed(AppRoutes.signup);
-                        },
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                              color: themeController.primaryColor.value,
-                              fontSize: UiSizes.size_14),
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
-                      )
-                    ],
-                  ),
-                  const Spacer(),
-                ],
-              ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),

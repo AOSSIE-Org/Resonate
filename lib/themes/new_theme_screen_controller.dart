@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/new_themes/theme_enum.dart';
+import 'package:resonate/themes/theme_enum.dart';
 
 
 class NewThemeController extends GetxController {
@@ -9,7 +9,7 @@ class NewThemeController extends GetxController {
 
   Rx<String> currentTheme = NewThemes.classic.name.obs;
 
-
+//hahahha
   @override
   void onInit() {
     super.onInit();

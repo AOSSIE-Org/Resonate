@@ -85,7 +85,7 @@ class NewRoomChatScreen extends StatelessWidget {
               },
             ),
           ),
-          ChatInputField(),
+          const ChatInputField(),
         ],
       ),
     );
@@ -148,6 +148,8 @@ class ChatMessageItem extends StatelessWidget {
 }
 
 class ChatInputField extends StatelessWidget {
+  const ChatInputField({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

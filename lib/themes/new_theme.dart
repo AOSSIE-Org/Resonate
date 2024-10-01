@@ -92,6 +92,8 @@ class NewTheme {
   }
 
   static ThemeData setDarkTheme(ThemeModel theme) {
+    print("printing pirmary colour while setting theme");
+    print(theme.primaryColor);
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
       scaffoldBackgroundColor: theme.surfaceColor,

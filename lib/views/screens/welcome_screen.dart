@@ -4,12 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/new_themes/theme_screen.dart';
-import 'package:resonate/views/new_widgets/welcome_screen_dialog.dart';
+import 'package:resonate/views/widgets/welcome_screen_dialog.dart';
 
-class NewWelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatelessWidget {
   var controller = Get.find<AuthenticationController>();
-  NewWelcomeScreen({super.key});
+  WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

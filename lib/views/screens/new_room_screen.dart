@@ -8,7 +8,7 @@ import 'package:resonate/models/participant.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
+import 'package:resonate/views/screens/new_room_chat_screen.dart';
 
 class NewRoomScreen extends StatefulWidget {
   const NewRoomScreen({

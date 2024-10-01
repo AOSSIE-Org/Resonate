@@ -3,56 +3,62 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/utils/colors.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/onboarding_controller.dart';
+import '../../utils/ui_sizes.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OnboardingController>(
       builder: (controller) => Scaffold(
-        body: SafeArea(
+        appBar: AppBar(
+          toolbarHeight: 0,
+        ),
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: UiSizes.height_20,
+            horizontal: UiSizes.width_20,
+          ),
+          width: double.maxFinite,
           child: SingleChildScrollView(
-            child: Container(
-              height: UiSizes.height_740,
-              width: Get.width,
-              padding: EdgeInsets.symmetric(
-                  horizontal: UiSizes.width_20, vertical: UiSizes.height_10),
+            child: Form(
+              key: controller.userOnboardingFormKey,
               child: SingleChildScrollView(
-                child: Form(
-                  key: controller.userOnboardingFormKey,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: UiSizes.height_33),
-                      Text(
-                        "Complete your Profile",
-                        style: TextStyle(fontSize: UiSizes.size_28),
-                      ),
-                      SizedBox(height: UiSizes.height_33),
-                      GestureDetector(
+                child: Column(
+                  children: [
+                    SizedBox(height: UiSizes.height_40),
+                    Text(
+                      "Complete your Profile",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    SizedBox(height: UiSizes.height_60),
+                    Semantics(
+                      label: "Upload profile picture",
+                      child: GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
-                          backgroundColor: Colors.black,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                           backgroundImage: (controller.profileImagePath == null)
                               ? NetworkImage(controller.imageController.text)
                               : FileImage(File(controller.profileImagePath!))
                                   as ImageProvider,
-                          radius: UiSizes.size_70,
+                          radius: UiSizes.width_80,
                           child: Stack(
                             children: [
                               Align(
                                 alignment: Alignment.bottomRight,
                                 child: CircleAvatar(
-                                  radius: UiSizes.size_15,
-                                  backgroundColor: Colors.yellow,
-                                  // TO CONTINUE`
+                                  radius: UiSizes.width_20,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
                                   child: Icon(
                                     Icons.edit,
-                                    color: Colors.black,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
                                     size: UiSizes.size_20,
                                   ),
                                 ),
@@ -61,120 +67,78 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: UiSizes.height_30),
-                      SizedBox(
-                        height: UiSizes.height_66,
-                        child: TextFormField(
-                          cursorRadius: const Radius.circular(10),
-                          style: TextStyle(fontSize: UiSizes.size_14),
-                          validator: (value) =>
-                              value!.isNotEmpty ? null : "Enter Valid Name",
-                          controller: controller.nameController,
-                          keyboardType: TextInputType.text,
-                          autocorrect: false,
-                          decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.person,
-                              size: UiSizes.size_23,
-                            ),
-                            errorStyle: TextStyle(
-                              fontSize: UiSizes.size_14,
-                            ),
-                            labelText: "Full Name",
-                            labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: UiSizes.height_1),
-                          ),
+                    ),
+                    SizedBox(height: UiSizes.height_40),
+                    TextFormField(
+                      validator: (value) =>
+                          value!.isNotEmpty ? null : "Enter Valid Name",
+                      controller: controller.nameController,
+                      keyboardType: TextInputType.text,
+                      autocorrect: false,
+                      decoration: const InputDecoration(
+                        // hintText: "Name",
+                        labelText: "Name",
+                        prefixIcon: Icon(Icons.abc_rounded),
+                      ),
+                    ),
+                    SizedBox(height: UiSizes.height_20),
+                    Obx(
+                      () => TextFormField(
+                        validator: (value) {
+                          if (value!.length > 5) {
+                            return null;
+                          } else {
+                            return "Username should contain more than 5 characters.";
+                          }
+                        },
+                        controller: controller.usernameController,
+                        onChanged: (value) async {
+                          if (value.length > 5) {
+                            controller.usernameAvailable.value =
+                                await controller
+                                    .isUsernameAvailable(value.trim());
+                          } else {
+                            controller.usernameAvailable.value = false;
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          // hintText: "Username",
+                          labelText: "Username",
+                          prefixIcon: const Icon(Icons.person),
+                          suffixIcon: controller.usernameAvailable.value
+                              ? const Icon(
+                                  Icons.verified_outlined,
+                                  color: Colors.green,
+                                )
+                              : null,
                         ),
                       ),
-                      SizedBox(height: UiSizes.height_24_6),
-                      SizedBox(
-                        height: UiSizes.height_70,
-                        child: Obx(
-                          () => TextFormField(
-                            cursorRadius: const Radius.circular(10),
-                            style: TextStyle(fontSize: UiSizes.height_14),
-                            validator: (value) {
-                              if (value!.length > 5) {
-                                return null;
-                              } else {
-                                return "Username should contain more than 5 characters.";
-                              }
-                            },
-                            controller: controller.usernameController,
-                            onChanged: (value) async {
-                              if (value.length > 5) {
-                                controller.usernameAvailable.value =
-                                    await controller
-                                        .isUsernameAvailable(value.trim());
-                              } else {
-                                controller.usernameAvailable.value = false;
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                                floatingLabelStyle: TextStyle(
-                                    fontSize: UiSizes.height_14,
-                                    color: AppColor.yellowColor),
-                                prefixStyle:
-                                    TextStyle(fontSize: UiSizes.height_14),
-                                errorStyle:
-                                    TextStyle(fontSize: UiSizes.height_14),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: UiSizes.height_1),
-                                icon: Icon(
-                                  Icons.account_circle,
-                                  size: UiSizes.size_23,
-                                ),
-                                labelText: "Username",
-                                prefixText: "@",
-                                labelStyle:
-                                    TextStyle(fontSize: UiSizes.size_13),
-                                suffixIcon: controller.usernameAvailable.value
-                                    ? Icon(
-                                        Icons.verified_outlined,
-                                        size: UiSizes.size_23,
-                                      )
-                                    : null),
-                          ),
-                        ),
+                    ),
+                    SizedBox(height: UiSizes.height_20),
+                    TextFormField(
+                      validator: (value) =>
+                          value!.isNotEmpty ? null : "Enter Valid DOB",
+                      readOnly: true,
+                      onTap: () async {
+                        await controller.chooseDate();
+                      },
+                      canRequestFocus: false,
+                      controller: controller.dobController,
+                      keyboardType: TextInputType.text,
+                      autocorrect: false,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.calendar_month_rounded),
+                        labelText: "Date of Birth",
+                        // hintText: "Date of Birth",
                       ),
-                      SizedBox(height: UiSizes.height_24_6),
-                      SizedBox(
-                        height: UiSizes.height_66,
-                        child: TextFormField(
-                          style: TextStyle(fontSize: UiSizes.size_14),
-                          validator: (value) =>
-                              value!.isNotEmpty ? null : "Enter Valid DOB",
-                          readOnly: true,
-                          controller: controller.dobController,
-                          keyboardType: TextInputType.text,
-                          autocorrect: false,
-                          decoration: InputDecoration(
-                            icon: Icon(
-                              Icons.calendar_month,
-                              size: UiSizes.size_23,
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: UiSizes.height_1),
-                            labelText: "Date of Birth",
-                            labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                            suffix: GestureDetector(
-                              onTap: () async {
-                                await controller.chooseDate();
-                              },
-                              child: const Icon(Icons.date_range),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: UiSizes.height_66),
-                      SizedBox(
-                        height: UiSizes.height_55,
-                      ),
-                      Obx(() {
-                        return ElevatedButton(
+                    ),
+                    SizedBox(height: UiSizes.height_40),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: Obx(
+                        () => ElevatedButton(
                           onPressed: () async {
                             if (!controller.isLoading.value) {
                               await controller.saveProfile();
@@ -184,21 +148,16 @@ class OnBoardingScreen extends StatelessWidget {
                               ? Center(
                                   child: LoadingAnimationWidget
                                       .horizontalRotatingDots(
-                                    color: Colors.black,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
                                     size: UiSizes.size_40,
                                   ),
                                 )
-                              : Text(
-                                  'Submit',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: UiSizes.size_21_3,
-                                  ),
-                                ),
-                        );
-                      }),
-                    ],
-                  ),
+                              : const Text('Submit'),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
