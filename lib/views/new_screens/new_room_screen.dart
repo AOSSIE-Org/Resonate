@@ -9,6 +9,8 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
+import 'package:resonate/views/new_widgets/new_room_app_bar.dart';
+import 'package:resonate/views/new_widgets/new_room_header.dart';
 
 class NewRoomScreen extends StatefulWidget {
   const NewRoomScreen({
@@ -199,13 +201,17 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildRoomHeader(),
+            const NewRoomAppBar(),
+            NewRoomHeader(
+              roomName: room.name,
+              roomDescription: room.description,
+              roomTags: _getTags(),
+            ),
             SizedBox(height: UiSizes.height_7),
             Expanded(child: _buildParticipantsList()),
           ],
@@ -214,69 +220,6 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      elevation: 0,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.keyboard_arrow_down,
-          // color: Colors.black,
-          size: 36,
-        ),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            FontAwesomeIcons.comments,
-          ),
-          onPressed: () {
-            Get.to(NewRoomChatScreen());
-          },
-        ),
-        const Padding(
-          padding: EdgeInsets.only(right: 16.0, left: 16),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?ga=GA1.1.338869508.1708106114&semt=sph'),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRoomHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          room.name,
-          style: TextStyle(
-            fontSize: UiSizes.size_20,
-            // color: Colors.black,
-          ),
-        ),
-        SizedBox(height: UiSizes.height_8),
-        Text(
-          _getTags(),
-          style: TextStyle(
-            fontSize: UiSizes.size_15,
-            fontWeight: FontWeight.w100,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(height: UiSizes.height_7),
-        Text(
-          room.description,
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: UiSizes.size_14,
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildParticipantsList() {
     // return Obx(() {
@@ -319,6 +262,7 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             title,
@@ -341,7 +285,7 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
             ),
             itemCount: participants.length,
             itemBuilder: (ctx, index) {
-              return ParticepantItem(
+              return ParticipantItem(
                 participant: participants[index].value,
               );
             },
@@ -537,8 +481,8 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
   // }
 }
 
-class ParticepantItem extends StatelessWidget {
-  const ParticepantItem({super.key, required this.participant});
+class ParticipantItem extends StatelessWidget {
+  const ParticipantItem({super.key, required this.participant});
   final Participant participant;
   @override
   Widget build(BuildContext context) {
