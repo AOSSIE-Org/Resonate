@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class NewRoomHeader extends StatelessWidget {
-  const NewRoomHeader(
+class RoomHeader extends StatelessWidget {
+  const RoomHeader(
       {super.key,
       required this.roomName,
       required this.roomDescription,

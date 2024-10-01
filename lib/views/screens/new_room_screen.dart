@@ -9,8 +9,8 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/new_room_chat_screen.dart';
-import 'package:resonate/views/widgets/new_room_app_bar.dart';
-import 'package:resonate/views/widgets/new_room_header.dart';
+import 'package:resonate/views/widgets/room_app_bar.dart';
+import 'package:resonate/views/widgets/room_header.dart';
 
 class NewRoomScreen extends StatefulWidget {
   const NewRoomScreen({
@@ -206,8 +206,8 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const NewRoomAppBar(),
-            NewRoomHeader(
+            const RoomAppBar(),
+            RoomHeader(
               roomName: room.name,
               roomDescription: room.description,
               roomTags: _getTags(),
@@ -219,7 +219,6 @@ class _NewRoomScreenState extends State<NewRoomScreen> {
       ),
     );
   }
-
 
   Widget _buildParticipantsList() {
     // return Obx(() {
