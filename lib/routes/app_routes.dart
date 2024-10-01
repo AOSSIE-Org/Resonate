@@ -28,6 +28,8 @@ class AppRoutes {
   static const newWelcomeScreen = '/newWelcomeScreen';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
+  static const newPairChatScreen = '/newPairChatScreen';
+  static const newPairingScreen = '/newPairingScreen';
   static const aboutApp = "/aboutApp";
   static const contributeScreen = "/contributeScreen";
 }
