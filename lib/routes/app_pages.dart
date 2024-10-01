@@ -6,6 +6,7 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/new_screens/new_create_room_screen.dart';
 import 'package:resonate/views/new_screens/new_home_screen.dart';
 import 'package:resonate/views/new_screens/new_login_screen.dart';
+import 'package:resonate/views/new_screens/new_notifications_screen.dart';
 import 'package:resonate/views/new_screens/new_pair_chat_screen.dart';
 import 'package:resonate/views/new_screens/new_pairing_screen.dart';
 import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
@@ -218,6 +219,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.aboutApp,
       page: () => AboutAppScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.newNotificationsScreen,
+      page: () => NewNotificationsScreen(),
     ),
     GetPage(
       name: AppRoutes.contributeScreen,
