@@ -209,19 +209,19 @@ final List<SongModel> songsList = [
 ];
 final List<StoryModel> storiesList = [
   StoryModel(
-    name: 'Aya',
+    name: 'King',
     image: 'assets/images/cover_image_1.jpg',
   ),
   StoryModel(
-    name: 'Chandan',
+    name: 'Queen',
     image: 'assets/images/cover_image_2.jpg',
   ),
   StoryModel(
-    name: 'Aarush',
+    name: 'Soldier',
     image: 'assets/images/cover_image_1.jpg',
   ),
   StoryModel(
-    name: 'Ayaan',
+    name: 'Knight',
     image: 'assets/images/cover_image_2.jpg',
   ),
 ];

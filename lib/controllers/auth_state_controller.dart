@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/controllers/discussions_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -49,12 +49,12 @@ class AuthStateController extends GetxController {
   void onDidReceiveNotificationResponse(
       NotificationResponse notificationResponse) async {
     String name = notificationResponse.payload!;
-    DiscussionsController discussionsController =
-        Get.find<DiscussionsController>();
-    int index = discussionsController.discussions
-        .indexWhere((discussion) => discussion.data["name"] == name);
+    UpcomingRoomsController upcomingRoomsController =
+        Get.find<UpcomingRoomsController>();
+    int index = upcomingRoomsController.upcomingRooms
+        .indexWhere((upcomingRoom) => upcomingRoom.name == name);
 
-    discussionsController.discussionScrollController.value =
+    upcomingRoomsController.upcomingRoomScrollController.value =
         ScrollController(initialScrollOffset: UiSizes.height_170 * index);
 
     final TabViewController tabViewController = Get.find<TabViewController>();
@@ -178,7 +178,7 @@ class AuthStateController extends GetxController {
   Future<void> addRegistrationTokentoSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
-        databaseId: discussionDatabaseId,
+        databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
@@ -188,7 +188,7 @@ class AuthStateController extends GetxController {
           subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: discussionDatabaseId,
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});
@@ -198,7 +198,7 @@ class AuthStateController extends GetxController {
   Future<void> removeRegistrationTokenFromSubscribedDiscussions() async {
     final fcmToken = await messaging.getToken();
     List<Document> subscribedDiscussions = await databases.listDocuments(
-        databaseId: discussionDatabaseId,
+        databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
@@ -208,7 +208,7 @@ class AuthStateController extends GetxController {
           subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: discussionDatabaseId,
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});

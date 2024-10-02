@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/room_state.dart';
@@ -12,6 +14,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+final RoomsController roomsController = Get.put(RoomsController());
+
+final UpcomingRoomsController upcomingRoomsController =
+    Get.put(UpcomingRoomsController());
+
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> categories = [
     'Popular',
@@ -19,12 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'Design',
   ];
   bool isLiveSelected = false;
+
   Future<void> pullToRefreshData() async {
-    await Future.delayed(
-      const Duration(
-        microseconds: 30,
-      ),
-    );
+    await roomsController.getRooms();
+    await upcomingRoomsController.getUpcomingRooms();
   }
 
   @override
@@ -32,9 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text("Rooms"),
               CustomAppBarLiveRoom(
                 isLiveSelected: isLiveSelected,
                 onTabSelected: (bool selectedTab) {
@@ -45,10 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              // : const GeneralAppBar(),
-              CustomCategoryChips(
-                categories: categories,
-              ),
+              // Will be implemented later on
+              // CustomCategoryChips(
+              //   categories: categories,
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -107,10 +114,10 @@ class CustomAppBarLiveRoom extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Icon(
-          Icons.search,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        // Icon(
+        //   Icons.search,
+        //   color: Theme.of(context).colorScheme.primary,
+        // ),
         const SizedBox(
           width: 15,
         ),
@@ -121,11 +128,11 @@ class CustomAppBarLiveRoom extends StatelessWidget {
             Get.toNamed(AppRoutes.notificationsScreen);
           },
         ),
-        const SizedBox(width: 15),
-        const CustomCircleAvatar(
-          userImage:
-              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-        ),
+        // const SizedBox(width: 15),
+        // const CustomCircleAvatar(
+        //   userImage:
+        //       'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+        // ),
       ],
     );
   }
@@ -289,6 +296,7 @@ class UpcomingRoomsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      //   itemCount: discussionsController.discussions.length,
       itemCount: upcomingRoomDummyData.length,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
@@ -312,15 +320,14 @@ class LiveRoomListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      // primary: true,
-      itemCount: upcomingRoomDummyData.length,
+      itemCount: roomsController.rooms.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 8.0,
           ),
           child: CustomLiveRoomTile(
-            appwriteRoom: upcomingRoomDummyData[index],
+            appwriteRoom: roomsController.rooms[index],
           ),
         );
       },

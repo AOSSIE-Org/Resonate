@@ -5,7 +5,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
-import 'package:resonate/controllers/discussions_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -31,8 +31,8 @@ class TabViewScreen extends StatelessWidget {
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
   final RoomsController roomsController = Get.find<RoomsController>();
-  final discussionsController =
-      Get.put<DiscussionsController>(DiscussionsController());
+  final upcomingRoomsController =
+      Get.put<UpcomingRoomsController>(UpcomingRoomsController());
   final ThemeController themeController = Get.find<ThemeController>();
 
   TabViewScreen({super.key});
@@ -107,8 +107,8 @@ class TabViewScreen extends StatelessWidget {
                       onPressed: () async {
                         if (createRoomController.isScheduled.value) {
                           createRoomController.isLoading.value = true;
-                          await discussionsController.createDiscussion();
-                          discussionsController.getDiscussions();
+                          await upcomingRoomsController.createUpcomingRoom();
+                          upcomingRoomsController.getUpcomingRooms();
                           createRoomController.isLoading.value = false;
                           controller.setIndex(3);
                         } else {
@@ -138,8 +138,7 @@ class TabViewScreen extends StatelessWidget {
             iconSize: UiSizes.size_30,
             icons: const [
               Icons.home_rounded,
-              // Icons.person_outline, // move to the appbar and replaced with discussions icon
-              Icons.timelapse_rounded
+              Icons.search
             ],
             notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),

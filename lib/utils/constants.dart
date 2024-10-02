@@ -7,9 +7,9 @@ const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
 
 // Discussion related Database Constants
-const String discussionDatabaseId = "6522fcf27a1bbc4238df";
+const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";
 const String subscribedUserCollectionId = "6522fd267db6fdad3392";
-const String discussionsCollectionId = "6522fd163103bd453183";
+const String upcomingRoomsCollectionId = "6522fd163103bd453183";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";

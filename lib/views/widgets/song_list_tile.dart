@@ -26,7 +26,6 @@ class SongListTile extends StatelessWidget {
       subtitle: Text(
         '${songModel.type} - ${songModel.singer}',
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
               fontSize: 12,
               fontStyle: FontStyle.normal,
               fontFamily: 'Inter',

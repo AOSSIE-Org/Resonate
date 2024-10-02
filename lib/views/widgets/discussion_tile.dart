@@ -2,7 +2,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/discussions_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -12,8 +12,8 @@ class DiscussionTile extends StatelessWidget {
   final bool? userIsCreator;
   final String? userSubscriberId;
   final List<String> subscriberProfileUrl;
-  DiscussionsController discussionController =
-      Get.find<DiscussionsController>();
+  UpcomingRoomsController discussionController =
+      Get.find<UpcomingRoomsController>();
   final ThemeController themeController = Get.find<ThemeController>();
   DiscussionTile(
       {super.key,
@@ -221,7 +221,7 @@ class DiscussionTile extends StatelessWidget {
                                         .addUserToSubscriberList(
                                             discussion.$id);
                                     await discussionController
-                                        .getDiscussions();
+                                        .getUpcomingRooms();
                                   }
                                 : !userIsCreator!
                                     ? () async {
@@ -229,7 +229,7 @@ class DiscussionTile extends StatelessWidget {
                                             .removeUserFromSubscriberList(
                                                 userSubscriberId!);
                                         await discussionController
-                                            .getDiscussions();
+                                            .getUpcomingRooms();
                                       }
                                     : userIsCreator! & discussion.data['isTime']
                                         ? () {
@@ -240,7 +240,7 @@ class DiscussionTile extends StatelessWidget {
                                               tags.add(tag.toString());
                                             }
                                             discussionController
-                                                .convertDiscussiontoRoom(
+                                                .convertUpcomingRoomtoRoom(
                                                     discussion.$id,
                                                     discussion.data["name"],
                                                     discussion
@@ -305,7 +305,7 @@ class DiscussionTile extends StatelessWidget {
                                                   UiSizes.size_15),
                                               onConfirm: () async {
                                                 await discussionController
-                                                    .deleteDiscussion(
+                                                    .deleteUpcomingRoom(
                                                         discussion.$id);
                                                 Navigator.pop(context);
                                               },

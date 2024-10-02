@@ -127,11 +127,11 @@ class AppPages {
       page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
     ),
-    GetPage(
-      name: AppRoutes.discuss,
-      page: () => DiscussionScreen(),
-      binding: AuthSplashBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.discuss,
+    //   page: () => DiscussionScreen(),
+    //   binding: AuthSplashBinding(),
+    // ),
     GetPage(
       name: AppRoutes.pairing,
       page: () => PairingScreen(),
