@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
-import 'package:resonate/controllers/discussions_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -15,8 +15,8 @@ class CreateRoomScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final CreateRoomController createRoomController =
       Get.put<CreateRoomController>(CreateRoomController());
-  final DiscussionsController discussionsController =
-      Get.put<DiscussionsController>(DiscussionsController());
+  final UpcomingRoomsController upcomingRoomsController =
+      Get.put<UpcomingRoomsController>(UpcomingRoomsController());
   final ThemeController themeController = Get.find<ThemeController>();
 
   final OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
@@ -142,7 +142,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? null
                                           : "Please Enter Scheduled Date-Time",
                                       readOnly: true,
-                                      controller: discussionsController
+                                      controller: upcomingRoomsController
                                           .dateTimeController,
                                       keyboardType: TextInputType.text,
                                       autocorrect: false,
@@ -156,7 +156,7 @@ class CreateRoomScreen extends StatelessWidget {
                                             fontSize: UiSizes.size_14),
                                         suffix: GestureDetector(
                                           onTap: () async {
-                                            await discussionsController
+                                            await upcomingRoomsController
                                                 .chooseDateTime();
                                           },
                                           child: const Icon(Icons.date_range),

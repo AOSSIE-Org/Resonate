@@ -7,24 +7,26 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
-class DiscussionsController extends GetxController {
+class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   TextEditingController dateTimeController = TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
   final CreateRoomController createRoomController =
       Get.find<CreateRoomController>();
-  Rx<ScrollController> discussionScrollController = ScrollController().obs;
+  Rx<ScrollController> upcomingRoomScrollController = ScrollController().obs;
   final TabViewController controller = Get.find<TabViewController>();
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  late List<Document> discussions;
+  late List<AppwriteUpcommingRoom> upcomingRooms;
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
@@ -49,18 +51,18 @@ class DiscussionsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getDiscussions();
+    await getUpcomingRooms();
   }
 
-  Future<void> addUserToSubscriberList(String discussionId) async {
+  Future<void> addUserToSubscriberList(String upcomingRoomId) async {
     final fcmToken = await messaging.getToken();
     await databases.createDocument(
-        databaseId: discussionDatabaseId,
+        databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         documentId: ID.unique(),
         data: {
           "userID": authStateController.uid,
-          "discussionID": discussionId,
+          "upcomingRoomId": upcomingRoomId,
           "registrationTokens": [fcmToken],
           "isCreator": false,
           "userProfileUrl": authStateController.profileImageUrl
@@ -84,84 +86,124 @@ class DiscussionsController extends GetxController {
   Future<void> removeUserFromSubscriberList(String subscriberId) async {
     try {
       await databases.deleteDocument(
-          databaseId: discussionDatabaseId,
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           documentId: subscriberId);
     } on AppwriteException catch (error) {
       log(error.toString());
     }
-
   }
 
-  Future<List<dynamic>> fetchDiscussionDetails(String discussionId) async {
+  Future<AppwriteUpcommingRoom> fetchUpcomingRoomDetails(
+      Document upcomingRoom) async {
     try {
-      List<Document> discussionSubscribers;
+      List<Document> upcomingRoomSubscribers;
       int totalSubscriberCount;
-      bool? userIsCreator;
-      String? subscriberId;
-      discussionSubscribers = await databases.listDocuments(
-          databaseId: discussionDatabaseId,
+      bool userIsCreator =
+          (authStateController.uid == upcomingRoom.data["creatorUid"]);
+      bool hasUserSubscribed = false;
+
+      upcomingRoomSubscribers = await databases.listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           queries: [
-            Query.equal('discussionID', [discussionId]),
+            Query.equal('upcomingRoomId', [upcomingRoom.$id]),
           ]).then((value) => value.documents);
-      totalSubscriberCount = discussionSubscribers.length;
+      totalSubscriberCount = upcomingRoomSubscribers.length;
 
       List<String> subscribersProfileUrls = [];
 
-      for (var doc in discussionSubscribers) {
+      for (var doc in upcomingRoomSubscribers) {
         subscribersProfileUrls.add(doc.data["userProfileUrl"]);
-      }
-      for (var doc in discussionSubscribers) {
-        if (doc.data["userID"] == authStateController.uid) {
-          userIsCreator = doc.data["isCreator"];
 
-          if (doc.data["isCreator"] == false) {
-            subscriberId = doc.$id;
+        if (!userIsCreator) {
+          if (doc.data['userID'] == authStateController.uid) {
+            hasUserSubscribed = true;
           }
         }
       }
+
       currentTimeInstance = DateTime.now();
       localTimeZoneOffset = currentTimeInstance.timeZoneOffset;
       localTimeZoneName = currentTimeInstance.timeZoneName;
       isOffsetNegetive = localTimeZoneOffset.isNegative;
-      List<dynamic> fetchedData = [
-        totalSubscriberCount,
-        userIsCreator,
-        subscribersProfileUrls,
-        subscriberId
-      ];
-      return fetchedData;
+
+      return AppwriteUpcommingRoom(
+          id: upcomingRoom.$id,
+          name: upcomingRoom.data['name'],
+          isTime: upcomingRoom.data['isTime'],
+          scheduledDateTime: upcomingRoom.data['scheduledDateTime'],
+          totalSubscriberCount: totalSubscriberCount,
+          tags: upcomingRoom.data['tags'],
+          subscribersAvatarUrls: subscribersProfileUrls,
+          userIsCreator: userIsCreator,
+          description: upcomingRoom.data['isTime'],
+          hasUserSubscribed: hasUserSubscribed);
     } catch (e) {
       log(e.toString());
-      return [];
+      return AppwriteUpcommingRoom(
+        id: '', // Provide some default/fallback values
+        name: 'Unknown',
+        isTime: false,
+        scheduledDateTime: DateTime.now(),
+        totalSubscriberCount: 0,
+        tags: [],
+        subscribersAvatarUrls: [],
+        userIsCreator: false,
+        description: 'Error fetching upcomingRoom details',
+        hasUserSubscribed: false,
+      );
     }
   }
 
-  Future<void> convertDiscussiontoRoom(String discussionId, String name,
+  Future<void> getUpcomingRooms() async {
+    isLoading.value = true;
+    try {
+      var upcomingRooms_documents = await databases
+          .listDocuments(
+            databaseId: upcomingRoomsDatabaseId,
+            collectionId: upcomingRoomsCollectionId,
+          )
+          .then((value) => value.documents);
+      upcomingRooms = [];
+
+      for (var upcomingRoom in upcomingRooms_documents) {
+        AppwriteUpcommingRoom appwriteUpcomingRoom =
+            await fetchUpcomingRoomDetails(upcomingRoom);
+        upcomingRooms.add(appwriteUpcomingRoom);
+      }
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> convertUpcomingRoomtoRoom(String upcomingRoomId, String name,
       String description, List<String> tags) async {
     await createRoomController.createRoom(name, description, tags, false);
     controller.setIndex(0);
 
     await roomsController.getRooms();
-    // Delete Discussion as it is now a room
+    // Delete UpcomingRoom as it is now a room
     await databases.deleteDocument(
-      databaseId: discussionDatabaseId,
-      collectionId: discussionsCollectionId,
-      documentId: discussionId,
+      databaseId: upcomingRoomsDatabaseId,
+      collectionId: upcomingRoomsCollectionId,
+      documentId: upcomingRoomId,
     );
-    await getDiscussions();
+    await getUpcomingRooms();
   }
 
-  Future<void> createDiscussion() async {
+  Future<void> createUpcomingRoom() async {
     final fcmToken = await messaging.getToken();
     if (!createRoomController.createRoomFormKey.currentState!.validate()) {
       return;
     }
     try {
-      Document discussion = await databases.createDocument(
-          databaseId: discussionDatabaseId,
-          collectionId: discussionsCollectionId,
+      Document upcomingRoomDoc = await databases.createDocument(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
           documentId: ID.unique(),
           data: {
             "name": createRoomController.nameController.text,
@@ -169,14 +211,14 @@ class DiscussionsController extends GetxController {
             "tags": createRoomController.tagsController.getTags,
             "description": createRoomController.descriptionController.text
           });
-      String discussionId = discussion.$id;
+      String upcomingRoomId = upcomingRoomDoc.$id;
       await databases.createDocument(
-          databaseId: discussionDatabaseId,
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           documentId: ID.unique(),
           data: {
             "userID": authStateController.uid,
-            "discussionID": discussionId,
+            "upcomingRoomId": upcomingRoomId,
             "registrationTokens": [fcmToken],
             "isCreator": true,
             "userProfileUrl": authStateController.profileImageUrl
@@ -236,46 +278,29 @@ class DiscussionsController extends GetxController {
     }
   }
 
-  Future<void> deleteDiscussion(String discussionId) async {
+  Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await databases.deleteDocument(
-        databaseId: discussionDatabaseId,
-        collectionId: discussionsCollectionId,
-        documentId: discussionId);
-    await getDiscussions();
-    deleteAllDeletedDiscussionsSubscribers(discussionId);
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoomId);
+    await getUpcomingRooms();
+    deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
   }
 
-  Future<void> deleteAllDeletedDiscussionsSubscribers(
-      String discussionId) async {
-    List<Document> deletedDiscussionSubscribers = await databases.listDocuments(
-        databaseId: discussionDatabaseId,
+  Future<void> deleteAllDeletedUpcomingRoomsSubscribers(
+      String upcomingRoomId) async {
+    List<Document> deletedUpcomingRoomSubscribers = await databases.listDocuments(
+        databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
-          Query.equal('discussionID', [discussionId]),
+          Query.equal('upcomingRoomId', [upcomingRoomId]),
         ]).then((value) => value.documents);
 
-    for (Document subscriber in deletedDiscussionSubscribers) {
+    for (Document subscriber in deletedUpcomingRoomSubscribers) {
       await databases.deleteDocument(
-          databaseId: discussionDatabaseId,
+          databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
           documentId: subscriber.$id);
-    }
-  }
-
-  Future<void> getDiscussions() async {
-    isLoading.value = true;
-    try {
-      discussions = await databases
-          .listDocuments(
-            databaseId: discussionDatabaseId,
-            collectionId: discussionsCollectionId,
-          )
-          .then((value) => value.documents);
-    } catch (e) {
-      log(e.toString());
-    } finally {
-      isLoading.value = false;
-      update();
     }
   }
 }

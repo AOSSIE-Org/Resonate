@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
@@ -12,6 +15,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+final RoomsController roomsController = Get.put(RoomsController());
+
+final UpcomingRoomsController upcomingRoomsController =
+    Get.put(UpcomingRoomsController());
+
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> categories = [
     'Popular',
@@ -19,12 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'Design',
   ];
   bool isLiveSelected = false;
+
   Future<void> pullToRefreshData() async {
-    await Future.delayed(
-      const Duration(
-        microseconds: 30,
-      ),
-    );
+    await roomsController.getRooms();
+    await upcomingRoomsController.getUpcomingRooms();
   }
 
   @override
@@ -32,9 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text("Rooms"),
               CustomAppBarLiveRoom(
                 isLiveSelected: isLiveSelected,
                 onTabSelected: (bool selectedTab) {
@@ -45,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              // : const GeneralAppBar(),
-              CustomCategoryChips(
-                categories: categories,
-              ),
+              // Will be implemented later on
+              // CustomCategoryChips(
+              //   categories: categories,
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -107,10 +115,10 @@ class CustomAppBarLiveRoom extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Icon(
-          Icons.search,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        // Icon(
+        //   Icons.search,
+        //   color: Theme.of(context).colorScheme.primary,
+        // ),
         const SizedBox(
           width: 15,
         ),
@@ -121,11 +129,11 @@ class CustomAppBarLiveRoom extends StatelessWidget {
             Get.toNamed(AppRoutes.notificationsScreen);
           },
         ),
-        const SizedBox(width: 15),
-        const CustomCircleAvatar(
-          userImage:
-              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-        ),
+        // const SizedBox(width: 15),
+        // const CustomCircleAvatar(
+        //   userImage:
+        //       'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+        // ),
       ],
     );
   }
@@ -289,7 +297,7 @@ class UpcomingRoomsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: upcomingRoomDummyData.length,
+        itemCount: upcomingRoomsController.upcomingRooms.length,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
@@ -297,7 +305,7 @@ class UpcomingRoomsListView extends StatelessWidget {
             vertical: 8.0,
           ),
           child: UpCommingListTile(
-            appwriteRoom: upcomingRoomDummyData[index],
+            appwriteUpcomingRoom: upcomingRoomsController.upcomingRooms[index],
           ),
         );
       },
@@ -312,15 +320,14 @@ class LiveRoomListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      // primary: true,
-      itemCount: upcomingRoomDummyData.length,
+      itemCount: roomsController.rooms.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 8.0,
           ),
           child: CustomLiveRoomTile(
-            appwriteRoom: upcomingRoomDummyData[index],
+            appwriteRoom: roomsController.rooms[index],
           ),
         );
       },
@@ -546,8 +553,8 @@ List<AppwriteRoom> upcomingRoomDummyData = [
 
 //! Ui Compenet
 class UpCommingListTile extends StatelessWidget {
-  const UpCommingListTile({super.key, required this.appwriteRoom});
-  final AppwriteRoom appwriteRoom;
+  const UpCommingListTile({super.key, required this.appwriteUpcomingRoom});
+  final AppwriteUpcommingRoom appwriteUpcomingRoom;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -583,7 +590,7 @@ class UpCommingListTile extends StatelessWidget {
             ],
           ),
           Text(
-            appwriteRoom.name,
+            appwriteUpcomingRoom.name,
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 15,
@@ -611,7 +618,7 @@ class UpCommingListTile extends StatelessWidget {
             height: 10,
           ),
           Text(
-            appwriteRoom.description,
+            appwriteUpcomingRoom.description,
             maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,

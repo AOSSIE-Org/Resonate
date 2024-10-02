@@ -12,35 +12,33 @@ class SongListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: Text(
         songModel.name,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               fontSize: 17,
               fontStyle: FontStyle.normal,
               fontFamily: 'Inter',
             ),
       ),
       subtitle: Text(
-        'Song : ${songModel.type} ${songModel.singer}',
+        '${songModel.type} - ${songModel.singer}',
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-              fontWeight: FontWeight.w400,
-              fontSize: 17,
+              fontSize: 12,
               fontStyle: FontStyle.normal,
               fontFamily: 'Inter',
             ),
       ),
       leading: ClipRRect(
-        borderRadius: BorderRadius.circular(0),
+        borderRadius: BorderRadius.circular(10),
         child: Image.asset(
           songModel.image,
         ),
       ),
       trailing: Icon(
-        Icons.pause_circle_filled,
+        Icons.play_arrow_rounded,
         color: Colors.grey[350],
       ),
       tileColor: Colors.transparent,
