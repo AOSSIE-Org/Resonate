@@ -13,6 +13,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
+import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
@@ -147,10 +148,10 @@ class TabViewScreen extends StatelessWidget {
             onTap: (index) => controller.setIndex(index),
           ),
           body: (controller.getIndex() == 0)
-              ? HomeScreen()
+              ? const HomeScreen()
               : (controller.getIndex() == 2)
                   ? CreateRoomScreen()
-                  : DiscussionScreen(),
+                  : const ExploreScreen(),
         ));
   }
 }
