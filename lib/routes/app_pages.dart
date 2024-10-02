@@ -7,12 +7,11 @@ import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/new_create_room_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
-import 'package:resonate/views/screens/new_notifications_screen.dart';
-import 'package:resonate/views/screens/new_pair_chat_screen.dart';
-import 'package:resonate/views/screens/new_pairing_screen.dart';
-import 'package:resonate/views/screens/new_room_chat_screen.dart';
+import 'package:resonate/views/screens/notifications_screen.dart';
+import 'package:resonate/views/screens/pair_chat_screen.dart';
+import 'package:resonate/views/screens/pairing_screen.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/screens/new_room_screen.dart';
-import 'package:resonate/views/screens/new_tab_view.dart';
 import 'package:resonate/views/screens/welcome_screen.dart';
 
 import 'package:resonate/views/screens/edit_profile_screen.dart';
@@ -28,7 +27,6 @@ import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
 import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/landing_screen.dart';
-import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
@@ -36,8 +34,6 @@ import 'package:resonate/views/screens/reset_password_screen.dart';
 import '../bindings/tabview_binding.dart';
 import '../views/screens/about_app_screen.dart';
 import '../views/screens/contribute_screen.dart';
-import '../views/screens/home_screen.dart';
-import '../views/screens/pair_chat_screen.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
@@ -186,12 +182,8 @@ class AppPages {
       page: () => const NewRoomScreen(),
     ),
     GetPage(
-      name: AppRoutes.newRoomScreen,
-      page: () => NewRoomChatScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.newBottomNavBar,
-      page: () => const BottomNavBar(),
+      name: AppRoutes.roomChatScreen,
+      page: () => RoomChatScreen(),
     ),
     GetPage(
       name: AppRoutes.newHomeScreen,
@@ -210,20 +202,12 @@ class AppPages {
       page: () => const UserAccountScreen(),
     ),
     GetPage(
-      name: AppRoutes.newPairChatScreen,
-      page: () => NewPairChatScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.newPairingScreen,
-      page: () => NewPairingScreen(),
-    ),
-    GetPage(
       name: AppRoutes.aboutApp,
       page: () => AboutAppScreen(),
     ),
     GetPage(
-      name: AppRoutes.newNotificationsScreen,
-      page: () => NewNotificationsScreen(),
+      name: AppRoutes.notificationsScreen,
+      page: () => NotificationsScreen(),
     ),
     GetPage(
       name: AppRoutes.contributeScreen,

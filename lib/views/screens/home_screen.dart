@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -112,9 +114,12 @@ class CustomAppBarLiveRoom extends StatelessWidget {
         const SizedBox(
           width: 15,
         ),
-        Icon(
-          Icons.notifications_none_rounded,
+        IconButton(
+          icon: const Icon(Icons.notifications_none_rounded),
           color: Theme.of(context).colorScheme.primary,
+          onPressed: () {
+            Get.toNamed(AppRoutes.notificationsScreen);
+          },
         ),
         const SizedBox(width: 15),
         const CustomCircleAvatar(

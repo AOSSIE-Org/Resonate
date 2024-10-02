@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:resonate/views/screens/new_room_chat_screen.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
 class RoomAppBar extends StatelessWidget {
@@ -26,7 +26,7 @@ class RoomAppBar extends StatelessWidget {
             FontAwesomeIcons.comments,
           ),
           onPressed: () {
-            Get.to(NewRoomChatScreen());
+            Get.to(RoomChatScreen());
           },
         ),
         Padding(
