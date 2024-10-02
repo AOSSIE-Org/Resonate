@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
@@ -296,8 +297,7 @@ class UpcomingRoomsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      //   itemCount: discussionsController.discussions.length,
-      itemCount: upcomingRoomDummyData.length,
+        itemCount: upcomingRoomsController.upcomingRooms.length,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
@@ -305,7 +305,7 @@ class UpcomingRoomsListView extends StatelessWidget {
             vertical: 8.0,
           ),
           child: UpCommingListTile(
-            appwriteRoom: upcomingRoomDummyData[index],
+            appwriteUpcomingRoom: upcomingRoomsController.upcomingRooms[index],
           ),
         );
       },
@@ -553,8 +553,8 @@ List<AppwriteRoom> upcomingRoomDummyData = [
 
 //! Ui Compenet
 class UpCommingListTile extends StatelessWidget {
-  const UpCommingListTile({super.key, required this.appwriteRoom});
-  final AppwriteRoom appwriteRoom;
+  const UpCommingListTile({super.key, required this.appwriteUpcomingRoom});
+  final AppwriteUpcommingRoom appwriteUpcomingRoom;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -590,7 +590,7 @@ class UpCommingListTile extends StatelessWidget {
             ],
           ),
           Text(
-            appwriteRoom.name,
+            appwriteUpcomingRoom.name,
             style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 15,
@@ -618,7 +618,7 @@ class UpCommingListTile extends StatelessWidget {
             height: 10,
           ),
           Text(
-            appwriteRoom.description,
+            appwriteUpcomingRoom.description,
             maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.start,
