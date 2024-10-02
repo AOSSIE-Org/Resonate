@@ -33,4 +33,6 @@ class AppRoutes {
   static const newPairingScreen = '/newPairingScreen';
   static const aboutApp = "/aboutApp";
   static const contributeScreen = "/contributeScreen";
+  static const exploreScreen = "/exploreScreen";
+
 }
