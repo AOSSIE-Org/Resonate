@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/views/screens/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomLiveRoomTile extends StatelessWidget {
@@ -132,7 +133,7 @@ class CustomLiveRoomTile extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: () {
-                  // join functionality
+                  roomsController.joinRoom(room: appwriteRoom);
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
