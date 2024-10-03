@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/views/widgets/live_room_tile.dart';
 
 import 'home_screen.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/views/screens/home_screen.dart';
+import 'package:resonate/views/widgets/live_room_tile.dart';
 
 class StartRoomBottomSheet extends StatelessWidget {
   const StartRoomBottomSheet({super.key});
