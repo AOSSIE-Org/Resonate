@@ -122,24 +122,28 @@ class CustomAppBarLiveRoom extends StatelessWidget {
   }
 }
 
+
 class UpcomingRoomsListView extends StatelessWidget {
   const UpcomingRoomsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Obx(
+      () => ListView.builder(
         itemCount: upcomingRoomsController.upcomingRooms.length,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
-          ),
-          child: UpCommingListTile(
-            appwriteUpcommingRoom: upcomingRoomsController.upcomingRooms[index],
-          ),
-        );
-      },
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+            ),
+            child: UpCommingListTile(
+              appwriteUpcommingRoom:
+                  upcomingRoomsController.upcomingRooms[index],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -165,7 +169,6 @@ class LiveRoomListView extends StatelessWidget {
     );
   }
 }
-
 
 class CustomCategoryChips extends StatefulWidget {
   const CustomCategoryChips({

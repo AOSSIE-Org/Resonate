@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:resonate/views/screens/home_screen.dart';
 
 class UpCommingListTile extends StatelessWidget {
   const UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
@@ -16,7 +20,6 @@ class UpCommingListTile extends StatelessWidget {
             : appwriteUpcommingRoom.subscribersAvatarUrls;
 
     return Container(
-      height: MediaQuery.of(context).size.height / 3.5,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
@@ -38,15 +41,10 @@ class UpCommingListTile extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.notifications_none_outlined,
-                  size: 34,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () {},
-              ),
             ],
+          ),
+          SizedBox(
+            height: 5,
           ),
           Text(
             appwriteUpcommingRoom.name,
@@ -88,7 +86,8 @@ class UpCommingListTile extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // cancel functionality
+                    upcomingRoomsController
+                        .deleteUpcomingRoom(appwriteUpcommingRoom.id);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
@@ -102,7 +101,11 @@ class UpCommingListTile extends StatelessWidget {
                 ElevatedButton(
                   onPressed: appwriteUpcommingRoom.isTime
                       ? () {
-                          // start functionality
+                          upcomingRoomsController.convertUpcomingRoomtoRoom(
+                              appwriteUpcommingRoom.id,
+                              appwriteUpcommingRoom.name,
+                              appwriteUpcommingRoom.description,
+                              appwriteUpcommingRoom.tags.map((item) => item.toString()).toList());
                         }
                       : null, // Disable button if isTime is false
                   style: ElevatedButton.styleFrom(
@@ -123,7 +126,13 @@ class UpCommingListTile extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    //subscribe/unsubscribe functionality
+                    if (appwriteUpcommingRoom.hasUserSubscribed) {
+                      upcomingRoomsController.removeUserFromSubscriberList(
+                          appwriteUpcommingRoom.id);
+                    } else {
+                      upcomingRoomsController
+                          .addUserToSubscriberList(appwriteUpcommingRoom.id);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: appwriteUpcommingRoom.hasUserSubscribed
