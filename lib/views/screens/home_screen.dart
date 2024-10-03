@@ -1,12 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/views/widgets/live_room_tile.dart';
+import 'package:resonate/views/widgets/upcomming_room_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,8 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLiveSelected = false;
 
   Future<void> pullToRefreshData() async {
-    await roomsController.getRooms();
-    await upcomingRoomsController.getUpcomingRooms();
+    await Future.delayed(
+      const Duration(
+        microseconds: 30,
+      ),
+    );
   }
 
   @override
@@ -38,11 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Rooms"),
               CustomAppBarLiveRoom(
                 isLiveSelected: isLiveSelected,
                 onTabSelected: (bool selectedTab) {
@@ -115,178 +117,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        // Icon(
-        //   Icons.search,
-        //   color: Theme.of(context).colorScheme.primary,
-        // ),
-        const SizedBox(
-          width: 15,
-        ),
-        IconButton(
-          icon: const Icon(Icons.notifications_none_rounded),
-          color: Theme.of(context).colorScheme.primary,
-          onPressed: () {
-            Get.toNamed(AppRoutes.notificationsScreen);
-          },
-        ),
-        // const SizedBox(width: 15),
-        // const CustomCircleAvatar(
-        //   userImage:
-        //       'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-        // ),
       ],
-    );
-  }
-}
-
-//! Ui Compenet
-class CustomCircleAvatar extends StatelessWidget {
-  const CustomCircleAvatar({
-    super.key,
-    required this.userImage,
-    this.width = 36,
-    this.height = 36,
-  });
-  final String userImage;
-  final double width;
-  final double height;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: CachedNetworkImageProvider(
-            userImage,
-          ),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15.0),
-        ),
-      ),
-    );
-  }
-}
-
-//! Ui Compenet
-class CustomLiveRoomTile extends StatelessWidget {
-  final AppwriteRoom appwriteRoom;
-
-  const CustomLiveRoomTile({super.key, required this.appwriteRoom});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  appwriteRoom.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 15,
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 3,
-                  child: const Stack(
-                    clipBehavior: Clip.antiAlias,
-                    children: [
-                      Positioned(
-                        left: 0,
-                        child: CustomCircleAvatar(
-                          height: 40,
-                          width: 40,
-                          userImage:
-                              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-                        ),
-                      ),
-                      Positioned(
-                        left: 28,
-                        child: CustomCircleAvatar(
-                          height: 40,
-                          width: 40,
-                          userImage:
-                              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-                        ),
-                      ),
-                      Positioned(
-                        left: 28 * 2,
-                        child: CustomCircleAvatar(
-                          height: 40,
-                          width: 40,
-                          userImage:
-                              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-                        ),
-                      ),
-                      Positioned(
-                        left: 28 * 3,
-                        child: CustomCircleAvatar(
-                          height: 40,
-                          width: 40,
-                          userImage:
-                              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-                        ),
-                      ),
-                      CustomCircleAvatar(
-                        height: 40,
-                        width: 40,
-                        userImage:
-                            'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-                      ),
-                    ],
-                  ),
-                ),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    UserNameWithMicrophone(
-                      name: 'Mohammmmed',
-                    ),
-                    UserNameWithMicrophone(
-                      name: 'Aya',
-                    ),
-                    UserNameWithMicrophone(
-                      name: 'Jo',
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            IconWithNumbers(
-              totalParticipant: appwriteRoom.totalParticipants,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -305,7 +136,7 @@ class UpcomingRoomsListView extends StatelessWidget {
             vertical: 8.0,
           ),
           child: UpCommingListTile(
-            appwriteUpcomingRoom: upcomingRoomsController.upcomingRooms[index],
+            appwriteUpcommingRoom: upcomingRoomsController.upcomingRooms[index],
           ),
         );
       },
@@ -335,81 +166,6 @@ class LiveRoomListView extends StatelessWidget {
   }
 }
 
-//! Ui Compenet
-class IconWithNumbers extends StatelessWidget {
-  const IconWithNumbers({super.key, required this.totalParticipant});
-  final int totalParticipant;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Icon(
-          Icons.people_outline,
-          size: 13,
-          // color: Colors.grey,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          '$totalParticipant',
-        ),
-        const SizedBox(
-          width: 15,
-        ),
-        const Icon(
-          Icons.mic,
-          size: 13,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        const Text(
-          '3', //! add it in model later to make it dynamic
-        ),
-      ],
-    );
-  }
-}
-
-//! Ui Compenet
-class UserNameWithMicrophone extends StatelessWidget {
-  const UserNameWithMicrophone({
-    super.key,
-    required this.name,
-  });
-  final String name;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      // cros
-      children: [
-        SizedBox(
-          width: 50,
-          child: Text(
-            name,
-            textAlign: TextAlign.start,
-            maxLines: 1,
-            overflow: TextOverflow.fade,
-            style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Icon(
-          Icons.mic,
-          size: 13,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-      ],
-    );
-  }
-}
 
 class CustomCategoryChips extends StatefulWidget {
   const CustomCategoryChips({
@@ -493,195 +249,134 @@ class CategoryItem extends StatelessWidget {
   }
 }
 
-List<AppwriteRoom> upcomingRoomDummyData = [
-  AppwriteRoom(
-    id: '0',
-    name: 'Basics of Flutter App Development',
-    description: 'Learn the basics of Flutter app development.',
-    totalParticipants: 25,
-    tags: ['Flutter', 'Workshop', 'Development'],
-    memberAvatarUrls: ['url1', 'url2', 'url3'],
-    state: RoomState.scheduled,
-    isUserAdmin: true,
-    myDocId: 'doc1',
+List<AppwriteUpcommingRoom> upcomingRoomDummyData = [
+  AppwriteUpcommingRoom(
+    id: 'room1',
+    name: 'Flutter Devs Meetup',
+    isTime: true,
+    scheduledDateTime: DateTime(2024, 10, 10, 14, 30),
+    description:
+        'A meetup for Flutter developers to discuss the latest trends in Flutter development.',
+    totalSubscriberCount: 2,
+    tags: ['flutter', 'development', 'mobile'],
+    subscribersAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    userIsCreator: false,
+    hasUserSubscribed: true,
   ),
-  AppwriteRoom(
-    id: '1',
-    name: 'Flutter Development Workshop',
-    description: 'Learn the basics of Flutter app development.',
-    totalParticipants: 25,
-    tags: ['Flutter', 'Workshop', 'Development'],
-    memberAvatarUrls: ['url1', 'url2', 'url3'],
-    state: RoomState.scheduled,
-    isUserAdmin: true,
-    myDocId: 'doc1',
+  AppwriteUpcommingRoom(
+    id: 'room4',
+    name: 'Flutter Devs Meetup',
+    isTime: true,
+    scheduledDateTime: DateTime(2024, 10, 10, 14, 30),
+    description:
+        'A meetup for Flutter developers to discuss the latest trends in Flutter development.',
+    totalSubscriberCount: 2,
+    tags: ['flutter', 'development', 'mobile'],
+    subscribersAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    userIsCreator: false,
+    hasUserSubscribed: false,
   ),
-  AppwriteRoom(
-    id: '2',
-    name: 'React Native Q&A Session',
-    description: 'Ask questions about React Native development.',
-    totalParticipants: 15,
-    tags: ['React Native', 'Q&A'],
-    memberAvatarUrls: ['url4', 'url5'],
-    state: RoomState.scheduled,
-    isUserAdmin: false,
-    myDocId: 'doc2',
+  AppwriteUpcommingRoom(
+    id: 'room2',
+    name: 'Appwrite Deep Dive',
+    isTime: true,
+    scheduledDateTime: DateTime(2024, 11, 5, 10, 00),
+    description:
+        'Learn the ins and outs of Appwrite in this deep dive session.',
+    totalSubscriberCount: 3,
+    tags: ['appwrite', 'backend', 'open-source'],
+    subscribersAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    userIsCreator: true,
+    hasUserSubscribed: false,
   ),
-  AppwriteRoom(
-    id: '3',
-    name: 'Dart Language Deep Dive',
-    description: 'Explore advanced Dart language features.',
-    totalParticipants: 10,
-    tags: ['Dart', 'Language', 'Advanced'],
-    memberAvatarUrls: ['url6', 'url7', 'url8'],
-    state: RoomState.recorded,
-    isUserAdmin: false,
-    myDocId: 'doc3',
-  ),
-  AppwriteRoom(
-    id: '4',
-    name: 'React Native Q&A Session',
-    description: 'Ask questions about React Native development.',
-    totalParticipants: 15,
-    tags: ['React Native', 'Q&A'],
-    memberAvatarUrls: ['url4', 'url5'],
-    state: RoomState.scheduled,
-    isUserAdmin: false,
-    myDocId: 'doc2',
+  AppwriteUpcommingRoom(
+    id: 'room3',
+    name: 'Dart & Appwrite Integration',
+    isTime: false,
+    scheduledDateTime: DateTime(2024, 10, 15, 16, 00),
+    description:
+        'Exploring the integration of Dart with Appwrite for seamless app development.',
+    totalSubscriberCount: 3,
+    tags: ['dart', 'appwrite', 'integration'],
+    subscribersAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    userIsCreator: true,
+    hasUserSubscribed: false,
   ),
 ];
 
-//! Ui Compenet
-class UpCommingListTile extends StatelessWidget {
-  const UpCommingListTile({super.key, required this.appwriteUpcomingRoom});
-  final AppwriteUpcommingRoom appwriteUpcomingRoom;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 230,
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 15),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Today , 06:00 pm',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 15,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.notifications_none_outlined,
-                  size: 34,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          Text(
-            appwriteUpcomingRoom.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const UserImageWithName(
-                name: 'Amar',
-              ),
-              const UserImageWithName(
-                name: 'Aya',
-              ),
-              const UserImageWithName(
-                name: 'Aresh',
-              ),
-            ].withSpacing(7),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            appwriteUpcomingRoom.description,
-            maxLines: 2,
-            overflow: TextOverflow.fade,
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: 15,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-extension SpacedWidgets on List<Widget> {
-  List<Widget> withSpacing(double spacing) {
-    return asMap()
-        .map((index, widget) {
-          return MapEntry(
-            index,
-            [
-              widget,
-              if (index < length - 1) SizedBox(width: spacing),
-            ],
-          );
-        })
-        .values
-        .expand((element) => element)
-        .toList();
-  }
-}
-
-////! Ui Compenet
-class UserImageWithName extends StatelessWidget {
-  const UserImageWithName({
-    super.key,
-    required this.name,
-  });
-  final String name;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const CustomCircleAvatar(
-          height: 40,
-          width: 40,
-          userImage:
-              'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-        ),
-        const SizedBox(
-          height: 6,
-        ),
-        SizedBox(
-          width: 40,
-          child: Text(
-            name,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
-          ),
-        ),
-      ],
-    );
-  }
-}
+List<AppwriteRoom> appwriteRooms = [
+  AppwriteRoom(
+    id: 'room_001',
+    name: 'Flutter Dev Room',
+    description: 'Discuss all things Flutter development.',
+    totalParticipants: 3,
+    tags: ['flutter', 'development', 'mobile'],
+    memberAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    state: RoomState.live,
+    isUserAdmin: true,
+    myDocId: 'doc123',
+  ),
+  AppwriteRoom(
+    id: 'room_002',
+    name: 'Appwrite Enthusiasts',
+    description: 'A room for Appwrite fans to share and learn.',
+    totalParticipants: 3,
+    tags: ['appwrite', 'open-source', 'backend'],
+    memberAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    state: RoomState.live,
+    isUserAdmin: false,
+    myDocId: 'doc456',
+  ),
+  AppwriteRoom(
+    id: 'room_003',
+    name: 'Backend Developers Hub',
+    description: 'Discuss modern backend architectures and APIs.',
+    totalParticipants: 3,
+    tags: ['backend', 'architecture', 'api'],
+    memberAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    state: RoomState.live,
+    isUserAdmin: false,
+    myDocId: null,
+  ),
+  AppwriteRoom(
+    id: 'room_004',
+    name: 'Mobile Dev Summit',
+    description: 'A discussion room for mobile development trends.',
+    totalParticipants: 3,
+    tags: ['mobile', 'development', 'summit'],
+    memberAvatarUrls: [
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+      'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
+    ],
+    state: RoomState.live,
+    isUserAdmin: true,
+    myDocId: 'doc789',
+  ),
+];
