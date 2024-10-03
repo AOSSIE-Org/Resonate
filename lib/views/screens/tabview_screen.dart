@@ -45,10 +45,20 @@ class TabViewScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(
               "Resonate",
-              style: TextStyle(fontSize: UiSizes.size_26),
+              style: TextStyle(
+                  fontSize: UiSizes.size_26,
+                  color: Theme.of(context).colorScheme.primary),
             ),
             centerTitle: false,
             actions: [
+              SizedBox(
+                height: UiSizes.height_45,
+                child: const Icon(
+                  Icons.notifications_none_rounded,
+                  size: 30,
+                ),
+              ),
+              const SizedBox(width: 15),
               profileAvatar(context),
             ],
           ),
@@ -73,6 +83,7 @@ class TabViewScreen extends StatelessWidget {
                           controller.setIndex(2);
                         } else {
                           AppUtils.showDialog(
+                            context: context,
                             title: "Email Verification Required",
                             middleText:
                                 "To proceed, verify your email address.",
@@ -80,7 +91,7 @@ class TabViewScreen extends StatelessWidget {
                               Get.back();
                               emailVerifyController.isSending.value = true;
                               emailVerifyController.sendOTP();
-                              AppUtils.showBlurredLoaderDialog();
+                              AppUtils.showBlurredLoaderDialog(context);
                             },
                             onSecondBtnPressed: () => Get.back(),
                             firstBtnText: "Verify",
@@ -95,7 +106,7 @@ class TabViewScreen extends StatelessWidget {
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());
-                        buildPairChatDialog();
+                        buildPairChatDialog(context);
                       },
                     ),
                   ],
@@ -127,23 +138,23 @@ class TabViewScreen extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             height: UiSizes.size_56,
-            backgroundColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.white
-                : const Color.fromRGBO(17, 17, 20, 1),
+            activeColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).brightness == Brightness.light
                 ? Colors.black.withOpacity(0.3)
                 : Colors.white.withOpacity(0.3),
             splashRadius: 0,
             shadow: const Shadow(color: Colors.transparent),
             iconSize: UiSizes.size_30,
-            icons: const [
-              Icons.home_rounded,
-              Icons.search
-            ],
+            icons: const [Icons.home_rounded, Icons.search],
+            leftCornerRadius: 30.0,
+            rightCornerRadius: 30.0,
             notchMargin: UiSizes.size_8,
             activeIndex: controller.getIndex(),
             gapLocation: GapLocation.center,
             notchSmoothness: NotchSmoothness.defaultEdge,
+            borderWidth: 0.0,
+            borderColor: Colors.transparent,
             onTap: (index) => controller.setIndex(index),
           ),
           body: (controller.getIndex() == 0)
