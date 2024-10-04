@@ -19,6 +19,6 @@ class AppwriteUpcommingRoom {
   late final List tags;
   late final List<String> subscribersAvatarUrls;
   late final bool userIsCreator;
-  // Only matters if user is not a creator (if not a creater has he subscribed or not)
+  // Only matters if user is not a creator (if not a creator has he subscribed or not)
   late final bool hasUserSubscribed;
 }

@@ -211,6 +211,7 @@ class UpcomingRoomsController extends GetxController {
       return;
     }
     try {
+      final fcmToken = await messaging.getToken();
       await databases.createDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: upcomingRoomsCollectionId,
@@ -220,7 +221,8 @@ class UpcomingRoomsController extends GetxController {
             "scheduledDateTime": scheduledDateTime,
             "tags": createRoomController.tagsController.getTags,
             "description": createRoomController.descriptionController.text,
-            "creatorUid": authStateController.uid
+            "creatorUid": authStateController.uid,
+            "creator_fcm_tokens": [fcmToken]
           });
     } on AppwriteException catch (e) {
       log(e.toString());
