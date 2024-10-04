@@ -23,7 +23,7 @@ class ApiService {
 
       if (response.responseStatusCode == 200) {
         log(response.responseBody);
-
+        
         final Map<String, dynamic> responseData =
             jsonDecode(response.responseBody);
 

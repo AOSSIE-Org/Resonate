@@ -8,7 +8,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/widgets/room_tile.dart';
+import 'package:resonate/views/widgets/live_room_tile.dart';
 
 import '../views/screens/room_screen.dart';
 
@@ -59,7 +59,7 @@ class TabViewController extends GetxController {
             title: "Join Room",
             titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
             content: Column(
-              children: [RoomTile(room: appwriteRoom)],
+              children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],
             ),
             backgroundColor: AppColor.bgBlackColor);
       }
