@@ -25,6 +25,7 @@ import 'package:resonate/views/screens/landing_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
+import 'package:resonate/views/screens/welcome_screen.dart';
 import '../bindings/tabview_binding.dart';
 import '../views/screens/about_app_screen.dart';
 import '../views/screens/contribute_screen.dart';
@@ -56,26 +57,11 @@ class AppPages {
       page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.emailVerification,
-    //   page: () => EmailVerificationScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.login,
-    //   page: () => const LoginScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
     GetPage(
-      name: AppRoutes.newLoginScreen,
+      name: AppRoutes.loginScreen,
       page: () => const LoginScreen(),
       binding: AuthSplashBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.profile,
-    //   page: () => ProfileScreen(),
-    //   binding: ProfileBinding(),
-    // ),
     GetPage(
       name: AppRoutes.profile,
       page: () => ProfileScreen(),
@@ -86,11 +72,6 @@ class AppPages {
       page: () => const OnBoardingScreen(),
       binding: ProfileBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.onBoarding,
-    //   page: () => const OnBoardingScreen(),
-    //   binding: ProfileBinding(),
-    // ),
     GetPage(
       name: AppRoutes.forgotPassword,
       page: () => const ForgotPasswordScreen(),
@@ -105,11 +86,6 @@ class AppPages {
       name: AppRoutes.resetPassword,
       page: () => const ResetPasswordScreen(),
       binding: ProfileBinding(),
-    ),
-    GetPage(
-      name: AppRoutes.home,
-      page: () => HomeScreen(),
-      binding: TabViewBinding(),
     ),
     GetPage(
       name: AppRoutes.tabview,
@@ -147,9 +123,13 @@ class AppPages {
       name: AppRoutes.changeEmail,
       page: () => ChangeEmailScreen(),
     ),
+    GetPage(
+      name: AppRoutes.welcomeScreen,
+      page: () => WelcomeScreen(),
+    ),
     // New Screens
     GetPage(
-      name: AppRoutes.newLoginScreen,
+      name: AppRoutes.loginScreen,
       page: () => const LoginScreen(),
     ),
 
@@ -158,7 +138,7 @@ class AppPages {
       page: () => RoomChatScreen(),
     ),
     GetPage(
-      name: AppRoutes.newHomeScreen,
+      name: AppRoutes.homeScreen,
       page: () => const HomeScreen(),
     ),
     GetPage(

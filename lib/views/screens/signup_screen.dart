@@ -273,7 +273,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller.confirmPasswordController.clear();
                         controller.isPasswordFieldVisible.value = false;
                         controller.isConfirmPasswordFieldVisible.value = false;
-                        Get.offNamed(AppRoutes.newLoginScreen);
+                        Get.offNamed(AppRoutes.loginScreen);
                       },
                       child: Text(
                         "Login",
