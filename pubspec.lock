@@ -1424,10 +1424,11 @@ packages:
   textfield_tags:
     dependency: "direct main"
     description:
-      name: textfield_tags
-      sha256: d1f2204114157a1296bb97c20d7f8c8c7fd036212812afb2e19de7bb34acc55b
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "fixes/allow-controller-re-registration"
+      resolved-ref: "7574e79649e34df1c3cc0c49b2f0cc2b92de6a7b"
+      url: "https://github.com/lionelmennig/textfield_tags.git"
+    source: git
     version: "3.0.1"
   timezone:
     dependency: transitive

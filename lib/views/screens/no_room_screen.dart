@@ -1,17 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 
-import 'home_screen.dart';
-
 class NoRoomScreen extends StatelessWidget {
-  NoRoomScreen({super.key});
-
-  final List<String> categories = [
-    'Popular',
-    'Science',
-    'Design',
-  ];
+  final bool isRoom;
+  NoRoomScreen({super.key, required this.isRoom});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +12,13 @@ class NoRoomScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 6,
-        ),
-        CachedNetworkImage(
-          imageUrl:
-              'https://s3-alpha-sig.figma.com/img/8c21/7e03/c10f3a587b9f9cfb69384f60f06a7f62?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=F0zPrNm7-s7PKGj-EkR969BdGyF4MZZWbaQwg90k7wxSHC40QhTaOrtY0-BsUzTLs~h0~3bqVhIjEmB3Wcp6rV72sUxU25meF2om9neJ5TNLgZFDAzHMtwliXWeaFUCOrM85PM6Gg2sZyoMC16EjH9cbI-mAeikbQEZ8~l3tMEDLZFN7NrOwOnMUGtsBsyAKzvTHsirXmVC~-d4VaQTszfYkfyVIafRBnFzI6WdzLj5DvabDORETExsyPWN4oeDZCw4cJCDhuPp-UiCzpFyPBxPSHOSvHbQn5WsKQa0qVGevzQU9kh2F~QcJ9Py9PDhOjdlS6YL91pV~Bb7NV9HsrA__',
-          alignment: Alignment.center,
-          fit: BoxFit.contain,
-          width: MediaQuery.of(context).size.width / 1.2,
-          height: 200.0,
+          height: MediaQuery.of(context).size.height / 8,
         ),
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          '''No Rooms Available
+        Text(
+          '''No ${isRoom ? 'Room' : 'Discussion'} Available
       Get Started By Adding One Below! ''',
           textAlign: TextAlign.center,
           style: TextStyle(

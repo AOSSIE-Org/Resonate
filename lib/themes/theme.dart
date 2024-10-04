@@ -4,7 +4,7 @@ import 'package:resonate/models/themes_model.dart';
 
 import '../utils/ui_sizes.dart';
 
-class NewTheme {
+class ThemeModes {
   static ThemeData setLightTheme(ThemeModel theme) {
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
@@ -92,8 +92,6 @@ class NewTheme {
   }
 
   static ThemeData setDarkTheme(ThemeModel theme) {
-    print("printing pirmary colour while setting theme");
-    print(theme.primaryColor);
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
       scaffoldBackgroundColor: theme.surfaceColor,

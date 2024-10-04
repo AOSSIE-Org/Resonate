@@ -11,9 +11,6 @@ import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
-import 'package:resonate/views/screens/room_screen.dart';
-import 'package:resonate/views/screens/welcome_screen.dart';
-
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/forgot_password_screen.dart';
@@ -23,14 +20,11 @@ import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/user_account_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
-import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/landing_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
-
 import '../bindings/tabview_binding.dart';
 import '../views/screens/about_app_screen.dart';
 import '../views/screens/contribute_screen.dart';
@@ -154,10 +148,6 @@ class AppPages {
       page: () => ChangeEmailScreen(),
     ),
     // New Screens
-    GetPage(
-      name: AppRoutes.newWelcomeScreen,
-      page: () => WelcomeScreen(),
-    ),
     GetPage(
       name: AppRoutes.newLoginScreen,
       page: () => const LoginScreen(),

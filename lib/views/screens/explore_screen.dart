@@ -50,7 +50,9 @@ class ExplorePageBody extends StatelessWidget {
                   style: BorderStyle.none,
                 ),
               ),
-              fillColor: Theme.of(context).colorScheme.onSurface,
+              fillColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).colorScheme.onSurface
+                  : Theme.of(context).colorScheme.secondary,
               filled: true,
               hintText: 'What do you want to listen to?',
               hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(

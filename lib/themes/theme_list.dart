@@ -64,7 +64,6 @@ class ThemeList {
       onSurfaceColor: Colors.white,
       themeMode: ThemeMode.dark,
     ),
-
   ];
 
   static ThemeModel getThemeModel(String themeName) {
