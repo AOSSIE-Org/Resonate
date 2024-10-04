@@ -4,14 +4,14 @@ import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
-import 'package:resonate/views/screens/new_create_room_screen.dart';
+import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
-import 'package:resonate/views/screens/new_room_screen.dart';
+import 'package:resonate/views/screens/room_screen.dart';
 import 'package:resonate/views/screens/welcome_screen.dart';
 
 import 'package:resonate/views/screens/edit_profile_screen.dart';
@@ -127,11 +127,6 @@ class AppPages {
       page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.discuss,
-    //   page: () => DiscussionScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
     GetPage(
       name: AppRoutes.pairing,
       page: () => PairingScreen(),
@@ -144,16 +139,6 @@ class AppPages {
       name: AppRoutes.settings,
       page: () => SettingsScreen(),
     ),
-    // GetPage(
-    //   name: AppRoutes.settings,
-    //   page: () => const SettingsScreen(),
-    //   binding: ProfileBinding(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.editProfile,
-    //   page: () => EditProfileScreen(),
-    //   binding: ProfileBinding(),
-    // ),
     GetPage(
       name: AppRoutes.editProfile,
       page: () => EditProfileScreen(),
@@ -177,10 +162,7 @@ class AppPages {
       name: AppRoutes.newLoginScreen,
       page: () => const LoginScreen(),
     ),
-    GetPage(
-      name: AppRoutes.newRoomScreen,
-      page: () => const NewRoomScreen(),
-    ),
+
     GetPage(
       name: AppRoutes.roomChatScreen,
       page: () => RoomChatScreen(),
@@ -188,10 +170,6 @@ class AppPages {
     GetPage(
       name: AppRoutes.newHomeScreen,
       page: () => const HomeScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.newCreateRoom,
-      page: () => const StartRoomBottomSheet(),
     ),
     GetPage(
       name: AppRoutes.themeScreen,

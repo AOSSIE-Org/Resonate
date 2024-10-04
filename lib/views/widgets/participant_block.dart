@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:get/get.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../models/participant.dart';
@@ -16,7 +14,6 @@ class FocusedMenuItemData {
 }
 
 class ParticipantBlock extends StatelessWidget {
-  final ThemeController themeController = Get.find<ThemeController>();
   ParticipantBlock({
     super.key,
     required this.participant,
@@ -46,7 +43,6 @@ class ParticipantBlock extends StatelessWidget {
             title: Text(
               item.textContent,
               style: TextStyle(
-                color: themeController.primaryColor.value,
                 fontSize: UiSizes.size_14,
               ),
             ),
@@ -144,10 +140,10 @@ class ParticipantBlock extends StatelessWidget {
       menuItemExtent: UiSizes.width_45,
       menuWidth: UiSizes.width_200 * 1.05,
       menuBoxDecoration: BoxDecoration(
-        color: themeController.primaryColor.value,
+        color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(5.0),
         border: Border.all(
-          color: themeController.primaryColor.value,
+          color: Theme.of(context).colorScheme.primary,
           width: UiSizes.width_1,
         ),
       ),
@@ -171,7 +167,7 @@ class ParticipantBlock extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: UiSizes.size_32,
-              backgroundColor: themeController.primaryColor.value,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(participant.dpUrl),
                 radius: UiSizes.size_30,
@@ -182,7 +178,7 @@ class ParticipantBlock extends StatelessWidget {
                             alignment: Alignment.topRight,
                             child: Icon(
                               Icons.waving_hand_rounded,
-                              color: themeController.primaryColor.value,
+                              color: Theme.of(context).colorScheme.primary,
                               size: UiSizes.size_20,
                             ),
                           ),
