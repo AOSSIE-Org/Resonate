@@ -54,7 +54,7 @@ class UpCommingListTile extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -65,7 +65,7 @@ class UpCommingListTile extends StatelessWidget {
                 .withSpacing(7),
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           Text(
             appwriteUpcommingRoom.description,
@@ -105,7 +105,9 @@ class UpCommingListTile extends StatelessWidget {
                               appwriteUpcommingRoom.id,
                               appwriteUpcommingRoom.name,
                               appwriteUpcommingRoom.description,
-                              appwriteUpcommingRoom.tags.map((item) => item.toString()).toList());
+                              appwriteUpcommingRoom.tags
+                                  .map((item) => item.toString())
+                                  .toList());
                         }
                       : null, // Disable button if isTime is false
                   style: ElevatedButton.styleFrom(

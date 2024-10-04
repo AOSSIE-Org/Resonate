@@ -22,13 +22,13 @@ class CreateRoomScreen extends StatelessWidget {
     final BoxDecoration kTextFieldDecoration = BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Colors.white,
-          Theme.of(context).colorScheme.secondary.withOpacity(0.1)
+          Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+          const Color.fromARGB(255, 139, 134, 134),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(10),
       boxShadow: [
         const BoxShadow(
           color: Colors.black12,
@@ -81,7 +81,7 @@ class CreateRoomScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Obx(
-                                () => InkWell(
+                                () => GestureDetector(
                                   onTap: () =>
                                       controller.isScheduled.value = false,
                                   child: AnimatedContainer(
@@ -94,6 +94,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? Theme.of(context)
                                               .colorScheme
                                               .secondary
+                                              .withOpacity(0.5)
                                           : Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -103,13 +104,18 @@ class CreateRoomScreen extends StatelessWidget {
                                       'Live',
                                       style: TextStyle(
                                           fontSize: UiSizes.size_14,
-                                          color: Colors.white),
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? controller.isScheduled.value
+                                                  ? Colors.black
+                                                  : Colors.white
+                                              : Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
                               Obx(
-                                () => InkWell(
+                                () => GestureDetector(
                                   onTap: () =>
                                       controller.isScheduled.value = true,
                                   child: AnimatedContainer(
@@ -131,16 +137,15 @@ class CreateRoomScreen extends StatelessWidget {
                                       'Scheduled',
                                       style: TextStyle(
                                           fontSize: UiSizes.size_14,
-                                          color: Colors.white),
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? controller.isScheduled.value
+                                                  ? Colors.white
+                                                  : Colors.black
+                                              : Colors.white),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: UiSizes.height_24_6,
-                              ),
-                              SizedBox(
-                                height: UiSizes.height_24_6,
                               ),
                             ],
                           ),
@@ -329,10 +334,10 @@ class CreateRoomScreen extends StatelessWidget {
                               },
                               decoration: InputDecoration(
                                 hintText: "Room Description (optional)",
-                                prefixIcon: Icon(Icons.description,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primary), // Icon decoration
+                                // prefixIcon: Icon(Icons.description,
+                                //     color: Theme.of(context)
+                                //         .colorScheme
+                                //         .primary), // Icon decoration
                                 filled: false,
                                 border: InputBorder.none,
                                 contentPadding: const EdgeInsets.all(16),
