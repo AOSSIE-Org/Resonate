@@ -72,7 +72,7 @@ dependencies:
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
   stop_watch_timer: ^3.0.1
-  textfield_tags: ^2.1.1
+  textfield_tags: ^3.0.1
   url_launcher: ^6.1.12
   uuid: ^3.0.6
 

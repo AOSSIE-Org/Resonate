@@ -300,7 +300,7 @@ class CreateRoomScreen extends StatelessWidget {
                                                       ),
                                                       onTap: () {
                                                         inputFieldValues
-                                                            .onTagDelete(tag);
+                                                            .onTagRemoved(tag);
                                                       },
                                                     )
                                                   ],
@@ -310,8 +310,8 @@ class CreateRoomScreen extends StatelessWidget {
                                           )
                                         : null,
                                   ),
-                                  onChanged: inputFieldValues.onChanged,
-                                  onSubmitted: inputFieldValues.onSubmitted,
+                                  onChanged: inputFieldValues.onTagChanged,
+                                  onSubmitted: inputFieldValues.onTagSubmitted,
                                 );
                               },
                             ),
