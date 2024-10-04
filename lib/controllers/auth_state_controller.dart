@@ -172,18 +172,20 @@ class AuthStateController extends GetxController {
   Future<void> login(String email, String password) async {
     await account.createEmailPasswordSession(email: email, password: password);
     await isUserLoggedIn();
-    await addRegistrationTokentoSubscribedDiscussions();
+    await addRegistrationTokentoSubscribedandCreatedUpcomingRooms();
   }
 
-  Future<void> addRegistrationTokentoSubscribedDiscussions() async {
+  Future<void> addRegistrationTokentoSubscribedandCreatedUpcomingRooms() async {
     final fcmToken = await messaging.getToken();
-    List<Document> subscribedDiscussions = await databases.listDocuments(
+
+    //subscribed Upcoming Rooms
+    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
-    for (var subscription in subscribedDiscussions) {
+    for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
@@ -193,17 +195,37 @@ class AuthStateController extends GetxController {
           documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});
     }
+
+    //created Upcoming Rooms
+    List<Document> createdUpcomingRooms = await databases.listDocuments(
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        queries: [
+          Query.equal("creatorUid", [uid])
+        ]).then((value) => value.documents);
+    for (var upcomingRoom in createdUpcomingRooms) {
+      List<dynamic> creatorFcmTokens =
+          upcomingRoom.data['creator_fcm_tokens'];
+      creatorFcmTokens.add(fcmToken!);
+      databases.updateDocument(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          documentId: upcomingRoom.$id,
+          data: {"creator_fcm_tokens": creatorFcmTokens});
+    }
   }
 
-  Future<void> removeRegistrationTokenFromSubscribedDiscussions() async {
+  Future<void> removeRegistrationTokenFromSubscribedUpcomingRooms() async {
     final fcmToken = await messaging.getToken();
-    List<Document> subscribedDiscussions = await databases.listDocuments(
+
+    //subscribed Upcoming Rooms
+    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         queries: [
           Query.equal("userID", [uid])
         ]).then((value) => value.documents);
-    for (var subscription in subscribedDiscussions) {
+    for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
@@ -212,6 +234,25 @@ class AuthStateController extends GetxController {
           collectionId: subscribedUserCollectionId,
           documentId: subscription.$id,
           data: {"registrationTokens": registrationTokens});
+    }
+
+
+    //created Upcoming Rooms
+    List<Document> createdUpcomingRooms = await databases.listDocuments(
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        queries: [
+          Query.equal("creatorUid", [uid])
+        ]).then((value) => value.documents);
+    for (var upcomingRoom in createdUpcomingRooms) {
+      List<dynamic> creatorFcmTokens =
+          upcomingRoom.data['creator_fcm_tokens'];
+      creatorFcmTokens.remove(fcmToken!);
+      databases.updateDocument(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          documentId: upcomingRoom.$id,
+          data: {"creator_fcm_tokens": creatorFcmTokens});
     }
   }
 
@@ -250,7 +291,7 @@ class AuthStateController extends GetxController {
       ),
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
-        await removeRegistrationTokenFromSubscribedDiscussions();
+        await removeRegistrationTokenFromSubscribedUpcomingRooms();
         Get.offAllNamed(AppRoutes.newWelcomeScreen);
       },
     );
