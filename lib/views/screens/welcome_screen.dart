@@ -7,7 +7,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/welcome_screen_dialog.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  var controller = Get.find<AuthenticationController>();
+  final controller = Get.find<AuthenticationController>();
   WelcomeScreen({super.key});
 
   @override

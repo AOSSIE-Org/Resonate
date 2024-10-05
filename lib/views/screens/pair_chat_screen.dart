@@ -19,8 +19,8 @@ class PairChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentBrightness = Theme.of(context).brightness;
 
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: SafeArea(
           child: Column(

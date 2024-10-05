@@ -25,7 +25,7 @@ class EditProfileScreen extends StatelessWidget {
     return PopScope(
       canPop: !(editProfileController.isLoading.value ||
           editProfileController.isThereUnsavedChanges()),
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, result) async {
         if (didPop) {
           return;
         }

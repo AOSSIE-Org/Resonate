@@ -14,14 +14,14 @@ class FocusedMenuItemData {
 }
 
 class ParticipantBlock extends StatelessWidget {
-  ParticipantBlock({
+  const ParticipantBlock({
     super.key,
     required this.participant,
     required this.controller,
   });
 
   final Participant participant;
-  SingleRoomController controller;
+  final SingleRoomController controller;
 
   String getUserRole() {
     if (participant.isAdmin) {

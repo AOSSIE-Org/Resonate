@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'resonate_user.freezed.dart';
 part 'resonate_user.g.dart';
 

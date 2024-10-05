@@ -85,7 +85,7 @@ class ExplorePageBody extends StatelessWidget {
                   fontFamily: 'Inter',
                 ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(

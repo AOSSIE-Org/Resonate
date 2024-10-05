@@ -15,7 +15,6 @@ class UpCommingListTile extends StatelessWidget {
         appwriteUpcommingRoom.subscribersAvatarUrls.length > 3
             ? appwriteUpcommingRoom.subscribersAvatarUrls.sublist(0, 3)
             : appwriteUpcommingRoom.subscribersAvatarUrls;
-    print(appwriteUpcommingRoom.tags);
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -41,7 +40,7 @@ class UpCommingListTile extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Text(
@@ -66,7 +65,7 @@ class UpCommingListTile extends StatelessWidget {
               ? const SizedBox(
                   height: 8,
                 )
-              : SizedBox(),
+              : const SizedBox(),
           Wrap(
             spacing: 8.0,
             runSpacing: 4.0,
