@@ -46,16 +46,6 @@ class CreateRoomController extends GetxController {
 
     try {
       isLoading.value = true;
-      // print("here this should start loading");
-      // Display Loading Dialog
-      // Get.dialog(
-      //     Center(
-      //       child: LoadingAnimationWidget.threeRotatingDots(
-      //           color: themeController.primaryColor.value,
-      //           size: Get.pixelRatio * 20),
-      //     ),
-      //     barrierDismissible: false,
-      //     name: "Loading Dialog");
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();

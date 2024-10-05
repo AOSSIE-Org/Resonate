@@ -12,10 +12,11 @@ class NoRoomScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 8,
+          height: MediaQuery.of(context).size.height / 6,
         ),
+        Image.asset(height: 150, width: 150, 'assets/images/no_room.png'),
         const SizedBox(
-          height: 10,
+          height: 30,
         ),
         Text(
           '''No ${isRoom ? 'Room' : 'Upcoming Room'} Available

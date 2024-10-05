@@ -16,7 +16,7 @@ const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
 const String userProfileImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/66856231000ff23eea70/view?project=resonate";
+    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/67012e19003d00f39e12/view?project=resonate&mode=admin";
 
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 

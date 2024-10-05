@@ -117,14 +117,16 @@ class TabViewScreen extends StatelessWidget {
                         if (createRoomController.isScheduled.value) {
                           createRoomController.isLoading.value = true;
                           await upcomingRoomsController.createUpcomingRoom();
-                          upcomingRoomsController.getUpcomingRooms();
+                          await upcomingRoomsController.getUpcomingRooms();
                           createRoomController.isLoading.value = false;
-                          controller.setIndex(3);
+                          isLiveSelected = false;
+                          controller.setIndex(0);
                         } else {
                           await createRoomController.createRoom(
                               createRoomController.nameController.text,
                               createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags!.map((item) => item.toString())
+                              createRoomController.tagsController.getTags!
+                                  .map((item) => item.toString())
                                   .toList(),
                               true);
                           await roomsController.getRooms();
