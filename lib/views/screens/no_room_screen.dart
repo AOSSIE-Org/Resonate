@@ -18,7 +18,7 @@ class NoRoomScreen extends StatelessWidget {
           height: 10,
         ),
         Text(
-          '''No ${isRoom ? 'Room' : 'Discussion'} Available
+          '''No ${isRoom ? 'Room' : 'Upcoming Room'} Available
       Get Started By Adding One Below! ''',
           textAlign: TextAlign.center,
           style: TextStyle(
