@@ -12,9 +12,7 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
-import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
@@ -126,8 +124,8 @@ class TabViewScreen extends StatelessWidget {
                           await createRoomController.createRoom(
                               createRoomController.nameController.text,
                               createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags
-                                  as List<String>,
+                              createRoomController.tagsController.getTags!.map((item) => item.toString())
+                                  .toList(),
                               true);
                           await roomsController.getRooms();
                         }

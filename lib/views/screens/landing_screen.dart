@@ -43,7 +43,7 @@ class LandingScreen extends StatelessWidget {
         ),
         onFinish: () async {
           await GetStorage().write("landingScreenShown", true);
-          Get.offNamed(AppRoutes.newWelcomeScreen);
+          Get.offNamed(AppRoutes.welcomeScreen);
         },
         finishButtonText: 'Get Started',
         skipTextButton: const Text('Skip'),

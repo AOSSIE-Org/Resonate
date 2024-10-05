@@ -1,5 +1,4 @@
 class AppRoutes {
-  // static const login = '/login';
   static const signup = '/signup';
   static const forgotPassword = '/forgotPassword';
   static const resetPassword = '/resetPassword';
@@ -7,8 +6,6 @@ class AppRoutes {
   static const emailVerification = '/emailVerification';
   static const onBoarding = "/onBoarding";
   static const tabview = "/tabview";
-  static const home = "/home";
-  static const createRoom = "/createRoom";
   static const splash = "/splash";
   static const landing = "/landing";
   static const updateEmail = "/updateEmail";
@@ -19,13 +16,13 @@ class AppRoutes {
   static const editProfile = "/editProfile";
   static const deleteAccount = "/deleteAccount";
   static const changeEmail = "/changeEmail";
-  static const newLoginScreen = '/newLoginScreen';
-  static const newRoomScreen = '/newRoomScreen';
+  static const loginScreen = '/loginScreen';
+  static const roomScreen = '/roomScreen';
   static const roomChatScreen = '/roomChatScreen';
-  static const newBottomNavBar = '/newBottomNavBar';
-  static const newHomeScreen = '/newHomeScreen';
-  static const newCreateRoom = '/newCreateRoom';
-  static const newWelcomeScreen = '/newWelcomeScreen';
+  static const bottomNavBar = '/bottomNavBar';
+  static const homeScreen = '/homeScreen';
+  static const createRoom = '/createRoom';
+  static const welcomeScreen = '/welcomeScreen';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
   static const notificationsScreen = '/notificationsScreen';

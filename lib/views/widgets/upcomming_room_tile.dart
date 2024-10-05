@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 
@@ -18,6 +15,7 @@ class UpCommingListTile extends StatelessWidget {
         appwriteUpcommingRoom.subscribersAvatarUrls.length > 3
             ? appwriteUpcommingRoom.subscribersAvatarUrls.sublist(0, 3)
             : appwriteUpcommingRoom.subscribersAvatarUrls;
+    print(appwriteUpcommingRoom.tags);
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -64,9 +62,25 @@ class UpCommingListTile extends StatelessWidget {
                 .toList()
                 .withSpacing(7),
           ),
-          const SizedBox(
-            height: 8,
+          appwriteUpcommingRoom.tags != []
+              ? const SizedBox(
+                  height: 8,
+                )
+              : SizedBox(),
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 4.0,
+            children: appwriteUpcommingRoom.tags
+                .map((tag) => Text(
+                      "#$tag",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 14,
+                      ),
+                    ))
+                .toList(),
           ),
+          const SizedBox(height: 8),
           Text(
             appwriteUpcommingRoom.description,
             maxLines: 2,

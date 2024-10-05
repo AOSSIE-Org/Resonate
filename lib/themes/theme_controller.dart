@@ -1,43 +1,33 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/themes/theme_enum.dart';
 
-import '../utils/enums/themes_enum.dart';
 
 class ThemeController extends GetxController {
   final _box = GetStorage();
-  final _key = 'themeValue';
+  final _key = 'theme';
 
-  ThemeMode get theme {
-    String themeVal = loadTheme();
+  Rx<String> currentTheme = Themes.classic.name.obs;
 
-    if (themeVal == ThemeValues.systemDefault.name) {
-      return ThemeMode.system;
-    } else if (themeVal == ThemeValues.light.name) {
-      return ThemeMode.light;
-    } else {
-      return ThemeMode.dark;
-    }
+//hahahha
+  @override
+  void onInit() {
+    super.onInit();
+    currentTheme.value = getCurrentTheme;
+  }
+
+  String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
+
+
+  void updateTheme(String theme){
+    currentTheme.value = theme;
   }
 
 
-  Rx<Color> primaryColor = Colors.amber.obs;
-
-  void changePrimaryColor(Color newColor) {
-    primaryColor.value = newColor;
-  }
-
-  LinearGradient createDynamicGradient() {
-    return LinearGradient(
-      colors: [
-        primaryColor.value,
-        primaryColor.value.withOpacity(0.6),
-      ],
-    );
+  void setTheme(String newTheme) {
+    _box.write(_key, newTheme);
+    updateTheme(newTheme);
   }
 
 
-  String loadTheme() => _box.read(_key) ?? ThemeValues.systemDefault.name;
-  void changeThemeMode(ThemeMode themeMode) => Get.changeThemeMode(themeMode);
-  void saveTheme(ThemeValues themeValues) => _box.write(_key, themeValues.name);
 }

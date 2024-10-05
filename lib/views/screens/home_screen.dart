@@ -1,10 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
 
@@ -60,15 +64,30 @@ class _HomeScreenState extends State<HomeScreen> {
               //   categories: categories,
               // ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: pullToRefreshData,
-                  child: (isLiveSelected
-                      ? const LiveRoomListView()
-                      : const UpcomingRoomsListView()),
-                ),
+                    onRefresh: pullToRefreshData,
+                    child: Obx(
+                      () => (isLiveSelected
+                          ? roomsController.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget.fourRotatingDots(
+                                                                        color:
+                                    Theme.of(context).colorScheme.primary,
+                                                                        size: Get.pixelRatio * 20,
+                                                                      ))
+                              : LiveRoomListView()
+                          : upcomingRoomsController.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget.fourRotatingDots(
+                                                                        color:
+                                    Theme.of(context).colorScheme.primary,
+                                                                        size: Get.pixelRatio * 20,
+                                                                      ))
+                              : UpcomingRoomsListView()),
+                    )),
               ),
             ],
           ),
@@ -116,35 +135,33 @@ class CustomAppBarLiveRoom extends StatelessWidget {
             ),
           ),
         ),
-        const Spacer(),
       ],
     );
   }
 }
-
 
 class UpcomingRoomsListView extends StatelessWidget {
   const UpcomingRoomsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => ListView.builder(
-        itemCount: upcomingRoomsController.upcomingRooms.length,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-            ),
-            child: UpCommingListTile(
-              appwriteUpcommingRoom:
-                  upcomingRoomsController.upcomingRooms[index],
-            ),
-          );
-        },
-      ),
-    );
+    return upcomingRoomsController.upcomingRooms.length == 0
+        ? ListView.builder(
+            itemCount: upcomingRoomsController.upcomingRooms.length,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                ),
+                child: UpCommingListTile(
+                  appwriteUpcommingRoom:
+                      upcomingRoomsController.upcomingRooms[index],
+                ),
+              );
+            },
+          )
+        : NoRoomScreen(isRoom: false);
   }
 }
 
@@ -153,20 +170,22 @@ class LiveRoomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: roomsController.rooms.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
-          ),
-          child: CustomLiveRoomTile(
-            appwriteRoom: roomsController.rooms[index],
-          ),
-        );
-      },
-    );
+    return roomsController.rooms.length != 0
+        ? ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: roomsController.rooms.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                ),
+                child: CustomLiveRoomTile(
+                  appwriteRoom: roomsController.rooms[index],
+                ),
+              );
+            },
+          )
+        : NoRoomScreen(isRoom: true);
   }
 }
 

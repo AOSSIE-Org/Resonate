@@ -165,7 +165,7 @@ class AuthStateController extends GetxController {
           "landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
-          : Get.offNamed(AppRoutes.newWelcomeScreen);
+          : Get.offNamed(AppRoutes.welcomeScreen);
     }
   }
 
@@ -292,7 +292,7 @@ class AuthStateController extends GetxController {
       onConfirm: () async {
         await account.deleteSession(sessionId: 'current');
         await removeRegistrationTokenFromSubscribedUpcomingRooms();
-        Get.offAllNamed(AppRoutes.newWelcomeScreen);
+        Get.offAllNamed(AppRoutes.welcomeScreen);
       },
     );
   }

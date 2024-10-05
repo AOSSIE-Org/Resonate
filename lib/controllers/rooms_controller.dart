@@ -95,13 +95,13 @@ class RoomsController extends GetxController {
     }
   }
 
-  Future<void> joinRoom({required AppwriteRoom room}) async {
+  Future<void> joinRoom({required AppwriteRoom room, required BuildContext context}) async {
     try {
       // Display Loading Dialog
       Get.dialog(
           Center(
             child: LoadingAnimationWidget.threeRotatingDots(
-                color: themeController.primaryColor.value,
+                color: Theme.of(context).primaryColor,
                 size: Get.pixelRatio * 20),
           ),
           barrierDismissible: false,

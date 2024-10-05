@@ -80,70 +80,69 @@ class CustomLiveRoomTile extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 12),
-            // Display avatars with total participants count below them
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 120,
-                  height: 40,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: memberAvatars
-                        .asMap()
-                        .entries
-                        .map((entry) => Positioned(
-                              left: 28.0 * entry.key,
-                              child: CustomCircleAvatar(
-                                height: 40,
-                                width: 40,
-                                userImage: entry.value,
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-
+            const SizedBox(height: 5),
+            
             // Total participants count
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.people_outline,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 20,
+                Column(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 50,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: memberAvatars
+                            .asMap()
+                            .entries
+                            .map((entry) => Positioned(
+                                  left: 28.0 * entry.key,
+                                  child: CustomCircleAvatar(
+                                    height: 40,
+                                    width: 40,
+                                    userImage: entry.value,
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.people_outline,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${appwriteRoom.totalParticipants} Participants',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 4),
-                Text(
-                  '${appwriteRoom.totalParticipants} Participants',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 14,
+                ElevatedButton(
+                  onPressed: () {
+                    roomsController.joinRoom(
+                        room: appwriteRoom, context: context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
+                  child: const Text('Join'),
                 ),
               ],
             ),
 
             // Join button
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  roomsController.joinRoom(room: appwriteRoom);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
-                child: const Text('Join'),
-              ),
-            ),
           ],
         ),
       ),

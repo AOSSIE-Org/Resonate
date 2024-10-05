@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -11,6 +10,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
 
+
 class CreateRoomController extends GetxController {
   final ThemeController themeController = Get.find<ThemeController>();
   RxBool isLoading = false.obs;
@@ -18,7 +18,7 @@ class CreateRoomController extends GetxController {
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  late TextfieldTagsController tagsController = TextfieldTagsController();
+  TextfieldTagsController tagsController = TextfieldTagsController();
 
   @override
   void dispose() {

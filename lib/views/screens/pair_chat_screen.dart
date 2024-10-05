@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
@@ -13,7 +12,6 @@ class PairChatScreen extends StatelessWidget {
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
   final PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});
 
@@ -68,7 +66,7 @@ class PairChatScreen extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              _buildBottomControlPanel(currentBrightness),
+              _buildBottomControlPanel(currentBrightness, context),
             ],
           ),
         ),
@@ -98,11 +96,12 @@ class PairChatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomControlPanel(Brightness currentBrightness) {
+  Widget _buildBottomControlPanel(
+      Brightness currentBrightness, BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
       color: currentBrightness == Brightness.light
-          ? themeController.primaryColor.value
+          ? Theme.of(context).colorScheme.primary
           : Colors.black,
       height: UiSizes.height_131,
       child: Obx(() {
@@ -115,7 +114,7 @@ class PairChatScreen extends StatelessWidget {
               onPressed: controller.toggleMic,
               backgroundColor: controller.isMicOn.value
                   ? _getControlButtonBackgroundColor(currentBrightness)
-                  : themeController.primaryColor.value,
+                  : Theme.of(context).colorScheme.primary,
               heroTag: "mic",
             ),
             _buildControlButton(
@@ -123,7 +122,7 @@ class PairChatScreen extends StatelessWidget {
               label: 'Speaker',
               onPressed: controller.toggleLoudSpeaker,
               backgroundColor: controller.isLoudSpeakerOn.value
-                  ? themeController.primaryColor.value
+                  ? Theme.of(context).colorScheme.primary
                   : _getControlButtonBackgroundColor(currentBrightness),
               heroTag: "speaker",
             ),

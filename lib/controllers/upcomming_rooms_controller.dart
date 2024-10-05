@@ -13,6 +13,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/themes/theme_enum.dart';
 import 'package:resonate/utils/constants.dart';
 
 class UpcomingRoomsController extends GetxController {
@@ -69,20 +70,6 @@ class UpcomingRoomsController extends GetxController {
         });
 
     await getUpcomingRooms();
-  }
-
-  Map<String, Color> getShimmerColor() {
-    Map<String, Color> shimmerColor;
-    themeController.loadTheme() == 'light'
-        ? shimmerColor = {
-            "baseColor": Colors.grey.shade300,
-            "highlightColor": Colors.grey.shade100
-          }
-        : shimmerColor = {
-            "baseColor": const Color.fromARGB(255, 71, 70, 70),
-            "highlightColor": const Color.fromARGB(255, 94, 94, 94)
-          };
-    return shimmerColor;
   }
 
   Future<void> removeUserFromSubscriberList(String upcomingRoomId) async {

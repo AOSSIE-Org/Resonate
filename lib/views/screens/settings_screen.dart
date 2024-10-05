@@ -108,6 +108,7 @@ class SettingsScreen extends StatelessWidget {
             trailing: const Icon(Icons.logout_rounded),
             onTap: () async {
               await authStateController.logout(context);
+
             },
           ),
         ],

@@ -29,7 +29,7 @@ Widget welcomeScreenDialog(BuildContext context) {
           children: [
             GestureDetector(
               onTap: () {
-                Get.offNamed(AppRoutes.newLoginScreen);
+                Get.offNamed(AppRoutes.loginScreen);
               },
               child: Container(
                 color: Colors.transparent,

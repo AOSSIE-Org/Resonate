@@ -5,7 +5,6 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
-import '../../themes/theme_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var controller = Get.find<AuthenticationController>();
-  var themeController = Get.find<ThemeController>();
 
   @override
   void initState() {
