@@ -29,10 +29,10 @@ class NoConnectionDialog extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppImages.noConnectionImage,
-                    height: UiSizes.height_246,
-                  ),
+                  Image.asset(
+                      height: 150,
+                      width: 150,
+                      "assets/images/no_connection.png"),
                   Text(
                     "No Connection",
                     style: TextStyle(
