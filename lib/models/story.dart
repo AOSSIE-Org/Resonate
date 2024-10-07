@@ -8,8 +8,8 @@ class Story {
   final String storyId;
   final String description;
   final StoryCategory category;
-  final String creatorId;
   final String coverImageUrl;
+  final String creatorId;
   final String creatorName;
   final String creatorImgUrl;
   final DateTime creationDate;
@@ -23,8 +23,8 @@ class Story {
       this.storyId,
       this.description,
       this.category,
-      this.creatorId,
       this.coverImageUrl,
+      this.creatorId,
       this.creatorName,
       this.creatorImgUrl,
       this.creationDate,

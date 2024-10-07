@@ -11,6 +11,12 @@ const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";
 const String subscribedUserCollectionId = "6522fd267db6fdad3392";
 const String upcomingRoomsCollectionId = "6522fd163103bd453183";
 
+// Story related Database Constants
+const String storyDatabaseId = "stories";
+const String storyCollectionId = "670259e900321c12a5a2";
+const String chapterCollectionId = "670277ad002530531daf";
+const String likeCollectionId = "670259e20000ddda49a0";
+
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
