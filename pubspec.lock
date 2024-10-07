@@ -1088,6 +1088,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  palette_generator:
+    dependency: "direct main"
+    description:
+      name: palette_generator
+      sha256: d50fbcd69abb80c5baec66d700033b1a320108b1aa17a5961866a12c0abb7c0c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+4"
   path:
     dependency: transitive
     description:

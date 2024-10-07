@@ -67,6 +67,7 @@ dependencies:
   loading_indicator: ^3.1.1
   package_info_plus: ^8.0.2
   page_transition: ^2.0.9
+  palette_generator: ^0.3.3+4
   persistent_bottom_nav_bar: ^6.2.1
   random_string: ^2.3.1
   share_plus: ^7.2.2
