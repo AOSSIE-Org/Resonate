@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/models/mock_models/notification_model.dart';
+import 'package:resonate/models/notification_model.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -33,7 +33,7 @@ class NotificationsScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(ProfileScreen());
+                Get.to(const ProfileScreen());
               },
             ),
           ),

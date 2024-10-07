@@ -1,49 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
-
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/email_verify_controller.dart';
-import '../../models/mock_models/stories_model.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/ui_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
-
-  final List<StoriesModel> yourStories = [
-    StoriesModel(
-      title: "Sony",
-      description:
-          "Discover a wide range of high-quality products from Sony and the technology behind them, get instant access to our store and Entertainment Network.",
-      imgUrl: "assets/mock/sony.jpeg",
-    ),
-    StoriesModel(
-      title: "Coffee Girl",
-      description: "Morning coffee is good for health or not.",
-      imgUrl: "assets/mock/coffee_girl.jpeg",
-    ),
-    StoriesModel(
-      title: "Japan",
-      description: "Japan is a country with very religious people.",
-      imgUrl: "assets/mock/japan.jpeg",
-    ),
-  ];
-
-  final List<StoriesModel> continueWithStories = [
-    StoriesModel(
-      title: "Podcast",
-      description:
-          "The sun dipped below the horizon, casting a warm, golden hue over the tranquil landscape. Birds began their evening songs, filling the air with a gentle melody that blended perfectly with the rustling of the leaves in the cool breeze.",
-      imgUrl: "assets/mock/podcast.jpeg",
-    ),
-    StoriesModel(
-      title: "Coffee Latte",
-      description: "Cafe latte is good for health or not.",
-      imgUrl: "assets/mock/cafe_latte.jpeg",
-    ),
-  ];
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -248,7 +214,7 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: UiSizes.height_200,
                       child: ListView.builder(
-                        itemCount: yourStories.length,
+                        itemCount: exploreStoryController.userCreatedStories.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -257,7 +223,7 @@ class ProfileScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => StoryScreen(
-                                    storyModel: yourStories[index],
+                                    story: exploreStoryController.userCreatedStories[index],
                                   ),
                                 ),
                               );
@@ -276,7 +242,7 @@ class ProfileScreen extends StatelessWidget {
                                       color: Colors.black,
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            yourStories[index].imgUrl),
+                                            exploreStoryController.userCreatedStories[index].coverImageUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -285,14 +251,14 @@ class ProfileScreen extends StatelessWidget {
                                     height: UiSizes.height_5,
                                   ),
                                   Text(
-                                    yourStories[index].title,
+                                    exploreStoryController.userCreatedStories[index].title,
                                     style: TextStyle(
                                       fontSize: UiSizes.size_16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    yourStories[index].description,
+                               exploreStoryController.userCreatedStories[index].description,
                                     style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: UiSizes.size_12,
@@ -311,7 +277,7 @@ class ProfileScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Continue with",
+                        "Your Liked Stories",
                         style: TextStyle(
                           fontSize: UiSizes.size_16,
                           fontWeight: FontWeight.bold,
@@ -324,7 +290,7 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: UiSizes.height_200,
                       child: ListView.builder(
-                        itemCount: continueWithStories.length,
+                        itemCount: exploreStoryController.userLikedStories.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
@@ -333,7 +299,7 @@ class ProfileScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => StoryScreen(
-                                    storyModel: continueWithStories[index],
+                                    story: exploreStoryController.userLikedStories[index],
                                   ),
                                 ),
                               );
@@ -352,7 +318,7 @@ class ProfileScreen extends StatelessWidget {
                                       color: Colors.black,
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            continueWithStories[index].imgUrl),
+                                            exploreStoryController.userLikedStories[index].coverImageUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -361,14 +327,14 @@ class ProfileScreen extends StatelessWidget {
                                     height: UiSizes.height_5,
                                   ),
                                   Text(
-                                    continueWithStories[index].title,
+                                    exploreStoryController.userLikedStories[index].title,
                                     style: TextStyle(
                                       fontSize: UiSizes.size_16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    continueWithStories[index].description,
+                                    exploreStoryController.userLikedStories[index].description,
                                     style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: UiSizes.size_12,

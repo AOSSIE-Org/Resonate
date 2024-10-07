@@ -13,6 +13,8 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
+final exploreStoryController = Get.put(ExploreStoryController());
+
 class ExploreStoryController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   final Storage storage = AppwriteService.getStorage();
@@ -21,6 +23,15 @@ class ExploreStoryController extends GetxController {
   List<Story> userCreatedStories = [];
   List<Story> userLikedStories = [];
   List<Story> searchResponseStories = [];
+  List<Story> openedCategotyStories = [];
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await fetchStoryRecommendation();
+    await fetchUserCreatedStories();
+    await fetchUserLikedStories();
+  }
 
   // Need to research a little before implementing - kept for slight future
   Future<void> searchStories(String query) async {
@@ -48,6 +59,23 @@ class ExploreStoryController extends GetxController {
             'audioFileUrl': chapter.audioFileUrl
           });
     }
+  }
+
+  Future<void> fetchStoryByCategory(StoryCategory category) async {
+    List<Document> storyDocuments = [];
+    try {
+      storyDocuments = await databases.listDocuments(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          queries: [
+            Query.and([Query.limit(15), Query.equal('category', category.name)])
+          ]).then((value) => value.documents);
+    } on AppwriteException catch (e) {
+      log('Failed to fetch stories for categories: ${e.message}');
+    }
+
+    openedCategotyStories =
+        await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
   Future<String> uploadFileToAppwriteGetUrl(String bucketId, String fileId,
@@ -157,7 +185,11 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> deleteStory(Story story) async {
-    await storage.deleteFile(bucketId: storyBucketId, fileId: story.storyId);
+    try {
+      await storage.deleteFile(bucketId: storyBucketId, fileId: story.storyId);
+    } on AppwriteException catch (e) {
+      log('failed to delete story cover image ${e.message}');
+    }
 
     try {
       await deleteAllStoryChapters(story.chapters);
@@ -198,16 +230,26 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> deleteChapter(Chapter chapter) async {
-    await storage.deleteFile(
-        bucketId: storyBucketId, fileId: chapter.chapterId);
-
-    await storage.deleteFile(
-        bucketId: storyBucketId, fileId: 'audioFor${chapter.chapterId}');
-
-    await databases.deleteDocument(
-        databaseId: storyDatabaseId,
-        collectionId: chapterCollectionId,
-        documentId: chapter.chapterId);
+    try {
+      await storage.deleteFile(
+          bucketId: storyBucketId, fileId: chapter.chapterId);
+    } on AppwriteException catch (e) {
+      log("failed to delete chapter cover img ${e.message}");
+    }
+    try {
+      await storage.deleteFile(
+          bucketId: storyBucketId, fileId: 'audioFor${chapter.chapterId}');
+    } on AppwriteException catch (e) {
+      log("failed to delete chapter audio file ${e.message}");
+    }
+    try {
+      await databases.deleteDocument(
+          databaseId: storyDatabaseId,
+          collectionId: chapterCollectionId,
+          documentId: chapter.chapterId);
+    } on AppwriteException catch (e) {
+      log("failed to delete chapter document ${e.message}");
+    }
   }
 
   Future<void> deleteAllStoryChapters(List<Chapter> chapters) async {

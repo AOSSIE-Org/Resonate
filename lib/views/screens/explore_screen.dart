@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/models/category_model.dart';
-import 'package:resonate/models/sony_model.dart';
-import 'package:resonate/models/story_model.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/widgets/category_card.dart';
-import 'package:resonate/views/widgets/song_list_tile.dart';
+import 'package:resonate/views/widgets/story_list_tile.dart';
 import 'package:resonate/views/widgets/story_card.dart';
 
 class ExploreScreen extends StatelessWidget {
@@ -92,7 +91,7 @@ class ExplorePageBody extends StatelessWidget {
             height: 330,
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: categoryList.length,
+              itemCount: StoryCategory.values.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 0.0,
@@ -101,7 +100,8 @@ class ExplorePageBody extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return CategoryCard(
-                  categoryModel: categoryList[index],
+                  name: StoryCategory.values[index].name,
+                  color: categoryColorList[index],
                 );
               },
             ),
@@ -124,7 +124,9 @@ class ExplorePageBody extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              itemCount: storiesList.length,
+              itemCount: exploreStoryController.recommendedStories.length > 4
+                  ? 4
+                  : exploreStoryController.recommendedStories.length,
               itemBuilder: (context, index) {
                 return Container(
                   height: 300,
@@ -136,7 +138,7 @@ class ExplorePageBody extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: StoryCard(
-                    storyModel: storiesList[index],
+                    story: exploreStoryController.recommendedStories[index],
                   ),
                 );
               },
@@ -166,10 +168,16 @@ class ExplorePageBody extends StatelessWidget {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               primary: true,
-              itemCount: songsList.length,
+              itemCount: exploreStoryController.recommendedStories.length > 4
+                  ? exploreStoryController.recommendedStories.length - 4
+                  : exploreStoryController.recommendedStories.length,
               itemBuilder: (context, index) {
-                return SongListTile(
-                  songModel: songsList[index],
+                final int storyIndex =
+                    exploreStoryController.recommendedStories.length > 4
+                        ? index + 4
+                        : index;
+                return StoryListTile(
+                  story: exploreStoryController.recommendedStories[storyIndex],
                 );
               },
             ),
@@ -183,79 +191,11 @@ class ExplorePageBody extends StatelessWidget {
   }
 }
 
-final List<SongModel> songsList = [
-  SongModel(
-    name: 'Courtesy Call',
-    image: 'assets/images/cover_image_1.jpg',
-    type: 'Hiphop',
-    singer: 'Thouhand Foot',
-  ),
-  SongModel(
-    name: 'Older',
-    image: 'assets/images/cover_image_2.jpg',
-    type: 'Hiphop',
-    singer: 'Alec Benjamin',
-  ),
-  SongModel(
-    name: 'Change My Clothes',
-    image: 'assets/images/cover_image_1.jpg',
-    singer: 'Dream, Alec ',
-    type: 'Romance',
-  ),
-  SongModel(
-    name: 'California',
-    image: 'assets/images/cover_image_2.jpg',
-    type: 'Hiphop',
-    singer: 'Alec Benjamin',
-  ),
-];
-final List<StoryModel> storiesList = [
-  StoryModel(
-    name: 'King',
-    image: 'assets/images/cover_image_1.jpg',
-  ),
-  StoryModel(
-    name: 'Queen',
-    image: 'assets/images/cover_image_2.jpg',
-  ),
-  StoryModel(
-    name: 'Soldier',
-    image: 'assets/images/cover_image_1.jpg',
-  ),
-  StoryModel(
-    name: 'Knight',
-    image: 'assets/images/cover_image_2.jpg',
-  ),
-];
-final List<CategoryModel> categoryList = [
-  CategoryModel(
-    name: 'Dramma',
-    image: 'assets/images/cover_image_1.png',
-    color: const Color(0xffDB148B),
-  ),
-  CategoryModel(
-    name: 'Horror',
-    image: 'assets/images/cover_image_2.png',
-    color: const Color(0xff01634E),
-  ),
-  CategoryModel(
-    name: 'Comdey',
-    image: 'assets/images/cover_image_1.png',
-    color: const Color(0xff8201E7),
-  ),
-  CategoryModel(
-    name: 'Thriller',
-    image: 'assets/images/cover_image_2.png',
-    color: const Color(0xff1E3162),
-  ),
-  CategoryModel(
-    name: 'Romance',
-    image: 'assets/images/cover_image_1.png',
-    color: const Color(0xffDB148B),
-  ),
-  CategoryModel(
-    name: 'Spiritual',
-    image: 'assets/images/cover_image_2.png',
-    color: const Color(0xff01634E),
-  ),
+final List<Color> categoryColorList = [
+  const Color.fromARGB(255, 237, 29, 154),
+  const Color.fromARGB(255, 21, 178, 136),
+  const Color.fromARGB(255, 142, 16, 238),
+  const Color.fromARGB(255, 38, 83, 215),
+  const Color.fromARGB(255, 140, 204, 37),
+  const Color.fromARGB(255, 218, 83, 83),
 ];

@@ -64,7 +64,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.profile,
-      page: () => ProfileScreen(),
+      page: () => const ProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
