@@ -61,7 +61,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceVariant,
+                            : Theme.of(context).colorScheme.surfaceContainerHighest,
                         elevation: controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -92,7 +92,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: !controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceVariant,
+                            : Theme.of(context).colorScheme.surfaceContainerHigh,
                         elevation: !controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -12,25 +10,20 @@ import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
 
+bool isLiveSelected = true;
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 final RoomsController roomsController = Get.put(RoomsController());
 
 final UpcomingRoomsController upcomingRoomsController =
     Get.put(UpcomingRoomsController());
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> categories = [
-    'Popular',
-    'Science',
-    'Design',
-  ];
-  bool isLiveSelected = false;
 
   Future<void> pullToRefreshData() async {
     await Future.delayed(
@@ -59,10 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              // Will be implemented later on
-              // CustomCategoryChips(
-              //   categories: categories,
-              // ),
               const SizedBox(
                 height: 5,
               ),
@@ -73,20 +62,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       () => (isLiveSelected
                           ? roomsController.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget.fourRotatingDots(
-                                                                        color:
-                                    Theme.of(context).colorScheme.primary,
-                                                                        size: Get.pixelRatio * 20,
-                                                                      ))
-                              : LiveRoomListView()
+                                  child:
+                                      LoadingAnimationWidget.fourRotatingDots(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: Get.pixelRatio * 20,
+                                ))
+                              : const LiveRoomListView()
                           : upcomingRoomsController.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget.fourRotatingDots(
-                                                                        color:
-                                    Theme.of(context).colorScheme.primary,
-                                                                        size: Get.pixelRatio * 20,
-                                                                      ))
-                              : UpcomingRoomsListView()),
+                                  child:
+                                      LoadingAnimationWidget.fourRotatingDots(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: Get.pixelRatio * 20,
+                                ))
+                              : const UpcomingRoomsListView()),
                     )),
               ),
             ],
@@ -145,7 +134,7 @@ class UpcomingRoomsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return upcomingRoomsController.upcomingRooms.length == 0
+    return upcomingRoomsController.upcomingRooms.isNotEmpty
         ? ListView.builder(
             itemCount: upcomingRoomsController.upcomingRooms.length,
             physics: const BouncingScrollPhysics(),
@@ -161,7 +150,7 @@ class UpcomingRoomsListView extends StatelessWidget {
               );
             },
           )
-        : NoRoomScreen(isRoom: false);
+        : const NoRoomScreen(isRoom: false);
   }
 }
 
@@ -170,7 +159,7 @@ class LiveRoomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return roomsController.rooms.length != 0
+    return roomsController.rooms.isNotEmpty
         ? ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: roomsController.rooms.length,
@@ -185,7 +174,7 @@ class LiveRoomListView extends StatelessWidget {
               );
             },
           )
-        : NoRoomScreen(isRoom: true);
+        : const NoRoomScreen(isRoom: true);
   }
 }
 

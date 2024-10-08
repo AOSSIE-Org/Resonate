@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/models/category_model.dart';
+
+String capitalizeFirstLetter(String input) {
+  if (input.isEmpty) return input;
+  return input[0].toUpperCase() + input.substring(1);
+}
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.categoryModel});
-  final CategoryModel categoryModel;
+  const CategoryCard({super.key, required this.name, required this.color});
+  final String name;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +19,14 @@ class CategoryCard extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: categoryModel.color,
+            color: color,
           ),
         ),
         Positioned(
           left: 14,
           top: 14,
           child: Text(
-            categoryModel.name,
+            capitalizeFirstLetter(name),
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Colors.white,
                   fontFamily: 'Inter',

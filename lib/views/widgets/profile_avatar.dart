@@ -42,7 +42,7 @@ Widget profileAvatar(BuildContext context) {
                     backgroundImage: authStateController.profileImageUrl ==
                                 null ||
                             authStateController.profileImageUrl!.isEmpty
-                        ? NetworkImage(
+                        ? const NetworkImage(
                             'https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?ga=GA1.1.338869508.1708106114&semt=sph')
                         : NetworkImage(authStateController.profileImageUrl!),
                   ),

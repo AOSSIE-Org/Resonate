@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/models/mock_models/stories_model.dart';
+import 'package:resonate/models/story.dart';
+
 import 'package:resonate/utils/ui_sizes.dart';
 
 class StoryScreen extends StatelessWidget {
-  const StoryScreen({super.key, required this.storyModel});
+  const StoryScreen({super.key, required this.story});
 
-  final StoriesModel storyModel;
+  final Story story;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +27,15 @@ class StoryScreen extends StatelessWidget {
                 height: UiSizes.height_40,
               ),
               Semantics(
-                label: "${storyModel.title} image",
+                label: "${story.title} image",
                 child: Container(
                   width: mq.width * 0.7,
                   height: mq.width * 0.7,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage(
-                        storyModel.imgUrl,
+                      image: NetworkImage(
+                        story.coverImageUrl,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -47,7 +48,7 @@ class StoryScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  storyModel.title,
+                  story.title,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: UiSizes.size_24,
@@ -126,7 +127,7 @@ class StoryScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        storyModel.description,
+                        story.description,
                         style: TextStyle(
                           // fontWeight: FontWeight.bold,
                           fontSize: UiSizes.size_12,

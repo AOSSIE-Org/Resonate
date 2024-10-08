@@ -45,8 +45,8 @@ class CreateRoomScreen extends StatelessWidget {
     );
 
     return PopScope(
-      onPopInvoked: (canPop) async {
-        tabViewController.setIndex(0);
+      onPopInvokedWithResult: (didPop, result) async {
+         tabViewController.setIndex(0);
       },
       child: GetBuilder<CreateRoomController>(
         builder: (controller) => Obx(
@@ -332,15 +332,11 @@ class CreateRoomScreen extends StatelessWidget {
                                   return null;
                                 }
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "Room Description (optional)",
-                                // prefixIcon: Icon(Icons.description,
-                                //     color: Theme.of(context)
-                                //         .colorScheme
-                                //         .primary), // Icon decoration
                                 filled: false,
                                 border: InputBorder.none,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: EdgeInsets.all(16),
                               ),
                             ),
                           ),

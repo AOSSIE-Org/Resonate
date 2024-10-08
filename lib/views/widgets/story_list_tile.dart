@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/models/sony_model.dart';
+import 'package:resonate/models/story.dart';
 
-class SongListTile extends StatelessWidget {
-  const SongListTile({
+class StoryListTile extends StatelessWidget {
+  const StoryListTile({
     super.key,
-    required this.songModel,
+    required this.story,
   });
 
-  final SongModel songModel;
+  final Story story;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: Text(
-        songModel.name,
+        story.title,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
@@ -24,7 +24,7 @@ class SongListTile extends StatelessWidget {
             ),
       ),
       subtitle: Text(
-        '${songModel.type} - ${songModel.singer}',
+        '${story.category.name} - ${story.creatorName}',
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: 12,
               fontStyle: FontStyle.normal,
@@ -33,8 +33,8 @@ class SongListTile extends StatelessWidget {
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Image.asset(
-          songModel.image,
+        child: Image.network(
+          story.coverImageUrl,
         ),
       ),
       trailing: Icon(

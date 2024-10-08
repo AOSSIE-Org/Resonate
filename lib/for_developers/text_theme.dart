@@ -11,9 +11,7 @@ class TextThemeForDevs extends StatelessWidget {
         width: double.maxFinite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-
           children: [
-
             Text("Resonate", style: Theme.of(context).textTheme.displayLarge,),
             Text("Resonate", style: Theme.of(context).textTheme.displayMedium,),
             Text("Resonate", style: Theme.of(context).textTheme.displaySmall,),
@@ -33,9 +31,6 @@ class TextThemeForDevs extends StatelessWidget {
             Text("Resonate", style: Theme.of(context).textTheme.labelLarge,),
             Text("Resonate", style: Theme.of(context).textTheme.labelMedium,),
             Text("Resonate", style: Theme.of(context).textTheme.labelSmall,),
-
-
-
           ],
         ),
       ),

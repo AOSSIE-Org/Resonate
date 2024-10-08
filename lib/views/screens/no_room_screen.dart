@@ -3,7 +3,7 @@ import 'package:resonate/views/widgets/live_room_tile.dart';
 
 class NoRoomScreen extends StatelessWidget {
   final bool isRoom;
-  NoRoomScreen({super.key, required this.isRoom});
+  const NoRoomScreen({super.key, required this.isRoom});
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +12,17 @@ class NoRoomScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 8,
+          height: MediaQuery.of(context).size.height / 6,
         ),
+        Image.asset(height: 150, width: 150, 'assets/images/no_room.png'),
         const SizedBox(
-          height: 10,
+          height: 30,
         ),
         Text(
           '''No ${isRoom ? 'Room' : 'Upcoming Room'} Available
-      Get Started By Adding One Below! ''',
+Get Started By Adding One Below! ''',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w900,
           ),

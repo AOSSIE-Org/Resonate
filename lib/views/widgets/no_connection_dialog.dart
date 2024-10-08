@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/network_controller.dart';
-import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class NoConnectionDialog extends StatelessWidget {
@@ -29,10 +27,10 @@ class NoConnectionDialog extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppImages.noConnectionImage,
-                    height: UiSizes.height_246,
-                  ),
+                  Image.asset(
+                      height: 150,
+                      width: 150,
+                      "assets/images/no_connection.png"),
                   Text(
                     "No Connection",
                     style: TextStyle(

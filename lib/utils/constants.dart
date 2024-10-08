@@ -11,12 +11,19 @@ const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";
 const String subscribedUserCollectionId = "6522fd267db6fdad3392";
 const String upcomingRoomsCollectionId = "6522fd163103bd453183";
 
+// Story related Constants
+const String storyDatabaseId = "stories";
+const String storyCollectionId = "670259e900321c12a5a2";
+const String chapterCollectionId = "670277ad002530531daf";
+const String likeCollectionId = "670259e20000ddda49a0";
+const String storyBucketId = "6703f4c70037edfd8429";
+
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
 const String userProfileImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/66856231000ff23eea70/view?project=resonate";
+    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/67012e19003d00f39e12/view?project=resonate&mode=admin";
 
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 

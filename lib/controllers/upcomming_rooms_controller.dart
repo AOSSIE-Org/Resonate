@@ -7,13 +7,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
-import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
-import 'package:resonate/themes/theme_enum.dart';
 import 'package:resonate/utils/constants.dart';
 
 class UpcomingRoomsController extends GetxController {
@@ -160,7 +158,7 @@ class UpcomingRoomsController extends GetxController {
   Future<void> getUpcomingRooms() async {
     isLoading.value = true;
     try {
-      var upcomingRooms_documents = await databases
+      var upcomingRoomsDocuments = await databases
           .listDocuments(
             databaseId: upcomingRoomsDatabaseId,
             collectionId: upcomingRoomsCollectionId,
@@ -168,7 +166,7 @@ class UpcomingRoomsController extends GetxController {
           .then((value) => value.documents);
       upcomingRooms.value = [];
 
-      for (var upcomingRoom in upcomingRooms_documents) {
+      for (var upcomingRoom in upcomingRoomsDocuments) {
         AppwriteUpcommingRoom appwriteUpcomingRoom =
             await fetchUpcomingRoomDetails(upcomingRoom);
         upcomingRooms.add(appwriteUpcomingRoom);
