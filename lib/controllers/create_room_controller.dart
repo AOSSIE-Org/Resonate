@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -11,6 +9,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
+
 
 class CreateRoomController extends GetxController {
   final ThemeController themeController = Get.find<ThemeController>();
@@ -47,16 +46,6 @@ class CreateRoomController extends GetxController {
 
     try {
       isLoading.value = true;
-
-      // Display Loading Dialog
-      Get.dialog(
-          Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-                color: themeController.primaryColor.value,
-                size: Get.pixelRatio * 20),
-          ),
-          barrierDismissible: false,
-          name: "Loading Dialog");
 
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();

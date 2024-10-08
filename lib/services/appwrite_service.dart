@@ -45,8 +45,3 @@ class AppwriteService {
 }
 
 
-
-
-
-
-

@@ -12,7 +12,7 @@ part of 'resonate_user.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ResonateUser _$ResonateUserFromJson(Map<String, dynamic> json) {
   return _ResonateUser.fromJson(json);
@@ -26,8 +26,12 @@ mixin _$ResonateUser {
   String? get gender => throw _privateConstructorUsedError;
   String? get dateOfBirth => throw _privateConstructorUsedError;
 
+  /// Serializes this ResonateUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResonateUserCopyWith<ResonateUser> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$ResonateUserCopyWithImpl<$Res, $Val extends ResonateUser>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,11 +97,11 @@ class _$ResonateUserCopyWithImpl<$Res, $Val extends ResonateUser>
 }
 
 /// @nodoc
-abstract class _$$_ResonateUserCopyWith<$Res>
+abstract class _$$ResonateUserImplCopyWith<$Res>
     implements $ResonateUserCopyWith<$Res> {
-  factory _$$_ResonateUserCopyWith(
-          _$_ResonateUser value, $Res Function(_$_ResonateUser) then) =
-      __$$_ResonateUserCopyWithImpl<$Res>;
+  factory _$$ResonateUserImplCopyWith(
+          _$ResonateUserImpl value, $Res Function(_$ResonateUserImpl) then) =
+      __$$ResonateUserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,13 +113,15 @@ abstract class _$$_ResonateUserCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ResonateUserCopyWithImpl<$Res>
-    extends _$ResonateUserCopyWithImpl<$Res, _$_ResonateUser>
-    implements _$$_ResonateUserCopyWith<$Res> {
-  __$$_ResonateUserCopyWithImpl(
-      _$_ResonateUser _value, $Res Function(_$_ResonateUser) _then)
+class __$$ResonateUserImplCopyWithImpl<$Res>
+    extends _$ResonateUserCopyWithImpl<$Res, _$ResonateUserImpl>
+    implements _$$ResonateUserImplCopyWith<$Res> {
+  __$$ResonateUserImplCopyWithImpl(
+      _$ResonateUserImpl _value, $Res Function(_$ResonateUserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,7 +131,7 @@ class __$$_ResonateUserCopyWithImpl<$Res>
     Object? gender = freezed,
     Object? dateOfBirth = freezed,
   }) {
-    return _then(_$_ResonateUser(
+    return _then(_$ResonateUserImpl(
       uid: freezed == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -150,16 +158,16 @@ class __$$_ResonateUserCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ResonateUser implements _ResonateUser {
-  const _$_ResonateUser(
+class _$ResonateUserImpl implements _ResonateUser {
+  const _$ResonateUserImpl(
       {this.uid,
       this.userName,
       this.profileImageUrl,
       this.gender,
       this.dateOfBirth});
 
-  factory _$_ResonateUser.fromJson(Map<String, dynamic> json) =>
-      _$$_ResonateUserFromJson(json);
+  factory _$ResonateUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ResonateUserImplFromJson(json);
 
   @override
   final String? uid;
@@ -178,10 +186,10 @@ class _$_ResonateUser implements _ResonateUser {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ResonateUser &&
+            other is _$ResonateUserImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -192,20 +200,22 @@ class _$_ResonateUser implements _ResonateUser {
                 other.dateOfBirth == dateOfBirth));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, uid, userName, profileImageUrl, gender, dateOfBirth);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ResonateUserCopyWith<_$_ResonateUser> get copyWith =>
-      __$$_ResonateUserCopyWithImpl<_$_ResonateUser>(this, _$identity);
+  _$$ResonateUserImplCopyWith<_$ResonateUserImpl> get copyWith =>
+      __$$ResonateUserImplCopyWithImpl<_$ResonateUserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ResonateUserToJson(
+    return _$$ResonateUserImplToJson(
       this,
     );
   }
@@ -217,10 +227,10 @@ abstract class _ResonateUser implements ResonateUser {
       final String? userName,
       final String? profileImageUrl,
       final String? gender,
-      final String? dateOfBirth}) = _$_ResonateUser;
+      final String? dateOfBirth}) = _$ResonateUserImpl;
 
   factory _ResonateUser.fromJson(Map<String, dynamic> json) =
-      _$_ResonateUser.fromJson;
+      _$ResonateUserImpl.fromJson;
 
   @override
   String? get uid;
@@ -232,8 +242,11 @@ abstract class _ResonateUser implements ResonateUser {
   String? get gender;
   @override
   String? get dateOfBirth;
+
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_ResonateUserCopyWith<_$_ResonateUser> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResonateUserImplCopyWith<_$ResonateUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

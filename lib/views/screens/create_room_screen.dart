@@ -1,11 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
-import 'package:resonate/controllers/discussions_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:textfield_tags/textfield_tags.dart';
@@ -13,31 +11,42 @@ import 'package:textfield_tags/textfield_tags.dart';
 class CreateRoomScreen extends StatelessWidget {
   final TabViewController tabViewController = Get.find<TabViewController>();
   final CreateRoomController createRoomController =
-      Get.find<CreateRoomController>();
-
-  final DiscussionsController discussionsController =
-      Get.put<DiscussionsController>(DiscussionsController());
-  final ThemeController themeController = Get.find<ThemeController>();
-
-  OutlineInputBorder kEnabledTextFieldBorder = OutlineInputBorder(
-      borderSide:
-          BorderSide(color: Get.find<ThemeController>().primaryColor.value),
-      borderRadius: BorderRadius.circular(15));
-
-  OutlineInputBorder kFocusedTextFieldBorder = OutlineInputBorder(
-      borderSide: BorderSide(
-          color: Get.find<ThemeController>().primaryColor.value,
-          width: UiSizes.width_2),
-      borderRadius: BorderRadius.circular(15));
+      Get.put<CreateRoomController>(CreateRoomController());
+  final UpcomingRoomsController upcomingRoomsController =
+      Get.put<UpcomingRoomsController>(UpcomingRoomsController());
 
   CreateRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        tabViewController.setIndex(0);
-        return false;
+    final BoxDecoration kTextFieldDecoration = BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+          const Color.fromARGB(255, 139, 134, 134),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        const BoxShadow(
+          color: Colors.black12,
+          offset: Offset(0, 3),
+          blurRadius: 6,
+        ),
+        BoxShadow(
+          color: Colors.white.withOpacity(0.3),
+          offset: const Offset(-2, -2),
+          blurRadius: 3,
+          spreadRadius: 1,
+        ),
+      ],
+    );
+
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) async {
+         tabViewController.setIndex(0);
       },
       child: GetBuilder<CreateRoomController>(
         builder: (controller) => Obx(
@@ -58,80 +67,89 @@ class CreateRoomScreen extends StatelessWidget {
                       key: controller.createRoomFormKey,
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: UiSizes.height_24_6,
-                          ),
+                          SizedBox(height: UiSizes.height_24_6),
                           Text(
                             "Create New Room",
-                            style:
-                                TextStyle(fontSize: Get.textScaleFactor * 35),
+                            style: TextStyle(
+                              fontSize: Get.textScaleFactor * 35,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
-                          SizedBox(
-                            height: UiSizes.height_24_6,
-                          ),
+                          SizedBox(height: UiSizes.height_24_6),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Obx(
-                                () => TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor:
-                                          !controller.isScheduled.value
-                                              ? const Color.fromARGB(
-                                                  53, 253, 212, 31)
-                                              : Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color:
-                                                  !controller.isScheduled.value
-                                                      ? themeController
-                                                          .primaryColor.value
-                                                      : Colors.transparent),
-                                          borderRadius: BorderRadius.circular(
-                                              UiSizes.size_15)),
-                                      textStyle: const TextStyle(),
+                                () => GestureDetector(
+                                  onTap: () =>
+                                      controller.isScheduled.value = false,
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 300),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: UiSizes.height_10,
+                                        horizontal: UiSizes.width_20),
+                                    decoration: BoxDecoration(
+                                      color: controller.isScheduled.value
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                              .withOpacity(0.5)
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    onPressed: () {
-                                      controller.isScheduled.value = false;
-                                    },
                                     child: Text(
-                                      'Start Now',
-                                      style:
-                                          TextStyle(fontSize: UiSizes.size_14),
-                                    )),
+                                      'Live',
+                                      style: TextStyle(
+                                          fontSize: UiSizes.size_14,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? controller.isScheduled.value
+                                                  ? Colors.black
+                                                  : Colors.white
+                                              : Colors.white),
+                                    ),
+                                  ),
+                                ),
                               ),
                               Obx(
-                                () => TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor:
-                                          controller.isScheduled.value
-                                              ? const Color.fromARGB(
-                                                  53, 253, 212, 31)
-                                              : Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color:
-                                                  !controller.isScheduled.value
-                                                      ? Colors.transparent
-                                                      : themeController
-                                                          .primaryColor.value),
-                                          borderRadius: BorderRadius.circular(
-                                              UiSizes.size_15)),
+                                () => GestureDetector(
+                                  onTap: () =>
+                                      controller.isScheduled.value = true,
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 300),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: UiSizes.height_10,
+                                        horizontal: UiSizes.width_20),
+                                    decoration: BoxDecoration(
+                                      color: controller.isScheduled.value
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    onPressed: () {
-                                      controller.isScheduled.value = true;
-                                    },
                                     child: Text(
                                       'Scheduled',
-                                      style:
-                                          TextStyle(fontSize: UiSizes.size_14),
-                                    )),
-                              )
+                                      style: TextStyle(
+                                          fontSize: UiSizes.size_14,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? controller.isScheduled.value
+                                                  ? Colors.white
+                                                  : Colors.black
+                                              : Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: UiSizes.height_24_6,
-                          ),
+                          SizedBox(height: UiSizes.height_24_6),
                           Obx(
                             () => controller.isScheduled.value
                                 ? SizedBox(
@@ -143,7 +161,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? null
                                           : "Please Enter Scheduled Date-Time",
                                       readOnly: true,
-                                      controller: discussionsController
+                                      controller: upcomingRoomsController
                                           .dateTimeController,
                                       keyboardType: TextInputType.text,
                                       autocorrect: false,
@@ -157,7 +175,7 @@ class CreateRoomScreen extends StatelessWidget {
                                             fontSize: UiSizes.size_14),
                                         suffix: GestureDetector(
                                           onTap: () async {
-                                            await discussionsController
+                                            await upcomingRoomsController
                                                 .chooseDateTime();
                                           },
                                           child: const Icon(Icons.date_range),
@@ -169,47 +187,52 @@ class CreateRoomScreen extends StatelessWidget {
                           ),
                           Obx(
                             () => controller.isScheduled.value
-                                ? SizedBox(
-                                    height: UiSizes.height_33,
-                                  )
+                                ? SizedBox(height: UiSizes.height_33)
                                 : const SizedBox(),
                           ),
-                          TextFormField(
-                            controller: controller.nameController,
-                            style: TextStyle(fontSize: UiSizes.size_25),
-                            cursorColor: themeController.primaryColor.value,
-                            minLines: 1,
-                            maxLines: 13,
-                            validator: (value) {
-                              if (value!.isNotEmpty) {
-                                if (value.length <= 13) {
-                                  return null;
-                                } else {
-                                  return "Name can't be longer than 13 chars";
+                          Container(
+                            decoration: kTextFieldDecoration,
+                            child: TextFormField(
+                              controller: controller.nameController,
+                              style: TextStyle(fontSize: UiSizes.size_25),
+                              cursorColor:
+                                  Theme.of(context).colorScheme.primary,
+                              minLines: 1,
+                              maxLines: 13,
+                              validator: (value) {
+                                if (value!.isNotEmpty) {
+                                  if (value.length <= 13) {
+                                    return null;
+                                  } else {
+                                    return "Name can't be longer than 13 chars";
+                                  }
                                 }
-                              }
-                              return "Name is required";
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Give a great name..",
-                              filled: true,
-                              fillColor: const Color(0x15FFFFFF),
-                              border: kEnabledTextFieldBorder,
-                              enabledBorder: kEnabledTextFieldBorder,
-                              focusedBorder: kFocusedTextFieldBorder,
+                                return "Name is required";
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Give a great name..",
+                                prefixIcon: Icon(Icons.edit,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary), // Icon decoration
+                                filled: false,
+                                border: InputBorder
+                                    .none, // No border as it's managed by decoration
+                                contentPadding: const EdgeInsets.all(16),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: UiSizes.height_33,
-                          ),
-                          TextFieldTags(
+                          SizedBox(height: UiSizes.height_33),
+                          Container(
+                            decoration: kTextFieldDecoration,
+                            child: TextFieldTags(
                               textfieldTagsController:
                                   controller.tagsController,
                               initialTags: const ['sample-tag'],
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
                               validator: (tag) {
-                                return createRoomController.validateTag(tag);
+                                return controller.validateTag(tag);
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
@@ -218,13 +241,10 @@ class CreateRoomScreen extends StatelessWidget {
                                       inputFieldValues.textEditingController,
                                   focusNode: inputFieldValues.focusNode,
                                   decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: const Color(0x15FFFFFF),
-                                    isDense: true,
-                                    border: kEnabledTextFieldBorder,
-                                    enabledBorder: kEnabledTextFieldBorder,
-                                    focusedBorder: kFocusedTextFieldBorder,
                                     hintText: "Enter tags",
+                                    filled: false,
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.all(16),
                                     errorText: inputFieldValues.error,
                                     prefixIconConstraints: BoxConstraints(
                                         maxWidth: UiSizes.width_304),
@@ -280,7 +300,7 @@ class CreateRoomScreen extends StatelessWidget {
                                                       ),
                                                       onTap: () {
                                                         inputFieldValues
-                                                            .onTagDelete(tag);
+                                                            .onTagRemoved(tag);
                                                       },
                                                     )
                                                   ],
@@ -290,32 +310,34 @@ class CreateRoomScreen extends StatelessWidget {
                                           )
                                         : null,
                                   ),
-                                  onChanged: inputFieldValues.onChanged,
-                                  onSubmitted: inputFieldValues.onSubmitted,
+                                  onChanged: inputFieldValues.onTagChanged,
+                                  onSubmitted: inputFieldValues.onTagSubmitted,
                                 );
-                              }),
-                          SizedBox(
-                            height: UiSizes.height_33,
+                              },
+                            ),
                           ),
-                          TextFormField(
-                            controller: controller.descriptionController,
-                            style: TextStyle(fontSize: UiSizes.size_20),
-                            cursorColor: themeController.primaryColor.value,
-                            maxLines: 10,
-                            validator: (value) {
-                              if (value!.isNotEmpty && value.length > 500) {
-                                return "Can't be longer than 500 chars";
-                              } else {
-                                return null;
-                              }
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Room Description (optional)",
-                              filled: true,
-                              fillColor: const Color(0x15FFFFFF),
-                              border: kEnabledTextFieldBorder,
-                              enabledBorder: kEnabledTextFieldBorder,
-                              focusedBorder: kFocusedTextFieldBorder,
+                          SizedBox(height: UiSizes.height_33),
+                          Container(
+                            decoration: kTextFieldDecoration,
+                            child: TextFormField(
+                              controller: controller.descriptionController,
+                              style: TextStyle(fontSize: UiSizes.size_20),
+                              cursorColor:
+                                  Theme.of(context).colorScheme.primary,
+                              maxLines: 10,
+                              validator: (value) {
+                                if (value!.isNotEmpty && value.length > 500) {
+                                  return "Can't be longer than 500 chars";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Room Description (optional)",
+                                filled: false,
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(16),
+                              ),
                             ),
                           ),
                         ],
@@ -324,13 +346,15 @@ class CreateRoomScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              createRoomController.isLoading.value
+              controller.isLoading.value
                   ? BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Center(
-                          child: LoadingAnimationWidget.threeRotatingDots(
-                              color: themeController.primaryColor.value,
-                              size: Get.pixelRatio * 20)),
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                          color: Theme.of(context).colorScheme.primary,
+                          size: Get.pixelRatio * 50,
+                        ),
+                      ),
                     )
                   : const SizedBox(),
             ],

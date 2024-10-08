@@ -1,85 +1,116 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-
 import '../../controllers/auth_state_controller.dart';
 
-Future<dynamic> buildPairChatDialog() {
-  PairChatController controller = Get.find<PairChatController>();
-  final ThemeController themeController = Get.find<ThemeController>();
+Future<dynamic> buildPairChatDialog(BuildContext context) {
+  final PairChatController controller = Get.find<PairChatController>();
 
-  return Get.defaultDialog(
-      title: "Pair Chat",
-      titleStyle: TextStyle(fontSize: Get.pixelRatio * 10),
-      content: Padding(
-        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+  return Get.dialog(
+    Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      elevation: 12,
+      child: Padding(
+        padding: const EdgeInsets.all(28),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Divider(),
+            // Title
+            Text(
+              "Pair Chat",
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+
+            // Divider with slight padding
+            Divider(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              thickness: 1,
+            ),
+            const SizedBox(height: 16),
+
+            // Identity Selection Section
             Text(
               "Choose Identity",
-              style: TextStyle(fontSize: Get.pixelRatio * 6),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
             ),
-            SizedBox(
-              height: UiSizes.height_10,
-            ),
+            const SizedBox(height: 16),
+
+            // Anonymous and Authenticated Buttons
             Obx(
               () => Row(
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          controller.isAnonymous.value = true;
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: controller.isAnonymous.value
-                                ? themeController.primaryColor.value
-                                : Colors.black26,
-                            shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent),
+                    child: ElevatedButton(
+                      onPressed: () => controller.isAnonymous.value = true,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: controller.isAnonymous.value
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.surfaceContainerHighest,
+                        elevation: controller.isAnonymous.value ? 6 : 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
                         child: Text(
                           'Anonymous',
                           style: TextStyle(
-                              color: controller.isAnonymous.value
-                                  ? Colors.black
-                                  : Colors.white,
-                              fontSize: UiSizes.size_14),
+                            color: controller.isAnonymous.value
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                            fontSize: UiSizes.size_16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  const SizedBox(width: 10),
                   Expanded(
-                    child: SizedBox(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: !controller.isAnonymous.value
-                                ? themeController.primaryColor.value
-                                : Colors.black26,
-                            shadowColor: Colors.transparent,
-                            surfaceTintColor: Colors.transparent),
-                        onPressed: () {
-                          controller.isAnonymous.value = false;
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            Get.find<AuthStateController>().displayName!,
-                            style: TextStyle(
-                                color: controller.isAnonymous.value
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: UiSizes.size_14),
+                    child: ElevatedButton(
+                      onPressed: () => controller.isAnonymous.value = false,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: !controller.isAnonymous.value
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.surfaceContainerHigh,
+                        elevation: !controller.isAnonymous.value ? 6 : 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          Get.find<AuthStateController>().displayName!,
+                          style: TextStyle(
+                            color: !controller.isAnonymous.value
+                                ? Theme.of(context).colorScheme.onPrimary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                            fontSize: UiSizes.size_16,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
@@ -88,43 +119,59 @@ Future<dynamic> buildPairChatDialog() {
                 ],
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_10,
+            const SizedBox(height: 24),
+
+            // Divider with slight padding
+            Divider(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              thickness: 1,
             ),
-            const Divider(),
+            const SizedBox(height: 16),
+
+            // Language Selection Section
             Text(
               "Select Language",
-              style: TextStyle(
-                fontSize: Get.pixelRatio * 6,
-              ),
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
             ),
+            const SizedBox(height: 16),
             LanguagePickerDropdown(
-                initialValue: Languages.english,
-                onValuePicked: (Language language) {
-                  log(language.isoCode);
-                  controller.languageIso = language.isoCode;
-                }),
-            const Divider(),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.people_outlined,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                controller.quickMatch();
+              initialValue: Languages.english,
+              onValuePicked: (Language language) {
+                log(language.isoCode);
+                controller.languageIso = language.isoCode;
               },
+            ),
+            const SizedBox(height: 28),
+
+            // Resonate Button styled like Anonymous button
+            ElevatedButton(
+              onPressed: controller.quickMatch,
               style: ElevatedButton.styleFrom(
-                backgroundColor: themeController.primaryColor.value,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.all(14),
               ),
-              label: Text(
-                "Resonate",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: UiSizes.size_21_3,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  "Resonate",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: UiSizes.size_16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
           ],
         ),
-      ));
+      ),
+    ),
+  );
 }

@@ -17,9 +17,10 @@ import 'auth_state_controller.dart';
 
 class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isOnActive = false.obs;
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
-  List<AppwriteRoom> rooms = [];
+  RxList<AppwriteRoom> rooms = <AppwriteRoom>[].obs;
   final ThemeController themeController = Get.find<ThemeController>();
 
   @override
@@ -63,7 +64,7 @@ class RoomsController extends GetxController {
       String userUid = Get.find<AuthStateController>().uid!;
 
       // Get active rooms and add it to rooms list
-      rooms = [];
+      rooms.value = [];
       var roomsCollectionRef = await databases.listDocuments(
           databaseId: masterDatabaseId, collectionId: roomsCollectionId);
 
@@ -94,13 +95,13 @@ class RoomsController extends GetxController {
     }
   }
 
-  Future<void> joinRoom({required AppwriteRoom room}) async {
+  Future<void> joinRoom({required AppwriteRoom room, required BuildContext context}) async {
     try {
       // Display Loading Dialog
       Get.dialog(
           Center(
             child: LoadingAnimationWidget.threeRotatingDots(
-                color: themeController.primaryColor.value,
+                color: Theme.of(context).primaryColor,
                 size: Get.pixelRatio * 20),
           ),
           barrierDismissible: false,
