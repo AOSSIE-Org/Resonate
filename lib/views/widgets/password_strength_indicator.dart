@@ -5,7 +5,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 class PasswordStrengthIndicator extends StatelessWidget {
   const PasswordStrengthIndicator({
     super.key,
-    required this.isPasswordSixCharacters,
+    required this.isPasswordEightCharacters,
     required this.hasOneDigit,
     required this.hasUpperCase,
     required this.passwordSixCharactersTitle,
@@ -14,16 +14,20 @@ class PasswordStrengthIndicator extends StatelessWidget {
     required this.hasLowerCase,
     required this.hasLowerCaseTitle,
     required this.validatedChecks,
+    required this.hasOneSymbol,
+    required this.hasOneSymbolTitle,
   });
 
-  final bool isPasswordSixCharacters;
+  final bool isPasswordEightCharacters;
   final bool hasOneDigit;
   final bool hasUpperCase;
   final bool hasLowerCase;
+  final bool hasOneSymbol;
   final String passwordSixCharactersTitle;
   final String hasOneDigitTitle;
   final String hasUpperCaseTitle;
   final String hasLowerCaseTitle;
+  final String hasOneSymbolTitle;
 
   final int validatedChecks;
 
@@ -51,6 +55,10 @@ class PasswordStrengthIndicator extends StatelessWidget {
                 width: UiSizes.size_12,
               ),
               buildAnimatedStrengthContainer(2),
+              SizedBox(
+                width: UiSizes.size_12,
+              ),
+              buildAnimatedStrengthContainer(3),
             ],
           ),
           SizedBox(
@@ -75,21 +83,28 @@ class PasswordStrengthIndicator extends StatelessWidget {
   AnimatedContainer buildAnimatedStrengthContainer(int index) {
     Color containerColor;
 
-    // Check if all 4 conditions are true
-    if (validatedChecks == 4) {
+    // Check if all 5 conditions are true
+    if (validatedChecks == 5) {
       containerColor = AppColor.greenColor; // All checks are true, green color
     }
+
+    // Check if 4 conditions are true
+    else if (validatedChecks == 4) {
+      containerColor =
+          index < 3 ? AppColor.yellowColor : AppColor.greyShadeColor;
+    }
+
     // Check if 3 conditions are true
     else if (validatedChecks == 3) {
       // If index is 0 or 1, set the color to yellow, else set it to gray
       containerColor =
-          index < 2 ? AppColor.yellowColor : AppColor.greyShadeColor;
+          index < 2 ? AppColor.orangeColor : AppColor.greyShadeColor;
     }
     // Check if 2 conditions are true
     else if (validatedChecks == 2) {
       // If index is 0 or 1, set the color to yellow, else set it to gray
       if (index == 0 || index == 1) {
-        containerColor = AppColor.yellowColor;
+        containerColor = AppColor.orangeColor;
       } else {
         containerColor = AppColor.greyShadeColor;
       }
@@ -106,7 +121,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
-      width: UiSizes.size_65,
+      width: UiSizes.size_56,
       height: 5,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -117,7 +132,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
   }
 
   String getTitle() {
-    if (!isPasswordSixCharacters) {
+    if (!isPasswordEightCharacters) {
       return passwordSixCharactersTitle;
     } else if (!hasOneDigit) {
       return hasOneDigitTitle;
@@ -125,6 +140,8 @@ class PasswordStrengthIndicator extends StatelessWidget {
       return hasUpperCaseTitle;
     } else if (!hasLowerCase) {
       return hasLowerCaseTitle;
+    } else if (!hasOneSymbol) {
+      return hasOneSymbolTitle;
     } else {
       return passStrengthVerifiedText;
     }

@@ -1,33 +1,34 @@
 import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
+import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
-import 'package:resonate/views/new_screens/new_create_room_screen.dart';
-import 'package:resonate/views/new_screens/new_home_screen.dart';
-import 'package:resonate/views/new_screens/new_login_screen.dart';
-import 'package:resonate/views/new_screens/new_room_chat_screen.dart';
-import 'package:resonate/views/new_screens/new_room_screen.dart';
-import 'package:resonate/views/new_screens/new_tab_view.dart';
-import 'package:resonate/views/new_screens/new_welcome_screen.dart';
-import 'package:resonate/views/screens/change_email_screen.dart';
+import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
-import 'package:resonate/views/screens/delete_account_screen.dart';
-import 'package:resonate/views/screens/discussions_screen.dart';
+import 'package:resonate/views/screens/home_screen.dart';
+import 'package:resonate/views/screens/login_screen.dart';
+import 'package:resonate/views/screens/notifications_screen.dart';
+import 'package:resonate/views/screens/pair_chat_screen.dart';
+import 'package:resonate/views/screens/pairing_screen.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
-import 'package:resonate/views/screens/landing_screen.dart';
+import 'package:resonate/views/screens/forgot_password_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
-import 'package:resonate/views/screens/pairing_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
+import 'package:resonate/views/screens/user_account_screen.dart';
+import 'package:resonate/views/screens/change_email_screen.dart';
+import 'package:resonate/views/screens/delete_account_screen.dart';
+import 'package:resonate/views/screens/landing_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
-
+import 'package:resonate/views/screens/welcome_screen.dart';
 import '../bindings/tabview_binding.dart';
-import '../views/screens/home_screen.dart';
-import '../views/screens/pair_chat_screen.dart';
+import '../views/screens/about_app_screen.dart';
+import '../views/screens/contribute_screen.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
@@ -51,14 +52,14 @@ class AppPages {
       page: () => EmailVerificationScreen(),
       binding: AuthSplashBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.login,
-    //   page: () => const LoginScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
+    GetPage(
+      name: AppRoutes.loginScreen,
+      page: () => const LoginScreen(),
+      binding: AuthSplashBinding(),
+    ),
     GetPage(
       name: AppRoutes.profile,
-      page: () => ProfileScreen(),
+      page: () => const ProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -67,14 +68,19 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
+      name: AppRoutes.forgotPassword,
+      page: () => const ForgotPasswordScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
       name: AppRoutes.resetPassword,
       page: () => const ResetPasswordScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: AppRoutes.home,
-      page: () => HomeScreen(),
-      binding: TabViewBinding(),
+      name: AppRoutes.resetPassword,
+      page: () => const ResetPasswordScreen(),
+      binding: ProfileBinding(),
     ),
     GetPage(
       name: AppRoutes.tabview,
@@ -87,11 +93,6 @@ class AppPages {
       binding: TabViewBinding(),
     ),
     GetPage(
-      name: AppRoutes.discuss,
-      page: () => DiscussionScreen(),
-      binding: AuthSplashBinding(),
-    ),
-    GetPage(
       name: AppRoutes.pairing,
       page: () => PairingScreen(),
     ),
@@ -101,8 +102,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.settings,
-      page: () => const SettingsScreen(),
-      binding: ProfileBinding(),
+      page: () => SettingsScreen(),
     ),
     GetPage(
       name: AppRoutes.editProfile,
@@ -118,34 +118,47 @@ class AppPages {
       name: AppRoutes.changeEmail,
       page: () => ChangeEmailScreen(),
     ),
+    GetPage(
+      name: AppRoutes.welcomeScreen,
+      page: () => WelcomeScreen(),
+    ),
     // New Screens
     GetPage(
-      name: AppRoutes.newWelcomeScreen,
-      page: () => const NewWelcomeScreen(),
+      name: AppRoutes.loginScreen,
+      page: () => const LoginScreen(),
+    ),
+
+    GetPage(
+      name: AppRoutes.roomChatScreen,
+      page: () => RoomChatScreen(),
     ),
     GetPage(
-      name: AppRoutes.newLoginScreen,
-      page: () => const NewLoginScreen(),
+      name: AppRoutes.homeScreen,
+      page: () => const HomeScreen(),
     ),
     GetPage(
-      name: AppRoutes.newRoomScreen,
-      page: () => const NewRoomScreen(),
+      name: AppRoutes.themeScreen,
+      page: () => ThemeScreen(),
     ),
     GetPage(
-      name: AppRoutes.newRoomScreen,
-      page: () => NewRoomChatScreen(),
+      name: AppRoutes.userAccountScreen,
+      page: () => const UserAccountScreen(),
     ),
     GetPage(
-      name: AppRoutes.newBottomNavBar,
-      page: () => const BottomNavBar(),
+      name: AppRoutes.aboutApp,
+      page: () => AboutAppScreen(),
     ),
     GetPage(
-      name: AppRoutes.newHomeScreen,
-      page: () => const NewHomeScreen(),
+      name: AppRoutes.notificationsScreen,
+      page: () => NotificationsScreen(),
     ),
     GetPage(
-      name: AppRoutes.newCreateRoom,
-      page: () => const StartRoomBottomSheet(),
+      name: AppRoutes.contributeScreen,
+      page: () => const ContributeScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.exploreScreen,
+      page: () => const ExploreScreen(),
     ),
   ];
 }

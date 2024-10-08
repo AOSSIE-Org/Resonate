@@ -9,6 +9,7 @@ class AppUtils {
   AppUtils._();
 
   static void showDialog({
+    required BuildContext context,
     required String title,
     required String middleText,
     String firstBtnText = "Confirm",
@@ -38,6 +39,7 @@ class AppUtils {
         ElevatedButton(
           onPressed: onFirstBtnPressed,
           style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primary,
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
               vertical: 10,
@@ -46,7 +48,7 @@ class AppUtils {
           child: Text(
             firstBtnText,
             style: TextStyle(
-              color: const Color(0xFF725001),
+              color: Theme.of(context).colorScheme.onPrimary,
               fontSize: UiSizes.size_14,
             ),
           ),
@@ -54,6 +56,7 @@ class AppUtils {
         ElevatedButton(
           onPressed: onSecondBtnPressed,
           style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primary,
             textStyle: secondBtnTextStyle,
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -63,7 +66,7 @@ class AppUtils {
           child: Text(
             secondBtnText,
             style: TextStyle(
-              color: const Color(0xFF725001),
+              color: Theme.of(context).colorScheme.onPrimary,
               fontSize: UiSizes.size_14,
             ),
           ),
@@ -72,66 +75,13 @@ class AppUtils {
     );
   }
 
-  static void saveChangesDialogue({required void Function() onSaved}) {
-    void Function()? onSaved;
-    Get.defaultDialog(
-      title: 'Save changes',
-      titleStyle: const TextStyle(fontWeight: FontWeight.w500),
-      titlePadding: const EdgeInsets.symmetric(vertical: 20),
-      content: Text(
-        "If you proceed without saving, any unsaved changes will be lost.",
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: UiSizes.size_14,
-        ),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.blueGrey),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                  Navigator.pop(Get.context!);
-                },
-                child: const Text(
-                  'Discard',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-              TextButton(
-                onPressed: onSaved,
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  static void showBlurredLoaderDialog() {
+  static void showBlurredLoaderDialog(BuildContext context) {
     Get.dialog(
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Center(
             child: LoadingAnimationWidget.threeRotatingDots(
-              color: Colors.amber,
+              color: Theme.of(context).colorScheme.primary,
               size: Get.pixelRatio * 20,
             ),
           ),

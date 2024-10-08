@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:ui' as ui;
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -58,13 +60,20 @@ class OnboardingController extends GetxController {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
-    var usernameAvail = await isUsernameAvailable(usernameController.text);
+    var usernameAvail =
+        await isUsernameAvailable(usernameController.text.trim());
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
-          "Username Unavailable!",
-          "This username is invalid or either taken already.",
-          MessageType.error);
+        "Username Unavailable!",
+        "This username is invalid or either taken already.",
+        MessageType.error,
+      );
+
+      SemanticsService.announce(
+        "This username is invalid or either taken already.",
+        ui.TextDirection.ltr,
+      );
       return;
     }
     try {
@@ -74,7 +83,7 @@ class OnboardingController extends GetxController {
       await databases.createDocument(
           databaseId: userDatabaseID,
           collectionId: usernameCollectionID,
-          documentId: usernameController.text,
+          documentId: usernameController.text.trim(),
           data: {"email": authStateController.email});
       //Update User Meta Data
       if (profileImagePath != null) {
@@ -92,31 +101,47 @@ class OnboardingController extends GetxController {
       }
 
       // Update User meta data
-      await authStateController.account.updateName(name: nameController.text);
+      await authStateController.account
+          .updateName(name: nameController.text.trim());
       await databases.createDocument(
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
         documentId: authStateController.uid!,
         data: {
-          "name": nameController.text,
-          "username": usernameController.text,
+          "name": nameController.text.trim(),
+          "username": usernameController.text.trim(),
           "profileImageUrl": imageController.text,
           "dob": dobController.text,
           "email": authStateController.email,
           "profileImageID": uniqueIdForProfileImage,
         },
       );
-      await authStateController.account.updatePrefs(prefs: {
-        "isUserProfileComplete": true
-      });
+      await authStateController.account
+          .updatePrefs(prefs: {"isUserProfileComplete": true});
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
-      customSnackbar("Profile created successfully",
-          "Your user profile is successfully created.", MessageType.success);
+      customSnackbar(
+        "Profile created successfully",
+        "Your user profile is successfully created.",
+        MessageType.success,
+      );
+
+      SemanticsService.announce(
+        "Your user profile is successfully created.",
+        ui.TextDirection.ltr,
+      );
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       log(e.toString());
-      customSnackbar("Error!", e.toString(), MessageType.error);
+      customSnackbar(
+        "Error!",
+        e.toString(),
+        MessageType.error,
+      );
+      SemanticsService.announce(
+        e.toString(),
+        ui.TextDirection.ltr,
+      );
     } finally {
       isLoading.value = false;
     }

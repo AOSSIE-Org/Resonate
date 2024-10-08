@@ -12,7 +12,8 @@ import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
-import 'package:resonate/views/widgets/loading_widget.dart';
+import 'package:resonate/views/screens/home_screen.dart';
+import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../utils/constants.dart';
 
@@ -188,7 +189,7 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> leaveRoom() async {
-    loadingWidget();
+    loadingDialog(Get.context!);
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
     Get.delete<SingleRoomController>();
   }
@@ -196,8 +197,8 @@ class SingleRoomController extends GetxController {
   Future<void> deleteRoom() async {
     try {
       isLoading.value = true;
-      loadingWidget();
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
+      await roomsController.getRooms();
       Get.delete<SingleRoomController>();
     } catch (e) {
       log("Error in Delete Room Function (SingleRoomController): ${e.toString()}");

@@ -2,16 +2,18 @@ import 'package:get/get.dart';
 
 class PasswordStrengthCheckerController extends GetxController {
   RxBool isVisible = false.obs;
-  RxBool isPasswordSixCharacters = false.obs;
+  RxBool isPasswordEightCharacters = false.obs;
   RxBool hasOneDigit = false.obs;
   RxBool hasUpperCase = false.obs;
   RxBool hasLowerCase = false.obs;
+  RxBool hasOneSymbol = false.obs;
 
   RxInt get validatedChecks => RxInt([
-        isPasswordSixCharacters,
+        isPasswordEightCharacters,
         hasOneDigit,
         hasUpperCase,
-        hasLowerCase
+        hasLowerCase,
+        hasOneSymbol,
       ].where((check) => check.value).length);
 
   void passwordValidator(String pass) {
@@ -19,8 +21,8 @@ class PasswordStrengthCheckerController extends GetxController {
     if (pass.isNotEmpty) {
       isVisible.value = true;
     }
-    isPasswordSixCharacters.value = false;
-    if (pass.length >= 6) isPasswordSixCharacters.value = true;
+    isPasswordEightCharacters.value = false;
+    if (pass.length >= 8) isPasswordEightCharacters.value = true;
 
     hasOneDigit.value = false;
     if (AppRegExp.containsNumericRegex.hasMatch(pass)) {
@@ -34,6 +36,10 @@ class PasswordStrengthCheckerController extends GetxController {
     if (AppRegExp.containsLowerCaseRegex.hasMatch(pass)) {
       hasLowerCase.value = true;
     }
+    hasOneSymbol.value = false;
+    if(AppRegExp.containsOneSymbolRegex.hasMatch(pass)){
+      hasOneSymbol.value = true;
+    }
   }
 }
 
@@ -43,4 +49,6 @@ class AppRegExp {
   static final containsNumericRegex = RegExp(r'[0-9]');
   static final containsUpperCaseRegex = RegExp(r'[A-Z]');
   static final containsLowerCaseRegex = RegExp(r'[a-z]');
+  static final containsOneSymbolRegex = RegExp(r'[^\w\s]');
 }
+

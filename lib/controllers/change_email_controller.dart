@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
@@ -27,8 +28,6 @@ class ChangeEmailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    emailController.text = authStateController.email!;
 
     databases = AppwriteService.getDatabases();
     account = AppwriteService.getAccount();
@@ -78,7 +77,16 @@ class ChangeEmailController extends GetxController {
       return true;
     } on AppwriteException catch (e) {
       log(e.toString());
-      customSnackbar('Try Again!', e.toString(), MessageType.error);
+      customSnackbar(
+        'Try Again!',
+        e.toString(),
+        MessageType.error,
+      );
+
+      SemanticsService.announce(
+        e.toString(),
+        TextDirection.ltr,
+      );
 
       return false;
     } catch (e) {
@@ -100,10 +108,26 @@ class ChangeEmailController extends GetxController {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
         customSnackbar(
-            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+          'Try Again!',
+          "Incorrect Email Or Password",
+          MessageType.error,
+        );
+
+        SemanticsService.announce(
+          "Incorrect Email Or Password",
+          TextDirection.ltr,
+        );
       } else if (e.type == generalArgumentInvalid) {
-        customSnackbar('Try Again!', "Password is less than 8 characters",
-            MessageType.error);
+        customSnackbar(
+          'Try Again!',
+          "Password is less than 8 characters",
+          MessageType.error,
+        );
+
+        SemanticsService.announce(
+          "Password is less than 8 characters",
+          TextDirection.ltr,
+        );
       }
 
       return false;
@@ -126,11 +150,27 @@ class ChangeEmailController extends GetxController {
                 isLoading.value = false;
 
                 if (status) {
-                  customSnackbar('Email Changed', 'Email changed successfully.',
-                      MessageType.success);
+                  customSnackbar(
+                    'Email Changed',
+                    'Email changed successfully.',
+                    MessageType.success,
+                  );
+
+                  SemanticsService.announce(
+                    'Email changed successfully.',
+                    TextDirection.ltr,
+                  );
                 } else {
                   customSnackbar(
-                      'Failed', 'Failed to change email.', MessageType.error);
+                    'Failed',
+                    'Failed to change email.',
+                    MessageType.error,
+                  );
+
+                  SemanticsService.announce(
+                    'Failed to change email.',
+                    TextDirection.ltr,
+                  );
                 }
               });
             } else {
@@ -139,7 +179,15 @@ class ChangeEmailController extends GetxController {
           });
         } else {
           customSnackbar(
-              'Oops', 'Email address already exists.', MessageType.error);
+            'Oops',
+            'Email address already exists.',
+            MessageType.error,
+          );
+
+          SemanticsService.announce(
+            'Email address already exists.',
+            TextDirection.ltr,
+          );
           isLoading.value = false;
         }
       });

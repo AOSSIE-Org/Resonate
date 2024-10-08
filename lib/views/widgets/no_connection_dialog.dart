@@ -1,62 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/network_controller.dart';
-import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class NoConnectionDialog extends StatelessWidget {
-  NoConnectionDialog({Key? key}) : super(key: key);
-  final ThemeController themeController = Get.find<ThemeController>();
+  NoConnectionDialog({super.key});
+
+  final networkController = Get.find<NetworkController>();
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Scaffold(
-          body: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: UiSizes.height_24_6,
-                    horizontal: UiSizes.width_25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      AppImages.noConnectionImage,
-                      height: UiSizes.height_246,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 0,
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: UiSizes.height_20,
+                horizontal: UiSizes.width_40,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                      height: 150,
+                      width: 150,
+                      "assets/images/no_connection.png"),
+                  Text(
+                    "No Connection",
+                    style: TextStyle(
+                      fontSize: UiSizes.size_40,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    Text(
-                      "No Connection",
-                      style: TextStyle(
-                          fontSize: UiSizes.size_40,
-                          fontWeight: FontWeight.w600,
-                          color: themeController.primaryColor.value),
-                    ),
-                    Text(
-                      "There is a connection error. Please check your internet and try again.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: UiSizes.size_16),
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_82,
-                    ),
-                    ElevatedButton(
+                  ),
+                  const Text(
+                    "There is a connection error. Please check your internet and try again.",
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: UiSizes.height_60,
+                  ),
+                  Obx(
+                    () => SizedBox(
+                      width: double.maxFinite,
+                      child: ElevatedButton(
                         onPressed: () {
-                          Get.find<NetworkController>().tryAgain();
+                          networkController.tryAgain();
                         },
-                        child: Text(
-                          "Try Again",
-                          style: TextStyle(
-                              color: Colors.black, fontSize: UiSizes.size_14),
-                        ))
-                  ],
-                ),
+                        child: networkController.isLoading.value
+                            ? Center(
+                                child: LoadingAnimationWidget
+                                    .horizontalRotatingDots(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  size: UiSizes.size_40,
+                                ),
+                              )
+                            : const Text(
+                                "Try Again",
+                              ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
         ),
-        onWillPop: () async => false);
+      ),
+    );
   }
 }

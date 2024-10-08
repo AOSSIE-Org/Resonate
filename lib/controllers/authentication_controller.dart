@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/rendering.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:resonate/views/widgets/snackbar.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
+  var isConfirmPasswordFieldVisible = false.obs;
   var isLoading = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
@@ -18,25 +20,39 @@ class AuthenticationController extends GetxController {
       TextEditingController(text: "");
   AuthStateController authStateController = Get.find<AuthStateController>();
 
-  var loginFormKey;
-  var registrationFormKey;
+  late GlobalKey<FormState> loginFormKey;
+  late GlobalKey<FormState> registrationFormKey;
 
   Future<void> login() async {
-    if (!loginFormKey.currentState!.validate()) {
-      return;
-    }
     try {
       isLoading.value = true;
       await authStateController.login(
           emailController.text, passwordController.text);
+      emailController.clear();
+      passwordController.clear();
     } on AppwriteException catch (e) {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
         customSnackbar(
-            'Try Again!', "Incorrect Email Or Password", MessageType.error);
+          'Try Again!',
+          "Incorrect Email or Password",
+          MessageType.error,
+        );
+        SemanticsService.announce(
+          "Incorrect Email or Password",
+          TextDirection.ltr,
+        );
       } else if (e.type == generalArgumentInvalid) {
-        customSnackbar('Try Again!', "Password is less than 8 characters",
-            MessageType.error);
+        customSnackbar(
+          'Try Again!',
+          "Password is less than 8 characters",
+          MessageType.error,
+        );
+
+        SemanticsService.announce(
+          "Password is less than 8 characters",
+          TextDirection.ltr,
+        );
       }
     } catch (e) {
       log(e.toString());
@@ -49,14 +65,25 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.signup(
-          emailController.text, passwordController.text);
+        emailController.text,
+        passwordController.text,
+      );
       return true;
     } catch (e) {
       var error = e.toString().split(": ")[1];
       error = error.split(".")[0];
       error = error.split(",")[1];
       error = error.split("in")[0];
-      customSnackbar('Oops', error.toString(), MessageType.error);
+      customSnackbar(
+        'Oops',
+        error.toString(),
+        MessageType.error,
+      );
+      SemanticsService.announce(
+        error.toString(),
+        TextDirection.ltr,
+      );
+
       return false;
     } finally {
       isLoading.value = false;
@@ -81,9 +108,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> resetPassword(String email) async {
     try {
-      print('Email before validation: $email');
       if (!email.isValidEmail()) {
-        print('Invalid email address');
         return;
       }
 
@@ -94,11 +119,27 @@ class AuthenticationController extends GetxController {
             'https://localhost/reset-password', // Replace with actual reset password URL
       );
       customSnackbar(
-          'Success', 'Password reset email sent!', MessageType.success);
+        'Success',
+        'Password reset email sent!',
+        MessageType.success,
+      );
+
+      SemanticsService.announce(
+        "Password reset email sent!",
+        TextDirection.ltr,
+      );
       //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
     } on AppwriteException catch (e) {
-      print('Error during password reset: ${e.message}');
-      customSnackbar('Error', e.message.toString(), MessageType.error);
+      customSnackbar(
+        'Error',
+        e.message.toString(),
+        MessageType.error,
+      );
+
+      SemanticsService.announce(
+        e.message.toString(),
+        TextDirection.ltr,
+      );
     }
   }
 }
