@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/models/story.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -9,349 +10,294 @@ import '../../routes/app_routes.dart';
 import '../../utils/ui_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String? creatorName;
+  final String? creatorImgUrl;
+  final bool? isCreatorProfile;
+
+  const ProfileScreen({
+    Key? key,
+    this.creatorName,
+    this.creatorImgUrl,
+    this.isCreatorProfile,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final emailVerifyController =
         Get.put<EmailVerifyController>(EmailVerifyController());
+    final authController = Get.find<AuthStateController>();
 
-    return GetBuilder<AuthStateController>(
-      builder: (controller) => Scaffold(
-        appBar: AppBar(
-          title: const Text("Profile"),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Profile"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: UiSizes.height_10,
+                horizontal: UiSizes.width_20,
+              ),
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  _buildProfileHeader(authController),
+                  _buildEmailVerificationButton(
+                      context, emailVerifyController, authController),
+                  SizedBox(height: UiSizes.height_10),
+                  _buildProfileButtons(),
+                ],
+              ),
+            ),
+            SizedBox(height: UiSizes.height_20),
+            _buildStoriesSection(),
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: UiSizes.height_10,
-                  horizontal: UiSizes.width_20,
+      ),
+    );
+  }
+
+  Widget _buildProfileHeader(AuthStateController controller) {
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
+          backgroundImage: isCreatorProfile != null
+              ? NetworkImage(creatorImgUrl ?? '')
+              : NetworkImage(controller.profileImageUrl ?? ''),
+          radius: UiSizes.width_66,
+        ),
+        SizedBox(width: UiSizes.width_20),
+        Expanded(
+          child: MergeSemantics(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isCreatorProfile != null
+                      ? creatorName ?? ''
+                      : controller.displayName.toString(),
+                  style: TextStyle(
+                    fontSize: UiSizes.size_24,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            backgroundImage:
-                                NetworkImage(controller.profileImageUrl ?? ''),
-                            radius: UiSizes.width_66,
-                          ),
-                          SizedBox(
-                            width: UiSizes.width_20,
-                          ),
-                          Expanded(
-                            child: MergeSemantics(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.displayName.toString(),
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_24,
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Text(
-                                    "@${controller.userName}",
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_14,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  (controller.isEmailVerified!)
-                                      ? const Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.verified_user_outlined,
-                                                color: Colors.green,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "Verified user",
-                                                style: TextStyle(
-                                                    color: Colors.green),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : const SizedBox(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    (!controller.isEmailVerified!)
-                        ? Container(
-                            margin: EdgeInsets.only(
-                              top: UiSizes.height_10,
-                            ),
-                            width: double.maxFinite,
-                            child: OutlinedButton(
-                              onPressed: () {
-                                // Display Loading Dialog
-                                loadingDialog(context);
-                                emailVerifyController.isSending.value = true;
-                                emailVerifyController.sendOTP();
-                              },
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.verified_user_outlined),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text("Verify Email"),
-                                ],
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: 34,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Get.toNamed(AppRoutes.editProfile);
-                                },
-                                child: const FittedBox(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.edit),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text("Edit Profile"),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: UiSizes.width_5,
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              height: 34,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Get.toNamed(AppRoutes.settings);
-                                },
-                                child: const FittedBox(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.settings),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text("Settings"),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text(
+                  "@${isCreatorProfile != null ? '' : controller.userName}",
+                  style: TextStyle(
+                    fontSize: UiSizes.size_14,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: UiSizes.height_20,
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  left: UiSizes.width_20,
-                ),
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Your Stories",
-                        style: TextStyle(
-                          fontSize: UiSizes.size_16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                if (isCreatorProfile == null && controller.isEmailVerified!)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Icon(Icons.verified_user_outlined, color: Colors.green),
+                        SizedBox(width: 5),
+                        Text("Verified user",
+                            style: TextStyle(color: Colors.green)),
+                      ],
                     ),
-                    SizedBox(
-                      height: UiSizes.height_5,
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_200,
-                      child: ListView.builder(
-                        itemCount: exploreStoryController.userCreatedStories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => StoryScreen(
-                                    story: exploreStoryController.userCreatedStories[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: UiSizes.height_140,
-                              margin: EdgeInsets.only(
-                                right: UiSizes.width_10,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: UiSizes.height_140,
-                                    width: UiSizes.height_140,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            exploreStoryController.userCreatedStories[index].coverImageUrl),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: UiSizes.height_5,
-                                  ),
-                                  Text(
-                                    exploreStoryController.userCreatedStories[index].title,
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                               exploreStoryController.userCreatedStories[index].description,
-                                    style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: UiSizes.size_12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Your Liked Stories",
-                        style: TextStyle(
-                          fontSize: UiSizes.size_16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_5,
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_200,
-                      child: ListView.builder(
-                        itemCount: exploreStoryController.userLikedStories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => StoryScreen(
-                                    story: exploreStoryController.userLikedStories[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: UiSizes.height_140,
-                              margin: EdgeInsets.only(
-                                right: UiSizes.width_10,
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: UiSizes.height_140,
-                                    width: UiSizes.height_140,
-                                    decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            exploreStoryController.userLikedStories[index].coverImageUrl),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: UiSizes.height_5,
-                                  ),
-                                  Text(
-                                    exploreStoryController.userLikedStories[index].title,
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    exploreStoryController.userLikedStories[index].description,
-                                    style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: UiSizes.size_12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                  ),
+              ],
+            ),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmailVerificationButton(
+      BuildContext context,
+      EmailVerifyController emailVerifyController,
+      AuthStateController controller) {
+    if (isCreatorProfile != null || controller.isEmailVerified!) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: UiSizes.height_10),
+      width: double.maxFinite,
+      child: OutlinedButton(
+        onPressed: () {
+          loadingDialog(context);
+          emailVerifyController.isSending.value = true;
+          emailVerifyController.sendOTP();
+        },
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.verified_user_outlined),
+            SizedBox(width: 10),
+            Text("Verify Email"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              if (isCreatorProfile != null) {
+                // Implement follow functionality
+              } else {
+                Get.toNamed(AppRoutes.editProfile);
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isCreatorProfile != null
+                      ? const Icon(Icons.add)
+                      : const Icon(Icons.edit),
+                  const SizedBox(width: 10),
+                  Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        if (isCreatorProfile == null)
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.settings);
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.settings),
+                    SizedBox(width: 10),
+                    Text("Settings"),
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildStoriesSection() {
+    final exploreStoryController = Get.find<ExploreStoryController>();
+
+    return Container(
+      padding: EdgeInsets.only(left: UiSizes.width_20),
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              isCreatorProfile != null
+                  ? "User Created Stories"
+                  : "Your Stories",
+              style: TextStyle(
+                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: UiSizes.height_5),
+          _buildStoriesList(exploreStoryController.userCreatedStories),
+          SizedBox(height: UiSizes.height_10),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              isCreatorProfile != null
+                  ? "User Liked Stories"
+                  : "Your Liked Stories",
+              style: TextStyle(
+                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: UiSizes.height_5),
+          _buildStoriesList(exploreStoryController.userLikedStories),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStoriesList(List<Story> stories) {
+    return SizedBox(
+      height: UiSizes.height_200,
+      child: ListView.builder(
+        itemCount: stories.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return StoryItem(
+            story: stories[index],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class StoryItem extends StatelessWidget {
+  const StoryItem({
+    super.key,
+    required this.story,
+  });
+
+  final Story story;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StoryScreen(
+              story: story,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: UiSizes.height_140,
+        margin: EdgeInsets.only(right: UiSizes.width_10),
+        child: Column(
+          children: [
+            Container(
+              height: UiSizes.height_140,
+              width: UiSizes.height_140,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                image: DecorationImage(
+                  image: AssetImage(story.coverImageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: UiSizes.height_5),
+            Text(
+              story.title,
+              style: TextStyle(
+                fontSize: UiSizes.size_16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              story.description,
+              style: TextStyle(
+                overflow: TextOverflow.ellipsis,
+                fontSize: UiSizes.size_12,
+              ),
+            ),
+          ],
         ),
       ),
     );
