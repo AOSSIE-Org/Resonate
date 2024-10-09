@@ -14,19 +14,19 @@ class ProfileScreen extends StatelessWidget {
   final String? creatorImgUrl;
   final bool? isCreatorProfile;
 
-  const ProfileScreen({
+  ProfileScreen({
     Key? key,
     this.creatorName,
     this.creatorImgUrl,
     this.isCreatorProfile,
   }) : super(key: key);
 
+  final emailVerifyController =
+      Get.put<EmailVerifyController>(EmailVerifyController());
+  final authController = Get.find<AuthStateController>();
+
   @override
   Widget build(BuildContext context) {
-    final emailVerifyController =
-        Get.put<EmailVerifyController>(EmailVerifyController());
-    final authController = Get.find<AuthStateController>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
@@ -152,18 +152,15 @@ class ProfileScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.editProfile);
               }
             },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  isCreatorProfile != null
-                      ? const Icon(Icons.add)
-                      : const Icon(Icons.edit),
-                  const SizedBox(width: 10),
-                  Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                isCreatorProfile != null
+                    ? const Icon(Icons.add)
+                    : const Icon(Icons.edit),
+                const SizedBox(width: 10),
+                Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
+              ],
             ),
           ),
         ),
@@ -174,16 +171,13 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () {
                 Get.toNamed(AppRoutes.settings);
               },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.settings),
-                    SizedBox(width: 10),
-                    Text("Settings"),
-                  ],
-                ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.settings),
+                  SizedBox(width: 10),
+                  Text("Settings"),
+                ],
               ),
             ),
           ),

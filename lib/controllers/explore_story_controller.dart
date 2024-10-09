@@ -13,8 +13,6 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
-final exploreStoryController = Get.put(ExploreStoryController());
-
 class ExploreStoryController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   final Storage storage = AppwriteService.getStorage();
