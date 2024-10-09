@@ -95,7 +95,8 @@ class RoomsController extends GetxController {
     }
   }
 
-  Future<void> joinRoom({required AppwriteRoom room, required BuildContext context}) async {
+  Future<void> joinRoom(
+      {required AppwriteRoom room, required BuildContext context}) async {
     try {
       // Display Loading Dialog
       Get.dialog(

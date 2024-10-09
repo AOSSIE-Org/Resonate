@@ -38,7 +38,9 @@ class ExploreStoryController extends GetxController {
     await databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: storyCollectionId,
-        queries: [Query.or([])]);
+        queries: [
+          Query.or([Query.search('Title', 'mist')])
+        ]);
   }
 
   Future<void> pushChaptersToStory(
@@ -307,6 +309,33 @@ class ExploreStoryController extends GetxController {
       log('Failed to like a story: ${e.message}');
     }
   }
+
+  Future<void> unlikeStoryFromUserAccount(String storyId) async {
+    List<Document> userLikeDocuments = [];
+    try {
+      userLikeDocuments = await databases.listDocuments(
+          databaseId: storyDatabaseId,
+          collectionId: likeCollectionId,
+          queries: [
+            Query.and([Query.equal('uid', authStateController.uid)]),
+            Query.equal('storyId', storyId)
+          ]).then((value) => value.documents);
+    } on AppwriteException catch (e) {
+      log('Failed to fetch Like Document: ${e.message}');
+    }
+
+    try {
+      await databases.deleteDocument(
+        databaseId: storyDatabaseId,
+        collectionId: likeCollectionId,
+        documentId: userLikeDocuments.first.$id,
+      );
+    } on AppwriteException catch (e) {
+      log('Failed to Unlike i.e delete Like Document: ${e.message}');
+    }
+  }
+
+  // write unlike story function
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
     List<Document> chapterDocuments = await databases.listDocuments(
