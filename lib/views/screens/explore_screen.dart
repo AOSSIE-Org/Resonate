@@ -23,7 +23,8 @@ class ExplorePageBody extends StatelessWidget {
     super.key,
   });
 
-  final exploreStoryController = Get.put<ExploreStoryController>(ExploreStoryController());
+  final exploreStoryController =
+      Get.put<ExploreStoryController>(ExploreStoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -181,25 +182,43 @@ class ExplorePageBody extends StatelessWidget {
           ),
           SizedBox(
             height: 300,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              primary: true,
-              itemCount: exploreStoryController.recommendedStories.length > 4
-                  ? exploreStoryController.recommendedStories.length - 4
-                  : exploreStoryController.recommendedStories.length,
-              itemBuilder: (context, index) {
-                final int storyIndex =
-                    exploreStoryController.recommendedStories.length > 4
-                        ? index + 4
-                        : index;
-                return StoryListTile(
-                  story: exploreStoryController.recommendedStories[storyIndex],
-                );
-              },
-            ),
+            width: double.infinity,
+            child: exploreStoryController.recommendedStories.isNotEmpty
+                ? ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    primary: true,
+                    itemCount:
+                        exploreStoryController.recommendedStories.length > 4
+                            ? exploreStoryController.recommendedStories.length -
+                                4
+                            : exploreStoryController.recommendedStories.length,
+                    itemBuilder: (context, index) {
+                      final int storyIndex =
+                          exploreStoryController.recommendedStories.length > 4
+                              ? index + 4
+                              : index;
+                      return StoryListTile(
+                        story: exploreStoryController
+                            .recommendedStories[storyIndex],
+                      );
+                    },
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                          height: 200,
+                          width: 200,
+                          'assets/images/emtpy_box.png'),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text("No Stories in Database to Suggest")
+                    ],
+                  ),
           ),
           const SizedBox(
             height: 20,
