@@ -28,6 +28,4 @@ class ThemeController extends GetxController {
     _box.write(_key, newTheme);
     updateTheme(newTheme);
   }
-
-
 }

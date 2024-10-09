@@ -42,11 +42,6 @@ class AppPages {
       page: () => const LandingScreen(),
       binding: AuthSplashBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.signup,
-    //   page: () => const SignupScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
     GetPage(
       name: AppRoutes.signup,
       page: () => const SignupScreen(),
