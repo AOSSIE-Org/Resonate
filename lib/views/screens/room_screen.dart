@@ -63,7 +63,7 @@ class RoomScreenState extends State<RoomScreen> {
         children: [
           const RoomAppBar(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: RoomHeader(
               roomName: widget.room.name,
               roomDescription: widget.room.description,
