@@ -207,8 +207,8 @@ class ProfileScreen extends StatelessWidget {
           _buildStoriesList(
               exploreStoryController.userCreatedStories,
               isCreatorProfile != null
-                  ? "User has not created any stories"
-                  : "You have not created any stories"),
+                  ? "User has not created any story"
+                  : "You have not created any story"),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
@@ -224,8 +224,8 @@ class ProfileScreen extends StatelessWidget {
           _buildStoriesList(
               exploreStoryController.userLikedStories,
               isCreatorProfile != null
-                  ? "User has not Liked any Stories"
-                  : "You have not Like any Stories"),
+                  ? "User has not liked any story"
+                  : "You have not liked any story"),
         ],
       ),
     );
@@ -248,7 +248,7 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                    height: 125, width: 125, 'assets/images/emtpy_box.png'),
+                    height: 150, width: 150, 'assets/images/emtpy_box.png'),
                 SizedBox(
                   height: 5,
                 ),

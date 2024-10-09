@@ -160,7 +160,7 @@ class ExplorePageBody extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text("No Stories in Database to Recommend")
+                      const Text("No stories exist to present")
                     ],
                   ),
           ),
@@ -216,7 +216,7 @@ class ExplorePageBody extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text("No Stories in Database to Suggest")
+                      const Text("No stories exist to present")
                     ],
                   ),
           ),
