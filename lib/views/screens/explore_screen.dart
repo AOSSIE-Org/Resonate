@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/widgets/category_card.dart';
@@ -12,15 +13,17 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: const ExplorePageBody(),
+      body: ExplorePageBody(),
     );
   }
 }
 
 class ExplorePageBody extends StatelessWidget {
-  const ExplorePageBody({
+  ExplorePageBody({
     super.key,
   });
+
+      final exploreStoryController = Get.find<ExploreStoryController>();
 
   @override
   Widget build(BuildContext context) {

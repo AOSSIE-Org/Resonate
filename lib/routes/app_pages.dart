@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
+import 'package:resonate/bindings/explore_binding.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -42,11 +43,6 @@ class AppPages {
       page: () => const LandingScreen(),
       binding: AuthSplashBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.signup,
-    //   page: () => const SignupScreen(),
-    //   binding: AuthSplashBinding(),
-    // ),
     GetPage(
       name: AppRoutes.signup,
       page: () => const SignupScreen(),
@@ -64,7 +60,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.profile,
-      page: () => const ProfileScreen(),
+      page: () => ProfileScreen(),
       binding: ProfileBinding(),
     ),
     GetPage(
@@ -140,6 +136,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.homeScreen,
       page: () => const HomeScreen(),
+      binding: ExploreScreenBinding()
     ),
     GetPage(
       name: AppRoutes.themeScreen,
