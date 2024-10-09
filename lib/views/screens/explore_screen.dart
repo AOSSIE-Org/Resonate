@@ -23,7 +23,7 @@ class ExplorePageBody extends StatelessWidget {
     super.key,
   });
 
-      final exploreStoryController = Get.find<ExploreStoryController>();
+  final exploreStoryController = Get.put<ExploreStoryController>(ExploreStoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -122,30 +122,46 @@ class ExplorePageBody extends StatelessWidget {
           SizedBox(
             height: 300,
             width: double.infinity,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              itemCount: exploreStoryController.recommendedStories.length > 4
-                  ? 4
-                  : exploreStoryController.recommendedStories.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 300,
-                  margin: const EdgeInsets.all(
-                    10,
+            child: exploreStoryController.recommendedStories.isNotEmpty
+                ? ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount:
+                        exploreStoryController.recommendedStories.length > 4
+                            ? 4
+                            : exploreStoryController.recommendedStories.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: 300,
+                        margin: const EdgeInsets.all(
+                          10,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: StoryCard(
+                          story:
+                              exploreStoryController.recommendedStories[index],
+                        ),
+                      );
+                    },
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                          height: 200,
+                          width: 200,
+                          'assets/images/emtpy_box.png'),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text("No Stories in Database to Recommend")
+                    ],
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: StoryCard(
-                    story: exploreStoryController.recommendedStories[index],
-                  ),
-                );
-              },
-            ),
           ),
           const SizedBox(
             height: 35,

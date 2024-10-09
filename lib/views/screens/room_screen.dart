@@ -180,7 +180,7 @@ class RoomScreenState extends State<RoomScreen> {
   }
 
   Widget _buildLeaveButton() {
-   return GetBuilder<SingleRoomController>(builder: (controller) {
+    return GetBuilder<SingleRoomController>(builder: (controller) {
       return ElevatedButton.icon(
         onPressed: () async {
           await _deleteRoomDialog(
@@ -195,7 +195,7 @@ class RoomScreenState extends State<RoomScreen> {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
+          backgroundColor: const Color.fromARGB(255, 241, 108, 98),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
