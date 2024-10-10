@@ -95,4 +95,16 @@ now you will be asked to choose between Livekit Cloud or Livekit Self hosted if 
 
 This would run Livekit locally for you as a container (if you went with self hosted)
 
+### Connecting Frontend and Backend and Appwrite CLI 
+
+You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
+
+Running on           baseDomain
+android simulator    10.0.2.2
+ios simulator        127.0.0.1
+physical device      bring laptop and phone on same wifi and use the phone's IP given by the wifi
+
+
+
+
 
