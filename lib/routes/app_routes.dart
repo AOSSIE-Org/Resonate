@@ -29,5 +29,4 @@ class AppRoutes {
   static const aboutApp = "/aboutApp";
   static const contributeScreen = "/contributeScreen";
   static const exploreScreen = "/exploreScreen";
-
 }

@@ -18,19 +18,16 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
 final RoomsController roomsController = Get.put(RoomsController());
 
 final UpcomingRoomsController upcomingRoomsController =
     Get.put(UpcomingRoomsController());
 
 class _HomeScreenState extends State<HomeScreen> {
-
   Future<void> pullToRefreshData() async {
-    await Future.delayed(
-      const Duration(
-        microseconds: 30,
-      ),
-    );
+    await upcomingRoomsController.getUpcomingRooms();
+    await roomsController.getRooms();
   }
 
   @override
@@ -134,23 +131,25 @@ class UpcomingRoomsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return upcomingRoomsController.upcomingRooms.isNotEmpty
-        ? ListView.builder(
-            itemCount: upcomingRoomsController.upcomingRooms.length,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                ),
-                child: UpCommingListTile(
-                  appwriteUpcommingRoom:
-                      upcomingRoomsController.upcomingRooms[index],
-                ),
-              );
-            },
-          )
-        : const NoRoomScreen(isRoom: false);
+    return Obx(
+      () => upcomingRoomsController.upcomingRooms.isNotEmpty
+          ? ListView.builder(
+              itemCount: upcomingRoomsController.upcomingRooms.length,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                  ),
+                  child: UpCommingListTile(
+                    appwriteUpcommingRoom:
+                        upcomingRoomsController.upcomingRooms[index],
+                  ),
+                );
+              },
+            )
+          : const NoRoomScreen(isRoom: false),
+    );
   }
 }
 
@@ -159,22 +158,24 @@ class LiveRoomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return roomsController.rooms.isNotEmpty
-        ? ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: roomsController.rooms.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                ),
-                child: CustomLiveRoomTile(
-                  appwriteRoom: roomsController.rooms[index],
-                ),
-              );
-            },
-          )
-        : const NoRoomScreen(isRoom: true);
+    return Obx(
+      () => roomsController.rooms.isNotEmpty
+          ? ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: roomsController.rooms.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                  ),
+                  child: CustomLiveRoomTile(
+                    appwriteRoom: roomsController.rooms[index],
+                  ),
+                );
+              },
+            )
+          : const NoRoomScreen(isRoom: true),
+    );
   }
 }
 

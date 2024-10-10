@@ -58,21 +58,21 @@ class RoomScreenState extends State<RoomScreen> {
     SingleRoomController controller = Get.find<SingleRoomController>();
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const RoomAppBar(),
-            RoomHeader(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const RoomAppBar(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: RoomHeader(
               roomName: widget.room.name,
               roomDescription: widget.room.description,
               roomTags: _getTags(),
             ),
-            SizedBox(height: UiSizes.height_7),
-            Expanded(child: _buildParticipantsList(controller)),
-          ],
-        ),
+          ),
+          SizedBox(height: UiSizes.height_7),
+          Expanded(child: _buildParticipantsList(controller)),
+        ],
       ),
     );
   }
@@ -134,21 +134,25 @@ class RoomScreenState extends State<RoomScreen> {
             height: 10,
           ),
           Obx(() {
-            return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: UiSizes.width_20,
-                  mainAxisSpacing: UiSizes.height_5,
-                  childAspectRatio: 2.5 / 3,
-                ),
-                itemCount: controller.participants.length,
-                itemBuilder: (ctx, index) {
-                  return GetBuilder<SingleRoomController>(
-                      builder: (controller) => ParticipantBlock(
-                            participant: controller.participants[index].value,
-                            controller: controller,
-                          ));
-                });
+            return SizedBox(
+              height: double.maxFinite,
+              width: 400,
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: UiSizes.width_20,
+                    mainAxisSpacing: UiSizes.height_5,
+                    childAspectRatio: 2.5 / 3,
+                  ),
+                  itemCount: controller.participants.length,
+                  itemBuilder: (ctx, index) {
+                    return GetBuilder<SingleRoomController>(
+                        builder: (controller) => ParticipantBlock(
+                              participant: controller.participants[index].value,
+                              controller: controller,
+                            ));
+                  }),
+            );
           }),
         ],
       ),
@@ -164,10 +168,11 @@ class RoomScreenState extends State<RoomScreen> {
             borderRadius: BorderRadiusDirectional.circular(24),
             color: Theme.of(context).colorScheme.surface),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildLeaveButton(),
-            _buildRaiseHandButton(),
             _buildMicButton(),
+            _buildRaiseHandButton(),
           ],
         ),
       ),
@@ -175,26 +180,29 @@ class RoomScreenState extends State<RoomScreen> {
   }
 
   Widget _buildLeaveButton() {
-    return ElevatedButton.icon(
-      onPressed: () async {
-        await _deleteRoomDialog(
-          controller.appwriteRoom.isUserAdmin ? "delete" : "leave",
-          () async {
-            if (controller.appwriteRoom.isUserAdmin) {
-              await controller.deleteRoom();
-            } else {
-              await controller.leaveRoom();
-            }
-          },
-        );
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.red,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      ),
-      icon: const Icon(Icons.exit_to_app),
-      label: const Text("Leave"),
-    );
+    return GetBuilder<SingleRoomController>(builder: (controller) {
+      return ElevatedButton.icon(
+        onPressed: () async {
+          await _deleteRoomDialog(
+            controller.appwriteRoom.isUserAdmin ? "delete" : "leave",
+            () async {
+              if (controller.appwriteRoom.isUserAdmin) {
+                await controller.deleteRoom();
+              } else {
+                await controller.leaveRoom();
+              }
+            },
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 241, 108, 98),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+        icon: const Icon(Icons.exit_to_app),
+        label: const Text("Leave"),
+      );
+    });
   }
 
   Widget _buildRaiseHandButton() {

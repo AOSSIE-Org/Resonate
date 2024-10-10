@@ -33,7 +33,7 @@ class NotificationsScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Get.to(const ProfileScreen());
+                Get.to(ProfileScreen());
               },
             ),
           ),
