@@ -38,13 +38,15 @@
 </div>
 
 
-With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experiencing rapid growth, Resonate is here to harness the power of open-source for voice-based social media. Whether it's sharing immersive stories, engaging in dynamic live discussions, or connecting through pair chats and voice calls, Resonate is designed to put voice at the center of your social experience. By fostering innovation and growth, this project aims to reach new heights, continually expanding its features and community, all while staying true to the open-source spirit of collaboration and transparency.
 
 ## :rocket: Features
 1. Real-time Audio Communication by joining rooms and talking to people.
 2. Ability to create rooms and moderate speakers and events.
-3. Pair chatting to enable users to find random partners to talk to in the app.
-4. Real-time messaging(Coming Soon) 
+3. Create Scheduled Rooms and notify subscribers as reminders to join
+4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favourate creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progess)
+5. Pair chatting to enable users to find random partners to talk to in the app.
+6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
 
 ## :computer: Technologies Used
 
@@ -66,14 +68,20 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 ## :movie_camera: App Screenshots
 <div align="center">
  
-| Login Screen | Home Screen | Create Room Screen |
+| Login Screen (Forest) | Home Screen (Time) | Create Room Screen (Time) |
 | :---         |     :---      |          :--- |
-| <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/7c996c0a-1201-44e4-86bb-832ded1aae15" width="260" height="auto" />  | <img src="https://user-images.githubusercontent.com/41890434/246064681-16cfa072-af71-4e1f-97b8-2c429a875483.png" width="250" height="auto" />    | <img src="https://user-images.githubusercontent.com/41890434/246064943-82e83ead-dcf3-45fa-b3ba-c0a60455946a.png" width="250" height="auto" />    |
+| <img src= "https://github.com/user-attachments/assets/e76147b1-0e51-4852-8198-06bbc975b25c" width="260" height="auto" />  | <img src="https://github.com/user-attachments/assets/ad62eecb-b621-4c31-a01c-001ff5462b28" width="250" height="auto" />    | <img src="https://github.com/user-attachments/assets/31ce6e73-8dca-4e2d-8f48-c22480fa1332" width="250" height="auto" />    |
 
-| Room Screen | Profile Screen | Pairchat Screen |
+| Room Screen (Cream) | Profile Screen (Amber) | Explore Story (Forest) |
 | :---         |     :---      |          :--- |
-|  <img src="https://user-images.githubusercontent.com/41890434/246065343-352bdfb5-3cb4-44ad-9050-6460c3be18ad.png" width="250" height="auto" /> | <img src="https://user-images.githubusercontent.com/41890434/246064895-1b8cd5a8-b427-4514-91b8-d783ff4a0604.png" width="250" height="auto" />   |  <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/8d7c5da5-0b2f-4d8f-8f12-d1059b0e4a01" width="250" height="auto"/>    |
+|  <img src="https://github.com/user-attachments/assets/f1d6e62f-5f25-47c1-9f59-e165d7018c0c" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/b9dfe363-79b1-4eee-8d00-28f5c14f93ee" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/c7657be8-bce2-4c3a-aee3-dd3cc33379a2" width="250" height="auto"/>    |
+
+| Explore Story (Amber) | Theme Screen (Vintage) | Upcoming Room Screen (Cream) |
+| :---         |     :---      |          :--- |
+|  <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/>    |
 </div>
+
+
 
 ## :raised_hands: Contributing
 :star: Don't forget to star this repository if you find it useful! :star:

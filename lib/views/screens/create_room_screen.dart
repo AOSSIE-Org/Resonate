@@ -46,7 +46,7 @@ class CreateRoomScreen extends StatelessWidget {
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) async {
-         tabViewController.setIndex(0);
+        tabViewController.setIndex(0);
       },
       child: GetBuilder<CreateRoomController>(
         builder: (controller) => Obx(
@@ -201,10 +201,10 @@ class CreateRoomScreen extends StatelessWidget {
                               maxLines: 13,
                               validator: (value) {
                                 if (value!.isNotEmpty) {
-                                  if (value.length <= 13) {
+                                  if (value.length <= 30) {
                                     return null;
                                   } else {
-                                    return "Name can't be longer than 13 chars";
+                                    return "Name can't be longer than 30 chars";
                                   }
                                 }
                                 return "Name is required";
@@ -241,7 +241,9 @@ class CreateRoomScreen extends StatelessWidget {
                                       inputFieldValues.textEditingController,
                                   focusNode: inputFieldValues.focusNode,
                                   decoration: InputDecoration(
-                                    hintText: "Enter tags",
+                                    hintText: inputFieldValues.tags.isNotEmpty
+                                        ? null
+                                        : "Enter tags",
                                     filled: false,
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.all(16),

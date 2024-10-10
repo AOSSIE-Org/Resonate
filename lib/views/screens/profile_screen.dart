@@ -204,7 +204,11 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(exploreStoryController.userCreatedStories),
+          _buildStoriesList(
+              exploreStoryController.userCreatedStories,
+              isCreatorProfile != null
+                  ? "User has not created any story"
+                  : "You have not created any story"),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
@@ -217,24 +221,40 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(exploreStoryController.userLikedStories),
+          _buildStoriesList(
+              exploreStoryController.userLikedStories,
+              isCreatorProfile != null
+                  ? "User has not liked any story"
+                  : "You have not liked any story"),
         ],
       ),
     );
   }
 
-  Widget _buildStoriesList(List<Story> stories) {
+  Widget _buildStoriesList(List<Story> stories, String noStoryTextToShow) {
     return SizedBox(
       height: UiSizes.height_200,
-      child: ListView.builder(
-        itemCount: stories.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return StoryItem(
-            story: stories[index],
-          );
-        },
-      ),
+      child: stories.isNotEmpty
+          ? ListView.builder(
+              itemCount: stories.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return StoryItem(
+                  story: stories[index],
+                );
+              },
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                    height: 150, width: 150, 'assets/images/emtpy_box.png'),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(noStoryTextToShow)
+              ],
+            ),
     );
   }
 }

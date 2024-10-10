@@ -26,11 +26,8 @@ final UpcomingRoomsController upcomingRoomsController =
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<void> pullToRefreshData() async {
-    await Future.delayed(
-      const Duration(
-        microseconds: 30,
-      ),
-    );
+    await upcomingRoomsController.getUpcomingRooms();
+    await roomsController.getRooms();
   }
 
   @override
