@@ -34,9 +34,7 @@ sudo ./init.sh
 
 The script will identify your Operating System, will start installing the appwrite-cli (will even install brew if not there for macOS)
 
-This will ask for sudo access, give it
-
-![Screenshot 2024-07-09 at 3 38 32 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/bd3235a5-2ab9-47b5-94a9-e2f9d61deb14)
+![Screenshot 2024-10-11 at 3 21 21 AM](https://github.com/user-attachments/assets/eb623af8-9087-4e18-9ee1-4b7b088016fb)
 
 
 After installing the appwrite-cli it will start pulling Appwrite's docker image, this may take some time 
@@ -59,7 +57,7 @@ Next you will be asked for login credentials. Go to [appwrite localhost](http://
 
 After logging in you will be asked for a team ID
 
-![Screenshot 2024-07-09 at 4 16 17 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/29ad09a2-d8e8-4c95-bcb3-98e583c46f3e)
+![Screenshot 2024-10-11 at 3 24 47 AM](https://github.com/user-attachments/assets/a628344a-747d-4121-b1af-907e4b92543f)
 
 For the team Id, while the creation of an appwrite account you must be asked of a team name for your default team. Head over to your [appwrite console](http://localhost:80) i.e. Localhost Port 80, and observe the URl in the end of the url, you will see your teamId
 
@@ -90,7 +88,7 @@ This completes the Resonate project Set Up in your local Appwrite Instance 🚀�
 
 now you will be asked to choose between Livekit Cloud or Livekit Self hosted if you have a have an old laptop that is most likely not able to take up much processing load then opt for cloud else having it locally i.e self hosted is recommended 
 
-![Screenshot 2024-07-06 at 5 20 00 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/348dc245-165e-490c-ba50-f699cd05bbee)
+![Screenshot 2024-10-11 at 3 30 27 AM](https://github.com/user-attachments/assets/7bf9c044-60a0-4f31-aaff-e86df1ff5af7)
 
 This would run Livekit locally for you as a container (if you went with self hosted)
 
@@ -104,9 +102,5 @@ You just need to update the baseDomain variable value in the constants.dart on c
 | Android Simulator   | `10.0.2.2`    |
 | iOS Simulator       | `127.0.0.1`   |
 | Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the phone's IP address provided by the Wi-Fi |
-
-
-
-
 
 
