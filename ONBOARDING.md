@@ -8,6 +8,7 @@ Please strictly stick to the guide do not go off installing stuff on your own
 
 - Docker
 
+
 ### Installing Appwrite and Appwrite CLI 
 
 Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate-Backend)
@@ -44,9 +45,6 @@ After a few minutes it will ask you for some inputs let everything be the defaul
 
 Now appwrite will be successfully installed locally as a container and will be up for action.
 
-<br/>
-
-
 
 
 ### Resonate Project Set Up in Appwrite
@@ -55,8 +53,6 @@ Now appwrite will be successfully installed locally as a container and will be u
 Next you will be asked for login credentials. Go to [appwrite localhost](http://localhost:80), create your account, you will be asked to create a team please do so. Once done fill in the created account creds to the script
 
 ![Screenshot 2024-06-28 at 2 52 28 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/802d96c1-0ad5-4922-b49a-56eb56e39904)
-
-<br/>
 
 
 #### Project Creation
@@ -70,6 +66,7 @@ For the team Id, while the creation of an appwrite account you must be asked of 
 ![Screenshot 2024-06-28 at 3 05 06 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9717d9e5-41ad-4fd8-8f71-bac79e73cea7)
 
 Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will create a new project named Resonate in your instace with its id being 'resonate'.
+
 
 #### Auth Set Up
 The auth set up is intentially skipped as google Oauth did not allow private IP as allowed redirect URl's so we had to make the script open tunnels and once tunneling was introduced. It brought more complexities and conditions of working which degraded the scripts robustness 
@@ -86,6 +83,8 @@ Now you will be prompted for `Collection` Set Up
 Press "a" to select all and press enter, same goes for `Functions` and `Buckets` set up comming after this
 
 This completes the Appwrite Set Up 🚀🍀
+<br/>
+
 
 ### Livekit Set Up
 
@@ -95,14 +94,17 @@ now you will be asked to choose between Livekit Cloud or Livekit Self hosted if 
 
 This would run Livekit locally for you as a container (if you went with self hosted)
 
+
 ### Connecting Frontend and Backend
 
 You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
 
-Running on           baseDomain
-android simulator    10.0.2.2
-ios simulator        127.0.0.1
-physical device      bring laptop and phone on same wifi and use the phone's IP given by the wifi
+| Platform            | Base Domain   |
+|---------------------|---------------|
+| Android Simulator   | `10.0.2.2`    |
+| iOS Simulator       | `127.0.0.1`   |
+| Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the phone's IP address provided by the Wi-Fi |
+
 
 
 
