@@ -75,7 +75,12 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 | Room Screen (Cream) | Profile Screen (Amber) | Explore Story (Forest) |
 | :---         |     :---      |          :--- |
 |  <img src="https://github.com/user-attachments/assets/f1d6e62f-5f25-47c1-9f59-e165d7018c0c" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/b9dfe363-79b1-4eee-8d00-28f5c14f93ee" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/c7657be8-bce2-4c3a-aee3-dd3cc33379a2" width="250" height="auto"/>    |
+
+| Explore Story (Amber) | Theme Screen (Vintage) | Upcoming Room Screen (Cream) |
+| :---         |     :---      |          :--- |
+|  <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/>    |
 </div>
+
 
 
 ## :raised_hands: Contributing
