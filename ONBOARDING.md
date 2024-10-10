@@ -82,7 +82,7 @@ Now you will be prompted for `Collection` Set Up
 
 Press "a" to select all and press enter, same goes for `Functions` and `Buckets` set up comming after this
 
-This completes the Appwrite Set Up 🚀🍀
+This completes the Resonate project Set Up in your local Appwrite Instance 🚀🍀
 <br/>
 
 
