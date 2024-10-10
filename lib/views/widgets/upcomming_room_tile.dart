@@ -103,12 +103,15 @@ class UpCommingListTile extends StatelessWidget {
                         .deleteUpcomingRoom(appwriteUpcommingRoom.id);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: const Color.fromARGB(255, 234, 93, 83),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: const Text('Cancel'),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
