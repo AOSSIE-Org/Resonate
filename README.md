@@ -38,13 +38,15 @@
 </div>
 
 
-With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experiencing rapid growth, Resonate is here to harness the power of open-source for voice-based social media. Whether it's sharing immersive stories, engaging in dynamic live discussions, or connecting through pair chats and voice calls, Resonate is designed to put voice at the center of your social experience. By fostering innovation and growth, this project aims to reach new heights, continually expanding its features and community, all while staying true to the open-source spirit of collaboration and transparency.
 
 ## :rocket: Features
 1. Real-time Audio Communication by joining rooms and talking to people.
 2. Ability to create rooms and moderate speakers and events.
-3. Pair chatting to enable users to find random partners to talk to in the app.
-4. Real-time messaging(Coming Soon) 
+3. Create Scheduled Rooms and notify subscribers as reminders to join
+4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favourate creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progess)
+5. Pair chatting to enable users to find random partners to talk to in the app.
+6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
 
 ## :computer: Technologies Used
 
