@@ -95,7 +95,7 @@ now you will be asked to choose between Livekit Cloud or Livekit Self hosted if 
 
 This would run Livekit locally for you as a container (if you went with self hosted)
 
-### Connecting Frontend and Backend and Appwrite CLI 
+### Connecting Frontend and Backend
 
 You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
 
