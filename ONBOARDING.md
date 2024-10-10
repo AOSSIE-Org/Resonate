@@ -78,9 +78,9 @@ Now you will be prompted for `Collection` Set Up
 
 ![Screenshot 2024-07-06 at 5 14 46 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/5155b124-07e4-4769-a9f1-ac574816f85e)
 
-Press "a" to select all and press enter, same goes for `Functions` and `Buckets` set up comming after this
+Press "a" to select all and press enter, same goes for  `Buckets` set up comming after this. The `Functions` will be pushed at then end of the script after the Livekit env vars are pushed as the Function need redeployment after a new env var is pushed in order to read the var.
 
-This completes the Resonate project Set Up in your local Appwrite Instance 🚀🍀
+This completes the Resonate project Set Up (functions will be pushed in the end) in your local Appwrite Instance 🚀🍀
 <br/>
 
 
@@ -88,9 +88,12 @@ This completes the Resonate project Set Up in your local Appwrite Instance 🚀�
 
 now you will be asked to choose between Livekit Cloud or Livekit Self hosted if you have a have an old laptop that is most likely not able to take up much processing load then opt for cloud else having it locally i.e self hosted is recommended 
 
-![Screenshot 2024-10-11 at 3 30 27 AM](https://github.com/user-attachments/assets/7bf9c044-60a0-4f31-aaff-e86df1ff5af7)
+![Screenshot 2024-10-11 at 5 15 53 AM](https://github.com/user-attachments/assets/947c68d0-0555-4c71-9c62-f1592faafe5c)
 
 This would run Livekit locally for you as a container (if you went with self hosted)
+Now appwrite function pushing will start and just press 'a' char on keyboard to select all and push all functions 
+
+![Screenshot 2024-10-11 at 5 16 10 AM](https://github.com/user-attachments/assets/bb1b7165-05a9-4adf-aad8-ef2ad34b48c7)
 
 
 ### Connecting Frontend and Backend
