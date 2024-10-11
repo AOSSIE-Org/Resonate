@@ -162,6 +162,8 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
     }
+    
+    fetchUserCreatedStories();
   }
 
   Future<void> fetchUserLikedStories() async {
@@ -211,6 +213,8 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log("failed to delete a document: ${e.message}");
     }
+
+    fetchUserCreatedStories();
   }
 
   Future<void> deleteAllStoryLikes(String storyId) async {
@@ -303,6 +307,8 @@ class ExploreStoryController extends GetxController {
           collectionId: likeCollectionId,
           documentId: ID.unique(),
           data: {'uId': authStateController.uid, 'storyId': storyId});
+
+      fetchUserLikedStories();
     } on AppwriteException catch (e) {
       log('Failed to like a story: ${e.message}');
     }
@@ -318,6 +324,8 @@ class ExploreStoryController extends GetxController {
             Query.and([Query.equal('uid', authStateController.uid)]),
             Query.equal('storyId', storyId)
           ]).then((value) => value.documents);
+
+      fetchUserLikedStories();
     } on AppwriteException catch (e) {
       log('Failed to fetch Like Document: ${e.message}');
     }

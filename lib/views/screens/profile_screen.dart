@@ -249,7 +249,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Image.asset(
                     height: 150, width: 150, 'assets/images/emtpy_box.png'),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(noStoryTextToShow)
