@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeList.getThemeModel(
           themeController.currentTheme.value,
         ).themeMode,
-        initialRoute: AppRoutes.splash,
+        initialRoute: AppRoutes.createStoryScreen,
         getPages: AppPages.pages,
       ),
     );
