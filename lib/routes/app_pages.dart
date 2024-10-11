@@ -3,6 +3,7 @@ import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/profile_binding.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
@@ -159,6 +160,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.exploreScreen,
       page: () => const ExploreScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.createStoryScreen,
+      page: () => CreateStoryPage(),
     ),
   ];
 }

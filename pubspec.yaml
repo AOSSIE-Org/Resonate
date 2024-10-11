@@ -37,6 +37,7 @@ dependencies:
   circular_countdown_timer: ^0.2.3
   cupertino_icons: ^1.0.2
   custom_refresh_indicator: ^2.2.1
+  file_picker: ^8.0.7
   firebase_analytics: ^10.6.3
   firebase_core: ^2.20.0
   firebase_messaging: 14.7.3
@@ -74,7 +75,7 @@ dependencies:
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
   stop_watch_timer: ^3.0.1
-  textfield_tags: 
+  textfield_tags:
     git:
       url: https://github.com/lionelmennig/textfield_tags.git
       ref: fixes/allow-controller-re-registration
