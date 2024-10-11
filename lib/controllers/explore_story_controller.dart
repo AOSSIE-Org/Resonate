@@ -31,14 +31,21 @@ class ExploreStoryController extends GetxController {
     await fetchUserLikedStories();
   }
 
-  // Need to research a little before implementing - kept for slight future
   Future<void> searchStories(String query) async {
-    await databases.listDocuments(
+    List<Document> storyDocuments = await databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: storyCollectionId,
         queries: [
-          Query.or([Query.search('Title', 'mist')])
-        ]);
+          Query.or([
+            Query.search('title', query),
+            Query.search('creatorName', query),
+            Query.search('description', query)
+          ]),
+          Query.limit(16)
+        ]).then((value) => value.documents);
+
+    searchResponseStories =
+        await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
   Future<void> pushChaptersToStory(
@@ -162,7 +169,7 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
     }
-    
+
     fetchUserCreatedStories();
   }
 
@@ -307,11 +314,11 @@ class ExploreStoryController extends GetxController {
           collectionId: likeCollectionId,
           documentId: ID.unique(),
           data: {'uId': authStateController.uid, 'storyId': storyId});
-
-      fetchUserLikedStories();
     } on AppwriteException catch (e) {
       log('Failed to like a story: ${e.message}');
     }
+    
+    fetchUserLikedStories();
   }
 
   Future<void> unlikeStoryFromUserAccount(String storyId) async {
@@ -321,11 +328,11 @@ class ExploreStoryController extends GetxController {
           databaseId: storyDatabaseId,
           collectionId: likeCollectionId,
           queries: [
-            Query.and([Query.equal('uid', authStateController.uid)]),
-            Query.equal('storyId', storyId)
+            Query.and([
+              Query.equal('uid', authStateController.uid),
+              Query.equal('storyId', storyId)
+            ]),
           ]).then((value) => value.documents);
-
-      fetchUserLikedStories();
     } on AppwriteException catch (e) {
       log('Failed to fetch Like Document: ${e.message}');
     }
@@ -339,9 +346,10 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log('Failed to Unlike i.e delete Like Document: ${e.message}');
     }
+
+    fetchUserLikedStories();
   }
 
-  // write unlike story function
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
     List<Document> chapterDocuments = await databases.listDocuments(
@@ -372,8 +380,10 @@ class ExploreStoryController extends GetxController {
         databaseId: storyDatabaseId,
         collectionId: likeCollectionId,
         queries: [
-          Query.and([Query.equal('uid', authStateController.uid)]),
-          Query.equal('storyId', storyId)
+          Query.and([
+            Query.equal('uid', authStateController.uid),
+            Query.equal('storyId', storyId)
+          ]),
         ]).then((value) => value.documents);
 
     return userLikeDocuments.isNotEmpty;
