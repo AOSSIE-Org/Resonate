@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
 
 class CreateChapterScreen extends StatefulWidget {
@@ -10,20 +12,22 @@ class CreateChapterScreen extends StatefulWidget {
   const CreateChapterScreen({super.key, required this.onChapterCreated});
 
   @override
-  _CreateChapterScreenState createState() => _CreateChapterScreenState();
+  CreateChapterScreenState createState() => CreateChapterScreenState();
 }
 
-class _CreateChapterScreenState extends State<CreateChapterScreen> {
+class CreateChapterScreenState extends State<CreateChapterScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   File? chapterCoverImage;
   File? audioFile; // For audio file
   File? lyricsFile; // For lyrics text file
+  ExploreStoryController exploreStoryController =
+      Get.find<ExploreStoryController>();
 
   Future<void> pickChapterCoverImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? selectedImage =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
 
     if (selectedImage != null) {
       setState(() {
@@ -45,7 +49,7 @@ class _CreateChapterScreenState extends State<CreateChapterScreen> {
 
   Future<void> pickLyricsFile() async {
     FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.any);
+        await FilePicker.platform.pickFiles(type: FileType.audio);
 
     if (result != null) {
       setState(() {
@@ -54,8 +58,10 @@ class _CreateChapterScreenState extends State<CreateChapterScreen> {
     }
   }
 
-  void createChapter() {
-    if (titleController.text.isEmpty || aboutController.text.isEmpty) {
+  void createChapter() async {
+    if (titleController.text.isEmpty ||
+        aboutController.text.isEmpty ||
+        audioFile == null) {
       // Show error if required fields are not filled
       showDialog(
         context: context,
@@ -74,26 +80,22 @@ class _CreateChapterScreenState extends State<CreateChapterScreen> {
     }
 
     // Create a new chapter instance
-    final newChapter = Chapter(
-      'chapterId_${DateTime.now().millisecondsSinceEpoch}', // Dummy chapter ID
-      titleController.text,
-      chapterCoverImage?.path ?? '',
-      aboutController.text,
-      lyricsFile?.path ??
-          '', // Use the selected lyrics file path or empty if not selected
-      audioFile?.path ??
-          '', // Use the selected audio file path or empty if not selected
-      '5 min', // Placeholder for play duration
-      Colors.blue, // Placeholder for tint color
-    );
+    Chapter newChapter = await exploreStoryController.createChapter(
+        titleController.text,
+        aboutController.text,
+        chapterCoverImage?.path ?? '',
+        audioFile!.path,
+        lyricsFile?.path ?? '');
 
     widget.onChapterCreated(newChapter);
-    Navigator.pop(context);
+
+    Navigator.pop(Get.context!);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('Create a Chapter'),

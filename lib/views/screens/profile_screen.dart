@@ -24,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
   final authController = Get.find<AuthStateController>();
+  final exploreStoryController = Get.find<ExploreStoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -186,8 +187,6 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildStoriesSection() {
-    final exploreStoryController = Get.find<ExploreStoryController>();
-
     return Container(
       padding: EdgeInsets.only(left: UiSizes.width_20),
       width: double.maxFinite,
@@ -289,9 +288,10 @@ class StoryItem extends StatelessWidget {
               height: UiSizes.height_140,
               width: UiSizes.height_140,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
                 color: Colors.black,
                 image: DecorationImage(
-                  image: AssetImage(story.coverImageUrl),
+                  image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,
                 ),
               ),

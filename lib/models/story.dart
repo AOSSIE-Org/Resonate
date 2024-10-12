@@ -16,7 +16,7 @@ class Story {
   final DateTime creationDate;
   int likesCount;
   bool isLikedByCurrentUser;
-  Duration totalMin;
+  String totalMin;
   Color tintColor;
   List<Chapter> chapters;
   Story(
