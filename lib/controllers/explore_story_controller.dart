@@ -5,6 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
@@ -17,11 +18,11 @@ class ExploreStoryController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   final Storage storage = AppwriteService.getStorage();
   final authStateController = Get.put(AuthStateController());
-  List<Story> recommendedStories = [];
-  List<Story> userCreatedStories = [];
-  List<Story> userLikedStories = [];
-  List<Story> searchResponseStories = [];
-  List<Story> openedCategotyStories = [];
+  RxList<Story> recommendedStories = <Story>[].obs;
+  RxList<Story> userCreatedStories = <Story>[].obs;
+  RxList<Story> userLikedStories = <Story>[].obs;
+  RxList<Story> searchResponseStories = <Story>[].obs;
+  RxList<Story> openedCategotyStories = <Story>[].obs;
 
   @override
   void onInit() async {
@@ -31,19 +32,28 @@ class ExploreStoryController extends GetxController {
     await fetchUserLikedStories();
   }
 
-  // Need to research a little before implementing - kept for slight future
   Future<void> searchStories(String query) async {
-    await databases.listDocuments(
+    List<Document> storyDocuments = await databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: storyCollectionId,
         queries: [
-          Query.or([Query.search('Title', 'mist')])
-        ]);
+          Query.or([
+            Query.search('title', query),
+            Query.search('creatorName', query),
+            Query.search('description', query)
+          ]),
+          Query.limit(16)
+        ]).then((value) => value.documents);
+
+    searchResponseStories.value =
+        await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
   Future<void> pushChaptersToStory(
       List<Chapter> chapters, String storyId) async {
     for (Chapter chapter in chapters) {
+      String colorString = chapter.tintColor.toString();
+      String extractedColor = colorString.substring(8, 14);
       await databases.createDocument(
           databaseId: storyDatabaseId,
           collectionId: chapterCollectionId,
@@ -51,10 +61,10 @@ class ExploreStoryController extends GetxController {
           data: {
             'title': chapter.title,
             'description': chapter.description,
-            'coverImgurl': chapter.coverImageUrl,
+            'coverImgUrl': chapter.coverImageUrl,
             'lyrics': chapter.lyrics,
             'totalMin': chapter.playDuration,
-            'tintColor': chapter.tintColor.toString(),
+            'tintColor': extractedColor,
             'storyId': storyId,
             'audioFileUrl': chapter.audioFileUrl
           });
@@ -74,7 +84,7 @@ class ExploreStoryController extends GetxController {
       log('Failed to fetch stories for categories: ${e.message}');
     }
 
-    openedCategotyStories =
+    openedCategotyStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
@@ -93,13 +103,16 @@ class ExploreStoryController extends GetxController {
     return "$appwriteEndpoint/storage/buckets/$bucketId/files/$fileId/view?project=$appwriteProjectId";
   }
 
-  Future<Chapter> createChapter(
-      String title,
-      String description,
-      String coverImgPath,
-      String audioFilePath,
-      String lyricsFilePath,
-      String audioPlayDuration) async {
+  Future<Chapter> createChapter(String title, String description,
+      String coverImgPath, String audioFilePath, String lyricsFilePath) async {
+    Metadata metadata =
+        await MetadataRetriever.fromFile(io.File(audioFilePath));
+    log("logging duration ${metadata.trackDuration}");
+    Duration duration = Duration(milliseconds: metadata.trackDuration!);
+    int minutes = duration.inMinutes;
+    int seconds = duration.inSeconds % 60;
+    String playDuration = "$minutes:$seconds";
+
     String chapterId = ID.unique();
 
     PaletteGenerator paletteGenerator =
@@ -113,11 +126,13 @@ class ExploreStoryController extends GetxController {
 
     String audioFileUrl = await uploadFileToAppwriteGetUrl(
         storyBucketId, audioFileId, audioFilePath, "audio file");
-
-    String lyrics = await io.File(lyricsFilePath).readAsString();
+    String lyrics = '';
+    if (lyricsFilePath != '') {
+      lyrics = await io.File(lyricsFilePath).readAsString();
+    }
 
     return Chapter(chapterId, title, coverImgUrl, description, lyrics,
-        audioFileUrl, audioPlayDuration, paletteGenerator.dominantColor!.color);
+        audioFileUrl, playDuration, paletteGenerator.dominantColor!.color);
   }
 
   Future<void> createStory(
@@ -142,6 +157,8 @@ class ExploreStoryController extends GetxController {
       log("failed to push chapters to appwrite: ${e.message}");
     }
 
+    String colorString = paletteGenerator.dominantColor!.color.toString();
+    String extractedColor = colorString.substring(8, 14);
     try {
       await databases.createDocument(
           databaseId: storyDatabaseId,
@@ -150,18 +167,21 @@ class ExploreStoryController extends GetxController {
           data: {
             'title': title,
             'description': desciption,
-            'category': category,
+            'category': category.name,
             'coverImgUrl': coverImgUrl,
             'creatorId': authStateController.uid,
             'creatorName': authStateController.displayName,
             'creatorImgUrl': authStateController.profileImageUrl,
             'likes': 0,
             'totalMin': storyTotalMin,
-            'tintColor': paletteGenerator.dominantColor!.color.toString()
+            'tintColor': extractedColor
           });
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
     }
+
+    await fetchUserCreatedStories();
+    await fetchStoryRecommendation();
   }
 
   Future<void> fetchUserLikedStories() async {
@@ -180,7 +200,7 @@ class ExploreStoryController extends GetxController {
           documentId: value.data['storyId']);
     }).toList());
 
-    userLikedStories =
+    userLikedStories.value =
         await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
   }
 
@@ -211,6 +231,8 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log("failed to delete a document: ${e.message}");
     }
+
+    fetchUserCreatedStories();
   }
 
   Future<void> deleteAllStoryLikes(String storyId) async {
@@ -292,7 +314,7 @@ class ExploreStoryController extends GetxController {
       log('Failed to fetch user created stories: ${e.message}');
     }
 
-    userCreatedStories =
+    userCreatedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
@@ -306,6 +328,8 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log('Failed to like a story: ${e.message}');
     }
+
+    fetchUserLikedStories();
   }
 
   Future<void> unlikeStoryFromUserAccount(String storyId) async {
@@ -315,8 +339,10 @@ class ExploreStoryController extends GetxController {
           databaseId: storyDatabaseId,
           collectionId: likeCollectionId,
           queries: [
-            Query.and([Query.equal('uid', authStateController.uid)]),
-            Query.equal('storyId', storyId)
+            Query.and([
+              Query.equal('uid', authStateController.uid),
+              Query.equal('storyId', storyId)
+            ]),
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch Like Document: ${e.message}');
@@ -331,9 +357,9 @@ class ExploreStoryController extends GetxController {
     } on AppwriteException catch (e) {
       log('Failed to Unlike i.e delete Like Document: ${e.message}');
     }
-  }
 
-  // write unlike story function
+    fetchUserLikedStories();
+  }
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
     List<Document> chapterDocuments = await databases.listDocuments(
@@ -364,8 +390,10 @@ class ExploreStoryController extends GetxController {
         databaseId: storyDatabaseId,
         collectionId: likeCollectionId,
         queries: [
-          Query.and([Query.equal('uid', authStateController.uid)]),
-          Query.equal('storyId', storyId)
+          Query.and([
+            Query.equal('uId', authStateController.uid),
+            Query.equal('storyId', storyId)
+          ]),
         ]).then((value) => value.documents);
 
     return userLikeDocuments.isNotEmpty;
@@ -382,7 +410,7 @@ class ExploreStoryController extends GetxController {
       log('Failed to fetch stories: ${e.message}');
     }
 
-    recommendedStories =
+    recommendedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
@@ -409,6 +437,8 @@ class ExploreStoryController extends GetxController {
         log('Failed to check if user has liked the story: ${e.message}');
       }
 
+      Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
+
       return Story(
           value.data['title'],
           value.$id,
@@ -423,7 +453,7 @@ class ExploreStoryController extends GetxController {
           value.data['likes'],
           hasUserLiked,
           value.data['totalMin'],
-          value.data['tintColor'],
+          tintColor,
           storyChapters);
     }).toList());
   }

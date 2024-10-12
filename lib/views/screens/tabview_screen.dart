@@ -9,6 +9,7 @@ import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
@@ -60,10 +61,9 @@ class TabViewScreen extends StatelessWidget {
               profileAvatar(context),
             ],
           ),
-          floatingActionButton: (controller.getIndex() != 2)
+          floatingActionButton: (controller.getIndex() == 0)
               ? SpeedDial(
                   icon: Icons.add,
-                  buttonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
                   elevation: 8.0,
@@ -109,31 +109,34 @@ class TabViewScreen extends StatelessWidget {
                     ),
                   ],
                 )
-              : SizedBox(
-                  height: UiSizes.height_56,
-                  width: UiSizes.width_56,
-                  child: FloatingActionButton(
-                      onPressed: () async {
-                        if (createRoomController.isScheduled.value) {
-                          createRoomController.isLoading.value = true;
-                          await upcomingRoomsController.createUpcomingRoom();
-                          await upcomingRoomsController.getUpcomingRooms();
-                          createRoomController.isLoading.value = false;
-                          isLiveSelected = false;
-                          controller.setIndex(0);
-                        } else {
-                          await createRoomController.createRoom(
-                              createRoomController.nameController.text,
-                              createRoomController.descriptionController.text,
-                              createRoomController.tagsController.getTags!
-                                  .map((item) => item.toString())
-                                  .toList(),
-                              true);
-                          await roomsController.getRooms();
-                        }
-                      },
-                      child: Icon(Icons.done, size: UiSizes.size_24)),
-                ),
+              : FloatingActionButton(
+                  shape: const CircleBorder(),
+                  onPressed: () async {
+                    if (controller.getIndex() == 2) {
+                      if (createRoomController.isScheduled.value) {
+                        createRoomController.isLoading.value = true;
+                        await upcomingRoomsController.createUpcomingRoom();
+                        await upcomingRoomsController.getUpcomingRooms();
+                        createRoomController.isLoading.value = false;
+                        isLiveSelected = false;
+                        controller.setIndex(0);
+                      } else {
+                        await createRoomController.createRoom(
+                            createRoomController.nameController.text,
+                            createRoomController.descriptionController.text,
+                            createRoomController.tagsController.getTags!
+                                .map((item) => item.toString())
+                                .toList(),
+                            true);
+                        await roomsController.getRooms();
+                      }
+                    } else {
+                      Navigator.pushNamed(context, AppRoutes.createStoryScreen);
+                    }
+                  },
+                  child: Icon(
+                      controller.getIndex() == 2 ? Icons.done : Icons.add,
+                      size: UiSizes.size_24)),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
