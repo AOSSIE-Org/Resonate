@@ -54,6 +54,18 @@ class ExploreStoryController extends GetxController {
     for (Chapter chapter in chapters) {
       String colorString = chapter.tintColor.toString();
       String extractedColor = colorString.substring(8, 14);
+
+      String coverImgUrl = chapter.coverImageUrl;
+
+      if (!coverImgUrl.contains("http")) {
+        coverImgUrl = await uploadFileToAppwriteGetUrl(
+            storyBucketId, storyId, coverImgUrl, "story cover");
+      }
+
+      String audioFileId = 'audioFor${chapter.chapterId}';
+
+      String audioFileUrl = await uploadFileToAppwriteGetUrl(
+          storyBucketId, audioFileId, chapter.audioFileUrl, "audio file");
       await databases.createDocument(
           databaseId: storyDatabaseId,
           collectionId: chapterCollectionId,
@@ -61,12 +73,12 @@ class ExploreStoryController extends GetxController {
           data: {
             'title': chapter.title,
             'description': chapter.description,
-            'coverImgUrl': chapter.coverImageUrl,
+            'coverImgUrl': coverImgUrl,
             'lyrics': chapter.lyrics,
             'totalMin': chapter.playDuration,
             'tintColor': extractedColor,
             'storyId': storyId,
-            'audioFileUrl': chapter.audioFileUrl
+            'audioFileUrl': audioFileUrl
           });
     }
   }
@@ -114,42 +126,51 @@ class ExploreStoryController extends GetxController {
     String playDuration = "$minutes:$seconds";
 
     String chapterId = ID.unique();
+    Color primaryColor;
 
-    PaletteGenerator paletteGenerator =
-        await PaletteGenerator.fromImageProvider(
-            FileImage(io.File(coverImgPath)));
+    if (!coverImgPath.contains('http')) {
+      PaletteGenerator paletteGenerator =
+          await PaletteGenerator.fromImageProvider(
+              FileImage(io.File(coverImgPath)));
 
-    String coverImgUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, chapterId, coverImgPath, "chapter cover");
-
-    String audioFileId = 'audioFor$chapterId';
-
-    String audioFileUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, audioFileId, audioFilePath, "audio file");
+      primaryColor = paletteGenerator.dominantColor!.color;
+    } else {
+      primaryColor = const Color(0xffcbc6c6);
+    }
     String lyrics = '';
     if (lyricsFilePath != '') {
       lyrics = await io.File(lyricsFilePath).readAsString();
     }
 
-    return Chapter(chapterId, title, coverImgUrl, description, lyrics,
-        audioFileUrl, playDuration, paletteGenerator.dominantColor!.color);
+    // coverImageUrl and audioFileUrl recieve paths while the chapter creation process
+    // as cannot push files to storage to get URL unless user is final on creating a story
+
+    return Chapter(chapterId, title, coverImgPath, description, lyrics,
+        audioFilePath, playDuration, primaryColor);
   }
 
   Future<void> createStory(
       String title,
       String desciption,
       StoryCategory category,
-      String coverImgPath,
+      String coverImgRef,
       String storyTotalMin,
       List<Chapter> chapters) async {
     String storyId = ID.unique();
 
-    String coverImgUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, storyId, coverImgPath, "story cover");
+    String coverImgUrl = coverImgRef;
+    Color primaryColor;
 
-    PaletteGenerator paletteGenerator =
-        await PaletteGenerator.fromImageProvider(
-            FileImage(io.File(coverImgPath)));
+    if (!coverImgUrl.contains("http")) {
+      PaletteGenerator paletteGenerator =
+          await PaletteGenerator.fromImageProvider(
+              FileImage(io.File(coverImgUrl)));
+      primaryColor = paletteGenerator.dominantColor!.color;
+      coverImgUrl = await uploadFileToAppwriteGetUrl(
+          storyBucketId, storyId, coverImgRef, "story cover");
+    } else {
+       primaryColor = const Color(0xffcbc6c6);
+    }
 
     try {
       await pushChaptersToStory(chapters, storyId);
@@ -157,7 +178,7 @@ class ExploreStoryController extends GetxController {
       log("failed to push chapters to appwrite: ${e.message}");
     }
 
-    String colorString = paletteGenerator.dominantColor!.color.toString();
+    String colorString = primaryColor.toString();
     String extractedColor = colorString.substring(8, 14);
     try {
       await databases.createDocument(
