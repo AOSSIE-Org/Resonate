@@ -176,12 +176,18 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Center(
-                    child: Text(
-                      audioFile != null
-                          ? 'Audio File Selected: ${audioFile!.path.split('/').last}'
-                          : 'Upload Audio File',
-                      style: const TextStyle(color: Colors.grey),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Center(
+                        child: Text(
+                          audioFile != null
+                              ? 'Audio file Selected: ${audioFile!.path.split('/').last}'
+                              : 'Upload Audio File',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ),
                     ),
                   ),
                 ),
