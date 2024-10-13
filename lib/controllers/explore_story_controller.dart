@@ -54,6 +54,18 @@ class ExploreStoryController extends GetxController {
     for (Chapter chapter in chapters) {
       String colorString = chapter.tintColor.toString();
       String extractedColor = colorString.substring(8, 14);
+
+      String coverImgUrl = chapter.coverImageUrl;
+
+      if (!coverImgUrl.contains("http")) {
+        coverImgUrl = await uploadFileToAppwriteGetUrl(
+            storyBucketId, storyId, coverImgUrl, "story cover");
+      }
+
+      String audioFileId = 'audioFor${chapter.chapterId}';
+
+      String audioFileUrl = await uploadFileToAppwriteGetUrl(
+          storyBucketId, audioFileId, chapter.audioFileUrl, "audio file");
       await databases.createDocument(
           databaseId: storyDatabaseId,
           collectionId: chapterCollectionId,
@@ -61,12 +73,12 @@ class ExploreStoryController extends GetxController {
           data: {
             'title': chapter.title,
             'description': chapter.description,
-            'coverImgUrl': chapter.coverImageUrl,
+            'coverImgUrl': coverImgUrl,
             'lyrics': chapter.lyrics,
             'totalMin': chapter.playDuration,
             'tintColor': extractedColor,
             'storyId': storyId,
-            'audioFileUrl': chapter.audioFileUrl
+            'audioFileUrl': audioFileUrl
           });
     }
   }
@@ -114,42 +126,48 @@ class ExploreStoryController extends GetxController {
     String playDuration = "$minutes:$seconds";
 
     String chapterId = ID.unique();
+    PaletteGenerator paletteGenerator;
 
-    PaletteGenerator paletteGenerator =
-        await PaletteGenerator.fromImageProvider(
-            FileImage(io.File(coverImgPath)));
-
-    String coverImgUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, chapterId, coverImgPath, "chapter cover");
-
-    String audioFileId = 'audioFor$chapterId';
-
-    String audioFileUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, audioFileId, audioFilePath, "audio file");
+    if (!coverImgPath.contains('http')) {
+      paletteGenerator = await PaletteGenerator.fromImageProvider(
+          FileImage(io.File(coverImgPath)));
+    } else {
+      paletteGenerator =
+          await PaletteGenerator.fromImageProvider(NetworkImage(coverImgPath));
+    }
     String lyrics = '';
     if (lyricsFilePath != '') {
       lyrics = await io.File(lyricsFilePath).readAsString();
     }
 
-    return Chapter(chapterId, title, coverImgUrl, description, lyrics,
-        audioFileUrl, playDuration, paletteGenerator.dominantColor!.color);
+    // coverImageUrl and audioFileUrl recieve paths while the chapter creation process
+    // as cannot push files to storage to get URL unless user is final on creating a story
+
+    return Chapter(chapterId, title, coverImgPath, description, lyrics,
+        audioFilePath, playDuration, paletteGenerator.dominantColor!.color);
   }
 
   Future<void> createStory(
       String title,
       String desciption,
       StoryCategory category,
-      String coverImgPath,
+      String coverImgRef,
       String storyTotalMin,
       List<Chapter> chapters) async {
     String storyId = ID.unique();
 
-    String coverImgUrl = await uploadFileToAppwriteGetUrl(
-        storyBucketId, storyId, coverImgPath, "story cover");
+    String coverImgUrl = coverImgRef;
+    PaletteGenerator paletteGenerator;
 
-    PaletteGenerator paletteGenerator =
-        await PaletteGenerator.fromImageProvider(
-            FileImage(io.File(coverImgPath)));
+    if (!coverImgUrl.contains("http")) {
+      paletteGenerator = await PaletteGenerator.fromImageProvider(
+          FileImage(io.File(coverImgUrl)));
+      coverImgUrl = await uploadFileToAppwriteGetUrl(
+          storyBucketId, storyId, coverImgRef, "story cover");
+    } else {
+      paletteGenerator =
+          await PaletteGenerator.fromImageProvider(NetworkImage(coverImgUrl));
+    }
 
     try {
       await pushChaptersToStory(chapters, storyId);

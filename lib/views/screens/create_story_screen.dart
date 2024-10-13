@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'create_chapter_screen.dart';
 
@@ -27,8 +28,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
   void createStory() async {
     if (titleController.text.isEmpty ||
         aboutController.text.isEmpty ||
-        chapters.isEmpty ||
-        coverImage == null) {
+        chapters.isEmpty) {
       // Show error if required fields are not filled
       showDialog(
         context: context,
@@ -69,7 +69,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
         titleController.text,
         aboutController.text,
         selectedCategory,
-        coverImage!.path,
+        coverImage?.path ?? storyCoverImagePlaceholderUrl,
         totalPlayDuration,
         chapters);
 
@@ -142,7 +142,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                             color: Theme.of(context).colorScheme.primary)),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 30),
 
                 // Category Dropdown
                 DropdownButtonFormField<StoryCategory>(
@@ -180,7 +180,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 30),
 
                 // About Story Input
                 TextField(
@@ -202,38 +202,55 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                   ),
                   maxLines: 3,
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 30),
 
                 // Cover Image Picker
                 const Text(
                   'Upload Cover Image',
                 ),
                 const SizedBox(height: 8),
-                GestureDetector(
-                  onTap: pickCoverImage,
-                  child: Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color.fromARGB(84, 158, 158, 158)),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black12, blurRadius: 4)
-                      ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: coverImage != null
+                          ? Image.file(
+                              coverImage!,
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                            )
+                          : Image.network(
+                              storyCoverImagePlaceholderUrl,
+                              fit: BoxFit.cover,
+                              height: 150,
+                              width: 150,
+                            ),
                     ),
-                    child: coverImage != null
-                        ? Image.file(
-                            coverImage!,
-                            fit: BoxFit.cover,
-                          )
-                        : const Center(
-                            child: Icon(Icons.upload_rounded,
-                                size: 50, color: Colors.grey),
-                          ),
-                  ),
+                    GestureDetector(
+                      onTap: pickCoverImage,
+                      child: Container(
+                        width: 200,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color.fromARGB(84, 158, 158, 158)),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: const [
+                            BoxShadow(color: Colors.black12, blurRadius: 4)
+                          ],
+                        ),
+                        child: const Center(
+                          child: Icon(Icons.upload_rounded,
+                              size: 50, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 15),
+
+                const SizedBox(height: 30),
 
                 // Chapter List with Add Chapter Button
                 ListView.builder(
