@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/services/appwrite_service.dart';
-import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
@@ -255,7 +255,7 @@ class EditProfileController extends GetxController {
           customSnackbar(
             "Username Unavailable!",
             "This username is invalid or either taken already.",
-            MessageType.error,
+            LogType.error,
           );
 
           SemanticsService.announce(
@@ -327,7 +327,7 @@ class EditProfileController extends GetxController {
         customSnackbar(
           'Profile updated',
           'All changes are saved successfully.',
-          MessageType.success,
+          LogType.success,
         );
 
         SemanticsService.announce(
@@ -339,7 +339,7 @@ class EditProfileController extends GetxController {
         customSnackbar(
           'Profile is up to date',
           'There are no new changes made, Nothing to save.',
-          MessageType.info,
+          LogType.info,
         );
 
         SemanticsService.announce(
@@ -352,7 +352,7 @@ class EditProfileController extends GetxController {
       customSnackbar(
         'Error!',
         e.toString(),
-        MessageType.error,
+        LogType.error,
       );
 
       SemanticsService.announce(

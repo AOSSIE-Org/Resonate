@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 
 SnackbarController customSnackbar(
   String title,
   String message,
-  MessageType messageType,
+  LogType messageType,
 ) {
   Color messageTypeColor() {
     switch (messageType) {
-      case MessageType.success:
+      case LogType.success:
         return Colors.green;
-      case MessageType.warning:
+      case LogType.warning:
         return Colors.amber;
-      case MessageType.error:
+      case LogType.error:
         return Colors.red;
-      case MessageType.info:
+      case LogType.info:
         return Colors.blue;
     }
   }

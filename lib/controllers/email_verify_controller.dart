@@ -7,7 +7,7 @@ import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
-import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 import '../routes/app_routes.dart';
 import '../utils/constants.dart';
@@ -83,7 +83,7 @@ class EmailVerifyController extends GetxController {
       customSnackbar(
         'Oops',
         res.responseBody,
-        MessageType.error,
+        LogType.error,
       );
 
       SemanticsService.announce(

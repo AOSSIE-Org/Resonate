@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 import 'auth_state_controller.dart';
@@ -67,7 +67,7 @@ class OnboardingController extends GetxController {
       customSnackbar(
         "Username Unavailable!",
         "This username is invalid or either taken already.",
-        MessageType.error,
+        LogType.error,
       );
 
       SemanticsService.announce(
@@ -123,7 +123,7 @@ class OnboardingController extends GetxController {
       customSnackbar(
         "Profile created successfully",
         "Your user profile is successfully created.",
-        MessageType.success,
+        LogType.success,
       );
 
       SemanticsService.announce(
@@ -136,7 +136,7 @@ class OnboardingController extends GetxController {
       customSnackbar(
         "Error!",
         e.toString(),
-        MessageType.error,
+        LogType.error,
       );
       SemanticsService.announce(
         e.toString(),
