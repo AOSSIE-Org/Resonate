@@ -8,7 +8,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 
 import '../utils/constants.dart';
-import '../utils/enums/message_type_enum.dart';
+import '../utils/enums/log_type.dart';
 import '../views/widgets/snackbar.dart';
 
 class ChangeEmailController extends GetxController {
@@ -80,7 +80,7 @@ class ChangeEmailController extends GetxController {
       customSnackbar(
         'Try Again!',
         e.toString(),
-        MessageType.error,
+        LogType.error,
       );
 
       SemanticsService.announce(
@@ -110,7 +110,7 @@ class ChangeEmailController extends GetxController {
         customSnackbar(
           'Try Again!',
           "Incorrect Email Or Password",
-          MessageType.error,
+          LogType.error,
         );
 
         SemanticsService.announce(
@@ -121,7 +121,7 @@ class ChangeEmailController extends GetxController {
         customSnackbar(
           'Try Again!',
           "Password is less than 8 characters",
-          MessageType.error,
+          LogType.error,
         );
 
         SemanticsService.announce(
@@ -153,7 +153,7 @@ class ChangeEmailController extends GetxController {
                   customSnackbar(
                     'Email Changed',
                     'Email changed successfully.',
-                    MessageType.success,
+                    LogType.success,
                   );
 
                   SemanticsService.announce(
@@ -164,7 +164,7 @@ class ChangeEmailController extends GetxController {
                   customSnackbar(
                     'Failed',
                     'Failed to change email.',
-                    MessageType.error,
+                    LogType.error,
                   );
 
                   SemanticsService.announce(
@@ -181,7 +181,7 @@ class ChangeEmailController extends GetxController {
           customSnackbar(
             'Oops',
             'Email address already exists.',
-            MessageType.error,
+            LogType.error,
           );
 
           SemanticsService.announce(

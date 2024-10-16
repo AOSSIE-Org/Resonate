@@ -1,4 +1,4 @@
-enum MessageType {
+enum LogType {
   success,
   warning,
   error,

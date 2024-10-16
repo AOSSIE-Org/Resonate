@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/models/notification_model.dart';
+import 'package:resonate/models/notification.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class NotificationsScreen extends StatelessWidget {
 
   NotificationsScreen({super.key});
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -108,6 +109,8 @@ class NotificationsScreen extends StatelessWidget {
       ),
     );
   }
+    
+  }
 
   String _formatDateTime(DateTime dateTime) {
     final now = DateTime.now();
@@ -123,36 +126,50 @@ class NotificationsScreen extends StatelessWidget {
       return dateTime.toIso8601String();
     }
   }
-}
 
 List<NotificationModel> getMockNotifications() {
   return [
     NotificationModel(
-      title: "Welcome to Resonate!",
-      message: "Start by exploring rooms and joining conversations.",
-      dateTime: DateTime.now().subtract(const Duration(minutes: 5)),
+      notificationType: NotificationType.subscribe,
+      initiatorUsername: 'john_doe',
+      initiatorProfileImgUrl: 'https://example.com/profile1.jpg',
+      subject: 'Upcoming Room Name',
+            isTagInUpcomingRoom: false
     ),
     NotificationModel(
-      title: "New Follow Request",
-      message: "John Doe has requested to follow you.",
-      dateTime: DateTime.now().subtract(const Duration(hours: 1)),
+      notificationType: NotificationType.like,
+      initiatorUsername: 'jane_doe',
+      initiatorProfileImgUrl: 'https://example.com/profile2.jpg',
+      subject: 'Story Name',
+            isTagInUpcomingRoom: false
     ),
     NotificationModel(
-      title: "Room Recommendation",
-      message: "Join the 'Flutter Developers' room happening now.",
-      dateTime: DateTime.now().subtract(const Duration(days: 1)),
-      isRead: true,
+      notificationType: NotificationType.follow,
+      initiatorUsername: 'mark_smith',
+      initiatorProfileImgUrl: 'https://example.com/profile3.jpg',
+      subject: 'null',
+      isTagInUpcomingRoom: false
     ),
     NotificationModel(
-      title: "Room Recommendation",
-      message: "Join the 'Flutter Developers' room happening now.",
-      dateTime: DateTime.now().subtract(const Duration(days: 1)),
-      isRead: true,
+      notificationType: NotificationType.tag,
+      initiatorUsername: 'lucy_brown',
+      initiatorProfileImgUrl: 'https://example.com/profile4.jpg',
+      subject: 'Room Name',
+      isTagInUpcomingRoom: true
     ),
     NotificationModel(
-      title: "New Follow Request",
-      message: "John Doe has requested to follow you.",
-      dateTime: DateTime.now().subtract(const Duration(hours: 1)),
+      notificationType: NotificationType.tag,
+      initiatorUsername: 'lucy_brown',
+      initiatorProfileImgUrl: 'https://example.com/profile4.jpg',
+      subject: 'Upcoming Name',
+      isTagInUpcomingRoom: false
+    ),
+    NotificationModel(
+      notificationType: NotificationType.follow,
+      initiatorUsername: 'peter_williams',
+      initiatorProfileImgUrl: 'https://example.com/profile5.jpg',
+      subject: 'null',
+      isTagInUpcomingRoom: false
     ),
   ];
 }
