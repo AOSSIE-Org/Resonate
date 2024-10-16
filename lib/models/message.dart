@@ -11,7 +11,7 @@ class Message {
   int index;
   bool isEdited;
   String content;
-  Duration creationDateTime;
+  DateTime creationDateTime;
   ReplyTo? replyTo;
 
 
@@ -43,7 +43,7 @@ class Message {
       'index': index,
       'isEdited': isEdited,
       'content': content,
-      'creationDateTime': creationDateTime.inMilliseconds, 
+      'creationDateTime': creationDateTime, 
       'replyTo': replyTo?.toJson(), 
     };
   }
@@ -60,6 +60,6 @@ class Message {
         index = json['index'],
         isEdited = json['isEdited'],
         content = json['content'],
-        creationDateTime = Duration(milliseconds: json['creationDateTime']),
+        creationDateTime = json['creationDateTime'],
         replyTo = json['replyTo'] != null ? ReplyTo.fromJson(json['replyTo']) : null;
 }
