@@ -15,10 +15,10 @@ class AddNewChapterScreen extends StatefulWidget {
   });
 
   @override
-  _AddNewChapterScreenState createState() => _AddNewChapterScreenState();
+  AddNewChapterScreenState createState() => AddNewChapterScreenState();
 }
 
-class _AddNewChapterScreenState extends State<AddNewChapterScreen> {
+class AddNewChapterScreenState extends State<AddNewChapterScreen> {
   List<Chapter> newChapters = [];
 
   void _onChapterCreated(Chapter chapter) {

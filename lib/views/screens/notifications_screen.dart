@@ -40,79 +40,16 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: AnimatedList(
-          initialItemCount: notifications.length,
-          itemBuilder: (context, index, animation) {
-            final notification = notifications[index];
-            return Card(
-              color: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              elevation: 5,
-              shadowColor: Colors.grey.shade300,
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 15.0),
-                leading: CircleAvatar(
-                  backgroundColor: notification.isRead
-                      ? Colors.grey.shade300
-                      : Colors.blue.shade100,
-                  child: Icon(
-                    notification.isRead
-                        ? Icons.notifications_none
-                        : Icons.notifications,
-                    color: notification.isRead ? Colors.grey : Colors.blue,
-                  ),
-                ),
-                title: Text(
-                  notification.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    Text(
-                      notification.message,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      _formatDateTime(notification.dateTime),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-                trailing: Icon(Icons.arrow_forward_ios,
-                    size: 16.0, color: Colors.grey.shade400),
-                onTap: () {
-                  // Handle notification tap
-                },
-              ),
-            );
-          },
-        ),
+      body: const Padding(
+        padding:  EdgeInsets.all(16.0),
+        child: Text("Notification screen under development")
       ),
     );
   }
     
   }
 
-  String _formatDateTime(DateTime dateTime) {
+  String formatDateTime(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
 
