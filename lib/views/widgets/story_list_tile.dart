@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/story.dart';
-import 'package:resonate/views/screens/story_details_screen.dart';
+import 'package:resonate/views/screens/story_screen.dart';
 
 class StoryListTile extends StatelessWidget {
   const StoryListTile({

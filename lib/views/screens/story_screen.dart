@@ -5,6 +5,7 @@ import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
+import 'package:resonate/views/widgets/like_button.dart';
 
 class StoryScreen extends StatelessWidget {
   final Story story;
@@ -51,35 +52,24 @@ class StoryScreen extends StatelessWidget {
                       children: [
                         // Story Image
                         Stack(
+                          alignment: Alignment.bottomRight,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                story.coverImageUrl,
-                                width: 120,
-                                height: 120,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            if (story.userIsCreator)
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  padding: const EdgeInsets.all(
-                                    4,
-                                  ),
-                                  child: const Icon(
-                                    Icons.verified,
-                                    color: Colors.blue,
-                                    size: 30,
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 10.0, bottom: 15),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  story.coverImageUrl,
+                                  width: 120,
+                                  height: 120,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
+                            ),
+                            LikeButton(
+                              tintColor: story.tintColor,
+                            )
                           ],
                         ),
 
