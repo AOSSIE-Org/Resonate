@@ -163,9 +163,8 @@ class AppPages {
       page: () => const ExploreScreen(),
     ),
     GetPage(
-      name: AppRoutes.createStoryScreen,
-      page: () => const CreateStoryPage(),
-      binding: CreateStoryBinding()
-    ),
+        name: AppRoutes.createStoryScreen,
+        page: () => const CreateStoryPage(),
+        binding: CreateStoryBinding()),
   ];
 }

@@ -14,7 +14,7 @@ class FilteredListTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => StoryDetailsScreen(
+            builder: (context) => StoryScreen(
               story: story,
             ),
           ),
@@ -35,11 +35,11 @@ class FilteredListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: const EdgeInsets.all(0),
           leading: CircleAvatar(
-            backgroundImage: AssetImage(story.coverImageUrl),
+            backgroundImage: NetworkImage(story.coverImageUrl),
             radius: 25,
           ),
           trailing: Text(
-            ' 10 min ago',
+            story.totalMin,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 14,
                   fontStyle: FontStyle.normal,

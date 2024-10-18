@@ -26,11 +26,11 @@ class ChaperListTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 4.0,
-          horizontal: 16.0,
+          horizontal: 5.0,
         ),
         leading: ClipRRect(
-          // borderRadius: BorderRadius.circular(0.0),
-          child: Image.asset(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.network(
             chapter.coverImageUrl,
             width: 50,
             height: 50,

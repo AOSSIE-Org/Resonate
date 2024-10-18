@@ -1,18 +1,21 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_chapter_screen.dart';
 
 class AddNewChapterScreen extends StatefulWidget {
   final String storyName;
+  final String storyId;
   final List<Chapter> currentChapters;
 
-  const AddNewChapterScreen({
-    super.key,
-    required this.storyName,
-    required this.currentChapters,
-  });
+  const AddNewChapterScreen(
+      {super.key,
+      required this.storyName,
+      required this.currentChapters,
+      required this.storyId});
 
   @override
   AddNewChapterScreenState createState() => AddNewChapterScreenState();
@@ -26,6 +29,9 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
       newChapters.add(chapter);
     });
   }
+
+  final exploreStoryController =
+      Get.put<ExploreStoryController>(ExploreStoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +57,15 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                   final chapter = widget.currentChapters[index];
                   return Card(
                     child: ListTile(
-                      leading: chapter.coverImageUrl.isNotEmpty
-                          ? Image.file(
-                              File(chapter.coverImageUrl),
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            )
-                          : const Icon(Icons.image, size: 50),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.network(
+                          chapter.coverImageUrl,
+                          height: 60,
+                          width: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       title: Text(chapter.title),
                       subtitle: Text(
                         chapter.description.length > 30
@@ -84,14 +91,15 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                   final chapter = newChapters[index];
                   return Card(
                     child: ListTile(
-                      leading: chapter.coverImageUrl.isNotEmpty
-                          ? Image.file(
-                              File(chapter.coverImageUrl),
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            )
-                          : const Icon(Icons.image, size: 50),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.network(
+                          chapter.coverImageUrl,
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       title: Text(chapter.title),
                       subtitle: Text(
                         chapter.description.length > 30
@@ -107,22 +115,43 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18),
-        child: Align(
-          alignment: AlignmentDirectional.bottomCenter,
-          child: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CreateChapterScreen(
-                    onChapterCreated: _onChapterCreated,
-                  ),
-                ),
-              );
-            },
-            child: const Icon(Icons.add),
+        child: SizedBox(
+          height: 130,
+          child: Column(
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateChapterScreen(
+                        onChapterCreated: _onChapterCreated,
+                      ),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (newChapters.isNotEmpty) {
+                      await exploreStoryController.pushChaptersToStory(
+                          newChapters, widget.storyId);
+                      await exploreStoryController
+                          .updateStoriesPlayDurationLength(
+                              [...widget.currentChapters, ...newChapters], widget.storyId);
+                      await exploreStoryController.fetchUserCreatedStories();
+                      Navigator.pushNamed(Get.context!, AppRoutes.profile);
+                    }
+                  },
+                  child: const Text("Push New Chapters"))
+            ],
           ),
         ),
       ),

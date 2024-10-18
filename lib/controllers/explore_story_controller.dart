@@ -23,6 +23,8 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  Rx<bool> isSearching = false.obs;
+  Rx<bool> searchBarIsEmpty = true.obs;
 
   @override
   void onInit() async {
@@ -47,6 +49,36 @@ class ExploreStoryController extends GetxController {
 
     searchResponseStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+  }
+
+  Future<void> updateStoriesPlayDurationLength(
+      List<Chapter> chapters, String storyId) async {
+    int totalDuration = chapters.fold(0, (sum, chapter) {
+      // Split the playDuration string into minutes and seconds
+      List<String> parts = chapter.playDuration.split(':');
+      int minutes = int.tryParse(parts[0]) ?? 0; // Parse minutes safely
+      int seconds = int.tryParse(parts[1]) ?? 0; // Parse seconds safely
+
+      // Convert to milliseconds
+      int chapterDurationInMilliseconds = (minutes * 60 + seconds) * 1000;
+
+      return sum + chapterDurationInMilliseconds;
+    });
+
+    Duration duration = Duration(milliseconds: totalDuration);
+    int minutes = duration.inMinutes;
+    int seconds = duration.inSeconds % 60;
+    String totalPlayDuration = "$minutes:$seconds";
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: storyId,
+          data: {"totalMin": totalPlayDuration});
+    } on AppwriteException catch (e) {
+      log("Failed to update story duration: ${e.message}");
+    }
   }
 
   Future<void> pushChaptersToStory(
@@ -169,7 +201,7 @@ class ExploreStoryController extends GetxController {
       coverImgUrl = await uploadFileToAppwriteGetUrl(
           storyBucketId, storyId, coverImgRef, "story cover");
     } else {
-       primaryColor = const Color(0xffcbc6c6);
+      primaryColor = const Color(0xffcbc6c6);
     }
 
     try {

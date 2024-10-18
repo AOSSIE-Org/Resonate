@@ -50,7 +50,7 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
+                          child: Image.network(
                             widget.chapter.coverImageUrl,
                             width: 200,
                             height: 200,

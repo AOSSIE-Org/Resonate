@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
+import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
 
-class StoryDetailsScreen extends StatelessWidget {
+class StoryScreen extends StatelessWidget {
   final Story story;
 
-  const StoryDetailsScreen({required this.story, super.key});
+  const StoryScreen({required this.story, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class StoryDetailsScreen extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
     );
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -41,6 +43,9 @@ class StoryDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -49,7 +54,7 @@ class StoryDetailsScreen extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
+                              child: Image.network(
                                 story.coverImageUrl,
                                 width: 120,
                                 height: 120,
@@ -94,8 +99,8 @@ class StoryDetailsScreen extends StatelessWidget {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onSurface,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 35,
                                       overflow: TextOverflow.ellipsis,
                                       fontStyle: FontStyle.normal,
                                       fontFamily: 'Inter',
@@ -106,21 +111,16 @@ class StoryDetailsScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        '${story.likesCount} Likes',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              fontSize: 20,
-                                              fontStyle: FontStyle.normal,
-                                              fontFamily: 'Inter',
-                                            ),
-                                      ),
-                                    ],
+                                  Text(
+                                    '${story.likesCount} Likes',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Inter',
+                                        ),
                                   ),
                                   const SizedBox(width: 16),
                                   // Duration
@@ -130,7 +130,7 @@ class StoryDetailsScreen extends StatelessWidget {
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Inter',
                                         ),
@@ -147,19 +147,27 @@ class StoryDetailsScreen extends StatelessWidget {
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Inter',
                                         ),
                                   ),
-                                  const SizedBox(width: 4),
+                                  const SizedBox(width: 15),
+                                  CircleAvatar(
+                                    radius: 14,
+                                    backgroundImage:
+                                        NetworkImage(story.coverImageUrl),
+                                  ),
+                                  const SizedBox(width: 8),
                                   Text(
-                                    'Aarush',
+                                    story.userIsCreator
+                                        ? "You"
+                                        : story.creatorName,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Inter',
                                         ),
@@ -172,13 +180,12 @@ class StoryDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 40),
                     Text(
-                      'Uploaded on ${story.creationDate.toLocal().toString().split(' ')[0]}',
+                      'Created ${formatDateTime(story.creationDate)}',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontStyle: FontStyle.normal,
                             fontFamily: 'Inter',
                           ),
@@ -186,6 +193,9 @@ class StoryDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             // Chapters Section (Scrollable)
             Expanded(
@@ -226,7 +236,7 @@ class StoryDetailsScreen extends StatelessWidget {
                                   ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 40),
                       // Chapters Section
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -270,26 +280,34 @@ class StoryDetailsScreen extends StatelessWidget {
                           );
                         },
                       ),
+                      const SizedBox(height: 50),
+
                       if (story.userIsCreator) ...[
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle delete story
-                          },
-                          child: const Text('Delete Story'),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => AddNewChapterScreen(
+                                            storyName: story.title,
+                                            storyId: story.storyId,
+                                            currentChapters: story.chapters,
+                                          )));
+                            },
+                            child: const Text('Add Chapter'),
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => AddNewChapterScreen(
-                                          storyName: story.title,
-                                          currentChapters: story.chapters,
-                                        )));
-                          },
-                          child: const Text('Add Chapter'),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Handle delete story
+                            },
+                            child: const Text(
+                              'Delete Story',
+                            ),
+                          ),
                         ),
                       ],
                     ],
@@ -302,4 +320,49 @@ class StoryDetailsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+String formatDate(DateTime date) {
+  // Get the day, month, and year from the date
+  int day = date.day;
+  int month = date.month;
+  int year = date.year;
+
+  // Get the ordinal suffix (st, nd, rd, th)
+  String getDayWithSuffix(int day) {
+    if (day >= 11 && day <= 13) {
+      return '$day' 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return '$day' 'st';
+      case 2:
+        return '$day' 'nd';
+      case 3:
+        return '$day' 'rd';
+      default:
+        return '$day' 'th';
+    }
+  }
+
+  // Convert month number to short month name
+  List<String> monthNames = [
+    '',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  String monthName = monthNames[month];
+
+  // Construct the final formatted string
+  return '${getDayWithSuffix(day)} $monthName $year';
 }
