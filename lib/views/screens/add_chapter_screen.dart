@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_chapter_screen.dart';
 
 class AddNewChapterScreen extends StatefulWidget {
