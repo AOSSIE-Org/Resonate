@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -247,7 +248,10 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                    height: 150, width: 150, 'assets/images/emtpy_box.png'),
+                  height: 150,
+                  width: 150,
+                  AppImages.emptyBoxImage,
+                ),
                 const SizedBox(
                   height: 5,
                 ),

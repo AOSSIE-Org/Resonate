@@ -40,10 +40,10 @@ dependencies:
   file_picker: ^8.0.7
   firebase_analytics: ^10.6.3
   firebase_core: ^2.20.0
-  firebase_messaging: 14.7.3
+  firebase_messaging: ^14.7.3
   flutter:
     sdk: flutter
-  flutter_local_notifications: ^16.1.0
+  flutter_local_notifications: ^17.2.3
   flutter_media_metadata: ^1.0.0+1
   flutter_native_splash: ^2.2.19
   flutter_onboarding_slider: ^1.0.10

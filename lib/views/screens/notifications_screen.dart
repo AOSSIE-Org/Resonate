@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:resonate/models/notification_model.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 
+import '../../utils/app_images.dart';
+
 class NotificationsScreen extends StatelessWidget {
   final List<NotificationModel> notifications = getMockNotifications();
 
@@ -29,7 +31,7 @@ class NotificationsScreen extends StatelessWidget {
             child: InkWell(
               child: const CircleAvatar(
                 backgroundImage: AssetImage(
-                  "assets/images/user.jpeg",
+                  AppImages.userImage,
                 ),
               ),
               onTap: () {

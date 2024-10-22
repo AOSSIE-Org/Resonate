@@ -6,6 +6,8 @@ import 'package:resonate/views/widgets/category_card.dart';
 import 'package:resonate/views/widgets/story_list_tile.dart';
 import 'package:resonate/views/widgets/story_card.dart';
 
+import '../../utils/app_images.dart';
+
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
 
@@ -124,7 +126,7 @@ class ExplorePageBody extends StatelessWidget {
             height: 300,
             width: double.infinity,
             child: Obx(
-              ()=> exploreStoryController.recommendedStories.isNotEmpty
+              () => exploreStoryController.recommendedStories.isNotEmpty
                   ? ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -133,7 +135,8 @@ class ExplorePageBody extends StatelessWidget {
                       itemCount:
                           exploreStoryController.recommendedStories.length > 4
                               ? 4
-                              : exploreStoryController.recommendedStories.length,
+                              : exploreStoryController
+                                  .recommendedStories.length,
                       itemBuilder: (context, index) {
                         return Container(
                           height: 300,
@@ -145,8 +148,8 @@ class ExplorePageBody extends StatelessWidget {
                             color: Colors.white,
                           ),
                           child: StoryCard(
-                            story:
-                                exploreStoryController.recommendedStories[index],
+                            story: exploreStoryController
+                                .recommendedStories[index],
                           ),
                         );
                       },
@@ -155,9 +158,10 @@ class ExplorePageBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                            height: 200,
-                            width: 200,
-                            'assets/images/emtpy_box.png'),
+                          height: 200,
+                          width: 200,
+                          AppImages.emptyBoxImage,
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
@@ -186,18 +190,18 @@ class ExplorePageBody extends StatelessWidget {
             height: 300,
             width: double.infinity,
             child: Obx(
-              ()=> exploreStoryController.recommendedStories.isNotEmpty
+              () => exploreStoryController.recommendedStories.isNotEmpty
                   ? ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       primary: true,
-                      itemCount:
-                          exploreStoryController.recommendedStories.length > 4
-                              ? exploreStoryController.recommendedStories.length -
-                                  4
-                              : exploreStoryController.recommendedStories.length,
+                      itemCount: exploreStoryController
+                                  .recommendedStories.length >
+                              4
+                          ? exploreStoryController.recommendedStories.length - 4
+                          : exploreStoryController.recommendedStories.length,
                       itemBuilder: (context, index) {
                         final int storyIndex =
                             exploreStoryController.recommendedStories.length > 4
@@ -213,9 +217,10 @@ class ExplorePageBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                            height: 200,
-                            width: 200,
-                            'assets/images/emtpy_box.png'),
+                          height: 200,
+                          width: 200,
+                          AppImages.emptyBoxImage,
+                        ),
                         const SizedBox(
                           height: 10,
                         ),
