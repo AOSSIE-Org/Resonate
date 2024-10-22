@@ -34,6 +34,23 @@ class ExploreStoryController extends GetxController {
     await fetchUserLikedStories();
   }
 
+  Future<void> updateLikesCountAndUserLikeStatus(Story story) async {
+    Document doc = await databases.getDocument(
+        databaseId: storyDatabaseId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
+        queries: [
+          Query.select(["likes"])
+        ]);
+
+    int likes = doc.data['likes'];
+
+    bool hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
+
+    story.likesCount.value = likes;
+    story.isLikedByCurrentUser.value = hasUserLiked;
+  }
+
   Future<void> searchStories(String query) async {
     List<Document> storyDocuments = await databases.listDocuments(
         databaseId: storyDatabaseId,
@@ -350,7 +367,7 @@ class ExploreStoryController extends GetxController {
     }
 
     story.chapters = storyChapters;
-    story.isLikedByCurrentUser = hasUserLiked;
+    story.isLikedByCurrentUser.value = hasUserLiked;
     return story;
   }
 
@@ -371,21 +388,31 @@ class ExploreStoryController extends GetxController {
         await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
-  Future<void> likeStoryFromUserAccount(String storyId) async {
+  Future<void> likeStoryFromUserAccount(Story story) async {
     try {
       await databases.createDocument(
           databaseId: storyDatabaseId,
           collectionId: likeCollectionId,
           documentId: ID.unique(),
-          data: {'uId': authStateController.uid, 'storyId': storyId});
+          data: {'uId': authStateController.uid, 'storyId': story.storyId});
     } on AppwriteException catch (e) {
       log('Failed to like a story: ${e.message}');
+    }
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: story.storyId,
+          data: {"likes": story.likesCount.value + 1});
+    } on AppwriteException catch (e) {
+      log("Failed to add one story like: ${e.message}");
     }
 
     fetchUserLikedStories();
   }
 
-  Future<void> unlikeStoryFromUserAccount(String storyId) async {
+  Future<void> unlikeStoryFromUserAccount(Story story) async {
     List<Document> userLikeDocuments = [];
     try {
       userLikeDocuments = await databases.listDocuments(
@@ -393,8 +420,8 @@ class ExploreStoryController extends GetxController {
           collectionId: likeCollectionId,
           queries: [
             Query.and([
-              Query.equal('uid', authStateController.uid),
-              Query.equal('storyId', storyId)
+              Query.equal('uId', authStateController.uid),
+              Query.equal('storyId', story.storyId)
             ]),
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
@@ -409,6 +436,16 @@ class ExploreStoryController extends GetxController {
       );
     } on AppwriteException catch (e) {
       log('Failed to Unlike i.e delete Like Document: ${e.message}');
+    }
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: story.storyId,
+          data: {"likes": story.likesCount.value - 1});
+    } on AppwriteException catch (e) {
+      log("Failed to reduce one story like: ${e.message}");
     }
 
     fetchUserLikedStories();
@@ -493,21 +530,22 @@ class ExploreStoryController extends GetxController {
       Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
 
       return Story(
-          value.data['title'],
-          value.$id,
-          value.data['description'],
-          value.data['creatorId'] == authStateController.uid,
-          category,
-          value.data['coverImgUrl'],
-          value.data['creatorId'],
-          value.data['creatorName'],
-          value.data['creatorImgUrl'],
-          DateTime.parse(value.$createdAt),
-          value.data['likes'],
-          hasUserLiked,
-          value.data['totalMin'],
-          tintColor,
-          storyChapters);
+        title: value.data['title'],
+        storyId: value.$id,
+        description: value.data['description'],
+        userIsCreator: value.data['creatorId'] == authStateController.uid,
+        category: category,
+        coverImageUrl: value.data['coverImgUrl'],
+        creatorId: value.data['creatorId'],
+        creatorName: value.data['creatorName'],
+        creatorImgUrl: value.data['creatorImgUrl'],
+        creationDate: DateTime.parse(value.$createdAt),
+        likesCount: value.data['likes'],
+        isLikedByCurrentUser: hasUserLiked,
+        totalMin: value.data['totalMin'],
+        tintColor: tintColor,
+        chapters: storyChapters,
+      );
     }).toList());
   }
 }

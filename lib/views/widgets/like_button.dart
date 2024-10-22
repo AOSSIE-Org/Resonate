@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 class LikeButton extends StatefulWidget {
   final Color tintColor;
-  const LikeButton({Key? key, required this.tintColor}) : super(key: key);
+  final bool isLikedByUser;
+  final Function(bool isFavorite) onLiked;
+
+  const LikeButton(
+      {Key? key,
+      required this.tintColor,
+      required this.onLiked,
+      required this.isLikedByUser})
+      : super(key: key);
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -13,7 +21,13 @@ class _LikeButtonState extends State<LikeButton>
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
 
-  bool _isFavorite = false;
+  late bool _isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    _isFavorite = widget.isLikedByUser;
+  }
 
   @override
   void dispose() {
@@ -24,11 +38,12 @@ class _LikeButtonState extends State<LikeButton>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         setState(() {
           _isFavorite = !_isFavorite;
         });
         _controller.reverse().then((value) => _controller.forward());
+        await widget.onLiked(_isFavorite);
       },
       child: ScaleTransition(
         scale: Tween(begin: 0.7, end: 1.0).animate(

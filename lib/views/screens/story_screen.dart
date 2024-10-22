@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
@@ -21,6 +24,9 @@ class StoryScreen extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
     );
+
+    final exploreStoryController =
+        Get.put<ExploreStoryController>(ExploreStoryController());
 
     return Scaffold(
       body: SafeArea(
@@ -67,8 +73,23 @@ class StoryScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            LikeButton(
-                              tintColor: story.tintColor,
+                            Obx(
+                              () => LikeButton(
+                                isLikedByUser: story.isLikedByCurrentUser.value,
+                                tintColor: story.tintColor,
+                                onLiked: (isFavorite) async {
+                                  isFavorite
+                                      ? await exploreStoryController
+                                          .likeStoryFromUserAccount(story)
+                                      : await exploreStoryController
+                                          .unlikeStoryFromUserAccount(story);
+
+                                  await exploreStoryController
+                                      .updateLikesCountAndUserLikeStatus(story);
+                                  await exploreStoryController
+                                      .fetchUserLikedStories();
+                                },
+                              ),
                             )
                           ],
                         ),
@@ -101,16 +122,18 @@ class StoryScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    '${story.likesCount} Likes',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          fontSize: 16,
-                                          fontStyle: FontStyle.normal,
-                                          fontFamily: 'Inter',
-                                        ),
+                                  Obx(
+                                    () => Text(
+                                      '${story.likesCount} Likes',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            fontSize: 16,
+                                            fontStyle: FontStyle.normal,
+                                            fontFamily: 'Inter',
+                                          ),
+                                    ),
                                   ),
                                   const SizedBox(width: 16),
                                   // Duration
@@ -291,8 +314,10 @@ class StoryScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         Center(
                           child: ElevatedButton(
-                            onPressed: () {
-                              // Handle delete story
+                            onPressed: () async {
+                              await exploreStoryController.deleteStory(story);
+                              Navigator.pushNamed(
+                                  Get.context!, AppRoutes.tabview);
                             },
                             child: const Text(
                               'Delete Story',
@@ -310,49 +335,4 @@ class StoryScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-String formatDate(DateTime date) {
-  // Get the day, month, and year from the date
-  int day = date.day;
-  int month = date.month;
-  int year = date.year;
-
-  // Get the ordinal suffix (st, nd, rd, th)
-  String getDayWithSuffix(int day) {
-    if (day >= 11 && day <= 13) {
-      return '$day' 'th';
-    }
-    switch (day % 10) {
-      case 1:
-        return '$day' 'st';
-      case 2:
-        return '$day' 'nd';
-      case 3:
-        return '$day' 'rd';
-      default:
-        return '$day' 'th';
-    }
-  }
-
-  // Convert month number to short month name
-  List<String> monthNames = [
-    '',
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-  String monthName = monthNames[month];
-
-  // Construct the final formatted string
-  return '${getDayWithSuffix(day)} $monthName $year';
 }
