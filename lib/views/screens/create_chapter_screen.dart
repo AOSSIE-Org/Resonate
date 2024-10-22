@@ -49,8 +49,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
   }
 
   Future<void> pickLyricsFile() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.audio);
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['txt']);
 
     if (result != null) {
       setState(() {
