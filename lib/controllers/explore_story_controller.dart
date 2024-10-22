@@ -23,6 +23,7 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  Rx<bool> isLoadingStoryPage = false.obs;
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
 
@@ -32,6 +33,38 @@ class ExploreStoryController extends GetxController {
     await fetchStoryRecommendation();
     await fetchUserCreatedStories();
     await fetchUserLikedStories();
+  }
+
+  Future<void> fetchMoreDetailsForSelectedStory(Story story) async {
+    isLoadingStoryPage.value = true;
+
+    List<Chapter> storyChapters = [];
+    try {
+      storyChapters = await fetchChaptersForStory(story.storyId);
+    } on AppwriteException catch (e) {
+      log("failed to fetch story chapters for selected search result query: ${e.message}");
+    }
+
+    bool hasUserLiked = false;
+    try {
+      hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
+    } on AppwriteException catch (e) {
+      log("failed to check if user liked story for selected search result query ${e.message}");
+    }
+    Document doc = await databases.getDocument(
+        databaseId: storyDatabaseId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
+        queries: [
+          Query.select(["likes"])
+        ]);
+
+    int likes = doc.data['likes'];
+
+    story.chapters = storyChapters;
+    story.isLikedByCurrentUser.value = hasUserLiked;
+    story.likesCount.value = likes;
+    isLoadingStoryPage.value = false;
   }
 
   Future<void> updateLikesCountAndUserLikeStatus(Story story) async {
@@ -350,27 +383,6 @@ class ExploreStoryController extends GetxController {
     }
   }
 
-  Future<Story> fetchMoreDetailsForSelectedSearchResultStory(
-      Story story) async {
-    List<Chapter> storyChapters = [];
-    try {
-      storyChapters = await fetchChaptersForStory(story.storyId);
-    } on AppwriteException catch (e) {
-      log("failed to fetch story chapters for selected search result query: ${e.message}");
-    }
-
-    bool hasUserLiked = false;
-    try {
-      hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
-    } on AppwriteException catch (e) {
-      log("failed to check if user liked story for selected search result query ${e.message}");
-    }
-
-    story.chapters = storyChapters;
-    story.isLikedByCurrentUser.value = hasUserLiked;
-    return story;
-  }
-
   Future<void> fetchUserCreatedStories() async {
     List<Document> storyDocuments = [];
     try {
@@ -513,20 +525,6 @@ class ExploreStoryController extends GetxController {
         },
       );
 
-      List<Chapter> storyChapters = [];
-      try {
-        storyChapters = await fetchChaptersForStory(value.$id);
-      } on AppwriteException catch (e) {
-        log('Failed to fetch chapters for story: ${e.message}');
-      }
-
-      bool hasUserLiked = false;
-      try {
-        hasUserLiked = await checkIfStoryLikedByUser(value.$id);
-      } on AppwriteException catch (e) {
-        log('Failed to check if user has liked the story: ${e.message}');
-      }
-
       Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
 
       return Story(
@@ -541,10 +539,10 @@ class ExploreStoryController extends GetxController {
         creatorImgUrl: value.data['creatorImgUrl'],
         creationDate: DateTime.parse(value.$createdAt),
         likesCount: value.data['likes'],
-        isLikedByCurrentUser: hasUserLiked,
+        isLikedByCurrentUser: false,
         totalMin: value.data['totalMin'],
         tintColor: tintColor,
-        chapters: storyChapters,
+        chapters: [],
       );
     }).toList());
   }

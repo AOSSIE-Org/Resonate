@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
@@ -145,9 +144,11 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                           newChapters, widget.storyId);
                       await exploreStoryController
                           .updateStoriesPlayDurationLength(
-                              [...widget.currentChapters, ...newChapters], widget.storyId);
+                              [...widget.currentChapters, ...newChapters],
+                              widget.storyId);
                       await exploreStoryController.fetchUserCreatedStories();
-                      Navigator.pushNamed(Get.context!, AppRoutes.profile);
+                      Navigator.pop(Get.context!);
+                      Navigator.pop(Get.context!);
                     }
                   },
                   child: const Text("Push New Chapters"))
