@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 
 class NoRoomScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class NoRoomScreen extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height / 6,
         ),
-        Image.asset(height: 150, width: 150, 'assets/images/no_room.png'),
+        Image.asset(height: 150, width: 150, AppImages.noRoomImage),
         const SizedBox(
           height: 30,
         ),
