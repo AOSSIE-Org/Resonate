@@ -27,7 +27,7 @@ class RoomAppBar extends StatelessWidget {
               FontAwesomeIcons.comments,
             ),
             onPressed: () {
-              Get.to(RoomChatScreen());
+              Get.to(const RoomChatScreen());
             },
           ),
         )

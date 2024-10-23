@@ -254,10 +254,10 @@ class ChatMessageItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ChatMessageItemState createState() => _ChatMessageItemState();
+  ChatMessageItemState createState() => ChatMessageItemState();
 }
 
-class _ChatMessageItemState extends State<ChatMessageItem> {
+class ChatMessageItemState extends State<ChatMessageItem> {
   bool isEditing = false;
   late TextEditingController _editingController;
 
@@ -354,7 +354,7 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                         ),
                       if (isEditing)
                         Focus(
-                          onKey: (node, event) {
+                          onKeyEvent: (node, event) {
                             if (event.logicalKey == LogicalKeyboardKey.escape) {
                               cancelEdit();
                               return KeyEventResult.handled;

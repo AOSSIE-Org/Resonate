@@ -18,7 +18,7 @@ const String chapterCollectionId = "670277ad002530531daf";
 const String likeCollectionId = "670259e20000ddda49a0";
 const String storyBucketId = "6703f4c70037edfd8429";
 const String chapterCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/chapterDefaultCoverImage/view?project=resonate&mode=admin";
+    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/chapterDefaultCoverImage/view?project=resonate&project=resonate&mode=admin";
 const String storyCoverImagePlaceholderUrl =
     "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/storyDefaultCoverImage/view?project=resonate&mode=admin";
 

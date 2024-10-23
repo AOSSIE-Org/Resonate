@@ -23,6 +23,9 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  Rx<bool> isLoadingStoryPage = false.obs;
+  Rx<bool> isSearching = false.obs;
+  Rx<bool> searchBarIsEmpty = true.obs;
 
   @override
   void onInit() async {
@@ -30,6 +33,55 @@ class ExploreStoryController extends GetxController {
     await fetchStoryRecommendation();
     await fetchUserCreatedStories();
     await fetchUserLikedStories();
+  }
+
+  Future<void> fetchMoreDetailsForSelectedStory(Story story) async {
+    isLoadingStoryPage.value = true;
+
+    List<Chapter> storyChapters = [];
+    try {
+      storyChapters = await fetchChaptersForStory(story.storyId);
+    } on AppwriteException catch (e) {
+      log("failed to fetch story chapters for selected search result query: ${e.message}");
+    }
+
+    bool hasUserLiked = false;
+    try {
+      hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
+    } on AppwriteException catch (e) {
+      log("failed to check if user liked story for selected search result query ${e.message}");
+    }
+    Document doc = await databases.getDocument(
+        databaseId: storyDatabaseId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
+        queries: [
+          Query.select(["likes"])
+        ]);
+
+    int likes = doc.data['likes'];
+
+    story.chapters = storyChapters;
+    story.isLikedByCurrentUser.value = hasUserLiked;
+    story.likesCount.value = likes;
+    isLoadingStoryPage.value = false;
+  }
+
+  Future<void> updateLikesCountAndUserLikeStatus(Story story) async {
+    Document doc = await databases.getDocument(
+        databaseId: storyDatabaseId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
+        queries: [
+          Query.select(["likes"])
+        ]);
+
+    int likes = doc.data['likes'];
+
+    bool hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
+
+    story.likesCount.value = likes;
+    story.isLikedByCurrentUser.value = hasUserLiked;
   }
 
   Future<void> searchStories(String query) async {
@@ -47,6 +99,36 @@ class ExploreStoryController extends GetxController {
 
     searchResponseStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+  }
+
+  Future<void> updateStoriesPlayDurationLength(
+      List<Chapter> chapters, String storyId) async {
+    int totalDuration = chapters.fold(0, (sum, chapter) {
+      // Split the playDuration string into minutes and seconds
+      List<String> parts = chapter.playDuration.split(':');
+      int minutes = int.tryParse(parts[0]) ?? 0; // Parse minutes safely
+      int seconds = int.tryParse(parts[1]) ?? 0; // Parse seconds safely
+
+      // Convert to milliseconds
+      int chapterDurationInMilliseconds = (minutes * 60 + seconds) * 1000;
+
+      return sum + chapterDurationInMilliseconds;
+    });
+
+    Duration duration = Duration(milliseconds: totalDuration);
+    int minutes = duration.inMinutes;
+    int seconds = duration.inSeconds % 60;
+    String totalPlayDuration = "$minutes:$seconds";
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: storyId,
+          data: {"totalMin": totalPlayDuration});
+    } on AppwriteException catch (e) {
+      log("Failed to update story duration: ${e.message}");
+    }
   }
 
   Future<void> pushChaptersToStory(
@@ -169,7 +251,7 @@ class ExploreStoryController extends GetxController {
       coverImgUrl = await uploadFileToAppwriteGetUrl(
           storyBucketId, storyId, coverImgRef, "story cover");
     } else {
-       primaryColor = const Color(0xffcbc6c6);
+      primaryColor = const Color(0xffcbc6c6);
     }
 
     try {
@@ -301,27 +383,6 @@ class ExploreStoryController extends GetxController {
     }
   }
 
-  Future<Story> fetchMoreDetailsForSelectedSearchResultStory(
-      Story story) async {
-    List<Chapter> storyChapters = [];
-    try {
-      storyChapters = await fetchChaptersForStory(story.storyId);
-    } on AppwriteException catch (e) {
-      log("failed to fetch story chapters for selected search result query: ${e.message}");
-    }
-
-    bool hasUserLiked = false;
-    try {
-      hasUserLiked = await checkIfStoryLikedByUser(story.storyId);
-    } on AppwriteException catch (e) {
-      log("failed to check if user liked story for selected search result query ${e.message}");
-    }
-
-    story.chapters = storyChapters;
-    story.isLikedByCurrentUser = hasUserLiked;
-    return story;
-  }
-
   Future<void> fetchUserCreatedStories() async {
     List<Document> storyDocuments = [];
     try {
@@ -339,21 +400,31 @@ class ExploreStoryController extends GetxController {
         await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
-  Future<void> likeStoryFromUserAccount(String storyId) async {
+  Future<void> likeStoryFromUserAccount(Story story) async {
     try {
       await databases.createDocument(
           databaseId: storyDatabaseId,
           collectionId: likeCollectionId,
           documentId: ID.unique(),
-          data: {'uId': authStateController.uid, 'storyId': storyId});
+          data: {'uId': authStateController.uid, 'storyId': story.storyId});
     } on AppwriteException catch (e) {
       log('Failed to like a story: ${e.message}');
+    }
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: story.storyId,
+          data: {"likes": story.likesCount.value + 1});
+    } on AppwriteException catch (e) {
+      log("Failed to add one story like: ${e.message}");
     }
 
     fetchUserLikedStories();
   }
 
-  Future<void> unlikeStoryFromUserAccount(String storyId) async {
+  Future<void> unlikeStoryFromUserAccount(Story story) async {
     List<Document> userLikeDocuments = [];
     try {
       userLikeDocuments = await databases.listDocuments(
@@ -361,8 +432,8 @@ class ExploreStoryController extends GetxController {
           collectionId: likeCollectionId,
           queries: [
             Query.and([
-              Query.equal('uid', authStateController.uid),
-              Query.equal('storyId', storyId)
+              Query.equal('uId', authStateController.uid),
+              Query.equal('storyId', story.storyId)
             ]),
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
@@ -377,6 +448,16 @@ class ExploreStoryController extends GetxController {
       );
     } on AppwriteException catch (e) {
       log('Failed to Unlike i.e delete Like Document: ${e.message}');
+    }
+
+    try {
+      await databases.updateDocument(
+          databaseId: storyDatabaseId,
+          collectionId: storyCollectionId,
+          documentId: story.storyId,
+          data: {"likes": story.likesCount.value - 1});
+    } on AppwriteException catch (e) {
+      log("Failed to reduce one story like: ${e.message}");
     }
 
     fetchUserLikedStories();
@@ -444,38 +525,25 @@ class ExploreStoryController extends GetxController {
         },
       );
 
-      List<Chapter> storyChapters = [];
-      try {
-        storyChapters = await fetchChaptersForStory(value.$id);
-      } on AppwriteException catch (e) {
-        log('Failed to fetch chapters for story: ${e.message}');
-      }
-
-      bool hasUserLiked = false;
-      try {
-        hasUserLiked = await checkIfStoryLikedByUser(value.$id);
-      } on AppwriteException catch (e) {
-        log('Failed to check if user has liked the story: ${e.message}');
-      }
-
       Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
 
       return Story(
-          value.data['title'],
-          value.$id,
-          value.data['description'],
-          value.data['creatorId'] == authStateController.uid,
-          category,
-          value.data['coverImgUrl'],
-          value.data['creatorId'],
-          value.data['creatorName'],
-          value.data['creatorImgUrl'],
-          DateTime.parse(value.$createdAt),
-          value.data['likes'],
-          hasUserLiked,
-          value.data['totalMin'],
-          tintColor,
-          storyChapters);
+        title: value.data['title'],
+        storyId: value.$id,
+        description: value.data['description'],
+        userIsCreator: value.data['creatorId'] == authStateController.uid,
+        category: category,
+        coverImageUrl: value.data['coverImgUrl'],
+        creatorId: value.data['creatorId'],
+        creatorName: value.data['creatorName'],
+        creatorImgUrl: value.data['creatorImgUrl'],
+        creationDate: DateTime.parse(value.$createdAt),
+        likesCount: value.data['likes'],
+        isLikedByCurrentUser: false,
+        totalMin: value.data['totalMin'],
+        tintColor: tintColor,
+        chapters: [],
+      );
     }).toList());
   }
 }
