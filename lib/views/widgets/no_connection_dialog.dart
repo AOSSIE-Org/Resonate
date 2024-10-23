@@ -4,6 +4,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/network_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../utils/app_images.dart';
+
 class NoConnectionDialog extends StatelessWidget {
   NoConnectionDialog({super.key});
 
@@ -30,7 +32,7 @@ class NoConnectionDialog extends StatelessWidget {
                   Image.asset(
                       height: 150,
                       width: 150,
-                      "assets/images/no_connection.png"),
+                      AppImages.noConnectionImage),
                   Text(
                     "No Connection",
                     style: TextStyle(

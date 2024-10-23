@@ -7,6 +7,7 @@ import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
+import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -247,7 +248,7 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                    height: 150, width: 150, 'assets/images/emtpy_box.png'),
+                    height: 150, width: 150, AppImages.emptyBoxImage),
                 const SizedBox(
                   height: 5,
                 ),
