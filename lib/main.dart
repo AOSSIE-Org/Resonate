@@ -11,6 +11,8 @@ import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'themes/theme_controller.dart';
 
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
