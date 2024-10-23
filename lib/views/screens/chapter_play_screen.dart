@@ -263,7 +263,9 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                 }
                               },
                               icon: Icon(
-                                  isPlaying ? Icons.pause : Icons.play_arrow)),
+                                isPlaying ? Icons.pause : Icons.play_arrow,
+                                color: Colors.white,
+                              )),
                         ],
                       ),
 
@@ -271,7 +273,9 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(106, 40, 39, 39),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? const Color.fromARGB(106, 40, 39, 39)
+                              : const Color.fromARGB(193, 232, 230, 230),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: double.infinity,
