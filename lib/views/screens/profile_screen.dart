@@ -203,11 +203,13 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(
-              exploreStoryController.userCreatedStories,
-              isCreatorProfile != null
-                  ? "User has not created any story"
-                  : "You have not created any story"),
+          Obx(
+           ()=> _buildStoriesList(
+                exploreStoryController.userCreatedStories,
+                isCreatorProfile != null
+                    ? "User has not created any story"
+                    : "You have not created any story"),
+          ),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
@@ -220,11 +222,13 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(
-              exploreStoryController.userLikedStories,
-              isCreatorProfile != null
-                  ? "User has not liked any story"
-                  : "You have not liked any story"),
+          Obx(
+           ()=> _buildStoriesList(
+                exploreStoryController.userLikedStories,
+                isCreatorProfile != null
+                    ? "User has not liked any story"
+                    : "You have not liked any story"),
+          ),
         ],
       ),
     );
