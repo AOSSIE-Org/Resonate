@@ -43,9 +43,12 @@ class _StoryScreenState extends State<StoryScreen> {
         () => SafeArea(
           child: exploreStoryController.isLoadingStoryPage.value
               ? const Center(
+                  child: SizedBox(
+                  height: 200,
+                  width: 200,
                   child: LoadingIndicator(
-                  indicatorType: Indicator.ballBeat,
-                  strokeWidth: 20,
+                    indicatorType: Indicator.ballRotate,
+                  ),
                 ))
               : Column(
                   children: [
@@ -54,6 +57,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         gradient: LinearGradient(
                           colors: [
                             widget.story.tintColor.withOpacity(0.8),
+                            widget.story.tintColor.withOpacity(0.6),
                             widget.story.tintColor.withOpacity(0.4),
                             widget.story.tintColor.withOpacity(0.2),
                             Colors.transparent,
