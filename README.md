@@ -86,7 +86,7 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 ## :raised_hands: Contributing
 :star: Don't forget to star this repository if you find it useful! :star:
 
-Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
+Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed (P.S. to the `dev` branch). To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
 We appreciate your contributions and look forward to working with you to make this project even better!
 
