@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/widgets/category_card.dart';
@@ -217,7 +218,7 @@ class ExplorePageContent extends StatelessWidget {
                       Image.asset(
                           height: 200,
                           width: 200,
-                          'assets/images/emtpy_box.png'),
+                          AppImages.emptyBoxImage),
                       const SizedBox(
                         height: 10,
                       ),
@@ -275,7 +276,7 @@ class ExplorePageContent extends StatelessWidget {
                       Image.asset(
                           height: 200,
                           width: 200,
-                          'assets/images/emtpy_box.png'),
+                          AppImages.emptyBoxImage),
                       const SizedBox(
                         height: 10,
                       ),
