@@ -23,7 +23,7 @@ Have a great idea for a new feature or improvement? We'd love to hear it! Follow
 
 ### Pull Requests
 
-We welcome contributions in the form of pull requests. To submit a pull request, please follow these guidelines:
+We welcome contributions in the form of pull requests only to the `dev` branch. To submit a pull request, please follow these guidelines:
 
 1.  Fork the repository and create your branch.
 2.  Make the necessary code changes or improvements in your branch.
