@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
-import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
 import 'package:resonate/views/widgets/like_button.dart';
 
@@ -221,7 +221,7 @@ class _StoryScreenState extends State<StoryScreen> {
                             ),
                             const SizedBox(height: 40),
                             Text(
-                              'Created ${formatDateTime(widget.story.creationDate)}',
+                              'Created ${widget.story.creationDate.formatDateTime()}',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!

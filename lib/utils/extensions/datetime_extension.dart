@@ -18,4 +18,19 @@ extension DateTimeExtensions on DateTime {
 
     return '$localDate $localTime';
   }
+String formatDateTime() {
+    final now = DateTime.now();
+    final difference = now.difference(this);
+
+    if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} days ago';
+    } else {
+      return '$year-$month-$day';
+    }
+  }
 }
+
