@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/models/notification_model.dart';
+import 'package:resonate/models/notification.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
+import '../../utils/app_images.dart';
 
 class NotificationsScreen extends StatelessWidget {
   final List<NotificationModel> notifications = getMockNotifications();
@@ -17,19 +19,19 @@ class NotificationsScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(
             Icons.keyboard_arrow_down,
-            // color: Colors.black,
             size: 36,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Notifications'),
+        title: const Text('Notifications',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0, left: 16),
             child: InkWell(
               child: const CircleAvatar(
                 backgroundImage: AssetImage(
-                  "assets/images/user.jpeg",
+                  AppImages.userImage,
                 ),
               ),
               onTap: () {
@@ -41,118 +43,154 @@ class NotificationsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: AnimatedList(
-          initialItemCount: notifications.length,
-          itemBuilder: (context, index, animation) {
+        child: ListView.builder(
+          itemCount: notifications.length,
+          itemBuilder: (context, index) {
             final notification = notifications[index];
-            return Card(
-              color: Theme.of(context).colorScheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              elevation: 5,
-              shadowColor: Colors.grey.shade300,
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 15.0),
-                leading: CircleAvatar(
-                  backgroundColor: notification.isRead
-                      ? Colors.grey.shade300
-                      : Colors.blue.shade100,
-                  child: Icon(
-                    notification.isRead
-                        ? Icons.notifications_none
-                        : Icons.notifications,
-                    color: notification.isRead ? Colors.grey : Colors.blue,
-                  ),
-                ),
-                title: Text(
-                  notification.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    Text(
-                      notification.message,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      _formatDateTime(notification.dateTime),
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-                trailing: Icon(Icons.arrow_forward_ios,
-                    size: 16.0, color: Colors.grey.shade400),
-                onTap: () {
-                  // Handle notification tap
-                },
-              ),
-            );
+            return NotificationTile(notification: notification);
           },
         ),
       ),
     );
   }
+}
 
-  String _formatDateTime(DateTime dateTime) {
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
+class NotificationTile extends StatelessWidget {
+  final NotificationModel notification;
 
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} minutes ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours} hours ago';
-    } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
-    } else {
-      return dateTime.toIso8601String();
+  const NotificationTile({super.key, required this.notification});
+
+  @override
+  Widget build(BuildContext context) {
+    String message;
+    Icon icon;
+
+    switch (notification.notificationType) {
+      case NotificationType.tag:
+        message = notification.isTagInUpcomingRoom
+            ? '${notification.initiatorUsername} tagged you in an upcoming room: ${notification.subject}'
+            : '${notification.initiatorUsername} tagged you in room: ${notification.subject}';
+        icon = const Icon(Icons.tag, color: Colors.green);
+        break;
+      case NotificationType.like:
+        message =
+            '${notification.initiatorUsername} liked your story: ${notification.subject}';
+        icon = const Icon(Icons.favorite, color: Colors.redAccent);
+        break;
+      case NotificationType.subscribe:
+        message =
+            '${notification.initiatorUsername} subscribed to your room: ${notification.subject}';
+        icon = const Icon(Icons.notifications, color: Colors.orangeAccent);
+        break;
+      case NotificationType.follow:
+        message = '${notification.initiatorUsername} started following you';
+        icon = const Icon(Icons.person_add, color: Colors.blueAccent);
+        break;
+      default:
+        message = 'You have a new notification';
+        icon = const Icon(Icons.notifications, color: Colors.grey);
     }
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(notification.initiatorProfileImgUrl),
+            radius: 24,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  message,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          icon,
+        ],
+      ),
+    );
   }
 }
 
 List<NotificationModel> getMockNotifications() {
   return [
     NotificationModel(
-      title: "Welcome to Resonate!",
-      message: "Start by exploring rooms and joining conversations.",
-      dateTime: DateTime.now().subtract(const Duration(minutes: 5)),
+      notificationType: NotificationType.subscribe,
+      initiatorUsername: 'john_doe',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: 'Machine Learning 101',
+      isTagInUpcomingRoom: false,
     ),
     NotificationModel(
-      title: "New Follow Request",
-      message: "John Doe has requested to follow you.",
-      dateTime: DateTime.now().subtract(const Duration(hours: 1)),
+      notificationType: NotificationType.like,
+      initiatorUsername: 'jane_doe',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: 'Deep Dive into AI',
+      isTagInUpcomingRoom: false,
     ),
     NotificationModel(
-      title: "Room Recommendation",
-      message: "Join the 'Flutter Developers' room happening now.",
-      dateTime: DateTime.now().subtract(const Duration(days: 1)),
-      isRead: true,
+      notificationType: NotificationType.follow,
+      initiatorUsername: 'mark_smith',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: '',
+      isTagInUpcomingRoom: false,
     ),
     NotificationModel(
-      title: "Room Recommendation",
-      message: "Join the 'Flutter Developers' room happening now.",
-      dateTime: DateTime.now().subtract(const Duration(days: 1)),
-      isRead: true,
+      notificationType: NotificationType.tag,
+      initiatorUsername: 'lucy_brown',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: 'Upcoming Coding Room',
+      isTagInUpcomingRoom: true,
     ),
     NotificationModel(
-      title: "New Follow Request",
-      message: "John Doe has requested to follow you.",
-      dateTime: DateTime.now().subtract(const Duration(hours: 1)),
+      notificationType: NotificationType.subscribe,
+      initiatorUsername: 'anna_kim',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: 'AI for Beginners',
+      isTagInUpcomingRoom: true,
+    ),
+    NotificationModel(
+      notificationType: NotificationType.like,
+      initiatorUsername: 'alex_lee',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: 'Quantum Computing Basics',
+      isTagInUpcomingRoom: false,
+    ),
+    NotificationModel(
+      notificationType: NotificationType.follow,
+      initiatorUsername: 'sara_white',
+      initiatorProfileImgUrl:
+          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
+      subject: '',
+      isTagInUpcomingRoom: false,
     ),
   ];
 }

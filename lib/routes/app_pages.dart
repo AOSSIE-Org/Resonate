@@ -132,7 +132,7 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.roomChatScreen,
-      page: () => RoomChatScreen(),
+      page: () => const RoomChatScreen(),
     ),
     GetPage(
       name: AppRoutes.homeScreen,
@@ -163,9 +163,8 @@ class AppPages {
       page: () => const ExploreScreen(),
     ),
     GetPage(
-      name: AppRoutes.createStoryScreen,
-      page: () => const CreateStoryPage(),
-      binding: CreateStoryBinding()
-    ),
+        name: AppRoutes.createStoryScreen,
+        page: () => const CreateStoryPage(),
+        binding: CreateStoryBinding()),
   ];
 }

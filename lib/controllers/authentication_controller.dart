@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/message_type_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class AuthenticationController extends GetxController {
@@ -36,7 +36,7 @@ class AuthenticationController extends GetxController {
         customSnackbar(
           'Try Again!',
           "Incorrect Email or Password",
-          MessageType.error,
+          LogType.error,
         );
         SemanticsService.announce(
           "Incorrect Email or Password",
@@ -46,7 +46,7 @@ class AuthenticationController extends GetxController {
         customSnackbar(
           'Try Again!',
           "Password is less than 8 characters",
-          MessageType.error,
+          LogType.error,
         );
 
         SemanticsService.announce(
@@ -77,7 +77,7 @@ class AuthenticationController extends GetxController {
       customSnackbar(
         'Oops',
         error.toString(),
-        MessageType.error,
+        LogType.error,
       );
       SemanticsService.announce(
         error.toString(),
@@ -121,7 +121,7 @@ class AuthenticationController extends GetxController {
       customSnackbar(
         'Success',
         'Password reset email sent!',
-        MessageType.success,
+        LogType.success,
       );
 
       SemanticsService.announce(
@@ -133,7 +133,7 @@ class AuthenticationController extends GetxController {
       customSnackbar(
         'Error',
         e.message.toString(),
-        MessageType.error,
+        LogType.error,
       );
 
       SemanticsService.announce(

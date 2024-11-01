@@ -9,7 +9,7 @@ import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
-import '../../utils/enums/message_type_enum.dart';
+import '../../utils/enums/log_type.dart';
 import '../../utils/ui_sizes.dart';
 import '../widgets/snackbar.dart';
 
@@ -106,7 +106,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       customSnackbar(
                         "Verification Complete",
                         "Congratulations you have verified your Email",
-                        MessageType.success,
+                        LogType.success,
                       );
 
                       SemanticsService.announce(
@@ -134,7 +134,7 @@ class EmailVerificationScreen extends StatelessWidget {
                           'Oops',
                           emailVerifyController
                               .responseSetVerified.responseBody,
-                          MessageType.error,
+                          LogType.error,
                         );
 
                         SemanticsService.announce(
@@ -152,7 +152,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       customSnackbar(
                         "Verification Failed",
                         "OTP mismatch occurred please try again",
-                        MessageType.error,
+                        LogType.error,
                       );
 
                       SemanticsService.announce(
@@ -164,7 +164,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     customSnackbar(
                       'Oops',
                       emailVerifyController.responseVerify.responseBody,
-                      MessageType.error,
+                      LogType.error,
                     );
 
                     SemanticsService.announce(
@@ -186,7 +186,7 @@ class EmailVerificationScreen extends StatelessWidget {
                           customSnackbar(
                             "OTP resent",
                             "Please check your mail for a new OTP.",
-                            MessageType.info,
+                            LogType.info,
                           );
 
                           SemanticsService.announce(

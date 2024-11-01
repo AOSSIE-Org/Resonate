@@ -30,6 +30,4 @@ class AppRoutes {
   static const contributeScreen = "/contributeScreen";
   static const exploreScreen = "/exploreScreen";
   static const createStoryScreen = "/createStoryScreen";
-
-
 }

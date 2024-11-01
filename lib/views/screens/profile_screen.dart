@@ -7,6 +7,7 @@ import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
+import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -203,11 +204,13 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(
-              exploreStoryController.userCreatedStories,
-              isCreatorProfile != null
-                  ? "User has not created any story"
-                  : "You have not created any story"),
+          Obx(
+           ()=> _buildStoriesList(
+                exploreStoryController.userCreatedStories,
+                isCreatorProfile != null
+                    ? "User has not created any story"
+                    : "You have not created any story"),
+          ),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
@@ -220,11 +223,13 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _buildStoriesList(
-              exploreStoryController.userLikedStories,
-              isCreatorProfile != null
-                  ? "User has not liked any story"
-                  : "You have not liked any story"),
+          Obx(
+           ()=> _buildStoriesList(
+                exploreStoryController.userLikedStories,
+                isCreatorProfile != null
+                    ? "User has not liked any story"
+                    : "You have not liked any story"),
+          ),
         ],
       ),
     );
@@ -247,7 +252,7 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                    height: 150, width: 150, 'assets/images/emtpy_box.png'),
+                    height: 150, width: 150, AppImages.emptyBoxImage),
                 const SizedBox(
                   height: 5,
                 ),

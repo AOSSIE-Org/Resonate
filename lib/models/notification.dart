@@ -1,35 +1,26 @@
-class Notification {
-  final String notificationType;        
-  final String initiatorUsername;        
-  final String initiatorProfileImgUrl;   
-  final String recipientId;               
-  final String subject;                  
+import 'package:resonate/utils/enums/notification_type.dart';
 
-  Notification({
-    required this.notificationType,
-    required this.initiatorUsername,
-    required this.initiatorProfileImgUrl,
-    required this.recipientId,
-    required this.subject,
-  });
+class NotificationModel {
+  final NotificationType notificationType;
+  final String initiatorUsername;
+  final String initiatorProfileImgUrl;
+  final String subject;
+  final bool isTagInUpcomingRoom;
+
+  NotificationModel(
+      {required this.notificationType,
+      required this.initiatorUsername,
+      required this.initiatorProfileImgUrl,
+      required this.subject,
+      required this.isTagInUpcomingRoom});
 
   Map<String, dynamic> toJson() {
     return {
-      'notificationType': notificationType,
+      'notificationType': notificationType.name,
       'initiatorUsername': initiatorUsername,
       'initiatorProfileImgUrl': initiatorProfileImgUrl,
-      'recipientId': recipientId,
       'subject': subject,
+      'isTagInUpcomingRoom': isTagInUpcomingRoom
     };
-  }
-
-  factory Notification.fromJson(Map<String, dynamic> json) {
-    return Notification(
-      notificationType: json['notificationType'],
-      initiatorUsername: json['initiatorUsername'],
-      initiatorProfileImgUrl: json['initiatorProfileImgUrl'],
-      recipientId: json['recipientId'],
-      subject: json['subject'],
-    );
   }
 }

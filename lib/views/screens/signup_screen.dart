@@ -8,7 +8,7 @@ import '../../controllers/authentication_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../controllers/password_strength_checker_controller.dart';
 import '../../routes/app_routes.dart';
-import '../../utils/enums/message_type_enum.dart';
+import '../../utils/enums/log_type.dart';
 import '../widgets/password_strength_indicator.dart';
 import '../widgets/snackbar.dart';
 
@@ -230,7 +230,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     customSnackbar(
                                       "Signed Up Successfully",
                                       "You have successfully created a new account",
-                                      MessageType.success,
+                                      LogType.success,
                                     );
 
                                     SemanticsService.announce(
