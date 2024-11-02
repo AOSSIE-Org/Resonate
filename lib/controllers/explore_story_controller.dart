@@ -23,6 +23,7 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  Rx<bool> isLoadingRecommendedStories = false.obs;
   Rx<bool> isLoadingCategoryPage = false.obs;
   Rx<bool> isLoadingStoryPage = false.obs;
   Rx<bool> isSearching = false.obs;
@@ -489,6 +490,7 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> fetchStoryRecommendation() async {
+    isLoadingRecommendedStories.value = true;
     List<Document> storyDocuments = [];
     try {
       storyDocuments = await databases.listDocuments(
@@ -501,6 +503,7 @@ class ExploreStoryController extends GetxController {
 
     recommendedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+            isLoadingRecommendedStories.value = false;
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
