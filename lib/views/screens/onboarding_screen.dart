@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../../controllers/onboarding_controller.dart';
 import '../../utils/ui_sizes.dart';
@@ -94,9 +96,18 @@ class OnBoardingScreen extends StatelessWidget {
                         controller: controller.usernameController,
                         onChanged: (value) async {
                           if (value.length > 5) {
+                            Get.closeCurrentSnackbar();
                             controller.usernameAvailable.value =
-                                await controller
-                                    .isUsernameAvailable(value.trim());
+                                await controller.isUsernameAvailable(
+                              value.trim(),
+                            );
+                            if (!controller.usernameAvailable.value) {
+                              customSnackbar(
+                                  "Username Unavailable!",
+                                  "This username is invalid or either taken already.",
+                                  LogType.error,
+                                  snackbarDuration: 1);
+                            }
                           } else {
                             controller.usernameAvailable.value = false;
                           }
