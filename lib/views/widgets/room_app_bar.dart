@@ -19,19 +19,20 @@ class RoomAppBar extends StatelessWidget {
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: IconButton(
-            icon: const Icon(
-              FontAwesomeIcons.comments,
-            ),
-            onPressed: () {
-              Get.to(const RoomChatScreen());
-            },
-          ),
-        )
-      ],
+      // Enable this when room chats are implemented
+      // actions: [
+      //   Padding(
+      //     padding: const EdgeInsets.only(right: 10.0),
+      //     child: IconButton(
+      //       icon: const Icon(
+      //         FontAwesomeIcons.comments,
+      //       ),
+      //       onPressed: () {
+      //         Get.to(const RoomChatScreen());
+      //       },
+      //     ),
+      //   )
+      // ],
     );
   }
 }

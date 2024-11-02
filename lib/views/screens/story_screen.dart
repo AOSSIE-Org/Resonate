@@ -43,12 +43,13 @@ class _StoryScreenState extends State<StoryScreen> {
       body: Obx(
         () => SafeArea(
           child: exploreStoryController.isLoadingStoryPage.value
-              ? const Center(
+              ? Center(
                   child: SizedBox(
                   height: 200,
                   width: 200,
                   child: LoadingIndicator(
                     indicatorType: Indicator.ballRotate,
+                    colors: [Theme.of(context).colorScheme.primary],
                   ),
                 ))
               : Column(

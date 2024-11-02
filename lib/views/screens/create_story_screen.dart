@@ -21,7 +21,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   final List<Chapter> chapters = [];
-  StoryCategory selectedCategory = StoryCategory.dramma;
+  StoryCategory selectedCategory = StoryCategory.drama;
   File? coverImage; // To hold the selected image
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -48,10 +48,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
     }
 
     int totalPlayDuration = chapters.fold(0, (sum, chapter) {
-
       return sum + chapter.playDuration;
     });
-
 
     // Create a new story instance
     await exploreStoryController.createStory(
@@ -256,7 +254,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
                         subtitle: Text(chapter.description),
-                        trailing: Text(formatPlayDuration(chapter.playDuration)),
+                        trailing:
+                            Text(formatPlayDuration(chapter.playDuration)),
                       ),
                     );
                   },

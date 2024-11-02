@@ -41,9 +41,11 @@ class StoryListTile extends StatelessWidget {
           width: 60,
         ),
       ),
-      trailing: const Icon(
+      trailing: Icon(
         Icons.play_arrow_rounded,
-        color: Colors.black38,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.grey[400]
+            : Colors.black38,
       ),
       tileColor: Colors.transparent,
       onTap: () {
