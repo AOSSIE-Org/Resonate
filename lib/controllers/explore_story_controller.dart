@@ -103,29 +103,16 @@ class ExploreStoryController extends GetxController {
 
   Future<void> updateStoriesPlayDurationLength(
       List<Chapter> chapters, String storyId) async {
-    int totalDuration = chapters.fold(0, (sum, chapter) {
-      // Split the playDuration string into minutes and seconds
-      List<String> parts = chapter.playDuration.split(':');
-      int minutes = int.tryParse(parts[0]) ?? 0; // Parse minutes safely
-      int seconds = int.tryParse(parts[1]) ?? 0; // Parse seconds safely
-
-      // Convert to milliseconds
-      int chapterDurationInMilliseconds = (minutes * 60 + seconds) * 1000;
-
-      return sum + chapterDurationInMilliseconds;
+    int totalStoryDuration = chapters.fold(0, (sum, chapter) {
+      return sum + chapter.playDuration;
     });
-
-    Duration duration = Duration(milliseconds: totalDuration);
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds % 60;
-    String totalPlayDuration = "$minutes:$seconds";
 
     try {
       await databases.updateDocument(
           databaseId: storyDatabaseId,
           collectionId: storyCollectionId,
           documentId: storyId,
-          data: {"totalMin": totalPlayDuration});
+          data: {"playDuration": totalStoryDuration});
     } on AppwriteException catch (e) {
       log("Failed to update story duration: ${e.message}");
     }
@@ -157,7 +144,7 @@ class ExploreStoryController extends GetxController {
             'description': chapter.description,
             'coverImgUrl': coverImgUrl,
             'lyrics': chapter.lyrics,
-            'totalMin': chapter.playDuration,
+            'playDuration': chapter.playDuration,
             'tintColor': extractedColor,
             'storyId': storyId,
             'audioFileUrl': audioFileUrl
@@ -202,11 +189,7 @@ class ExploreStoryController extends GetxController {
     Metadata metadata =
         await MetadataRetriever.fromFile(io.File(audioFilePath));
     log("logging duration ${metadata.trackDuration}");
-    Duration duration = Duration(milliseconds: metadata.trackDuration!);
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds % 60;
-    String playDuration = "$minutes:$seconds";
-
+    int playDuration = metadata.trackDuration!;
     String chapterId = ID.unique();
     Color primaryColor;
 
@@ -236,7 +219,7 @@ class ExploreStoryController extends GetxController {
       String desciption,
       StoryCategory category,
       String coverImgRef,
-      String storyTotalMin,
+      int storyPlayDuration,
       List<Chapter> chapters) async {
     String storyId = ID.unique();
 
@@ -276,7 +259,7 @@ class ExploreStoryController extends GetxController {
             'creatorName': authStateController.displayName,
             'creatorImgUrl': authStateController.profileImageUrl,
             'likes': 0,
-            'totalMin': storyTotalMin,
+            'playDuration': storyPlayDuration,
             'tintColor': extractedColor
           });
     } on AppwriteException catch (e) {
@@ -480,7 +463,7 @@ class ExploreStoryController extends GetxController {
           value.data['description'],
           value.data['lyrics'],
           value.data['audioFileUrl'],
-          value.data['totalMin'],
+          value.data['playDuration'],
           tintColor);
     }).toList();
 
@@ -540,7 +523,7 @@ class ExploreStoryController extends GetxController {
         creationDate: DateTime.parse(value.$createdAt),
         likesCount: value.data['likes'],
         isLikedByCurrentUser: false,
-        totalMin: value.data['totalMin'],
+        playDuration: value.data['playDuration'],
         tintColor: tintColor,
         chapters: [],
       );
