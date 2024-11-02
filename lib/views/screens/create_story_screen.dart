@@ -21,7 +21,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   final List<Chapter> chapters = [];
-  StoryCategory selectedCategory = StoryCategory.dramma;
+  StoryCategory selectedCategory = StoryCategory.drama;
   File? coverImage; // To hold the selected image
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -47,22 +47,9 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       return;
     }
 
-    int totalDuration = chapters.fold(0, (sum, chapter) {
-      // Split the playDuration string into minutes and seconds
-      List<String> parts = chapter.playDuration.split(':');
-      int minutes = int.tryParse(parts[0]) ?? 0; // Parse minutes safely
-      int seconds = int.tryParse(parts[1]) ?? 0; // Parse seconds safely
-
-      // Convert to milliseconds
-      int chapterDurationInMilliseconds = (minutes * 60 + seconds) * 1000;
-
-      return sum + chapterDurationInMilliseconds;
+    int totalPlayDuration = chapters.fold(0, (sum, chapter) {
+      return sum + chapter.playDuration;
     });
-
-    Duration duration = Duration(milliseconds: totalDuration);
-    int minutes = duration.inMinutes;
-    int seconds = duration.inSeconds % 60;
-    String totalPlayDuration = "$minutes:$seconds";
 
     // Create a new story instance
     await exploreStoryController.createStory(
@@ -267,7 +254,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
                         subtitle: Text(chapter.description),
-                        trailing: Text(chapter.playDuration),
+                        trailing:
+                            Text(formatPlayDuration(chapter.playDuration)),
                       ),
                     );
                   },
@@ -319,4 +307,12 @@ extension StringCasingExtension on String {
           ? str[0].toUpperCase() + str.substring(1).toLowerCase()
           : '')
       .join(' ');
+}
+
+String formatPlayDuration(int milliseconds) {
+  int totalSeconds = (milliseconds / 1000).round();
+  int minutes = totalSeconds ~/ 60;
+  int seconds = totalSeconds % 60;
+
+  return "$minutes:${seconds.toString().padLeft(2, '0')}";
 }

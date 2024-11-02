@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import '../../utils/app_images.dart';
+
 class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
@@ -44,7 +46,7 @@ class AboutAppScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: const DecorationImage(
                                 image: AssetImage(
-                                  "assets/images/resonate_logo.png",
+                                  AppImages.resonateLogoImage,
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -106,7 +108,7 @@ class AboutAppScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: const DecorationImage(
                                 image:
-                                    AssetImage("assets/images/aossie_logo.png"),
+                                    AssetImage(AppImages.aossieLogoImage),
                                 scale: 4,
                               ),
                               color: Colors.black,

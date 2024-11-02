@@ -11,10 +11,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
 
+    <!-- Remove usesCleartextTraffic while going for Production -->
     <application
         android:label="Resonate"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
 
         <!-- UCropActivity - For image cropper -->
         <activity

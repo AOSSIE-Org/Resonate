@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/views/screens/story_screen.dart';
 
 class StoryListTile extends StatelessWidget {
   const StoryListTile({
@@ -35,14 +36,28 @@ class StoryListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Image.network(
           story.coverImageUrl,
+          fit: BoxFit.cover,
+          height: 60,
+          width: 60,
         ),
       ),
       trailing: Icon(
         Icons.play_arrow_rounded,
-        color: Colors.grey[350],
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.grey[400]
+            : Colors.black38,
       ),
       tileColor: Colors.transparent,
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StoryScreen(
+              story: story,
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -7,7 +7,7 @@ class Chapter {
   final String description;
   final String lyrics;
   final String audioFileUrl;
-  final String playDuration;
+  final int playDuration;
   final Color tintColor;
 
   Chapter(this.chapterId, this.title, this.coverImageUrl, this.description, this.lyrics,

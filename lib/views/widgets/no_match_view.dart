@@ -5,10 +5,10 @@ class NoMatchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return  Center(
       child: Text(
         'No Search Results',
-        style: TextStyle(color: Colors.black, fontSize: 20),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontSize: 20),
       ),
     );
   }

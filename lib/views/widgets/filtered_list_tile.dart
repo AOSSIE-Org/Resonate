@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/story.dart';
-import 'package:resonate/views/screens/story_details_screen.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
+import 'package:resonate/views/screens/story_screen.dart';
 
 class FilteredListTile extends StatelessWidget {
   final Story story;
@@ -14,7 +15,7 @@ class FilteredListTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => StoryDetailsScreen(
+            builder: (context) => StoryScreen(
               story: story,
             ),
           ),
@@ -35,11 +36,11 @@ class FilteredListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: const EdgeInsets.all(0),
           leading: CircleAvatar(
-            backgroundImage: AssetImage(story.coverImageUrl),
+            backgroundImage: NetworkImage(story.coverImageUrl),
             radius: 25,
           ),
           trailing: Text(
-            ' 10 min ago',
+            formatPlayDuration(story.playDuration),
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 14,
                   fontStyle: FontStyle.normal,

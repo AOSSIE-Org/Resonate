@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 
 class ChaperListTile extends StatelessWidget {
   const ChaperListTile({
@@ -26,11 +27,11 @@ class ChaperListTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 4.0,
-          horizontal: 16.0,
+          horizontal: 5.0,
         ),
         leading: ClipRRect(
-          // borderRadius: BorderRadius.circular(0.0),
-          child: Image.asset(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.network(
             chapter.coverImageUrl,
             width: 50,
             height: 50,
@@ -59,7 +60,7 @@ class ChaperListTile extends StatelessWidget {
                 fontFamily: 'Inter',
               ),
         ),
-        trailing: Text('${chapter.playDuration} min'),
+        trailing: Text('${formatPlayDuration(chapter.playDuration)} min'),
       ),
     );
   }

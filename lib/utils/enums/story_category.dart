@@ -1,8 +1,1 @@
-enum StoryCategory {
-  dramma,
-  horror,
-  comedy,
-  thriller,
-  romance,
-  spiritual
-}
+enum StoryCategory { drama, horror, comedy, thriller, romance, spiritual }
