@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/screens/category_screen.dart';
 
 String capitalizeFirstLetter(String input) {
@@ -8,16 +10,25 @@ String capitalizeFirstLetter(String input) {
 }
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.name, required this.color});
+  const CategoryCard(
+      {super.key,
+      required this.name,
+      required this.color,
+      required this.exploreStoryController});
   final String name;
   final Color color;
+  final ExploreStoryController exploreStoryController;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(CategoryScreen(
-        categoryName: name,
-      )),
+      onTap: () {
+        exploreStoryController
+            .fetchStoryByCategory(StoryCategory.values.byName(name));
+        Get.to(()=> CategoryScreen(
+          categoryName: name,
+        ));
+      },
       child: Stack(
         children: [
           Container(

@@ -23,6 +23,7 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  Rx<bool> isLoadingCategoryPage = false.obs;
   Rx<bool> isLoadingStoryPage = false.obs;
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
@@ -153,13 +154,15 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> fetchStoryByCategory(StoryCategory category) async {
+    isLoadingCategoryPage.value = true;
     List<Document> storyDocuments = [];
     try {
       storyDocuments = await databases.listDocuments(
           databaseId: storyDatabaseId,
           collectionId: storyCollectionId,
           queries: [
-            Query.and([Query.limit(15), Query.equal('category', category.name)])
+            Query.limit(15),
+            Query.equal('category', category.name)
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch stories for categories: ${e.message}');
@@ -167,6 +170,7 @@ class ExploreStoryController extends GetxController {
 
     openedCategotyStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+    isLoadingCategoryPage.value = false;
   }
 
   Future<String> uploadFileToAppwriteGetUrl(String bucketId, String fileId,
@@ -502,11 +506,8 @@ class ExploreStoryController extends GetxController {
   Future<List<Story>> convertAppwriteDocListToStoryList(
       List<Document> storyDocuments) async {
     return await Future.wait(storyDocuments.map((value) async {
-      StoryCategory category = StoryCategory.values.firstWhere(
-        (element) {
-          return element.name == value.data['category'];
-        },
-      );
+      StoryCategory category =
+          StoryCategory.values.byName(value.data['category']);
 
       Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
 

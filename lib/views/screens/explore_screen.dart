@@ -167,6 +167,7 @@ class ExplorePageContent extends StatelessWidget {
               return CategoryCard(
                 name: StoryCategory.values[index].name,
                 color: categoryColorList[index],
+                exploreStoryController: exploreStoryController,
               );
             },
           ),

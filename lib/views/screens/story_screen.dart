@@ -39,8 +39,6 @@ class _StoryScreenState extends State<StoryScreen> {
       ),
     );
 
-    bool tintIsDark = widget.story.tintColor.computeLuminance() < 0.5;
-
     return Scaffold(
       body: Obx(
         () => SafeArea(
