@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:resonate/views/screens/room_chat_screen.dart';
 
 class RoomAppBar extends StatelessWidget {
   const RoomAppBar({super.key});
