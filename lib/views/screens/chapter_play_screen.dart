@@ -52,7 +52,6 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
   @override
   void initState() {
     super.initState();
-    log("running init state");
     currentPage = 0;
     lyricProgress = 0;
     sliderProgress = 0;
