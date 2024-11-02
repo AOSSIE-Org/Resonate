@@ -279,17 +279,12 @@ class CreateRoomScreen extends StatelessWidget {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    InkWell(
-                                                      child: Text(
-                                                        '#$tag',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: UiSizes
-                                                                .size_18),
-                                                      ),
-                                                      onTap: () {
-                                                        //log("$tag selected");
-                                                      },
+                                                    Text(
+                                                      '#$tag',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: UiSizes
+                                                              .size_18),
                                                     ),
                                                     SizedBox(
                                                         width: UiSizes.width_4),

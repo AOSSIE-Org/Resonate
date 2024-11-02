@@ -7,6 +7,7 @@ import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
 import 'package:resonate/views/widgets/like_button.dart';
 
@@ -42,12 +43,13 @@ class _StoryScreenState extends State<StoryScreen> {
       body: Obx(
         () => SafeArea(
           child: exploreStoryController.isLoadingStoryPage.value
-              ? const Center(
+              ? Center(
                   child: SizedBox(
                   height: 200,
                   width: 200,
                   child: LoadingIndicator(
                     indicatorType: Indicator.ballRotate,
+                    colors: [Theme.of(context).colorScheme.primary],
                   ),
                 ))
               : Column(
@@ -133,9 +135,6 @@ class _StoryScreenState extends State<StoryScreen> {
                                             .textTheme
                                             .bodyLarge!
                                             .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurface,
                                               fontWeight: FontWeight.w500,
                                               fontSize: 35,
                                               overflow: TextOverflow.ellipsis,
@@ -164,7 +163,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                           const SizedBox(width: 16),
                                           // Duration
                                           Text(
-                                            '${widget.story.totalMin} min',
+                                            '${formatPlayDuration(widget.story.playDuration)} min',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!

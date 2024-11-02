@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:flutter_lyric/lyrics_reader_model.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 
 class ChapterPlayScreen extends StatefulWidget {
   final Chapter chapter; // Passing the selected chapter
@@ -17,29 +21,68 @@ class ChapterPlayScreen extends StatefulWidget {
 }
 
 class ChapterPlayScreenState extends State<ChapterPlayScreen> {
-  int currentPage = 0;
-  int lyricProgress = 0;
-  double sliderProgress = 0;
-  bool isPlaying = false;
+  late int currentPage;
+  late int lyricProgress;
+  late double sliderProgress;
+  late bool isPlaying;
   AudioPlayer? audioPlayer;
   late Duration chapterDuration;
   late LyricsReaderModel lyricModel;
-  UINetease lyricUI = UINetease();
+  late UINetease lyricUI;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
+    lyricUI = UINetease(
+        highlightColor: themeIsDark ? Colors.white : Colors.black,
+        playingMainTextStyle: TextStyle(
+            fontSize: UiSizes.size_20,
+            fontWeight: FontWeight.bold,
+            color: themeIsDark
+                ? const Color.fromARGB(255, 223, 222, 222)
+                : Colors.grey[600]),
+        otherMainTextStyle: TextStyle(
+            fontSize: UiSizes.size_18,
+            color: themeIsDark
+                ? const Color.fromARGB(255, 223, 222, 222)
+                : Colors.grey[600]));
+  }
 
   @override
   void initState() {
     super.initState();
-    chapterDuration = getChapterDurationFromString(widget.chapter.playDuration);
+    currentPage = 0;
+    lyricProgress = 0;
+    sliderProgress = 0;
+    isPlaying = false;
+    chapterDuration = Duration(milliseconds: widget.chapter.playDuration);
     lyricModel = LyricsModelBuilder.create()
         .bindLyricToMain(widget.chapter.lyrics)
         .getModel();
+    if (audioPlayer == null) {
+      audioPlayer = AudioPlayer()..setSourceUrl(widget.chapter.audioFileUrl);
+      audioPlayer?.setReleaseMode(ReleaseMode.stop);
+      audioPlayer?.onPositionChanged.listen((Duration event) {
+        setState(() {
+          log(event.inMilliseconds.toDouble().toString());
+          sliderProgress = event.inMilliseconds.toDouble();
+          lyricProgress = event.inMilliseconds;
+        });
+      });
+
+      audioPlayer?.onPlayerStateChanged.listen((PlayerState state) {
+        setState(() {
+          isPlaying = state == PlayerState.playing;
+        });
+      });
+    }
   }
 
-  Duration getChapterDurationFromString(String songLength) {
-    List<String> parts = songLength.split(':');
-    int minutes = int.parse(parts[0]);
-    int seconds = int.parse(parts[1]);
-    return Duration(minutes: minutes, seconds: seconds);
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer?.release();
   }
 
   @override
@@ -89,10 +132,10 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: widget.chapter.tintColor.computeLuminance() <
-                                    0.5
-                                ? Colors.white
-                                : Colors.black87,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black87,
                           ),
                         ),
                       ],
@@ -181,20 +224,7 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.chapter.title,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: 'Inter',
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      // Redesigned Progress Bar
+                      // added a second extra to cover up the error of the meta data library
                       Slider(
                         value: sliderProgress,
                         onChanged: (value) {
@@ -210,7 +240,7 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                               ?.seek(Duration(milliseconds: value.toInt()));
                         },
                         min: 0,
-                        max: chapterDuration.inMilliseconds.toDouble(),
+                        max: chapterDuration.inMilliseconds.toDouble() + 1000,
                         activeColor: widget.chapter.tintColor,
                         inactiveColor: Colors.grey.shade300,
                       ),
@@ -220,8 +250,10 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("${formatDuration(sliderProgress)} min"),
-                              Text("${widget.chapter.playDuration} min"),
+                              Text(
+                                  "${formatPlayDuration(sliderProgress.toInt())} min"),
+                              Text(
+                                  "${formatPlayDuration(widget.chapter.playDuration)} min"),
                             ],
                           ),
                           IconButton(
@@ -233,33 +265,7 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                 if (isPlaying) {
                                   audioPlayer?.pause();
                                 } else {
-                                  if (audioPlayer == null) {
-                                    audioPlayer = AudioPlayer()
-                                      ..play(UrlSource(
-                                          widget.chapter.audioFileUrl));
-                                    setState(() {
-                                      isPlaying = true;
-                                    });
-
-                                    audioPlayer?.onPositionChanged
-                                        .listen((Duration event) {
-                                      setState(() {
-                                        sliderProgress =
-                                            event.inMilliseconds.toDouble();
-                                        lyricProgress = event.inMilliseconds;
-                                      });
-                                    });
-
-                                    audioPlayer?.onPlayerStateChanged
-                                        .listen((PlayerState state) {
-                                      setState(() {
-                                        isPlaying =
-                                            state == PlayerState.playing;
-                                      });
-                                    });
-                                  } else {
-                                    audioPlayer?.resume();
-                                  }
+                                  audioPlayer?.resume();
                                 }
                               },
                               icon: Icon(
@@ -333,16 +339,4 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
       ),
     );
   }
-}
-
-// Helper function to format Duration into minutes:seconds format
-String formatDuration(double milliseconds) {
-  double totalSeconds = milliseconds / 1000; // Convert milliseconds to seconds
-  int minutes = (totalSeconds / 60).floor();
-  int remainingSeconds = (totalSeconds % 60).floor();
-
-  String twoDigits(int n) => n.toString().padLeft(2, "0");
-  String secondsStr = twoDigits(remainingSeconds);
-
-  return "$minutes:$secondsStr";
 }

@@ -17,7 +17,7 @@ class Story {
   final DateTime creationDate;
   RxInt likesCount; // Changed to RxInt
   RxBool isLikedByCurrentUser; // Changed to RxBool
-  String totalMin;
+  int playDuration;
   Color tintColor;
   List<Chapter> chapters;
 
@@ -34,7 +34,7 @@ class Story {
     required this.creationDate,
     required int likesCount, // Normal int for constructor
     required bool isLikedByCurrentUser, // Normal bool for constructor
-    required this.totalMin,
+    required this.playDuration,
     required this.tintColor,
     required this.chapters,
   })  : likesCount = likesCount.obs, // Observable

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 
 class ChaperListTile extends StatelessWidget {
   const ChaperListTile({
@@ -59,7 +60,7 @@ class ChaperListTile extends StatelessWidget {
                 fontFamily: 'Inter',
               ),
         ),
-        trailing: Text('${chapter.playDuration} min'),
+        trailing: Text('${formatPlayDuration(chapter.playDuration)} min'),
       ),
     );
   }

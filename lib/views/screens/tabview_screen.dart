@@ -50,14 +50,16 @@ class TabViewScreen extends StatelessWidget {
             ),
             centerTitle: false,
             actions: [
-              SizedBox(
-                height: UiSizes.height_45,
-                child: const Icon(
-                  Icons.notifications_none_rounded,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(width: 15),
+              // Add the notification icon when notification feature is done
+
+              // SizedBox(
+              //   height: UiSizes.height_45,
+              //   child: const Icon(
+              //     Icons.notifications_none_rounded,
+              //     size: 30,
+              //   ),
+              // ),
+              // const SizedBox(width: 15),
               profileAvatar(context),
             ],
           ),
