@@ -164,6 +164,7 @@ class RoomScreenState extends State<RoomScreen> {
       alignment: Alignment.bottomCenter,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.07,
+        width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadiusDirectional.circular(24),
             color: Theme.of(context).colorScheme.surface),
