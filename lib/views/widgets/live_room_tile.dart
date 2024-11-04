@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
-import 'package:resonate/views/screens/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomLiveRoomTile extends StatelessWidget {
   final AppwriteRoom appwriteRoom;
 
-  const CustomLiveRoomTile({super.key, required this.appwriteRoom});
+  CustomLiveRoomTile({super.key, required this.appwriteRoom});
+    final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {
