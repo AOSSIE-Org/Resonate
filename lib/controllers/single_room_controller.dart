@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
+import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -19,6 +20,7 @@ import '../utils/constants.dart';
 
 class SingleRoomController extends GetxController {
   AuthStateController auth = Get.find<AuthStateController>();
+  final RoomsController roomsController = Get.put(RoomsController());
   RxBool isLoading = false.obs;
   late Rx<Participant> me = Participant(
           uid: auth.uid!,

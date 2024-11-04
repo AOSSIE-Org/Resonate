@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
@@ -92,12 +94,19 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          chapter.coverImageUrl,
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                        ),
+                        child: chapter.coverImageUrl.startsWith('/')
+                            ? Image.file(
+                                File(chapter.coverImageUrl),
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                chapter.coverImageUrl,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       title: Text(chapter.title),
                       subtitle: Text(
