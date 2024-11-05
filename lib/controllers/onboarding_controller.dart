@@ -35,6 +35,7 @@ class OnboardingController extends GetxController {
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
 
   Rx<bool> usernameAvailable = false.obs;
+  Rx<bool> usernameAvailableChecking = false.obs;
 
   @override
   void onInit() async {
