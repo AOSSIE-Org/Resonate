@@ -167,6 +167,7 @@ class ExplorePageContent extends StatelessWidget {
               return CategoryCard(
                 name: StoryCategory.values[index].name,
                 color: categoryColorList[index],
+                exploreStoryController: exploreStoryController,
               );
             },
           ),
@@ -185,45 +186,55 @@ class ExplorePageContent extends StatelessWidget {
           height: 300,
           width: double.infinity,
           child: Obx(
-            () => exploreStoryController.recommendedStories.isNotEmpty
-                ? ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount:
-                        exploreStoryController.recommendedStories.length > 4
-                            ? 4
-                            : exploreStoryController.recommendedStories.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 300,
-                        margin: const EdgeInsets.all(
-                          10,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: StoryCard(
-                          story:
-                              exploreStoryController.recommendedStories[index],
-                        ),
-                      );
-                    },
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                          height: 200,
-                          width: 200,
-                          AppImages.emptyBoxImage),
-                      const SizedBox(
-                        height: 10,
+            () => !exploreStoryController.isLoadingRecommendedStories.value
+                ? exploreStoryController.recommendedStories.isNotEmpty
+                    ? ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount:
+                            exploreStoryController.recommendedStories.length > 4
+                                ? 4
+                                : exploreStoryController
+                                    .recommendedStories.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 300,
+                            margin: const EdgeInsets.all(
+                              10,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: StoryCard(
+                              story: exploreStoryController
+                                  .recommendedStories[index],
+                            ),
+                          );
+                        },
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                              height: 200, width: 200, AppImages.emptyBoxImage),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("No stories exist to present")
+                        ],
+                      )
+                : Center(
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballRotate,
+                        colors: [Theme.of(context).colorScheme.primary],
                       ),
-                      const Text("No stories exist to present")
-                    ],
+                    ),
                   ),
           ),
         ),
@@ -247,41 +258,52 @@ class ExplorePageContent extends StatelessWidget {
           height: 300,
           width: double.infinity,
           child: Obx(
-            () => exploreStoryController.recommendedStories.isNotEmpty
-                ? ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    primary: true,
-                    itemCount:
-                        exploreStoryController.recommendedStories.length > 4
+            () => !exploreStoryController.isLoadingRecommendedStories.value
+                ? exploreStoryController.recommendedStories.isNotEmpty
+                    ? ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        primary: true,
+                        itemCount: exploreStoryController
+                                    .recommendedStories.length >
+                                4
                             ? exploreStoryController.recommendedStories.length -
                                 4
                             : exploreStoryController.recommendedStories.length,
-                    itemBuilder: (context, index) {
-                      final int storyIndex =
-                          exploreStoryController.recommendedStories.length > 4
-                              ? index + 4
-                              : index;
-                      return StoryListTile(
-                        story: exploreStoryController
-                            .recommendedStories[storyIndex],
-                      );
-                    },
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                          height: 200,
-                          width: 200,
-                          AppImages.emptyBoxImage),
-                      const SizedBox(
-                        height: 10,
+                        itemBuilder: (context, index) {
+                          final int storyIndex =
+                              exploreStoryController.recommendedStories.length >
+                                      4
+                                  ? index + 4
+                                  : index;
+                          return StoryListTile(
+                            story: exploreStoryController
+                                .recommendedStories[storyIndex],
+                          );
+                        },
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                              height: 200, width: 200, AppImages.emptyBoxImage),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("No stories exist to present")
+                        ],
+                      )
+                : Center(
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballRotate,
+                        colors: [Theme.of(context).colorScheme.primary],
                       ),
-                      const Text("No stories exist to present")
-                    ],
+                    ),
                   ),
           ),
         ),

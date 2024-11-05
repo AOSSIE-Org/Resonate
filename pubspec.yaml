@@ -45,7 +45,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_local_notifications: ^16.1.0
-  flutter_lyric: ^2.0.4+6
   flutter_media_metadata: ^1.0.0+1
   flutter_native_splash: ^2.2.19
   flutter_onboarding_slider: ^1.0.10
@@ -82,6 +81,10 @@ dependencies:
     git:
       url: https://github.com/lionelmennig/textfield_tags.git
       ref: fixes/allow-controller-re-registration
+  flutter_lyric:
+    git:
+      url: https://github.com/Aarush-Acharya/flutter_lyric.git
+      ref: master
   url_launcher: ^6.1.12
   uuid: ^3.0.6
 

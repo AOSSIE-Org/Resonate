@@ -19,12 +19,12 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-final RoomsController roomsController = Get.put(RoomsController());
-
-final UpcomingRoomsController upcomingRoomsController =
-    Get.put(UpcomingRoomsController());
 
 class _HomeScreenState extends State<HomeScreen> {
+  final UpcomingRoomsController upcomingRoomsController =
+    Get.put(UpcomingRoomsController());
+  final RoomsController roomsController = Get.put(RoomsController());
+
   Future<void> pullToRefreshData() async {
     await upcomingRoomsController.getUpcomingRooms();
     await roomsController.getRooms();
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Theme.of(context).colorScheme.primary,
                                   size: Get.pixelRatio * 20,
                                 ))
-                              : const LiveRoomListView()
+                              :  LiveRoomListView()
                           : upcomingRoomsController.isLoading.value
                               ? Center(
                                   child:
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Theme.of(context).colorScheme.primary,
                                   size: Get.pixelRatio * 20,
                                 ))
-                              : const UpcomingRoomsListView()),
+                              : UpcomingRoomsListView()),
                     )),
               ),
             ],
@@ -127,7 +127,9 @@ class CustomAppBarLiveRoom extends StatelessWidget {
 }
 
 class UpcomingRoomsListView extends StatelessWidget {
-  const UpcomingRoomsListView({super.key});
+  UpcomingRoomsListView({super.key});
+  final UpcomingRoomsController upcomingRoomsController =
+      Get.put(UpcomingRoomsController());
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +156,8 @@ class UpcomingRoomsListView extends StatelessWidget {
 }
 
 class LiveRoomListView extends StatelessWidget {
-  const LiveRoomListView({super.key});
+   LiveRoomListView({super.key});
+    final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {

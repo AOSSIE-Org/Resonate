@@ -119,9 +119,7 @@ class AuthStateController extends GetxController {
   Future<void> setUserProfileData() async {
     isInitializing.value = true;
     try {
-      log("here before getting account");
       appwriteUser = await account.get();
-      log("ran get account success fully");
       displayName = appwriteUser.name;
       email = appwriteUser.email;
       isEmailVerified = appwriteUser.emailVerification;
@@ -148,7 +146,6 @@ class AuthStateController extends GetxController {
 
   Future<String> getAppwriteToken() async {
     Jwt authToken = await account.createJWT();
-    log(authToken.toString());
     return authToken.jwt;
   }
 
@@ -257,9 +254,7 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> signup(String email, String password) async {
-    log("About to create");
     await account.create(userId: ID.unique(), email: email, password: password);
-    log("Created");
     await account.createEmailPasswordSession(email: email, password: password);
     await setUserProfileData();
   }

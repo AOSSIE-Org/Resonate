@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
-import 'package:resonate/views/screens/home_screen.dart';
 
 class UpCommingListTile extends StatelessWidget {
-  const UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
+  UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
   final AppwriteUpcommingRoom appwriteUpcommingRoom;
+  final UpcomingRoomsController upcomingRoomsController =
+      Get.put(UpcomingRoomsController());
 
   @override
   Widget build(BuildContext context) {

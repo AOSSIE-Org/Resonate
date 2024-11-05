@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 
 class FilteredListTile extends StatelessWidget {
@@ -39,7 +40,7 @@ class FilteredListTile extends StatelessWidget {
             radius: 25,
           ),
           trailing: Text(
-            story.totalMin,
+            formatPlayDuration(story.playDuration),
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 14,
                   fontStyle: FontStyle.normal,

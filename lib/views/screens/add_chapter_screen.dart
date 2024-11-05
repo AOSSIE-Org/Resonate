@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/views/screens/create_chapter_screen.dart';
+import 'package:resonate/views/screens/create_story_screen.dart';
 
 class AddNewChapterScreen extends StatefulWidget {
   final String storyName;
@@ -70,7 +73,7 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                             ? '${chapter.description.substring(0, 30)}...'
                             : chapter.description,
                       ),
-                      trailing: Text(chapter.playDuration),
+                      trailing: Text(formatPlayDuration(chapter.playDuration)),
                     ),
                   );
                 },
@@ -91,12 +94,19 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                     child: ListTile(
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.network(
-                          chapter.coverImageUrl,
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                        ),
+                        child: chapter.coverImageUrl.startsWith('/')
+                            ? Image.file(
+                                File(chapter.coverImageUrl),
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                chapter.coverImageUrl,
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       title: Text(chapter.title),
                       subtitle: Text(
@@ -104,7 +114,7 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                             ? '${chapter.description.substring(0, 30)}...'
                             : chapter.description,
                       ),
-                      trailing: Text(chapter.playDuration),
+                      trailing: Text(formatPlayDuration(chapter.playDuration)),
                     ),
                   );
                 },

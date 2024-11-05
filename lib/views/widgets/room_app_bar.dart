@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:resonate/views/screens/room_chat_screen.dart';
 
 class RoomAppBar extends StatelessWidget {
   const RoomAppBar({super.key});
@@ -19,19 +16,20 @@ class RoomAppBar extends StatelessWidget {
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: IconButton(
-            icon: const Icon(
-              FontAwesomeIcons.comments,
-            ),
-            onPressed: () {
-              Get.to(const RoomChatScreen());
-            },
-          ),
-        )
-      ],
+      // Enable this when room chats are implemented
+      // actions: [
+      //   Padding(
+      //     padding: const EdgeInsets.only(right: 10.0),
+      //     child: IconButton(
+      //       icon: const Icon(
+      //         FontAwesomeIcons.comments,
+      //       ),
+      //       onPressed: () {
+      //         Get.to(const RoomChatScreen());
+      //       },
+      //     ),
+      //   )
+      // ],
     );
   }
 }
