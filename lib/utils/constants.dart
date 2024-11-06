@@ -20,16 +20,16 @@ const String storyBucketId = "6703f4c70037edfd8429";
 const String chapterDefaultCoverImageId = "67012e19003d00f39e17";
 const String storyDefaultCoverImageId = "67012e19003d00f39e16";
 const String chapterCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/chapterDefaultCoverImage/view?project=resonate&project=resonate&mode=admin";
+    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$chapterDefaultCoverImageId/view?project=resonate&project=resonate&mode=admin";
 const String storyCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/storyDefaultCoverImage/view?project=resonate&mode=admin";
+    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=resonate&mode=admin";
 
 // User related Database Constants
 const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
 const String userProfileImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/64a13095a4c87fd78bc6/files/67012e19003d00f39e12/view?project=resonate&mode=admin";
+    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/67012e19003d00f39e12/view?project=resonate&mode=admin";
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 
 // Rooms related Database Constants
