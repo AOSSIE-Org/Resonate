@@ -3,12 +3,22 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/utils/debouncer.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../../controllers/onboarding_controller.dart';
 import '../../utils/ui_sizes.dart';
 
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
+
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  final debouncer = Debouncer(milliseconds: 800);
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +103,27 @@ class OnBoardingScreen extends StatelessWidget {
                         },
                         controller: controller.usernameController,
                         onChanged: (value) async {
+                          Get.closeCurrentSnackbar();
                           if (value.length > 5) {
-                            controller.usernameAvailable.value =
-                                await controller
-                                    .isUsernameAvailable(value.trim());
+                            controller.usernameAvailableChecking.value = true;
+                            debouncer.run(
+                              () async {
+                                controller.usernameAvailable.value =
+                                    await controller.isUsernameAvailable(
+                                  value.trim(),
+                                );
+                                controller.usernameAvailableChecking.value =
+                                    false;
+                                if (!controller.usernameAvailable.value) {
+                                  customSnackbar(
+                                    "Username Unavailable!",
+                                    "This username is invalid or either taken already.",
+                                    LogType.error,
+                                    snackbarDuration: 1,
+                                  );
+                                }
+                              },
+                            );
                           } else {
                             controller.usernameAvailable.value = false;
                           }
@@ -104,16 +131,20 @@ class OnBoardingScreen extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          // hintText: "Username",
-                          labelText: "Username",
-                          prefixIcon: const Icon(Icons.person),
-                          suffixIcon: controller.usernameAvailable.value
-                              ? const Icon(
-                                  Icons.verified_outlined,
-                                  color: Colors.green,
-                                )
-                              : null,
-                        ),
+                            // hintText: "Username",
+                            labelText: "Username",
+                            prefixIcon: const Icon(Icons.person),
+                            suffixText:
+                                controller.usernameAvailableChecking.value
+                                    ? 'Checking...'
+                                    : null,
+                            suffixIcon: controller.usernameAvailable.value &&
+                                    !controller.usernameAvailableChecking.value
+                                ? const Icon(
+                                    Icons.verified_outlined,
+                                    color: Colors.green,
+                                  )
+                                : null),
                       ),
                     ),
                     SizedBox(height: UiSizes.height_20),
