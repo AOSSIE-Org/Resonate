@@ -10,12 +10,18 @@ import 'package:resonate/views/widgets/snackbar.dart';
 import '../../controllers/onboarding_controller.dart';
 import '../../utils/ui_sizes.dart';
 
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
   @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  final debouncer = Debouncer(milliseconds: 800);
+
+  @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(milliseconds: 800);
     return GetBuilder<OnboardingController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
