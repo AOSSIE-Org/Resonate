@@ -1,0 +1,40 @@
+name: 🔧 Refactor to Enhance
+description: Suggest a refactor to improve the code's efficiency, readability, or maintainability while keeping its functionality intact.
+
+body:
+  - type: textarea
+    id: refactor-to-enhance
+    attributes:
+      label: 🔧 The refactor
+      description: >
+        Describe the part of the code that you think needs refactoring. What is the current problem or area that could benefit from enhancement? 
+        How do you think refactoring will improve the codebase?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation, pitch
+      description: >
+        Please explain the motivation for this refactor. Why is this refactor needed? 
+        What benefits will it bring to the codebase, such as improved performance, easier maintenance, or better readability?
+        Provide examples of how the code can be improved if possible.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Refactoring Focus Areas
+      options:
+        - "Performance"
+        - "Code readability"
+        - "Maintainability"
+        - "Reducing complexity"
+        - "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thank you for suggesting a refactor! 🎉 Be sure to provide as much detail as possible, and help the team understand how the refactor can improve the codebase!
