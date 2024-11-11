@@ -1,0 +1,40 @@
+name: 🔄 Re-Implementation
+description: Suggest rewriting or replacing a part of the codebase for better performance, maintainability, or functionality.
+
+body:
+  - type: textarea
+    id: re-implementation
+    attributes:
+      label: 🔄 The re-implementation
+      description: >
+        A clear and concise description of the part of the system that you think needs re-implementation. 
+        What specific functionality or code block would you like to rewrite or replace? Please explain the issue in detail.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation, pitch
+      description: >
+        Please provide the motivation for re-implementing this part of the code. 
+        Why do you think the current implementation needs to be replaced or rewritten? 
+        E.g., *"The current implementation is slow, hard to maintain, or outdated."* If you have any supporting context or examples, please include them here.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Areas of Focus
+      options:
+        - "Performance"
+        - "Maintainability"
+        - "Code readability"
+        - "Functionality improvement"
+        - "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for contributing 🎉! Be as detailed as you can in your suggestion. The more information you provide, the easier it will be to understand the need for re-implementation and how it can improve the project!
