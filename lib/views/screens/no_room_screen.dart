@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 
@@ -15,7 +16,15 @@ class NoRoomScreen extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height / 6,
         ),
-        Image.asset(height: 150, width: 150, AppImages.noRoomImage),
+        SvgPicture.asset(
+          AppImages.noRoomImage,
+          height: 200,  
+          width: 200,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.primary,
+            BlendMode.srcIn,
+          ),
+        ),
         const SizedBox(
           height: 30,
         ),
