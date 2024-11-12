@@ -31,12 +31,12 @@ const String usernameCollectionID = "64a131980b5388c2a0af";
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 
 // userProfileImagePlaceholder on theme constant IDs
-const String amber = "67012e19003d00f39e10";
-const String classic = "67012e19003d00f39e11";
-const String cream = "67012e19003d00f39e12";
-const String forest = "67012e19003d00f39e13";
-const String time = "67012e19003d00f39e14";
-const String vintage = "67012e19003d00f39e15";
+const String amberUserProfileImagePlaceholderID = "67012e19003d00f39e10";
+const String classicUserProfileImagePlaceholderID = "67012e19003d00f39e11";
+const String creamUserProfileImagePlaceholderID = "67012e19003d00f39e12";
+const String forestUserProfileImagePlaceholderID = "67012e19003d00f39e13";
+const String timeUserProfileImagePlaceholderID = "67012e19003d00f39e14";
+const String vintageUserProfileImagePlaceholderID = "67012e19003d00f39e15";
 
 // Rooms related Database Constants
 const String masterDatabaseId = "64a521785f5be62b796f";

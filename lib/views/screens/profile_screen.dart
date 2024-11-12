@@ -61,7 +61,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(AuthStateController controller) {
+  Widget _buildProfileHeader(
+    AuthStateController controller,
+  ) {
     return Row(
       children: [
         GetBuilder<ThemeController>(
@@ -72,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                 : controller.profileImageUrl == null ||
                         controller.profileImageUrl!.isEmpty
                     ? NetworkImage(
-                        themeController.userProfileImagePlaceholderUrl.value,
+                        themeController.userProfileImagePlaceholderUrl,
                       )
                     : NetworkImage(controller.profileImageUrl ?? ''),
             radius: UiSizes.width_66,

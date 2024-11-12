@@ -67,7 +67,7 @@ class EditProfileScreen extends StatelessWidget {
                             ? controller.removeImage
                                 ? NetworkImage(
                                     themeController
-                                        .userProfileImagePlaceholderUrl.value,
+                                        .userProfileImagePlaceholderUrl,
                                   )
                                 : NetworkImage(
                                     authStateController.profileImageUrl!)

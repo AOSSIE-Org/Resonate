@@ -8,67 +8,62 @@ import 'package:resonate/utils/constants.dart';
 class ThemeController extends GetxController {
   final _box = GetStorage();
   final _key = 'theme';
+  Rx<String> currentThemePlaceHolder = classicUserProfileImagePlaceholderID.obs;
 
   final _themeKey = 'theme';
   final _favoritesKey = 'favoriteThemes';
 
   Rx<String> currentTheme = Themes.classic.name.obs;
-  Rx<String> userProfileImagePlaceholderUrl =
-      "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/67012e19003d00f39e12/view?project=resonate&mode=admin"
-          .obs;
+  Rx<String> userProfileImagePlaceholderUr = "".obs;
 
 //hahahha
   @override
   void onInit() {
     super.onInit();
     currentTheme.value = getCurrentTheme;
-    updateuserProfileImagePlaceholderUrlOnTheme();
+    updateUserProfileImagePlaceholderUrlOnTheme();
   }
 
   String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
+
+  String get userProfileImagePlaceholderUrl =>
+      "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$currentThemePlaceHolder/view?project=resonate&mode=admin";
 
   void updateTheme(String theme) {
     currentTheme.value = theme;
   }
 
-  void updateuserProfileImagePlaceholderUrlOnTheme() {
-    log(userProfileImagePlaceholderUrl.value);
-    final String currentThemePlaceHolder;
+  void updateUserProfileImagePlaceholderUrlOnTheme() {
+    log(currentThemePlaceHolder.value);
     switch (currentTheme.value) {
       case "amber":
-        currentThemePlaceHolder = amber;
+        currentThemePlaceHolder.value = amberUserProfileImagePlaceholderID;
         break;
       case "vintage":
-        currentThemePlaceHolder = vintage;
+        currentThemePlaceHolder.value = vintageUserProfileImagePlaceholderID;
         break;
       case "time":
-        currentThemePlaceHolder = time;
+        currentThemePlaceHolder.value = timeUserProfileImagePlaceholderID;
         break;
       case "classic":
-        currentThemePlaceHolder = classic;
+        currentThemePlaceHolder.value = classicUserProfileImagePlaceholderID;
         break;
       case "forest":
-        currentThemePlaceHolder = forest;
+        currentThemePlaceHolder.value = forestUserProfileImagePlaceholderID;
         break;
       case "cream":
-        currentThemePlaceHolder = cream;
+        currentThemePlaceHolder.value = creamUserProfileImagePlaceholderID;
         break;
       default:
-        currentThemePlaceHolder = cream;
+        currentThemePlaceHolder.value = creamUserProfileImagePlaceholderID;
     }
 
-    userProfileImagePlaceholderUrl.value =
-        userProfileImagePlaceholderUrl.value.replaceRange(
-      62,
-      82,
-      currentThemePlaceHolder,
-    );
-    log(userProfileImagePlaceholderUrl.value);
+    log(currentThemePlaceHolder.value);
   }
 
   void setTheme(String newTheme) {
     _box.write(_key, newTheme);
     updateTheme(newTheme);
-    updateuserProfileImagePlaceholderUrlOnTheme();
+    updateUserProfileImagePlaceholderUrlOnTheme();
   }
 }
