@@ -4,7 +4,6 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingScreen extends StatelessWidget {
@@ -19,7 +18,7 @@ class PairingScreen extends StatelessWidget {
     final primaryColor = theme.colorScheme.primary;
     final onPrimaryColor = theme.colorScheme.onPrimary;
     final profileImageUrl = controller.isAnonymous.value
-        ? userProfileImagePlaceholderUrl
+        ? themeController.userProfileImagePlaceholderUrl.value
         : Get.find<AuthStateController>().profileImageUrl!;
 
     return Scaffold(

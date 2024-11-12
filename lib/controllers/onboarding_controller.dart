@@ -28,8 +28,7 @@ class OnboardingController extends GetxController {
   String? uniqueIdForProfileImage;
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController imageController =
-      TextEditingController(text: userProfileImagePlaceholderUrl);
+  TextEditingController imageController = TextEditingController(text: "");
   TextEditingController dobController = TextEditingController(text: "");
 
   final GlobalKey<FormState> userOnboardingFormKey = GlobalKey<FormState>();
