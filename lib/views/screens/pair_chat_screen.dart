@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
 
 import '../../controllers/pair_chat_controller.dart';
-import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
   final PairChatController controller = Get.find<PairChatController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});
 
@@ -44,7 +45,8 @@ class PairChatScreen extends StatelessWidget {
                       children: [
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? userProfileImagePlaceholderUrl
+                              ? themeController
+                                  .userProfileImagePlaceholderUrl.value
                               : authStateController.profileImageUrl!,
                           controller.isAnonymous.value
                               ? "User1"
@@ -53,7 +55,8 @@ class PairChatScreen extends StatelessWidget {
                         SizedBox(height: UiSizes.height_20),
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? userProfileImagePlaceholderUrl
+                              ? themeController
+                                  .userProfileImagePlaceholderUrl.value
                               : controller.pairProfileImageUrl!,
                           controller.isAnonymous.value
                               ? "User2"
