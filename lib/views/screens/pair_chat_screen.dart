@@ -45,8 +45,7 @@ class PairChatScreen extends StatelessWidget {
                       children: [
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? themeController
-                                  .userProfileImagePlaceholderUrl.value
+                              ? themeController.userProfileImagePlaceholderUrl
                               : authStateController.profileImageUrl!,
                           controller.isAnonymous.value
                               ? "User1"
@@ -55,8 +54,7 @@ class PairChatScreen extends StatelessWidget {
                         SizedBox(height: UiSizes.height_20),
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? themeController
-                                  .userProfileImagePlaceholderUrl.value
+                              ? themeController.userProfileImagePlaceholderUrl
                               : controller.pairProfileImageUrl!,
                           controller.isAnonymous.value
                               ? "User2"

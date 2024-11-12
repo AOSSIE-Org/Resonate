@@ -18,7 +18,7 @@ class PairingScreen extends StatelessWidget {
     final primaryColor = theme.colorScheme.primary;
     final onPrimaryColor = theme.colorScheme.onPrimary;
     final profileImageUrl = controller.isAnonymous.value
-        ? themeController.userProfileImagePlaceholderUrl.value
+        ? themeController.userProfileImagePlaceholderUrl
         : Get.find<AuthStateController>().profileImageUrl!;
 
     return Scaffold(

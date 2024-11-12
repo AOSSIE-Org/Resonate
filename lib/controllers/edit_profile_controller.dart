@@ -94,7 +94,7 @@ class EditProfileController extends GetxController {
 
   void removeProfilePicture() {
     if (authStateController.profileImageUrl !=
-        themeController.userProfileImagePlaceholderUrl.value) {
+        themeController.userProfileImagePlaceholderUrl) {
       removeImage = true;
     }
     profileImagePath = null;
@@ -236,8 +236,7 @@ class EditProfileController extends GetxController {
       }
 
       if (removeImage) {
-        imageController.text =
-            themeController.userProfileImagePlaceholderUrl.value;
+        imageController.text = themeController.userProfileImagePlaceholderUrl;
 
         // Update user profile picture URL in Database
         await databases.updateDocument(

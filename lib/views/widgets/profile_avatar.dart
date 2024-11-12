@@ -45,7 +45,7 @@ Widget profileAvatar(BuildContext context) {
                                   null ||
                               authStateController.profileImageUrl!.isEmpty
                           ? NetworkImage(
-                              controller.userProfileImagePlaceholderUrl.value,
+                              controller.userProfileImagePlaceholderUrl,
                             )
                           : NetworkImage(authStateController.profileImageUrl!),
                     ),
