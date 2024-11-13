@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/edit_profile_controller.dart';
 import '../../routes/app_routes.dart';
-import '../../utils/constants.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
@@ -59,31 +59,37 @@ class EditProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: UiSizes.height_20,
                     ),
-                    CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      backgroundImage: (controller.profileImagePath == null)
-                          ? controller.removeImage
-                              ? const NetworkImage(
-                                  userProfileImagePlaceholderUrl)
-                              : NetworkImage(
-                                  authStateController.profileImageUrl!)
-                          : FileImage(File(controller.profileImagePath!))
-                              as ImageProvider,
-                      radius: UiSizes.width_80,
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Semantics(
-                          label: "Upload profile picture",
-                          child: GestureDetector(
-                            onTap: () {
-                              showBottomSheet();
-                            },
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              child: Icon(
-                                Icons.edit,
-                                color: Theme.of(context).colorScheme.onPrimary,
+                    GetBuilder<ThemeController>(
+                      builder: (themeController) => CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        backgroundImage: (controller.profileImagePath == null)
+                            ? controller.removeImage
+                                ? NetworkImage(
+                                    themeController
+                                        .userProfileImagePlaceholderUrl,
+                                  )
+                                : NetworkImage(
+                                    authStateController.profileImageUrl!)
+                            : FileImage(File(controller.profileImagePath!))
+                                as ImageProvider,
+                        radius: UiSizes.width_80,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Semantics(
+                            label: "Upload profile picture",
+                            child: GestureDetector(
+                              onTap: () {
+                                showBottomSheet();
+                              },
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                child: Icon(
+                                  Icons.edit,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
                               ),
                             ),
                           ),
@@ -326,8 +332,7 @@ class EditProfileScreen extends StatelessWidget {
                 const Text('Gallery')
               ],
             ),
-            if (authStateController.profileImageUrl !=
-                userProfileImagePlaceholderUrl)
+            if (authStateController.profileImageUrl != null)
               Column(
                 children: [
                   IconButton(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -60,15 +61,24 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(AuthStateController controller) {
+  Widget _buildProfileHeader(
+    AuthStateController controller,
+  ) {
     return Row(
       children: [
-        CircleAvatar(
-          backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
-          backgroundImage: isCreatorProfile != null
-              ? NetworkImage(creatorImgUrl ?? '')
-              : NetworkImage(controller.profileImageUrl ?? ''),
-          radius: UiSizes.width_66,
+        GetBuilder<ThemeController>(
+          builder: (themeController) => CircleAvatar(
+            backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
+            backgroundImage: isCreatorProfile != null
+                ? NetworkImage(creatorImgUrl ?? '')
+                : controller.profileImageUrl == null ||
+                        controller.profileImageUrl!.isEmpty
+                    ? NetworkImage(
+                        themeController.userProfileImagePlaceholderUrl,
+                      )
+                    : NetworkImage(controller.profileImageUrl ?? ''),
+            radius: UiSizes.width_66,
+          ),
         ),
         SizedBox(width: UiSizes.width_20),
         Expanded(
@@ -205,7 +215,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
+            () => _buildStoriesList(
                 exploreStoryController.userCreatedStories,
                 isCreatorProfile != null
                     ? "User has not created any story"
@@ -224,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
+            () => _buildStoriesList(
                 exploreStoryController.userLikedStories,
                 isCreatorProfile != null
                     ? "User has not liked any story"
@@ -251,8 +261,7 @@ class ProfileScreen extends StatelessWidget {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                    height: 150, width: 150, AppImages.emptyBoxImage),
+                Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
                 const SizedBox(
                   height: 5,
                 ),

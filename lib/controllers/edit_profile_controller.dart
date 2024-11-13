@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
@@ -19,6 +20,8 @@ class EditProfileController extends GetxController {
 
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
+
+  final ThemeController themeController = Get.find<ThemeController>();
 
   // final ThemeController themeController = Get.find<ThemeController>();
   late final Storage storage;
@@ -90,7 +93,8 @@ class EditProfileController extends GetxController {
   }
 
   void removeProfilePicture() {
-    if (authStateController.profileImageUrl != userProfileImagePlaceholderUrl) {
+    if (authStateController.profileImageUrl !=
+        themeController.userProfileImagePlaceholderUrl) {
       removeImage = true;
     }
     profileImagePath = null;
@@ -232,7 +236,7 @@ class EditProfileController extends GetxController {
       }
 
       if (removeImage) {
-        imageController.text = userProfileImagePlaceholderUrl;
+        imageController.text = themeController.userProfileImagePlaceholderUrl;
 
         // Update user profile picture URL in Database
         await databases.updateDocument(
