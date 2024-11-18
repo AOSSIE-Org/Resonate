@@ -77,8 +77,11 @@ class EmailVerificationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_60,
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: UiSizes.height_60,
+                ),
               ),
               OtpTextField(
                 autoFocus: true,
