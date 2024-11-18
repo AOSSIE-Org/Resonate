@@ -93,13 +93,19 @@ class ContributeScreen extends StatelessWidget {
                         tooltip: "Join telegram channel",
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Uri url = Uri.parse(discordRepoUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
                         icon: Icon(
                           Icons.discord,
                           size: UiSizes.size_40,
                         ),
                         tooltip: "Join discord server",
-
                       )
                     ],
                   ),
