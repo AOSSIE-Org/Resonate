@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -85,21 +86,34 @@ class ContributeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Uri url = Uri.parse(xPageUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
                         icon: Icon(
-                          Icons.telegram_rounded,
+                          FontAwesomeIcons.xTwitter,
                           size: UiSizes.size_40,
                         ),
-                        tooltip: "Join telegram channel",
+                        tooltip: "Follow us on X",
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Uri url = Uri.parse(discordRepoUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
                         icon: Icon(
                           Icons.discord,
                           size: UiSizes.size_40,
                         ),
                         tooltip: "Join discord server",
-
                       )
                     ],
                   ),
