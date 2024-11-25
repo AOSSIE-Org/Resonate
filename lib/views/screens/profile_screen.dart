@@ -170,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
                 isCreatorProfile != null
                     ? const Icon(Icons.add)
                     : const Icon(Icons.edit),
-                const SizedBox(width: 10),
+                const SizedBox(width: 8),
                 Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
               ],
             ),
