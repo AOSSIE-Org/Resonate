@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:share_plus/share_plus.dart'; 
 
 import '../../utils/app_images.dart';
 
@@ -9,6 +11,11 @@ class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
   final aboutAppScreenController = Get.put(AboutAppScreenController());
+
+  // Method to share the app's GitHub repository link
+  void _shareApp() {
+    Share.share("Check out our GitHub repository: $githubRepoUrl");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +114,7 @@ class AboutAppScreen extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               image: const DecorationImage(
-                                image:
-                                    AssetImage(AppImages.aossieLogoImage),
+                                image: AssetImage(AppImages.aossieLogoImage),
                                 scale: 4,
                               ),
                               color: Colors.black,
@@ -140,62 +146,50 @@ class AboutAppScreen extends StatelessWidget {
             SizedBox(
               height: UiSizes.height_10,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: UiSizes.height_110,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Help to grow",
-                            style: TextStyle(),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Column(
-                                children: [
-                                  Icon(Icons.share_rounded),
-                                  Text("Share"),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Column(
-                                children: [
-                                  Icon(Icons.star_rate_outlined),
-                                  Text("Rate"),
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+            Container(
+              height: UiSizes.height_110,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Help to grow",
+                      style: TextStyle(),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: UiSizes.width_10,
-                ),
-                const Expanded(
-                  child: SizedBox(),
-                )
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: _shareApp, // Call the share method here
+                        child: const Column(
+                          children: [
+                            Icon(Icons.share_rounded),
+                            Text("Share"),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Column(
+                          children: [
+                            Icon(Icons.star_rate_outlined),
+                            Text("Rate"),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: UiSizes.height_40,
