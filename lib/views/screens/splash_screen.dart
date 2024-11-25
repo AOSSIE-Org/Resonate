@@ -1,9 +1,6 @@
 import 'dart:async';
-
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/app_images.dart';
@@ -18,30 +15,53 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  var splashController = Get.find<SplashController>();
-  var authController = Get.find<AuthStateController>();
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  final splashController = Get.find<SplashController>();
+  final authController = Get.find<AuthStateController>();
 
-  startDisplayTimer() async {
-    var duration = const Duration(seconds: 1);
-    return Timer(duration, () {
-      splashController.allowedDisplay.value = true;
-    });
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Setup animations
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeIn,
+    ));
+
+    // Start delayed animations and navigation
+    _setupTimers();
   }
 
-  startAuthTimer() async {
-    var duration = const Duration(seconds: 2, milliseconds: 500);
-    return Timer(duration, () {
+  void _setupTimers() {
+    // Initial delay before starting animations
+    Timer(const Duration(milliseconds: 500), () {
+      _animationController.forward();
+    });
+
+    // Delay before navigation
+    Timer(const Duration(milliseconds: 3000), () {
       authController.isUserLoggedIn();
       Get.offNamed(AppRoutes.landing);
     });
   }
 
   @override
-  void initState() {
-    super.initState();
-    startDisplayTimer();
-    startAuthTimer();
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,81 +70,48 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColor.bgBlackColor,
       body: SafeArea(
         child: Center(
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_140,
-              child: Obx(() {
-                if (splashController.allowedDisplay.value) {
-                  return AnimatedSplashScreen.withScreenFunction(
-                    splashIconSize: UiSizes.height_200,
-                    splash: Image.asset(AppImages.resonateLogoImage),
-                    duration: 3000,
-                    screenFunction: () async {
-                      return const SizedBox();
-                    },
-                    splashTransition: SplashTransition.fadeTransition,
-                    pageTransitionType: PageTransitionType.fade,
-                    backgroundColor: AppColor.bgBlackColor,
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              }),
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Resonate Logo
+                SizedBox(
+                  height: UiSizes.height_200,
+                  width: UiSizes.width_140,
+                  child: Image.asset(
+                    AppImages.resonateLogoImage,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+
+                SizedBox(width: UiSizes.width_5),
+
+                // Vertical Divider
+                SizedBox(
+                  height: UiSizes.height_140,
+                  width: UiSizes.width_20,
+                  child: VerticalDivider(
+                    width: UiSizes.width_20,
+                    thickness: 1,
+                    color: Colors.grey,
+                  ),
+                ),
+
+                SizedBox(width: UiSizes.width_10),
+
+                // Aossie Logo
+                SizedBox(
+                  height: UiSizes.height_200,
+                  width: UiSizes.width_140,
+                  child: Image.asset(
+                    AppImages.aossieLogoImage,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              width: UiSizes.width_5,
-            ),
-            SizedBox(
-              height: UiSizes.height_140,
-              width: UiSizes.width_20,
-              child: Obx(() {
-                if (splashController.allowedDisplay.value) {
-                  return AnimatedSplashScreen.withScreenFunction(
-                    splashIconSize: UiSizes.size_200,
-                    splash: VerticalDivider(
-                      width: UiSizes.width_20,
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    duration: 3000,
-                    screenFunction: () async {
-                      return const SizedBox();
-                    },
-                    splashTransition: SplashTransition.scaleTransition,
-                    pageTransitionType: PageTransitionType.fade,
-                    backgroundColor: AppColor.bgBlackColor,
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              }),
-            ),
-            SizedBox(
-              width: UiSizes.width_10,
-            ),
-            SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_140,
-              child: Obx(() {
-                if (splashController.allowedDisplay.value) {
-                  return AnimatedSplashScreen.withScreenFunction(
-                    splash: Image.asset(AppImages.aossieLogoImage),
-                    duration: 2000,
-                    screenFunction: () async {
-                      return const SizedBox();
-                    },
-                    splashIconSize: UiSizes.size_200,
-                    splashTransition: SplashTransition.fadeTransition,
-                    pageTransitionType: PageTransitionType.fade,
-                    backgroundColor: AppColor.bgBlackColor,
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              }),
-            ),
-          ]),
+          ),
         ),
       ),
     );
