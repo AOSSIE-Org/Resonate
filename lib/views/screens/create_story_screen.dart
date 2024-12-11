@@ -8,6 +8,7 @@ import 'package:resonate/models/chapter.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
+import '../../utils/ui_sizes.dart';
 import 'create_chapter_screen.dart';
 
 class CreateStoryPage extends StatefulWidget {
@@ -146,6 +147,11 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary)),
                   ),
                   items: StoryCategory.values.map((category) {
                     return DropdownMenuItem(
@@ -183,54 +189,67 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
                     focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
                         borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.primary)),
                     counterText: '',
                   ),
                   maxLines: 3,
                 ),
-                const SizedBox(height: 30),
-
-                // Cover Image Picker
-                const Text(
-                  'Upload Cover Image',
-                ),
-                const SizedBox(height: 8),
+                SizedBox(height: UiSizes.height_20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: coverImage != null
-                          ? Image.file(
-                              coverImage!,
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            )
-                          : Image.network(
-                              storyCoverImagePlaceholderUrl,
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            ),
-                    ),
-                    GestureDetector(
-                      onTap: pickCoverImage,
-                      child: Container(
-                        width: 200,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(84, 158, 158, 158)),
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black12, blurRadius: 4)
-                          ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: coverImage != null
+                              ? Image.file(
+                                  coverImage!,
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                )
+                              : Image.network(
+                                  storyCoverImagePlaceholderUrl,
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
                         ),
-                        child: const Center(
-                          child: Icon(Icons.upload_rounded,
-                              size: 50, color: Colors.grey),
+                      ),
+                    ),
+                    SizedBox(width: UiSizes.width_10),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: pickCoverImage,
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          // width: 200,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(84, 158, 158, 158)),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                            ],
+                          ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.change_circle,
+                                    size: 50, color: Colors.grey),
+                                    Text(
+                    'Change Cover Image',
+                    textAlign: TextAlign.center,
+                  ),
+                              ],
+                            ),
                         ),
                       ),
                     ),
