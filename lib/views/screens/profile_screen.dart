@@ -66,6 +66,7 @@ class ProfileScreen extends StatelessWidget {
   ) {
     return Row(
       children: [
+        SizedBox(width: UiSizes.width_20),
         GetBuilder<ThemeController>(
           builder: (themeController) => CircleAvatar(
             backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
@@ -84,8 +85,20 @@ class ProfileScreen extends StatelessWidget {
         Expanded(
           child: MergeSemantics(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                if (isCreatorProfile == null && controller.isEmailVerified!)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Icon(Icons.verified_user_outlined, color: Colors.green),
+                        SizedBox(width: 5),
+                        Text("Verified",
+                            style: TextStyle(color: Colors.green)),
+                      ],
+                    ),
+                  ),
                 Text(
                   isCreatorProfile != null
                       ? creatorName ?? ''
@@ -96,29 +109,30 @@ class ProfileScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Text(
+                Chip(label: Text(
                   "@${isCreatorProfile != null ? '' : controller.userName}",
                   style: TextStyle(
                     fontSize: UiSizes.size_14,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                if (isCreatorProfile == null && controller.isEmailVerified!)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.verified_user_outlined, color: Colors.green),
-                        SizedBox(width: 5),
-                        Text("Verified user",
-                            style: TextStyle(color: Colors.green)),
-                      ],
-                    ),
-                  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: BorderSide(color: Colors.grey.shade300),
+                ),
+                ),
+                // Text(
+                //   "@${isCreatorProfile != null ? '' : controller.userName}",
+                //   style: TextStyle(
+                //     fontSize: UiSizes.size_14,
+                //     overflow: TextOverflow.ellipsis,
+                //   ),
+                // ),
               ],
             ),
           ),
         ),
+        SizedBox(width: UiSizes.width_20),
       ],
     );
   }
@@ -178,20 +192,11 @@ class ProfileScreen extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         if (isCreatorProfile == null)
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.settings);
-              },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.settings),
-                  SizedBox(width: 10),
-                  Text("Settings"),
-                ],
-              ),
-            ),
+          ElevatedButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.settings);
+            },
+            child: Icon(Icons.settings),
           ),
       ],
     );
