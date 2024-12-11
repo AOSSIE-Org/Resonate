@@ -33,7 +33,7 @@ class EmailVerificationScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: UiSizes.height_60,
+                height: UiSizes.height_10,
               ),
               MergeSemantics(
                 child: Column(
@@ -46,7 +46,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: UiSizes.height_40,
+                      height: UiSizes.height_20,
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -77,11 +77,8 @@ class EmailVerificationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  height: UiSizes.height_60,
-                ),
+              SizedBox(
+                height: UiSizes.height_60,
               ),
               OtpTextField(
                 autoFocus: true,
