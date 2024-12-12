@@ -81,100 +81,101 @@ class EmailVerificationScreen extends StatelessWidget {
                 flex: 1,
                 child: SizedBox(
                   height: UiSizes.height_60,
-              ),
-              OtpTextField(
-                autoFocus: true,
-                numberOfFields: 6,
-                showFieldAsBox: true,
-                keyboardType: TextInputType.number,
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.secondary,
-                borderWidth: 1,
-                contentPadding: EdgeInsets.zero,
-                borderColor: Colors.transparent,
-                enabledBorderColor: Colors.transparent,
-                focusedBorderColor: Theme.of(context).colorScheme.primary,
-                // runs when every text-field is filled
-                onSubmit: (String verificationCode) async {
-                  loadingDialog(context);
-                  emailVerifyController.isVerifying.value = true;
-                  await emailVerifyController.verifyOTP(verificationCode);
+                  child: OtpTextField(
+                    autoFocus: true,
+                    numberOfFields: 6,
+                    showFieldAsBox: true,
+                    keyboardType: TextInputType.number,
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.secondary,
+                    borderWidth: 1,
+                    contentPadding: EdgeInsets.zero,
+                    borderColor: Colors.transparent,
+                    enabledBorderColor: Colors.transparent,
+                    focusedBorderColor: Theme.of(context).colorScheme.primary,
+                    // runs when every text-field is filled
+                    onSubmit: (String verificationCode) async {
+                      loadingDialog(context);
+                      emailVerifyController.isVerifying.value = true;
+                      await emailVerifyController.verifyOTP(verificationCode);
 
-                  if (emailVerifyController.responseVerify.responseBody ==
-                      '{"message":"null"}') {
-                    String result =
-                        await emailVerifyController.checkVerificationStatus();
-                    if (result == "true") {
-                      customSnackbar(
-                        "Verification Complete",
-                        "Congratulations you have verified your Email",
-                        LogType.success,
-                      );
-
-                      SemanticsService.announce(
-                        "Congratulations you have verified your Email",
-                        TextDirection.ltr,
-                      );
-                      await emailVerifyController.setVerified();
-                      if (emailVerifyController
-                              .responseSetVerified.responseBody ==
+                      if (emailVerifyController.responseVerify.responseBody ==
                           '{"message":"null"}') {
-                        emailVerifyController.isVerifying.value = false;
+                        String result = await emailVerifyController
+                            .checkVerificationStatus();
+                        if (result == "true") {
+                          customSnackbar(
+                            "Verification Complete",
+                            "Congratulations you have verified your Email",
+                            LogType.success,
+                          );
 
-                        // Close loading dialog
-                        Get.back();
+                          SemanticsService.announce(
+                            "Congratulations you have verified your Email",
+                            TextDirection.ltr,
+                          );
+                          await emailVerifyController.setVerified();
+                          if (emailVerifyController
+                                  .responseSetVerified.responseBody ==
+                              '{"message":"null"}') {
+                            emailVerifyController.isVerifying.value = false;
 
-                        controller.authStateController.setUserProfileData();
-                        Get.offAllNamed(AppRoutes.tabview);
+                            // Close loading dialog
+                            Get.back();
+
+                            controller.authStateController.setUserProfileData();
+                            Get.offAllNamed(AppRoutes.tabview);
+                          } else {
+                            emailVerifyController.isVerifying.value = false;
+
+                            // Close loading dialog
+                            Get.back();
+
+                            customSnackbar(
+                              'Oops',
+                              emailVerifyController
+                                  .responseSetVerified.responseBody,
+                              LogType.error,
+                            );
+
+                            SemanticsService.announce(
+                              emailVerifyController
+                                  .responseSetVerified.responseBody,
+                              TextDirection.ltr,
+                            );
+                          }
+                        } else {
+                          emailVerifyController.isVerifying.value = false;
+
+                          // Close loading dialog
+                          Get.back();
+
+                          customSnackbar(
+                            "Verification Failed",
+                            "OTP mismatch occurred please try again",
+                            LogType.error,
+                          );
+
+                          SemanticsService.announce(
+                            "OTP mismatch occurred please try again",
+                            TextDirection.ltr,
+                          );
+                        }
                       } else {
-                        emailVerifyController.isVerifying.value = false;
-
-                        // Close loading dialog
-                        Get.back();
-
                         customSnackbar(
                           'Oops',
-                          emailVerifyController
-                              .responseSetVerified.responseBody,
+                          emailVerifyController.responseVerify.responseBody,
                           LogType.error,
                         );
 
                         SemanticsService.announce(
-                          emailVerifyController
-                              .responseSetVerified.responseBody,
+                          emailVerifyController.responseVerify.responseBody,
                           TextDirection.ltr,
                         );
                       }
-                    } else {
-                      emailVerifyController.isVerifying.value = false;
-
-                      // Close loading dialog
-                      Get.back();
-
-                      customSnackbar(
-                        "Verification Failed",
-                        "OTP mismatch occurred please try again",
-                        LogType.error,
-                      );
-
-                      SemanticsService.announce(
-                        "OTP mismatch occurred please try again",
-                        TextDirection.ltr,
-                      );
-                    }
-                  } else {
-                    customSnackbar(
-                      'Oops',
-                      emailVerifyController.responseVerify.responseBody,
-                      LogType.error,
-                    );
-
-                    SemanticsService.announce(
-                      emailVerifyController.responseVerify.responseBody,
-                      TextDirection.ltr,
-                    );
-                  }
-                },
+                    },
+                  ),
+                ),
               ),
               SizedBox(
                 height: UiSizes.height_60,

@@ -21,6 +21,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final debouncer = Debouncer(milliseconds: 800);
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<OnboardingController>(
       builder: (controller) => Scaffold(

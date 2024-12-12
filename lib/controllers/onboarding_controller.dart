@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -18,6 +19,7 @@ import 'auth_state_controller.dart';
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
   AuthStateController authStateController = Get.find<AuthStateController>();
+  ThemeController themeController = Get.find<ThemeController>();
   AuthenticationController authController =
       Get.find<AuthenticationController>();
   late final Storage storage;
@@ -41,6 +43,8 @@ class OnboardingController extends GetxController {
     super.onInit();
     storage = Storage(authStateController.client);
     databases = Databases(authStateController.client);
+    imageController = TextEditingController(
+        text: themeController.userProfileImagePlaceholderUrl);
   }
 
   Future<void> chooseDate() async {
@@ -125,7 +129,9 @@ class OnboardingController extends GetxController {
         "Your user profile is successfully created.",
         LogType.success,
       );
-
+      nameController.dispose();
+      usernameController.dispose();
+      imageController.dispose();
       SemanticsService.announce(
         "Your user profile is successfully created.",
         ui.TextDirection.ltr,
