@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
   }) : super(key: key);
 
   final emailVerifyController =
-      Get.put<EmailVerifyController>(EmailVerifyController());
+  Get.put<EmailVerifyController>(EmailVerifyController());
   final authController = Get.find<AuthStateController>();
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -146,41 +146,71 @@ class ProfileScreen extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              if (isCreatorProfile != null) {
-                // Implement follow functionality
-              } else {
-                Get.toNamed(AppRoutes.editProfile);
+          child: Builder(
+              builder: (context) {
+                final buttonStyle = Theme.of(context).elevatedButtonTheme.style;
+                final foregroundColor = buttonStyle?.foregroundColor?.resolve({WidgetState.selected});
+
+                return ElevatedButton(
+                  onPressed: () {
+                    if (isCreatorProfile != null) {
+                      // Implement follow functionality
+                    } else {
+                      Get.toNamed(AppRoutes.editProfile);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          isCreatorProfile != null ? Icons.add : Icons.edit,
+                          color: foregroundColor,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
+                      ],
+                    ),
+                  ),
+                );
               }
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                isCreatorProfile != null
-                    ? const Icon(Icons.add)
-                    : const Icon(Icons.edit),
-                const SizedBox(width: 10),
-                Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
-              ],
-            ),
           ),
         ),
         const SizedBox(width: 10),
         if (isCreatorProfile == null)
           Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.settings);
-              },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.settings),
-                  SizedBox(width: 10),
-                  Text("Settings"),
-                ],
-              ),
+            child: Builder(
+                builder: (context) {
+                  final buttonStyle = Theme.of(context).elevatedButtonTheme.style;
+                  final foregroundColor = buttonStyle?.foregroundColor?.resolve({WidgetState.selected});
+
+                  return ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.settings);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.settings,
+                            color: foregroundColor,
+                          ),
+                          const SizedBox(width: 10),
+                          const Text("Settings"),
+                        ],
+                      ),
+                    ),
+                  );
+                }
             ),
           ),
       ],
@@ -205,7 +235,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
+                () => _buildStoriesList(
                 exploreStoryController.userCreatedStories,
                 isCreatorProfile != null
                     ? "User has not created any story"
@@ -224,7 +254,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
+                () => _buildStoriesList(
                 exploreStoryController.userLikedStories,
                 isCreatorProfile != null
                     ? "User has not liked any story"
@@ -240,25 +270,24 @@ class ProfileScreen extends StatelessWidget {
       height: UiSizes.height_200,
       child: stories.isNotEmpty
           ? ListView.builder(
-              itemCount: stories.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return StoryItem(
-                  story: stories[index],
-                );
-              },
-            )
+        itemCount: stories.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return StoryItem(
+            story: stories[index],
+          );
+        },
+      )
           : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                    height: 150, width: 150, AppImages.emptyBoxImage),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(noStoryTextToShow)
-              ],
-            ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(noStoryTextToShow)
+        ],
+      ),
     );
   }
 }
