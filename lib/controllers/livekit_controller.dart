@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -11,11 +12,17 @@ class LiveKitController extends GetxController{
   final String liveKitUri;
   final String roomToken;
 
+  static const maxReconnectionAttempts = 3;
+  static const reconnectDelay = Duration(seconds: 2);
+  var reconnectAttempts = 0;
+  Timer? reconnectTimer;
+  final isConnected = false.obs;
+
   LiveKitController({required this.liveKitUri, required this.roomToken});
 
   @override
   void onInit() async{
-    await joinLiveKitRoom(liveKitUri: liveKitUri, roomToken: roomToken);
+    await connectToRoom();
     liveKitRoom.addListener(onRoomDidUpdate);
     setUpListeners();
     super.onInit();
@@ -23,6 +30,7 @@ class LiveKitController extends GetxController{
 
   @override
   void onClose() async {
+    reconnectTimer?.cancel();
     (() async {
       liveKitRoom.removeListener(onRoomDidUpdate);
       await listener.dispose();
@@ -31,17 +39,11 @@ class LiveKitController extends GetxController{
     super.onClose();
   }
 
-  Future<void> joinLiveKitRoom({required String liveKitUri, required String roomToken}) async {
-    //
+  Future<bool> connectToRoom() async {
     try {
-
-      //create new room
       liveKitRoom = Room();
-
-      // Create a Listener before connecting
       listener = liveKitRoom.createListener();
 
-      // Try to connect to the room
       await liveKitRoom.connect(
         liveKitUri,
         roomToken,
@@ -53,9 +55,38 @@ class LiveKitController extends GetxController{
           ),
         ),
       );
-
+      
+      isConnected.value = true;
+      reconnectAttempts = 0;
+      return true;
     } catch (error) {
-      log('Could not connect $error');
+      log('Connection failed: $error');
+      return false;
+    }
+  }
+
+  Future<void> handleDisconnection() async {
+    isConnected.value = false;
+    
+    if (reconnectAttempts < maxReconnectionAttempts) {
+      reconnectAttempts++;
+      log('Attempting to reconnect: Attempt $reconnectAttempts of $maxReconnectionAttempts');
+      
+      reconnectTimer?.cancel();
+      reconnectTimer = Timer(reconnectDelay, () async {
+        final success = await connectToRoom();
+        
+        if (!success && reconnectAttempts < maxReconnectionAttempts) {
+          await handleDisconnection();
+        } else if (!success) {
+          log('Failed to reconnect after $maxReconnectionAttempts attempts');
+          Get.snackbar(
+            'Connection Lost',
+            'Unable to reconnect to the room. Please try rejoining.',
+            duration: const Duration(seconds: 5),
+          );
+        }
+      });
     }
   }
 
@@ -67,16 +98,23 @@ class LiveKitController extends GetxController{
     ..on<RoomDisconnectedEvent>((event) async {
       if (event.reason != null) {
         log('Room disconnected: reason => ${event.reason}');
+        await handleDisconnection();
+        
+        WidgetsBindingCompatible.instance
+            ?.addPostFrameCallback((timeStamp) {
+              if (Get.isRegistered<SingleRoomController>()){
+                Get.find<SingleRoomController>().leaveRoom();
+              }
+              else if (Get.isRegistered<PairChatController>()){
+                Get.find<PairChatController>().endChat();
+              }
+        });
       }
-      WidgetsBindingCompatible.instance
-          ?.addPostFrameCallback((timeStamp) {
-            if (Get.isRegistered<SingleRoomController>()){
-              Get.find<SingleRoomController>().leaveRoom();
-            }
-            else if (Get.isRegistered<PairChatController>()){
-              Get.find<PairChatController>().endChat();
-            }
-      });
+    })
+    ..on<RoomConnectionStateChangedEvent>((event) {
+      if (event.newState == ConnectionState.disconnected) {
+        handleDisconnection();
+      }
     })
     ..on<RoomRecordingStatusChanged>((event) {
       //context.showRecordingStatusChangedDialog(event.activeRecording);
