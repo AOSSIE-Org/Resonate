@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class CreateChapterScreen extends StatefulWidget {
   final Function(Chapter) onChapterCreated;
@@ -125,42 +126,61 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                     labelText: 'About *', counterText: ''),
                 maxLines: 3,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: UiSizes.height_20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: chapterCoverImage != null
-                        ? Image.file(
-                            chapterCoverImage!,
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: 150,
-                          )
-                        : Image.network(
-                            chapterCoverImagePlaceholderUrl,
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: 150,
-                          ),
-                  ),
-                  GestureDetector(
-                    onTap: pickChapterCoverImage,
-                    child: Container(
-                      width: 200,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(84, 158, 158, 158)),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(color: Colors.black12, blurRadius: 4)
-                        ],
+                  Expanded(
+                    child: Padding( 
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: chapterCoverImage != null
+                            ? Image.file(
+                                chapterCoverImage!,
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )
+                            : Image.network(
+                                chapterCoverImagePlaceholderUrl,
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              ),
                       ),
-                      child: const Center(
-                        child: Icon(Icons.upload_rounded,
-                            size: 50, color: Colors.grey),
+                    ),
+                  ),  
+                  SizedBox(width: UiSizes.width_10),
+                  Expanded(
+                    child: Padding( 
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(   
+                        onTap: pickChapterCoverImage,
+                        child: Container(
+                          width: 200,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(84, 158, 158, 158)),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                            ],
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.change_circle,
+                                  size: 50, color: Colors.grey),
+                                  Text(
+                  'Change Cover Image',
+                  textAlign: TextAlign.center,
+                ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
