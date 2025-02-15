@@ -21,6 +21,7 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
+  
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -41,10 +42,10 @@ dependencies:
   file_picker: ^8.0.7
   firebase_analytics: ^10.6.3
   firebase_core: ^2.20.0
-  firebase_messaging: 14.7.3
+  firebase_messaging: ^14.9.4
   flutter:
     sdk: flutter
-  flutter_local_notifications: ^16.1.0
+  flutter_local_notifications: ^18.0.0
   flutter_media_metadata: ^1.0.0+1
   flutter_native_splash: ^2.2.19
   flutter_onboarding_slider: ^1.0.10
@@ -58,7 +59,7 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
   google_fonts: ^4.0.3
-  http: null
+  http: ^0.13.6
   image_cropper: ^4.0.1
   image_picker: ^0.8.7+4
   internet_connection_checker_plus: 1.0.1
