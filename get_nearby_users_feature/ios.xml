@@ -1,0 +1,4 @@
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need your location to find nearby users.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>We need your location for real-time updates.</string>
