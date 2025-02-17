@@ -104,6 +104,4 @@ You just need to update the baseDomain variable value in the constants.dart on c
 |---------------------|---------------|
 | Android Simulator   | `10.0.2.2`    |
 | iOS Simulator       | `127.0.0.1`   |
-| Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the phone's IP address provided by the Wi-Fi |
-
-
+| Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the laptop's IP address provided by the Wi-Fi |
