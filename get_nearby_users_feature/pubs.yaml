@@ -1,0 +1,10 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: latest_version
+  cloud_firestore: latest_version
+  firebase_auth: latest_version
+  geolocator: latest_version
+  geoflutterfire: latest_version
+  permission_handler: latest_version
+  provider: latest_version
