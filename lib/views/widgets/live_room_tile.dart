@@ -8,7 +8,7 @@ class CustomLiveRoomTile extends StatelessWidget {
   final AppwriteRoom appwriteRoom;
 
   CustomLiveRoomTile({super.key, required this.appwriteRoom});
-    final RoomsController roomsController = Get.put(RoomsController());
+  final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +77,16 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.7).round()),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.7),
                 fontSize: 14,
               ),
             ),
 
             const SizedBox(height: 5),
-            
+
             // Total participants count
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -22,7 +22,7 @@ class CreateRoomScreen extends StatelessWidget {
     final BoxDecoration kTextFieldDecoration = BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Theme.of(context).colorScheme.secondary.withAlpha((255 * 0.8).round()),
+          Theme.of(context).colorScheme.secondary.withValues(alpha: 0.8),
           const Color.fromARGB(255, 139, 134, 134),
         ],
         begin: Alignment.topLeft,
@@ -36,7 +36,7 @@ class CreateRoomScreen extends StatelessWidget {
           blurRadius: 6,
         ),
         BoxShadow(
-          color: Colors.white.withAlpha((255 * 0.3).round()),
+          color: Colors.white.withValues(alpha: 0.3),
           offset: const Offset(-2, -2),
           blurRadius: 3,
           spreadRadius: 1,
@@ -94,7 +94,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? Theme.of(context)
                                               .colorScheme
                                               .secondary
-                                              .withAlpha((255 * 0.5).round())
+                                              .withValues(alpha: 0.5)
                                           : Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -283,8 +283,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                       '#$tag',
                                                       style: TextStyle(
                                                           color: Colors.white,
-                                                          fontSize: UiSizes
-                                                              .size_18),
+                                                          fontSize:
+                                                              UiSizes.size_18),
                                                     ),
                                                     SizedBox(
                                                         width: UiSizes.width_4),
@@ -293,8 +293,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                         Icons.cancel,
                                                         size: UiSizes.size_18,
                                                         color: Colors.red
-                                                            .withAlpha((255 *
-                                                            0.7).round()),
+                                                            .withValues(
+                                                                alpha: 0.7),
                                                       ),
                                                       onTap: () {
                                                         inputFieldValues

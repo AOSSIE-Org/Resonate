@@ -144,7 +144,7 @@ class PairChatScreen extends StatelessWidget {
 
   Color _getControlButtonBackgroundColor(Brightness brightness) {
     return brightness == Brightness.light
-        ? Colors.white.withAlpha((255 * 0.5).round())
+        ? Colors.white.withValues(alpha: 0.5)
         : Colors.white54;
   }
 
