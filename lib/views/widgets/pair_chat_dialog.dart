@@ -36,7 +36,10 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.3),
               thickness: 1,
             ),
             const SizedBox(height: 16),
@@ -61,7 +64,9 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceContainerHighest,
+                            : Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest,
                         elevation: controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -92,7 +97,9 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: !controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceContainerHigh,
+                            : Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHigh,
                         elevation: !controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -123,7 +130,10 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.3),
               thickness: 1,
             ),
             const SizedBox(height: 16),

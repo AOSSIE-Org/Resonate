@@ -98,8 +98,9 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    widget.chapter.tintColor.withOpacity(0.8),
-                    widget.chapter.tintColor.withOpacity(0.3)
+                    widget.chapter.tintColor.withValues(alpha: 0.8),
+                    // widget.chapter.tintColor.withOpacity(0.8),
+                    widget.chapter.tintColor.withValues(alpha: 0.3)
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -206,7 +207,8 @@ class ChapterPlayScreenState extends State<ChapterPlayScreen> {
                     boxShadow: currentPage == index
                         ? [
                             BoxShadow(
-                              color: widget.chapter.tintColor.withOpacity(0.5),
+                              color: widget.chapter.tintColor
+                                  .withValues(alpha: 0.5),
                               blurRadius: 4,
                             ),
                           ]
