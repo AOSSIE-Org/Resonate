@@ -45,7 +45,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"*/
 
 android {
     namespace "com.resonate.resonate"
-    compileSdkVersion 34 //change from 33 to 34
+    compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -67,7 +67,7 @@ android {
         applicationId "com.resonate.resonate"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -89,7 +89,7 @@ flutter {
 }
 
 dependencies {
-     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
+     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
      implementation 'androidx.window:window:1.0.0'
      implementation 'androidx.window:window-java:1.0.0'
