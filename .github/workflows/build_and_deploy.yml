@@ -71,16 +71,12 @@ jobs:
           name: app-release-apks
           path: build/app/outputs/bundle/release/
       
-      - name: List files in directory
-        run: ls -la build/app/outputs/bundle/release/
-      
-      # 4. Upload to Github Release
+      # 3. Upload to Github Release
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           artifacts: build/app/outputs/bundle/release/*.apk
-          body: "Body of the release"
           artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
