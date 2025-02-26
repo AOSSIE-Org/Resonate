@@ -1,0 +1,80 @@
+name: Build and Deploy App for Consumers
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Remove Cached Flutter Installation
+      - name: Remove Cached Flutter Installation
+        run: rm -rf $HOME/.flutter
+        
+      - name: Clean up old build files
+        run: |
+         rm -rf build/app/outputs/bundle/release/*
+
+      # 2. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 3. Install Flutter SDK
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.27.2
+
+      # 4. Verify Flutter and Dart Versions
+      - name: Verify Flutter Installation
+        run: |
+          flutter --version
+          dart --version
+          flutter precache
+          
+      # 6. Install Flutter dependencies
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      # 7. Build Android App Bundle (AAB)
+      - name: Build Android App Bundle
+        run: flutter build apk --release --split-per-abi
+      
+      # 8. Upload build artifacts
+      - name: Upload APK as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+            name: app-release-apks
+            path: build/app/outputs/apk/release/*.apk 
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Download build artifacts
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-release-apks
+          path: build/app/outputs/bundle/release/
+
+      # 3. Upload to Github Release
+      - name: Github Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          allowUpdates: true
+          files: build/app/outputs/apk/release/*.apk
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: build/app/outputs/apk/release/*.apk
+          body: "Body of the release"
+          draft: true
