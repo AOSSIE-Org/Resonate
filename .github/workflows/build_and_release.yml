@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    types: [closed]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -34,7 +38,6 @@ jobs:
         run: |
           flutter --version
           dart --version
-          flutter precache
           
       # 6. Install Flutter dependencies
       - name: Install Flutter Dependencies
@@ -67,14 +70,18 @@ jobs:
         with:
           name: app-release-apks
           path: build/app/outputs/bundle/release/
-
+      
+      # 3. Get Commit SHA
+      - name: Get Commit SHA
+        id: commit
+        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+      
       # 3. Upload to Github Release
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          files: build/app/outputs/apk/release/*.apk
-          token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: build/app/outputs/apk/release/*.apk
           body: "Body of the release"
           draft: true
+          tag_name: ${{ env.SHA }}
