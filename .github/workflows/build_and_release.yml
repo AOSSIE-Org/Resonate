@@ -7,7 +7,7 @@ on:
   pull_request:
     types: [closed]
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
