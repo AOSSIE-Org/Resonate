@@ -73,10 +73,6 @@ jobs:
       
       - name: List files in directory
         run: ls -la build/app/outputs/bundle/release/
-
-      # 3. Unzip Archive
-      - name: Unzip Archive
-        run: unzip build/app/outputs/bundle/release/app-release-apks.zip -d build/app/outputs/bundle/release/
       
       # 4. Upload to Github Release
       - name: Github Release
