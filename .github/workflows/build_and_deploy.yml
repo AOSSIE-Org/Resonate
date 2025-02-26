@@ -79,6 +79,8 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: build/app/outputs/apk/release/*.apk
+          artifacts: build/app/outputs/bundle/release/*.apk
           body: "Body of the release"
+          artifactContentType: apk
+          generateReleaseNotes: true
           tag: latest_build
