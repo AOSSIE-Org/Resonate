@@ -84,4 +84,4 @@ jobs:
           artifacts: build/app/outputs/apk/release/*.apk
           body: "Body of the release"
           draft: true
-          tag_name: ${{ env.SHA }}
+          tag: ${{ env.SHA }}
