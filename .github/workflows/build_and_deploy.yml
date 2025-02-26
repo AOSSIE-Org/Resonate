@@ -70,22 +70,19 @@ jobs:
         with:
           name: app-release-apks
           path: build/app/outputs/bundle/release/
+      
+      - name: List files in directory
+        run: ls -la build/app/outputs/bundle/release/
 
       # 3. Unzip Archive
       - name: Unzip Archive
         run: unzip build/app/outputs/bundle/release/app-release-apks.zip -d build/app/outputs/bundle/release/
       
-      # 4. Get Commit SHA
-      - name: Get Commit SHA
-        id: commit
-        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-      
-      # 5. Upload to Github Release
+      # 4. Upload to Github Release
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           artifacts: build/app/outputs/apk/release/*.apk
           body: "Body of the release"
-          draft: true
-          tag: ${{ env.SHA }}
+          tag: latest_build
