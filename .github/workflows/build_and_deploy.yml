@@ -73,7 +73,7 @@ jobs:
 
       # 3. Unzip Archive
       - name: Unzip Archive
-        run: unzip build/app/outputs/bundle/release/*.zip -d build/app/outputs/bundle/release/
+        run: unzip build/app/outputs/bundle/release/app-release-apks.zip -d build/app/outputs/bundle/release/
       
       # 4. Get Commit SHA
       - name: Get Commit SHA
