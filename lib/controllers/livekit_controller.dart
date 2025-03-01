@@ -6,23 +6,27 @@ import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 
-class LiveKitController extends GetxController{
+class LiveKitController extends GetxController {
   late final Room liveKitRoom;
   late final EventsListener<RoomEvent> listener;
   final String liveKitUri;
   final String roomToken;
-
-  static const maxReconnectionAttempts = 3;
-  static const reconnectDelay = Duration(seconds: 2);
+  final int maxAttempts; // Configurable max retry attempts
+  final Duration retryInterval; // Configurable retry delay
   var reconnectAttempts = 0;
   Timer? reconnectTimer;
   final isConnected = false.obs;
 
-  LiveKitController({required this.liveKitUri, required this.roomToken});
+  LiveKitController({
+    required this.liveKitUri,
+    required this.roomToken,
+    this.maxAttempts = 3, // Default value
+    this.retryInterval = const Duration(seconds: 2), // Default value
+  });
 
   @override
-  void onInit() async{
-    await connectToRoom();
+  void onInit() async {
+    await connectToRoom(); // Initial connection with retries
     liveKitRoom.addListener(onRoomDidUpdate);
     setUpListeners();
     super.onInit();
@@ -40,46 +44,65 @@ class LiveKitController extends GetxController{
   }
 
   Future<bool> connectToRoom() async {
-    try {
-      liveKitRoom = Room();
-      listener = liveKitRoom.createListener();
+    // Reset attempts for a fresh connection
+    if (reconnectAttempts == 0) reconnectAttempts = 0;
 
-      await liveKitRoom.connect(
-        liveKitUri,
-        roomToken,
-        roomOptions: const RoomOptions(
-          adaptiveStream: false,
-          dynacast: false,
-          defaultVideoPublishOptions: VideoPublishOptions(
-            simulcast: false,
+    while (reconnectAttempts < maxAttempts) {
+      try {
+        liveKitRoom = Room();
+        listener = liveKitRoom.createListener();
+
+        await liveKitRoom.connect(
+          liveKitUri,
+          roomToken,
+          roomOptions: const RoomOptions(
+            adaptiveStream: false,
+            dynacast: false,
+            defaultVideoPublishOptions: VideoPublishOptions(
+              simulcast: false,
+            ),
           ),
-        ),
-      );
-      
-      isConnected.value = true;
-      reconnectAttempts = 0;
-      return true;
-    } catch (error) {
-      log('Connection failed: $error');
-      return false;
+        );
+
+        isConnected.value = true;
+        reconnectAttempts = 0; // Reset on success
+        log('Connected to room successfully');
+        return true;
+      } catch (error) {
+        reconnectAttempts++;
+        log('Connection attempt $reconnectAttempts/$maxAttempts failed: $error');
+
+        if (reconnectAttempts < maxAttempts) {
+          await Future.delayed(retryInterval); // Wait before retrying
+        } else {
+          log('Failed to connect after $maxAttempts attempts');
+          Get.snackbar(
+            'Connection Failed',
+            'Unable to join the room. Please check your network and try again.',
+            duration: const Duration(seconds: 5),
+          );
+          return false;
+        }
+      }
     }
+    return false; // Fallback return (shouldn’t hit this due to loop logic)
   }
 
   Future<void> handleDisconnection() async {
     isConnected.value = false;
-    
-    if (reconnectAttempts < maxReconnectionAttempts) {
+
+    if (reconnectAttempts < maxAttempts) {
       reconnectAttempts++;
-      log('Attempting to reconnect: Attempt $reconnectAttempts of $maxReconnectionAttempts');
-      
+      log('Attempting to reconnect: Attempt $reconnectAttempts of $maxAttempts');
+
       reconnectTimer?.cancel();
-      reconnectTimer = Timer(reconnectDelay, () async {
+      reconnectTimer = Timer(retryInterval, () async {
         final success = await connectToRoom();
-        
-        if (!success && reconnectAttempts < maxReconnectionAttempts) {
+
+        if (!success && reconnectAttempts < maxAttempts) {
           await handleDisconnection();
         } else if (!success) {
-          log('Failed to reconnect after $maxReconnectionAttempts attempts');
+          log('Failed to reconnect after $maxAttempts attempts');
           Get.snackbar(
             'Connection Lost',
             'Unable to reconnect to the room. Please try rejoining.',
@@ -91,7 +114,7 @@ class LiveKitController extends GetxController{
   }
 
   void onRoomDidUpdate() {
-    //Callback which will be called on room update
+    // Callback which will be called on room update
   }
 
   void setUpListeners() => listener
@@ -99,15 +122,13 @@ class LiveKitController extends GetxController{
       if (event.reason != null) {
         log('Room disconnected: reason => ${event.reason}');
         await handleDisconnection();
-        
-        WidgetsBindingCompatible.instance
-            ?.addPostFrameCallback((timeStamp) {
-              if (Get.isRegistered<SingleRoomController>()){
-                Get.find<SingleRoomController>().leaveRoom();
-              }
-              else if (Get.isRegistered<PairChatController>()){
-                Get.find<PairChatController>().endChat();
-              }
+
+        WidgetsBindingCompatible.instance?.addPostFrameCallback((timeStamp) {
+          if (Get.isRegistered<SingleRoomController>()) {
+            Get.find<SingleRoomController>().leaveRoom();
+          } else if (Get.isRegistered<PairChatController>()) {
+            Get.find<PairChatController>().endChat();
+          }
         });
       }
     })
@@ -117,7 +138,6 @@ class LiveKitController extends GetxController{
       }
     })
     ..on<RoomRecordingStatusChanged>((event) {
-      //context.showRecordingStatusChangedDialog(event.activeRecording);
+      // context.showRecordingStatusChangedDialog(event.activeRecording);
     });
-
 }
