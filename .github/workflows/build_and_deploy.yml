@@ -43,7 +43,7 @@ jobs:
       - name: Install Flutter Dependencies
         run: flutter pub get
 
-      # 7. Build Android App Bundle (AAB)
+      # 7. Build Android APK
       - name: Build Android App Bundle
         run: flutter build apk --release --split-per-abi
       
