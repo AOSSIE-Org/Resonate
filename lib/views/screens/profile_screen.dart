@@ -98,9 +98,8 @@ class ProfileScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Icon(Icons.verified_user_outlined, color: Colors.green),
-                        const SizedBox(width: 5),
-                        const Text("Verified",
-                            style: TextStyle(color: Colors.green)),
+                        SizedBox(width: 5),
+                        Text("Verified", style: TextStyle(color: Colors.green)),
                       ],
                     ),
                   ),

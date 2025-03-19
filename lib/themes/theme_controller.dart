@@ -8,13 +8,12 @@ import 'package:resonate/utils/constants.dart';
 class ThemeController extends GetxController {
   final _box = GetStorage();
   final _key = 'theme';
-  Rx<String> currentThemePlaceHolder = classicUserProfileImagePlaceholderID.obs;
 
   final _themeKey = 'theme';
   final _favoritesKey = 'favoriteThemes';
 
   Rx<String> currentTheme = Themes.classic.name.obs;
-  Rx<String> userProfileImagePlaceholderUr = "".obs;
+  Rx<String> currentThemePlaceHolder = classicUserProfileImagePlaceholderID.obs;
 
 //hahahha
   @override
@@ -22,6 +21,7 @@ class ThemeController extends GetxController {
     super.onInit();
     currentTheme.value = getCurrentTheme;
     updateUserProfileImagePlaceholderUrlOnTheme();
+    log(userProfileImagePlaceholderUrl);
   }
 
   String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
