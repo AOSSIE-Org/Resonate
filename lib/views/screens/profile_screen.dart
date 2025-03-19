@@ -94,8 +94,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.verified_user_outlined, color: Colors.green),
                         SizedBox(width: 5),
-                        Text("Verified",
-                            style: TextStyle(color: Colors.green)),
+                        Text("Verified", style: TextStyle(color: Colors.green)),
                       ],
                     ),
                   ),
@@ -109,17 +108,18 @@ class ProfileScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Chip(label: Text(
-                  "@${isCreatorProfile != null ? '' : controller.userName}",
-                  style: TextStyle(
-                    fontSize: UiSizes.size_14,
-                    overflow: TextOverflow.ellipsis,
+                Chip(
+                  label: Text(
+                    "@${isCreatorProfile != null ? '' : controller.userName}",
+                    style: TextStyle(
+                      fontSize: UiSizes.size_14,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(color: Colors.grey.shade300),
-                ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: BorderSide(color: Colors.grey.shade300),
+                  ),
                 ),
                 // Text(
                 //   "@${isCreatorProfile != null ? '' : controller.userName}",
@@ -196,7 +196,11 @@ class ProfileScreen extends StatelessWidget {
             onPressed: () {
               Get.toNamed(AppRoutes.settings);
             },
-            child: Icon(Icons.settings),
+            child: const Icon(
+              Icons.settings,
+              size: 26,
+              color: Colors.white,
+            ),
           ),
       ],
     );

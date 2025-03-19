@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -19,7 +20,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final debouncer = Debouncer(milliseconds: 800);
-
+  final themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OnboardingController>(
@@ -53,7 +54,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
                           backgroundImage: (controller.profileImagePath == null)
-                              ? NetworkImage(controller.imageController.text)
+                              ? NetworkImage(
+                                  themeController
+                                      .userProfileImagePlaceholderUrl,
+                                )
                               : FileImage(File(controller.profileImagePath!))
                                   as ImageProvider,
                           radius: UiSizes.width_80,
