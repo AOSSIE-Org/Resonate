@@ -64,7 +64,8 @@ class EditProfileScreen extends StatelessWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                         backgroundImage: (controller.profileImagePath == null)
-                            ? controller.removeImage
+                            ? authStateController.profileImageUrl == "" ||
+                                    controller.removeImage
                                 ? NetworkImage(
                                     themeController
                                         .userProfileImagePlaceholderUrl,
