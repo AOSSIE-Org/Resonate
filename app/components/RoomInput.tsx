@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 const RoomInput = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const TITLE_LIMIT = 50; // Set your desired limit
-    const DESCRIPTION_LIMIT = 200; // Set your desired limit
+    const TITLE_LIMIT = 50; // Set  desired limit
+    const DESCRIPTION_LIMIT = 200; // Set  desired limit
 
     const handleTitleChange = (e) => {
         if (e.target.value.length <= TITLE_LIMIT) {
