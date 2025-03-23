@@ -67,17 +67,6 @@ class AuthStateController extends GetxController {
     super.onInit();
     await setUserProfileData();
 
-    // ask for settings permissions
-    // NotificationSettings settings = await messaging.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
-
     await initializeLocalNotifications();
 
     const AndroidNotificationDetails androidNotificationDetails =
@@ -285,8 +274,23 @@ class AuthStateController extends GetxController {
         horizontal: UiSizes.width_20,
       ),
       onConfirm: () async {
-        await account.deleteSession(sessionId: 'current');
-        await removeRegistrationTokenFromSubscribedUpcomingRooms();
+        try {
+          // Try to delete the session, but don't throw if it fails
+          await account.deleteSession(sessionId: 'current');
+        } catch (e) {
+          // Session might already be expired, that's fine
+          print("Session might already be expired: ${e.toString()}");
+        }
+
+        try {
+          // Still try to remove FCM tokens if possible
+          await removeRegistrationTokenFromSubscribedUpcomingRooms();
+        } catch (e) {
+          // If this fails due to auth issues, that's also fine
+          print("Failed to remove tokens: ${e.toString()}");
+        }
+
+        // Always navigate away regardless of success/failure of the above
         Get.offAllNamed(AppRoutes.welcomeScreen);
       },
     );
