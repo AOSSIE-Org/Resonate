@@ -25,6 +25,7 @@ class ProfileScreen extends StatelessWidget {
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
+  final themeController = Get.find<ThemeController>();
   final authController = Get.find<AuthStateController>();
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -47,9 +48,12 @@ class ProfileScreen extends StatelessWidget {
               width: double.maxFinite,
               child: Column(
                 children: [
-                  _buildProfileHeader(context, authController),
+                  _buildProfileHeader(),
                   _buildEmailVerificationButton(
-                      context, emailVerifyController, authController),
+                    context,
+                    emailVerifyController,
+                    authController,
+                  ),
                   SizedBox(height: UiSizes.height_10),
                   _buildProfileButtons(context),
                 ],
@@ -63,18 +67,13 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(
-    BuildContext context,
-    AuthStateController controller,
-  ) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        SizedBox(width: UiSizes.width_20),
-        GetBuilder<ThemeController>(
-          builder: (themeController) => CircleAvatar(
-            backgroundColor: colorScheme.secondary,
+  Widget _buildProfileHeader() {
+    return GetBuilder<AuthStateController>(
+      builder: (controller) => Row(
+        children: [
+          SizedBox(width: UiSizes.width_20),
+          CircleAvatar(
+            backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
             backgroundImage: isCreatorProfile != null
                 ? NetworkImage(creatorImgUrl ?? '')
                 : controller.profileImageUrl == null ||
@@ -85,60 +84,62 @@ class ProfileScreen extends StatelessWidget {
                     : NetworkImage(controller.profileImageUrl ?? ''),
             radius: UiSizes.width_66,
           ),
-        ),
-        SizedBox(width: UiSizes.width_20),
-        Expanded(
-          child: MergeSemantics(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (isCreatorProfile == null && controller.isEmailVerified!)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.verified_user_outlined, color: Colors.green),
-                        SizedBox(width: 5),
-                        Text("Verified", style: TextStyle(color: Colors.green)),
-                      ],
+          SizedBox(width: UiSizes.width_20),
+          Expanded(
+            child: MergeSemantics(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (isCreatorProfile == null && controller.isEmailVerified!)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.verified_user_outlined,
+                              color: Colors.green),
+                          SizedBox(width: 5),
+                          Text("Verified",
+                              style: TextStyle(color: Colors.green)),
+                        ],
+                      ),
                     ),
-                  ),
-                Text(
-                  isCreatorProfile != null
-                      ? creatorName ?? ''
-                      : controller.displayName.toString(),
-                  style: TextStyle(
-                    fontSize: UiSizes.size_24,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Chip(
-                  label: Text(
-                    "@${isCreatorProfile != null ? '' : controller.userName}",
+                  Text(
+                    isCreatorProfile != null
+                        ? creatorName ?? ''
+                        : controller.displayName.toString(),
                     style: TextStyle(
-                      fontSize: UiSizes.size_14,
+                      fontSize: UiSizes.size_24,
+                      fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(color: Colors.grey.shade300),
+                  Chip(
+                    label: Text(
+                      "@${isCreatorProfile != null ? '' : controller.userName}",
+                      style: TextStyle(
+                        fontSize: UiSizes.size_14,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide(color: Colors.grey.shade300),
+                    ),
                   ),
-                ),
-                // Text(
-                //   "@${isCreatorProfile != null ? '' : controller.userName}",
-                //   style: TextStyle(
-                //     fontSize: UiSizes.size_14,
-                //     overflow: TextOverflow.ellipsis,
-                //   ),
-                // ),
-              ],
+                  // Text(
+                  //   "@${isCreatorProfile != null ? '' : controller.userName}",
+                  //   style: TextStyle(
+                  //     fontSize: UiSizes.size_14,
+                  //     overflow: TextOverflow.ellipsis,
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           ),
-        ),
-        SizedBox(width: UiSizes.width_20),
-      ],
+          SizedBox(width: UiSizes.width_20),
+        ],
+      ),
     );
   }
 
