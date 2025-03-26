@@ -130,7 +130,7 @@ class ExploreStoryController extends GetxController {
 
       if (!coverImgUrl.contains("http")) {
         coverImgUrl = await uploadFileToAppwriteGetUrl(
-            storyBucketId, storyId, coverImgUrl, "story cover");
+            storyBucketId, chapter.chapterId, coverImgUrl, "story cover");
       }
 
       String audioFileId = 'audioFor${chapter.chapterId}';
@@ -503,7 +503,7 @@ class ExploreStoryController extends GetxController {
 
     recommendedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
-            isLoadingRecommendedStories.value = false;
+    isLoadingRecommendedStories.value = false;
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
