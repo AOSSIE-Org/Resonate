@@ -123,8 +123,7 @@ class ExploreStoryController extends GetxController {
   Future<void> pushChaptersToStory(
       List<Chapter> chapters, String storyId) async {
     for (Chapter chapter in chapters) {
-      String colorString = chapter.tintColor.toString();
-      String extractedColor = colorString.substring(8, 14);
+      String colorString = chapter.tintColor.toHex(leadingHashSign: false);
 
       String coverImgUrl = chapter.coverImageUrl;
 
@@ -147,7 +146,7 @@ class ExploreStoryController extends GetxController {
             'coverImgUrl': coverImgUrl,
             'lyrics': chapter.lyrics,
             'playDuration': chapter.playDuration,
-            'tintColor': extractedColor,
+            'tintColor': colorString,
             'storyId': storyId,
             'audioFileUrl': audioFileUrl
           });
@@ -248,8 +247,8 @@ class ExploreStoryController extends GetxController {
       log("failed to push chapters to appwrite: ${e.message}");
     }
 
-    String colorString = primaryColor.toString();
-    String extractedColor = colorString.substring(8, 14);
+    String colorString = primaryColor.toHex(leadingHashSign: false);
+
     try {
       await databases.createDocument(
           databaseId: storyDatabaseId,
@@ -265,7 +264,7 @@ class ExploreStoryController extends GetxController {
             'creatorImgUrl': authStateController.profileImageUrl,
             'likes': 0,
             'playDuration': storyPlayDuration,
-            'tintColor': extractedColor
+            'tintColor': colorString
           });
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
@@ -503,7 +502,7 @@ class ExploreStoryController extends GetxController {
 
     recommendedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
-            isLoadingRecommendedStories.value = false;
+    isLoadingRecommendedStories.value = false;
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
@@ -533,4 +532,13 @@ class ExploreStoryController extends GetxController {
       );
     }).toList());
   }
+}
+
+extension HexColor on Color {
+  /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+      '${(a * 255).toInt().toRadixString(16).padLeft(2, '0')}'
+      '${r.toInt().toRadixString(16).padLeft(2, '0')}'
+      '${g.toInt().toRadixString(16).padLeft(2, '0')}'
+      '${b.toInt().toRadixString(16).padLeft(2, '0')}';
 }
