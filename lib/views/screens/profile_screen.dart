@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
   }) : super(key: key);
 
   final emailVerifyController =
-  Get.put<EmailVerifyController>(EmailVerifyController());
+      Get.put<EmailVerifyController>(EmailVerifyController());
   final authController = Get.find<AuthStateController>();
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -64,9 +64,9 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileHeader(
-      BuildContext context,
-      AuthStateController controller,
-      ) {
+    BuildContext context,
+    AuthStateController controller,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Row(
@@ -78,11 +78,11 @@ class ProfileScreen extends StatelessWidget {
             backgroundImage: isCreatorProfile != null
                 ? NetworkImage(creatorImgUrl ?? '')
                 : controller.profileImageUrl == null ||
-                controller.profileImageUrl!.isEmpty
-                ? NetworkImage(
-              themeController.userProfileImagePlaceholderUrl,
-            )
-                : NetworkImage(controller.profileImageUrl ?? ''),
+                        controller.profileImageUrl!.isEmpty
+                    ? NetworkImage(
+                        themeController.userProfileImagePlaceholderUrl,
+                      )
+                    : NetworkImage(controller.profileImageUrl ?? ''),
             radius: UiSizes.width_66,
           ),
         ),
@@ -97,8 +97,7 @@ class ProfileScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 10),
                     child: Row(
                       children: [
-                        Icon(Icons.verified_user_outlined,
-                            color: Colors.green),
+                        Icon(Icons.verified_user_outlined, color: Colors.green),
                         const SizedBox(width: 5),
                         const Text("Verified",
                             style: TextStyle(color: Colors.green)),
@@ -121,15 +120,20 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: UiSizes.size_14,
                       overflow: TextOverflow.ellipsis,
-                      color: colorScheme.onSurface,
                     ),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(color: colorScheme.outline),
+                    side: BorderSide(color: Colors.grey.shade300),
                   ),
-                  backgroundColor: colorScheme.surfaceVariant,
                 ),
+                // Text(
+                //   "@${isCreatorProfile != null ? '' : controller.userName}",
+                //   style: TextStyle(
+                //     fontSize: UiSizes.size_14,
+                //     overflow: TextOverflow.ellipsis,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -250,7 +254,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-                () => _buildStoriesList(
+            () => _buildStoriesList(
               context,
               exploreStoryController.userCreatedStories,
               isCreatorProfile != null
@@ -274,7 +278,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-                () => _buildStoriesList(
+            () => _buildStoriesList(
               context,
               exploreStoryController.userLikedStories,
               isCreatorProfile != null
@@ -295,22 +299,23 @@ class ProfileScreen extends StatelessWidget {
       height: UiSizes.height_200,
       child: stories.isNotEmpty
           ? ListView.builder(
-        itemCount: stories.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return StoryItem(
-            story: stories[index],
-          );
-        },
-      )
+              itemCount: stories.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return StoryItem(
+                  story: stories[index],
+                );
+              },
+            )
           : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
-          const SizedBox(height: 5),
-          Text(noStoryTextToShow, style: TextStyle(color: colorScheme.onSurface)),
-        ],
-      ),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
+                const SizedBox(height: 5),
+                Text(noStoryTextToShow,
+                    style: TextStyle(color: colorScheme.onSurface)),
+              ],
+            ),
     );
   }
 }
@@ -358,6 +363,8 @@ class StoryItem extends StatelessWidget {
             SizedBox(height: UiSizes.height_5),
             Text(
               story.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
@@ -366,8 +373,10 @@ class StoryItem extends StatelessWidget {
             ),
             Text(
               story.description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                overflow: TextOverflow.ellipsis,
+                //overflow: TextOverflow.ellipsis,
                 fontSize: UiSizes.size_12,
                 color: colorScheme.onSurfaceVariant,
               ),

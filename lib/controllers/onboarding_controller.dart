@@ -103,6 +103,7 @@ class OnboardingController extends GetxController {
       // Update User meta data
       await authStateController.account
           .updateName(name: nameController.text.trim());
+      //log(authStateController.uid!);
       await databases.createDocument(
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
@@ -132,16 +133,30 @@ class OnboardingController extends GetxController {
       );
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
-      log(e.toString());
-      customSnackbar(
-        "Error!",
-        e.toString(),
-        LogType.error,
-      );
-      SemanticsService.announce(
-        e.toString(),
-        ui.TextDirection.ltr,
-      );
+      if (e.toString().contains('Invalid `documentId` param')) {
+        log(e.toString());
+        customSnackbar(
+          "Invalid Format!",
+          "Username must be alphanumeric and should not contain special characters.",
+          LogType.error,
+        );
+        SemanticsService.announce(
+          "Username must be alphanumeric and should not contain special characters.",
+          ui.TextDirection.ltr,
+        );
+      } else {
+        // if (e.)
+        log(e.toString());
+        customSnackbar(
+          "Error!",
+          e.toString(),
+          LogType.error,
+        );
+        SemanticsService.announce(
+          e.toString(),
+          ui.TextDirection.ltr,
+        );
+      }
     } finally {
       isLoading.value = false;
     }

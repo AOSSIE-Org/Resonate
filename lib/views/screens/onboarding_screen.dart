@@ -84,6 +84,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           value!.isNotEmpty ? null : "Enter Valid Name",
                       controller: controller.nameController,
                       keyboardType: TextInputType.text,
+                      maxLength: 100,
                       autocorrect: false,
                       decoration: const InputDecoration(
                         // hintText: "Name",
@@ -101,6 +102,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             return "Username should contain more than 5 characters.";
                           }
                         },
+                        maxLength: 36,
                         controller: controller.usernameController,
                         onChanged: (value) async {
                           Get.closeCurrentSnackbar();

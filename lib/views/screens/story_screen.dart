@@ -6,6 +6,7 @@ import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
@@ -21,6 +22,7 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
+  bool descriptionIsExpanded = false;
   final exploreStoryController =
       Get.put<ExploreStoryController>(ExploreStoryController());
 
@@ -198,18 +200,24 @@ class _StoryScreenState extends State<StoryScreen> {
                                                 widget.story.coverImageUrl),
                                           ),
                                           const SizedBox(width: 8),
-                                          Text(
-                                            widget.story.userIsCreator
-                                                ? "You"
-                                                : widget.story.creatorName,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  fontSize: 16,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontFamily: 'Inter',
-                                                ),
+                                          SizedBox(
+                                            // width: 155,
+                                            width: UiSizes.width_155,
+                                            child: Text(
+                                              widget.story.userIsCreator
+                                                  ? "You"
+                                                  : widget.story.creatorName,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge!
+                                                  .copyWith(
+                                                    fontSize: 16,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontFamily: 'Inter',
+                                                  ),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -270,19 +278,29 @@ class _StoryScreenState extends State<StoryScreen> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  widget.story.description,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 16,
-                                        fontStyle: FontStyle.normal,
-                                        fontFamily: 'Inter',
-                                      ),
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                  descriptionIsExpanded =
+                                      !descriptionIsExpanded;
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Text(
+                                    widget.story.description,
+                                    maxLines: descriptionIsExpanded ? null : 10,
+                                    overflow: descriptionIsExpanded
+                                        ? TextOverflow.visible
+                                        : TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Inter',
+                                        ),
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 40),
