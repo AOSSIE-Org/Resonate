@@ -73,6 +73,7 @@ class UiSizes {
   static late double width_111;
   static late double width_123_4;
   static late double width_140;
+  static late double width_155;
   static late double width_160;
   static late double width_170;
   static late double width_180;
@@ -183,6 +184,7 @@ class UiSizes {
     width_111 = 0.27 * screenWidth;
     width_123_4 = 0.30 * screenWidth;
     width_140 = 0.34 * screenWidth;
+    width_155 = 0.375 * screenWidth;
     width_160 = 0.3889 * screenWidth;
     width_170 = 0.413 * screenWidth;
     width_180 = 0.437 * screenWidth;

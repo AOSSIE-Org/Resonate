@@ -35,6 +35,8 @@ class CustomLiveRoomTile extends StatelessWidget {
               children: [
                 Text(
                   appwriteRoom.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSurface,

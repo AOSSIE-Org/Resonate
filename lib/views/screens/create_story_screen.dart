@@ -113,22 +113,24 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                    labelText: 'Title *',
-                    labelStyle: const TextStyle(
-                      color: Color.fromARGB(255, 127, 130, 131),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary)),
-                  ),
+                      labelText: 'Title *',
+                      labelStyle: const TextStyle(
+                        color: Color.fromARGB(255, 127, 130, 131),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary)),
+                      counterText: ''),
+                  maxLength: 100,
                 ),
                 const SizedBox(height: 30),
 
@@ -238,18 +240,18 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                               BoxShadow(color: Colors.black12, blurRadius: 4)
                             ],
                           ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.change_circle,
-                                    size: 50, color: Colors.grey),
-                                    Text(
-                    'Change Cover Image',
-                    textAlign: TextAlign.center,
-                  ),
-                              ],
-                            ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.change_circle,
+                                  size: 50, color: Colors.grey),
+                              Text(
+                                'Change Cover Image',
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -272,7 +274,11 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                         title: Text(chapter.title,
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text(chapter.description),
+                        subtitle: Text(
+                          chapter.description,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         trailing:
                             Text(formatPlayDuration(chapter.playDuration)),
                       ),

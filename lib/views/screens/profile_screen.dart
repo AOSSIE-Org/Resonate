@@ -119,15 +119,20 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: UiSizes.size_14,
                       overflow: TextOverflow.ellipsis,
-                      color: colorScheme.onSurface,
                     ),
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(color: colorScheme.outline),
+                    side: BorderSide(color: Colors.grey.shade300),
                   ),
-                  backgroundColor: colorScheme.surfaceContainerHighest,
                 ),
+                // Text(
+                //   "@${isCreatorProfile != null ? '' : controller.userName}",
+                //   style: TextStyle(
+                //     fontSize: UiSizes.size_14,
+                //     overflow: TextOverflow.ellipsis,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -357,6 +362,8 @@ class StoryItem extends StatelessWidget {
             SizedBox(height: UiSizes.height_5),
             Text(
               story.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
@@ -365,8 +372,10 @@ class StoryItem extends StatelessWidget {
             ),
             Text(
               story.description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                overflow: TextOverflow.ellipsis,
+                //overflow: TextOverflow.ellipsis,
                 fontSize: UiSizes.size_12,
                 color: colorScheme.onSurfaceVariant,
               ),
