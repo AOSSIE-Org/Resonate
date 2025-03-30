@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 
@@ -16,6 +17,8 @@ class StoryListTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: Text(
         story.title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
@@ -25,7 +28,9 @@ class StoryListTile extends StatelessWidget {
             ),
       ),
       subtitle: Text(
-        '${story.category.name} - ${story.creatorName}',
+        '${story.category.name.capitalizeFirst} - ${story.creatorName}',
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: 12,
               fontStyle: FontStyle.normal,

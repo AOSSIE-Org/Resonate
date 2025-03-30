@@ -197,20 +197,12 @@ class CreateRoomScreen extends StatelessWidget {
                               style: TextStyle(fontSize: UiSizes.size_25),
                               cursorColor:
                                   Theme.of(context).colorScheme.primary,
+                              maxLength: 30,
                               minLines: 1,
                               maxLines: 13,
-                              validator: (value) {
-                                if (value!.isNotEmpty) {
-                                  if (value.length <= 30) {
-                                    return null;
-                                  } else {
-                                    return "Name can't be longer than 30 chars";
-                                  }
-                                }
-                                return "Name is required";
-                              },
                               decoration: InputDecoration(
                                 hintText: "Give a great name..",
+
                                 prefixIcon: Icon(Icons.edit,
                                     color: Theme.of(context)
                                         .colorScheme
@@ -236,6 +228,8 @@ class CreateRoomScreen extends StatelessWidget {
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
+                                  maxLength: 50,
+                                  maxLines: 1,
                                   style: TextStyle(fontSize: UiSizes.size_20),
                                   controller:
                                       inputFieldValues.textEditingController,
@@ -283,8 +277,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                       '#$tag',
                                                       style: TextStyle(
                                                           color: Colors.white,
-                                                          fontSize: UiSizes
-                                                              .size_18),
+                                                          fontSize:
+                                                              UiSizes.size_18),
                                                     ),
                                                     SizedBox(
                                                         width: UiSizes.width_4),
@@ -322,13 +316,7 @@ class CreateRoomScreen extends StatelessWidget {
                               cursorColor:
                                   Theme.of(context).colorScheme.primary,
                               maxLines: 10,
-                              validator: (value) {
-                                if (value!.isNotEmpty && value.length > 500) {
-                                  return "Can't be longer than 500 chars";
-                                } else {
-                                  return null;
-                                }
-                              },
+                              maxLength: 500,
                               decoration: const InputDecoration(
                                 hintText: "Room Description (optional)",
                                 filled: false,

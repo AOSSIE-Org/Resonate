@@ -40,6 +40,8 @@ class ChaperListTile extends StatelessWidget {
         ),
         title: Text(
           chapter.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w500,
@@ -49,9 +51,7 @@ class ChaperListTile extends StatelessWidget {
               ),
         ),
         subtitle: Text(
-          chapter.description.length > 30
-              ? '${chapter.description.substring(0, 30)}...'
-              : chapter.description,
+          chapter.description,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
