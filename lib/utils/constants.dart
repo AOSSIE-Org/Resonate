@@ -2,6 +2,7 @@
 
 // Appwrite Project Constants
 const String baseDomain = "10.0.2.2";
+//const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";

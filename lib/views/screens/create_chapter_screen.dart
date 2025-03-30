@@ -69,7 +69,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Error'),
-          content: const Text('Please fill in all required fields.'),
+          content: const Text(
+              'Please fill in all required fields and upload your Audio file and Lyrics file'),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
@@ -116,7 +117,10 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
             children: [
               TextField(
                 controller: titleController,
-                decoration: const InputDecoration(labelText: 'Chapter Title *'),
+                decoration: const InputDecoration(
+                    labelText: 'Chapter Title *', counterText: ''),
+                maxLines: 1,
+                maxLength: 20,
               ),
               const SizedBox(height: 20),
               TextField(
@@ -131,7 +135,7 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                    child: Padding( 
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
@@ -150,12 +154,12 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                               ),
                       ),
                     ),
-                  ),  
+                  ),
                   SizedBox(width: UiSizes.width_10),
                   Expanded(
-                    child: Padding( 
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(   
+                      child: GestureDetector(
                         onTap: pickChapterCoverImage,
                         child: Container(
                           width: 200,
@@ -174,10 +178,10 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                             children: [
                               Icon(Icons.change_circle,
                                   size: 50, color: Colors.grey),
-                                  Text(
-                  'Change Cover Image',
-                  textAlign: TextAlign.center,
-                ),
+                              Text(
+                                'Change Cover Image',
+                                textAlign: TextAlign.center,
+                              ),
                             ],
                           ),
                         ),
