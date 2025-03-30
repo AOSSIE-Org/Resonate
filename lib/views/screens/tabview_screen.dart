@@ -65,7 +65,7 @@ class TabViewScreen extends StatelessWidget {
           ),
           floatingActionButton: (controller.getIndex() == 0)
               ? SpeedDial(
-                  icon: Icons.add,
+                  icon: Icons.add_call,
                   childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
                   elevation: 8.0,
@@ -137,7 +137,9 @@ class TabViewScreen extends StatelessWidget {
                     }
                   },
                   child: Icon(
-                      controller.getIndex() == 2 ? Icons.done : Icons.add,
+                      controller.getIndex() == 2
+                          ? Icons.done
+                          : Icons.audiotrack_rounded,
                       size: UiSizes.size_24)),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
