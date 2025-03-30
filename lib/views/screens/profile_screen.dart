@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    // final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -93,14 +93,13 @@ class ProfileScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (isCreatorProfile == null && controller.isEmailVerified!)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
                     child: Row(
                       children: [
                         Icon(Icons.verified_user_outlined, color: Colors.green),
-                        const SizedBox(width: 5),
-                        const Text("Verified",
-                            style: TextStyle(color: Colors.green)),
+                        SizedBox(width: 5),
+                        Text("Verified", style: TextStyle(color: Colors.green)),
                       ],
                     ),
                   ),
@@ -248,7 +247,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onBackground,
+                color: colorScheme.surfaceContainerHighest,
               ),
             ),
           ),
@@ -272,7 +271,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
             ),
           ),
@@ -353,7 +352,7 @@ class StoryItem extends StatelessWidget {
               width: UiSizes.height_140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: colorScheme.surfaceVariant,
+                color: colorScheme.surfaceContainerHighest,
                 image: DecorationImage(
                   image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,

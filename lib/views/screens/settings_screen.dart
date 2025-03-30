@@ -35,8 +35,8 @@ class SettingsScreen extends StatelessWidget {
         height: UiSizes.height_30,
         thickness: 10,
         color: Theme.of(context).brightness == Brightness.light
-            ? Colors.black.withOpacity(0.04)
-            : Colors.white.withOpacity(0.04),
+            ? Colors.black.withValues(alpha: 0.04)
+            : Colors.white.withValues(alpha: 0.04),
       );
     }
 
@@ -108,7 +108,6 @@ class SettingsScreen extends StatelessWidget {
             trailing: const Icon(Icons.logout_rounded),
             onTap: () async {
               await authStateController.logout(context);
-
             },
           ),
         ],

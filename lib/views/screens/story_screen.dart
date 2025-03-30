@@ -37,7 +37,7 @@ class _StoryScreenState extends State<StoryScreen> {
     // Set the status bar color to match the story's tint color
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: widget.story.tintColor.withOpacity(0.8),
+        statusBarColor: widget.story.tintColor.withValues(alpha: 0.8),
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -61,10 +61,10 @@ class _StoryScreenState extends State<StoryScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            widget.story.tintColor.withOpacity(0.8),
-                            widget.story.tintColor.withOpacity(0.6),
-                            widget.story.tintColor.withOpacity(0.4),
-                            widget.story.tintColor.withOpacity(0.2),
+                            widget.story.tintColor.withValues(alpha: 0.8),
+                            widget.story.tintColor.withValues(alpha: 0.6),
+                            widget.story.tintColor.withValues(alpha: 0.4),
+                            widget.story.tintColor.withValues(alpha: 0.2),
                             Colors.transparent,
                           ],
                           begin: Alignment.topCenter,
