@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
@@ -315,6 +316,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                   final chapter = widget.story.chapters[index];
                                   return GestureDetector(
                                     onTap: () {
+                                      Get.put(ChapterPlayerController());
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

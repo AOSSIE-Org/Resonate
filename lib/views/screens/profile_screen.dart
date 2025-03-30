@@ -30,6 +30,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
@@ -45,16 +47,16 @@ class ProfileScreen extends StatelessWidget {
               width: double.maxFinite,
               child: Column(
                 children: [
-                  _buildProfileHeader(authController),
+                  _buildProfileHeader(context, authController),
                   _buildEmailVerificationButton(
                       context, emailVerifyController, authController),
                   SizedBox(height: UiSizes.height_10),
-                  _buildProfileButtons(),
+                  _buildProfileButtons(context),
                 ],
               ),
             ),
             SizedBox(height: UiSizes.height_20),
-            _buildStoriesSection(),
+            _buildStoriesSection(context),
           ],
         ),
       ),
@@ -62,14 +64,17 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileHeader(
+    BuildContext context,
     AuthStateController controller,
   ) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         SizedBox(width: UiSizes.width_20),
         GetBuilder<ThemeController>(
           builder: (themeController) => CircleAvatar(
-            backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
+            backgroundColor: colorScheme.secondary,
             backgroundImage: isCreatorProfile != null
                 ? NetworkImage(creatorImgUrl ?? '')
                 : controller.profileImageUrl == null ||
@@ -94,8 +99,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.verified_user_outlined, color: Colors.green),
                         SizedBox(width: 5),
-                        Text("Verified",
-                            style: TextStyle(color: Colors.green)),
+                        Text("Verified", style: TextStyle(color: Colors.green)),
                       ],
                     ),
                   ),
@@ -109,25 +113,21 @@ class ProfileScreen extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Chip(label: Text(
-                  "@${isCreatorProfile != null ? '' : controller.userName}",
-                  style: TextStyle(
-                    fontSize: UiSizes.size_14,
-                    overflow: TextOverflow.ellipsis,
+                Chip(
+                  label: Text(
+                    "@${isCreatorProfile != null ? '' : controller.userName}",
+                    style: TextStyle(
+                      fontSize: UiSizes.size_14,
+                      overflow: TextOverflow.ellipsis,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: BorderSide(color: colorScheme.outline),
+                  ),
+                  backgroundColor: colorScheme.surfaceContainerHighest,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(color: Colors.grey.shade300),
-                ),
-                ),
-                // Text(
-                //   "@${isCreatorProfile != null ? '' : controller.userName}",
-                //   style: TextStyle(
-                //     fontSize: UiSizes.size_14,
-                //     overflow: TextOverflow.ellipsis,
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -166,7 +166,9 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileButtons() {
+  Widget _buildProfileButtons(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Expanded(
@@ -178,31 +180,54 @@ class ProfileScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.editProfile);
               }
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colorScheme.primary,
+              foregroundColor: colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                isCreatorProfile != null
-                    ? const Icon(Icons.add)
-                    : const Icon(Icons.edit),
+                Icon(
+                  isCreatorProfile != null ? Icons.add : Icons.edit,
+                  color: colorScheme.onPrimary,
+                ),
                 const SizedBox(width: 8),
-                Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
+                Text(
+                  isCreatorProfile != null ? "Follow" : "Edit Profile",
+                  style: TextStyle(color: colorScheme.onPrimary),
+                ),
               ],
             ),
           ),
         ),
         const SizedBox(width: 10),
         if (isCreatorProfile == null)
-          ElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.settings);
-            },
-            child: Icon(Icons.settings),
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.settings);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(12),
+              ),
+              child: Icon(Icons.settings, color: colorScheme.onPrimary),
+            ),
           ),
       ],
     );
   }
 
-  Widget _buildStoriesSection() {
+  Widget _buildStoriesSection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: EdgeInsets.only(left: UiSizes.width_20),
       width: double.maxFinite,
@@ -215,16 +240,21 @@ class ProfileScreen extends StatelessWidget {
                   ? "User Created Stories"
                   : "Your Stories",
               style: TextStyle(
-                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+                fontSize: UiSizes.size_16,
+                fontWeight: FontWeight.bold,
+                color: colorScheme.surfaceContainerHighest,
+              ),
             ),
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
             () => _buildStoriesList(
-                exploreStoryController.userCreatedStories,
-                isCreatorProfile != null
-                    ? "User has not created any story"
-                    : "You have not created any story"),
+              context,
+              exploreStoryController.userCreatedStories,
+              isCreatorProfile != null
+                  ? "User has not created any story"
+                  : "You have not created any story",
+            ),
           ),
           SizedBox(height: UiSizes.height_10),
           Align(
@@ -234,23 +264,31 @@ class ProfileScreen extends StatelessWidget {
                   ? "User Liked Stories"
                   : "Your Liked Stories",
               style: TextStyle(
-                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+                fontSize: UiSizes.size_16,
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
             () => _buildStoriesList(
-                exploreStoryController.userLikedStories,
-                isCreatorProfile != null
-                    ? "User has not liked any story"
-                    : "You have not liked any story"),
+              context,
+              exploreStoryController.userLikedStories,
+              isCreatorProfile != null
+                  ? "User has not liked any story"
+                  : "You have not liked any story",
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildStoriesList(List<Story> stories, String noStoryTextToShow) {
+  Widget _buildStoriesList(
+      BuildContext context, List<Story> stories, String noStoryTextToShow) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       height: UiSizes.height_200,
       child: stories.isNotEmpty
@@ -267,10 +305,9 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(noStoryTextToShow)
+                const SizedBox(height: 5),
+                Text(noStoryTextToShow,
+                    style: TextStyle(color: colorScheme.onSurface)),
               ],
             ),
     );
@@ -287,6 +324,8 @@ class StoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -308,7 +347,7 @@ class StoryItem extends StatelessWidget {
               width: UiSizes.height_140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.black,
+                color: colorScheme.surfaceContainerHighest,
                 image: DecorationImage(
                   image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,
@@ -321,6 +360,7 @@ class StoryItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
               ),
             ),
             Text(
@@ -328,6 +368,7 @@ class StoryItem extends StatelessWidget {
               style: TextStyle(
                 overflow: TextOverflow.ellipsis,
                 fontSize: UiSizes.size_12,
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ],
