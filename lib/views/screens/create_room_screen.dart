@@ -22,7 +22,7 @@ class CreateRoomScreen extends StatelessWidget {
     final BoxDecoration kTextFieldDecoration = BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+          Theme.of(context).colorScheme.secondary.withValues(alpha: 0.8),
           const Color.fromARGB(255, 139, 134, 134),
         ],
         begin: Alignment.topLeft,
@@ -36,7 +36,7 @@ class CreateRoomScreen extends StatelessWidget {
           blurRadius: 6,
         ),
         BoxShadow(
-          color: Colors.white.withOpacity(0.3),
+          color: Colors.white.withValues(alpha: 0.3),
           offset: const Offset(-2, -2),
           blurRadius: 3,
           spreadRadius: 1,
@@ -94,7 +94,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? Theme.of(context)
                                               .colorScheme
                                               .secondary
-                                              .withOpacity(0.5)
+                                              .withValues(alpha: 0.5)
                                           : Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -197,20 +197,12 @@ class CreateRoomScreen extends StatelessWidget {
                               style: TextStyle(fontSize: UiSizes.size_25),
                               cursorColor:
                                   Theme.of(context).colorScheme.primary,
+                              maxLength: 30,
                               minLines: 1,
                               maxLines: 13,
-                              validator: (value) {
-                                if (value!.isNotEmpty) {
-                                  if (value.length <= 30) {
-                                    return null;
-                                  } else {
-                                    return "Name can't be longer than 30 chars";
-                                  }
-                                }
-                                return "Name is required";
-                              },
                               decoration: InputDecoration(
                                 hintText: "Give a great name..",
+
                                 prefixIcon: Icon(Icons.edit,
                                     color: Theme.of(context)
                                         .colorScheme
@@ -236,6 +228,8 @@ class CreateRoomScreen extends StatelessWidget {
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
+                                  maxLength: 50,
+                                  maxLines: 1,
                                   style: TextStyle(fontSize: UiSizes.size_20),
                                   controller:
                                       inputFieldValues.textEditingController,
@@ -283,8 +277,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                       '#$tag',
                                                       style: TextStyle(
                                                           color: Colors.white,
-                                                          fontSize: UiSizes
-                                                              .size_18),
+                                                          fontSize:
+                                                              UiSizes.size_18),
                                                     ),
                                                     SizedBox(
                                                         width: UiSizes.width_4),
@@ -293,7 +287,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                         Icons.cancel,
                                                         size: UiSizes.size_18,
                                                         color: Colors.red
-                                                            .withOpacity(0.7),
+                                                            .withValues(
+                                                                alpha: 0.7),
                                                       ),
                                                       onTap: () {
                                                         inputFieldValues
@@ -322,13 +317,7 @@ class CreateRoomScreen extends StatelessWidget {
                               cursorColor:
                                   Theme.of(context).colorScheme.primary,
                               maxLines: 10,
-                              validator: (value) {
-                                if (value!.isNotEmpty && value.length > 500) {
-                                  return "Can't be longer than 500 chars";
-                                } else {
-                                  return null;
-                                }
-                              },
+                              maxLength: 500,
                               decoration: const InputDecoration(
                                 hintText: "Room Description (optional)",
                                 filled: false,

@@ -201,8 +201,7 @@ class AuthStateController extends GetxController {
           Query.equal("creatorUid", [uid])
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
-      List<dynamic> creatorFcmTokens =
-          upcomingRoom.data['creator_fcm_tokens'];
+      List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.add(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
@@ -233,7 +232,6 @@ class AuthStateController extends GetxController {
           data: {"registrationTokens": registrationTokens});
     }
 
-
     //created Upcoming Rooms
     List<Document> createdUpcomingRooms = await databases.listDocuments(
         databaseId: upcomingRoomsDatabaseId,
@@ -242,8 +240,7 @@ class AuthStateController extends GetxController {
           Query.equal("creatorUid", [uid])
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
-      List<dynamic> creatorFcmTokens =
-          upcomingRoom.data['creator_fcm_tokens'];
+      List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.remove(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,

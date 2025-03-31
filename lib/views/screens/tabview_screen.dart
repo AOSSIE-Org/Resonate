@@ -65,7 +65,7 @@ class TabViewScreen extends StatelessWidget {
           ),
           floatingActionButton: (controller.getIndex() == 0)
               ? SpeedDial(
-                  icon: Icons.add,
+                  icon: Icons.add_call,
                   childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
                   elevation: 8.0,
@@ -137,7 +137,9 @@ class TabViewScreen extends StatelessWidget {
                     }
                   },
                   child: Icon(
-                      controller.getIndex() == 2 ? Icons.done : Icons.add,
+                      controller.getIndex() == 2
+                          ? Icons.done
+                          : Icons.audiotrack_rounded,
                       size: UiSizes.size_24)),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -146,8 +148,8 @@ class TabViewScreen extends StatelessWidget {
             activeColor: Theme.of(context).colorScheme.primary,
             backgroundColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.black.withOpacity(0.3)
-                : Colors.white.withOpacity(0.3),
+                ? Colors.black.withValues(alpha: 0.3)
+                : Colors.white.withValues(alpha: 0.3),
             splashRadius: 0,
             shadow: const Shadow(color: Colors.transparent),
             iconSize: UiSizes.size_30,

@@ -73,9 +73,9 @@ class PairingScreen extends StatelessWidget {
           child: LoadingIndicator(
             indicatorType: Indicator.ballScaleMultiple,
             colors: [
-              primaryColor.withOpacity(0.2),
+              primaryColor.withValues(alpha: 0.2),
               primaryColor,
-              primaryColor.withOpacity(0.6),
+              primaryColor.withValues(alpha: 0.6),
             ],
             strokeWidth: 2,
           ),
