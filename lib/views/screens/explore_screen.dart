@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/utils/app_images.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/widgets/category_card.dart';
@@ -166,7 +167,8 @@ class ExplorePageContent extends StatelessWidget {
             itemBuilder: (context, index) {
               return CategoryCard(
                 name: StoryCategory.values[index].name,
-                color: categoryColorList[index],
+                color: AppColor.categoryColorList[
+                    StoryCategory.values[index].name.toLowerCase()]!,
                 exploreStoryController: exploreStoryController,
               );
             },
@@ -255,7 +257,6 @@ class ExplorePageContent extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: 300,
           width: double.infinity,
           child: Obx(
             () => !exploreStoryController.isLoadingRecommendedStories.value
@@ -314,15 +315,6 @@ class ExplorePageContent extends StatelessWidget {
     );
   }
 }
-
-final List<Color> categoryColorList = [
-  const Color.fromARGB(255, 237, 29, 154),
-  const Color.fromARGB(255, 21, 178, 136),
-  const Color.fromARGB(255, 142, 16, 238),
-  const Color.fromARGB(255, 38, 83, 215),
-  const Color.fromARGB(255, 140, 204, 37),
-  const Color.fromARGB(255, 218, 83, 83),
-];
 
 class SearchResultContent extends StatelessWidget {
   const SearchResultContent({
