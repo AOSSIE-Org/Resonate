@@ -36,7 +36,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.3).round()),
               thickness: 1,
             ),
             const SizedBox(height: 16),
@@ -123,7 +123,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.3).round()),
               thickness: 1,
             ),
             const SizedBox(height: 16),

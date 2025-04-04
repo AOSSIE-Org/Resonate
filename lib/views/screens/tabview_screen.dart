@@ -146,8 +146,8 @@ class TabViewScreen extends StatelessWidget {
             activeColor: Theme.of(context).colorScheme.primary,
             backgroundColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.black.withOpacity(0.3)
-                : Colors.white.withOpacity(0.3),
+                ? Colors.black.withAlpha((255 * 0.3).round())
+                : Colors.white.withAlpha((255 * 0.3).round()),
             splashRadius: 0,
             shadow: const Shadow(color: Colors.transparent),
             iconSize: UiSizes.size_30,

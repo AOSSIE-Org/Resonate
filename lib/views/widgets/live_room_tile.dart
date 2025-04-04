@@ -77,7 +77,7 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.7).round()),
                 fontSize: 14,
               ),
             ),

@@ -35,8 +35,8 @@ class SettingsScreen extends StatelessWidget {
         height: UiSizes.height_30,
         thickness: 10,
         color: Theme.of(context).brightness == Brightness.light
-            ? Colors.black.withOpacity(0.04)
-            : Colors.white.withOpacity(0.04),
+            ? Colors.black.withAlpha((255 * 0.04).round())
+            : Colors.white.withAlpha((255 * 0.04).round()),
       );
     }
 

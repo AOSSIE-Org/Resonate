@@ -13,7 +13,6 @@ import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
-import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../utils/constants.dart';

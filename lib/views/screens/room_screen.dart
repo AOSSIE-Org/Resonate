@@ -94,7 +94,7 @@ class RoomScreenState extends State<RoomScreen> {
                 color: Theme.of(context)
                     .colorScheme
                     .onSecondary
-                    .withOpacity(0.15)),
+                    .withAlpha((255 * 0.15).round())),
           ),
           SingleChildScrollView(
             child: Column(

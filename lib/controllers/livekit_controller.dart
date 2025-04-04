@@ -132,12 +132,18 @@ class LiveKitController extends GetxController {
         });
       }
     })
-    ..on<RoomConnectionStateChangedEvent>((event) {
-      if (event.newState == ConnectionState.disconnected) {
+    ..on<RoomMetadataChangedEvent>((event) {
+      if (event.metadata == "disconnected") {
         handleDisconnection();
       }
     })
     ..on<RoomRecordingStatusChanged>((event) {
       // context.showRecordingStatusChangedDialog(event.activeRecording);
+
+      log('Recording status changed: ${event.activeRecording}');
     });
 }
+
+
+
+

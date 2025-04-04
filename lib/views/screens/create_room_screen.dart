@@ -22,7 +22,7 @@ class CreateRoomScreen extends StatelessWidget {
     final BoxDecoration kTextFieldDecoration = BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Theme.of(context).colorScheme.secondary.withOpacity(0.8),
+          Theme.of(context).colorScheme.secondary.withAlpha((255 * 0.8).round()),
           const Color.fromARGB(255, 139, 134, 134),
         ],
         begin: Alignment.topLeft,
@@ -36,7 +36,7 @@ class CreateRoomScreen extends StatelessWidget {
           blurRadius: 6,
         ),
         BoxShadow(
-          color: Colors.white.withOpacity(0.3),
+          color: Colors.white.withAlpha((255 * 0.3).round()),
           offset: const Offset(-2, -2),
           blurRadius: 3,
           spreadRadius: 1,
@@ -94,7 +94,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           ? Theme.of(context)
                                               .colorScheme
                                               .secondary
-                                              .withOpacity(0.5)
+                                              .withAlpha((255 * 0.5).round())
                                           : Theme.of(context)
                                               .colorScheme
                                               .primary,
@@ -293,7 +293,8 @@ class CreateRoomScreen extends StatelessWidget {
                                                         Icons.cancel,
                                                         size: UiSizes.size_18,
                                                         color: Colors.red
-                                                            .withOpacity(0.7),
+                                                            .withAlpha((255 *
+                                                            0.7).round()),
                                                       ),
                                                       onTap: () {
                                                         inputFieldValues
