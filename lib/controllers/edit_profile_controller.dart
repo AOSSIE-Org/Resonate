@@ -55,6 +55,7 @@ class EditProfileController extends GetxController {
 
     nameController.text = authStateController.displayName!.trim();
     usernameController.text = authStateController.userName!.trim();
+    log(profileImagePath.toString());
   }
 
   bool isThereUnsavedChanges() {
@@ -93,10 +94,10 @@ class EditProfileController extends GetxController {
   }
 
   void removeProfilePicture() {
-    if (authStateController.profileImageUrl !=
-        themeController.userProfileImagePlaceholderUrl) {
+    if (authStateController.profileImageUrl != null) {
       removeImage = true;
     }
+    log(authStateController.profileImageUrl.toString());
     profileImagePath = null;
     update();
   }
@@ -236,7 +237,7 @@ class EditProfileController extends GetxController {
       }
 
       if (removeImage) {
-        imageController.text = themeController.userProfileImagePlaceholderUrl;
+        imageController.text = "";
 
         // Update user profile picture URL in Database
         await databases.updateDocument(

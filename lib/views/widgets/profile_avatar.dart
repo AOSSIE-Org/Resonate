@@ -6,8 +6,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 Widget profileAvatar(BuildContext context) {
-  final AuthStateController authStateController =
-      Get.put<AuthStateController>(AuthStateController());
+  final themeController = Get.find<ThemeController>();
 
   return Semantics(
       label: "User profile",
@@ -32,8 +31,8 @@ Widget profileAvatar(BuildContext context) {
                 right: 0,
                 top: 0,
                 bottom: 0,
-                child: GetBuilder<ThemeController>(
-                  builder: (controller) => Center(
+                child: GetBuilder<AuthStateController>(
+                  builder: (authStateController) => Center(
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: UiSizes.size_20,
@@ -45,7 +44,7 @@ Widget profileAvatar(BuildContext context) {
                                   null ||
                               authStateController.profileImageUrl!.isEmpty
                           ? NetworkImage(
-                              controller.userProfileImagePlaceholderUrl,
+                              themeController.userProfileImagePlaceholderUrl,
                             )
                           : NetworkImage(authStateController.profileImageUrl!),
                     ),
