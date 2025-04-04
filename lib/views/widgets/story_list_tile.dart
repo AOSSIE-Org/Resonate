@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 
 class StoryListTile extends StatelessWidget {
@@ -27,15 +28,38 @@ class StoryListTile extends StatelessWidget {
               fontFamily: 'Inter',
             ),
       ),
-      subtitle: Text(
-        '${story.category.name.capitalizeFirst} - ${story.creatorName}',
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontSize: 12,
-              fontStyle: FontStyle.normal,
-              fontFamily: 'Inter',
-            ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            story.creatorName,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 12,
+                  fontStyle: FontStyle.normal,
+                  fontFamily: 'Inter',
+                ),
+          ),
+          Container(
+              margin: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                  color: AppColor
+                      .categoryColorList[story.category.name.toLowerCase()],
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                story.category.name.capitalizeFirst ?? "",
+                maxLines: 1,
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 12,
+                    fontStyle: FontStyle.normal,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold),
+              )),
+        ],
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(10),
