@@ -99,7 +99,7 @@ class NotificationTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withAlpha((255 * 0.1).round()),
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
