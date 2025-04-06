@@ -19,7 +19,8 @@ class ThemeScreen extends StatelessWidget {
         title: const Text("Themes"),
       ),
       body: Obx(
-        ()=> ListView.builder(
+        ()=> Container(
+            child: (themeController.currentTheme.value == 'none') ? const Text("none"): ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -56,6 +57,8 @@ class ThemeScreen extends StatelessWidget {
               },
             ),
         ),
-      );
+      ),
+
+    );
   }
 }
