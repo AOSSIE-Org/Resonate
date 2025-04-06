@@ -13,7 +13,10 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    currentTheme.value = getCurrentTheme;
+    final storedTheme = _box.read(_key);
+  currentTheme.value = Themes.values.any((theme) => theme.name == storedTheme)
+      ? storedTheme
+      : Themes.classic.name;
   }
 
   String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
