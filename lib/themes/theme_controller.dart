@@ -5,19 +5,37 @@ import 'package:resonate/themes/theme_enum.dart';
 
 class ThemeController extends GetxController {
   final _box = GetStorage();
-  final _key = 'theme';
+  final _themeKey = 'theme';
+  final _favoritesKey = 'favoriteThemes';
 
   Rx<String> currentTheme = Themes.classic.name.obs;
+   RxList<String> favoriteThemes = <String>[].obs;
 
 //hahahha
   @override
   void onInit() {
     super.onInit();
-    currentTheme.value = getCurrentTheme;
+    final storedTheme = _box.read(_themeKey);
+
+    // Validate stored theme
+  currentTheme.value = Themes.values.any((theme) => theme.name == storedTheme)
+      ? storedTheme
+      : Themes.classic.name;
+
+      // Initialize favorites
+    favoriteThemes.value = _box.read<List<String>>(_favoritesKey)?.where(
+          (theme) => Themes.values.any((t) => t.name == theme),
+        ).toList() ?? [];
   }
 
-  String get getCurrentTheme => _box.read(_key) ?? currentTheme.value;
-
+  void toggleFavorite(String themeName) {
+    if (favoriteThemes.contains(themeName)) {
+      favoriteThemes.remove(themeName);
+    } else {
+      favoriteThemes.add(themeName);
+    }
+    _box.write(_favoritesKey, favoriteThemes.toList());
+  }
 
   void updateTheme(String theme){
     currentTheme.value = theme;
@@ -25,7 +43,9 @@ class ThemeController extends GetxController {
 
 
   void setTheme(String newTheme) {
-    _box.write(_key, newTheme);
-    updateTheme(newTheme);
+    if (Themes.values.any((theme) => theme.name == newTheme)) {
+      _box.write(_themeKey, newTheme);
+      updateTheme(newTheme);
+    }
   }
 }

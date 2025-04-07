@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
-import 'package:resonate/utils/ui_sizes.dart';
-
-import '../../utils/app_images.dart';
+import 'package:resonate/utils/app_images.dart';
 
 class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
-  final aboutAppScreenController = Get.put(AboutAppScreenController());
+  final AboutAppScreenController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -16,218 +16,237 @@ class AboutAppScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("About"),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: UiSizes.width_20,
-          vertical: UiSizes.height_20,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isSmallScreen = constraints.maxWidth < 600;
+            
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isSmallScreen ? 16 : 24,
+                vertical: 16,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLogoSection(isSmallScreen),
+                  const SizedBox(height: 24),
+                  _buildActionSection(),
+                  const SizedBox(height: 32),
+                  _buildDescriptionSection(),
+                  const SizedBox(height: 24),
+                  _buildLinksSection(context),
+                ],
+              ),
+            );
+          },
         ),
+      ),
+    );
+  }
+
+  Widget _buildLogoSection(bool isSmallScreen) {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: isSmallScreen ? 1 : 2,
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      childAspectRatio: 1.5,
+      children: [
+        _LogoCard(
+          image: AppImages.resonateLogoImage,
+          title: "Resonate",
+          subtitle: Obx(() => Text(
+            "${controller.appVersion} | ${controller.appBuildNumber}",
+            style: Theme.of(Get.context!).textTheme.bodySmall,
+          )),
+        ),
+        _LogoCard(
+          image: AppImages.aossieLogoImage,
+          title: "AOSSIE",
+          subtitle: Text(
+            "Open Source Community",
+            style: Theme.of(Get.context!).textTheme.bodySmall,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionSection() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            Text(
+              "Help us grow",
+              style: Theme.of(Get.context!).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  child: Container(
-                    height: UiSizes.height_200,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
-                        Semantics(
-                          label: "Resonate logo",
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                  AppImages.resonateLogoImage,
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            height: UiSizes.height_131,
-                          ),
-                        ),
-                        Expanded(
-                          child: MergeSemantics(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Resonate",
-                                  style: TextStyle(
-                                    fontSize: UiSizes.size_20,
-                                  ),
-                                ),
-                                Obx(
-                                  () => Text(
-                                    "${aboutAppScreenController.appVersion} | ${aboutAppScreenController.appBuildNumber} | Stable",
-                                    // "0.0.0 | 1 | Stable",
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_12,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                _ActionButton(
+                  icon: Icons.share,
+                  label: "Share",
+                  onTap: () => Share.share(
+                    'Check out Resonate - The voice-based social media app! '
+                    'Download it now: https://play.google.com/store/apps/details?id=org.aossie.resonate',
                   ),
                 ),
-                SizedBox(
-                  width: UiSizes.width_10,
+                _ActionButton(
+                  icon: Icons.star,
+                  label: "Rate",
+                  onTap: () => _launchUrl('https://playstore.com/resonate'),
                 ),
-                Expanded(
-                  child: Container(
-                    height: UiSizes.height_200,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
-                        Semantics(
-                          label: "aossie logo",
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage(AppImages.aossieLogoImage),
-                                scale: 4,
-                              ),
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            height: UiSizes.height_131,
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                semanticsLabel: "aossie",
-                                "AOSSIE",
-                                style: TextStyle(
-                                  fontSize: UiSizes.size_20,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                _ActionButton(
+                  icon: Icons.update,
+                  label: "Check Update",
+                  onTap: controller.checkForUpdate,
                 ),
               ],
-            ),
-            SizedBox(
-              height: UiSizes.height_10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: UiSizes.height_110,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Help to grow",
-                            style: TextStyle(),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Column(
-                                children: [
-                                  Icon(Icons.share_rounded),
-                                  Text("Share"),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Column(
-                                children: [
-                                  Icon(Icons.star_rate_outlined),
-                                  Text("Rate"),
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: UiSizes.width_10,
-                ),
-                const Expanded(
-                  child: SizedBox(),
-                )
-              ],
-            ),
-            SizedBox(
-              height: UiSizes.height_40,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: MergeSemantics(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      semanticsLabel: "About Resonate",
-                      "Description",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(
-                      height: UiSizes.height_5,
-                    ),
-                    const Text(
-                      "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
-                ),
-              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDescriptionSection() {
+    return Obx(() => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Description",
+          style: Theme.of(Get.context!).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          controller.fullDescription,
+          maxLines: controller.showFullDescription.value ? null : 4,
+          overflow: TextOverflow.fade,
+        ),
+        if (!controller.showFullDescription.value)
+          TextButton(
+            onPressed: controller.toggleDescription,
+            child: const Text("Read More"),
+          ),
+      ],
+    ));
+  }
+
+  Widget _buildLinksSection(BuildContext context) {
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: [
+        _LinkButton(
+          text: "Privacy Policy",
+          onPressed: () => _launchUrl('https://resonate.privacy'),
+        ),
+        _LinkButton(
+          text: "Terms of Service",
+          onPressed: () => _launchUrl('https://resonate.terms'),
+        ),
+        _LinkButton(
+          text: "View Source Code",
+          onPressed: () => _launchUrl('https://github.com/aossie/resonate'),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    }
+  }
+}
+
+class _LogoCard extends StatelessWidget {
+  final String image;
+  final String title;
+  final Widget subtitle;
+
+  const _LogoCard({
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Image.asset(
+                image,
+                fit: BoxFit.contain,
+                cacheWidth: 200,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(title, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 4),
+            subtitle,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 28),
+            const SizedBox(height: 4),
+            Text(label),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LinkButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const _LinkButton({
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      child: Text(text),
     );
   }
 }
