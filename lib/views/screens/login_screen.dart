@@ -26,11 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        controller.emailController.clear();
-        controller.passwordController.clear();
-        controller.confirmPasswordController.clear();
-        controller.isPasswordFieldVisible.value = false;
-        controller.isConfirmPasswordFieldVisible.value = false;
+        _clearFormFields();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -118,7 +114,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (!controller.isLoading.value) {
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
-                                await controller.login();
+                                final success = await controller.login();
+                                if (success) {
+                                  // Navigate to home or dashboard after successful login
+                                  Get.offAllNamed(AppRoutes.home);
+                                }
                               }
                             }
                           },
@@ -142,7 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.offNamed(AppRoutes.forgotPassword);
+                        _clearFormFields();
+                        Get.toNamed(AppRoutes.forgotPassword);
                       },
                       child: Text(
                         "Forgot Password?",
@@ -159,12 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("New to Resonate? "),
                     GestureDetector(
                       onTap: () {
-                        controller.emailController.clear();
-                        controller.passwordController.clear();
-                        controller.confirmPasswordController.clear();
-                        controller.isPasswordFieldVisible.value = false;
-                        controller.isConfirmPasswordFieldVisible.value = false;
-                        Get.offNamed(AppRoutes.signup);
+                        _clearFormFields();
+                        Get.toNamed(AppRoutes.signup);
                       },
                       child: Text(
                         "Register",
@@ -182,5 +179,13 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _clearFormFields() {
+    controller.emailController.clear();
+    controller.passwordController.clear();
+    controller.confirmPasswordController.clear();
+    controller.isPasswordFieldVisible.value = false;
+    controller.isConfirmPasswordFieldVisible.value = false;
   }
 }

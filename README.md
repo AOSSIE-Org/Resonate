@@ -65,6 +65,42 @@ Resonate is a wide project taking use of other software solutions like Appwrite 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you. 
 Please go through and strictly follow the [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
 
+## 🛠️ Quick Setup Guide
+
+### Prerequisites
+- Flutter SDK
+- Docker
+- Git
+
+### Basic Setup Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AOSSIE-Org/Resonate.git
+   cd Resonate
+   ```
+
+2. Install Flutter dependencies:
+   ```bash
+   flutter pub get
+   ```
+
+3. Set up the backend environment:
+   - Follow the detailed [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md) for Appwrite and LiveKit setup
+   - The guide includes automated scripts for backend initialization
+
+4. Configure the frontend:
+   - Update the `baseDomain` in `lib/constants.dart` based on your platform:
+     - Android Simulator: `10.0.2.2`
+     - iOS Simulator: `127.0.0.1`
+     - Physical Device: Your laptop's IP address (ensure device is on same network)
+
+5. Run the app:
+   ```bash
+   flutter run
+   ```
+
+> **Note**: For a complete setup with all features, including authentication and real-time communication, please refer to the detailed [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md).
+
 ## :movie_camera: App Screenshots
 <div align="center">
  

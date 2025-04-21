@@ -36,3 +36,7 @@ Please include screenshots below if applicable.
 
 - [ ] closes #xxxx (Replace xxxx with the GitHub issue number)
 - [ ] Tag the PR with the appropriate labels
+
+## Additional Changes
+
+- Added cleanup logic to the `leaveRoom` method to ensure resources are cleaned up when leaving the room.
