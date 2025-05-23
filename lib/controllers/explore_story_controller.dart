@@ -190,10 +190,10 @@ class ExploreStoryController extends GetxController {
 
   Future<Chapter> createChapter(String title, String description,
       String coverImgPath, String audioFilePath, String lyricsFilePath) async {
-    Tag? metadata =
-        await AudioTags.read(audioFilePath);
+    Tag? metadata = await AudioTags.read(audioFilePath);
     log("logging duration ${metadata?.duration}");
     int playDuration = metadata?.duration ?? 0;
+    playDuration *= 1000;
     String chapterId = ID.unique();
     Color primaryColor;
 
