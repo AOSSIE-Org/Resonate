@@ -249,7 +249,7 @@ class UpcomingRoomsController extends GetxController {
       initialTime:
           TimeOfDay(hour: initialTime.hour, minute: initialTime.minute),
     );
-    if (pickedDate != null && pickedTime != null) {
+    if (pickedTime != null) {
       DateTime pickedDateTime = DateTime(pickedDate.year, pickedDate.month,
           pickedDate.day, pickedTime.hour, pickedTime.minute);
       if (!pickedDateTime.isAfter(now)) {
