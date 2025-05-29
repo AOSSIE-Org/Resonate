@@ -104,7 +104,7 @@ class RoomService {
 
     // Delete room on livekit and roomdoc on appwrite
     String? livekitToken = await storage.read(key: "createdRoomAdminToken");
-    await apiService.deleteRoom(roomId, livekitToken!);
+    await apiService.deleteRoom(roomId, livekitToken);
 
     // Get all participant documents and delete them
     DocumentList participantDocsRef = await roomsController.databases
