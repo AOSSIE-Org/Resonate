@@ -138,7 +138,7 @@ class AuthStateController extends GetxController {
 
       update();
     } catch (e) {
-      log(e.toString());
+      log("Error originating from setUserProfileData" + e.toString());
     } finally {
       isInitializing.value = false;
     }

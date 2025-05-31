@@ -70,17 +70,14 @@ class AuthenticationController extends GetxController {
       );
       return true;
     } catch (e) {
-      var error = e.toString().split(": ")[1];
-      error = error.split(".")[0];
-      error = error.split(",")[1];
-      error = error.split("in")[0];
+      log(e.toString());
       customSnackbar(
         'Oops',
-        error.toString(),
+        e.toString(),
         LogType.error,
       );
       SemanticsService.announce(
-        error.toString(),
+        e.toString(),
         TextDirection.ltr,
       );
 

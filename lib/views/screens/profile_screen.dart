@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
           Expanded(
             child: MergeSemantics(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (isCreatorProfile == null && controller.isEmailVerified!)
                     const Padding(

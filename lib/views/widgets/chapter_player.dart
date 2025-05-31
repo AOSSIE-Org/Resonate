@@ -64,7 +64,11 @@ class ChapterPlayer extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark
+                  color: Theme.of(context).brightness == Brightness.dark ||
+                          (ThemeData.estimateBrightnessForColor(
+                                      chapter.tintColor) ==
+                                  Brightness.dark &&
+                              progress > 0.75)
                       ? Colors.white
                       : Colors.black87,
                 ),
