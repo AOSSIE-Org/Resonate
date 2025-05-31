@@ -4,6 +4,10 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 Please strictly stick to the guide do not go off installing stuff on your own
 
+> #### **Setting up Firebase for FCM**
+> To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), setup a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
+<br/>
+
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
 - Docker
@@ -17,6 +21,7 @@ Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate-Bac
 > #### **Very Important Info**
 > The backend initialisation script installs Appwrite locally with additional custom flags to the install command available in the appwrite documentation so if you already have Installed Appwrite locally please delete the image and the container and start fresh
 <br/>
+
 
 Navigate to the root directory of the project in your terminal (for windows power shell), and run the command
 
@@ -100,8 +105,8 @@ Now appwrite function pushing will start and just press 'a' char on keyboard to 
 
 You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
 
-| Platform            | Base Domain   |
-|---------------------|---------------|
-| Android Simulator   | `10.0.2.2`    |
-| iOS Simulator       | `127.0.0.1`   |
-| Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the laptop's IP address provided by the Wi-Fi |
+| Platform          | Base Domain                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Android Simulator | `10.0.2.2`                                                                                            |
+| iOS Simulator     | `127.0.0.1`                                                                                           |
+| Physical Device   | Ensure laptop and phone are on the same Wi-Fi, then use the laptop's IP address provided by the Wi-Fi |
