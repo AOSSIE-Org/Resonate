@@ -18,7 +18,6 @@ class ChapterPlayScreen extends StatefulWidget {
 class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
   late UINetease lyricUI;
   final ChapterPlayerController controller = Get.find();
-  bool descriptionIsExpanded = false;
 
   @override
   void didChangeDependencies() {
@@ -189,32 +188,20 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      descriptionIsExpanded =
-                                          !descriptionIsExpanded;
-                                    });
-                                  },
-                                  child: Text(
-                                    widget.chapter.description,
-                                    maxLines: descriptionIsExpanded ? null : 10,
-                                    overflow: descriptionIsExpanded
-                                        ? TextOverflow.visible
-                                        : TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface,
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 16,
-                                          fontStyle: FontStyle.normal,
-                                          fontFamily: 'Inter',
-                                        ),
-                                  ),
+                                child: Text(
+                                  widget.chapter.description,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 16,
+                                        fontStyle: FontStyle.normal,
+                                        fontFamily: 'Inter',
+                                      ),
                                 ),
                               ),
                               const SizedBox(height: 5),

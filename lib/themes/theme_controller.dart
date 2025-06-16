@@ -9,6 +9,9 @@ class ThemeController extends GetxController {
   final _box = GetStorage();
   final _key = 'theme';
 
+  final _themeKey = 'theme';
+  final _favoritesKey = 'favoriteThemes';
+
   Rx<String> currentTheme = Themes.classic.name.obs;
   Rx<String> currentThemePlaceHolder = classicUserProfileImagePlaceholderID.obs;
 
