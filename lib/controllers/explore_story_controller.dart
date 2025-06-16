@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:audiotags/audiotags.dart';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
+// import 'package:audiotags/audiotags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -190,10 +191,9 @@ class ExploreStoryController extends GetxController {
 
   Future<Chapter> createChapter(String title, String description,
       String coverImgPath, String audioFilePath, String lyricsFilePath) async {
-    Tag? metadata = await AudioTags.read(audioFilePath);
-    log("logging duration ${metadata?.duration}");
-    int playDuration = metadata?.duration ?? 0;
-    playDuration *= 1000;
+    final track = io.File(audioFilePath);
+    final metadata = readMetadata(track);
+    int playDuration = metadata.duration?.inMilliseconds ?? 0;
     String chapterId = ID.unique();
     Color primaryColor;
 
