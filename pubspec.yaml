@@ -88,6 +88,8 @@ dependencies:
   url_launcher: ^6.1.12
   uuid: ^4.5.1
   audio_metadata_reader: ^1.4.1
+  flutter_localizations:
+    sdk: flutter
 
 dependency_overrides: 
   flutter_web_auth_2: ^4.1.0
@@ -111,6 +113,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

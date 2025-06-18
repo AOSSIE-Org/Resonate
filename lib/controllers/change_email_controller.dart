@@ -10,6 +10,7 @@ import 'package:resonate/services/appwrite_service.dart';
 import '../utils/constants.dart';
 import '../utils/enums/log_type.dart';
 import '../views/widgets/snackbar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangeEmailController extends GetxController {
   final authStateController = Get.put(AuthStateController());
@@ -49,7 +50,8 @@ class ChangeEmailController extends GetxController {
     }
   }
 
-  Future<bool> changeEmailInDatabases(String changedEmail) async {
+  Future<bool> changeEmailInDatabases(
+      String changedEmail, BuildContext context) async {
     try {
       // change in user info collection
       await databases.updateDocument(
@@ -78,7 +80,7 @@ class ChangeEmailController extends GetxController {
     } on AppwriteException catch (e) {
       log(e.toString());
       customSnackbar(
-        'Try Again!',
+        AppLocalizations.of(context)!.tryAgain,
         e.toString(),
         LogType.error,
       );
@@ -95,7 +97,8 @@ class ChangeEmailController extends GetxController {
     }
   }
 
-  Future<bool> changeEmailInAuth(String changedEmail, String password) async {
+  Future<bool> changeEmailInAuth(
+      String changedEmail, String password, BuildContext context) async {
     try {
       // change in auth section
       await account.updateEmail(
@@ -108,24 +111,24 @@ class ChangeEmailController extends GetxController {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
         customSnackbar(
-          'Try Again!',
-          "Incorrect Email Or Password",
+          AppLocalizations.of(context)!.tryAgain,
+          AppLocalizations.of(context)!.incorrectEmailOrPassword,
           LogType.error,
         );
 
         SemanticsService.announce(
-          "Incorrect Email Or Password",
+          AppLocalizations.of(context)!.incorrectEmailOrPassword,
           TextDirection.ltr,
         );
       } else if (e.type == generalArgumentInvalid) {
         customSnackbar(
-          'Try Again!',
-          "Password is less than 8 characters",
+          AppLocalizations.of(context)!.tryAgain,
+          AppLocalizations.of(context)!.passwordShort,
           LogType.error,
         );
 
         SemanticsService.announce(
-          "Password is less than 8 characters",
+          AppLocalizations.of(context)!.passwordShort,
           TextDirection.ltr,
         );
       }
@@ -137,38 +140,40 @@ class ChangeEmailController extends GetxController {
     }
   }
 
-  Future<void> changeEmail() async {
+  Future<void> changeEmail(BuildContext context) async {
     if (changeEmailFormKey.currentState!.validate()) {
       isLoading.value = true;
 
       isEmailAvailable(emailController.text).then((status) {
         if (status) {
-          changeEmailInAuth(emailController.text, passwordController.text)
+          changeEmailInAuth(
+                  emailController.text, passwordController.text, context)
               .then((status) {
             if (status) {
-              changeEmailInDatabases(emailController.text).then((status) {
+              changeEmailInDatabases(emailController.text, context)
+                  .then((status) {
                 isLoading.value = false;
 
                 if (status) {
                   customSnackbar(
-                    'Email Changed',
-                    'Email changed successfully.',
+                    AppLocalizations.of(context)!.emailChanged,
+                    AppLocalizations.of(context)!.emailChangeSuccess,
                     LogType.success,
                   );
 
                   SemanticsService.announce(
-                    'Email changed successfully.',
+                    AppLocalizations.of(context)!.emailChangeSuccess,
                     TextDirection.ltr,
                   );
                 } else {
                   customSnackbar(
-                    'Failed',
-                    'Failed to change email.',
+                    AppLocalizations.of(context)!.failed,
+                    AppLocalizations.of(context)!.emailChangeFailed,
                     LogType.error,
                   );
 
                   SemanticsService.announce(
-                    'Failed to change email.',
+                    AppLocalizations.of(context)!.emailChangeFailed,
                     TextDirection.ltr,
                   );
                 }
@@ -179,13 +184,13 @@ class ChangeEmailController extends GetxController {
           });
         } else {
           customSnackbar(
-            'Oops',
-            'Email address already exists.',
+            AppLocalizations.of(context)!.oops,
+            AppLocalizations.of(context)!.emailExists,
             LogType.error,
           );
 
           SemanticsService.announce(
-            'Email address already exists.',
+            AppLocalizations.of(context)!.emailExists,
             TextDirection.ltr,
           );
           isLoading.value = false;

@@ -1,0 +1,32 @@
+{
+    "title": "रेज़ोनेट",
+    "hidePassword": "पासवर्ड छिपाएं",
+    "showPassword": "पासवर्ड दिखाएं",
+    "passwordEmpty": "पासवर्ड खाली नहीं हो सकता",
+    "password": "पासवर्ड",
+    "userCreatedStories": "यूज़र की बनाई कहानियाँ",
+    "yourStories": "तुम्हारी कहानियाँ",
+    "userNoStories": "यूज़र ने अभी तक कोई कहानी नहीं बनाई",
+    "youNoStories": "तुमने अभी तक कोई कहानी नहीं बनाई",
+    "follow": "फॉलो करो",
+    "editProfile": "प्रोफाइल एडिट करो",
+    "verifyEmail": "ईमेल वेरीफाई करो",
+    "verified": "वेरीफाइड",
+    "profile": "प्रोफ़ाइल",
+    "userLikedStories": "यूज़र को पसंद आई कहानियाँ",
+    "yourLikedStories": "तुम्हें पसंद आई कहानियाँ",
+    "userNoLikedStories": "यूज़र ने अभी तक कोई कहानी लाइक नहीं की",
+    "youNoLikedStories": "तुमने अभी तक कोई कहानी लाइक नहीं की",
+    "live": "लाइव",
+    "upcoming": "आने वाला",
+    "noAvailableRoom": "{isRoom, select, true{कोई रूम उपलब्ध नहीं है} false{कोई आने वाला रूम उपलब्ध नहीं है} other{रूम की जानकारी उपलब्ध नहीं है}}\nनीचे से एक रूम बनाकर शुरुआत करें!",
+    "@noAvailableRoom": {
+        "description": "जब कोई रूम या आने वाला रूम उपलब्ध नहीं होता तब दिखाया जाने वाला संदेश",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    }
+}

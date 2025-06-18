@@ -6,6 +6,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../controllers/pair_chat_controller.dart';
 
 class PairChatScreen extends StatelessWidget {
@@ -48,7 +49,7 @@ class PairChatScreen extends StatelessWidget {
                               ? themeController.userProfileImagePlaceholderUrl
                               : authStateController.profileImageUrl!,
                           controller.isAnonymous.value
-                              ? "User1"
+                              ? AppLocalizations.of(context)!.user1
                               : authStateController.userName!,
                         ),
                         SizedBox(height: UiSizes.height_20),
@@ -57,7 +58,7 @@ class PairChatScreen extends StatelessWidget {
                               ? themeController.userProfileImagePlaceholderUrl
                               : controller.pairProfileImageUrl!,
                           controller.isAnonymous.value
-                              ? "User2"
+                              ? AppLocalizations.of(context)!.user2
                               : controller.pairUsername!,
                         ),
                       ],

@@ -12,6 +12,8 @@ import '../../utils/enums/log_type.dart';
 import '../widgets/password_strength_indicator.dart';
 import '../widgets/snackbar.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -87,8 +89,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       () => TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: controller.passwordController,
-                        validator: (value) =>
-                            value! == "" ? "Password can't be empty" : null,
+                        validator: (value) => value! == ""
+                            ? AppLocalizations.of(context)!.passwordEmpty
+                            : null,
                         obscureText: !controller.isPasswordFieldVisible.value,
                         onChanged: (value) => passwordStrengthCheckerController
                             .passwordValidator(value),
@@ -99,8 +102,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           hintText: "Password",
                           suffixIcon: Semantics(
                             label: (controller.isPasswordFieldVisible.value)
-                                ? "Hide password"
-                                : "Show password",
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isPasswordFieldVisible.value =
@@ -130,19 +133,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         validator: (value) => value!.isSamePassword(
                                 controller.passwordController.text)
                             ? null
-                            : "Password do not match",
+                            : AppLocalizations.of(context)!.passwordsNotMatch,
                         controller: controller.confirmPasswordController,
                         obscureText:
                             !controller.isConfirmPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          hintText: "Confirm password",
+                          hintText:
+                              AppLocalizations.of(context)!.confirmPassword,
                           suffixIcon: Semantics(
-                            label:
-                                (controller.isConfirmPasswordFieldVisible.value)
-                                    ? "Hide password"
-                                    : "Show password",
+                            label: (controller
+                                    .isConfirmPasswordFieldVisible.value)
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isConfirmPasswordFieldVisible.value =

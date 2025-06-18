@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -76,16 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       () => TextFormField(
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
-                        validator: (value) =>
-                            value! == "" ? "Password can't be empty" : null,
+                        validator: (value) => value! == ""
+                            ? AppLocalizations.of(context)!.passwordEmpty
+                            : null,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          hintText: "Password",
+                          hintText: AppLocalizations.of(context)!.password,
                           suffixIcon: Semantics(
                             label: (controller.isPasswordFieldVisible.value)
-                                ? "Hide password"
-                                : "Show password",
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isPasswordFieldVisible.value =
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (!controller.isLoading.value) {
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
-                                await controller.login();
+                                await controller.login(context);
                               }
                             }
                           },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -17,16 +18,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reset Password'),
+        title: Text(AppLocalizations.of(context)!.resetPassword),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(24.0),
               child: Text(
-                'Enter your new password',
+                AppLocalizations.of(context)!.enterNewPassword,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20),
               ),
@@ -43,12 +44,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 style: const TextStyle(
                   fontSize: 14,
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   icon: Icon(
                     Icons.lock,
                     size: 23,
                   ),
-                  labelText: "New Password",
+                  labelText: AppLocalizations.of(context)!.newPassword,
                 ),
               ),
             ),
@@ -57,11 +58,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             MaterialButton(
               onPressed: () {
-                authController.resetPassword(passwordController.text);
+                authController.resetPassword(passwordController.text, context);
               },
               color: Colors.amber,
-              child: const Text(
-                'Set New Password',
+              child: Text(
+                AppLocalizations.of(context)!.setNewPassword,
                 style: TextStyle(
                   color: Colors.black,
                 ),

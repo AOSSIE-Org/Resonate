@@ -20,6 +20,7 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabViewScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
@@ -47,7 +48,8 @@ class TabViewScreen extends StatelessWidget {
             toolbarHeight: UiSizes.size_56,
             automaticallyImplyLeading: false,
             title: Text(
-              "Resonate",
+              // "Resonate",
+              AppLocalizations.of(context)!.title,
               style: TextStyle(
                   fontSize: UiSizes.size_26,
                   color: Theme.of(context).colorScheme.primary),

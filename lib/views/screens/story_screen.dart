@@ -13,6 +13,8 @@ import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
 import 'package:resonate/views/widgets/like_button.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class StoryScreen extends StatefulWidget {
   final Story story;
   const StoryScreen({super.key, required this.story});
@@ -205,7 +207,9 @@ class _StoryScreenState extends State<StoryScreen> {
                                             width: UiSizes.width_155,
                                             child: Text(
                                               widget.story.userIsCreator
-                                                  ? "You"
+                                                  ? AppLocalizations.of(
+                                                          context)!
+                                                      .you
                                                   : widget.story.creatorName,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
