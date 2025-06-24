@@ -82,17 +82,15 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.multitrack_audio, size: UiSizes.size_24),
-                      label: "Audio Room",
+                      label: AppLocalizations.of(context)!.audioRoom,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
                           controller.setIndex(2);
-                        } else {
-                          AppUtils.showDialog(
+                        } else {                          AppUtils.showDialog(
                             context: context,
-                            title: "Email Verification Required",
-                            middleText:
-                                "To proceed, verify your email address.",
+                            title: AppLocalizations.of(context)!.emailVerificationRequired,
+                            middleText: AppLocalizations.of(context)!.emailVerificationMessage,
                             onFirstBtnPressed: () {
                               Get.back();
                               emailVerifyController.isSending.value = true;
@@ -100,7 +98,7 @@ class TabViewScreen extends StatelessWidget {
                               AppUtils.showBlurredLoaderDialog(context);
                             },
                             onSecondBtnPressed: () => Get.back(),
-                            firstBtnText: "Verify",
+                            firstBtnText: AppLocalizations.of(context)!.verify,
                           );
                         }
                       },
@@ -108,7 +106,7 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
-                      label: "Pair Chat",
+                      label: AppLocalizations.of(context)!.pairChat,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());

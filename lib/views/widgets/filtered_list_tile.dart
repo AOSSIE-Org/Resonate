@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FilteredListTile extends StatelessWidget {
   final Story story;
@@ -56,9 +57,8 @@ class FilteredListTile extends StatelessWidget {
                   fontStyle: FontStyle.normal,
                   fontFamily: 'Inter',
                 ),
-          ),
-          subtitle: Text(
-            'Created by ${story.creatorName}',
+          ),          subtitle: Text(
+            AppLocalizations.of(context)!.createdBy(story.creatorName),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(

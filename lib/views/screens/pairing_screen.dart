@@ -5,6 +5,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PairingScreen extends StatelessWidget {
   final PairChatController controller = Get.find<PairChatController>();
@@ -27,13 +28,13 @@ class PairingScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
           child: Column(
             children: [
-              _buildTitle(primaryColor),
+              _buildTitle(primaryColor, context),
               SizedBox(height: UiSizes.height_5),
-              _buildSubtitle(),
+              _buildSubtitle(context),
               const Spacer(),
               _buildLoadingIndicator(context, primaryColor, profileImageUrl),
               const Spacer(),
-              _buildFooter(primaryColor, onPrimaryColor),
+              _buildFooter(primaryColor, onPrimaryColor, context),
             ],
           ),
         ),
@@ -41,19 +42,17 @@ class PairingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(Color primaryColor) {
-    return Text(
-      "Finding a Random Partner For You",
+  Widget _buildTitle(Color primaryColor, BuildContext context) {    return Text(
+      AppLocalizations.of(context)!.findingRandomPartner,
       style: TextStyle(
         color: primaryColor,
         fontSize: Get.pixelRatio * 6.5,
       ),
     );
   }
-
-  Widget _buildSubtitle() {
+  Widget _buildSubtitle(BuildContext context) {
     return Text(
-      "Hang on, Good Things take time 🔍",
+      AppLocalizations.of(context)!.hangOnGoodThingsTakeTime,
       style: TextStyle(
         fontSize: UiSizes.size_14,
         color: Colors.grey.shade500,
@@ -92,32 +91,29 @@ class PairingScreen extends StatelessWidget {
       ],
     );
   }
-
-  Widget _buildFooter(Color primaryColor, Color onPrimaryColor) {
+  Widget _buildFooter(Color primaryColor, Color onPrimaryColor, BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
       child: Column(
         children: [
-          _buildQuickFact(primaryColor),
+          _buildQuickFact(primaryColor, context),
           SizedBox(height: UiSizes.height_15),
-          _buildCancelButton(primaryColor, onPrimaryColor),
+          _buildCancelButton(primaryColor, onPrimaryColor, context),
         ],
       ),
     );
   }
-
-  Widget _buildQuickFact(Color primaryColor) {
+  Widget _buildQuickFact(Color primaryColor, BuildContext context) {
     return Column(
       children: [
         Text(
-          "Quick fact",
+          AppLocalizations.of(context)!.quickFact,
           style: TextStyle(
             color: primaryColor,
             fontSize: Get.pixelRatio * 6.5,
           ),
-        ),
-        Text(
-          "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
+        ),        Text(
+          AppLocalizations.of(context)!.resonateOpenSourceProject,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: UiSizes.size_14,
@@ -128,16 +124,15 @@ class PairingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCancelButton(Color primaryColor, Color onPrimaryColor) {
+  Widget _buildCancelButton(Color primaryColor, Color onPrimaryColor, BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
         await controller.cancelRequest();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
-      ),
-      child: Text(
-        "Cancel",
+      ),      child: Text(
+        AppLocalizations.of(context)!.cancel,
         style: TextStyle(
           color: onPrimaryColor,
           fontSize: Get.pixelRatio * 8,

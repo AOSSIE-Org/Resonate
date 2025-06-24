@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpCommingListTile extends StatelessWidget {
   UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
@@ -110,9 +111,8 @@ class UpCommingListTile extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                  child: const Text(
-                    'Cancel',
+                  ),                  child: Text(
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -137,7 +137,7 @@ class UpCommingListTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: const Text('Start'),
+                  child: Text(AppLocalizations.of(context)!.start),
                 ),
               ],
             )
@@ -162,11 +162,10 @@ class UpCommingListTile extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                  child: Text(
+                  ),                  child: Text(
                     appwriteUpcommingRoom.hasUserSubscribed
-                        ? 'Unsubscribe'
-                        : 'Subscribe',
+                        ? AppLocalizations.of(context)!.unsubscribe
+                        : AppLocalizations.of(context)!.subscribe,
                   ),
                 ),
               ],

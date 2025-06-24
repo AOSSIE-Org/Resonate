@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,9 +40,8 @@ class EmailVerificationScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Enter your\nVerification Code",
+                      alignment: Alignment.centerLeft,                      child: Text(
+                        AppLocalizations.of(context)!.enterVerificationCode,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
@@ -59,9 +59,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                     ? Colors.black
                                     : Colors.white,
                           ),
-                          children: [
-                            const TextSpan(
-                              text: "We sent a 6-digit verification code to\n",
+                          children: [                            TextSpan(
+                              text: AppLocalizations.of(context)!.verificationCodeSent,
                             ),
                             TextSpan(
                               text: controller.authStateController.email,
@@ -102,15 +101,14 @@ class EmailVerificationScreen extends StatelessWidget {
                       '{"message":"null"}') {
                     String result =
                         await emailVerifyController.checkVerificationStatus();
-                    if (result == "true") {
-                      customSnackbar(
-                        "Verification Complete",
-                        "Congratulations you have verified your Email",
+                    if (result == "true") {                      customSnackbar(
+                        AppLocalizations.of(context)!.verificationComplete,
+                        AppLocalizations.of(context)!.congratulationsEmailVerified,
                         LogType.success,
                       );
 
                       SemanticsService.announce(
-                        "Congratulations you have verified your Email",
+                        AppLocalizations.of(context)!.congratulationsEmailVerified,
                         TextDirection.ltr,
                       );
                       await emailVerifyController.setVerified();
@@ -128,10 +126,8 @@ class EmailVerificationScreen extends StatelessWidget {
                         emailVerifyController.isVerifying.value = false;
 
                         // Close loading dialog
-                        Get.back();
-
-                        customSnackbar(
-                          'Oops',
+                        Get.back();                        customSnackbar(
+                          AppLocalizations.of(context)!.oops,
                           emailVerifyController
                               .responseSetVerified.responseBody,
                           LogType.error,
@@ -147,22 +143,19 @@ class EmailVerificationScreen extends StatelessWidget {
                       emailVerifyController.isVerifying.value = false;
 
                       // Close loading dialog
-                      Get.back();
-
-                      customSnackbar(
-                        "Verification Failed",
-                        "OTP mismatch occurred please try again",
+                      Get.back();                      customSnackbar(
+                        AppLocalizations.of(context)!.verificationFailed,
+                        AppLocalizations.of(context)!.otpMismatchError,
                         LogType.error,
                       );
 
                       SemanticsService.announce(
-                        "OTP mismatch occurred please try again",
+                        AppLocalizations.of(context)!.otpMismatchError,
                         TextDirection.ltr,
                       );
                     }
-                  } else {
-                    customSnackbar(
-                      'Oops',
+                  } else {                    customSnackbar(
+                      AppLocalizations.of(context)!.oops,
                       emailVerifyController.responseVerify.responseBody,
                       LogType.error,
                     );
@@ -182,20 +175,18 @@ class EmailVerificationScreen extends StatelessWidget {
                     ? GestureDetector(
                         onTap: () {
                           emailVerifyController.resendIsAllowed.value = false;
-                          emailVerifyController.sendOTP();
-                          customSnackbar(
-                            "OTP resent",
-                            "Please check your mail for a new OTP.",
+                          emailVerifyController.sendOTP();                          customSnackbar(
+                            AppLocalizations.of(context)!.otpResent,
+                            AppLocalizations.of(context)!.otpResentMessage,
                             LogType.info,
                           );
 
                           SemanticsService.announce(
-                            "Please check your mail for a new OTP.",
+                            AppLocalizations.of(context)!.otpResentMessage,
                             TextDirection.ltr,
                           );
-                        },
-                        child: Text(
-                          "Request a new code",
+                        },                        child: Text(
+                          AppLocalizations.of(context)!.requestNewCode,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -205,9 +196,8 @@ class EmailVerificationScreen extends StatelessWidget {
                     : MergeSemantics(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Request a new code in",
+                          children: [                            Text(
+                              AppLocalizations.of(context)!.requestNewCodeIn,
                               style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
@@ -238,9 +228,8 @@ class EmailVerificationScreen extends StatelessWidget {
                                 ringColor:
                                     Theme.of(context).colorScheme.onSecondary,
                               ),
-                            ),
-                            Text(
-                              "seconds.",
+                            ),                            Text(
+                              AppLocalizations.of(context)!.seconds,
                               style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,

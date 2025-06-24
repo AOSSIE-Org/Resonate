@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
@@ -67,9 +68,8 @@ class CreateRoomScreen extends StatelessWidget {
                       key: controller.createRoomFormKey,
                       child: Column(
                         children: [
-                          SizedBox(height: UiSizes.height_24_6),
-                          Text(
-                            "Create New Room",
+                          SizedBox(height: UiSizes.height_24_6),                          Text(
+                            AppLocalizations.of(context)!.createNewRoom,
                             style: TextStyle(
                               fontSize: Get.textScaleFactor * 35,
                               fontWeight: FontWeight.bold,
@@ -99,9 +99,8 @@ class CreateRoomScreen extends StatelessWidget {
                                               .colorScheme
                                               .primary,
                                       borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      'Live',
+                                    ),                                    child: Text(
+                                      AppLocalizations.of(context)!.live,
                                       style: TextStyle(
                                           fontSize: UiSizes.size_14,
                                           color: Theme.of(context).brightness ==
@@ -132,9 +131,8 @@ class CreateRoomScreen extends StatelessWidget {
                                               .colorScheme
                                               .secondary,
                                       borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Text(
-                                      'Scheduled',
+                                    ),                                    child: Text(
+                                      AppLocalizations.of(context)!.scheduled,
                                       style: TextStyle(
                                           fontSize: UiSizes.size_14,
                                           color: Theme.of(context).brightness ==
@@ -156,10 +154,9 @@ class CreateRoomScreen extends StatelessWidget {
                                     height: UiSizes.height_66,
                                     child: TextFormField(
                                       style:
-                                          TextStyle(fontSize: UiSizes.size_14),
-                                      validator: (value) => value!.isNotEmpty
+                                          TextStyle(fontSize: UiSizes.size_14),                                      validator: (value) => value!.isNotEmpty
                                           ? null
-                                          : "Please Enter Scheduled Date-Time",
+                                          : AppLocalizations.of(context)!.pleaseEnterScheduledDateTime,
                                       readOnly: true,
                                       controller: upcomingRoomsController
                                           .dateTimeController,
@@ -170,7 +167,7 @@ class CreateRoomScreen extends StatelessWidget {
                                           Icons.calendar_month,
                                           size: UiSizes.size_23,
                                         ),
-                                        labelText: "Schedule Date Time",
+                                        labelText: AppLocalizations.of(context)!.scheduleDateTimeLabel,
                                         labelStyle: TextStyle(
                                             fontSize: UiSizes.size_14),
                                         suffix: GestureDetector(
@@ -201,7 +198,7 @@ class CreateRoomScreen extends StatelessWidget {
                               minLines: 1,
                               maxLines: 13,
                               decoration: InputDecoration(
-                                hintText: "Give a great name..",
+                                hintText: AppLocalizations.of(context)!.giveGreatName,
 
                                 prefixIcon: Icon(Icons.edit,
                                     color: Theme.of(context)
@@ -224,7 +221,7 @@ class CreateRoomScreen extends StatelessWidget {
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
                               validator: (tag) {
-                                return controller.validateTag(tag);
+                                return controller.validateTag(tag, context);
                               },
                               inputFieldBuilder: (context, inputFieldValues) {
                                 return TextField(
@@ -234,10 +231,9 @@ class CreateRoomScreen extends StatelessWidget {
                                   controller:
                                       inputFieldValues.textEditingController,
                                   focusNode: inputFieldValues.focusNode,
-                                  decoration: InputDecoration(
-                                    hintText: inputFieldValues.tags.isNotEmpty
+                                  decoration: InputDecoration(                                    hintText: inputFieldValues.tags.isNotEmpty
                                         ? null
-                                        : "Enter tags",
+                                        : AppLocalizations.of(context)!.enterTags,
                                     filled: false,
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.all(16),
@@ -317,12 +313,11 @@ class CreateRoomScreen extends StatelessWidget {
                               cursorColor:
                                   Theme.of(context).colorScheme.primary,
                               maxLines: 10,
-                              maxLength: 500,
-                              decoration: const InputDecoration(
-                                hintText: "Room Description (optional)",
+                              maxLength: 500,                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!.roomDescriptionOptional,
                                 filled: false,
                                 border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.all(16),
                               ),
                             ),
                           ),

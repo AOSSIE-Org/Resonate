@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -57,37 +58,35 @@ class SettingsScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
+    return Scaffold(      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.settings),
       ),
       body: ListView(
-        children: [
-          titleText("Account settings"),
+        children: [          titleText(AppLocalizations.of(context)!.accountSettings),
           customTile(
-            str: "Account",
+            str: AppLocalizations.of(context)!.account,
             func: () {
               Get.toNamed(AppRoutes.userAccountScreen);
             },
           ),
           customDivider(),
-          titleText("App settings"),
+          titleText(AppLocalizations.of(context)!.appSettings),
           customTile(
-            str: "Themes",
+            str: AppLocalizations.of(context)!.themes,
             func: () {
               Get.toNamed(AppRoutes.themeScreen);
             },
           ),
           customTile(
-            str: "About",
+            str: AppLocalizations.of(context)!.about,
             func: () {
               Get.toNamed(AppRoutes.aboutApp);
             },
           ),
           customDivider(),
-          titleText("Other"),
+          titleText(AppLocalizations.of(context)!.other),
           customTile(
-            str: "Contribute",
+            str: AppLocalizations.of(context)!.contribute,
             func: () {
               Get.toNamed(AppRoutes.contributeScreen);
             },
@@ -98,10 +97,9 @@ class SettingsScreen extends StatelessWidget {
               horizontal: padding,
             ),
             textColor: Colors.redAccent,
-            iconColor: Colors.redAccent,
-            title: const Text(
-              "Log out",
-              style: TextStyle(
+            iconColor: Colors.redAccent,            title: Text(
+              AppLocalizations.of(context)!.logOut,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),

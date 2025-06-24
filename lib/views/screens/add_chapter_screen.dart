@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
@@ -37,18 +38,16 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: Text('Add New Chapters to ${widget.storyName}'),
+      backgroundColor: Theme.of(context).colorScheme.surface,      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.addNewChaptersToStory(widget.storyName)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Current Chapters',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          children: [            Text(
+              AppLocalizations.of(context)!.currentChapters,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -79,10 +78,9 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'New Chapters',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            const SizedBox(height: 10),            Text(
+              AppLocalizations.of(context)!.newChapters,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -160,7 +158,7 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                       Navigator.pop(Get.context!);
                     }
                   },
-                  child: const Text("Push New Chapters"))
+                  child: Text(AppLocalizations.of(context)!.pushNewChapters))
             ],
           ),
         ),

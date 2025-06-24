@@ -50,23 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(
                       height: UiSizes.height_60,
-                    ),
-                    Text(
-                      "Login",
+                    ),                    Text(
+                      AppLocalizations.of(context)!.login,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(
                       height: UiSizes.height_40,
                     ),
-                    TextFormField(
-                      validator: (value) => value!.isValidEmail()
+                    TextFormField(                      validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Enter Valid Email Address",
+                          : AppLocalizations.of(context)!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
                     SizedBox(
@@ -131,9 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Theme.of(context).colorScheme.onPrimary,
                                     size: UiSizes.size_40,
                                   ),
-                                )
-                              : const Text(
-                                  "Login",
+                                )                              : Text(
+                                  AppLocalizations.of(context)!.login,
                                 ),
                         ),
                       ),
@@ -144,9 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(AppRoutes.forgotPassword);
-                      },
-                      child: Text(
-                        "Forgot Password?",
+                      },                      child: Text(
+                        AppLocalizations.of(context)!.forgotPassword,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -155,9 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("New to Resonate? "),
+                  mainAxisAlignment: MainAxisAlignment.center,                  children: [
+                    Text(AppLocalizations.of(context)!.newToResonate),
                     GestureDetector(
                       onTap: () {
                         controller.emailController.clear();
@@ -168,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.offNamed(AppRoutes.signup);
                       },
                       child: Text(
-                        "Register",
+                        AppLocalizations.of(context)!.register,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,

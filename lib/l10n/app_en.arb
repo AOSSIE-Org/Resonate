@@ -60,5 +60,395 @@
     "currentPassword": "Current Password",
     "emailChangeInfo": "For added security, you must provide your account's current password when changing your email address. After changing your email, use the updated email for future logins.",
     "oauthUsersMessage": "(Only for users who logged in using Google or Github)",
-    "oauthUsersEmailChangeInfo": "To change your email, please enter a new password in the \"Current Password\" field. Be sure to remember this password, as you'll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination."
+    "oauthUsersEmailChangeInfo": "To change your email, please enter a new password in the \"Current Password\" field. Be sure to remember this password, as you'll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.",
+    "resonateTagline": "Enter a world of limitless\nconversations.",
+    "signInWithEmail": "Sign in with Email",
+    "or": "Or",
+    "continueWith": "Continue with",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGitHub": "Continue with GitHub",
+    "resonateLogo": "Resonate Logo",
+    "iAlreadyHaveAnAccount": "I already have an account",
+    "createNewAccount": "Create new account",
+    "userProfile": "User profile",
+    "passwordIsStrong": "Password is strong",
+    "admin": "Admin",
+    "moderator": "Moderator",
+    "speaker": "Speaker",
+    "listener": "Listener",
+    "removeModerator": "Remove Moderator",
+    "kickOut": "Kick Out",
+    "addModerator": "Add Moderator",
+    "addSpeaker": "Add Speaker",
+    "makeListener": "Make Listener",
+    "pairChat": "Pair Chat",
+    "chooseIdentity": "Choose Identity",
+    "selectLanguage": "Select Language",
+    "noConnection": "No Connection",
+    "loadingDialog": "Loading Dialog",
+    "createAccount": "Create Account",
+    "enterValidEmailAddress": "Enter Valid Email Address",
+    "email": "Email",
+    "passwordRequirements": "Password must be at least 8 characters long",
+    "includeNumericDigit": "Include at least 1 numeric digit",
+    "includeUppercase": "Include at least 1 uppercase letter",
+    "includeLowercase": "Include at least 1 lowercase letter",
+    "includeSymbol": "Include at least 1 symbol",
+    "signedUpSuccessfully": "Signed Up Successfully",
+    "newAccountCreated": "You have successfully created a new account",
+    "signUp": "Sign up",
+    "login": "Login",
+    "settings": "Settings",
+    "accountSettings": "Account settings",
+    "account": "Account",
+    "appSettings": "App settings",
+    "themes": "Themes",
+    "about": "About",
+    "other": "Other",
+    "contribute": "Contribute",
+    "logOut": "Log out",
+    "participants": "Participants",
+    "delete": "delete",
+    "leave": "leave",
+    "leaveButton": "Leave",
+    "findingRandomPartner": "Finding a Random Partner For You",
+    "quickFact": "Quick fact",
+    "cancel": "Cancel",
+    "completeYourProfile": "Complete your Profile",
+    "uploadProfilePicture": "Upload profile picture",
+    "enterValidName": "Enter Valid Name",
+    "name": "Name",
+    "username": "Username",
+    "enterValidDOB": "Enter Valid DOB",
+    "dateOfBirth": "Date of Birth",
+    "forgotPassword": "Forgot Password?",
+    "next": "Next",
+    "noStoriesExist": "No stories exist to present",
+    "enterVerificationCode": "Enter your\nVerification Code",
+    "verificationCodeSent": "We sent a 6-digit verification code to\n",
+    "verificationComplete": "Verification Complete",
+    "verificationCompleteMessage": "Congratulations you have verified your Email",
+    "verificationFailed": "Verification Failed",
+    "otpMismatch": "OTP mismatch occurred please try again",
+    "otpResent": "OTP resent",
+    "requestNewCode": "Request a new code",
+    "requestNewCodeIn": "Request a new code in",
+    "clickPictureCamera": "Click picture using camera",
+    "pickImageGallery": "Pick image from gallery",
+    "deleteMyAccount": "Delete My Account",
+    "createNewRoom": "Create New Room",
+    "pleaseEnterScheduledDateTime": "Please Enter Scheduled Date-Time",
+    "scheduleDateTimeLabel": "Schedule Date Time",
+    "enterTags": "Enter tags",
+    "joinCommunity": "Join Community",
+    "followUsOnX": "Follow us on X",
+    "joinDiscordServer": "Join discord server",
+    "noLyrics": "No lyrics",
+    "aboutSection": "About",
+    "noStoriesInCategory": "No stories currently exist in the {categoryName} category to present",
+    "@noStoriesInCategory": {
+        "description": "Message when no stories exist in a category",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "pushNewChapters": "Push New Chapters",
+    "helpToGrow": "Help to grow",
+    "share": "Share",
+    "rate": "Rate",
+    "aboutResonate": "About Resonate",
+    "description": "Description",
+    "confirm": "Confirm",
+    "classic": "Classic",
+    "time": "Time",
+    "vintage": "Vintage",
+    "amber": "Amber",
+    "forest": "Forest",
+    "cream": "Cream",
+    "none": "none",
+    "checkOutGitHub": "Check out our GitHub repository: {url}",
+    "@checkOutGitHub": {
+        "description": "Share message for GitHub repository",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
+    },
+    "aossie": "AOSSIE",
+    "aossieLogo": "aossie logo",
+    "errorLoadPackageInfo": "Could not load package info",
+    "updateAvailable": "Update Available",
+    "newVersionAvailable": "A new version is available!",
+    "upToDate": "Up to Date",
+    "latestVersion": "You're using the latest version",
+    "profileCreatedSuccessfully": "Profile created successfully",
+    "invalidScheduledDateTime": "Invalid Scheduled Date Time",
+    "scheduledDateTimePast": "Scheduled Date Time cannot be in past",
+    "joinRoom": "Join Room",
+    "loadingDialogName": "Loading Dialog",
+    "unknownUser": "Unknown",
+    "canceled": "canceled",
+    "english": "en",
+    "emailVerificationRequired": "Email Verification Required",
+    "verify": "Verify",
+    "audioRoom": "Audio Room",
+    "toRoomAction": "To {action} the room",
+    "@toRoomAction": {
+        "description": "Room action message",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "delete"
+            }
+        }
+    },
+    "mailSentMessage": "mail sent",
+    "disconnected": "disconnected",
+    "micOn": "mic",
+    "speakerOn": "speaker",
+    "endChat": "end-chat",
+    "monthJan": "Jan",
+    "monthFeb": "Feb",
+    "monthMar": "March",
+    "monthApr": "April",
+    "monthMay": "May",
+    "monthJun": "June",
+    "monthJul": "July",
+    "monthAug": "Aug",
+    "monthSep": "Sep",
+    "monthOct": "Oct",
+    "monthNov": "Nov",
+    "monthDec": "Dec",
+    "register": "Register",
+    "newToResonate": "New to Resonate? ",
+    "alreadyHaveAccount": "Already have an account? ",
+    "checking": "Checking...",
+    "forgotPasswordMessage": "Enter your registered email address to reset your password.",
+    "usernameUnavailable": "Username Unavailable!",
+    "usernameInvalidOrTaken": "This username is invalid or either taken already.",
+    "otpResentMessage": "Please check your mail for a new OTP.",
+    "connectionError": "There is a connection error. Please check your internet and try again.",
+    "seconds": "seconds.",
+    "unsavedChangesWarning": "If you proceed without saving, any unsaved changes will be lost.",
+    "deleteAccountPermanent": "This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.",
+    "giveGreatName": "Give a great name..",
+    "joinCommunityDescription": "By joining community you can Clear your doubts, Suggest for new features, Report issues you faced and More.",
+    "resonateDescription": "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+    "resonateFullDescription": "Resonate is a revolutionary voice-based social media platform where every voice matters. \nJoin real-time audio conversations, participate in diverse discussions, and connect with \nlike-minded individuals. Our platform offers:\n- Live audio rooms with topic-based discussions\n- Seamless social networking through voice\n- Community-driven content moderation\n- Cross-platform compatibility\n- End-to-end encrypted private conversations\n\nDeveloped by the AOSSIE open source community, we prioritize user privacy and \ncommunity-driven development. Join us in shaping the future of social audio!",
+    "stable": "Stable",
+    "congratulationsEmailVerified": "Congratulations you have verified your Email",
+    "otpMismatchError": "OTP mismatch occurred please try again",
+    "usernameCharacterLimit": "Username should contain more than 5 characters.",
+    "submit": "Submit",
+    "anonymous": "Anonymous",
+    "resonate": "Resonate",
+    "noSearchResults": "No Search Results",
+    "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!",
+    "@shareRoomMessage": {
+        "description": "Message to share room information",
+        "placeholders": {
+            "roomName": {
+                "type": "String",
+                "example": "Discussion Room"
+            },
+            "description": {
+                "type": "String",
+                "example": "A great place to discuss"
+            },
+            "participants": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "participantsCount": "{count} Participants",
+    "@participantsCount": {
+        "description": "Number of participants in a room",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "join": "Join",
+    "invalidTags": "Invalid Tag:",
+    "cropImage": "Crop Image",
+    "profileSavedSuccessfully": "Profile updated",
+    "profileUpdatedSuccessfully": "All changes are saved successfully.",
+    "profileUpToDate": "Profile up to date",
+    "noChangesToSave": "There are no new changes made, Nothing to save.",
+    "connectionFailed": "Connection Failed",
+    "unableToJoinRoom": "Unable to join the room. Please check your network and try again.",
+    "connectionLost": "Connection Lost",
+    "unableToReconnect": "Unable to reconnect to the room. Please try rejoining.",    "invalidFormat": "Invalid Format!",
+    "usernameAlphanumeric": "Username must be alphanumeric and should not contain special characters.",
+    "userProfileCreatedSuccessfully": "Your user profile is successfully created.",
+    "emailVerificationMessage": "To proceed, verify your email address.",
+    "addNewChaptersToStory": "Add New Chapters to {storyName}",
+    "@addNewChaptersToStory": {
+        "description": "Title for adding new chapters to a story",
+        "placeholders": {
+            "storyName": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "currentChapters": "Current Chapters",
+    "newChapters": "New Chapters",
+    "sourceCodeOnGitHub": "Source code on GitHub",
+    "createAChapter": "Create a Chapter",
+    "chapterTitle": "Chapter Title *",
+    "aboutRequired": "About *",
+    "changeCoverImage": "Change Cover Image",
+    "uploadAudioFile": "Upload Audio File",
+    "uploadLyricsFile": "Upload Lyrics File",
+    "createChapter": "Create Chapter",
+    "audioFileSelected": "Audio file Selected: {fileName}",
+    "@audioFileSelected": {
+        "description": "Message when audio file is selected",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "audio.mp3"
+            }
+        }
+    },
+    "lyricsFileSelected": "Lyrics File Selected: {fileName}",
+    "@lyricsFileSelected": {
+        "description": "Message when lyrics file is selected",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "lyrics.txt"
+            }
+        }
+    },    "fillAllRequiredFields": "Please fill in all required fields and upload your Audio file and Lyrics file",
+    "scheduled": "Scheduled",    "ok": "OK",    "roomDescriptionOptional": "Room Description (optional)",
+    "deleteAccount": "Delete account",
+    "createYourStory": "Create Your Story",
+    "titleRequired": "Title *",
+    "category": "Category *",
+    "addChapter": "Add Chapter",
+    "createStory": "Create Story",    "fillAllRequiredFieldsAndChapter": "Please fill in all required fields, add at least one chapter, and select a cover image.",
+    "toConfirmType": "To confirm, type",
+    "inTheBoxBelow": "in the box below",    "iUnderstandDeleteMyAccount": "I understand, Delete My Account",
+    "whatDoYouWantToListenTo": "What do you want to listen to?",
+    "categories": "Categories",
+    "stories": "Stories",    "someSuggestions": "Some Suggestions",
+    "getStarted": "Get Started",
+    "skip": "Skip",
+    "welcomeToResonate": "Welcome to Resonate",
+    "exploreDiverseConversations": "Explore Diverse Conversations",
+    "yourVoiceMatters": "Your Voice Matters",
+    "joinConversationExploreRooms": "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+    "diveIntoDiverseDiscussions": "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",    "atResonateEveryVoiceValued": "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
+    "notifications": "Notifications",
+    "taggedYouInUpcomingRoom": "{username} tagged you in an upcoming room: {subject}",
+    "@taggedYouInUpcomingRoom": {
+        "description": "Notification message when tagged in upcoming room",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "taggedYouInRoom": "{username} tagged you in room: {subject}",
+    "@taggedYouInRoom": {
+        "description": "Notification message when tagged in room",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "likedYourStory": "{username} liked your story: {subject}",
+    "@likedYourStory": {
+        "description": "Notification message when someone likes your story",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "subscribedToYourRoom": "{username} subscribed to your room: {subject}",
+    "@subscribedToYourRoom": {
+        "description": "Notification message when someone subscribes to your room",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Room"
+            }
+        }
+    },
+    "startedFollowingYou": "{username} started following you",
+    "@startedFollowingYou": {
+        "description": "Notification message when someone starts following you",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },    "youHaveNewNotification": "You have a new notification",
+    "hangOnGoodThingsTakeTime": "Hang on, Good Things take time 🔍",    "resonateOpenSourceProject": "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
+    "mute": "Mute",
+    "speakerLabel": "Speaker",    "end": "End",
+    "saveChanges": "Save changes",
+    "discard": "DISCARD",
+    "save": "SAVE",
+    "changeProfilePicture": "Change profile picture",
+    "camera": "Camera",
+    "gallery": "Gallery",    "remove": "Remove",
+    "created": "Created {date}",
+    "@created": {
+        "description": "Story creation date",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "Jan 15, 2023"
+            }
+        }
+    },
+    "aboutStory": "About",
+    "chapters": "Chapters",
+    "deleteStory": "Delete Story",
+    "createdBy": "Created by {creatorName}",
+    "@createdBy": {
+        "description": "Story creator information",
+        "placeholders": {
+            "creatorName": {
+                "type": "String",
+                "example": "John Doe"
+            }
+        }
+    },
+    "start": "Start",
+    "unsubscribe": "Unsubscribe",
+    "subscribe": "Subscribe"
 }

@@ -11,6 +11,7 @@ import 'package:resonate/views/widgets/filtered_list_tile.dart';
 import 'package:resonate/views/widgets/no_match_view.dart';
 import 'package:resonate/views/widgets/story_card.dart';
 import 'package:resonate/views/widgets/story_list_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -91,7 +92,7 @@ class _ExplorePageBodyState extends State<ExplorePageBody> {
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).colorScheme.secondary,
               filled: true,
-              hintText: 'What do you want to listen to?',
+              hintText: AppLocalizations.of(context)!.whatDoYouWantToListenTo,
               hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
@@ -139,9 +140,8 @@ class ExplorePageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Categories',
+      children: [        Text(
+          AppLocalizations.of(context)!.categories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -173,9 +173,8 @@ class ExplorePageContent extends StatelessWidget {
               );
             },
           ),
-        ),
-        Text(
-          'Stories',
+        ),        Text(
+          AppLocalizations.of(context)!.stories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -225,7 +224,7 @@ class ExplorePageContent extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text("No stories exist to present")
+                          Text(AppLocalizations.of(context)!.noStoriesExist)
                         ],
                       )
                 : Center(
@@ -242,9 +241,8 @@ class ExplorePageContent extends StatelessWidget {
         ),
         const SizedBox(
           height: 35,
-        ),
-        Text(
-          'Some Suggestions',
+        ),        Text(
+          AppLocalizations.of(context)!.someSuggestions,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -289,11 +287,10 @@ class ExplorePageContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                              height: 200, width: 200, AppImages.emptyBoxImage),
-                          const SizedBox(
+                              height: 200, width: 200, AppImages.emptyBoxImage),                          const SizedBox(
                             height: 10,
                           ),
-                          const Text("No stories exist to present")
+                          Text(AppLocalizations.of(context)!.noStoriesExist)
                         ],
                       )
                 : Center(

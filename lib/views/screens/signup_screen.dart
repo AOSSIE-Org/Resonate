@@ -63,23 +63,21 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     SizedBox(
                       height: UiSizes.height_20,
-                    ),
-                    Text(
-                      "Create Account",
+                    ),                    Text(
+                      AppLocalizations.of(context)!.createAccount,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(
                       height: UiSizes.height_40,
                     ),
-                    TextFormField(
-                      validator: (value) => value!.isValidEmail()
+                    TextFormField(                      validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Enter Valid Email Address",
+                          : AppLocalizations.of(context)!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
                     SizedBox(
@@ -96,10 +94,9 @@ class _SignupScreenState extends State<SignupScreen> {
                         onChanged: (value) => passwordStrengthCheckerController
                             .passwordValidator(value),
                         enableSuggestions: false,
-                        autocorrect: false,
-                        decoration: InputDecoration(
+                        autocorrect: false,                        decoration: InputDecoration(
                           errorMaxLines: 2,
-                          hintText: "Password",
+                          hintText: AppLocalizations.of(context)!.password,
                           suffixIcon: Semantics(
                             label: (controller.isPasswordFieldVisible.value)
                                 ? AppLocalizations.of(context)!.hidePassword
@@ -187,8 +184,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   : 0,
                           child: SizedBox(
                               height: UiSizes.height_45,
-                              width: Get.width,
-                              child: PasswordStrengthIndicator(
+                              width: Get.width,                              child: PasswordStrengthIndicator(
                                 isPasswordEightCharacters:
                                     passwordStrengthCheckerController
                                         .isPasswordEightCharacters.value,
@@ -201,14 +197,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 hasOneSymbol: passwordStrengthCheckerController
                                     .hasOneSymbol.value,
                                 passwordSixCharactersTitle:
-                                    "Password must be at least 8 characters long",
+                                    AppLocalizations.of(context)!.passwordRequirements,
                                 hasOneDigitTitle:
-                                    "Include at least 1 numeric digit",
+                                    AppLocalizations.of(context)!.includeNumericDigit,
                                 hasUpperCaseTitle:
-                                    "Include at least 1 uppercase letter",
+                                    AppLocalizations.of(context)!.includeUppercase,
                                 hasLowerCaseTitle:
-                                    "Include at least 1 lowercase letter",
-                                hasOneSymbolTitle: "Include at least 1 symbol",
+                                    AppLocalizations.of(context)!.includeLowercase,
+                                hasOneSymbolTitle: AppLocalizations.of(context)!.includeSymbol,
+                                passStrengthVerifiedText: AppLocalizations.of(context)!.passwordIsStrong,
                                 validatedChecks:
                                     passwordStrengthCheckerController
                                         .validatedChecks.value,
@@ -228,17 +225,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                     .validate()) {
                                   emailVerifyController.signUpIsAllowed.value =
                                       false;
-                                  var isSignedIn = await controller.signup();
+                                  var isSignedIn = await controller.signup(context);
                                   if (isSignedIn) {
-                                    Get.toNamed(AppRoutes.onBoarding);
-                                    customSnackbar(
-                                      "Signed Up Successfully",
-                                      "You have successfully created a new account",
+                                    Get.toNamed(AppRoutes.onBoarding);                                    customSnackbar(
+                                      AppLocalizations.of(context)!.signedUpSuccessfully,
+                                      AppLocalizations.of(context)!.newAccountCreated,
                                       LogType.success,
                                     );
 
                                     SemanticsService.announce(
-                                      "You have successfully created a new account",
+                                      AppLocalizations.of(context)!.newAccountCreated,
                                       TextDirection.ltr,
                                     );
                                     emailVerifyController
@@ -258,18 +254,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                       Theme.of(context).colorScheme.onPrimary,
                                   size: UiSizes.size_40,
                                 ),
-                              )
-                            : const Text(
-                                "Sign up",
+                              )                            : Text(
+                                AppLocalizations.of(context)!.signUp,
                               ),
                       ),
                     ),
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Already have an account? "),
+                  mainAxisAlignment: MainAxisAlignment.center,                  children: [
+                    Text(AppLocalizations.of(context)!.alreadyHaveAccount),
                     GestureDetector(
                       onTap: () {
                         controller.emailController.clear();
@@ -280,7 +274,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Get.offNamed(AppRoutes.loginScreen);
                       },
                       child: Text(
-                        "Login",
+                        AppLocalizations.of(context)!.login,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,

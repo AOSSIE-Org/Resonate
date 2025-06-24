@@ -231,9 +231,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 40),
-                            Text(
-                              'Created ${widget.story.creationDate.formatDateTime()}',
+                            const SizedBox(height: 40),                            Text(
+                              AppLocalizations.of(context)!.created(widget.story.creationDate.formatDateTime()),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
@@ -264,9 +263,8 @@ class _StoryScreenState extends State<StoryScreen> {
                               // About Section
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  'About',
+                                    horizontal: 16.0),                                child: Text(
+                                  AppLocalizations.of(context)!.aboutStory,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -312,9 +310,8 @@ class _StoryScreenState extends State<StoryScreen> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0,
-                                ),
-                                child: Text(
-                                  'Chapters',
+                                ),                                child: Text(
+                                  AppLocalizations.of(context)!.chapters,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -374,7 +371,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                                         widget.story.chapters,
                                                   )));
                                     },
-                                    child: const Text('Add Chapter'),
+                                    child: Text(AppLocalizations.of(context)!.addChapter),
                                   ),
                                 ),
                                 const SizedBox(height: 20),
@@ -393,9 +390,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                       await exploreStoryController
                                           .fetchStoryRecommendation();
                                       Navigator.pop(Get.context!);
-                                    },
-                                    child: const Text(
-                                      'Delete Story',
+                                    },                                    child: Text(
+                                      AppLocalizations.of(context)!.deleteStory,
                                     ),
                                   ),
                                 ),

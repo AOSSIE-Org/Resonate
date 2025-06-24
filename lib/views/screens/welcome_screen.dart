@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -25,10 +26,9 @@ class WelcomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
-              children: [
-                SvgPicture.asset(
+              children: [                SvgPicture.asset(
                   "assets/svg/resonate_logo_white.svg",
-                  semanticsLabel: "Resonate Logo",
+                  semanticsLabel: AppLocalizations.of(context)!.resonateLogo,
                   height: UiSizes.height_110,
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.primary,
@@ -39,15 +39,14 @@ class WelcomeScreen extends StatelessWidget {
                   height: UiSizes.height_10,
                 ),
                 Text(
-                  "Resonate",
+                  AppLocalizations.of(context)!.title,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: UiSizes.size_28,
                   ),
                 ),
               ],
-            ),
-            Text('"Enter a world of limitless\nconversations."',
+            ),            Text(AppLocalizations.of(context)!.resonateTagline,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium),
             Column(
@@ -63,9 +62,8 @@ class WelcomeScreen extends StatelessWidget {
                         context: context,
                         builder: (context) => welcomeScreenDialog(context),
                       );
-                    },
-                    child: const Text(
-                      "Sign in with Email",
+                    },                    child: Text(
+                      AppLocalizations.of(context)!.signInWithEmail,
                     ),
                   ),
                 ),
@@ -80,9 +78,8 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           child: const Divider(),
                         ),
-                      ),
-                      Text(
-                        "Or",
+                      ),                      Text(
+                        AppLocalizations.of(context)!.or,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Expanded(
@@ -95,9 +92,8 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Text(
-                  "Continue with",
+                ),                Text(
+                  AppLocalizations.of(context)!.continueWith,
                   style: TextStyle(
                     fontSize: UiSizes.size_20,
                     fontWeight: FontWeight.w500,
@@ -113,7 +109,7 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: "Continue with Google",
+                        tooltip: AppLocalizations.of(context)!.continueWithGoogle,
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
@@ -135,7 +131,7 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: "Continue with GitHub",
+                        tooltip: AppLocalizations.of(context)!.continueWithGitHub,
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,

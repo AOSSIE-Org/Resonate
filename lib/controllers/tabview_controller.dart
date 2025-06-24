@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -54,9 +55,8 @@ class TabViewController extends GetxController {
       bool isUserLoggedIn = await Get.find<AuthStateController>().getLoginState;
       if (isUserLoggedIn) {
         AppwriteRoom appwriteRoom =
-            await Get.find<RoomsController>().getRoomById(roomId);
-        Get.defaultDialog(
-            title: "Join Room",
+            await Get.find<RoomsController>().getRoomById(roomId);        Get.defaultDialog(
+            title: AppLocalizations.of(Get.context!)!.joinRoom,
             titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
             content: Column(
               children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],

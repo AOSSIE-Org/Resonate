@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class PasswordStrengthIndicator extends StatelessWidget {
-  const PasswordStrengthIndicator({
+class PasswordStrengthIndicator extends StatelessWidget {  const PasswordStrengthIndicator({
     super.key,
     required this.isPasswordEightCharacters,
     required this.hasOneDigit,
@@ -16,6 +16,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     required this.validatedChecks,
     required this.hasOneSymbol,
     required this.hasOneSymbolTitle,
+    required this.passStrengthVerifiedText,
   });
 
   final bool isPasswordEightCharacters;
@@ -31,7 +32,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   final int validatedChecks;
 
-  final String passStrengthVerifiedText = "Password is strong";
+  final String passStrengthVerifiedText;
 
   @override
   Widget build(BuildContext context) {

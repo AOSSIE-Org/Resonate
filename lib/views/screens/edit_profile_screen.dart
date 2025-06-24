@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/edit_profile_controller.dart';
@@ -206,7 +207,7 @@ class EditProfileScreen extends StatelessWidget {
 
   Future<void> saveChangesDialogue(BuildContext context) async {
     Get.defaultDialog(
-      title: 'Save changes',
+      title: AppLocalizations.of(context)!.saveChanges,
       titleStyle: const TextStyle(fontWeight: FontWeight.w500),
       titlePadding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
       content: Text(
@@ -227,9 +228,8 @@ class EditProfileScreen extends StatelessWidget {
                 onPressed: () {
                   Get.back();
                   Get.back();
-                },
-                child: const Text(
-                  'DISCARD',
+                },                child: Text(
+                  AppLocalizations.of(context)!.discard,
                   style: TextStyle(
                     letterSpacing: 2,
                     color: Colors.redAccent,
@@ -241,9 +241,8 @@ class EditProfileScreen extends StatelessWidget {
                 onPressed: () async {
                   Get.back();
                   await editProfileController.saveProfile();
-                },
-                child: Text(
-                  'SAVE',
+                },                child: Text(
+                  AppLocalizations.of(context)!.save,
                   style: TextStyle(
                     letterSpacing: 2,
                     color: Theme.of(context).colorScheme.primary,
@@ -279,9 +278,8 @@ class EditProfileScreen extends StatelessWidget {
         top: UiSizes.height_30,
         bottom: UiSizes.height_60,
       ),
-      children: [
-        Text(
-          'Change profile picture',
+      children: [        Text(
+          AppLocalizations.of(context)!.changeProfilePicture,
           style: TextStyle(
             fontSize: UiSizes.size_20,
             fontWeight: FontWeight.w500,
@@ -310,7 +308,7 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   iconSize: UiSizes.size_56,
                 ),
-                const Text('Camera')
+                Text(AppLocalizations.of(context)!.camera)
               ],
             ),
             Column(
@@ -330,7 +328,7 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   iconSize: UiSizes.size_56,
                 ),
-                const Text('Gallery')
+                Text(AppLocalizations.of(context)!.gallery)
               ],
             ),
             if (authStateController.profileImageUrl != null)
@@ -347,7 +345,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     iconSize: UiSizes.size_56,
                   ),
-                  const Text('Remove')
+                  Text(AppLocalizations.of(context)!.remove)
                 ],
               ),
           ],

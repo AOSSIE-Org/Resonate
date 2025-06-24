@@ -63,7 +63,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<bool> signup() async {
+  Future<bool> signup(BuildContext context) async {
     try {
       isLoading.value = true;
       await authStateController.signup(
@@ -72,9 +72,8 @@ class AuthenticationController extends GetxController {
       );
       return true;
     } catch (e) {
-      log(e.toString());
-      customSnackbar(
-        'Oops',
+      log(e.toString());      customSnackbar(
+        AppLocalizations.of(context)!.oops,
         e.toString(),
         LogType.error,
       );

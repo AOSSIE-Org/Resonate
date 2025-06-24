@@ -8,6 +8,7 @@ import 'package:resonate/models/chapter.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utils/ui_sizes.dart';
 import 'create_chapter_screen.dart';
 
@@ -34,12 +35,12 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Please fill in all required fields, add at least one chapter, and select a cover image.'),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(
+              AppLocalizations.of(context)!.fillAllRequiredFieldsAndChapter),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
@@ -96,24 +97,22 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,        appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            'Create Your Story',
+          title: Text(
+            AppLocalizations.of(context)!.createYourStory,
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              crossAxisAlignment: CrossAxisAlignment.start,              children: [
                 // Title Input
                 TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                      labelText: 'Title *',
+                      labelText: AppLocalizations.of(context)!.titleRequired,
                       labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 127, 130, 131),
                       ),
@@ -136,9 +135,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
 
                 // Category Dropdown
                 DropdownButtonFormField<StoryCategory>(
-                  value: selectedCategory,
-                  decoration: InputDecoration(
-                    labelText: 'Category *',
+                  value: selectedCategory,                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.category,
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(
@@ -180,9 +178,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 // About Story Input
                 TextField(
                   controller: aboutController,
-                  maxLength: 2000,
-                  decoration: InputDecoration(
-                    labelText: 'About *',
+                  maxLength: 2000,                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.aboutRequired,
                     labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 127, 130, 131)),
                     enabledBorder: OutlineInputBorder(
@@ -239,15 +236,14 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                             boxShadow: const [
                               BoxShadow(color: Colors.black12, blurRadius: 4)
                             ],
-                          ),
-                          child: const Column(
+                          ),                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.change_circle,
+                              const Icon(Icons.change_circle,
                                   size: 50, color: Colors.grey),
                               Text(
-                                'Change Cover Image',
+                                AppLocalizations.of(context)!.changeCoverImage,
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -296,9 +292,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                               CreateChapterScreen(onChapterCreated: addChapter),
                         ),
                       );
-                    },
-                    icon: const Icon(Icons.add),
-                    label: const Text('Add Chapter'),
+                    },                    icon: const Icon(Icons.add),
+                    label: Text(AppLocalizations.of(context)!.addChapter),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue, // button color
                     ),
@@ -309,11 +304,10 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 // Create Story Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: createStory,
-                    style: ElevatedButton.styleFrom(
+                    onPressed: createStory,                    style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    child: const Text('Create Story'),
+                    child: Text(AppLocalizations.of(context)!.createStory),
                   ),
                 ),
               ],

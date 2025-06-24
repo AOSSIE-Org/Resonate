@@ -112,7 +112,7 @@ class PairChatScreen extends StatelessWidget {
           children: [
             _buildControlButton(
               icon: controller.isMicOn.value ? Icons.mic : Icons.mic_off,
-              label: 'Mute',
+              label: AppLocalizations.of(context)!.mute,
               onPressed: controller.toggleMic,
               backgroundColor: controller.isMicOn.value
                   ? _getControlButtonBackgroundColor(currentBrightness)
@@ -121,7 +121,7 @@ class PairChatScreen extends StatelessWidget {
             ),
             _buildControlButton(
               icon: Icons.volume_up,
-              label: 'Speaker',
+              label: AppLocalizations.of(context)!.speakerLabel,
               onPressed: controller.toggleLoudSpeaker,
               backgroundColor: controller.isLoudSpeakerOn.value
                   ? Theme.of(context).colorScheme.primary
@@ -130,7 +130,7 @@ class PairChatScreen extends StatelessWidget {
             ),
             _buildControlButton(
               icon: Icons.cancel_outlined,
-              label: 'End',
+              label: AppLocalizations.of(context)!.end,
               onPressed: () async {
                 await controller.endChat();
               },

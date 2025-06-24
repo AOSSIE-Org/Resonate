@@ -1,24 +1,26 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class AppUtils {
   AppUtils._();
-
   static void showDialog({
     required BuildContext context,
     required String title,
     required String middleText,
-    String firstBtnText = "Confirm",
-    String secondBtnText = "Cancel",
+    String? firstBtnText,
+    String? secondBtnText,
     required VoidCallback onFirstBtnPressed,
     required VoidCallback onSecondBtnPressed,
     TextStyle? firstBtnTextStyle,
     TextStyle? secondBtnTextStyle,
   }) {
+    final localizations = AppLocalizations.of(context)!;
+    
     Get.defaultDialog(
       title: title,
       middleText: middleText,
@@ -46,7 +48,7 @@ class AppUtils {
             ),
           ),
           child: Text(
-            firstBtnText,
+            firstBtnText ?? localizations.confirm,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: UiSizes.size_14,
@@ -64,7 +66,7 @@ class AppUtils {
             ),
           ),
           child: Text(
-            secondBtnText,
+            secondBtnText ?? localizations.cancel,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: UiSizes.size_14,

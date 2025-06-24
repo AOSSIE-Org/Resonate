@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/delete_account_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   const DeleteAccountScreen({super.key});
@@ -11,9 +12,8 @@ class DeleteAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthStateController authStateController = Get.put(AuthStateController());
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Delete Account'),
+    return Scaffold(      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.deleteAccount),
       ),
       body: GetBuilder<DeleteAccountController>(
         init: DeleteAccountController(),
@@ -26,18 +26,16 @@ class DeleteAccountScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),
-                child: Text(
-                  "Delete My Account",
+                padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),                child: Text(
+                  AppLocalizations.of(context)!.deleteMyAccount,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: UiSizes.size_16,
                       color: Colors.redAccent,
                   ),
                 ),
-              ),
-              const Text(
-                "This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.",
+              ),              Text(
+                AppLocalizations.of(context)!.deleteAccountPermanent,
               ),
               SizedBox(
                 height: UiSizes.height_40,
@@ -47,16 +45,15 @@ class DeleteAccountScreen extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.redAccent,
                     fontSize: 16,
-                  ),
-                  children: [
-                    const TextSpan(text: 'To confirm, type'),
+                  ),                  children: [
+                    TextSpan(text: AppLocalizations.of(context)!.toConfirmType),
                     TextSpan(
                       text: ' "${authStateController.userName}" ',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const TextSpan(text: 'in the box below')
+                    TextSpan(text: AppLocalizations.of(context)!.inTheBoxBelow)
                   ],
                 ),
               ),
@@ -108,10 +105,9 @@ class DeleteAccountScreen extends StatelessWidget {
                         ? () {
                             // DO NOT IMPLEMENT THIS WITHOUT PERMISSION
                           }
-                        : null,
-                    child: const Text(
-                      'I understand, Delete My Account',
-                      style: TextStyle(
+                        : null,                    child: Text(
+                      AppLocalizations.of(context)!.iUnderstandDeleteMyAccount,
+                      style: const TextStyle(
                         fontSize: 16,
                       ),
                     ),

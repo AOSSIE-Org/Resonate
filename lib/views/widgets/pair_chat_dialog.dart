@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
@@ -21,11 +22,10 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
         padding: const EdgeInsets.all(28),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          crossAxisAlignment: CrossAxisAlignment.center,          children: [
             // Title
             Text(
-              "Pair Chat",
+              AppLocalizations.of(context)!.pairChat,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -42,11 +42,9 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                   .withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),
-
-            // Identity Selection Section
+            const SizedBox(height: 16),            // Identity Selection Section
             Text(
-              "Choose Identity",
+              AppLocalizations.of(context)!.chooseIdentity,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -74,7 +72,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
                       child: Text(
-                        'Anonymous',
+                        AppLocalizations.of(context)!.anonymous,
                         style: TextStyle(
                             color: controller.isAnonymous.value
                                 ? Theme.of(context).colorScheme.onPrimary
@@ -132,11 +130,9 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                   .withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),
-
-            // Language Selection Section
+            const SizedBox(height: 16),            // Language Selection Section
             Text(
-              "Select Language",
+              AppLocalizations.of(context)!.selectLanguage,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -166,7 +162,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  "Resonate",
+                  AppLocalizations.of(context)!.resonate,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: UiSizes.size_16,

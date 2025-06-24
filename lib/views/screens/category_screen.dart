@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
@@ -64,9 +65,8 @@ class CategoryScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Text(
-                            "No stories currently exist in the ${capitalizeFirstLetter(categoryName)} category to present",
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),                          child: Text(
+                            AppLocalizations.of(context)!.noStoriesInCategory(capitalizeFirstLetter(categoryName)),
                             textAlign: TextAlign.center,
                           ),
                         )

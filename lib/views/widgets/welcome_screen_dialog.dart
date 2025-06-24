@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -15,9 +16,8 @@ Widget welcomeScreenDialog(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
-          child: Text(
-            "Sign in with email",
+          padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),          child: Text(
+            AppLocalizations.of(context)!.signInWithEmail,
             style: TextStyle(
               fontSize: UiSizes.size_20,
               fontWeight: FontWeight.bold,
@@ -37,9 +37,8 @@ Widget welcomeScreenDialog(BuildContext context) {
                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "I already have an account",
+                  children: [                    Text(
+                      AppLocalizations.of(context)!.iAlreadyHaveAnAccount,
                       style: TextStyle(
                         fontSize: UiSizes.size_15,
                       ),
@@ -64,9 +63,8 @@ Widget welcomeScreenDialog(BuildContext context) {
                 padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Create new account",
+                  children: [                    Text(
+                      AppLocalizations.of(context)!.createNewAccount,
                       style: TextStyle(
                         fontSize: UiSizes.size_15,
                       ),
