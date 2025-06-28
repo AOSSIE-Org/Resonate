@@ -9,7 +9,7 @@ import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 bool isLiveSelected = true;
 

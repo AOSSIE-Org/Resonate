@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -47,7 +47,8 @@ class NoConnectionDialog extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.primary,
                     ),
-                  ),                  Text(
+                  ),
+                  Text(
                     AppLocalizations.of(context)!.connectionError,
                     textAlign: TextAlign.center,
                   ),
@@ -69,7 +70,8 @@ class NoConnectionDialog extends StatelessWidget {
                                       Theme.of(context).colorScheme.onPrimary,
                                   size: UiSizes.size_40,
                                 ),
-                              )                            : Text(
+                              )
+                            : Text(
                                 AppLocalizations.of(context)!.tryAgain,
                               ),
                       ),

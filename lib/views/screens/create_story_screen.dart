@@ -8,7 +8,7 @@ import 'package:resonate/models/chapter.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../utils/ui_sizes.dart';
 import 'create_chapter_screen.dart';
 
@@ -97,7 +97,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,        appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(
             AppLocalizations.of(context)!.createYourStory,
@@ -107,7 +108,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,              children: [
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 // Title Input
                 TextField(
                   controller: titleController,
@@ -135,7 +137,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
 
                 // Category Dropdown
                 DropdownButtonFormField<StoryCategory>(
-                  value: selectedCategory,                  decoration: InputDecoration(
+                  value: selectedCategory,
+                  decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.category,
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -157,11 +160,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                     return DropdownMenuItem(
                       value: category,
                       child: Text(
-                        category
-                            .toString()
-                            .split('.')
-                            .last
-                            .capitalizeFirstOfEach(),
+                        AppLocalizations.of(context)!
+                            .storyCategory(category.toString().split('.').last),
                         style: const TextStyle(
                             color: Color.fromARGB(255, 127, 130, 131)),
                       ),
@@ -178,7 +178,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 // About Story Input
                 TextField(
                   controller: aboutController,
-                  maxLength: 2000,                  decoration: InputDecoration(
+                  maxLength: 2000,
+                  decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.aboutRequired,
                     labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 127, 130, 131)),
@@ -236,7 +237,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                             boxShadow: const [
                               BoxShadow(color: Colors.black12, blurRadius: 4)
                             ],
-                          ),                          child: Column(
+                          ),
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -292,7 +294,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                               CreateChapterScreen(onChapterCreated: addChapter),
                         ),
                       );
-                    },                    icon: const Icon(Icons.add),
+                    },
+                    icon: const Icon(Icons.add),
                     label: Text(AppLocalizations.of(context)!.addChapter),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue, // button color
@@ -304,7 +307,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 // Create Story Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: createStory,                    style: ElevatedButton.styleFrom(
+                    onPressed: createStory,
+                    style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     child: Text(AppLocalizations.of(context)!.createStory),

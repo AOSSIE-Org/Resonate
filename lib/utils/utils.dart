@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+
+import 'package:resonate/l10n/app_localizations.dart';
 
 class AppUtils {
   AppUtils._();
@@ -20,7 +22,7 @@ class AppUtils {
     TextStyle? secondBtnTextStyle,
   }) {
     final localizations = AppLocalizations.of(context)!;
-    
+
     Get.defaultDialog(
       title: title,
       middleText: middleText,

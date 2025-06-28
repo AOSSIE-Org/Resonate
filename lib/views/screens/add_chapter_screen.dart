@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
@@ -38,14 +38,17 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addNewChaptersToStory(widget.storyName)),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!
+            .addNewChaptersToStory(widget.storyName)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [            Text(
+          children: [
+            Text(
               AppLocalizations.of(context)!.currentChapters,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
@@ -78,7 +81,8 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 10),            Text(
+            const SizedBox(height: 10),
+            Text(
               AppLocalizations.of(context)!.newChapters,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),

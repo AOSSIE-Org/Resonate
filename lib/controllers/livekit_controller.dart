@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:async';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
@@ -76,7 +76,8 @@ class LiveKitController extends GetxController {
         if (reconnectAttempts < maxAttempts) {
           await Future.delayed(retryInterval); // Wait before retrying
         } else {
-          log('Failed to connect after $maxAttempts attempts');          Get.snackbar(
+          log('Failed to connect after $maxAttempts attempts');
+          Get.snackbar(
             AppLocalizations.of(Get.context!)!.connectionFailed,
             AppLocalizations.of(Get.context!)!.unableToJoinRoom,
             duration: const Duration(seconds: 5),
@@ -102,7 +103,8 @@ class LiveKitController extends GetxController {
         if (!success && reconnectAttempts < maxAttempts) {
           await handleDisconnection();
         } else if (!success) {
-          log('Failed to reconnect after $maxAttempts attempts');          Get.snackbar(
+          log('Failed to reconnect after $maxAttempts attempts');
+          Get.snackbar(
             AppLocalizations.of(Get.context!)!.connectionLost,
             AppLocalizations.of(Get.context!)!.unableToReconnect,
             duration: const Duration(seconds: 5),
@@ -142,7 +144,3 @@ class LiveKitController extends GetxController {
       log('Recording status changed: ${event.activeRecording}');
     });
 }
-
-
-
-

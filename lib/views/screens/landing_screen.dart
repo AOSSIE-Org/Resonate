@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -45,7 +45,8 @@ class LandingScreen extends StatelessWidget {
         onFinish: () async {
           await GetStorage().write("landingScreenShown", true);
           Get.offNamed(AppRoutes.welcomeScreen);
-        },        finishButtonText: AppLocalizations.of(context)!.getStarted,
+        },
+        finishButtonText: AppLocalizations.of(context)!.getStarted,
         skipTextButton: Text(AppLocalizations.of(context)!.skip),
         background: [
           LandingImage(
@@ -76,13 +77,15 @@ class LandingScreen extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   height: UiSizes.height_200 * 2,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.welcomeToResonate,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
                 SizedBox(
                   height: UiSizes.height_16,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.joinConversationExploreRooms,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
@@ -96,14 +99,16 @@ class LandingScreen extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   height: UiSizes.height_200 * 2,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.exploreDiverseConversations,
                   style: TextStyle(fontSize: UiSizes.size_23),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: UiSizes.height_20,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.diveIntoDiverseDiscussions,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
@@ -117,13 +122,15 @@ class LandingScreen extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   height: UiSizes.height_200 * 2,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.yourVoiceMatters,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
                 SizedBox(
                   height: UiSizes.height_16,
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.atResonateEveryVoiceValued,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,

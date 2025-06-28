@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/delete_account_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   const DeleteAccountScreen({super.key});
@@ -12,7 +12,8 @@ class DeleteAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthStateController authStateController = Get.put(AuthStateController());
 
-    return Scaffold(      appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.deleteAccount),
       ),
       body: GetBuilder<DeleteAccountController>(
@@ -26,15 +27,17 @@ class DeleteAccountScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),                child: Text(
+                padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),
+                child: Text(
                   AppLocalizations.of(context)!.deleteMyAccount,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: UiSizes.size_16,
-                      color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: UiSizes.size_16,
+                    color: Colors.redAccent,
                   ),
                 ),
-              ),              Text(
+              ),
+              Text(
                 AppLocalizations.of(context)!.deleteAccountPermanent,
               ),
               SizedBox(
@@ -45,7 +48,8 @@ class DeleteAccountScreen extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.redAccent,
                     fontSize: 16,
-                  ),                  children: [
+                  ),
+                  children: [
                     TextSpan(text: AppLocalizations.of(context)!.toConfirmType),
                     TextSpan(
                       text: ' "${authStateController.userName}" ',
@@ -105,7 +109,8 @@ class DeleteAccountScreen extends StatelessWidget {
                         ? () {
                             // DO NOT IMPLEMENT THIS WITHOUT PERMISSION
                           }
-                        : null,                    child: Text(
+                        : null,
+                    child: Text(
                       AppLocalizations.of(context)!.iUnderstandDeleteMyAccount,
                       style: const TextStyle(
                         fontSize: 16,

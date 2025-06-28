@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/forgot_password_controller.dart';
@@ -38,14 +38,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment.centerLeft,                      child: Text(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
                         AppLocalizations.of(context)!.forgotPassword,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
                     SizedBox(
                       height: UiSizes.height_40,
-                    ),                    Align(
+                    ),
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         AppLocalizations.of(context)!.forgotPasswordMessage,
@@ -58,8 +60,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 height: UiSizes.height_20,
               ),
               TextFormField(
-                controller: forgotPasswordController.emailController,                validator: (value) =>
-                    value!.isValidEmail() ? null : AppLocalizations.of(context)!.enterValidEmailAddress,
+                controller: forgotPasswordController.emailController,
+                validator: (value) => value!.isValidEmail()
+                    ? null
+                    : AppLocalizations.of(context)!.enterValidEmailAddress,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: InputDecoration(
@@ -78,7 +82,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         .validate()) {
                       forgotPasswordController.sendRecoveryEmail();
                     }
-                  },                  child: Text(
+                  },
+                  child: Text(
                     AppLocalizations.of(context)!.next,
                   ),
                 ),

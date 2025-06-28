@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
@@ -78,10 +78,10 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
         audioFile == null) {
       // Show error if required fields are not filled
       showDialog(
-        context: context,        builder: (context) => AlertDialog(
+        context: context,
+        builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context)!.error),
-          content: Text(
-              AppLocalizations.of(context)!.fillAllRequiredFields),
+          content: Text(AppLocalizations.of(context)!.fillAllRequiredFields),
           actions: <Widget>[
             TextButton(
               child: Text(AppLocalizations.of(context)!.ok),
@@ -118,24 +118,29 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,        appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.createAChapter),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            children: [              TextField(
+            children: [
+              TextField(
                 controller: titleController,
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.chapterTitle, counterText: ''),
+                    labelText: AppLocalizations.of(context)!.chapterTitle,
+                    counterText: ''),
                 maxLines: 1,
                 maxLength: 20,
               ),
-              const SizedBox(height: 20),              TextField(
+              const SizedBox(height: 20),
+              TextField(
                 controller: aboutController,
                 maxLength: 2000,
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.aboutRequired, counterText: ''),
+                    labelText: AppLocalizations.of(context)!.aboutRequired,
+                    counterText: ''),
                 maxLines: 3,
               ),
               SizedBox(height: UiSizes.height_20),
@@ -179,7 +184,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                             boxShadow: const [
                               BoxShadow(color: Colors.black12, blurRadius: 4)
                             ],
-                          ),                          child: Column(
+                          ),
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -211,9 +217,11 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                     padding: const EdgeInsets.all(2.0),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Center(                        child: Text(
+                      child: Center(
+                        child: Text(
                           audioFile != null
-                              ? AppLocalizations.of(context)!.audioFileSelected(audioFile!.path.split('/').last)
+                              ? AppLocalizations.of(context)!.audioFileSelected(
+                                  audioFile!.path.split('/').last)
                               : AppLocalizations.of(context)!.uploadAudioFile,
                           style: const TextStyle(color: Colors.grey),
                         ),
@@ -232,16 +240,19 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Center(                    child: Text(
+                  child: Center(
+                    child: Text(
                       lyricsFile != null
-                          ? AppLocalizations.of(context)!.lyricsFileSelected(lyricsFile!.path.split('/').last)
+                          ? AppLocalizations.of(context)!.lyricsFileSelected(
+                              lyricsFile!.path.split('/').last)
                           : AppLocalizations.of(context)!.uploadLyricsFile,
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 40),              ElevatedButton(
+              const SizedBox(height: 40),
+              ElevatedButton(
                 onPressed: createChapter,
                 child: Text(AppLocalizations.of(context)!.createChapter),
               ),

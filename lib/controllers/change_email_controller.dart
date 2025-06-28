@@ -10,7 +10,7 @@ import 'package:resonate/services/appwrite_service.dart';
 import '../utils/constants.dart';
 import '../utils/enums/log_type.dart';
 import '../views/widgets/snackbar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class ChangeEmailController extends GetxController {
   final authStateController = Get.put(AuthStateController());

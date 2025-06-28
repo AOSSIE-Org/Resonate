@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -65,7 +65,8 @@ class OnboardingController extends GetxController {
     }
     var usernameAvail =
         await isUsernameAvailable(usernameController.text.trim());
-    if (!usernameAvail) {      usernameAvailable.value = false;
+    if (!usernameAvail) {
+      usernameAvailable.value = false;
       customSnackbar(
         AppLocalizations.of(Get.context!)!.usernameUnavailable,
         AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
@@ -124,7 +125,8 @@ class OnboardingController extends GetxController {
       await authStateController.account
           .updatePrefs(prefs: {"isUserProfileComplete": true});
       // Set user profile in authStateController
-      await authStateController.setUserProfileData();      customSnackbar(
+      await authStateController.setUserProfileData();
+      customSnackbar(
         AppLocalizations.of(Get.context!)!.profileCreatedSuccessfully,
         AppLocalizations.of(Get.context!)!.userProfileCreatedSuccessfully,
         LogType.success,
@@ -137,7 +139,8 @@ class OnboardingController extends GetxController {
       Get.toNamed(AppRoutes.tabview);
     } catch (e) {
       if (e.toString().contains('Invalid `documentId` param')) {
-        log(e.toString());        customSnackbar(
+        log(e.toString());
+        customSnackbar(
           AppLocalizations.of(Get.context!)!.invalidFormat,
           AppLocalizations.of(Get.context!)!.usernameAlphanumeric,
           LogType.error,
@@ -148,7 +151,8 @@ class OnboardingController extends GetxController {
         );
       } else {
         // if (e.)
-        log(e.toString());        customSnackbar(
+        log(e.toString());
+        customSnackbar(
           AppLocalizations.of(Get.context!)!.error,
           e.toString(),
           LogType.error,

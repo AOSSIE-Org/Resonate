@@ -10,7 +10,7 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
@@ -72,7 +72,8 @@ class AuthenticationController extends GetxController {
       );
       return true;
     } catch (e) {
-      log(e.toString());      customSnackbar(
+      log(e.toString());
+      customSnackbar(
         AppLocalizations.of(context)!.oops,
         e.toString(),
         LogType.error,

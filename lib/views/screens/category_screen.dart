@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
@@ -25,13 +25,13 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Obx(
         () => exploreStoryController.isLoadingCategoryPage.value
-            ?  Center(
+            ? Center(
                 child: SizedBox(
                 height: 200,
                 width: 200,
                 child: LoadingIndicator(
                   indicatorType: Indicator.ballRotate,
-                                      colors: [Theme.of(context).colorScheme.primary],
+                  colors: [Theme.of(context).colorScheme.primary],
                 ),
               ))
             : exploreStoryController.openedCategotyStories.isNotEmpty
@@ -65,8 +65,10 @@ class CategoryScreen extends StatelessWidget {
                           height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),                          child: Text(
-                            AppLocalizations.of(context)!.noStoriesInCategory(capitalizeFirstLetter(categoryName)),
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.noStoriesInCategory(
+                                capitalizeFirstLetter(categoryName)),
                             textAlign: TextAlign.center,
                           ),
                         )

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
 
@@ -114,14 +115,14 @@ class ChapterPlayer extends StatelessWidget {
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Obx(
                             () => Text(
-                                "${formatPlayDuration(controller.sliderProgress.value.toInt())} min"),
+                                "${formatPlayDuration(controller.sliderProgress.value.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}"),
                           ),
                         ),
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Text(
-                              "${formatPlayDuration(chapter.playDuration)} min"),
+                              "${formatPlayDuration(chapter.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}"),
                         ),
                       ],
                     ),

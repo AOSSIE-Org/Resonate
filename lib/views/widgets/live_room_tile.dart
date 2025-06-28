@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
@@ -49,7 +49,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                     Icons.share,
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  onPressed: () {                    Share.share(
+                  onPressed: () {
+                    Share.share(
                       AppLocalizations.of(context)!.shareRoomMessage(
                         appwriteRoom.name,
                         appwriteRoom.description,
@@ -125,8 +126,10 @@ class CustomLiveRoomTile extends StatelessWidget {
                           color: Theme.of(context).colorScheme.primary,
                           size: 20,
                         ),
-                        const SizedBox(width: 4),                        Text(
-                          AppLocalizations.of(context)!.participantsCount(appwriteRoom.totalParticipants),
+                        const SizedBox(width: 4),
+                        Text(
+                          AppLocalizations.of(context)!.participantsCount(
+                              appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,

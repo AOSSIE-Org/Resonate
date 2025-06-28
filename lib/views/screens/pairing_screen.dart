@@ -5,7 +5,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class PairingScreen extends StatelessWidget {
   final PairChatController controller = Get.find<PairChatController>();
@@ -42,7 +42,8 @@ class PairingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(Color primaryColor, BuildContext context) {    return Text(
+  Widget _buildTitle(Color primaryColor, BuildContext context) {
+    return Text(
       AppLocalizations.of(context)!.findingRandomPartner,
       style: TextStyle(
         color: primaryColor,
@@ -50,6 +51,7 @@ class PairingScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSubtitle(BuildContext context) {
     return Text(
       AppLocalizations.of(context)!.hangOnGoodThingsTakeTime,
@@ -91,7 +93,9 @@ class PairingScreen extends StatelessWidget {
       ],
     );
   }
-  Widget _buildFooter(Color primaryColor, Color onPrimaryColor, BuildContext context) {
+
+  Widget _buildFooter(
+      Color primaryColor, Color onPrimaryColor, BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
       child: Column(
@@ -103,6 +107,7 @@ class PairingScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildQuickFact(Color primaryColor, BuildContext context) {
     return Column(
       children: [
@@ -112,7 +117,8 @@ class PairingScreen extends StatelessWidget {
             color: primaryColor,
             fontSize: Get.pixelRatio * 6.5,
           ),
-        ),        Text(
+        ),
+        Text(
           AppLocalizations.of(context)!.resonateOpenSourceProject,
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -124,14 +130,16 @@ class PairingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCancelButton(Color primaryColor, Color onPrimaryColor, BuildContext context) {
+  Widget _buildCancelButton(
+      Color primaryColor, Color onPrimaryColor, BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
         await controller.cancelRequest();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
-      ),      child: Text(
+      ),
+      child: Text(
         AppLocalizations.of(context)!.cancel,
         style: TextStyle(
           color: onPrimaryColor,

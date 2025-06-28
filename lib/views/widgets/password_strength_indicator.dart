@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class PasswordStrengthIndicator extends StatelessWidget {  const PasswordStrengthIndicator({
+class PasswordStrengthIndicator extends StatelessWidget {
+  const PasswordStrengthIndicator({
     super.key,
     required this.isPasswordEightCharacters,
     required this.hasOneDigit,

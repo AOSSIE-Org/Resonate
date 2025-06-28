@@ -11,7 +11,7 @@ import 'package:resonate/views/widgets/filtered_list_tile.dart';
 import 'package:resonate/views/widgets/no_match_view.dart';
 import 'package:resonate/views/widgets/story_card.dart';
 import 'package:resonate/views/widgets/story_list_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -140,7 +140,8 @@ class ExplorePageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [        Text(
+      children: [
+        Text(
           AppLocalizations.of(context)!.categories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
@@ -173,7 +174,8 @@ class ExplorePageContent extends StatelessWidget {
               );
             },
           ),
-        ),        Text(
+        ),
+        Text(
           AppLocalizations.of(context)!.stories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
@@ -241,7 +243,8 @@ class ExplorePageContent extends StatelessWidget {
         ),
         const SizedBox(
           height: 35,
-        ),        Text(
+        ),
+        Text(
           AppLocalizations.of(context)!.someSuggestions,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
@@ -287,7 +290,8 @@ class ExplorePageContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                              height: 200, width: 200, AppImages.emptyBoxImage),                          const SizedBox(
+                              height: 200, width: 200, AppImages.emptyBoxImage),
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(AppLocalizations.of(context)!.noStoriesExist)

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations_en.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/models/themes_model.dart';
 import 'package:resonate/themes/theme_list.dart';
@@ -32,7 +34,9 @@ class ThemeScreen extends StatelessWidget {
                           list[index].name.toLowerCase()),
                       selectedColor: list[index].onPrimaryColor,
                       selectedTileColor: list[index].primaryColor,
-                      title: Text(list[index].name),
+                      title: Text(AppLocalizations.of(context)!.chooseTheme(
+                          "${list[index].name.toLowerCase()}Theme")),
+                      // title: Text(list[index].name),
                       trailing: Container(
                         width: 50,
                         height: 30,

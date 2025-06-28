@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -41,11 +41,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: UiSizes.height_40),                    Text(
+                    SizedBox(height: UiSizes.height_40),
+                    Text(
                       AppLocalizations.of(context)!.completeYourProfile,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    SizedBox(height: UiSizes.height_60),                    Semantics(
+                    SizedBox(height: UiSizes.height_60),
+                    Semantics(
                       label: AppLocalizations.of(context)!.uploadProfilePicture,
                       child: GestureDetector(
                         onTap: () async => await controller.pickImage(),
@@ -82,8 +84,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_40),
-                    TextFormField(                      validator: (value) =>
-                          value!.isNotEmpty ? null : AppLocalizations.of(context)!.enterValidName,
+                    TextFormField(
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidName,
                       controller: controller.nameController,
                       keyboardType: TextInputType.text,
                       maxLength: 100,
@@ -101,7 +105,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           if (value!.length > 5) {
                             return null;
                           } else {
-                            return AppLocalizations.of(context)!.usernameCharacterLimit;
+                            return AppLocalizations.of(context)!
+                                .usernameCharacterLimit;
                           }
                         },
                         maxLength: 36,
@@ -118,9 +123,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 );
                                 controller.usernameAvailableChecking.value =
                                     false;
-                                if (!controller.usernameAvailable.value) {                                  customSnackbar(
-                                    AppLocalizations.of(context)!.usernameUnavailable,
-                                    AppLocalizations.of(context)!.usernameInvalidOrTaken,
+                                if (!controller.usernameAvailable.value) {
+                                  customSnackbar(
+                                    AppLocalizations.of(context)!
+                                        .usernameUnavailable,
+                                    AppLocalizations.of(context)!
+                                        .usernameInvalidOrTaken,
                                     LogType.error,
                                     snackbarDuration: 1,
                                   );
@@ -132,10 +140,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           }
                         },
                         keyboardType: TextInputType.text,
-                        autocorrect: false,                        decoration: InputDecoration(
+                        autocorrect: false,
+                        decoration: InputDecoration(
                             // hintText: "Username",
                             labelText: AppLocalizations.of(context)!.username,
-                            prefixIcon: const Icon(Icons.person),                            suffixText:
+                            prefixIcon: const Icon(Icons.person),
+                            suffixText:
                                 controller.usernameAvailableChecking.value
                                     ? AppLocalizations.of(context)!.checking
                                     : null,
@@ -149,8 +159,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_20),
-                    TextFormField(                      validator: (value) =>
-                          value!.isNotEmpty ? null : AppLocalizations.of(context)!.enterValidDOB,
+                    TextFormField(
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidDOB,
                       readOnly: true,
                       onTap: () async {
                         await controller.chooseDate();

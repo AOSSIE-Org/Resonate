@@ -1,5 +1,6 @@
 {
     "title": "Resonate",
+    "roomDescription": "Be polite and respect the other person's opinion. Avoid rude comments.",
     "hidePassword": "Hide Password",
     "showPassword": "Show Password",
     "passwordEmpty": "Password cannot be empty",
@@ -286,7 +287,8 @@
     "connectionFailed": "Connection Failed",
     "unableToJoinRoom": "Unable to join the room. Please check your network and try again.",
     "connectionLost": "Connection Lost",
-    "unableToReconnect": "Unable to reconnect to the room. Please try rejoining.",    "invalidFormat": "Invalid Format!",
+    "unableToReconnect": "Unable to reconnect to the room. Please try rejoining.",
+    "invalidFormat": "Invalid Format!",
     "usernameAlphanumeric": "Username must be alphanumeric and should not contain special characters.",
     "userProfileCreatedSuccessfully": "Your user profile is successfully created.",
     "emailVerificationMessage": "To proceed, verify your email address.",
@@ -329,26 +331,33 @@
                 "example": "lyrics.txt"
             }
         }
-    },    "fillAllRequiredFields": "Please fill in all required fields and upload your Audio file and Lyrics file",
-    "scheduled": "Scheduled",    "ok": "OK",    "roomDescriptionOptional": "Room Description (optional)",
+    },
+    "fillAllRequiredFields": "Please fill in all required fields and upload your Audio file and Lyrics file",
+    "scheduled": "Scheduled",
+    "ok": "OK",
+    "roomDescriptionOptional": "Room Description (optional)",
     "deleteAccount": "Delete account",
     "createYourStory": "Create Your Story",
     "titleRequired": "Title *",
     "category": "Category *",
     "addChapter": "Add Chapter",
-    "createStory": "Create Story",    "fillAllRequiredFieldsAndChapter": "Please fill in all required fields, add at least one chapter, and select a cover image.",
+    "createStory": "Create Story",
+    "fillAllRequiredFieldsAndChapter": "Please fill in all required fields, add at least one chapter, and select a cover image.",
     "toConfirmType": "To confirm, type",
-    "inTheBoxBelow": "in the box below",    "iUnderstandDeleteMyAccount": "I understand, Delete My Account",
+    "inTheBoxBelow": "in the box below",
+    "iUnderstandDeleteMyAccount": "I understand, Delete My Account",
     "whatDoYouWantToListenTo": "What do you want to listen to?",
     "categories": "Categories",
-    "stories": "Stories",    "someSuggestions": "Some Suggestions",
+    "stories": "Stories",
+    "someSuggestions": "Some Suggestions",
     "getStarted": "Get Started",
     "skip": "Skip",
     "welcomeToResonate": "Welcome to Resonate",
     "exploreDiverseConversations": "Explore Diverse Conversations",
     "yourVoiceMatters": "Your Voice Matters",
     "joinConversationExploreRooms": "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
-    "diveIntoDiverseDiscussions": "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",    "atResonateEveryVoiceValued": "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
+    "diveIntoDiverseDiscussions": "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",
+    "atResonateEveryVoiceValued": "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
     "notifications": "Notifications",
     "taggedYouInUpcomingRoom": "{username} tagged you in an upcoming room: {subject}",
     "@taggedYouInUpcomingRoom": {
@@ -415,16 +424,20 @@
                 "example": "john_doe"
             }
         }
-    },    "youHaveNewNotification": "You have a new notification",
-    "hangOnGoodThingsTakeTime": "Hang on, Good Things take time 🔍",    "resonateOpenSourceProject": "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
+    },
+    "youHaveNewNotification": "You have a new notification",
+    "hangOnGoodThingsTakeTime": "Hang on, Good Things take time 🔍",
+    "resonateOpenSourceProject": "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
     "mute": "Mute",
-    "speakerLabel": "Speaker",    "end": "End",
+    "speakerLabel": "Speaker",
+    "end": "End",
     "saveChanges": "Save changes",
     "discard": "DISCARD",
     "save": "SAVE",
     "changeProfilePicture": "Change profile picture",
     "camera": "Camera",
-    "gallery": "Gallery",    "remove": "Remove",
+    "gallery": "Gallery",
+    "remove": "Remove",
     "created": "Created {date}",
     "@created": {
         "description": "Story creation date",
@@ -450,5 +463,61 @@
     },
     "start": "Start",
     "unsubscribe": "Unsubscribe",
-    "subscribe": "Subscribe"
+    "subscribe": "Subscribe",
+    "storyCategory": "{category, select, drama{Drama} comedy{Comedy} horror{Horror} romance{Romance} thriller{Thriller} spiritual{Spiritual} other{Other}}",
+    "@storyCategory": {
+        "description": "Choose the category for Story",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "chooseTheme": "{category, select, classicTheme{Classic} timeTheme{Time} vintageTheme{Vintage} amberTheme{Amber} forestTheme{Forest} creamTheme{Cream} other{Other}}",
+    "@chooseTheme": {
+        "description": "Choose the theme for the app",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "classic"
+            }
+        }
+    },
+    "minutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+    "@minutesAgo": {
+        "description": "Time format for minutes ago",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+    "@hoursAgo": {
+        "description": "Time format for hours ago",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
+    },
+    "daysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+    "@daysAgo": {
+        "description": "Time format for days ago",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "by": "by",
+    "likes": "Likes",
+    "lengthMinutes": "min",
+    "requiredField": "Required field",
+    "clickPictureUsingCamera": "Click picture using camera",
+    "pickImageFromGallery": "Pick image from gallery"
 }

@@ -11,7 +11,7 @@ import 'package:resonate/themes/theme.dart';
 import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'themes/theme_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

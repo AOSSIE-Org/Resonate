@@ -6,7 +6,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/pair_chat_controller.dart';
 
 class PairChatScreen extends StatelessWidget {
@@ -35,10 +35,10 @@ class PairChatScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const RoomHeader(
-                      roomName: 'Resonate',
+                    RoomHeader(
+                      roomName: AppLocalizations.of(context)!.title,
                       roomDescription:
-                          "Be polite and respect the other person's opinion. Avoid rude comments.",
+                          AppLocalizations.of(context)!.roomDescription,
                     ),
                     SizedBox(height: UiSizes.height_24_6),
                     Column(

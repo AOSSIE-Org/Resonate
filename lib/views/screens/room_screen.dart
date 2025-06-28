@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
@@ -31,12 +31,15 @@ class RoomScreenState extends State<RoomScreen> {
     super.initState();
     Get.put(SingleRoomController(appwriteRoom: widget.room));
   }
+
   Future<dynamic> _deleteRoomDialog(String text, Function() onTap) async {
     return await Get.defaultDialog(
       title: AppLocalizations.of(context)!.areYouSure,
       buttonColor: Theme.of(context).colorScheme.primary,
       middleText: AppLocalizations.of(context)!.toRoomAction(text),
       cancelTextColor: Theme.of(context).colorScheme.primary,
+      textConfirm: AppLocalizations.of(context)!.confirm,
+      textCancel: AppLocalizations.of(context)!.cancel,
       onConfirm: onTap,
       onCancel: () => log(AppLocalizations.of(context)!.canceled),
     );
@@ -99,7 +102,8 @@ class RoomScreenState extends State<RoomScreen> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [                _buildParticipantsSection(
+              children: [
+                _buildParticipantsSection(
                   title: AppLocalizations.of(context)!.participants,
                   controller: controller,
                 ),
@@ -185,8 +189,11 @@ class RoomScreenState extends State<RoomScreen> {
         init: SingleRoomController(appwriteRoom: widget.room),
         builder: (controller) {
           return ElevatedButton.icon(
-            onPressed: () async {              await _deleteRoomDialog(
-                controller.appwriteRoom.isUserAdmin ? AppLocalizations.of(context)!.delete : AppLocalizations.of(context)!.leave,
+            onPressed: () async {
+              await _deleteRoomDialog(
+                controller.appwriteRoom.isUserAdmin
+                    ? AppLocalizations.of(context)!.delete
+                    : AppLocalizations.of(context)!.leave,
                 () async {
                   if (controller.appwriteRoom.isUserAdmin) {
                     await controller.deleteRoom();

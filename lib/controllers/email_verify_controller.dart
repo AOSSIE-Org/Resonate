@@ -4,7 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
@@ -77,7 +77,8 @@ class EmailVerifyController extends GetxController {
       Get.toNamed(AppRoutes.emailVerification);
     } else {
       // Close the loading dialog
-      Get.back();      isSending.value = false;
+      Get.back();
+      isSending.value = false;
       signUpIsAllowed.value = true;
       customSnackbar(
         AppLocalizations.of(Get.context!)!.oops,

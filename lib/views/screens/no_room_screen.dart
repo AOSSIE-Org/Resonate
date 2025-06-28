@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class NoRoomScreen extends StatelessWidget {
   final bool isRoom;

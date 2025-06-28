@@ -20,7 +20,7 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class TabViewScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
@@ -87,10 +87,13 @@ class TabViewScreen extends StatelessWidget {
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
                           controller.setIndex(2);
-                        } else {                          AppUtils.showDialog(
+                        } else {
+                          AppUtils.showDialog(
                             context: context,
-                            title: AppLocalizations.of(context)!.emailVerificationRequired,
-                            middleText: AppLocalizations.of(context)!.emailVerificationMessage,
+                            title: AppLocalizations.of(context)!
+                                .emailVerificationRequired,
+                            middleText: AppLocalizations.of(context)!
+                                .emailVerificationMessage,
                             onFirstBtnPressed: () {
                               Get.back();
                               emailVerifyController.isSending.value = true;

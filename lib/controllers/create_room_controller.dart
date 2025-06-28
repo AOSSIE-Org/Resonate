@@ -9,7 +9,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class CreateRoomController extends GetxController {
   final ThemeController themeController = Get.find<ThemeController>();

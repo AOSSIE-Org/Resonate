@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -58,11 +58,13 @@ class SettingsScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(      appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.settings),
       ),
       body: ListView(
-        children: [          titleText(AppLocalizations.of(context)!.accountSettings),
+        children: [
+          titleText(AppLocalizations.of(context)!.accountSettings),
           customTile(
             str: AppLocalizations.of(context)!.account,
             func: () {
@@ -97,7 +99,8 @@ class SettingsScreen extends StatelessWidget {
               horizontal: padding,
             ),
             textColor: Colors.redAccent,
-            iconColor: Colors.redAccent,            title: Text(
+            iconColor: Colors.redAccent,
+            title: Text(
               AppLocalizations.of(context)!.logOut,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,

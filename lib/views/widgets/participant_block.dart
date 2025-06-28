@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
@@ -59,7 +59,9 @@ class ParticipantBlock extends StatelessWidget {
         )
         .toList();
   }
-  List<FocusedMenuItem> getMenuItems(Brightness currentBrightness, BuildContext context) {
+
+  List<FocusedMenuItem> getMenuItems(
+      Brightness currentBrightness, BuildContext context) {
     if ((!controller.me.value.isAdmin && !controller.me.value.isModerator) ||
         participant.isAdmin) {
       return [];
@@ -207,7 +209,8 @@ class ParticipantBlock extends StatelessWidget {
                   )
                 ],
               ),
-            ),            Text(
+            ),
+            Text(
               getUserRole(context),
               style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
             )

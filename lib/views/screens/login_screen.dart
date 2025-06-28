@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -50,16 +50,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(
                       height: UiSizes.height_60,
-                    ),                    Text(
+                    ),
+                    Text(
                       AppLocalizations.of(context)!.login,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(
                       height: UiSizes.height_40,
                     ),
-                    TextFormField(                      validator: (value) => value!.isValidEmail()
+                    TextFormField(
+                      validator: (value) => value!.isValidEmail()
                           ? null
-                          : AppLocalizations.of(context)!.enterValidEmailAddress,
+                          : AppLocalizations.of(context)!
+                              .enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -129,7 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Theme.of(context).colorScheme.onPrimary,
                                     size: UiSizes.size_40,
                                   ),
-                                )                              : Text(
+                                )
+                              : Text(
                                   AppLocalizations.of(context)!.login,
                                 ),
                         ),
@@ -141,7 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(AppRoutes.forgotPassword);
-                      },                      child: Text(
+                      },
+                      child: Text(
                         AppLocalizations.of(context)!.forgotPassword,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
@@ -151,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,                  children: [
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(AppLocalizations.of(context)!.newToResonate),
                     GestureDetector(
                       onTap: () {

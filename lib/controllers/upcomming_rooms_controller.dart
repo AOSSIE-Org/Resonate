@@ -13,7 +13,7 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();

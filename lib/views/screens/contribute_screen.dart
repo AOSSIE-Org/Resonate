@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -13,7 +13,8 @@ class ContributeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.contribute),
       ),
       body: Container(
@@ -43,7 +44,8 @@ class ContributeScreen extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [                    Text(
+                  children: [
+                    Text(
                       AppLocalizations.of(context)!.sourceCodeOnGitHub,
                       style: TextStyle(
                         fontSize: UiSizes.size_16,
@@ -67,7 +69,8 @@ class ContributeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
-                children: [                  Align(
+                children: [
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       AppLocalizations.of(context)!.joinCommunity,
@@ -111,13 +114,15 @@ class ContributeScreen extends StatelessWidget {
                           Icons.discord,
                           size: UiSizes.size_40,
                         ),
-                        tooltip: AppLocalizations.of(context)!.joinDiscordServer,
+                        tooltip:
+                            AppLocalizations.of(context)!.joinDiscordServer,
                       )
                     ],
                   ),
                   SizedBox(
                     height: UiSizes.height_20,
-                  ),                  Align(
+                  ),
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       AppLocalizations.of(context)!.joinCommunityDescription,

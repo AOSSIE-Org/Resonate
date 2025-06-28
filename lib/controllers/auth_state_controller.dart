@@ -15,7 +15,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();

@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
@@ -22,7 +22,8 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
         padding: const EdgeInsets.all(28),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,          children: [
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             // Title
             Text(
               AppLocalizations.of(context)!.pairChat,
@@ -42,7 +43,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                   .withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),            // Identity Selection Section
+            const SizedBox(height: 16), // Identity Selection Section
             Text(
               AppLocalizations.of(context)!.chooseIdentity,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -130,7 +131,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                   .withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),            // Language Selection Section
+            const SizedBox(height: 16), // Language Selection Section
             Text(
               AppLocalizations.of(context)!.selectLanguage,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -140,7 +141,8 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
             ),
             const SizedBox(height: 16),
             LanguagePickerDropdown(
-              initialValue: Languages.english,
+              initialValue: Language.fromIsoCode(
+                  Localizations.localeOf(context).languageCode),
               onValuePicked: (Language language) {
                 log(language.isoCode);
                 controller.languageIso = language.isoCode;

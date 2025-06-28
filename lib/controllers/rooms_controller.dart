@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -104,7 +104,8 @@ class RoomsController extends GetxController {
             child: LoadingAnimationWidget.threeRotatingDots(
                 color: Theme.of(context).primaryColor,
                 size: Get.pixelRatio * 20),
-          ),          barrierDismissible: false,
+          ),
+          barrierDismissible: false,
           name: AppLocalizations.of(Get.context!)!.loadingDialog);
 
       // Get the token and livekit url and join livekit room

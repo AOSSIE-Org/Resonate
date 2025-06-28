@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,8 @@ class WelcomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
-              children: [                SvgPicture.asset(
+              children: [
+                SvgPicture.asset(
                   "assets/svg/resonate_logo_white.svg",
                   semanticsLabel: AppLocalizations.of(context)!.resonateLogo,
                   height: UiSizes.height_110,
@@ -46,7 +47,8 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),            Text(AppLocalizations.of(context)!.resonateTagline,
+            ),
+            Text(AppLocalizations.of(context)!.resonateTagline,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium),
             Column(
@@ -62,7 +64,8 @@ class WelcomeScreen extends StatelessWidget {
                         context: context,
                         builder: (context) => welcomeScreenDialog(context),
                       );
-                    },                    child: Text(
+                    },
+                    child: Text(
                       AppLocalizations.of(context)!.signInWithEmail,
                     ),
                   ),
@@ -78,7 +81,8 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           child: const Divider(),
                         ),
-                      ),                      Text(
+                      ),
+                      Text(
                         AppLocalizations.of(context)!.or,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
@@ -92,7 +96,8 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),                Text(
+                ),
+                Text(
                   AppLocalizations.of(context)!.continueWith,
                   style: TextStyle(
                     fontSize: UiSizes.size_20,
@@ -109,7 +114,8 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: AppLocalizations.of(context)!.continueWithGoogle,
+                        tooltip:
+                            AppLocalizations.of(context)!.continueWithGoogle,
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
@@ -131,7 +137,8 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: AppLocalizations.of(context)!.continueWithGitHub,
+                        tooltip:
+                            AppLocalizations.of(context)!.continueWithGitHub,
                         style: IconButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
