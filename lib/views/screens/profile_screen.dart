@@ -31,8 +31,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile"),
@@ -88,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
           Expanded(
             child: MergeSemantics(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (isCreatorProfile == null && controller.isEmailVerified!)
                     const Padding(
@@ -211,14 +209,20 @@ class ProfileScreen extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         if (isCreatorProfile == null)
-          ElevatedButton(
-            onPressed: () {
-              Get.toNamed(AppRoutes.settings);
-            },
-            child: const Icon(
-              Icons.settings,
-              size: 26,
-              color: Colors.white,
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.settings);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(12),
+              ),
+              child: Icon(Icons.settings, color: colorScheme.onPrimary),
             ),
           ),
       ],
@@ -242,7 +246,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.surfaceContainerHighest,
+                color: colorScheme.onBackground,
               ),
             ),
           ),
@@ -266,7 +270,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onSurface,
+                color: colorScheme.onBackground,
               ),
             ),
           ),
@@ -347,7 +351,7 @@ class StoryItem extends StatelessWidget {
               width: UiSizes.height_140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: colorScheme.surfaceContainerHighest,
+                color: colorScheme.surfaceVariant,
                 image: DecorationImage(
                   image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,

@@ -24,7 +24,7 @@ class UpcomingRoomsController extends GetxController {
   final TabViewController controller = Get.find<TabViewController>();
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  // FirebaseMessaging messaging = FirebaseMessaging.instance;
   late RxList<AppwriteUpcommingRoom> upcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
   late String scheduledDateTime;
@@ -55,7 +55,7 @@ class UpcomingRoomsController extends GetxController {
   }
 
   Future<void> addUserToSubscriberList(String upcomingRoomId) async {
-    final fcmToken = await messaging.getToken();
+    // final fcmToken = await messaging.getToken();
     await databases.createDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
@@ -63,7 +63,9 @@ class UpcomingRoomsController extends GetxController {
         data: {
           "userID": authStateController.uid,
           "upcomingRoomId": upcomingRoomId,
-          "registrationTokens": [fcmToken],
+          "registrationTokens": [
+            // fcmToken
+          ],
           "userProfileUrl": authStateController.profileImageUrl
         });
 
@@ -196,7 +198,7 @@ class UpcomingRoomsController extends GetxController {
       return;
     }
     try {
-      final fcmToken = await messaging.getToken();
+      // final fcmToken = await messaging.getToken();
       await databases.createDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: upcomingRoomsCollectionId,
@@ -207,7 +209,9 @@ class UpcomingRoomsController extends GetxController {
             "tags": createRoomController.tagsController.getTags,
             "description": createRoomController.descriptionController.text,
             "creatorUid": authStateController.uid,
-            "creator_fcm_tokens": [fcmToken]
+            "creator_fcm_tokens": [
+              // fcmToken
+            ]
           });
     } on AppwriteException catch (e) {
       log(e.toString());

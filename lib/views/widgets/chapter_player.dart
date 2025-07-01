@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
@@ -21,8 +22,8 @@ class ChapterPlayer extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              chapter.tintColor.withValues(alpha: progress < 0.75 ? 0.8 : 1),
-              chapter.tintColor.withValues(alpha: progress < 0.75 ? 0.3 : 1)
+              chapter.tintColor.withOpacity(progress < 0.75 ? 0.8 : 1),
+              chapter.tintColor.withOpacity(progress < 0.75 ? 0.3 : 1)
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -63,7 +64,11 @@ class ChapterPlayer extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark
+                  color: Theme.of(context).brightness == Brightness.dark ||
+                          (ThemeData.estimateBrightnessForColor(
+                                      chapter.tintColor) ==
+                                  Brightness.dark &&
+                              progress > 0.75)
                       ? Colors.white
                       : Colors.black87,
                 ),

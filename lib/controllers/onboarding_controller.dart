@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -20,6 +21,7 @@ class OnboardingController extends GetxController {
   AuthStateController authStateController = Get.find<AuthStateController>();
   AuthenticationController authController =
       Get.find<AuthenticationController>();
+  final themeController = Get.find<ThemeController>();
   late final Storage storage;
   late final Databases databases;
 
@@ -98,6 +100,8 @@ class OnboardingController extends GetxController {
                 filename: "${authStateController.email}.jpeg"));
         imageController.text =
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
+      } else {
+        imageController.text = themeController.userProfileImagePlaceholderUrl;
       }
 
       // Update User meta data

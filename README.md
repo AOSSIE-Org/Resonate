@@ -63,7 +63,7 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you. 
-Please go through and strictly follow the [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
+Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
 
 ## :movie_camera: App Screenshots
 <div align="center">
