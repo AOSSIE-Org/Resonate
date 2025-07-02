@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
@@ -116,7 +117,7 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                 size: const Size(double.infinity, 200),
                                 emptyBuilder: () => Center(
                                   child: Text(
-                                    "No lyrics",
+                                    AppLocalizations.of(context)!.noLyrics,
                                     style: UINetease().getOtherMainTextStyle(),
                                   ),
                                 ),
@@ -168,7 +169,7 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "About",
+                                AppLocalizations.of(context)!.aboutSection,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!

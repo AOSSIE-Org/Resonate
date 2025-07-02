@@ -15,6 +15,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
+import 'package:resonate/l10n/app_localizations.dart';
+
 class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
@@ -269,13 +271,13 @@ class AuthStateController extends GetxController {
 
   Future<void> logout(BuildContext context) async {
     Get.defaultDialog(
-      title: "Are you sure?",
-      middleText: "You are logging out of Resonate.",
-      textConfirm: "Yes",
+      title: AppLocalizations.of(context)!.areYouSure,
+      middleText: AppLocalizations.of(context)!.loggingOut,
+      textConfirm: AppLocalizations.of(context)!.yes,
       backgroundColor: Theme.of(context).colorScheme.surface,
       buttonColor: Theme.of(context).colorScheme.primary,
       confirmTextColor: Theme.of(context).colorScheme.onPrimary,
-      textCancel: "No",
+      textCancel: AppLocalizations.of(context)!.no,
       cancelTextColor: Theme.of(context).colorScheme.primary,
       titlePadding: EdgeInsets.only(top: UiSizes.height_15),
       contentPadding: EdgeInsets.symmetric(

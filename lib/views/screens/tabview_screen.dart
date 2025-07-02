@@ -20,6 +20,7 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class TabViewScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
@@ -47,7 +48,8 @@ class TabViewScreen extends StatelessWidget {
             toolbarHeight: UiSizes.size_56,
             automaticallyImplyLeading: false,
             title: Text(
-              "Resonate",
+              // "Resonate",
+              AppLocalizations.of(context)!.title,
               style: TextStyle(
                   fontSize: UiSizes.size_26,
                   color: Theme.of(context).colorScheme.primary),
@@ -80,7 +82,7 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.multitrack_audio, size: UiSizes.size_24),
-                      label: "Audio Room",
+                      label: AppLocalizations.of(context)!.audioRoom,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
@@ -88,9 +90,10 @@ class TabViewScreen extends StatelessWidget {
                         } else {
                           AppUtils.showDialog(
                             context: context,
-                            title: "Email Verification Required",
-                            middleText:
-                                "To proceed, verify your email address.",
+                            title: AppLocalizations.of(context)!
+                                .emailVerificationRequired,
+                            middleText: AppLocalizations.of(context)!
+                                .emailVerificationMessage,
                             onFirstBtnPressed: () {
                               Get.back();
                               emailVerifyController.isSending.value = true;
@@ -98,7 +101,7 @@ class TabViewScreen extends StatelessWidget {
                               AppUtils.showBlurredLoaderDialog(context);
                             },
                             onSecondBtnPressed: () => Get.back(),
-                            firstBtnText: "Verify",
+                            firstBtnText: AppLocalizations.of(context)!.verify,
                           );
                         }
                       },
@@ -106,7 +109,7 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
-                      label: "Pair Chat",
+                      label: AppLocalizations.of(context)!.pairChat,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());

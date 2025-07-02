@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -42,12 +43,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   children: [
                     SizedBox(height: UiSizes.height_40),
                     Text(
-                      "Complete your Profile",
+                      AppLocalizations.of(context)!.completeYourProfile,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(height: UiSizes.height_60),
                     Semantics(
-                      label: "Upload profile picture",
+                      label: AppLocalizations.of(context)!.uploadProfilePicture,
                       child: GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
@@ -84,16 +85,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                     SizedBox(height: UiSizes.height_40),
                     TextFormField(
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : "Enter Valid Name",
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidName,
                       controller: controller.nameController,
                       keyboardType: TextInputType.text,
                       maxLength: 100,
                       autocorrect: false,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         // hintText: "Name",
-                        labelText: "Name",
-                        prefixIcon: Icon(Icons.abc_rounded),
+                        labelText: AppLocalizations.of(context)!.name,
+                        prefixIcon: const Icon(Icons.abc_rounded),
                       ),
                     ),
                     SizedBox(height: UiSizes.height_20),
@@ -103,7 +105,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           if (value!.length > 5) {
                             return null;
                           } else {
-                            return "Username should contain more than 5 characters.";
+                            return AppLocalizations.of(context)!
+                                .usernameCharacterLimit;
                           }
                         },
                         maxLength: 36,
@@ -122,8 +125,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     false;
                                 if (!controller.usernameAvailable.value) {
                                   customSnackbar(
-                                    "Username Unavailable!",
-                                    "This username is invalid or either taken already.",
+                                    AppLocalizations.of(context)!
+                                        .usernameUnavailable,
+                                    AppLocalizations.of(context)!
+                                        .usernameInvalidOrTaken,
                                     LogType.error,
                                     snackbarDuration: 1,
                                   );
@@ -138,11 +143,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         autocorrect: false,
                         decoration: InputDecoration(
                             // hintText: "Username",
-                            labelText: "Username",
+                            labelText: AppLocalizations.of(context)!.username,
                             prefixIcon: const Icon(Icons.person),
                             suffixText:
                                 controller.usernameAvailableChecking.value
-                                    ? 'Checking...'
+                                    ? AppLocalizations.of(context)!.checking
                                     : null,
                             suffixIcon: controller.usernameAvailable.value &&
                                     !controller.usernameAvailableChecking.value
@@ -155,8 +160,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                     SizedBox(height: UiSizes.height_20),
                     TextFormField(
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : "Enter Valid DOB",
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidDOB,
                       readOnly: true,
                       onTap: () async {
                         await controller.chooseDate();
@@ -165,9 +171,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       controller: controller.dobController,
                       keyboardType: TextInputType.text,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.calendar_month_rounded),
-                        labelText: "Date of Birth",
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.calendar_month_rounded),
+                        labelText: AppLocalizations.of(context)!.dateOfBirth,
                         // hintText: "Date of Birth",
                       ),
                     ),
@@ -190,7 +196,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     size: UiSizes.size_40,
                                   ),
                                 )
-                              : const Text('Submit'),
+                              : Text(AppLocalizations.of(context)!.submit),
                         ),
                       ),
                     )

@@ -3,6 +3,7 @@ import 'package:flutter/semantics.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/services/appwrite_service.dart';
@@ -134,7 +135,7 @@ class EditProfileController extends GetxController {
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: 'Crop Image',
+          toolbarTitle: AppLocalizations.of(Get.context!)!.cropImage,
           // toolbarColor: themeController.primaryColor.value,
           // statusBarColor: themeController.primaryColor.value,
           // toolbarWidgetColor: Colors.black,
@@ -143,7 +144,7 @@ class EditProfileController extends GetxController {
         ),
         IOSUiSettings(
           minimumAspectRatio: 1.0,
-          title: 'Crop Image',
+          title: AppLocalizations.of(Get.context!)!.cropImage,
         ),
       ],
     );
@@ -254,17 +255,16 @@ class EditProfileController extends GetxController {
       if (isUsernameChanged()) {
         var usernameAvail =
             await isUsernameAvailable(usernameController.text.trim());
-
         if (!usernameAvail) {
           usernameAvailable.value = false;
           customSnackbar(
-            "Username Unavailable!",
-            "This username is invalid or either taken already.",
+            AppLocalizations.of(Get.context!)!.usernameUnavailable,
+            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
             LogType.error,
           );
 
           SemanticsService.announce(
-            "This username is invalid or either taken already.",
+            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
             TextDirection.ltr,
           );
           return;
@@ -325,37 +325,36 @@ class EditProfileController extends GetxController {
       oldUsername = authStateController.userName!;
 
       removeImage = false;
-      profileImagePath = null;
-
-      // The Success snackbar is only shown when there is change made, otherwise it is not shown
+      profileImagePath =
+          null; // The Success snackbar is only shown when there is change made, otherwise it is not shown
       if (showSuccessSnackbar) {
         customSnackbar(
-          'Profile updated',
-          'All changes are saved successfully.',
+          AppLocalizations.of(Get.context!)!.profileSavedSuccessfully,
+          AppLocalizations.of(Get.context!)!.profileUpdatedSuccessfully,
           LogType.success,
         );
 
         SemanticsService.announce(
-          'All changes are saved successfully.',
+          AppLocalizations.of(Get.context!)!.profileUpdatedSuccessfully,
           TextDirection.ltr,
         );
       } else {
         // This snackbar is to show user that profile is up to date and there are no changes done by user
         customSnackbar(
-          'Profile is up to date',
-          'There are no new changes made, Nothing to save.',
+          AppLocalizations.of(Get.context!)!.profileUpToDate,
+          AppLocalizations.of(Get.context!)!.noChangesToSave,
           LogType.info,
         );
 
         SemanticsService.announce(
-          'There are no new changes made, Nothing to save.',
+          AppLocalizations.of(Get.context!)!.noChangesToSave,
           TextDirection.ltr,
         );
       }
     } catch (e) {
       log(e.toString());
       customSnackbar(
-        'Error!',
+        AppLocalizations.of(Get.context!)!.error,
         e.toString(),
         LogType.error,
       );

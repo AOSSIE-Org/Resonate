@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class NoRoomScreen extends StatelessWidget {
   final bool isRoom;
@@ -18,7 +19,7 @@ class NoRoomScreen extends StatelessWidget {
         ),
         SvgPicture.asset(
           AppImages.noRoomImage,
-          height: 200,  
+          height: 200,
           width: 200,
           colorFilter: ColorFilter.mode(
             Theme.of(context).colorScheme.primary,
@@ -29,8 +30,7 @@ class NoRoomScreen extends StatelessWidget {
           height: 30,
         ),
         Text(
-          '''No ${isRoom ? 'Room' : 'Upcoming Room'} Available
-Get Started By Adding One Below! ''',
+          AppLocalizations.of(context)!.noAvailableRoom(isRoom.toString()),
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 15,
@@ -53,14 +53,14 @@ class GeneralAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'LIVE',
+          AppLocalizations.of(context)!.live.toUpperCase(),
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
         const SizedBox(width: 25),
-        const Text(
-          'UPCOMING',
+        Text(
+          AppLocalizations.of(context)!.upcoming.toUpperCase(),
           style: TextStyle(color: Color.fromRGBO(118, 124, 134, 1)),
         ),
         const Spacer(),

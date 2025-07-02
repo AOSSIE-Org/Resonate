@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/screens/story_screen.dart';
@@ -49,7 +50,8 @@ class StoryListTile extends StatelessWidget {
                       .categoryColorList[story.category.name.toLowerCase()],
                   borderRadius: BorderRadius.circular(10)),
               child: Text(
-                story.category.name.capitalizeFirst ?? "",
+                AppLocalizations.of(context)!
+                    .storyCategory(story.category.name.toLowerCase()),
                 maxLines: 1,
                 textAlign: TextAlign.left,
                 overflow: TextOverflow.ellipsis,

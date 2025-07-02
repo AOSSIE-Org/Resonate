@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -45,8 +46,8 @@ class LandingScreen extends StatelessWidget {
           await GetStorage().write("landingScreenShown", true);
           Get.offNamed(AppRoutes.welcomeScreen);
         },
-        finishButtonText: 'Get Started',
-        skipTextButton: const Text('Skip'),
+        finishButtonText: AppLocalizations.of(context)!.getStarted,
+        skipTextButton: Text(AppLocalizations.of(context)!.skip),
         background: [
           LandingImage(
             imagePath: AppImages.landingFirstImage,
@@ -78,14 +79,14 @@ class LandingScreen extends StatelessWidget {
                   height: UiSizes.height_200 * 2,
                 ),
                 Text(
-                  'Welcome to Resonate',
+                  AppLocalizations.of(context)!.welcomeToResonate,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
                 SizedBox(
                   height: UiSizes.height_16,
                 ),
                 Text(
-                  "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+                  AppLocalizations.of(context)!.joinConversationExploreRooms,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )
@@ -100,7 +101,7 @@ class LandingScreen extends StatelessWidget {
                   height: UiSizes.height_200 * 2,
                 ),
                 Text(
-                  'Explore Diverse Conversations',
+                  AppLocalizations.of(context)!.exploreDiverseConversations,
                   style: TextStyle(fontSize: UiSizes.size_23),
                   textAlign: TextAlign.center,
                 ),
@@ -108,7 +109,7 @@ class LandingScreen extends StatelessWidget {
                   height: UiSizes.height_20,
                 ),
                 Text(
-                  "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",
+                  AppLocalizations.of(context)!.diveIntoDiverseDiscussions,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )
@@ -123,14 +124,14 @@ class LandingScreen extends StatelessWidget {
                   height: UiSizes.height_200 * 2,
                 ),
                 Text(
-                  'Your Voice Matters',
+                  AppLocalizations.of(context)!.yourVoiceMatters,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
                 SizedBox(
                   height: UiSizes.height_16,
                 ),
                 Text(
-                  "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
+                  AppLocalizations.of(context)!.atResonateEveryVoiceValued,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
                 )

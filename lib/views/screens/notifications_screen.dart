@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/models/notification.dart';
 import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../utils/app_images.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -23,8 +24,8 @@ class NotificationsScreen extends StatelessWidget {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Notifications',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text(AppLocalizations.of(context)!.notifications,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0, left: 16),
@@ -68,27 +69,27 @@ class NotificationTile extends StatelessWidget {
     switch (notification.notificationType) {
       case NotificationType.tag:
         message = notification.isTagInUpcomingRoom
-            ? '${notification.initiatorUsername} tagged you in an upcoming room: ${notification.subject}'
-            : '${notification.initiatorUsername} tagged you in room: ${notification.subject}';
+            ? AppLocalizations.of(context)!.taggedYouInUpcomingRoom(
+                notification.initiatorUsername, notification.subject)
+            : AppLocalizations.of(context)!.taggedYouInRoom(
+                notification.initiatorUsername, notification.subject);
         icon = const Icon(Icons.tag, color: Colors.green);
         break;
       case NotificationType.like:
-        message =
-            '${notification.initiatorUsername} liked your story: ${notification.subject}';
+        message = AppLocalizations.of(context)!.likedYourStory(
+            notification.initiatorUsername, notification.subject);
         icon = const Icon(Icons.favorite, color: Colors.redAccent);
         break;
       case NotificationType.subscribe:
-        message =
-            '${notification.initiatorUsername} subscribed to your room: ${notification.subject}';
+        message = AppLocalizations.of(context)!.subscribedToYourRoom(
+            notification.initiatorUsername, notification.subject);
         icon = const Icon(Icons.notifications, color: Colors.orangeAccent);
         break;
       case NotificationType.follow:
-        message = '${notification.initiatorUsername} started following you';
+        message = AppLocalizations.of(context)!
+            .startedFollowingYou(notification.initiatorUsername);
         icon = const Icon(Icons.person_add, color: Colors.blueAccent);
         break;
-      default:
-        message = 'You have a new notification';
-        icon = const Icon(Icons.notifications, color: Colors.grey);
     }
 
     return Container(

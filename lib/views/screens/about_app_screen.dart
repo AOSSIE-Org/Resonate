@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+// import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/constants.dart';
@@ -11,17 +13,16 @@ class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
   final aboutAppScreenController = Get.put(AboutAppScreenController());
-
   // Method to share the app's GitHub repository link
-  void _shareApp() {
-    Share.share("Check out our GitHub repository: $githubRepoUrl");
+  void _shareApp(BuildContext context) {
+    Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About"),
+        title: Text(AppLocalizations.of(context)!.about),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(
@@ -48,7 +49,7 @@ class AboutAppScreen extends StatelessWidget {
                           height: UiSizes.height_10,
                         ),
                         Semantics(
-                          label: "Resonate logo",
+                          label: AppLocalizations.of(context)!.resonateLogo,
                           child: Container(
                             decoration: BoxDecoration(
                               image: const DecorationImage(
@@ -69,7 +70,7 @@ class AboutAppScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Resonate",
+                                  AppLocalizations.of(context)!.resonate,
                                   style: TextStyle(
                                     fontSize: UiSizes.size_20,
                                   ),
@@ -110,7 +111,7 @@ class AboutAppScreen extends StatelessWidget {
                           height: UiSizes.height_10,
                         ),
                         Semantics(
-                          label: "aossie logo",
+                          label: AppLocalizations.of(context)!.aossieLogo,
                           child: Container(
                             decoration: BoxDecoration(
                               image: const DecorationImage(
@@ -128,8 +129,11 @@ class AboutAppScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                semanticsLabel: "aossie",
-                                "AOSSIE",
+                                semanticsLabel:
+                                    AppLocalizations.of(context)!.aossie,
+                                AppLocalizations.of(context)!
+                                    .aossie
+                                    .toUpperCase(),
                                 style: TextStyle(
                                   fontSize: UiSizes.size_20,
                                 ),
@@ -158,10 +162,10 @@ class AboutAppScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Help to grow",
+                      AppLocalizations.of(context)!.helpToGrow,
                       style: TextStyle(),
                     ),
                   ),
@@ -169,20 +173,21 @@ class AboutAppScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: _shareApp, // Call the share method here
-                        child: const Column(
+                        onTap: () =>
+                            _shareApp(context), // Call the share method here
+                        child: Column(
                           children: [
-                            Icon(Icons.share_rounded),
-                            Text("Share"),
+                            const Icon(Icons.share_rounded),
+                            Text(AppLocalizations.of(context)!.share),
                           ],
                         ),
                       ),
                       GestureDetector(
                         onTap: () {},
-                        child: const Column(
+                        child: Column(
                           children: [
-                            Icon(Icons.star_rate_outlined),
-                            Text("Rate"),
+                            const Icon(Icons.star_rate_outlined),
+                            Text(AppLocalizations.of(context)!.rate),
                           ],
                         ),
                       )
@@ -200,10 +205,11 @@ class AboutAppScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      semanticsLabel: "About Resonate",
-                      "Description",
-                      style: TextStyle(
+                    Text(
+                      semanticsLabel:
+                          AppLocalizations.of(context)!.aboutResonate,
+                      AppLocalizations.of(context)!.description,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
@@ -211,8 +217,8 @@ class AboutAppScreen extends StatelessWidget {
                     SizedBox(
                       height: UiSizes.height_5,
                     ),
-                    const Text(
-                      "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+                    Text(
+                      AppLocalizations.of(context)!.resonateDescription,
                       textAlign: TextAlign.justify,
                     ),
                   ],

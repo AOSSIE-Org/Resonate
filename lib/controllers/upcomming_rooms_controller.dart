@@ -13,6 +13,7 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -257,8 +258,9 @@ class UpcomingRoomsController extends GetxController {
       DateTime pickedDateTime = DateTime(pickedDate.year, pickedDate.month,
           pickedDate.day, pickedTime.hour, pickedTime.minute);
       if (!pickedDateTime.isAfter(now)) {
-        Get.snackbar("Invalid Scheduled Date Time",
-            "Scheduled Date Time cannot be in past");
+        Get.snackbar(
+            AppLocalizations.of(Get.context!)!.invalidScheduledDateTime,
+            AppLocalizations.of(Get.context!)!.scheduledDateTimePast);
         return;
       }
       scheduledDateTime =

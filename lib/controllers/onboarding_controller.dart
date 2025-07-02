@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -67,13 +68,13 @@ class OnboardingController extends GetxController {
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
-        "Username Unavailable!",
-        "This username is invalid or either taken already.",
+        AppLocalizations.of(Get.context!)!.usernameUnavailable,
+        AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
         LogType.error,
       );
 
       SemanticsService.announce(
-        "This username is invalid or either taken already.",
+        AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
         ui.TextDirection.ltr,
       );
       return;
@@ -126,13 +127,13 @@ class OnboardingController extends GetxController {
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       customSnackbar(
-        "Profile created successfully",
-        "Your user profile is successfully created.",
+        AppLocalizations.of(Get.context!)!.profileCreatedSuccessfully,
+        AppLocalizations.of(Get.context!)!.userProfileCreatedSuccessfully,
         LogType.success,
       );
 
       SemanticsService.announce(
-        "Your user profile is successfully created.",
+        AppLocalizations.of(Get.context!)!.userProfileCreatedSuccessfully,
         ui.TextDirection.ltr,
       );
       Get.toNamed(AppRoutes.tabview);
@@ -140,19 +141,19 @@ class OnboardingController extends GetxController {
       if (e.toString().contains('Invalid `documentId` param')) {
         log(e.toString());
         customSnackbar(
-          "Invalid Format!",
-          "Username must be alphanumeric and should not contain special characters.",
+          AppLocalizations.of(Get.context!)!.invalidFormat,
+          AppLocalizations.of(Get.context!)!.usernameAlphanumeric,
           LogType.error,
         );
         SemanticsService.announce(
-          "Username must be alphanumeric and should not contain special characters.",
+          AppLocalizations.of(Get.context!)!.usernameAlphanumeric,
           ui.TextDirection.ltr,
         );
       } else {
         // if (e.)
         log(e.toString());
         customSnackbar(
-          "Error!",
+          AppLocalizations.of(Get.context!)!.error,
           e.toString(),
           LogType.error,
         );

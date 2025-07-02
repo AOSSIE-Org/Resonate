@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
@@ -33,12 +34,14 @@ class RoomScreenState extends State<RoomScreen> {
 
   Future<dynamic> _deleteRoomDialog(String text, Function() onTap) async {
     return await Get.defaultDialog(
-      title: "Are you sure?",
+      title: AppLocalizations.of(context)!.areYouSure,
       buttonColor: Theme.of(context).colorScheme.primary,
-      middleText: "To $text the room",
+      middleText: AppLocalizations.of(context)!.toRoomAction(text),
       cancelTextColor: Theme.of(context).colorScheme.primary,
+      textConfirm: AppLocalizations.of(context)!.confirm,
+      textCancel: AppLocalizations.of(context)!.cancel,
       onConfirm: onTap,
-      onCancel: () => log("canceled"),
+      onCancel: () => log(AppLocalizations.of(context)!.canceled),
     );
   }
 
@@ -101,7 +104,7 @@ class RoomScreenState extends State<RoomScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildParticipantsSection(
-                  title: "Participants",
+                  title: AppLocalizations.of(context)!.participants,
                   controller: controller,
                 ),
               ],
@@ -188,7 +191,9 @@ class RoomScreenState extends State<RoomScreen> {
           return ElevatedButton.icon(
             onPressed: () async {
               await _deleteRoomDialog(
-                controller.appwriteRoom.isUserAdmin ? "delete" : "leave",
+                controller.appwriteRoom.isUserAdmin
+                    ? AppLocalizations.of(context)!.delete
+                    : AppLocalizations.of(context)!.leave,
                 () async {
                   if (controller.appwriteRoom.isUserAdmin) {
                     await controller.deleteRoom();
@@ -204,7 +209,7 @@ class RoomScreenState extends State<RoomScreen> {
                   borderRadius: BorderRadius.circular(20)),
             ),
             icon: const Icon(Icons.exit_to_app),
-            label: const Text("Leave"),
+            label: Text(AppLocalizations.of(context)!.leaveButton),
           );
         });
   }

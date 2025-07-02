@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
@@ -50,7 +51,11 @@ class CustomLiveRoomTile extends StatelessWidget {
                   ),
                   onPressed: () {
                     Share.share(
-                      '🚀 Check out this amazing room: ${appwriteRoom.name}!\n\n📖 Description: ${appwriteRoom.description}\n👥 Join ${appwriteRoom.totalParticipants} participants now!',
+                      AppLocalizations.of(context)!.shareRoomMessage(
+                        appwriteRoom.name,
+                        appwriteRoom.description,
+                        appwriteRoom.totalParticipants,
+                      ),
                     );
                   },
                 ),
@@ -123,7 +128,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${appwriteRoom.totalParticipants} Participants',
+                          AppLocalizations.of(context)!.participantsCount(
+                              appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
@@ -144,7 +150,7 @@ class CustomLiveRoomTile extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  child: const Text('Join'),
+                  child: Text(AppLocalizations.of(context)!.join),
                 ),
               ],
             ),

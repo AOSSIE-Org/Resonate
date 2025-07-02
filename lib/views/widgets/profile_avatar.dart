@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -7,9 +8,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 Widget profileAvatar(BuildContext context) {
   final themeController = Get.find<ThemeController>();
-
   return Semantics(
-      label: "User profile",
+      label: AppLocalizations.of(context)!.userProfile,
       child: GestureDetector(
         onTap: () => Get.toNamed(AppRoutes.profile),
         child: Padding(

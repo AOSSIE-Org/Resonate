@@ -10,6 +10,7 @@ import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String? creatorName;
@@ -17,11 +18,11 @@ class ProfileScreen extends StatelessWidget {
   final bool? isCreatorProfile;
 
   ProfileScreen({
-    Key? key,
+    super.key,
     this.creatorName,
     this.creatorImgUrl,
     this.isCreatorProfile,
-  }) : super(key: key);
+  });
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
@@ -33,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text(AppLocalizations.of(context)!.profile),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -46,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
               width: double.maxFinite,
               child: Column(
                 children: [
-                  _buildProfileHeader(),
+                  _buildProfileHeader(context),
                   _buildEmailVerificationButton(
                     context,
                     emailVerifyController,
@@ -65,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader() {
+  Widget _buildProfileHeader(BuildContext context) {
     return GetBuilder<AuthStateController>(
       builder: (controller) => Row(
         children: [
@@ -89,14 +90,14 @@ class ProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (isCreatorProfile == null && controller.isEmailVerified!)
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
                         children: [
                           Icon(Icons.verified_user_outlined,
                               color: Colors.green),
                           SizedBox(width: 5),
-                          Text("Verified",
+                          Text(AppLocalizations.of(context)!.verified,
                               style: TextStyle(color: Colors.green)),
                         ],
                       ),
@@ -124,13 +125,6 @@ class ProfileScreen extends StatelessWidget {
                       side: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
-                  // Text(
-                  //   "@${isCreatorProfile != null ? '' : controller.userName}",
-                  //   style: TextStyle(
-                  //     fontSize: UiSizes.size_14,
-                  //     overflow: TextOverflow.ellipsis,
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -158,12 +152,12 @@ class ProfileScreen extends StatelessWidget {
           emailVerifyController.isSending.value = true;
           emailVerifyController.sendOTP();
         },
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.verified_user_outlined),
             SizedBox(width: 10),
-            Text("Verify Email"),
+            Text(AppLocalizations.of(context)!.verifyEmail),
           ],
         ),
       ),
@@ -200,7 +194,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  isCreatorProfile != null ? "Follow" : "Edit Profile",
+                  isCreatorProfile != null
+                      ? AppLocalizations.of(context)!.follow
+                      : AppLocalizations.of(context)!.editProfile,
                   style: TextStyle(color: colorScheme.onPrimary),
                 ),
               ],
@@ -241,8 +237,8 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               isCreatorProfile != null
-                  ? "User Created Stories"
-                  : "Your Stories",
+                  ? AppLocalizations.of(context)!.userCreatedStories
+                  : AppLocalizations.of(context)!.yourStories,
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
@@ -256,8 +252,8 @@ class ProfileScreen extends StatelessWidget {
               context,
               exploreStoryController.userCreatedStories,
               isCreatorProfile != null
-                  ? "User has not created any story"
-                  : "You have not created any story",
+                  ? AppLocalizations.of(context)!.userNoStories
+                  : AppLocalizations.of(context)!.youNoStories,
             ),
           ),
           SizedBox(height: UiSizes.height_10),
@@ -265,8 +261,8 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               isCreatorProfile != null
-                  ? "User Liked Stories"
-                  : "Your Liked Stories",
+                  ? AppLocalizations.of(context)!.userLikedStories
+                  : AppLocalizations.of(context)!.yourLikedStories,
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
@@ -280,8 +276,8 @@ class ProfileScreen extends StatelessWidget {
               context,
               exploreStoryController.userLikedStories,
               isCreatorProfile != null
-                  ? "User has not liked any story"
-                  : "You have not liked any story",
+                  ? AppLocalizations.of(context)!.userNoLikedStories
+                  : AppLocalizations.of(context)!.youNoLikedStories,
             ),
           ),
         ],

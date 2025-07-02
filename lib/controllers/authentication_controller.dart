@@ -10,6 +10,8 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
+import 'package:resonate/l10n/app_localizations.dart';
+
 class AuthenticationController extends GetxController {
   var isPasswordFieldVisible = false.obs;
   var isConfirmPasswordFieldVisible = false.obs;
@@ -23,7 +25,7 @@ class AuthenticationController extends GetxController {
   late GlobalKey<FormState> loginFormKey;
   late GlobalKey<FormState> registrationFormKey;
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     try {
       isLoading.value = true;
       await authStateController.login(
@@ -34,23 +36,23 @@ class AuthenticationController extends GetxController {
       log(e.toString());
       if (e.type == userInvalidCredentials) {
         customSnackbar(
-          'Try Again!',
-          "Incorrect Email or Password",
+          AppLocalizations.of(context)!.tryAgain,
+          AppLocalizations.of(context)!.incorrectEmailOrPassword,
           LogType.error,
         );
         SemanticsService.announce(
-          "Incorrect Email or Password",
+          AppLocalizations.of(context)!.incorrectEmailOrPassword,
           TextDirection.ltr,
         );
       } else if (e.type == generalArgumentInvalid) {
         customSnackbar(
-          'Try Again!',
-          "Password is less than 8 characters",
+          AppLocalizations.of(context)!.tryAgain,
+          AppLocalizations.of(context)!.passwordShort,
           LogType.error,
         );
 
         SemanticsService.announce(
-          "Password is less than 8 characters",
+          AppLocalizations.of(context)!.passwordShort,
           TextDirection.ltr,
         );
       }
@@ -61,7 +63,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<bool> signup() async {
+  Future<bool> signup(BuildContext context) async {
     try {
       isLoading.value = true;
       await authStateController.signup(
@@ -72,7 +74,7 @@ class AuthenticationController extends GetxController {
     } catch (e) {
       log(e.toString());
       customSnackbar(
-        'Oops',
+        AppLocalizations.of(context)!.oops,
         e.toString(),
         LogType.error,
       );
@@ -103,7 +105,7 @@ class AuthenticationController extends GetxController {
     }
   }
 
-  Future<void> resetPassword(String email) async {
+  Future<void> resetPassword(String email, BuildContext context) async {
     try {
       if (!email.isValidEmail()) {
         return;
@@ -116,19 +118,19 @@ class AuthenticationController extends GetxController {
             'https://localhost/reset-password', // Replace with actual reset password URL
       );
       customSnackbar(
-        'Success',
-        'Password reset email sent!',
+        AppLocalizations.of(context)!.success,
+        AppLocalizations.of(context)!.passwordResetSent,
         LogType.success,
       );
 
       SemanticsService.announce(
-        "Password reset email sent!",
+        AppLocalizations.of(context)!.passwordResetSent,
         TextDirection.ltr,
       );
       //Get.toNamed(AppRoutes.resetPassword); To navigate to resetPassword screen on clicking the link
     } on AppwriteException catch (e) {
       customSnackbar(
-        'Error',
+        AppLocalizations.of(context)!.error,
         e.message.toString(),
         LogType.error,
       );

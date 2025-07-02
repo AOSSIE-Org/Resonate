@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -40,15 +41,15 @@ class NoConnectionDialog extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "No Connection",
+                    AppLocalizations.of(context)!.noConnection,
                     style: TextStyle(
                       fontSize: UiSizes.size_40,
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  const Text(
-                    "There is a connection error. Please check your internet and try again.",
+                  Text(
+                    AppLocalizations.of(context)!.connectionError,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
@@ -70,8 +71,8 @@ class NoConnectionDialog extends StatelessWidget {
                                   size: UiSizes.size_40,
                                 ),
                               )
-                            : const Text(
-                                "Try Again",
+                            : Text(
+                                AppLocalizations.of(context)!.tryAgain,
                               ),
                       ),
                     ),

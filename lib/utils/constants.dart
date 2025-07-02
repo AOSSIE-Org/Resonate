@@ -1,7 +1,7 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "10.0.2.2";
+const String baseDomain = "localhost";
 //const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain:80/v1";

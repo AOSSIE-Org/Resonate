@@ -9,7 +9,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
-
+import 'package:resonate/l10n/app_localizations.dart';
 
 class CreateRoomController extends GetxController {
   final ThemeController themeController = Get.find<ThemeController>();
@@ -28,11 +28,11 @@ class CreateRoomController extends GetxController {
     super.dispose();
   }
 
-  String? validateTag(dynamic tag) {
+  String? validateTag(dynamic tag, BuildContext context) {
     if (tag != null && tag is String && tag.isValidTag()) {
       return null; // Tag is valid
     } else {
-      return 'Invalid Tag: $tag'; // Return an error message for invalid tags
+      return '${AppLocalizations.of(context)!.invalidTags} $tag'; // Return an error message for invalid tags
     }
   }
 
