@@ -18,7 +18,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace ="com.resonate.resonate"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -65,8 +65,7 @@ flutter {
 }
 
 dependencies {
-     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22")
-     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.9")
+     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
      implementation("androidx.window:window:1.0.0")
      implementation("androidx.window:window-java:1.0.0")
 }
