@@ -1,7 +1,7 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "localhost";
+const String baseDomain = "192.168.29.24";
 //const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
@@ -43,6 +43,8 @@ const String vintageUserProfileImagePlaceholderID = "67012e19003d00f39e15";
 const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
 const String participantsCollectionId = "64a63e508145d1084abf";
+const String chatMessagesCollectionId = "670d812c0002c33c09a8";
+const String chatMessageReplyCollectionId = "672759820027801f121f";
 
 // Pair chat database constants
 const String pairRequestCollectionId = "64d980211f1395263ebe";

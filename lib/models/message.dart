@@ -14,7 +14,6 @@ class Message {
   DateTime creationDateTime;
   ReplyTo? replyTo;
 
-
   Message({
     required this.roomId,
     required this.messageId,
@@ -30,7 +29,6 @@ class Message {
     this.replyTo,
   });
 
-
   Map<String, dynamic> toJson() {
     return {
       'roomId': roomId,
@@ -43,11 +41,26 @@ class Message {
       'index': index,
       'isEdited': isEdited,
       'content': content,
-      'creationDateTime': creationDateTime, 
-      'replyTo': replyTo?.toJson(), 
+      'creationDateTime': creationDateTime.toUtc().toIso8601String(),
+      'replyTo': replyTo?.toJson(),
     };
   }
 
+  Map<String, dynamic> toJsonForUpload() {
+    return {
+      'roomId': roomId,
+      'messageId': messageId,
+      'creatorId': creatorId,
+      'creatorUsername': creatorUsername,
+      'creatorName': creatorName,
+      'creatorImgUrl': creatorImgUrl,
+      'hasValidTag': hasValidTag,
+      'index': index,
+      'isEdited': isEdited,
+      'content': content,
+      'creationDateTime': creationDateTime.toUtc().toIso8601String(),
+    };
+  }
 
   Message.fromJson(Map<String, dynamic> json)
       : roomId = json['roomId'],
@@ -60,6 +73,36 @@ class Message {
         index = json['index'],
         isEdited = json['isEdited'],
         content = json['content'],
-        creationDateTime = json['creationDateTime'],
-        replyTo = json['replyTo'] != null ? ReplyTo.fromJson(json['replyTo']) : null;
+        creationDateTime = DateTime.parse(json['creationDateTime']),
+        replyTo =
+            json['replyTo'] != null ? ReplyTo.fromJson(json['replyTo']) : null;
+  Message copyWith({
+    String? roomId,
+    String? messageId,
+    String? creatorId,
+    String? creatorUsername,
+    String? creatorName,
+    String? creatorImgUrl,
+    bool? hasValidTag,
+    int? index,
+    bool? isEdited,
+    String? content,
+    DateTime? creationDateTime,
+    ReplyTo? replyTo,
+  }) {
+    return Message(
+      roomId: roomId ?? this.roomId,
+      messageId: messageId ?? this.messageId,
+      creatorId: creatorId ?? this.creatorId,
+      creatorUsername: creatorUsername ?? this.creatorUsername,
+      creatorName: creatorName ?? this.creatorName,
+      creatorImgUrl: creatorImgUrl ?? this.creatorImgUrl,
+      hasValidTag: hasValidTag ?? this.hasValidTag,
+      index: index ?? this.index,
+      isEdited: isEdited ?? this.isEdited,
+      content: content ?? this.content,
+      creationDateTime: creationDateTime ?? this.creationDateTime,
+      replyTo: replyTo ?? this.replyTo,
+    );
+  }
 }

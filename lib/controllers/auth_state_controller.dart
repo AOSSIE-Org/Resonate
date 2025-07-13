@@ -35,6 +35,14 @@ class AuthStateController extends GetxController {
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  static AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails('your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker');
+  static NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -82,15 +90,6 @@ class AuthStateController extends GetxController {
     // );
 
     await initializeLocalNotifications();
-
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
 
     // Listen to notitifcations in foreground
     // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {

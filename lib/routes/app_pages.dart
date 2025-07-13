@@ -129,11 +129,6 @@ class AppPages {
       name: AppRoutes.loginScreen,
       page: () => const LoginScreen(),
     ),
-
-    GetPage(
-      name: AppRoutes.roomChatScreen,
-      page: () => const RoomChatScreen(),
-    ),
     GetPage(
       name: AppRoutes.homeScreen,
       page: () => const HomeScreen(),

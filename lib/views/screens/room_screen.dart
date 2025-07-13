@@ -178,6 +178,7 @@ class RoomScreenState extends State<RoomScreen> {
             _buildLeaveButton(),
             _buildMicButton(),
             _buildRaiseHandButton(),
+            _buildChatButton(),
           ],
         ),
       ),
@@ -268,6 +269,23 @@ class RoomScreenState extends State<RoomScreen> {
             backgroundColor: isMicOn ? Colors.lightGreen : Colors.redAccent,
             child: Icon(
               isMicOn ? Icons.mic : Icons.mic_off,
+              color: Colors.black,
+            ),
+          );
+        });
+  }
+
+  Widget _buildChatButton() {
+    return GetBuilder<SingleRoomController>(
+        init: SingleRoomController(appwriteRoom: widget.room),
+        builder: (controller) {
+          return FloatingActionButton(
+            onPressed: () {
+              controller.openChatSheet();
+            },
+            backgroundColor: Colors.redAccent,
+            child: Icon(
+              Icons.chat,
               color: Colors.black,
             ),
           );
