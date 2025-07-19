@@ -2,7 +2,7 @@
 
 // Appwrite Project Constants
 const String baseDomain = "192.168.29.24";
-//const String baseDomain = "10.0.2.2";
+// const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
@@ -59,6 +59,7 @@ const String sendOtpFunctionID = "6513e9d40b57c6ec156f";
 const String verifyOtpFunctionID = "651303df122abc151bf3";
 const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
+const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";

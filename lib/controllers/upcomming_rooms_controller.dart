@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -14,6 +15,7 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -25,7 +27,7 @@ class UpcomingRoomsController extends GetxController {
   final TabViewController controller = Get.find<TabViewController>();
   final ThemeController themeController = Get.find<ThemeController>();
   final RoomsController roomsController = Get.find<RoomsController>();
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   late RxList<AppwriteUpcommingRoom> upcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
   late String scheduledDateTime;
@@ -56,7 +58,7 @@ class UpcomingRoomsController extends GetxController {
   }
 
   Future<void> addUserToSubscriberList(String upcomingRoomId) async {
-    // final fcmToken = await messaging.getToken();
+    final fcmToken = await messaging.getToken();
     await databases.createDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
@@ -64,9 +66,7 @@ class UpcomingRoomsController extends GetxController {
         data: {
           "userID": authStateController.uid,
           "upcomingRoomId": upcomingRoomId,
-          "registrationTokens": [
-            // fcmToken
-          ],
+          "registrationTokens": [fcmToken],
           "userProfileUrl": authStateController.profileImageUrl
         });
 
@@ -199,7 +199,7 @@ class UpcomingRoomsController extends GetxController {
       return;
     }
     try {
-      // final fcmToken = await messaging.getToken();
+      final fcmToken = await messaging.getToken();
       await databases.createDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: upcomingRoomsCollectionId,
@@ -210,9 +210,7 @@ class UpcomingRoomsController extends GetxController {
             "tags": createRoomController.tagsController.getTags,
             "description": createRoomController.descriptionController.text,
             "creatorUid": authStateController.uid,
-            "creator_fcm_tokens": [
-              // fcmToken
-            ]
+            "creator_fcm_tokens": [fcmToken]
           });
     } on AppwriteException catch (e) {
       log(e.toString());
@@ -295,5 +293,22 @@ class UpcomingRoomsController extends GetxController {
           collectionId: subscribedUserCollectionId,
           documentId: subscriber.$id);
     }
+  }
+
+  void openUpcomingChatSheet(AppwriteUpcommingRoom appwriteRoom) {
+    showModalBottomSheet(
+      context: Get.context!,
+      builder: (ctx) {
+        Get.put(RoomChatController(appwriteUpcommingRoom: appwriteRoom));
+        return RoomChatScreen();
+      },
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+    );
   }
 }

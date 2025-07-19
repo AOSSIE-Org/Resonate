@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/l10n/app_localizations_en.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/models/themes_model.dart';
 import 'package:resonate/themes/theme_list.dart';

@@ -1,22 +1,14 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
-import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/message.dart';
-import 'package:resonate/models/reply_to.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
-import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/utils/utils.dart';
 
 class RoomChatScreen extends StatefulWidget {
-  const RoomChatScreen({super.key, required this.appwriteRoom});
-  final AppwriteRoom appwriteRoom;
+  const RoomChatScreen({super.key});
 
   @override
   State<RoomChatScreen> createState() => _RoomChatScreenState();
@@ -152,13 +144,13 @@ class ChatMessageItem extends StatefulWidget {
   final bool canEdit;
 
   const ChatMessageItem({
-    Key? key,
+    super.key,
     required this.message,
     required this.onTapReply,
     required this.onEditMessage,
     required this.replytoMessage,
     required this.canEdit,
-  }) : super(key: key);
+  });
 
   @override
   ChatMessageItemState createState() => ChatMessageItemState();
@@ -291,6 +283,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                           Text(
                                             widget.message.replyTo!.content,
                                             maxLines: 1,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ],

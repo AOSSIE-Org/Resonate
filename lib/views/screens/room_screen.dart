@@ -15,9 +15,9 @@ class RoomScreen extends StatefulWidget {
   final AppwriteRoom room;
 
   const RoomScreen({
-    Key? key,
+    super.key,
     required this.room,
-  }) : super(key: key);
+  });
 
   @override
   RoomScreenState createState() => RoomScreenState();

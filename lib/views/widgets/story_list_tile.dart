@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/colors.dart';

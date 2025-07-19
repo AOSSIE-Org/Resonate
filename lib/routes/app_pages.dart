@@ -12,7 +12,6 @@ import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
-import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/forgot_password_screen.dart';

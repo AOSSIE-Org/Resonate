@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
@@ -5,34 +6,45 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
 import 'package:get/get.dart';
-import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/models/message.dart';
 import 'package:resonate/models/reply_to.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class RoomChatController extends GetxController {
-  RoomChatController({required this.appwriteRoom});
+  RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
   AuthStateController auth = Get.find<AuthStateController>();
   RxList<Message> messages = <Message>[].obs;
-  final AppwriteRoom appwriteRoom;
+  final AppwriteRoom? appwriteRoom;
+  final Functions functions = AppwriteService.getFunctions();
+  final AppwriteUpcommingRoom? appwriteUpcommingRoom;
   final Realtime realtime = AppwriteService.getRealtime();
   final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
   Rx<ReplyTo?> replyingTo = Rxn<ReplyTo>();
+  final NotificationDetails notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails(
+          'your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker'));
 
   @override
   void onInit() async {
-    subscribeToMessages();
     super.onInit();
+    subscribeToMessages();
+    log(appwriteRoom.toString());
+    log(appwriteUpcommingRoom.toString());
   }
 
   Future<void> loadMessages() async {
     messages.clear();
     var queries = [
-      Query.equal('roomId', appwriteRoom.id),
+      Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
       Query.orderAsc('index'),
       Query.limit(100)
     ];
@@ -71,7 +83,7 @@ class RoomChatController extends GetxController {
 
       final int newIndex = messages.isNotEmpty ? messages.last.index + 1 : 0;
       final Message message = Message(
-          roomId: appwriteRoom.id,
+          roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
           messageId: messageId,
           creatorId: auth.appwriteUser.$id,
           creatorUsername: auth.userName!,
@@ -88,6 +100,7 @@ class RoomChatController extends GetxController {
           collectionId: chatMessagesCollectionId,
           documentId: messageId,
           data: message.toJsonForUpload());
+
       if (replyingTo.value != null) {
         await databases.createDocument(
             databaseId: masterDatabaseId,
@@ -95,9 +108,23 @@ class RoomChatController extends GetxController {
             documentId: messageId,
             data: replyingTo.value!.toJson());
       }
+      if (appwriteUpcommingRoom != null) {
+        log('Sending notification for sent message');
+        var body = json.encode({
+          'roomId': appwriteUpcommingRoom?.id,
+          'payload': {
+            'title': 'Message received in ${appwriteUpcommingRoom?.name}',
+            'body': '${message.creatorName} said: ${message.content}',
+          }
+        });
+        var results = await functions.createExecution(
+            functionId: sendMessageNotificationFunctionID,
+            body: body.toString());
+        log(results.status);
+      }
       message.replyTo = replyingTo.value;
 
-      messages.add(message);
+      // messages.add(message);
       replyingTo.value = null;
     } catch (e) {
       log('Error sending message: $e');
@@ -107,18 +134,32 @@ class RoomChatController extends GetxController {
   }
 
   Future<void> editMessage(String messageId, String newContent) async {
-    messages.firstWhere((msg) => msg.messageId == messageId)
-      ..content = newContent
-      ..isEdited = true;
+    Message updatedMessage =
+        messages.firstWhere((msg) => msg.messageId == messageId);
+    updatedMessage =
+        updatedMessage.copyWith(content: newContent, isEdited: true);
+
     try {
       await databases.updateDocument(
           databaseId: masterDatabaseId,
           collectionId: chatMessagesCollectionId,
           documentId: messageId,
-          data: {
-            'content': newContent,
-            'isEdited': true,
-          });
+          data: updatedMessage.toJsonForUpload());
+      if (appwriteUpcommingRoom != null) {
+        log('Sending notification for edited message');
+        var body = json.encode({
+          'roomId': appwriteUpcommingRoom?.id,
+          'payload': {
+            'title': 'Message Edited in ${appwriteUpcommingRoom?.name}',
+            'body':
+                '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
+          }
+        });
+        var results = await functions.createExecution(
+            functionId: sendMessageNotificationFunctionID,
+            body: body.toString());
+        log(results.status);
+      }
       log('Message edited successfully');
     } catch (e) {
       log('Error editing message: $e');
@@ -148,7 +189,7 @@ class RoomChatController extends GetxController {
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {
           String roomId = data.payload['roomId'];
-          if (roomId == appwriteRoom.id) {
+          if (roomId == (appwriteRoom?.id ?? appwriteUpcommingRoom!.id)) {
             String docId = data.payload['\$id'];
             String action = data.events.first
                 .substring(channel.length + 1 + docId.length + 1);
@@ -172,21 +213,14 @@ class RoomChatController extends GetxController {
                 }
               }
               newMessage.replyTo = replyTo;
-              var messageTest = messages.firstWhereOrNull(
-                  (msg) => msg.messageId == newMessage.messageId);
-              if (messageTest == null) {
-                messages.add(newMessage);
+
+              messages.add(newMessage);
+              if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(
                     0,
-                    'Message received in ${appwriteRoom.name}',
+                    'Message received in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
                     '${newMessage.creatorName} said: ${newMessage.content}',
-                    NotificationDetails(
-                        android: AndroidNotificationDetails(
-                            'your channel id', 'your channel name',
-                            channelDescription: 'your channel description',
-                            importance: Importance.max,
-                            priority: Priority.high,
-                            ticker: 'ticker')));
+                    notificationDetails);
               }
             }
             if (action == 'update') {
@@ -196,17 +230,13 @@ class RoomChatController extends GetxController {
               messages[index] = messages[index].copyWith(
                   content: updatedMessage.content,
                   isEdited: updatedMessage.isEdited);
-              auth.flutterLocalNotificationsPlugin.show(
-                  0,
-                  'Message Edited in ${appwriteRoom.name}',
-                  '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
-                  NotificationDetails(
-                      android: AndroidNotificationDetails(
-                          'your channel id', 'your channel name',
-                          channelDescription: 'your channel description',
-                          importance: Importance.max,
-                          priority: Priority.high,
-                          ticker: 'ticker')));
+              if (appwriteRoom != null) {
+                auth.flutterLocalNotificationsPlugin.show(
+                    0,
+                    'Message Edited in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
+                    '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
+                    notificationDetails);
+              }
             }
           }
         }

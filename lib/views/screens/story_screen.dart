@@ -6,7 +6,6 @@ import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
 import 'package:resonate/views/screens/chapter_play_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';

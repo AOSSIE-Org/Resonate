@@ -21,7 +21,7 @@ class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
   var isInitializing = false.obs;
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   late final Account account = AppwriteService.getAccount();
   late String? uid;
   late String? profileImageID;
@@ -79,34 +79,43 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
 
     // ask for settings permissions
-    // NotificationSettings settings = await messaging.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
     await initializeLocalNotifications();
 
     // Listen to notitifcations in foreground
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-    //   if (message.notification != null) {
-    //     RegExp exp = RegExp(r'The room (\w+) will Start Soon');
-    //     RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
-    //     String discussionName = matches!.group(1)!;
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        RegExp exp = RegExp(r'The room (\w+) will Start Soon');
+        RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
+        if (matches != null) {
+          String discussionName = matches.group(1)!;
 
-    //     // send local notification
-    //     await flutterLocalNotificationsPlugin.show(
-    //         0,
-    //         message.notification!.title,
-    //         message.notification!.body,
-    //         notificationDetails,
-    //         payload: discussionName);
-    //   }
-    // });
+          // send local notification
+          await flutterLocalNotificationsPlugin.show(
+              0,
+              message.notification!.title,
+              message.notification!.body,
+              notificationDetails,
+              payload: discussionName);
+        } else {
+          await flutterLocalNotificationsPlugin.show(
+            0,
+            message.notification!.title,
+            message.notification!.body,
+            notificationDetails,
+          );
+        }
+      }
+    });
   }
 
   Future<bool> get getLoginState async {
@@ -140,7 +149,7 @@ class AuthStateController extends GetxController {
 
       update();
     } catch (e) {
-      log("Error originating from setUserProfileData" + e.toString());
+      log("Error originating from setUserProfileData$e");
     } finally {
       isInitializing.value = false;
     }
@@ -175,7 +184,7 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> addRegistrationTokentoSubscribedandCreatedUpcomingRooms() async {
-    // final fcmToken = await messaging.getToken();
+    final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
     List<Document> subscribedUpcomingRooms = await databases.listDocuments(
@@ -187,7 +196,7 @@ class AuthStateController extends GetxController {
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
-      // registrationTokens.add(fcmToken!);
+      registrationTokens.add(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
@@ -204,7 +213,7 @@ class AuthStateController extends GetxController {
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
-      // creatorFcmTokens.add(fcmToken!);
+      creatorFcmTokens.add(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: upcomingRoomsCollectionId,
@@ -214,7 +223,7 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> removeRegistrationTokenFromSubscribedUpcomingRooms() async {
-    // final fcmToken = await messaging.getToken();
+    final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
     List<Document> subscribedUpcomingRooms = await databases.listDocuments(
@@ -226,7 +235,7 @@ class AuthStateController extends GetxController {
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
-      // registrationTokens.remove(fcmToken!);
+      registrationTokens.remove(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: subscribedUserCollectionId,
@@ -243,7 +252,7 @@ class AuthStateController extends GetxController {
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
-      // creatorFcmTokens.remove(fcmToken!);
+      creatorFcmTokens.remove(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
           collectionId: upcomingRoomsCollectionId,

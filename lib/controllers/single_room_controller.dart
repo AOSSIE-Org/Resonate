@@ -304,7 +304,7 @@ class SingleRoomController extends GetxController {
       context: Get.context!,
       builder: (ctx) {
         Get.put(RoomChatController(appwriteRoom: appwriteRoom));
-        return RoomChatScreen(appwriteRoom: appwriteRoom);
+        return RoomChatScreen();
       },
       useSafeArea: true,
       shape: const RoundedRectangleBorder(
