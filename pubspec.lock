@@ -116,10 +116,11 @@ packages:
   audio_metadata_reader:
     dependency: "direct main"
     description:
-      name: audio_metadata_reader
-      sha256: b7cecf78178075c8f8281ae184ae81d137eb6e751f5d193334984eb732662ee0
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: main
+      resolved-ref: "7575fd78f05b5f431358cfe5291d026b70b2770c"
+      url: "https://github.com/M4dhav/audio_metadata_reader.git"
+    source: git
     version: "1.4.2"
   audioplayers:
     dependency: "direct main"
@@ -189,10 +190,10 @@ packages:
     dependency: transitive
     description:
       name: build
-      sha256: "8295b0b6dfe00499b786718f2936a56b5e0d56d169c528472c8c1908f2b1e3ee"
+      sha256: "51dc711996cbf609b90cbe5b335bbce83143875a9d58e4b5c6d3c4f684d3dda7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.4"
   build_config:
     dependency: transitive
     description:
@@ -213,26 +214,26 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: "57fe2f9149b01d52fcd0ea7de17083739b5cf9e040dedb4e24a17c628c1e9caf"
+      sha256: ee4257b3f20c0c90e72ed2b57ad637f694ccba48839a821e87db762548c22a62
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.4"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "9b196d7b629c5317dff3ec83c7e98840b773cee3b9339b646fe487048d2ebc74"
+      sha256: "382a4d649addbfb7ba71a3631df0ec6a45d5ab9b098638144faf27f02778eb53"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.4"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
-      sha256: dae6a8a5cbef6866cdfa0d96df4b0d85b9086897096270a405a44d946dafffba
+      sha256: "85fbbb1036d576d966332a3f5ce83f2ce66a40bea1a94ad2d5fc29a19a0d3792"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.2"
   built_collection:
     dependency: transitive
     description:
@@ -802,18 +803,18 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: "59a584c24b3acdc5250bb856d0d3e9c0b798ed14a4af1ddb7dc1c7b41df91c9c"
+      sha256: "2d399f823b8849663744d2a9ddcce01c49268fb4170d0442a655bf6a2f47be22"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.8"
+    version: "3.1.0"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
-      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
+      sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "3.1.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -1222,6 +1223,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  palette_generator:
+    dependency: "direct main"
+    description:
+      name: palette_generator
+      sha256: "4420f7ccc3f0a4a906144e73f8b6267cd940b64f57a7262e95cb8cec3a8ae0ed"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+7"
   path:
     dependency: transitive
     description:
@@ -1463,10 +1472,10 @@ packages:
     dependency: transitive
     description:
       name: source_helper
-      sha256: "86d247119aedce8e63f4751bd9626fc9613255935558447569ad42f9f5b48b3c"
+      sha256: "4f81479fe5194a622cdd1713fe1ecb683a6e6c85cd8cec8e2e35ee5ab3fdf2a1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.5"
+    version: "1.3.6"
   source_span:
     dependency: transitive
     description:

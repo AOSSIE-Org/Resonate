@@ -519,5 +519,9 @@
     "lengthMinutes": "min",
     "requiredField": "Required field",
     "clickPictureUsingCamera": "Click picture using camera",
-    "pickImageFromGallery": "Pick image from gallery"
+    "pickImageFromGallery": "Pick image from gallery",
+    "onlineUsers": "Online Users",
+    "noOnlineUsers": "No users currently online",
+    "chooseUser": "Choose User to chat with",
+    "quickMatch": "Quick Match"
 }

@@ -1946,6 +1946,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick image from gallery'**
   String get pickImageFromGallery;
+
+  /// No description provided for @onlineUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Users'**
+  String get onlineUsers;
+
+  /// No description provided for @noOnlineUsers.
+  ///
+  /// In en, this message translates to:
+  /// **'No users currently online'**
+  String get noOnlineUsers;
+
+  /// No description provided for @chooseUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose User to chat with'**
+  String get chooseUser;
+
+  /// No description provided for @quickMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Match'**
+  String get quickMatch;
 }
 
 class _AppLocalizationsDelegate

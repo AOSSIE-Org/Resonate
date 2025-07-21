@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,116 +9,82 @@ part of 'resonate_user.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ResonateUser _$ResonateUserFromJson(Map<String, dynamic> json) {
-  return _ResonateUser.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ResonateUser {
-  String? get uid => throw _privateConstructorUsedError;
-  String? get userName => throw _privateConstructorUsedError;
-  String? get profileImageUrl => throw _privateConstructorUsedError;
-  String? get gender => throw _privateConstructorUsedError;
-  String? get dateOfBirth => throw _privateConstructorUsedError;
-
-  /// Serializes this ResonateUser to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get uid;
+  @JsonKey(name: 'userName')
+  String? get userName;
+  String? get profileImageUrl;
+  String? get name;
+  String? get email;
+  @JsonKey(name: 'dob')
+  String? get dateOfBirth;
+  String? get docId;
 
   /// Create a copy of ResonateUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ResonateUserCopyWith<ResonateUser> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ResonateUserCopyWith<$Res> {
-  factory $ResonateUserCopyWith(
-          ResonateUser value, $Res Function(ResonateUser) then) =
-      _$ResonateUserCopyWithImpl<$Res, ResonateUser>;
-  @useResult
-  $Res call(
-      {String? uid,
-      String? userName,
-      String? profileImageUrl,
-      String? gender,
-      String? dateOfBirth});
-}
-
-/// @nodoc
-class _$ResonateUserCopyWithImpl<$Res, $Val extends ResonateUser>
-    implements $ResonateUserCopyWith<$Res> {
-  _$ResonateUserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ResonateUser
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ResonateUserCopyWith<ResonateUser> get copyWith =>
+      _$ResonateUserCopyWithImpl<ResonateUser>(
+          this as ResonateUser, _$identity);
+
+  /// Serializes this ResonateUser to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? uid = freezed,
-    Object? userName = freezed,
-    Object? profileImageUrl = freezed,
-    Object? gender = freezed,
-    Object? dateOfBirth = freezed,
-  }) {
-    return _then(_value.copyWith(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userName: freezed == userName
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      profileImageUrl: freezed == profileImageUrl
-          ? _value.profileImageUrl
-          : profileImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ResonateUser &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.dateOfBirth, dateOfBirth) ||
+                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.docId, docId) || other.docId == docId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, uid, userName, profileImageUrl,
+      name, email, dateOfBirth, docId);
+
+  @override
+  String toString() {
+    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId)';
   }
 }
 
 /// @nodoc
-abstract class _$$ResonateUserImplCopyWith<$Res>
-    implements $ResonateUserCopyWith<$Res> {
-  factory _$$ResonateUserImplCopyWith(
-          _$ResonateUserImpl value, $Res Function(_$ResonateUserImpl) then) =
-      __$$ResonateUserImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ResonateUserCopyWith<$Res> {
+  factory $ResonateUserCopyWith(
+          ResonateUser value, $Res Function(ResonateUser) _then) =
+      _$ResonateUserCopyWithImpl;
   @useResult
   $Res call(
       {String? uid,
-      String? userName,
+      @JsonKey(name: 'userName') String? userName,
       String? profileImageUrl,
-      String? gender,
-      String? dateOfBirth});
+      String? name,
+      String? email,
+      @JsonKey(name: 'dob') String? dateOfBirth,
+      String? docId});
 }
 
 /// @nodoc
-class __$$ResonateUserImplCopyWithImpl<$Res>
-    extends _$ResonateUserCopyWithImpl<$Res, _$ResonateUserImpl>
-    implements _$$ResonateUserImplCopyWith<$Res> {
-  __$$ResonateUserImplCopyWithImpl(
-      _$ResonateUserImpl _value, $Res Function(_$ResonateUserImpl) _then)
-      : super(_value, _then);
+class _$ResonateUserCopyWithImpl<$Res> implements $ResonateUserCopyWith<$Res> {
+  _$ResonateUserCopyWithImpl(this._self, this._then);
+
+  final ResonateUser _self;
+  final $Res Function(ResonateUser) _then;
 
   /// Create a copy of ResonateUser
   /// with the given fields replaced by the non-null parameter values.
@@ -128,125 +94,372 @@ class __$$ResonateUserImplCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? userName = freezed,
     Object? profileImageUrl = freezed,
-    Object? gender = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
     Object? dateOfBirth = freezed,
+    Object? docId = freezed,
   }) {
-    return _then(_$ResonateUserImpl(
+    return _then(_self.copyWith(
       uid: freezed == uid
-          ? _value.uid
+          ? _self.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String?,
       userName: freezed == userName
-          ? _value.userName
+          ? _self.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       profileImageUrl: freezed == profileImageUrl
-          ? _value.profileImageUrl
+          ? _self.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String?,
       dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
+          ? _self.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      docId: freezed == docId
+          ? _self.docId
+          : docId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [ResonateUser].
+extension ResonateUserPatterns on ResonateUser {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ResonateUser value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ResonateUser value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ResonateUser value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? uid,
+            @JsonKey(name: 'userName') String? userName,
+            String? profileImageUrl,
+            String? name,
+            String? email,
+            @JsonKey(name: 'dob') String? dateOfBirth,
+            String? docId)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser() when $default != null:
+        return $default(_that.uid, _that.userName, _that.profileImageUrl,
+            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? uid,
+            @JsonKey(name: 'userName') String? userName,
+            String? profileImageUrl,
+            String? name,
+            String? email,
+            @JsonKey(name: 'dob') String? dateOfBirth,
+            String? docId)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser():
+        return $default(_that.uid, _that.userName, _that.profileImageUrl,
+            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? uid,
+            @JsonKey(name: 'userName') String? userName,
+            String? profileImageUrl,
+            String? name,
+            String? email,
+            @JsonKey(name: 'dob') String? dateOfBirth,
+            String? docId)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ResonateUser() when $default != null:
+        return $default(_that.uid, _that.userName, _that.profileImageUrl,
+            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$ResonateUserImpl implements _ResonateUser {
-  const _$ResonateUserImpl(
+class _ResonateUser implements ResonateUser {
+  const _ResonateUser(
       {this.uid,
-      this.userName,
+      @JsonKey(name: 'userName') this.userName,
       this.profileImageUrl,
-      this.gender,
-      this.dateOfBirth});
-
-  factory _$ResonateUserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ResonateUserImplFromJson(json);
+      this.name,
+      this.email,
+      @JsonKey(name: 'dob') this.dateOfBirth,
+      this.docId});
+  factory _ResonateUser.fromJson(Map<String, dynamic> json) =>
+      _$ResonateUserFromJson(json);
 
   @override
   final String? uid;
   @override
+  @JsonKey(name: 'userName')
   final String? userName;
   @override
   final String? profileImageUrl;
   @override
-  final String? gender;
+  final String? name;
   @override
+  final String? email;
+  @override
+  @JsonKey(name: 'dob')
   final String? dateOfBirth;
+  @override
+  final String? docId;
+
+  /// Create a copy of ResonateUser
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ResonateUserCopyWith<_ResonateUser> get copyWith =>
+      __$ResonateUserCopyWithImpl<_ResonateUser>(this, _$identity);
 
   @override
-  String toString() {
-    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, gender: $gender, dateOfBirth: $dateOfBirth)';
+  Map<String, dynamic> toJson() {
+    return _$ResonateUserToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ResonateUserImpl &&
+            other is _ResonateUser &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
                 other.profileImageUrl == profileImageUrl) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.dateOfBirth, dateOfBirth) ||
-                other.dateOfBirth == dateOfBirth));
+                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.docId, docId) || other.docId == docId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, uid, userName, profileImageUrl, gender, dateOfBirth);
+  int get hashCode => Object.hash(runtimeType, uid, userName, profileImageUrl,
+      name, email, dateOfBirth, docId);
+
+  @override
+  String toString() {
+    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ResonateUserCopyWith<$Res>
+    implements $ResonateUserCopyWith<$Res> {
+  factory _$ResonateUserCopyWith(
+          _ResonateUser value, $Res Function(_ResonateUser) _then) =
+      __$ResonateUserCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? uid,
+      @JsonKey(name: 'userName') String? userName,
+      String? profileImageUrl,
+      String? name,
+      String? email,
+      @JsonKey(name: 'dob') String? dateOfBirth,
+      String? docId});
+}
+
+/// @nodoc
+class __$ResonateUserCopyWithImpl<$Res>
+    implements _$ResonateUserCopyWith<$Res> {
+  __$ResonateUserCopyWithImpl(this._self, this._then);
+
+  final _ResonateUser _self;
+  final $Res Function(_ResonateUser) _then;
 
   /// Create a copy of ResonateUser
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ResonateUserImplCopyWith<_$ResonateUserImpl> get copyWith =>
-      __$$ResonateUserImplCopyWithImpl<_$ResonateUserImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ResonateUserImplToJson(
-      this,
-    );
+  $Res call({
+    Object? uid = freezed,
+    Object? userName = freezed,
+    Object? profileImageUrl = freezed,
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? dateOfBirth = freezed,
+    Object? docId = freezed,
+  }) {
+    return _then(_ResonateUser(
+      uid: freezed == uid
+          ? _self.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _self.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateOfBirth: freezed == dateOfBirth
+          ? _self.dateOfBirth
+          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      docId: freezed == docId
+          ? _self.docId
+          : docId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
   }
 }
 
-abstract class _ResonateUser implements ResonateUser {
-  const factory _ResonateUser(
-      {final String? uid,
-      final String? userName,
-      final String? profileImageUrl,
-      final String? gender,
-      final String? dateOfBirth}) = _$ResonateUserImpl;
-
-  factory _ResonateUser.fromJson(Map<String, dynamic> json) =
-      _$ResonateUserImpl.fromJson;
-
-  @override
-  String? get uid;
-  @override
-  String? get userName;
-  @override
-  String? get profileImageUrl;
-  @override
-  String? get gender;
-  @override
-  String? get dateOfBirth;
-
-  /// Create a copy of ResonateUser
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ResonateUserImplCopyWith<_$ResonateUserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

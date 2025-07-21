@@ -1053,4 +1053,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pickImageFromGallery => 'Pick image from gallery';
+
+  @override
+  String get onlineUsers => 'Online Users';
+
+  @override
+  String get noOnlineUsers => 'No users currently online';
+
+  @override
+  String get chooseUser => 'Choose User to chat with';
+
+  @override
+  String get quickMatch => 'Quick Match';
 }
