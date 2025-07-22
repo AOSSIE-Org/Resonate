@@ -6,11 +6,10 @@ class LikeButton extends StatefulWidget {
   final Function(bool isFavorite) onLiked;
 
   const LikeButton(
-      {Key? key,
+      {super.key,
       required this.tintColor,
       required this.onLiked,
-      required this.isLikedByUser})
-      : super(key: key);
+      required this.isLikedByUser});
 
   @override
   State<LikeButton> createState() => _LikeButtonState();

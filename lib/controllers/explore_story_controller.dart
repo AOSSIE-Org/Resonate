@@ -4,10 +4,8 @@ import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
-// import 'package:audiotags/audiotags.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/models/story.dart';
@@ -198,11 +196,10 @@ class ExploreStoryController extends GetxController {
     Color primaryColor;
 
     if (!coverImgPath.contains('http')) {
-      PaletteGenerator paletteGenerator =
-          await PaletteGenerator.fromImageProvider(
-              FileImage(io.File(coverImgPath)));
+      ColorScheme imageColorScheme = await ColorScheme.fromImageProvider(
+          provider: FileImage(io.File(coverImgPath)));
 
-      primaryColor = paletteGenerator.dominantColor!.color;
+      primaryColor = imageColorScheme.primary;
     } else {
       primaryColor = const Color(0xffcbc6c6);
     }
@@ -231,10 +228,9 @@ class ExploreStoryController extends GetxController {
     Color primaryColor;
 
     if (!coverImgUrl.contains("http")) {
-      PaletteGenerator paletteGenerator =
-          await PaletteGenerator.fromImageProvider(
-              FileImage(io.File(coverImgUrl)));
-      primaryColor = paletteGenerator.dominantColor!.color;
+      ColorScheme imageColorScheme = await ColorScheme.fromImageProvider(
+          provider: FileImage(io.File(coverImgUrl)));
+      primaryColor = imageColorScheme.primary;
       coverImgUrl = await uploadFileToAppwriteGetUrl(
           storyBucketId, storyId, coverImgRef, "story cover");
     } else {

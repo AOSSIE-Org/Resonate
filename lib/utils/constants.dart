@@ -1,8 +1,8 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "localhost";
-//const String baseDomain = "10.0.2.2";
+const String baseDomain = "192.168.29.24";
+// const String baseDomain = "10.0.2.2";
 const String appwriteProjectId = "resonate";
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
@@ -43,6 +43,8 @@ const String vintageUserProfileImagePlaceholderID = "67012e19003d00f39e15";
 const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsCollectionId = "64a5217e695bf2c4ec9c";
 const String participantsCollectionId = "64a63e508145d1084abf";
+const String chatMessagesCollectionId = "670d812c0002c33c09a8";
+const String chatMessageReplyCollectionId = "672759820027801f121f";
 
 // Pair chat database constants
 const String pairRequestCollectionId = "64d980211f1395263ebe";
@@ -57,6 +59,7 @@ const String sendOtpFunctionID = "6513e9d40b57c6ec156f";
 const String verifyOtpFunctionID = "651303df122abc151bf3";
 const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
+const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";

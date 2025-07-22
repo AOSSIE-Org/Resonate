@@ -101,6 +101,18 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                  onPressed: () {
+                    upcomingRoomsController
+                        .openUpcomingChatSheet(appwriteUpcommingRoom);
+                  },
+                  child: const Icon(
+                    Icons.chat,
+                    color: Colors.white,
+                  ),
+                ),
+                Spacer(),
                 ElevatedButton(
                   onPressed: () {
                     upcomingRoomsController
@@ -146,6 +158,18 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                  onPressed: () {
+                    upcomingRoomsController
+                        .openUpcomingChatSheet(appwriteUpcommingRoom);
+                  },
+                  child: const Icon(
+                    Icons.chat,
+                    color: Colors.white,
+                  ),
+                ),
+                Spacer(),
                 ElevatedButton(
                   onPressed: () {
                     if (appwriteUpcommingRoom.hasUserSubscribed) {

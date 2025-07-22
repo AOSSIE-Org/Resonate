@@ -242,7 +242,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
             ),
           ),
@@ -266,7 +266,7 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
             ),
           ),
@@ -347,7 +347,7 @@ class StoryItem extends StatelessWidget {
               width: UiSizes.height_140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: colorScheme.surfaceVariant,
+                color: colorScheme.surfaceContainerHighest,
                 image: DecorationImage(
                   image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,

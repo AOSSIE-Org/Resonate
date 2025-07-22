@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
