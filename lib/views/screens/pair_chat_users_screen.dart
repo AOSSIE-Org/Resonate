@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/resonate_user.dart';
 
 class PairChatUsersScreen extends StatefulWidget {
   const PairChatUsersScreen({super.key});
@@ -71,6 +67,18 @@ class _PairChatUsersScreenState extends State<PairChatUsersScreen> {
                               pairChatController
                                   .usersList[index].profileImageUrl!,
                             ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              Text(pairChatController
+                                  .usersList[index].userRating!
+                                  .toStringAsFixed(1)),
+                            ],
                           ),
                           // ...other fields
                         );

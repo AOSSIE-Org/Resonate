@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  animated_rating_stars:
+    dependency: "direct main"
+    description:
+      name: animated_rating_stars
+      sha256: "0d64350a874be1fe5ce88ff87d36e035c7c7bd867106b6439995a21d7a0fac55"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   animated_splash_screen:
     dependency: "direct main"
     description:
@@ -116,11 +124,10 @@ packages:
   audio_metadata_reader:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "7575fd78f05b5f431358cfe5291d026b70b2770c"
-      url: "https://github.com/M4dhav/audio_metadata_reader.git"
-    source: git
+      name: audio_metadata_reader
+      sha256: b7cecf78178075c8f8281ae184ae81d137eb6e751f5d193334984eb732662ee0
+      url: "https://pub.dev"
+    source: hosted
     version: "1.4.2"
   audioplayers:
     dependency: "direct main"
@@ -1223,14 +1230,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  palette_generator:
-    dependency: "direct main"
-    description:
-      name: palette_generator
-      sha256: "4420f7ccc3f0a4a906144e73f8b6267cd940b64f57a7262e95cb8cec3a8ae0ed"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.3+7"
   path:
     dependency: transitive
     description:

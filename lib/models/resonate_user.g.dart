@@ -15,6 +15,7 @@ _ResonateUser _$ResonateUserFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       dateOfBirth: json['dob'] as String?,
       docId: json['docId'] as String?,
+      userRating: (json['userRating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ResonateUserToJson(_ResonateUser instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$ResonateUserToJson(_ResonateUser instance) =>
       'email': instance.email,
       'dob': instance.dateOfBirth,
       'docId': instance.docId,
+      'userRating': instance.userRating,
     };

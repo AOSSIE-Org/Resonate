@@ -23,6 +23,7 @@ mixin _$ResonateUser {
   @JsonKey(name: 'dob')
   String? get dateOfBirth;
   String? get docId;
+  double? get userRating;
 
   /// Create a copy of ResonateUser
   /// with the given fields replaced by the non-null parameter values.
@@ -49,17 +50,19 @@ mixin _$ResonateUser {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.dateOfBirth, dateOfBirth) ||
                 other.dateOfBirth == dateOfBirth) &&
-            (identical(other.docId, docId) || other.docId == docId));
+            (identical(other.docId, docId) || other.docId == docId) &&
+            (identical(other.userRating, userRating) ||
+                other.userRating == userRating));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, uid, userName, profileImageUrl,
-      name, email, dateOfBirth, docId);
+      name, email, dateOfBirth, docId, userRating);
 
   @override
   String toString() {
-    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId)';
+    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating)';
   }
 }
 
@@ -76,7 +79,8 @@ abstract mixin class $ResonateUserCopyWith<$Res> {
       String? name,
       String? email,
       @JsonKey(name: 'dob') String? dateOfBirth,
-      String? docId});
+      String? docId,
+      double? userRating});
 }
 
 /// @nodoc
@@ -98,6 +102,7 @@ class _$ResonateUserCopyWithImpl<$Res> implements $ResonateUserCopyWith<$Res> {
     Object? email = freezed,
     Object? dateOfBirth = freezed,
     Object? docId = freezed,
+    Object? userRating = freezed,
   }) {
     return _then(_self.copyWith(
       uid: freezed == uid
@@ -128,6 +133,10 @@ class _$ResonateUserCopyWithImpl<$Res> implements $ResonateUserCopyWith<$Res> {
           ? _self.docId
           : docId // ignore: cast_nullable_to_non_nullable
               as String?,
+      userRating: freezed == userRating
+          ? _self.userRating
+          : userRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -232,15 +241,23 @@ extension ResonateUserPatterns on ResonateUser {
             String? name,
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
-            String? docId)?
+            String? docId,
+            double? userRating)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _ResonateUser() when $default != null:
-        return $default(_that.uid, _that.userName, _that.profileImageUrl,
-            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+        return $default(
+            _that.uid,
+            _that.userName,
+            _that.profileImageUrl,
+            _that.name,
+            _that.email,
+            _that.dateOfBirth,
+            _that.docId,
+            _that.userRating);
       case _:
         return orElse();
     }
@@ -268,14 +285,22 @@ extension ResonateUserPatterns on ResonateUser {
             String? name,
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
-            String? docId)
+            String? docId,
+            double? userRating)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ResonateUser():
-        return $default(_that.uid, _that.userName, _that.profileImageUrl,
-            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+        return $default(
+            _that.uid,
+            _that.userName,
+            _that.profileImageUrl,
+            _that.name,
+            _that.email,
+            _that.dateOfBirth,
+            _that.docId,
+            _that.userRating);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -302,14 +327,22 @@ extension ResonateUserPatterns on ResonateUser {
             String? name,
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
-            String? docId)?
+            String? docId,
+            double? userRating)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ResonateUser() when $default != null:
-        return $default(_that.uid, _that.userName, _that.profileImageUrl,
-            _that.name, _that.email, _that.dateOfBirth, _that.docId);
+        return $default(
+            _that.uid,
+            _that.userName,
+            _that.profileImageUrl,
+            _that.name,
+            _that.email,
+            _that.dateOfBirth,
+            _that.docId,
+            _that.userRating);
       case _:
         return null;
     }
@@ -326,7 +359,8 @@ class _ResonateUser implements ResonateUser {
       this.name,
       this.email,
       @JsonKey(name: 'dob') this.dateOfBirth,
-      this.docId});
+      this.docId,
+      this.userRating});
   factory _ResonateUser.fromJson(Map<String, dynamic> json) =>
       _$ResonateUserFromJson(json);
 
@@ -346,6 +380,8 @@ class _ResonateUser implements ResonateUser {
   final String? dateOfBirth;
   @override
   final String? docId;
+  @override
+  final double? userRating;
 
   /// Create a copy of ResonateUser
   /// with the given fields replaced by the non-null parameter values.
@@ -376,17 +412,19 @@ class _ResonateUser implements ResonateUser {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.dateOfBirth, dateOfBirth) ||
                 other.dateOfBirth == dateOfBirth) &&
-            (identical(other.docId, docId) || other.docId == docId));
+            (identical(other.docId, docId) || other.docId == docId) &&
+            (identical(other.userRating, userRating) ||
+                other.userRating == userRating));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, uid, userName, profileImageUrl,
-      name, email, dateOfBirth, docId);
+      name, email, dateOfBirth, docId, userRating);
 
   @override
   String toString() {
-    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId)';
+    return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating)';
   }
 }
 
@@ -405,7 +443,8 @@ abstract mixin class _$ResonateUserCopyWith<$Res>
       String? name,
       String? email,
       @JsonKey(name: 'dob') String? dateOfBirth,
-      String? docId});
+      String? docId,
+      double? userRating});
 }
 
 /// @nodoc
@@ -428,6 +467,7 @@ class __$ResonateUserCopyWithImpl<$Res>
     Object? email = freezed,
     Object? dateOfBirth = freezed,
     Object? docId = freezed,
+    Object? userRating = freezed,
   }) {
     return _then(_ResonateUser(
       uid: freezed == uid
@@ -458,6 +498,10 @@ class __$ResonateUserCopyWithImpl<$Res>
           ? _self.docId
           : docId // ignore: cast_nullable_to_non_nullable
               as String?,
+      userRating: freezed == userRating
+          ? _self.userRating
+          : userRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }

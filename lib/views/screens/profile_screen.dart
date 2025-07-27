@@ -125,6 +125,17 @@ class ProfileScreen extends StatelessWidget {
                       side: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      Text((authController.ratingTotal /
+                              authController.ratingCount)
+                          .toStringAsFixed(1)),
+                    ],
+                  )
                 ],
               ),
             ),

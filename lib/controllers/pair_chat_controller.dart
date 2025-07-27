@@ -11,6 +11,7 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/views/widgets/rating_sheet.dart';
 
 import 'livekit_controller.dart';
 
@@ -27,6 +28,7 @@ class PairChatController extends GetxController {
 
   String? pairUsername;
   String? pairProfileImageUrl;
+  RxDouble pairRating = 2.5.obs;
 
   Client client = AppwriteService.getClient();
   final Realtime realtime = AppwriteService.getRealtime();
@@ -68,6 +70,7 @@ class PairChatController extends GetxController {
   void choosePartner() async {
     checkForNewUsers();
     getRealtimeStream();
+    isAnonymous.value = false;
     Map<String, dynamic> requestData = {
       "languageIso": languageIso,
       "isAnonymous": false,
@@ -75,7 +78,8 @@ class PairChatController extends GetxController {
       "isRandom": false,
       "profileImageUrl": authController.profileImageUrl,
       "userName": authController.userName,
-      "name": authController.displayName
+      "name": authController.displayName,
+      "userRating": authController.ratingTotal / authController.ratingCount,
     };
 
     // Add request to pair-request collection
@@ -143,8 +147,7 @@ class PairChatController extends GetxController {
               }
             case 'delete':
               {
-                subscription?.close;
-                Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+                endChat();
               }
           }
         }
@@ -251,12 +254,22 @@ class PairChatController extends GetxController {
   }
 
   Future<void> endChat() async {
-    subscription?.close;
-    await databases.deleteDocument(
-        databaseId: masterDatabaseId,
-        collectionId: activePairsCollectionId,
-        documentId: activePairDocId!);
+    subscription?.close();
+    try {
+      await databases.deleteDocument(
+          databaseId: masterDatabaseId,
+          collectionId: activePairsCollectionId,
+          documentId: activePairDocId!);
+    } catch (e) {
+      if (!(e is AppwriteException && e.type == 'document_not_found')) {
+        rethrow;
+      }
+    }
     await Get.delete<LiveKitController>(force: true);
+
+    await Get.bottomSheet(
+      RatingSheetWidget(),
+    );
     Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 }
