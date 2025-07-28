@@ -1,0 +1,349 @@
+.
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── bug_report.yml
+│   │   ├── documentation_issue.yml
+│   │   └── feature_request.yml
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows
+│       ├── greet_contributors.yml
+│       └── update-project-structure.yml
+├── .gitignore
+├── .metadata
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── ONBOARDING.md
+├── README.md
+├── SECURITY.md
+├── analysis_options.yaml
+├── android
+│   ├── .gitignore
+│   ├── app
+│   │   ├── build.gradle
+│   │   ├── google-services.json
+│   │   └── src
+│   │       ├── debug
+│   │       │   └── AndroidManifest.xml
+│   │       ├── main
+│   │       │   ├── AndroidManifest.xml
+│   │       │   ├── kotlin
+│   │       │   │   └── com
+│   │       │   │       └── resonate
+│   │       │   │           └── resonate
+│   │       │   │               └── MainActivity.kt
+│   │       │   └── res
+│   │       │       ├── drawable
+│   │       │       │   ├── background.png
+│   │       │       │   ├── ic_launcher.png
+│   │       │       │   └── launch_background.xml
+│   │       │       ├── drawable-hdpi
+│   │       │       │   ├── android12splash.png
+│   │       │       │   └── splash.png
+│   │       │       ├── drawable-mdpi
+│   │       │       │   ├── android12splash.png
+│   │       │       │   └── splash.png
+│   │       │       ├── drawable-night-hdpi
+│   │       │       │   └── android12splash.png
+│   │       │       ├── drawable-night-mdpi
+│   │       │       │   └── android12splash.png
+│   │       │       ├── drawable-night-xhdpi
+│   │       │       │   └── android12splash.png
+│   │       │       ├── drawable-night-xxhdpi
+│   │       │       │   └── android12splash.png
+│   │       │       ├── drawable-night-xxxhdpi
+│   │       │       │   └── android12splash.png
+│   │       │       ├── drawable-v21
+│   │       │       │   ├── background.png
+│   │       │       │   └── launch_background.xml
+│   │       │       ├── drawable-xhdpi
+│   │       │       │   ├── android12splash.png
+│   │       │       │   └── splash.png
+│   │       │       ├── drawable-xxhdpi
+│   │       │       │   ├── android12splash.png
+│   │       │       │   └── splash.png
+│   │       │       ├── drawable-xxxhdpi
+│   │       │       │   ├── android12splash.png
+│   │       │       │   └── splash.png
+│   │       │       ├── mipmap-hdpi
+│   │       │       │   └── ic_launcher.png
+│   │       │       ├── mipmap-mdpi
+│   │       │       │   └── ic_launcher.png
+│   │       │       ├── mipmap-xhdpi
+│   │       │       │   └── ic_launcher.png
+│   │       │       ├── mipmap-xxhdpi
+│   │       │       │   └── ic_launcher.png
+│   │       │       ├── mipmap-xxxhdpi
+│   │       │       │   └── ic_launcher.png
+│   │       │       ├── values
+│   │       │       │   └── styles.xml
+│   │       │       ├── values-night
+│   │       │       │   └── styles.xml
+│   │       │       ├── values-night-v31
+│   │       │       │   └── styles.xml
+│   │       │       └── values-v31
+│   │       │           └── styles.xml
+│   │       └── profile
+│   │           └── AndroidManifest.xml
+│   ├── build.gradle
+│   ├── gradle
+│   │   └── wrapper
+│   │       └── gradle-wrapper.properties
+│   ├── gradle.properties
+│   └── settings.gradle
+├── assets
+│   ├── fonts
+│   │   └── Montserrat-Regular.ttf
+│   ├── images
+│   │   ├── aossie_logo.png
+│   │   ├── cover_image_1.jpg
+│   │   ├── cover_image_2.jpg
+│   │   ├── empty_box.png
+│   │   ├── github_icon.png
+│   │   ├── google_icon.png
+│   │   ├── landing_first.png
+│   │   ├── landing_second.png
+│   │   ├── landing_third.png
+│   │   ├── no_connection.png
+│   │   ├── no_room.png
+│   │   ├── proxy_image.png
+│   │   ├── resonate_logo.png
+│   │   ├── timer.svg
+│   │   └── user.jpeg
+│   ├── mock
+│   │   ├── cafe_latte.jpeg
+│   │   ├── coffee_girl.jpeg
+│   │   ├── japan.jpeg
+│   │   ├── podcast.jpeg
+│   │   └── sony.jpeg
+│   └── svg
+│       ├── default_profile_picture.svg
+│       ├── resonate_logo.svg
+│       └── resonate_logo_white.svg
+├── devtools_options.yaml
+├── docs
+│   ├── gsoc
+│   │   └── GSoC23-Chandan_S_Gowda.pdf
+│   └── store_listing
+│       ├── description.md
+│       └── images
+│           ├── Resonate Poster.png
+│           └── playstore_screenshots
+│               ├── 1.png
+│               ├── 2.png
+│               ├── 3.png
+│               ├── 4.png
+│               ├── 5.png
+│               ├── 6.png
+│               ├── 7.png
+│               └── 8.png
+├── flutter_native_splash.yaml
+├── ios
+│   ├── .gitignore
+│   ├── Flutter
+│   │   ├── AppFrameworkInfo.plist
+│   │   ├── Debug.xcconfig
+│   │   └── Release.xcconfig
+│   ├── Podfile
+│   ├── Podfile.lock
+│   ├── Runner
+│   │   ├── AppDelegate.swift
+│   │   ├── Assets.xcassets
+│   │   │   ├── AppIcon.appiconset
+│   │   │   │   ├── 100.png
+│   │   │   │   ├── 1024.png
+│   │   │   │   ├── 114.png
+│   │   │   │   ├── 120.png
+│   │   │   │   ├── 128.png
+│   │   │   │   ├── 144.png
+│   │   │   │   ├── 152.png
+│   │   │   │   ├── 16.png
+│   │   │   │   ├── 167.png
+│   │   │   │   ├── 180.png
+│   │   │   │   ├── 20.png
+│   │   │   │   ├── 256.png
+│   │   │   │   ├── 29.png
+│   │   │   │   ├── 32.png
+│   │   │   │   ├── 40.png
+│   │   │   │   ├── 50.png
+│   │   │   │   ├── 512.png
+│   │   │   │   ├── 57.png
+│   │   │   │   ├── 58.png
+│   │   │   │   ├── 60.png
+│   │   │   │   ├── 64.png
+│   │   │   │   ├── 72.png
+│   │   │   │   ├── 76.png
+│   │   │   │   ├── 80.png
+│   │   │   │   ├── 87.png
+│   │   │   │   └── Contents.json
+│   │   │   ├── LaunchBackground.imageset
+│   │   │   │   ├── Contents.json
+│   │   │   │   └── background.png
+│   │   │   └── LaunchImage.imageset
+│   │   │       ├── Contents.json
+│   │   │       ├── LaunchImage.png
+│   │   │       ├── LaunchImage@2x.png
+│   │   │       ├── LaunchImage@3x.png
+│   │   │       └── README.md
+│   │   ├── Base.lproj
+│   │   │   ├── LaunchScreen.storyboard
+│   │   │   └── Main.storyboard
+│   │   ├── GoogleService-Info.plist
+│   │   ├── Info.plist
+│   │   └── Runner-Bridging-Header.h
+│   ├── Runner.xcodeproj
+│   │   ├── project.pbxproj
+│   │   ├── project.xcworkspace
+│   │   │   ├── contents.xcworkspacedata
+│   │   │   └── xcshareddata
+│   │   │       ├── IDEWorkspaceChecks.plist
+│   │   │       └── WorkspaceSettings.xcsettings
+│   │   └── xcshareddata
+│   │       └── xcschemes
+│   │           └── Runner.xcscheme
+│   ├── Runner.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   └── xcshareddata
+│   │       ├── IDEWorkspaceChecks.plist
+│   │       └── WorkspaceSettings.xcsettings
+│   └── firebase_app_id_file.json
+├── lib
+│   ├── bindings
+│   │   ├── auth_splash_bindings.dart
+│   │   ├── create_story_binding.dart
+│   │   ├── profile_binding.dart
+│   │   └── tabview_binding.dart
+│   ├── controllers
+│   │   ├── about_app_screen_controller.dart
+│   │   ├── auth_state_controller.dart
+│   │   ├── authentication_controller.dart
+│   │   ├── change_email_controller.dart
+│   │   ├── create_room_controller.dart
+│   │   ├── delete_account_controller.dart
+│   │   ├── edit_profile_controller.dart
+│   │   ├── email_verify_controller.dart
+│   │   ├── explore_story_controller.dart
+│   │   ├── forgot_password_controller.dart
+│   │   ├── livekit_controller.dart
+│   │   ├── network_controller.dart
+│   │   ├── onboarding_controller.dart
+│   │   ├── pair_chat_controller.dart
+│   │   ├── password_strength_checker_controller.dart
+│   │   ├── rooms_controller.dart
+│   │   ├── single_room_controller.dart
+│   │   ├── splash_controller.dart
+│   │   ├── tabview_controller.dart
+│   │   └── upcomming_rooms_controller.dart
+│   ├── firebase_options.dart
+│   ├── for_developers
+│   │   ├── text_theme.dart
+│   │   ├── theme_color_model.dart
+│   │   └── theme_colors_page.dart
+│   ├── main.dart
+│   ├── models
+│   │   ├── appwrite_room.dart
+│   │   ├── appwrite_upcomming_room.dart
+│   │   ├── chapter.dart
+│   │   ├── message.dart
+│   │   ├── notification.dart
+│   │   ├── participant.dart
+│   │   ├── reply_to.dart
+│   │   ├── resonate_user.dart
+│   │   ├── resonate_user.freezed.dart
+│   │   ├── resonate_user.g.dart
+│   │   ├── story.dart
+│   │   └── themes_model.dart
+│   ├── routes
+│   │   ├── app_pages.dart
+│   │   └── app_routes.dart
+│   ├── services
+│   │   ├── api_service.dart
+│   │   ├── appwrite_service.dart
+│   │   └── room_service.dart
+│   ├── themes
+│   │   ├── theme.dart
+│   │   ├── theme_controller.dart
+│   │   ├── theme_enum.dart
+│   │   ├── theme_list.dart
+│   │   └── theme_screen.dart
+│   ├── utils
+│   │   ├── app_images.dart
+│   │   ├── colors.dart
+│   │   ├── constants.dart
+│   │   ├── debouncer.dart
+│   │   ├── enums
+│   │   │   ├── gender.dart
+│   │   │   ├── log_type.dart
+│   │   │   ├── notification_type.dart
+│   │   │   ├── room_state.dart
+│   │   │   ├── signed_in_by.dart
+│   │   │   ├── story_category.dart
+│   │   │   └── themes_enum.dart
+│   │   ├── extensions
+│   │   │   └── datetime_extension.dart
+│   │   ├── ui_sizes.dart
+│   │   └── utils.dart
+│   └── views
+│       ├── screens
+│       │   ├── about_app_screen.dart
+│       │   ├── add_chapter_screen.dart
+│       │   ├── category_screen.dart
+│       │   ├── change_email_screen.dart
+│       │   ├── chapter_play_screen.dart
+│       │   ├── contribute_screen.dart
+│       │   ├── create_chapter_screen.dart
+│       │   ├── create_room_screen.dart
+│       │   ├── create_story_screen.dart
+│       │   ├── delete_account_screen.dart
+│       │   ├── edit_profile_screen.dart
+│       │   ├── email_verification_screen.dart
+│       │   ├── explore_screen.dart
+│       │   ├── forgot_password_screen.dart
+│       │   ├── home_screen.dart
+│       │   ├── landing_screen.dart
+│       │   ├── login_screen.dart
+│       │   ├── no_room_screen.dart
+│       │   ├── notifications_screen.dart
+│       │   ├── onboarding_screen.dart
+│       │   ├── pair_chat_screen.dart
+│       │   ├── pairing_screen.dart
+│       │   ├── profile_screen.dart
+│       │   ├── reset_password_screen.dart
+│       │   ├── room_chat_screen.dart
+│       │   ├── room_screen.dart
+│       │   ├── settings_screen.dart
+│       │   ├── signup_screen.dart
+│       │   ├── splash_screen.dart
+│       │   ├── story_screen.dart
+│       │   ├── tabview_screen.dart
+│       │   ├── user_account_screen.dart
+│       │   └── welcome_screen.dart
+│       └── widgets
+│           ├── auth_button.dart
+│           ├── category_card.dart
+│           ├── chapter_list_tile.dart
+│           ├── custom_card.dart
+│           ├── filtered_list_tile.dart
+│           ├── like_button.dart
+│           ├── live_room_tile.dart
+│           ├── loading_dialog.dart
+│           ├── no_connection_dialog.dart
+│           ├── no_match_view.dart
+│           ├── pair_chat_dialog.dart
+│           ├── participant_block.dart
+│           ├── password_strength_indicator.dart
+│           ├── profile_avatar.dart
+│           ├── room_app_bar.dart
+│           ├── room_header.dart
+│           ├── snackbar.dart
+│           ├── story_card.dart
+│           ├── story_list_tile.dart
+│           ├── upcomming_room_tile.dart
+│           └── welcome_screen_dialog.dart
+├── project_structure.txt
+├── pubspec.lock
+├── pubspec.yaml
+└── test
+    └── widget_test.dart
+
+78 directories, 269 files
