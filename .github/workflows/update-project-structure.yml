@@ -3,7 +3,7 @@ name: Update Project Structure
 on:
   push:
     branches:
-      - master
+      - github-action-project-structure
 
 jobs:
   generate-structure:
