@@ -1,0 +1,25 @@
+name: Auto Update Project Structure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-project-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate project_structure.txt
+        run: |
+          tree -a -I 'node_modules|.git|build|.dart_tool|*.lock|*.pyc' > project_structure.txt
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add project_structure.txt
+          git commit -m "chore: update project_structure.txt [auto]" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
