@@ -520,5 +520,9 @@
     "lengthMinutes": "मिनट",
     "requiredField": "आवश्यक फील्ड",
     "clickPictureUsingCamera": "कैमरा से फोटो लें",
-    "pickImageFromGallery": "गैलरी से फोटो चुनें"
+    "pickImageFromGallery": "गैलरी से फोटो चुनें",
+    "onlineUsers": "ऑनलाइन यूज़र्स",
+    "noOnlineUsers": "कोई यूज़र अभी ऑनलाइन नहीं है",
+    "chooseUser": "चैट करने के लिए यूज़र चुनें",
+    "quickMatch": "झटपट मैच"
 }

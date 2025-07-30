@@ -1058,4 +1058,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pickImageFromGallery => 'गैलरी से फोटो चुनें';
+
+  @override
+  String get onlineUsers => 'ऑनलाइन यूज़र्स';
+
+  @override
+  String get noOnlineUsers => 'कोई यूज़र अभी ऑनलाइन नहीं है';
+
+  @override
+  String get chooseUser => 'चैट करने के लिए यूज़र चुनें';
+
+  @override
+  String get quickMatch => 'झटपट मैच';
 }

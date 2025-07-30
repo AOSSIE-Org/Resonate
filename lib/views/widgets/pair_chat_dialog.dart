@@ -164,7 +164,37 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  AppLocalizations.of(context)!.resonate,
+                  AppLocalizations.of(context)!.quickMatch,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: UiSizes.size_16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                AppLocalizations.of(context)!.or,
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: controller.choosePartner,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.all(14),
+              ),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  AppLocalizations.of(context)!.chooseUser,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: UiSizes.size_16,

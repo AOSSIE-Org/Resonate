@@ -31,6 +31,8 @@ class AuthStateController extends GetxController {
   late String? userName;
   late bool? isUserProfileComplete;
   late bool? isEmailVerified;
+  late double ratingTotal;
+  late int ratingCount;
   late User appwriteUser;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -145,6 +147,8 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
+        ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
+        ratingCount = userDataDoc.data["ratingCount"] ?? 1;
       }
 
       update();
