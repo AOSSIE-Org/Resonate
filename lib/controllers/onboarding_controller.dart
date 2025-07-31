@@ -54,7 +54,7 @@ class OnboardingController extends GetxController {
       dobController.text =
           DateFormat("dd-MM-yyyy").format(pickedDate).toString();
     }
-
+  }
 
   Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
