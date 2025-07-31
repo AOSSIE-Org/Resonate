@@ -16,6 +16,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     required this.validatedChecks,
     required this.hasOneSymbol,
     required this.hasOneSymbolTitle,
+    required this.passStrengthVerifiedText,
   });
 
   final bool isPasswordEightCharacters;
@@ -31,7 +32,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   final int validatedChecks;
 
-  final String passStrengthVerifiedText = "Password is strong";
+  final String passStrengthVerifiedText;
 
   @override
   Widget build(BuildContext context) {

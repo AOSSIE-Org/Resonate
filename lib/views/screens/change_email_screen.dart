@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 import '../../utils/ui_sizes.dart';
 
@@ -16,7 +17,7 @@ class ChangeEmailScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Change Email'),
+        title: Text(AppLocalizations.of(context)!.changeEmail),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -31,15 +32,15 @@ class ChangeEmailScreen extends StatelessWidget {
                 TextFormField(
                   validator: (value) => value!.isValidEmail()
                       ? null
-                      : "Enter Valid Email Address",
+                      : AppLocalizations.of(context)!.enterValidEmail,
                   controller: controller.emailController,
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
                       Icons.alternate_email_rounded,
                     ),
-                    labelText: "New Email",
+                    labelText: AppLocalizations.of(context)!.newEmail,
                   ),
                 ),
                 SizedBox(
@@ -49,8 +50,9 @@ class ChangeEmailScreen extends StatelessWidget {
                   () => TextFormField(
                     controller: controller.passwordController,
                     obscureText: !controller.isPasswordFieldVisible.value,
-                    validator: (value) =>
-                        value! == "" ? "Password can't be empty" : null,
+                    validator: (value) => value! == ""
+                        ? AppLocalizations.of(context)!.passwordEmpty
+                        : null,
                     enableSuggestions: false,
                     autocorrect: false,
                     decoration: InputDecoration(
@@ -58,9 +60,11 @@ class ChangeEmailScreen extends StatelessWidget {
                       prefixIcon: const Icon(
                         Icons.lock_outline_rounded,
                       ),
-                      labelText: "Current Password",
+                      labelText: AppLocalizations.of(context)!.currentPassword,
                       suffixIcon: Semantics(
-                        label: (controller.isPasswordFieldVisible.value) ? "Hide password" : "Show password",
+                        label: (controller.isPasswordFieldVisible.value)
+                            ? AppLocalizations.of(context)!.hidePassword
+                            : AppLocalizations.of(context)!.showPassword,
                         child: GestureDetector(
                           onTap: () {
                             controller.isPasswordFieldVisible.value =
@@ -84,24 +88,24 @@ class ChangeEmailScreen extends StatelessWidget {
                 SizedBox(
                   height: UiSizes.height_30,
                 ),
-                const Text(
-                  'For added security, you must provide your account\'s current password when changing your email address. After changing your email, use the updated email for future logins.',
+                Text(
+                  AppLocalizations.of(context)!.emailChangeInfo,
                 ),
                 SizedBox(
                   height: UiSizes.height_30,
                 ),
-                const MergeSemantics(
+                MergeSemantics(
                   child: Column(
                     children: [
                       Text(
-                        '(Only for users who logged in using Google or Github)',
+                        AppLocalizations.of(context)!.oauthUsersMessage,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.redAccent,
                         ),
                       ),
                       Text(
-                        'To change your email, please enter a new password in the "Current Password" field. Be sure to remember this password, as you\'ll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.',
+                        AppLocalizations.of(context)!.oauthUsersEmailChangeInfo,
                       ),
                     ],
                   ),
@@ -115,7 +119,7 @@ class ChangeEmailScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (!controller.isLoading.value) {
-                          await controller.changeEmail();
+                          await controller.changeEmail(context);
                         }
                       },
                       child: controller.isLoading.value
@@ -126,7 +130,7 @@ class ChangeEmailScreen extends StatelessWidget {
                                 size: UiSizes.size_40,
                               ),
                             )
-                          : const Text('Change Email'),
+                          : Text(AppLocalizations.of(context)!.changeEmail),
                     ),
                   ),
                 ),

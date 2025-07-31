@@ -2,17 +2,20 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
+import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../utils/constants.dart';
@@ -294,5 +297,22 @@ class SingleRoomController extends GetxController {
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
         documentId: participantDocId);
+  }
+
+  void openChatSheet() {
+    showModalBottomSheet(
+      context: Get.context!,
+      builder: (ctx) {
+        Get.put(RoomChatController(appwriteRoom: appwriteRoom));
+        return RoomChatScreen();
+      },
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+    );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -9,6 +10,7 @@ import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String? creatorName;
@@ -16,14 +18,15 @@ class ProfileScreen extends StatelessWidget {
   final bool? isCreatorProfile;
 
   ProfileScreen({
-    Key? key,
+    super.key,
     this.creatorName,
     this.creatorImgUrl,
     this.isCreatorProfile,
-  }) : super(key: key);
+  });
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
+  final themeController = Get.find<ThemeController>();
   final authController = Get.find<AuthStateController>();
   final exploreStoryController = Get.find<ExploreStoryController>();
 
@@ -31,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text(AppLocalizations.of(context)!.profile),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -44,72 +47,102 @@ class ProfileScreen extends StatelessWidget {
               width: double.maxFinite,
               child: Column(
                 children: [
-                  _buildProfileHeader(authController),
+                  _buildProfileHeader(context),
                   _buildEmailVerificationButton(
-                      context, emailVerifyController, authController),
+                    context,
+                    emailVerifyController,
+                    authController,
+                  ),
                   SizedBox(height: UiSizes.height_10),
-                  _buildProfileButtons(),
+                  _buildProfileButtons(context),
                 ],
               ),
             ),
             SizedBox(height: UiSizes.height_20),
-            _buildStoriesSection(),
+            _buildStoriesSection(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildProfileHeader(AuthStateController controller) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
-          backgroundImage: isCreatorProfile != null
-              ? NetworkImage(creatorImgUrl ?? '')
-              : NetworkImage(controller.profileImageUrl ?? ''),
-          radius: UiSizes.width_66,
-        ),
-        SizedBox(width: UiSizes.width_20),
-        Expanded(
-          child: MergeSemantics(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  isCreatorProfile != null
-                      ? creatorName ?? ''
-                      : controller.displayName.toString(),
-                  style: TextStyle(
-                    fontSize: UiSizes.size_24,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Text(
-                  "@${isCreatorProfile != null ? '' : controller.userName}",
-                  style: TextStyle(
-                    fontSize: UiSizes.size_14,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (isCreatorProfile == null && controller.isEmailVerified!)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.verified_user_outlined, color: Colors.green),
-                        SizedBox(width: 5),
-                        Text("Verified user",
-                            style: TextStyle(color: Colors.green)),
-                      ],
+  Widget _buildProfileHeader(BuildContext context) {
+    return GetBuilder<AuthStateController>(
+      builder: (controller) => Row(
+        children: [
+          SizedBox(width: UiSizes.width_20),
+          CircleAvatar(
+            backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
+            backgroundImage: isCreatorProfile != null
+                ? NetworkImage(creatorImgUrl ?? '')
+                : controller.profileImageUrl == null ||
+                        controller.profileImageUrl!.isEmpty
+                    ? NetworkImage(
+                        themeController.userProfileImagePlaceholderUrl,
+                      )
+                    : NetworkImage(controller.profileImageUrl ?? ''),
+            radius: UiSizes.width_66,
+          ),
+          SizedBox(width: UiSizes.width_20),
+          Expanded(
+            child: MergeSemantics(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (isCreatorProfile == null && controller.isEmailVerified!)
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.verified_user_outlined,
+                              color: Colors.green),
+                          SizedBox(width: 5),
+                          Text(AppLocalizations.of(context)!.verified,
+                              style: TextStyle(color: Colors.green)),
+                        ],
+                      ),
+                    ),
+                  Text(
+                    isCreatorProfile != null
+                        ? creatorName ?? ''
+                        : controller.displayName.toString(),
+                    style: TextStyle(
+                      fontSize: UiSizes.size_24,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-              ],
+                  Chip(
+                    label: Text(
+                      "@${isCreatorProfile != null ? '' : controller.userName}",
+                      style: TextStyle(
+                        fontSize: UiSizes.size_14,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide(color: Colors.grey.shade300),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      Text((authController.ratingTotal /
+                              authController.ratingCount)
+                          .toStringAsFixed(1)),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+          SizedBox(width: UiSizes.width_20),
+        ],
+      ),
     );
   }
 
@@ -130,19 +163,21 @@ class ProfileScreen extends StatelessWidget {
           emailVerifyController.isSending.value = true;
           emailVerifyController.sendOTP();
         },
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.verified_user_outlined),
             SizedBox(width: 10),
-            Text("Verify Email"),
+            Text(AppLocalizations.of(context)!.verifyEmail),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildProfileButtons() {
+  Widget _buildProfileButtons(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Expanded(
@@ -154,40 +189,56 @@ class ProfileScreen extends StatelessWidget {
                 Get.toNamed(AppRoutes.editProfile);
               }
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colorScheme.primary,
+              foregroundColor: colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                isCreatorProfile != null
-                    ? const Icon(Icons.add)
-                    : const Icon(Icons.edit),
-                const SizedBox(width: 10),
-                Text(isCreatorProfile != null ? "Follow" : "Edit Profile"),
+                Icon(
+                  isCreatorProfile != null ? Icons.add : Icons.edit,
+                  color: colorScheme.onPrimary,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  isCreatorProfile != null
+                      ? AppLocalizations.of(context)!.follow
+                      : AppLocalizations.of(context)!.editProfile,
+                  style: TextStyle(color: colorScheme.onPrimary),
+                ),
               ],
             ),
           ),
         ),
         const SizedBox(width: 10),
         if (isCreatorProfile == null)
-          Expanded(
+          SizedBox(
+            height: 50,
+            width: 50,
             child: ElevatedButton(
               onPressed: () {
                 Get.toNamed(AppRoutes.settings);
               },
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.settings),
-                  SizedBox(width: 10),
-                  Text("Settings"),
-                ],
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(12),
               ),
+              child: Icon(Icons.settings, color: colorScheme.onPrimary),
             ),
           ),
       ],
     );
   }
 
-  Widget _buildStoriesSection() {
+  Widget _buildStoriesSection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: EdgeInsets.only(left: UiSizes.width_20),
       width: double.maxFinite,
@@ -197,45 +248,58 @@ class ProfileScreen extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               isCreatorProfile != null
-                  ? "User Created Stories"
-                  : "Your Stories",
+                  ? AppLocalizations.of(context)!.userCreatedStories
+                  : AppLocalizations.of(context)!.yourStories,
               style: TextStyle(
-                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+                fontSize: UiSizes.size_16,
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
-                exploreStoryController.userCreatedStories,
-                isCreatorProfile != null
-                    ? "User has not created any story"
-                    : "You have not created any story"),
+            () => _buildStoriesList(
+              context,
+              exploreStoryController.userCreatedStories,
+              isCreatorProfile != null
+                  ? AppLocalizations.of(context)!.userNoStories
+                  : AppLocalizations.of(context)!.youNoStories,
+            ),
           ),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
               isCreatorProfile != null
-                  ? "User Liked Stories"
-                  : "Your Liked Stories",
+                  ? AppLocalizations.of(context)!.userLikedStories
+                  : AppLocalizations.of(context)!.yourLikedStories,
               style: TextStyle(
-                  fontSize: UiSizes.size_16, fontWeight: FontWeight.bold),
+                fontSize: UiSizes.size_16,
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
           SizedBox(height: UiSizes.height_5),
           Obx(
-           ()=> _buildStoriesList(
-                exploreStoryController.userLikedStories,
-                isCreatorProfile != null
-                    ? "User has not liked any story"
-                    : "You have not liked any story"),
+            () => _buildStoriesList(
+              context,
+              exploreStoryController.userLikedStories,
+              isCreatorProfile != null
+                  ? AppLocalizations.of(context)!.userNoLikedStories
+                  : AppLocalizations.of(context)!.youNoLikedStories,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildStoriesList(List<Story> stories, String noStoryTextToShow) {
+  Widget _buildStoriesList(
+      BuildContext context, List<Story> stories, String noStoryTextToShow) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       height: UiSizes.height_200,
       child: stories.isNotEmpty
@@ -251,12 +315,10 @@ class ProfileScreen extends StatelessWidget {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                    height: 150, width: 150, AppImages.emptyBoxImage),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(noStoryTextToShow)
+                Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
+                const SizedBox(height: 5),
+                Text(noStoryTextToShow,
+                    style: TextStyle(color: colorScheme.onSurface)),
               ],
             ),
     );
@@ -273,6 +335,8 @@ class StoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -294,7 +358,7 @@ class StoryItem extends StatelessWidget {
               width: UiSizes.height_140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.black,
+                color: colorScheme.surfaceContainerHighest,
                 image: DecorationImage(
                   image: NetworkImage(story.coverImageUrl),
                   fit: BoxFit.cover,
@@ -304,16 +368,22 @@ class StoryItem extends StatelessWidget {
             SizedBox(height: UiSizes.height_5),
             Text(
               story.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: UiSizes.size_16,
                 fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
               ),
             ),
             Text(
               story.description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                overflow: TextOverflow.ellipsis,
+                //overflow: TextOverflow.ellipsis,
                 fontSize: UiSizes.size_12,
+                color: colorScheme.onSurfaceVariant,
               ),
             ),
           ],

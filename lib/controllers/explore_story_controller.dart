@@ -3,10 +3,9 @@ import 'dart:developer';
 import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_media_metadata/flutter_media_metadata.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/models/story.dart';
@@ -123,14 +122,13 @@ class ExploreStoryController extends GetxController {
   Future<void> pushChaptersToStory(
       List<Chapter> chapters, String storyId) async {
     for (Chapter chapter in chapters) {
-      String colorString = chapter.tintColor.toString();
-      String extractedColor = colorString.substring(8, 14);
+      String colorString = chapter.tintColor.toHex(leadingHashSign: false);
 
       String coverImgUrl = chapter.coverImageUrl;
 
       if (!coverImgUrl.contains("http")) {
         coverImgUrl = await uploadFileToAppwriteGetUrl(
-            storyBucketId, storyId, coverImgUrl, "story cover");
+            storyBucketId, chapter.chapterId, coverImgUrl, "story cover");
       }
 
       String audioFileId = 'audioFor${chapter.chapterId}';
@@ -147,7 +145,7 @@ class ExploreStoryController extends GetxController {
             'coverImgUrl': coverImgUrl,
             'lyrics': chapter.lyrics,
             'playDuration': chapter.playDuration,
-            'tintColor': extractedColor,
+            'tintColor': colorString,
             'storyId': storyId,
             'audioFileUrl': audioFileUrl
           });
@@ -191,19 +189,17 @@ class ExploreStoryController extends GetxController {
 
   Future<Chapter> createChapter(String title, String description,
       String coverImgPath, String audioFilePath, String lyricsFilePath) async {
-    Metadata metadata =
-        await MetadataRetriever.fromFile(io.File(audioFilePath));
-    log("logging duration ${metadata.trackDuration}");
-    int playDuration = metadata.trackDuration!;
+    final track = io.File(audioFilePath);
+    final metadata = readMetadata(track);
+    int playDuration = metadata.duration?.inMilliseconds ?? 0;
     String chapterId = ID.unique();
     Color primaryColor;
 
     if (!coverImgPath.contains('http')) {
-      PaletteGenerator paletteGenerator =
-          await PaletteGenerator.fromImageProvider(
-              FileImage(io.File(coverImgPath)));
+      ColorScheme imageColorScheme = await ColorScheme.fromImageProvider(
+          provider: FileImage(io.File(coverImgPath)));
 
-      primaryColor = paletteGenerator.dominantColor!.color;
+      primaryColor = imageColorScheme.primary;
     } else {
       primaryColor = const Color(0xffcbc6c6);
     }
@@ -232,10 +228,9 @@ class ExploreStoryController extends GetxController {
     Color primaryColor;
 
     if (!coverImgUrl.contains("http")) {
-      PaletteGenerator paletteGenerator =
-          await PaletteGenerator.fromImageProvider(
-              FileImage(io.File(coverImgUrl)));
-      primaryColor = paletteGenerator.dominantColor!.color;
+      ColorScheme imageColorScheme = await ColorScheme.fromImageProvider(
+          provider: FileImage(io.File(coverImgUrl)));
+      primaryColor = imageColorScheme.primary;
       coverImgUrl = await uploadFileToAppwriteGetUrl(
           storyBucketId, storyId, coverImgRef, "story cover");
     } else {
@@ -248,8 +243,8 @@ class ExploreStoryController extends GetxController {
       log("failed to push chapters to appwrite: ${e.message}");
     }
 
-    String colorString = primaryColor.toString();
-    String extractedColor = colorString.substring(8, 14);
+    String colorString = primaryColor.toHex(leadingHashSign: false);
+
     try {
       await databases.createDocument(
           databaseId: storyDatabaseId,
@@ -265,7 +260,7 @@ class ExploreStoryController extends GetxController {
             'creatorImgUrl': authStateController.profileImageUrl,
             'likes': 0,
             'playDuration': storyPlayDuration,
-            'tintColor': extractedColor
+            'tintColor': colorString
           });
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
@@ -503,7 +498,7 @@ class ExploreStoryController extends GetxController {
 
     recommendedStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
-            isLoadingRecommendedStories.value = false;
+    isLoadingRecommendedStories.value = false;
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
@@ -533,4 +528,13 @@ class ExploreStoryController extends GetxController {
       );
     }).toList());
   }
+}
+
+extension HexColor on Color {
+  /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+      '${(a * 255).toInt().toRadixString(16).padLeft(2, '0')}'
+      '${r.toInt().toRadixString(16).padLeft(2, '0')}'
+      '${g.toInt().toRadixString(16).padLeft(2, '0')}'
+      '${b.toInt().toRadixString(16).padLeft(2, '0')}';
 }

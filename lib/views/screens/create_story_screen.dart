@@ -8,6 +8,8 @@ import 'package:resonate/models/chapter.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import '../../utils/ui_sizes.dart';
 import 'create_chapter_screen.dart';
 
 class CreateStoryPage extends StatefulWidget {
@@ -33,12 +35,12 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'Please fill in all required fields, add at least one chapter, and select a cover image.'),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(
+              AppLocalizations.of(context)!.fillAllRequiredFieldsAndChapter),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
@@ -98,8 +100,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            'Create Your Story',
+          title: Text(
+            AppLocalizations.of(context)!.createYourStory,
           ),
         ),
         body: Padding(
@@ -112,22 +114,24 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                    labelText: 'Title *',
-                    labelStyle: const TextStyle(
-                      color: Color.fromARGB(255, 127, 130, 131),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary)),
-                  ),
+                      labelText: AppLocalizations.of(context)!.titleRequired,
+                      labelStyle: const TextStyle(
+                        color: Color.fromARGB(255, 127, 130, 131),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary)),
+                      counterText: ''),
+                  maxLength: 100,
                 ),
                 const SizedBox(height: 30),
 
@@ -135,7 +139,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 DropdownButtonFormField<StoryCategory>(
                   value: selectedCategory,
                   decoration: InputDecoration(
-                    labelText: 'Category *',
+                    labelText: AppLocalizations.of(context)!.category,
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(
@@ -146,16 +150,18 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary)),
                   ),
                   items: StoryCategory.values.map((category) {
                     return DropdownMenuItem(
                       value: category,
                       child: Text(
-                        category
-                            .toString()
-                            .split('.')
-                            .last
-                            .capitalizeFirstOfEach(),
+                        AppLocalizations.of(context)!
+                            .storyCategory(category.toString().split('.').last),
                         style: const TextStyle(
                             color: Color.fromARGB(255, 127, 130, 131)),
                       ),
@@ -174,7 +180,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                   controller: aboutController,
                   maxLength: 2000,
                   decoration: InputDecoration(
-                    labelText: 'About *',
+                    labelText: AppLocalizations.of(context)!.aboutRequired,
                     labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 127, 130, 131)),
                     enabledBorder: OutlineInputBorder(
@@ -183,54 +189,67 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                           color: Theme.of(context).colorScheme.inversePrimary),
                     ),
                     focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
                         borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.primary)),
                     counterText: '',
                   ),
                   maxLines: 3,
                 ),
-                const SizedBox(height: 30),
-
-                // Cover Image Picker
-                const Text(
-                  'Upload Cover Image',
-                ),
-                const SizedBox(height: 8),
+                SizedBox(height: UiSizes.height_20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: coverImage != null
-                          ? Image.file(
-                              coverImage!,
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            )
-                          : Image.network(
-                              storyCoverImagePlaceholderUrl,
-                              fit: BoxFit.cover,
-                              height: 150,
-                              width: 150,
-                            ),
-                    ),
-                    GestureDetector(
-                      onTap: pickCoverImage,
-                      child: Container(
-                        width: 200,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(84, 158, 158, 158)),
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black12, blurRadius: 4)
-                          ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: coverImage != null
+                              ? Image.file(
+                                  coverImage!,
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                )
+                              : Image.network(
+                                  storyCoverImagePlaceholderUrl,
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                  width: 150,
+                                ),
                         ),
-                        child: const Center(
-                          child: Icon(Icons.upload_rounded,
-                              size: 50, color: Colors.grey),
+                      ),
+                    ),
+                    SizedBox(width: UiSizes.width_10),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: pickCoverImage,
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          // width: 200,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(84, 158, 158, 158)),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.change_circle,
+                                  size: 50, color: Colors.grey),
+                              Text(
+                                AppLocalizations.of(context)!.changeCoverImage,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -253,7 +272,11 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                         title: Text(chapter.title,
                             style:
                                 const TextStyle(fontWeight: FontWeight.bold)),
-                        subtitle: Text(chapter.description),
+                        subtitle: Text(
+                          chapter.description,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         trailing:
                             Text(formatPlayDuration(chapter.playDuration)),
                       ),
@@ -273,7 +296,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                       );
                     },
                     icon: const Icon(Icons.add),
-                    label: const Text('Add Chapter'),
+                    label: Text(AppLocalizations.of(context)!.addChapter),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue, // button color
                     ),
@@ -288,7 +311,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                    child: const Text('Create Story'),
+                    child: Text(AppLocalizations.of(context)!.createStory),
                   ),
                 ),
               ],

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
 
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/pair_chat_controller.dart';
-import '../../utils/constants.dart';
 
 class PairChatScreen extends StatelessWidget {
   final AuthStateController authStateController =
       Get.find<AuthStateController>();
   final PairChatController controller = Get.find<PairChatController>();
+  final ThemeController themeController = Get.find<ThemeController>();
 
   PairChatScreen({super.key});
 
@@ -33,10 +35,10 @@ class PairChatScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const RoomHeader(
-                      roomName: 'Resonate',
+                    RoomHeader(
+                      roomName: AppLocalizations.of(context)!.title,
                       roomDescription:
-                          "Be polite and respect the other person's opinion. Avoid rude comments.",
+                          AppLocalizations.of(context)!.roomDescription,
                     ),
                     SizedBox(height: UiSizes.height_24_6),
                     Column(
@@ -44,19 +46,19 @@ class PairChatScreen extends StatelessWidget {
                       children: [
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? userProfileImagePlaceholderUrl
+                              ? themeController.userProfileImagePlaceholderUrl
                               : authStateController.profileImageUrl!,
                           controller.isAnonymous.value
-                              ? "User1"
+                              ? AppLocalizations.of(context)!.user1
                               : authStateController.userName!,
                         ),
                         SizedBox(height: UiSizes.height_20),
                         _buildUserInfoRow(
                           controller.isAnonymous.value
-                              ? userProfileImagePlaceholderUrl
+                              ? themeController.userProfileImagePlaceholderUrl
                               : controller.pairProfileImageUrl!,
                           controller.isAnonymous.value
-                              ? "User2"
+                              ? AppLocalizations.of(context)!.user2
                               : controller.pairUsername!,
                         ),
                       ],
@@ -110,7 +112,7 @@ class PairChatScreen extends StatelessWidget {
           children: [
             _buildControlButton(
               icon: controller.isMicOn.value ? Icons.mic : Icons.mic_off,
-              label: 'Mute',
+              label: AppLocalizations.of(context)!.mute,
               onPressed: controller.toggleMic,
               backgroundColor: controller.isMicOn.value
                   ? _getControlButtonBackgroundColor(currentBrightness)
@@ -119,7 +121,7 @@ class PairChatScreen extends StatelessWidget {
             ),
             _buildControlButton(
               icon: Icons.volume_up,
-              label: 'Speaker',
+              label: AppLocalizations.of(context)!.speakerLabel,
               onPressed: controller.toggleLoudSpeaker,
               backgroundColor: controller.isLoudSpeakerOn.value
                   ? Theme.of(context).colorScheme.primary
@@ -128,7 +130,7 @@ class PairChatScreen extends StatelessWidget {
             ),
             _buildControlButton(
               icon: Icons.cancel_outlined,
-              label: 'End',
+              label: AppLocalizations.of(context)!.end,
               onPressed: () async {
                 await controller.endChat();
               },
@@ -143,7 +145,7 @@ class PairChatScreen extends StatelessWidget {
 
   Color _getControlButtonBackgroundColor(Brightness brightness) {
     return brightness == Brightness.light
-        ? Colors.white.withAlpha((255 * 0.5).round())
+        ? Colors.white.withValues(alpha: 0.5)
         : Colors.white54;
   }
 

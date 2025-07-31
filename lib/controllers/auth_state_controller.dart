@@ -15,6 +15,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import '../routes/app_routes.dart';
 
+import 'package:resonate/l10n/app_localizations.dart';
+
 class AuthStateController extends GetxController {
   Client client = AppwriteService.getClient();
   final Databases databases = AppwriteService.getDatabases();
@@ -29,19 +31,30 @@ class AuthStateController extends GetxController {
   late String? userName;
   late bool? isUserProfileComplete;
   late bool? isEmailVerified;
+  late double ratingTotal;
+  late int ratingCount;
   late User appwriteUser;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  static AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails('your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker');
+  static NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('ic_launcher');
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
+    final DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings();
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: initializationSettingsDarwin);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
   }
@@ -68,41 +81,41 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
 
     // ask for settings permissions
-    // NotificationSettings settings = await messaging.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
     await initializeLocalNotifications();
-
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
 
     // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (message.notification != null) {
         RegExp exp = RegExp(r'The room (\w+) will Start Soon');
         RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
-        String discussionName = matches!.group(1)!;
+        if (matches != null) {
+          String discussionName = matches.group(1)!;
 
-        // send local notification
-        await flutterLocalNotificationsPlugin.show(
+          // send local notification
+          await flutterLocalNotificationsPlugin.show(
+              0,
+              message.notification!.title,
+              message.notification!.body,
+              notificationDetails,
+              payload: discussionName);
+        } else {
+          await flutterLocalNotificationsPlugin.show(
             0,
             message.notification!.title,
             message.notification!.body,
             notificationDetails,
-            payload: discussionName);
+          );
+        }
       }
     });
   }
@@ -134,11 +147,13 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
+        ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
+        ratingCount = userDataDoc.data["ratingCount"] ?? 1;
       }
 
       update();
     } catch (e) {
-      log(e.toString());
+      log("Error originating from setUserProfileData$e");
     } finally {
       isInitializing.value = false;
     }
@@ -201,8 +216,7 @@ class AuthStateController extends GetxController {
           Query.equal("creatorUid", [uid])
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
-      List<dynamic> creatorFcmTokens =
-          upcomingRoom.data['creator_fcm_tokens'];
+      List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.add(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
@@ -233,7 +247,6 @@ class AuthStateController extends GetxController {
           data: {"registrationTokens": registrationTokens});
     }
 
-
     //created Upcoming Rooms
     List<Document> createdUpcomingRooms = await databases.listDocuments(
         databaseId: upcomingRoomsDatabaseId,
@@ -242,8 +255,7 @@ class AuthStateController extends GetxController {
           Query.equal("creatorUid", [uid])
         ]).then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
-      List<dynamic> creatorFcmTokens =
-          upcomingRoom.data['creator_fcm_tokens'];
+      List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.remove(fcmToken!);
       databases.updateDocument(
           databaseId: upcomingRoomsDatabaseId,
@@ -271,13 +283,13 @@ class AuthStateController extends GetxController {
 
   Future<void> logout(BuildContext context) async {
     Get.defaultDialog(
-      title: "Are you sure?",
-      middleText: "You are logging out of Resonate.",
-      textConfirm: "Yes",
+      title: AppLocalizations.of(context)!.areYouSure,
+      middleText: AppLocalizations.of(context)!.loggingOut,
+      textConfirm: AppLocalizations.of(context)!.yes,
       backgroundColor: Theme.of(context).colorScheme.surface,
       buttonColor: Theme.of(context).colorScheme.primary,
       confirmTextColor: Theme.of(context).colorScheme.onPrimary,
-      textCancel: "No",
+      textCancel: AppLocalizations.of(context)!.no,
       cancelTextColor: Theme.of(context).colorScheme.primary,
       titlePadding: EdgeInsets.only(top: UiSizes.height_15),
       contentPadding: EdgeInsets.symmetric(

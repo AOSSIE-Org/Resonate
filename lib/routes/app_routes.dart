@@ -18,7 +18,6 @@ class AppRoutes {
   static const changeEmail = "/changeEmail";
   static const loginScreen = '/loginScreen';
   static const roomScreen = '/roomScreen';
-  static const roomChatScreen = '/roomChatScreen';
   static const bottomNavBar = '/bottomNavBar';
   static const homeScreen = '/homeScreen';
   static const createRoom = '/createRoom';
@@ -30,4 +29,5 @@ class AppRoutes {
   static const contributeScreen = "/contributeScreen";
   static const exploreScreen = "/exploreScreen";
   static const createStoryScreen = "/createStoryScreen";
+  static const pairChatUsers = "/pairChatUsers";
 }

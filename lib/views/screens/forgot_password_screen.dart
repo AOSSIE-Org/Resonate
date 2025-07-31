@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/forgot_password_controller.dart';
@@ -39,17 +40,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Forgot Password",
+                        AppLocalizations.of(context)!.forgotPassword,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
                     SizedBox(
                       height: UiSizes.height_40,
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Enter your registered email address to reset your password.",
+                        AppLocalizations.of(context)!.forgotPasswordMessage,
                       ),
                     ),
                   ],
@@ -60,12 +61,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               TextFormField(
                 controller: forgotPasswordController.emailController,
-                validator: (value) =>
-                    value!.isValidEmail() ? null : "Enter Valid Email Address",
+                validator: (value) => value!.isValidEmail()
+                    ? null
+                    : AppLocalizations.of(context)!.enterValidEmailAddress,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: "Email",
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.email,
                 ),
               ),
               SizedBox(
@@ -81,8 +83,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       forgotPasswordController.sendRecoveryEmail();
                     }
                   },
-                  child: const Text(
-                    "Next",
+                  child: Text(
+                    AppLocalizations.of(context)!.next,
                   ),
                 ),
               ),

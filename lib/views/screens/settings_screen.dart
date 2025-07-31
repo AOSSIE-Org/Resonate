@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:resonate/routes/app_routes.dart';
@@ -35,8 +36,8 @@ class SettingsScreen extends StatelessWidget {
         height: UiSizes.height_30,
         thickness: 10,
         color: Theme.of(context).brightness == Brightness.light
-            ? Colors.black.withAlpha((255 * 0.04).round())
-            : Colors.white.withAlpha((255 * 0.04).round()),
+            ? Colors.black.withValues(alpha: 0.04)
+            : Colors.white.withValues(alpha: 0.04),
       );
     }
 
@@ -59,35 +60,35 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(AppLocalizations.of(context)!.settings),
       ),
       body: ListView(
         children: [
-          titleText("Account settings"),
+          titleText(AppLocalizations.of(context)!.accountSettings),
           customTile(
-            str: "Account",
+            str: AppLocalizations.of(context)!.account,
             func: () {
               Get.toNamed(AppRoutes.userAccountScreen);
             },
           ),
           customDivider(),
-          titleText("App settings"),
+          titleText(AppLocalizations.of(context)!.appSettings),
           customTile(
-            str: "Themes",
+            str: AppLocalizations.of(context)!.themes,
             func: () {
               Get.toNamed(AppRoutes.themeScreen);
             },
           ),
           customTile(
-            str: "About",
+            str: AppLocalizations.of(context)!.about,
             func: () {
               Get.toNamed(AppRoutes.aboutApp);
             },
           ),
           customDivider(),
-          titleText("Other"),
+          titleText(AppLocalizations.of(context)!.other),
           customTile(
-            str: "Contribute",
+            str: AppLocalizations.of(context)!.contribute,
             func: () {
               Get.toNamed(AppRoutes.contributeScreen);
             },
@@ -99,16 +100,15 @@ class SettingsScreen extends StatelessWidget {
             ),
             textColor: Colors.redAccent,
             iconColor: Colors.redAccent,
-            title: const Text(
-              "Log out",
-              style: TextStyle(
+            title: Text(
+              AppLocalizations.of(context)!.logOut,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
             trailing: const Icon(Icons.logout_rounded),
             onTap: () async {
               await authStateController.logout(context);
-
             },
           ),
         ],

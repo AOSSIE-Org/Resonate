@@ -9,6 +9,7 @@ import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 bool isLiveSelected = true;
 
@@ -19,10 +20,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
   final UpcomingRoomsController upcomingRoomsController =
-    Get.put(UpcomingRoomsController());
+      Get.put(UpcomingRoomsController());
   final RoomsController roomsController = Get.put(RoomsController());
 
   Future<void> pullToRefreshData() async {
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Theme.of(context).colorScheme.primary,
                                   size: Get.pixelRatio * 20,
                                 ))
-                              :  LiveRoomListView()
+                              : LiveRoomListView()
                           : upcomingRoomsController.isLoading.value
                               ? Center(
                                   child:
@@ -99,7 +99,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
         GestureDetector(
           onTap: () => onTabSelected(true),
           child: Text(
-            'LIVE',
+            AppLocalizations.of(context)!.live.toUpperCase(),
             style: TextStyle(
               color: isLiveSelected
                   ? Theme.of(context).colorScheme.primary
@@ -112,7 +112,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
         GestureDetector(
           onTap: () => onTabSelected(false),
           child: Text(
-            'UPCOMING',
+            AppLocalizations.of(context)!.upcoming.toUpperCase(),
             style: TextStyle(
               color: !isLiveSelected
                   ? Theme.of(context).colorScheme.primary
@@ -156,8 +156,8 @@ class UpcomingRoomsListView extends StatelessWidget {
 }
 
 class LiveRoomListView extends StatelessWidget {
-   LiveRoomListView({super.key});
-    final RoomsController roomsController = Get.put(RoomsController());
+  LiveRoomListView({super.key});
+  final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {

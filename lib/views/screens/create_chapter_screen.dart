@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class CreateChapterScreen extends StatefulWidget {
   final Function(Chapter) onChapterCreated;
@@ -38,8 +40,19 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
   }
 
   Future<void> pickAudioFile() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.audio);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: [
+        'wav',
+        'aiff',
+        'alac',
+        'flac',
+        'mp3',
+        'aac',
+        'wma',
+        'ogg'
+      ],
+    );
 
     if (result != null) {
       setState(() {
@@ -67,11 +80,11 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Please fill in all required fields.'),
+          title: Text(AppLocalizations.of(context)!.error),
+          content: Text(AppLocalizations.of(context)!.fillAllRequiredFields),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: Text(AppLocalizations.of(context)!.ok),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
@@ -107,7 +120,7 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          title: const Text('Create a Chapter'),
+          title: Text(AppLocalizations.of(context)!.createAChapter),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -115,52 +128,76 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
             children: [
               TextField(
                 controller: titleController,
-                decoration: const InputDecoration(labelText: 'Chapter Title *'),
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.chapterTitle,
+                    counterText: ''),
+                maxLines: 1,
+                maxLength: 20,
               ),
               const SizedBox(height: 20),
               TextField(
                 controller: aboutController,
                 maxLength: 2000,
-                decoration: const InputDecoration(
-                    labelText: 'About *', counterText: ''),
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.aboutRequired,
+                    counterText: ''),
                 maxLines: 3,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: UiSizes.height_20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: chapterCoverImage != null
-                        ? Image.file(
-                            chapterCoverImage!,
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: 150,
-                          )
-                        : Image.network(
-                            chapterCoverImagePlaceholderUrl,
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: 150,
-                          ),
-                  ),
-                  GestureDetector(
-                    onTap: pickChapterCoverImage,
-                    child: Container(
-                      width: 200,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(84, 158, 158, 158)),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: const [
-                          BoxShadow(color: Colors.black12, blurRadius: 4)
-                        ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: chapterCoverImage != null
+                            ? Image.file(
+                                chapterCoverImage!,
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              )
+                            : Image.network(
+                                chapterCoverImagePlaceholderUrl,
+                                fit: BoxFit.cover,
+                                height: 150,
+                                width: 150,
+                              ),
                       ),
-                      child: const Center(
-                        child: Icon(Icons.upload_rounded,
-                            size: 50, color: Colors.grey),
+                    ),
+                  ),
+                  SizedBox(width: UiSizes.width_10),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: pickChapterCoverImage,
+                        child: Container(
+                          width: 200,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(84, 158, 158, 158)),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.change_circle,
+                                  size: 50, color: Colors.grey),
+                              Text(
+                                AppLocalizations.of(context)!.changeCoverImage,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -183,8 +220,9 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                       child: Center(
                         child: Text(
                           audioFile != null
-                              ? 'Audio file Selected: ${audioFile!.path.split('/').last}'
-                              : 'Upload Audio File',
+                              ? AppLocalizations.of(context)!.audioFileSelected(
+                                  audioFile!.path.split('/').last)
+                              : AppLocalizations.of(context)!.uploadAudioFile,
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -205,8 +243,9 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                   child: Center(
                     child: Text(
                       lyricsFile != null
-                          ? 'Lyrics File Selected: ${lyricsFile!.path.split('/').last}'
-                          : 'Upload Lyrics File',
+                          ? AppLocalizations.of(context)!.lyricsFileSelected(
+                              lyricsFile!.path.split('/').last)
+                          : AppLocalizations.of(context)!.uploadLyricsFile,
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ),
@@ -215,7 +254,7 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: createChapter,
-                child: const Text('Create Chapter'),
+                child: Text(AppLocalizations.of(context)!.createChapter),
               ),
             ],
           ),

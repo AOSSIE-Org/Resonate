@@ -11,8 +11,8 @@ import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/login_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
+import 'package:resonate/views/screens/pair_chat_users_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
-import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/forgot_password_screen.dart';
@@ -98,6 +98,7 @@ class AppPages {
       name: AppRoutes.pairing,
       page: () => PairingScreen(),
     ),
+    GetPage(name: AppRoutes.pairChatUsers, page: () => PairChatUsersScreen()),
     GetPage(
       name: AppRoutes.pairChat,
       page: () => PairChatScreen(),
@@ -128,11 +129,6 @@ class AppPages {
     GetPage(
       name: AppRoutes.loginScreen,
       page: () => const LoginScreen(),
-    ),
-
-    GetPage(
-      name: AppRoutes.roomChatScreen,
-      page: () => const RoomChatScreen(),
     ),
     GetPage(
       name: AppRoutes.homeScreen,

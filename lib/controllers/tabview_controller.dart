@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -35,7 +36,7 @@ class TabViewController extends GetxController {
     _appLinks = AppLinks();
 
     // Check initial link if app was in cold state (terminated)
-    final appLink = await _appLinks.getInitialAppLink();
+    final appLink = await _appLinks.getInitialLink();
     if (appLink != null) {
       log('getInitialAppLink: $appLink');
       openAppLink(appLink);
@@ -56,7 +57,7 @@ class TabViewController extends GetxController {
         AppwriteRoom appwriteRoom =
             await Get.find<RoomsController>().getRoomById(roomId);
         Get.defaultDialog(
-            title: "Join Room",
+            title: AppLocalizations.of(Get.context!)!.joinRoom,
             titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
             content: Column(
               children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],

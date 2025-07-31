@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/utils/app_images.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/widgets/category_card.dart';
@@ -10,6 +11,7 @@ import 'package:resonate/views/widgets/filtered_list_tile.dart';
 import 'package:resonate/views/widgets/no_match_view.dart';
 import 'package:resonate/views/widgets/story_card.dart';
 import 'package:resonate/views/widgets/story_list_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
@@ -90,7 +92,7 @@ class _ExplorePageBodyState extends State<ExplorePageBody> {
                   ? Theme.of(context).colorScheme.onSurface
                   : Theme.of(context).colorScheme.secondary,
               filled: true,
-              hintText: 'What do you want to listen to?',
+              hintText: AppLocalizations.of(context)!.whatDoYouWantToListenTo,
               hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
@@ -140,7 +142,7 @@ class ExplorePageContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Categories',
+          AppLocalizations.of(context)!.categories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -166,14 +168,15 @@ class ExplorePageContent extends StatelessWidget {
             itemBuilder: (context, index) {
               return CategoryCard(
                 name: StoryCategory.values[index].name,
-                color: categoryColorList[index],
+                color: AppColor.categoryColorList[
+                    StoryCategory.values[index].name.toLowerCase()]!,
                 exploreStoryController: exploreStoryController,
               );
             },
           ),
         ),
         Text(
-          'Stories',
+          AppLocalizations.of(context)!.stories,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -223,7 +226,7 @@ class ExplorePageContent extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text("No stories exist to present")
+                          Text(AppLocalizations.of(context)!.noStoriesExist)
                         ],
                       )
                 : Center(
@@ -242,7 +245,7 @@ class ExplorePageContent extends StatelessWidget {
           height: 35,
         ),
         Text(
-          'Some Suggestions',
+          AppLocalizations.of(context)!.someSuggestions,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.w900,
@@ -255,7 +258,6 @@ class ExplorePageContent extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: 300,
           width: double.infinity,
           child: Obx(
             () => !exploreStoryController.isLoadingRecommendedStories.value
@@ -292,7 +294,7 @@ class ExplorePageContent extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text("No stories exist to present")
+                          Text(AppLocalizations.of(context)!.noStoriesExist)
                         ],
                       )
                 : Center(
@@ -314,15 +316,6 @@ class ExplorePageContent extends StatelessWidget {
     );
   }
 }
-
-final List<Color> categoryColorList = [
-  const Color.fromARGB(255, 237, 29, 154),
-  const Color.fromARGB(255, 21, 178, 136),
-  const Color.fromARGB(255, 142, 16, 238),
-  const Color.fromARGB(255, 38, 83, 215),
-  const Color.fromARGB(255, 140, 204, 37),
-  const Color.fromARGB(255, 218, 83, 83),
-];
 
 class SearchResultContent extends StatelessWidget {
   const SearchResultContent({

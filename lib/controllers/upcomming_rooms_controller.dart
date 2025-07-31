@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -13,6 +14,8 @@ import 'package:resonate/controllers/create_room_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -253,8 +256,9 @@ class UpcomingRoomsController extends GetxController {
       DateTime pickedDateTime = DateTime(pickedDate.year, pickedDate.month,
           pickedDate.day, pickedTime.hour, pickedTime.minute);
       if (!pickedDateTime.isAfter(now)) {
-        Get.snackbar("Invalid Scheduled Date Time",
-            "Scheduled Date Time cannot be in past");
+        Get.snackbar(
+            AppLocalizations.of(Get.context!)!.invalidScheduledDateTime,
+            AppLocalizations.of(Get.context!)!.scheduledDateTimePast);
         return;
       }
       scheduledDateTime =
@@ -289,5 +293,22 @@ class UpcomingRoomsController extends GetxController {
           collectionId: subscribedUserCollectionId,
           documentId: subscriber.$id);
     }
+  }
+
+  void openUpcomingChatSheet(AppwriteUpcommingRoom appwriteRoom) {
+    showModalBottomSheet(
+      context: Get.context!,
+      builder: (ctx) {
+        Get.put(RoomChatController(appwriteUpcommingRoom: appwriteRoom));
+        return RoomChatScreen();
+      },
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+    );
   }
 }

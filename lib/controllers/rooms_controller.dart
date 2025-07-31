@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -105,7 +106,7 @@ class RoomsController extends GetxController {
                 size: Get.pixelRatio * 20),
           ),
           barrierDismissible: false,
-          name: "Loading Dialog");
+          name: AppLocalizations.of(Get.context!)!.loadingDialog);
 
       // Get the token and livekit url and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();

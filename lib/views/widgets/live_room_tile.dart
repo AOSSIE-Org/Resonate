@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
@@ -8,7 +9,7 @@ class CustomLiveRoomTile extends StatelessWidget {
   final AppwriteRoom appwriteRoom;
 
   CustomLiveRoomTile({super.key, required this.appwriteRoom});
-    final RoomsController roomsController = Get.put(RoomsController());
+  final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,8 @@ class CustomLiveRoomTile extends StatelessWidget {
               children: [
                 Text(
                   appwriteRoom.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -48,7 +51,11 @@ class CustomLiveRoomTile extends StatelessWidget {
                   ),
                   onPressed: () {
                     Share.share(
-                      '🚀 Check out this amazing room: ${appwriteRoom.name}!\n\n📖 Description: ${appwriteRoom.description}\n👥 Join ${appwriteRoom.totalParticipants} participants now!',
+                      AppLocalizations.of(context)!.shareRoomMessage(
+                        appwriteRoom.name,
+                        appwriteRoom.description,
+                        appwriteRoom.totalParticipants,
+                      ),
                     );
                   },
                 ),
@@ -77,13 +84,16 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.7).round()),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.7),
                 fontSize: 14,
               ),
             ),
 
             const SizedBox(height: 5),
-            
+
             // Total participants count
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,7 +128,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${appwriteRoom.totalParticipants} Participants',
+                          AppLocalizations.of(context)!.participantsCount(
+                              appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
@@ -139,7 +150,7 @@ class CustomLiveRoomTile extends StatelessWidget {
                     ),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  child: const Text('Join'),
+                  child: Text(AppLocalizations.of(context)!.join),
                 ),
               ],
             ),

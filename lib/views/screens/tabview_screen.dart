@@ -20,6 +20,7 @@ import 'package:resonate/views/widgets/profile_avatar.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class TabViewScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
@@ -32,7 +33,11 @@ class TabViewScreen extends StatelessWidget {
   final RoomsController roomsController = Get.find<RoomsController>();
   final upcomingRoomsController =
       Get.put<UpcomingRoomsController>(UpcomingRoomsController());
+
   final ThemeController themeController = Get.find<ThemeController>();
+
+  // Add a reactive variable to track room creation state
+  final RxBool isRoomCreating = false.obs;
 
   TabViewScreen({super.key});
 
@@ -43,7 +48,8 @@ class TabViewScreen extends StatelessWidget {
             toolbarHeight: UiSizes.size_56,
             automaticallyImplyLeading: false,
             title: Text(
-              "Resonate",
+              // "Resonate",
+              AppLocalizations.of(context)!.title,
               style: TextStyle(
                   fontSize: UiSizes.size_26,
                   color: Theme.of(context).colorScheme.primary),
@@ -65,7 +71,7 @@ class TabViewScreen extends StatelessWidget {
           ),
           floatingActionButton: (controller.getIndex() == 0)
               ? SpeedDial(
-                  icon: Icons.add,
+                  icon: Icons.add_call,
                   childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
                   activeIcon: Icons.close,
                   elevation: 8.0,
@@ -76,7 +82,7 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.multitrack_audio, size: UiSizes.size_24),
-                      label: "Audio Room",
+                      label: AppLocalizations.of(context)!.audioRoom,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () async {
                         if (authStateController.isEmailVerified!) {
@@ -84,9 +90,10 @@ class TabViewScreen extends StatelessWidget {
                         } else {
                           AppUtils.showDialog(
                             context: context,
-                            title: "Email Verification Required",
-                            middleText:
-                                "To proceed, verify your email address.",
+                            title: AppLocalizations.of(context)!
+                                .emailVerificationRequired,
+                            middleText: AppLocalizations.of(context)!
+                                .emailVerificationMessage,
                             onFirstBtnPressed: () {
                               Get.back();
                               emailVerifyController.isSending.value = true;
@@ -94,7 +101,7 @@ class TabViewScreen extends StatelessWidget {
                               AppUtils.showBlurredLoaderDialog(context);
                             },
                             onSecondBtnPressed: () => Get.back(),
-                            firstBtnText: "Verify",
+                            firstBtnText: AppLocalizations.of(context)!.verify,
                           );
                         }
                       },
@@ -102,7 +109,7 @@ class TabViewScreen extends StatelessWidget {
                     SpeedDialChild(
                       child:
                           Icon(Icons.people_alt_rounded, size: UiSizes.size_24),
-                      label: "Pair Chat",
+                      label: AppLocalizations.of(context)!.pairChat,
                       labelStyle: TextStyle(fontSize: UiSizes.size_14),
                       onTap: () {
                         Get.put<PairChatController>(PairChatController());
@@ -113,32 +120,80 @@ class TabViewScreen extends StatelessWidget {
                 )
               : FloatingActionButton(
                   shape: const CircleBorder(),
-                  onPressed: () async {
-                    if (controller.getIndex() == 2) {
-                      if (createRoomController.isScheduled.value) {
-                        createRoomController.isLoading.value = true;
-                        await upcomingRoomsController.createUpcomingRoom();
-                        await upcomingRoomsController.getUpcomingRooms();
-                        createRoomController.isLoading.value = false;
-                        isLiveSelected = false;
-                        controller.setIndex(0);
-                      } else {
-                        await createRoomController.createRoom(
-                            createRoomController.nameController.text,
-                            createRoomController.descriptionController.text,
-                            createRoomController.tagsController.getTags!
-                                .map((item) => item.toString())
-                                .toList(),
-                            true);
-                        await roomsController.getRooms();
-                      }
-                    } else {
-                      Navigator.pushNamed(context, AppRoutes.createStoryScreen);
-                    }
-                  },
-                  child: Icon(
-                      controller.getIndex() == 2 ? Icons.done : Icons.add,
-                      size: UiSizes.size_24)),
+                  // Disable the button during room creation
+                  onPressed: isRoomCreating.value
+                      ? null
+                      : () async {
+                          if (controller.getIndex() == 2) {
+                            // Validate form before creation
+                            if (!createRoomController
+                                .createRoomFormKey.currentState!
+                                .validate()) {
+                              return;
+                            }
+
+                            // Prevent multiple room creations
+                            if (isRoomCreating.value) return;
+
+                            try {
+                              // Set room creation state to true
+                              isRoomCreating.value = true;
+
+                              if (createRoomController.isScheduled.value) {
+                                createRoomController.isLoading.value = true;
+                                await upcomingRoomsController
+                                    .createUpcomingRoom();
+                                await upcomingRoomsController
+                                    .getUpcomingRooms();
+                                createRoomController.isLoading.value = false;
+                                isLiveSelected = false;
+                                controller.setIndex(0);
+                              } else {
+                                await createRoomController.createRoom(
+                                    createRoomController.nameController.text,
+                                    createRoomController
+                                        .descriptionController.text,
+                                    createRoomController.tagsController.getTags!
+                                        .map((item) => item.toString())
+                                        .toList(),
+                                    true);
+                                await roomsController.getRooms();
+                                controller.setIndex(0);
+                              }
+                            } catch (e) {
+                              // Handle any errors during room creation
+                              print('Room creation error: $e');
+                              // Show an error dialog
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Failed to create room: $e'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            } finally {
+                              // Always reset the room creation state
+                              isRoomCreating.value = false;
+                            }
+                          } else {
+                            Navigator.pushNamed(
+                                context, AppRoutes.createStoryScreen);
+                          }
+                        },
+                  // Change the button's appearance when creating a room
+                  child: isRoomCreating.value
+                      ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Icon(
+                          controller.getIndex() == 2
+                              ? Icons.done
+                              : Icons.audiotrack_rounded,
+                          size: UiSizes.size_24)),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -146,8 +201,10 @@ class TabViewScreen extends StatelessWidget {
             activeColor: Theme.of(context).colorScheme.primary,
             backgroundColor: Theme.of(context).colorScheme.secondary,
             inactiveColor: Theme.of(context).brightness == Brightness.light
-                ? Colors.black.withAlpha((255 * 0.3).round())
-                : Colors.white.withAlpha((255 * 0.3).round()),
+                ? Colors.black
+                    .withOpacity(0.3) // Fixed withValues to withOpacity
+                : Colors.white
+                    .withOpacity(0.3), // Fixed withValues to withOpacity
             splashRadius: 0,
             shadow: const Shadow(color: Colors.transparent),
             iconSize: UiSizes.size_30,
