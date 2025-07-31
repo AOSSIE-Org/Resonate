@@ -2,26 +2,33 @@
 ├── .github
 │   ├── ISSUE_TEMPLATE
 │   │   ├── bug_report.yml
+│   │   ├── configuration_change.yml
 │   │   ├── documentation_issue.yml
-│   │   └── feature_request.yml
+│   │   ├── feature_request.yml
+│   │   ├── re-implementation.yml
+│   │   ├── refactor-to-enhance.yml
+│   │   └── security_improvement.yml
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   └── workflows
+│       ├── build_and_deploy.yml
 │       ├── greet_contributors.yml
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
+├── CSAE_STANDARDS.md
 ├── LICENSE
 ├── ONBOARDING.md
+├── PRIVACY-POLICY.md
 ├── README.md
 ├── SECURITY.md
+├── TRANSLATIONS.md
 ├── analysis_options.yaml
 ├── android
 │   ├── .gitignore
 │   ├── app
-│   │   ├── build.gradle
-│   │   ├── google-services.json
+│   │   ├── build.gradle.kts
 │   │   └── src
 │   │       ├── debug
 │   │       │   └── AndroidManifest.xml
@@ -85,12 +92,15 @@
 │   │       │           └── styles.xml
 │   │       └── profile
 │   │           └── AndroidManifest.xml
-│   ├── build.gradle
+│   ├── build
+│   │   └── .last_build_id
+│   ├── build.gradle.kts
 │   ├── gradle
 │   │   └── wrapper
 │   │       └── gradle-wrapper.properties
 │   ├── gradle.properties
-│   └── settings.gradle
+│   ├── settings.gradle.kts
+│   └── untranslated.txt
 ├── assets
 │   ├── fonts
 │   │   └── Montserrat-Regular.ttf
@@ -104,8 +114,8 @@
 │   │   ├── landing_first.png
 │   │   ├── landing_second.png
 │   │   ├── landing_third.png
-│   │   ├── no_connection.png
-│   │   ├── no_room.png
+│   │   ├── no_connection.svg
+│   │   ├── no_room.svg
 │   │   ├── proxy_image.png
 │   │   ├── resonate_logo.png
 │   │   ├── timer.svg
@@ -188,7 +198,6 @@
 │   │   ├── Base.lproj
 │   │   │   ├── LaunchScreen.storyboard
 │   │   │   └── Main.storyboard
-│   │   ├── GoogleService-Info.plist
 │   │   ├── Info.plist
 │   │   └── Runner-Bridging-Header.h
 │   ├── Runner.xcodeproj
@@ -207,6 +216,7 @@
 │   │       ├── IDEWorkspaceChecks.plist
 │   │       └── WorkspaceSettings.xcsettings
 │   └── firebase_app_id_file.json
+├── l10n.yaml
 ├── lib
 │   ├── bindings
 │   │   ├── auth_splash_bindings.dart
@@ -218,6 +228,7 @@
 │   │   ├── auth_state_controller.dart
 │   │   ├── authentication_controller.dart
 │   │   ├── change_email_controller.dart
+│   │   ├── chapter_player_controller.dart
 │   │   ├── create_room_controller.dart
 │   │   ├── delete_account_controller.dart
 │   │   ├── edit_profile_controller.dart
@@ -229,16 +240,22 @@
 │   │   ├── onboarding_controller.dart
 │   │   ├── pair_chat_controller.dart
 │   │   ├── password_strength_checker_controller.dart
+│   │   ├── room_chat_controller.dart
 │   │   ├── rooms_controller.dart
 │   │   ├── single_room_controller.dart
 │   │   ├── splash_controller.dart
 │   │   ├── tabview_controller.dart
 │   │   └── upcomming_rooms_controller.dart
-│   ├── firebase_options.dart
 │   ├── for_developers
 │   │   ├── text_theme.dart
 │   │   ├── theme_color_model.dart
 │   │   └── theme_colors_page.dart
+│   ├── l10n
+│   │   ├── app_en.arb
+│   │   ├── app_hi.arb
+│   │   ├── app_localizations.dart
+│   │   ├── app_localizations_en.dart
+│   │   └── app_localizations_hi.dart
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -306,6 +323,7 @@
 │       │   ├── notifications_screen.dart
 │       │   ├── onboarding_screen.dart
 │       │   ├── pair_chat_screen.dart
+│       │   ├── pair_chat_users_screen.dart
 │       │   ├── pairing_screen.dart
 │       │   ├── profile_screen.dart
 │       │   ├── reset_password_screen.dart
@@ -322,6 +340,7 @@
 │           ├── auth_button.dart
 │           ├── category_card.dart
 │           ├── chapter_list_tile.dart
+│           ├── chapter_player.dart
 │           ├── custom_card.dart
 │           ├── filtered_list_tile.dart
 │           ├── like_button.dart
@@ -333,6 +352,7 @@
 │           ├── participant_block.dart
 │           ├── password_strength_indicator.dart
 │           ├── profile_avatar.dart
+│           ├── rating_sheet.dart
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
 │           ├── snackbar.dart
@@ -343,7 +363,8 @@
 ├── project_structure.txt
 ├── pubspec.lock
 ├── pubspec.yaml
-└── test
-    └── widget_test.dart
+├── test
+│   └── widget_test.dart
+└── untranslated.txt
 
-78 directories, 269 files
+80 directories, 288 files
