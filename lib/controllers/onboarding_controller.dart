@@ -50,10 +50,10 @@ class OnboardingController extends GetxController {
       firstDate: DateTime(1800),
       lastDate: DateTime.now(),
     );
-  if (pickedDate != null) {
-    dobController.text =
-        DateFormat("dd-MM-yyyy").format(pickedDate).toString();
-  }
+    if (pickedDate != null) {
+      dobController.text =
+          DateFormat("dd-MM-yyyy").format(pickedDate).toString();
+    }
 
 
   Future<void> saveProfile() async {
