@@ -51,8 +51,8 @@ class OnboardingController extends GetxController {
       lastDate: DateTime.now(),
     );
   if (pickedDate != null) {
-  dobController.text =
-      DateFormat("dd-MM-yyyy").format(pickedDate).toString();
+    dobController.text =
+        DateFormat("dd-MM-yyyy").format(pickedDate).toString();
   }
 
 
