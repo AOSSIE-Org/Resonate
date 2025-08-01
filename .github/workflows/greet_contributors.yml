@@ -1,14 +1,15 @@
 name: Greet Contributors
 
-on: 
+on:
   issues:
     types: [opened, closed]
-  pull_request:
+  pull_request_target:
     types: [opened, closed]
 
 permissions:
   issues: write
   pull-requests: write
+  contents: read
 
 jobs:
   greet:
@@ -25,7 +26,7 @@ jobs:
             👋 **Hello @${{ github.actor }}!**  
             Thank you for opening this issue. Our team will review it soon. 🚀  
             - If you can, please provide more details like steps to reproduce, expected vs. actual behavior, and screenshots (if applicable). 📌  
-            
+
             We appreciate your contribution! 💡
           reactions: heart
 
@@ -40,13 +41,13 @@ jobs:
             This issue has been resolved or is no longer relevant.  
             - If you have further questions, feel free to open a new issue. 💡  
 
-            Thanks for helping improve the project! 🚀 
+            Thanks for helping improve the project! 🚀
           reactions: |
             heart
             hooray
 
       - name: Handle Opened PRs
-        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        if: github.event_name == 'pull_request_target' && github.event.action == 'opened'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -57,13 +58,13 @@ jobs:
             - Please ensure your PR follows the contribution guidelines. ✅  
             - All automated tests should pass before merging. 🔄  
             - If this PR fixes an issue, link it in the description. 🔗  
-            
-            We appreciate your contribution! 🚀  
+
+            We appreciate your contribution! 🚀
           reactions: |
             heart
 
       - name: Handle Closed PRs
-        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        if: github.event_name == 'pull_request_target' && github.event.action == 'closed'
         uses: peter-evans/create-or-update-comment@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -73,7 +74,7 @@ jobs:
             - If this PR was merged: **Congratulations! Your contribution is now part of the project.** 🚀  
             - If this PR was closed without merging: **Don’t worry! You can always improve it and submit again.** 💪  
 
-            We appreciate your effort and look forward to more contributions from you! 🤝 
+            We appreciate your effort and look forward to more contributions from you! 🤝
           reactions: |
             heart
             hooray 
