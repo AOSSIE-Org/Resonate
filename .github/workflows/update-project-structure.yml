@@ -21,6 +21,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add project_structure.txt
-          git commit -m "chore: update project structure"
-          git push
+
+          if [[ -n $(git status --porcelain) ]]; then
+            git add project_structure.txt
+            git commit -m "chore: update project structure"
+            git push
+          else
+            echo "No changes to commit."
+          fi
