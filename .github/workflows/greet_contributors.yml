@@ -1,6 +1,7 @@
 name: Greet Contributors
 
 on:
+  workflow_dispatch:
   issues:
     types: [opened, closed]
   pull_request_target:
