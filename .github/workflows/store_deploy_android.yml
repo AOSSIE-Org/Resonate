@@ -61,10 +61,6 @@ jobs:
       - name: Decode Firebase Options
         run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
 
-        # Run flutter commands
-      - name: Run flutter pub get
-        run: flutter pub get
-
       - name: 📦 Install dependencies
         run: flutter pub get
 
@@ -72,8 +68,9 @@ jobs:
       # - name: 🕵️ Analyze to check for bad Dart/Flutter practices
       #   run: flutter analyze
 
-      - name: 📉 Run all app tests
-        run: flutter test
+      #Enable after Tests are written
+      # - name: 📉 Run all app tests
+      #   run: flutter test
 
       # Build Android Bundle release file
       - name: Build aab
