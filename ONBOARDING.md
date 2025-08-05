@@ -103,7 +103,7 @@ Now appwrite function pushing will start and just press 'a' char on keyboard to 
 
 ### Connecting Frontend and Backend
 
-You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
+Now, on client side, based on how you are running the client side app you need to update the default value of the baseDomain variable in ```constants.dart``` or you can pass it in as an argument with ```flutter run``` using ```--dart-define=APPWRITE_BASE_DOMAIN=<Your baseDomain>```
 
 | Platform          | Base Domain                                                                                           |
 | ----------------- | ----------------------------------------------------------------------------------------------------- |

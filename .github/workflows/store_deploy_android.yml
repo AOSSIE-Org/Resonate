@@ -1,0 +1,97 @@
+## Github Actions CI workflow to deploy to Internal testing in the Play Store
+name: CI_STORE_DEPLOY_ANDROID
+
+on:
+  # Run this workflow when any new code is pushed into the main branch
+  push:
+    branches: 
+      - main
+      - master
+      - deploy-actions
+
+jobs:
+  store_deploy_android:
+    
+    name: android store release
+    runs-on: ubuntu-latest
+    env:
+      # Setup env variables that will be used throughout the workflow
+      JAVA_VERSION: 17.0.12
+      FLUTTER_VERSION: 3.32.5
+      AAB_PATH: build/app/outputs/bundle/release/app-release.aab
+      KEYSTORE_PATH: android/upload-keystore.jks
+      KEY_PROPS_PATH: android/key.properties
+      SERVICE_ACCOUNT_PATH: store_credentials.json
+      FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
+      GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
+    steps:
+      # Checkout repository codebase
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Setup Java in the VM
+      - name: Setup Java to compile the Android project
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+      
+      # Setup Flutter in the VM
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      # Decode Android env variables
+      - name: Decode Android keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
+
+      - name: Decode Android key properties
+        run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > ${{ env.KEY_PROPS_PATH }}
+
+      # Decode Android release Service Account
+      - name: Decode Android Service Account
+        run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
+          
+      #Decode Google Services JSON for Android
+      - name: Decode Android Google Services JSON
+        run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
+      
+      # Decode Firebase Options Dart file
+      - name: Decode Firebase Options
+        run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      #Enable after Decoupling is completed
+      # - name: 🕵️ Analyze to check for bad Dart/Flutter practices
+      #   run: flutter analyze
+
+      #Enable after Tests are written
+      # - name: 📉 Run all app tests
+      #   run: flutter test
+
+      # Build Android Bundle release file
+      - name: Build aab
+        run: |
+          flutter build appbundle \
+          --release \
+          --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
+          --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
+
+      # Upload generated aab to project artifacts
+      - name: Upload generated aab to the artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab-stores
+          path: ${{ env.AAB_PATH }}
+
+      # Deploy bundle to Google Play internal testing
+      - name: Deploy to Play Store (Internal testing)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
+          packageName: com.resonate.resonate
+          releaseFiles: ${{ env.AAB_PATH }}
+          track: internal

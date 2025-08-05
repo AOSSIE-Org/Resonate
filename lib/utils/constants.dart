@@ -1,9 +1,10 @@
 // This file contains constants that are used throughout the app.
 
 // Appwrite Project Constants
-const String baseDomain = "192.168.29.24";
-//const String baseDomain = "10.0.2.2";
-const String appwriteProjectId = "resonate";
+const String baseDomain =
+    String.fromEnvironment('APPWRITE_BASE_DOMAIN', defaultValue: 'localhost');
+const String appwriteProjectId =
+    String.fromEnvironment('APPWRITE_PROJECT_ID', defaultValue: 'resonate');
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
 
