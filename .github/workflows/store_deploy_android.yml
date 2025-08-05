@@ -75,9 +75,9 @@ jobs:
       # Build Android Bundle release file
       - name: Build aab
         run: |
-          flutter build appbundle 
-          --release 
-          --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }}
+          flutter build appbundle \
+          --release \
+          --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
       # Upload generated aab to project artifacts
