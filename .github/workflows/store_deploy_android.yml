@@ -27,11 +27,11 @@ jobs:
     steps:
       # Checkout repository codebase
       - name: Checkout the code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Setup Java in the VM
       - name: Setup Java to compile the Android project
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: ${{ env.JAVA_VERSION }}
@@ -82,7 +82,7 @@ jobs:
 
       # Upload generated aab to project artifacts
       - name: Upload generated aab to the artifacts
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v4
         with:
           name: aab-stores
           path: ${{ env.AAB_PATH }}
