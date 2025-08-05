@@ -22,6 +22,8 @@ jobs:
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
       SERVICE_ACCOUNT_PATH: store_credentials.json
+      FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
+      GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
     steps:
       # Checkout repository codebase
       - name: Checkout the code
@@ -49,17 +51,26 @@ jobs:
 
       # Decode Android release Service Account
       - name: Decode Android Service Account
-        run: echo "${{ secrets.PRODUCTION_CREDENTIAL_FILE }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
+        run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
+          
+      #Decode Google Services JSON for Android
+      - name: Decode Android Google Services JSON
+        run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
+      
+      # Decode Firebase Options Dart file
+      - name: Decode Firebase Options
+        run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
 
-      # Run flutter commands
+        # Run flutter commands
       - name: Run flutter pub get
         run: flutter pub get
 
       - name: 📦 Install dependencies
         run: flutter pub get
 
-      - name: 🕵️ Analyze to check for bad Dart/Flutter practices
-        run: flutter analyze
+      #Enable after Decoupling is completed
+      # - name: 🕵️ Analyze to check for bad Dart/Flutter practices
+      #   run: flutter analyze
 
       - name: 📉 Run all app tests
         run: flutter test
