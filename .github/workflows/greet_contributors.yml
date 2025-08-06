@@ -70,7 +70,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ✅ **PR Closed - Thank You, @${{ github.actor }}!**  
+            ✅ **PR Closed - Thank You, @${{ github.event.pull_request.user.login }}!**  
             - If this PR was merged: **Congratulations! Your contribution is now part of the project.** 🚀  
             - If this PR was closed without merging: **Don’t worry! You can always improve it and submit again.** 💪  
 
