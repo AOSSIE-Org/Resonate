@@ -24,6 +24,7 @@ jobs:
       SERVICE_ACCOUNT_PATH: store_credentials.json
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
       GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
+      APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
     steps:
       # Checkout repository codebase
       - name: Checkout the code
