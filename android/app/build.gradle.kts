@@ -30,6 +30,8 @@ android {
         jvmTarget = "1.8"
     }
 
+val projectId: String = System.getenv("APPWRITE_PROJECT_ID") ?: "resonate"
+println("PROJECT_ID: $projectId")
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.resonate.resonate"
@@ -39,7 +41,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode.toInt()
         versionName = flutter.versionName
-        manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate")
+        manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate", "PROJECT_ID" to projectId )
     }
 
     buildTypes {

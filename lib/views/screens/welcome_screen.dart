@@ -145,7 +145,9 @@ class WelcomeScreen extends StatelessWidget {
                           foregroundColor:
                               Theme.of(context).colorScheme.onPrimary,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await controller.loginWithGithub();
+                        },
                         icon: const FaIcon(
                           FontAwesomeIcons.github,
                         ),
