@@ -23,6 +23,7 @@ mixin _$ResonateUser {
   @JsonKey(name: 'dob')
   String? get dateOfBirth;
   String? get docId;
+  @JsonKey(fromJson: _toDouble)
   double? get userRating;
 
   /// Create a copy of ResonateUser
@@ -80,7 +81,7 @@ abstract mixin class $ResonateUserCopyWith<$Res> {
       String? email,
       @JsonKey(name: 'dob') String? dateOfBirth,
       String? docId,
-      double? userRating});
+      @JsonKey(fromJson: _toDouble) double? userRating});
 }
 
 /// @nodoc
@@ -242,7 +243,7 @@ extension ResonateUserPatterns on ResonateUser {
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
             String? docId,
-            double? userRating)?
+            @JsonKey(fromJson: _toDouble) double? userRating)?
         $default, {
     required TResult orElse(),
   }) {
@@ -286,7 +287,7 @@ extension ResonateUserPatterns on ResonateUser {
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
             String? docId,
-            double? userRating)
+            @JsonKey(fromJson: _toDouble) double? userRating)
         $default,
   ) {
     final _that = this;
@@ -328,7 +329,7 @@ extension ResonateUserPatterns on ResonateUser {
             String? email,
             @JsonKey(name: 'dob') String? dateOfBirth,
             String? docId,
-            double? userRating)?
+            @JsonKey(fromJson: _toDouble) double? userRating)?
         $default,
   ) {
     final _that = this;
@@ -360,7 +361,7 @@ class _ResonateUser implements ResonateUser {
       this.email,
       @JsonKey(name: 'dob') this.dateOfBirth,
       this.docId,
-      this.userRating});
+      @JsonKey(fromJson: _toDouble) this.userRating});
   factory _ResonateUser.fromJson(Map<String, dynamic> json) =>
       _$ResonateUserFromJson(json);
 
@@ -381,6 +382,7 @@ class _ResonateUser implements ResonateUser {
   @override
   final String? docId;
   @override
+  @JsonKey(fromJson: _toDouble)
   final double? userRating;
 
   /// Create a copy of ResonateUser
@@ -444,7 +446,7 @@ abstract mixin class _$ResonateUserCopyWith<$Res>
       String? email,
       @JsonKey(name: 'dob') String? dateOfBirth,
       String? docId,
-      double? userRating});
+      @JsonKey(fromJson: _toDouble) double? userRating});
 }
 
 /// @nodoc

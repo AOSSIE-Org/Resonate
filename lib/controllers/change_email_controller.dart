@@ -13,10 +13,18 @@ import '../views/widgets/snackbar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class ChangeEmailController extends GetxController {
-  final authStateController = Get.put(AuthStateController());
+  final AuthStateController authStateController;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  ChangeEmailController({
+    AuthStateController? authStateController,
+    Databases? databases,
+    Account? account,
+  })  : authStateController =
+            authStateController ?? Get.find<AuthStateController>(),
+        databases = databases ?? AppwriteService.getDatabases(),
+        account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
   RxBool isLoading = false.obs;
@@ -25,14 +33,6 @@ class ChangeEmailController extends GetxController {
 
   late final Databases databases;
   late final Account account;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    databases = AppwriteService.getDatabases();
-    account = AppwriteService.getAccount();
-  }
 
   Future<bool> isEmailAvailable(String changedEmail) async {
     final docs = await databases.listDocuments(
