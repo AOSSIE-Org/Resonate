@@ -18,11 +18,21 @@ import '../routes/app_routes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class AuthStateController extends GetxController {
-  Client client = AppwriteService.getClient();
-  final Databases databases = AppwriteService.getDatabases();
+  Client client;
+  final Databases databases;
   var isInitializing = false.obs;
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  late final Account account = AppwriteService.getAccount();
+  FirebaseMessaging messaging;
+  late final Account account;
+
+  AuthStateController({
+    Account? account,
+    Databases? databases,
+    Client? client,
+    FirebaseMessaging? messaging,
+  })  : client = client ?? AppwriteService.getClient(),
+        account = account ?? AppwriteService.getAccount(),
+        databases = databases ?? AppwriteService.getDatabases(),
+        messaging = messaging ?? FirebaseMessaging.instance;
   late String? uid;
   late String? profileImageID;
   late String? displayName;
@@ -157,11 +167,6 @@ class AuthStateController extends GetxController {
     } finally {
       isInitializing.value = false;
     }
-  }
-
-  Future<String> getAppwriteToken() async {
-    Jwt authToken = await account.createJWT();
-    return authToken.jwt;
   }
 
   Future<void> isUserLoggedIn() async {

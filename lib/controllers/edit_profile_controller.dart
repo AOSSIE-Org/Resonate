@@ -19,11 +19,9 @@ class EditProfileController extends GetxController {
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  final AuthStateController authStateController =
-      Get.find<AuthStateController>();
+  final AuthStateController authStateController;
 
-  final ThemeController themeController = Get.find<ThemeController>();
-
+  final ThemeController themeController;
   late final Storage storage;
   late final Databases databases;
 
@@ -43,13 +41,20 @@ class EditProfileController extends GetxController {
 
   final GlobalKey<FormState> editProfileFormKey = GlobalKey<FormState>();
 
+  EditProfileController({
+    ThemeController? themeController,
+    AuthStateController? authStateController,
+    Storage? storage,
+    Databases? databases,
+  })  : themeController = themeController ?? Get.find<ThemeController>(),
+        authStateController =
+            authStateController ?? Get.find<AuthStateController>(),
+        storage = storage ?? AppwriteService.getStorage(),
+        databases = databases ?? AppwriteService.getDatabases();
+
   @override
   void onInit() {
     super.onInit();
-
-    storage = AppwriteService.getStorage();
-    databases = AppwriteService.getDatabases();
-
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
 

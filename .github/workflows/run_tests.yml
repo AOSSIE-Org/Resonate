@@ -1,0 +1,45 @@
+## Github Actions CI workflow to deploy to run automated software tests
+name: RUN_SOFTWARE_TESTS
+
+on:
+  # Run this workflow when any pull requests are opened
+
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+  contents: read
+  
+jobs:
+  run_tests:
+    
+    name: Run Software Tests
+    runs-on: ubuntu-latest
+    env:
+      # Setup env variables that will be used throughout the workflow
+      JAVA_VERSION: 17.0.12
+      FLUTTER_VERSION: 3.32.5
+    steps:
+      # Checkout repository codebase
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Setup Java in the VM
+      - name: Setup Java to compile the Android project
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+      
+      # Setup Flutter in the VM
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 📉 Run all app tests
+        run: flutter test

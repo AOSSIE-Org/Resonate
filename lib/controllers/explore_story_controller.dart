@@ -14,9 +14,9 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class ExploreStoryController extends GetxController {
-  final Databases databases = AppwriteService.getDatabases();
-  final Storage storage = AppwriteService.getStorage();
-  final authStateController = Get.put(AuthStateController());
+  final Databases databases;
+  final Storage storage;
+  final AuthStateController authStateController;
   RxList<Story> recommendedStories = <Story>[].obs;
   RxList<Story> userCreatedStories = <Story>[].obs;
   RxList<Story> userLikedStories = <Story>[].obs;
@@ -27,6 +27,15 @@ class ExploreStoryController extends GetxController {
   Rx<bool> isLoadingStoryPage = false.obs;
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
+
+  ExploreStoryController({
+    Databases? databases,
+    Storage? storage,
+    AuthStateController? authStateController,
+  })  : databases = databases ?? AppwriteService.getDatabases(),
+        storage = storage ?? AppwriteService.getStorage(),
+        authStateController = authStateController ??
+            Get.put<AuthStateController>(AuthStateController());
 
   @override
   void onInit() async {

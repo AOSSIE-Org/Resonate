@@ -68,9 +68,8 @@ jobs:
       # - name: 🕵️ Analyze to check for bad Dart/Flutter practices
       #   run: flutter analyze
 
-      #Enable after Tests are written
-      # - name: 📉 Run all app tests
-      #   run: flutter test
+      - name: 📉 Run all app tests
+        run: flutter test
 
       # Build Android Bundle release file
       - name: Build aab

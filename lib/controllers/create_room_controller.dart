@@ -12,13 +12,17 @@ import '../services/room_service.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class CreateRoomController extends GetxController {
-  final ThemeController themeController = Get.find<ThemeController>();
+  final ThemeController themeController;
   RxBool isLoading = false.obs;
   RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
+
+  CreateRoomController({
+    ThemeController? themeController,
+  }) : themeController = themeController ?? Get.find<ThemeController>();
 
   @override
   void dispose() {
