@@ -29,9 +29,9 @@ class AuthStateController extends GetxController {
     Databases? databases,
     Client? client,
     FirebaseMessaging? messaging,
-  })  : account = account ?? AppwriteService.getAccount(),
+  })  : client = client ?? AppwriteService.getClient(),
+        account = account ?? AppwriteService.getAccount(),
         databases = databases ?? AppwriteService.getDatabases(),
-        client = client ?? AppwriteService.getClient(),
         messaging = messaging ?? FirebaseMessaging.instance;
   late String? uid;
   late String? profileImageID;

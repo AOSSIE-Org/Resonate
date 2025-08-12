@@ -1,13 +1,16 @@
-## Github Actions CI workflow to deploy to Internal testing in the Play Store
+## Github Actions CI workflow to deploy to run automated software tests
 name: RUN_SOFTWARE_TESTS
 
 on:
-  # Run this workflow when any new code is pushed into the main branch
-  push:
-    branches: 
-      - dev
-      - tests
+  # Run this workflow when any pull requests are opened
 
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+  contents: read
+  
 jobs:
   run_tests:
     
