@@ -12,6 +12,7 @@
 │   └── workflows
 │       ├── build_and_deploy.yml
 │       ├── greet_contributors.yml
+│       ├── run_tests.yml
 │       ├── store_deploy_android.yml
 │       └── update-project-structure.yml
 ├── .gitignore
@@ -93,8 +94,6 @@
 │   │       │           └── styles.xml
 │   │       └── profile
 │   │           └── AndroidManifest.xml
-│   ├── build
-│   │   └── .last_build_id
 │   ├── build.gradle.kts
 │   ├── gradle
 │   │   └── wrapper
@@ -365,7 +364,17 @@
 ├── pubspec.lock
 ├── pubspec.yaml
 ├── test
-│   └── widget_test.dart
+│   └── controllers
+│       ├── auth_state_controller_test.dart
+│       ├── auth_state_controller_test.mocks.dart
+│       ├── change_email_controller_test.dart
+│       ├── change_email_controller_test.mocks.dart
+│       ├── chapter_player_controller_test.dart
+│       ├── create_room_controller_test.dart
+│       ├── create_room_controller_test.mocks.dart
+│       ├── edit_profile_controller_test.dart
+│       ├── edit_profile_controller_test.mocks.dart
+│       └── explore_story_controller_test.dart
 └── untranslated.txt
 
-80 directories, 289 files
+80 directories, 298 files
