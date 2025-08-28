@@ -80,14 +80,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String noAvailableRoom(String isRoom) {
-    String _temp0 = intl.Intl.selectLogic(
-      isRoom,
-      {
-        'true': 'No Room Available',
-        'false': 'No Upcoming Room Available',
-        'other': 'No Room Information Available',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(isRoom, {
+      'true': 'No Room Available',
+      'false': 'No Upcoming Room Available',
+      'other': 'No Room Information Available',
+    });
     return '$_temp0\nGet Started By Adding One Below!';
   }
 
@@ -684,7 +681,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String shareRoomMessage(
-      String roomName, String description, int participants) {
+    String roomName,
+    String description,
+    int participants,
+  ) {
     return '🚀 Check out this amazing room: $roomName!\n\n📖 Description: $description\n👥 Join $participants participants now!';
   }
 
@@ -971,35 +971,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String storyCategory(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'drama': 'Drama',
-        'comedy': 'Comedy',
-        'horror': 'Horror',
-        'romance': 'Romance',
-        'thriller': 'Thriller',
-        'spiritual': 'Spiritual',
-        'other': 'Other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'drama': 'Drama',
+      'comedy': 'Comedy',
+      'horror': 'Horror',
+      'romance': 'Romance',
+      'thriller': 'Thriller',
+      'spiritual': 'Spiritual',
+      'other': 'Other',
+    });
     return '$_temp0';
   }
 
   @override
   String chooseTheme(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'classicTheme': 'Classic',
-        'timeTheme': 'Time',
-        'vintageTheme': 'Vintage',
-        'amberTheme': 'Amber',
-        'forestTheme': 'Forest',
-        'creamTheme': 'Cream',
-        'other': 'Other',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'classicTheme': 'Classic',
+      'timeTheme': 'Time',
+      'vintageTheme': 'Vintage',
+      'amberTheme': 'Amber',
+      'forestTheme': 'Forest',
+      'creamTheme': 'Cream',
+      'other': 'Other',
+    });
     return '$_temp0';
   }
 

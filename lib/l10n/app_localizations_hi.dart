@@ -80,14 +80,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String noAvailableRoom(String isRoom) {
-    String _temp0 = intl.Intl.selectLogic(
-      isRoom,
-      {
-        'true': 'कोई रूम उपलब्ध नहीं है',
-        'false': 'कोई आने वाला रूम उपलब्ध नहीं है',
-        'other': 'रूम की जानकारी उपलब्ध नहीं है',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(isRoom, {
+      'true': 'कोई रूम उपलब्ध नहीं है',
+      'false': 'कोई आने वाला रूम उपलब्ध नहीं है',
+      'other': 'रूम की जानकारी उपलब्ध नहीं है',
+    });
     return '$_temp0\nनीचे से एक रूम बनाकर शुरुआत करें!';
   }
 
@@ -687,7 +684,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String shareRoomMessage(
-      String roomName, String description, int participants) {
+    String roomName,
+    String description,
+    int participants,
+  ) {
     return '🚀 इस शानदार रूम को देखें: $roomName!\n\n📖 विवरण: $description\n👥 अभी $participants लोग जुड़ चुके हैं!';
   }
 
@@ -976,35 +976,29 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String storyCategory(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'drama': 'नाटक',
-        'comedy': 'हास्य',
-        'horror': 'डरावनी',
-        'romance': 'प्रेम कथा',
-        'thriller': 'रोमांच',
-        'spiritual': 'आध्यात्मिक',
-        'other': 'अन्य',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'drama': 'नाटक',
+      'comedy': 'हास्य',
+      'horror': 'डरावनी',
+      'romance': 'प्रेम कथा',
+      'thriller': 'रोमांच',
+      'spiritual': 'आध्यात्मिक',
+      'other': 'अन्य',
+    });
     return '$_temp0';
   }
 
   @override
   String chooseTheme(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'classicTheme': 'क्लासिक',
-        'timeTheme': 'टाइम',
-        'vintageTheme': 'विंटेज',
-        'amberTheme': 'अंबर',
-        'forestTheme': 'फॉरेस्ट',
-        'creamTheme': 'क्रीम',
-        'other': 'अन्य',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'classicTheme': 'क्लासिक',
+      'timeTheme': 'टाइम',
+      'vintageTheme': 'विंटेज',
+      'amberTheme': 'अंबर',
+      'forestTheme': 'फॉरेस्ट',
+      'creamTheme': 'क्रीम',
+      'other': 'अन्य',
+    });
     return '$_temp0';
   }
 
