@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
+import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
-import 'package:resonate/l10n/app_localizations.dart';
 
 class FilteredListTile extends StatelessWidget {
-  final Story story;
+  final Story? story;
+  final bool isStory;
+  final ResonateUser? user;
 
-  const FilteredListTile({required this.story, super.key});
+  const FilteredListTile(
+      {this.story, required this.isStory, this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => StoryScreen(
-              story: story,
+        if (isStory) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => StoryScreen(
+                story: story!,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                creator: user,
+                isCreatorProfile: true,
+              ),
+            ),
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -37,19 +54,31 @@ class FilteredListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: const EdgeInsets.all(0),
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(story.coverImageUrl),
+            backgroundImage: NetworkImage(
+                isStory ? story!.coverImageUrl : user!.profileImageUrl!),
             radius: 25,
           ),
-          trailing: Text(
-            formatPlayDuration(story.playDuration),
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 14,
-                  fontStyle: FontStyle.normal,
-                  fontFamily: 'Inter',
+          trailing: isStory
+              ? Text(
+                  formatPlayDuration(story!.playDuration),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Inter',
+                      ),
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    Text(user!.userRating!.toStringAsFixed(1)),
+                  ],
                 ),
-          ),
           title: Text(
-            story.title,
+            isStory ? story!.title : user!.userName!,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w500,
@@ -59,7 +88,7 @@ class FilteredListTile extends StatelessWidget {
                 ),
           ),
           subtitle: Text(
-            AppLocalizations.of(context)!.createdBy(story.creatorName),
+            "${isStory ? AppLocalizations.of(context)!.story : AppLocalizations.of(context)!.user} · ${isStory ? story!.creatorName : user!.name!}",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(

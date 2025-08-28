@@ -4,7 +4,6 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -13,7 +12,7 @@ import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
-import 'edit_profile_controller_test.mocks.dart';
+import 'explore_story_controller_test.mocks.dart';
 
 @GenerateMocks([
   Databases,
@@ -69,6 +68,50 @@ List<Document> mockStoryDocuments = [
         'likes': 10,
         'tintColor': '0000FF',
         'playDuration': 120,
+      })
+];
+List<Document> mockUsersDocuments = [
+  Document(
+      $id: 'doc1',
+      $collectionId: usersCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt:
+          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+      $updatedAt:
+          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+      $permissions: [
+        'any'
+      ],
+      data: {
+        'name': "Test User 1",
+        'dob': "2000-01-01",
+        'username': "testuser1",
+        'profileImageUrl': "https://example.com/profile1.jpg",
+        'email': "testuser1@example.com",
+        'profileImageId': "profileImageId1",
+        'ratingCount': 7,
+        'ratingTotal': 25
+      }),
+  Document(
+      $id: 'doc2',
+      $collectionId: usersCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt:
+          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+      $updatedAt:
+          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+      $permissions: [
+        'any'
+      ],
+      data: {
+        'name': "Test User 2",
+        'dob': "2000-01-01",
+        'username': "testuser2",
+        'profileImageUrl': "https://example.com/profile2.jpg",
+        'email': "testuser2@example.com",
+        'profileImageId': "profileImageId2",
+        'ratingCount': 5,
+        'ratingTotal': 15
       })
 ];
 
@@ -134,6 +177,14 @@ void main() {
           Duration(seconds: 2),
           () => DocumentList(total: 1, documents: [mockStoryDocuments[1]]),
         ));
+    when(databases.listDocuments(
+            databaseId: storyDatabaseId,
+            collectionId: storyCollectionId,
+            queries: [Query.equal('creatorId', 'id1')]))
+        .thenAnswer((_) => Future.delayed(
+              Duration(seconds: 2),
+              () => DocumentList(total: 1, documents: [mockStoryDocuments[0]]),
+            ));
     when(databases
         .listDocuments(
             databaseId: storyDatabaseId,
@@ -143,6 +194,7 @@ void main() {
           () => DocumentList(total: 2, documents: mockStoryDocuments),
         ));
   });
+
   test('test convertAppwriteDocListToStoryList', () async {
     final storiesList = await exploreStoryController
         .convertAppwriteDocListToStoryList(mockStoryDocuments);
@@ -198,5 +250,32 @@ void main() {
     expect(exploreStoryController.userCreatedStories[0].description,
         'Description of Story 2');
     expect(exploreStoryController.userCreatedStories[0].userIsCreator, true);
+    await exploreStoryController.fetchUserCreatedStories(creatorId: 'id1');
+    expect(exploreStoryController.userCreatedStories.length, 1);
+    expect(exploreStoryController.searchedUserStories[0].storyId, 'doc1');
+    expect(exploreStoryController.searchedUserStories[0].title, 'Story 1');
+    expect(exploreStoryController.searchedUserStories[0].description,
+        'Description of Story 1');
+    expect(exploreStoryController.searchedUserStories[0].userIsCreator, false);
+  });
+
+  test('test convertAppwriteDocListToUserList', () async {
+    final usersList = exploreStoryController
+        .convertAppwriteDocListToUserList(mockUsersDocuments);
+    expect(usersList.length, 2);
+    expect(usersList[0].name, 'Test User 1');
+    expect(usersList[1].name, 'Test User 2');
+    expect(usersList[0].email, 'testuser1@example.com');
+    expect(usersList[1].email, 'testuser2@example.com');
+    expect(usersList[0].profileImageUrl, 'https://example.com/profile1.jpg');
+    expect(usersList[1].profileImageUrl, 'https://example.com/profile2.jpg');
+    expect(usersList[0].userRating, 25 / 7);
+    expect(usersList[1].userRating, 15 / 5);
+    expect(usersList[0].dateOfBirth, '2000-01-01');
+    expect(usersList[1].dateOfBirth, '2000-01-01');
+    expect(usersList[0].docId, 'doc1');
+    expect(usersList[1].docId, 'doc2');
+    expect(usersList[0].uid, 'doc1');
+    expect(usersList[1].uid, 'doc2');
   });
 }

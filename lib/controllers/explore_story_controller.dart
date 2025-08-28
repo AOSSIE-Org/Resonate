@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -22,9 +23,13 @@ class ExploreStoryController extends GetxController {
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  RxList<ResonateUser> searchResponseUsers = <ResonateUser>[].obs;
+  RxList<Story> searchedUserStories = <Story>[].obs;
+  RxList<Story> searchedUserLikedStories = <Story>[].obs;
   Rx<bool> isLoadingRecommendedStories = false.obs;
   Rx<bool> isLoadingCategoryPage = false.obs;
   Rx<bool> isLoadingStoryPage = false.obs;
+  Rx<bool> isLoadingProfilePage = false.obs;
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
 
@@ -109,6 +114,42 @@ class ExploreStoryController extends GetxController {
 
     searchResponseStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+  }
+
+  Future<void> searchUsers(String query) async {
+    List<Document> userDocuments = await databases.listDocuments(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        queries: [
+          Query.or([
+            Query.search('name', query),
+            Query.search('username', query),
+          ]),
+          Query.notEqual('\$id', authStateController.uid),
+          Query.limit(16)
+        ]).then((value) => value.documents);
+
+    searchResponseUsers.value = convertAppwriteDocListToUserList(userDocuments);
+
+    log(searchResponseUsers.toString());
+  }
+
+  List<ResonateUser> convertAppwriteDocListToUserList(
+      List<Document> userDocuments) {
+    return userDocuments.map((doc) {
+      // log(doc.data.toString());
+      final userData = doc.data;
+      userData['docId'] = doc.$id;
+      userData['uid'] = doc.$id;
+      userData['userName'] = userData['username'];
+      userData['userRating'] =
+          userData['ratingTotal'] / userData['ratingCount'];
+      log(userData['userRating'].toString());
+      Future.delayed(Duration(seconds: 1));
+      ResonateUser user = ResonateUser.fromJson(userData);
+
+      return user;
+    }).toList();
   }
 
   Future<void> updateStoriesPlayDurationLength(
@@ -279,12 +320,12 @@ class ExploreStoryController extends GetxController {
     await fetchStoryRecommendation();
   }
 
-  Future<void> fetchUserLikedStories() async {
+  Future<void> fetchUserLikedStories({String? creatorId}) async {
     List<Document> userLikedDocuments = await databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: likeCollectionId,
         queries: [
-          Query.equal('uId', authStateController.uid)
+          Query.equal('uId', creatorId ?? authStateController.uid)
         ]).then((value) => value.documents);
 
     List<Document> userLikedStoriesDocuments =
@@ -295,8 +336,13 @@ class ExploreStoryController extends GetxController {
           documentId: value.data['storyId']);
     }).toList());
 
-    userLikedStories.value =
-        await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
+    if (creatorId != null) {
+      searchedUserLikedStories.value =
+          await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
+    } else {
+      userLikedStories.value =
+          await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
+    }
   }
 
   Future<void> deleteStory(Story story) async {
@@ -375,21 +421,25 @@ class ExploreStoryController extends GetxController {
     }
   }
 
-  Future<void> fetchUserCreatedStories() async {
+  Future<void> fetchUserCreatedStories({String? creatorId}) async {
     List<Document> storyDocuments = [];
     try {
       storyDocuments = await databases.listDocuments(
           databaseId: storyDatabaseId,
           collectionId: storyCollectionId,
           queries: [
-            Query.equal('creatorId', authStateController.uid)
+            Query.equal('creatorId', creatorId ?? authStateController.uid)
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
-
-    userCreatedStories.value =
-        await convertAppwriteDocListToStoryList(storyDocuments);
+    if (creatorId != null) {
+      searchedUserStories.value =
+          await convertAppwriteDocListToStoryList(storyDocuments);
+    } else {
+      userCreatedStories.value =
+          await convertAppwriteDocListToStoryList(storyDocuments);
+    }
   }
 
   Future<void> likeStoryFromUserAccount(Story story) async {

@@ -524,5 +524,7 @@
     "onlineUsers": "ऑनलाइन यूज़र्स",
     "noOnlineUsers": "कोई यूज़र अभी ऑनलाइन नहीं है",
     "chooseUser": "चैट करने के लिए यूज़र चुनें",
-    "quickMatch": "झटपट मैच"
+    "quickMatch": "झटपट मैच",
+    "story": "कहानी",
+    "user": "यूज़र"
 }

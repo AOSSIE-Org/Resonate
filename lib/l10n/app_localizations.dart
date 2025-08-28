@@ -1970,6 +1970,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Quick Match'**
   String get quickMatch;
+
+  /// No description provided for @story.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get story;
+
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
 }
 
 class _AppLocalizationsDelegate
