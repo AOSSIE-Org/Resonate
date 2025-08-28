@@ -523,5 +523,7 @@
     "onlineUsers": "Online Users",
     "noOnlineUsers": "No users currently online",
     "chooseUser": "Choose User to chat with",
-    "quickMatch": "Quick Match"
+    "quickMatch": "Quick Match",
+    "story": "Story",
+    "user": "User"
 }

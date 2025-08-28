@@ -1064,4 +1064,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get quickMatch => 'झटपट मैच';
+
+  @override
+  String get story => 'कहानी';
+
+  @override
+  String get user => 'यूज़र';
 }
