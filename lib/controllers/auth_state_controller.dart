@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -44,6 +45,7 @@ class AuthStateController extends GetxController {
   late double ratingTotal;
   late int ratingCount;
   late User appwriteUser;
+  late List<FollowerUserModel> followerDocuments;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -159,6 +161,13 @@ class AuthStateController extends GetxController {
         userName = userDataDoc.data["username"] ?? "unavailable";
         ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
         ratingCount = userDataDoc.data["ratingCount"] ?? 1;
+        followerDocuments =
+            (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
+                  log(e.runtimeType.toString());
+                  return FollowerUserModel.fromJson(e);
+                }).toList() ??
+                [];
+        log("Follower documents: $followerDocuments");
       }
 
       update();

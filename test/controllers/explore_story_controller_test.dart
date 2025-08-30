@@ -21,6 +21,7 @@ import 'explore_story_controller_test.mocks.dart';
   Account,
   Client,
   FirebaseMessaging,
+  Functions,
 ])
 List<Document> mockStoryDocuments = [
   Document(
@@ -151,7 +152,7 @@ List<Story> mockStoriesList = [
 ];
 
 void main() {
-  late Databases databases;
+  late MockDatabases databases;
   late ExploreStoryController exploreStoryController;
   setUp(() {
     databases = MockDatabases();
@@ -164,6 +165,7 @@ void main() {
       ),
       databases: databases,
       storage: MockStorage(),
+      functions: MockFunctions(),
     );
     exploreStoryController.authStateController.uid = 'id2';
 
@@ -250,13 +252,6 @@ void main() {
     expect(exploreStoryController.userCreatedStories[0].description,
         'Description of Story 2');
     expect(exploreStoryController.userCreatedStories[0].userIsCreator, true);
-    await exploreStoryController.fetchUserCreatedStories(creatorId: 'id1');
-    expect(exploreStoryController.userCreatedStories.length, 1);
-    expect(exploreStoryController.searchedUserStories[0].storyId, 'doc1');
-    expect(exploreStoryController.searchedUserStories[0].title, 'Story 1');
-    expect(exploreStoryController.searchedUserStories[0].description,
-        'Description of Story 1');
-    expect(exploreStoryController.searchedUserStories[0].userIsCreator, false);
   });
 
   test('test convertAppwriteDocListToUserList', () async {

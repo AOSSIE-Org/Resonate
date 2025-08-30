@@ -525,5 +525,7 @@
     "chooseUser": "Choose User to chat with",
     "quickMatch": "Quick Match",
     "story": "Story",
-    "user": "User"
+    "user": "User",
+    "following": "Following",
+    "followers": "Followers"
 }

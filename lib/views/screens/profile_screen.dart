@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/controllers/user_profile_controller.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/views/screens/followers_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -36,14 +37,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     if (widget.isCreatorProfile == true) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        exploreStoryController.isLoadingProfilePage.value = true;
-        await exploreStoryController.fetchUserCreatedStories(
-            creatorId: widget.creator!.uid);
-        await exploreStoryController.fetchUserLikedStories(
-            creatorId: widget.creator!.uid);
-        exploreStoryController.isLoadingProfilePage.value = false;
+        await userProfileController.initializeProfile(widget.creator!.uid!);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<UserProfileController>();
   }
 
   final emailVerifyController =
@@ -53,6 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final authController = Get.find<AuthStateController>();
 
+  final userProfileController = Get.put(UserProfileController());
   final exploreStoryController = Get.find<ExploreStoryController>();
 
   @override
@@ -62,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text(AppLocalizations.of(context)!.profile),
       ),
       body: Obx(
-        () => exploreStoryController.isLoadingProfilePage.value
+        () => userProfileController.isLoadingProfilePage.value
             ? Center(
                 child: SizedBox(
                 height: 200,
@@ -169,13 +172,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      Text(widget.isCreatorProfile == null
-                          ? (authController.ratingTotal /
-                                  authController.ratingCount)
-                              .toStringAsFixed(1)
-                          : widget.creator!.userRating!.toStringAsFixed(1)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(widget.isCreatorProfile == null
+                            ? (authController.ratingTotal /
+                                    authController.ratingCount)
+                                .toStringAsFixed(1)
+                            : widget.creator!.userRating!.toStringAsFixed(1)),
+                      ),
                     ],
-                  )
+                  ),
+                  InkWell(
+                    onTap: () {
+                      //If current user is only follower or signed in user profile is being viewed then don't route
+                      if (!(userProfileController
+                                      .searchedUserFollowers.length ==
+                                  1 &&
+                              userProfileController.isFollowingUser.value) &&
+                          widget.isCreatorProfile != null) {
+                        //Remove current user from followers list
+                        final sanitizedFollowersList = userProfileController
+                            .searchedUserFollowers
+                            .where((follower) {
+                          return follower.uid != authController.uid;
+                        }).toList();
+                        Get.to(
+                            FollowersScreen(followers: sanitizedFollowersList));
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.people,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: widget.isCreatorProfile == null
+                              ? Text(authController.followerDocuments.length
+                                  .toString())
+                              : Obx(() => Text(userProfileController
+                                  .searchedUserFollowers.length
+                                  .toString())),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -221,38 +262,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Row(
       children: [
         Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              if (widget.isCreatorProfile != null) {
-                // Implement follow functionality
-              } else {
-                Get.toNamed(AppRoutes.editProfile);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colorScheme.primary,
-              foregroundColor: colorScheme.onPrimary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+          child: Obx(() {
+            return ElevatedButton(
+              onPressed: () {
+                if (widget.isCreatorProfile != null) {
+                  if (userProfileController.isFollowingUser.value) {
+                    userProfileController.unfollowCreator();
+                  } else {
+                    userProfileController.followCreator(widget.creator!.uid!);
+                  }
+                } else {
+                  Get.toNamed(AppRoutes.editProfile);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: userProfileController.isFollowingUser.value
+                    ? colorScheme.secondary
+                    : colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(color: colorScheme.primary)),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  widget.isCreatorProfile != null ? Icons.add : Icons.edit,
-                  color: colorScheme.onPrimary,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  widget.isCreatorProfile != null
-                      ? AppLocalizations.of(context)!.follow
-                      : AppLocalizations.of(context)!.editProfile,
-                  style: TextStyle(color: colorScheme.onPrimary),
-                ),
-              ],
-            ),
-          ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    widget.isCreatorProfile != null
+                        ? userProfileController.isFollowingUser.value
+                            ? Icons.done
+                            : Icons.add
+                        : Icons.edit,
+                    color: colorScheme.onPrimary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.isCreatorProfile != null
+                        ? userProfileController.isFollowingUser.value
+                            ? AppLocalizations.of(context)!.following
+                            : AppLocalizations.of(context)!.follow
+                        : AppLocalizations.of(context)!.editProfile,
+                    style: TextStyle(color: colorScheme.onPrimary),
+                  ),
+                ],
+              ),
+            );
+          }),
         ),
         const SizedBox(width: 10),
         if (widget.isCreatorProfile == null)
@@ -302,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             () => _buildStoriesList(
               context,
               widget.isCreatorProfile != null
-                  ? exploreStoryController.searchedUserStories
+                  ? userProfileController.searchedUserStories
                   : exploreStoryController.userCreatedStories,
               widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userNoStories
@@ -328,7 +383,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             () => _buildStoriesList(
               context,
               widget.isCreatorProfile != null
-                  ? exploreStoryController.searchedUserLikedStories
+                  ? userProfileController.searchedUserLikedStories
                   : exploreStoryController.userLikedStories,
               widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userNoLikedStories

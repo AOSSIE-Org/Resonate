@@ -1076,4 +1076,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get user => 'यूज़र';
+
+  @override
+  String get following => 'फॉलो कर रहे हैं';
+
+  @override
+  String get followers => 'फॉलोअर्स';
 }

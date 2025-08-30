@@ -1071,4 +1071,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get user => 'User';
+
+  @override
+  String get following => 'Following';
+
+  @override
+  String get followers => 'Followers';
 }
