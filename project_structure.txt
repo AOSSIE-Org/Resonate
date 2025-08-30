@@ -245,7 +245,8 @@
 │   │   ├── single_room_controller.dart
 │   │   ├── splash_controller.dart
 │   │   ├── tabview_controller.dart
-│   │   └── upcomming_rooms_controller.dart
+│   │   ├── upcomming_rooms_controller.dart
+│   │   └── user_profile_controller.dart
 │   ├── for_developers
 │   │   ├── text_theme.dart
 │   │   ├── theme_color_model.dart
@@ -261,6 +262,9 @@
 │   │   ├── appwrite_room.dart
 │   │   ├── appwrite_upcomming_room.dart
 │   │   ├── chapter.dart
+│   │   ├── follower_user_model.dart
+│   │   ├── follower_user_model.freezed.dart
+│   │   ├── follower_user_model.g.dart
 │   │   ├── message.dart
 │   │   ├── notification.dart
 │   │   ├── participant.dart
@@ -315,6 +319,7 @@
 │       │   ├── edit_profile_screen.dart
 │       │   ├── email_verification_screen.dart
 │       │   ├── explore_screen.dart
+│       │   ├── followers_screen.dart
 │       │   ├── forgot_password_screen.dart
 │       │   ├── home_screen.dart
 │       │   ├── landing_screen.dart
@@ -374,7 +379,10 @@
 │       ├── create_room_controller_test.mocks.dart
 │       ├── edit_profile_controller_test.dart
 │       ├── edit_profile_controller_test.mocks.dart
-│       └── explore_story_controller_test.dart
+│       ├── explore_story_controller_test.dart
+│       ├── explore_story_controller_test.mocks.dart
+│       ├── user_profile_controller_test.dart
+│       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 298 files
+80 directories, 306 files
