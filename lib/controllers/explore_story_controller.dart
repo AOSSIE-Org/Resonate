@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -17,14 +19,18 @@ class ExploreStoryController extends GetxController {
   final Databases databases;
   final Storage storage;
   final AuthStateController authStateController;
+  final Functions functions;
   RxList<Story> recommendedStories = <Story>[].obs;
   RxList<Story> userCreatedStories = <Story>[].obs;
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
+  RxList<ResonateUser> searchResponseUsers = <ResonateUser>[].obs;
+
   Rx<bool> isLoadingRecommendedStories = false.obs;
   Rx<bool> isLoadingCategoryPage = false.obs;
   Rx<bool> isLoadingStoryPage = false.obs;
+
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
 
@@ -32,10 +38,12 @@ class ExploreStoryController extends GetxController {
     Databases? databases,
     Storage? storage,
     AuthStateController? authStateController,
+    Functions? functions,
   })  : databases = databases ?? AppwriteService.getDatabases(),
         storage = storage ?? AppwriteService.getStorage(),
         authStateController = authStateController ??
-            Get.put<AuthStateController>(AuthStateController());
+            Get.put<AuthStateController>(AuthStateController()),
+        functions = functions ?? AppwriteService.getFunctions();
 
   @override
   void onInit() async {
@@ -109,6 +117,42 @@ class ExploreStoryController extends GetxController {
 
     searchResponseStories.value =
         await convertAppwriteDocListToStoryList(storyDocuments);
+  }
+
+  Future<void> searchUsers(String query) async {
+    List<Document> userDocuments = await databases.listDocuments(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        queries: [
+          Query.or([
+            Query.search('name', query),
+            Query.search('username', query),
+          ]),
+          Query.notEqual('\$id', authStateController.uid),
+          Query.limit(16)
+        ]).then((value) => value.documents);
+
+    searchResponseUsers.value = convertAppwriteDocListToUserList(userDocuments);
+
+    log(searchResponseUsers.toString());
+  }
+
+  List<ResonateUser> convertAppwriteDocListToUserList(
+      List<Document> userDocuments) {
+    return userDocuments.map((doc) {
+      // log(doc.data.toString());
+      final userData = doc.data;
+      userData['docId'] = doc.$id;
+      userData['uid'] = doc.$id;
+      userData['userName'] = userData['username'];
+      userData['userRating'] =
+          userData['ratingTotal'] / userData['ratingCount'];
+      log(userData['userRating'].toString());
+      Future.delayed(Duration(seconds: 1));
+      ResonateUser user = ResonateUser.fromJson(userData);
+
+      return user;
+    }).toList();
   }
 
   Future<void> updateStoriesPlayDurationLength(
@@ -271,6 +315,20 @@ class ExploreStoryController extends GetxController {
             'playDuration': storyPlayDuration,
             'tintColor': colorString
           });
+      //Don't send request to function if no followers
+      if (authStateController.followerDocuments.isNotEmpty) {
+        log('Sending notification for created story');
+        var body = json.encode({
+          'creatorId': authStateController.uid,
+          'payload': {
+            'title': 'New story created: $title',
+            'body': desciption,
+          }
+        });
+        var results = await functions.createExecution(
+            functionId: sendStoryNotificationFunctionID, body: body.toString());
+        log(results.status);
+      }
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
     }

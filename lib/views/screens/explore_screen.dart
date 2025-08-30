@@ -72,6 +72,7 @@ class _ExplorePageBodyState extends State<ExplorePageBody> {
               }
               debouncer.run(() async {
                 await exploreStoryController.searchStories(value);
+                await exploreStoryController.searchUsers(value);
                 exploreStoryController.isSearching.value = false;
               });
             },
@@ -338,20 +339,38 @@ class SearchResultContent extends StatelessWidget {
                       Theme.of(context).colorScheme.primary,
                     ],
                   )
-                : exploreStoryController.searchResponseStories.isEmpty
+                : exploreStoryController.searchResponseStories.isEmpty &&
+                        exploreStoryController.searchResponseUsers.isEmpty
                     ? const NoMatchView()
                     : SizedBox(
                         height: MediaQuery.of(context).size.height * .8,
                         width: double.infinity,
                         child: ListView.builder(
                           itemCount: exploreStoryController
-                              .searchResponseStories.length,
+                                  .searchResponseStories.length +
+                              exploreStoryController.searchResponseUsers.length,
                           itemBuilder: (context, index) {
-                            final story = exploreStoryController
-                                .searchResponseStories[index];
-                            return FilteredListTile(
-                              story: story,
-                            );
+                            final isStory = index <
+                                exploreStoryController
+                                    .searchResponseStories.length;
+                            if (isStory) {
+                              final story = exploreStoryController
+                                  .searchResponseStories[index];
+                              return FilteredListTile(
+                                story: story,
+                                isStory: true,
+                              );
+                            } else {
+                              final user =
+                                  exploreStoryController.searchResponseUsers[
+                                      index -
+                                          exploreStoryController
+                                              .searchResponseStories.length];
+                              return FilteredListTile(
+                                user: user,
+                                isStory: false,
+                              );
+                            }
                           },
                         ),
                       ),

@@ -1065,4 +1065,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickMatch => 'Quick Match';
+
+  @override
+  String get story => 'Story';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get following => 'Following';
+
+  @override
+  String get followers => 'Followers';
 }

@@ -23,5 +23,6 @@ abstract class ResonateUser with _$ResonateUser {
 double? _toDouble(dynamic value) {
   if (value == null) return null;
   if (value is int) return value.toDouble();
+  if (value is double) return value;
   return null;
 }

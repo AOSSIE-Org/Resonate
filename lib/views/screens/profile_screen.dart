@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/controllers/user_profile_controller.dart';
+import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/views/screens/followers_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import '../../controllers/auth_state_controller.dart';
@@ -12,22 +16,49 @@ import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
-class ProfileScreen extends StatelessWidget {
-  final String? creatorName;
-  final String? creatorImgUrl;
+class ProfileScreen extends StatefulWidget {
+  final ResonateUser? creator;
+
   final bool? isCreatorProfile;
 
   ProfileScreen({
     super.key,
-    this.creatorName,
-    this.creatorImgUrl,
+    this.creator,
     this.isCreatorProfile,
-  });
+  }) : assert(
+            isCreatorProfile != true ||
+                (creator != null && creator.uid != null),
+            'creator and creator.uid are required when isCreatorProfile is true');
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isCreatorProfile == true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await userProfileController.initializeProfile(widget.creator!.uid!);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<UserProfileController>();
+  }
 
   final emailVerifyController =
       Get.put<EmailVerifyController>(EmailVerifyController());
+
   final themeController = Get.find<ThemeController>();
+
   final authController = Get.find<AuthStateController>();
+
+  final userProfileController = Get.put(UserProfileController());
   final exploreStoryController = Get.find<ExploreStoryController>();
 
   @override
@@ -36,32 +67,44 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.profile),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                vertical: UiSizes.height_10,
-                horizontal: UiSizes.width_20,
+      body: Obx(
+        () => userProfileController.isLoadingProfilePage.value
+            ? Center(
+                child: SizedBox(
+                height: 200,
+                width: 200,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballRotate,
+                  colors: [Theme.of(context).colorScheme.primary],
+                ),
+              ))
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: UiSizes.height_10,
+                        horizontal: UiSizes.width_20,
+                      ),
+                      width: double.maxFinite,
+                      child: Column(
+                        children: [
+                          _buildProfileHeader(context),
+                          _buildEmailVerificationButton(
+                            context,
+                            emailVerifyController,
+                            authController,
+                          ),
+                          SizedBox(height: UiSizes.height_10),
+                          _buildProfileButtons(context),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: UiSizes.height_20),
+                    _buildStoriesSection(context),
+                  ],
+                ),
               ),
-              width: double.maxFinite,
-              child: Column(
-                children: [
-                  _buildProfileHeader(context),
-                  _buildEmailVerificationButton(
-                    context,
-                    emailVerifyController,
-                    authController,
-                  ),
-                  SizedBox(height: UiSizes.height_10),
-                  _buildProfileButtons(context),
-                ],
-              ),
-            ),
-            SizedBox(height: UiSizes.height_20),
-            _buildStoriesSection(context),
-          ],
-        ),
       ),
     );
   }
@@ -73,8 +116,8 @@ class ProfileScreen extends StatelessWidget {
           SizedBox(width: UiSizes.width_20),
           CircleAvatar(
             backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
-            backgroundImage: isCreatorProfile != null
-                ? NetworkImage(creatorImgUrl ?? '')
+            backgroundImage: widget.isCreatorProfile != null
+                ? NetworkImage(widget.creator!.profileImageUrl ?? '')
                 : controller.profileImageUrl == null ||
                         controller.profileImageUrl!.isEmpty
                     ? NetworkImage(
@@ -89,7 +132,8 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (isCreatorProfile == null && controller.isEmailVerified!)
+                  if (widget.isCreatorProfile == null &&
+                      controller.isEmailVerified!)
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
@@ -103,8 +147,8 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   Text(
-                    isCreatorProfile != null
-                        ? creatorName ?? ''
+                    widget.isCreatorProfile != null
+                        ? widget.creator!.name ?? ''
                         : controller.displayName.toString(),
                     style: TextStyle(
                       fontSize: UiSizes.size_24,
@@ -114,7 +158,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Chip(
                     label: Text(
-                      "@${isCreatorProfile != null ? '' : controller.userName}",
+                      "@${widget.isCreatorProfile != null ? widget.creator!.userName : controller.userName}",
                       style: TextStyle(
                         fontSize: UiSizes.size_14,
                         overflow: TextOverflow.ellipsis,
@@ -131,11 +175,51 @@ class ProfileScreen extends StatelessWidget {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      Text((authController.ratingTotal /
-                              authController.ratingCount)
-                          .toStringAsFixed(1)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Text(widget.isCreatorProfile == null
+                            ? (authController.ratingTotal /
+                                    authController.ratingCount)
+                                .toStringAsFixed(1)
+                            : widget.creator!.userRating!.toStringAsFixed(1)),
+                      ),
                     ],
-                  )
+                  ),
+                  InkWell(
+                    onTap: () {
+                      //If current user is only follower or signed in user profile is being viewed then don't route
+                      if (!(userProfileController
+                                      .searchedUserFollowers.length ==
+                                  1 &&
+                              userProfileController.isFollowingUser.value) &&
+                          widget.isCreatorProfile != null) {
+                        //Remove current user from followers list
+                        final sanitizedFollowersList = userProfileController
+                            .searchedUserFollowers
+                            .where((follower) {
+                          return follower.uid != authController.uid;
+                        }).toList();
+                        Get.to(
+                            FollowersScreen(followers: sanitizedFollowersList));
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.people,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: widget.isCreatorProfile == null
+                              ? Text(authController.followerDocuments.length
+                                  .toString())
+                              : Obx(() => Text(userProfileController
+                                  .searchedUserFollowers.length
+                                  .toString())),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -150,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
       BuildContext context,
       EmailVerifyController emailVerifyController,
       AuthStateController controller) {
-    if (isCreatorProfile != null || controller.isEmailVerified!) {
+    if (widget.isCreatorProfile != null || controller.isEmailVerified!) {
       return const SizedBox.shrink();
     }
 
@@ -181,41 +265,55 @@ class ProfileScreen extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              if (isCreatorProfile != null) {
-                // Implement follow functionality
-              } else {
-                Get.toNamed(AppRoutes.editProfile);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: colorScheme.primary,
-              foregroundColor: colorScheme.onPrimary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+          child: Obx(() {
+            return ElevatedButton(
+              onPressed: () {
+                if (widget.isCreatorProfile != null) {
+                  if (userProfileController.isFollowingUser.value) {
+                    userProfileController.unfollowCreator();
+                  } else {
+                    userProfileController.followCreator(widget.creator!.uid!);
+                  }
+                } else {
+                  Get.toNamed(AppRoutes.editProfile);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: userProfileController.isFollowingUser.value
+                    ? colorScheme.secondary
+                    : colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    side: BorderSide(color: colorScheme.primary)),
               ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  isCreatorProfile != null ? Icons.add : Icons.edit,
-                  color: colorScheme.onPrimary,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  isCreatorProfile != null
-                      ? AppLocalizations.of(context)!.follow
-                      : AppLocalizations.of(context)!.editProfile,
-                  style: TextStyle(color: colorScheme.onPrimary),
-                ),
-              ],
-            ),
-          ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    widget.isCreatorProfile != null
+                        ? userProfileController.isFollowingUser.value
+                            ? Icons.done
+                            : Icons.add
+                        : Icons.edit,
+                    color: colorScheme.onPrimary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.isCreatorProfile != null
+                        ? userProfileController.isFollowingUser.value
+                            ? AppLocalizations.of(context)!.following
+                            : AppLocalizations.of(context)!.follow
+                        : AppLocalizations.of(context)!.editProfile,
+                    style: TextStyle(color: colorScheme.onPrimary),
+                  ),
+                ],
+              ),
+            );
+          }),
         ),
         const SizedBox(width: 10),
-        if (isCreatorProfile == null)
+        if (widget.isCreatorProfile == null)
           SizedBox(
             height: 50,
             width: 50,
@@ -247,7 +345,7 @@ class ProfileScreen extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              isCreatorProfile != null
+              widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userCreatedStories
                   : AppLocalizations.of(context)!.yourStories,
               style: TextStyle(
@@ -261,8 +359,10 @@ class ProfileScreen extends StatelessWidget {
           Obx(
             () => _buildStoriesList(
               context,
-              exploreStoryController.userCreatedStories,
-              isCreatorProfile != null
+              widget.isCreatorProfile != null
+                  ? userProfileController.searchedUserStories
+                  : exploreStoryController.userCreatedStories,
+              widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userNoStories
                   : AppLocalizations.of(context)!.youNoStories,
             ),
@@ -271,7 +371,7 @@ class ProfileScreen extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              isCreatorProfile != null
+              widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userLikedStories
                   : AppLocalizations.of(context)!.yourLikedStories,
               style: TextStyle(
@@ -285,8 +385,10 @@ class ProfileScreen extends StatelessWidget {
           Obx(
             () => _buildStoriesList(
               context,
-              exploreStoryController.userLikedStories,
-              isCreatorProfile != null
+              widget.isCreatorProfile != null
+                  ? userProfileController.searchedUserLikedStories
+                  : exploreStoryController.userLikedStories,
+              widget.isCreatorProfile != null
                   ? AppLocalizations.of(context)!.userNoLikedStories
                   : AppLocalizations.of(context)!.youNoLikedStories,
             ),
