@@ -185,8 +185,8 @@ final FollowerUserModel mockFollowerUserModel = FollowerUserModel(
 );
 final Document mockFollowerDocument = Document(
     $id: 'fdocid1',
-    $collectionId: usersCollectionID,
-    $databaseId: followersCollectionID,
+    $collectionId: followersCollectionID,
+    $databaseId: userDatabaseID,
     $createdAt:
         DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
     $updatedAt:

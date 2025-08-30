@@ -30,13 +30,19 @@ class UserProfileController extends GetxController {
         storage = storage ?? AppwriteService.getStorage(),
         authStateController = authStateController ??
             Get.put<AuthStateController>(AuthStateController());
-
   Future<void> initializeProfile(String creatorId) async {
     isLoadingProfilePage.value = true;
-    await fetchUserCreatedStories(creatorId);
-    await fetchUserLikedStories(creatorId);
-    await fetchUserFollowers(creatorId);
-    isLoadingProfilePage.value = false;
+    try {
+      await Future.wait([
+        fetchUserCreatedStories(creatorId),
+        fetchUserLikedStories(creatorId),
+        fetchUserFollowers(creatorId),
+      ]);
+    } catch (e) {
+      log('initializeProfile failed: $e');
+    } finally {
+      isLoadingProfilePage.value = false;
+    }
   }
 
   Future<void> fetchUserLikedStories(String creatorId) async {
@@ -135,12 +141,13 @@ class UserProfileController extends GetxController {
       followerRating:
           authStateController.ratingTotal / authStateController.ratingCount,
     );
-    searchedUserFollowers.add(follower);
+
     await databases.createDocument(
         databaseId: userDatabaseID,
         collectionId: followersCollectionID,
         documentId: follower.docId,
         data: follower.toJson());
+    searchedUserFollowers.add(follower);
     isFollowingUser.value = true;
     followerDocumentId = follower.docId;
     return;
