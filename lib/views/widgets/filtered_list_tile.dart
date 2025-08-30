@@ -12,7 +12,13 @@ class FilteredListTile extends StatelessWidget {
   final ResonateUser? user;
 
   const FilteredListTile(
-      {this.story, required this.isStory, this.user, super.key});
+      {this.story, required this.isStory, this.user, super.key})
+      : assert(
+          isStory
+              ? (story != null && user == null)
+              : (user != null && story == null),
+          'Provide only story when isStory=true, or only user when isStory=false.',
+        );
 
   @override
   Widget build(BuildContext context) {

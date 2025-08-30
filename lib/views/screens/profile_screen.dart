@@ -21,11 +21,14 @@ class ProfileScreen extends StatefulWidget {
 
   final bool? isCreatorProfile;
 
-  const ProfileScreen({
+  ProfileScreen({
     super.key,
     this.creator,
     this.isCreatorProfile,
-  });
+  }) : assert(
+            isCreatorProfile != true ||
+                (creator != null && creator.uid != null),
+            'creator and creator.uid are required when isCreatorProfile is true');
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
