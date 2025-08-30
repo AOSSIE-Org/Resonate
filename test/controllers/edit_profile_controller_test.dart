@@ -19,7 +19,7 @@ import 'edit_profile_controller_test.mocks.dart';
   FirebaseMessaging,
 ])
 void main() {
-  late Databases databases;
+  late MockDatabases databases;
   late EditProfileController editProfileController;
   setUp(() {
     databases = MockDatabases();

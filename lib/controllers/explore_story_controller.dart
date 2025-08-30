@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
@@ -18,18 +19,18 @@ class ExploreStoryController extends GetxController {
   final Databases databases;
   final Storage storage;
   final AuthStateController authStateController;
+  final Functions functions;
   RxList<Story> recommendedStories = <Story>[].obs;
   RxList<Story> userCreatedStories = <Story>[].obs;
   RxList<Story> userLikedStories = <Story>[].obs;
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
   RxList<ResonateUser> searchResponseUsers = <ResonateUser>[].obs;
-  RxList<Story> searchedUserStories = <Story>[].obs;
-  RxList<Story> searchedUserLikedStories = <Story>[].obs;
+
   Rx<bool> isLoadingRecommendedStories = false.obs;
   Rx<bool> isLoadingCategoryPage = false.obs;
   Rx<bool> isLoadingStoryPage = false.obs;
-  Rx<bool> isLoadingProfilePage = false.obs;
+
   Rx<bool> isSearching = false.obs;
   Rx<bool> searchBarIsEmpty = true.obs;
 
@@ -37,10 +38,12 @@ class ExploreStoryController extends GetxController {
     Databases? databases,
     Storage? storage,
     AuthStateController? authStateController,
+    Functions? functions,
   })  : databases = databases ?? AppwriteService.getDatabases(),
         storage = storage ?? AppwriteService.getStorage(),
         authStateController = authStateController ??
-            Get.put<AuthStateController>(AuthStateController());
+            Get.put<AuthStateController>(AuthStateController()),
+        functions = functions ?? AppwriteService.getFunctions();
 
   @override
   void onInit() async {
@@ -312,6 +315,20 @@ class ExploreStoryController extends GetxController {
             'playDuration': storyPlayDuration,
             'tintColor': colorString
           });
+      //Don't send request to function if no followers
+      if (authStateController.followerDocuments.isNotEmpty) {
+        log('Sending notification for created story');
+        var body = json.encode({
+          'creatorId': authStateController.uid,
+          'payload': {
+            'title': 'New story created: $title',
+            'body': desciption,
+          }
+        });
+        var results = await functions.createExecution(
+            functionId: sendStoryNotificationFunctionID, body: body.toString());
+        log(results.status);
+      }
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");
     }
@@ -320,12 +337,12 @@ class ExploreStoryController extends GetxController {
     await fetchStoryRecommendation();
   }
 
-  Future<void> fetchUserLikedStories({String? creatorId}) async {
+  Future<void> fetchUserLikedStories() async {
     List<Document> userLikedDocuments = await databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: likeCollectionId,
         queries: [
-          Query.equal('uId', creatorId ?? authStateController.uid)
+          Query.equal('uId', authStateController.uid)
         ]).then((value) => value.documents);
 
     List<Document> userLikedStoriesDocuments =
@@ -336,13 +353,8 @@ class ExploreStoryController extends GetxController {
           documentId: value.data['storyId']);
     }).toList());
 
-    if (creatorId != null) {
-      searchedUserLikedStories.value =
-          await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
-    } else {
-      userLikedStories.value =
-          await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
-    }
+    userLikedStories.value =
+        await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
   }
 
   Future<void> deleteStory(Story story) async {
@@ -421,25 +433,21 @@ class ExploreStoryController extends GetxController {
     }
   }
 
-  Future<void> fetchUserCreatedStories({String? creatorId}) async {
+  Future<void> fetchUserCreatedStories() async {
     List<Document> storyDocuments = [];
     try {
       storyDocuments = await databases.listDocuments(
           databaseId: storyDatabaseId,
           collectionId: storyCollectionId,
           queries: [
-            Query.equal('creatorId', creatorId ?? authStateController.uid)
+            Query.equal('creatorId', authStateController.uid)
           ]).then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
-    if (creatorId != null) {
-      searchedUserStories.value =
-          await convertAppwriteDocListToStoryList(storyDocuments);
-    } else {
-      userCreatedStories.value =
-          await convertAppwriteDocListToStoryList(storyDocuments);
-    }
+
+    userCreatedStories.value =
+        await convertAppwriteDocListToStoryList(storyDocuments);
   }
 
   Future<void> likeStoryFromUserAccount(Story story) async {
