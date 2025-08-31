@@ -18,27 +18,27 @@ jobs:
       # 1. Remove Cached Flutter Installation
       - name: Remove Cached Flutter Installation
         run: rm -rf $HOME/.flutter
-        
+
       - name: Clean up old build files
         run: |
-         rm -rf build/app/outputs/bundle/release/*
+          rm -rf build/app/outputs/bundle/release/*
 
       # 2. Checkout repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 3. Install Flutter SDK
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.27.2
+          flutter-version: 3.35.2
 
       # 4. Verify Flutter and Dart Versions
       - name: Verify Flutter Installation
         run: |
           flutter --version
           dart --version
-          
+
       # 6. Install Flutter dependencies
       - name: Install Flutter Dependencies
         run: flutter pub get
@@ -46,13 +46,13 @@ jobs:
       # 7. Build Android APK
       - name: Build Android App Bundle
         run: flutter build apk --release --split-per-abi
-      
+
       # 8. Upload build artifacts
       - name: Upload APK as an artifact
         uses: actions/upload-artifact@v4
         with:
-            name: app-release-apks
-            path: build/app/outputs/apk/release/*.apk 
+          name: app-release-apks
+          path: build/app/outputs/apk/release/*.apk
 
   release:
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
     steps:
       # 1. Checkout repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Download build artifacts
       - name: Download APK
@@ -70,7 +70,7 @@ jobs:
         with:
           name: app-release-apks
           path: build/app/outputs/bundle/release/
-      
+
       # 3. Upload to Github Release
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
