@@ -4,20 +4,19 @@ name: CI_STORE_DEPLOY_ANDROID
 on:
   # Run this workflow when any new code is pushed into the main branch
   push:
-    branches: 
+    branches:
       - main
       - master
       - deploy-actions
 
 jobs:
   store_deploy_android:
-    
     name: android store release
     runs-on: ubuntu-latest
     env:
       # Setup env variables that will be used throughout the workflow
       JAVA_VERSION: 17.0.12
-      FLUTTER_VERSION: 3.32.5
+      FLUTTER_VERSION: 3.35.2
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
@@ -34,9 +33,9 @@ jobs:
       - name: Setup Java to compile the Android project
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: "zulu"
           java-version: ${{ env.JAVA_VERSION }}
-      
+
       # Setup Flutter in the VM
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -53,11 +52,11 @@ jobs:
       # Decode Android release Service Account
       - name: Decode Android Service Account
         run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
-          
+
       #Decode Google Services JSON for Android
       - name: Decode Android Google Services JSON
         run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
-      
+
       # Decode Firebase Options Dart file
       - name: Decode Firebase Options
         run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
