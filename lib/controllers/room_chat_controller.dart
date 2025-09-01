@@ -26,12 +26,15 @@ class RoomChatController extends GetxController {
   late final RealtimeSubscription? subscription;
   Rx<ReplyTo?> replyingTo = Rxn<ReplyTo>();
   final NotificationDetails notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
-          'your channel id', 'your channel name',
-          channelDescription: 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          ticker: 'ticker'));
+    android: AndroidNotificationDetails(
+      'your channel id',
+      'your channel name',
+      channelDescription: 'your channel description',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    ),
+  );
 
   @override
   void onInit() async {
@@ -46,19 +49,21 @@ class RoomChatController extends GetxController {
     var queries = [
       Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
       Query.orderAsc('index'),
-      Query.limit(100)
+      Query.limit(100),
     ];
     ReplyTo? replyTo;
     DocumentList messagesList = await databases.listDocuments(
-        databaseId: masterDatabaseId,
-        collectionId: chatMessagesCollectionId,
-        queries: queries);
+      databaseId: masterDatabaseId,
+      collectionId: chatMessagesCollectionId,
+      queries: queries,
+    );
     for (Document message in messagesList.documents) {
       try {
         Document replyToDoc = await databases.getDocument(
-            databaseId: masterDatabaseId,
-            collectionId: chatMessageReplyCollectionId,
-            documentId: message.$id);
+          databaseId: masterDatabaseId,
+          collectionId: chatMessageReplyCollectionId,
+          documentId: message.$id,
+        );
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
         if (e is AppwriteException && e.code == 404) {
@@ -68,10 +73,9 @@ class RoomChatController extends GetxController {
           rethrow; // Rethrow if it's a different error
         }
       }
-      messages.add(Message.fromJson(message.data
-        ..addAll({
-          'replyTo': replyTo?.toJson(),
-        })));
+      messages.add(
+        Message.fromJson(message.data..addAll({'replyTo': replyTo?.toJson()})),
+      );
     }
     messages.sort((a, b) => a.index.compareTo(b.index));
     log(messages.toString());
@@ -83,30 +87,33 @@ class RoomChatController extends GetxController {
 
       final int newIndex = messages.isNotEmpty ? messages.last.index + 1 : 0;
       final Message message = Message(
-          roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
-          messageId: messageId,
-          creatorId: auth.appwriteUser.$id,
-          creatorUsername: auth.userName!,
-          creatorName: auth.displayName!,
-          hasValidTag: false,
-          index: newIndex,
-          creatorImgUrl: auth.profileImageUrl!,
-          isEdited: false,
-          content: content,
-          creationDateTime: DateTime.now());
+        roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
+        messageId: messageId,
+        creatorId: auth.appwriteUser.$id,
+        creatorUsername: auth.userName!,
+        creatorName: auth.displayName!,
+        hasValidTag: false,
+        index: newIndex,
+        creatorImgUrl: auth.profileImageUrl!,
+        isEdited: false,
+        content: content,
+        creationDateTime: DateTime.now(),
+      );
 
       await databases.createDocument(
-          databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
-          documentId: messageId,
-          data: message.toJsonForUpload());
+        databaseId: masterDatabaseId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
+        data: message.toJsonForUpload(),
+      );
 
       if (replyingTo.value != null) {
         await databases.createDocument(
-            databaseId: masterDatabaseId,
-            collectionId: chatMessageReplyCollectionId,
-            documentId: messageId,
-            data: replyingTo.value!.toJson());
+          databaseId: masterDatabaseId,
+          collectionId: chatMessageReplyCollectionId,
+          documentId: messageId,
+          data: replyingTo.value!.toJson(),
+        );
       }
       if (appwriteUpcommingRoom != null) {
         log('Sending notification for sent message');
@@ -115,11 +122,12 @@ class RoomChatController extends GetxController {
           'payload': {
             'title': 'Message received in ${appwriteUpcommingRoom?.name}',
             'body': '${message.creatorName} said: ${message.content}',
-          }
+          },
         });
         var results = await functions.createExecution(
-            functionId: sendMessageNotificationFunctionID,
-            body: body.toString());
+          functionId: sendMessageNotificationFunctionID,
+          body: body.toString(),
+        );
         log(results.status);
       }
       message.replyTo = replyingTo.value;
@@ -134,17 +142,21 @@ class RoomChatController extends GetxController {
   }
 
   Future<void> editMessage(String messageId, String newContent) async {
-    Message updatedMessage =
-        messages.firstWhere((msg) => msg.messageId == messageId);
-    updatedMessage =
-        updatedMessage.copyWith(content: newContent, isEdited: true);
+    Message updatedMessage = messages.firstWhere(
+      (msg) => msg.messageId == messageId,
+    );
+    updatedMessage = updatedMessage.copyWith(
+      content: newContent,
+      isEdited: true,
+    );
 
     try {
       await databases.updateDocument(
-          databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
-          documentId: messageId,
-          data: updatedMessage.toJsonForUpload());
+        databaseId: masterDatabaseId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
+        data: updatedMessage.toJsonForUpload(),
+      );
       if (appwriteUpcommingRoom != null) {
         log('Sending notification for edited message');
         var body = json.encode({
@@ -153,11 +165,12 @@ class RoomChatController extends GetxController {
             'title': 'Message Edited in ${appwriteUpcommingRoom?.name}',
             'body':
                 '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
-          }
+          },
         });
         var results = await functions.createExecution(
-            functionId: sendMessageNotificationFunctionID,
-            body: body.toString());
+          functionId: sendMessageNotificationFunctionID,
+          body: body.toString(),
+        );
         log(results.status);
       }
       log('Message edited successfully');
@@ -191,17 +204,19 @@ class RoomChatController extends GetxController {
           String roomId = data.payload['roomId'];
           if (roomId == (appwriteRoom?.id ?? appwriteUpcommingRoom!.id)) {
             String docId = data.payload['\$id'];
-            String action = data.events.first
-                .substring(channel.length + 1 + docId.length + 1);
+            String action = data.events.first.substring(
+              channel.length + 1 + docId.length + 1,
+            );
             log(action);
             if (action == 'create') {
               Message newMessage = Message.fromJson(data.payload);
               ReplyTo? replyTo;
               try {
                 Document replyToDoc = await databases.getDocument(
-                    databaseId: masterDatabaseId,
-                    collectionId: chatMessageReplyCollectionId,
-                    documentId: newMessage.messageId);
+                  databaseId: masterDatabaseId,
+                  collectionId: chatMessageReplyCollectionId,
+                  documentId: newMessage.messageId,
+                );
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
                 if (e is AppwriteException && e.code == 404) {
@@ -217,25 +232,29 @@ class RoomChatController extends GetxController {
               messages.add(newMessage);
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(
-                    0,
-                    'Message received in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
-                    '${newMessage.creatorName} said: ${newMessage.content}',
-                    notificationDetails);
+                  0,
+                  'Message received in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
+                  '${newMessage.creatorName} said: ${newMessage.content}',
+                  notificationDetails,
+                );
               }
             }
             if (action == 'update') {
               Message updatedMessage = Message.fromJson(data.payload);
               var index = messages.indexWhere(
-                  (msg) => msg.messageId == updatedMessage.messageId);
+                (msg) => msg.messageId == updatedMessage.messageId,
+              );
               messages[index] = messages[index].copyWith(
-                  content: updatedMessage.content,
-                  isEdited: updatedMessage.isEdited);
+                content: updatedMessage.content,
+                isEdited: updatedMessage.isEdited,
+              );
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(
-                    0,
-                    'Message Edited in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
-                    '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
-                    notificationDetails);
+                  0,
+                  'Message Edited in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
+                  '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',
+                  notificationDetails,
+                );
               }
             }
           }

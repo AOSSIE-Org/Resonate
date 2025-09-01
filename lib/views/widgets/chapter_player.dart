@@ -23,7 +23,7 @@ class ChapterPlayer extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               chapter.tintColor.withOpacity(progress < 0.75 ? 0.8 : 1),
-              chapter.tintColor.withOpacity(progress < 0.75 ? 0.3 : 1)
+              chapter.tintColor.withOpacity(progress < 0.75 ? 0.3 : 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -64,9 +64,11 @@ class ChapterPlayer extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark ||
+                  color:
+                      Theme.of(context).brightness == Brightness.dark ||
                           (ThemeData.estimateBrightnessForColor(
-                                      chapter.tintColor) ==
+                                    chapter.tintColor,
+                                  ) ==
                                   Brightness.dark &&
                               progress > 0.75)
                       ? Colors.white
@@ -93,11 +95,13 @@ class ChapterPlayer extends StatelessWidget {
                         onChangeEnd: (double value) {
                           controller.lyricProgress.value = value.toInt();
 
-                          controller.audioPlayer
-                              ?.seek(Duration(milliseconds: value.toInt()));
+                          controller.audioPlayer?.seek(
+                            Duration(milliseconds: value.toInt()),
+                          );
                         },
                         min: 0,
-                        max: controller.chapterDuration.inMilliseconds
+                        max:
+                            controller.chapterDuration.inMilliseconds
                                 .toDouble() +
                             1000,
 
@@ -114,14 +118,16 @@ class ChapterPlayer extends StatelessWidget {
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Obx(
                             () => Text(
-                                "${formatPlayDuration(controller.sliderProgress.value.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}"),
+                              "${formatPlayDuration(controller.sliderProgress.value.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}",
+                            ),
                           ),
                         ),
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Text(
-                              "${formatPlayDuration(chapter.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}"),
+                            "${formatPlayDuration(chapter.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}",
+                          ),
                         ),
                       ],
                     ),
@@ -141,25 +147,26 @@ class ChapterPlayer extends StatelessWidget {
                 opacity: progress > 0.45 ? 0 : 1,
                 child: Obx(
                   () => IconButton(
-                      iconSize: 34,
-                      style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary),
-                      onPressed: progress > 0.45
-                          ? null
-                          : () {
-                              if (controller.isPlaying.value) {
-                                controller.audioPlayer?.pause();
-                              } else {
-                                controller.audioPlayer?.resume();
-                              }
-                            },
-                      icon: Icon(
-                        controller.isPlaying.value
-                            ? Icons.pause
-                            : Icons.play_arrow,
-                        color: Colors.white,
-                      )),
+                    iconSize: 34,
+                    style: IconButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: progress > 0.45
+                        ? null
+                        : () {
+                            if (controller.isPlaying.value) {
+                              controller.audioPlayer?.pause();
+                            } else {
+                              controller.audioPlayer?.resume();
+                            }
+                          },
+                    icon: Icon(
+                      controller.isPlaying.value
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -172,25 +179,26 @@ class ChapterPlayer extends StatelessWidget {
                 opacity: progress > 0.45 ? 1 : 0,
                 child: Obx(
                   () => IconButton(
-                      iconSize: 34,
-                      style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary),
-                      onPressed: progress > 0.45
-                          ? () {
-                              if (controller.isPlaying.value) {
-                                controller.audioPlayer?.pause();
-                              } else {
-                                controller.audioPlayer?.resume();
-                              }
+                    iconSize: 34,
+                    style: IconButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    onPressed: progress > 0.45
+                        ? () {
+                            if (controller.isPlaying.value) {
+                              controller.audioPlayer?.pause();
+                            } else {
+                              controller.audioPlayer?.resume();
                             }
-                          : null,
-                      icon: Icon(
-                        controller.isPlaying.value
-                            ? Icons.pause
-                            : Icons.play_arrow,
-                        color: Colors.white,
-                      )),
+                          }
+                        : null,
+                    icon: Icon(
+                      controller.isPlaying.value
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),

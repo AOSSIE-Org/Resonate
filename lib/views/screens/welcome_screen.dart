@@ -36,9 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_10,
-                ),
+                SizedBox(height: UiSizes.height_10),
                 Text(
                   AppLocalizations.of(context)!.title,
                   style: TextStyle(
@@ -48,9 +46,11 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Text(AppLocalizations.of(context)!.resonateTagline,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              AppLocalizations.of(context)!.resonateTagline,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             Column(
               children: [
                 SizedBox(
@@ -65,9 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         builder: (context) => welcomeScreenDialog(context),
                       );
                     },
-                    child: Text(
-                      AppLocalizations.of(context)!.signInWithEmail,
-                    ),
+                    child: Text(AppLocalizations.of(context)!.signInWithEmail),
                   ),
                 ),
                 Padding(
@@ -104,9 +102,7 @@ class WelcomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_20,
-                ),
+                SizedBox(height: UiSizes.height_20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,47 +110,47 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip:
-                            AppLocalizations.of(context)!.continueWithGoogle,
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.continueWithGoogle,
                         style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary,
                         ),
                         onPressed: () async {
                           await controller.loginWithGoogle();
                         },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.google,
-                        ),
+                        icon: const FaIcon(FontAwesomeIcons.google),
                       ),
                     ),
-                    SizedBox(
-                      width: UiSizes.width_20,
-                    ),
+                    SizedBox(width: UiSizes.width_20),
                     SizedBox(
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip:
-                            AppLocalizations.of(context)!.continueWithGitHub,
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.continueWithGitHub,
                         style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary,
                         ),
                         onPressed: () async {
                           await controller.loginWithGithub();
                         },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.github,
-                        ),
+                        icon: const FaIcon(FontAwesomeIcons.github),
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ],

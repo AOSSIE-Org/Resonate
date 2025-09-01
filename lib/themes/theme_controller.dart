@@ -15,7 +15,7 @@ class ThemeController extends GetxController {
   Rx<String> currentTheme = Themes.classic.name.obs;
   Rx<String> currentThemePlaceHolder = classicUserProfileImagePlaceholderID.obs;
 
-//hahahha
+  //hahahha
   @override
   void onInit() {
     super.onInit();

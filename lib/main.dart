@@ -19,9 +19,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await GetStorage.init();
   runApp(const MyApp());
@@ -41,23 +39,16 @@ class MyApp extends StatelessWidget {
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
+          GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [
-          Locale('en'),
-          Locale('hi'),
-        ],
+        supportedLocales: [Locale('en'), Locale('hi')],
         debugShowCheckedModeBanner: false,
         title: 'Resonate',
         theme: ThemeModes.setLightTheme(
-          ThemeList.getThemeModel(
-            themeController.currentTheme.value,
-          ),
+          ThemeList.getThemeModel(themeController.currentTheme.value),
         ),
         darkTheme: ThemeModes.setDarkTheme(
-          ThemeList.getThemeModel(
-            themeController.currentTheme.value,
-          ),
+          ThemeList.getThemeModel(themeController.currentTheme.value),
         ),
         themeMode: ThemeList.getThemeModel(
           themeController.currentTheme.value,

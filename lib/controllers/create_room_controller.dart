@@ -20,9 +20,8 @@ class CreateRoomController extends GetxController {
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
 
-  CreateRoomController({
-    ThemeController? themeController,
-  }) : themeController = themeController ?? Get.find<ThemeController>();
+  CreateRoomController({ThemeController? themeController})
+    : themeController = themeController ?? Get.find<ThemeController>();
 
   @override
   void dispose() {
@@ -40,8 +39,12 @@ class CreateRoomController extends GetxController {
     }
   }
 
-  Future<void> createRoom(String name, String description, List<String> tags,
-      bool fromCreateScreen) async {
+  Future<void> createRoom(
+    String name,
+    String description,
+    List<String> tags,
+    bool fromCreateScreen,
+  ) async {
     if (fromCreateScreen) {
       if (!createRoomFormKey.currentState!.validate()) {
         return;
@@ -54,10 +57,11 @@ class CreateRoomController extends GetxController {
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
       List<String> newRoomInfo = await RoomService.createRoom(
-          roomName: name,
-          roomDescription: description,
-          roomTags: tags,
-          adminUid: authStateController.uid!);
+        roomName: name,
+        roomDescription: description,
+        roomTags: tags,
+        adminUid: authStateController.uid!,
+      );
       String newRoomId = newRoomInfo[0];
       String myDocId = newRoomInfo[1];
 
@@ -66,15 +70,16 @@ class CreateRoomController extends GetxController {
 
       // Open the Room Bottom Sheet to interact in the room
       AppwriteRoom room = AppwriteRoom(
-          id: newRoomId,
-          name: name,
-          description: description,
-          totalParticipants: 1,
-          tags: tags,
-          memberAvatarUrls: [],
-          state: RoomState.live,
-          myDocId: myDocId,
-          isUserAdmin: true);
+        id: newRoomId,
+        name: name,
+        description: description,
+        totalParticipants: 1,
+        tags: tags,
+        memberAvatarUrls: [],
+        state: RoomState.live,
+        myDocId: myDocId,
+        isUserAdmin: true,
+      );
       Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form

@@ -14,165 +14,155 @@ import 'package:resonate/utils/enums/story_category.dart';
 
 import 'explore_story_controller_test.mocks.dart';
 
-@GenerateMocks([
-  Databases,
-  Storage,
-  Account,
-  Client,
-  FirebaseMessaging,
-  Functions,
-])
+@GenerateMocks([Databases, Account, Client, FirebaseMessaging, Functions])
 List<Document> mockStoryDocuments = [
   Document(
-      $id: 'doc1',
-      $collectionId: storyCollectionId,
-      $databaseId: storyDatabaseId,
-      $createdAt:
-          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-      $updatedAt:
-          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-      $permissions: [
-        'any'
-      ],
-      data: {
-        'title': 'Story 1',
-        'description': 'Description of Story 1',
-        'category': "comedy",
-        'coverImgUrl': 'https://example.com/image1.jpg',
-        'creatorId': "id1",
-        "creatorName": "Creator 1",
-        "creatorImgUrl": "https://example.com/profile1.jpg",
-        'likes': 10,
-        'tintColor': '0000FF',
-        'playDuration': 120,
-      }),
+    $id: 'doc1',
+    $collectionId: storyCollectionId,
+    $databaseId: storyDatabaseId,
+    $createdAt: DateTime.fromMillisecondsSinceEpoch(
+      1754337186,
+    ).toIso8601String(),
+    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+      1754337186,
+    ).toIso8601String(),
+    $permissions: ['any'],
+    data: {
+      'title': 'Story 1',
+      'description': 'Description of Story 1',
+      'category': "comedy",
+      'coverImgUrl': 'https://example.com/image1.jpg',
+      'creatorId': "id1",
+      "creatorName": "Creator 1",
+      "creatorImgUrl": "https://example.com/profile1.jpg",
+      'likes': 10,
+      'tintColor': '0000FF',
+      'playDuration': 120,
+    },
+  ),
   Document(
-      $id: 'doc2',
-      $collectionId: storyCollectionId,
-      $databaseId: storyDatabaseId,
-      $createdAt:
-          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-      $updatedAt:
-          DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-      $permissions: [
-        'any'
-      ],
-      data: {
-        'title': 'Story 2',
-        'description': 'Description of Story 2',
-        'category': "thriller",
-        'coverImgUrl': 'https://example.com/image2.jpg',
-        'creatorId': "id2",
-        "creatorName": "Creator 2",
-        "creatorImgUrl": "https://example.com/profile2.jpg",
-        'likes': 10,
-        'tintColor': '0000FF',
-        'playDuration': 120,
-      })
+    $id: 'doc2',
+    $collectionId: storyCollectionId,
+    $databaseId: storyDatabaseId,
+    $createdAt: DateTime.fromMillisecondsSinceEpoch(
+      1754337186,
+    ).toIso8601String(),
+    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+      1754337186,
+    ).toIso8601String(),
+    $permissions: ['any'],
+    data: {
+      'title': 'Story 2',
+      'description': 'Description of Story 2',
+      'category': "thriller",
+      'coverImgUrl': 'https://example.com/image2.jpg',
+      'creatorId': "id2",
+      "creatorName": "Creator 2",
+      "creatorImgUrl": "https://example.com/profile2.jpg",
+      'likes': 10,
+      'tintColor': '0000FF',
+      'playDuration': 120,
+    },
+  ),
 ];
 
 final Document mockSearchedUserDocument = Document(
-    $id: 'doc1',
-    $collectionId: usersCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $updatedAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $permissions: [
-      'any'
+  $id: 'doc1',
+  $collectionId: usersCollectionID,
+  $databaseId: userDatabaseID,
+  $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $permissions: ['any'],
+  data: {
+    'name': "Test User 1",
+    'dob': "2000-01-01",
+    'username': "testuser1",
+    'profileImageUrl': "https://example.com/profile1.jpg",
+    'email': "testuser1@example.com",
+    'profileImageId': "profileImageId1",
+    'ratingCount': 7,
+    'ratingTotal': 25,
+    'followers': [
+      {
+        "followerUserId": "id2",
+        "followerUsername": "testu2",
+        "followerName": "Test User 2",
+        "followerFCMToken": "testToken2",
+        "followerProfileImageUrl": "https://example.com/profile2.jpg",
+        "followerRating": 5,
+        "\$id": "doc2",
+      },
+      {
+        "followerUserId": "id3",
+        "followerUsername": "testu3",
+        "followerName": "Test User 3",
+        "followerFCMToken": "testToken3",
+        "followerProfileImageUrl": "https://example.com/profile3.jpg",
+        "followerRating": 5,
+        "\$id": "doc3",
+      },
     ],
-    data: {
-      'name': "Test User 1",
-      'dob': "2000-01-01",
-      'username': "testuser1",
-      'profileImageUrl': "https://example.com/profile1.jpg",
-      'email': "testuser1@example.com",
-      'profileImageId': "profileImageId1",
-      'ratingCount': 7,
-      'ratingTotal': 25,
-      'followers': [
-        {
-          "followerUserId": "id2",
-          "followerUsername": "testu2",
-          "followerName": "Test User 2",
-          "followerFCMToken": "testToken2",
-          "followerProfileImageUrl": "https://example.com/profile2.jpg",
-          "followerRating": 5,
-          "\$id": "doc2"
-        },
-        {
-          "followerUserId": "id3",
-          "followerUsername": "testu3",
-          "followerName": "Test User 3",
-          "followerFCMToken": "testToken3",
-          "followerProfileImageUrl": "https://example.com/profile3.jpg",
-          "followerRating": 5,
-          "\$id": "doc3"
-        }
-      ]
-    });
+  },
+);
 final Document mockUserDocument = Document(
-    $id: 'doc1',
-    $collectionId: usersCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $updatedAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $permissions: [
-      'any'
+  $id: 'doc1',
+  $collectionId: usersCollectionID,
+  $databaseId: userDatabaseID,
+  $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $permissions: ['any'],
+  data: {
+    'name': "Test User 2",
+    'dob': "2000-01-01",
+    'username': "testu2",
+    'profileImageUrl': "https://example.com/profile2.jpg",
+    'email': "testuser2@example.com",
+    'profileImageId': "profileImageId2",
+    'ratingCount': 5,
+    'ratingTotal': 25,
+    'followers': [
+      {
+        "followerUserId": "id1",
+        "followerUsername": "testu1",
+        "followerName": "Test User 1",
+        "followerFCMToken": "testToken1",
+        "followerProfileImageUrl": "https://example.com/profile1.jpg",
+        "followerRating": 5,
+        "\$id": "doc2",
+      },
+      {
+        "followerUserId": "id3",
+        "followerUsername": "testu3",
+        "followerName": "Test User 3",
+        "followerFCMToken": "testToken3",
+        "followerProfileImageUrl": "https://example.com/profile3.jpg",
+        "followerRating": 5,
+        "\$id": "doc3",
+      },
     ],
-    data: {
-      'name': "Test User 2",
-      'dob': "2000-01-01",
-      'username': "testu2",
-      'profileImageUrl': "https://example.com/profile2.jpg",
-      'email': "testuser2@example.com",
-      'profileImageId': "profileImageId2",
-      'ratingCount': 5,
-      'ratingTotal': 25,
-      'followers': [
-        {
-          "followerUserId": "id1",
-          "followerUsername": "testu1",
-          "followerName": "Test User 1",
-          "followerFCMToken": "testToken1",
-          "followerProfileImageUrl": "https://example.com/profile1.jpg",
-          "followerRating": 5,
-          "\$id": "doc2"
-        },
-        {
-          "followerUserId": "id3",
-          "followerUsername": "testu3",
-          "followerName": "Test User 3",
-          "followerFCMToken": "testToken3",
-          "followerProfileImageUrl": "https://example.com/profile3.jpg",
-          "followerRating": 5,
-          "\$id": "doc3"
-        }
-      ]
-    });
+  },
+);
 final User mockUser = User(
-    $id: 'id2',
-    name: 'Test User 2',
-    email: 'test2@test.com',
-    emailVerification: true,
-    prefs: Preferences(data: {'isUserProfileComplete': true}),
-    $createdAt: DateTime.now().toIso8601String(),
-    $updatedAt: DateTime.now().toIso8601String(),
-    accessedAt: DateTime.now().toIso8601String(),
-    registration: DateTime.now().toIso8601String(),
-    phone: '1234567890',
-    phoneVerification: false,
-    mfa: false,
-    passwordUpdate: DateTime.now().toIso8601String(),
-    status: true,
-    password: 'password',
-    labels: [],
-    hash: 'Argon2',
-    targets: [],
-    hashOptions: {});
+  $id: 'id2',
+  name: 'Test User 2',
+  email: 'test2@test.com',
+  emailVerification: true,
+  prefs: Preferences(data: {'isUserProfileComplete': true}),
+  $createdAt: DateTime.now().toIso8601String(),
+  $updatedAt: DateTime.now().toIso8601String(),
+  accessedAt: DateTime.now().toIso8601String(),
+  registration: DateTime.now().toIso8601String(),
+  phone: '1234567890',
+  phoneVerification: false,
+  mfa: false,
+  passwordUpdate: DateTime.now().toIso8601String(),
+  status: true,
+  password: 'password',
+  labels: [],
+  hash: 'Argon2',
+  targets: [],
+  hashOptions: {},
+);
 final FollowerUserModel mockFollowerUserModel = FollowerUserModel(
   docId: 'fdocid1',
   uid: 'id2',
@@ -184,25 +174,22 @@ final FollowerUserModel mockFollowerUserModel = FollowerUserModel(
   followerRating: 5,
 );
 final Document mockFollowerDocument = Document(
-    $id: 'fdocid1',
-    $collectionId: followersCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $updatedAt:
-        DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
-    $permissions: [
-      'any'
-    ],
-    data: {
-      "followerUserId": "id2",
-      "followerUsername": "testu2",
-      "followerName": "Test User 2",
-      "followerFCMToken": "testToken2",
-      "followerProfileImageUrl": "https://example.com/profile2.jpg",
-      "followerRating": 5,
-      "followingUserId": "id1"
-    });
+  $id: 'fdocid1',
+  $collectionId: followersCollectionID,
+  $databaseId: userDatabaseID,
+  $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+  $permissions: ['any'],
+  data: {
+    "followerUserId": "id2",
+    "followerUsername": "testu2",
+    "followerName": "Test User 2",
+    "followerFCMToken": "testToken2",
+    "followerProfileImageUrl": "https://example.com/profile2.jpg",
+    "followerRating": 5,
+    "followingUserId": "id1",
+  },
+);
 void main() {
   late MockDatabases databases;
   late MockAccount mockAccount;
@@ -220,57 +207,72 @@ void main() {
         messaging: mockFirebaseMessaging,
       ),
       databases: databases,
-      storage: MockStorage(),
     );
 
     userProfileController.authStateController.uid = 'id2';
 
-    when(databases.listDocuments(
+    when(
+      databases.listDocuments(
         databaseId: storyDatabaseId,
         collectionId: storyCollectionId,
         queries: [
           Query.equal(
-              'creatorId', userProfileController.authStateController.uid)
-        ])).thenAnswer((_) => Future.delayed(
-          Duration(seconds: 2),
-          () => DocumentList(total: 1, documents: [mockStoryDocuments[1]]),
-        ));
-    when(databases.listDocuments(
-            databaseId: storyDatabaseId,
-            collectionId: storyCollectionId,
-            queries: [Query.equal('creatorId', 'id1')]))
-        .thenAnswer((_) => Future.delayed(
-              Duration(seconds: 2),
-              () => DocumentList(total: 1, documents: [mockStoryDocuments[0]]),
-            ));
-    when(databases.getDocument(
-            databaseId: userDatabaseID,
-            collectionId: usersCollectionID,
-            documentId: 'id1'))
-        .thenAnswer((_) => Future.delayed(
-              Duration(seconds: 2),
-              () => mockSearchedUserDocument,
-            ));
-    when(databases.getDocument(
-            databaseId: userDatabaseID,
-            collectionId: usersCollectionID,
-            documentId: 'id2'))
-        .thenAnswer((_) => Future.delayed(
-              Duration(seconds: 2),
-              () => mockUserDocument,
-            ));
-    when(databases.createDocument(
-            databaseId: userDatabaseID,
-            collectionId: followersCollectionID,
-            documentId: anyNamed('documentId'),
-            data: mockFollowerUserModel.toJson()))
-        .thenAnswer((_) => Future.delayed(
-              Duration(seconds: 2),
-              () => mockFollowerDocument,
-            ));
+            'creatorId',
+            userProfileController.authStateController.uid,
+          ),
+        ],
+      ),
+    ).thenAnswer(
+      (_) => Future.delayed(
+        Duration(seconds: 2),
+        () => DocumentList(total: 1, documents: [mockStoryDocuments[1]]),
+      ),
+    );
+    when(
+      databases.listDocuments(
+        databaseId: storyDatabaseId,
+        collectionId: storyCollectionId,
+        queries: [Query.equal('creatorId', 'id1')],
+      ),
+    ).thenAnswer(
+      (_) => Future.delayed(
+        Duration(seconds: 2),
+        () => DocumentList(total: 1, documents: [mockStoryDocuments[0]]),
+      ),
+    );
+    when(
+      databases.getDocument(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: 'id1',
+      ),
+    ).thenAnswer(
+      (_) =>
+          Future.delayed(Duration(seconds: 2), () => mockSearchedUserDocument),
+    );
+    when(
+      databases.getDocument(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: 'id2',
+      ),
+    ).thenAnswer(
+      (_) => Future.delayed(Duration(seconds: 2), () => mockUserDocument),
+    );
+    when(
+      databases.createDocument(
+        databaseId: userDatabaseID,
+        collectionId: followersCollectionID,
+        documentId: anyNamed('documentId'),
+        data: mockFollowerUserModel.toJson(),
+      ),
+    ).thenAnswer(
+      (_) => Future.delayed(Duration(seconds: 2), () => mockFollowerDocument),
+    );
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
-    when(mockFirebaseMessaging.getToken())
-        .thenAnswer((_) => Future.value('testToken2'));
+    when(
+      mockFirebaseMessaging.getToken(),
+    ).thenAnswer((_) => Future.value('testToken2'));
   });
 
   test('test convertAppwriteDocListToStoryList', () async {
@@ -306,8 +308,10 @@ void main() {
     expect(userProfileController.searchedUserStories.length, 1);
     expect(userProfileController.searchedUserStories[0].storyId, 'doc1');
     expect(userProfileController.searchedUserStories[0].title, 'Story 1');
-    expect(userProfileController.searchedUserStories[0].description,
-        'Description of Story 1');
+    expect(
+      userProfileController.searchedUserStories[0].description,
+      'Description of Story 1',
+    );
     expect(userProfileController.searchedUserStories[0].userIsCreator, false);
   });
 
@@ -316,10 +320,14 @@ void main() {
     expect(userProfileController.searchedUserFollowers.length, 2);
     expect(userProfileController.searchedUserFollowers[0].name, 'Test User 2');
     expect(userProfileController.searchedUserFollowers[1].name, 'Test User 3');
-    expect(userProfileController.searchedUserFollowers[0].profileImageUrl,
-        'https://example.com/profile2.jpg');
-    expect(userProfileController.searchedUserFollowers[1].profileImageUrl,
-        'https://example.com/profile3.jpg');
+    expect(
+      userProfileController.searchedUserFollowers[0].profileImageUrl,
+      'https://example.com/profile2.jpg',
+    );
+    expect(
+      userProfileController.searchedUserFollowers[1].profileImageUrl,
+      'https://example.com/profile3.jpg',
+    );
     expect(userProfileController.searchedUserFollowers[0].username, 'testu2');
     expect(userProfileController.searchedUserFollowers[1].username, 'testu3');
     expect(userProfileController.searchedUserFollowers[0].docId, 'doc2');
@@ -337,13 +345,19 @@ void main() {
     expect(userProfileController.searchedUserFollowers.length, 1);
     expect(userProfileController.searchedUserFollowers[0].uid, 'id2');
     expect(userProfileController.searchedUserFollowers[0].username, 'testu2');
-    expect(userProfileController.searchedUserFollowers[0].profileImageUrl,
-        'https://example.com/profile2.jpg');
+    expect(
+      userProfileController.searchedUserFollowers[0].profileImageUrl,
+      'https://example.com/profile2.jpg',
+    );
     expect(userProfileController.searchedUserFollowers[0].name, 'Test User 2');
     expect(
-        userProfileController.searchedUserFollowers[0].fcmToken, 'testToken2');
+      userProfileController.searchedUserFollowers[0].fcmToken,
+      'testToken2',
+    );
     expect(
-        userProfileController.searchedUserFollowers[0].followingUserId, 'id1');
+      userProfileController.searchedUserFollowers[0].followingUserId,
+      'id1',
+    );
     expect(userProfileController.searchedUserFollowers[0].followerRating, 5);
   });
 }

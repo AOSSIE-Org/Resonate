@@ -38,16 +38,15 @@ class AppUtils {
       radius: UiSizes.size_20,
       titlePadding: EdgeInsets.only(top: UiSizes.size_25),
       contentPadding: EdgeInsets.symmetric(
-          horizontal: UiSizes.size_20, vertical: UiSizes.size_20),
+        horizontal: UiSizes.size_20,
+        vertical: UiSizes.size_20,
+      ),
       actions: [
         ElevatedButton(
           onPressed: onFirstBtnPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
           child: Text(
             firstBtnText ?? localizations.confirm,
@@ -62,10 +61,7 @@ class AppUtils {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
             textStyle: secondBtnTextStyle,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
           child: Text(
             secondBtnText ?? localizations.cancel,
@@ -81,15 +77,16 @@ class AppUtils {
 
   static void showBlurredLoaderDialog(BuildContext context) {
     Get.dialog(
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Center(
-            child: LoadingAnimationWidget.threeRotatingDots(
-              color: Theme.of(context).colorScheme.primary,
-              size: Get.pixelRatio * 20,
-            ),
+      BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Center(
+          child: LoadingAnimationWidget.threeRotatingDots(
+            color: Theme.of(context).colorScheme.primary,
+            size: Get.pixelRatio * 20,
           ),
         ),
-        barrierDismissible: false);
+      ),
+      barrierDismissible: false,
+    );
   }
 }

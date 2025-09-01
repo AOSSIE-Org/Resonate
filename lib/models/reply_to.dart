@@ -24,9 +24,9 @@ class ReplyTo {
   }
 
   ReplyTo.fromJson(Map<String, dynamic> json)
-      : creatorUsername = json['creatorUsername'],
-        creatorImgUrl = json['creatorImgUrl'],
-        index = json['index'],
-        content = json['content'],
-        messageId = json['messageId'];
+    : creatorUsername = json['creatorUsername'],
+      creatorImgUrl = json['creatorImgUrl'],
+      index = json['index'],
+      content = json['content'],
+      messageId = json['messageId'];
 }

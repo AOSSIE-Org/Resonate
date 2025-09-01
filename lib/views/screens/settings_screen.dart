@@ -10,19 +10,15 @@ import '../../controllers/auth_state_controller.dart';
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 
-  final authStateController =
-      Get.put<AuthStateController>(AuthStateController());
+  final authStateController = Get.put<AuthStateController>(
+    AuthStateController(),
+  );
 
   final double padding = UiSizes.width_20;
 
-  Widget customTile({
-    required String str,
-    required Callback func,
-  }) {
+  Widget customTile({required String str, required Callback func}) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: padding,
-      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: padding),
       title: Text(str),
       trailing: const Icon(Icons.arrow_forward_rounded),
       onTap: func,
@@ -48,20 +44,20 @@ class SettingsScreen extends StatelessWidget {
           top: UiSizes.height_16,
           bottom: UiSizes.height_10,
         ),
-        child: Text(str,
-            style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black54
-                  : Colors.white54,
-              fontWeight: FontWeight.bold,
-            )),
+        child: Text(
+          str,
+          style: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black54
+                : Colors.white54,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: ListView(
         children: [
           titleText(AppLocalizations.of(context)!.accountSettings),
@@ -95,16 +91,12 @@ class SettingsScreen extends StatelessWidget {
           ),
           customDivider(),
           ListTile(
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: padding),
             textColor: Colors.redAccent,
             iconColor: Colors.redAccent,
             title: Text(
               AppLocalizations.of(context)!.logOut,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             trailing: const Icon(Icons.logout_rounded),
             onTap: () async {

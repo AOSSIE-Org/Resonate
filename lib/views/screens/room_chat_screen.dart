@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -43,7 +42,9 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
 
   Future<void> updateMessage(int index, String newContent) async {
     await chatController.editMessage(
-        chatController.messages[index].messageId, newContent);
+      chatController.messages[index].messageId,
+      newContent,
+    );
   }
 
   @override
@@ -79,55 +80,51 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
         title: const Text('Room Chat'),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
         ],
       ),
       body: Column(
         children: [
           Expanded(
             child: FutureBuilder(
-                future: loadMessagesFuture,
-                builder: (context, asyncSnapshot) {
-                  if (asyncSnapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (asyncSnapshot.hasError) {
-                    return Center(
-                      child: Text('Error: ${asyncSnapshot.error}'),
-                    );
-                  } else {
-                    // Scroll to bottom after messages are loaded
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      scrollToBottom();
-                    });
+              future: loadMessagesFuture,
+              builder: (context, asyncSnapshot) {
+                if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (asyncSnapshot.hasError) {
+                  return Center(child: Text('Error: ${asyncSnapshot.error}'));
+                } else {
+                  // Scroll to bottom after messages are loaded
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    scrollToBottom();
+                  });
 
-                    return Obx(
-                      () => ListView.builder(
-                        controller: _scrollController,
-                        padding: const EdgeInsets.all(16.0),
-                        itemCount: chatController.messages.length,
-                        itemBuilder: (context, index) {
-                          return ChatMessageItem(
-                            message: chatController.messages[index],
-                            onTapReply: (int replyIndex) =>
-                                scrollToMessage(replyIndex),
-                            onEditMessage: (String newContent) async {
-                              await updateMessage(index, newContent);
-                            },
-                            replytoMessage: (Message message) =>
-                                chatController.setReplyingTo(message),
-                            canEdit: auth.appwriteUser.$id ==
-                                    chatController.messages[index].creatorId &&
-                                !chatController.messages[index].isEdited,
-                          );
-                        },
-                      ),
-                    );
-                  }
-                }),
+                  return Obx(
+                    () => ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: chatController.messages.length,
+                      itemBuilder: (context, index) {
+                        return ChatMessageItem(
+                          message: chatController.messages[index],
+                          onTapReply: (int replyIndex) =>
+                              scrollToMessage(replyIndex),
+                          onEditMessage: (String newContent) async {
+                            await updateMessage(index, newContent);
+                          },
+                          replytoMessage: (Message message) =>
+                              chatController.setReplyingTo(message),
+                          canEdit:
+                              auth.appwriteUser.$id ==
+                                  chatController.messages[index].creatorId &&
+                              !chatController.messages[index].isEdited,
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
           ),
           ChatInputField(),
         ],
@@ -197,187 +194,204 @@ class ChatMessageItemState extends State<ChatMessageItem> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Stack(
-        children: [
-          GestureDetector(
-            onHorizontalDragUpdate: (details) {
-              if (_dragOffset + details.delta.dx > 0.0 &&
-                  _dragOffset + details.delta.dx < 100) {
-                _dragOffset += details.delta.dx;
-              } else if (_dragOffset + details.delta.dx > 100) {
-                _dragOffset = 100;
-              } else if (_dragOffset + details.delta.dx < 0) {
-                _dragOffset = 0.0; // Reset if dragging left
-              }
-              setState(() {});
-            },
-            onHorizontalDragEnd: (details) {
-              if (_dragOffset > 70) {
-                // Detected swipe from left to right
-                widget.replytoMessage(widget.message);
-              }
-              setState(() {
-                _dragOffset = 0.0; // Reset offset after swipe
-              });
-            },
-            onDoubleTap: widget.canEdit ? startEditing : null,
-            child: Transform.translate(
-              offset: Offset(_dragOffset, 0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2.0),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundImage:
-                                NetworkImage(widget.message.creatorImgUrl),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.message.creatorName.capitalizeFirst!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
-                                ),
-                                const SizedBox(height: 5),
-                                if (widget.message.replyTo != null)
-                                  GestureDetector(
-                                    onTap: () => widget.onTapReply(
-                                        widget.message.replyTo!.index),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8),
-                                      margin: const EdgeInsets.only(bottom: 5),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "@${widget.message.replyTo!.creatorUsername}",
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue,
-                                            ),
-                                          ),
-                                          Text(
-                                            widget.message.replyTo!.content,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                if (isEditing)
-                                  Focus(
-                                    onKeyEvent: (node, event) {
-                                      if (event.logicalKey ==
-                                          LogicalKeyboardKey.escape) {
-                                        cancelEdit();
-                                        return KeyEventResult.handled;
-                                      }
-                                      return KeyEventResult.ignored;
-                                    },
-                                    child: TextField(
-                                      controller: _editingController,
-                                      autofocus: true,
-                                      onSubmitted: (value) => saveEdit(),
-                                      onTapOutside: (event) => cancelEdit(),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
-                                      ),
-                                    ),
-                                  )
-                                else
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          widget.message.content,
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary),
-                                        ),
-                                      ),
-                                      if (widget.message.isEdited)
-                                        const Text(
-                                          ' (edited)',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontStyle: FontStyle.italic,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  widget.message.creationDateTime
-                                      .formatDateTime(context)
-                                      .toString(),
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 12),
-                                ),
-                              ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            GestureDetector(
+              onHorizontalDragUpdate: (details) {
+                if (_dragOffset + details.delta.dx > 0.0 &&
+                    _dragOffset + details.delta.dx < 100) {
+                  _dragOffset += details.delta.dx;
+                } else if (_dragOffset + details.delta.dx > 100) {
+                  _dragOffset = 100;
+                } else if (_dragOffset + details.delta.dx < 0) {
+                  _dragOffset = 0.0; // Reset if dragging left
+                }
+                setState(() {});
+              },
+              onHorizontalDragEnd: (details) {
+                if (_dragOffset > 70) {
+                  // Detected swipe from left to right
+                  widget.replytoMessage(widget.message);
+                }
+                setState(() {
+                  _dragOffset = 0.0; // Reset offset after swipe
+                });
+              },
+              onDoubleTap: widget.canEdit ? startEditing : null,
+              child: Transform.translate(
+                offset: Offset(_dragOffset, 0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(
+                                widget.message.creatorImgUrl,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.message.creatorName.capitalizeFirst!,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.secondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  if (widget.message.replyTo != null)
+                                    GestureDetector(
+                                      onTap: () => widget.onTapReply(
+                                        widget.message.replyTo!.index,
+                                      ),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "@${widget.message.replyTo!.creatorUsername}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                            Text(
+                                              widget.message.replyTo!.content,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  if (isEditing)
+                                    Focus(
+                                      onKeyEvent: (node, event) {
+                                        if (event.logicalKey ==
+                                            LogicalKeyboardKey.escape) {
+                                          cancelEdit();
+                                          return KeyEventResult.handled;
+                                        }
+                                        return KeyEventResult.ignored;
+                                      },
+                                      child: TextField(
+                                        controller: _editingController,
+                                        autofocus: true,
+                                        onSubmitted: (value) => saveEdit(),
+                                        onTapOutside: (event) => cancelEdit(),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              5,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 5,
+                                              ),
+                                        ),
+                                      ),
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            widget.message.content,
+                                            style: TextStyle(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.secondary,
+                                            ),
+                                          ),
+                                        ),
+                                        if (widget.message.isEdited)
+                                          const Text(
+                                            ' (edited)',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontStyle: FontStyle.italic,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    widget.message.creationDateTime
+                                        .formatDateTime(context)
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
+            Positioned(
               bottom: (constraints.minHeight) / 2,
               top: constraints.minHeight / 2,
               child: Transform.translate(
                 offset: Offset(_dragOffset - 70, 0),
                 child: Opacity(
-                    opacity: (_dragOffset / 100).clamp(0.0, 1.0),
-                    child: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      child: Icon(
-                        Icons.reply,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    )),
-              )),
-        ],
-      );
-    });
+                  opacity: (_dragOffset / 100).clamp(0.0, 1.0),
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    child: Icon(
+                      Icons.reply,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -442,8 +456,9 @@ class ChatInputField extends StatelessWidget {
                         controller: _messageController,
                         onSubmitted: (value) async {
                           if (_messageController.text.isNotEmpty) {
-                            await chatController
-                                .sendMessage(_messageController.text);
+                            await chatController.sendMessage(
+                              _messageController.text,
+                            );
                             _messageController.clear();
                             // Clear reply if user sends a message
                             chatController.clearReplyingTo();
@@ -457,7 +472,9 @@ class ChatInputField extends StatelessWidget {
                           ),
                           filled: true,
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
+                            horizontal: 20,
+                            vertical: 5,
+                          ),
                         ),
                       ),
                     ),
@@ -466,8 +483,9 @@ class ChatInputField extends StatelessWidget {
                       icon: const Icon(Icons.send),
                       onPressed: () async {
                         if (_messageController.text.isNotEmpty) {
-                          await chatController
-                              .sendMessage(_messageController.text);
+                          await chatController.sendMessage(
+                            _messageController.text,
+                          );
                           _messageController.clear();
                           // Clear reply if user sends a message
                           chatController.clearReplyingTo();

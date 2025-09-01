@@ -10,7 +10,9 @@ class NoMatchView extends StatelessWidget {
       child: Text(
         AppLocalizations.of(context)!.noSearchResults,
         style: TextStyle(
-            color: Theme.of(context).colorScheme.onSecondary, fontSize: 20),
+          color: Theme.of(context).colorScheme.onSecondary,
+          fontSize: 20,
+        ),
       ),
     );
   }

@@ -1076,4 +1076,48 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get followers => 'फॉलोअर्स';
+
+  @override
+  String get friendRequests => 'फ्रेंड रिक्वेस्ट';
+
+  @override
+  String get friendRequestSent => 'मित्रता अनुरोध भेजा गया';
+
+  @override
+  String friendRequestSentTo(String username) {
+    return 'आपका मित्रता अनुरोध $username को भेजा गया है।';
+  }
+
+  @override
+  String get friendRequestCancelled => 'मित्रता अनुरोध रद्द कर दिया गया';
+
+  @override
+  String friendRequestCancelledTo(String username) {
+    return '$username को आपका मित्रता अनुरोध रद्द कर दिया गया है।';
+  }
+
+  @override
+  String get requested => 'अनुरोध किया है';
+
+  @override
+  String get friends => 'मित्र';
+
+  @override
+  String get addFriend => 'मित्र जोड़ें';
+
+  @override
+  String get friendRequestAccepted => 'मित्रता अनुरोध स्वीकार कर लिया गया';
+
+  @override
+  String friendRequestAcceptedTo(String username) {
+    return 'आपने $username के मित्रता अनुरोध को स्वीकार कर लिया है।';
+  }
+
+  @override
+  String get friendRequestDeclined => 'मित्रता अनुरोध अस्वीकार कर दिया गया';
+
+  @override
+  String friendRequestDeclinedTo(String username) {
+    return 'आपने $username के मित्रता अनुरोध को अस्वीकार कर दिया है।';
+  }
 }

@@ -88,29 +88,32 @@ class CreateRoomScreen extends StatelessWidget {
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 300),
                                     padding: EdgeInsets.symmetric(
-                                        vertical: UiSizes.height_10,
-                                        horizontal: UiSizes.width_20),
+                                      vertical: UiSizes.height_10,
+                                      horizontal: UiSizes.width_20,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: controller.isScheduled.value
                                           ? Theme.of(context)
-                                              .colorScheme
-                                              .secondary
-                                              .withValues(alpha: 0.5)
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .primary,
+                                                .colorScheme
+                                                .secondary
+                                                .withValues(alpha: 0.5)
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Text(
                                       AppLocalizations.of(context)!.live,
                                       style: TextStyle(
-                                          fontSize: UiSizes.size_14,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? controller.isScheduled.value
+                                        fontSize: UiSizes.size_14,
+                                        color:
+                                            Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? controller.isScheduled.value
                                                   ? Colors.black
                                                   : Colors.white
-                                              : Colors.white),
+                                            : Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -122,28 +125,31 @@ class CreateRoomScreen extends StatelessWidget {
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 300),
                                     padding: EdgeInsets.symmetric(
-                                        vertical: UiSizes.height_10,
-                                        horizontal: UiSizes.width_20),
+                                      vertical: UiSizes.height_10,
+                                      horizontal: UiSizes.width_20,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: controller.isScheduled.value
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.secondary,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: Text(
                                       AppLocalizations.of(context)!.scheduled,
                                       style: TextStyle(
-                                          fontSize: UiSizes.size_14,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? controller.isScheduled.value
+                                        fontSize: UiSizes.size_14,
+                                        color:
+                                            Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? controller.isScheduled.value
                                                   ? Colors.white
                                                   : Colors.black
-                                              : Colors.white),
+                                            : Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -156,12 +162,14 @@ class CreateRoomScreen extends StatelessWidget {
                                 ? SizedBox(
                                     height: UiSizes.height_66,
                                     child: TextFormField(
-                                      style:
-                                          TextStyle(fontSize: UiSizes.size_14),
+                                      style: TextStyle(
+                                        fontSize: UiSizes.size_14,
+                                      ),
                                       validator: (value) => value!.isNotEmpty
                                           ? null
-                                          : AppLocalizations.of(context)!
-                                              .pleaseEnterScheduledDateTime,
+                                          : AppLocalizations.of(
+                                              context,
+                                            )!.pleaseEnterScheduledDateTime,
                                       readOnly: true,
                                       controller: upcomingRoomsController
                                           .dateTimeController,
@@ -172,10 +180,12 @@ class CreateRoomScreen extends StatelessWidget {
                                           Icons.calendar_month,
                                           size: UiSizes.size_23,
                                         ),
-                                        labelText: AppLocalizations.of(context)!
-                                            .scheduleDateTimeLabel,
+                                        labelText: AppLocalizations.of(
+                                          context,
+                                        )!.scheduleDateTimeLabel,
                                         labelStyle: TextStyle(
-                                            fontSize: UiSizes.size_14),
+                                          fontSize: UiSizes.size_14,
+                                        ),
                                         suffix: GestureDetector(
                                           onTap: () async {
                                             await upcomingRoomsController
@@ -198,19 +208,21 @@ class CreateRoomScreen extends StatelessWidget {
                             child: TextFormField(
                               controller: controller.nameController,
                               style: TextStyle(fontSize: UiSizes.size_25),
-                              cursorColor:
-                                  Theme.of(context).colorScheme.primary,
+                              cursorColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
                               maxLength: 30,
                               minLines: 1,
                               maxLines: 13,
                               decoration: InputDecoration(
-                                hintText:
-                                    AppLocalizations.of(context)!.giveGreatName,
+                                hintText: AppLocalizations.of(
+                                  context,
+                                )!.giveGreatName,
 
-                                prefixIcon: Icon(Icons.edit,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primary), // Icon decoration
+                                prefixIcon: Icon(
+                                  Icons.edit,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ), // Icon decoration
                                 filled: false,
                                 border: InputBorder
                                     .none, // No border as it's managed by decoration
@@ -241,69 +253,95 @@ class CreateRoomScreen extends StatelessWidget {
                                   decoration: InputDecoration(
                                     hintText: inputFieldValues.tags.isNotEmpty
                                         ? null
-                                        : AppLocalizations.of(context)!
-                                            .enterTags,
+                                        : AppLocalizations.of(
+                                            context,
+                                          )!.enterTags,
                                     filled: false,
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.all(16),
                                     errorText: inputFieldValues.error,
                                     prefixIconConstraints: BoxConstraints(
-                                        maxWidth: UiSizes.width_304),
+                                      maxWidth: UiSizes.width_304,
+                                    ),
                                     prefixIcon: inputFieldValues.tags.isNotEmpty
                                         ? SingleChildScrollView(
                                             controller: inputFieldValues
                                                 .tagScrollController,
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
-                                                children: inputFieldValues.tags
-                                                    .map((tag) {
-                                              return Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(
-                                                        UiSizes.size_20),
-                                                  ),
-                                                  color: Colors.black54,
-                                                ),
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        UiSizes.width_5),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        UiSizes.width_10,
-                                                    vertical: UiSizes.height_5),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      '#$tag',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize:
-                                                              UiSizes.size_18),
-                                                    ),
-                                                    SizedBox(
-                                                        width: UiSizes.width_4),
-                                                    InkWell(
-                                                      child: Icon(
-                                                        Icons.cancel,
-                                                        size: UiSizes.size_18,
-                                                        color: Colors.red
-                                                            .withValues(
-                                                                alpha: 0.7),
-                                                      ),
-                                                      onTap: () {
-                                                        inputFieldValues
-                                                            .onTagRemoved(tag);
-                                                      },
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList() as List<Widget>),
+                                              children:
+                                                  inputFieldValues.tags.map((
+                                                        tag,
+                                                      ) {
+                                                        return Container(
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                  Radius.circular(
+                                                                    UiSizes
+                                                                        .size_20,
+                                                                  ),
+                                                                ),
+                                                            color:
+                                                                Colors.black54,
+                                                          ),
+                                                          margin:
+                                                              EdgeInsets.symmetric(
+                                                                horizontal:
+                                                                    UiSizes
+                                                                        .width_5,
+                                                              ),
+                                                          padding:
+                                                              EdgeInsets.symmetric(
+                                                                horizontal:
+                                                                    UiSizes
+                                                                        .width_10,
+                                                                vertical: UiSizes
+                                                                    .height_5,
+                                                              ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                '#$tag',
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: UiSizes
+                                                                      .size_18,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: UiSizes
+                                                                    .width_4,
+                                                              ),
+                                                              InkWell(
+                                                                child: Icon(
+                                                                  Icons.cancel,
+                                                                  size: UiSizes
+                                                                      .size_18,
+                                                                  color: Colors
+                                                                      .red
+                                                                      .withValues(
+                                                                        alpha:
+                                                                            0.7,
+                                                                      ),
+                                                                ),
+                                                                onTap: () {
+                                                                  inputFieldValues
+                                                                      .onTagRemoved(
+                                                                        tag,
+                                                                      );
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      }).toList()
+                                                      as List<Widget>,
+                                            ),
                                           )
                                         : null,
                                   ),
@@ -319,13 +357,15 @@ class CreateRoomScreen extends StatelessWidget {
                             child: TextFormField(
                               controller: controller.descriptionController,
                               style: TextStyle(fontSize: UiSizes.size_20),
-                              cursorColor:
-                                  Theme.of(context).colorScheme.primary,
+                              cursorColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
                               maxLines: 10,
                               maxLength: 500,
                               decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)!
-                                    .roomDescriptionOptional,
+                                hintText: AppLocalizations.of(
+                                  context,
+                                )!.roomDescriptionOptional,
                                 filled: false,
                                 border: InputBorder.none,
                                 contentPadding: const EdgeInsets.all(16),

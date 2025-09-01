@@ -7,12 +7,13 @@ class NotificationModel {
   final String subject;
   final bool isTagInUpcomingRoom;
 
-  NotificationModel(
-      {required this.notificationType,
-      required this.initiatorUsername,
-      required this.initiatorProfileImgUrl,
-      required this.subject,
-      required this.isTagInUpcomingRoom});
+  NotificationModel({
+    required this.notificationType,
+    required this.initiatorUsername,
+    required this.initiatorProfileImgUrl,
+    required this.subject,
+    required this.isTagInUpcomingRoom,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,7 +21,7 @@ class NotificationModel {
       'initiatorUsername': initiatorUsername,
       'initiatorProfileImgUrl': initiatorProfileImgUrl,
       'subject': subject,
-      'isTagInUpcomingRoom': isTagInUpcomingRoom
+      'isTagInUpcomingRoom': isTagInUpcomingRoom,
     };
   }
 }

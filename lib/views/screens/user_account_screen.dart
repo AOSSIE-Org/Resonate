@@ -10,9 +10,7 @@ class UserAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.account),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.account)),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
         children: [
@@ -21,9 +19,7 @@ class UserAccountScreen extends StatelessWidget {
             iconColor: Colors.redAccent,
             title: Text(
               AppLocalizations.of(context)!.deleteAccount,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             trailing: const Icon(Icons.arrow_forward_rounded),
             onTap: () {

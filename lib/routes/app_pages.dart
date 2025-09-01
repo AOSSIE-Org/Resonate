@@ -94,19 +94,10 @@ class AppPages {
       page: () => CreateRoomScreen(),
       binding: TabViewBinding(),
     ),
-    GetPage(
-      name: AppRoutes.pairing,
-      page: () => PairingScreen(),
-    ),
+    GetPage(name: AppRoutes.pairing, page: () => PairingScreen()),
     GetPage(name: AppRoutes.pairChatUsers, page: () => PairChatUsersScreen()),
-    GetPage(
-      name: AppRoutes.pairChat,
-      page: () => PairChatScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.settings,
-      page: () => SettingsScreen(),
-    ),
+    GetPage(name: AppRoutes.pairChat, page: () => PairChatScreen()),
+    GetPage(name: AppRoutes.settings, page: () => SettingsScreen()),
     GetPage(
       name: AppRoutes.editProfile,
       page: () => EditProfileScreen(),
@@ -117,35 +108,17 @@ class AppPages {
       page: () => const DeleteAccountScreen(),
       binding: ProfileBinding(),
     ),
-    GetPage(
-      name: AppRoutes.changeEmail,
-      page: () => ChangeEmailScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.welcomeScreen,
-      page: () => WelcomeScreen(),
-    ),
+    GetPage(name: AppRoutes.changeEmail, page: () => ChangeEmailScreen()),
+    GetPage(name: AppRoutes.welcomeScreen, page: () => WelcomeScreen()),
     // New Screens
-    GetPage(
-      name: AppRoutes.loginScreen,
-      page: () => const LoginScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.homeScreen,
-      page: () => const HomeScreen(),
-    ),
-    GetPage(
-      name: AppRoutes.themeScreen,
-      page: () => ThemeScreen(),
-    ),
+    GetPage(name: AppRoutes.loginScreen, page: () => const LoginScreen()),
+    GetPage(name: AppRoutes.homeScreen, page: () => const HomeScreen()),
+    GetPage(name: AppRoutes.themeScreen, page: () => ThemeScreen()),
     GetPage(
       name: AppRoutes.userAccountScreen,
       page: () => const UserAccountScreen(),
     ),
-    GetPage(
-      name: AppRoutes.aboutApp,
-      page: () => AboutAppScreen(),
-    ),
+    GetPage(name: AppRoutes.aboutApp, page: () => AboutAppScreen()),
     GetPage(
       name: AppRoutes.notificationsScreen,
       page: () => NotificationsScreen(),
@@ -154,13 +127,11 @@ class AppPages {
       name: AppRoutes.contributeScreen,
       page: () => const ContributeScreen(),
     ),
+    GetPage(name: AppRoutes.exploreScreen, page: () => const ExploreScreen()),
     GetPage(
-      name: AppRoutes.exploreScreen,
-      page: () => const ExploreScreen(),
+      name: AppRoutes.createStoryScreen,
+      page: () => const CreateStoryPage(),
+      binding: CreateStoryBinding(),
     ),
-    GetPage(
-        name: AppRoutes.createStoryScreen,
-        page: () => const CreateStoryPage(),
-        binding: CreateStoryBinding()),
   ];
 }

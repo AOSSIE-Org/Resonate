@@ -1997,6 +1997,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Followers'**
   String get followers;
+
+  /// No description provided for @friendRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend Requests'**
+  String get friendRequests;
+
+  /// No description provided for @friendRequestSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend request sent'**
+  String get friendRequestSent;
+
+  /// Message when a friend request is sent to a user
+  ///
+  /// In en, this message translates to:
+  /// **'Your friend request to {username} has been sent.'**
+  String friendRequestSentTo(String username);
+
+  /// No description provided for @friendRequestCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend request cancelled'**
+  String get friendRequestCancelled;
+
+  /// Message when a friend request is cancelled
+  ///
+  /// In en, this message translates to:
+  /// **'Your friend request to {username} has been cancelled.'**
+  String friendRequestCancelledTo(String username);
+
+  /// No description provided for @requested.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested'**
+  String get requested;
+
+  /// No description provided for @friends.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get friends;
+
+  /// No description provided for @addFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friend'**
+  String get addFriend;
+
+  /// No description provided for @friendRequestAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend request accepted'**
+  String get friendRequestAccepted;
+
+  /// Message when a friend request is accepted
+  ///
+  /// In en, this message translates to:
+  /// **'You are now friends with \${username}.'**
+  String friendRequestAcceptedTo(String username);
+
+  /// No description provided for @friendRequestDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend request declined'**
+  String get friendRequestDeclined;
+
+  /// Message when a friend request is declined
+  ///
+  /// In en, this message translates to:
+  /// **'You have declined the friend request from \${username}.'**
+  String friendRequestDeclinedTo(String username);
 }
 
 class _AppLocalizationsDelegate

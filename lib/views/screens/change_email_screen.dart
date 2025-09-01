@@ -16,9 +16,7 @@ class ChangeEmailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.changeEmail),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.changeEmail)),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -37,15 +35,11 @@ class ChangeEmailScreen extends StatelessWidget {
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.alternate_email_rounded,
-                    ),
+                    prefixIcon: const Icon(Icons.alternate_email_rounded),
                     labelText: AppLocalizations.of(context)!.newEmail,
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_20,
-                ),
+                SizedBox(height: UiSizes.height_20),
                 Obx(
                   () => TextFormField(
                     controller: controller.passwordController,
@@ -57,9 +51,7 @@ class ChangeEmailScreen extends StatelessWidget {
                     autocorrect: false,
                     decoration: InputDecoration(
                       // number of lines the error text would wrap
-                      prefixIcon: const Icon(
-                        Icons.lock_outline_rounded,
-                      ),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
                       labelText: AppLocalizations.of(context)!.currentPassword,
                       suffixIcon: Semantics(
                         label: (controller.isPasswordFieldVisible.value)
@@ -85,15 +77,9 @@ class ChangeEmailScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_30,
-                ),
-                Text(
-                  AppLocalizations.of(context)!.emailChangeInfo,
-                ),
-                SizedBox(
-                  height: UiSizes.height_30,
-                ),
+                SizedBox(height: UiSizes.height_30),
+                Text(AppLocalizations.of(context)!.emailChangeInfo),
+                SizedBox(height: UiSizes.height_30),
                 MergeSemantics(
                   child: Column(
                     children: [
@@ -110,9 +96,7 @@ class ChangeEmailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_30,
-                ),
+                SizedBox(height: UiSizes.height_30),
                 Obx(
                   () => SizedBox(
                     width: double.maxFinite,
@@ -126,9 +110,11 @@ class ChangeEmailScreen extends StatelessWidget {
                           ? Center(
                               child:
                                   LoadingAnimationWidget.horizontalRotatingDots(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                size: UiSizes.size_40,
-                              ),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                    size: UiSizes.size_40,
+                                  ),
                             )
                           : Text(AppLocalizations.of(context)!.changeEmail),
                     ),

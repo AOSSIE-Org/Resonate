@@ -21,9 +21,7 @@ class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.about),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.about)),
       body: Container(
         padding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,
@@ -40,22 +38,16 @@ class AboutAppScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
+                        SizedBox(height: UiSizes.height_10),
                         Semantics(
                           label: AppLocalizations.of(context)!.resonateLogo,
                           child: Container(
                             decoration: BoxDecoration(
                               image: const DecorationImage(
-                                image: AssetImage(
-                                  AppImages.resonateLogoImage,
-                                ),
+                                image: AssetImage(AppImages.resonateLogoImage),
                                 fit: BoxFit.cover,
                               ),
                               // color: Colors.red,
@@ -71,17 +63,13 @@ class AboutAppScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   AppLocalizations.of(context)!.resonate,
-                                  style: TextStyle(
-                                    fontSize: UiSizes.size_20,
-                                  ),
+                                  style: TextStyle(fontSize: UiSizes.size_20),
                                 ),
                                 Obx(
                                   () => Text(
                                     "${aboutAppScreenController.appVersion} | ${aboutAppScreenController.appBuildNumber} | Stable",
                                     // "0.0.0 | 1 | Stable",
-                                    style: TextStyle(
-                                      fontSize: UiSizes.size_12,
-                                    ),
+                                    style: TextStyle(fontSize: UiSizes.size_12),
                                   ),
                                 ),
                               ],
@@ -92,9 +80,7 @@ class AboutAppScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: UiSizes.width_10,
-                ),
+                SizedBox(width: UiSizes.width_10),
                 Expanded(
                   child: Container(
                     height: UiSizes.height_200,
@@ -102,14 +88,10 @@ class AboutAppScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UiSizes.width_20,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: UiSizes.height_10,
-                        ),
+                        SizedBox(height: UiSizes.height_10),
                         Semantics(
                           label: AppLocalizations.of(context)!.aossieLogo,
                           child: Container(
@@ -129,14 +111,13 @@ class AboutAppScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                semanticsLabel:
-                                    AppLocalizations.of(context)!.aossie,
-                                AppLocalizations.of(context)!
-                                    .aossie
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: UiSizes.size_20,
-                                ),
+                                semanticsLabel: AppLocalizations.of(
+                                  context,
+                                )!.aossie,
+                                AppLocalizations.of(
+                                  context,
+                                )!.aossie.toUpperCase(),
+                                style: TextStyle(fontSize: UiSizes.size_20),
                               ),
                             ],
                           ),
@@ -147,18 +128,14 @@ class AboutAppScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: UiSizes.height_10,
-            ),
+            SizedBox(height: UiSizes.height_10),
             Container(
               height: UiSizes.height_110,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              padding: EdgeInsets.symmetric(
-                horizontal: UiSizes.width_20,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -190,15 +167,13 @@ class AboutAppScreen extends StatelessWidget {
                             Text(AppLocalizations.of(context)!.rate),
                           ],
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_40,
-            ),
+            SizedBox(height: UiSizes.height_40),
             Align(
               alignment: Alignment.centerLeft,
               child: MergeSemantics(
@@ -206,17 +181,16 @@ class AboutAppScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      semanticsLabel:
-                          AppLocalizations.of(context)!.aboutResonate,
+                      semanticsLabel: AppLocalizations.of(
+                        context,
+                      )!.aboutResonate,
                       AppLocalizations.of(context)!.description,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_5,
-                    ),
+                    SizedBox(height: UiSizes.height_5),
                     Text(
                       AppLocalizations.of(context)!.resonateDescription,
                       textAlign: TextAlign.justify,

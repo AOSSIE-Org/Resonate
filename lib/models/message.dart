@@ -63,19 +63,20 @@ class Message {
   }
 
   Message.fromJson(Map<String, dynamic> json)
-      : roomId = json['roomId'],
-        messageId = json['messageId'],
-        creatorId = json['creatorId'],
-        creatorUsername = json['creatorUsername'],
-        creatorName = json['creatorName'],
-        creatorImgUrl = json['creatorImgUrl'],
-        hasValidTag = json['hasValidTag'],
-        index = json['index'],
-        isEdited = json['isEdited'],
-        content = json['content'],
-        creationDateTime = DateTime.parse(json['creationDateTime']),
-        replyTo =
-            json['replyTo'] != null ? ReplyTo.fromJson(json['replyTo']) : null;
+    : roomId = json['roomId'],
+      messageId = json['messageId'],
+      creatorId = json['creatorId'],
+      creatorUsername = json['creatorUsername'],
+      creatorName = json['creatorName'],
+      creatorImgUrl = json['creatorImgUrl'],
+      hasValidTag = json['hasValidTag'],
+      index = json['index'],
+      isEdited = json['isEdited'],
+      content = json['content'],
+      creationDateTime = DateTime.parse(json['creationDateTime']),
+      replyTo = json['replyTo'] != null
+          ? ReplyTo.fromJson(json['replyTo'])
+          : null;
   Message copyWith({
     String? roomId,
     String? messageId,

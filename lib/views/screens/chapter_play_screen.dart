@@ -25,18 +25,21 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
     super.didChangeDependencies();
     bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
     lyricUI = UINetease(
-        highlightColor: themeIsDark ? Colors.white : Colors.black,
-        playingMainTextStyle: TextStyle(
-            fontSize: UiSizes.size_20,
-            fontWeight: FontWeight.bold,
-            color: themeIsDark
-                ? const Color.fromARGB(255, 223, 222, 222)
-                : Colors.grey[600]),
-        otherMainTextStyle: TextStyle(
-            fontSize: UiSizes.size_18,
-            color: themeIsDark
-                ? const Color.fromARGB(255, 223, 222, 222)
-                : Colors.grey[600]));
+      highlightColor: themeIsDark ? Colors.white : Colors.black,
+      playingMainTextStyle: TextStyle(
+        fontSize: UiSizes.size_20,
+        fontWeight: FontWeight.bold,
+        color: themeIsDark
+            ? const Color.fromARGB(255, 223, 222, 222)
+            : Colors.grey[600],
+      ),
+      otherMainTextStyle: TextStyle(
+        fontSize: UiSizes.size_18,
+        color: themeIsDark
+            ? const Color.fromARGB(255, 223, 222, 222)
+            : Colors.grey[600],
+      ),
+    );
   }
 
   @override
@@ -62,14 +65,14 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          SliverPersistentHeader(
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
               pinned: true,
-              delegate: ChapterPlayerHeaderDelegate(chapter: widget.chapter)),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
+              delegate: ChapterPlayerHeaderDelegate(chapter: widget.chapter),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -90,8 +93,9 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             clipBehavior: Clip.hardEdge,
                             width: 120,
                             decoration: BoxDecoration(
-                                color: Colors.yellow,
-                                borderRadius: BorderRadius.circular(200)),
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(200),
+                            ),
                             height: 5,
                           ),
                         ),
@@ -100,7 +104,8 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                           child: Container(
                             height: 200,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).brightness ==
+                              color:
+                                  Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? const Color.fromARGB(106, 40, 39, 39)
                                   : const Color.fromARGB(193, 232, 230, 230),
@@ -108,8 +113,9 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             ),
                             child: Obx(
                               () => LyricsReader(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 model: controller.lyricModel,
                                 position: controller.lyricProgress.value,
                                 lyricUi: lyricUI,
@@ -125,23 +131,27 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                   return Row(
                                     children: [
                                       IconButton(
-                                          onPressed: () {
-                                            confirm.call();
+                                        onPressed: () {
+                                          confirm.call();
 
-                                            controller.audioPlayer?.seek(
-                                                Duration(
-                                                    milliseconds: progress));
-                                          },
-                                          icon: Icon(Icons.play_arrow,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary)),
+                                          controller.audioPlayer?.seek(
+                                            Duration(milliseconds: progress),
+                                          );
+                                        },
+                                        icon: Icon(
+                                          Icons.play_arrow,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                        ),
+                                      ),
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary),
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                          ),
                                           height: 1,
                                           width: double.infinity,
                                         ),
@@ -153,15 +163,15 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             ),
                           ),
                         ),
-                        // added a second extra to cover up the error of the meta data library
 
+                        // added a second extra to cover up the error of the meta data library
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? const Color.fromARGB(106, 40, 39, 39)
-                                    : const Color.fromARGB(193, 232, 230, 230),
+                                ? const Color.fromARGB(106, 40, 39, 39)
+                                : const Color.fromARGB(193, 232, 230, 230),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: double.infinity,
@@ -170,34 +180,29 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.aboutSection,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
+                                style: Theme.of(context).textTheme.bodyMedium!
                                     .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
                                       fontStyle: FontStyle.normal,
                                       fontFamily: 'Inter',
                                     ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              const SizedBox(height: 10),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0,
+                                ),
                                 child: Text(
                                   widget.chapter.description,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
+                                  style: Theme.of(context).textTheme.bodyMedium!
                                       .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                         fontWeight: FontWeight.w300,
                                         fontSize: 16,
                                         fontStyle: FontStyle.normal,
@@ -209,16 +214,16 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 20)
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
-                )
-              ],
+                ),
+              ]),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -229,12 +234,12 @@ class ChapterPlayerHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final progress = shrinkOffset / maxExtent;
-    return ChapterPlayer(
-      chapter: chapter,
-      progress: progress,
-    );
+    return ChapterPlayer(chapter: chapter, progress: progress);
   }
 
   @override

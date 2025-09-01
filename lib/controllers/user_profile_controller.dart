@@ -13,7 +13,7 @@ import 'package:resonate/utils/enums/story_category.dart';
 
 class UserProfileController extends GetxController {
   final Databases databases;
-  final Storage storage;
+
   final AuthStateController authStateController;
   RxList<FollowerUserModel> searchedUserFollowers = <FollowerUserModel>[].obs;
   RxList<Story> searchedUserStories = <Story>[].obs;
@@ -24,12 +24,11 @@ class UserProfileController extends GetxController {
 
   UserProfileController({
     Databases? databases,
-    Storage? storage,
     AuthStateController? authStateController,
-  })  : databases = databases ?? AppwriteService.getDatabases(),
-        storage = storage ?? AppwriteService.getStorage(),
-        authStateController = authStateController ??
-            Get.put<AuthStateController>(AuthStateController());
+  }) : databases = databases ?? AppwriteService.getDatabases(),
+       authStateController =
+           authStateController ??
+           Get.put<AuthStateController>(AuthStateController());
   Future<void> initializeProfile(String creatorId) async {
     isLoadingProfilePage.value = true;
     try {
@@ -46,67 +45,77 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> fetchUserLikedStories(String creatorId) async {
-    List<Document> userLikedDocuments = await databases.listDocuments(
-        databaseId: storyDatabaseId,
-        collectionId: likeCollectionId,
-        queries: [
-          Query.equal('uId', creatorId)
-        ]).then((value) => value.documents);
+    List<Document> userLikedDocuments = await databases
+        .listDocuments(
+          databaseId: storyDatabaseId,
+          collectionId: likeCollectionId,
+          queries: [Query.equal('uId', creatorId)],
+        )
+        .then((value) => value.documents);
 
-    List<Document> userLikedStoriesDocuments =
-        await Future.wait(userLikedDocuments.map((value) async {
-      return await databases.getDocument(
+    List<Document> userLikedStoriesDocuments = await Future.wait(
+      userLikedDocuments.map((value) async {
+        return await databases.getDocument(
           databaseId: storyDatabaseId,
           collectionId: storyCollectionId,
-          documentId: value.data['storyId']);
-    }).toList());
+          documentId: value.data['storyId'],
+        );
+      }).toList(),
+    );
 
-    searchedUserLikedStories.value =
-        await convertAppwriteDocListToStoryList(userLikedStoriesDocuments);
+    searchedUserLikedStories.value = await convertAppwriteDocListToStoryList(
+      userLikedStoriesDocuments,
+    );
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
-      List<Document> storyDocuments) async {
-    return await Future.wait(storyDocuments.map((value) async {
-      StoryCategory category =
-          StoryCategory.values.byName(value.data['category']);
+    List<Document> storyDocuments,
+  ) async {
+    return await Future.wait(
+      storyDocuments.map((value) async {
+        StoryCategory category = StoryCategory.values.byName(
+          value.data['category'],
+        );
 
-      Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
+        Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
 
-      return Story(
-        title: value.data['title'],
-        storyId: value.$id,
-        description: value.data['description'],
-        userIsCreator: false,
-        category: category,
-        coverImageUrl: value.data['coverImgUrl'],
-        creatorId: value.data['creatorId'],
-        creatorName: value.data['creatorName'],
-        creatorImgUrl: value.data['creatorImgUrl'],
-        creationDate: DateTime.parse(value.$createdAt),
-        likesCount: value.data['likes'],
-        isLikedByCurrentUser: false,
-        playDuration: value.data['playDuration'],
-        tintColor: tintColor,
-        chapters: [],
-      );
-    }).toList());
+        return Story(
+          title: value.data['title'],
+          storyId: value.$id,
+          description: value.data['description'],
+          userIsCreator: false,
+          category: category,
+          coverImageUrl: value.data['coverImgUrl'],
+          creatorId: value.data['creatorId'],
+          creatorName: value.data['creatorName'],
+          creatorImgUrl: value.data['creatorImgUrl'],
+          creationDate: DateTime.parse(value.$createdAt),
+          likesCount: value.data['likes'],
+          isLikedByCurrentUser: false,
+          playDuration: value.data['playDuration'],
+          tintColor: tintColor,
+          chapters: [],
+        );
+      }).toList(),
+    );
   }
 
   Future<void> fetchUserCreatedStories(String creatorId) async {
     List<Document> storyDocuments = [];
     try {
-      storyDocuments = await databases.listDocuments(
-          databaseId: storyDatabaseId,
-          collectionId: storyCollectionId,
-          queries: [
-            Query.equal('creatorId', creatorId)
-          ]).then((value) => value.documents);
+      storyDocuments = await databases
+          .listDocuments(
+            databaseId: storyDatabaseId,
+            collectionId: storyCollectionId,
+            queries: [Query.equal('creatorId', creatorId)],
+          )
+          .then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
-    searchedUserStories.value =
-        await convertAppwriteDocListToStoryList(storyDocuments);
+    searchedUserStories.value = await convertAppwriteDocListToStoryList(
+      storyDocuments,
+    );
   }
 
   Future<void> fetchUserFollowers(String userId) async {
@@ -120,12 +129,14 @@ class UserProfileController extends GetxController {
         (userDocument.data['followers'] as List<dynamic>)
             .map((doc) => FollowerUserModel.fromJson(doc))
             .toList();
-    searchedUserFollowers.where((follower) {
-      return follower.uid == authStateController.uid!;
-    }).forEach((follower) {
-      isFollowingUser.value = true;
-      followerDocumentId = follower.docId;
-    });
+    searchedUserFollowers
+        .where((follower) {
+          return follower.uid == authStateController.uid!;
+        })
+        .forEach((follower) {
+          isFollowingUser.value = true;
+          followerDocumentId = follower.docId;
+        });
   }
 
   Future<void> followCreator(String creatorId) async {
@@ -143,10 +154,11 @@ class UserProfileController extends GetxController {
     );
 
     await databases.createDocument(
-        databaseId: userDatabaseID,
-        collectionId: followersCollectionID,
-        documentId: follower.docId,
-        data: follower.toJson());
+      databaseId: userDatabaseID,
+      collectionId: followersCollectionID,
+      documentId: follower.docId,
+      data: follower.toJson(),
+    );
     searchedUserFollowers.add(follower);
     isFollowingUser.value = true;
     followerDocumentId = follower.docId;
@@ -155,11 +167,13 @@ class UserProfileController extends GetxController {
 
   Future<void> unfollowCreator() async {
     await databases.deleteDocument(
-        databaseId: userDatabaseID,
-        collectionId: followersCollectionID,
-        documentId: followerDocumentId ?? "");
+      databaseId: userDatabaseID,
+      collectionId: followersCollectionID,
+      documentId: followerDocumentId ?? "",
+    );
     isFollowingUser.value = false;
-    searchedUserFollowers
-        .removeWhere((follower) => follower.docId == followerDocumentId);
+    searchedUserFollowers.removeWhere(
+      (follower) => follower.docId == followerDocumentId,
+    );
   }
 }
