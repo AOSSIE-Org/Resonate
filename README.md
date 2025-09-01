@@ -5,6 +5,7 @@
  </span>
 
 # :microphone: Resonate - An Open Source Social Voice Platform
+
 </div>
 <div align="center" style="text-align:center;"> 
 <span>
@@ -29,7 +30,6 @@
 <br>
 <br>
 
-
 <div align="center">
   
 [![License:GPL-3.0](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/license/gpl-3-0/)
@@ -37,10 +37,37 @@
 
 </div>
 
-
 With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experiencing rapid growth, Resonate is here to harness the power of open-source for voice-based social media. Whether it's sharing immersive stories, engaging in dynamic live discussions, or connecting through pair chats and voice calls, Resonate is designed to put voice at the center of your social experience. By fostering innovation and growth, this project aims to reach new heights, continually expanding its features and community, all while staying true to the open-source spirit of collaboration and transparency.
 
+<div align="center" style="background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 16px; padding: 35px 25px; margin: 30px 0; position: relative; overflow: hidden;">
+  <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent); animation: shimmer 3s infinite; pointer-events: none;"></div>
+  <h2 style="margin-bottom: 12px; font-size: 24px; color: #1e293b; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <span style="font-size: 28px;">📲</span>
+    Download Resonate
+  </h2>
+  <p style="color: #64748b; margin-bottom: 25px; font-size: 14px; font-weight: 500;">
+    Available now on Google Play Store
+  </p>
+  <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener">
+    <div style="position: relative; display: inline-block; transform: perspective(1000px) rotateX(0deg); transition: all 0.4s ease;"
+         onmouseover="this.style.transform='perspective(1000px) rotateX(-5deg) translateY(-5px)'"
+         onmouseout="this.style.transform='perspective(1000px) rotateX(0deg) translateY(0)'">
+      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+           alt="Get it on Google Play" 
+           style="height: 80px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+    </div>
+  </a>
+</div>
+
+<style>
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+</style>
+
 ## :rocket: Features
+
 1. Real-time Audio Communication by joining rooms and talking to people.
 2. Ability to create rooms and moderate speakers and events.
 3. Create Scheduled Rooms and notify subscribers as reminders to join
@@ -52,38 +79,40 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 
 1.  **Flutter** - Mobile application
 2.  **Appwrite** - Authentication, Database, Storage and Cloud functions.
-3.  **LiveKit** - Web Real-Time Communication 
+3.  **LiveKit** - Web Real-Time Communication
 
 ## :link: Repository Links
+
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
-
 ## :four_leaf_clover: Getting Started
+
 Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
 
-We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you. 
+We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you.
 Please go through and strictly follow the [Onboarding Guide](https://github.com/Aarush-Acharya/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
 
 ## :movie_camera: App Screenshots
+
 <div align="center">
  
 | Login Screen (Forest) | Home Screen (Time) | Create Room Screen (Time) |
 | :---         |     :---      |          :--- |
 | <img src= "https://github.com/user-attachments/assets/e76147b1-0e51-4852-8198-06bbc975b25c" width="260" height="auto" />  | <img src="https://github.com/user-attachments/assets/ad62eecb-b621-4c31-a01c-001ff5462b28" width="250" height="auto" />    | <img src="https://github.com/user-attachments/assets/31ce6e73-8dca-4e2d-8f48-c22480fa1332" width="250" height="auto" />    |
 
-| Room Screen (Cream) | Profile Screen (Amber) | Explore Story (Forest) |
-| :---         |     :---      |          :--- |
-|  <img src="https://github.com/user-attachments/assets/f1d6e62f-5f25-47c1-9f59-e165d7018c0c" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/b9dfe363-79b1-4eee-8d00-28f5c14f93ee" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/c7657be8-bce2-4c3a-aee3-dd3cc33379a2" width="250" height="auto"/>    |
+| Room Screen (Cream)                                                                                                     | Profile Screen (Amber)                                                                                                  | Explore Story (Forest)                                                                                                 |
+| :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/f1d6e62f-5f25-47c1-9f59-e165d7018c0c" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/b9dfe363-79b1-4eee-8d00-28f5c14f93ee" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/c7657be8-bce2-4c3a-aee3-dd3cc33379a2" width="250" height="auto"/> |
 
-| Explore Story (Amber) | Theme Screen (Vintage) | Upcoming Room Screen (Cream) |
-| :---         |     :---      |          :--- |
-|  <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" />   |  <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/>    |
+| Explore Story (Amber)                                                                                                   | Theme Screen (Vintage)                                                                                                  | Upcoming Room Screen (Cream)                                                                                           |
+| :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/> |
+
 </div>
 
-
-
 ## :raised_hands: Contributing
+
 :star: Don't forget to star this repository if you find it useful! :star:
 
 Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed (P.S. to the `dev` branch). To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
@@ -94,17 +123,18 @@ By following these guidelines, we can maintain a productive and collaborative op
 
 ## :v: Maintainers
 
--   [Jaideep Prasad](https://github.com/jddeep)
--   [Chandan S Gowda](https://github.com/chandansgowda)
+- [Jaideep Prasad](https://github.com/jddeep)
+- [Chandan S Gowda](https://github.com/chandansgowda)
 
 ## :mailbox: Communication Channels
 
 If you have any questions, need clarifications, or want to discuss ideas, feel free to reach out through the following channels:
 
--   [Discord Server](https://discord.com/invite/6mFZ2S846n)
--   [Email](mailto:aossie.oss@gmail.com)
+- [Discord Server](https://discord.com/invite/6mFZ2S846n)
+- [Email](mailto:aossie.oss@gmail.com)
 
 <!-- License -->
+
 ## :round_pushpin: License
 
 Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
@@ -117,5 +147,3 @@ Thanks a lot for spending your time helping Resonate grow. Keep rocking 🥂
   <img src="https://contrib.rocks/image?repo=AOSSIE-Org/Resonate" alt="Contributors"/>
 </a>
 <br>
- 
-
