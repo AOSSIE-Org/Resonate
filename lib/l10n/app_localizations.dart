@@ -1997,6 +1997,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Followers'**
   String get followers;
+
+  /// No description provided for @checkForUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Updates'**
+  String get checkForUpdates;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Now'**
+  String get updateNow;
+
+  /// No description provided for @updateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLater;
+
+  /// No description provided for @updateSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Successful'**
+  String get updateSuccessful;
+
+  /// No description provided for @updateSuccessfulMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonate has been updated successfully!'**
+  String get updateSuccessfulMessage;
+
+  /// No description provided for @updateCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Cancelled'**
+  String get updateCancelled;
+
+  /// No description provided for @updateCancelledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Update was cancelled by user'**
+  String get updateCancelledMessage;
+
+  /// No description provided for @updateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Failed'**
+  String get updateFailed;
+
+  /// No description provided for @updateFailedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update. Please try updating from Play Store manually.'**
+  String get updateFailedMessage;
+
+  /// No description provided for @updateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Error'**
+  String get updateError;
+
+  /// No description provided for @updateErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while updating. Please try again.'**
+  String get updateErrorMessage;
+
+  /// No description provided for @platformNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Platform Not Supported'**
+  String get platformNotSupported;
+
+  /// No description provided for @platformNotSupportedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Update checking is only available on Android devices'**
+  String get platformNotSupportedMessage;
+
+  /// No description provided for @updateCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Check Failed'**
+  String get updateCheckFailed;
+
+  /// No description provided for @updateCheckFailedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not check for updates. Please try again later.'**
+  String get updateCheckFailedMessage;
+
+  /// No description provided for @upToDateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re Up to Date!'**
+  String get upToDateTitle;
+
+  /// No description provided for @upToDateMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re using the latest version of Resonate'**
+  String get upToDateMessage;
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Available!'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateAvailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'A new version of Resonate is available on Play Store'**
+  String get updateAvailableMessage;
 }
 
 class _AppLocalizationsDelegate
