@@ -12,6 +12,7 @@ import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'themes/theme_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/widgets/app_update_dialog.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +20,10 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await GetStorage.init();
+  AppUpdateDialog.showIfUpdateAvailable();
   runApp(const MyApp());
 }
 
@@ -41,23 +41,16 @@ class MyApp extends StatelessWidget {
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
+          GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [
-          Locale('en'),
-          Locale('hi'),
-        ],
+        supportedLocales: [Locale('en'), Locale('hi')],
         debugShowCheckedModeBanner: false,
         title: 'Resonate',
         theme: ThemeModes.setLightTheme(
-          ThemeList.getThemeModel(
-            themeController.currentTheme.value,
-          ),
+          ThemeList.getThemeModel(themeController.currentTheme.value),
         ),
         darkTheme: ThemeModes.setDarkTheme(
-          ThemeList.getThemeModel(
-            themeController.currentTheme.value,
-          ),
+          ThemeList.getThemeModel(themeController.currentTheme.value),
         ),
         themeMode: ThemeList.getThemeModel(
           themeController.currentTheme.value,

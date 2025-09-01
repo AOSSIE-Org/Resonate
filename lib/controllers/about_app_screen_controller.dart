@@ -44,7 +44,6 @@ community-driven development. Join us in shaping the future of social audio!""";
     super.onInit();
     _initializeUpgrader();
     _loadPackageInfo();
-    _checkForUpdateOnLaunch();
   }
 
   void _initializeUpgrader() {
@@ -56,6 +55,26 @@ community-driven development. Join us in shaping the future of social audio!""";
     );
   }
 
+  static Future<bool> checkForUpdateOnAppLaunch() async {
+    try {
+      final upgrader = Upgrader(
+        debugDisplayAlways: false,
+        debugDisplayOnce: false,
+        debugLogging: false,
+        durationUntilAlertAgain: const Duration(days: 1),
+      );
+
+      await upgrader.initialize();
+      final needsUpdate = upgrader.shouldDisplayUpgrade();
+
+      log('App launch update check: Update available = $needsUpdate');
+      return needsUpdate;
+    } catch (e) {
+      log('Update check failed on app launch: $e');
+      return false;
+    }
+  }
+
   Future<void> _loadPackageInfo() async {
     try {
       final packageInfo = await PackageInfo.fromPlatform();
@@ -63,7 +82,7 @@ community-driven development. Join us in shaping the future of social audio!""";
       appBuildNumber.value = packageInfo.buildNumber;
       _packageName = packageInfo.packageName;
     } catch (e) {
-      print('Could not load package info: $e');
+      log('Could not load package info: $e');
     }
   }
 
@@ -71,20 +90,12 @@ community-driven development. Join us in shaping the future of social audio!""";
     showFullDescription.toggle();
   }
 
-  Future<void> _checkForUpdateOnLaunch() async {
-    try {
-      await _upgrader.initialize();
-      final needsUpdate = _upgrader.shouldDisplayUpgrade();
-      updateAvailable.value = needsUpdate;
-    } catch (e) {
-      log('Update check failed on launch: $e');
-      updateAvailable.value = false;
-    }
-  }
-
   Future<UpdateCheckResult> checkForUpdate() async {
     isCheckingForUpdate.value = true;
     try {
+      if (!Platform.isAndroid && !Platform.isIOS) {
+        return UpdateCheckResult.platformNotSupported;
+      }
       Upgrader.clearSavedSettings();
       await _upgrader.initialize();
       final needsUpdate = _upgrader.shouldDisplayUpgrade();
@@ -108,7 +119,7 @@ community-driven development. Join us in shaping the future of social audio!""";
         storeUrl =
             'https://play.google.com/store/apps/details?id=$_packageName';
       } else if (Platform.isIOS) {
-        // Replace with App Store URL when available
+        //Replace  with the App Store URL of app
         storeUrl = 'https://apps.apple.com/search?term=resonate%20aossie';
       } else {
         return UpdateActionResult.error;
