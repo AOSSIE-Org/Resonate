@@ -13,6 +13,7 @@ class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
   final aboutAppScreenController = Get.put(AboutAppScreenController());
+
   // Method to share the app's GitHub repository link
   void _shareApp(BuildContext context) {
     Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
@@ -150,8 +151,7 @@ class AboutAppScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: () =>
-                            _shareApp(context), // Call the share method here
+                        onTap: () => _shareApp(context),
                         child: Column(
                           children: [
                             const Icon(Icons.share_rounded),
@@ -171,6 +171,51 @@ class AboutAppScreen extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
+            ),
+            SizedBox(height: UiSizes.height_10),
+            Container(
+              height: UiSizes.height_80,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () => _handleUpdateCheck(),
+                  child: Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        aboutAppScreenController.isCheckingForUpdate.value
+                            ? SizedBox(
+                                width: UiSizes.width_25,
+                                height: UiSizes.height_26,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Icon(
+                                aboutAppScreenController.updateAvailable.value
+                                    ? Icons.system_update
+                                    : Icons.update,
+                                size: UiSizes.size_24,
+                              ),
+                        SizedBox(width: UiSizes.width_10),
+                        Text(
+                          aboutAppScreenController.updateAvailable.value
+                              ? AppLocalizations.of(context)!.updateAvailable
+                              : AppLocalizations.of(context)!.checkForUpdates,
+                          style: TextStyle(
+                            fontSize: UiSizes.size_16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             SizedBox(height: UiSizes.height_40),
@@ -203,5 +248,88 @@ class AboutAppScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleUpdateCheck() async {
+    final result = await aboutAppScreenController.checkForUpdate();
+
+    switch (result) {
+      case UpdateCheckResult.updateAvailable:
+        _showUpdateAvailableDialog();
+        break;
+      case UpdateCheckResult.noUpdateAvailable:
+        Get.snackbar(
+          AppLocalizations.of(Get.context!)!.upToDateTitle,
+          AppLocalizations.of(Get.context!)!.upToDateMessage,
+          icon: const Icon(Icons.check_circle, color: Colors.green),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        break;
+      case UpdateCheckResult.platformNotSupported:
+        Get.snackbar(
+          AppLocalizations.of(Get.context!)!.platformNotSupported,
+          AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
+          icon: const Icon(Icons.phone_android, color: Colors.orange),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        break;
+      case UpdateCheckResult.checkFailed:
+        Get.snackbar(
+          AppLocalizations.of(Get.context!)!.updateCheckFailed,
+          AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
+          icon: const Icon(Icons.error_outline, color: Colors.red),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        break;
+    }
+  }
+
+  void _showUpdateAvailableDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: Text(AppLocalizations.of(Get.context!)!.updateAvailableTitle),
+        content: Text(
+          AppLocalizations.of(Get.context!)!.updateAvailableMessage,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text(AppLocalizations.of(Get.context!)!.updateLater),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.back();
+              _handleUpdate();
+            },
+            child: Text(AppLocalizations.of(Get.context!)!.updateNow),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _handleUpdate() async {
+    final result = await aboutAppScreenController.launchStoreForUpdate();
+
+    switch (result) {
+      case UpdateActionResult.failed:
+        Get.snackbar(
+          AppLocalizations.of(Get.context!)!.updateFailed,
+          AppLocalizations.of(Get.context!)!.updateFailedMessage,
+          icon: const Icon(Icons.error, color: Colors.red),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        break;
+      case UpdateActionResult.error:
+        Get.snackbar(
+          AppLocalizations.of(Get.context!)!.updateError,
+          AppLocalizations.of(Get.context!)!.updateErrorMessage,
+          icon: const Icon(Icons.error_outline, color: Colors.red),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        break;
+      default:
+        break;
+    }
   }
 }
