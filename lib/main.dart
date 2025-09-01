@@ -19,6 +19,7 @@ import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'themes/theme_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/widgets/app_update_dialog.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -54,6 +55,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await GetStorage.init();
+  AppUpdateDialog.showIfUpdateAvailable();
   runApp(const MyApp());
 }
 
