@@ -1136,6 +1136,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'A new version of Resonate is available on Play Store';
 
   @override
+  String get updateFeaturesImprovement =>
+      'Get the latest features and improvements!';
+
+  @override
   String get friendRequests => 'Friend Requests';
 
   @override

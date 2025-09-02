@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class AppUpdateDialog extends StatelessWidget {
   const AppUpdateDialog({super.key});
@@ -26,19 +28,17 @@ class AppUpdateDialog extends StatelessWidget {
 
     switch (result) {
       case UpdateActionResult.failed:
-        Get.snackbar(
+        customSnackbar(
           AppLocalizations.of(Get.context!)!.updateFailed,
           AppLocalizations.of(Get.context!)!.updateFailedMessage,
-          icon: const Icon(Icons.error, color: Colors.red),
-          snackPosition: SnackPosition.BOTTOM,
+          LogType.error,
         );
         break;
       case UpdateActionResult.error:
-        Get.snackbar(
+        customSnackbar(
           AppLocalizations.of(Get.context!)!.updateError,
           AppLocalizations.of(Get.context!)!.updateErrorMessage,
-          icon: const Icon(Icons.error_outline, color: Colors.red),
-          snackPosition: SnackPosition.BOTTOM,
+          LogType.error,
         );
         break;
       default:
@@ -84,26 +84,26 @@ class AppUpdateDialog extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(UiSizes.width_10),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withAlpha(10),
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withAlpha(50),
               borderRadius: BorderRadius.circular(UiSizes.width_8),
               border: Border.all(
-                color: Theme.of(context).primaryColor.withAlpha(30),
+                color: Theme.of(context).colorScheme.outline.withAlpha(100),
               ),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.info_outline,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).iconTheme.color,
                   size: UiSizes.size_20,
                 ),
                 SizedBox(width: UiSizes.width_8),
                 Expanded(
                   child: Text(
-                    'Get the latest features and improvements!',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).primaryColor,
-                    ),
+                    l10n.updateFeaturesImprovement,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
               ],
