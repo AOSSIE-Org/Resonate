@@ -547,5 +547,6 @@
     "upToDateTitle": "आप अप टू डेट हैं!",
     "upToDateMessage": "आप रेज़ोनेट का लेटेस्ट वर्शन इस्तेमाल कर रहे हैं",
     "updateAvailableTitle": "अपडेट उपलब्ध है!",
-    "updateAvailableMessage": "रेज़ोनेट का नया वर्शन Play Store पर उपलब्ध है"
+    "updateAvailableMessage": "रेज़ोनेट का नया वर्शन Play Store पर उपलब्ध है",
+    "updateFeaturesImprovement": "नवीनतम सुविधाएं और सुधार प्राप्त करें!"
 }

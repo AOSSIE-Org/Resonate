@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 // import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../utils/app_images.dart';
 
@@ -192,7 +196,11 @@ class AboutAppScreen extends StatelessWidget {
                             ? SizedBox(
                                 width: UiSizes.width_25,
                                 height: UiSizes.height_26,
-                                child: CircularProgressIndicator(
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.ballPulse,
+                                  colors: [
+                                    Theme.of(context).colorScheme.primary,
+                                  ],
                                   strokeWidth: 2,
                                 ),
                               )
@@ -251,85 +259,40 @@ class AboutAppScreen extends StatelessWidget {
   }
 
   Future<void> _handleUpdateCheck() async {
-    final result = await aboutAppScreenController.checkForUpdate();
-
-    switch (result) {
-      case UpdateCheckResult.updateAvailable:
-        _showUpdateAvailableDialog();
-        break;
-      case UpdateCheckResult.noUpdateAvailable:
-        Get.snackbar(
-          AppLocalizations.of(Get.context!)!.upToDateTitle,
-          AppLocalizations.of(Get.context!)!.upToDateMessage,
-          icon: const Icon(Icons.check_circle, color: Colors.green),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-      case UpdateCheckResult.platformNotSupported:
-        Get.snackbar(
-          AppLocalizations.of(Get.context!)!.platformNotSupported,
-          AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
-          icon: const Icon(Icons.phone_android, color: Colors.orange),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-      case UpdateCheckResult.checkFailed:
-        Get.snackbar(
-          AppLocalizations.of(Get.context!)!.updateCheckFailed,
-          AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
-          icon: const Icon(Icons.error_outline, color: Colors.red),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-    }
-  }
-
-  void _showUpdateAvailableDialog() {
-    Get.dialog(
-      AlertDialog(
-        title: Text(AppLocalizations.of(Get.context!)!.updateAvailableTitle),
-        content: Text(
-          AppLocalizations.of(Get.context!)!.updateAvailableMessage,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text(AppLocalizations.of(Get.context!)!.updateLater),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Get.back();
-              _handleUpdate();
-            },
-            child: Text(AppLocalizations.of(Get.context!)!.updateNow),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _handleUpdate() async {
-    final result = await aboutAppScreenController.launchStoreForUpdate();
-
-    switch (result) {
-      case UpdateActionResult.failed:
-        Get.snackbar(
-          AppLocalizations.of(Get.context!)!.updateFailed,
-          AppLocalizations.of(Get.context!)!.updateFailedMessage,
-          icon: const Icon(Icons.error, color: Colors.red),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-      case UpdateActionResult.error:
-        Get.snackbar(
-          AppLocalizations.of(Get.context!)!.updateError,
-          AppLocalizations.of(Get.context!)!.updateErrorMessage,
-          icon: const Icon(Icons.error_outline, color: Colors.red),
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-      default:
-        break;
+    aboutAppScreenController.isCheckingForUpdate.value = true;
+    try {
+      final result = await aboutAppScreenController.checkForUpdate();
+      switch (result) {
+        case UpdateCheckResult.noUpdateAvailable:
+          customSnackbar(
+            AppLocalizations.of(Get.context!)!.upToDateTitle,
+            AppLocalizations.of(Get.context!)!.upToDateMessage,
+            LogType.success,
+          );
+          break;
+        case UpdateCheckResult.updateAvailable:
+          Get.dialog(
+            UpgradeAlert(upgrader: aboutAppScreenController.upgrader),
+            barrierDismissible: false,
+          );
+          break;
+        case UpdateCheckResult.platformNotSupported:
+          customSnackbar(
+            AppLocalizations.of(Get.context!)!.platformNotSupported,
+            AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
+            LogType.warning,
+          );
+          break;
+        case UpdateCheckResult.checkFailed:
+          customSnackbar(
+            AppLocalizations.of(Get.context!)!.updateCheckFailed,
+            AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
+            LogType.error,
+          );
+          break;
+      }
+    } finally {
+      aboutAppScreenController.isCheckingForUpdate.value = false;
     }
   }
 }

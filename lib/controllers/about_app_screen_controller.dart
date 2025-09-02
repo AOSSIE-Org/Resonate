@@ -24,7 +24,7 @@ class AboutAppScreenController extends GetxController {
   final showFullDescription = false.obs;
 
   late final Upgrader _upgrader;
-  String _packageName = '';
+  Upgrader get upgrader => _upgrader;
 
   final String fullDescription = """
 Resonate is a revolutionary voice-based social media platform where every voice matters. 
@@ -80,7 +80,6 @@ community-driven development. Join us in shaping the future of social audio!""";
       final packageInfo = await PackageInfo.fromPlatform();
       appVersion.value = packageInfo.version;
       appBuildNumber.value = packageInfo.buildNumber;
-      _packageName = packageInfo.packageName;
     } catch (e) {
       log('Could not load package info: $e');
     }
@@ -117,10 +116,10 @@ community-driven development. Join us in shaping the future of social audio!""";
       String storeUrl;
       if (Platform.isAndroid) {
         storeUrl =
-            'https://play.google.com/store/apps/details?id=$_packageName';
+            'https://play.google.com/store/apps/details?id=com.resonate.resonate';
       } else if (Platform.isIOS) {
         //Replace  with the App Store URL of app
-        storeUrl = 'https://apps.apple.com/search?term=resonate%20aossie';
+        storeUrl = '';
       } else {
         return UpdateActionResult.error;
       }

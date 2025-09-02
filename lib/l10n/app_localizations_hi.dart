@@ -1139,4 +1139,8 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get updateAvailableMessage =>
       'रेज़ोनेट का नया वर्शन Play Store पर उपलब्ध है';
+
+  @override
+  String get updateFeaturesImprovement =>
+      'नवीनतम सुविधाएं और सुधार प्राप्त करें!';
 }

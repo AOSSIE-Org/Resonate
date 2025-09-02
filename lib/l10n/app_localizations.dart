@@ -2111,6 +2111,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A new version of Resonate is available on Play Store'**
   String get updateAvailableMessage;
+
+  /// No description provided for @updateFeaturesImprovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the latest features and improvements!'**
+  String get updateFeaturesImprovement;
 }
 
 class _AppLocalizationsDelegate

@@ -546,5 +546,6 @@
     "upToDateTitle": "You're Up to Date!",
     "upToDateMessage": "You're using the latest version of Resonate",
     "updateAvailableTitle": "Update Available!",
-    "updateAvailableMessage": "A new version of Resonate is available on Play Store"
+    "updateAvailableMessage": "A new version of Resonate is available on Play Store",
+    "updateFeaturesImprovement": "Get the latest features and improvements!"
 }
