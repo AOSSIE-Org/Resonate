@@ -342,6 +342,7 @@
 │       │   ├── user_account_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
+│           ├── app_update_dialog.dart
 │           ├── auth_button.dart
 │           ├── category_card.dart
 │           ├── chapter_list_tile.dart
@@ -385,4 +386,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 306 files
+80 directories, 307 files
