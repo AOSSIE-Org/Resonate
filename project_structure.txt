@@ -360,6 +360,7 @@
 │       │   ├── user_account_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
+│           ├── app_update_dialog.dart
 │           ├── auth_button.dart
 │           ├── category_card.dart
 │           ├── chapter_list_tile.dart
