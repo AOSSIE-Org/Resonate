@@ -575,5 +575,17 @@
                 "example": "john_doe"
             }
         }
+    },
+    "accept": "Accept",
+    "callDeclined": "Call declined",
+    "callDeclinedTo": "User ${username} declined the call.",
+    "@callDeclinedTo": {
+        "description": "Message when a call is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     }
 }

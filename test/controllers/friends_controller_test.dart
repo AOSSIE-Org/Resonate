@@ -1,20 +1,16 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
-import 'package:resonate/controllers/user_profile_controller.dart';
-import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
-import 'package:resonate/utils/enums/story_category.dart';
 
 import 'friends_controller_test.mocks.dart';
 
@@ -192,11 +188,14 @@ final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(
 );
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late MockDatabases databases;
   late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
   late FriendsController friendsController;
+
   setUp(() {
+    Get.testMode = true;
     databases = MockDatabases();
     mockAccount = MockAccount();
     mockFirebaseMessaging = MockFirebaseMessaging();

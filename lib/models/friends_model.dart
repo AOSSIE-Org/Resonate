@@ -30,7 +30,7 @@ abstract class FriendsModel with _$FriendsModel {
   factory FriendsModel.fromJson(Map<String, dynamic> json) =>
       _$FriendsModelFromJson(json);
 
-  ResonateUser toResonateUserForRequestsPage() {
+  ResonateUser recieverToResonateUserForRequestsPage() {
     return ResonateUser(
       uid: recieverId,
       userName: recieverName,
@@ -39,6 +39,22 @@ abstract class FriendsModel with _$FriendsModel {
       docId: docId,
 
       userRating: recieverRating!,
+      // Note: email, dateOfBirth are not available in FollowerUserModel
+      // so they will be null in the converted ResonateUser
+      email: null,
+      dateOfBirth: null,
+    );
+  }
+
+  ResonateUser senderToResonateUserForRequestsPage() {
+    return ResonateUser(
+      uid: senderId,
+      userName: senderName,
+      profileImageUrl: senderProfileImgUrl,
+      name: senderName,
+      docId: docId,
+
+      userRating: senderRating!,
       // Note: email, dateOfBirth are not available in FollowerUserModel
       // so they will be null in the converted ResonateUser
       email: null,

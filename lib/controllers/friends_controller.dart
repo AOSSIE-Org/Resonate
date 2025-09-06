@@ -101,7 +101,6 @@ class FriendsController extends GetxController {
       documentId: authStateController.uid!,
     );
     for (var friend in userDoc.data["friends"] as List<dynamic>) {
-      log(friend.toString());
       final friendModel = FriendsModel.fromJson(friend);
       if (friendModel.requestStatus == FriendRequestStatus.accepted) {
         friendsList.add(friendModel);
@@ -146,7 +145,6 @@ class FriendsController extends GetxController {
   }
 
   void listenForChangesInFriends() {
-    log('listening for new users');
     String channel =
         'databases.$userDatabaseID.collections.$friendsCollectionID.documents';
     friendRequestsSubscription = realtime.subscribe([channel]);

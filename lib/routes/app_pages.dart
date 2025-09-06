@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:resonate/bindings/auth_splash_bindings.dart';
 import 'package:resonate/bindings/create_story_binding.dart';
 import 'package:resonate/bindings/profile_binding.dart';
+import 'package:resonate/controllers/friend_call_screen.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
@@ -18,6 +19,7 @@ import 'package:resonate/views/screens/email_verification_screen.dart';
 import 'package:resonate/views/screens/forgot_password_screen.dart';
 import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/views/screens/ringing_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/signup_screen.dart';
 import 'package:resonate/views/screens/user_account_screen.dart';
@@ -133,5 +135,7 @@ class AppPages {
       page: () => const CreateStoryPage(),
       binding: CreateStoryBinding(),
     ),
+    GetPage(name: AppRoutes.ringingScreen, page: () => RingingScreen()),
+    GetPage(name: AppRoutes.friendCallScreen, page: () => FriendCallScreen()),
   ];
 }

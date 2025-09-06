@@ -2069,6 +2069,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have declined the friend request from \${username}.'**
   String friendRequestDeclinedTo(String username);
+
+  /// No description provided for @accept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get accept;
+
+  /// No description provided for @callDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Call declined'**
+  String get callDeclined;
+
+  /// Message when a call is declined
+  ///
+  /// In en, this message translates to:
+  /// **'User \${username} declined the call.'**
+  String callDeclinedTo(String username);
 }
 
 class _AppLocalizationsDelegate

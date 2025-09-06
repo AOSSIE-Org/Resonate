@@ -2,6 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -21,6 +22,8 @@ import 'auth_state_controller_test.mocks.dart';
   Session,
 ])
 void main() {
+  Get.testMode = true;
+  TestWidgetsFlutterBinding.ensureInitialized();
   final MockAccount mockAccount = MockAccount();
   final MockDatabases mockDatabases = MockDatabases();
   final MockClient mockClient = MockClient();

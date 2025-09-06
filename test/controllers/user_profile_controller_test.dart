@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -191,11 +193,14 @@ final Document mockFollowerDocument = Document(
   },
 );
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late MockDatabases databases;
   late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
   late UserProfileController userProfileController;
+
   setUp(() {
+    Get.testMode = true;
     databases = MockDatabases();
     mockAccount = MockAccount();
     mockFirebaseMessaging = MockFirebaseMessaging();

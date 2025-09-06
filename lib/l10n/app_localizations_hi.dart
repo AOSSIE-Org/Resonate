@@ -1120,4 +1120,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String friendRequestDeclinedTo(String username) {
     return 'आपने $username के मित्रता अनुरोध को अस्वीकार कर दिया है।';
   }
+
+  @override
+  String get accept => 'स्वीकार करें';
+
+  @override
+  String get callDeclined => 'कॉल अस्वीकार कर दिया गया';
+
+  @override
+  String callDeclinedTo(String username) {
+    return '$username ने आपकी कॉल को अस्वीकार कर दिया है।';
+  }
 }

@@ -1115,4 +1115,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String friendRequestDeclinedTo(String username) {
     return 'You have declined the friend request from \$$username.';
   }
+
+  @override
+  String get accept => 'Accept';
+
+  @override
+  String get callDeclined => 'Call declined';
+
+  @override
+  String callDeclinedTo(String username) {
+    return 'User \$$username declined the call.';
+  }
 }

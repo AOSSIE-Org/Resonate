@@ -12,6 +12,7 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/followers_screen.dart';
 import 'package:resonate/views/screens/friend_requests_screen.dart';
+import 'package:resonate/views/screens/friends_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -71,15 +72,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.profile),
-        actions: [
-          if (widget.isCreatorProfile == null)
-            IconButton(
-              onPressed: () {
-                Get.to(() => FriendRequestsScreen());
-              },
-              icon: Icon(Icons.notifications),
-            ),
-        ],
+        actions: widget.isCreatorProfile == null
+            ? [
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => FriendRequestsScreen());
+                  },
+                  icon: Icon(Icons.notifications),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => FriendsScreen());
+                  },
+                  icon: Icon(Icons.groups),
+                ),
+              ]
+            : null,
       ),
       body: Obx(
         () =>
@@ -393,14 +401,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           LogType.success,
                         );
                       } else {
-                        await friendsController.removeFriend(friendModel);
-                        customSnackbar(
-                          AppLocalizations.of(context)!.friendRequestCancelled,
-                          AppLocalizations.of(
-                            context,
-                          )!.friendRequestCancelledTo(widget.creator!.name!),
-                          LogType.info,
-                        );
+                        if (friendModel.requestStatus ==
+                            FriendRequestStatus.sent) {
+                          if (friendModel.senderId == widget.creator!.uid) {
+                            await friendsController.acceptFriendRequest(
+                              friendModel,
+                            );
+                            customSnackbar(
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestAccepted,
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestAcceptedTo(widget.creator!.name!),
+                              LogType.success,
+                            );
+                          } else {
+                            await friendsController.removeFriend(friendModel);
+                            customSnackbar(
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestCancelled,
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestCancelledTo(
+                                widget.creator!.name!,
+                              ),
+                              LogType.info,
+                            );
+                          }
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -433,7 +463,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           friendModel != null
                               ? (friendModel.requestStatus ==
                                         FriendRequestStatus.sent
-                                    ? AppLocalizations.of(context)!.requested
+                                    ? friendModel.senderId ==
+                                              widget.creator!.uid
+                                          ? AppLocalizations.of(context)!.accept
+                                          : AppLocalizations.of(
+                                              context,
+                                            )!.requested
                                     : AppLocalizations.of(context)!.friends)
                               : AppLocalizations.of(context)!.addFriend,
                           style: TextStyle(color: colorScheme.onPrimary),

@@ -25,7 +25,7 @@ class FriendRequestsScreen extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final friendModel = availableFriendRequests[index];
-            return FriendRequestListTile(friendModel: friendModel);
+            return FriendsListTile(friendModel: friendModel, isRequest: true);
           },
         );
       }),

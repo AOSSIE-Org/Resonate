@@ -4,9 +4,13 @@ import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_callkit_incoming/entities/call_event.dart';
+import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
+import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
@@ -112,14 +116,28 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
-    Get.put(FriendsController(), permanent: true);
+    // Check if can use full screen intent
+    if (!Get.testMode) {
+      await FlutterCallkitIncoming.canUseFullScreenIntent();
+
+      // Request full intent permission
+      await FlutterCallkitIncoming.requestFullIntentPermission();
+    }
+
     await initializeLocalNotifications();
 
     // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      log('Got a message whilst in the foreground!');
+      if (message.data['type'] == 'incoming_call') {
+        log('saw incoming call');
+
+        await FriendCallingController.onCallRecieved(message);
+      }
       if (message.notification != null) {
         RegExp exp = RegExp(r'The room (\w+) will Start Soon');
         RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
+
         if (matches != null) {
           String discussionName = matches.group(1)!;
 
@@ -141,6 +159,27 @@ class AuthStateController extends GetxController {
         }
       }
     });
+    if (!Get.testMode) {
+      final friendCallingController = Get.put(
+        FriendCallingController(),
+        permanent: true,
+      );
+      FlutterCallkitIncoming.onEvent.listen((CallEvent? event) {
+        if (event!.event == Event.actionCallAccept) {
+          log(event.body['extra'].toString());
+
+          friendCallingController.onAnswerCall(
+            Map<String, dynamic>.from(event.body['extra']),
+          );
+        }
+        if (event.event == Event.actionCallDecline) {
+          friendCallingController.onDeclinedCall(
+            Map<String, dynamic>.from(event.body['extra']),
+          );
+          FlutterCallkitIncoming.showMissCallNotification(CallKitParams());
+        }
+      });
+    }
   }
 
   Future<bool> get getLoginState async {
@@ -181,6 +220,9 @@ class AuthStateController extends GetxController {
       }
 
       update();
+      if (!Get.testMode) {
+        Get.put(FriendsController(), permanent: true);
+      }
     } catch (e) {
       log("Error originating from setUserProfileData$e");
     } finally {
@@ -195,8 +237,16 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
+        final activeCalls = await FlutterCallkitIncoming.activeCalls();
+        if (activeCalls.isNotEmpty) {
+          final activeCall = activeCalls.last;
+          await Get.find<FriendCallingController>().onAnswerCall(
+            Map<String, dynamic>.from(activeCall['extra']),
+          );
+        }
       }
     } catch (e) {
+      log("Error in isUserLoggedIn$e");
       bool? landingScreenShown = GetStorage().read(
         "landingScreenShown",
       ); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.

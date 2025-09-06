@@ -3,7 +3,7 @@
 // Appwrite Project Constants
 const String baseDomain = String.fromEnvironment(
   'APPWRITE_BASE_DOMAIN',
-  defaultValue: 'localhost',
+  defaultValue: '192.168.29.24',
 );
 const String appwriteProjectId = String.fromEnvironment(
   'APPWRITE_PROJECT_ID',
@@ -56,6 +56,7 @@ const String chatMessageReplyCollectionId = "672759820027801f121f";
 // Pair chat database constants
 const String pairRequestCollectionId = "64d980211f1395263ebe";
 const String activePairsCollectionId = "64d980cd65ff2e08ab97";
+const String friendCallsCollectionId = "68b764ba002794fa2f61";
 
 // Room related cloud function constants
 const String createRoomServiceId = "651e2670b1e4a26e3cf1";
@@ -68,6 +69,7 @@ const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
+const String startFriendCallFunctionID = "68b76fe00027c243610e";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationCollectionID = "64a7c0100eabfe8d3844";

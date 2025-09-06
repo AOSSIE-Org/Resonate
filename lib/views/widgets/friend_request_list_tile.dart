@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friends_model.dart';
@@ -8,22 +10,32 @@ import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
-class FriendRequestListTile extends StatelessWidget {
+class FriendsListTile extends StatelessWidget {
   final FriendsModel friendModel;
+  final bool isRequest;
 
-  const FriendRequestListTile({required this.friendModel, super.key});
+  const FriendsListTile({
+    required this.friendModel,
+    required this.isRequest,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final friendsController = Get.find<FriendsController>();
+    final authStateController = Get.find<AuthStateController>();
+    final friendCallingController = Get.put(FriendCallingController());
     final RxBool isProcessing = false.obs;
+    final bool userIsSender = friendModel.senderId == authStateController.uid;
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProfileScreen(
-              creator: friendModel.toResonateUserForRequestsPage(),
+              creator: userIsSender
+                  ? friendModel.recieverToResonateUserForRequestsPage()
+                  : friendModel.senderToResonateUserForRequestsPage(),
               isCreatorProfile: true,
             ),
           ),
@@ -39,7 +51,11 @@ class FriendRequestListTile extends StatelessWidget {
         child: ListTile(
           contentPadding: const EdgeInsets.all(0),
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(friendModel.recieverProfileImgUrl),
+            backgroundImage: NetworkImage(
+              userIsSender
+                  ? friendModel.recieverProfileImgUrl
+                  : friendModel.senderProfileImgUrl,
+            ),
             radius: 25,
           ),
           trailing: Obx(
@@ -48,7 +64,8 @@ class FriendRequestListTile extends StatelessWidget {
                     indicatorType: Indicator.ballRotate,
                     colors: [Theme.of(context).colorScheme.primary],
                   )
-                : Row(
+                : isRequest
+                ? Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
@@ -88,10 +105,42 @@ class FriendRequestListTile extends StatelessWidget {
                         color: Colors.red,
                       ),
                     ],
+                  )
+                : IconButton(
+                    onPressed: () async {
+                      if (userIsSender) {
+                        await friendCallingController.startCall(
+                          friendModel.senderName,
+                          friendModel.recieverName,
+                          friendModel.senderUsername,
+                          friendModel.recieverUsername,
+                          friendModel.senderId,
+                          friendModel.recieverId,
+                          friendModel.senderProfileImgUrl,
+                          friendModel.recieverProfileImgUrl,
+                          friendModel.docId,
+                          friendModel.recieverFCMToken!,
+                        );
+                      } else {
+                        await friendCallingController.startCall(
+                          friendModel.recieverName,
+                          friendModel.senderName,
+                          friendModel.recieverUsername,
+                          friendModel.senderUsername,
+                          friendModel.recieverId,
+                          friendModel.senderId,
+                          friendModel.recieverProfileImgUrl,
+                          friendModel.senderProfileImgUrl,
+                          friendModel.docId,
+                          friendModel.senderFCMToken!,
+                        );
+                      }
+                    },
+                    icon: Icon(Icons.call),
                   ),
           ),
           title: Text(
-            friendModel.recieverName,
+            userIsSender ? friendModel.recieverName : friendModel.senderName,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
@@ -105,7 +154,9 @@ class FriendRequestListTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                friendModel.recieverUsername,
+                userIsSender
+                    ? friendModel.recieverUsername
+                    : friendModel.senderUsername,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -118,7 +169,11 @@ class FriendRequestListTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.star, color: Colors.amber),
-                  Text(friendModel.recieverRating!.toStringAsFixed(1)),
+                  Text(
+                    userIsSender
+                        ? friendModel.recieverRating!.toStringAsFixed(1)
+                        : friendModel.senderRating!.toStringAsFixed(1),
+                  ),
                 ],
               ),
             ],

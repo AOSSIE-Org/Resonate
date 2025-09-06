@@ -576,5 +576,17 @@
                 "example": "john_doe"
             }
         }
+    },
+    "accept": "स्वीकार करें",
+    "callDeclined": "कॉल अस्वीकार कर दिया गया",
+    "callDeclinedTo": "{username} ने आपकी कॉल को अस्वीकार कर दिया है।",
+    "@callDeclinedTo": {
+        "description": "Message when a call is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     }
 }
