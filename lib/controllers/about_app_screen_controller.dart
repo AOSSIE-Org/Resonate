@@ -26,24 +26,11 @@ class AboutAppScreenController extends GetxController {
   late final Upgrader _upgrader;
   Upgrader get upgrader => _upgrader;
 
-  final String fullDescription = """
-Resonate is a revolutionary voice-based social media platform where every voice matters. 
-Join real-time audio conversations, participate in diverse discussions, and connect with 
-like-minded individuals. Our platform offers:
-- Live audio rooms with topic-based discussions
-- Seamless social networking through voice
-- Community-driven content moderation
-- Cross-platform compatibility
-- End-to-end encrypted private conversations
-
-Developed by the AOSSIE open source community, we prioritize user privacy and 
-community-driven development. Join us in shaping the future of social audio!""";
-
   @override
   void onInit() {
     super.onInit();
     _initializeUpgrader();
-    _loadPackageInfo();
+    loadPackageInfo();
   }
 
   void _initializeUpgrader() {
@@ -55,7 +42,7 @@ community-driven development. Join us in shaping the future of social audio!""";
     );
   }
 
-  static Future<bool> checkForUpdateOnAppLaunch() async {
+  static Future<bool> checkForUpdatesOnLaunch() async {
     try {
       final upgrader = Upgrader(
         debugDisplayAlways: false,
@@ -75,7 +62,7 @@ community-driven development. Join us in shaping the future of social audio!""";
     }
   }
 
-  Future<void> _loadPackageInfo() async {
+  Future<void> loadPackageInfo() async {
     try {
       final packageInfo = await PackageInfo.fromPlatform();
       appVersion.value = packageInfo.version;
@@ -99,7 +86,6 @@ community-driven development. Join us in shaping the future of social audio!""";
       await _upgrader.initialize();
       final needsUpdate = _upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
-
       return needsUpdate
           ? UpdateCheckResult.updateAvailable
           : UpdateCheckResult.noUpdateAvailable;
@@ -118,12 +104,11 @@ community-driven development. Join us in shaping the future of social audio!""";
         storeUrl =
             'https://play.google.com/store/apps/details?id=com.resonate.resonate';
       } else if (Platform.isIOS) {
-        //Replace  with the App Store URL of app
+        // The App Store URL of app
         storeUrl = '';
       } else {
         return UpdateActionResult.error;
       }
-
       final uri = Uri.parse(storeUrl);
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);

@@ -10,8 +10,7 @@ class AppUpdateDialog extends StatelessWidget {
   const AppUpdateDialog({super.key});
 
   static Future<void> showIfUpdateAvailable() async {
-    final hasUpdate =
-        await AboutAppScreenController.checkForUpdateOnAppLaunch();
+    final hasUpdate = await AboutAppScreenController.checkForUpdatesOnLaunch();
 
     if (hasUpdate) {
       Get.dialog(const AppUpdateDialog(), barrierDismissible: false);
