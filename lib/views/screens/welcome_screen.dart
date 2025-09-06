@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -28,18 +29,16 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   "assets/svg/resonate_logo_white.svg",
-                  semanticsLabel: "Resonate Logo",
+                  semanticsLabel: AppLocalizations.of(context)!.resonateLogo,
                   height: UiSizes.height_110,
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.primary,
                     BlendMode.srcIn,
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_10,
-                ),
+                SizedBox(height: UiSizes.height_10),
                 Text(
-                  "Resonate",
+                  AppLocalizations.of(context)!.title,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: UiSizes.size_28,
@@ -47,9 +46,11 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Text('"Enter a world of limitless\nconversations."',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              AppLocalizations.of(context)!.resonateTagline,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             Column(
               children: [
                 SizedBox(
@@ -64,9 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         builder: (context) => welcomeScreenDialog(context),
                       );
                     },
-                    child: const Text(
-                      "Sign in with Email",
-                    ),
+                    child: Text(AppLocalizations.of(context)!.signInWithEmail),
                   ),
                 ),
                 Padding(
@@ -82,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Or",
+                        AppLocalizations.of(context)!.or,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Expanded(
@@ -97,15 +96,13 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Continue with",
+                  AppLocalizations.of(context)!.continueWith,
                   style: TextStyle(
                     fontSize: UiSizes.size_20,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
-                  height: UiSizes.height_20,
-                ),
+                SizedBox(height: UiSizes.height_20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -113,43 +110,47 @@ class WelcomeScreen extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: "Continue with Google",
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.continueWithGoogle,
                         style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary,
                         ),
                         onPressed: () async {
                           await controller.loginWithGoogle();
                         },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.google,
-                        ),
+                        icon: const FaIcon(FontAwesomeIcons.google),
                       ),
                     ),
-                    SizedBox(
-                      width: UiSizes.width_20,
-                    ),
+                    SizedBox(width: UiSizes.width_20),
                     SizedBox(
                       height: 50,
                       width: 50,
                       child: IconButton(
-                        tooltip: "Continue with GitHub",
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.continueWithGitHub,
                         style: IconButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary,
                         ),
-                        onPressed: () {},
-                        icon: const FaIcon(
-                          FontAwesomeIcons.github,
-                        ),
+                        onPressed: () async {
+                          await controller.loginWithGithub();
+                        },
+                        icon: const FaIcon(FontAwesomeIcons.github),
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ],

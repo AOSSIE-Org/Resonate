@@ -4,20 +4,22 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class UpCommingListTile extends StatelessWidget {
   UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
   final AppwriteUpcommingRoom appwriteUpcommingRoom;
-  final UpcomingRoomsController upcomingRoomsController =
-      Get.put(UpcomingRoomsController());
+  final UpcomingRoomsController upcomingRoomsController = Get.put(
+    UpcomingRoomsController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     // Display the first three subscribers or as many as available.
     List<String> subscriberAvatars =
         appwriteUpcommingRoom.subscribersAvatarUrls.length > 3
-            ? appwriteUpcommingRoom.subscribersAvatarUrls.sublist(0, 3)
-            : appwriteUpcommingRoom.subscribersAvatarUrls;
+        ? appwriteUpcommingRoom.subscribersAvatarUrls.sublist(0, 3)
+        : appwriteUpcommingRoom.subscribersAvatarUrls;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -33,8 +35,9 @@ class UpCommingListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                appwriteUpcommingRoom.scheduledDateTime
-                    .dateToLocalFormatted(const Locale('en')),
+                appwriteUpcommingRoom.scheduledDateTime.dateToLocalFormatted(
+                  const Locale('en'),
+                ),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 15,
@@ -43,19 +46,12 @@ class UpCommingListTile extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: 5,
-          ),
+          const SizedBox(height: 5),
           Text(
             appwriteUpcommingRoom.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 15,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,21 +61,21 @@ class UpCommingListTile extends StatelessWidget {
                 .withSpacing(7),
           ),
           appwriteUpcommingRoom.tags != []
-              ? const SizedBox(
-                  height: 8,
-                )
+              ? const SizedBox(height: 8)
               : const SizedBox(),
           Wrap(
             spacing: 8.0,
             runSpacing: 4.0,
             children: appwriteUpcommingRoom.tags
-                .map((tag) => Text(
-                      "#$tag",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 14,
-                      ),
-                    ))
+                .map(
+                  (tag) => Text(
+                    "#$tag",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 14,
+                    ),
+                  ),
+                )
                 .toList(),
           ),
           const SizedBox(height: 8),
@@ -93,17 +89,26 @@ class UpCommingListTile extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           if (appwriteUpcommingRoom.userIsCreator)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                  onPressed: () {
+                    upcomingRoomsController.openUpcomingChatSheet(
+                      appwriteUpcommingRoom,
+                    );
+                  },
+                  child: const Icon(Icons.chat, color: Colors.white),
+                ),
+                Spacer(),
                 ElevatedButton(
                   onPressed: () {
-                    upcomingRoomsController
-                        .deleteUpcomingRoom(appwriteUpcommingRoom.id);
+                    upcomingRoomsController.deleteUpcomingRoom(
+                      appwriteUpcommingRoom.id,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 234, 93, 83),
@@ -111,8 +116,8 @@ class UpCommingListTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: const Text(
-                    'Cancel',
+                  child: Text(
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -121,12 +126,13 @@ class UpCommingListTile extends StatelessWidget {
                   onPressed: appwriteUpcommingRoom.isTime
                       ? () {
                           upcomingRoomsController.convertUpcomingRoomtoRoom(
-                              appwriteUpcommingRoom.id,
-                              appwriteUpcommingRoom.name,
-                              appwriteUpcommingRoom.description,
-                              appwriteUpcommingRoom.tags
-                                  .map((item) => item.toString())
-                                  .toList());
+                            appwriteUpcommingRoom.id,
+                            appwriteUpcommingRoom.name,
+                            appwriteUpcommingRoom.description,
+                            appwriteUpcommingRoom.tags
+                                .map((item) => item.toString())
+                                .toList(),
+                          );
                         }
                       : null, // Disable button if isTime is false
                   style: ElevatedButton.styleFrom(
@@ -137,7 +143,7 @@ class UpCommingListTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: const Text('Start'),
+                  child: Text(AppLocalizations.of(context)!.start),
                 ),
               ],
             )
@@ -145,14 +151,26 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                  onPressed: () {
+                    upcomingRoomsController.openUpcomingChatSheet(
+                      appwriteUpcommingRoom,
+                    );
+                  },
+                  child: const Icon(Icons.chat, color: Colors.white),
+                ),
+                Spacer(),
                 ElevatedButton(
                   onPressed: () {
                     if (appwriteUpcommingRoom.hasUserSubscribed) {
                       upcomingRoomsController.removeUserFromSubscriberList(
-                          appwriteUpcommingRoom.id);
+                        appwriteUpcommingRoom.id,
+                      );
                     } else {
-                      upcomingRoomsController
-                          .addUserToSubscriberList(appwriteUpcommingRoom.id);
+                      upcomingRoomsController.addUserToSubscriberList(
+                        appwriteUpcommingRoom.id,
+                      );
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -165,8 +183,8 @@ class UpCommingListTile extends StatelessWidget {
                   ),
                   child: Text(
                     appwriteUpcommingRoom.hasUserSubscribed
-                        ? 'Unsubscribe'
-                        : 'Subscribe',
+                        ? AppLocalizations.of(context)!.unsubscribe
+                        : AppLocalizations.of(context)!.subscribe,
                   ),
                 ),
               ],
@@ -195,14 +213,10 @@ class CustomCircleAvatar extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: CachedNetworkImageProvider(
-            userImage,
-          ),
+          image: CachedNetworkImageProvider(userImage),
           fit: BoxFit.cover,
         ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15.0),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       ),
     );
   }
@@ -212,13 +226,10 @@ extension SpacedWidgets on List<Widget> {
   List<Widget> withSpacing(double spacing) {
     return asMap()
         .map((index, widget) {
-          return MapEntry(
-            index,
-            [
-              widget,
-              if (index < length - 1) SizedBox(width: spacing),
-            ],
-          );
+          return MapEntry(index, [
+            widget,
+            if (index < length - 1) SizedBox(width: spacing),
+          ]);
         })
         .values
         .expand((element) => element)

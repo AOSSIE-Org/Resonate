@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,22 +33,18 @@ class EmailVerificationScreen extends StatelessWidget {
         child: Form(
           child: Column(
             children: [
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_10),
               MergeSemantics(
                 child: Column(
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Enter your\nVerification Code",
+                        AppLocalizations.of(context)!.enterVerificationCode,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RichText(
@@ -56,12 +53,14 @@ class EmailVerificationScreen extends StatelessWidget {
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                    ? Colors.black
-                                    : Colors.white,
+                                ? Colors.black
+                                : Colors.white,
                           ),
                           children: [
-                            const TextSpan(
-                              text: "We sent a 6-digit verification code to\n",
+                            TextSpan(
+                              text: AppLocalizations.of(
+                                context,
+                              )!.verificationCodeSent,
                             ),
                             TextSpan(
                               text: controller.authStateController.email,
@@ -77,9 +76,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_60),
               OtpTextField(
                 autoFocus: true,
                 numberOfFields: 6,
@@ -100,22 +97,27 @@ class EmailVerificationScreen extends StatelessWidget {
 
                   if (emailVerifyController.responseVerify.responseBody ==
                       '{"message":"null"}') {
-                    String result =
-                        await emailVerifyController.checkVerificationStatus();
+                    String result = await emailVerifyController
+                        .checkVerificationStatus();
                     if (result == "true") {
                       customSnackbar(
-                        "Verification Complete",
-                        "Congratulations you have verified your Email",
+                        AppLocalizations.of(context)!.verificationComplete,
+                        AppLocalizations.of(
+                          context,
+                        )!.congratulationsEmailVerified,
                         LogType.success,
                       );
 
                       SemanticsService.announce(
-                        "Congratulations you have verified your Email",
+                        AppLocalizations.of(
+                          context,
+                        )!.congratulationsEmailVerified,
                         TextDirection.ltr,
                       );
                       await emailVerifyController.setVerified();
                       if (emailVerifyController
-                              .responseSetVerified.responseBody ==
+                              .responseSetVerified
+                              .responseBody ==
                           '{"message":"null"}') {
                         emailVerifyController.isVerifying.value = false;
 
@@ -129,17 +131,18 @@ class EmailVerificationScreen extends StatelessWidget {
 
                         // Close loading dialog
                         Get.back();
-
                         customSnackbar(
-                          'Oops',
+                          AppLocalizations.of(context)!.oops,
                           emailVerifyController
-                              .responseSetVerified.responseBody,
+                              .responseSetVerified
+                              .responseBody,
                           LogType.error,
                         );
 
                         SemanticsService.announce(
                           emailVerifyController
-                              .responseSetVerified.responseBody,
+                              .responseSetVerified
+                              .responseBody,
                           TextDirection.ltr,
                         );
                       }
@@ -148,21 +151,20 @@ class EmailVerificationScreen extends StatelessWidget {
 
                       // Close loading dialog
                       Get.back();
-
                       customSnackbar(
-                        "Verification Failed",
-                        "OTP mismatch occurred please try again",
+                        AppLocalizations.of(context)!.verificationFailed,
+                        AppLocalizations.of(context)!.otpMismatchError,
                         LogType.error,
                       );
 
                       SemanticsService.announce(
-                        "OTP mismatch occurred please try again",
+                        AppLocalizations.of(context)!.otpMismatchError,
                         TextDirection.ltr,
                       );
                     }
                   } else {
                     customSnackbar(
-                      'Oops',
+                      AppLocalizations.of(context)!.oops,
                       emailVerifyController.responseVerify.responseBody,
                       LogType.error,
                     );
@@ -174,9 +176,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_60),
               Obx(
                 () => (emailVerifyController.resendIsAllowed.value)
                     ? GestureDetector(
@@ -184,18 +184,18 @@ class EmailVerificationScreen extends StatelessWidget {
                           emailVerifyController.resendIsAllowed.value = false;
                           emailVerifyController.sendOTP();
                           customSnackbar(
-                            "OTP resent",
-                            "Please check your mail for a new OTP.",
+                            AppLocalizations.of(context)!.otpResent,
+                            AppLocalizations.of(context)!.otpResentMessage,
                             LogType.info,
                           );
 
                           SemanticsService.announce(
-                            "Please check your mail for a new OTP.",
+                            AppLocalizations.of(context)!.otpResentMessage,
                             TextDirection.ltr,
                           );
                         },
                         child: Text(
-                          "Request a new code",
+                          AppLocalizations.of(context)!.requestNewCode,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold,
@@ -207,10 +207,11 @@ class EmailVerificationScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Request a new code in",
+                              AppLocalizations.of(context)!.requestNewCodeIn,
                               style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                             Padding(
@@ -219,8 +220,9 @@ class EmailVerificationScreen extends StatelessWidget {
                               ),
                               child: CircularCountDownTimer(
                                 textStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                                 isTimerTextShown: true,
                                 isReverse: true,
@@ -231,19 +233,23 @@ class EmailVerificationScreen extends StatelessWidget {
                                 width: 30,
                                 height: 30,
                                 duration: 30,
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                fillColor:
-                                    Theme.of(context).colorScheme.primary,
-                                ringColor:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondary,
+                                fillColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
+                                ringColor: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                             Text(
-                              "seconds.",
+                              AppLocalizations.of(context)!.seconds,
                               style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                           ],

@@ -9,6 +9,7 @@ import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 bool isLiveSelected = true;
 
@@ -19,10 +20,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-  final UpcomingRoomsController upcomingRoomsController =
-    Get.put(UpcomingRoomsController());
+  final UpcomingRoomsController upcomingRoomsController = Get.put(
+    UpcomingRoomsController(),
+  );
   final RoomsController roomsController = Get.put(RoomsController());
 
   Future<void> pullToRefreshData() async {
@@ -42,38 +43,38 @@ class _HomeScreenState extends State<HomeScreen> {
               CustomAppBarLiveRoom(
                 isLiveSelected: isLiveSelected,
                 onTabSelected: (bool selectedTab) {
-                  setState(
-                    () {
-                      isLiveSelected = selectedTab;
-                    },
-                  );
+                  setState(() {
+                    isLiveSelected = selectedTab;
+                  });
                 },
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               Expanded(
                 child: RefreshIndicator(
-                    onRefresh: pullToRefreshData,
-                    child: Obx(
-                      () => (isLiveSelected
-                          ? roomsController.isLoading.value
+                  onRefresh: pullToRefreshData,
+                  child: Obx(
+                    () => (isLiveSelected
+                        ? roomsController.isLoading.value
                               ? Center(
                                   child:
                                       LoadingAnimationWidget.fourRotatingDots(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  size: Get.pixelRatio * 20,
-                                ))
-                              :  LiveRoomListView()
-                          : upcomingRoomsController.isLoading.value
-                              ? Center(
-                                  child:
-                                      LoadingAnimationWidget.fourRotatingDots(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  size: Get.pixelRatio * 20,
-                                ))
-                              : UpcomingRoomsListView()),
-                    )),
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                        size: Get.pixelRatio * 20,
+                                      ),
+                                )
+                              : LiveRoomListView()
+                        : upcomingRoomsController.isLoading.value
+                        ? Center(
+                            child: LoadingAnimationWidget.fourRotatingDots(
+                              color: Theme.of(context).colorScheme.primary,
+                              size: Get.pixelRatio * 20,
+                            ),
+                          )
+                        : UpcomingRoomsListView()),
+                  ),
+                ),
               ),
             ],
           ),
@@ -99,7 +100,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
         GestureDetector(
           onTap: () => onTabSelected(true),
           child: Text(
-            'LIVE',
+            AppLocalizations.of(context)!.live.toUpperCase(),
             style: TextStyle(
               color: isLiveSelected
                   ? Theme.of(context).colorScheme.primary
@@ -112,7 +113,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
         GestureDetector(
           onTap: () => onTabSelected(false),
           child: Text(
-            'UPCOMING',
+            AppLocalizations.of(context)!.upcoming.toUpperCase(),
             style: TextStyle(
               color: !isLiveSelected
                   ? Theme.of(context).colorScheme.primary
@@ -128,8 +129,9 @@ class CustomAppBarLiveRoom extends StatelessWidget {
 
 class UpcomingRoomsListView extends StatelessWidget {
   UpcomingRoomsListView({super.key});
-  final UpcomingRoomsController upcomingRoomsController =
-      Get.put(UpcomingRoomsController());
+  final UpcomingRoomsController upcomingRoomsController = Get.put(
+    UpcomingRoomsController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +142,7 @@ class UpcomingRoomsListView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: UpCommingListTile(
                     appwriteUpcommingRoom:
                         upcomingRoomsController.upcomingRooms[index],
@@ -156,8 +156,8 @@ class UpcomingRoomsListView extends StatelessWidget {
 }
 
 class LiveRoomListView extends StatelessWidget {
-   LiveRoomListView({super.key});
-    final RoomsController roomsController = Get.put(RoomsController());
+  LiveRoomListView({super.key});
+  final RoomsController roomsController = Get.put(RoomsController());
 
   @override
   Widget build(BuildContext context) {
@@ -168,9 +168,7 @@ class LiveRoomListView extends StatelessWidget {
               itemCount: roomsController.rooms.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: CustomLiveRoomTile(
                     appwriteRoom: roomsController.rooms[index],
                   ),
@@ -183,10 +181,7 @@ class LiveRoomListView extends StatelessWidget {
 }
 
 class CustomCategoryChips extends StatefulWidget {
-  const CustomCategoryChips({
-    super.key,
-    required this.categories,
-  });
+  const CustomCategoryChips({super.key, required this.categories});
 
   final List<String> categories;
 
@@ -203,9 +198,7 @@ class _CustomCategoryChipsState extends State<CustomCategoryChips> {
       height: 80,
       width: MediaQuery.of(context).size.width / 1.2,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16.0,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: widget.categories.length,
@@ -214,11 +207,9 @@ class _CustomCategoryChipsState extends State<CustomCategoryChips> {
               isSelected: index == selectedIndex ? true : false,
               category: widget.categories[index],
               onTap: () {
-                setState(
-                  () {
-                    selectedIndex = index;
-                  },
-                );
+                setState(() {
+                  selectedIndex = index;
+                });
               },
             );
           },
@@ -233,8 +224,12 @@ class CategoryItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback? onTap;
 
-  const CategoryItem(
-      {super.key, required this.category, this.isSelected = false, this.onTap});
+  const CategoryItem({
+    super.key,
+    required this.category,
+    this.isSelected = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

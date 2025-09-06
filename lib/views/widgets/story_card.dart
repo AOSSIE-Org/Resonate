@@ -11,11 +11,7 @@ class StoryCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => StoryScreen(
-              story: story,
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => StoryScreen(story: story)),
         );
       },
       child: Stack(
@@ -24,9 +20,7 @@ class StoryCard extends StatelessWidget {
             width: 180,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                  story.coverImageUrl,
-                ),
+                image: NetworkImage(story.coverImageUrl),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(5),
@@ -39,11 +33,11 @@ class StoryCard extends StatelessWidget {
             child: Text(
               '# ${story.title}',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Colors.white,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w900,
-                    fontSize: 19,
-                  ),
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w900,
+                fontSize: 19,
+              ),
             ),
           ),
         ],

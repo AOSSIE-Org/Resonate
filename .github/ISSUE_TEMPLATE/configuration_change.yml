@@ -1,0 +1,39 @@
+name: ⚙️ Configuration Change
+description: Suggest modifications to the project’s configuration, such as build tools, CI/CD pipeline adjustments, or environment settings to improve project management or deployment.
+
+body:
+  - type: textarea
+    id: configuration-change
+    attributes:
+      label: ⚙️ The Configuration Change
+      description: >
+        Describe the specific configuration change you propose. What configuration settings or tools need adjustment?
+        Mention which part of the project this affects, like build tools, CI/CD settings, or deployment configurations.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation, pitch
+      description: >
+        Explain the reason for this configuration change. How will it improve the project's management or deployment process?
+        For example, will it streamline the CI/CD pipeline, improve build times, or make the project easier to maintain?
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Configuration Change Focus Areas
+      options:
+        - "Build tools"
+        - "CI/CD pipeline"
+        - "Environment settings"
+        - "Dependency management"
+        - "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thank you for your contribution! 🔧 Please provide as much information as possible about the configuration change and how it will benefit the project.

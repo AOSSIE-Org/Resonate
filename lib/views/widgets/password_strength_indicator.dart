@@ -16,6 +16,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     required this.validatedChecks,
     required this.hasOneSymbol,
     required this.hasOneSymbolTitle,
+    required this.passStrengthVerifiedText,
   });
 
   final bool isPasswordEightCharacters;
@@ -31,7 +32,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   final int validatedChecks;
 
-  final String passStrengthVerifiedText = "Password is strong";
+  final String passStrengthVerifiedText;
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +48,15 @@ class PasswordStrengthIndicator extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildAnimatedStrengthContainer(0),
-              SizedBox(
-                width: UiSizes.size_12,
-              ),
+              SizedBox(width: UiSizes.size_12),
               buildAnimatedStrengthContainer(1),
-              SizedBox(
-                width: UiSizes.size_12,
-              ),
+              SizedBox(width: UiSizes.size_12),
               buildAnimatedStrengthContainer(2),
-              SizedBox(
-                width: UiSizes.size_12,
-              ),
+              SizedBox(width: UiSizes.size_12),
               buildAnimatedStrengthContainer(3),
             ],
           ),
-          SizedBox(
-            height: UiSizes.height_14,
-          ),
+          SizedBox(height: UiSizes.height_14),
           Expanded(
             child: Text(
               getTitle(),
@@ -74,7 +67,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -87,18 +80,18 @@ class PasswordStrengthIndicator extends StatelessWidget {
     if (validatedChecks == 5) {
       containerColor = AppColor.greenColor; // All checks are true, green color
     }
-
     // Check if 4 conditions are true
     else if (validatedChecks == 4) {
-      containerColor =
-          index < 3 ? AppColor.yellowColor : AppColor.greyShadeColor;
+      containerColor = index < 3
+          ? AppColor.yellowColor
+          : AppColor.greyShadeColor;
     }
-
     // Check if 3 conditions are true
     else if (validatedChecks == 3) {
       // If index is 0 or 1, set the color to yellow, else set it to gray
-      containerColor =
-          index < 2 ? AppColor.orangeColor : AppColor.greyShadeColor;
+      containerColor = index < 2
+          ? AppColor.orangeColor
+          : AppColor.greyShadeColor;
     }
     // Check if 2 conditions are true
     else if (validatedChecks == 2) {

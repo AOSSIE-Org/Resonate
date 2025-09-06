@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,9 +14,7 @@ class ContributeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Contribute"),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.contribute)),
       body: Container(
         padding: EdgeInsets.symmetric(
           vertical: UiSizes.height_20,
@@ -44,19 +44,15 @@ class ContributeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Source code on GitHub',
-                      style: TextStyle(
-                        fontSize: UiSizes.size_16,
-                      ),
+                      AppLocalizations.of(context)!.sourceCodeOnGitHub,
+                      style: TextStyle(fontSize: UiSizes.size_16),
                     ),
                     const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_40,
-            ),
+            SizedBox(height: UiSizes.height_40),
             Container(
               padding: EdgeInsets.symmetric(
                 vertical: UiSizes.height_20,
@@ -68,48 +64,56 @@ class ContributeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Join Community",
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.joinCommunity,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: UiSizes.height_20,
-                  ),
+                  SizedBox(height: UiSizes.height_20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Uri url = Uri.parse(xPageUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
                         icon: Icon(
-                          Icons.telegram_rounded,
+                          FontAwesomeIcons.xTwitter,
                           size: UiSizes.size_40,
                         ),
-                        tooltip: "Join telegram channel",
+                        tooltip: AppLocalizations.of(context)!.followUsOnX,
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.discord,
-                          size: UiSizes.size_40,
-                        ),
-                        tooltip: "Join discord server",
-
-                      )
+                        onPressed: () {
+                          Uri url = Uri.parse(discordRepoUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
+                        icon: Icon(Icons.discord, size: UiSizes.size_40),
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.joinDiscordServer,
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: UiSizes.height_20,
-                  ),
-                  const Align(
+                  SizedBox(height: UiSizes.height_20),
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "By joining community you can Clear your doubts, Suggest for new features, Report issues you faced and More.",
+                      AppLocalizations.of(context)!.joinCommunityDescription,
                     ),
                   ),
                 ],

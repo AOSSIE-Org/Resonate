@@ -2,17 +2,20 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
+import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 
 import '../utils/constants.dart';
@@ -22,16 +25,16 @@ class SingleRoomController extends GetxController {
   final RoomsController roomsController = Get.put(RoomsController());
   RxBool isLoading = false.obs;
   late Rx<Participant> me = Participant(
-          uid: auth.uid!,
-          email: auth.email!,
-          name: auth.userName!,
-          dpUrl: auth.profileImageUrl!,
-          isAdmin: appwriteRoom.isUserAdmin,
-          isMicOn: false,
-          isModerator: appwriteRoom.isUserAdmin,
-          isSpeaker: appwriteRoom.isUserAdmin,
-          hasRequestedToBeSpeaker: false)
-      .obs;
+    uid: auth.uid!,
+    email: auth.email!,
+    name: auth.userName!,
+    dpUrl: auth.profileImageUrl!,
+    isAdmin: appwriteRoom.isUserAdmin,
+    isMicOn: false,
+    isModerator: appwriteRoom.isUserAdmin,
+    isSpeaker: appwriteRoom.isUserAdmin,
+    hasRequestedToBeSpeaker: false,
+  ).obs;
   Client client = AppwriteService.getClient();
   final AppwriteRoom appwriteRoom;
   final Realtime realtime = AppwriteService.getRealtime();
@@ -59,10 +62,12 @@ class SingleRoomController extends GetxController {
 
   Future<void> addParticipantDataToList(Document participant) async {
     Document userDataDoc = await databases.getDocument(
-        databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: participant.data["uid"]);
-    final p = Rx(Participant(
+      databaseId: userDatabaseID,
+      collectionId: usersCollectionID,
+      documentId: participant.data["uid"],
+    );
+    final p = Rx(
+      Participant(
         uid: participant.data["uid"],
         email: userDataDoc.data["email"],
         name: userDataDoc.data["name"],
@@ -72,7 +77,9 @@ class SingleRoomController extends GetxController {
         isModerator: participant.data["isModerator"],
         isSpeaker: participant.data["isSpeaker"],
         hasRequestedToBeSpeaker:
-            participant.data["hasRequestedToBeSpeaker"] ?? false));
+            participant.data["hasRequestedToBeSpeaker"] ?? false,
+      ),
+    );
     participants.add(p);
   }
 
@@ -84,8 +91,9 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> updateParticipantDataInList(Map<String, dynamic> payload) async {
-    int toBeUpdatedIndex =
-        participants.indexWhere((p) => p.value.uid == payload["uid"]);
+    int toBeUpdatedIndex = participants.indexWhere(
+      (p) => p.value.uid == payload["uid"],
+    );
     participants[toBeUpdatedIndex].value.isModerator = payload["isModerator"];
     participants[toBeUpdatedIndex].value.hasRequestedToBeSpeaker =
         payload["hasRequestedToBeSpeaker"] ?? false;
@@ -99,9 +107,10 @@ class SingleRoomController extends GetxController {
       isLoading.value = true;
       participants.value = <Rx<Participant>>[];
       var participantCollectionRef = await databases.listDocuments(
-          databaseId: masterDatabaseId,
-          collectionId: participantsCollectionId,
-          queries: [Query.equal('roomId', appwriteRoom.id)]);
+        databaseId: masterDatabaseId,
+        collectionId: participantsCollectionId,
+        queries: [Query.equal('roomId', appwriteRoom.id)],
+      );
       for (Document participant in participantCollectionRef.documents) {
         addParticipantDataToList(participant);
       }
@@ -124,8 +133,9 @@ class SingleRoomController extends GetxController {
           // This event belongs to the room current user is part of
           String updatedUserId = data.payload["uid"];
           String docId = data.payload["\$id"];
-          String action = data.events.first
-              .substring(channel.length + 1 + docId.length + 1);
+          String action = data.events.first.substring(
+            channel.length + 1 + docId.length + 1,
+          );
 
           switch (action) {
             case 'create':
@@ -202,7 +212,9 @@ class SingleRoomController extends GetxController {
       await roomsController.getRooms();
       Get.delete<SingleRoomController>();
     } catch (e) {
-      log("Error in Delete Room Function (SingleRoomController): ${e.toString()}");
+      log(
+        "Error in Delete Room Function (SingleRoomController): ${e.toString()}",
+      );
     } finally {
       isLoading.value = false;
     }
@@ -210,51 +222,53 @@ class SingleRoomController extends GetxController {
 
   Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(
-        databaseId: masterDatabaseId,
-        collectionId: participantsCollectionId,
-        queries: [
-          Query.equal('roomId', appwriteRoom.id),
-          Query.equal('uid', participant.uid)
-        ]);
+      databaseId: masterDatabaseId,
+      collectionId: participantsCollectionId,
+      queries: [
+        Query.equal('roomId', appwriteRoom.id),
+        Query.equal('uid', participant.uid),
+      ],
+    );
     return participantDocsRef.documents.first.$id;
   }
 
   Future<void> updateParticipantDoc(
-      String participantDocId, Map<String, dynamic> data) async {
+    String participantDocId,
+    Map<String, dynamic> data,
+  ) async {
     await databases.updateDocument(
-        databaseId: masterDatabaseId,
-        collectionId: participantsCollectionId,
-        documentId: participantDocId,
-        data: data);
+      databaseId: masterDatabaseId,
+      collectionId: participantsCollectionId,
+      documentId: participantDocId,
+      data: data,
+    );
   }
 
   Future<void> turnOnMic() async {
-    await Get.find<LiveKitController>()
-        .liveKitRoom
-        .localParticipant
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant
         ?.setMicrophoneEnabled(true);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": true});
     me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
-    await Get.find<LiveKitController>()
-        .liveKitRoom
-        .localParticipant
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant
         ?.setMicrophoneEnabled(false);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": false});
     me.value.isMicOn = false;
   }
 
   Future<void> raiseHand() async {
-    await updateParticipantDoc(
-        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": true});
+    await updateParticipantDoc(appwriteRoom.myDocId!, {
+      "hasRequestedToBeSpeaker": true,
+    });
     me.value.hasRequestedToBeSpeaker = true;
   }
 
   Future<void> unRaiseHand() async {
-    await updateParticipantDoc(
-        appwriteRoom.myDocId!, {"hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(appwriteRoom.myDocId!, {
+      "hasRequestedToBeSpeaker": false,
+    });
     me.value.hasRequestedToBeSpeaker = false;
   }
 
@@ -263,7 +277,7 @@ class SingleRoomController extends GetxController {
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": true,
       "hasRequestedToBeSpeaker": false,
-      "isModerator": true
+      "isModerator": true,
     });
   }
 
@@ -272,27 +286,49 @@ class SingleRoomController extends GetxController {
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": false,
       "hasRequestedToBeSpeaker": false,
-      "isModerator": false
+      "isModerator": false,
     });
   }
 
   Future<void> makeSpeaker(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId,
-        {"isSpeaker": true, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId, {
+      "isSpeaker": true,
+      "hasRequestedToBeSpeaker": false,
+    });
   }
 
   Future<void> makeListener(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await updateParticipantDoc(participantDocId,
-        {"isSpeaker": false, "hasRequestedToBeSpeaker": false});
+    await updateParticipantDoc(participantDocId, {
+      "isSpeaker": false,
+      "hasRequestedToBeSpeaker": false,
+    });
   }
 
   Future<void> kickOutParticipant(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
     await databases.deleteDocument(
-        databaseId: masterDatabaseId,
-        collectionId: participantsCollectionId,
-        documentId: participantDocId);
+      databaseId: masterDatabaseId,
+      collectionId: participantsCollectionId,
+      documentId: participantDocId,
+    );
+  }
+
+  void openChatSheet() {
+    showModalBottomSheet(
+      context: Get.context!,
+      builder: (ctx) {
+        Get.put(RoomChatController(appwriteRoom: appwriteRoom));
+        return RoomChatScreen();
+      },
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
+      ),
+      isScrollControlled: true,
+      enableDrag: false,
+      isDismissible: false,
+    );
   }
 }

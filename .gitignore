@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 .vscode/
 
@@ -32,6 +34,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+lib/firebase_options.dart
+firebase.json
 
 # Symbolication related
 app.*.symbols
@@ -46,3 +50,4 @@ app.*.map.json
 
 .vscode/
 appwrite
+ios/Runner/GoogleService-Info.plist

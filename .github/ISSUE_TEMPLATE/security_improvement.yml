@@ -1,0 +1,39 @@
+name: 🔒 Security Improvement
+description: Suggest changes to improve the project's security, including identifying vulnerabilities and proposing measures to harden the codebase.
+
+body:
+  - type: textarea
+    id: security-improvement
+    attributes:
+      label: 🔒 The Security Improvement
+      description: >
+        Describe the security improvement you propose. Identify any potential risks or vulnerabilities in the current setup
+        and detail the changes required to enhance security. Specify whether it impacts data handling, user authentication, or any external dependencies.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation, pitch
+      description: >
+        Explain the motivation behind this security improvement. How does it protect against security risks, and what kind of
+        vulnerabilities does it address? Describe how it can prevent unauthorized access, data breaches, or other threats.
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Security Improvement Focus Areas
+      options:
+        - "Data protection"
+        - "User authentication"
+        - "Dependency vulnerabilities"
+        - "Access control"
+        - "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thank you for prioritizing security! 🔒 Be as thorough as possible in identifying potential risks and detailing how your proposal will safeguard the project.

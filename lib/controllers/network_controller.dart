@@ -6,7 +6,7 @@ import 'package:resonate/views/widgets/no_connection_dialog.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class NetworkController extends GetxController {
-  final _connectivity = InternetConnectionCheckerPlus();
+  final _connectivity = InternetConnection();
 
   Rx<bool> isLoading = false.obs;
 
@@ -15,7 +15,7 @@ class NetworkController extends GetxController {
     super.onInit();
 
     _connectivity.onStatusChange.listen((status) {
-      if (status == InternetConnectionStatus.disconnected) {
+      if (status == InternetStatus.disconnected) {
         Get.dialog(
           barrierColor: Colors.transparent,
           NoConnectionDialog(),
@@ -32,10 +32,10 @@ class NetworkController extends GetxController {
   void tryAgain() async {
     isLoading.value = true;
 
-    var status = await _connectivity.connectionStatus;
+    var status = await _connectivity.internetStatus;
 
     log(status.toString());
-    if (status == InternetConnectionStatus.connected) {
+    if (status == InternetStatus.connected) {
       if (Get.isDialogOpen!) {
         Get.back();
       }

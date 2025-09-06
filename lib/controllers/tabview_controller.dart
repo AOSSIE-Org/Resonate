@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -14,8 +15,8 @@ import '../views/screens/room_screen.dart';
 
 class TabViewController extends GetxController {
   final RxInt _selectedIndex = 0.obs;
-  getIndex() => _selectedIndex.value;
-  setIndex(index) => _selectedIndex.value = index;
+  int getIndex() => _selectedIndex.value;
+  dynamic setIndex(index) => _selectedIndex.value = index;
 
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
@@ -35,7 +36,7 @@ class TabViewController extends GetxController {
     _appLinks = AppLinks();
 
     // Check initial link if app was in cold state (terminated)
-    final appLink = await _appLinks.getInitialAppLink();
+    final appLink = await _appLinks.getInitialLink();
     if (appLink != null) {
       log('getInitialAppLink: $appLink');
       openAppLink(appLink);
@@ -53,15 +54,16 @@ class TabViewController extends GetxController {
       String roomId = uri.pathSegments.last;
       bool isUserLoggedIn = await Get.find<AuthStateController>().getLoginState;
       if (isUserLoggedIn) {
-        AppwriteRoom appwriteRoom =
-            await Get.find<RoomsController>().getRoomById(roomId);
+        AppwriteRoom appwriteRoom = await Get.find<RoomsController>()
+            .getRoomById(roomId);
         Get.defaultDialog(
-            title: "Join Room",
-            titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
-            content: Column(
-              children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],
-            ),
-            backgroundColor: AppColor.bgBlackColor);
+          title: AppLocalizations.of(Get.context!)!.joinRoom,
+          titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
+          content: Column(
+            children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],
+          ),
+          backgroundColor: AppColor.bgBlackColor,
+        );
       }
     } catch (e) {
       log("Open App Link ERROR : ${e.toString()}");

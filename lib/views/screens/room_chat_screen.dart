@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/models/message.dart';
-import 'package:resonate/models/reply_to.dart';
+import 'package:resonate/utils/extensions/datetime_extension.dart';
 
 class RoomChatScreen extends StatefulWidget {
   const RoomChatScreen({super.key});
@@ -12,176 +15,10 @@ class RoomChatScreen extends StatefulWidget {
 
 class _RoomChatScreenState extends State<RoomChatScreen> {
   final ScrollController _scrollController = ScrollController();
+  final RoomChatController chatController = Get.find<RoomChatController>();
+  AuthStateController auth = Get.find<AuthStateController>();
   final double itemHight = 80;
-
-  List<Message> messages = [
-    Message(
-      roomId: "room1",
-      messageId: "msg1",
-      creatorId: "user123",
-      creatorUsername: "john_doe",
-      creatorName: "John Doe",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 0,
-      isEdited: false,
-      content: "Hello, everyone! Welcome to the chat room.",
-      creationDateTime: DateTime.now(),
-      replyTo: null,
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg2",
-      creatorId: "user456",
-      creatorUsername: "jane_smith",
-      creatorName: "Jane Smith",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: false,
-      index: 1,
-      isEdited: false,
-      content: "Thanks, John! Happy to be here 😊",
-      creationDateTime: DateTime.now(),
-      replyTo: ReplyTo(
-        index: 0,
-        creatorUsername: "john_doe",
-        content: "Hello, everyone! Welcome to the chat room.",
-        creatorImgUrl:
-            "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      ),
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg3",
-      creatorId: "user789",
-      creatorUsername: "mike_jones",
-      creatorName: "Mike Jones",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 2,
-      isEdited: true,
-      content: "Good morning! Just edited my message to add this line.",
-      creationDateTime: DateTime.now(),
-      replyTo: null,
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg4",
-      creatorId: "user123",
-      creatorUsername: "john_doe",
-      creatorName: "John Doe",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 3,
-      isEdited: false,
-      content: "Nice to see everyone interacting. 😊",
-      creationDateTime: DateTime.now(),
-      replyTo: ReplyTo(
-        index: 2,
-        creatorUsername: "mike_jones",
-        content: "Good morning! Just edited my message to add this line.",
-        creatorImgUrl:
-            "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      ),
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg5",
-      creatorId: "user789",
-      creatorUsername: "mike_jones",
-      creatorName: "Mike Jones",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 4,
-      isEdited: true,
-      content: "Yes, it's a great day!",
-      creationDateTime: DateTime.now(),
-      replyTo: null,
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg6",
-      creatorId: "user456",
-      creatorUsername: "jane_smith",
-      creatorName: "Jane Smith",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: false,
-      index: 5,
-      isEdited: false,
-      content: "Totally agree, Mike!",
-      creationDateTime: DateTime.now(),
-      replyTo: ReplyTo(
-        index: 4,
-        creatorUsername: "mike_jones",
-        content: "Yes, it's a great day!",
-        creatorImgUrl:
-            "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      ),
-    ),
-    // Adding more messages for testing scrolling functionality
-    Message(
-      roomId: "room1",
-      messageId: "msg7",
-      creatorId: "user123",
-      creatorUsername: "john_doe",
-      creatorName: "John Doe",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 6,
-      isEdited: false,
-      content: "This chat is getting lively!",
-      creationDateTime: DateTime.now(),
-      replyTo: null,
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg8",
-      creatorId: "user789",
-      creatorUsername: "mike_jones",
-      creatorName: "Mike Jones",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 7,
-      isEdited: false,
-      content: "Totally! Let's keep it up.",
-      creationDateTime: DateTime.now(),
-      replyTo: ReplyTo(
-        index: 6,
-        creatorUsername: "john_doe",
-        content: "This chat is getting lively!",
-        creatorImgUrl:
-            "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      ),
-    ),
-    Message(
-      roomId: "room1",
-      messageId: "msg8",
-      creatorId: "user789",
-      creatorUsername: "mike_jones",
-      creatorName: "Mike Jones",
-      creatorImgUrl:
-          "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      hasValidTag: true,
-      index: 8,
-      isEdited: false,
-      content: "Totally! Let's keep it up.",
-      creationDateTime: DateTime.now(),
-      replyTo: ReplyTo(
-        index: 0,
-        creatorUsername: "john_doe",
-        content: "Hello, everyone! Welcome to the chat room.",
-        creatorImgUrl:
-            "https://storage.googleapis.com/fc-freepik-pro-rev1-eu-static/ai-styles-landings/cartoon/characters-and-scenes.jpg?h=1280",
-      ),
-    ),
-];
+  late Future<void> loadMessagesFuture;
 
   void scrollToMessage(int index) {
     _scrollController.animateTo(
@@ -191,11 +28,43 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     );
   }
 
-  void updateMessage(int index, String newContent) {
-    setState(() {
-      messages[index].content = newContent;
-      messages[index].isEdited = true;
+  void scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
+  }
+
+  Future<void> updateMessage(int index, String newContent) async {
+    await chatController.editMessage(
+      chatController.messages[index].messageId,
+      newContent,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    loadMessagesFuture = chatController.loadMessages();
+
+    // Listen to changes in messages and scroll to bottom when new messages are added
+    ever(chatController.messages, (messages) {
+      if (messages.isNotEmpty) {
+        scrollToBottom();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    Get.delete<RoomChatController>();
+    super.dispose();
   }
 
   @override
@@ -211,30 +80,53 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
         title: const Text('Room Chat'),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.all(16.0),
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                return ChatMessageItem(
-                  message: messages[index],
-                  onTapReply: (int replyIndex) => scrollToMessage(replyIndex),
-                  onEditMessage: (String newContent) =>
-                      updateMessage(index, newContent),
-                );
+            child: FutureBuilder(
+              future: loadMessagesFuture,
+              builder: (context, asyncSnapshot) {
+                if (asyncSnapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (asyncSnapshot.hasError) {
+                  return Center(child: Text('Error: ${asyncSnapshot.error}'));
+                } else {
+                  // Scroll to bottom after messages are loaded
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    scrollToBottom();
+                  });
+
+                  return Obx(
+                    () => ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: chatController.messages.length,
+                      itemBuilder: (context, index) {
+                        return ChatMessageItem(
+                          message: chatController.messages[index],
+                          onTapReply: (int replyIndex) =>
+                              scrollToMessage(replyIndex),
+                          onEditMessage: (String newContent) async {
+                            await updateMessage(index, newContent);
+                          },
+                          replytoMessage: (Message message) =>
+                              chatController.setReplyingTo(message),
+                          canEdit:
+                              auth.appwriteUser.$id ==
+                                  chatController.messages[index].creatorId &&
+                              !chatController.messages[index].isEdited,
+                        );
+                      },
+                    ),
+                  );
+                }
               },
             ),
           ),
-          const ChatInputField(),
+          ChatInputField(),
         ],
       ),
     );
@@ -245,13 +137,17 @@ class ChatMessageItem extends StatefulWidget {
   final Message message;
   final void Function(int) onTapReply;
   final void Function(String) onEditMessage;
+  final void Function(Message) replytoMessage;
+  final bool canEdit;
 
   const ChatMessageItem({
-    Key? key,
+    super.key,
     required this.message,
     required this.onTapReply,
     required this.onEditMessage,
-  }) : super(key: key);
+    required this.replytoMessage,
+    required this.canEdit,
+  });
 
   @override
   ChatMessageItemState createState() => ChatMessageItemState();
@@ -260,7 +156,7 @@ class ChatMessageItem extends StatefulWidget {
 class ChatMessageItemState extends State<ChatMessageItem> {
   bool isEditing = false;
   late TextEditingController _editingController;
-
+  double _dragOffset = 0.0;
   @override
   void initState() {
     super.initState();
@@ -298,145 +194,308 @@ class ChatMessageItemState extends State<ChatMessageItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: startEditing,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(widget.message.creatorImgUrl),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.message.creatorName,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      if (widget.message.replyTo != null)
-                        GestureDetector(
-                          onTap: () =>
-                              widget.onTapReply(widget.message.replyTo!.index),
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.only(bottom: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "@${widget.message.replyTo!.creatorUsername}",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                                Text(
-                                  widget.message.replyTo!.content,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      if (isEditing)
-                        Focus(
-                          onKeyEvent: (node, event) {
-                            if (event.logicalKey == LogicalKeyboardKey.escape) {
-                              cancelEdit();
-                              return KeyEventResult.handled;
-                            }
-                            return KeyEventResult.ignored;
-                          },
-                          child: TextField(
-                            controller: _editingController,
-                            autofocus: true,
-                            onSubmitted: (value) => saveEdit(),
-                            onTapOutside: (event) => cancelEdit(),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                            ),
-                          ),
-                        )
-                      else
+            GestureDetector(
+              onHorizontalDragUpdate: (details) {
+                if (_dragOffset + details.delta.dx > 0.0 &&
+                    _dragOffset + details.delta.dx < 100) {
+                  _dragOffset += details.delta.dx;
+                } else if (_dragOffset + details.delta.dx > 100) {
+                  _dragOffset = 100;
+                } else if (_dragOffset + details.delta.dx < 0) {
+                  _dragOffset = 0.0; // Reset if dragging left
+                }
+                setState(() {});
+              },
+              onHorizontalDragEnd: (details) {
+                if (_dragOffset > 70) {
+                  // Detected swipe from left to right
+                  widget.replytoMessage(widget.message);
+                }
+                setState(() {
+                  _dragOffset = 0.0; // Reset offset after swipe
+                });
+              },
+              onDoubleTap: widget.canEdit ? startEditing : null,
+              child: Transform.translate(
+                offset: Offset(_dragOffset, 0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Text(widget.message.content),
-                            ),
-                            if (widget.message.isEdited)
-                              const Text(
-                                ' (edited)',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.grey,
-                                ),
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(
+                                widget.message.creatorImgUrl,
                               ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.message.creatorName.capitalizeFirst!,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.secondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  if (widget.message.replyTo != null)
+                                    GestureDetector(
+                                      onTap: () => widget.onTapReply(
+                                        widget.message.replyTo!.index,
+                                      ),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "@${widget.message.replyTo!.creatorUsername}",
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                            Text(
+                                              widget.message.replyTo!.content,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  if (isEditing)
+                                    Focus(
+                                      onKeyEvent: (node, event) {
+                                        if (event.logicalKey ==
+                                            LogicalKeyboardKey.escape) {
+                                          cancelEdit();
+                                          return KeyEventResult.handled;
+                                        }
+                                        return KeyEventResult.ignored;
+                                      },
+                                      child: TextField(
+                                        controller: _editingController,
+                                        autofocus: true,
+                                        onSubmitted: (value) => saveEdit(),
+                                        onTapOutside: (event) => cancelEdit(),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              5,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 5,
+                                              ),
+                                        ),
+                                      ),
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            widget.message.content,
+                                            style: TextStyle(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.secondary,
+                                            ),
+                                          ),
+                                        ),
+                                        if (widget.message.isEdited)
+                                          const Text(
+                                            ' (edited)',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontStyle: FontStyle.italic,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    widget.message.creationDateTime
+                                        .formatDateTime(context)
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                      const SizedBox(height: 5),
-                      Text(
-                        widget.message.creationDateTime.toString(),
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ],
+              ),
+            ),
+            Positioned(
+              bottom: (constraints.minHeight) / 2,
+              top: constraints.minHeight / 2,
+              child: Transform.translate(
+                offset: Offset(_dragOffset - 70, 0),
+                child: Opacity(
+                  opacity: (_dragOffset / 100).clamp(0.0, 1.0),
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    child: Icon(
+                      Icons.reply,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class ChatInputField extends StatelessWidget {
-  const ChatInputField({super.key});
+  ChatInputField({super.key});
+
+  final RoomChatController chatController = Get.find<RoomChatController>();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
+    return Obx(
+      () => Column(
         children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Say Something',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                if (chatController.replyingTo.value != null)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "@${chatController.replyingTo.value?.creatorUsername ?? ""}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              Text(
+                                chatController.replyingTo.value?.content ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          chatController.clearReplyingTo();
+                        },
+                      ),
+                    ],
+                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _messageController,
+                        onSubmitted: (value) async {
+                          if (_messageController.text.isNotEmpty) {
+                            await chatController.sendMessage(
+                              _messageController.text,
+                            );
+                            _messageController.clear();
+                            // Clear reply if user sends a message
+                            chatController.clearReplyingTo();
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Say Something',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () async {
+                        if (_messageController.text.isNotEmpty) {
+                          await chatController.sendMessage(
+                            _messageController.text,
+                          );
+                          _messageController.clear();
+                          // Clear reply if user sends a message
+                          chatController.clearReplyingTo();
+                        }
+                      },
+                    ),
+                  ],
                 ),
-                filled: true,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              ),
+              ],
             ),
-          ),
-          const SizedBox(width: 10),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () {},
           ),
         ],
       ),

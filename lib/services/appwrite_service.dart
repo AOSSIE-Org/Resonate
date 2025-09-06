@@ -7,6 +7,7 @@ class AppwriteService {
   static Databases? _database;
   static Storage? _storage;
   static Realtime? _realtime;
+  static Functions? _functions;
 
   // Instantiates a new AppWrite Client if it doesn't exist
   static Client getClient() {
@@ -14,8 +15,8 @@ class AppwriteService {
         .setEndpoint(appwriteEndpoint)
         .setProject(appwriteProjectId)
         .setSelfSigned(
-            status:
-                true); // For self signed certificates, only use for development
+          status: true,
+        ); // For self signed certificates, only use for development
     return _client!;
   }
 
@@ -42,6 +43,8 @@ class AppwriteService {
     return _realtime!;
   }
 
+  static Functions getFunctions() {
+    _functions ??= Functions(getClient());
+    return _functions!;
+  }
 }
-
-
