@@ -15,7 +15,7 @@ _FollowerUserModel _$FollowerUserModelFromJson(Map<String, dynamic> json) =>
       name: json['followerName'] as String,
       fcmToken: json['followerFCMToken'] as String,
       followingUserId: json['followingUserId'] as String?,
-      followerRating: (json['followerRating'] as num).toDouble(),
+      followerRating: toDouble(json['followerRating']),
     );
 
 Map<String, dynamic> _$FollowerUserModelToJson(_FollowerUserModel instance) =>

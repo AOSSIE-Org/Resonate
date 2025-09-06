@@ -528,5 +528,65 @@
     "story": "कहानी",
     "user": "यूज़र",
     "following": "फॉलो कर रहे हैं",
-    "followers": "फॉलोअर्स"
+    "followers": "फॉलोअर्स",
+    "friendRequests": "फ्रेंड रिक्वेस्ट",
+    "requested": "अनुरोध किया है",
+    "friends": "मित्र",
+    "addFriend": "मित्र जोड़ें",
+    "friendRequestSent": "मित्रता अनुरोध भेजा गया",
+    "friendRequestSentTo": "आपका मित्रता अनुरोध {username} को भेजा गया है।",
+    "@friendRequestSentTo": {
+        "description": "Message when a friend request is sent to a user",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestCancelled": "मित्रता अनुरोध रद्द कर दिया गया",
+    "friendRequestCancelledTo": "{username} को आपका मित्रता अनुरोध रद्द कर दिया गया है।",
+    "@friendRequestCancelledTo": {
+        "description": "Message when a friend request is cancelled",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestAccepted": "मित्रता अनुरोध स्वीकार कर लिया गया",
+    "friendRequestAcceptedTo": "आपने {username} के मित्रता अनुरोध को स्वीकार कर लिया है।",
+    "@friendRequestAcceptedTo": {
+        "description": "Message when a friend request is accepted",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestDeclined": "मित्रता अनुरोध अस्वीकार कर दिया गया",
+    "friendRequestDeclinedTo": "आपने {username} के मित्रता अनुरोध को अस्वीकार कर दिया है।",
+    "@friendRequestDeclinedTo": {
+        "description": "Message when a friend request is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "accept": "स्वीकार करें",
+    "callDeclined": "कॉल अस्वीकार कर दिया गया",
+    "callDeclinedTo": "{username} ने आपकी कॉल को अस्वीकार कर दिया है।",
+    "@callDeclinedTo": {
+        "description": "Message when a call is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    }
 }

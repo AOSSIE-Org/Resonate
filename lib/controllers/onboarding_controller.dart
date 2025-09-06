@@ -54,8 +54,9 @@ class OnboardingController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (pickedDate != null) {
-      dobController.text =
-          DateFormat("dd-MM-yyyy").format(pickedDate).toString();
+      dobController.text = DateFormat(
+        "dd-MM-yyyy",
+      ).format(pickedDate).toString();
     }
   }
 
@@ -63,8 +64,9 @@ class OnboardingController extends GetxController {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
-    var usernameAvail =
-        await isUsernameAvailable(usernameController.text.trim());
+    var usernameAvail = await isUsernameAvailable(
+      usernameController.text.trim(),
+    );
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
@@ -84,21 +86,25 @@ class OnboardingController extends GetxController {
 
       // Update username collection
       await databases.createDocument(
-          databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: usernameController.text.trim(),
-          data: {"email": authStateController.email});
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
+        documentId: usernameController.text.trim(),
+        data: {"email": authStateController.email},
+      );
       //Update User Meta Data
       if (profileImagePath != null) {
-        uniqueIdForProfileImage = authStateController.uid! +
+        uniqueIdForProfileImage =
+            authStateController.uid! +
             DateTime.now().millisecondsSinceEpoch.toString();
 
         final profileImage = await storage.createFile(
-            bucketId: userProfileImageBucketId,
-            fileId: uniqueIdForProfileImage!,
-            file: InputFile.fromPath(
-                path: profileImagePath!,
-                filename: "${authStateController.email}.jpeg"));
+          bucketId: userProfileImageBucketId,
+          fileId: uniqueIdForProfileImage!,
+          file: InputFile.fromPath(
+            path: profileImagePath!,
+            filename: "${authStateController.email}.jpeg",
+          ),
+        );
         imageController.text =
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
       } else {
@@ -106,8 +112,9 @@ class OnboardingController extends GetxController {
       }
 
       // Update User meta data
-      await authStateController.account
-          .updateName(name: nameController.text.trim());
+      await authStateController.account.updateName(
+        name: nameController.text.trim(),
+      );
       //log(authStateController.uid!);
       await databases.createDocument(
         databaseId: userDatabaseID,
@@ -122,8 +129,9 @@ class OnboardingController extends GetxController {
           "profileImageID": uniqueIdForProfileImage,
         },
       );
-      await authStateController.account
-          .updatePrefs(prefs: {"isUserProfileComplete": true});
+      await authStateController.account.updatePrefs(
+        prefs: {"isUserProfileComplete": true},
+      );
       // Set user profile in authStateController
       await authStateController.setUserProfileData();
       customSnackbar(
@@ -157,10 +165,7 @@ class OnboardingController extends GetxController {
           e.toString(),
           LogType.error,
         );
-        SemanticsService.announce(
-          e.toString(),
-          ui.TextDirection.ltr,
-        );
+        SemanticsService.announce(e.toString(), ui.TextDirection.ltr);
       }
     } finally {
       isLoading.value = false;
@@ -170,7 +175,10 @@ class OnboardingController extends GetxController {
   Future<void> pickImage() async {
     try {
       XFile? file = await _imagePicker.pickImage(
-          source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
+        source: ImageSource.gallery,
+        maxHeight: 400,
+        maxWidth: 400,
+      );
       if (file == null) return;
       profileImagePath = file.path;
       update();

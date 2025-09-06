@@ -14,9 +14,7 @@ class NoRoomScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 6,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height / 6),
         SvgPicture.asset(
           AppImages.noRoomImage,
           height: 200,
@@ -26,16 +24,11 @@ class NoRoomScreen extends StatelessWidget {
             BlendMode.srcIn,
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         Text(
           AppLocalizations.of(context)!.noAvailableRoom(isRoom.toString()),
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w900,
-          ),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
         ),
       ],
     );
@@ -43,9 +36,7 @@ class NoRoomScreen extends StatelessWidget {
 }
 
 class GeneralAppBar extends StatelessWidget {
-  const GeneralAppBar({
-    super.key,
-  });
+  const GeneralAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +45,7 @@ class GeneralAppBar extends StatelessWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.live.toUpperCase(),
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
         const SizedBox(width: 25),
         Text(

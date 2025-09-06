@@ -60,35 +60,40 @@ class UpcomingRoomsController extends GetxController {
   Future<void> addUserToSubscriberList(String upcomingRoomId) async {
     final fcmToken = await messaging.getToken();
     await databases.createDocument(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        documentId: ID.unique(),
-        data: {
-          "userID": authStateController.uid,
-          "upcomingRoomId": upcomingRoomId,
-          "registrationTokens": [fcmToken],
-          "userProfileUrl": authStateController.profileImageUrl
-        });
+      databaseId: upcomingRoomsDatabaseId,
+      collectionId: subscribedUserCollectionId,
+      documentId: ID.unique(),
+      data: {
+        "userID": authStateController.uid,
+        "upcomingRoomId": upcomingRoomId,
+        "registrationTokens": [fcmToken],
+        "userProfileUrl": authStateController.profileImageUrl,
+      },
+    );
 
     await getUpcomingRooms();
   }
 
   Future<void> removeUserFromSubscriberList(String upcomingRoomId) async {
     try {
-      var subscribeDocument = await databases.listDocuments(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          queries: [
-            Query.and([
-              Query.equal('userID', authStateController.uid),
-              Query.equal('upcomingRoomId', upcomingRoomId)
-            ])
-          ]).then((value) => value.documents.first);
+      var subscribeDocument = await databases
+          .listDocuments(
+            databaseId: upcomingRoomsDatabaseId,
+            collectionId: subscribedUserCollectionId,
+            queries: [
+              Query.and([
+                Query.equal('userID', authStateController.uid),
+                Query.equal('upcomingRoomId', upcomingRoomId),
+              ]),
+            ],
+          )
+          .then((value) => value.documents.first);
 
       await databases.deleteDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscribeDocument.$id);
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscribeDocument.$id,
+      );
 
       await getUpcomingRooms();
     } on AppwriteException catch (error) {
@@ -97,7 +102,8 @@ class UpcomingRoomsController extends GetxController {
   }
 
   Future<AppwriteUpcommingRoom> fetchUpcomingRoomDetails(
-      Document upcomingRoom) async {
+    Document upcomingRoom,
+  ) async {
     try {
       List<Document> upcomingRoomSubscribers;
       int totalSubscriberCount;
@@ -105,12 +111,15 @@ class UpcomingRoomsController extends GetxController {
           (authStateController.uid == upcomingRoom.data["creatorUid"]);
       bool hasUserSubscribed = false;
 
-      upcomingRoomSubscribers = await databases.listDocuments(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          queries: [
-            Query.equal('upcomingRoomId', [upcomingRoom.$id]),
-          ]).then((value) => value.documents);
+      upcomingRoomSubscribers = await databases
+          .listDocuments(
+            databaseId: upcomingRoomsDatabaseId,
+            collectionId: subscribedUserCollectionId,
+            queries: [
+              Query.equal('upcomingRoomId', [upcomingRoom.$id]),
+            ],
+          )
+          .then((value) => value.documents);
       totalSubscriberCount = upcomingRoomSubscribers.length;
 
       List<String> subscribersProfileUrls = [];
@@ -130,17 +139,19 @@ class UpcomingRoomsController extends GetxController {
       localTimeZoneName = currentTimeInstance.timeZoneName;
       isOffsetNegetive = localTimeZoneOffset.isNegative;
       return AppwriteUpcommingRoom(
-          id: upcomingRoom.$id,
-          name: upcomingRoom.data['name'],
-          isTime: upcomingRoom.data['isTime'],
-          scheduledDateTime:
-              DateTime.parse(upcomingRoom.data['scheduledDateTime']),
-          totalSubscriberCount: totalSubscriberCount,
-          tags: upcomingRoom.data['tags'],
-          subscribersAvatarUrls: subscribersProfileUrls,
-          userIsCreator: userIsCreator,
-          description: upcomingRoom.data['description'],
-          hasUserSubscribed: hasUserSubscribed);
+        id: upcomingRoom.$id,
+        name: upcomingRoom.data['name'],
+        isTime: upcomingRoom.data['isTime'],
+        scheduledDateTime: DateTime.parse(
+          upcomingRoom.data['scheduledDateTime'],
+        ),
+        totalSubscriberCount: totalSubscriberCount,
+        tags: upcomingRoom.data['tags'],
+        subscribersAvatarUrls: subscribersProfileUrls,
+        userIsCreator: userIsCreator,
+        description: upcomingRoom.data['description'],
+        hasUserSubscribed: hasUserSubscribed,
+      );
     } catch (e) {
       log(e.toString());
       return AppwriteUpcommingRoom(
@@ -182,8 +193,12 @@ class UpcomingRoomsController extends GetxController {
     }
   }
 
-  Future<void> convertUpcomingRoomtoRoom(String upcomingRoomId, String name,
-      String description, List<String> tags) async {
+  Future<void> convertUpcomingRoomtoRoom(
+    String upcomingRoomId,
+    String name,
+    String description,
+    List<String> tags,
+  ) async {
     await createRoomController.createRoom(name, description, tags, false);
     controller.setIndex(0);
     await roomsController.getRooms();
@@ -201,17 +216,18 @@ class UpcomingRoomsController extends GetxController {
     try {
       final fcmToken = await messaging.getToken();
       await databases.createDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: ID.unique(),
-          data: {
-            "name": createRoomController.nameController.text,
-            "scheduledDateTime": scheduledDateTime,
-            "tags": createRoomController.tagsController.getTags,
-            "description": createRoomController.descriptionController.text,
-            "creatorUid": authStateController.uid,
-            "creator_fcm_tokens": [fcmToken]
-          });
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: ID.unique(),
+        data: {
+          "name": createRoomController.nameController.text,
+          "scheduledDateTime": scheduledDateTime,
+          "tags": createRoomController.tagsController.getTags,
+          "description": createRoomController.descriptionController.text,
+          "creatorUid": authStateController.uid,
+          "creator_fcm_tokens": [fcmToken],
+        },
+      );
     } on AppwriteException catch (e) {
       log(e.toString());
     }
@@ -237,8 +253,10 @@ class UpcomingRoomsController extends GetxController {
     Duration timeZoneOffset = now.timeZoneOffset;
     String timeZoneOffsetString = timeZoneOffset.toString();
     bool isOffsetNegetive = timeZoneOffset.isNegative;
-    String formattedOffset =
-        formatTimeZoneOffset(timeZoneOffsetString, isOffsetNegetive);
+    String formattedOffset = formatTimeZoneOffset(
+      timeZoneOffsetString,
+      isOffsetNegetive,
+    );
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: now,
@@ -249,49 +267,66 @@ class UpcomingRoomsController extends GetxController {
 
     TimeOfDay? pickedTime = await showTimePicker(
       context: Get.context!,
-      initialTime:
-          TimeOfDay(hour: initialTime.hour, minute: initialTime.minute),
+      initialTime: TimeOfDay(
+        hour: initialTime.hour,
+        minute: initialTime.minute,
+      ),
     );
     if (pickedDate != null && pickedTime != null) {
-      DateTime pickedDateTime = DateTime(pickedDate.year, pickedDate.month,
-          pickedDate.day, pickedTime.hour, pickedTime.minute);
+      DateTime pickedDateTime = DateTime(
+        pickedDate.year,
+        pickedDate.month,
+        pickedDate.day,
+        pickedTime.hour,
+        pickedTime.minute,
+      );
       if (!pickedDateTime.isAfter(now)) {
         Get.snackbar(
-            AppLocalizations.of(Get.context!)!.invalidScheduledDateTime,
-            AppLocalizations.of(Get.context!)!.scheduledDateTimePast);
+          AppLocalizations.of(Get.context!)!.invalidScheduledDateTime,
+          AppLocalizations.of(Get.context!)!.scheduledDateTimePast,
+        );
         return;
       }
       scheduledDateTime =
           '${DateFormat("yyyy-MM-dd").format(pickedDate).toString()}T${pickedTime.hour.toString()}:${pickedTime.minute.toString()}:00${isOffsetNegetive ? '-' : '+'}$formattedOffset';
       dateTimeController.text =
-          '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12 ? (pickedTime.hour - 12) : pickedTime.hour == 0 ? '00' : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
+          '${pickedDate.day}  ${monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  ${pickedTime.hour > 12
+              ? (pickedTime.hour - 12)
+              : pickedTime.hour == 0
+              ? '00'
+              : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
     }
   }
 
   Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await databases.deleteDocument(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        documentId: upcomingRoomId);
+      databaseId: upcomingRoomsDatabaseId,
+      collectionId: upcomingRoomsCollectionId,
+      documentId: upcomingRoomId,
+    );
     await getUpcomingRooms();
     deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
   }
 
   Future<void> deleteAllDeletedUpcomingRoomsSubscribers(
-      String upcomingRoomId) async {
+    String upcomingRoomId,
+  ) async {
     List<Document> deletedUpcomingRoomSubscribers = await databases
         .listDocuments(
-            databaseId: upcomingRoomsDatabaseId,
-            collectionId: subscribedUserCollectionId,
-            queries: [
-          Query.equal('upcomingRoomId', [upcomingRoomId]),
-        ]).then((value) => value.documents);
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: subscribedUserCollectionId,
+          queries: [
+            Query.equal('upcomingRoomId', [upcomingRoomId]),
+          ],
+        )
+        .then((value) => value.documents);
 
     for (Document subscriber in deletedUpcomingRoomSubscribers) {
       await databases.deleteDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscriber.$id);
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscriber.$id,
+      );
     }
   }
 

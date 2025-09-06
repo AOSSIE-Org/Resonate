@@ -15,9 +15,7 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        toolbarHeight: 0,
-      ),
+      appBar: AppBar(toolbarHeight: 0),
       body: OnBoardingSlider(
         leading: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -75,21 +73,17 @@ class LandingScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: UiSizes.height_200 * 2,
-                ),
+                SizedBox(height: UiSizes.height_200 * 2),
                 Text(
                   AppLocalizations.of(context)!.welcomeToResonate,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
-                SizedBox(
-                  height: UiSizes.height_16,
-                ),
+                SizedBox(height: UiSizes.height_16),
                 Text(
                   AppLocalizations.of(context)!.joinConversationExploreRooms,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
-                )
+                ),
               ],
             ),
           ),
@@ -97,22 +91,18 @@ class LandingScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: UiSizes.height_200 * 2,
-                ),
+                SizedBox(height: UiSizes.height_200 * 2),
                 Text(
                   AppLocalizations.of(context)!.exploreDiverseConversations,
                   style: TextStyle(fontSize: UiSizes.size_23),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: UiSizes.height_20,
-                ),
+                SizedBox(height: UiSizes.height_20),
                 Text(
                   AppLocalizations.of(context)!.diveIntoDiverseDiscussions,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
-                )
+                ),
               ],
             ),
           ),
@@ -120,21 +110,17 @@ class LandingScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: UiSizes.height_200 * 2,
-                ),
+                SizedBox(height: UiSizes.height_200 * 2),
                 Text(
                   AppLocalizations.of(context)!.yourVoiceMatters,
                   style: TextStyle(fontSize: UiSizes.size_23),
                 ),
-                SizedBox(
-                  height: UiSizes.height_16,
-                ),
+                SizedBox(height: UiSizes.height_16),
                 Text(
                   AppLocalizations.of(context)!.atResonateEveryVoiceValued,
                   style: TextStyle(fontSize: UiSizes.size_15),
                   textAlign: TextAlign.center,
-                )
+                ),
               ],
             ),
           ),
@@ -163,18 +149,11 @@ class LandingImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: initialHeight,
-        ),
+        SizedBox(height: initialHeight),
         Row(
           children: [
-            SizedBox(
-              width: imageWidth,
-            ),
-            Image.asset(
-              imagePath,
-              height: imageHeight,
-            ),
+            SizedBox(width: imageWidth),
+            Image.asset(imagePath, height: imageHeight),
           ],
         ),
       ],

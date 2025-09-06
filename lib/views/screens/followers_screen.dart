@@ -10,16 +10,18 @@ class FollowersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(AppLocalizations.of(context)!.followers)),
-        body: ListView.builder(
-            itemCount: followers.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final follower = followers[index];
-              return FilteredListTile(
-                isStory: false,
-                user: follower.toResonateUser(),
-              );
-            }));
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.followers)),
+      body: ListView.builder(
+        itemCount: followers.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          final follower = followers[index];
+          return FilteredListTile(
+            isStory: false,
+            user: follower.toResonateUser(),
+          );
+        },
+      ),
+    );
   }
 }

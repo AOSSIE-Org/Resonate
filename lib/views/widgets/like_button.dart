@@ -5,11 +5,12 @@ class LikeButton extends StatefulWidget {
   final bool isLikedByUser;
   final Function(bool isFavorite) onLiked;
 
-  const LikeButton(
-      {super.key,
-      required this.tintColor,
-      required this.onLiked,
-      required this.isLikedByUser});
+  const LikeButton({
+    super.key,
+    required this.tintColor,
+    required this.onLiked,
+    required this.isLikedByUser,
+  });
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -33,44 +34,37 @@ class _LikeButtonState extends State<LikeButton>
     );
 
     // Bounce animation sequence
-    _scaleAnimation = TweenSequence<double>(
-      [
-        TweenSequenceItem(
-          tween: Tween(begin: 1.0, end: 1.2),
-          weight: 40,
-        ), // Scale up
-        TweenSequenceItem(
-          tween: Tween(begin: 1.2, end: 0.9),
-          weight: 30,
-        ), // Overshoot
-        TweenSequenceItem(
-          tween: Tween(begin: 0.9, end: 1.0),
-          weight: 30,
-        ), // Settle back
-      ],
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
+    _scaleAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 1.2),
+        weight: 40,
+      ), // Scale up
+      TweenSequenceItem(
+        tween: Tween(begin: 1.2, end: 0.9),
+        weight: 30,
+      ), // Overshoot
+      TweenSequenceItem(
+        tween: Tween(begin: 0.9, end: 1.0),
+        weight: 30,
+      ), // Settle back
+    ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Color transition animation
-    _colorAnimation = ColorTween(
-      begin: Colors.grey,
-      end: widget.tintColor,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.5), // Color change happens in first half
-      ),
-    );
+    _colorAnimation = ColorTween(begin: Colors.grey, end: widget.tintColor)
+        .animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(
+              0.0,
+              0.5,
+            ), // Color change happens in first half
+          ),
+        );
 
     // Initialize animation state based on initial favorite status
     if (_isFavorite) {
       _controller.value = 1.0;
     }
-
   }
 
   @override
@@ -98,8 +92,7 @@ class _LikeButtonState extends State<LikeButton>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        setState(() =>
-          _isFavorite = !_isFavorite);
+        setState(() => _isFavorite = !_isFavorite);
 
         if (_isFavorite) {
           await _controller.forward(from: 0.0);

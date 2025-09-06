@@ -45,25 +45,22 @@ class PairingScreen extends StatelessWidget {
   Widget _buildTitle(Color primaryColor, BuildContext context) {
     return Text(
       AppLocalizations.of(context)!.findingRandomPartner,
-      style: TextStyle(
-        color: primaryColor,
-        fontSize: Get.pixelRatio * 6.5,
-      ),
+      style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
     );
   }
 
   Widget _buildSubtitle(BuildContext context) {
     return Text(
       AppLocalizations.of(context)!.hangOnGoodThingsTakeTime,
-      style: TextStyle(
-        fontSize: UiSizes.size_14,
-        color: Colors.grey.shade500,
-      ),
+      style: TextStyle(fontSize: UiSizes.size_14, color: Colors.grey.shade500),
     );
   }
 
   Widget _buildLoadingIndicator(
-      BuildContext context, Color primaryColor, String profileImageUrl) {
+    BuildContext context,
+    Color primaryColor,
+    String profileImageUrl,
+  ) {
     return Stack(
       children: [
         Padding(
@@ -95,7 +92,10 @@ class PairingScreen extends StatelessWidget {
   }
 
   Widget _buildFooter(
-      Color primaryColor, Color onPrimaryColor, BuildContext context) {
+    Color primaryColor,
+    Color onPrimaryColor,
+    BuildContext context,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
       child: Column(
@@ -113,10 +113,7 @@ class PairingScreen extends StatelessWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.quickFact,
-          style: TextStyle(
-            color: primaryColor,
-            fontSize: Get.pixelRatio * 6.5,
-          ),
+          style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
         ),
         Text(
           AppLocalizations.of(context)!.resonateOpenSourceProject,
@@ -131,20 +128,18 @@ class PairingScreen extends StatelessWidget {
   }
 
   Widget _buildCancelButton(
-      Color primaryColor, Color onPrimaryColor, BuildContext context) {
+    Color primaryColor,
+    Color onPrimaryColor,
+    BuildContext context,
+  ) {
     return ElevatedButton(
       onPressed: () async {
         await controller.cancelRequest();
       },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
-      ),
+      style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
       child: Text(
         AppLocalizations.of(context)!.cancel,
-        style: TextStyle(
-          color: onPrimaryColor,
-          fontSize: Get.pixelRatio * 8,
-        ),
+        style: TextStyle(color: onPrimaryColor, fontSize: Get.pixelRatio * 8),
       ),
     );
   }

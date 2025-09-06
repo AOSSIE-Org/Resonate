@@ -30,9 +30,7 @@ class ThemeModes {
         ),
         titleMedium: TextStyle(color: Colors.black54),
       ),
-      dividerTheme: const DividerThemeData(
-        color: Colors.black54,
-      ),
+      dividerTheme: const DividerThemeData(color: Colors.black54),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primaryColor,
@@ -48,9 +46,7 @@ class ThemeModes {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: theme.primaryColor,
-          ),
+          side: BorderSide(color: theme.primaryColor),
           fixedSize: const Size.fromHeight(48),
           // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
@@ -67,22 +63,14 @@ class ThemeModes {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.primaryColor,
-          ),
+          borderSide: BorderSide(color: theme.primaryColor),
         ),
         fillColor: theme.secondaryColor,
         filled: true,
         prefixIconColor: theme.onSecondaryColor,
-        hintStyle: TextStyle(
-          color: theme.onSecondaryColor,
-        ),
-        labelStyle: TextStyle(
-          color: theme.onSecondaryColor,
-        ),
-        floatingLabelStyle: TextStyle(
-          color: theme.primaryColor,
-        ),
+        hintStyle: TextStyle(color: theme.onSecondaryColor),
+        labelStyle: TextStyle(color: theme.onSecondaryColor),
+        floatingLabelStyle: TextStyle(color: theme.primaryColor),
         contentPadding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,
           vertical: UiSizes.height_20,
@@ -116,9 +104,7 @@ class ThemeModes {
         ),
         titleMedium: TextStyle(color: Colors.white54),
       ),
-      dividerTheme: const DividerThemeData(
-        color: Colors.white54,
-      ),
+      dividerTheme: const DividerThemeData(color: Colors.white54),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.primaryColor,
@@ -134,9 +120,7 @@ class ThemeModes {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: theme.primaryColor,
-          ),
+          side: BorderSide(color: theme.primaryColor),
           fixedSize: const Size.fromHeight(48),
           // padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
           textStyle: TextStyle(
@@ -153,22 +137,14 @@ class ThemeModes {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: theme.primaryColor,
-          ),
+          borderSide: BorderSide(color: theme.primaryColor),
         ),
         fillColor: theme.secondaryColor,
         filled: true,
         prefixIconColor: theme.onSecondaryColor,
-        hintStyle: TextStyle(
-          color: theme.onSecondaryColor,
-        ),
-        labelStyle: TextStyle(
-          color: theme.onSecondaryColor,
-        ),
-        floatingLabelStyle: TextStyle(
-          color: theme.primaryColor,
-        ),
+        hintStyle: TextStyle(color: theme.onSecondaryColor),
+        labelStyle: TextStyle(color: theme.onSecondaryColor),
+        floatingLabelStyle: TextStyle(color: theme.primaryColor),
         contentPadding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_20,
           vertical: UiSizes.height_20,

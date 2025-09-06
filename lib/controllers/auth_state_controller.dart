@@ -4,9 +4,14 @@ import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_callkit_incoming/entities/call_event.dart';
+import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
+import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/controllers/friend_calling_controller.dart';
+import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/follower_user_model.dart';
@@ -30,10 +35,10 @@ class AuthStateController extends GetxController {
     Databases? databases,
     Client? client,
     FirebaseMessaging? messaging,
-  })  : client = client ?? AppwriteService.getClient(),
-        account = account ?? AppwriteService.getAccount(),
-        databases = databases ?? AppwriteService.getDatabases(),
-        messaging = messaging ?? FirebaseMessaging.instance;
+  }) : client = client ?? AppwriteService.getClient(),
+       account = account ?? AppwriteService.getAccount(),
+       databases = databases ?? AppwriteService.getDatabases(),
+       messaging = messaging ?? FirebaseMessaging.instance;
   late String? uid;
   late String? profileImageID;
   late String? displayName;
@@ -50,13 +55,17 @@ class AuthStateController extends GetxController {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails('your channel id', 'your channel name',
-          channelDescription: 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          ticker: 'ticker');
-  static NotificationDetails notificationDetails =
-      NotificationDetails(android: androidNotificationDetails);
+      AndroidNotificationDetails(
+        'your channel id',
+        'your channel name',
+        channelDescription: 'your channel description',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+      );
+  static NotificationDetails notificationDetails = NotificationDetails(
+    android: androidNotificationDetails,
+  );
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -65,19 +74,24 @@ class AuthStateController extends GetxController {
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
     InitializationSettings initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
+    );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
   }
 
   void onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse) async {
+    NotificationResponse notificationResponse,
+  ) async {
     String name = notificationResponse.payload!;
     UpcomingRoomsController upcomingRoomsController =
         Get.find<UpcomingRoomsController>();
-    int index = upcomingRoomsController.upcomingRooms
-        .indexWhere((upcomingRoom) => upcomingRoom.name == name);
+    int index = upcomingRoomsController.upcomingRooms.indexWhere(
+      (upcomingRoom) => upcomingRoom.name == name,
+    );
 
     upcomingRoomsController.upcomingRoomScrollController.value =
         ScrollController(initialScrollOffset: UiSizes.height_170 * index);
@@ -102,24 +116,39 @@ class AuthStateController extends GetxController {
       provisional: false,
       sound: true,
     );
+    // Check if can use full screen intent
+    if (!Get.testMode) {
+      await FlutterCallkitIncoming.canUseFullScreenIntent();
+
+      // Request full intent permission
+      await FlutterCallkitIncoming.requestFullIntentPermission();
+    }
 
     await initializeLocalNotifications();
 
     // Listen to notitifcations in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      log('Got a message whilst in the foreground!');
+      if (message.data['type'] == 'incoming_call') {
+        log('saw incoming call');
+
+        await FriendCallingController.onCallRecieved(message);
+      }
       if (message.notification != null) {
         RegExp exp = RegExp(r'The room (\w+) will Start Soon');
         RegExpMatch? matches = exp.firstMatch(message.notification!.body!);
+
         if (matches != null) {
           String discussionName = matches.group(1)!;
 
           // send local notification
           await flutterLocalNotificationsPlugin.show(
-              0,
-              message.notification!.title,
-              message.notification!.body,
-              notificationDetails,
-              payload: discussionName);
+            0,
+            message.notification!.title,
+            message.notification!.body,
+            notificationDetails,
+            payload: discussionName,
+          );
         } else {
           await flutterLocalNotificationsPlugin.show(
             0,
@@ -130,6 +159,27 @@ class AuthStateController extends GetxController {
         }
       }
     });
+    if (!Get.testMode) {
+      final friendCallingController = Get.put(
+        FriendCallingController(),
+        permanent: true,
+      );
+      FlutterCallkitIncoming.onEvent.listen((CallEvent? event) {
+        if (event!.event == Event.actionCallAccept) {
+          log(event.body['extra'].toString());
+
+          friendCallingController.onAnswerCall(
+            Map<String, dynamic>.from(event.body['extra']),
+          );
+        }
+        if (event.event == Event.actionCallDecline) {
+          friendCallingController.onDeclinedCall(
+            Map<String, dynamic>.from(event.body['extra']),
+          );
+          FlutterCallkitIncoming.showMissCallNotification(CallKitParams());
+        }
+      });
+    }
   }
 
   Future<bool> get getLoginState async {
@@ -153,9 +203,10 @@ class AuthStateController extends GetxController {
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
         Document userDataDoc = await databases.getDocument(
-            databaseId: userDatabaseID,
-            collectionId: usersCollectionID,
-            documentId: appwriteUser.$id);
+          databaseId: userDatabaseID,
+          collectionId: usersCollectionID,
+          documentId: appwriteUser.$id,
+        );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
@@ -163,14 +214,15 @@ class AuthStateController extends GetxController {
         ratingCount = userDataDoc.data["ratingCount"] ?? 1;
         followerDocuments =
             (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
-                  log(e.runtimeType.toString());
-                  return FollowerUserModel.fromJson(e);
-                }).toList() ??
-                [];
-        log("Follower documents: $followerDocuments");
+              return FollowerUserModel.fromJson(e);
+            }).toList() ??
+            [];
       }
 
       update();
+      if (!Get.testMode) {
+        Get.put(FriendsController(), permanent: true);
+      }
     } catch (e) {
       log("Error originating from setUserProfileData$e");
     } finally {
@@ -185,10 +237,19 @@ class AuthStateController extends GetxController {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
+        final activeCalls = await FlutterCallkitIncoming.activeCalls();
+        if (activeCalls.isNotEmpty) {
+          final activeCall = activeCalls.last;
+          await Get.find<FriendCallingController>().onAnswerCall(
+            Map<String, dynamic>.from(activeCall['extra']),
+          );
+        }
       }
     } catch (e) {
+      log("Error in isUserLoggedIn$e");
       bool? landingScreenShown = GetStorage().read(
-          "landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+        "landingScreenShown",
+      ); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
           : Get.offNamed(AppRoutes.welcomeScreen);
@@ -205,38 +266,46 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        queries: [
-          Query.equal("userID", [uid])
-        ]).then((value) => value.documents);
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: subscribedUserCollectionId,
+          queries: [
+            Query.equal("userID", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscription.$id,
-          data: {"registrationTokens": registrationTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
+        data: {"registrationTokens": registrationTokens},
+      );
     }
 
     //created Upcoming Rooms
-    List<Document> createdUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        queries: [
-          Query.equal("creatorUid", [uid])
-        ]).then((value) => value.documents);
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          queries: [
+            Query.equal("creatorUid", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: upcomingRoom.$id,
-          data: {"creator_fcm_tokens": creatorFcmTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
+        data: {"creator_fcm_tokens": creatorFcmTokens},
+      );
     }
   }
 
@@ -244,38 +313,46 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        queries: [
-          Query.equal("userID", [uid])
-        ]).then((value) => value.documents);
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: subscribedUserCollectionId,
+          queries: [
+            Query.equal("userID", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscription.$id,
-          data: {"registrationTokens": registrationTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
+        data: {"registrationTokens": registrationTokens},
+      );
     }
 
     //created Upcoming Rooms
-    List<Document> createdUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        queries: [
-          Query.equal("creatorUid", [uid])
-        ]).then((value) => value.documents);
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          queries: [
+            Query.equal("creatorUid", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: upcomingRoom.$id,
-          data: {"creator_fcm_tokens": creatorFcmTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
+        data: {"creator_fcm_tokens": creatorFcmTokens},
+      );
     }
   }
 

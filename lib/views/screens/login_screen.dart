@@ -48,21 +48,18 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: UiSizes.height_60,
-                    ),
+                    SizedBox(height: UiSizes.height_60),
                     Text(
                       AppLocalizations.of(context)!.login,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     TextFormField(
                       validator: (value) => value!.isValidEmail()
                           ? null
-                          : AppLocalizations.of(context)!
-                              .enterValidEmailAddress,
+                          : AppLocalizations.of(
+                              context,
+                            )!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -70,9 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
                         controller: controller.passwordController,
@@ -100,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller.isPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -109,9 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_30,
-                    ),
+                    SizedBox(height: UiSizes.height_30),
                     SizedBox(
                       width: double.maxFinite,
                       child: Obx(
@@ -126,22 +120,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: controller.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget
-                                      .horizontalRotatingDots(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: UiSizes.size_40,
-                                  ),
+                                  child:
+                                      LoadingAnimationWidget.horizontalRotatingDots(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimary,
+                                        size: UiSizes.size_40,
+                                      ),
                                 )
-                              : Text(
-                                  AppLocalizations.of(context)!.login,
-                                ),
+                              : Text(AppLocalizations.of(context)!.login),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(AppRoutes.forgotPassword);
@@ -177,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

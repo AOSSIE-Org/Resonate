@@ -12,7 +12,10 @@ class ChapterPlayerController extends GetxController {
   late LyricsReaderModel lyricModel;
 
   void initialize(
-      AudioPlayer player, LyricsReaderModel model, Duration duration) {
+    AudioPlayer player,
+    LyricsReaderModel model,
+    Duration duration,
+  ) {
     audioPlayer = player;
     lyricModel = model;
     chapterDuration = duration;

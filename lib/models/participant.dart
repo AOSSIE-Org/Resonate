@@ -8,7 +8,7 @@ class Participant {
     required this.isMicOn,
     required this.isModerator,
     required this.isSpeaker,
-    required this.hasRequestedToBeSpeaker
+    required this.hasRequestedToBeSpeaker,
   });
   late final String uid;
   late final String email;
@@ -20,11 +20,13 @@ class Participant {
   late bool isSpeaker;
   late bool hasRequestedToBeSpeaker;
 
-  Participant.fromJson(Map<String, dynamic> json){
+  Participant.fromJson(Map<String, dynamic> json) {
     uid = json["uid"];
     email = json['email'];
     name = json['name'] ?? "Unknown";
-    dpUrl = json['dpUrl'] ?? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80";
+    dpUrl =
+        json['dpUrl'] ??
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80";
     isAdmin = json['isAdmin'];
     isMicOn = json['isMicOn'];
     isModerator = json['isModerator'];

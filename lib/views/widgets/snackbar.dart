@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 
 SnackbarController customSnackbar(
-    String title, String message, LogType messageType,
-    {int snackbarDuration = 3}) {
+  String title,
+  String message,
+  LogType messageType, {
+  int snackbarDuration = 3,
+}) {
   Color messageTypeColor() {
     switch (messageType) {
       case LogType.success:
@@ -18,17 +21,20 @@ SnackbarController customSnackbar(
     }
   }
 
-  return Get.snackbar(title, message,
-      backgroundColor: Theme.of(Get.context!).colorScheme.surface,
-      titleText: Text(
-        title,
-        style: TextStyle(
-          color: messageTypeColor(),
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+  return Get.snackbar(
+    title,
+    message,
+    backgroundColor: Theme.of(Get.context!).colorScheme.surface,
+    titleText: Text(
+      title,
+      style: TextStyle(
+        color: messageTypeColor(),
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
       ),
-      borderColor: messageTypeColor(),
-      borderWidth: 1,
-      duration: Duration(seconds: snackbarDuration));
+    ),
+    borderColor: messageTypeColor(),
+    borderWidth: 1,
+    duration: Duration(seconds: snackbarDuration),
+  );
 }

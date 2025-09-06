@@ -8,13 +8,15 @@ class PasswordStrengthCheckerController extends GetxController {
   RxBool hasLowerCase = false.obs;
   RxBool hasOneSymbol = false.obs;
 
-  RxInt get validatedChecks => RxInt([
-        isPasswordEightCharacters,
-        hasOneDigit,
-        hasUpperCase,
-        hasLowerCase,
-        hasOneSymbol,
-      ].where((check) => check.value).length);
+  RxInt get validatedChecks => RxInt(
+    [
+      isPasswordEightCharacters,
+      hasOneDigit,
+      hasUpperCase,
+      hasLowerCase,
+      hasOneSymbol,
+    ].where((check) => check.value).length,
+  );
 
   void passwordValidator(String pass) {
     isVisible.value = false;
@@ -37,7 +39,7 @@ class PasswordStrengthCheckerController extends GetxController {
       hasLowerCase.value = true;
     }
     hasOneSymbol.value = false;
-    if(AppRegExp.containsOneSymbolRegex.hasMatch(pass)){
+    if (AppRegExp.containsOneSymbolRegex.hasMatch(pass)) {
       hasOneSymbol.value = true;
     }
   }
@@ -51,4 +53,3 @@ class AppRegExp {
   static final containsLowerCaseRegex = RegExp(r'[a-z]');
   static final containsOneSymbolRegex = RegExp(r'[^\w\s]');
 }
-

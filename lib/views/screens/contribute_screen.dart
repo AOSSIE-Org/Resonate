@@ -14,9 +14,7 @@ class ContributeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.contribute),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.contribute)),
       body: Container(
         padding: EdgeInsets.symmetric(
           vertical: UiSizes.height_20,
@@ -47,18 +45,14 @@ class ContributeScreen extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.sourceCodeOnGitHub,
-                      style: TextStyle(
-                        fontSize: UiSizes.size_16,
-                      ),
+                      style: TextStyle(fontSize: UiSizes.size_16),
                     ),
                     const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_40,
-            ),
+            SizedBox(height: UiSizes.height_40),
             Container(
               padding: EdgeInsets.symmetric(
                 vertical: UiSizes.height_20,
@@ -80,9 +74,7 @@ class ContributeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: UiSizes.height_20,
-                  ),
+                  SizedBox(height: UiSizes.height_20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -110,18 +102,14 @@ class ContributeScreen extends StatelessWidget {
                             log("Error launching URL: ${e.toString()}");
                           }
                         },
-                        icon: Icon(
-                          Icons.discord,
-                          size: UiSizes.size_40,
-                        ),
-                        tooltip:
-                            AppLocalizations.of(context)!.joinDiscordServer,
-                      )
+                        icon: Icon(Icons.discord, size: UiSizes.size_40),
+                        tooltip: AppLocalizations.of(
+                          context,
+                        )!.joinDiscordServer,
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: UiSizes.height_20,
-                  ),
+                  SizedBox(height: UiSizes.height_20),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(

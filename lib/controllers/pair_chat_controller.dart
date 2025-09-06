@@ -57,10 +57,11 @@ class PairChatController extends GetxController {
 
     // Add request to pair-request collection
     Document requestDoc = await databases.createDocument(
-        databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        documentId: ID.unique(),
-        data: requestData);
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      documentId: ID.unique(),
+      data: requestData,
+    );
     requestDocId = requestDoc.$id;
 
     // Go to pairing screen
@@ -84,10 +85,11 @@ class PairChatController extends GetxController {
 
     // Add request to pair-request collection
     Document requestDoc = await databases.createDocument(
-        databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        documentId: ID.unique(),
-        data: requestData);
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      documentId: ID.unique(),
+      data: requestData,
+    );
     requestDocId = requestDoc.$id;
     Get.toNamed(AppRoutes.pairChatUsers);
   }
@@ -96,12 +98,11 @@ class PairChatController extends GetxController {
     userAddedSubscription?.close();
     getRealtimeStream();
     await databases.updateDocument(
-        databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        documentId: requestDocId!,
-        data: {
-          'isRandom': true,
-        });
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      documentId: requestDocId!,
+      data: {'isRandom': true},
+    );
     Get.toNamed(AppRoutes.pairing);
   }
 
@@ -119,8 +120,9 @@ class PairChatController extends GetxController {
         if (uid1 == uid || uid2 == uid) {
           log(data.toString());
           var docId = data.payload["\$id"].toString();
-          String action = data.events.first
-              .substring(channel.length + 1 + (docId.length) + 1);
+          String action = data.events.first.substring(
+            channel.length + 1 + (docId.length) + 1,
+          );
           switch (action) {
             case 'create':
               {
@@ -128,17 +130,19 @@ class PairChatController extends GetxController {
                   myRoomUserId = 1;
                   pairUsername = data.payload["userName2"];
                   Document participantDoc = await databases.getDocument(
-                      databaseId: userDatabaseID,
-                      collectionId: usersCollectionID,
-                      documentId: data.payload["uid2"]);
+                    databaseId: userDatabaseID,
+                    collectionId: usersCollectionID,
+                    documentId: data.payload["uid2"],
+                  );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 } else {
                   myRoomUserId = 2;
                   pairUsername = data.payload["userName1"];
                   Document participantDoc = await databases.getDocument(
-                      databaseId: userDatabaseID,
-                      collectionId: usersCollectionID,
-                      documentId: data.payload["uid1"]);
+                    databaseId: userDatabaseID,
+                    collectionId: usersCollectionID,
+                    documentId: data.payload["uid1"],
+                  );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 }
                 activePairDocId = data.payload["\$id"];
@@ -158,17 +162,18 @@ class PairChatController extends GetxController {
   Future<void> pairWithSelectedUser(ResonateUser user) async {
     log('pairing');
     await databases.createDocument(
-        databaseId: masterDatabaseId,
-        collectionId: activePairsCollectionId,
-        documentId: ID.unique(),
-        data: {
-          'uid1': authController.uid,
-          'uid2': user.uid,
-          'userName1': authController.userName,
-          'userName2': user.userName,
-          'userDocId1': requestDocId,
-          'userDocId2': user.docId,
-        });
+      databaseId: masterDatabaseId,
+      collectionId: activePairsCollectionId,
+      documentId: ID.unique(),
+      data: {
+        'uid1': authController.uid,
+        'uid2': user.uid,
+        'userName1': authController.userName,
+        'userName2': user.userName,
+        'userDocId1': requestDocId,
+        'userDocId2': user.docId,
+      },
+    );
   }
 
   void checkForNewUsers() {
@@ -203,24 +208,27 @@ class PairChatController extends GetxController {
     log("Loading users");
     usersList.clear();
     final result = await databases.listDocuments(
-        databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        queries: [
-          Query.notEqual('uid', authController.uid!),
-          Query.notEqual('isAnonymous', true),
-          Query.limit(100)
-        ]);
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      queries: [
+        Query.notEqual('uid', authController.uid!),
+        Query.notEqual('isAnonymous', true),
+        Query.limit(100),
+      ],
+    );
     if (result.documents.isEmpty) {
       isUserListLoading.value = false;
       return;
     } else {
-      usersList.addAll(result.documents.map((doc) {
-        final userData = doc.data;
-        userData['docId'] = doc.$id; // Add docId to the user data
-        ResonateUser user = ResonateUser.fromJson(userData);
+      usersList.addAll(
+        result.documents.map((doc) {
+          final userData = doc.data;
+          userData['docId'] = doc.$id; // Add docId to the user data
+          ResonateUser user = ResonateUser.fromJson(userData);
 
-        return user;
-      }).toList());
+          return user;
+        }).toList(),
+      );
     }
     isUserListLoading.value = false;
   }
@@ -232,9 +240,10 @@ class PairChatController extends GetxController {
 
   Future<void> cancelRequest() async {
     await databases.deleteDocument(
-        databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        documentId: requestDocId!);
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      documentId: requestDocId!,
+    );
     subscription?.close();
     userAddedSubscription?.close();
     Get.offNamedUntil(AppRoutes.tabview, (route) => false);
@@ -242,9 +251,7 @@ class PairChatController extends GetxController {
 
   void toggleMic() async {
     isMicOn.value = !isMicOn.value;
-    await Get.find<LiveKitController>()
-        .liveKitRoom
-        .localParticipant
+    await Get.find<LiveKitController>().liveKitRoom.localParticipant
         ?.setMicrophoneEnabled(isMicOn.value);
   }
 
@@ -257,9 +264,10 @@ class PairChatController extends GetxController {
     subscription?.close();
     try {
       await databases.deleteDocument(
-          databaseId: masterDatabaseId,
-          collectionId: activePairsCollectionId,
-          documentId: activePairDocId!);
+        databaseId: masterDatabaseId,
+        collectionId: activePairsCollectionId,
+        documentId: activePairDocId!,
+      );
     } catch (e) {
       if (!(e is AppwriteException && e.type == 'document_not_found')) {
         rethrow;
@@ -267,9 +275,7 @@ class PairChatController extends GetxController {
     }
     await Get.delete<LiveKitController>(force: true);
 
-    await Get.bottomSheet(
-      RatingSheetWidget(),
-    );
+    await Get.bottomSheet(RatingSheetWidget());
     Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
 }

@@ -51,15 +51,18 @@ class EmailVerifyController extends GetxController {
     otpID = otpID.split("@")[0];
     var sendOtpData = {
       "email": authStateController.email,
-      "otpID": otpID.toString()
+      "otpID": otpID.toString(),
     };
 
-    await authStateController.account
-        .updatePrefs(prefs: {"otp_ID": otpID, "isUserProfileComplete": true});
+    await authStateController.account.updatePrefs(
+      prefs: {"otp_ID": otpID, "isUserProfileComplete": true},
+    );
     var body = json.encode(sendOtpData);
 
     var res = await functions.createExecution(
-        functionId: sendOtpFunctionID, body: body.toString());
+      functionId: sendOtpFunctionID,
+      body: body.toString(),
+    );
 
     authController.isLoading.value = false;
 
@@ -86,10 +89,7 @@ class EmailVerifyController extends GetxController {
         LogType.error,
       );
 
-      SemanticsService.announce(
-        res.responseBody,
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(res.responseBody, TextDirection.ltr);
     }
 
     return true;
@@ -103,11 +103,13 @@ class EmailVerifyController extends GetxController {
     var verifyOtpData = {
       "otpID": otpId,
       "userOTP": userOTP,
-      "verify_ID": verificationID
+      "verify_ID": verificationID,
     };
     var body = json.encode(verifyOtpData);
     responseVerify = await functions.createExecution(
-        functionId: verifyOtpFunctionID, body: body.toString());
+      functionId: verifyOtpFunctionID,
+      body: body.toString(),
+    );
   }
 
   Future<String> checkVerificationStatus() async {
@@ -121,21 +123,23 @@ class EmailVerifyController extends GetxController {
   }
 
   Future<void> setVerified() async {
-    var verifyUserData = {
-      "userID": authStateController.uid,
-    };
+    var verifyUserData = {"userID": authStateController.uid};
     var verifyData = json.encode(verifyUserData);
     responseSetVerified = await functions.createExecution(
-        functionId: verifyUserFunctionID, body: verifyData.toString());
+      functionId: verifyUserFunctionID,
+      body: verifyData.toString(),
+    );
   }
 
   Future<void> updateEmail() async {
     var updateEmailData = json.encode({
       "User_ID": authStateController.uid,
-      "email": updateEmailController.text
+      "email": updateEmailController.text,
     });
     var results = await functions.createExecution(
-        functionId: updateEmailFunctionID, body: updateEmailData.toString());
+      functionId: updateEmailFunctionID,
+      body: updateEmailData.toString(),
+    );
     updateStatus = results.status;
   }
 }

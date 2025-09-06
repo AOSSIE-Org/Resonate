@@ -78,9 +78,9 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 
 <div align="center">
  
-| Login Screen (Forest) | Home Screen (Time) | Create Room Screen (Time) |
-| :---         |     :---      |          :--- |
-| <img src= "https://github.com/user-attachments/assets/e76147b1-0e51-4852-8198-06bbc975b25c" width="260" height="auto" />  | <img src="https://github.com/user-attachments/assets/ad62eecb-b621-4c31-a01c-001ff5462b28" width="250" height="auto" />    | <img src="https://github.com/user-attachments/assets/31ce6e73-8dca-4e2d-8f48-c22480fa1332" width="250" height="auto" />    |
+| Login Screen (Forest)                                                                                                    | Home Screen (Time)                                                                                                      | Create Room Screen (Time)                                                                                               |
+| :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| <img src= "https://github.com/user-attachments/assets/e76147b1-0e51-4852-8198-06bbc975b25c" width="260" height="auto" /> | <img src="https://github.com/user-attachments/assets/ad62eecb-b621-4c31-a01c-001ff5462b28" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/31ce6e73-8dca-4e2d-8f48-c22480fa1332" width="250" height="auto" /> |
 
 | Room Screen (Cream)                                                                                                     | Profile Screen (Amber)                                                                                                  | Explore Story (Forest)                                                                                                 |
 | :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |

@@ -21,10 +21,10 @@ class ChangeEmailController extends GetxController {
     AuthStateController? authStateController,
     Databases? databases,
     Account? account,
-  })  : authStateController =
-            authStateController ?? Get.find<AuthStateController>(),
-        databases = databases ?? AppwriteService.getDatabases(),
-        account = account ?? AppwriteService.getAccount();
+  }) : authStateController =
+           authStateController ?? Get.find<AuthStateController>(),
+       databases = databases ?? AppwriteService.getDatabases(),
+       account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
   RxBool isLoading = false.obs;
@@ -38,9 +38,7 @@ class ChangeEmailController extends GetxController {
     final docs = await databases.listDocuments(
       databaseId: userDatabaseID,
       collectionId: usernameCollectionID,
-      queries: [
-        Query.equal('email', changedEmail),
-      ],
+      queries: [Query.equal('email', changedEmail)],
     );
 
     if (docs.total > 0) {
@@ -51,16 +49,16 @@ class ChangeEmailController extends GetxController {
   }
 
   Future<bool> changeEmailInDatabases(
-      String changedEmail, BuildContext context) async {
+    String changedEmail,
+    BuildContext context,
+  ) async {
     try {
       // change in user info collection
       await databases.updateDocument(
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
         documentId: authStateController.uid!,
-        data: {
-          'email': changedEmail,
-        },
+        data: {'email': changedEmail},
       );
 
       // change in username - email collection
@@ -68,9 +66,7 @@ class ChangeEmailController extends GetxController {
         databaseId: userDatabaseID,
         collectionId: usernameCollectionID,
         documentId: authStateController.userName!,
-        data: {
-          'email': changedEmail,
-        },
+        data: {'email': changedEmail},
       );
 
       // Set user profile in authStateController
@@ -85,10 +81,7 @@ class ChangeEmailController extends GetxController {
         LogType.error,
       );
 
-      SemanticsService.announce(
-        e.toString(),
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(e.toString(), TextDirection.ltr);
 
       return false;
     } catch (e) {
@@ -98,13 +91,13 @@ class ChangeEmailController extends GetxController {
   }
 
   Future<bool> changeEmailInAuth(
-      String changedEmail, String password, BuildContext context) async {
+    String changedEmail,
+    String password,
+    BuildContext context,
+  ) async {
     try {
       // change in auth section
-      await account.updateEmail(
-        email: changedEmail,
-        password: password,
-      );
+      await account.updateEmail(email: changedEmail, password: password);
 
       return true;
     } on AppwriteException catch (e) {
@@ -147,11 +140,14 @@ class ChangeEmailController extends GetxController {
       isEmailAvailable(emailController.text).then((status) {
         if (status) {
           changeEmailInAuth(
-                  emailController.text, passwordController.text, context)
-              .then((status) {
+            emailController.text,
+            passwordController.text,
+            context,
+          ).then((status) {
             if (status) {
-              changeEmailInDatabases(emailController.text, context)
-                  .then((status) {
+              changeEmailInDatabases(emailController.text, context).then((
+                status,
+              ) {
                 isLoading.value = false;
 
                 if (status) {

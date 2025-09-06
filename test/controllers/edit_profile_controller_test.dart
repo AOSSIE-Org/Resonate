@@ -26,10 +26,11 @@ void main() {
     editProfileController = EditProfileController(
       themeController: MockThemeController(),
       authStateController: AuthStateController(
-          account: MockAccount(),
-          client: MockClient(),
-          databases: databases,
-          messaging: MockFirebaseMessaging()),
+        account: MockAccount(),
+        client: MockClient(),
+        databases: databases,
+        messaging: MockFirebaseMessaging(),
+      ),
       storage: MockStorage(),
       databases: databases,
     );
@@ -37,18 +38,25 @@ void main() {
     editProfileController.authStateController.userName = 'testuser';
     editProfileController.onInit();
 
-    when(databases.getDocument(
-            databaseId: userDatabaseID,
-            collectionId: usernameCollectionID,
-            documentId: 'testuser'))
-        .thenAnswer((_) => Future.value(Document(
-            $collectionId: usernameCollectionID,
-            $databaseId: userDatabaseID,
-            $id: 'testuser',
-            $createdAt: DateTime.now().toIso8601String(),
-            $updatedAt: DateTime.now().toIso8601String(),
-            $permissions: ['any'],
-            data: {"email": "test@test.com"})));
+    when(
+      databases.getDocument(
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
+        documentId: 'testuser',
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Document(
+          $collectionId: usernameCollectionID,
+          $databaseId: userDatabaseID,
+          $id: 'testuser',
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          data: {"email": "test@test.com"},
+        ),
+      ),
+    );
   });
 
   test('check onInit', () {

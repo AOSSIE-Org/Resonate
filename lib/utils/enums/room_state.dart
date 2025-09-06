@@ -1,5 +1,1 @@
-enum RoomState{
-  live,
-  scheduled,
-  recorded
-}
+enum RoomState { live, scheduled, recorded }

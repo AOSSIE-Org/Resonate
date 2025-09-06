@@ -24,8 +24,9 @@ class StoryScreen extends StatefulWidget {
 
 class _StoryScreenState extends State<StoryScreen> {
   bool descriptionIsExpanded = false;
-  final exploreStoryController =
-      Get.put<ExploreStoryController>(ExploreStoryController());
+  final exploreStoryController = Get.put<ExploreStoryController>(
+    ExploreStoryController(),
+  );
 
   @override
   void initState() {
@@ -49,13 +50,14 @@ class _StoryScreenState extends State<StoryScreen> {
           child: exploreStoryController.isLoadingStoryPage.value
               ? Center(
                   child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: LoadingIndicator(
-                    indicatorType: Indicator.ballRotate,
-                    colors: [Theme.of(context).colorScheme.primary],
+                    height: 200,
+                    width: 200,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballRotate,
+                      colors: [Theme.of(context).colorScheme.primary],
+                    ),
                   ),
-                ))
+                )
               : Column(
                   children: [
                     Container(
@@ -77,9 +79,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -89,7 +89,9 @@ class _StoryScreenState extends State<StoryScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          right: 10.0, bottom: 15),
+                                        right: 10.0,
+                                        bottom: 15,
+                                      ),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
@@ -103,25 +105,30 @@ class _StoryScreenState extends State<StoryScreen> {
                                     Obx(
                                       () => LikeButton(
                                         isLikedByUser: widget
-                                            .story.isLikedByCurrentUser.value,
+                                            .story
+                                            .isLikedByCurrentUser
+                                            .value,
                                         tintColor: widget.story.tintColor,
                                         onLiked: (isFavorite) async {
                                           isFavorite
                                               ? await exploreStoryController
-                                                  .likeStoryFromUserAccount(
-                                                      widget.story)
+                                                    .likeStoryFromUserAccount(
+                                                      widget.story,
+                                                    )
                                               : await exploreStoryController
-                                                  .unlikeStoryFromUserAccount(
-                                                      widget.story);
+                                                    .unlikeStoryFromUserAccount(
+                                                      widget.story,
+                                                    );
 
                                           await exploreStoryController
                                               .updateLikesCountAndUserLikeStatus(
-                                                  widget.story);
+                                                widget.story,
+                                              );
                                           await exploreStoryController
                                               .fetchUserLikedStories();
                                         },
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
 
@@ -198,7 +205,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                           CircleAvatar(
                                             radius: 14,
                                             backgroundImage: NetworkImage(
-                                                widget.story.coverImageUrl),
+                                              widget.story.coverImageUrl,
+                                            ),
                                           ),
                                           const SizedBox(width: 8),
                                           Expanded(
@@ -206,8 +214,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                               child: Text(
                                                 widget.story.userIsCreator
                                                     ? AppLocalizations.of(
-                                                            context)!
-                                                        .you
+                                                        context,
+                                                      )!.you
                                                     : widget.story.creatorName,
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
@@ -233,15 +241,16 @@ class _StoryScreenState extends State<StoryScreen> {
                             ),
                             const SizedBox(height: 40),
                             Text(
-                              AppLocalizations.of(context)!.created(widget
-                                  .story.creationDate
-                                  .formatDateTime(context)),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
+                              AppLocalizations.of(context)!.created(
+                                widget.story.creationDate.formatDateTime(
+                                  context,
+                                ),
+                              ),
+                              style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                     fontSize: 16,
                                     fontStyle: FontStyle.normal,
                                     fontFamily: 'Inter',
@@ -251,31 +260,30 @@ class _StoryScreenState extends State<StoryScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     // Chapters Section (Scrollable)
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
+                            horizontal: 16.0,
+                            vertical: 8.0,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // About Section
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
+                                  horizontal: 16.0,
+                                ),
                                 child: Text(
                                   AppLocalizations.of(context)!.aboutStory,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
+                                  style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                         fontWeight: FontWeight.w900,
                                         fontSize: 20,
                                         fontStyle: FontStyle.normal,
@@ -291,7 +299,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                 }),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
+                                    horizontal: 16.0,
+                                  ),
                                   child: Text(
                                     widget.story.description,
                                     maxLines: descriptionIsExpanded ? null : 10,
@@ -317,13 +326,11 @@ class _StoryScreenState extends State<StoryScreen> {
                                 ),
                                 child: Text(
                                   AppLocalizations.of(context)!.chapters,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
+                                  style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                         fontWeight: FontWeight.w900,
                                         fontSize: 20,
                                         fontStyle: FontStyle.normal,
@@ -346,14 +353,12 @@ class _StoryScreenState extends State<StoryScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               ChapterPlayScreen(
-                                            chapter: chapter,
-                                          ),
+                                                chapter: chapter,
+                                              ),
                                         ),
                                       );
                                     },
-                                    child: ChaperListTile(
-                                      chapter: chapter,
-                                    ),
+                                    child: ChaperListTile(chapter: chapter),
                                   );
                                 },
                               ),
@@ -364,32 +369,35 @@ class _StoryScreenState extends State<StoryScreen> {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  AddNewChapterScreen(
-                                                    storyName:
-                                                        widget.story.title,
-                                                    storyId:
-                                                        widget.story.storyId,
-                                                    currentChapters:
-                                                        widget.story.chapters,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => AddNewChapterScreen(
+                                            storyName: widget.story.title,
+                                            storyId: widget.story.storyId,
+                                            currentChapters:
+                                                widget.story.chapters,
+                                          ),
+                                        ),
+                                      );
                                     },
-                                    child: Text(AppLocalizations.of(context)!
-                                        .addChapter),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.addChapter,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      await exploreStoryController
-                                          .deleteStory(widget.story);
+                                      await exploreStoryController.deleteStory(
+                                        widget.story,
+                                      );
                                       await exploreStoryController
                                           .fetchUserCreatedStories();
                                       if (widget
-                                          .story.isLikedByCurrentUser.value) {
+                                          .story
+                                          .isLikedByCurrentUser
+                                          .value) {
                                         await exploreStoryController
                                             .fetchUserLikedStories();
                                       }

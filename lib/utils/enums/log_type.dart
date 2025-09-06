@@ -1,6 +1,1 @@
-enum LogType {
-  success,
-  warning,
-  error,
-  info,
-}
+enum LogType { success, warning, error, info }

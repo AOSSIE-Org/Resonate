@@ -13,11 +13,12 @@ class AddNewChapterScreen extends StatefulWidget {
   final String storyId;
   final List<Chapter> currentChapters;
 
-  const AddNewChapterScreen(
-      {super.key,
-      required this.storyName,
-      required this.currentChapters,
-      required this.storyId});
+  const AddNewChapterScreen({
+    super.key,
+    required this.storyName,
+    required this.currentChapters,
+    required this.storyId,
+  });
 
   @override
   AddNewChapterScreenState createState() => AddNewChapterScreenState();
@@ -32,16 +33,18 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
     });
   }
 
-  final exploreStoryController =
-      Get.put<ExploreStoryController>(ExploreStoryController());
+  final exploreStoryController = Get.put<ExploreStoryController>(
+    ExploreStoryController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!
-            .addNewChaptersToStory(widget.storyName)),
+        title: Text(
+          AppLocalizations.of(context)!.addNewChaptersToStory(widget.storyName),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -145,24 +148,26 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                 },
                 child: const Icon(Icons.add),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               ElevatedButton(
-                  onPressed: () async {
-                    if (newChapters.isNotEmpty) {
-                      await exploreStoryController.pushChaptersToStory(
-                          newChapters, widget.storyId);
-                      await exploreStoryController
-                          .updateStoriesPlayDurationLength(
-                              [...widget.currentChapters, ...newChapters],
-                              widget.storyId);
-                      await exploreStoryController.fetchUserCreatedStories();
-                      Navigator.pop(Get.context!);
-                      Navigator.pop(Get.context!);
-                    }
-                  },
-                  child: Text(AppLocalizations.of(context)!.pushNewChapters))
+                onPressed: () async {
+                  if (newChapters.isNotEmpty) {
+                    await exploreStoryController.pushChaptersToStory(
+                      newChapters,
+                      widget.storyId,
+                    );
+                    await exploreStoryController
+                        .updateStoriesPlayDurationLength([
+                          ...widget.currentChapters,
+                          ...newChapters,
+                        ], widget.storyId);
+                    await exploreStoryController.fetchUserCreatedStories();
+                    Navigator.pop(Get.context!);
+                    Navigator.pop(Get.context!);
+                  }
+                },
+                child: Text(AppLocalizations.of(context)!.pushNewChapters),
+              ),
             ],
           ),
         ),

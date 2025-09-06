@@ -527,5 +527,65 @@
     "story": "Story",
     "user": "User",
     "following": "Following",
-    "followers": "Followers"
+    "followers": "Followers",
+    "friendRequests": "Friend Requests",
+    "friendRequestSent": "Friend request sent",
+    "friendRequestSentTo": "Your friend request to {username} has been sent.",
+    "@friendRequestSentTo": {
+        "description": "Message when a friend request is sent to a user",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestCancelled": "Friend request cancelled",
+    "friendRequestCancelledTo": "Your friend request to {username} has been cancelled.",
+    "@friendRequestCancelledTo": {
+        "description": "Message when a friend request is cancelled",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "requested": "Requested",
+    "friends": "Friends",
+    "addFriend": "Add Friend",
+    "friendRequestAccepted": "Friend request accepted",
+    "friendRequestAcceptedTo": "You are now friends with ${username}.",
+    "@friendRequestAcceptedTo": {
+        "description": "Message when a friend request is accepted",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestDeclined": "Friend request declined",
+    "friendRequestDeclinedTo": "You have declined the friend request from ${username}.",
+    "@friendRequestDeclinedTo": {
+        "description": "Message when a friend request is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "accept": "Accept",
+    "callDeclined": "Call declined",
+    "callDeclinedTo": "User ${username} declined the call.",
+    "@callDeclinedTo": {
+        "description": "Message when a call is declined",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    }
 }

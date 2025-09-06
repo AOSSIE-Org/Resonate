@@ -15,12 +15,13 @@ void main() {
   });
 
   testWidgets('check initialize', (WidgetTester tester) async {
-    await tester.pumpWidget(GetMaterialApp(
-      home: Container(),
-    ));
+    await tester.pumpWidget(GetMaterialApp(home: Container()));
     await tester.pumpAndSettle();
     chapterPlayerController.initialize(
-        AudioPlayer(), LyricsReaderModel(), Duration(minutes: 3));
+      AudioPlayer(),
+      LyricsReaderModel(),
+      Duration(minutes: 3),
+    );
 
     expect(chapterPlayerController.lyricModel, isA<LyricsReaderModel>());
     expect(chapterPlayerController.audioPlayer, isA<AudioPlayer>());
@@ -29,12 +30,13 @@ void main() {
   });
 
   testWidgets('check togglePlayPause', (WidgetTester tester) async {
-    await tester.pumpWidget(GetMaterialApp(
-      home: Container(),
-    ));
+    await tester.pumpWidget(GetMaterialApp(home: Container()));
     await tester.pumpAndSettle();
     chapterPlayerController.initialize(
-        AudioPlayer(), LyricsReaderModel(), Duration(minutes: 3));
+      AudioPlayer(),
+      LyricsReaderModel(),
+      Duration(minutes: 3),
+    );
 
     expect(chapterPlayerController.isPlaying.value, false);
     chapterPlayerController.togglePlayPause();
