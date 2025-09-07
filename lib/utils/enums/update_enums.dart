@@ -4,5 +4,3 @@ enum UpdateCheckResult {
   checkFailed,
   platformNotSupported,
 }
-
-enum UpdateActionResult { success, userDenied, failed, error }
