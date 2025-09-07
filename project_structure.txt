@@ -306,6 +306,7 @@
 │   │   ├── constants.dart
 │   │   ├── debouncer.dart
 │   │   ├── enums
+│   │   │   ├── action_enum.dart
 │   │   │   ├── friend_call_status.dart
 │   │   │   ├── friend_request_status.dart
 │   │   │   ├── gender.dart
@@ -361,7 +362,6 @@
 │       │   ├── user_account_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
-│           ├── app_update_dialog.dart
 │           ├── auth_button.dart
 │           ├── category_card.dart
 │           ├── chapter_list_tile.dart
