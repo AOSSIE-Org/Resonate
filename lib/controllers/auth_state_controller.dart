@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/follower_user_model.dart';
@@ -24,16 +25,17 @@ class AuthStateController extends GetxController {
   var isInitializing = false.obs;
   FirebaseMessaging messaging;
   late final Account account;
+  final aboutController = Get.find<AboutAppScreenController>();
 
   AuthStateController({
     Account? account,
     Databases? databases,
     Client? client,
     FirebaseMessaging? messaging,
-  })  : client = client ?? AppwriteService.getClient(),
-        account = account ?? AppwriteService.getAccount(),
-        databases = databases ?? AppwriteService.getDatabases(),
-        messaging = messaging ?? FirebaseMessaging.instance;
+  }) : client = client ?? AppwriteService.getClient(),
+       account = account ?? AppwriteService.getAccount(),
+       databases = databases ?? AppwriteService.getDatabases(),
+       messaging = messaging ?? FirebaseMessaging.instance;
   late String? uid;
   late String? profileImageID;
   late String? displayName;
@@ -50,13 +52,17 @@ class AuthStateController extends GetxController {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails('your channel id', 'your channel name',
-          channelDescription: 'your channel description',
-          importance: Importance.max,
-          priority: Priority.high,
-          ticker: 'ticker');
-  static NotificationDetails notificationDetails =
-      NotificationDetails(android: androidNotificationDetails);
+      AndroidNotificationDetails(
+        'your channel id',
+        'your channel name',
+        channelDescription: 'your channel description',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'ticker',
+      );
+  static NotificationDetails notificationDetails = NotificationDetails(
+    android: androidNotificationDetails,
+  );
 
   Future<void> initializeLocalNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -65,19 +71,24 @@ class AuthStateController extends GetxController {
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings();
     InitializationSettings initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
+    );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
   }
 
   void onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse) async {
+    NotificationResponse notificationResponse,
+  ) async {
     String name = notificationResponse.payload!;
     UpcomingRoomsController upcomingRoomsController =
         Get.find<UpcomingRoomsController>();
-    int index = upcomingRoomsController.upcomingRooms
-        .indexWhere((upcomingRoom) => upcomingRoom.name == name);
+    int index = upcomingRoomsController.upcomingRooms.indexWhere(
+      (upcomingRoom) => upcomingRoom.name == name,
+    );
 
     upcomingRoomsController.upcomingRoomScrollController.value =
         ScrollController(initialScrollOffset: UiSizes.height_170 * index);
@@ -115,11 +126,12 @@ class AuthStateController extends GetxController {
 
           // send local notification
           await flutterLocalNotificationsPlugin.show(
-              0,
-              message.notification!.title,
-              message.notification!.body,
-              notificationDetails,
-              payload: discussionName);
+            0,
+            message.notification!.title,
+            message.notification!.body,
+            notificationDetails,
+            payload: discussionName,
+          );
         } else {
           await flutterLocalNotificationsPlugin.show(
             0,
@@ -153,9 +165,10 @@ class AuthStateController extends GetxController {
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
         Document userDataDoc = await databases.getDocument(
-            databaseId: userDatabaseID,
-            collectionId: usersCollectionID,
-            documentId: appwriteUser.$id);
+          databaseId: userDatabaseID,
+          collectionId: usersCollectionID,
+          documentId: appwriteUser.$id,
+        );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
@@ -163,10 +176,10 @@ class AuthStateController extends GetxController {
         ratingCount = userDataDoc.data["ratingCount"] ?? 1;
         followerDocuments =
             (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
-                  log(e.runtimeType.toString());
-                  return FollowerUserModel.fromJson(e);
-                }).toList() ??
-                [];
+              log(e.runtimeType.toString());
+              return FollowerUserModel.fromJson(e);
+            }).toList() ??
+            [];
         log("Follower documents: $followerDocuments");
       }
 
@@ -181,14 +194,17 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
+      aboutController.checkForUpdate();
       if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
         Get.offNamed(AppRoutes.tabview);
       }
     } catch (e) {
+      aboutController.checkForUpdate();
       bool? landingScreenShown = GetStorage().read(
-          "landingScreenShown"); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+        "landingScreenShown",
+      ); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
           : Get.offNamed(AppRoutes.welcomeScreen);
@@ -205,38 +221,46 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        queries: [
-          Query.equal("userID", [uid])
-        ]).then((value) => value.documents);
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: subscribedUserCollectionId,
+          queries: [
+            Query.equal("userID", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscription.$id,
-          data: {"registrationTokens": registrationTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
+        data: {"registrationTokens": registrationTokens},
+      );
     }
 
     //created Upcoming Rooms
-    List<Document> createdUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        queries: [
-          Query.equal("creatorUid", [uid])
-        ]).then((value) => value.documents);
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          queries: [
+            Query.equal("creatorUid", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.add(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: upcomingRoom.$id,
-          data: {"creator_fcm_tokens": creatorFcmTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
+        data: {"creator_fcm_tokens": creatorFcmTokens},
+      );
     }
   }
 
@@ -244,38 +268,46 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Document> subscribedUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        queries: [
-          Query.equal("userID", [uid])
-        ]).then((value) => value.documents);
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: subscribedUserCollectionId,
+          queries: [
+            Query.equal("userID", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: subscription.$id,
-          data: {"registrationTokens": registrationTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
+        data: {"registrationTokens": registrationTokens},
+      );
     }
 
     //created Upcoming Rooms
-    List<Document> createdUpcomingRooms = await databases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        queries: [
-          Query.equal("creatorUid", [uid])
-        ]).then((value) => value.documents);
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
+          databaseId: upcomingRoomsDatabaseId,
+          collectionId: upcomingRoomsCollectionId,
+          queries: [
+            Query.equal("creatorUid", [uid]),
+          ],
+        )
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.remove(fcmToken!);
       databases.updateDocument(
-          databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: upcomingRoom.$id,
-          data: {"creator_fcm_tokens": creatorFcmTokens});
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
+        data: {"creator_fcm_tokens": creatorFcmTokens},
+      );
     }
   }
 
