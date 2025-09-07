@@ -14,9 +14,7 @@ class ThemeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Themes"),
-      ),
+      appBar: AppBar(title: const Text("Themes")),
       body: Obx(
         () => Container(
           child: (themeController.currentTheme.value == 'none')
@@ -26,15 +24,20 @@ class ThemeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       onTap: () {
-                        themeController
-                            .setTheme(list[index].name.toLowerCase());
+                        themeController.setTheme(
+                          list[index].name.toLowerCase(),
+                        );
                       },
-                      selected: (themeController.currentTheme.value ==
+                      selected:
+                          (themeController.currentTheme.value ==
                           list[index].name.toLowerCase()),
                       selectedColor: list[index].onPrimaryColor,
                       selectedTileColor: list[index].primaryColor,
-                      title: Text(AppLocalizations.of(context)!.chooseTheme(
-                          "${list[index].name.toLowerCase()}Theme")),
+                      title: Text(
+                        AppLocalizations.of(context)!.chooseTheme(
+                          "${list[index].name.toLowerCase()}Theme",
+                        ),
+                      ),
                       // title: Text(list[index].name),
                       trailing: Container(
                         width: 50,

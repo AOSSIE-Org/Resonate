@@ -16,16 +16,19 @@ class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
 
   // Initializing controllers
-  final EditProfileController editProfileController =
-      Get.put(EditProfileController());
-  final AuthStateController authStateController =
-      Get.put(AuthStateController());
+  final EditProfileController editProfileController = Get.put(
+    EditProfileController(),
+  );
+  final AuthStateController authStateController = Get.put(
+    AuthStateController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: !(editProfileController.isLoading.value ||
-          editProfileController.isThereUnsavedChanges()),
+      canPop:
+          !(editProfileController.isLoading.value ||
+              editProfileController.isThereUnsavedChanges()),
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) {
           return;
@@ -42,9 +45,7 @@ class EditProfileScreen extends StatelessWidget {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.editProfile),
-        ),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.editProfile)),
         body: GetBuilder<EditProfileController>(
           builder: (controller) => Container(
             width: double.maxFinite,
@@ -57,41 +58,44 @@ class EditProfileScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     GetBuilder<ThemeController>(
                       builder: (themeController) => CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.secondary,
                         backgroundImage: (controller.profileImagePath == null)
                             ? authStateController.profileImageUrl == "" ||
-                                    controller.removeImage
-                                ? NetworkImage(
-                                    themeController
-                                        .userProfileImagePlaceholderUrl,
-                                  )
-                                : NetworkImage(
-                                    authStateController.profileImageUrl!)
+                                      controller.removeImage
+                                  ? NetworkImage(
+                                      themeController
+                                          .userProfileImagePlaceholderUrl,
+                                    )
+                                  : NetworkImage(
+                                      authStateController.profileImageUrl!,
+                                    )
                             : FileImage(File(controller.profileImagePath!))
-                                as ImageProvider,
+                                  as ImageProvider,
                         radius: UiSizes.width_80,
                         child: Align(
                           alignment: Alignment.bottomRight,
                           child: Semantics(
-                            label: AppLocalizations.of(context)!
-                                .uploadProfilePicture,
+                            label: AppLocalizations.of(
+                              context,
+                            )!.uploadProfilePicture,
                             child: GestureDetector(
                               onTap: () {
                                 showBottomSheet();
                               },
                               child: CircleAvatar(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
                                 child: Icon(
                                   Icons.edit,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
                                 ),
                               ),
                             ),
@@ -99,9 +103,7 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     TextFormField(
                       validator: (value) => value!.isNotEmpty
                           ? null
@@ -122,16 +124,18 @@ class EditProfileScreen extends StatelessWidget {
                           if (value!.length > 5) {
                             return null;
                           } else {
-                            return AppLocalizations.of(context)!
-                                .usernameCharacterLimit;
+                            return AppLocalizations.of(
+                              context,
+                            )!.usernameCharacterLimit;
                           }
                         },
                         controller: controller.usernameController,
                         onChanged: (value) async {
                           if (value.length > 5) {
                             controller.usernameAvailable.value =
-                                await controller
-                                    .isUsernameAvailable(value.trim());
+                                await controller.isUsernameAvailable(
+                                  value.trim(),
+                                );
                           } else {
                             controller.usernameAvailable.value = false;
                           }
@@ -185,16 +189,15 @@ class EditProfileScreen extends StatelessWidget {
                           },
                           child: controller.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget
-                                      .horizontalRotatingDots(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: UiSizes.size_40,
-                                  ),
+                                  child:
+                                      LoadingAnimationWidget.horizontalRotatingDots(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimary,
+                                        size: UiSizes.size_40,
+                                      ),
                                 )
-                              : Text(
-                                  AppLocalizations.of(context)!.saveChanges,
-                                ),
+                              : Text(AppLocalizations.of(context)!.saveChanges),
                         ),
                       ),
                     ),
@@ -216,9 +219,7 @@ class EditProfileScreen extends StatelessWidget {
       content: Text(
         textAlign: TextAlign.center,
         AppLocalizations.of(context)!.unsavedChangesWarning,
-        style: TextStyle(
-          fontSize: UiSizes.size_14,
-        ),
+        style: TextStyle(fontSize: UiSizes.size_14),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
       actions: [
@@ -269,9 +270,7 @@ class EditProfileScreen extends StatelessWidget {
         return changeProfilePictureBottomSheet(Get.context!);
       },
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(24),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
     );
   }
@@ -292,17 +291,16 @@ class EditProfileScreen extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: UiSizes.height_30,
-        ),
+        SizedBox(height: UiSizes.height_30),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
                 IconButton(
-                  tooltip:
-                      AppLocalizations.of(context)!.clickPictureUsingCamera,
+                  tooltip: AppLocalizations.of(
+                    context,
+                  )!.clickPictureUsingCamera,
                   onPressed: () {
                     Navigator.pop(context);
                     // Display Loading Dialog
@@ -315,7 +313,7 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   iconSize: UiSizes.size_56,
                 ),
-                Text(AppLocalizations.of(context)!.camera)
+                Text(AppLocalizations.of(context)!.camera),
               ],
             ),
             Column(
@@ -335,7 +333,7 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                   iconSize: UiSizes.size_56,
                 ),
-                Text(AppLocalizations.of(context)!.gallery)
+                Text(AppLocalizations.of(context)!.gallery),
               ],
             ),
             if (authStateController.profileImageUrl != null)
@@ -352,7 +350,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     iconSize: UiSizes.size_56,
                   ),
-                  Text(AppLocalizations.of(context)!.remove)
+                  Text(AppLocalizations.of(context)!.remove),
                 ],
               ),
           ],

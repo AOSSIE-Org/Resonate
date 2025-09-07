@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/controllers/user_profile_controller.dart';
+import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/followers_screen.dart';
+import 'package:resonate/views/screens/friend_requests_screen.dart';
+import 'package:resonate/views/screens/friends_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
@@ -21,14 +28,11 @@ class ProfileScreen extends StatefulWidget {
 
   final bool? isCreatorProfile;
 
-  ProfileScreen({
-    super.key,
-    this.creator,
-    this.isCreatorProfile,
-  }) : assert(
-            isCreatorProfile != true ||
-                (creator != null && creator.uid != null),
-            'creator and creator.uid are required when isCreatorProfile is true');
+  ProfileScreen({super.key, this.creator, this.isCreatorProfile})
+    : assert(
+        isCreatorProfile != true || (creator != null && creator.uid != null),
+        'creator and creator.uid are required when isCreatorProfile is true',
+      );
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -51,8 +55,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Get.delete<UserProfileController>();
   }
 
-  final emailVerifyController =
-      Get.put<EmailVerifyController>(EmailVerifyController());
+  final emailVerifyController = Get.put<EmailVerifyController>(
+    EmailVerifyController(),
+  );
 
   final themeController = Get.find<ThemeController>();
 
@@ -60,24 +65,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final userProfileController = Get.put(UserProfileController());
   final exploreStoryController = Get.find<ExploreStoryController>();
+  final friendsController = Get.find<FriendsController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.profile),
+        actions: widget.isCreatorProfile == null
+            ? [
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => FriendRequestsScreen());
+                  },
+                  icon: Icon(Icons.notifications),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => FriendsScreen());
+                  },
+                  icon: Icon(Icons.groups),
+                ),
+              ]
+            : null,
       ),
       body: Obx(
-        () => userProfileController.isLoadingProfilePage.value
+        () =>
+            userProfileController.isLoadingProfilePage.value ||
+                friendsController.isLoadingFriends.value
             ? Center(
                 child: SizedBox(
-                height: 200,
-                width: 200,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballRotate,
-                  colors: [Theme.of(context).colorScheme.primary],
+                  height: 200,
+                  width: 200,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.ballRotate,
+                    colors: [Theme.of(context).colorScheme.primary],
+                  ),
                 ),
-              ))
+              )
             : SingleChildScrollView(
                 child: Column(
                   children: [
@@ -119,11 +144,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             backgroundImage: widget.isCreatorProfile != null
                 ? NetworkImage(widget.creator!.profileImageUrl ?? '')
                 : controller.profileImageUrl == null ||
-                        controller.profileImageUrl!.isEmpty
-                    ? NetworkImage(
-                        themeController.userProfileImagePlaceholderUrl,
-                      )
-                    : NetworkImage(controller.profileImageUrl ?? ''),
+                      controller.profileImageUrl!.isEmpty
+                ? NetworkImage(themeController.userProfileImagePlaceholderUrl)
+                : NetworkImage(controller.profileImageUrl ?? ''),
             radius: UiSizes.width_66,
           ),
           SizedBox(width: UiSizes.width_20),
@@ -138,11 +161,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
                         children: [
-                          Icon(Icons.verified_user_outlined,
-                              color: Colors.green),
+                          Icon(
+                            Icons.verified_user_outlined,
+                            color: Colors.green,
+                          ),
                           SizedBox(width: 5),
-                          Text(AppLocalizations.of(context)!.verified,
-                              style: TextStyle(color: Colors.green)),
+                          Text(
+                            AppLocalizations.of(context)!.verified,
+                            style: TextStyle(color: Colors.green),
+                          ),
                         ],
                       ),
                     ),
@@ -171,17 +198,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Row(
                     children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
+                      Icon(Icons.star, color: Colors.amber),
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Text(widget.isCreatorProfile == null
-                            ? (authController.ratingTotal /
-                                    authController.ratingCount)
-                                .toStringAsFixed(1)
-                            : widget.creator!.userRating!.toStringAsFixed(1)),
+                        child: Text(
+                          widget.isCreatorProfile == null
+                              ? (authController.ratingTotal /
+                                        authController.ratingCount)
+                                    .toStringAsFixed(1)
+                              : widget.creator!.userRating!.toStringAsFixed(1),
+                        ),
                       ),
                     ],
                   ),
@@ -189,7 +215,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       //If current user is only follower or signed in user profile is being viewed then don't route
                       if (!(userProfileController
-                                      .searchedUserFollowers.length ==
+                                      .searchedUserFollowers
+                                      .length ==
                                   1 &&
                               userProfileController.isFollowingUser.value) &&
                           widget.isCreatorProfile != null) {
@@ -197,25 +224,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         final sanitizedFollowersList = userProfileController
                             .searchedUserFollowers
                             .where((follower) {
-                          return follower.uid != authController.uid;
-                        }).toList();
+                              return follower.uid != authController.uid;
+                            })
+                            .toList();
                         Get.to(
-                            FollowersScreen(followers: sanitizedFollowersList));
+                          FollowersScreen(followers: sanitizedFollowersList),
+                        );
                       }
                     },
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.people,
-                        ),
+                        Icon(Icons.people),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: widget.isCreatorProfile == null
-                              ? Text(authController.followerDocuments.length
-                                  .toString())
-                              : Obx(() => Text(userProfileController
-                                  .searchedUserFollowers.length
-                                  .toString())),
+                              ? Text(
+                                  authController.followerDocuments.length
+                                      .toString(),
+                                )
+                              : Obx(
+                                  () => Text(
+                                    userProfileController
+                                        .searchedUserFollowers
+                                        .length
+                                        .toString(),
+                                  ),
+                                ),
                         ),
                       ],
                     ),
@@ -231,9 +265,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildEmailVerificationButton(
-      BuildContext context,
-      EmailVerifyController emailVerifyController,
-      AuthStateController controller) {
+    BuildContext context,
+    EmailVerifyController emailVerifyController,
+    AuthStateController controller,
+  ) {
     if (widget.isCreatorProfile != null || controller.isEmailVerified!) {
       return const SizedBox.shrink();
     }
@@ -282,10 +317,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundColor: userProfileController.isFollowingUser.value
                     ? colorScheme.secondary
                     : colorScheme.primary,
-                foregroundColor: colorScheme.onPrimary,
+                foregroundColor: userProfileController.isFollowingUser.value
+                    ? colorScheme.onSecondary
+                    : colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: BorderSide(color: colorScheme.primary)),
+                  borderRadius: BorderRadius.circular(30),
+                  side: BorderSide(color: colorScheme.primary),
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -293,8 +331,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Icon(
                     widget.isCreatorProfile != null
                         ? userProfileController.isFollowingUser.value
-                            ? Icons.done
-                            : Icons.add
+                              ? Icons.done
+                              : Icons.add
                         : Icons.edit,
                     color: colorScheme.onPrimary,
                   ),
@@ -302,8 +340,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     widget.isCreatorProfile != null
                         ? userProfileController.isFollowingUser.value
-                            ? AppLocalizations.of(context)!.following
-                            : AppLocalizations.of(context)!.follow
+                              ? AppLocalizations.of(context)!.following
+                              : AppLocalizations.of(context)!.follow
                         : AppLocalizations.of(context)!.editProfile,
                     style: TextStyle(color: colorScheme.onPrimary),
                   ),
@@ -313,23 +351,133 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }),
         ),
         const SizedBox(width: 10),
-        if (widget.isCreatorProfile == null)
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(AppRoutes.settings);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colorScheme.primary,
-                foregroundColor: colorScheme.onPrimary,
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(12),
+
+        widget.isCreatorProfile == null
+            ? SizedBox(
+                height: 50,
+                width: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.settings);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colorScheme.primary,
+                    foregroundColor: colorScheme.onPrimary,
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(12),
+                  ),
+                  child: Icon(Icons.settings, color: colorScheme.onPrimary),
+                ),
+              )
+            : Expanded(
+                child: Obx(() {
+                  final FriendsModel? friendModel =
+                      friendsController.friendsList.firstWhereOrNull(
+                        (friend) =>
+                            (friend.senderId == widget.creator!.uid ||
+                            friend.recieverId == widget.creator!.uid),
+                      ) ??
+                      friendsController.friendRequestsList.firstWhereOrNull(
+                        (friend) =>
+                            (friend.senderId == widget.creator!.uid ||
+                            friend.recieverId == widget.creator!.uid),
+                      );
+                  return ElevatedButton(
+                    onPressed: () async {
+                      if (friendModel == null) {
+                        await friendsController.sendFriendRequest(
+                          widget.creator!.uid!,
+                          widget.creator!.profileImageUrl!,
+                          widget.creator!.userName!,
+                          widget.creator!.name!,
+                          widget.creator!.userRating!,
+                        );
+
+                        customSnackbar(
+                          AppLocalizations.of(context)!.friendRequestSent,
+                          AppLocalizations.of(
+                            context,
+                          )!.friendRequestSentTo(widget.creator!.name!),
+                          LogType.success,
+                        );
+                      } else {
+                        if (friendModel.requestStatus ==
+                            FriendRequestStatus.sent) {
+                          if (friendModel.senderId == widget.creator!.uid) {
+                            await friendsController.acceptFriendRequest(
+                              friendModel,
+                            );
+                            customSnackbar(
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestAccepted,
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestAcceptedTo(widget.creator!.name!),
+                              LogType.success,
+                            );
+                          } else {
+                            await friendsController.removeFriend(friendModel);
+                            customSnackbar(
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestCancelled,
+                              AppLocalizations.of(
+                                context,
+                              )!.friendRequestCancelledTo(
+                                widget.creator!.name!,
+                              ),
+                              LogType.info,
+                            );
+                          }
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: friendModel != null
+                          ? (friendModel.requestStatus ==
+                                    FriendRequestStatus.sent
+                                ? colorScheme.primary
+                                : colorScheme.secondary)
+                          : colorScheme.primary,
+                      foregroundColor: colorScheme.onPrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(color: colorScheme.primary),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          friendModel != null
+                              ? (friendModel.requestStatus ==
+                                        FriendRequestStatus.sent
+                                    ? Icons.check
+                                    : Icons.people)
+                              : Icons.add,
+                          color: colorScheme.onPrimary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          friendModel != null
+                              ? (friendModel.requestStatus ==
+                                        FriendRequestStatus.sent
+                                    ? friendModel.senderId ==
+                                              widget.creator!.uid
+                                          ? AppLocalizations.of(context)!.accept
+                                          : AppLocalizations.of(
+                                              context,
+                                            )!.requested
+                                    : AppLocalizations.of(context)!.friends)
+                              : AppLocalizations.of(context)!.addFriend,
+                          style: TextStyle(color: colorScheme.onPrimary),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
               ),
-              child: Icon(Icons.settings, color: colorScheme.onPrimary),
-            ),
-          ),
       ],
     );
   }
@@ -399,7 +547,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildStoriesList(
-      BuildContext context, List<Story> stories, String noStoryTextToShow) {
+    BuildContext context,
+    List<Story> stories,
+    String noStoryTextToShow,
+  ) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
@@ -409,9 +560,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               itemCount: stories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return StoryItem(
-                  story: stories[index],
-                );
+                return StoryItem(story: stories[index]);
               },
             )
           : Column(
@@ -419,8 +568,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
                 const SizedBox(height: 5),
-                Text(noStoryTextToShow,
-                    style: TextStyle(color: colorScheme.onSurface)),
+                Text(
+                  noStoryTextToShow,
+                  style: TextStyle(color: colorScheme.onSurface),
+                ),
               ],
             ),
     );
@@ -428,10 +579,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class StoryItem extends StatelessWidget {
-  const StoryItem({
-    super.key,
-    required this.story,
-  });
+  const StoryItem({super.key, required this.story});
 
   final Story story;
 
@@ -443,11 +591,7 @@ class StoryItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => StoryScreen(
-              story: story,
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => StoryScreen(story: story)),
         );
       },
       child: Container(

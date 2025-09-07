@@ -36,235 +36,120 @@ import 'package:mockito/src/dummies.dart' as _i13;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
-  _FakeClient_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeClient_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeDocumentList_1 extends _i1.SmartFake implements _i3.DocumentList {
-  _FakeDocumentList_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeDocumentList_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeDocument_2 extends _i1.SmartFake implements _i3.Document {
-  _FakeDocument_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeDocument_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeFileList_3 extends _i1.SmartFake implements _i3.FileList {
-  _FakeFileList_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeFileList_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeFile_4 extends _i1.SmartFake implements _i3.File {
-  _FakeFile_4(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeFile_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeUser_5 extends _i1.SmartFake implements _i3.User {
-  _FakeUser_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeUser_5(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeIdentityList_6 extends _i1.SmartFake implements _i3.IdentityList {
-  _FakeIdentityList_6(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeIdentityList_6(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeJwt_7 extends _i1.SmartFake implements _i3.Jwt {
-  _FakeJwt_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeJwt_7(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeLogList_8 extends _i1.SmartFake implements _i3.LogList {
-  _FakeLogList_8(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeLogList_8(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMfaType_9 extends _i1.SmartFake implements _i3.MfaType {
-  _FakeMfaType_9(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMfaType_9(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMfaChallenge_10 extends _i1.SmartFake implements _i3.MfaChallenge {
-  _FakeMfaChallenge_10(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMfaChallenge_10(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeSession_11 extends _i1.SmartFake implements _i3.Session {
-  _FakeSession_11(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeSession_11(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMfaFactors_12 extends _i1.SmartFake implements _i3.MfaFactors {
-  _FakeMfaFactors_12(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMfaFactors_12(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeMfaRecoveryCodes_13 extends _i1.SmartFake
     implements _i3.MfaRecoveryCodes {
-  _FakeMfaRecoveryCodes_13(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeMfaRecoveryCodes_13(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakePreferences_14 extends _i1.SmartFake implements _i3.Preferences {
-  _FakePreferences_14(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakePreferences_14(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeToken_15 extends _i1.SmartFake implements _i3.Token {
-  _FakeToken_15(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeToken_15(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeSessionList_16 extends _i1.SmartFake implements _i3.SessionList {
-  _FakeSessionList_16(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeSessionList_16(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeTarget_17 extends _i1.SmartFake implements _i3.Target {
-  _FakeTarget_17(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeTarget_17(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeResponse_18<T> extends _i1.SmartFake implements _i4.Response<T> {
-  _FakeResponse_18(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeResponse_18(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeFirebaseApp_19 extends _i1.SmartFake implements _i5.FirebaseApp {
-  _FakeFirebaseApp_19(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeFirebaseApp_19(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeNotificationSettings_20 extends _i1.SmartFake
     implements _i6.NotificationSettings {
-  _FakeNotificationSettings_20(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeNotificationSettings_20(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeExecutionList_21 extends _i1.SmartFake implements _i3.ExecutionList {
-  _FakeExecutionList_21(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeExecutionList_21(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeExecution_22 extends _i1.SmartFake implements _i3.Execution {
-  _FakeExecution_22(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeExecution_22(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [Databases].
@@ -276,13 +161,12 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
   }
 
   @override
-  _i2.Client get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.getter(#client),
-        ),
-      ) as _i2.Client);
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
 
   @override
   _i8.Future<_i3.DocumentList> listDocuments({
@@ -291,28 +175,23 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     List<String>? queries,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #listDocuments,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #queries: queries,
-          },
-        ),
-        returnValue: _i8.Future<_i3.DocumentList>.value(_FakeDocumentList_1(
-          this,
-          Invocation.method(
-            #listDocuments,
-            [],
-            {
+            Invocation.method(#listDocuments, [], {
               #databaseId: databaseId,
               #collectionId: collectionId,
               #queries: queries,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.DocumentList>);
+            }),
+            returnValue: _i8.Future<_i3.DocumentList>.value(
+              _FakeDocumentList_1(
+                this,
+                Invocation.method(#listDocuments, [], {
+                  #databaseId: databaseId,
+                  #collectionId: collectionId,
+                  #queries: queries,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.DocumentList>);
 
   @override
   _i8.Future<_i3.Document> createDocument({
@@ -323,32 +202,27 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     List<String>? permissions,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createDocument,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #documentId: documentId,
-            #data: data,
-            #permissions: permissions,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Document>.value(_FakeDocument_2(
-          this,
-          Invocation.method(
-            #createDocument,
-            [],
-            {
+            Invocation.method(#createDocument, [], {
               #databaseId: databaseId,
               #collectionId: collectionId,
               #documentId: documentId,
               #data: data,
               #permissions: permissions,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Document>);
+            }),
+            returnValue: _i8.Future<_i3.Document>.value(
+              _FakeDocument_2(
+                this,
+                Invocation.method(#createDocument, [], {
+                  #databaseId: databaseId,
+                  #collectionId: collectionId,
+                  #documentId: documentId,
+                  #data: data,
+                  #permissions: permissions,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Document>);
 
   @override
   _i8.Future<_i3.Document> getDocument({
@@ -358,30 +232,25 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     List<String>? queries,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getDocument,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #documentId: documentId,
-            #queries: queries,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Document>.value(_FakeDocument_2(
-          this,
-          Invocation.method(
-            #getDocument,
-            [],
-            {
+            Invocation.method(#getDocument, [], {
               #databaseId: databaseId,
               #collectionId: collectionId,
               #documentId: documentId,
               #queries: queries,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Document>);
+            }),
+            returnValue: _i8.Future<_i3.Document>.value(
+              _FakeDocument_2(
+                this,
+                Invocation.method(#getDocument, [], {
+                  #databaseId: databaseId,
+                  #collectionId: collectionId,
+                  #documentId: documentId,
+                  #queries: queries,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Document>);
 
   @override
   _i8.Future<_i3.Document> upsertDocument({
@@ -392,32 +261,27 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     List<String>? permissions,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #upsertDocument,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #documentId: documentId,
-            #data: data,
-            #permissions: permissions,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Document>.value(_FakeDocument_2(
-          this,
-          Invocation.method(
-            #upsertDocument,
-            [],
-            {
+            Invocation.method(#upsertDocument, [], {
               #databaseId: databaseId,
               #collectionId: collectionId,
               #documentId: documentId,
               #data: data,
               #permissions: permissions,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Document>);
+            }),
+            returnValue: _i8.Future<_i3.Document>.value(
+              _FakeDocument_2(
+                this,
+                Invocation.method(#upsertDocument, [], {
+                  #databaseId: databaseId,
+                  #collectionId: collectionId,
+                  #documentId: documentId,
+                  #data: data,
+                  #permissions: permissions,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Document>);
 
   @override
   _i8.Future<_i3.Document> updateDocument({
@@ -428,32 +292,27 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     List<String>? permissions,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateDocument,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #documentId: documentId,
-            #data: data,
-            #permissions: permissions,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Document>.value(_FakeDocument_2(
-          this,
-          Invocation.method(
-            #updateDocument,
-            [],
-            {
+            Invocation.method(#updateDocument, [], {
               #databaseId: databaseId,
               #collectionId: collectionId,
               #documentId: documentId,
               #data: data,
               #permissions: permissions,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Document>);
+            }),
+            returnValue: _i8.Future<_i3.Document>.value(
+              _FakeDocument_2(
+                this,
+                Invocation.method(#updateDocument, [], {
+                  #databaseId: databaseId,
+                  #collectionId: collectionId,
+                  #documentId: documentId,
+                  #data: data,
+                  #permissions: permissions,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Document>);
 
   @override
   _i8.Future<dynamic> deleteDocument({
@@ -462,17 +321,14 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
     required String? documentId,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deleteDocument,
-          [],
-          {
-            #databaseId: databaseId,
-            #collectionId: collectionId,
-            #documentId: documentId,
-          },
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deleteDocument, [], {
+              #databaseId: databaseId,
+              #collectionId: collectionId,
+              #documentId: documentId,
+            }),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 }
 
 /// A class which mocks [Storage].
@@ -484,13 +340,12 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
   }
 
   @override
-  _i2.Client get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.getter(#client),
-        ),
-      ) as _i2.Client);
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
 
   @override
   _i8.Future<_i3.FileList> listFiles({
@@ -499,28 +354,23 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     String? search,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #listFiles,
-          [],
-          {
-            #bucketId: bucketId,
-            #queries: queries,
-            #search: search,
-          },
-        ),
-        returnValue: _i8.Future<_i3.FileList>.value(_FakeFileList_3(
-          this,
-          Invocation.method(
-            #listFiles,
-            [],
-            {
+            Invocation.method(#listFiles, [], {
               #bucketId: bucketId,
               #queries: queries,
               #search: search,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.FileList>);
+            }),
+            returnValue: _i8.Future<_i3.FileList>.value(
+              _FakeFileList_3(
+                this,
+                Invocation.method(#listFiles, [], {
+                  #bucketId: bucketId,
+                  #queries: queries,
+                  #search: search,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.FileList>);
 
   @override
   _i8.Future<_i3.File> createFile({
@@ -531,32 +381,27 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     dynamic Function(_i10.UploadProgress)? onProgress,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createFile,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-            #file: file,
-            #permissions: permissions,
-            #onProgress: onProgress,
-          },
-        ),
-        returnValue: _i8.Future<_i3.File>.value(_FakeFile_4(
-          this,
-          Invocation.method(
-            #createFile,
-            [],
-            {
+            Invocation.method(#createFile, [], {
               #bucketId: bucketId,
               #fileId: fileId,
               #file: file,
               #permissions: permissions,
               #onProgress: onProgress,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.File>);
+            }),
+            returnValue: _i8.Future<_i3.File>.value(
+              _FakeFile_4(
+                this,
+                Invocation.method(#createFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                  #file: file,
+                  #permissions: permissions,
+                  #onProgress: onProgress,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.File>);
 
   @override
   _i8.Future<_i3.File> getFile({
@@ -564,26 +409,21 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     required String? fileId,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getFile,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-          },
-        ),
-        returnValue: _i8.Future<_i3.File>.value(_FakeFile_4(
-          this,
-          Invocation.method(
-            #getFile,
-            [],
-            {
+            Invocation.method(#getFile, [], {
               #bucketId: bucketId,
               #fileId: fileId,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.File>);
+            }),
+            returnValue: _i8.Future<_i3.File>.value(
+              _FakeFile_4(
+                this,
+                Invocation.method(#getFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.File>);
 
   @override
   _i8.Future<_i3.File> updateFile({
@@ -593,30 +433,25 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     List<String>? permissions,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateFile,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-            #name: name,
-            #permissions: permissions,
-          },
-        ),
-        returnValue: _i8.Future<_i3.File>.value(_FakeFile_4(
-          this,
-          Invocation.method(
-            #updateFile,
-            [],
-            {
+            Invocation.method(#updateFile, [], {
               #bucketId: bucketId,
               #fileId: fileId,
               #name: name,
               #permissions: permissions,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.File>);
+            }),
+            returnValue: _i8.Future<_i3.File>.value(
+              _FakeFile_4(
+                this,
+                Invocation.method(#updateFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                  #name: name,
+                  #permissions: permissions,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.File>);
 
   @override
   _i8.Future<dynamic> deleteFile({
@@ -624,16 +459,13 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     required String? fileId,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deleteFile,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-          },
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deleteFile, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+            }),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
   _i8.Future<_i11.Uint8List> getFileDownload({
@@ -642,17 +474,14 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     String? token,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getFileDownload,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-            #token: token,
-          },
-        ),
-        returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
-      ) as _i8.Future<_i11.Uint8List>);
+            Invocation.method(#getFileDownload, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #token: token,
+            }),
+            returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
+          )
+          as _i8.Future<_i11.Uint8List>);
 
   @override
   _i8.Future<_i11.Uint8List> getFilePreview({
@@ -672,28 +501,25 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     String? token,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getFilePreview,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-            #width: width,
-            #height: height,
-            #gravity: gravity,
-            #quality: quality,
-            #borderWidth: borderWidth,
-            #borderColor: borderColor,
-            #borderRadius: borderRadius,
-            #opacity: opacity,
-            #rotation: rotation,
-            #background: background,
-            #output: output,
-            #token: token,
-          },
-        ),
-        returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
-      ) as _i8.Future<_i11.Uint8List>);
+            Invocation.method(#getFilePreview, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #width: width,
+              #height: height,
+              #gravity: gravity,
+              #quality: quality,
+              #borderWidth: borderWidth,
+              #borderColor: borderColor,
+              #borderRadius: borderRadius,
+              #opacity: opacity,
+              #rotation: rotation,
+              #background: background,
+              #output: output,
+              #token: token,
+            }),
+            returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
+          )
+          as _i8.Future<_i11.Uint8List>);
 
   @override
   _i8.Future<_i11.Uint8List> getFileView({
@@ -702,17 +528,14 @@ class MockStorage extends _i1.Mock implements _i7.Storage {
     String? token,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getFileView,
-          [],
-          {
-            #bucketId: bucketId,
-            #fileId: fileId,
-            #token: token,
-          },
-        ),
-        returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
-      ) as _i8.Future<_i11.Uint8List>);
+            Invocation.method(#getFileView, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #token: token,
+            }),
+            returnValue: _i8.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
+          )
+          as _i8.Future<_i11.Uint8List>);
 }
 
 /// A class which mocks [Account].
@@ -724,28 +547,22 @@ class MockAccount extends _i1.Mock implements _i7.Account {
   }
 
   @override
-  _i2.Client get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.getter(#client),
-        ),
-      ) as _i2.Client);
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
 
   @override
-  _i8.Future<_i3.User> get() => (super.noSuchMethod(
-        Invocation.method(
-          #get,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #get,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+  _i8.Future<_i3.User> get() =>
+      (super.noSuchMethod(
+            Invocation.method(#get, []),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(this, Invocation.method(#get, [])),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.User> create({
@@ -755,30 +572,25 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     String? name,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #create,
-          [],
-          {
-            #userId: userId,
-            #email: email,
-            #password: password,
-            #name: name,
-          },
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #create,
-            [],
-            {
+            Invocation.method(#create, [], {
               #userId: userId,
               #email: email,
               #password: password,
               #name: name,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            }),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#create, [], {
+                  #userId: userId,
+                  #email: email,
+                  #password: password,
+                  #name: name,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.User> updateEmail({
@@ -786,124 +598,90 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? password,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateEmail,
-          [],
-          {
-            #email: email,
-            #password: password,
-          },
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updateEmail,
-            [],
-            {
+            Invocation.method(#updateEmail, [], {
               #email: email,
               #password: password,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            }),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updateEmail, [], {
+                  #email: email,
+                  #password: password,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.IdentityList> listIdentities({List<String>? queries}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #listIdentities,
-          [],
-          {#queries: queries},
-        ),
-        returnValue: _i8.Future<_i3.IdentityList>.value(_FakeIdentityList_6(
-          this,
-          Invocation.method(
-            #listIdentities,
-            [],
-            {#queries: queries},
-          ),
-        )),
-      ) as _i8.Future<_i3.IdentityList>);
+            Invocation.method(#listIdentities, [], {#queries: queries}),
+            returnValue: _i8.Future<_i3.IdentityList>.value(
+              _FakeIdentityList_6(
+                this,
+                Invocation.method(#listIdentities, [], {#queries: queries}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.IdentityList>);
 
   @override
   _i8.Future<dynamic> deleteIdentity({required String? identityId}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deleteIdentity,
-          [],
-          {#identityId: identityId},
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deleteIdentity, [], {#identityId: identityId}),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
-  _i8.Future<_i3.Jwt> createJWT() => (super.noSuchMethod(
-        Invocation.method(
-          #createJWT,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.Jwt>.value(_FakeJwt_7(
-          this,
-          Invocation.method(
-            #createJWT,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.Jwt>);
+  _i8.Future<_i3.Jwt> createJWT() =>
+      (super.noSuchMethod(
+            Invocation.method(#createJWT, []),
+            returnValue: _i8.Future<_i3.Jwt>.value(
+              _FakeJwt_7(this, Invocation.method(#createJWT, [])),
+            ),
+          )
+          as _i8.Future<_i3.Jwt>);
 
   @override
   _i8.Future<_i3.LogList> listLogs({List<String>? queries}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #listLogs,
-          [],
-          {#queries: queries},
-        ),
-        returnValue: _i8.Future<_i3.LogList>.value(_FakeLogList_8(
-          this,
-          Invocation.method(
-            #listLogs,
-            [],
-            {#queries: queries},
-          ),
-        )),
-      ) as _i8.Future<_i3.LogList>);
+            Invocation.method(#listLogs, [], {#queries: queries}),
+            returnValue: _i8.Future<_i3.LogList>.value(
+              _FakeLogList_8(
+                this,
+                Invocation.method(#listLogs, [], {#queries: queries}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.LogList>);
 
   @override
-  _i8.Future<_i3.User> updateMFA({required bool? mfa}) => (super.noSuchMethod(
-        Invocation.method(
-          #updateMFA,
-          [],
-          {#mfa: mfa},
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updateMFA,
-            [],
-            {#mfa: mfa},
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
-
-  @override
-  _i8.Future<_i3.MfaType> createMfaAuthenticator(
-          {required _i12.AuthenticatorType? type}) =>
+  _i8.Future<_i3.User> updateMFA({required bool? mfa}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createMfaAuthenticator,
-          [],
-          {#type: type},
-        ),
-        returnValue: _i8.Future<_i3.MfaType>.value(_FakeMfaType_9(
-          this,
-          Invocation.method(
-            #createMfaAuthenticator,
-            [],
-            {#type: type},
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaType>);
+            Invocation.method(#updateMFA, [], {#mfa: mfa}),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(this, Invocation.method(#updateMFA, [], {#mfa: mfa})),
+            ),
+          )
+          as _i8.Future<_i3.User>);
+
+  @override
+  _i8.Future<_i3.MfaType> createMfaAuthenticator({
+    required _i12.AuthenticatorType? type,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#createMfaAuthenticator, [], {#type: type}),
+            returnValue: _i8.Future<_i3.MfaType>.value(
+              _FakeMfaType_9(
+                this,
+                Invocation.method(#createMfaAuthenticator, [], {#type: type}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.MfaType>);
 
   @override
   _i8.Future<_i3.User> updateMfaAuthenticator({
@@ -911,57 +689,46 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? otp,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateMfaAuthenticator,
-          [],
-          {
-            #type: type,
-            #otp: otp,
-          },
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updateMfaAuthenticator,
-            [],
-            {
+            Invocation.method(#updateMfaAuthenticator, [], {
               #type: type,
               #otp: otp,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            }),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updateMfaAuthenticator, [], {
+                  #type: type,
+                  #otp: otp,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
-  _i8.Future<dynamic> deleteMfaAuthenticator(
-          {required _i12.AuthenticatorType? type}) =>
+  _i8.Future<dynamic> deleteMfaAuthenticator({
+    required _i12.AuthenticatorType? type,
+  }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deleteMfaAuthenticator,
-          [],
-          {#type: type},
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deleteMfaAuthenticator, [], {#type: type}),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
-  _i8.Future<_i3.MfaChallenge> createMfaChallenge(
-          {required _i12.AuthenticationFactor? factor}) =>
+  _i8.Future<_i3.MfaChallenge> createMfaChallenge({
+    required _i12.AuthenticationFactor? factor,
+  }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createMfaChallenge,
-          [],
-          {#factor: factor},
-        ),
-        returnValue: _i8.Future<_i3.MfaChallenge>.value(_FakeMfaChallenge_10(
-          this,
-          Invocation.method(
-            #createMfaChallenge,
-            [],
-            {#factor: factor},
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaChallenge>);
+            Invocation.method(#createMfaChallenge, [], {#factor: factor}),
+            returnValue: _i8.Future<_i3.MfaChallenge>.value(
+              _FakeMfaChallenge_10(
+                this,
+                Invocation.method(#createMfaChallenge, [], {#factor: factor}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.MfaChallenge>);
 
   @override
   _i8.Future<_i3.Session> updateMfaChallenge({
@@ -969,109 +736,83 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? otp,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateMfaChallenge,
-          [],
-          {
-            #challengeId: challengeId,
-            #otp: otp,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #updateMfaChallenge,
-            [],
-            {
+            Invocation.method(#updateMfaChallenge, [], {
               #challengeId: challengeId,
               #otp: otp,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            }),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#updateMfaChallenge, [], {
+                  #challengeId: challengeId,
+                  #otp: otp,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
-  _i8.Future<_i3.MfaFactors> listMfaFactors() => (super.noSuchMethod(
-        Invocation.method(
-          #listMfaFactors,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.MfaFactors>.value(_FakeMfaFactors_12(
-          this,
-          Invocation.method(
-            #listMfaFactors,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaFactors>);
+  _i8.Future<_i3.MfaFactors> listMfaFactors() =>
+      (super.noSuchMethod(
+            Invocation.method(#listMfaFactors, []),
+            returnValue: _i8.Future<_i3.MfaFactors>.value(
+              _FakeMfaFactors_12(this, Invocation.method(#listMfaFactors, [])),
+            ),
+          )
+          as _i8.Future<_i3.MfaFactors>);
 
   @override
-  _i8.Future<_i3.MfaRecoveryCodes> getMfaRecoveryCodes() => (super.noSuchMethod(
-        Invocation.method(
-          #getMfaRecoveryCodes,
-          [],
-        ),
-        returnValue:
-            _i8.Future<_i3.MfaRecoveryCodes>.value(_FakeMfaRecoveryCodes_13(
-          this,
-          Invocation.method(
-            #getMfaRecoveryCodes,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaRecoveryCodes>);
+  _i8.Future<_i3.MfaRecoveryCodes> getMfaRecoveryCodes() =>
+      (super.noSuchMethod(
+            Invocation.method(#getMfaRecoveryCodes, []),
+            returnValue: _i8.Future<_i3.MfaRecoveryCodes>.value(
+              _FakeMfaRecoveryCodes_13(
+                this,
+                Invocation.method(#getMfaRecoveryCodes, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.MfaRecoveryCodes>);
 
   @override
   _i8.Future<_i3.MfaRecoveryCodes> createMfaRecoveryCodes() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createMfaRecoveryCodes,
-          [],
-        ),
-        returnValue:
-            _i8.Future<_i3.MfaRecoveryCodes>.value(_FakeMfaRecoveryCodes_13(
-          this,
-          Invocation.method(
-            #createMfaRecoveryCodes,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaRecoveryCodes>);
+            Invocation.method(#createMfaRecoveryCodes, []),
+            returnValue: _i8.Future<_i3.MfaRecoveryCodes>.value(
+              _FakeMfaRecoveryCodes_13(
+                this,
+                Invocation.method(#createMfaRecoveryCodes, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.MfaRecoveryCodes>);
 
   @override
   _i8.Future<_i3.MfaRecoveryCodes> updateMfaRecoveryCodes() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateMfaRecoveryCodes,
-          [],
-        ),
-        returnValue:
-            _i8.Future<_i3.MfaRecoveryCodes>.value(_FakeMfaRecoveryCodes_13(
-          this,
-          Invocation.method(
-            #updateMfaRecoveryCodes,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.MfaRecoveryCodes>);
+            Invocation.method(#updateMfaRecoveryCodes, []),
+            returnValue: _i8.Future<_i3.MfaRecoveryCodes>.value(
+              _FakeMfaRecoveryCodes_13(
+                this,
+                Invocation.method(#updateMfaRecoveryCodes, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.MfaRecoveryCodes>);
 
   @override
   _i8.Future<_i3.User> updateName({required String? name}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateName,
-          [],
-          {#name: name},
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updateName,
-            [],
-            {#name: name},
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            Invocation.method(#updateName, [], {#name: name}),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updateName, [], {#name: name}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.User> updatePassword({
@@ -1079,26 +820,21 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     String? oldPassword,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePassword,
-          [],
-          {
-            #password: password,
-            #oldPassword: oldPassword,
-          },
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updatePassword,
-            [],
-            {
+            Invocation.method(#updatePassword, [], {
               #password: password,
               #oldPassword: oldPassword,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            }),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updatePassword, [], {
+                  #password: password,
+                  #oldPassword: oldPassword,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.User> updatePhone({
@@ -1106,59 +842,44 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? password,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePhone,
-          [],
-          {
-            #phone: phone,
-            #password: password,
-          },
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updatePhone,
-            [],
-            {
+            Invocation.method(#updatePhone, [], {
               #phone: phone,
               #password: password,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            }),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updatePhone, [], {
+                  #phone: phone,
+                  #password: password,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
-  _i8.Future<_i3.Preferences> getPrefs() => (super.noSuchMethod(
-        Invocation.method(
-          #getPrefs,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.Preferences>.value(_FakePreferences_14(
-          this,
-          Invocation.method(
-            #getPrefs,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.Preferences>);
+  _i8.Future<_i3.Preferences> getPrefs() =>
+      (super.noSuchMethod(
+            Invocation.method(#getPrefs, []),
+            returnValue: _i8.Future<_i3.Preferences>.value(
+              _FakePreferences_14(this, Invocation.method(#getPrefs, [])),
+            ),
+          )
+          as _i8.Future<_i3.Preferences>);
 
   @override
   _i8.Future<_i3.User> updatePrefs({required Map<dynamic, dynamic>? prefs}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePrefs,
-          [],
-          {#prefs: prefs},
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updatePrefs,
-            [],
-            {#prefs: prefs},
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+            Invocation.method(#updatePrefs, [], {#prefs: prefs}),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(
+                this,
+                Invocation.method(#updatePrefs, [], {#prefs: prefs}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.Token> createRecovery({
@@ -1166,26 +887,18 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? url,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createRecovery,
-          [],
-          {
-            #email: email,
-            #url: url,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createRecovery,
-            [],
-            {
-              #email: email,
-              #url: url,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            Invocation.method(#createRecovery, [], {#email: email, #url: url}),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createRecovery, [], {
+                  #email: email,
+                  #url: url,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<_i3.Token> updateRecovery({
@@ -1194,67 +907,54 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? password,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateRecovery,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-            #password: password,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #updateRecovery,
-            [],
-            {
+            Invocation.method(#updateRecovery, [], {
               #userId: userId,
               #secret: secret,
               #password: password,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#updateRecovery, [], {
+                  #userId: userId,
+                  #secret: secret,
+                  #password: password,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
-  _i8.Future<_i3.SessionList> listSessions() => (super.noSuchMethod(
-        Invocation.method(
-          #listSessions,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.SessionList>.value(_FakeSessionList_16(
-          this,
-          Invocation.method(
-            #listSessions,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.SessionList>);
+  _i8.Future<_i3.SessionList> listSessions() =>
+      (super.noSuchMethod(
+            Invocation.method(#listSessions, []),
+            returnValue: _i8.Future<_i3.SessionList>.value(
+              _FakeSessionList_16(this, Invocation.method(#listSessions, [])),
+            ),
+          )
+          as _i8.Future<_i3.SessionList>);
 
   @override
-  _i8.Future<dynamic> deleteSessions() => (super.noSuchMethod(
-        Invocation.method(
-          #deleteSessions,
-          [],
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+  _i8.Future<dynamic> deleteSessions() =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteSessions, []),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
-  _i8.Future<_i3.Session> createAnonymousSession() => (super.noSuchMethod(
-        Invocation.method(
-          #createAnonymousSession,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #createAnonymousSession,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+  _i8.Future<_i3.Session> createAnonymousSession() =>
+      (super.noSuchMethod(
+            Invocation.method(#createAnonymousSession, []),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#createAnonymousSession, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<_i3.Session> createEmailPasswordSession({
@@ -1262,26 +962,21 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? password,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createEmailPasswordSession,
-          [],
-          {
-            #email: email,
-            #password: password,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #createEmailPasswordSession,
-            [],
-            {
+            Invocation.method(#createEmailPasswordSession, [], {
               #email: email,
               #password: password,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            }),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#createEmailPasswordSession, [], {
+                  #email: email,
+                  #password: password,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<_i3.Session> updateMagicURLSession({
@@ -1289,26 +984,21 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? secret,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateMagicURLSession,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #updateMagicURLSession,
-            [],
-            {
+            Invocation.method(#updateMagicURLSession, [], {
               #userId: userId,
               #secret: secret,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            }),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#updateMagicURLSession, [], {
+                  #userId: userId,
+                  #secret: secret,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<dynamic> createOAuth2Session({
@@ -1318,18 +1008,15 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     List<String>? scopes,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createOAuth2Session,
-          [],
-          {
-            #provider: provider,
-            #success: success,
-            #failure: failure,
-            #scopes: scopes,
-          },
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#createOAuth2Session, [], {
+              #provider: provider,
+              #success: success,
+              #failure: failure,
+              #scopes: scopes,
+            }),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
   _i8.Future<_i3.Session> updatePhoneSession({
@@ -1337,26 +1024,21 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? secret,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePhoneSession,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #updatePhoneSession,
-            [],
-            {
+            Invocation.method(#updatePhoneSession, [], {
               #userId: userId,
               #secret: secret,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            }),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#updatePhoneSession, [], {
+                  #userId: userId,
+                  #secret: secret,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<_i3.Session> createSession({
@@ -1364,88 +1046,65 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? secret,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createSession,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #createSession,
-            [],
-            {
+            Invocation.method(#createSession, [], {
               #userId: userId,
               #secret: secret,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            }),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#createSession, [], {
+                  #userId: userId,
+                  #secret: secret,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<_i3.Session> getSession({required String? sessionId}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getSession,
-          [],
-          {#sessionId: sessionId},
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #getSession,
-            [],
-            {#sessionId: sessionId},
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            Invocation.method(#getSession, [], {#sessionId: sessionId}),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#getSession, [], {#sessionId: sessionId}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<_i3.Session> updateSession({required String? sessionId}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateSession,
-          [],
-          {#sessionId: sessionId},
-        ),
-        returnValue: _i8.Future<_i3.Session>.value(_FakeSession_11(
-          this,
-          Invocation.method(
-            #updateSession,
-            [],
-            {#sessionId: sessionId},
-          ),
-        )),
-      ) as _i8.Future<_i3.Session>);
+            Invocation.method(#updateSession, [], {#sessionId: sessionId}),
+            returnValue: _i8.Future<_i3.Session>.value(
+              _FakeSession_11(
+                this,
+                Invocation.method(#updateSession, [], {#sessionId: sessionId}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Session>);
 
   @override
   _i8.Future<dynamic> deleteSession({required String? sessionId}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deleteSession,
-          [],
-          {#sessionId: sessionId},
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deleteSession, [], {#sessionId: sessionId}),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
-  _i8.Future<_i3.User> updateStatus() => (super.noSuchMethod(
-        Invocation.method(
-          #updateStatus,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.User>.value(_FakeUser_5(
-          this,
-          Invocation.method(
-            #updateStatus,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.User>);
+  _i8.Future<_i3.User> updateStatus() =>
+      (super.noSuchMethod(
+            Invocation.method(#updateStatus, []),
+            returnValue: _i8.Future<_i3.User>.value(
+              _FakeUser_5(this, Invocation.method(#updateStatus, [])),
+            ),
+          )
+          as _i8.Future<_i3.User>);
 
   @override
   _i8.Future<_i3.Target> createPushTarget({
@@ -1454,28 +1113,23 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     String? providerId,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createPushTarget,
-          [],
-          {
-            #targetId: targetId,
-            #identifier: identifier,
-            #providerId: providerId,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Target>.value(_FakeTarget_17(
-          this,
-          Invocation.method(
-            #createPushTarget,
-            [],
-            {
+            Invocation.method(#createPushTarget, [], {
               #targetId: targetId,
               #identifier: identifier,
               #providerId: providerId,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Target>);
+            }),
+            returnValue: _i8.Future<_i3.Target>.value(
+              _FakeTarget_17(
+                this,
+                Invocation.method(#createPushTarget, [], {
+                  #targetId: targetId,
+                  #identifier: identifier,
+                  #providerId: providerId,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Target>);
 
   @override
   _i8.Future<_i3.Target> updatePushTarget({
@@ -1483,37 +1137,29 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? identifier,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePushTarget,
-          [],
-          {
-            #targetId: targetId,
-            #identifier: identifier,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Target>.value(_FakeTarget_17(
-          this,
-          Invocation.method(
-            #updatePushTarget,
-            [],
-            {
+            Invocation.method(#updatePushTarget, [], {
               #targetId: targetId,
               #identifier: identifier,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Target>);
+            }),
+            returnValue: _i8.Future<_i3.Target>.value(
+              _FakeTarget_17(
+                this,
+                Invocation.method(#updatePushTarget, [], {
+                  #targetId: targetId,
+                  #identifier: identifier,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Target>);
 
   @override
   _i8.Future<dynamic> deletePushTarget({required String? targetId}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #deletePushTarget,
-          [],
-          {#targetId: targetId},
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#deletePushTarget, [], {#targetId: targetId}),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
   _i8.Future<_i3.Token> createEmailToken({
@@ -1522,28 +1168,23 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     bool? phrase,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createEmailToken,
-          [],
-          {
-            #userId: userId,
-            #email: email,
-            #phrase: phrase,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createEmailToken,
-            [],
-            {
+            Invocation.method(#createEmailToken, [], {
               #userId: userId,
               #email: email,
               #phrase: phrase,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createEmailToken, [], {
+                  #userId: userId,
+                  #email: email,
+                  #phrase: phrase,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<_i3.Token> createMagicURLToken({
@@ -1553,30 +1194,25 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     bool? phrase,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createMagicURLToken,
-          [],
-          {
-            #userId: userId,
-            #email: email,
-            #url: url,
-            #phrase: phrase,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createMagicURLToken,
-            [],
-            {
+            Invocation.method(#createMagicURLToken, [], {
               #userId: userId,
               #email: email,
               #url: url,
               #phrase: phrase,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createMagicURLToken, [], {
+                  #userId: userId,
+                  #email: email,
+                  #url: url,
+                  #phrase: phrase,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<dynamic> createOAuth2Token({
@@ -1586,18 +1222,15 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     List<String>? scopes,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createOAuth2Token,
-          [],
-          {
-            #provider: provider,
-            #success: success,
-            #failure: failure,
-            #scopes: scopes,
-          },
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(#createOAuth2Token, [], {
+              #provider: provider,
+              #success: success,
+              #failure: failure,
+              #scopes: scopes,
+            }),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
   _i8.Future<_i3.Token> createPhoneToken({
@@ -1605,44 +1238,34 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? phone,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createPhoneToken,
-          [],
-          {
-            #userId: userId,
-            #phone: phone,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createPhoneToken,
-            [],
-            {
+            Invocation.method(#createPhoneToken, [], {
               #userId: userId,
               #phone: phone,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createPhoneToken, [], {
+                  #userId: userId,
+                  #phone: phone,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<_i3.Token> createVerification({required String? url}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createVerification,
-          [],
-          {#url: url},
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createVerification,
-            [],
-            {#url: url},
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            Invocation.method(#createVerification, [], {#url: url}),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createVerification, [], {#url: url}),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<_i3.Token> updateVerification({
@@ -1650,41 +1273,34 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? secret,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updateVerification,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #updateVerification,
-            [],
-            {
+            Invocation.method(#updateVerification, [], {
               #userId: userId,
               #secret: secret,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#updateVerification, [], {
+                  #userId: userId,
+                  #secret: secret,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
-  _i8.Future<_i3.Token> createPhoneVerification() => (super.noSuchMethod(
-        Invocation.method(
-          #createPhoneVerification,
-          [],
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #createPhoneVerification,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+  _i8.Future<_i3.Token> createPhoneVerification() =>
+      (super.noSuchMethod(
+            Invocation.method(#createPhoneVerification, []),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#createPhoneVerification, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 
   @override
   _i8.Future<_i3.Token> updatePhoneVerification({
@@ -1692,26 +1308,21 @@ class MockAccount extends _i1.Mock implements _i7.Account {
     required String? secret,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #updatePhoneVerification,
-          [],
-          {
-            #userId: userId,
-            #secret: secret,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Token>.value(_FakeToken_15(
-          this,
-          Invocation.method(
-            #updatePhoneVerification,
-            [],
-            {
+            Invocation.method(#updatePhoneVerification, [], {
               #userId: userId,
               #secret: secret,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Token>);
+            }),
+            returnValue: _i8.Future<_i3.Token>.value(
+              _FakeToken_15(
+                this,
+                Invocation.method(#updatePhoneVerification, [], {
+                  #userId: userId,
+                  #secret: secret,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Token>);
 }
 
 /// A class which mocks [Client].
@@ -1723,42 +1334,41 @@ class MockClient extends _i1.Mock implements _i2.Client {
   }
 
   @override
-  Map<String, String> get config => (super.noSuchMethod(
-        Invocation.getter(#config),
-        returnValue: <String, String>{},
-      ) as Map<String, String>);
+  Map<String, String> get config =>
+      (super.noSuchMethod(
+            Invocation.getter(#config),
+            returnValue: <String, String>{},
+          )
+          as Map<String, String>);
 
   @override
-  String get endPoint => (super.noSuchMethod(
-        Invocation.getter(#endPoint),
-        returnValue: _i13.dummyValue<String>(
-          this,
-          Invocation.getter(#endPoint),
-        ),
-      ) as String);
+  String get endPoint =>
+      (super.noSuchMethod(
+            Invocation.getter(#endPoint),
+            returnValue: _i13.dummyValue<String>(
+              this,
+              Invocation.getter(#endPoint),
+            ),
+          )
+          as String);
 
   @override
   set config(Map<String, String>? _config) => super.noSuchMethod(
-        Invocation.setter(
-          #config,
-          _config,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#config, _config),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  _i8.Future<dynamic> webAuth(
-    Uri? url, {
-    String? callbackUrlScheme,
-  }) =>
+  _i8.Future<dynamic> webAuth(Uri? url, {String? callbackUrlScheme}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #webAuth,
-          [url],
-          {#callbackUrlScheme: callbackUrlScheme},
-        ),
-        returnValue: _i8.Future<dynamic>.value(),
-      ) as _i8.Future<dynamic>);
+            Invocation.method(
+              #webAuth,
+              [url],
+              {#callbackUrlScheme: callbackUrlScheme},
+            ),
+            returnValue: _i8.Future<dynamic>.value(),
+          )
+          as _i8.Future<dynamic>);
 
   @override
   _i8.Future<_i4.Response<dynamic>> chunkedUpload({
@@ -1770,197 +1380,138 @@ class MockClient extends _i1.Mock implements _i2.Client {
     dynamic Function(_i10.UploadProgress)? onProgress,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #chunkedUpload,
-          [],
-          {
-            #path: path,
-            #params: params,
-            #paramName: paramName,
-            #idParamName: idParamName,
-            #headers: headers,
-            #onProgress: onProgress,
-          },
-        ),
-        returnValue:
-            _i8.Future<_i4.Response<dynamic>>.value(_FakeResponse_18<dynamic>(
-          this,
-          Invocation.method(
-            #chunkedUpload,
-            [],
-            {
+            Invocation.method(#chunkedUpload, [], {
               #path: path,
               #params: params,
               #paramName: paramName,
               #idParamName: idParamName,
               #headers: headers,
               #onProgress: onProgress,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i4.Response<dynamic>>);
+            }),
+            returnValue: _i8.Future<_i4.Response<dynamic>>.value(
+              _FakeResponse_18<dynamic>(
+                this,
+                Invocation.method(#chunkedUpload, [], {
+                  #path: path,
+                  #params: params,
+                  #paramName: paramName,
+                  #idParamName: idParamName,
+                  #headers: headers,
+                  #onProgress: onProgress,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i4.Response<dynamic>>);
 
   @override
-  _i2.Client setSelfSigned({bool? status = true}) => (super.noSuchMethod(
-        Invocation.method(
-          #setSelfSigned,
-          [],
-          {#status: status},
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setSelfSigned,
-            [],
-            {#status: status},
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setEndpoint(String? endPoint) => (super.noSuchMethod(
-        Invocation.method(
-          #setEndpoint,
-          [endPoint],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setEndpoint,
-            [endPoint],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setEndPointRealtime(String? endPoint) => (super.noSuchMethod(
-        Invocation.method(
-          #setEndPointRealtime,
-          [endPoint],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setEndPointRealtime,
-            [endPoint],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setProject(dynamic value) => (super.noSuchMethod(
-        Invocation.method(
-          #setProject,
-          [value],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setProject,
-            [value],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setJWT(dynamic value) => (super.noSuchMethod(
-        Invocation.method(
-          #setJWT,
-          [value],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setJWT,
-            [value],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setLocale(dynamic value) => (super.noSuchMethod(
-        Invocation.method(
-          #setLocale,
-          [value],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setLocale,
-            [value],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setSession(dynamic value) => (super.noSuchMethod(
-        Invocation.method(
-          #setSession,
-          [value],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setSession,
-            [value],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client setDevKey(dynamic value) => (super.noSuchMethod(
-        Invocation.method(
-          #setDevKey,
-          [value],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #setDevKey,
-            [value],
-          ),
-        ),
-      ) as _i2.Client);
-
-  @override
-  _i2.Client addHeader(
-    String? key,
-    String? value,
-  ) =>
+  _i2.Client setSelfSigned({bool? status = true}) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #addHeader,
-          [
-            key,
-            value,
-          ],
-        ),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.method(
-            #addHeader,
-            [
-              key,
-              value,
-            ],
-          ),
-        ),
-      ) as _i2.Client);
+            Invocation.method(#setSelfSigned, [], {#status: status}),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setSelfSigned, [], {#status: status}),
+            ),
+          )
+          as _i2.Client);
 
   @override
-  _i8.Future<String> ping() => (super.noSuchMethod(
-        Invocation.method(
-          #ping,
-          [],
-        ),
-        returnValue: _i8.Future<String>.value(_i13.dummyValue<String>(
-          this,
-          Invocation.method(
-            #ping,
-            [],
-          ),
-        )),
-      ) as _i8.Future<String>);
+  _i2.Client setEndpoint(String? endPoint) =>
+      (super.noSuchMethod(
+            Invocation.method(#setEndpoint, [endPoint]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setEndpoint, [endPoint]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setEndPointRealtime(String? endPoint) =>
+      (super.noSuchMethod(
+            Invocation.method(#setEndPointRealtime, [endPoint]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setEndPointRealtime, [endPoint]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setProject(dynamic value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setProject, [value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setProject, [value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setJWT(dynamic value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setJWT, [value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setJWT, [value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setLocale(dynamic value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setLocale, [value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setLocale, [value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setSession(dynamic value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setSession, [value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setSession, [value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client setDevKey(dynamic value) =>
+      (super.noSuchMethod(
+            Invocation.method(#setDevKey, [value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#setDevKey, [value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i2.Client addHeader(String? key, String? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#addHeader, [key, value]),
+            returnValue: _FakeClient_0(
+              this,
+              Invocation.method(#addHeader, [key, value]),
+            ),
+          )
+          as _i2.Client);
+
+  @override
+  _i8.Future<String> ping() =>
+      (super.noSuchMethod(
+            Invocation.method(#ping, []),
+            returnValue: _i8.Future<String>.value(
+              _i13.dummyValue<String>(this, Invocation.method(#ping, [])),
+            ),
+          )
+          as _i8.Future<String>);
 
   @override
   _i8.Future<_i4.Response<dynamic>> call(
@@ -1971,31 +1522,33 @@ class MockClient extends _i1.Mock implements _i2.Client {
     _i14.ResponseType? responseType,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [method],
-          {
-            #path: path,
-            #headers: headers,
-            #params: params,
-            #responseType: responseType,
-          },
-        ),
-        returnValue:
-            _i8.Future<_i4.Response<dynamic>>.value(_FakeResponse_18<dynamic>(
-          this,
-          Invocation.method(
-            #call,
-            [method],
-            {
-              #path: path,
-              #headers: headers,
-              #params: params,
-              #responseType: responseType,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i4.Response<dynamic>>);
+            Invocation.method(
+              #call,
+              [method],
+              {
+                #path: path,
+                #headers: headers,
+                #params: params,
+                #responseType: responseType,
+              },
+            ),
+            returnValue: _i8.Future<_i4.Response<dynamic>>.value(
+              _FakeResponse_18<dynamic>(
+                this,
+                Invocation.method(
+                  #call,
+                  [method],
+                  {
+                    #path: path,
+                    #headers: headers,
+                    #params: params,
+                    #responseType: responseType,
+                  },
+                ),
+              ),
+            ),
+          )
+          as _i8.Future<_i4.Response<dynamic>>);
 }
 
 /// A class which mocks [FirebaseMessaging].
@@ -2007,104 +1560,96 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
   }
 
   @override
-  _i5.FirebaseApp get app => (super.noSuchMethod(
-        Invocation.getter(#app),
-        returnValue: _FakeFirebaseApp_19(
-          this,
-          Invocation.getter(#app),
-        ),
-      ) as _i5.FirebaseApp);
+  _i5.FirebaseApp get app =>
+      (super.noSuchMethod(
+            Invocation.getter(#app),
+            returnValue: _FakeFirebaseApp_19(this, Invocation.getter(#app)),
+          )
+          as _i5.FirebaseApp);
 
   @override
-  bool get isAutoInitEnabled => (super.noSuchMethod(
-        Invocation.getter(#isAutoInitEnabled),
-        returnValue: false,
-      ) as bool);
+  bool get isAutoInitEnabled =>
+      (super.noSuchMethod(
+            Invocation.getter(#isAutoInitEnabled),
+            returnValue: false,
+          )
+          as bool);
 
   @override
-  _i8.Stream<String> get onTokenRefresh => (super.noSuchMethod(
-        Invocation.getter(#onTokenRefresh),
-        returnValue: _i8.Stream<String>.empty(),
-      ) as _i8.Stream<String>);
+  _i8.Stream<String> get onTokenRefresh =>
+      (super.noSuchMethod(
+            Invocation.getter(#onTokenRefresh),
+            returnValue: _i8.Stream<String>.empty(),
+          )
+          as _i8.Stream<String>);
 
   @override
   set app(_i5.FirebaseApp? _app) => super.noSuchMethod(
-        Invocation.setter(
-          #app,
-          _app,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#app, _app),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  Map<dynamic, dynamic> get pluginConstants => (super.noSuchMethod(
-        Invocation.getter(#pluginConstants),
-        returnValue: <dynamic, dynamic>{},
-      ) as Map<dynamic, dynamic>);
+  Map<dynamic, dynamic> get pluginConstants =>
+      (super.noSuchMethod(
+            Invocation.getter(#pluginConstants),
+            returnValue: <dynamic, dynamic>{},
+          )
+          as Map<dynamic, dynamic>);
 
   @override
-  _i8.Future<_i6.RemoteMessage?> getInitialMessage() => (super.noSuchMethod(
-        Invocation.method(
-          #getInitialMessage,
-          [],
-        ),
-        returnValue: _i8.Future<_i6.RemoteMessage?>.value(),
-      ) as _i8.Future<_i6.RemoteMessage?>);
+  _i8.Future<_i6.RemoteMessage?> getInitialMessage() =>
+      (super.noSuchMethod(
+            Invocation.method(#getInitialMessage, []),
+            returnValue: _i8.Future<_i6.RemoteMessage?>.value(),
+          )
+          as _i8.Future<_i6.RemoteMessage?>);
 
   @override
-  _i8.Future<void> deleteToken() => (super.noSuchMethod(
-        Invocation.method(
-          #deleteToken,
-          [],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+  _i8.Future<void> deleteToken() =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteToken, []),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 
   @override
-  _i8.Future<String?> getAPNSToken() => (super.noSuchMethod(
-        Invocation.method(
-          #getAPNSToken,
-          [],
-        ),
-        returnValue: _i8.Future<String?>.value(),
-      ) as _i8.Future<String?>);
+  _i8.Future<String?> getAPNSToken() =>
+      (super.noSuchMethod(
+            Invocation.method(#getAPNSToken, []),
+            returnValue: _i8.Future<String?>.value(),
+          )
+          as _i8.Future<String?>);
 
   @override
-  _i8.Future<String?> getToken({String? vapidKey}) => (super.noSuchMethod(
-        Invocation.method(
-          #getToken,
-          [],
-          {#vapidKey: vapidKey},
-        ),
-        returnValue: _i8.Future<String?>.value(),
-      ) as _i8.Future<String?>);
+  _i8.Future<String?> getToken({String? vapidKey}) =>
+      (super.noSuchMethod(
+            Invocation.method(#getToken, [], {#vapidKey: vapidKey}),
+            returnValue: _i8.Future<String?>.value(),
+          )
+          as _i8.Future<String?>);
 
   @override
-  _i8.Future<bool> isSupported() => (super.noSuchMethod(
-        Invocation.method(
-          #isSupported,
-          [],
-        ),
-        returnValue: _i8.Future<bool>.value(false),
-      ) as _i8.Future<bool>);
+  _i8.Future<bool> isSupported() =>
+      (super.noSuchMethod(
+            Invocation.method(#isSupported, []),
+            returnValue: _i8.Future<bool>.value(false),
+          )
+          as _i8.Future<bool>);
 
   @override
   _i8.Future<_i6.NotificationSettings> getNotificationSettings() =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getNotificationSettings,
-          [],
-        ),
-        returnValue: _i8.Future<_i6.NotificationSettings>.value(
-            _FakeNotificationSettings_20(
-          this,
-          Invocation.method(
-            #getNotificationSettings,
-            [],
-          ),
-        )),
-      ) as _i8.Future<_i6.NotificationSettings>);
+            Invocation.method(#getNotificationSettings, []),
+            returnValue: _i8.Future<_i6.NotificationSettings>.value(
+              _FakeNotificationSettings_20(
+                this,
+                Invocation.method(#getNotificationSettings, []),
+              ),
+            ),
+          )
+          as _i8.Future<_i6.NotificationSettings>);
 
   @override
   _i8.Future<_i6.NotificationSettings> requestPermission({
@@ -2118,27 +1663,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
     bool? providesAppNotificationSettings = false,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #requestPermission,
-          [],
-          {
-            #alert: alert,
-            #announcement: announcement,
-            #badge: badge,
-            #carPlay: carPlay,
-            #criticalAlert: criticalAlert,
-            #provisional: provisional,
-            #sound: sound,
-            #providesAppNotificationSettings: providesAppNotificationSettings,
-          },
-        ),
-        returnValue: _i8.Future<_i6.NotificationSettings>.value(
-            _FakeNotificationSettings_20(
-          this,
-          Invocation.method(
-            #requestPermission,
-            [],
-            {
+            Invocation.method(#requestPermission, [], {
               #alert: alert,
               #announcement: announcement,
               #badge: badge,
@@ -2147,57 +1672,43 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
               #provisional: provisional,
               #sound: sound,
               #providesAppNotificationSettings: providesAppNotificationSettings,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i6.NotificationSettings>);
+            }),
+            returnValue: _i8.Future<_i6.NotificationSettings>.value(
+              _FakeNotificationSettings_20(
+                this,
+                Invocation.method(#requestPermission, [], {
+                  #alert: alert,
+                  #announcement: announcement,
+                  #badge: badge,
+                  #carPlay: carPlay,
+                  #criticalAlert: criticalAlert,
+                  #provisional: provisional,
+                  #sound: sound,
+                  #providesAppNotificationSettings:
+                      providesAppNotificationSettings,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i6.NotificationSettings>);
 
   @override
-  _i8.Future<void> sendMessage({
-    String? to,
-    Map<String, String>? data,
-    String? collapseKey,
-    String? messageId,
-    String? messageType,
-    int? ttl,
-  }) =>
+  _i8.Future<void> setAutoInitEnabled(bool? enabled) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #sendMessage,
-          [],
-          {
-            #to: to,
-            #data: data,
-            #collapseKey: collapseKey,
-            #messageId: messageId,
-            #messageType: messageType,
-            #ttl: ttl,
-          },
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
-
-  @override
-  _i8.Future<void> setAutoInitEnabled(bool? enabled) => (super.noSuchMethod(
-        Invocation.method(
-          #setAutoInitEnabled,
-          [enabled],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+            Invocation.method(#setAutoInitEnabled, [enabled]),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 
   @override
   _i8.Future<void> setDeliveryMetricsExportToBigQuery(bool? enabled) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setDeliveryMetricsExportToBigQuery,
-          [enabled],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+            Invocation.method(#setDeliveryMetricsExportToBigQuery, [enabled]),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 
   @override
   _i8.Future<void> setForegroundNotificationPresentationOptions({
@@ -2206,38 +1717,33 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
     bool? sound = false,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #setForegroundNotificationPresentationOptions,
-          [],
-          {
-            #alert: alert,
-            #badge: badge,
-            #sound: sound,
-          },
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+            Invocation.method(
+              #setForegroundNotificationPresentationOptions,
+              [],
+              {#alert: alert, #badge: badge, #sound: sound},
+            ),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 
   @override
-  _i8.Future<void> subscribeToTopic(String? topic) => (super.noSuchMethod(
-        Invocation.method(
-          #subscribeToTopic,
-          [topic],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+  _i8.Future<void> subscribeToTopic(String? topic) =>
+      (super.noSuchMethod(
+            Invocation.method(#subscribeToTopic, [topic]),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 
   @override
-  _i8.Future<void> unsubscribeFromTopic(String? topic) => (super.noSuchMethod(
-        Invocation.method(
-          #unsubscribeFromTopic,
-          [topic],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
+  _i8.Future<void> unsubscribeFromTopic(String? topic) =>
+      (super.noSuchMethod(
+            Invocation.method(#unsubscribeFromTopic, [topic]),
+            returnValue: _i8.Future<void>.value(),
+            returnValueForMissingStub: _i8.Future<void>.value(),
+          )
+          as _i8.Future<void>);
 }
 
 /// A class which mocks [Functions].
@@ -2249,13 +1755,12 @@ class MockFunctions extends _i1.Mock implements _i7.Functions {
   }
 
   @override
-  _i2.Client get client => (super.noSuchMethod(
-        Invocation.getter(#client),
-        returnValue: _FakeClient_0(
-          this,
-          Invocation.getter(#client),
-        ),
-      ) as _i2.Client);
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
 
   @override
   _i8.Future<_i3.ExecutionList> listExecutions({
@@ -2263,26 +1768,21 @@ class MockFunctions extends _i1.Mock implements _i7.Functions {
     List<String>? queries,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #listExecutions,
-          [],
-          {
-            #functionId: functionId,
-            #queries: queries,
-          },
-        ),
-        returnValue: _i8.Future<_i3.ExecutionList>.value(_FakeExecutionList_21(
-          this,
-          Invocation.method(
-            #listExecutions,
-            [],
-            {
+            Invocation.method(#listExecutions, [], {
               #functionId: functionId,
               #queries: queries,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.ExecutionList>);
+            }),
+            returnValue: _i8.Future<_i3.ExecutionList>.value(
+              _FakeExecutionList_21(
+                this,
+                Invocation.method(#listExecutions, [], {
+                  #functionId: functionId,
+                  #queries: queries,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.ExecutionList>);
 
   @override
   _i8.Future<_i3.Execution> createExecution({
@@ -2295,25 +1795,7 @@ class MockFunctions extends _i1.Mock implements _i7.Functions {
     String? scheduledAt,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #createExecution,
-          [],
-          {
-            #functionId: functionId,
-            #body: body,
-            #xasync: xasync,
-            #path: path,
-            #method: method,
-            #headers: headers,
-            #scheduledAt: scheduledAt,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Execution>.value(_FakeExecution_22(
-          this,
-          Invocation.method(
-            #createExecution,
-            [],
-            {
+            Invocation.method(#createExecution, [], {
               #functionId: functionId,
               #body: body,
               #xasync: xasync,
@@ -2321,10 +1803,23 @@ class MockFunctions extends _i1.Mock implements _i7.Functions {
               #method: method,
               #headers: headers,
               #scheduledAt: scheduledAt,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Execution>);
+            }),
+            returnValue: _i8.Future<_i3.Execution>.value(
+              _FakeExecution_22(
+                this,
+                Invocation.method(#createExecution, [], {
+                  #functionId: functionId,
+                  #body: body,
+                  #xasync: xasync,
+                  #path: path,
+                  #method: method,
+                  #headers: headers,
+                  #scheduledAt: scheduledAt,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Execution>);
 
   @override
   _i8.Future<_i3.Execution> getExecution({
@@ -2332,24 +1827,19 @@ class MockFunctions extends _i1.Mock implements _i7.Functions {
     required String? executionId,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #getExecution,
-          [],
-          {
-            #functionId: functionId,
-            #executionId: executionId,
-          },
-        ),
-        returnValue: _i8.Future<_i3.Execution>.value(_FakeExecution_22(
-          this,
-          Invocation.method(
-            #getExecution,
-            [],
-            {
+            Invocation.method(#getExecution, [], {
               #functionId: functionId,
               #executionId: executionId,
-            },
-          ),
-        )),
-      ) as _i8.Future<_i3.Execution>);
+            }),
+            returnValue: _i8.Future<_i3.Execution>.value(
+              _FakeExecution_22(
+                this,
+                Invocation.method(#getExecution, [], {
+                  #functionId: functionId,
+                  #executionId: executionId,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Execution>);
 }

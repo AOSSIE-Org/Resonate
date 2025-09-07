@@ -26,24 +26,14 @@ import 'package:resonate/themes/theme_controller.dart' as _i3;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeRx_0<T> extends _i1.SmartFake implements _i2.Rx<T> {
-  _FakeRx_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeRx_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 class _FakeInternalFinalCallback_1<T> extends _i1.SmartFake
     implements _i2.InternalFinalCallback<T> {
-  _FakeInternalFinalCallback_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
+  _FakeInternalFinalCallback_1(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [ThemeController].
@@ -55,273 +45,209 @@ class MockThemeController extends _i1.Mock implements _i3.ThemeController {
   }
 
   @override
-  _i2.Rx<String> get currentTheme => (super.noSuchMethod(
-        Invocation.getter(#currentTheme),
-        returnValue: _FakeRx_0<String>(
-          this,
-          Invocation.getter(#currentTheme),
-        ),
-      ) as _i2.Rx<String>);
+  _i2.Rx<String> get currentTheme =>
+      (super.noSuchMethod(
+            Invocation.getter(#currentTheme),
+            returnValue: _FakeRx_0<String>(
+              this,
+              Invocation.getter(#currentTheme),
+            ),
+          )
+          as _i2.Rx<String>);
 
   @override
-  _i2.Rx<String> get currentThemePlaceHolder => (super.noSuchMethod(
-        Invocation.getter(#currentThemePlaceHolder),
-        returnValue: _FakeRx_0<String>(
-          this,
-          Invocation.getter(#currentThemePlaceHolder),
-        ),
-      ) as _i2.Rx<String>);
+  _i2.Rx<String> get currentThemePlaceHolder =>
+      (super.noSuchMethod(
+            Invocation.getter(#currentThemePlaceHolder),
+            returnValue: _FakeRx_0<String>(
+              this,
+              Invocation.getter(#currentThemePlaceHolder),
+            ),
+          )
+          as _i2.Rx<String>);
 
   @override
-  String get getCurrentTheme => (super.noSuchMethod(
-        Invocation.getter(#getCurrentTheme),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.getter(#getCurrentTheme),
-        ),
-      ) as String);
+  String get getCurrentTheme =>
+      (super.noSuchMethod(
+            Invocation.getter(#getCurrentTheme),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.getter(#getCurrentTheme),
+            ),
+          )
+          as String);
 
   @override
-  String get userProfileImagePlaceholderUrl => (super.noSuchMethod(
-        Invocation.getter(#userProfileImagePlaceholderUrl),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.getter(#userProfileImagePlaceholderUrl),
-        ),
-      ) as String);
+  String get userProfileImagePlaceholderUrl =>
+      (super.noSuchMethod(
+            Invocation.getter(#userProfileImagePlaceholderUrl),
+            returnValue: _i4.dummyValue<String>(
+              this,
+              Invocation.getter(#userProfileImagePlaceholderUrl),
+            ),
+          )
+          as String);
 
   @override
   set currentTheme(_i2.Rx<String>? _currentTheme) => super.noSuchMethod(
-        Invocation.setter(
-          #currentTheme,
-          _currentTheme,
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.setter(#currentTheme, _currentTheme),
+    returnValueForMissingStub: null,
+  );
 
   @override
   set currentThemePlaceHolder(_i2.Rx<String>? _currentThemePlaceHolder) =>
       super.noSuchMethod(
-        Invocation.setter(
-          #currentThemePlaceHolder,
-          _currentThemePlaceHolder,
-        ),
+        Invocation.setter(#currentThemePlaceHolder, _currentThemePlaceHolder),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i2.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
-        Invocation.getter(#onStart),
-        returnValue: _FakeInternalFinalCallback_1<void>(
-          this,
-          Invocation.getter(#onStart),
-        ),
-      ) as _i2.InternalFinalCallback<void>);
+  _i2.InternalFinalCallback<void> get onStart =>
+      (super.noSuchMethod(
+            Invocation.getter(#onStart),
+            returnValue: _FakeInternalFinalCallback_1<void>(
+              this,
+              Invocation.getter(#onStart),
+            ),
+          )
+          as _i2.InternalFinalCallback<void>);
 
   @override
-  _i2.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
-        Invocation.getter(#onDelete),
-        returnValue: _FakeInternalFinalCallback_1<void>(
-          this,
-          Invocation.getter(#onDelete),
-        ),
-      ) as _i2.InternalFinalCallback<void>);
+  _i2.InternalFinalCallback<void> get onDelete =>
+      (super.noSuchMethod(
+            Invocation.getter(#onDelete),
+            returnValue: _FakeInternalFinalCallback_1<void>(
+              this,
+              Invocation.getter(#onDelete),
+            ),
+          )
+          as _i2.InternalFinalCallback<void>);
 
   @override
-  bool get initialized => (super.noSuchMethod(
-        Invocation.getter(#initialized),
-        returnValue: false,
-      ) as bool);
+  bool get initialized =>
+      (super.noSuchMethod(Invocation.getter(#initialized), returnValue: false)
+          as bool);
 
   @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
-        returnValue: false,
-      ) as bool);
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
+          as bool);
 
   @override
-  bool get hasListeners => (super.noSuchMethod(
-        Invocation.getter(#hasListeners),
-        returnValue: false,
-      ) as bool);
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
 
   @override
-  int get listeners => (super.noSuchMethod(
-        Invocation.getter(#listeners),
-        returnValue: 0,
-      ) as int);
+  int get listeners =>
+      (super.noSuchMethod(Invocation.getter(#listeners), returnValue: 0)
+          as int);
 
   @override
   void onInit() => super.noSuchMethod(
-        Invocation.method(
-          #onInit,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#onInit, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void updateTheme(String? theme) => super.noSuchMethod(
-        Invocation.method(
-          #updateTheme,
-          [theme],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#updateTheme, [theme]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void updateUserProfileImagePlaceholderUrlOnTheme() => super.noSuchMethod(
-        Invocation.method(
-          #updateUserProfileImagePlaceholderUrlOnTheme,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#updateUserProfileImagePlaceholderUrlOnTheme, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void setTheme(String? newTheme) => super.noSuchMethod(
-        Invocation.method(
-          #setTheme,
-          [newTheme],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#setTheme, [newTheme]),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  void update([
-    List<Object>? ids,
-    bool? condition = true,
-  ]) =>
+  void update([List<Object>? ids, bool? condition = true]) =>
       super.noSuchMethod(
-        Invocation.method(
-          #update,
-          [
-            ids,
-            condition,
-          ],
-        ),
+        Invocation.method(#update, [ids, condition]),
         returnValueForMissingStub: null,
       );
 
   @override
   void onReady() => super.noSuchMethod(
-        Invocation.method(
-          #onReady,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#onReady, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void onClose() => super.noSuchMethod(
-        Invocation.method(
-          #onClose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#onClose, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void $configureLifeCycle() => super.noSuchMethod(
-        Invocation.method(
-          #$configureLifeCycle,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#$configureLifeCycle, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  _i5.Disposer addListener(_i5.GetStateUpdate? listener) => (super.noSuchMethod(
-        Invocation.method(
-          #addListener,
-          [listener],
-        ),
-        returnValue: () {},
-      ) as _i5.Disposer);
+  _i5.Disposer addListener(_i5.GetStateUpdate? listener) =>
+      (super.noSuchMethod(
+            Invocation.method(#addListener, [listener]),
+            returnValue: () {},
+          )
+          as _i5.Disposer);
 
   @override
   void removeListener(_i6.VoidCallback? listener) => super.noSuchMethod(
-        Invocation.method(
-          #removeListener,
-          [listener],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#removeListener, [listener]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void refresh() => super.noSuchMethod(
-        Invocation.method(
-          #refresh,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#refresh, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void refreshGroup(Object? id) => super.noSuchMethod(
-        Invocation.method(
-          #refreshGroup,
-          [id],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#refreshGroup, [id]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void notifyChildrens() => super.noSuchMethod(
-        Invocation.method(
-          #notifyChildrens,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#notifyChildrens, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  void removeListenerId(
-    Object? id,
-    _i6.VoidCallback? listener,
-  ) =>
+  void removeListenerId(Object? id, _i6.VoidCallback? listener) =>
       super.noSuchMethod(
-        Invocation.method(
-          #removeListenerId,
-          [
-            id,
-            listener,
-          ],
-        ),
+        Invocation.method(#removeListenerId, [id, listener]),
         returnValueForMissingStub: null,
       );
 
   @override
   void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  _i5.Disposer addListenerId(
-    Object? key,
-    _i5.GetStateUpdate? listener,
-  ) =>
+  _i5.Disposer addListenerId(Object? key, _i5.GetStateUpdate? listener) =>
       (super.noSuchMethod(
-        Invocation.method(
-          #addListenerId,
-          [
-            key,
-            listener,
-          ],
-        ),
-        returnValue: () {},
-      ) as _i5.Disposer);
+            Invocation.method(#addListenerId, [key, listener]),
+            returnValue: () {},
+          )
+          as _i5.Disposer);
 
   @override
   void disposeId(Object? id) => super.noSuchMethod(
-        Invocation.method(
-          #disposeId,
-          [id],
-        ),
-        returnValueForMissingStub: null,
-      );
+    Invocation.method(#disposeId, [id]),
+    returnValueForMissingStub: null,
+  );
 }

@@ -46,11 +46,11 @@ class EditProfileController extends GetxController {
     AuthStateController? authStateController,
     Storage? storage,
     Databases? databases,
-  })  : themeController = themeController ?? Get.find<ThemeController>(),
-        authStateController =
-            authStateController ?? Get.find<AuthStateController>(),
-        storage = storage ?? AppwriteService.getStorage(),
-        databases = databases ?? AppwriteService.getDatabases();
+  }) : themeController = themeController ?? Get.find<ThemeController>(),
+       authStateController =
+           authStateController ?? Get.find<AuthStateController>(),
+       storage = storage ?? AppwriteService.getStorage(),
+       databases = databases ?? AppwriteService.getDatabases();
 
   @override
   void onInit() {
@@ -209,22 +209,26 @@ class EditProfileController extends GetxController {
       if (profileImagePath != null) {
         try {
           await storage.deleteFile(
-              bucketId: userProfileImageBucketId,
-              fileId: authStateController.profileImageID!);
+            bucketId: userProfileImageBucketId,
+            fileId: authStateController.profileImageID!,
+          );
         } catch (e) {
           log(e.toString());
         }
 
-        uniqueIdForProfileImage = authStateController.uid! +
+        uniqueIdForProfileImage =
+            authStateController.uid! +
             DateTime.now().millisecondsSinceEpoch.toString();
 
         // Create new user profile picture file in Storage
         final profileImage = await storage.createFile(
-            bucketId: userProfileImageBucketId,
-            fileId: uniqueIdForProfileImage,
-            file: InputFile.fromPath(
-                path: profileImagePath!,
-                filename: "${authStateController.email}.jpeg"));
+          bucketId: userProfileImageBucketId,
+          fileId: uniqueIdForProfileImage,
+          file: InputFile.fromPath(
+            path: profileImagePath!,
+            filename: "${authStateController.email}.jpeg",
+          ),
+        );
 
         imageController.text =
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
@@ -249,16 +253,15 @@ class EditProfileController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "profileImageUrl": imageController.text,
-          },
+          data: {"profileImageUrl": imageController.text},
         );
       }
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail =
-            await isUsernameAvailable(usernameController.text.trim());
+        var usernameAvail = await isUsernameAvailable(
+          usernameController.text.trim(),
+        );
         if (!usernameAvail) {
           usernameAvailable.value = false;
           customSnackbar(
@@ -279,9 +282,7 @@ class EditProfileController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usernameCollectionID,
           documentId: usernameController.text.trim(),
-          data: {
-            'email': authStateController.email,
-          },
+          data: {'email': authStateController.email},
         );
 
         try {
@@ -299,25 +300,22 @@ class EditProfileController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "username": usernameController.text.trim(),
-          },
+          data: {"username": usernameController.text.trim()},
         );
       }
 
       //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
-        await authStateController.account
-            .updateName(name: nameController.text.trim());
+        await authStateController.account.updateName(
+          name: nameController.text.trim(),
+        );
 
         await databases.updateDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "name": nameController.text.trim(),
-          },
+          data: {"name": nameController.text.trim()},
         );
       }
 
@@ -363,10 +361,7 @@ class EditProfileController extends GetxController {
         LogType.error,
       );
 
-      SemanticsService.announce(
-        e.toString(),
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(e.toString(), TextDirection.ltr);
     } finally {
       isLoading.value = false;
       showSuccessSnackbar = false;

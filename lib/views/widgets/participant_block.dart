@@ -36,15 +36,15 @@ class ParticipantBlock extends StatelessWidget {
   }
 
   List<FocusedMenuItem> makeMenuItems(
-      List<FocusedMenuItemData> items, Brightness currentBrightness) {
+    List<FocusedMenuItemData> items,
+    Brightness currentBrightness,
+  ) {
     return items
         .map(
           (item) => FocusedMenuItem(
             title: Text(
               item.textContent,
-              style: TextStyle(
-                fontSize: UiSizes.size_14,
-              ),
+              style: TextStyle(fontSize: UiSizes.size_14),
             ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
@@ -61,7 +61,9 @@ class ParticipantBlock extends StatelessWidget {
   }
 
   List<FocusedMenuItem> getMenuItems(
-      Brightness currentBrightness, BuildContext context) {
+    Brightness currentBrightness,
+    BuildContext context,
+  ) {
     if ((!controller.me.value.isAdmin && !controller.me.value.isModerator) ||
         participant.isAdmin) {
       return [];
@@ -76,12 +78,9 @@ class ParticipantBlock extends StatelessWidget {
               controller.removeModerator(participant);
             },
           ),
-          FocusedMenuItemData(
-            AppLocalizations.of(context)!.kickOut,
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          )
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       } else {
         return makeMenuItems([
@@ -96,12 +95,9 @@ class ParticipantBlock extends StatelessWidget {
             FocusedMenuItemData(AppLocalizations.of(context)!.makeListener, () {
               controller.makeListener(participant);
             }),
-          FocusedMenuItemData(
-            AppLocalizations.of(context)!.kickOut,
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          ),
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       }
     }
@@ -119,12 +115,9 @@ class ParticipantBlock extends StatelessWidget {
             FocusedMenuItemData(AppLocalizations.of(context)!.makeListener, () {
               controller.makeListener(participant);
             }),
-          FocusedMenuItemData(
-            AppLocalizations.of(context)!.kickOut,
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          ),
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       }
     }
@@ -154,7 +147,8 @@ class ParticipantBlock extends StatelessWidget {
           ? Colors.white54
           : Colors.black54,
       menuItems: getMenuItems(currentBrightness, context),
-      openWithTap: ((controller.me.value.isAdmin ||
+      openWithTap:
+          ((controller.me.value.isAdmin ||
                   (controller.me.value.isModerator &&
                       !participant.isModerator)) &&
               !participant.isAdmin)
@@ -162,7 +156,9 @@ class ParticipantBlock extends StatelessWidget {
           : false,
       child: Container(
         padding: EdgeInsets.symmetric(
-            vertical: UiSizes.height_2, horizontal: UiSizes.width_2),
+          vertical: UiSizes.height_2,
+          horizontal: UiSizes.width_2,
+        ),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -203,17 +199,15 @@ class ParticipantBlock extends StatelessWidget {
                     ),
                   Text(
                     participant.name.split(' ').first,
-                    style: TextStyle(
-                      fontSize: UiSizes.size_16,
-                    ),
-                  )
+                    style: TextStyle(fontSize: UiSizes.size_16),
+                  ),
                 ],
               ),
             ),
             Text(
               getUserRole(context),
               style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
-            )
+            ),
           ],
         ),
       ),

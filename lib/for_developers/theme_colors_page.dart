@@ -32,7 +32,6 @@ class ThemeColorsPage extends StatelessWidget {
         name: "surface",
         onColor: Theme.of(context).colorScheme.onSurface,
       ),
-
     ];
 
     return Scaffold(
@@ -44,11 +43,14 @@ class ThemeColorsPage extends StatelessWidget {
             width: double.maxFinite,
             height: 100,
             color: list[index].color,
-            child: Text(list[index].name, style: TextStyle(
-              color: list[index].onColor,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),),
+            child: Text(
+              list[index].name,
+              style: TextStyle(
+                color: list[index].onColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           );
         },
         itemCount: list.length,

@@ -31,9 +31,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           key: forgotPasswordController.forgotPasswordFormKey,
           child: Column(
             children: [
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_60),
               MergeSemantics(
                 child: Column(
                   children: [
@@ -44,9 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -56,9 +52,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_20,
-              ),
+              SizedBox(height: UiSizes.height_20),
               TextFormField(
                 controller: forgotPasswordController.emailController,
                 validator: (value) => value!.isValidEmail()
@@ -70,22 +64,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   hintText: AppLocalizations.of(context)!.email,
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_30,
-              ),
+              SizedBox(height: UiSizes.height_30),
               SizedBox(
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () {
                     if (forgotPasswordController
-                        .forgotPasswordFormKey.currentState!
+                        .forgotPasswordFormKey
+                        .currentState!
                         .validate()) {
                       forgotPasswordController.sendRecoveryEmail();
                     }
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.next,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.next),
                 ),
               ),
             ],

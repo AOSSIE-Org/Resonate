@@ -90,9 +90,9 @@ dependencies:
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   animated_rating_stars: ^1.0.1
+  flutter_callkit_incoming: ^2.5.8
 
 dependency_overrides:
-  flutter_web_auth_2: ^4.1.0
   device_info_plus: ^10.1.2
 
 dev_dependencies:

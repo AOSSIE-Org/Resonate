@@ -66,13 +66,15 @@ class CustomLiveRoomTile extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 4.0,
               children: appwriteRoom.tags
-                  .map((tag) => Text(
-                        "#$tag",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 14,
-                        ),
-                      ))
+                  .map(
+                    (tag) => Text(
+                      "#$tag",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 14,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
 
@@ -84,10 +86,9 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
                 fontSize: 14,
               ),
             ),
@@ -108,14 +109,16 @@ class CustomLiveRoomTile extends StatelessWidget {
                         children: memberAvatars
                             .asMap()
                             .entries
-                            .map((entry) => Positioned(
-                                  left: 28.0 * entry.key,
-                                  child: CustomCircleAvatar(
-                                    height: 40,
-                                    width: 40,
-                                    userImage: entry.value,
-                                  ),
-                                ))
+                            .map(
+                              (entry) => Positioned(
+                                left: 28.0 * entry.key,
+                                child: CustomCircleAvatar(
+                                  height: 40,
+                                  width: 40,
+                                  userImage: entry.value,
+                                ),
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -128,8 +131,9 @@ class CustomLiveRoomTile extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          AppLocalizations.of(context)!.participantsCount(
-                              appwriteRoom.totalParticipants),
+                          AppLocalizations.of(
+                            context,
+                          )!.participantsCount(appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
@@ -142,7 +146,9 @@ class CustomLiveRoomTile extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     roomsController.joinRoom(
-                        room: appwriteRoom, context: context);
+                      room: appwriteRoom,
+                      context: context,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

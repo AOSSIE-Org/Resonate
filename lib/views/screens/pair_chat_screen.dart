@@ -37,8 +37,9 @@ class PairChatScreen extends StatelessWidget {
                   children: [
                     RoomHeader(
                       roomName: AppLocalizations.of(context)!.title,
-                      roomDescription:
-                          AppLocalizations.of(context)!.roomDescription,
+                      roomDescription: AppLocalizations.of(
+                        context,
+                      )!.roomDescription,
                     ),
                     SizedBox(height: UiSizes.height_24_6),
                     Column(
@@ -99,7 +100,9 @@ class PairChatScreen extends StatelessWidget {
   }
 
   Widget _buildBottomControlPanel(
-      Brightness currentBrightness, BuildContext context) {
+    Brightness currentBrightness,
+    BuildContext context,
+  ) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
       color: currentBrightness == Brightness.light
@@ -170,10 +173,7 @@ class PairChatScreen extends StatelessWidget {
           ),
         ),
         SizedBox(height: UiSizes.height_4),
-        Text(
-          label,
-          style: TextStyle(fontSize: UiSizes.height_14),
-        ),
+        Text(label, style: TextStyle(fontSize: UiSizes.height_14)),
       ],
     );
   }

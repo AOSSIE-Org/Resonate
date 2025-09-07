@@ -13,9 +13,7 @@ class DeleteAccountScreen extends StatelessWidget {
     AuthStateController authStateController = Get.put(AuthStateController());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.deleteAccount),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.deleteAccount)),
       body: GetBuilder<DeleteAccountController>(
         init: DeleteAccountController(),
         builder: (controller) => Container(
@@ -37,33 +35,22 @@ class DeleteAccountScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                AppLocalizations.of(context)!.deleteAccountPermanent,
-              ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
+              Text(AppLocalizations.of(context)!.deleteAccountPermanent),
+              SizedBox(height: UiSizes.height_40),
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    color: Colors.redAccent,
-                    fontSize: 16,
-                  ),
+                  style: const TextStyle(color: Colors.redAccent, fontSize: 16),
                   children: [
                     TextSpan(text: AppLocalizations.of(context)!.toConfirmType),
                     TextSpan(
                       text: ' "${authStateController.userName}" ',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    TextSpan(text: AppLocalizations.of(context)!.inTheBoxBelow)
+                    TextSpan(text: AppLocalizations.of(context)!.inTheBoxBelow),
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_10,
-              ),
+              SizedBox(height: UiSizes.height_10),
               TextField(
                 onChanged: (value) {
                   if (value == authStateController.userName) {
@@ -92,9 +79,7 @@ class DeleteAccountScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
+              SizedBox(height: UiSizes.height_40),
               Obx(
                 () => SizedBox(
                   width: double.maxFinite,
@@ -112,13 +97,11 @@ class DeleteAccountScreen extends StatelessWidget {
                         : null,
                     child: Text(
                       AppLocalizations.of(context)!.iUnderstandDeleteMyAccount,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

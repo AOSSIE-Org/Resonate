@@ -18,22 +18,19 @@ class NotificationsScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.keyboard_arrow_down,
-            size: 36,
-          ),
+          icon: const Icon(Icons.keyboard_arrow_down, size: 36),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(AppLocalizations.of(context)!.notifications,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        title: Text(
+          AppLocalizations.of(context)!.notifications,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0, left: 16),
             child: InkWell(
               child: const CircleAvatar(
-                backgroundImage: AssetImage(
-                  AppImages.userImage,
-                ),
+                backgroundImage: AssetImage(AppImages.userImage),
               ),
               onTap: () {
                 Get.to(ProfileScreen());
@@ -70,24 +67,32 @@ class NotificationTile extends StatelessWidget {
       case NotificationType.tag:
         message = notification.isTagInUpcomingRoom
             ? AppLocalizations.of(context)!.taggedYouInUpcomingRoom(
-                notification.initiatorUsername, notification.subject)
+                notification.initiatorUsername,
+                notification.subject,
+              )
             : AppLocalizations.of(context)!.taggedYouInRoom(
-                notification.initiatorUsername, notification.subject);
+                notification.initiatorUsername,
+                notification.subject,
+              );
         icon = const Icon(Icons.tag, color: Colors.green);
         break;
       case NotificationType.like:
-        message = AppLocalizations.of(context)!.likedYourStory(
-            notification.initiatorUsername, notification.subject);
+        message = AppLocalizations.of(
+          context,
+        )!.likedYourStory(notification.initiatorUsername, notification.subject);
         icon = const Icon(Icons.favorite, color: Colors.redAccent);
         break;
       case NotificationType.subscribe:
         message = AppLocalizations.of(context)!.subscribedToYourRoom(
-            notification.initiatorUsername, notification.subject);
+          notification.initiatorUsername,
+          notification.subject,
+        );
         icon = const Icon(Icons.notifications, color: Colors.orangeAccent);
         break;
       case NotificationType.follow:
-        message = AppLocalizations.of(context)!
-            .startedFollowingYou(notification.initiatorUsername);
+        message = AppLocalizations.of(
+          context,
+        )!.startedFollowingYou(notification.initiatorUsername);
         icon = const Icon(Icons.person_add, color: Colors.blueAccent);
         break;
     }

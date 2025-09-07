@@ -37,7 +37,8 @@ class CreateStoryPageState extends State<CreateStoryPage> {
         builder: (context) => AlertDialog(
           title: Text(AppLocalizations.of(context)!.error),
           content: Text(
-              AppLocalizations.of(context)!.fillAllRequiredFieldsAndChapter),
+            AppLocalizations.of(context)!.fillAllRequiredFieldsAndChapter,
+          ),
           actions: <Widget>[
             TextButton(
               child: Text(AppLocalizations.of(context)!.ok),
@@ -55,12 +56,13 @@ class CreateStoryPageState extends State<CreateStoryPage> {
 
     // Create a new story instance
     await exploreStoryController.createStory(
-        titleController.text,
-        aboutController.text,
-        selectedCategory,
-        coverImage?.path ?? storyCoverImagePlaceholderUrl,
-        totalPlayDuration,
-        chapters);
+      titleController.text,
+      aboutController.text,
+      selectedCategory,
+      coverImage?.path ?? storyCoverImagePlaceholderUrl,
+      totalPlayDuration,
+      chapters,
+    );
 
     Navigator.pushNamed(Get.context!, AppRoutes.tabview);
 
@@ -75,8 +77,9 @@ class CreateStoryPageState extends State<CreateStoryPage> {
 
   Future<void> pickCoverImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? selectedImage = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (selectedImage != null) {
       setState(() {
@@ -100,9 +103,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            AppLocalizations.of(context)!.createYourStory,
-          ),
+          title: Text(AppLocalizations.of(context)!.createYourStory),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -114,56 +115,62 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                 TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.titleRequired,
-                      labelStyle: const TextStyle(
-                        color: Color.fromARGB(255, 127, 130, 131),
+                    labelText: AppLocalizations.of(context)!.titleRequired,
+                    labelStyle: const TextStyle(
+                      color: Color.fromARGB(255, 127, 130, 131),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.inversePrimary,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12)),
-                          borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .inversePrimary)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12)),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary)),
-                      counterText: ''),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    counterText: '',
+                  ),
                   maxLength: 100,
                 ),
                 const SizedBox(height: 30),
 
                 // Category Dropdown
                 DropdownButtonFormField<StoryCategory>(
-                  value: selectedCategory,
+                  initialValue: selectedCategory,
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.category,
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ),
                   items: StoryCategory.values.map((category) {
                     return DropdownMenuItem(
                       value: category,
                       child: Text(
-                        AppLocalizations.of(context)!
-                            .storyCategory(category.toString().split('.').last),
+                        AppLocalizations.of(
+                          context,
+                        )!.storyCategory(category.toString().split('.').last),
                         style: const TextStyle(
-                            color: Color.fromARGB(255, 127, 130, 131)),
+                          color: Color.fromARGB(255, 127, 130, 131),
+                        ),
                       ),
                     );
                   }).toList(),
@@ -182,17 +189,20 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)!.aboutRequired,
                     labelStyle: const TextStyle(
-                        color: Color.fromARGB(255, 127, 130, 131)),
+                      color: Color.fromARGB(255, 127, 130, 131),
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.inversePrimary),
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                     counterText: '',
                   ),
                   maxLines: 3,
@@ -232,18 +242,22 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                           height: 150,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: const Color.fromARGB(84, 158, 158, 158)),
+                              color: const Color.fromARGB(84, 158, 158, 158),
+                            ),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: const [
-                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                              BoxShadow(color: Colors.black12, blurRadius: 4),
                             ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Icon(Icons.change_circle,
-                                  size: 50, color: Colors.grey),
+                              const Icon(
+                                Icons.change_circle,
+                                size: 50,
+                                color: Colors.grey,
+                              ),
                               Text(
                                 AppLocalizations.of(context)!.changeCoverImage,
                                 textAlign: TextAlign.center,
@@ -269,16 +283,18 @@ class CreateStoryPageState extends State<CreateStoryPage> {
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       elevation: 2,
                       child: ListTile(
-                        title: Text(chapter.title,
-                            style:
-                                const TextStyle(fontWeight: FontWeight.bold)),
+                        title: Text(
+                          chapter.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text(
                           chapter.description,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        trailing:
-                            Text(formatPlayDuration(chapter.playDuration)),
+                        trailing: Text(
+                          formatPlayDuration(chapter.playDuration),
+                        ),
                       ),
                     );
                   },
@@ -326,9 +342,11 @@ class CreateStoryPageState extends State<CreateStoryPage> {
 // Extension to capitalize the first letter of each word
 extension StringCasingExtension on String {
   String capitalizeFirstOfEach() => split(' ')
-      .map((str) => str.isNotEmpty
-          ? str[0].toUpperCase() + str.substring(1).toLowerCase()
-          : '')
+      .map(
+        (str) => str.isNotEmpty
+            ? str[0].toUpperCase() + str.substring(1).toLowerCase()
+            : '',
+      )
       .join(' ');
 }
 

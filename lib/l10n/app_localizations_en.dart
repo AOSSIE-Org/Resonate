@@ -1073,6 +1073,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get followers => 'Followers';
 
   @override
+  String get friendRequests => 'Friend Requests';
+
+  @override
+  String get friendRequestSent => 'Friend request sent';
+
+  @override
+  String friendRequestSentTo(String username) {
+    return 'Your friend request to $username has been sent.';
+  }
+
+  @override
+  String get friendRequestCancelled => 'Friend request cancelled';
+
+  @override
+  String friendRequestCancelledTo(String username) {
+    return 'Your friend request to $username has been cancelled.';
+  }
+
+  @override
+  String get requested => 'Requested';
+
+  @override
+  String get friends => 'Friends';
+
+  @override
+  String get addFriend => 'Add Friend';
+
+  @override
+  String get friendRequestAccepted => 'Friend request accepted';
+
+  @override
+  String friendRequestAcceptedTo(String username) {
+    return 'You are now friends with \$$username.';
+  }
+
+  @override
+  String get friendRequestDeclined => 'Friend request declined';
+
+  @override
+  String friendRequestDeclinedTo(String username) {
+    return 'You have declined the friend request from \$$username.';
+  }
+
+  @override
+  String get accept => 'Accept';
+
+  @override
+  String get callDeclined => 'Call declined';
+
+  @override
+  String callDeclinedTo(String username) {
+    return 'User \$$username declined the call.';
+  }
+
+  @override
   String get checkForUpdates => 'Check Updates';
 
   @override

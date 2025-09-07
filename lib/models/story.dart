@@ -37,6 +37,6 @@ class Story {
     required this.playDuration,
     required this.tintColor,
     required this.chapters,
-  })  : likesCount = likesCount.obs, // Observable
-        isLikedByCurrentUser = isLikedByCurrentUser.obs; // Observable
+  }) : likesCount = likesCount.obs, // Observable
+       isLikedByCurrentUser = isLikedByCurrentUser.obs; // Observable
 }

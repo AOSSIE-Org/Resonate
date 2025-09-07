@@ -6,9 +6,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 Widget welcomeScreenDialog(BuildContext context) {
   return Container(
-    padding: EdgeInsets.symmetric(
-      vertical: UiSizes.height_20,
-    ),
+    padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
     width: double.maxFinite,
     height: UiSizes.height_246,
     child: Column(
@@ -41,20 +39,14 @@ Widget welcomeScreenDialog(BuildContext context) {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.iAlreadyHaveAnAccount,
-                      style: TextStyle(
-                        fontSize: UiSizes.size_15,
-                      ),
+                      style: TextStyle(fontSize: UiSizes.size_15),
                     ),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                    )
+                    const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_20,
-            ),
+            SizedBox(height: UiSizes.height_20),
             GestureDetector(
               onTap: () {
                 Get.offNamed(AppRoutes.signup);
@@ -68,13 +60,9 @@ Widget welcomeScreenDialog(BuildContext context) {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.createNewAccount,
-                      style: TextStyle(
-                        fontSize: UiSizes.size_15,
-                      ),
+                      style: TextStyle(fontSize: UiSizes.size_15),
                     ),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                    )
+                    const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),

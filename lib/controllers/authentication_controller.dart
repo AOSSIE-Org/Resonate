@@ -18,8 +18,9 @@ class AuthenticationController extends GetxController {
   var isLoading = false.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
-  TextEditingController confirmPasswordController =
-      TextEditingController(text: "");
+  TextEditingController confirmPasswordController = TextEditingController(
+    text: "",
+  );
   AuthStateController authStateController = Get.find<AuthStateController>();
 
   late GlobalKey<FormState> loginFormKey;
@@ -29,7 +30,9 @@ class AuthenticationController extends GetxController {
     try {
       isLoading.value = true;
       await authStateController.login(
-          emailController.text, passwordController.text);
+        emailController.text,
+        passwordController.text,
+      );
       emailController.clear();
       passwordController.clear();
     } on AppwriteException catch (e) {
@@ -78,10 +81,7 @@ class AuthenticationController extends GetxController {
         e.toString(),
         LogType.error,
       );
-      SemanticsService.announce(
-        e.toString(),
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(e.toString(), TextDirection.ltr);
 
       return false;
     } finally {
@@ -135,10 +135,7 @@ class AuthenticationController extends GetxController {
         LogType.error,
       );
 
-      SemanticsService.announce(
-        e.message.toString(),
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(e.message.toString(), TextDirection.ltr);
     }
   }
 }
@@ -146,13 +143,14 @@ class AuthenticationController extends GetxController {
 extension Validator on String {
   bool isValidEmail() {
     return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(this);
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+    ).hasMatch(this);
   }
 
   bool isValidPassword() {
-    return RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
-        .hasMatch(this);
+    return RegExp(
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$',
+    ).hasMatch(this);
   }
 
   bool isSamePassword(String password) {

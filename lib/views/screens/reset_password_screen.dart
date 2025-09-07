@@ -17,9 +17,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.resetPassword),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.resetPassword)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,30 +30,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Container(
               width: 300,
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: TextFormField(
                 controller: passwordController,
                 obscureText: true,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
+                style: const TextStyle(fontSize: 14),
                 decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.lock,
-                    size: 23,
-                  ),
+                  icon: Icon(Icons.lock, size: 23),
                   labelText: AppLocalizations.of(context)!.newPassword,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             MaterialButton(
               onPressed: () {
                 authController.resetPassword(passwordController.text, context);
@@ -63,9 +52,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               color: Colors.amber,
               child: Text(
                 AppLocalizations.of(context)!.setNewPassword,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
+                style: TextStyle(color: Colors.black),
               ),
             ),
           ],

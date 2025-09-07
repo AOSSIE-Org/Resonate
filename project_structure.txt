@@ -31,6 +31,7 @@
 │   ├── .gitignore
 │   ├── app
 │   │   ├── build.gradle.kts
+│   │   ├── proguard-rules.pro
 │   │   └── src
 │   │       ├── debug
 │   │       │   └── AndroidManifest.xml
@@ -235,6 +236,9 @@
 │   │   ├── email_verify_controller.dart
 │   │   ├── explore_story_controller.dart
 │   │   ├── forgot_password_controller.dart
+│   │   ├── friend_call_screen.dart
+│   │   ├── friend_calling_controller.dart
+│   │   ├── friends_controller.dart
 │   │   ├── livekit_controller.dart
 │   │   ├── network_controller.dart
 │   │   ├── onboarding_controller.dart
@@ -265,6 +269,12 @@
 │   │   ├── follower_user_model.dart
 │   │   ├── follower_user_model.freezed.dart
 │   │   ├── follower_user_model.g.dart
+│   │   ├── friend_call_model.dart
+│   │   ├── friend_call_model.freezed.dart
+│   │   ├── friend_call_model.g.dart
+│   │   ├── friends_model.dart
+│   │   ├── friends_model.freezed.dart
+│   │   ├── friends_model.g.dart
 │   │   ├── message.dart
 │   │   ├── notification.dart
 │   │   ├── participant.dart
@@ -293,6 +303,8 @@
 │   │   ├── constants.dart
 │   │   ├── debouncer.dart
 │   │   ├── enums
+│   │   │   ├── friend_call_status.dart
+│   │   │   ├── friend_request_status.dart
 │   │   │   ├── gender.dart
 │   │   │   ├── log_type.dart
 │   │   │   ├── notification_type.dart
@@ -321,6 +333,8 @@
 │       │   ├── explore_screen.dart
 │       │   ├── followers_screen.dart
 │       │   ├── forgot_password_screen.dart
+│       │   ├── friend_requests_screen.dart
+│       │   ├── friends_screen.dart
 │       │   ├── home_screen.dart
 │       │   ├── landing_screen.dart
 │       │   ├── login_screen.dart
@@ -332,6 +346,7 @@
 │       │   ├── pairing_screen.dart
 │       │   ├── profile_screen.dart
 │       │   ├── reset_password_screen.dart
+│       │   ├── ringing_screen.dart
 │       │   ├── room_chat_screen.dart
 │       │   ├── room_screen.dart
 │       │   ├── settings_screen.dart
@@ -349,6 +364,7 @@
 │           ├── chapter_player.dart
 │           ├── custom_card.dart
 │           ├── filtered_list_tile.dart
+│           ├── friend_request_list_tile.dart
 │           ├── like_button.dart
 │           ├── live_room_tile.dart
 │           ├── loading_dialog.dart
@@ -382,8 +398,13 @@
 │       ├── edit_profile_controller_test.mocks.dart
 │       ├── explore_story_controller_test.dart
 │       ├── explore_story_controller_test.mocks.dart
+│       ├── friend_calling_controller_test.dart
+│       ├── friend_calling_controller_test.mocks.dart
+│       ├── friends_controller_test.dart
+│       ├── friends_controller_test.mocks.dart
 │       ├── user_profile_controller_test.dart
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
 80 directories, 307 files
+80 directories, 326 files

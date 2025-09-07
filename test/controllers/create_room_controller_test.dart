@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,12 +9,11 @@ import 'package:resonate/themes/theme_controller.dart';
 
 import 'create_room_controller_test.mocks.dart';
 
-@GenerateMocks([
-  ThemeController,
-])
+@GenerateMocks([ThemeController])
 void main() {
-  final CreateRoomController createRoomController =
-      CreateRoomController(themeController: MockThemeController());
+  final CreateRoomController createRoomController = CreateRoomController(
+    themeController: MockThemeController(),
+  );
 
   test('test Initial Values', () {
     expect(createRoomController.isLoading.value, false);
@@ -26,19 +24,18 @@ void main() {
     expect(createRoomController.tagsController.getTags, null);
   });
   testWidgets("test validateTag", (WidgetTester tester) async {
-    await tester.pumpWidget(GetMaterialApp(
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: [
-        Locale('en'),
-        Locale('hi'),
-      ],
-      home: Container(),
-    ));
+    await tester.pumpWidget(
+      GetMaterialApp(
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [Locale('en'), Locale('hi')],
+        home: Container(),
+      ),
+    );
 
     List<String> testTags = [
       'Football',
@@ -48,24 +45,39 @@ void main() {
       'Football2',
     ];
     expect(
-        createRoomController.validateTag(
-            testTags[0], tester.element(find.byType(Container))),
-        null);
+      createRoomController.validateTag(
+        testTags[0],
+        tester.element(find.byType(Container)),
+      ),
+      null,
+    );
     expect(
-        createRoomController.validateTag(
-            testTags[1], tester.element(find.byType(Container))),
-        '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[1]}');
+      createRoomController.validateTag(
+        testTags[1],
+        tester.element(find.byType(Container)),
+      ),
+      '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[1]}',
+    );
     expect(
-        createRoomController.validateTag(
-            testTags[2], tester.element(find.byType(Container))),
-        '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[2]}');
+      createRoomController.validateTag(
+        testTags[2],
+        tester.element(find.byType(Container)),
+      ),
+      '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[2]}',
+    );
     expect(
-        createRoomController.validateTag(
-            testTags[3], tester.element(find.byType(Container))),
-        '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[3]}');
+      createRoomController.validateTag(
+        testTags[3],
+        tester.element(find.byType(Container)),
+      ),
+      '${AppLocalizations.of(tester.element(find.byType(Container)))!.invalidTags} ${testTags[3]}',
+    );
     expect(
-        createRoomController.validateTag(
-            testTags[4], tester.element(find.byType(Container))),
-        null);
+      createRoomController.validateTag(
+        testTags[4],
+        tester.element(find.byType(Container)),
+      ),
+      null,
+    );
   });
 }

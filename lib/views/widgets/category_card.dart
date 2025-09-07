@@ -11,11 +11,12 @@ String capitalizeFirstLetter(String input) {
 }
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard(
-      {super.key,
-      required this.name,
-      required this.color,
-      required this.exploreStoryController});
+  const CategoryCard({
+    super.key,
+    required this.name,
+    required this.color,
+    required this.exploreStoryController,
+  });
   final String name;
   final Color color;
   final ExploreStoryController exploreStoryController;
@@ -24,11 +25,10 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        exploreStoryController
-            .fetchStoryByCategory(StoryCategory.values.byName(name));
-        Get.to(() => CategoryScreen(
-              categoryName: name,
-            ));
+        exploreStoryController.fetchStoryByCategory(
+          StoryCategory.values.byName(name),
+        );
+        Get.to(() => CategoryScreen(categoryName: name));
       },
       child: Stack(
         children: [
@@ -46,11 +46,11 @@ class CategoryCard extends StatelessWidget {
             child: Text(
               AppLocalizations.of(context)!.storyCategory(name),
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Colors.white,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.9,
-                  ),
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16.9,
+              ),
             ),
           ),
         ],

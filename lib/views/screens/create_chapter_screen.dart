@@ -29,8 +29,9 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
 
   Future<void> pickChapterCoverImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? selectedImage =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? selectedImage = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (selectedImage != null) {
       setState(() {
@@ -50,7 +51,7 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
         'mp3',
         'aac',
         'wma',
-        'ogg'
+        'ogg',
       ],
     );
 
@@ -62,8 +63,10 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
   }
 
   Future<void> pickLyricsFile() async {
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ['txt']);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['txt'],
+    );
 
     if (result != null) {
       setState(() {
@@ -95,11 +98,12 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
 
     // Create a new chapter instance
     Chapter newChapter = await exploreStoryController.createChapter(
-        titleController.text,
-        aboutController.text,
-        chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
-        audioFile!.path,
-        lyricsFile?.path ?? '');
+      titleController.text,
+      aboutController.text,
+      chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
+      audioFile!.path,
+      lyricsFile?.path ?? '',
+    );
 
     widget.onChapterCreated(newChapter);
 
@@ -129,8 +133,9 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
               TextField(
                 controller: titleController,
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.chapterTitle,
-                    counterText: ''),
+                  labelText: AppLocalizations.of(context)!.chapterTitle,
+                  counterText: '',
+                ),
                 maxLines: 1,
                 maxLength: 20,
               ),
@@ -139,8 +144,9 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                 controller: aboutController,
                 maxLength: 2000,
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.aboutRequired,
-                    counterText: ''),
+                  labelText: AppLocalizations.of(context)!.aboutRequired,
+                  counterText: '',
+                ),
                 maxLines: 3,
               ),
               SizedBox(height: UiSizes.height_20),
@@ -179,18 +185,22 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                           height: 150,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: const Color.fromARGB(84, 158, 158, 158)),
+                              color: const Color.fromARGB(84, 158, 158, 158),
+                            ),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: const [
-                              BoxShadow(color: Colors.black12, blurRadius: 4)
+                              BoxShadow(color: Colors.black12, blurRadius: 4),
                             ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Icon(Icons.change_circle,
-                                  size: 50, color: Colors.grey),
+                              const Icon(
+                                Icons.change_circle,
+                                size: 50,
+                                color: Colors.grey,
+                              ),
                               Text(
                                 AppLocalizations.of(context)!.changeCoverImage,
                                 textAlign: TextAlign.center,
@@ -221,7 +231,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                         child: Text(
                           audioFile != null
                               ? AppLocalizations.of(context)!.audioFileSelected(
-                                  audioFile!.path.split('/').last)
+                                  audioFile!.path.split('/').last,
+                                )
                               : AppLocalizations.of(context)!.uploadAudioFile,
                           style: const TextStyle(color: Colors.grey),
                         ),
@@ -244,7 +255,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
                     child: Text(
                       lyricsFile != null
                           ? AppLocalizations.of(context)!.lyricsFileSelected(
-                              lyricsFile!.path.split('/').last)
+                              lyricsFile!.path.split('/').last,
+                            )
                           : AppLocalizations.of(context)!.uploadLyricsFile,
                       style: const TextStyle(color: Colors.grey),
                     ),

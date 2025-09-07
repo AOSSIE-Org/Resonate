@@ -59,9 +59,7 @@ class LiveKitController extends GetxController {
           roomOptions: const RoomOptions(
             adaptiveStream: false,
             dynacast: false,
-            defaultVideoPublishOptions: VideoPublishOptions(
-              simulcast: false,
-            ),
+            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
           ),
         );
 
@@ -71,7 +69,9 @@ class LiveKitController extends GetxController {
         return true;
       } catch (error) {
         reconnectAttempts++;
-        log('Connection attempt $reconnectAttempts/$maxAttempts failed: $error');
+        log(
+          'Connection attempt $reconnectAttempts/$maxAttempts failed: $error',
+        );
 
         if (reconnectAttempts < maxAttempts) {
           await Future.delayed(retryInterval); // Wait before retrying
@@ -94,7 +94,9 @@ class LiveKitController extends GetxController {
 
     if (reconnectAttempts < maxAttempts) {
       reconnectAttempts++;
-      log('Attempting to reconnect: Attempt $reconnectAttempts of $maxAttempts');
+      log(
+        'Attempting to reconnect: Attempt $reconnectAttempts of $maxAttempts',
+      );
 
       reconnectTimer?.cancel();
       reconnectTimer = Timer(retryInterval, () async {

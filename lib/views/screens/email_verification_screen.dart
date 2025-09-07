@@ -33,9 +33,7 @@ class EmailVerificationScreen extends StatelessWidget {
         child: Form(
           child: Column(
             children: [
-              SizedBox(
-                height: UiSizes.height_10,
-              ),
+              SizedBox(height: UiSizes.height_10),
               MergeSemantics(
                 child: Column(
                   children: [
@@ -46,9 +44,7 @@ class EmailVerificationScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: RichText(
@@ -57,13 +53,14 @@ class EmailVerificationScreen extends StatelessWidget {
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                    ? Colors.black
-                                    : Colors.white,
+                                ? Colors.black
+                                : Colors.white,
                           ),
                           children: [
                             TextSpan(
-                              text: AppLocalizations.of(context)!
-                                  .verificationCodeSent,
+                              text: AppLocalizations.of(
+                                context,
+                              )!.verificationCodeSent,
                             ),
                             TextSpan(
                               text: controller.authStateController.email,
@@ -79,9 +76,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_60),
               OtpTextField(
                 autoFocus: true,
                 numberOfFields: 6,
@@ -102,24 +97,27 @@ class EmailVerificationScreen extends StatelessWidget {
 
                   if (emailVerifyController.responseVerify.responseBody ==
                       '{"message":"null"}') {
-                    String result =
-                        await emailVerifyController.checkVerificationStatus();
+                    String result = await emailVerifyController
+                        .checkVerificationStatus();
                     if (result == "true") {
                       customSnackbar(
                         AppLocalizations.of(context)!.verificationComplete,
-                        AppLocalizations.of(context)!
-                            .congratulationsEmailVerified,
+                        AppLocalizations.of(
+                          context,
+                        )!.congratulationsEmailVerified,
                         LogType.success,
                       );
 
                       SemanticsService.announce(
-                        AppLocalizations.of(context)!
-                            .congratulationsEmailVerified,
+                        AppLocalizations.of(
+                          context,
+                        )!.congratulationsEmailVerified,
                         TextDirection.ltr,
                       );
                       await emailVerifyController.setVerified();
                       if (emailVerifyController
-                              .responseSetVerified.responseBody ==
+                              .responseSetVerified
+                              .responseBody ==
                           '{"message":"null"}') {
                         emailVerifyController.isVerifying.value = false;
 
@@ -136,13 +134,15 @@ class EmailVerificationScreen extends StatelessWidget {
                         customSnackbar(
                           AppLocalizations.of(context)!.oops,
                           emailVerifyController
-                              .responseSetVerified.responseBody,
+                              .responseSetVerified
+                              .responseBody,
                           LogType.error,
                         );
 
                         SemanticsService.announce(
                           emailVerifyController
-                              .responseSetVerified.responseBody,
+                              .responseSetVerified
+                              .responseBody,
                           TextDirection.ltr,
                         );
                       }
@@ -176,9 +176,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(
-                height: UiSizes.height_60,
-              ),
+              SizedBox(height: UiSizes.height_60),
               Obx(
                 () => (emailVerifyController.resendIsAllowed.value)
                     ? GestureDetector(
@@ -211,8 +209,9 @@ class EmailVerificationScreen extends StatelessWidget {
                             Text(
                               AppLocalizations.of(context)!.requestNewCodeIn,
                               style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                             Padding(
@@ -221,8 +220,9 @@ class EmailVerificationScreen extends StatelessWidget {
                               ),
                               child: CircularCountDownTimer(
                                 textStyle: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                                 isTimerTextShown: true,
                                 isReverse: true,
@@ -233,19 +233,23 @@ class EmailVerificationScreen extends StatelessWidget {
                                 width: 30,
                                 height: 30,
                                 duration: 30,
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                fillColor:
-                                    Theme.of(context).colorScheme.primary,
-                                ringColor:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondary,
+                                fillColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
+                                ringColor: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                             Text(
                               AppLocalizations.of(context)!.seconds,
                               style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSecondary,
                               ),
                             ),
                           ],

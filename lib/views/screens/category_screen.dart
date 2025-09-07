@@ -11,8 +11,9 @@ class CategoryScreen extends StatelessWidget {
   CategoryScreen({super.key, required this.categoryName});
   final String categoryName;
 
-  final exploreStoryController =
-      Get.put<ExploreStoryController>(ExploreStoryController());
+  final exploreStoryController = Get.put<ExploreStoryController>(
+    ExploreStoryController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -27,54 +28,57 @@ class CategoryScreen extends StatelessWidget {
         () => exploreStoryController.isLoadingCategoryPage.value
             ? Center(
                 child: SizedBox(
-                height: 200,
-                width: 200,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballRotate,
-                  colors: [Theme.of(context).colorScheme.primary],
-                ),
-              ))
-            : exploreStoryController.openedCategotyStories.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      primary: true,
-                      itemCount:
-                          exploreStoryController.openedCategotyStories.length,
-                      itemBuilder: (context, index) {
-                        final int storyIndex = index;
-                        return StoryListTile(
-                          story: exploreStoryController
-                              .openedCategotyStories[storyIndex],
-                        );
-                      },
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(bottom: 150.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                            height: 200, width: 200, AppImages.emptyBoxImage),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Text(
-                            AppLocalizations.of(context)!.noStoriesInCategory(
-                                capitalizeFirstLetter(categoryName)),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      ],
-                    ),
+                  height: 200,
+                  width: 200,
+                  child: LoadingIndicator(
+                    indicatorType: Indicator.ballRotate,
+                    colors: [Theme.of(context).colorScheme.primary],
                   ),
+                ),
+              )
+            : exploreStoryController.openedCategotyStories.isNotEmpty
+            ? Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  primary: true,
+                  itemCount:
+                      exploreStoryController.openedCategotyStories.length,
+                  itemBuilder: (context, index) {
+                    final int storyIndex = index;
+                    return StoryListTile(
+                      story: exploreStoryController
+                          .openedCategotyStories[storyIndex],
+                    );
+                  },
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 150.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      height: 200,
+                      width: 200,
+                      AppImages.emptyBoxImage,
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.noStoriesInCategory(
+                          capitalizeFirstLetter(categoryName),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
       ),
     );
   }

@@ -61,21 +61,18 @@ class _SignupScreenState extends State<SignupScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Text(
                       AppLocalizations.of(context)!.createAccount,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     TextFormField(
                       validator: (value) => value!.isValidEmail()
                           ? null
-                          : AppLocalizations.of(context)!
-                              .enterValidEmailAddress,
+                          : AppLocalizations.of(
+                              context,
+                            )!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -83,9 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -117,8 +112,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller.isPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -126,13 +122,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
-                        validator: (value) => value!.isSamePassword(
-                                controller.passwordController.text)
+                        validator: (value) =>
+                            value!.isSamePassword(
+                              controller.passwordController.text,
+                            )
                             ? null
                             : AppLocalizations.of(context)!.passwordsNotMatch,
                         controller: controller.confirmPasswordController,
@@ -141,18 +137,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          hintText:
-                              AppLocalizations.of(context)!.confirmPassword,
+                          hintText: AppLocalizations.of(
+                            context,
+                          )!.confirmPassword,
                           suffixIcon: Semantics(
-                            label: (controller
-                                    .isConfirmPasswordFieldVisible.value)
+                            label:
+                                (controller.isConfirmPasswordFieldVisible.value)
                                 ? AppLocalizations.of(context)!.hidePassword
                                 : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isConfirmPasswordFieldVisible.value =
                                     !controller
-                                        .isConfirmPasswordFieldVisible.value;
+                                        .isConfirmPasswordFieldVisible
+                                        .value;
                               },
                               child: Container(
                                 width: 56,
@@ -161,8 +159,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller.isConfirmPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -170,9 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Obx(
                       () => Visibility(
                         maintainAnimation: true,
@@ -184,47 +181,55 @@ class _SignupScreenState extends State<SignupScreen> {
                           curve: Curves.fastOutSlowIn,
                           opacity:
                               passwordStrengthCheckerController.isVisible.value
-                                  ? 1
-                                  : 0,
+                              ? 1
+                              : 0,
                           child: SizedBox(
-                              height: UiSizes.height_45,
-                              width: Get.width,
-                              child: PasswordStrengthIndicator(
-                                isPasswordEightCharacters:
-                                    passwordStrengthCheckerController
-                                        .isPasswordEightCharacters.value,
-                                hasOneDigit: passwordStrengthCheckerController
-                                    .hasOneDigit.value,
-                                hasUpperCase: passwordStrengthCheckerController
-                                    .hasUpperCase.value,
-                                hasLowerCase: passwordStrengthCheckerController
-                                    .hasLowerCase.value,
-                                hasOneSymbol: passwordStrengthCheckerController
-                                    .hasOneSymbol.value,
-                                passwordSixCharactersTitle:
-                                    AppLocalizations.of(context)!
-                                        .passwordRequirements,
-                                hasOneDigitTitle: AppLocalizations.of(context)!
-                                    .includeNumericDigit,
-                                hasUpperCaseTitle: AppLocalizations.of(context)!
-                                    .includeUppercase,
-                                hasLowerCaseTitle: AppLocalizations.of(context)!
-                                    .includeLowercase,
-                                hasOneSymbolTitle:
-                                    AppLocalizations.of(context)!.includeSymbol,
-                                passStrengthVerifiedText:
-                                    AppLocalizations.of(context)!
-                                        .passwordIsStrong,
-                                validatedChecks:
-                                    passwordStrengthCheckerController
-                                        .validatedChecks.value,
-                              )),
+                            height: UiSizes.height_45,
+                            width: Get.width,
+                            child: PasswordStrengthIndicator(
+                              isPasswordEightCharacters:
+                                  passwordStrengthCheckerController
+                                      .isPasswordEightCharacters
+                                      .value,
+                              hasOneDigit: passwordStrengthCheckerController
+                                  .hasOneDigit
+                                  .value,
+                              hasUpperCase: passwordStrengthCheckerController
+                                  .hasUpperCase
+                                  .value,
+                              hasLowerCase: passwordStrengthCheckerController
+                                  .hasLowerCase
+                                  .value,
+                              hasOneSymbol: passwordStrengthCheckerController
+                                  .hasOneSymbol
+                                  .value,
+                              passwordSixCharactersTitle: AppLocalizations.of(
+                                context,
+                              )!.passwordRequirements,
+                              hasOneDigitTitle: AppLocalizations.of(
+                                context,
+                              )!.includeNumericDigit,
+                              hasUpperCaseTitle: AppLocalizations.of(
+                                context,
+                              )!.includeUppercase,
+                              hasLowerCaseTitle: AppLocalizations.of(
+                                context,
+                              )!.includeLowercase,
+                              hasOneSymbolTitle: AppLocalizations.of(
+                                context,
+                              )!.includeSymbol,
+                              passStrengthVerifiedText: AppLocalizations.of(
+                                context,
+                              )!.passwordIsStrong,
+                              validatedChecks: passwordStrengthCheckerController
+                                  .validatedChecks
+                                  .value,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     SizedBox(
                       width: double.maxFinite,
                       child: ElevatedButton(
@@ -234,44 +239,51 @@ class _SignupScreenState extends State<SignupScreen> {
                                     .validate()) {
                                   emailVerifyController.signUpIsAllowed.value =
                                       false;
-                                  var isSignedIn =
-                                      await controller.signup(context);
+                                  var isSignedIn = await controller.signup(
+                                    context,
+                                  );
                                   if (isSignedIn) {
                                     Get.toNamed(AppRoutes.onBoarding);
                                     customSnackbar(
-                                      AppLocalizations.of(context)!
-                                          .signedUpSuccessfully,
-                                      AppLocalizations.of(context)!
-                                          .newAccountCreated,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.signedUpSuccessfully,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.newAccountCreated,
                                       LogType.success,
                                     );
 
                                     SemanticsService.announce(
-                                      AppLocalizations.of(context)!
-                                          .newAccountCreated,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.newAccountCreated,
                                       TextDirection.ltr,
                                     );
                                     emailVerifyController
-                                        .signUpIsAllowed.value = true;
+                                            .signUpIsAllowed
+                                            .value =
+                                        true;
                                   } else {
                                     emailVerifyController
-                                        .signUpIsAllowed.value = true;
+                                            .signUpIsAllowed
+                                            .value =
+                                        true;
                                   }
                                 }
                               }
                             : null,
                         child: controller.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_40,
-                                ),
+                                child:
+                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                      size: UiSizes.size_40,
+                                    ),
                               )
-                            : Text(
-                                AppLocalizations.of(context)!.signUp,
-                              ),
+                            : Text(AppLocalizations.of(context)!.signUp),
                       ),
                     ),
                   ],
@@ -298,7 +310,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

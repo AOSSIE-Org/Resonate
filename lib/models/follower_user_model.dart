@@ -16,7 +16,8 @@ abstract class FollowerUserModel with _$FollowerUserModel {
     @JsonKey(name: "followerName") required String name,
     @JsonKey(name: 'followerFCMToken') required String fcmToken,
     @JsonKey(name: "followingUserId") String? followingUserId,
-    @JsonKey(name: 'followerRating') required double followerRating,
+    @JsonKey(name: 'followerRating', fromJson: toDouble)
+    required double? followerRating,
   }) = _FollowerUserModel;
 
   factory FollowerUserModel.fromJson(Map<String, dynamic> json) =>
@@ -31,7 +32,7 @@ abstract class FollowerUserModel with _$FollowerUserModel {
       name: name,
       docId: uid,
 
-      userRating: followerRating,
+      userRating: followerRating!,
       // Note: email, dateOfBirth are not available in FollowerUserModel
       // so they will be null in the converted ResonateUser
       email: null,

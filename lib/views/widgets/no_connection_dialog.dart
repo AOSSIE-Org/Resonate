@@ -18,9 +18,7 @@ class NoConnectionDialog extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-        ),
+        appBar: AppBar(toolbarHeight: 0),
         body: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -52,9 +50,7 @@ class NoConnectionDialog extends StatelessWidget {
                     AppLocalizations.of(context)!.connectionError,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: UiSizes.height_60,
-                  ),
+                  SizedBox(height: UiSizes.height_60),
                   Obx(
                     () => SizedBox(
                       width: double.maxFinite,
@@ -64,19 +60,18 @@ class NoConnectionDialog extends StatelessWidget {
                         },
                         child: networkController.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_40,
-                                ),
+                                child:
+                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                      size: UiSizes.size_40,
+                                    ),
                               )
-                            : Text(
-                                AppLocalizations.of(context)!.tryAgain,
-                              ),
+                            : Text(AppLocalizations.of(context)!.tryAgain),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
