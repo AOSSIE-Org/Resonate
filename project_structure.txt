@@ -392,6 +392,7 @@
 ├── test
 │   └── controllers
 │       ├── about_app_screen_controller_test.dart
+│       ├── about_app_screen_controller_test.mocks.dart
 │       ├── auth_state_controller_test.dart
 │       ├── auth_state_controller_test.mocks.dart
 │       ├── change_email_controller_test.dart
@@ -411,4 +412,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 329 files
+80 directories, 330 files
