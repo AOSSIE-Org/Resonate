@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:resonate/utils/enums/action_enum.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
-import 'package:resonate/views/widgets/app_update_dialog.dart';
 
 class AboutAppScreenController extends GetxController {
   final Rx<String> appVersion = "0.0.0".obs;
@@ -65,7 +65,10 @@ class AboutAppScreenController extends GetxController {
         } else if (launchUpdateIfAvailable) {
           await launchStoreForUpdate();
         } else {
-          Get.dialog(AppUpdateDialog(), barrierDismissible: false);
+          Get.dialog(
+            UpgradeAlert(upgrader: upgrader),
+            barrierDismissible: false,
+          );
         }
       }
       return needsUpdate

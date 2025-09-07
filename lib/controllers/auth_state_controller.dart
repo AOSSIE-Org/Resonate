@@ -30,7 +30,6 @@ class AuthStateController extends GetxController {
   var isInitializing = false.obs;
   FirebaseMessaging messaging;
   late final Account account;
-  final aboutController = Get.find<AboutAppScreenController>();
 
   AuthStateController({
     Account? account,
@@ -235,7 +234,9 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      aboutController.checkForUpdate();
+      if (Get.isRegistered<AboutAppScreenController>()) {
+        Get.find<AboutAppScreenController>().checkForUpdate();
+      }
       if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
@@ -249,7 +250,6 @@ class AuthStateController extends GetxController {
         }
       }
     } catch (e) {
-      aboutController.checkForUpdate();
       log("Error in isUserLoggedIn$e");
       bool? landingScreenShown = GetStorage().read(
         "landingScreenShown",

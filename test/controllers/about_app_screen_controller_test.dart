@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/utils/enums/action_enum.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
