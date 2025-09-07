@@ -1,16 +1,29 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/utils/enums/action_enum.dart';
+import 'package:get/get.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
+import 'package:resonate/utils/enums/action_enum.dart';
+import 'about_app_screen_controller_test.mocks.dart';
 
+@GenerateMocks([Upgrader])
 void main() {
   late AboutAppScreenController controller;
+  late MockUpgrader mockUpgrader;
+
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+  });
 
   setUp(() {
-    controller = AboutAppScreenController();
+    mockUpgrader = MockUpgrader();
+    controller = AboutAppScreenController(upgrader: mockUpgrader);
+  });
+
+  tearDown(() {
+    Get.reset();
   });
 
   group('AboutAppScreenController Tests', () {
@@ -22,122 +35,60 @@ void main() {
       expect(controller.showFullDescription.value, false);
     });
 
-    test('should initialize upgrader after onInit', () {
-      controller.onInit();
-      expect(controller.upgrader, isNotNull);
-    });
-
     test('should toggle description visibility', () {
       expect(controller.showFullDescription.value, false);
-
       controller.toggleDescription();
       expect(controller.showFullDescription.value, true);
-
       controller.toggleDescription();
       expect(controller.showFullDescription.value, false);
     });
 
     test(
-      'checkForUpdate should manage isCheckingForUpdate flag correctly',
+      'checkForUpdate should return noUpdateAvailable when no update needed',
       () async {
-        if (!Platform.isAndroid && !Platform.isIOS) {
-          return;
-        }
-        expect(controller.isCheckingForUpdate.value, false);
-        final futureResult = controller.checkForUpdate();
-        expect(controller.isCheckingForUpdate.value, true);
-        final result = await futureResult;
-        expect(controller.isCheckingForUpdate.value, false);
-        expect(
-          result,
-          isIn([
-            UpdateCheckResult.updateAvailable,
-            UpdateCheckResult.noUpdateAvailable,
-            UpdateCheckResult.checkFailed,
-          ]),
-        );
+        when(mockUpgrader.initialize()).thenAnswer((_) async => true);
+        when(mockUpgrader.shouldDisplayUpgrade()).thenReturn(false);
+
+        final result = await controller.checkForUpdate(clearSettings: false);
+
+        expect(controller.updateAvailable.value, false);
+        expect(result, UpdateCheckResult.noUpdateAvailable);
+        verify(mockUpgrader.initialize()).called(1);
+        verify(mockUpgrader.shouldDisplayUpgrade()).called(1);
       },
     );
 
     test(
-      'checkForUpdate with isManualCheck should set updateAvailable and handle dialogs',
+      'checkForUpdate should return updateAvailable when update needed',
       () async {
-        if (!Platform.isAndroid && !Platform.isIOS) {
-          return;
-        }
-        expect(controller.updateAvailable.value, false);
-        final result = await controller.checkForUpdate(isManualCheck: true);
-        if (result == UpdateCheckResult.updateAvailable) {
-          expect(controller.updateAvailable.value, true);
-        } else if (result == UpdateCheckResult.noUpdateAvailable) {
-          expect(controller.updateAvailable.value, false);
-        } else if (result == UpdateCheckResult.checkFailed) {
-          expect(controller.updateAvailable.value, false);
-        }
-        expect(controller.isCheckingForUpdate.value, false);
-        expect(
-          result,
-          isIn([
-            UpdateCheckResult.updateAvailable,
-            UpdateCheckResult.noUpdateAvailable,
-            UpdateCheckResult.checkFailed,
-          ]),
-        );
-      },
-    );
+        when(mockUpgrader.initialize()).thenAnswer((_) async => true);
+        when(mockUpgrader.shouldDisplayUpgrade()).thenReturn(true);
 
-    test(
-      'checkForUpdate with launchUpdateIfAvailable should set updateAvailable correctly',
-      () async {
-        if (!Platform.isAndroid && !Platform.isIOS) {
-          return;
-        }
-        expect(controller.updateAvailable.value, false);
         final result = await controller.checkForUpdate(
-          launchUpdateIfAvailable: true,
+          clearSettings: false,
+          showDialog: false,
         );
-        if (result == UpdateCheckResult.updateAvailable) {
-          expect(controller.updateAvailable.value, true);
-        } else if (result == UpdateCheckResult.noUpdateAvailable) {
-          expect(controller.updateAvailable.value, false);
-        } else if (result == UpdateCheckResult.checkFailed) {
-          expect(controller.updateAvailable.value, false);
-        }
-        expect(controller.isCheckingForUpdate.value, false);
-        expect(
-          result,
-          isIn([
-            UpdateCheckResult.updateAvailable,
-            UpdateCheckResult.noUpdateAvailable,
-            UpdateCheckResult.checkFailed,
-          ]),
-        );
+
+        expect(controller.updateAvailable.value, true);
+        expect(result, UpdateCheckResult.updateAvailable);
       },
     );
 
+    test('checkForUpdate should handle errors gracefully', () async {
+      when(mockUpgrader.initialize()).thenThrow(Exception('Test error'));
+
+      final result = await controller.checkForUpdate(clearSettings: false);
+
+      expect(result, UpdateCheckResult.checkFailed);
+      expect(controller.isCheckingForUpdate.value, false);
+    });
+
     test(
-      'launchStoreForUpdate should return specific result based on platform',
+      'launchStoreForUpdate should return error on unsupported platform',
       () async {
         final result = await controller.launchStoreForUpdate();
-
-        if (Platform.isAndroid || Platform.isIOS) {
-          expect(
-            result,
-            isIn([
-              UpdateActionResult.success,
-              UpdateActionResult.failed,
-              UpdateActionResult.error,
-            ]),
-          );
-        } else {
-          expect(result, UpdateActionResult.error);
-        }
+        expect(result, UpdateActionResult.error);
       },
     );
-
-    test('should access upgrader at any time since it is final', () {
-      expect(controller.upgrader, isNotNull);
-      expect(controller.upgrader, isA<Upgrader>());
-    });
   });
 }

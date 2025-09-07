@@ -16,12 +16,17 @@ class AboutAppScreenController extends GetxController {
 
   final showFullDescription = false.obs;
 
-  final Upgrader upgrader = Upgrader(
-    debugDisplayAlways: true,
-    debugDisplayOnce: true,
-    debugLogging: true,
-    durationUntilAlertAgain: const Duration(days: 1),
-  );
+  final Upgrader upgrader;
+
+  AboutAppScreenController({Upgrader? upgrader})
+    : upgrader =
+          upgrader ??
+          Upgrader(
+            debugDisplayAlways: true,
+            debugDisplayOnce: true,
+            debugLogging: true,
+            durationUntilAlertAgain: const Duration(days: 1),
+          );
 
   @override
   void onInit() {
@@ -46,28 +51,49 @@ class AboutAppScreenController extends GetxController {
   Future<UpdateCheckResult> checkForUpdate({
     bool launchUpdateIfAvailable = false,
     bool isManualCheck = false,
+    bool clearSettings = true,
+    bool showDialog = true,
   }) async {
     isCheckingForUpdate.value = true;
     try {
-      if (!Platform.isAndroid && !Platform.isIOS) {
-        return UpdateCheckResult.platformNotSupported;
+      if (clearSettings) {
+        Upgrader.clearSavedSettings();
       }
-      Upgrader.clearSavedSettings();
       await upgrader.initialize();
       final needsUpdate = upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
-      if (needsUpdate) {
+      if (needsUpdate && showDialog) {
         if (isManualCheck) {
           Get.dialog(
-            UpgradeAlert(upgrader: upgrader),
-            barrierDismissible: false,
+            UpgradeAlert(
+              upgrader: upgrader,
+              onIgnore: () {
+                Get.back();
+                return true;
+              },
+              onLater: () {
+                Get.back();
+                return true;
+              },
+            ),
+            barrierDismissible: true,
           );
         } else if (launchUpdateIfAvailable) {
           await launchStoreForUpdate();
         } else {
           Get.dialog(
-            UpgradeAlert(upgrader: upgrader),
-            barrierDismissible: false,
+            UpgradeAlert(
+              upgrader: upgrader,
+              onIgnore: () {
+                Get.back();
+                return true;
+              },
+              onLater: () {
+                Get.back();
+                return true;
+              },
+            ),
+            barrierDismissible: true,
           );
         }
       }
