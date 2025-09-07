@@ -272,7 +272,6 @@ class AboutAppScreen extends StatelessWidget {
           );
           break;
         case UpdateCheckResult.updateAvailable:
-          // Dialog is already shown by the controller for manual checks
           break;
         case UpdateCheckResult.platformNotSupported:
           customSnackbar(

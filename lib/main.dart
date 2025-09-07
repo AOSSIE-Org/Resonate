@@ -53,7 +53,6 @@ Future<void> main() async {
 
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   await GetStorage.init();
   Get.put(AboutAppScreenController());
 
