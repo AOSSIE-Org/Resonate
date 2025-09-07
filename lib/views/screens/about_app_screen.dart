@@ -6,10 +6,10 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/enums/update_enums.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:upgrader/upgrader.dart';
 
 import '../../utils/app_images.dart';
 
@@ -18,7 +18,6 @@ class AboutAppScreen extends StatelessWidget {
 
   final aboutAppScreenController = Get.put(AboutAppScreenController());
 
-  // Method to share the app's GitHub repository link
   void _shareApp(BuildContext context) {
     Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
   }
@@ -261,7 +260,9 @@ class AboutAppScreen extends StatelessWidget {
   Future<void> _handleUpdateCheck() async {
     aboutAppScreenController.isCheckingForUpdate.value = true;
     try {
-      final result = await aboutAppScreenController.checkForUpdate();
+      final result = await aboutAppScreenController.checkForUpdate(
+        isManualCheck: true,
+      );
       switch (result) {
         case UpdateCheckResult.noUpdateAvailable:
           customSnackbar(
@@ -271,10 +272,7 @@ class AboutAppScreen extends StatelessWidget {
           );
           break;
         case UpdateCheckResult.updateAvailable:
-          Get.dialog(
-            UpgradeAlert(upgrader: aboutAppScreenController.upgrader),
-            barrierDismissible: false,
-          );
+          // Dialog is already shown by the controller for manual checks
           break;
         case UpdateCheckResult.platformNotSupported:
           customSnackbar(

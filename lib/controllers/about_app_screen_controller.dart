@@ -5,15 +5,8 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-enum UpdateCheckResult {
-  updateAvailable,
-  noUpdateAvailable,
-  checkFailed,
-  platformNotSupported,
-}
-
-enum UpdateActionResult { success, userDenied, failed, error }
+import 'package:resonate/utils/enums/update_enums.dart';
+import 'package:resonate/views/widgets/app_update_dialog.dart';
 
 class AboutAppScreenController extends GetxController {
   final Rx<String> appVersion = "0.0.0".obs;
@@ -23,46 +16,20 @@ class AboutAppScreenController extends GetxController {
 
   final showFullDescription = false.obs;
 
-  late final Upgrader _upgrader;
-  Upgrader get upgrader => _upgrader;
+  final Upgrader upgrader = Upgrader(
+    debugDisplayAlways: true,
+    debugDisplayOnce: true,
+    debugLogging: true,
+    durationUntilAlertAgain: const Duration(days: 1),
+  );
 
   @override
   void onInit() {
     super.onInit();
-    _initializeUpgrader();
-    loadPackageInfo();
+    _loadPackageInfo();
   }
 
-  void _initializeUpgrader() {
-    _upgrader = Upgrader(
-      debugDisplayAlways: false,
-      debugDisplayOnce: false,
-      debugLogging: false,
-      durationUntilAlertAgain: const Duration(days: 1),
-    );
-  }
-
-  static Future<bool> checkForUpdatesOnLaunch() async {
-    try {
-      final upgrader = Upgrader(
-        debugDisplayAlways: false,
-        debugDisplayOnce: false,
-        debugLogging: false,
-        durationUntilAlertAgain: const Duration(days: 1),
-      );
-
-      await upgrader.initialize();
-      final needsUpdate = upgrader.shouldDisplayUpgrade();
-
-      log('App launch update check: Update available = $needsUpdate');
-      return needsUpdate;
-    } catch (e) {
-      log('Update check failed on app launch: $e');
-      return false;
-    }
-  }
-
-  Future<void> loadPackageInfo() async {
+  Future<void> _loadPackageInfo() async {
     try {
       final packageInfo = await PackageInfo.fromPlatform();
       appVersion.value = packageInfo.version;
@@ -76,16 +43,31 @@ class AboutAppScreenController extends GetxController {
     showFullDescription.toggle();
   }
 
-  Future<UpdateCheckResult> checkForUpdate() async {
+  Future<UpdateCheckResult> checkForUpdate({
+    bool launchUpdateIfAvailable = false,
+    bool isManualCheck = false,
+  }) async {
     isCheckingForUpdate.value = true;
     try {
       if (!Platform.isAndroid && !Platform.isIOS) {
         return UpdateCheckResult.platformNotSupported;
       }
       Upgrader.clearSavedSettings();
-      await _upgrader.initialize();
-      final needsUpdate = _upgrader.shouldDisplayUpgrade();
+      await upgrader.initialize();
+      final needsUpdate = upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
+      if (needsUpdate) {
+        if (isManualCheck) {
+          Get.dialog(
+            UpgradeAlert(upgrader: upgrader),
+            barrierDismissible: false,
+          );
+        } else if (launchUpdateIfAvailable) {
+          await launchStoreForUpdate();
+        } else {
+          Get.dialog(AppUpdateDialog(), barrierDismissible: false);
+        }
+      }
       return needsUpdate
           ? UpdateCheckResult.updateAvailable
           : UpdateCheckResult.noUpdateAvailable;
