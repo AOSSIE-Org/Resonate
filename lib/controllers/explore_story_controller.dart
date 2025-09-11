@@ -7,6 +7,7 @@ import 'package:appwrite/models.dart';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/models/resonate_user.dart';
@@ -26,6 +27,12 @@ class ExploreStoryController extends GetxController {
   RxList<Story> searchResponseStories = <Story>[].obs;
   RxList<Story> openedCategotyStories = <Story>[].obs;
   RxList<ResonateUser> searchResponseUsers = <ResonateUser>[].obs;
+  final MeiliSearchClient client = MeiliSearchClient(
+    meilisearchEndpoint,
+    meilisearchApiKey,
+  );
+  late final MeiliSearchIndex storyIndex;
+  late final MeiliSearchIndex userIndex;
 
   Rx<bool> isLoadingRecommendedStories = false.obs;
   Rx<bool> isLoadingCategoryPage = false.obs;
@@ -49,6 +56,8 @@ class ExploreStoryController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    storyIndex = client.index('stories');
+    userIndex = client.index('users');
     await fetchStoryRecommendation();
     await fetchUserCreatedStories();
     await fetchUserLikedStories();
@@ -110,43 +119,67 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> searchStories(String query) async {
-    List<Document> storyDocuments = await databases
-        .listDocuments(
-          databaseId: storyDatabaseId,
-          collectionId: storyCollectionId,
-          queries: [
-            Query.or([
-              Query.search('title', query),
-              Query.search('creatorName', query),
-              Query.search('description', query),
-            ]),
-            Query.limit(16),
-          ],
-        )
-        .then((value) => value.documents);
+    if (isUsingMeilisearch) {
+      final meilisearchResult = await storyIndex.search(
+        query,
+        SearchQuery(
+          attributesToHighlight: ['title', 'creatorName', 'description'],
+        ),
+      );
+      searchResponseStories.value = await convertMeilisearchResultsToStoryList(
+        meilisearchResult.hits,
+      );
+    } else {
+      List<Document> storyDocuments = await databases
+          .listDocuments(
+            databaseId: storyDatabaseId,
+            collectionId: storyCollectionId,
+            queries: [
+              Query.or([
+                Query.search('title', query),
+                Query.search('creatorName', query),
+                Query.search('description', query),
+              ]),
+              Query.limit(16),
+            ],
+          )
+          .then((value) => value.documents);
 
-    searchResponseStories.value = await convertAppwriteDocListToStoryList(
-      storyDocuments,
-    );
+      searchResponseStories.value = await convertAppwriteDocListToStoryList(
+        storyDocuments,
+      );
+    }
   }
 
   Future<void> searchUsers(String query) async {
-    List<Document> userDocuments = await databases
-        .listDocuments(
-          databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          queries: [
-            Query.or([
-              Query.search('name', query),
-              Query.search('username', query),
-            ]),
-            Query.notEqual('\$id', authStateController.uid),
-            Query.limit(16),
-          ],
-        )
-        .then((value) => value.documents);
+    if (isUsingMeilisearch) {
+      final meilisearchResult = await userIndex.search(
+        query,
+        SearchQuery(attributesToHighlight: ['name', 'username']),
+      );
+      searchResponseUsers.value = convertMeilisearchResultsToUserList(
+        meilisearchResult.hits,
+      );
+    } else {
+      List<Document> userDocuments = await databases
+          .listDocuments(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            queries: [
+              Query.or([
+                Query.search('name', query),
+                Query.search('username', query),
+              ]),
+              Query.notEqual('\$id', authStateController.uid),
+              Query.limit(16),
+            ],
+          )
+          .then((value) => value.documents);
 
-    searchResponseUsers.value = convertAppwriteDocListToUserList(userDocuments);
+      searchResponseUsers.value = convertAppwriteDocListToUserList(
+        userDocuments,
+      );
+    }
 
     log(searchResponseUsers.toString());
   }
@@ -159,6 +192,25 @@ class ExploreStoryController extends GetxController {
       final userData = doc.data;
       userData['docId'] = doc.$id;
       userData['uid'] = doc.$id;
+      userData['userName'] = userData['username'];
+      userData['userRating'] =
+          userData['ratingTotal'] / userData['ratingCount'];
+      log(userData['userRating'].toString());
+      Future.delayed(Duration(seconds: 1));
+      ResonateUser user = ResonateUser.fromJson(userData);
+
+      return user;
+    }).toList();
+  }
+
+  List<ResonateUser> convertMeilisearchResultsToUserList(
+    List<Map<String, dynamic>> meilisearchHits,
+  ) {
+    return meilisearchHits.map((doc) {
+      // log(doc.data.toString());
+      final userData = doc;
+      userData['docId'] = doc['\$id'];
+      userData['uid'] = doc['\$id'];
       userData['userName'] = userData['username'];
       userData['userRating'] =
           userData['ratingTotal'] / userData['ratingCount'];
@@ -682,6 +734,36 @@ class ExploreStoryController extends GetxController {
           likesCount: value.data['likes'],
           isLikedByCurrentUser: false,
           playDuration: value.data['playDuration'],
+          tintColor: tintColor,
+          chapters: [],
+        );
+      }).toList(),
+    );
+  }
+
+  Future<List<Story>> convertMeilisearchResultsToStoryList(
+    List<Map<String, dynamic>> meilisearchHits,
+  ) async {
+    return await Future.wait(
+      meilisearchHits.map((value) async {
+        StoryCategory category = StoryCategory.values.byName(value['category']);
+
+        Color tintColor = Color(int.parse("0xff${value['tintColor']}"));
+
+        return Story(
+          title: value['title'],
+          storyId: value['\$id'],
+          description: value['description'],
+          userIsCreator: value['creatorId'] == authStateController.uid,
+          category: category,
+          coverImageUrl: value['coverImgUrl'],
+          creatorId: value['creatorId'],
+          creatorName: value['creatorName'],
+          creatorImgUrl: value['creatorImgUrl'],
+          creationDate: DateTime.parse(value['\$createdAt']),
+          likesCount: value['likes'],
+          isLikedByCurrentUser: false,
+          playDuration: value['playDuration'],
           tintColor: tintColor,
           chapters: [],
         );
