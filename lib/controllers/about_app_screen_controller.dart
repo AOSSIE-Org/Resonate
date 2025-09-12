@@ -63,22 +63,7 @@ class AboutAppScreenController extends GetxController {
       final needsUpdate = upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
       if (needsUpdate && showDialog) {
-        if (isManualCheck) {
-          Get.dialog(
-            UpgradeAlert(
-              upgrader: upgrader,
-              onIgnore: () {
-                Get.back();
-                return true;
-              },
-              onLater: () {
-                Get.back();
-                return true;
-              },
-            ),
-            barrierDismissible: true,
-          );
-        } else if (launchUpdateIfAvailable) {
+        if (launchUpdateIfAvailable) {
           await launchStoreForUpdate();
         } else {
           Get.dialog(
