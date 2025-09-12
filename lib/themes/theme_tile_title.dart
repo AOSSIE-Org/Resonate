@@ -35,12 +35,14 @@ class TileTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(themeName, style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
-          spacing: 8,
           children: [
             colorDots(theme.primaryColor),
+            const SizedBox(width: 8),
             colorDots(theme.secondaryColor, isBorder: true),
+            const SizedBox(width: 8),
             colorDots(theme.onPrimaryColor),
           ],
         ),

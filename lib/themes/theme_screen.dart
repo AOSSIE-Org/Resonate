@@ -26,17 +26,20 @@ class ThemeScreen extends StatelessWidget {
               : ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
+                    // Cache the selected theme for reuse below
                     final bool isSelected =
                         themeController.currentTheme.value ==
                         list[index].name.toLowerCase();
 
+                    // Cache the localized theme title for reuse below
                     final String title = AppLocalizations.of(
                       context,
                     )!.chooseTheme("${list[index].name.toLowerCase()}Theme");
 
+                    // Cache the theme for reuse below
                     final ThemeModel theme = list[index];
 
-                    // [IconData] themes accordingly
+                    // Select the appropriate IconData for the theme, using a default if not found
                     final IconData iconData = ThemeIcons.values
                         .firstWhere(
                           (e) => e.theme == theme.name.toLowerCase(),
@@ -54,12 +57,12 @@ class ThemeScreen extends StatelessWidget {
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
-                          side: isSelected
-                              ? BorderSide(color: theme.primaryColor, width: 2)
-                              : const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2,
-                                ),
+                          side: BorderSide(
+                            color: isSelected
+                                ? theme.primaryColor
+                                : Colors.transparent,
+                            width: 2, // constant width preventing reflow
+                          ),
                         ),
                         onTap: () {
                           themeController.setTheme(theme.name.toLowerCase());
