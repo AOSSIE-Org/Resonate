@@ -295,8 +295,11 @@
 │   │   ├── theme.dart
 │   │   ├── theme_controller.dart
 │   │   ├── theme_enum.dart
+│   │   ├── theme_icon_enum.dart
 │   │   ├── theme_list.dart
-│   │   └── theme_screen.dart
+│   │   ├── theme_screen.dart
+│   │   ├── theme_tile_title.dart
+│   │   └── theme_tile_trailing.dart
 │   ├── utils
 │   │   ├── app_images.dart
 │   │   ├── colors.dart
@@ -405,4 +408,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 326 files
+80 directories, 329 files
