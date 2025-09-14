@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 // import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/enums/update_enums.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../utils/app_images.dart';
@@ -12,8 +16,8 @@ import '../../utils/app_images.dart';
 class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
-  final aboutAppScreenController = Get.put(AboutAppScreenController());
-  // Method to share the app's GitHub repository link
+  final aboutAppScreenController = Get.find<AboutAppScreenController>();
+
   void _shareApp(BuildContext context) {
     Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
   }
@@ -150,8 +154,7 @@ class AboutAppScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: () =>
-                            _shareApp(context), // Call the share method here
+                        onTap: () => _shareApp(context),
                         child: Column(
                           children: [
                             const Icon(Icons.share_rounded),
@@ -171,6 +174,55 @@ class AboutAppScreen extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
+            ),
+            SizedBox(height: UiSizes.height_10),
+            Container(
+              height: UiSizes.height_80,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () => _handleUpdateCheck(),
+                  child: Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        aboutAppScreenController.isCheckingForUpdate.value
+                            ? SizedBox(
+                                width: UiSizes.width_25,
+                                height: UiSizes.height_26,
+                                child: LoadingIndicator(
+                                  indicatorType: Indicator.ballPulse,
+                                  colors: [
+                                    Theme.of(context).colorScheme.primary,
+                                  ],
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Icon(
+                                aboutAppScreenController.updateAvailable.value
+                                    ? Icons.system_update
+                                    : Icons.update,
+                                size: UiSizes.size_24,
+                              ),
+                        SizedBox(width: UiSizes.width_10),
+                        Text(
+                          aboutAppScreenController.updateAvailable.value
+                              ? AppLocalizations.of(context)!.updateAvailable
+                              : AppLocalizations.of(context)!.checkForUpdates,
+                          style: TextStyle(
+                            fontSize: UiSizes.size_16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             SizedBox(height: UiSizes.height_40),
@@ -203,5 +255,36 @@ class AboutAppScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleUpdateCheck() async {
+    final result = await aboutAppScreenController.checkForUpdate(
+      isManualCheck: true,
+    );
+    switch (result) {
+      case UpdateCheckResult.noUpdateAvailable:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.upToDateTitle,
+          AppLocalizations.of(Get.context!)!.upToDateMessage,
+          LogType.success,
+        );
+        break;
+      case UpdateCheckResult.updateAvailable:
+        break;
+      case UpdateCheckResult.platformNotSupported:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.platformNotSupported,
+          AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
+          LogType.warning,
+        );
+        break;
+      case UpdateCheckResult.checkFailed:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.updateCheckFailed,
+          AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
+          LogType.error,
+        );
+        break;
+    }
   }
 }

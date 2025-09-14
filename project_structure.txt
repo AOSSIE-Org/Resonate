@@ -306,6 +306,7 @@
 │   │   ├── constants.dart
 │   │   ├── debouncer.dart
 │   │   ├── enums
+│   │   │   ├── action_enum.dart
 │   │   │   ├── friend_call_status.dart
 │   │   │   ├── friend_request_status.dart
 │   │   │   ├── gender.dart
@@ -314,7 +315,8 @@
 │   │   │   ├── room_state.dart
 │   │   │   ├── signed_in_by.dart
 │   │   │   ├── story_category.dart
-│   │   │   └── themes_enum.dart
+│   │   │   ├── themes_enum.dart
+│   │   │   └── update_enums.dart
 │   │   ├── extensions
 │   │   │   └── datetime_extension.dart
 │   │   ├── ui_sizes.dart
@@ -389,6 +391,8 @@
 ├── pubspec.yaml
 ├── test
 │   └── controllers
+│       ├── about_app_screen_controller_test.dart
+│       ├── about_app_screen_controller_test.mocks.dart
 │       ├── auth_state_controller_test.dart
 │       ├── auth_state_controller_test.mocks.dart
 │       ├── change_email_controller_test.dart
@@ -408,4 +412,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 329 files
+80 directories, 333 files

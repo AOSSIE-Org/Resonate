@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
+import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/follower_user_model.dart';
@@ -233,6 +234,9 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
+      if (Get.isRegistered<AboutAppScreenController>()) {
+        Get.find<AboutAppScreenController>().checkForUpdate();
+      }
       if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
