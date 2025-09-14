@@ -295,8 +295,11 @@
 │   │   ├── theme.dart
 │   │   ├── theme_controller.dart
 │   │   ├── theme_enum.dart
+│   │   ├── theme_icon_enum.dart
 │   │   ├── theme_list.dart
-│   │   └── theme_screen.dart
+│   │   ├── theme_screen.dart
+│   │   ├── theme_tile_title.dart
+│   │   └── theme_tile_trailing.dart
 │   ├── utils
 │   │   ├── app_images.dart
 │   │   ├── colors.dart
@@ -410,3 +413,4 @@
 └── untranslated.txt
 
 80 directories, 330 files
+80 directories, 329 files

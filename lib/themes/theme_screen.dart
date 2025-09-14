@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/models/themes_model.dart';
+import 'package:resonate/themes/theme_icon_enum.dart';
 import 'package:resonate/themes/theme_list.dart';
+import 'package:resonate/themes/theme_tile_title.dart';
+import 'package:resonate/themes/theme_tile_trailing.dart';
 
 class ThemeScreen extends StatelessWidget {
   ThemeScreen({super.key});
@@ -17,48 +20,79 @@ class ThemeScreen extends StatelessWidget {
       appBar: AppBar(title: const Text("Themes")),
       body: Obx(
         () => Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           child: (themeController.currentTheme.value == 'none')
               ? const Text("none")
               : ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
-                        themeController.setTheme(
-                          list[index].name.toLowerCase(),
-                        );
-                      },
-                      selected:
-                          (themeController.currentTheme.value ==
-                          list[index].name.toLowerCase()),
-                      selectedColor: list[index].onPrimaryColor,
-                      selectedTileColor: list[index].primaryColor,
-                      title: Text(
-                        AppLocalizations.of(context)!.chooseTheme(
-                          "${list[index].name.toLowerCase()}Theme",
+                    // Cache the selected theme for reuse below
+                    final bool isSelected =
+                        themeController.currentTheme.value ==
+                        list[index].name.toLowerCase();
+
+                    // Cache the localized theme title for reuse below
+                    final String title = AppLocalizations.of(
+                      context,
+                    )!.chooseTheme("${list[index].name.toLowerCase()}Theme");
+
+                    // Cache the theme for reuse below
+                    final ThemeModel theme = list[index];
+
+                    // Select the appropriate IconData for the theme, using a default if not found
+                    final IconData iconData = ThemeIcons.values
+                        .firstWhere(
+                          (e) => e.theme == theme.name.toLowerCase(),
+                          orElse: () => ThemeIcons.classic,
+                        )
+                        .icon;
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 13,
+                          horizontal: 18,
                         ),
-                      ),
-                      // title: Text(list[index].name),
-                      trailing: Container(
-                        width: 50,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: list[index].primaryColor),
-                          borderRadius: BorderRadius.circular(50),
-                          color: list[index].surfaceColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          side: BorderSide(
+                            color: isSelected
+                                ? theme.primaryColor
+                                : Colors.transparent,
+                            width: 2, // constant width preventing reflow
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: list[index].primaryColor,
-                              ),
-                              width: 15,
-                              height: 15,
+                        onTap: () {
+                          themeController.setTheme(theme.name.toLowerCase());
+                        },
+                        leading: Container(
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: theme.primaryColor,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey.shade100,
+                              width: 1,
                             ),
-                          ],
+                          ),
+                          child: Icon(iconData, size: 25, color: Colors.white),
+                        ),
+                        trailing: TileTrailing(
+                          theme: theme,
+                          isSelected: isSelected,
+                        ),
+                        tileColor: isSelected
+                            ? theme.primaryColor
+                            : Colors.black26,
+                        selected: isSelected,
+                        selectedColor: theme.primaryColor,
+                        selectedTileColor: theme.secondaryColor,
+                        title: TileTitle(
+                          themeName: title,
+                          theme: theme,
+                          isSelected: isSelected,
                         ),
                       ),
                     );
