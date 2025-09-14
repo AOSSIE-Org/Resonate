@@ -16,7 +16,7 @@ import '../../utils/app_images.dart';
 class AboutAppScreen extends StatelessWidget {
   AboutAppScreen({super.key});
 
-  final aboutAppScreenController = Get.put(AboutAppScreenController());
+  final aboutAppScreenController = Get.find<AboutAppScreenController>();
 
   void _shareApp(BuildContext context) {
     Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
@@ -258,38 +258,33 @@ class AboutAppScreen extends StatelessWidget {
   }
 
   Future<void> _handleUpdateCheck() async {
-    aboutAppScreenController.isCheckingForUpdate.value = true;
-    try {
-      final result = await aboutAppScreenController.checkForUpdate(
-        isManualCheck: true,
-      );
-      switch (result) {
-        case UpdateCheckResult.noUpdateAvailable:
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.upToDateTitle,
-            AppLocalizations.of(Get.context!)!.upToDateMessage,
-            LogType.success,
-          );
-          break;
-        case UpdateCheckResult.updateAvailable:
-          break;
-        case UpdateCheckResult.platformNotSupported:
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.platformNotSupported,
-            AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
-            LogType.warning,
-          );
-          break;
-        case UpdateCheckResult.checkFailed:
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.updateCheckFailed,
-            AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
-            LogType.error,
-          );
-          break;
-      }
-    } finally {
-      aboutAppScreenController.isCheckingForUpdate.value = false;
+    final result = await aboutAppScreenController.checkForUpdate(
+      isManualCheck: true,
+    );
+    switch (result) {
+      case UpdateCheckResult.noUpdateAvailable:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.upToDateTitle,
+          AppLocalizations.of(Get.context!)!.upToDateMessage,
+          LogType.success,
+        );
+        break;
+      case UpdateCheckResult.updateAvailable:
+        break;
+      case UpdateCheckResult.platformNotSupported:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.platformNotSupported,
+          AppLocalizations.of(Get.context!)!.platformNotSupportedMessage,
+          LogType.warning,
+        );
+        break;
+      case UpdateCheckResult.checkFailed:
+        customSnackbar(
+          AppLocalizations.of(Get.context!)!.updateCheckFailed,
+          AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
+          LogType.error,
+        );
+        break;
     }
   }
 }

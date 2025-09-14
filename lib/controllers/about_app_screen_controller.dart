@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/action_enum.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
@@ -22,10 +26,12 @@ class AboutAppScreenController extends GetxController {
     : upgrader =
           upgrader ??
           Upgrader(
-            debugDisplayAlways: true,
-            debugDisplayOnce: true,
-            debugLogging: true,
-            durationUntilAlertAgain: const Duration(days: 1),
+            debugDisplayAlways: kDebugMode, 
+            debugDisplayOnce: false, 
+            debugLogging: kDebugMode, 
+            durationUntilAlertAgain: kDebugMode
+                ? const Duration(minutes: 1) 
+                : const Duration(days: 7), 
           );
 
   @override
@@ -40,7 +46,11 @@ class AboutAppScreenController extends GetxController {
       appVersion.value = packageInfo.version;
       appBuildNumber.value = packageInfo.buildNumber;
     } catch (e) {
-      log('Could not load package info: $e');
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.updateCheckFailed,
+        AppLocalizations.of(Get.context!)!.updateCheckFailedMessage,
+        LogType.error,
+      );
     }
   }
 
