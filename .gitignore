@@ -34,7 +34,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-pubspec.lock
 lib/firebase_options.dart
 firebase.json
 
