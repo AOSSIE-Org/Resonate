@@ -433,7 +433,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noLyrics => 'कोई लिरिक्स उपलब्ध नहीं';
 
   @override
-  String get aboutSection => 'चैप्टर के बारे में';
+  String get aboutSection => 'About';
 
   @override
   String noStoriesInCategory(String categoryName) {
@@ -441,7 +441,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get pushNewChapters => 'नए चैप्टर्स जोड़ें';
+  String get newChapters => 'नए चैप्टर्स जोड़ें';
 
   @override
   String get helpToGrow => 'साथ मिलकर बढ़ाएं';
@@ -521,9 +521,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get joinRoom => 'रूम में शामिल हों';
-
-  @override
-  String get loadingDialogName => 'लोडिंग डायलॉग';
 
   @override
   String get unknownUser => 'अज्ञात यूज़र';
@@ -659,14 +656,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stable => 'स्थिर';
 
   @override
-  String get congratulationsEmailVerified =>
-      'बधाई हो! आपका ईमेल वेरिफाई हो गया है';
-
-  @override
-  String get otpMismatchError =>
-      'OTP मेल नहीं खा रहा, कृपया फिर से प्रयास करें';
-
-  @override
   String get usernameCharacterLimit =>
       'यूज़रनेम में कम से कम 6 अक्षर होने चाहिए।';
 
@@ -675,9 +664,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get anonymous => 'गुमनाम';
-
-  @override
-  String get resonate => 'रेज़ोनेट';
 
   @override
   String get noSearchResults => 'कोई रिज़ल्ट नहीं मिला';
@@ -755,9 +741,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get currentChapters => 'मौजूदा चैप्टर्स';
-
-  @override
-  String get newChapters => 'नए चैप्टर्स';
 
   @override
   String get sourceCodeOnGitHub => 'GitHub पर सोर्स कोड';
@@ -952,9 +935,6 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get aboutStory => 'कहानी के बारे में';
-
-  @override
   String get chapters => 'चैप्टर';
 
   @override
@@ -1046,12 +1026,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get requiredField => 'आवश्यक फील्ड';
-
-  @override
-  String get clickPictureUsingCamera => 'कैमरा से फोटो लें';
-
-  @override
-  String get pickImageFromGallery => 'गैलरी से फोटो चुनें';
 
   @override
   String get onlineUsers => 'ऑनलाइन यूज़र्स';
