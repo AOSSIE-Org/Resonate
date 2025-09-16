@@ -19,7 +19,11 @@ class AboutAppScreen extends StatelessWidget {
   final aboutAppScreenController = Get.find<AboutAppScreenController>();
 
   void _shareApp(BuildContext context) {
-    Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
+    SharePlus.instance.share(
+      ShareParams(
+        text: AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl),
+      ),
+    );
   }
 
   @override
