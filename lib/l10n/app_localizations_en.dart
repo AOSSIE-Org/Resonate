@@ -441,7 +441,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get pushNewChapters => 'Push New Chapters';
+  String get newChapters => 'New Chapters';
 
   @override
   String get helpToGrow => 'Help to grow';
@@ -519,9 +519,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get joinRoom => 'Join Room';
-
-  @override
-  String get loadingDialogName => 'Loading Dialog';
 
   @override
   String get unknownUser => 'Unknown';
@@ -657,13 +654,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stable => 'Stable';
 
   @override
-  String get congratulationsEmailVerified =>
-      'Congratulations you have verified your Email';
-
-  @override
-  String get otpMismatchError => 'OTP mismatch occurred please try again';
-
-  @override
   String get usernameCharacterLimit =>
       'Username should contain more than 5 characters.';
 
@@ -672,9 +662,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anonymous => 'Anonymous';
-
-  @override
-  String get resonate => 'Resonate';
 
   @override
   String get noSearchResults => 'No Search Results';
@@ -752,9 +739,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currentChapters => 'Current Chapters';
-
-  @override
-  String get newChapters => 'New Chapters';
 
   @override
   String get sourceCodeOnGitHub => 'Source code on GitHub';
@@ -947,9 +931,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get aboutStory => 'About';
-
-  @override
   String get chapters => 'Chapters';
 
   @override
@@ -1041,12 +1022,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get requiredField => 'Required field';
-
-  @override
-  String get clickPictureUsingCamera => 'Click picture using camera';
-
-  @override
-  String get pickImageFromGallery => 'Pick image from gallery';
 
   @override
   String get onlineUsers => 'Online Users';

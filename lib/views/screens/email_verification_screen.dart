@@ -53,8 +53,8 @@ class EmailVerificationScreen extends StatelessWidget {
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                ? Colors.black
-                                : Colors.white,
+                                    ? Colors.black
+                                    : Colors.white,
                           ),
                           children: [
                             TextSpan(
@@ -104,14 +104,14 @@ class EmailVerificationScreen extends StatelessWidget {
                         AppLocalizations.of(context)!.verificationComplete,
                         AppLocalizations.of(
                           context,
-                        )!.congratulationsEmailVerified,
+                        )!.verificationCompleteMessage,
                         LogType.success,
                       );
 
                       SemanticsService.announce(
                         AppLocalizations.of(
                           context,
-                        )!.congratulationsEmailVerified,
+                        )!.verificationCompleteMessage,
                         TextDirection.ltr,
                       );
                       await emailVerifyController.setVerified();
@@ -153,12 +153,12 @@ class EmailVerificationScreen extends StatelessWidget {
                       Get.back();
                       customSnackbar(
                         AppLocalizations.of(context)!.verificationFailed,
-                        AppLocalizations.of(context)!.otpMismatchError,
+                        AppLocalizations.of(context)!.otpMismatch,
                         LogType.error,
                       );
 
                       SemanticsService.announce(
-                        AppLocalizations.of(context)!.otpMismatchError,
+                        AppLocalizations.of(context)!.otpMismatch,
                         TextDirection.ltr,
                       );
                     }

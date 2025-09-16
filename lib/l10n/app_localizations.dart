@@ -98,1291 +98,1267 @@ abstract class AppLocalizations {
     Locale('hi'),
   ];
 
-  /// No description provided for @title.
+  /// The title of the application.
   ///
   /// In en, this message translates to:
   /// **'Resonate'**
   String get title;
 
-  /// No description provided for @roomDescription.
+  /// Guideline message for users in a chat room.
   ///
   /// In en, this message translates to:
   /// **'Be polite and respect the other person\'s opinion. Avoid rude comments.'**
   String get roomDescription;
 
-  /// No description provided for @hidePassword.
+  /// Button text to conceal the password field.
   ///
   /// In en, this message translates to:
   /// **'Hide Password'**
   String get hidePassword;
 
-  /// No description provided for @showPassword.
+  /// Button text to reveal the password field.
   ///
   /// In en, this message translates to:
   /// **'Show Password'**
   String get showPassword;
 
-  /// No description provided for @passwordEmpty.
+  /// Error message when the password field is left blank.
   ///
   /// In en, this message translates to:
   /// **'Password cannot be empty'**
   String get passwordEmpty;
 
-  /// No description provided for @password.
+  /// Label for the password input field.
   ///
   /// In en, this message translates to:
   /// **'Password'**
   String get password;
 
-  /// No description provided for @confirmPassword.
+  /// Label for the confirm password input field.
   ///
   /// In en, this message translates to:
   /// **'Confirm Password'**
   String get confirmPassword;
 
-  /// No description provided for @passwordsNotMatch.
+  /// Error message when password and confirmation password do not match.
   ///
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordsNotMatch;
 
-  /// No description provided for @userCreatedStories.
+  /// Header for the section showing stories created by another user.
   ///
   /// In en, this message translates to:
   /// **'User Created Stories'**
   String get userCreatedStories;
 
-  /// No description provided for @yourStories.
+  /// Header for the section showing stories created by the current user.
   ///
   /// In en, this message translates to:
   /// **'Your Stories'**
   String get yourStories;
 
-  /// No description provided for @userNoStories.
+  /// Message displayed when viewing another user's profile and they have no stories.
   ///
   /// In en, this message translates to:
   /// **'User has not created any story'**
   String get userNoStories;
 
-  /// No description provided for @youNoStories.
+  /// Message displayed on the current user's profile when they have no stories.
   ///
   /// In en, this message translates to:
   /// **'You have not created any story'**
   String get youNoStories;
 
-  /// No description provided for @follow.
+  /// Button text to follow a user.
   ///
   /// In en, this message translates to:
   /// **'Follow'**
   String get follow;
 
-  /// No description provided for @editProfile.
+  /// Button text to navigate to the profile editing screen.
   ///
   /// In en, this message translates to:
   /// **'Edit Profile'**
   String get editProfile;
 
-  /// No description provided for @verifyEmail.
+  /// Button or link text to start the email verification process.
   ///
   /// In en, this message translates to:
   /// **'Verify Email'**
   String get verifyEmail;
 
-  /// No description provided for @verified.
+  /// A status label indicating that the user's email has been verified.
   ///
   /// In en, this message translates to:
   /// **'Verified'**
   String get verified;
 
-  /// No description provided for @profile.
+  /// Label for the user profile section or page.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
 
-  /// No description provided for @userLikedStories.
+  /// Header for the section showing stories liked by another user.
   ///
   /// In en, this message translates to:
   /// **'User Liked Stories'**
   String get userLikedStories;
 
-  /// No description provided for @yourLikedStories.
+  /// Header for the section showing stories liked by the current user.
   ///
   /// In en, this message translates to:
   /// **'Your Liked Stories'**
   String get yourLikedStories;
 
-  /// No description provided for @userNoLikedStories.
+  /// Message displayed when viewing another user's profile and they have no liked stories.
   ///
   /// In en, this message translates to:
   /// **'User has not liked any story'**
   String get userNoLikedStories;
 
-  /// No description provided for @youNoLikedStories.
+  /// Message displayed on the current user's profile when they have no liked stories.
   ///
   /// In en, this message translates to:
   /// **'You have not liked any story'**
   String get youNoLikedStories;
 
-  /// No description provided for @live.
+  /// Tab or label for live audio rooms.
   ///
   /// In en, this message translates to:
   /// **'Live'**
   String get live;
 
-  /// No description provided for @upcoming.
+  /// Tab or label for scheduled/upcoming audio rooms.
   ///
   /// In en, this message translates to:
   /// **'Upcoming'**
   String get upcoming;
 
-  /// Message when no room or upcoming room is available
+  /// Message when no room or upcoming room is available, with a call to action.
   ///
   /// In en, this message translates to:
   /// **'{isRoom, select, true{No Room Available} false{No Upcoming Room Available} other{No Room Information Available}}\nGet Started By Adding One Below!'**
   String noAvailableRoom(String isRoom);
 
-  /// No description provided for @user1.
+  /// A generic placeholder name for a user.
   ///
   /// In en, this message translates to:
   /// **'User 1'**
   String get user1;
 
-  /// No description provided for @user2.
+  /// A second generic placeholder name for a user.
   ///
   /// In en, this message translates to:
   /// **'User 2'**
   String get user2;
 
-  /// No description provided for @you.
+  /// Label to identify the current user in a list or chat.
   ///
   /// In en, this message translates to:
   /// **'You'**
   String get you;
 
-  /// No description provided for @areYouSure.
+  /// Confirmation prompt title.
   ///
   /// In en, this message translates to:
   /// **'Are you sure?'**
   String get areYouSure;
 
-  /// No description provided for @loggingOut.
+  /// Confirmation prompt message for logging out.
   ///
   /// In en, this message translates to:
   /// **'You are logging out of Resonate.'**
   String get loggingOut;
 
-  /// No description provided for @yes.
+  /// Generic confirmation button text.
   ///
   /// In en, this message translates to:
   /// **'Yes'**
   String get yes;
 
-  /// No description provided for @no.
+  /// Generic cancellation button text.
   ///
   /// In en, this message translates to:
   /// **'No'**
   String get no;
 
-  /// No description provided for @incorrectEmailOrPassword.
+  /// Error message for failed login attempt.
   ///
   /// In en, this message translates to:
   /// **'Incorrect email or password'**
   String get incorrectEmailOrPassword;
 
-  /// No description provided for @passwordShort.
+  /// Error message for a password that is too short.
   ///
   /// In en, this message translates to:
   /// **'Password is less than 8 characters'**
   String get passwordShort;
 
-  /// No description provided for @tryAgain.
+  /// Button text to retry a failed action.
   ///
   /// In en, this message translates to:
   /// **'Try Again!'**
   String get tryAgain;
 
-  /// No description provided for @success.
+  /// Generic title for a successful operation.
   ///
   /// In en, this message translates to:
   /// **'Success'**
   String get success;
 
-  /// No description provided for @passwordResetSent.
+  /// Success message after a password reset email has been dispatched.
   ///
   /// In en, this message translates to:
   /// **'Password reset email sent!'**
   String get passwordResetSent;
 
-  /// No description provided for @error.
+  /// Generic title for a failed operation.
   ///
   /// In en, this message translates to:
   /// **'Error'**
   String get error;
 
-  /// No description provided for @resetPassword.
+  /// Title or button text for the reset password feature.
   ///
   /// In en, this message translates to:
   /// **'Reset Password'**
   String get resetPassword;
 
-  /// No description provided for @enterNewPassword.
+  /// Instructional text on the reset password screen.
   ///
   /// In en, this message translates to:
   /// **'Enter your new password'**
   String get enterNewPassword;
 
-  /// No description provided for @newPassword.
+  /// Label for the new password input field.
   ///
   /// In en, this message translates to:
   /// **'New Password'**
   String get newPassword;
 
-  /// No description provided for @setNewPassword.
+  /// Button text to confirm setting a new password.
   ///
   /// In en, this message translates to:
   /// **'Set New Password'**
   String get setNewPassword;
 
-  /// No description provided for @emailChanged.
+  /// Title for the success dialog after an email change.
   ///
   /// In en, this message translates to:
   /// **'Email Changed'**
   String get emailChanged;
 
-  /// No description provided for @emailChangeSuccess.
+  /// Success message after changing the user's email.
   ///
   /// In en, this message translates to:
   /// **'Email changed successfully!'**
   String get emailChangeSuccess;
 
-  /// No description provided for @failed.
+  /// Generic title for a failed operation.
   ///
   /// In en, this message translates to:
   /// **'Failed'**
   String get failed;
 
-  /// No description provided for @emailChangeFailed.
+  /// Error message when an email change operation fails.
   ///
   /// In en, this message translates to:
   /// **'Failed to change email'**
   String get emailChangeFailed;
 
-  /// No description provided for @oops.
+  /// An informal title for an error or warning message.
   ///
   /// In en, this message translates to:
   /// **'Oops!'**
   String get oops;
 
-  /// No description provided for @emailExists.
+  /// Error message when a user tries to register or change to an email that is already in use.
   ///
   /// In en, this message translates to:
   /// **'Email already exists'**
   String get emailExists;
 
-  /// No description provided for @changeEmail.
+  /// Title or button text for the change email feature.
   ///
   /// In en, this message translates to:
   /// **'Change Email'**
   String get changeEmail;
 
-  /// No description provided for @enterValidEmail.
+  /// Error message for an invalid email format.
   ///
   /// In en, this message translates to:
   /// **'Please enter a valid email address'**
   String get enterValidEmail;
 
-  /// No description provided for @newEmail.
+  /// Label for the new email input field.
   ///
   /// In en, this message translates to:
   /// **'New Email'**
   String get newEmail;
 
-  /// No description provided for @currentPassword.
+  /// Label for the current password input field, used for verification.
   ///
   /// In en, this message translates to:
   /// **'Current Password'**
   String get currentPassword;
 
-  /// No description provided for @emailChangeInfo.
+  /// Informational text explaining the process and security requirements for changing an email address for standard users.
   ///
   /// In en, this message translates to:
   /// **'For added security, you must provide your account\'s current password when changing your email address. After changing your email, use the updated email for future logins.'**
   String get emailChangeInfo;
 
-  /// No description provided for @oauthUsersMessage.
+  /// A message to specify that the following instructions are for OAuth users.
   ///
   /// In en, this message translates to:
   /// **'(Only for users who logged in using Google or Github)'**
   String get oauthUsersMessage;
 
-  /// No description provided for @oauthUsersEmailChangeInfo.
+  /// Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password.
   ///
   /// In en, this message translates to:
   /// **'To change your email, please enter a new password in the \"Current Password\" field. Be sure to remember this password, as you\'ll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.'**
   String get oauthUsersEmailChangeInfo;
 
-  /// No description provided for @resonateTagline.
+  /// The application's tagline, used on splash or login screens.
   ///
   /// In en, this message translates to:
   /// **'Enter a world of limitless\nconversations.'**
   String get resonateTagline;
 
-  /// No description provided for @signInWithEmail.
+  /// Button text for signing in using email and password.
   ///
   /// In en, this message translates to:
   /// **'Sign in with Email'**
   String get signInWithEmail;
 
-  /// No description provided for @or.
+  /// A separator text, typically used between different login options.
   ///
   /// In en, this message translates to:
   /// **'Or'**
   String get or;
 
-  /// No description provided for @continueWith.
+  /// Informational text preceding a list of third-party login providers.
   ///
   /// In en, this message translates to:
   /// **'Continue with'**
   String get continueWith;
 
-  /// No description provided for @continueWithGoogle.
+  /// Button text for signing in with a Google account.
   ///
   /// In en, this message translates to:
   /// **'Continue with Google'**
   String get continueWithGoogle;
 
-  /// No description provided for @continueWithGitHub.
+  /// Button text for signing in with a GitHub account.
   ///
   /// In en, this message translates to:
   /// **'Continue with GitHub'**
   String get continueWithGitHub;
 
-  /// No description provided for @resonateLogo.
+  /// Accessibility text for the Resonate application logo image.
   ///
   /// In en, this message translates to:
   /// **'Resonate Logo'**
   String get resonateLogo;
 
-  /// No description provided for @iAlreadyHaveAnAccount.
+  /// Text for a link or button to navigate to the login screen from the sign-up screen.
   ///
   /// In en, this message translates to:
   /// **'I already have an account'**
   String get iAlreadyHaveAnAccount;
 
-  /// No description provided for @createNewAccount.
+  /// Text for a link or button to navigate to the sign-up screen from the login screen.
   ///
   /// In en, this message translates to:
   /// **'Create new account'**
   String get createNewAccount;
 
-  /// No description provided for @userProfile.
+  /// Accessibility text for a user's profile picture or avatar.
   ///
   /// In en, this message translates to:
   /// **'User profile'**
   String get userProfile;
 
-  /// No description provided for @passwordIsStrong.
+  /// Validation message indicating that the entered password meets all strength requirements.
   ///
   /// In en, this message translates to:
   /// **'Password is strong'**
   String get passwordIsStrong;
 
-  /// No description provided for @admin.
+  /// Label for the Admin user role in a room.
   ///
   /// In en, this message translates to:
   /// **'Admin'**
   String get admin;
 
-  /// No description provided for @moderator.
+  /// Label for the Moderator user role in a room.
   ///
   /// In en, this message translates to:
   /// **'Moderator'**
   String get moderator;
 
-  /// No description provided for @speaker.
+  /// Label for the Speaker user role in a room.
   ///
   /// In en, this message translates to:
   /// **'Speaker'**
   String get speaker;
 
-  /// No description provided for @listener.
+  /// Label for the Listener user role in a room.
   ///
   /// In en, this message translates to:
   /// **'Listener'**
   String get listener;
 
-  /// No description provided for @removeModerator.
+  /// Menu item text to revoke moderator privileges from a user.
   ///
   /// In en, this message translates to:
   /// **'Remove Moderator'**
   String get removeModerator;
 
-  /// No description provided for @kickOut.
+  /// Menu item text to remove a user from a room.
   ///
   /// In en, this message translates to:
   /// **'Kick Out'**
   String get kickOut;
 
-  /// No description provided for @addModerator.
+  /// Menu item text to grant moderator privileges to a user.
   ///
   /// In en, this message translates to:
   /// **'Add Moderator'**
   String get addModerator;
 
-  /// No description provided for @addSpeaker.
+  /// Menu item text to grant speaker privileges to a listener.
   ///
   /// In en, this message translates to:
   /// **'Add Speaker'**
   String get addSpeaker;
 
-  /// No description provided for @makeListener.
+  /// Menu item text to change a speaker's role to listener.
   ///
   /// In en, this message translates to:
   /// **'Make Listener'**
   String get makeListener;
 
-  /// No description provided for @pairChat.
+  /// A feature name for one-on-one random chat.
   ///
   /// In en, this message translates to:
   /// **'Pair Chat'**
   String get pairChat;
 
-  /// No description provided for @chooseIdentity.
+  /// Prompt for the user to choose their identity, e.g., anonymous or public.
   ///
   /// In en, this message translates to:
   /// **'Choose Identity'**
   String get chooseIdentity;
 
-  /// No description provided for @selectLanguage.
+  /// Label for the language selection setting.
   ///
   /// In en, this message translates to:
   /// **'Select Language'**
   String get selectLanguage;
 
-  /// No description provided for @noConnection.
+  /// Title indicating that there is no internet connection.
   ///
   /// In en, this message translates to:
   /// **'No Connection'**
   String get noConnection;
 
-  /// No description provided for @loadingDialog.
+  /// Accessibility text for a loading indicator or spinner.
   ///
   /// In en, this message translates to:
   /// **'Loading Dialog'**
   String get loadingDialog;
 
-  /// No description provided for @createAccount.
+  /// Button text or page title for the account creation screen.
   ///
   /// In en, this message translates to:
   /// **'Create Account'**
   String get createAccount;
 
-  /// No description provided for @enterValidEmailAddress.
+  /// Error message shown for an invalid email format.
   ///
   /// In en, this message translates to:
   /// **'Enter Valid Email Address'**
   String get enterValidEmailAddress;
 
-  /// No description provided for @email.
+  /// Label for the email input field.
   ///
   /// In en, this message translates to:
   /// **'Email'**
   String get email;
 
-  /// No description provided for @passwordRequirements.
+  /// Instructional text listing the requirements for a valid password, part 1.
   ///
   /// In en, this message translates to:
   /// **'Password must be at least 8 characters long'**
   String get passwordRequirements;
 
-  /// No description provided for @includeNumericDigit.
+  /// Instructional text listing the requirements for a valid password, part 2.
   ///
   /// In en, this message translates to:
   /// **'Include at least 1 numeric digit'**
   String get includeNumericDigit;
 
-  /// No description provided for @includeUppercase.
+  /// Instructional text listing the requirements for a valid password, part 3.
   ///
   /// In en, this message translates to:
   /// **'Include at least 1 uppercase letter'**
   String get includeUppercase;
 
-  /// No description provided for @includeLowercase.
+  /// Instructional text listing the requirements for a valid password, part 4.
   ///
   /// In en, this message translates to:
   /// **'Include at least 1 lowercase letter'**
   String get includeLowercase;
 
-  /// No description provided for @includeSymbol.
+  /// Instructional text listing the requirements for a valid password, part 5.
   ///
   /// In en, this message translates to:
   /// **'Include at least 1 symbol'**
   String get includeSymbol;
 
-  /// No description provided for @signedUpSuccessfully.
+  /// Title for a success message after account creation.
   ///
   /// In en, this message translates to:
   /// **'Signed Up Successfully'**
   String get signedUpSuccessfully;
 
-  /// No description provided for @newAccountCreated.
+  /// Success message confirming that a new account has been created.
   ///
   /// In en, this message translates to:
   /// **'You have successfully created a new account'**
   String get newAccountCreated;
 
-  /// No description provided for @signUp.
+  /// Button text to submit the sign-up form.
   ///
   /// In en, this message translates to:
   /// **'Sign up'**
   String get signUp;
 
-  /// No description provided for @login.
+  /// Button text to submit the login form.
   ///
   /// In en, this message translates to:
   /// **'Login'**
   String get login;
 
-  /// No description provided for @settings.
+  /// Title for the settings page.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
 
-  /// No description provided for @accountSettings.
+  /// Sub-header for account-related settings.
   ///
   /// In en, this message translates to:
   /// **'Account settings'**
   String get accountSettings;
 
-  /// No description provided for @account.
+  /// Label for the account settings section.
   ///
   /// In en, this message translates to:
   /// **'Account'**
   String get account;
 
-  /// No description provided for @appSettings.
+  /// Sub-header for application-related settings.
   ///
   /// In en, this message translates to:
   /// **'App settings'**
   String get appSettings;
 
-  /// No description provided for @themes.
+  /// Label for the theme selection setting.
   ///
   /// In en, this message translates to:
   /// **'Themes'**
   String get themes;
 
-  /// No description provided for @about.
+  /// Label for the 'About' section or page of the app or a story.
   ///
   /// In en, this message translates to:
   /// **'About'**
   String get about;
 
-  /// No description provided for @other.
+  /// A generic category label for miscellaneous settings or items.
   ///
   /// In en, this message translates to:
   /// **'Other'**
   String get other;
 
-  /// No description provided for @contribute.
+  /// Label for a section encouraging users to contribute to the project.
   ///
   /// In en, this message translates to:
   /// **'Contribute'**
   String get contribute;
 
-  /// No description provided for @logOut.
+  /// Button text to log the user out of their account.
   ///
   /// In en, this message translates to:
   /// **'Log out'**
   String get logOut;
 
-  /// No description provided for @participants.
+  /// Label or title for the list of participants in a room.
   ///
   /// In en, this message translates to:
   /// **'Participants'**
   String get participants;
 
-  /// No description provided for @delete.
+  /// Generic button text for a delete action. Parameter for toRoomAction.
   ///
   /// In en, this message translates to:
   /// **'delete'**
   String get delete;
 
-  /// No description provided for @leave.
+  /// Generic button text for a leave action. Parameter for toRoomAction.
   ///
   /// In en, this message translates to:
   /// **'leave'**
   String get leave;
 
-  /// No description provided for @leaveButton.
+  /// Button text to leave a room or conversation.
   ///
   /// In en, this message translates to:
   /// **'Leave'**
   String get leaveButton;
 
-  /// No description provided for @findingRandomPartner.
+  /// Status message shown while the system is searching for a random chat partner.
   ///
   /// In en, this message translates to:
   /// **'Finding a Random Partner For You'**
   String get findingRandomPartner;
 
-  /// No description provided for @quickFact.
+  /// Header for a quick fact or tip, often shown during loading.
   ///
   /// In en, this message translates to:
   /// **'Quick fact'**
   String get quickFact;
 
-  /// No description provided for @cancel.
+  /// Generic button text for a cancel action.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
 
-  /// No description provided for @completeYourProfile.
+  /// Page title or prompt for the user to finish setting up their profile.
   ///
   /// In en, this message translates to:
   /// **'Complete your Profile'**
   String get completeYourProfile;
 
-  /// No description provided for @uploadProfilePicture.
+  /// Instructional text or button to upload a profile picture.
   ///
   /// In en, this message translates to:
   /// **'Upload profile picture'**
   String get uploadProfilePicture;
 
-  /// No description provided for @enterValidName.
+  /// Error message for an invalid name format.
   ///
   /// In en, this message translates to:
   /// **'Enter Valid Name'**
   String get enterValidName;
 
-  /// No description provided for @name.
+  /// Label for the name input field.
   ///
   /// In en, this message translates to:
   /// **'Name'**
   String get name;
 
-  /// No description provided for @username.
+  /// Label for the username input field.
   ///
   /// In en, this message translates to:
   /// **'Username'**
   String get username;
 
-  /// No description provided for @enterValidDOB.
+  /// Error message for an invalid date of birth.
   ///
   /// In en, this message translates to:
   /// **'Enter Valid DOB'**
   String get enterValidDOB;
 
-  /// No description provided for @dateOfBirth.
+  /// Label for the date of birth input field.
   ///
   /// In en, this message translates to:
   /// **'Date of Birth'**
   String get dateOfBirth;
 
-  /// No description provided for @forgotPassword.
+  /// Link text for users who have forgotten their password.
   ///
   /// In en, this message translates to:
   /// **'Forgot Password?'**
   String get forgotPassword;
 
-  /// No description provided for @next.
+  /// Button text to proceed to the next step in a process.
   ///
   /// In en, this message translates to:
   /// **'Next'**
   String get next;
 
-  /// No description provided for @noStoriesExist.
+  /// Message displayed when there are no stories available in a list.
   ///
   /// In en, this message translates to:
   /// **'No stories exist to present'**
   String get noStoriesExist;
 
-  /// No description provided for @enterVerificationCode.
+  /// Prompt for the user to enter the verification code sent to their email.
   ///
   /// In en, this message translates to:
   /// **'Enter your\nVerification Code'**
   String get enterVerificationCode;
 
-  /// No description provided for @verificationCodeSent.
+  /// Message informing the user that a verification code has been sent. The email address is appended in the code.
   ///
   /// In en, this message translates to:
   /// **'We sent a 6-digit verification code to\n'**
   String get verificationCodeSent;
 
-  /// No description provided for @verificationComplete.
+  /// Title for a success message after email verification.
   ///
   /// In en, this message translates to:
   /// **'Verification Complete'**
   String get verificationComplete;
 
-  /// No description provided for @verificationCompleteMessage.
+  /// Success message confirming email verification.
   ///
   /// In en, this message translates to:
   /// **'Congratulations you have verified your Email'**
   String get verificationCompleteMessage;
 
-  /// No description provided for @verificationFailed.
+  /// Title for an error message when verification fails.
   ///
   /// In en, this message translates to:
   /// **'Verification Failed'**
   String get verificationFailed;
 
-  /// No description provided for @otpMismatch.
+  /// Error message when the entered OTP is incorrect.
   ///
   /// In en, this message translates to:
   /// **'OTP mismatch occurred please try again'**
   String get otpMismatch;
 
-  /// No description provided for @otpResent.
+  /// Confirmation message that the OTP has been resent.
   ///
   /// In en, this message translates to:
   /// **'OTP resent'**
   String get otpResent;
 
-  /// No description provided for @requestNewCode.
+  /// Button text to request a new verification code.
   ///
   /// In en, this message translates to:
   /// **'Request a new code'**
   String get requestNewCode;
 
-  /// No description provided for @requestNewCodeIn.
+  /// Text displayed before a countdown timer for requesting a new code.
   ///
   /// In en, this message translates to:
   /// **'Request a new code in'**
   String get requestNewCodeIn;
 
-  /// No description provided for @clickPictureCamera.
+  /// Option to take a new photo using the device camera.
   ///
   /// In en, this message translates to:
   /// **'Click picture using camera'**
   String get clickPictureCamera;
 
-  /// No description provided for @pickImageGallery.
+  /// Option to choose an existing image from the device gallery.
   ///
   /// In en, this message translates to:
   /// **'Pick image from gallery'**
   String get pickImageGallery;
 
-  /// No description provided for @deleteMyAccount.
+  /// Button text for the account deletion feature.
   ///
   /// In en, this message translates to:
   /// **'Delete My Account'**
   String get deleteMyAccount;
 
-  /// No description provided for @createNewRoom.
+  /// Button text or page title for creating a new audio room.
   ///
   /// In en, this message translates to:
   /// **'Create New Room'**
   String get createNewRoom;
 
-  /// No description provided for @pleaseEnterScheduledDateTime.
+  /// Error message when the scheduled date and time for a room is not provided.
   ///
   /// In en, this message translates to:
   /// **'Please Enter Scheduled Date-Time'**
   String get pleaseEnterScheduledDateTime;
 
-  /// No description provided for @scheduleDateTimeLabel.
+  /// Label for the input field to schedule a room's date and time.
   ///
   /// In en, this message translates to:
   /// **'Schedule Date Time'**
   String get scheduleDateTimeLabel;
 
-  /// No description provided for @enterTags.
+  /// Placeholder or label for the input field for adding tags to a room or story.
   ///
   /// In en, this message translates to:
   /// **'Enter tags'**
   String get enterTags;
 
-  /// No description provided for @joinCommunity.
+  /// Button text or header for the community section.
   ///
   /// In en, this message translates to:
   /// **'Join Community'**
   String get joinCommunity;
 
-  /// No description provided for @followUsOnX.
+  /// Link text to the company's profile on X (formerly Twitter).
   ///
   /// In en, this message translates to:
   /// **'Follow us on X'**
   String get followUsOnX;
 
-  /// No description provided for @joinDiscordServer.
+  /// Link text to join the project's Discord server.
   ///
   /// In en, this message translates to:
   /// **'Join discord server'**
   String get joinDiscordServer;
 
-  /// No description provided for @noLyrics.
+  /// Message displayed when lyrics for an audio file are not available.
   ///
   /// In en, this message translates to:
   /// **'No lyrics'**
   String get noLyrics;
 
-  /// No description provided for @aboutSection.
+  /// Header for the 'About' section.
   ///
   /// In en, this message translates to:
   /// **'About'**
   String get aboutSection;
 
-  /// Message when no stories exist in a category
+  /// Message when no stories exist in a specific category.
   ///
   /// In en, this message translates to:
   /// **'No stories currently exist in the {categoryName} category to present'**
   String noStoriesInCategory(String categoryName);
 
-  /// No description provided for @pushNewChapters.
+  /// Header or label for the section to add or view new chapters of a story.
   ///
   /// In en, this message translates to:
-  /// **'Push New Chapters'**
-  String get pushNewChapters;
+  /// **'New Chapters'**
+  String get newChapters;
 
-  /// No description provided for @helpToGrow.
+  /// A call to action asking users to help the platform grow, often a header for sharing/rating.
   ///
   /// In en, this message translates to:
   /// **'Help to grow'**
   String get helpToGrow;
 
-  /// No description provided for @share.
+  /// Button text for sharing content.
   ///
   /// In en, this message translates to:
   /// **'Share'**
   String get share;
 
-  /// No description provided for @rate.
+  /// Button text for rating the app or content.
   ///
   /// In en, this message translates to:
   /// **'Rate'**
   String get rate;
 
-  /// No description provided for @aboutResonate.
+  /// Title for the 'About' page of the Resonate application.
   ///
   /// In en, this message translates to:
   /// **'About Resonate'**
   String get aboutResonate;
 
-  /// No description provided for @description.
+  /// Label for a description field.
   ///
   /// In en, this message translates to:
   /// **'Description'**
   String get description;
 
-  /// No description provided for @confirm.
+  /// Generic button text for a confirm action.
   ///
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
 
-  /// No description provided for @classic.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Classic'**
   String get classic;
 
-  /// No description provided for @time.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Time'**
   String get time;
 
-  /// No description provided for @vintage.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Vintage'**
   String get vintage;
 
-  /// No description provided for @amber.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Amber'**
   String get amber;
 
-  /// No description provided for @forest.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Forest'**
   String get forest;
 
-  /// No description provided for @cream.
+  /// Name of a theme option.
   ///
   /// In en, this message translates to:
   /// **'Cream'**
   String get cream;
 
-  /// No description provided for @none.
+  /// Text representing no selection or absence of a value.
   ///
   /// In en, this message translates to:
   /// **'none'**
   String get none;
 
-  /// Share message for GitHub repository
+  /// Share message for the GitHub repository, including a placeholder for the URL.
   ///
   /// In en, this message translates to:
   /// **'Check out our GitHub repository: {url}'**
   String checkOutGitHub(String url);
 
-  /// No description provided for @aossie.
+  /// The name of the organization.
   ///
   /// In en, this message translates to:
   /// **'AOSSIE'**
   String get aossie;
 
-  /// No description provided for @aossieLogo.
+  /// Accessibility text for the AOSSIE organization logo.
   ///
   /// In en, this message translates to:
   /// **'aossie logo'**
   String get aossieLogo;
 
-  /// No description provided for @errorLoadPackageInfo.
+  /// Error message when the application fails to load its package information (e.g., version).
   ///
   /// In en, this message translates to:
   /// **'Could not load package info'**
   String get errorLoadPackageInfo;
 
-  /// No description provided for @updateAvailable.
+  /// Title indicating that a new version of the app is available.
   ///
   /// In en, this message translates to:
   /// **'Update Available'**
   String get updateAvailable;
 
-  /// No description provided for @newVersionAvailable.
+  /// Message informing the user about an available update.
   ///
   /// In en, this message translates to:
   /// **'A new version is available!'**
   String get newVersionAvailable;
 
-  /// No description provided for @upToDate.
+  /// Title indicating the application is on the latest version.
   ///
   /// In en, this message translates to:
   /// **'Up to Date'**
   String get upToDate;
 
-  /// No description provided for @latestVersion.
+  /// Message confirming the user has the latest version of the app.
   ///
   /// In en, this message translates to:
   /// **'You\'re using the latest version'**
   String get latestVersion;
 
-  /// No description provided for @profileCreatedSuccessfully.
+  /// Success message after a user's profile is created.
   ///
   /// In en, this message translates to:
   /// **'Profile created successfully'**
   String get profileCreatedSuccessfully;
 
-  /// No description provided for @invalidScheduledDateTime.
+  /// Error message for an invalid date-time format.
   ///
   /// In en, this message translates to:
   /// **'Invalid Scheduled Date Time'**
   String get invalidScheduledDateTime;
 
-  /// No description provided for @scheduledDateTimePast.
+  /// Error message when the user selects a past date-time for a scheduled event.
   ///
   /// In en, this message translates to:
   /// **'Scheduled Date Time cannot be in past'**
   String get scheduledDateTimePast;
 
-  /// No description provided for @joinRoom.
+  /// Button text to join an audio room.
   ///
   /// In en, this message translates to:
   /// **'Join Room'**
   String get joinRoom;
 
-  /// No description provided for @loadingDialogName.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading Dialog'**
-  String get loadingDialogName;
-
-  /// No description provided for @unknownUser.
+  /// Placeholder text for a user whose name is not available.
   ///
   /// In en, this message translates to:
   /// **'Unknown'**
   String get unknownUser;
 
-  /// No description provided for @canceled.
+  /// A status label indicating that an action was canceled.
   ///
   /// In en, this message translates to:
   /// **'canceled'**
   String get canceled;
 
-  /// No description provided for @english.
+  /// The language code for English.
   ///
   /// In en, this message translates to:
   /// **'en'**
   String get english;
 
-  /// No description provided for @emailVerificationRequired.
+  /// A title or message indicating that email verification is needed to proceed.
   ///
   /// In en, this message translates to:
   /// **'Email Verification Required'**
   String get emailVerificationRequired;
 
-  /// No description provided for @verify.
+  /// Button text to initiate a verification process.
   ///
   /// In en, this message translates to:
   /// **'Verify'**
   String get verify;
 
-  /// No description provided for @audioRoom.
+  /// Generic title for an audio room.
   ///
   /// In en, this message translates to:
   /// **'Audio Room'**
   String get audioRoom;
 
-  /// Room action message
+  /// A dynamic message for confirming an action on a room, like deleting or leaving.
   ///
   /// In en, this message translates to:
   /// **'To {action} the room'**
   String toRoomAction(String action);
 
-  /// No description provided for @mailSentMessage.
+  /// A confirmation message indicating an email has been sent.
   ///
   /// In en, this message translates to:
   /// **'mail sent'**
   String get mailSentMessage;
 
-  /// No description provided for @disconnected.
+  /// A status label indicating a loss of connection.
   ///
   /// In en, this message translates to:
   /// **'disconnected'**
   String get disconnected;
 
-  /// No description provided for @micOn.
+  /// Accessibility label for the microphone button when it is on.
   ///
   /// In en, this message translates to:
   /// **'mic'**
   String get micOn;
 
-  /// No description provided for @speakerOn.
+  /// Accessibility label for the speakerphone button when it is on.
   ///
   /// In en, this message translates to:
   /// **'speaker'**
   String get speakerOn;
 
-  /// No description provided for @endChat.
+  /// Accessibility label for the end chat/call button.
   ///
   /// In en, this message translates to:
   /// **'end-chat'**
   String get endChat;
 
-  /// No description provided for @monthJan.
+  /// Abbreviation for January.
   ///
   /// In en, this message translates to:
   /// **'Jan'**
   String get monthJan;
 
-  /// No description provided for @monthFeb.
+  /// Abbreviation for February.
   ///
   /// In en, this message translates to:
   /// **'Feb'**
   String get monthFeb;
 
-  /// No description provided for @monthMar.
+  /// Full name for March.
   ///
   /// In en, this message translates to:
   /// **'March'**
   String get monthMar;
 
-  /// No description provided for @monthApr.
+  /// Full name for April.
   ///
   /// In en, this message translates to:
   /// **'April'**
   String get monthApr;
 
-  /// No description provided for @monthMay.
+  /// Full name for May.
   ///
   /// In en, this message translates to:
   /// **'May'**
   String get monthMay;
 
-  /// No description provided for @monthJun.
+  /// Full name for June.
   ///
   /// In en, this message translates to:
   /// **'June'**
   String get monthJun;
 
-  /// No description provided for @monthJul.
+  /// Full name for July.
   ///
   /// In en, this message translates to:
   /// **'July'**
   String get monthJul;
 
-  /// No description provided for @monthAug.
+  /// Abbreviation for August.
   ///
   /// In en, this message translates to:
   /// **'Aug'**
   String get monthAug;
 
-  /// No description provided for @monthSep.
+  /// Abbreviation for September.
   ///
   /// In en, this message translates to:
   /// **'Sep'**
   String get monthSep;
 
-  /// No description provided for @monthOct.
+  /// Abbreviation for October.
   ///
   /// In en, this message translates to:
   /// **'Oct'**
   String get monthOct;
 
-  /// No description provided for @monthNov.
+  /// Abbreviation for November.
   ///
   /// In en, this message translates to:
   /// **'Nov'**
   String get monthNov;
 
-  /// No description provided for @monthDec.
+  /// Abbreviation for December.
   ///
   /// In en, this message translates to:
   /// **'Dec'**
   String get monthDec;
 
-  /// No description provided for @register.
+  /// Button text to register a new account.
   ///
   /// In en, this message translates to:
   /// **'Register'**
   String get register;
 
-  /// No description provided for @newToResonate.
+  /// Text preceding the 'Create new account' link on the login screen.
   ///
   /// In en, this message translates to:
   /// **'New to Resonate? '**
   String get newToResonate;
 
-  /// No description provided for @alreadyHaveAccount.
+  /// Text preceding the 'Login' link on the sign-up screen.
   ///
   /// In en, this message translates to:
   /// **'Already have an account? '**
   String get alreadyHaveAccount;
 
-  /// No description provided for @checking.
+  /// A temporary status message indicating a check is in progress.
   ///
   /// In en, this message translates to:
   /// **'Checking...'**
   String get checking;
 
-  /// No description provided for @forgotPasswordMessage.
+  /// Instructional text on the forgot password screen.
   ///
   /// In en, this message translates to:
   /// **'Enter your registered email address to reset your password.'**
   String get forgotPasswordMessage;
 
-  /// No description provided for @usernameUnavailable.
+  /// Title for the error when a chosen username is taken.
   ///
   /// In en, this message translates to:
   /// **'Username Unavailable!'**
   String get usernameUnavailable;
 
-  /// No description provided for @usernameInvalidOrTaken.
+  /// Error message explaining why a username cannot be used.
   ///
   /// In en, this message translates to:
   /// **'This username is invalid or either taken already.'**
   String get usernameInvalidOrTaken;
 
-  /// No description provided for @otpResentMessage.
+  /// Message informing the user to check their email for a new OTP.
   ///
   /// In en, this message translates to:
   /// **'Please check your mail for a new OTP.'**
   String get otpResentMessage;
 
-  /// No description provided for @connectionError.
+  /// Generic error message for network connection issues.
   ///
   /// In en, this message translates to:
   /// **'There is a connection error. Please check your internet and try again.'**
   String get connectionError;
 
-  /// No description provided for @seconds.
+  /// The word 'seconds', often used after a countdown number.
   ///
   /// In en, this message translates to:
   /// **'seconds.'**
   String get seconds;
 
-  /// No description provided for @unsavedChangesWarning.
+  /// A warning message shown when a user tries to leave a screen with unsaved changes.
   ///
   /// In en, this message translates to:
   /// **'If you proceed without saving, any unsaved changes will be lost.'**
   String get unsavedChangesWarning;
 
-  /// No description provided for @deleteAccountPermanent.
+  /// A detailed warning message explaining the consequences of deleting an account.
   ///
   /// In en, this message translates to:
   /// **'This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.'**
   String get deleteAccountPermanent;
 
-  /// No description provided for @giveGreatName.
+  /// Placeholder text for a name input field, encouraging a creative name.
   ///
   /// In en, this message translates to:
   /// **'Give a great name..'**
   String get giveGreatName;
 
-  /// No description provided for @joinCommunityDescription.
+  /// A description of the benefits of joining the community.
   ///
   /// In en, this message translates to:
   /// **'By joining community you can Clear your doubts, Suggest for new features, Report issues you faced and More.'**
   String get joinCommunityDescription;
 
-  /// No description provided for @resonateDescription.
+  /// A short, user-facing description of the Resonate application.
   ///
   /// In en, this message translates to:
   /// **'Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.'**
   String get resonateDescription;
 
-  /// No description provided for @resonateFullDescription.
+  /// A comprehensive, detailed description of the Resonate application, its features, and its mission.
   ///
   /// In en, this message translates to:
   /// **'Resonate is a revolutionary voice-based social media platform where every voice matters. \nJoin real-time audio conversations, participate in diverse discussions, and connect with \nlike-minded individuals. Our platform offers:\n- Live audio rooms with topic-based discussions\n- Seamless social networking through voice\n- Community-driven content moderation\n- Cross-platform compatibility\n- End-to-end encrypted private conversations\n\nDeveloped by the AOSSIE open source community, we prioritize user privacy and \ncommunity-driven development. Join us in shaping the future of social audio!'**
   String get resonateFullDescription;
 
-  /// No description provided for @stable.
+  /// A label indicating a stable, non-beta version of the app.
   ///
   /// In en, this message translates to:
   /// **'Stable'**
   String get stable;
 
-  /// No description provided for @congratulationsEmailVerified.
-  ///
-  /// In en, this message translates to:
-  /// **'Congratulations you have verified your Email'**
-  String get congratulationsEmailVerified;
-
-  /// No description provided for @otpMismatchError.
-  ///
-  /// In en, this message translates to:
-  /// **'OTP mismatch occurred please try again'**
-  String get otpMismatchError;
-
-  /// No description provided for @usernameCharacterLimit.
+  /// Error message when a chosen username is too short.
   ///
   /// In en, this message translates to:
   /// **'Username should contain more than 5 characters.'**
   String get usernameCharacterLimit;
 
-  /// No description provided for @submit.
+  /// Generic button text for submitting a form.
   ///
   /// In en, this message translates to:
   /// **'Submit'**
   String get submit;
 
-  /// No description provided for @anonymous.
+  /// Label for an anonymous user or identity.
   ///
   /// In en, this message translates to:
   /// **'Anonymous'**
   String get anonymous;
 
-  /// No description provided for @resonate.
-  ///
-  /// In en, this message translates to:
-  /// **'Resonate'**
-  String get resonate;
-
-  /// No description provided for @noSearchResults.
+  /// Message displayed when a search returns no results.
   ///
   /// In en, this message translates to:
   /// **'No Search Results'**
   String get noSearchResults;
 
-  /// Message to share room information
+  /// The default message template used when sharing a room.
   ///
   /// In en, this message translates to:
   /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!'**
@@ -1392,607 +1368,583 @@ abstract class AppLocalizations {
     int participants,
   );
 
-  /// Number of participants in a room
+  /// Displays the number of participants in a room.
   ///
   /// In en, this message translates to:
   /// **'{count} Participants'**
   String participantsCount(int count);
 
-  /// No description provided for @join.
+  /// Generic button text to join an activity or group.
   ///
   /// In en, this message translates to:
   /// **'Join'**
   String get join;
 
-  /// No description provided for @invalidTags.
+  /// Error message prefix for an invalid tag.
   ///
   /// In en, this message translates to:
   /// **'Invalid Tag:'**
   String get invalidTags;
 
-  /// No description provided for @cropImage.
+  /// Title or button text for the image cropping tool.
   ///
   /// In en, this message translates to:
   /// **'Crop Image'**
   String get cropImage;
 
-  /// No description provided for @profileSavedSuccessfully.
+  /// Short success message indicating profile changes have been saved.
   ///
   /// In en, this message translates to:
   /// **'Profile updated'**
   String get profileSavedSuccessfully;
 
-  /// No description provided for @profileUpdatedSuccessfully.
+  /// Detailed success message confirming profile update.
   ///
   /// In en, this message translates to:
   /// **'All changes are saved successfully.'**
   String get profileUpdatedSuccessfully;
 
-  /// No description provided for @profileUpToDate.
+  /// Title for the message when there are no changes to save on the profile.
   ///
   /// In en, this message translates to:
   /// **'Profile up to date'**
   String get profileUpToDate;
 
-  /// No description provided for @noChangesToSave.
+  /// Message displayed when the user tries to save their profile without making any changes.
   ///
   /// In en, this message translates to:
   /// **'There are no new changes made, Nothing to save.'**
   String get noChangesToSave;
 
-  /// No description provided for @connectionFailed.
+  /// Generic title for connection-related errors.
   ///
   /// In en, this message translates to:
   /// **'Connection Failed'**
   String get connectionFailed;
 
-  /// No description provided for @unableToJoinRoom.
+  /// Error message when a user fails to join a room due to connection issues.
   ///
   /// In en, this message translates to:
   /// **'Unable to join the room. Please check your network and try again.'**
   String get unableToJoinRoom;
 
-  /// No description provided for @connectionLost.
+  /// Title indicating that the connection to a service was lost.
   ///
   /// In en, this message translates to:
   /// **'Connection Lost'**
   String get connectionLost;
 
-  /// No description provided for @unableToReconnect.
+  /// Error message when the app fails to reconnect the user to a room.
   ///
   /// In en, this message translates to:
   /// **'Unable to reconnect to the room. Please try rejoining.'**
   String get unableToReconnect;
 
-  /// No description provided for @invalidFormat.
+  /// Generic error message for data with an incorrect format.
   ///
   /// In en, this message translates to:
   /// **'Invalid Format!'**
   String get invalidFormat;
 
-  /// No description provided for @usernameAlphanumeric.
+  /// Error message detailing the character requirements for a valid username.
   ///
   /// In en, this message translates to:
   /// **'Username must be alphanumeric and should not contain special characters.'**
   String get usernameAlphanumeric;
 
-  /// No description provided for @userProfileCreatedSuccessfully.
+  /// Success message after a user completes their profile setup.
   ///
   /// In en, this message translates to:
   /// **'Your user profile is successfully created.'**
   String get userProfileCreatedSuccessfully;
 
-  /// No description provided for @emailVerificationMessage.
+  /// An instructional message prompting the user to verify their email.
   ///
   /// In en, this message translates to:
   /// **'To proceed, verify your email address.'**
   String get emailVerificationMessage;
 
-  /// Title for adding new chapters to a story
+  /// Title for the screen where new chapters are added to an existing story.
   ///
   /// In en, this message translates to:
   /// **'Add New Chapters to {storyName}'**
   String addNewChaptersToStory(String storyName);
 
-  /// No description provided for @currentChapters.
+  /// Header for the list of existing chapters in a story.
   ///
   /// In en, this message translates to:
   /// **'Current Chapters'**
   String get currentChapters;
 
-  /// No description provided for @newChapters.
-  ///
-  /// In en, this message translates to:
-  /// **'New Chapters'**
-  String get newChapters;
-
-  /// No description provided for @sourceCodeOnGitHub.
+  /// Link text to the project's source code on GitHub.
   ///
   /// In en, this message translates to:
   /// **'Source code on GitHub'**
   String get sourceCodeOnGitHub;
 
-  /// No description provided for @createAChapter.
+  /// Title for the screen where a new chapter is created.
   ///
   /// In en, this message translates to:
   /// **'Create a Chapter'**
   String get createAChapter;
 
-  /// No description provided for @chapterTitle.
+  /// Label for the chapter title input field, indicating it is required.
   ///
   /// In en, this message translates to:
   /// **'Chapter Title *'**
   String get chapterTitle;
 
-  /// No description provided for @aboutRequired.
+  /// Label for the 'About' or description input field, indicating it is required.
   ///
   /// In en, this message translates to:
   /// **'About *'**
   String get aboutRequired;
 
-  /// No description provided for @changeCoverImage.
+  /// Button text to change the cover image of a story or chapter.
   ///
   /// In en, this message translates to:
   /// **'Change Cover Image'**
   String get changeCoverImage;
 
-  /// No description provided for @uploadAudioFile.
+  /// Button text to upload an audio file.
   ///
   /// In en, this message translates to:
   /// **'Upload Audio File'**
   String get uploadAudioFile;
 
-  /// No description provided for @uploadLyricsFile.
+  /// Button text to upload a lyrics file.
   ///
   /// In en, this message translates to:
   /// **'Upload Lyrics File'**
   String get uploadLyricsFile;
 
-  /// No description provided for @createChapter.
+  /// Button text to finalize and create a new chapter.
   ///
   /// In en, this message translates to:
   /// **'Create Chapter'**
   String get createChapter;
 
-  /// Message when audio file is selected
+  /// Message shown after an audio file has been selected for upload.
   ///
   /// In en, this message translates to:
   /// **'Audio file Selected: {fileName}'**
   String audioFileSelected(String fileName);
 
-  /// Message when lyrics file is selected
+  /// Message shown after a lyrics file has been selected for upload.
   ///
   /// In en, this message translates to:
   /// **'Lyrics File Selected: {fileName}'**
   String lyricsFileSelected(String fileName);
 
-  /// No description provided for @fillAllRequiredFields.
+  /// Error message when required fields or files are missing from a form.
   ///
   /// In en, this message translates to:
   /// **'Please fill in all required fields and upload your Audio file and Lyrics file'**
   String get fillAllRequiredFields;
 
-  /// No description provided for @scheduled.
+  /// A status label indicating an event is scheduled for the future.
   ///
   /// In en, this message translates to:
   /// **'Scheduled'**
   String get scheduled;
 
-  /// No description provided for @ok.
+  /// Generic confirmation button text, often for closing a dialog.
   ///
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
 
-  /// No description provided for @roomDescriptionOptional.
+  /// Label for the room description input field, indicating it is not required.
   ///
   /// In en, this message translates to:
   /// **'Room Description (optional)'**
   String get roomDescriptionOptional;
 
-  /// No description provided for @deleteAccount.
+  /// Button text to initiate the account deletion process.
   ///
   /// In en, this message translates to:
   /// **'Delete account'**
   String get deleteAccount;
 
-  /// No description provided for @createYourStory.
+  /// Title for the screen where a new story is created.
   ///
   /// In en, this message translates to:
   /// **'Create Your Story'**
   String get createYourStory;
 
-  /// No description provided for @titleRequired.
+  /// Label for the title input field, indicating it is required.
   ///
   /// In en, this message translates to:
   /// **'Title *'**
   String get titleRequired;
 
-  /// No description provided for @category.
+  /// Label for the category selection, indicating it is required.
   ///
   /// In en, this message translates to:
   /// **'Category *'**
   String get category;
 
-  /// No description provided for @addChapter.
+  /// Button text to add a chapter to a story.
   ///
   /// In en, this message translates to:
   /// **'Add Chapter'**
   String get addChapter;
 
-  /// No description provided for @createStory.
+  /// Button text to finalize and create a new story.
   ///
   /// In en, this message translates to:
   /// **'Create Story'**
   String get createStory;
 
-  /// No description provided for @fillAllRequiredFieldsAndChapter.
+  /// Error message for the story creation form when requirements are not met.
   ///
   /// In en, this message translates to:
   /// **'Please fill in all required fields, add at least one chapter, and select a cover image.'**
   String get fillAllRequiredFieldsAndChapter;
 
-  /// No description provided for @toConfirmType.
+  /// Instructional text in a confirmation dialog, preceding the text to be typed.
   ///
   /// In en, this message translates to:
   /// **'To confirm, type'**
   String get toConfirmType;
 
-  /// No description provided for @inTheBoxBelow.
+  /// Instructional text in a confirmation dialog, following the text to be typed.
   ///
   /// In en, this message translates to:
   /// **'in the box below'**
   String get inTheBoxBelow;
 
-  /// No description provided for @iUnderstandDeleteMyAccount.
+  /// The specific phrase a user must type to confirm account deletion.
   ///
   /// In en, this message translates to:
   /// **'I understand, Delete My Account'**
   String get iUnderstandDeleteMyAccount;
 
-  /// No description provided for @whatDoYouWantToListenTo.
+  /// A prompt on the main screen, encouraging user engagement.
   ///
   /// In en, this message translates to:
   /// **'What do you want to listen to?'**
   String get whatDoYouWantToListenTo;
 
-  /// No description provided for @categories.
+  /// Header for the list of categories.
   ///
   /// In en, this message translates to:
   /// **'Categories'**
   String get categories;
 
-  /// No description provided for @stories.
+  /// Header for the list of stories.
   ///
   /// In en, this message translates to:
   /// **'Stories'**
   String get stories;
 
-  /// No description provided for @someSuggestions.
+  /// Header for a list of suggested content.
   ///
   /// In en, this message translates to:
   /// **'Some Suggestions'**
   String get someSuggestions;
 
-  /// No description provided for @getStarted.
+  /// Button text on an onboarding screen to begin using the app.
   ///
   /// In en, this message translates to:
   /// **'Get Started'**
   String get getStarted;
 
-  /// No description provided for @skip.
+  /// Button text to skip an optional step, like onboarding.
   ///
   /// In en, this message translates to:
   /// **'Skip'**
   String get skip;
 
-  /// No description provided for @welcomeToResonate.
+  /// Onboarding screen title.
   ///
   /// In en, this message translates to:
   /// **'Welcome to Resonate'**
   String get welcomeToResonate;
 
-  /// No description provided for @exploreDiverseConversations.
+  /// Feature highlight on an onboarding screen.
   ///
   /// In en, this message translates to:
   /// **'Explore Diverse Conversations'**
   String get exploreDiverseConversations;
 
-  /// No description provided for @yourVoiceMatters.
+  /// Feature highlight on an onboarding screen.
   ///
   /// In en, this message translates to:
   /// **'Your Voice Matters'**
   String get yourVoiceMatters;
 
-  /// No description provided for @joinConversationExploreRooms.
+  /// Descriptive text on an onboarding screen.
   ///
   /// In en, this message translates to:
   /// **'Join the conversation! Explore rooms, connect with friends, and share your voice with the world.'**
   String get joinConversationExploreRooms;
 
-  /// No description provided for @diveIntoDiverseDiscussions.
+  /// Descriptive text on an onboarding screen.
   ///
   /// In en, this message translates to:
   /// **'Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.'**
   String get diveIntoDiverseDiscussions;
 
-  /// No description provided for @atResonateEveryVoiceValued.
+  /// Descriptive text on an onboarding screen.
   ///
   /// In en, this message translates to:
   /// **'At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.'**
   String get atResonateEveryVoiceValued;
 
-  /// No description provided for @notifications.
+  /// Title for the notifications screen.
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
 
-  /// Notification message when tagged in upcoming room
+  /// Notification message when tagged in an upcoming room.
   ///
   /// In en, this message translates to:
   /// **'{username} tagged you in an upcoming room: {subject}'**
   String taggedYouInUpcomingRoom(String username, String subject);
 
-  /// Notification message when tagged in room
+  /// Notification message when tagged in a live room.
   ///
   /// In en, this message translates to:
   /// **'{username} tagged you in room: {subject}'**
   String taggedYouInRoom(String username, String subject);
 
-  /// Notification message when someone likes your story
+  /// Notification message when someone likes your story.
   ///
   /// In en, this message translates to:
   /// **'{username} liked your story: {subject}'**
   String likedYourStory(String username, String subject);
 
-  /// Notification message when someone subscribes to your room
+  /// Notification message when someone subscribes to your room.
   ///
   /// In en, this message translates to:
   /// **'{username} subscribed to your room: {subject}'**
   String subscribedToYourRoom(String username, String subject);
 
-  /// Notification message when someone starts following you
+  /// Notification message when someone starts following you.
   ///
   /// In en, this message translates to:
   /// **'{username} started following you'**
   String startedFollowingYou(String username);
 
-  /// No description provided for @youHaveNewNotification.
+  /// Generic title for a new notification.
   ///
   /// In en, this message translates to:
   /// **'You have a new notification'**
   String get youHaveNewNotification;
 
-  /// No description provided for @hangOnGoodThingsTakeTime.
+  /// A friendly message displayed during a long loading process.
   ///
   /// In en, this message translates to:
   /// **'Hang on, Good Things take time 🔍'**
   String get hangOnGoodThingsTakeTime;
 
-  /// No description provided for @resonateOpenSourceProject.
+  /// Informational text about the open-source nature of the project.
   ///
   /// In en, this message translates to:
   /// **'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.'**
   String get resonateOpenSourceProject;
 
-  /// No description provided for @mute.
+  /// Button text to mute the microphone.
   ///
   /// In en, this message translates to:
   /// **'Mute'**
   String get mute;
 
-  /// No description provided for @speakerLabel.
+  /// Label for the speakerphone toggle.
   ///
   /// In en, this message translates to:
   /// **'Speaker'**
   String get speakerLabel;
 
-  /// No description provided for @end.
+  /// Button text to end a call or session.
   ///
   /// In en, this message translates to:
   /// **'End'**
   String get end;
 
-  /// No description provided for @saveChanges.
+  /// Button text to save modified settings or profile information.
   ///
   /// In en, this message translates to:
   /// **'Save changes'**
   String get saveChanges;
 
-  /// No description provided for @discard.
+  /// Button text to discard changes.
   ///
   /// In en, this message translates to:
   /// **'DISCARD'**
   String get discard;
 
-  /// No description provided for @save.
+  /// Button text to save changes.
   ///
   /// In en, this message translates to:
   /// **'SAVE'**
   String get save;
 
-  /// No description provided for @changeProfilePicture.
+  /// Button text to open the profile picture selection options.
   ///
   /// In en, this message translates to:
   /// **'Change profile picture'**
   String get changeProfilePicture;
 
-  /// No description provided for @camera.
+  /// Option to use the camera to take a picture.
   ///
   /// In en, this message translates to:
   /// **'Camera'**
   String get camera;
 
-  /// No description provided for @gallery.
+  /// Option to choose a picture from the gallery.
   ///
   /// In en, this message translates to:
   /// **'Gallery'**
   String get gallery;
 
-  /// No description provided for @remove.
+  /// Button text to remove an item, like a profile picture.
   ///
   /// In en, this message translates to:
   /// **'Remove'**
   String get remove;
 
-  /// Story creation date
+  /// Displays the creation date of a story or content.
   ///
   /// In en, this message translates to:
   /// **'Created {date}'**
   String created(String date);
 
-  /// No description provided for @aboutStory.
-  ///
-  /// In en, this message translates to:
-  /// **'About'**
-  String get aboutStory;
-
-  /// No description provided for @chapters.
+  /// Header for the list of chapters in a story.
   ///
   /// In en, this message translates to:
   /// **'Chapters'**
   String get chapters;
 
-  /// No description provided for @deleteStory.
+  /// Button text to delete a story.
   ///
   /// In en, this message translates to:
   /// **'Delete Story'**
   String get deleteStory;
 
-  /// Story creator information
+  /// Displays the name of the content creator.
   ///
   /// In en, this message translates to:
   /// **'Created by {creatorName}'**
   String createdBy(String creatorName);
 
-  /// No description provided for @start.
+  /// Button text to start an activity or session.
   ///
   /// In en, this message translates to:
   /// **'Start'**
   String get start;
 
-  /// No description provided for @unsubscribe.
+  /// Button text to unsubscribe from a room or notification.
   ///
   /// In en, this message translates to:
   /// **'Unsubscribe'**
   String get unsubscribe;
 
-  /// No description provided for @subscribe.
+  /// Button text to subscribe to a room or notification.
   ///
   /// In en, this message translates to:
   /// **'Subscribe'**
   String get subscribe;
 
-  /// Choose the category for Story
+  /// Selects the appropriate category name for a story based on a key.
   ///
   /// In en, this message translates to:
   /// **'{category, select, drama{Drama} comedy{Comedy} horror{Horror} romance{Romance} thriller{Thriller} spiritual{Spiritual} other{Other}}'**
   String storyCategory(String category);
 
-  /// Choose the theme for the app
+  /// Selects the appropriate theme name based on a key.
   ///
   /// In en, this message translates to:
   /// **'{category, select, classicTheme{Classic} timeTheme{Time} vintageTheme{Vintage} amberTheme{Amber} forestTheme{Forest} creamTheme{Cream} other{Other}}'**
   String chooseTheme(String category);
 
-  /// Time format for minutes ago
+  /// Displays time in a relative format for minutes.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 minute ago} other{{count} minutes ago}}'**
   String minutesAgo(int count);
 
-  /// Time format for hours ago
+  /// Displays time in a relative format for hours.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 hour ago} other{{count} hours ago}}'**
   String hoursAgo(int count);
 
-  /// Time format for days ago
+  /// Displays time in a relative format for days.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 day ago} other{{count} days ago}}'**
   String daysAgo(int count);
 
-  /// No description provided for @by.
+  /// A preposition, typically used between a content title and the author's name.
   ///
   /// In en, this message translates to:
   /// **'by'**
   String get by;
 
-  /// No description provided for @likes.
+  /// Label for the number of likes.
   ///
   /// In en, this message translates to:
   /// **'Likes'**
   String get likes;
 
-  /// No description provided for @lengthMinutes.
+  /// Abbreviation for 'minutes', used to display audio length.
   ///
   /// In en, this message translates to:
   /// **'min'**
   String get lengthMinutes;
 
-  /// No description provided for @requiredField.
+  /// Error message for a mandatory field that was left empty.
   ///
   /// In en, this message translates to:
   /// **'Required field'**
   String get requiredField;
 
-  /// No description provided for @clickPictureUsingCamera.
-  ///
-  /// In en, this message translates to:
-  /// **'Click picture using camera'**
-  String get clickPictureUsingCamera;
-
-  /// No description provided for @pickImageFromGallery.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick image from gallery'**
-  String get pickImageFromGallery;
-
-  /// No description provided for @onlineUsers.
+  /// Header for the list of users who are currently online.
   ///
   /// In en, this message translates to:
   /// **'Online Users'**
   String get onlineUsers;
 
-  /// No description provided for @noOnlineUsers.
+  /// Message displayed when no users are online.
   ///
   /// In en, this message translates to:
   /// **'No users currently online'**
   String get noOnlineUsers;
 
-  /// No description provided for @chooseUser.
+  /// Instructional text to select a user to start a chat.
   ///
   /// In en, this message translates to:
   /// **'Choose User to chat with'**
   String get chooseUser;
 
-  /// No description provided for @quickMatch.
+  /// Button text for a feature that quickly matches the user with a random chat partner.
   ///
   /// In en, this message translates to:
   /// **'Quick Match'**
   String get quickMatch;
 
-  /// No description provided for @story.
+  /// Label for a story.
   ///
   /// In en, this message translates to:
   /// **'Story'**
   String get story;
 
-  /// No description provided for @user.
+  /// Label for a user.
   ///
   /// In en, this message translates to:
   /// **'User'**
   String get user;
 
-  /// No description provided for @following.
+  /// Label for the list of users that the current user is following.
   ///
   /// In en, this message translates to:
   /// **'Following'**
   String get following;
 
-  /// No description provided for @followers.
+  /// Label for the list of users who are following the current user.
   ///
   /// In en, this message translates to:
   /// **'Followers'**
@@ -2124,205 +2076,205 @@ abstract class AppLocalizations {
   /// **'Friend Requests'**
   String get friendRequests;
 
-  /// No description provided for @friendRequestSent.
+  /// Title for the confirmation message after sending a friend request.
   ///
   /// In en, this message translates to:
   /// **'Friend request sent'**
   String get friendRequestSent;
 
-  /// Message when a friend request is sent to a user
+  /// Confirmation message after sending a friend request to a specific user.
   ///
   /// In en, this message translates to:
   /// **'Your friend request to {username} has been sent.'**
   String friendRequestSentTo(String username);
 
-  /// No description provided for @friendRequestCancelled.
+  /// Title for the confirmation message after cancelling a friend request.
   ///
   /// In en, this message translates to:
   /// **'Friend request cancelled'**
   String get friendRequestCancelled;
 
-  /// Message when a friend request is cancelled
+  /// Confirmation message after cancelling a friend request to a specific user.
   ///
   /// In en, this message translates to:
   /// **'Your friend request to {username} has been cancelled.'**
   String friendRequestCancelledTo(String username);
 
-  /// No description provided for @requested.
+  /// A status label on a button indicating a friend request has been sent.
   ///
   /// In en, this message translates to:
   /// **'Requested'**
   String get requested;
 
-  /// No description provided for @friends.
+  /// A status label or header for the list of friends.
   ///
   /// In en, this message translates to:
   /// **'Friends'**
   String get friends;
 
-  /// No description provided for @addFriend.
+  /// Button text to send a friend request.
   ///
   /// In en, this message translates to:
   /// **'Add Friend'**
   String get addFriend;
 
-  /// No description provided for @friendRequestAccepted.
+  /// Title for the confirmation message after accepting a friend request.
   ///
   /// In en, this message translates to:
   /// **'Friend request accepted'**
   String get friendRequestAccepted;
 
-  /// Message when a friend request is accepted
+  /// Confirmation message after accepting a friend request from a specific user.
   ///
   /// In en, this message translates to:
   /// **'You are now friends with \${username}.'**
   String friendRequestAcceptedTo(String username);
 
-  /// No description provided for @friendRequestDeclined.
+  /// Title for the confirmation message after declining a friend request.
   ///
   /// In en, this message translates to:
   /// **'Friend request declined'**
   String get friendRequestDeclined;
 
-  /// Message when a friend request is declined
+  /// Confirmation message after declining a friend request from a specific user.
   ///
   /// In en, this message translates to:
   /// **'You have declined the friend request from \${username}.'**
   String friendRequestDeclinedTo(String username);
 
-  /// No description provided for @accept.
+  /// Button text to accept a request or invitation.
   ///
   /// In en, this message translates to:
   /// **'Accept'**
   String get accept;
 
-  /// No description provided for @callDeclined.
+  /// Title for the message when a call is declined.
   ///
   /// In en, this message translates to:
   /// **'Call declined'**
   String get callDeclined;
 
-  /// Message when a call is declined
+  /// Message indicating that a specific user declined a call.
   ///
   /// In en, this message translates to:
   /// **'User \${username} declined the call.'**
   String callDeclinedTo(String username);
 
-  /// No description provided for @checkForUpdates.
+  /// Button text to manually check for application updates.
   ///
   /// In en, this message translates to:
   /// **'Check Updates'**
   String get checkForUpdates;
 
-  /// No description provided for @updateNow.
+  /// Button text to start the update process.
   ///
   /// In en, this message translates to:
   /// **'Update Now'**
   String get updateNow;
 
-  /// No description provided for @updateLater.
+  /// Button text to postpone an update.
   ///
   /// In en, this message translates to:
   /// **'Later'**
   String get updateLater;
 
-  /// No description provided for @updateSuccessful.
+  /// Title for the success message after an update.
   ///
   /// In en, this message translates to:
   /// **'Update Successful'**
   String get updateSuccessful;
 
-  /// No description provided for @updateSuccessfulMessage.
+  /// Success message confirming the application has been updated.
   ///
   /// In en, this message translates to:
   /// **'Resonate has been updated successfully!'**
   String get updateSuccessfulMessage;
 
-  /// No description provided for @updateCancelled.
+  /// Title for the message when an update is cancelled.
   ///
   /// In en, this message translates to:
   /// **'Update Cancelled'**
   String get updateCancelled;
 
-  /// No description provided for @updateCancelledMessage.
+  /// Message indicating the user cancelled the update process.
   ///
   /// In en, this message translates to:
   /// **'Update was cancelled by user'**
   String get updateCancelledMessage;
 
-  /// No description provided for @updateFailed.
+  /// Title for the message when an update fails.
   ///
   /// In en, this message translates to:
   /// **'Update Failed'**
   String get updateFailed;
 
-  /// No description provided for @updateFailedMessage.
+  /// Error message when an in-app update fails, suggesting a manual update.
   ///
   /// In en, this message translates to:
   /// **'Failed to update. Please try updating from Play Store manually.'**
   String get updateFailedMessage;
 
-  /// No description provided for @updateError.
+  /// Generic title for an update-related error.
   ///
   /// In en, this message translates to:
   /// **'Update Error'**
   String get updateError;
 
-  /// No description provided for @updateErrorMessage.
+  /// Generic error message for an update that failed due to an unknown error.
   ///
   /// In en, this message translates to:
   /// **'An error occurred while updating. Please try again.'**
   String get updateErrorMessage;
 
-  /// No description provided for @platformNotSupported.
+  /// Title for an error when a feature is not supported on the current platform.
   ///
   /// In en, this message translates to:
   /// **'Platform Not Supported'**
   String get platformNotSupported;
 
-  /// No description provided for @platformNotSupportedMessage.
+  /// Message explaining that the in-app update feature is platform-specific.
   ///
   /// In en, this message translates to:
   /// **'Update checking is only available on Android devices'**
   String get platformNotSupportedMessage;
 
-  /// No description provided for @updateCheckFailed.
+  /// Title for an error when the app fails to check for updates.
   ///
   /// In en, this message translates to:
   /// **'Update Check Failed'**
   String get updateCheckFailed;
 
-  /// No description provided for @updateCheckFailedMessage.
+  /// Error message when the check for updates process fails.
   ///
   /// In en, this message translates to:
   /// **'Could not check for updates. Please try again later.'**
   String get updateCheckFailedMessage;
 
-  /// No description provided for @upToDateTitle.
+  /// Title for the message when the app is already up to date.
   ///
   /// In en, this message translates to:
   /// **'You\'re Up to Date!'**
   String get upToDateTitle;
 
-  /// No description provided for @upToDateMessage.
+  /// Message confirming that no update is needed.
   ///
   /// In en, this message translates to:
   /// **'You\'re using the latest version of Resonate'**
   String get upToDateMessage;
 
-  /// No description provided for @updateAvailableTitle.
+  /// Title for the dialog informing the user about a new update.
   ///
   /// In en, this message translates to:
   /// **'Update Available!'**
   String get updateAvailableTitle;
 
-  /// No description provided for @updateAvailableMessage.
+  /// Message prompting the user to update the app from the Play Store.
   ///
   /// In en, this message translates to:
   /// **'A new version of Resonate is available on Play Store'**
   String get updateAvailableMessage;
 
-  /// No description provided for @updateFeaturesImprovement.
+  /// A message highlighting the benefit of updating the application.
   ///
   /// In en, this message translates to:
   /// **'Get the latest features and improvements!'**

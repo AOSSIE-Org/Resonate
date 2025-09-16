@@ -66,7 +66,7 @@ class AboutAppScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!.resonate,
+                                  AppLocalizations.of(context)!.title,
                                   style: TextStyle(fontSize: UiSizes.size_20),
                                 ),
                                 Obx(
