@@ -5,8 +5,9 @@ import 'package:resonate/utils/enums/log_type.dart';
 SnackbarController customSnackbar(
   String title,
   String message,
-  LogType messageType,
-) {
+  LogType messageType, {
+  int snackbarDuration = 3,
+}) {
   Color messageTypeColor() {
     switch (messageType) {
       case LogType.success:
@@ -34,5 +35,6 @@ SnackbarController customSnackbar(
     ),
     borderColor: messageTypeColor(),
     borderWidth: 1,
+    duration: Duration(seconds: snackbarDuration),
   );
 }

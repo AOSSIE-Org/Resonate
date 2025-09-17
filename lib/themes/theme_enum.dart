@@ -1,8 +1,1 @@
-enum Themes {
-  classic,
-  vintage,
-  forest,
-  cream,
-  amber,
-  time
-}
+enum Themes { classic, vintage, forest, cream, amber, time }

@@ -9,16 +9,19 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
-
+import 'package:resonate/l10n/app_localizations.dart';
 
 class CreateRoomController extends GetxController {
-  final ThemeController themeController = Get.find<ThemeController>();
+  final ThemeController themeController;
   RxBool isLoading = false.obs;
   RxBool isScheduled = false.obs;
   GlobalKey<FormState> createRoomFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextfieldTagsController tagsController = TextfieldTagsController();
+
+  CreateRoomController({ThemeController? themeController})
+    : themeController = themeController ?? Get.find<ThemeController>();
 
   @override
   void dispose() {
@@ -28,16 +31,20 @@ class CreateRoomController extends GetxController {
     super.dispose();
   }
 
-  String? validateTag(dynamic tag) {
+  String? validateTag(dynamic tag, BuildContext context) {
     if (tag != null && tag is String && tag.isValidTag()) {
       return null; // Tag is valid
     } else {
-      return 'Invalid Tag: $tag'; // Return an error message for invalid tags
+      return '${AppLocalizations.of(context)!.invalidTags} $tag'; // Return an error message for invalid tags
     }
   }
 
-  Future<void> createRoom(String name, String description, List<String> tags,
-      bool fromCreateScreen) async {
+  Future<void> createRoom(
+    String name,
+    String description,
+    List<String> tags,
+    bool fromCreateScreen,
+  ) async {
     if (fromCreateScreen) {
       if (!createRoomFormKey.currentState!.validate()) {
         return;
@@ -50,10 +57,11 @@ class CreateRoomController extends GetxController {
       // Create a new room and add current user to participant list as admin and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
       List<String> newRoomInfo = await RoomService.createRoom(
-          roomName: name,
-          roomDescription: description,
-          roomTags: tags,
-          adminUid: authStateController.uid!);
+        roomName: name,
+        roomDescription: description,
+        roomTags: tags,
+        adminUid: authStateController.uid!,
+      );
       String newRoomId = newRoomInfo[0];
       String myDocId = newRoomInfo[1];
 
@@ -62,15 +70,16 @@ class CreateRoomController extends GetxController {
 
       // Open the Room Bottom Sheet to interact in the room
       AppwriteRoom room = AppwriteRoom(
-          id: newRoomId,
-          name: name,
-          description: description,
-          totalParticipants: 1,
-          tags: tags,
-          memberAvatarUrls: [],
-          state: RoomState.live,
-          myDocId: myDocId,
-          isUserAdmin: true);
+        id: newRoomId,
+        name: name,
+        description: description,
+        totalParticipants: 1,
+        tags: tags,
+        memberAvatarUrls: [],
+        state: RoomState.live,
+        myDocId: myDocId,
+        isUserAdmin: true,
+      );
       Get.find<TabViewController>().openRoomSheet(room);
 
       // Clear Create Room Form

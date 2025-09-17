@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 
 class StoryListTile extends StatelessWidget {
-  const StoryListTile({
-    super.key,
-    required this.story,
-  });
+  const StoryListTile({super.key, required this.story});
 
   final Story story;
 
@@ -16,21 +15,53 @@ class StoryListTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       title: Text(
         story.title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-              fontStyle: FontStyle.normal,
-              fontFamily: 'Inter',
-            ),
+          color: Theme.of(context).colorScheme.onSurface,
+          fontWeight: FontWeight.w500,
+          fontSize: 17,
+          fontStyle: FontStyle.normal,
+          fontFamily: 'Inter',
+        ),
       ),
-      subtitle: Text(
-        '${story.category.name} - ${story.creatorName}',
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            story.creatorName,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: 12,
               fontStyle: FontStyle.normal,
               fontFamily: 'Inter',
             ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              color:
+                  AppColor.categoryColorList[story.category.name.toLowerCase()],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              AppLocalizations.of(
+                context,
+              )!.storyCategory(story.category.name.toLowerCase()),
+              maxLines: 1,
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 12,
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(10),
@@ -51,11 +82,7 @@ class StoryListTile extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => StoryScreen(
-              story: story,
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => StoryScreen(story: story)),
         );
       },
     );

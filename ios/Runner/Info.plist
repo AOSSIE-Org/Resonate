@@ -4,6 +4,11 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>hi</string>
+		<string>en</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Resonate</string>
 	<key>CFBundleExecutable</key>
@@ -50,12 +55,14 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo Library Access Warning</string>
 	<key>NSCameraUsageDescription</key>
-    <string>Camera Access Warning</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Resonate uses your microphone</string>
-    <key>UIBackgroundModes</key>
-      <array>
-        <string>audio</string>
-      </array>
+	<string>Camera Access Warning</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Resonate uses your microphone</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Allow access to music library to upload podcast files</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 </dict>
 </plist>

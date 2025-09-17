@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/network_controller.dart';
@@ -16,9 +18,7 @@ class NoConnectionDialog extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-        ),
+        appBar: AppBar(toolbarHeight: 0),
         body: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -29,25 +29,28 @@ class NoConnectionDialog extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                      height: 150,
-                      width: 150,
-                      AppImages.noConnectionImage),
+                  SvgPicture.asset(
+                    AppImages.noConnectionImage,
+                    height: 200,
+                    width: 200,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary,
+                      BlendMode.modulate,
+                    ),
+                  ),
                   Text(
-                    "No Connection",
+                    AppLocalizations.of(context)!.noConnection,
                     style: TextStyle(
                       fontSize: UiSizes.size_40,
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  const Text(
-                    "There is a connection error. Please check your internet and try again.",
+                  Text(
+                    AppLocalizations.of(context)!.connectionError,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: UiSizes.height_60,
-                  ),
+                  SizedBox(height: UiSizes.height_60),
                   Obx(
                     () => SizedBox(
                       width: double.maxFinite,
@@ -57,19 +60,18 @@ class NoConnectionDialog extends StatelessWidget {
                         },
                         child: networkController.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_40,
-                                ),
+                                child:
+                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                      size: UiSizes.size_40,
+                                    ),
                               )
-                            : const Text(
-                                "Try Again",
-                              ),
+                            : Text(AppLocalizations.of(context)!.tryAgain),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

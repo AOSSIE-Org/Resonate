@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
@@ -10,6 +11,8 @@ import 'package:resonate/views/screens/chapter_play_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/widgets/chapter_list_tile.dart';
 import 'package:resonate/views/widgets/like_button.dart';
+
+import 'package:resonate/l10n/app_localizations.dart';
 
 class StoryScreen extends StatefulWidget {
   final Story story;
@@ -20,8 +23,10 @@ class StoryScreen extends StatefulWidget {
 }
 
 class _StoryScreenState extends State<StoryScreen> {
-  final exploreStoryController =
-      Get.put<ExploreStoryController>(ExploreStoryController());
+  bool descriptionIsExpanded = false;
+  final exploreStoryController = Get.put<ExploreStoryController>(
+    ExploreStoryController(),
+  );
 
   @override
   void initState() {
@@ -34,7 +39,7 @@ class _StoryScreenState extends State<StoryScreen> {
     // Set the status bar color to match the story's tint color
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: widget.story.tintColor.withAlpha((255 * 0.8).round()),
+        statusBarColor: widget.story.tintColor.withValues(alpha: 0.8),
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -45,23 +50,24 @@ class _StoryScreenState extends State<StoryScreen> {
           child: exploreStoryController.isLoadingStoryPage.value
               ? Center(
                   child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: LoadingIndicator(
-                    indicatorType: Indicator.ballRotate,
-                    colors: [Theme.of(context).colorScheme.primary],
+                    height: 200,
+                    width: 200,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.ballRotate,
+                      colors: [Theme.of(context).colorScheme.primary],
+                    ),
                   ),
-                ))
+                )
               : Column(
                   children: [
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            widget.story.tintColor.withAlpha((255 * 0.8).round()),
-                            widget.story.tintColor.withAlpha((255 * 0.6).round()),
-                            widget.story.tintColor.withAlpha((255 * 0.4).round()),
-                            widget.story.tintColor.withAlpha((255 * 0.2).round()),
+                            widget.story.tintColor.withValues(alpha: 0.8),
+                            widget.story.tintColor.withValues(alpha: 0.6),
+                            widget.story.tintColor.withValues(alpha: 0.4),
+                            widget.story.tintColor.withValues(alpha: 0.2),
                             Colors.transparent,
                           ],
                           begin: Alignment.topCenter,
@@ -73,9 +79,7 @@ class _StoryScreenState extends State<StoryScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -85,7 +89,9 @@ class _StoryScreenState extends State<StoryScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          right: 10.0, bottom: 15),
+                                        right: 10.0,
+                                        bottom: 15,
+                                      ),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
@@ -99,25 +105,30 @@ class _StoryScreenState extends State<StoryScreen> {
                                     Obx(
                                       () => LikeButton(
                                         isLikedByUser: widget
-                                            .story.isLikedByCurrentUser.value,
+                                            .story
+                                            .isLikedByCurrentUser
+                                            .value,
                                         tintColor: widget.story.tintColor,
                                         onLiked: (isFavorite) async {
                                           isFavorite
                                               ? await exploreStoryController
-                                                  .likeStoryFromUserAccount(
-                                                      widget.story)
+                                                    .likeStoryFromUserAccount(
+                                                      widget.story,
+                                                    )
                                               : await exploreStoryController
-                                                  .unlikeStoryFromUserAccount(
-                                                      widget.story);
+                                                    .unlikeStoryFromUserAccount(
+                                                      widget.story,
+                                                    );
 
                                           await exploreStoryController
                                               .updateLikesCountAndUserLikeStatus(
-                                                  widget.story);
+                                                widget.story,
+                                              );
                                           await exploreStoryController
                                               .fetchUserLikedStories();
                                         },
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
 
@@ -149,7 +160,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                         children: [
                                           Obx(
                                             () => Text(
-                                              '${widget.story.likesCount} Likes',
+                                              '${widget.story.likesCount} ${AppLocalizations.of(context)!.likes}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyLarge!
@@ -163,7 +174,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                           const SizedBox(width: 16),
                                           // Duration
                                           Text(
-                                            '${formatPlayDuration(widget.story.playDuration)} min',
+                                            '${formatPlayDuration(widget.story.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
@@ -180,7 +191,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            'by',
+                                            AppLocalizations.of(context)!.by,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
@@ -194,21 +205,31 @@ class _StoryScreenState extends State<StoryScreen> {
                                           CircleAvatar(
                                             radius: 14,
                                             backgroundImage: NetworkImage(
-                                                widget.story.coverImageUrl),
+                                              widget.story.coverImageUrl,
+                                            ),
                                           ),
                                           const SizedBox(width: 8),
-                                          Text(
-                                            widget.story.userIsCreator
-                                                ? "You"
-                                                : widget.story.creatorName,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                  fontSize: 16,
-                                                  fontStyle: FontStyle.normal,
-                                                  fontFamily: 'Inter',
-                                                ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Text(
+                                                widget.story.userIsCreator
+                                                    ? AppLocalizations.of(
+                                                        context,
+                                                      )!.you
+                                                    : widget.story.creatorName,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                      fontSize: 16,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontFamily: 'Inter',
+                                                    ),
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -220,13 +241,16 @@ class _StoryScreenState extends State<StoryScreen> {
                             ),
                             const SizedBox(height: 40),
                             Text(
-                              'Created ${widget.story.creationDate.formatDateTime()}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
+                              AppLocalizations.of(context)!.created(
+                                widget.story.creationDate.formatDateTime(
+                                  context,
+                                ),
+                              ),
+                              style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
                                     fontSize: 16,
                                     fontStyle: FontStyle.normal,
                                     fontFamily: 'Inter',
@@ -236,31 +260,30 @@ class _StoryScreenState extends State<StoryScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     // Chapters Section (Scrollable)
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
+                            horizontal: 16.0,
+                            vertical: 8.0,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // About Section
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
+                                  horizontal: 16.0,
+                                ),
                                 child: Text(
-                                  'About',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
+                                  AppLocalizations.of(context)!.aboutStory,
+                                  style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                         fontWeight: FontWeight.w900,
                                         fontSize: 20,
                                         fontStyle: FontStyle.normal,
@@ -269,19 +292,30 @@ class _StoryScreenState extends State<StoryScreen> {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  widget.story.description,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 16,
-                                        fontStyle: FontStyle.normal,
-                                        fontFamily: 'Inter',
-                                      ),
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                  descriptionIsExpanded =
+                                      !descriptionIsExpanded;
+                                }),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0,
+                                  ),
+                                  child: Text(
+                                    widget.story.description,
+                                    maxLines: descriptionIsExpanded ? null : 10,
+                                    overflow: descriptionIsExpanded
+                                        ? TextOverflow.visible
+                                        : TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Inter',
+                                        ),
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 40),
@@ -291,14 +325,12 @@ class _StoryScreenState extends State<StoryScreen> {
                                   horizontal: 16.0,
                                 ),
                                 child: Text(
-                                  'Chapters',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
+                                  AppLocalizations.of(context)!.chapters,
+                                  style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
                                         fontWeight: FontWeight.w900,
                                         fontSize: 20,
                                         fontStyle: FontStyle.normal,
@@ -315,19 +347,18 @@ class _StoryScreenState extends State<StoryScreen> {
                                   final chapter = widget.story.chapters[index];
                                   return GestureDetector(
                                     onTap: () {
+                                      Get.put(ChapterPlayerController());
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               ChapterPlayScreen(
-                                            chapter: chapter,
-                                          ),
+                                                chapter: chapter,
+                                              ),
                                         ),
                                       );
                                     },
-                                    child: ChaperListTile(
-                                      chapter: chapter,
-                                    ),
+                                    child: ChaperListTile(chapter: chapter),
                                   );
                                 },
                               ),
@@ -338,31 +369,35 @@ class _StoryScreenState extends State<StoryScreen> {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  AddNewChapterScreen(
-                                                    storyName:
-                                                        widget.story.title,
-                                                    storyId:
-                                                        widget.story.storyId,
-                                                    currentChapters:
-                                                        widget.story.chapters,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => AddNewChapterScreen(
+                                            storyName: widget.story.title,
+                                            storyId: widget.story.storyId,
+                                            currentChapters:
+                                                widget.story.chapters,
+                                          ),
+                                        ),
+                                      );
                                     },
-                                    child: const Text('Add Chapter'),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.addChapter,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      await exploreStoryController
-                                          .deleteStory(widget.story);
+                                      await exploreStoryController.deleteStory(
+                                        widget.story,
+                                      );
                                       await exploreStoryController
                                           .fetchUserCreatedStories();
                                       if (widget
-                                          .story.isLikedByCurrentUser.value) {
+                                          .story
+                                          .isLikedByCurrentUser
+                                          .value) {
                                         await exploreStoryController
                                             .fetchUserLikedStories();
                                       }
@@ -370,8 +405,8 @@ class _StoryScreenState extends State<StoryScreen> {
                                           .fetchStoryRecommendation();
                                       Navigator.pop(Get.context!);
                                     },
-                                    child: const Text(
-                                      'Delete Story',
+                                    child: Text(
+                                      AppLocalizations.of(context)!.deleteStory,
                                     ),
                                   ),
                                 ),

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
@@ -12,9 +13,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
   return Get.dialog(
     Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 12,
       child: Padding(
@@ -25,29 +24,29 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
           children: [
             // Title
             Text(
-              "Pair Chat",
+              AppLocalizations.of(context)!.pairChat,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.3).round()),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),
-
-            // Identity Selection Section
+            const SizedBox(height: 16), // Identity Selection Section
             Text(
-              "Choose Identity",
+              AppLocalizations.of(context)!.chooseIdentity,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 16),
 
@@ -61,26 +60,24 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceContainerHighest,
+                            : Theme.of(
+                                context,
+                              ).colorScheme.surfaceContainerHighest,
                         elevation: controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          'Anonymous',
-                          style: TextStyle(
-                            color: controller.isAnonymous.value
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                            fontSize: UiSizes.size_16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      child: Text(
+                        AppLocalizations.of(context)!.anonymous,
+                        style: TextStyle(
+                          color: controller.isAnonymous.value
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: UiSizes.size_12,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.fade,
                         ),
                       ),
                     ),
@@ -92,26 +89,28 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: !controller.isAnonymous.value
                             ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context).colorScheme.surfaceContainerHigh,
+                            : Theme.of(
+                                context,
+                              ).colorScheme.surfaceContainerHigh,
                         elevation: !controller.isAnonymous.value ? 6 : 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 5,
+                        ),
                       ),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          Get.find<AuthStateController>().displayName!,
-                          style: TextStyle(
-                            color: !controller.isAnonymous.value
-                                ? Theme.of(context).colorScheme.onPrimary
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                            fontSize: UiSizes.size_16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      child: Text(
+                        Get.find<AuthStateController>().displayName!,
+                        // "asjdwwwwwassdawdhausduuawhdaub",
+                        style: TextStyle(
+                          color: !controller.isAnonymous.value
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: UiSizes.size_12,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
@@ -123,22 +122,24 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
 
             // Divider with slight padding
             Divider(
-              color: Theme.of(context).colorScheme.onSurface.withAlpha((255 * 0.3).round()),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.3),
               thickness: 1,
             ),
-            const SizedBox(height: 16),
-
-            // Language Selection Section
+            const SizedBox(height: 16), // Language Selection Section
             Text(
-              "Select Language",
+              AppLocalizations.of(context)!.selectLanguage,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 16),
             LanguagePickerDropdown(
-              initialValue: Languages.english,
+              initialValue: Language.fromIsoCode(
+                Localizations.localeOf(context).languageCode,
+              ),
               onValuePicked: (Language language) {
                 log(language.isoCode);
                 controller.languageIso = language.isoCode;
@@ -160,7 +161,35 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                  "Resonate",
+                  AppLocalizations.of(context)!.quickMatch,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: UiSizes.size_16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(AppLocalizations.of(context)!.or),
+            ),
+
+            ElevatedButton(
+              onPressed: controller.choosePartner,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.all(14),
+              ),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  AppLocalizations.of(context)!.chooseUser,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontSize: UiSizes.size_16,

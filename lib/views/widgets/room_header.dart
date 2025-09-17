@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class RoomHeader extends StatelessWidget {
-  const RoomHeader(
-      {super.key,
-      required this.roomName,
-      required this.roomDescription,
-      this.roomTags});
+  const RoomHeader({
+    super.key,
+    required this.roomName,
+    required this.roomDescription,
+    this.roomTags,
+  });
   final String roomName;
   final String roomDescription;
   final String? roomTags;
@@ -34,10 +35,7 @@ class RoomHeader extends StatelessWidget {
         SizedBox(height: UiSizes.height_7),
         Text(
           roomDescription,
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: UiSizes.size_14,
-          ),
+          style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
         ),
       ],
     );

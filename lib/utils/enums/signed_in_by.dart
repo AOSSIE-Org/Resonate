@@ -1,5 +1,1 @@
-
-enum SignedInBy{
-  email,
-  google
-}
+enum SignedInBy { email, google }

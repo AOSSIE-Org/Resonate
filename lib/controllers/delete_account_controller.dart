@@ -31,8 +31,9 @@ class DeleteAccountController extends GetxController {
   Future<void> deleteUserProfilePicture() async {
     try {
       await storage.deleteFile(
-          bucketId: userProfileImageBucketId,
-          fileId: authStateController.profileImageID!);
+        bucketId: userProfileImageBucketId,
+        fileId: authStateController.profileImageID!,
+      );
     } catch (e) {
       log(e.toString());
     }
@@ -41,9 +42,10 @@ class DeleteAccountController extends GetxController {
   Future<void> deleteUsernamesCollectionDocument() async {
     try {
       await databases.deleteDocument(
-          databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: authStateController.userName!);
+        databaseId: userDatabaseID,
+        collectionId: usernameCollectionID,
+        documentId: authStateController.userName!,
+      );
     } catch (e) {
       log(e.toString());
     }
@@ -52,9 +54,10 @@ class DeleteAccountController extends GetxController {
   Future<void> deleteUsersCollectionDocument() async {
     try {
       await databases.deleteDocument(
-          databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!);
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: authStateController.uid!,
+      );
     } catch (e) {
       log(e.toString());
     }

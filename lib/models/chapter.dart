@@ -10,6 +10,14 @@ class Chapter {
   final int playDuration;
   final Color tintColor;
 
-  Chapter(this.chapterId, this.title, this.coverImageUrl, this.description, this.lyrics,
-      this.audioFileUrl, this.playDuration, this.tintColor,);
+  Chapter(
+    this.chapterId,
+    this.title,
+    this.coverImageUrl,
+    this.description,
+    this.lyrics,
+    this.audioFileUrl,
+    this.playDuration,
+    this.tintColor,
+  );
 }

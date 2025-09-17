@@ -12,6 +12,8 @@ import '../../utils/enums/log_type.dart';
 import '../widgets/password_strength_indicator.dart';
 import '../widgets/snackbar.dart';
 
+import 'package:resonate/l10n/app_localizations.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -59,36 +61,33 @@ class _SignupScreenState extends State<SignupScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Text(
-                      "Create Account",
+                      AppLocalizations.of(context)!.createAccount,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     TextFormField(
                       validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Enter Valid Email Address",
+                          : AppLocalizations.of(
+                              context,
+                            )!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: controller.passwordController,
-                        validator: (value) =>
-                            value! == "" ? "Password can't be empty" : null,
+                        validator: (value) => value! == ""
+                            ? AppLocalizations.of(context)!.passwordEmpty
+                            : null,
                         obscureText: !controller.isPasswordFieldVisible.value,
                         onChanged: (value) => passwordStrengthCheckerController
                             .passwordValidator(value),
@@ -96,11 +95,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         autocorrect: false,
                         decoration: InputDecoration(
                           errorMaxLines: 2,
-                          hintText: "Password",
+                          hintText: AppLocalizations.of(context)!.password,
                           suffixIcon: Semantics(
                             label: (controller.isPasswordFieldVisible.value)
-                                ? "Hide password"
-                                : "Show password",
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isPasswordFieldVisible.value =
@@ -113,8 +112,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller.isPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -122,32 +122,35 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
-                        validator: (value) => value!.isSamePassword(
-                                controller.passwordController.text)
+                        validator: (value) =>
+                            value!.isSamePassword(
+                              controller.passwordController.text,
+                            )
                             ? null
-                            : "Password do not match",
+                            : AppLocalizations.of(context)!.passwordsNotMatch,
                         controller: controller.confirmPasswordController,
                         obscureText:
                             !controller.isConfirmPasswordFieldVisible.value,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          hintText: "Confirm password",
+                          hintText: AppLocalizations.of(
+                            context,
+                          )!.confirmPassword,
                           suffixIcon: Semantics(
                             label:
                                 (controller.isConfirmPasswordFieldVisible.value)
-                                    ? "Hide password"
-                                    : "Show password",
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isConfirmPasswordFieldVisible.value =
                                     !controller
-                                        .isConfirmPasswordFieldVisible.value;
+                                        .isConfirmPasswordFieldVisible
+                                        .value;
                               },
                               child: Container(
                                 width: 56,
@@ -156,8 +159,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller.isConfirmPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -165,9 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_20,
-                    ),
+                    SizedBox(height: UiSizes.height_20),
                     Obx(
                       () => Visibility(
                         maintainAnimation: true,
@@ -179,42 +181,55 @@ class _SignupScreenState extends State<SignupScreen> {
                           curve: Curves.fastOutSlowIn,
                           opacity:
                               passwordStrengthCheckerController.isVisible.value
-                                  ? 1
-                                  : 0,
+                              ? 1
+                              : 0,
                           child: SizedBox(
-                              height: UiSizes.height_45,
-                              width: Get.width,
-                              child: PasswordStrengthIndicator(
-                                isPasswordEightCharacters:
-                                    passwordStrengthCheckerController
-                                        .isPasswordEightCharacters.value,
-                                hasOneDigit: passwordStrengthCheckerController
-                                    .hasOneDigit.value,
-                                hasUpperCase: passwordStrengthCheckerController
-                                    .hasUpperCase.value,
-                                hasLowerCase: passwordStrengthCheckerController
-                                    .hasLowerCase.value,
-                                hasOneSymbol: passwordStrengthCheckerController
-                                    .hasOneSymbol.value,
-                                passwordSixCharactersTitle:
-                                    "Password must be at least 8 characters long",
-                                hasOneDigitTitle:
-                                    "Include at least 1 numeric digit",
-                                hasUpperCaseTitle:
-                                    "Include at least 1 uppercase letter",
-                                hasLowerCaseTitle:
-                                    "Include at least 1 lowercase letter",
-                                hasOneSymbolTitle: "Include at least 1 symbol",
-                                validatedChecks:
-                                    passwordStrengthCheckerController
-                                        .validatedChecks.value,
-                              )),
+                            height: UiSizes.height_45,
+                            width: Get.width,
+                            child: PasswordStrengthIndicator(
+                              isPasswordEightCharacters:
+                                  passwordStrengthCheckerController
+                                      .isPasswordEightCharacters
+                                      .value,
+                              hasOneDigit: passwordStrengthCheckerController
+                                  .hasOneDigit
+                                  .value,
+                              hasUpperCase: passwordStrengthCheckerController
+                                  .hasUpperCase
+                                  .value,
+                              hasLowerCase: passwordStrengthCheckerController
+                                  .hasLowerCase
+                                  .value,
+                              hasOneSymbol: passwordStrengthCheckerController
+                                  .hasOneSymbol
+                                  .value,
+                              passwordSixCharactersTitle: AppLocalizations.of(
+                                context,
+                              )!.passwordRequirements,
+                              hasOneDigitTitle: AppLocalizations.of(
+                                context,
+                              )!.includeNumericDigit,
+                              hasUpperCaseTitle: AppLocalizations.of(
+                                context,
+                              )!.includeUppercase,
+                              hasLowerCaseTitle: AppLocalizations.of(
+                                context,
+                              )!.includeLowercase,
+                              hasOneSymbolTitle: AppLocalizations.of(
+                                context,
+                              )!.includeSymbol,
+                              passStrengthVerifiedText: AppLocalizations.of(
+                                context,
+                              )!.passwordIsStrong,
+                              validatedChecks: passwordStrengthCheckerController
+                                  .validatedChecks
+                                  .value,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     SizedBox(
                       width: double.maxFinite,
                       child: ElevatedButton(
@@ -224,40 +239,51 @@ class _SignupScreenState extends State<SignupScreen> {
                                     .validate()) {
                                   emailVerifyController.signUpIsAllowed.value =
                                       false;
-                                  var isSignedIn = await controller.signup();
+                                  var isSignedIn = await controller.signup(
+                                    context,
+                                  );
                                   if (isSignedIn) {
                                     Get.toNamed(AppRoutes.onBoarding);
                                     customSnackbar(
-                                      "Signed Up Successfully",
-                                      "You have successfully created a new account",
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.signedUpSuccessfully,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.newAccountCreated,
                                       LogType.success,
                                     );
 
                                     SemanticsService.announce(
-                                      "You have successfully created a new account",
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.newAccountCreated,
                                       TextDirection.ltr,
                                     );
                                     emailVerifyController
-                                        .signUpIsAllowed.value = true;
+                                            .signUpIsAllowed
+                                            .value =
+                                        true;
                                   } else {
                                     emailVerifyController
-                                        .signUpIsAllowed.value = true;
+                                            .signUpIsAllowed
+                                            .value =
+                                        true;
                                   }
                                 }
                               }
                             : null,
                         child: controller.isLoading.value
                             ? Center(
-                                child: LoadingAnimationWidget
-                                    .horizontalRotatingDots(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  size: UiSizes.size_40,
-                                ),
+                                child:
+                                    LoadingAnimationWidget.horizontalRotatingDots(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                      size: UiSizes.size_40,
+                                    ),
                               )
-                            : const Text(
-                                "Sign up",
-                              ),
+                            : Text(AppLocalizations.of(context)!.signUp),
                       ),
                     ),
                   ],
@@ -265,7 +291,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an account? "),
+                    Text(AppLocalizations.of(context)!.alreadyHaveAccount),
                     GestureDetector(
                       onTap: () {
                         controller.emailController.clear();
@@ -276,7 +302,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Get.offNamed(AppRoutes.loginScreen);
                       },
                       child: Text(
-                        "Login",
+                        AppLocalizations.of(context)!.login,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -284,7 +310,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

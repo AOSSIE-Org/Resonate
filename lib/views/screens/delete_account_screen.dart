@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/delete_account_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   const DeleteAccountScreen({super.key});
@@ -12,9 +13,7 @@ class DeleteAccountScreen extends StatelessWidget {
     AuthStateController authStateController = Get.put(AuthStateController());
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Delete Account'),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.deleteAccount)),
       body: GetBuilder<DeleteAccountController>(
         init: DeleteAccountController(),
         builder: (controller) => Container(
@@ -28,41 +27,30 @@ class DeleteAccountScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),
                 child: Text(
-                  "Delete My Account",
+                  AppLocalizations.of(context)!.deleteMyAccount,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: UiSizes.size_16,
-                      color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: UiSizes.size_16,
+                    color: Colors.redAccent,
                   ),
                 ),
               ),
-              const Text(
-                "This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.",
-              ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
+              Text(AppLocalizations.of(context)!.deleteAccountPermanent),
+              SizedBox(height: UiSizes.height_40),
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    color: Colors.redAccent,
-                    fontSize: 16,
-                  ),
+                  style: const TextStyle(color: Colors.redAccent, fontSize: 16),
                   children: [
-                    const TextSpan(text: 'To confirm, type'),
+                    TextSpan(text: AppLocalizations.of(context)!.toConfirmType),
                     TextSpan(
                       text: ' "${authStateController.userName}" ',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    const TextSpan(text: 'in the box below')
+                    TextSpan(text: AppLocalizations.of(context)!.inTheBoxBelow),
                   ],
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_10,
-              ),
+              SizedBox(height: UiSizes.height_10),
               TextField(
                 onChanged: (value) {
                   if (value == authStateController.userName) {
@@ -91,9 +79,7 @@ class DeleteAccountScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: UiSizes.height_40,
-              ),
+              SizedBox(height: UiSizes.height_40),
               Obx(
                 () => SizedBox(
                   width: double.maxFinite,
@@ -109,15 +95,13 @@ class DeleteAccountScreen extends StatelessWidget {
                             // DO NOT IMPLEMENT THIS WITHOUT PERMISSION
                           }
                         : null,
-                    child: const Text(
-                      'I understand, Delete My Account',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
+                    child: Text(
+                      AppLocalizations.of(context)!.iUnderstandDeleteMyAccount,
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

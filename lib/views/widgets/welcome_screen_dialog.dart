@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 Widget welcomeScreenDialog(BuildContext context) {
   return Container(
-    padding: EdgeInsets.symmetric(
-      vertical: UiSizes.height_20,
-    ),
+    padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
     width: double.maxFinite,
     height: UiSizes.height_246,
     child: Column(
@@ -17,7 +16,7 @@ Widget welcomeScreenDialog(BuildContext context) {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
           child: Text(
-            "Sign in with email",
+            AppLocalizations.of(context)!.signInWithEmail,
             style: TextStyle(
               fontSize: UiSizes.size_20,
               fontWeight: FontWeight.bold,
@@ -39,21 +38,15 @@ Widget welcomeScreenDialog(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "I already have an account",
-                      style: TextStyle(
-                        fontSize: UiSizes.size_15,
-                      ),
+                      AppLocalizations.of(context)!.iAlreadyHaveAnAccount,
+                      style: TextStyle(fontSize: UiSizes.size_15),
                     ),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                    )
+                    const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              height: UiSizes.height_20,
-            ),
+            SizedBox(height: UiSizes.height_20),
             GestureDetector(
               onTap: () {
                 Get.offNamed(AppRoutes.signup);
@@ -66,14 +59,10 @@ Widget welcomeScreenDialog(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Create new account",
-                      style: TextStyle(
-                        fontSize: UiSizes.size_15,
-                      ),
+                      AppLocalizations.of(context)!.createNewAccount,
+                      style: TextStyle(fontSize: UiSizes.size_15),
                     ),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                    )
+                    const Icon(Icons.arrow_forward_rounded),
                   ],
                 ),
               ),

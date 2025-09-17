@@ -4,6 +4,10 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 Please strictly stick to the guide do not go off installing stuff on your own
 
+> #### **Setting up Firebase for FCM**
+> To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), setup a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
+<br/>
+
 ### Prerequisits (must be installed) for Backend Env Set-Up
 
 - Docker
@@ -11,12 +15,13 @@ Please strictly stick to the guide do not go off installing stuff on your own
 
 ### Installing Appwrite and Appwrite CLI 
 
-Clone the [Resonate Backend Repo](https://github.com/Aarush-Acharya/Resonate-Backend)
+Clone the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend)
 <br/>
 
 > #### **Very Important Info**
 > The backend initialisation script installs Appwrite locally with additional custom flags to the install command available in the appwrite documentation so if you already have Installed Appwrite locally please delete the image and the container and start fresh
 <br/>
+
 
 Navigate to the root directory of the project in your terminal (for windows power shell), and run the command
 
@@ -83,6 +88,15 @@ Press "a" to select all and press enter, same goes for  `Buckets` set up comming
 This completes the Resonate project Set Up (functions will be pushed in the end) in your local Appwrite Instance 🚀🍀
 <br/>
 
+### Meilisearch Set Up
+Now you will be asked to choose between Meilisearch Cloud and Meilisearch Self Hosted. Please choose whatever option suits you.
+![Image for Meilisearch](https://github.com/user-attachments/assets/c349ea95-ce14-47c6-b712-fc93d25747e3)
+
+
+This would run Meilisearch locally for you as a container (if you went with self hosted). You can proceed to the next section.
+
+If you want to use Meilisearch in Resonate, please enable the isUsingMeilisearch flag in constants.dart either by changing the default value or passing true as an environment variable via the --dart-define argument.
+
 
 ### Livekit Set Up
 
@@ -98,10 +112,10 @@ Now appwrite function pushing will start and just press 'a' char on keyboard to 
 
 ### Connecting Frontend and Backend
 
-You just need to update the baseDomain variable value in the constants.dart on client side based on how you are running the client side app
+Now, on client side, based on how you are running the client side app you need to update the default value of the baseDomain variable in ```constants.dart``` or you can pass it in as an argument with ```flutter run``` using ```--dart-define=APPWRITE_BASE_DOMAIN=<Your baseDomain>```
 
-| Platform            | Base Domain   |
-|---------------------|---------------|
-| Android Simulator   | `10.0.2.2`    |
-| iOS Simulator       | `127.0.0.1`   |
-| Physical Device     | Ensure laptop and phone are on the same Wi-Fi, then use the laptop's IP address provided by the Wi-Fi |
+| Platform          | Base Domain                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Android Simulator | `10.0.2.2`                                                                                            |
+| iOS Simulator     | `localhost`                                                                                           |
+| Physical Device   | Ensure laptop and phone are on the same Wi-Fi, then use the laptop's IP address provided by the Wi-Fi |

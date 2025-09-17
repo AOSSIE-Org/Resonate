@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/views/screens/category_screen.dart';
 
@@ -10,11 +11,12 @@ String capitalizeFirstLetter(String input) {
 }
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard(
-      {super.key,
-      required this.name,
-      required this.color,
-      required this.exploreStoryController});
+  const CategoryCard({
+    super.key,
+    required this.name,
+    required this.color,
+    required this.exploreStoryController,
+  });
   final String name;
   final Color color;
   final ExploreStoryController exploreStoryController;
@@ -23,11 +25,10 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        exploreStoryController
-            .fetchStoryByCategory(StoryCategory.values.byName(name));
-        Get.to(()=> CategoryScreen(
-          categoryName: name,
-        ));
+        exploreStoryController.fetchStoryByCategory(
+          StoryCategory.values.byName(name),
+        );
+        Get.to(() => CategoryScreen(categoryName: name));
       },
       child: Stack(
         children: [
@@ -43,13 +44,13 @@ class CategoryCard extends StatelessWidget {
             left: 14,
             top: 14,
             child: Text(
-              capitalizeFirstLetter(name),
+              AppLocalizations.of(context)!.storyCategory(name),
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Colors.white,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.9,
-                  ),
+                color: Colors.white,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16.9,
+              ),
             ),
           ),
         ],

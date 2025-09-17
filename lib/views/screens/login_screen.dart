@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-
+import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -48,44 +48,41 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: UiSizes.height_60,
-                    ),
+                    SizedBox(height: UiSizes.height_60),
                     Text(
-                      "Login",
+                      AppLocalizations.of(context)!.login,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     TextFormField(
                       validator: (value) => value!.isValidEmail()
                           ? null
-                          : "Enter Valid Email Address",
+                          : AppLocalizations.of(
+                              context,
+                            )!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.email,
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_10,
-                    ),
+                    SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
-                        validator: (value) =>
-                            value! == "" ? "Password can't be empty" : null,
+                        validator: (value) => value! == ""
+                            ? AppLocalizations.of(context)!.passwordEmpty
+                            : null,
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          hintText: "Password",
+                          hintText: AppLocalizations.of(context)!.password,
                           suffixIcon: Semantics(
                             label: (controller.isPasswordFieldVisible.value)
-                                ? "Hide password"
-                                : "Show password",
+                                ? AppLocalizations.of(context)!.hidePassword
+                                : AppLocalizations.of(context)!.showPassword,
                             child: GestureDetector(
                               onTap: () {
                                 controller.isPasswordFieldVisible.value =
@@ -98,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller.isPasswordFieldVisible.value
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondary,
                                 ),
                               ),
                             ),
@@ -107,9 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_30,
-                    ),
+                    SizedBox(height: UiSizes.height_30),
                     SizedBox(
                       width: double.maxFinite,
                       child: Obx(
@@ -118,34 +114,31 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (!controller.isLoading.value) {
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
-                                await controller.login();
+                                await controller.login(context);
                               }
                             }
                           },
                           child: controller.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget
-                                      .horizontalRotatingDots(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: UiSizes.size_40,
-                                  ),
+                                  child:
+                                      LoadingAnimationWidget.horizontalRotatingDots(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimary,
+                                        size: UiSizes.size_40,
+                                      ),
                                 )
-                              : const Text(
-                                  "Login",
-                                ),
+                              : Text(AppLocalizations.of(context)!.login),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: UiSizes.height_40,
-                    ),
+                    SizedBox(height: UiSizes.height_40),
                     GestureDetector(
                       onTap: () {
                         Get.offNamed(AppRoutes.forgotPassword);
                       },
                       child: Text(
-                        "Forgot Password?",
+                        AppLocalizations.of(context)!.forgotPassword,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -156,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("New to Resonate? "),
+                    Text(AppLocalizations.of(context)!.newToResonate),
                     GestureDetector(
                       onTap: () {
                         controller.emailController.clear();
@@ -167,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.offNamed(AppRoutes.signup);
                       },
                       child: Text(
-                        "Register",
+                        AppLocalizations.of(context)!.register,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -175,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

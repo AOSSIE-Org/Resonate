@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
@@ -22,29 +23,28 @@ class ParticipantBlock extends StatelessWidget {
 
   final Participant participant;
   final SingleRoomController controller;
-
-  String getUserRole() {
+  String getUserRole(BuildContext context) {
     if (participant.isAdmin) {
-      return "Admin";
+      return AppLocalizations.of(context)!.admin;
     } else if (participant.isModerator) {
-      return "Moderator";
+      return AppLocalizations.of(context)!.moderator;
     } else if (participant.isSpeaker) {
-      return "Speaker";
+      return AppLocalizations.of(context)!.speaker;
     } else {
-      return "Listener";
+      return AppLocalizations.of(context)!.listener;
     }
   }
 
   List<FocusedMenuItem> makeMenuItems(
-      List<FocusedMenuItemData> items, Brightness currentBrightness) {
+    List<FocusedMenuItemData> items,
+    Brightness currentBrightness,
+  ) {
     return items
         .map(
           (item) => FocusedMenuItem(
             title: Text(
               item.textContent,
-              style: TextStyle(
-                fontSize: UiSizes.size_14,
-              ),
+              style: TextStyle(fontSize: UiSizes.size_14),
             ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
@@ -60,7 +60,10 @@ class ParticipantBlock extends StatelessWidget {
         .toList();
   }
 
-  List<FocusedMenuItem> getMenuItems(Brightness currentBrightness) {
+  List<FocusedMenuItem> getMenuItems(
+    Brightness currentBrightness,
+    BuildContext context,
+  ) {
     if ((!controller.me.value.isAdmin && !controller.me.value.isModerator) ||
         participant.isAdmin) {
       return [];
@@ -70,37 +73,31 @@ class ParticipantBlock extends StatelessWidget {
       if (participant.isModerator) {
         return makeMenuItems([
           FocusedMenuItemData(
-            "Remove Moderator",
+            AppLocalizations.of(context)!.removeModerator,
             () {
               controller.removeModerator(participant);
             },
           ),
-          FocusedMenuItemData(
-            "Kick Out",
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          )
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       } else {
         return makeMenuItems([
-          FocusedMenuItemData("Add Moderator", () {
+          FocusedMenuItemData(AppLocalizations.of(context)!.addModerator, () {
             controller.makeModerator(participant);
           }),
           if (participant.hasRequestedToBeSpeaker)
-            FocusedMenuItemData("Add Speaker", () {
+            FocusedMenuItemData(AppLocalizations.of(context)!.addSpeaker, () {
               controller.makeSpeaker(participant);
             }),
           if (participant.isSpeaker)
-            FocusedMenuItemData("Make Listener", () {
+            FocusedMenuItemData(AppLocalizations.of(context)!.makeListener, () {
               controller.makeListener(participant);
             }),
-          FocusedMenuItemData(
-            "Kick Out",
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          ),
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       }
     }
@@ -111,19 +108,16 @@ class ParticipantBlock extends StatelessWidget {
       } else {
         return makeMenuItems([
           if (participant.hasRequestedToBeSpeaker)
-            FocusedMenuItemData("Add Speaker", () {
+            FocusedMenuItemData(AppLocalizations.of(context)!.addSpeaker, () {
               controller.makeSpeaker(participant);
             }),
           if (participant.isSpeaker)
-            FocusedMenuItemData("Make Listener", () {
+            FocusedMenuItemData(AppLocalizations.of(context)!.makeListener, () {
               controller.makeListener(participant);
             }),
-          FocusedMenuItemData(
-            "Kick Out",
-            () {
-              controller.kickOutParticipant(participant);
-            },
-          ),
+          FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
+            controller.kickOutParticipant(participant);
+          }),
         ], currentBrightness);
       }
     }
@@ -152,8 +146,9 @@ class ParticipantBlock extends StatelessWidget {
       blurBackgroundColor: currentBrightness == Brightness.light
           ? Colors.white54
           : Colors.black54,
-      menuItems: getMenuItems(currentBrightness),
-      openWithTap: ((controller.me.value.isAdmin ||
+      menuItems: getMenuItems(currentBrightness, context),
+      openWithTap:
+          ((controller.me.value.isAdmin ||
                   (controller.me.value.isModerator &&
                       !participant.isModerator)) &&
               !participant.isAdmin)
@@ -161,7 +156,9 @@ class ParticipantBlock extends StatelessWidget {
           : false,
       child: Container(
         padding: EdgeInsets.symmetric(
-            vertical: UiSizes.height_2, horizontal: UiSizes.width_2),
+          vertical: UiSizes.height_2,
+          horizontal: UiSizes.width_2,
+        ),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -202,17 +199,15 @@ class ParticipantBlock extends StatelessWidget {
                     ),
                   Text(
                     participant.name.split(' ').first,
-                    style: TextStyle(
-                      fontSize: UiSizes.size_16,
-                    ),
-                  )
+                    style: TextStyle(fontSize: UiSizes.size_16),
+                  ),
                 ],
               ),
             ),
             Text(
-              getUserRole(),
+              getUserRole(context),
               style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
-            )
+            ),
           ],
         ),
       ),

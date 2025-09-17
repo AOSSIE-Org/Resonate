@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class NoMatchView extends StatelessWidget {
   const NoMatchView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: Text(
-        'No Search Results',
-        style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontSize: 20),
+        AppLocalizations.of(context)!.noSearchResults,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSecondary,
+          fontSize: 20,
+        ),
       ),
     );
   }

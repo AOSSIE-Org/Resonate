@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 class NoRoomScreen extends StatelessWidget {
   final bool isRoom;
@@ -12,21 +14,21 @@ class NoRoomScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 6,
-        ),
-        Image.asset(height: 150, width: 150, AppImages.noRoomImage),
-        const SizedBox(
-          height: 30,
-        ),
-        Text(
-          '''No ${isRoom ? 'Room' : 'Upcoming Room'} Available
-Get Started By Adding One Below! ''',
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w900,
+        SizedBox(height: MediaQuery.of(context).size.height / 6),
+        SvgPicture.asset(
+          AppImages.noRoomImage,
+          height: 200,
+          width: 200,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.primary,
+            BlendMode.srcIn,
           ),
+        ),
+        const SizedBox(height: 30),
+        Text(
+          AppLocalizations.of(context)!.noAvailableRoom(isRoom.toString()),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
         ),
       ],
     );
@@ -34,9 +36,7 @@ Get Started By Adding One Below! ''',
 }
 
 class GeneralAppBar extends StatelessWidget {
-  const GeneralAppBar({
-    super.key,
-  });
+  const GeneralAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +44,12 @@ class GeneralAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'LIVE',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          AppLocalizations.of(context)!.live.toUpperCase(),
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
         const SizedBox(width: 25),
-        const Text(
-          'UPCOMING',
+        Text(
+          AppLocalizations.of(context)!.upcoming.toUpperCase(),
           style: TextStyle(color: Color.fromRGBO(118, 124, 134, 1)),
         ),
         const Spacer(),

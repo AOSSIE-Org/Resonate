@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:async';
 
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
@@ -58,9 +59,7 @@ class LiveKitController extends GetxController {
           roomOptions: const RoomOptions(
             adaptiveStream: false,
             dynacast: false,
-            defaultVideoPublishOptions: VideoPublishOptions(
-              simulcast: false,
-            ),
+            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
           ),
         );
 
@@ -70,15 +69,17 @@ class LiveKitController extends GetxController {
         return true;
       } catch (error) {
         reconnectAttempts++;
-        log('Connection attempt $reconnectAttempts/$maxAttempts failed: $error');
+        log(
+          'Connection attempt $reconnectAttempts/$maxAttempts failed: $error',
+        );
 
         if (reconnectAttempts < maxAttempts) {
           await Future.delayed(retryInterval); // Wait before retrying
         } else {
           log('Failed to connect after $maxAttempts attempts');
           Get.snackbar(
-            'Connection Failed',
-            'Unable to join the room. Please check your network and try again.',
+            AppLocalizations.of(Get.context!)!.connectionFailed,
+            AppLocalizations.of(Get.context!)!.unableToJoinRoom,
             duration: const Duration(seconds: 5),
           );
           return false;
@@ -93,7 +94,9 @@ class LiveKitController extends GetxController {
 
     if (reconnectAttempts < maxAttempts) {
       reconnectAttempts++;
-      log('Attempting to reconnect: Attempt $reconnectAttempts of $maxAttempts');
+      log(
+        'Attempting to reconnect: Attempt $reconnectAttempts of $maxAttempts',
+      );
 
       reconnectTimer?.cancel();
       reconnectTimer = Timer(retryInterval, () async {
@@ -104,8 +107,8 @@ class LiveKitController extends GetxController {
         } else if (!success) {
           log('Failed to reconnect after $maxAttempts attempts');
           Get.snackbar(
-            'Connection Lost',
-            'Unable to reconnect to the room. Please try rejoining.',
+            AppLocalizations.of(Get.context!)!.connectionLost,
+            AppLocalizations.of(Get.context!)!.unableToReconnect,
             duration: const Duration(seconds: 5),
           );
         }
@@ -143,7 +146,3 @@ class LiveKitController extends GetxController {
       log('Recording status changed: ${event.activeRecording}');
     });
 }
-
-
-
-

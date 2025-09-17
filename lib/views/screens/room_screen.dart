@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
@@ -13,10 +14,7 @@ import 'package:resonate/views/widgets/room_header.dart';
 class RoomScreen extends StatefulWidget {
   final AppwriteRoom room;
 
-  const RoomScreen({
-    Key? key,
-    required this.room,
-  }) : super(key: key);
+  const RoomScreen({super.key, required this.room});
 
   @override
   RoomScreenState createState() => RoomScreenState();
@@ -33,12 +31,14 @@ class RoomScreenState extends State<RoomScreen> {
 
   Future<dynamic> _deleteRoomDialog(String text, Function() onTap) async {
     return await Get.defaultDialog(
-      title: "Are you sure?",
+      title: AppLocalizations.of(context)!.areYouSure,
       buttonColor: Theme.of(context).colorScheme.primary,
-      middleText: "To $text the room",
+      middleText: AppLocalizations.of(context)!.toRoomAction(text),
       cancelTextColor: Theme.of(context).colorScheme.primary,
+      textConfirm: AppLocalizations.of(context)!.confirm,
+      textCancel: AppLocalizations.of(context)!.cancel,
       onConfirm: onTap,
-      onCancel: () => log("canceled"),
+      onCancel: () => log(AppLocalizations.of(context)!.canceled),
     );
   }
 
@@ -87,28 +87,30 @@ class RoomScreenState extends State<RoomScreen> {
           ),
         );
       } else {
-        return Stack(children: [
-          Container(
-            decoration: BoxDecoration(
+        return Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSecondary
-                    .withAlpha((255 * 0.15).round())),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildParticipantsSection(
-                  title: "Participants",
-                  controller: controller,
-                ),
-              ],
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSecondary.withValues(alpha: 0.15),
+              ),
             ),
-          ),
-          _buildFooter(),
-        ]);
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildParticipantsSection(
+                    title: AppLocalizations.of(context)!.participants,
+                    controller: controller,
+                  ),
+                ],
+              ),
+            ),
+            _buildFooter(),
+          ],
+        );
       }
     });
   }
@@ -130,28 +132,29 @@ class RoomScreenState extends State<RoomScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Obx(() {
             return SizedBox(
               height: double.maxFinite,
               width: 400,
               child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: UiSizes.width_20,
-                    mainAxisSpacing: UiSizes.height_5,
-                    childAspectRatio: 2.5 / 3,
-                  ),
-                  itemCount: controller.participants.length,
-                  itemBuilder: (ctx, index) {
-                    return GetBuilder<SingleRoomController>(
-                        builder: (controller) => ParticipantBlock(
-                              participant: controller.participants[index].value,
-                              controller: controller,
-                            ));
-                  }),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: UiSizes.width_20,
+                  mainAxisSpacing: UiSizes.height_5,
+                  childAspectRatio: 2.5 / 3,
+                ),
+                itemCount: controller.participants.length,
+                itemBuilder: (ctx, index) {
+                  return GetBuilder<SingleRoomController>(
+                    init: SingleRoomController(appwriteRoom: widget.room),
+                    builder: (controller) => ParticipantBlock(
+                      participant: controller.participants[index].value,
+                      controller: controller,
+                    ),
+                  );
+                },
+              ),
             );
           }),
         ],
@@ -166,14 +169,16 @@ class RoomScreenState extends State<RoomScreen> {
         height: MediaQuery.of(context).size.height * 0.07,
         width: double.infinity,
         decoration: BoxDecoration(
-            borderRadius: BorderRadiusDirectional.circular(24),
-            color: Theme.of(context).colorScheme.surface),
+          borderRadius: BorderRadiusDirectional.circular(24),
+          color: Theme.of(context).colorScheme.surface,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildLeaveButton(),
             _buildMicButton(),
             _buildRaiseHandButton(),
+            _buildChatButton(),
           ],
         ),
       ),
@@ -181,82 +186,108 @@ class RoomScreenState extends State<RoomScreen> {
   }
 
   Widget _buildLeaveButton() {
-    return GetBuilder<SingleRoomController>(builder: (controller) {
-      return ElevatedButton.icon(
-        onPressed: () async {
-          await _deleteRoomDialog(
-            controller.appwriteRoom.isUserAdmin ? "delete" : "leave",
-            () async {
-              if (controller.appwriteRoom.isUserAdmin) {
-                await controller.deleteRoom();
-              } else {
-                await controller.leaveRoom();
-              }
-            },
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 241, 108, 98),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        ),
-        icon: const Icon(Icons.exit_to_app),
-        label: const Text("Leave"),
-      );
-    });
+    return GetBuilder<SingleRoomController>(
+      init: SingleRoomController(appwriteRoom: widget.room),
+      builder: (controller) {
+        return ElevatedButton.icon(
+          onPressed: () async {
+            await _deleteRoomDialog(
+              controller.appwriteRoom.isUserAdmin
+                  ? AppLocalizations.of(context)!.delete
+                  : AppLocalizations.of(context)!.leave,
+              () async {
+                if (controller.appwriteRoom.isUserAdmin) {
+                  await controller.deleteRoom();
+                } else {
+                  await controller.leaveRoom();
+                }
+              },
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 241, 108, 98),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          icon: const Icon(Icons.exit_to_app),
+          label: Text(AppLocalizations.of(context)!.leaveButton),
+        );
+      },
+    );
   }
 
   Widget _buildRaiseHandButton() {
-    return GetBuilder<SingleRoomController>(builder: (controller) {
-      final bool hasRequestedToBeSpeaker =
-          controller.me.value.hasRequestedToBeSpeaker;
+    return GetBuilder<SingleRoomController>(
+      init: SingleRoomController(appwriteRoom: widget.room),
+      builder: (controller) {
+        final bool hasRequestedToBeSpeaker =
+            controller.me.value.hasRequestedToBeSpeaker;
 
-      return FloatingActionButton(
-        onPressed: () {
-          if (hasRequestedToBeSpeaker) {
-            controller.unRaiseHand();
-          } else {
-            controller.raiseHand();
-          }
-        },
-        backgroundColor: hasRequestedToBeSpeaker
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).brightness == Brightness.light
-                ? Colors.white
-                : Colors.black54,
-        child: Icon(
-          hasRequestedToBeSpeaker ? Icons.back_hand : Icons.back_hand_outlined,
-          color: hasRequestedToBeSpeaker
-              ? Colors.black
+        return FloatingActionButton(
+          onPressed: () {
+            if (hasRequestedToBeSpeaker) {
+              controller.unRaiseHand();
+            } else {
+              controller.raiseHand();
+            }
+          },
+          backgroundColor: hasRequestedToBeSpeaker
+              ? Theme.of(context).colorScheme.primary
               : Theme.of(context).brightness == Brightness.light
-                  ? Colors.black
-                  : Colors.white54,
-        ),
-      );
-    });
+              ? Colors.white
+              : Colors.black54,
+          child: Icon(
+            hasRequestedToBeSpeaker
+                ? Icons.back_hand
+                : Icons.back_hand_outlined,
+            color: hasRequestedToBeSpeaker
+                ? Colors.black
+                : Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white54,
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildMicButton() {
-    return GetBuilder<SingleRoomController>(builder: (controller) {
-      final bool isMicOn = controller.me.value.isMicOn;
-      final bool isSpeaker = controller.me.value.isSpeaker;
+    return GetBuilder<SingleRoomController>(
+      init: SingleRoomController(appwriteRoom: widget.room),
+      builder: (controller) {
+        final bool isMicOn = controller.me.value.isMicOn;
+        final bool isSpeaker = controller.me.value.isSpeaker;
 
-      return FloatingActionButton(
-        onPressed: () {
-          if (isSpeaker) {
-            if (isMicOn) {
-              controller.turnOffMic();
-            } else {
-              controller.turnOnMic();
+        return FloatingActionButton(
+          onPressed: () {
+            if (isSpeaker) {
+              if (isMicOn) {
+                controller.turnOffMic();
+              } else {
+                controller.turnOnMic();
+              }
             }
-          }
-        },
-        backgroundColor: isMicOn ? Colors.lightGreen : Colors.redAccent,
-        child: Icon(
-          isMicOn ? Icons.mic : Icons.mic_off,
-          color: Colors.black,
-        ),
-      );
-    });
+          },
+          backgroundColor: isMicOn ? Colors.lightGreen : Colors.redAccent,
+          child: Icon(isMicOn ? Icons.mic : Icons.mic_off, color: Colors.black),
+        );
+      },
+    );
+  }
+
+  Widget _buildChatButton() {
+    return GetBuilder<SingleRoomController>(
+      init: SingleRoomController(appwriteRoom: widget.room),
+      builder: (controller) {
+        return FloatingActionButton(
+          onPressed: () {
+            controller.openChatSheet();
+          },
+          backgroundColor: Colors.redAccent,
+          child: Icon(Icons.chat, color: Colors.black),
+        );
+      },
+    );
   }
 }

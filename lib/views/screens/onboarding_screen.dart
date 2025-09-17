@@ -1,22 +1,32 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/debouncer.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../../controllers/onboarding_controller.dart';
 import '../../utils/ui_sizes.dart';
 
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  final debouncer = Debouncer(milliseconds: 800);
+  final themeController = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OnboardingController>(
       builder: (controller) => Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-        ),
+        appBar: AppBar(toolbarHeight: 0),
         body: Container(
           padding: EdgeInsets.symmetric(
             vertical: UiSizes.height_20,
@@ -31,21 +41,25 @@ class OnBoardingScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: UiSizes.height_40),
                     Text(
-                      "Complete your Profile",
+                      AppLocalizations.of(context)!.completeYourProfile,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     SizedBox(height: UiSizes.height_60),
                     Semantics(
-                      label: "Upload profile picture",
+                      label: AppLocalizations.of(context)!.uploadProfilePicture,
                       child: GestureDetector(
                         onTap: () async => await controller.pickImage(),
                         child: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.secondary,
                           backgroundImage: (controller.profileImagePath == null)
-                              ? NetworkImage(controller.imageController.text)
+                              ? NetworkImage(
+                                  themeController
+                                      .userProfileImagePlaceholderUrl,
+                                )
                               : FileImage(File(controller.profileImagePath!))
-                                  as ImageProvider,
+                                    as ImageProvider,
                           radius: UiSizes.width_80,
                           child: Stack(
                             children: [
@@ -53,12 +67,14 @@ class OnBoardingScreen extends StatelessWidget {
                                 alignment: Alignment.bottomRight,
                                 child: CircleAvatar(
                                   radius: UiSizes.width_20,
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).colorScheme.primary,
                                   child: Icon(
                                     Icons.edit,
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
                                     size: UiSizes.size_20,
                                   ),
                                 ),
@@ -70,15 +86,17 @@ class OnBoardingScreen extends StatelessWidget {
                     ),
                     SizedBox(height: UiSizes.height_40),
                     TextFormField(
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : "Enter Valid Name",
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidName,
                       controller: controller.nameController,
                       keyboardType: TextInputType.text,
+                      maxLength: 100,
                       autocorrect: false,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         // hintText: "Name",
-                        labelText: "Name",
-                        prefixIcon: Icon(Icons.abc_rounded),
+                        labelText: AppLocalizations.of(context)!.name,
+                        prefixIcon: const Icon(Icons.abc_rounded),
                       ),
                     ),
                     SizedBox(height: UiSizes.height_20),
@@ -88,15 +106,37 @@ class OnBoardingScreen extends StatelessWidget {
                           if (value!.length > 5) {
                             return null;
                           } else {
-                            return "Username should contain more than 5 characters.";
+                            return AppLocalizations.of(
+                              context,
+                            )!.usernameCharacterLimit;
                           }
                         },
+                        maxLength: 36,
                         controller: controller.usernameController,
                         onChanged: (value) async {
+                          Get.closeCurrentSnackbar();
                           if (value.length > 5) {
-                            controller.usernameAvailable.value =
-                                await controller
-                                    .isUsernameAvailable(value.trim());
+                            controller.usernameAvailableChecking.value = true;
+                            debouncer.run(() async {
+                              controller.usernameAvailable.value =
+                                  await controller.isUsernameAvailable(
+                                    value.trim(),
+                                  );
+                              controller.usernameAvailableChecking.value =
+                                  false;
+                              if (!controller.usernameAvailable.value) {
+                                customSnackbar(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.usernameUnavailable,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.usernameInvalidOrTaken,
+                                  LogType.error,
+                                  snackbarDuration: 1,
+                                );
+                              }
+                            });
                           } else {
                             controller.usernameAvailable.value = false;
                           }
@@ -105,9 +145,14 @@ class OnBoardingScreen extends StatelessWidget {
                         autocorrect: false,
                         decoration: InputDecoration(
                           // hintText: "Username",
-                          labelText: "Username",
+                          labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
-                          suffixIcon: controller.usernameAvailable.value
+                          suffixText: controller.usernameAvailableChecking.value
+                              ? AppLocalizations.of(context)!.checking
+                              : null,
+                          suffixIcon:
+                              controller.usernameAvailable.value &&
+                                  !controller.usernameAvailableChecking.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
@@ -118,8 +163,9 @@ class OnBoardingScreen extends StatelessWidget {
                     ),
                     SizedBox(height: UiSizes.height_20),
                     TextFormField(
-                      validator: (value) =>
-                          value!.isNotEmpty ? null : "Enter Valid DOB",
+                      validator: (value) => value!.isNotEmpty
+                          ? null
+                          : AppLocalizations.of(context)!.enterValidDOB,
                       readOnly: true,
                       onTap: () async {
                         await controller.chooseDate();
@@ -128,9 +174,9 @@ class OnBoardingScreen extends StatelessWidget {
                       controller: controller.dobController,
                       keyboardType: TextInputType.text,
                       autocorrect: false,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.calendar_month_rounded),
-                        labelText: "Date of Birth",
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.calendar_month_rounded),
+                        labelText: AppLocalizations.of(context)!.dateOfBirth,
                         // hintText: "Date of Birth",
                       ),
                     ),
@@ -146,17 +192,18 @@ class OnBoardingScreen extends StatelessWidget {
                           },
                           child: controller.isLoading.value
                               ? Center(
-                                  child: LoadingAnimationWidget
-                                      .horizontalRotatingDots(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    size: UiSizes.size_40,
-                                  ),
+                                  child:
+                                      LoadingAnimationWidget.horizontalRotatingDots(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimary,
+                                        size: UiSizes.size_40,
+                                      ),
                                 )
-                              : const Text('Submit'),
+                              : Text(AppLocalizations.of(context)!.submit),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

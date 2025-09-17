@@ -3,9 +3,11 @@ import 'package:flutter/semantics.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
@@ -17,10 +19,9 @@ class EditProfileController extends GetxController {
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  final AuthStateController authStateController =
-      Get.find<AuthStateController>();
+  final AuthStateController authStateController;
 
-  // final ThemeController themeController = Get.find<ThemeController>();
+  final ThemeController themeController;
   late final Storage storage;
   late final Databases databases;
 
@@ -40,18 +41,26 @@ class EditProfileController extends GetxController {
 
   final GlobalKey<FormState> editProfileFormKey = GlobalKey<FormState>();
 
+  EditProfileController({
+    ThemeController? themeController,
+    AuthStateController? authStateController,
+    Storage? storage,
+    Databases? databases,
+  }) : themeController = themeController ?? Get.find<ThemeController>(),
+       authStateController =
+           authStateController ?? Get.find<AuthStateController>(),
+       storage = storage ?? AppwriteService.getStorage(),
+       databases = databases ?? AppwriteService.getDatabases();
+
   @override
   void onInit() {
     super.onInit();
-
-    storage = AppwriteService.getStorage();
-    databases = AppwriteService.getDatabases();
-
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
 
     nameController.text = authStateController.displayName!.trim();
     usernameController.text = authStateController.userName!.trim();
+    log(profileImagePath.toString());
   }
 
   bool isThereUnsavedChanges() {
@@ -90,9 +99,10 @@ class EditProfileController extends GetxController {
   }
 
   void removeProfilePicture() {
-    if (authStateController.profileImageUrl != userProfileImagePlaceholderUrl) {
+    if (authStateController.profileImageUrl != null) {
       removeImage = true;
     }
+    log(authStateController.profileImageUrl.toString());
     profileImagePath = null;
     update();
   }
@@ -129,7 +139,7 @@ class EditProfileController extends GetxController {
       aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: 'Crop Image',
+          toolbarTitle: AppLocalizations.of(Get.context!)!.cropImage,
           // toolbarColor: themeController.primaryColor.value,
           // statusBarColor: themeController.primaryColor.value,
           // toolbarWidgetColor: Colors.black,
@@ -138,7 +148,7 @@ class EditProfileController extends GetxController {
         ),
         IOSUiSettings(
           minimumAspectRatio: 1.0,
-          title: 'Crop Image',
+          title: AppLocalizations.of(Get.context!)!.cropImage,
         ),
       ],
     );
@@ -199,22 +209,26 @@ class EditProfileController extends GetxController {
       if (profileImagePath != null) {
         try {
           await storage.deleteFile(
-              bucketId: userProfileImageBucketId,
-              fileId: authStateController.profileImageID!);
+            bucketId: userProfileImageBucketId,
+            fileId: authStateController.profileImageID!,
+          );
         } catch (e) {
           log(e.toString());
         }
 
-        uniqueIdForProfileImage = authStateController.uid! +
+        uniqueIdForProfileImage =
+            authStateController.uid! +
             DateTime.now().millisecondsSinceEpoch.toString();
 
         // Create new user profile picture file in Storage
         final profileImage = await storage.createFile(
-            bucketId: userProfileImageBucketId,
-            fileId: uniqueIdForProfileImage,
-            file: InputFile.fromPath(
-                path: profileImagePath!,
-                filename: "${authStateController.email}.jpeg"));
+          bucketId: userProfileImageBucketId,
+          fileId: uniqueIdForProfileImage,
+          file: InputFile.fromPath(
+            path: profileImagePath!,
+            filename: "${authStateController.email}.jpeg",
+          ),
+        );
 
         imageController.text =
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
@@ -232,34 +246,32 @@ class EditProfileController extends GetxController {
       }
 
       if (removeImage) {
-        imageController.text = userProfileImagePlaceholderUrl;
+        imageController.text = "";
 
         // Update user profile picture URL in Database
         await databases.updateDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "profileImageUrl": imageController.text,
-          },
+          data: {"profileImageUrl": imageController.text},
         );
       }
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail =
-            await isUsernameAvailable(usernameController.text.trim());
-
+        var usernameAvail = await isUsernameAvailable(
+          usernameController.text.trim(),
+        );
         if (!usernameAvail) {
           usernameAvailable.value = false;
           customSnackbar(
-            "Username Unavailable!",
-            "This username is invalid or either taken already.",
+            AppLocalizations.of(Get.context!)!.usernameUnavailable,
+            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
             LogType.error,
           );
 
           SemanticsService.announce(
-            "This username is invalid or either taken already.",
+            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
             TextDirection.ltr,
           );
           return;
@@ -270,9 +282,7 @@ class EditProfileController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usernameCollectionID,
           documentId: usernameController.text.trim(),
-          data: {
-            'email': authStateController.email,
-          },
+          data: {'email': authStateController.email},
         );
 
         try {
@@ -290,25 +300,22 @@ class EditProfileController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "username": usernameController.text.trim(),
-          },
+          data: {"username": usernameController.text.trim()},
         );
       }
 
       //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
-        await authStateController.account
-            .updateName(name: nameController.text.trim());
+        await authStateController.account.updateName(
+          name: nameController.text.trim(),
+        );
 
         await databases.updateDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: authStateController.uid!,
-          data: {
-            "name": nameController.text.trim(),
-          },
+          data: {"name": nameController.text.trim()},
         );
       }
 
@@ -320,45 +327,41 @@ class EditProfileController extends GetxController {
       oldUsername = authStateController.userName!;
 
       removeImage = false;
-      profileImagePath = null;
-
-      // The Success snackbar is only shown when there is change made, otherwise it is not shown
+      profileImagePath =
+          null; // The Success snackbar is only shown when there is change made, otherwise it is not shown
       if (showSuccessSnackbar) {
         customSnackbar(
-          'Profile updated',
-          'All changes are saved successfully.',
+          AppLocalizations.of(Get.context!)!.profileSavedSuccessfully,
+          AppLocalizations.of(Get.context!)!.profileUpdatedSuccessfully,
           LogType.success,
         );
 
         SemanticsService.announce(
-          'All changes are saved successfully.',
+          AppLocalizations.of(Get.context!)!.profileUpdatedSuccessfully,
           TextDirection.ltr,
         );
       } else {
         // This snackbar is to show user that profile is up to date and there are no changes done by user
         customSnackbar(
-          'Profile is up to date',
-          'There are no new changes made, Nothing to save.',
+          AppLocalizations.of(Get.context!)!.profileUpToDate,
+          AppLocalizations.of(Get.context!)!.noChangesToSave,
           LogType.info,
         );
 
         SemanticsService.announce(
-          'There are no new changes made, Nothing to save.',
+          AppLocalizations.of(Get.context!)!.noChangesToSave,
           TextDirection.ltr,
         );
       }
     } catch (e) {
       log(e.toString());
       customSnackbar(
-        'Error!',
+        AppLocalizations.of(Get.context!)!.error,
         e.toString(),
         LogType.error,
       );
 
-      SemanticsService.announce(
-        e.toString(),
-        TextDirection.ltr,
-      );
+      SemanticsService.announce(e.toString(), TextDirection.ltr);
     } finally {
       isLoading.value = false;
       showSuccessSnackbar = false;
