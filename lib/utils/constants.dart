@@ -11,6 +11,19 @@ const String appwriteProjectId = String.fromEnvironment(
 );
 const String appwriteEndpoint = "http://$baseDomain:80/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
+const String meilisearchEndpoint = String.fromEnvironment(
+  'MEILISEARCH_ENDPOINT',
+  defaultValue: 'http://$baseDomain:7700',
+);
+const String meilisearchApiKey = String.fromEnvironment(
+  'MEILISEARCH_API_KEY',
+  defaultValue: 'myMasterKey',
+);
+
+const bool isUsingMeilisearch = bool.fromEnvironment(
+  'USE_MEILISEARCH',
+  defaultValue: false,
+);
 
 // Discussion related Database Constants
 const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";

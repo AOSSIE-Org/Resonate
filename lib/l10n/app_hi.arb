@@ -1375,9 +1375,6 @@
         "description": "Label for the list of users that the current user is following."
     },
     "followers": "फॉलोअर्स",
-    "@followers": {
-        "description": "Label for the list of users who are following the current user."
-    },
     "friendRequests": "फ्रेंड रिक्वेस्ट",
     "@friendRequests": {
         "description": "Header for the list of incoming friend requests."

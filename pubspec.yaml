@@ -91,6 +91,7 @@ dependencies:
   json_annotation: ^4.9.0
   animated_rating_stars: ^1.0.1
   flutter_callkit_incoming: ^2.5.8
+  meilisearch: ^0.17.0
 
 dependency_overrides:
   device_info_plus: ^10.1.2
