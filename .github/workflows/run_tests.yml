@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Setup env variables that will be used throughout the workflow
-      JAVA_VERSION: 17.0.12
+      JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
     steps:
       # Checkout repository codebase
