@@ -88,6 +88,15 @@ Press "a" to select all and press enter, same goes for  `Buckets` set up comming
 This completes the Resonate project Set Up (functions will be pushed in the end) in your local Appwrite Instance 🚀🍀
 <br/>
 
+### Meilisearch Set Up
+Now you will be asked to choose between Meilisearch Cloud and Meilisearch Self Hosted. Please choose whatever option suits you.
+![Image for Meilisearch](https://github.com/user-attachments/assets/c349ea95-ce14-47c6-b712-fc93d25747e3)
+
+
+This would run Meilisearch locally for you as a container (if you went with self hosted). You can proceed to the next section.
+
+If you want to use Meilisearch in Resonate, please enable the isUsingMeilisearch flag in constants.dart either by changing the default value or passing true as an environment variable via the --dart-define argument.
+
 
 ### Livekit Set Up
 
