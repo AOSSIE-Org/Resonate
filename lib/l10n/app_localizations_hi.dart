@@ -433,9 +433,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noLyrics => 'कोई लिरिक्स उपलब्ध नहीं';
 
   @override
-  String get aboutSection => 'About';
-
-  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName श्रेणी में कोई कहानी नहीं है';
   }

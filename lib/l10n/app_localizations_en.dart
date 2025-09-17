@@ -433,9 +433,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noLyrics => 'No lyrics';
 
   @override
-  String get aboutSection => 'About';
-
-  @override
   String noStoriesInCategory(String categoryName) {
     return 'No stories currently exist in the $categoryName category to present';
   }

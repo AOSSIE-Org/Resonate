@@ -920,12 +920,6 @@ abstract class AppLocalizations {
   /// **'No lyrics'**
   String get noLyrics;
 
-  /// Header for the 'About' section.
-  ///
-  /// In en, this message translates to:
-  /// **'About'**
-  String get aboutSection;
-
   /// Message when no stories exist in a specific category.
   ///
   /// In en, this message translates to:
