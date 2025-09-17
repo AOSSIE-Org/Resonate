@@ -1077,7 +1077,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'You are now friends with \$$username.';
+    return 'You are now friends with $username.';
   }
 
   @override
@@ -1085,7 +1085,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'You have declined the friend request from \$$username.';
+    return 'You have declined the friend request from $username.';
   }
 
   @override
@@ -1096,7 +1096,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return 'User \$$username declined the call.';
+    return 'User $username declined the call.';
   }
 
   @override

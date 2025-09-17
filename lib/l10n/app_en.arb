@@ -1425,7 +1425,7 @@
     "@friendRequestAccepted": {
         "description": "Title for the confirmation message after accepting a friend request."
     },
-    "friendRequestAcceptedTo": "You are now friends with ${username}.",
+    "friendRequestAcceptedTo": "You are now friends with {username}.",
     "@friendRequestAcceptedTo": {
         "description": "Confirmation message after accepting a friend request from a specific user.",
         "placeholders": {
@@ -1439,7 +1439,7 @@
     "@friendRequestDeclined": {
         "description": "Title for the confirmation message after declining a friend request."
     },
-    "friendRequestDeclinedTo": "You have declined the friend request from ${username}.",
+    "friendRequestDeclinedTo": "You have declined the friend request from {username}.",
     "@friendRequestDeclinedTo": {
         "description": "Confirmation message after declining a friend request from a specific user.",
         "placeholders": {
@@ -1457,7 +1457,7 @@
     "@callDeclined": {
         "description": "Title for the message when a call is declined."
     },
-    "callDeclinedTo": "User ${username} declined the call.",
+    "callDeclinedTo": "User {username} declined the call.",
     "@callDeclinedTo": {
         "description": "Message indicating that a specific user declined a call.",
         "placeholders": {
