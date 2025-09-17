@@ -553,10 +553,6 @@
     "@noLyrics": {
         "description": "Message displayed when lyrics for an audio file are not available."
     },
-    "aboutSection": "About",
-    "@aboutSection": {
-        "description": "Header for the 'About' section."
-    },
     "noStoriesInCategory": "No stories currently exist in the {categoryName} category to present",
     "@noStoriesInCategory": {
         "description": "Message when no stories exist in a specific category.",
