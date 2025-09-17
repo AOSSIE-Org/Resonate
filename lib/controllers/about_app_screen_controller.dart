@@ -26,18 +26,19 @@ class AboutAppScreenController extends GetxController {
     : upgrader =
           upgrader ??
           Upgrader(
-            debugDisplayAlways: kDebugMode, 
-            debugDisplayOnce: false, 
-            debugLogging: kDebugMode, 
+            debugDisplayAlways: kDebugMode,
+            debugDisplayOnce: false,
+            debugLogging: kDebugMode,
             durationUntilAlertAgain: kDebugMode
-                ? const Duration(minutes: 1) 
-                : const Duration(days: 7), 
+                ? const Duration(minutes: 1)
+                : const Duration(days: 7),
           );
 
   @override
   void onInit() {
     super.onInit();
     _loadPackageInfo();
+    checkForUpdate(launchUpdateIfAvailable: false, isManualCheck: false);
   }
 
   Future<void> _loadPackageInfo() async {
