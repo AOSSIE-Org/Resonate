@@ -2121,7 +2121,7 @@ abstract class AppLocalizations {
   /// Confirmation message after accepting a friend request from a specific user.
   ///
   /// In en, this message translates to:
-  /// **'You are now friends with \${username}.'**
+  /// **'You are now friends with {username}.'**
   String friendRequestAcceptedTo(String username);
 
   /// Title for the confirmation message after declining a friend request.
@@ -2133,7 +2133,7 @@ abstract class AppLocalizations {
   /// Confirmation message after declining a friend request from a specific user.
   ///
   /// In en, this message translates to:
-  /// **'You have declined the friend request from \${username}.'**
+  /// **'You have declined the friend request from {username}.'**
   String friendRequestDeclinedTo(String username);
 
   /// Button text to accept a request or invitation.
@@ -2151,7 +2151,7 @@ abstract class AppLocalizations {
   /// Message indicating that a specific user declined a call.
   ///
   /// In en, this message translates to:
-  /// **'User \${username} declined the call.'**
+  /// **'User {username} declined the call.'**
   String callDeclinedTo(String username);
 
   /// Button text to manually check for application updates.
