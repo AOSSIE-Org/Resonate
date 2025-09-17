@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Setup env variables that will be used throughout the workflow
-      JAVA_VERSION: 17.0.12
+      JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks
@@ -35,6 +35,9 @@ jobs:
         with:
           distribution: "zulu"
           java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       # Setup Flutter in the VM
       - name: Setup Flutter
