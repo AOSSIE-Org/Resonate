@@ -278,7 +278,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                   horizontal: 16.0,
                                 ),
                                 child: Text(
-                                  AppLocalizations.of(context)!.aboutStory,
+                                  AppLocalizations.of(context)!.about,
                                   style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
                                         color: Theme.of(

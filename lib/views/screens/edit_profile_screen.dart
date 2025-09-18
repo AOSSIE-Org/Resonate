@@ -300,7 +300,7 @@ class EditProfileScreen extends StatelessWidget {
                 IconButton(
                   tooltip: AppLocalizations.of(
                     context,
-                  )!.clickPictureUsingCamera,
+                  )!.clickPictureCamera,
                   onPressed: () {
                     Navigator.pop(context);
                     // Display Loading Dialog
@@ -319,7 +319,7 @@ class EditProfileScreen extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                  tooltip: AppLocalizations.of(context)!.pickImageFromGallery,
+                  tooltip: AppLocalizations.of(context)!.pickImageGallery,
                   onPressed: () {
                     Navigator.pop(context);
 

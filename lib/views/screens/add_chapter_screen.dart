@@ -166,7 +166,7 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
                     Navigator.pop(Get.context!);
                   }
                 },
-                child: Text(AppLocalizations.of(context)!.pushNewChapters),
+                child: Text(AppLocalizations.of(context)!.newChapters),
               ),
             ],
           ),
