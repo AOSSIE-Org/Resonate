@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -170,7 +172,7 @@ class TabViewScreen extends StatelessWidget {
                             }
                           } catch (e) {
                             // Handle any errors during room creation
-                            print('Room creation error: $e');
+                            log('Room creation error: $e');
                             // Show an error dialog
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -212,10 +214,8 @@ class TabViewScreen extends StatelessWidget {
           activeColor: Theme.of(context).colorScheme.primary,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           inactiveColor: Theme.of(context).brightness == Brightness.light
-              ? Colors.black.withOpacity(0.3) // Fixed withValues to withOpacity
-              : Colors.white.withOpacity(
-                  0.3,
-                ), // Fixed withValues to withOpacity
+              ? Colors.black.withAlpha(30) // Fixed withValues to withOpacity
+              : Colors.white.withAlpha(30), // Fixed withValues to withOpacity
           splashRadius: 0,
           shadow: const Shadow(color: Colors.transparent),
           iconSize: UiSizes.size_30,

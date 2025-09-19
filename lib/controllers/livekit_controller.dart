@@ -50,17 +50,19 @@ class LiveKitController extends GetxController {
 
     while (reconnectAttempts < maxAttempts) {
       try {
-        liveKitRoom = Room();
+        liveKitRoom = Room(
+          roomOptions: const RoomOptions(
+            dynacast: false,
+            adaptiveStream: false,
+            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
+          ),
+        );
         listener = liveKitRoom.createListener();
 
         await liveKitRoom.connect(
           liveKitUri,
           roomToken,
-          roomOptions: const RoomOptions(
-            adaptiveStream: false,
-            dynacast: false,
-            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
-          ),
+          connectOptions: const ConnectOptions(autoSubscribe: true),
         );
 
         isConnected.value = true;
