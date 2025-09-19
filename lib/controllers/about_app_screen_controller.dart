@@ -38,6 +38,7 @@ class AboutAppScreenController extends GetxController {
   void onInit() {
     super.onInit();
     _loadPackageInfo();
+    checkForUpdate(launchUpdateIfAvailable: false, isManualCheck: false);
   }
 
   Future<void> _loadPackageInfo() async {
