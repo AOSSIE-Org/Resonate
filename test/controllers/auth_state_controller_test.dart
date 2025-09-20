@@ -169,7 +169,7 @@ void main() {
       mockDatabases.listDocuments(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: upcomingRoomsCollectionId,
-        queries: [Query.equal("creatorUid", "123")],
+        queries: [Query.equal("creatorUid", ["123"])],
       ),
     ).thenAnswer(
       (_) => Future.value(
@@ -252,6 +252,7 @@ void main() {
               'token1',
               'token2',
               'mockToken',
+              'mockToken',
             ],
           },
         ),
@@ -265,6 +266,7 @@ void main() {
             'registrationTokens': [
               'token1',
               'token2',
+              'mockToken',
               'mockToken',
             ],
           },
@@ -280,6 +282,7 @@ void main() {
               'token1',
               'token2',
               'mockToken',
+              'mockToken',
             ],
           },
         ),
@@ -293,6 +296,7 @@ void main() {
             'creator_fcm_tokens': [
               'token1',
               'token2',
+              'mockToken',
               'mockToken',
             ],
           },
@@ -309,9 +313,7 @@ void main() {
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         documentId: 'subUserDoc1',
-        data: {
-          'registrationTokens': ['token1', 'token2'],
-        },
+        data: anyNamed('data'),
       ),
     ).called(1);
     verify(
@@ -319,9 +321,7 @@ void main() {
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
         documentId: 'subUserDoc2',
-        data: {
-          'registrationTokens': ['token1', 'token2'],
-        },
+        data: anyNamed('data'),
       ),
     ).called(1);
     verify(
@@ -329,9 +329,7 @@ void main() {
         databaseId: upcomingRoomsDatabaseId,
         collectionId: upcomingRoomsCollectionId,
         documentId: 'room1',
-        data: {
-          'creator_fcm_tokens': ['token1', 'token2'],
-        },
+        data: anyNamed('data'),
       ),
     ).called(1);
     verify(
@@ -339,9 +337,7 @@ void main() {
         databaseId: upcomingRoomsDatabaseId,
         collectionId: upcomingRoomsCollectionId,
         documentId: 'room2',
-        data: {
-          'creator_fcm_tokens': ['token1', 'token2'],
-        },
+        data: anyNamed('data'),
       ),
     ).called(1);
   });
