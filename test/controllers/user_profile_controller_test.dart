@@ -19,53 +19,53 @@ import 'explore_story_controller_test.mocks.dart';
 @GenerateMocks([Databases, Account, Client, FirebaseMessaging, Functions])
 List<Document> mockStoryDocuments = [
   Document(
-    $id: 'doc1',
-    $collectionId: storyCollectionId,
-    $databaseId: storyDatabaseId,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'title': 'Story 1',
-      'description': 'Description of Story 1',
-      'category': "comedy",
-      'coverImgUrl': 'https://example.com/image1.jpg',
-      'creatorId': "id1",
-      "creatorName": "Creator 1",
-      "creatorImgUrl": "https://example.com/profile1.jpg",
-      'likes': 10,
-      'tintColor': '0000FF',
-      'playDuration': 120,
-    },
-  ),
+      $id: 'doc1',
+      $collectionId: storyCollectionId,
+      $databaseId: storyDatabaseId,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'title': 'Story 1',
+        'description': 'Description of Story 1',
+        'category': "comedy",
+        'coverImgUrl': 'https://example.com/image1.jpg',
+        'creatorId': "id1",
+        "creatorName": "Creator 1",
+        "creatorImgUrl": "https://example.com/profile1.jpg",
+        'likes': 10,
+        'tintColor': '0000FF',
+        'playDuration': 120,
+      }),
   Document(
-    $id: 'doc2',
-    $collectionId: storyCollectionId,
-    $databaseId: storyDatabaseId,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'title': 'Story 2',
-      'description': 'Description of Story 2',
-      'category': "thriller",
-      'coverImgUrl': 'https://example.com/image2.jpg',
-      'creatorId': "id2",
-      "creatorName": "Creator 2",
-      "creatorImgUrl": "https://example.com/profile2.jpg",
-      'likes': 10,
-      'tintColor': '0000FF',
-      'playDuration': 120,
-    },
-  ),
+      $id: 'doc2',
+      $collectionId: storyCollectionId,
+      $databaseId: storyDatabaseId,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'title': 'Story 2',
+        'description': 'Description of Story 2',
+        'category': "thriller",
+        'coverImgUrl': 'https://example.com/image2.jpg',
+        'creatorId': "id2",
+        "creatorName": "Creator 2",
+        "creatorImgUrl": "https://example.com/profile2.jpg",
+        'likes': 10,
+        'tintColor': '0000FF',
+        'playDuration': 120,
+      }),
 ];
 
 final Document mockSearchedUserDocument = Document(
@@ -75,6 +75,7 @@ final Document mockSearchedUserDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     'name': "Test User 1",
     'dob': "2000-01-01",
@@ -113,6 +114,7 @@ final Document mockUserDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     'name': "Test User 2",
     'dob': "2000-01-01",
@@ -182,6 +184,7 @@ final Document mockFollowerDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     "followerUserId": "id2",
     "followerUsername": "testu2",

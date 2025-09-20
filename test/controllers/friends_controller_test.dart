@@ -71,44 +71,44 @@ final List<FriendsModel> mockFriendModelList = [
 ];
 final List<Document> mockFriendDocuments = [
   Document(
-    $id: 'doc1',
-    $collectionId: friendsCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: mockFriendModelList[0].toJson(),
-  ),
+      $id: 'doc1',
+      $collectionId: friendsCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: mockFriendModelList[0].toJson()),
   Document(
-    $id: 'doc2',
-    $collectionId: friendsCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: mockFriendModelList[1].toJson(),
-  ),
+      $id: 'doc2',
+      $collectionId: friendsCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: mockFriendModelList[1].toJson()),
   Document(
-    $id: 'doc4',
-    $collectionId: friendsCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: mockFriendModelList[2].toJson(),
-  ),
+      $id: 'doc4',
+      $collectionId: friendsCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: mockFriendModelList[2].toJson()),
 ];
 final Document mockUserDocument = Document(
   $id: 'doc1',
@@ -117,6 +117,7 @@ final Document mockUserDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     'name': "Test User 2",
     'dob': "2000-01-01",
@@ -179,6 +180,7 @@ final Document mockSentFriendRequestDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: mockSentFriendRequest.toJson(),
 );
 final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(

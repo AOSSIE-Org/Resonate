@@ -40,6 +40,7 @@ final Document mockFriendCallDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {...mockFriendCallModel.toJson(), '\$id': 'doc1'},
 );
 final Document mockFriendCallEndedDocument = Document(
@@ -49,6 +50,7 @@ final Document mockFriendCallEndedDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     ...mockFriendCallModel
         .copyWith(callStatus: FriendCallStatus.ended)
@@ -63,6 +65,7 @@ final Document mockFriendCallDeclinedDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     ...mockFriendCallModel
         .copyWith(callStatus: FriendCallStatus.declined)
@@ -77,6 +80,7 @@ final Document mockFriendCallAcceptedDocument = Document(
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0, // <-- FIX
   data: {
     ...mockFriendCallModel
         .copyWith(callStatus: FriendCallStatus.connected)
@@ -98,7 +102,6 @@ void main() {
 
     friendCallingController = FriendCallingController(
       databases: databases,
-
       functions: MockFunctions(),
       realtime: realtime,
     );
