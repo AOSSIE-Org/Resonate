@@ -38,7 +38,7 @@ void main() {
     email: 'test2@test.com',
     emailVerification: true,
     prefs: Preferences(data: {'isUserProfileComplete': true}),
-    $createdAt: DateTime.now().toIso86601String(),
+    $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     accessedAt: DateTime.now().toIso8601String(),
     registration: DateTime.now().toIso8601String(),
