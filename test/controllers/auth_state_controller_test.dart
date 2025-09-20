@@ -37,71 +37,70 @@ void main() {
 
   final List<Document> mockSubscribedUserDocuments = [
     Document(
-      $id: 'subUserDoc1',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: subscribedUserCollectionId,
-      $permissions: ['any'],
-      data: {
-        'userID': '123',
-        'userProfileUrl': 'https://example.com/user1.jpg',
-        'upcomingRoomId': 'room1',
-        'registrationTokens': ["token1", "token2", 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-    ),
+        $id: 'subUserDoc1',
+        $collectionId: upcomingRoomsCollectionId,
+        $databaseId: subscribedUserCollectionId,
+        $permissions: ['any'],
+        $sequence: 0, // <-- FIX
+        data: {
+          'userID': '123',
+          'userProfileUrl': 'https://example.com/user1.jpg',
+          'upcomingRoomId': 'room1',
+          'registrationTokens': ["token1", "token2", 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String()),
     Document(
-      $id: 'subUserDoc2',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: subscribedUserCollectionId,
-      $permissions: ['any'],
-      data: {
-        'userID': '123',
-        'userProfileUrl': 'https://example.com/user2.jpg',
-        'upcomingRoomId': 'room2',
-        'registrationTokens': ["token1", "token2", 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-    ),
+        $id: 'subUserDoc2',
+        $collectionId: upcomingRoomsCollectionId,
+        $databaseId: subscribedUserCollectionId,
+        $permissions: ['any'],
+        $sequence: 0, // <-- FIX
+        data: {
+          'userID': '123',
+          'userProfileUrl': 'https://example.com/user2.jpg',
+          'upcomingRoomId': 'room2',
+          'registrationTokens': ["token1", "token2", 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String()),
   ];
   final List<Document> mockUpcomingRoomsDocuments = [
     Document(
-      $id: 'room1',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: upcomingRoomsDatabaseId,
-      $permissions: ['any'],
-      data: {
-        'isTime': false,
-        'description': 'Description for room 1',
-        'name': 'Upcoming Room 1',
-        'creatorUid': '123',
-        'scheduledDateTime': DateTime.now()
-            .add(Duration(days: 1))
-            .toIso8601String(),
-        'tags': ['tag1', 'tag2'],
-        'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-    ),
+        $id: 'room1',
+        $collectionId: upcomingRoomsCollectionId,
+        $databaseId: upcomingRoomsDatabaseId,
+        $permissions: ['any'],
+        $sequence: 0, // <-- FIX
+        data: {
+          'isTime': false,
+          'description': 'Description for room 1',
+          'name': 'Upcoming Room 1',
+          'creatorUid': '123',
+          'scheduledDateTime':
+              DateTime.now().add(Duration(days: 1)).toIso8601String(),
+          'tags': ['tag1', 'tag2'],
+          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String()),
     Document(
-      $id: 'room2',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: upcomingRoomsDatabaseId,
-      $permissions: ['any'],
-      data: {
-        'isTime': true,
-        'description': 'Description for room 2',
-        'name': 'Upcoming Room 2',
-        'creatorUid': '123',
-        'scheduledDateTime': DateTime.now().toIso8601String(),
-        'tags': ['tag3', 'tag4'],
-        'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-    ),
+        $id: 'room2',
+        $collectionId: upcomingRoomsCollectionId,
+        $databaseId: upcomingRoomsDatabaseId,
+        $permissions: ['any'],
+        $sequence: 0, // <-- FIX
+        data: {
+          'isTime': true,
+          'description': 'Description for room 2',
+          'name': 'Upcoming Room 2',
+          'creatorUid': '123',
+          'scheduledDateTime': DateTime.now().toIso8601String(),
+          'tags': ['tag3', 'tag4'],
+          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String()),
   ];
   final User mockUser = User(
     $id: '123',
@@ -125,20 +124,20 @@ void main() {
     hashOptions: {},
   );
   final Document mockUserDocument = Document(
-    $collectionId: usersCollectionID,
-    $createdAt: DateTime.now().toIso8601String(),
-    $databaseId: userDatabaseID,
-    $id: '123',
-    $updatedAt: DateTime.now().toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'profileImageUrl': 'https://example.com/image.jpg',
-      'username': 'TestUser',
-      'profileImageID': 'image123',
-      'ratingTotal': 5,
-      'ratingCount': 1,
-    },
-  );
+      $collectionId: usersCollectionID,
+      $createdAt: DateTime.now().toIso8601String(),
+      $databaseId: userDatabaseID,
+      $id: '123',
+      $updatedAt: DateTime.now().toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'profileImageUrl': 'https://example.com/image.jpg',
+        'username': 'TestUser',
+        'profileImageID': 'image123',
+        'ratingTotal': 5,
+        'ratingCount': 1,
+      });
 
   setUp(() {
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
@@ -186,16 +185,16 @@ void main() {
       ),
     ).thenAnswer((invocation) async {
       return Document(
-        $id: invocation.namedArguments[#documentId] as String,
-        $collectionId: invocation.namedArguments[#collectionId] as String,
-        $databaseId: invocation.namedArguments[#databaseId] as String,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: ['any'],
-        data: Map<String, dynamic>.from(
-          invocation.namedArguments[#data] as Map,
-        ),
-      );
+          $id: invocation.namedArguments[#documentId] as String,
+          $collectionId: invocation.namedArguments[#collectionId] as String,
+          $databaseId: invocation.namedArguments[#databaseId] as String,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0, // <-- FIX
+          data: Map<String, dynamic>.from(
+            invocation.namedArguments[#data] as Map,
+          ));
     });
 
     when(
@@ -253,7 +252,6 @@ void main() {
               'token1',
               'token2',
               'mockToken',
-              'mockToken',
             ],
           },
         ),
@@ -267,7 +265,6 @@ void main() {
             'registrationTokens': [
               'token1',
               'token2',
-              'mockToken',
               'mockToken',
             ],
           },
@@ -283,7 +280,6 @@ void main() {
               'token1',
               'token2',
               'mockToken',
-              'mockToken',
             ],
           },
         ),
@@ -297,7 +293,6 @@ void main() {
             'creator_fcm_tokens': [
               'token1',
               'token2',
-              'mockToken',
               'mockToken',
             ],
           },
@@ -315,7 +310,7 @@ void main() {
         collectionId: subscribedUserCollectionId,
         documentId: 'subUserDoc1',
         data: {
-          'registrationTokens': ['token1', 'token2', 'mockToken'],
+          'registrationTokens': ['token1', 'token2'],
         },
       ),
     ).called(1);
@@ -325,7 +320,7 @@ void main() {
         collectionId: subscribedUserCollectionId,
         documentId: 'subUserDoc2',
         data: {
-          'registrationTokens': ['token1', 'token2', 'mockToken'],
+          'registrationTokens': ['token1', 'token2'],
         },
       ),
     ).called(1);
@@ -335,7 +330,7 @@ void main() {
         collectionId: upcomingRoomsCollectionId,
         documentId: 'room1',
         data: {
-          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+          'creator_fcm_tokens': ['token1', 'token2'],
         },
       ),
     ).called(1);
@@ -345,7 +340,7 @@ void main() {
         collectionId: upcomingRoomsCollectionId,
         documentId: 'room2',
         data: {
-          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+          'creator_fcm_tokens': ['token1', 'token2'],
         },
       ),
     ).called(1);

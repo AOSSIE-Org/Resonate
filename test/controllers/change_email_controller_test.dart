@@ -38,7 +38,7 @@ void main() {
     email: 'test2@test.com',
     emailVerification: true,
     prefs: Preferences(data: {'isUserProfileComplete': true}),
-    $createdAt: DateTime.now().toIso8601String(),
+    $createdAt: DateTime.now().toIso86601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     accessedAt: DateTime.now().toIso8601String(),
     registration: DateTime.now().toIso8601String(),
@@ -54,20 +54,20 @@ void main() {
     hashOptions: {},
   );
   final Document mockUserDocument = Document(
-    $collectionId: usersCollectionID,
-    $createdAt: DateTime.now().toIso8601String(),
-    $databaseId: userDatabaseID,
-    $id: '123',
-    $updatedAt: DateTime.now().toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'profileImageUrl': 'https://example.com/image.jpg',
-      'username': 'TestUser',
-      'profileImageID': 'image123',
-      'ratingTotal': 5,
-      'ratingCount': 1,
-    },
-  );
+      $collectionId: usersCollectionID,
+      $createdAt: DateTime.now().toIso8601String(),
+      $databaseId: userDatabaseID,
+      $id: '123',
+      $updatedAt: DateTime.now().toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'profileImageUrl': 'https://example.com/image.jpg',
+        'username': 'TestUser',
+        'profileImageID': 'image123',
+        'ratingTotal': 5,
+        'ratingCount': 1,
+      });
 
   setUp(() {
     when(
@@ -95,16 +95,16 @@ void main() {
       ),
     ).thenAnswer((invocation) async {
       return Document(
-        $id: invocation.namedArguments[#documentId] as String,
-        $collectionId: invocation.namedArguments[#collectionId] as String,
-        $databaseId: invocation.namedArguments[#databaseId] as String,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: ['any'],
-        data: Map<String, dynamic>.from(
-          invocation.namedArguments[#data] as Map,
-        ),
-      );
+          $id: invocation.namedArguments[#documentId] as String,
+          $collectionId: invocation.namedArguments[#collectionId] as String,
+          $databaseId: invocation.namedArguments[#databaseId] as String,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0, // <-- FIX
+          data: Map<String, dynamic>.from(
+            invocation.namedArguments[#data] as Map,
+          ));
     });
     when(
       mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),

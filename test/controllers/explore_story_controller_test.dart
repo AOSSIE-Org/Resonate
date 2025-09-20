@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart-ui';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
@@ -25,99 +25,99 @@ import 'explore_story_controller_test.mocks.dart';
 ])
 List<Document> mockStoryDocuments = [
   Document(
-    $id: 'doc1',
-    $collectionId: storyCollectionId,
-    $databaseId: storyDatabaseId,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'title': 'Story 1',
-      'description': 'Description of Story 1',
-      'category': "comedy",
-      'coverImgUrl': 'https://example.com/image1.jpg',
-      'creatorId': "id1",
-      "creatorName": "Creator 1",
-      "creatorImgUrl": "https://example.com/profile1.jpg",
-      'likes': 10,
-      'tintColor': '0000FF',
-      'playDuration': 120,
-    },
-  ),
+      $id: 'doc1',
+      $collectionId: storyCollectionId,
+      $databaseId: storyDatabaseId,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'title': 'Story 1',
+        'description': 'Description of Story 1',
+        'category': "comedy",
+        'coverImgUrl': 'https://example.com/image1.jpg',
+        'creatorId': "id1",
+        "creatorName": "Creator 1",
+        "creatorImgUrl": "https://example.com/profile1.jpg",
+        'likes': 10,
+        'tintColor': '0000FF',
+        'playDuration': 120,
+      }),
   Document(
-    $id: 'doc2',
-    $collectionId: storyCollectionId,
-    $databaseId: storyDatabaseId,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'title': 'Story 2',
-      'description': 'Description of Story 2',
-      'category': "thriller",
-      'coverImgUrl': 'https://example.com/image2.jpg',
-      'creatorId': "id2",
-      "creatorName": "Creator 2",
-      "creatorImgUrl": "https://example.com/profile2.jpg",
-      'likes': 10,
-      'tintColor': '0000FF',
-      'playDuration': 120,
-    },
-  ),
+      $id: 'doc2',
+      $collectionId: storyCollectionId,
+      $databaseId: storyDatabaseId,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'title': 'Story 2',
+        'description': 'Description of Story 2',
+        'category': "thriller",
+        'coverImgUrl': 'https://example.com/image2.jpg',
+        'creatorId': "id2",
+        "creatorName": "Creator 2",
+        "creatorImgUrl": "https://example.com/profile2.jpg",
+        'likes': 10,
+        'tintColor': '0000FF',
+        'playDuration': 120,
+      }),
 ];
 List<Document> mockUsersDocuments = [
   Document(
-    $id: 'doc1',
-    $collectionId: usersCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'name': "Test User 1",
-      'dob': "2000-01-01",
-      'username': "testuser1",
-      'profileImageUrl': "https://example.com/profile1.jpg",
-      'email': "testuser1@example.com",
-      'profileImageId': "profileImageId1",
-      'ratingCount': 7,
-      'ratingTotal': 25,
-    },
-  ),
+      $id: 'doc1',
+      $collectionId: usersCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'name': "Test User 1",
+        'dob': "2000-01-01",
+        'username': "testuser1",
+        'profileImageUrl': "https://example.com/profile1.jpg",
+        'email': "testuser1@example.com",
+        'profileImageId': "profileImageId1",
+        'ratingCount': 7,
+        'ratingTotal': 25,
+      }),
   Document(
-    $id: 'doc2',
-    $collectionId: usersCollectionID,
-    $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'name': "Test User 2",
-      'dob': "2000-01-01",
-      'username': "testuser2",
-      'profileImageUrl': "https://example.com/profile2.jpg",
-      'email': "testuser2@example.com",
-      'profileImageId': "profileImageId2",
-      'ratingCount': 5,
-      'ratingTotal': 15,
-    },
-  ),
+      $id: 'doc2',
+      $collectionId: usersCollectionID,
+      $databaseId: userDatabaseID,
+      $createdAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        1754337186,
+      ).toIso8601String(),
+      $permissions: ['any'],
+      $sequence: 0, // <-- FIX
+      data: {
+        'name': "Test User 2",
+        'dob': "2000-01-01",
+        'username': "testuser2",
+        'profileImageUrl': "https://example.com/profile2.jpg",
+        'email': "testuser2@example.com",
+        'profileImageId': "profileImageId2",
+        'ratingCount': 5,
+        'ratingTotal': 15,
+      }),
 ];
 
 List<Map<String, dynamic>> mockMeilisearchStoryResults = mockStoryDocuments

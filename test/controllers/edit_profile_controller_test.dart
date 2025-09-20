@@ -47,14 +47,14 @@ void main() {
     ).thenAnswer(
       (_) => Future.value(
         Document(
-          $collectionId: usernameCollectionID,
-          $databaseId: userDatabaseID,
-          $id: 'testuser',
-          $createdAt: DateTime.now().toIso8601String(),
-          $updatedAt: DateTime.now().toIso8601String(),
-          $permissions: ['any'],
-          data: {"email": "test@test.com"},
-        ),
+            $collectionId: usernameCollectionID,
+            $databaseId: userDatabaseID,
+            $id: 'testuser',
+            $createdAt: DateTime.now().toIso8601String(),
+            $updatedAt: DateTime.now().toIso8601String(),
+            $permissions: ['any'],
+            $sequence: 0, // <-- FIX
+            data: {"email": "test@test.com"}),
       ),
     );
   });
