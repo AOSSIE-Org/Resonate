@@ -6,6 +6,10 @@ on:
       - github-action-project-structure
       - dev
 
+# Add this permissions block to allow the workflow to write back to the repo
+permissions:
+  contents: write
+
 jobs:
   generate-structure:
     runs-on: ubuntu-latest
@@ -15,6 +19,7 @@ jobs:
 
       - name: Generate project structure
         run: |
+          # The 'tree' command is pre-installed on ubuntu-latest runners
           tree -a -I 'node_modules|.git' > project_structure.txt
 
       - name: Commit and push changes
@@ -22,6 +27,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Only commit and push if there are changes
           if [[ -n $(git status --porcelain) ]]; then
             git add project_structure.txt
             git commit -m "chore: update project structure"

@@ -1,82 +1,60 @@
-name: Build and Deploy
+name: Build and Release to GitHub
 
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types: [closed]
-    branches:
-      - master
+      - master # Or a specific release branch
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-release:
+    name: Build and Create GitHub Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for creating a GitHub Release
 
     steps:
-      # 1. Remove Cached Flutter Installation
-      - name: Remove Cached Flutter Installation
-        run: rm -rf $HOME/.flutter
-
-      - name: Clean up old build files
-        run: |
-          rm -rf build/app/outputs/bundle/release/*
-
-      # 2. Checkout repository
-      - name: Checkout code
+      # 1. Checkout repository codebase
+      - name: Checkout the code
         uses: actions/checkout@v4
 
-      # 3. Install Flutter SDK
-      - name: Install Flutter
+      # 2. Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: '17'
+
+      # 3. Setup Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.35.2
+          channel: 'stable'
 
-      # 4. Verify Flutter and Dart Versions
-      - name: Verify Flutter Installation
+      # 4. Decode required secrets into files
+      - name: Decode Keystore and Properties
         run: |
-          flutter --version
-          dart --version
-
-      # 6. Install Flutter dependencies
-      - name: Install Flutter Dependencies
+          echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > android/app/upload-keystore.jks
+          echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > android/key.properties
+      
+      # 5. Install dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      # 7. Build Android APK
+      # 6. Build the Android App Bundle
       - name: Build Android App Bundle
-        run: flutter build apk --release --split-per-abi
+        run: |
+          flutter build appbundle \
+          --release \
+          --build-number=${{ github.run_number }} \
+          --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
-      # 8. Upload build artifacts
-      - name: Upload APK as an artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release-apks
-          path: build/app/outputs/apk/release/*.apk
-
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: write
-    steps:
-      # 1. Checkout repository
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # 2. Download build artifacts
-      - name: Download APK
-        uses: actions/download-artifact@v4
-        with:
-          name: app-release-apks
-          path: build/app/outputs/bundle/release/
-
-      # 3. Upload to Github Release
-      - name: Github Release
-        uses: ncipollo/release-action@v1.14.0
+      # 7. Create Github Release
+      - name: Create Github Release
+        uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: build/app/outputs/bundle/release/*.apk
-          artifactContentType: apk
+          artifacts: "build/app/outputs/bundle/release/app-release.aab"
           generateReleaseNotes: true
-          tag: latest_build
+          tag: v1.0.${{ github.run_number }} # Use the build number in the tag
+          token: ${{ secrets.GITHUB_TOKEN }}
