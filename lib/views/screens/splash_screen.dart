@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/app_images.dart';
@@ -38,19 +39,32 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     // Start delayed animations and navigation
-    _setupTimers();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _setupTimers();
+    });
   }
 
-  void _setupTimers() {
+  Future<void> _setupTimers() async {
     // Initial delay before starting animations
     Timer(const Duration(milliseconds: 500), () {
       _animationController.forward();
     });
 
     // Delay before navigation
-    Timer(const Duration(milliseconds: 3000), () {
-      authController.isUserLoggedIn();
-      Get.offNamed(AppRoutes.landing);
+    Timer(const Duration(milliseconds: 3000), () async {
+      await Get.find<AboutAppScreenController>().checkForUpdate(
+        onIgnore: () {
+          authController.isUserLoggedIn();
+          Get.offNamed(AppRoutes.landing);
+          return true;
+        },
+        onLater: () {
+          authController.isUserLoggedIn();
+          Get.offNamed(AppRoutes.landing);
+          return true;
+        },
+        isManualCheck: false,
+      );
     });
   }
 
