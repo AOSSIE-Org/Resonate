@@ -13,9 +13,7 @@
     "youNoStories": "तुम्ही कोणतीही कथा तयार केलेली नाही",
     "follow": "अनुसरण करा",
     "editProfile": "प्रोफाइल संपादित करा",
-    "verifyEmail": "ईमेल सत्यापित करा"
-}
-{
+    "verifyEmail": "ईमेल सत्यापित करा",
     "verified": "सत्यापित",
     "profile": "प्रोफाइल",
     "userLikedStories": "वापरकर्त्याला आवडलेल्या कथा",
@@ -33,9 +31,7 @@
                 "example": "true"
             }
         }
-    }
-}
-{
+    },
     "user1": "वापरकर्ता 1",
     "user2": "वापरकर्ता 2",
     "you": "तुम्ही",
@@ -58,9 +54,7 @@
     "failed": "अयशस्वी",
     "emailChangeFailed": "ईमेल बदलण्यात अयशस्वी",
     "oops": "अरे!",
-    "emailExists": "ईमेल आधीच अस्तित्वात आहे"
-}
-{
+    "emailExists": "ईमेल आधीच अस्तित्वात आहे",
     "changeEmail": "ईमेल बदला",
     "enterValidEmail": "कृपया वैध ईमेल पत्ता प्रविष्ट करा",
     "newEmail": "नवीन ईमेल",
@@ -101,8 +95,7 @@
     "includeUppercase": "किमान १ मोठ्या अक्षराचा समावेश असावा",
     "includeLowercase": "किमान १ लहान अक्षराचा समावेश असावा",
     "includeSymbol": "किमान १ चिन्ह असावे",
-    "signedUpSuccessfully": "यशस्वीरित्या साइन अप केले"
-{
+    "signedUpSuccessfully": "यशस्वीरित्या साइन अप केले",
     "newAccountCreated": "तुमचे नवीन खाते यशस्वीरित्या तयार झाले आहे",
     "signUp": "नोंदणी करा",
     "login": "लॉगिन",
@@ -130,8 +123,7 @@
     "enterValidDOB": "वैध जन्मतारीख प्रविष्ट करा",
     "dateOfBirth": "जन्मतारीख",
     "forgotPassword": "पासवर्ड विसरलात?",
-    "next": "पुढे"
-}{
+    "next": "पुढे",
     "noStoriesExist": "प्रस्तुत करण्यासाठी कोणत्याही कथा उपलब्ध नाहीत",
     "enterVerificationCode": "तुमचा\nसत्यापन कोड प्रविष्ट करा",
     "verificationCodeSent": "आम्ही ६-अंकी सत्यापन कोड पाठवला आहे\n",
@@ -163,9 +155,7 @@
                 "example": "नाटक"
             }
         }
-    }
-}
-{
+    },
     "pushNewChapters": "नवीन अध्याय जोडा",
     "helpToGrow": "वाढीस मदत करा",
     "share": "शेअर करा",
@@ -214,12 +204,10 @@
         "placeholders": {
             "action": {
                 "type": "String",
-                "example": "हटवा"
+                "example": "हटवा",
             }
         }
-    }
-},
-{
+    },
     "mailSentMessage": "मेल पाठवला गेला",
     "disconnected": "कनेक्शन तुटले",
     "micOn": "माइक",
@@ -288,9 +276,7 @@
                 "example": "5"
             }
         }
-    }
-},
-{
+    },
     "join": "सामील व्हा",
     "invalidTags": "अवैध टॅग:",
     "cropImage": "प्रतिमा क्रॉप करा",
@@ -335,9 +321,7 @@
                 "example": "audio.mp3"
             }
         }
-    }
-}, 
-{
+    },
     "lyricsFileSelected": "निवडलेली गीत फाइल: {fileName}",
     "@lyricsFileSelected": {
         "description": "गीत फाइल निवडल्यावरचा संदेश",
@@ -389,7 +373,6 @@
             }
         }
     },
-{
     "taggedYouInRoom": "{username} ने तुम्हाला खोलीत टॅग केले: {subject}",
     "@taggedYouInRoom": {
         "description": "खोलीत टॅग केल्यावरची सूचना",
