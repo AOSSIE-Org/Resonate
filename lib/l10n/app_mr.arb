@@ -204,7 +204,7 @@
         "placeholders": {
             "action": {
                 "type": "String",
-                "example": "हटवा",
+                "example": "हटवा"
             }
         }
     },
