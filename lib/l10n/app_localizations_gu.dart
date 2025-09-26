@@ -531,7 +531,7 @@ class AppLocalizationsGu extends AppLocalizations {
   String get canceled => 'રદ કર્યું';
 
   @override
-  String get english => 'gu';
+  String get english => 'અંગ્રેજી';
 
   @override
   String get emailVerificationRequired => 'ઈમેઈલ વેરિફિકેશન જરૂરી';
