@@ -629,7 +629,7 @@ class AppLocalizationsGu extends AppLocalizations {
       'કનેક્શન એરર છે. કૃપા કરીને તમારું ઈન્ટરનેટ તપાસો અને ફરી પ્રયાસ કરો.';
 
   @override
-  String get seconds => 'સેકંડ.';
+  String get seconds => 'સેકંડ';
 
   @override
   String get unsavedChangesWarning =>
