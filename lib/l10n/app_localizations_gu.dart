@@ -1172,7 +1172,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'તમે હવે \$$username સાથે મિત્ર છો.';
+    return 'તમે હવે $username સાથે મિત્ર છો.';
   }
 
   @override
@@ -1180,7 +1180,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'તમે \$$username ની મિત્ર વિનંતી નકારી છે.';
+    return 'તમે $username ની મિત્ર વિનંતી નકારી છે.';
   }
 
   @override
@@ -1191,6 +1191,6 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return 'યુઝર \$$username એ કૉલ નકારી છે.';
+    return 'યુઝર $username એ કૉલ નકારી છે.';
   }
 }
