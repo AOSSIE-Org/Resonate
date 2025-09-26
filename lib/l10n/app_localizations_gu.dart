@@ -686,12 +686,25 @@ class AppLocalizationsGu extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀 આ અદ્ભુત રૂમ જુઓ: $roomName!\n\n📖 વર્ણન: $description\n👥 હવે જ $participants સહભાગીઓ સાથે જોડાવો!';
+    final participantsLine = intl.Intl.pluralLogic(
+      participants,
+      locale: localeName,
+      zero: '👥 હવે જ જોડાવો! હજી સુધી કોઈ સહભાગી જોડાયા નથી.',
+      one: '👥 હવે જ 1 સહભાગી સાથે જોડાવો!',
+      other: '👥 હવે જ $participants સહભાગીઓ સાથે જોડાવો!',
+    );
+    return '🚀 આ અદ્ભુત રૂમ જુઓ: $roomName!\n\n📖 વર્ણન: $description\n$participantsLine';
   }
 
   @override
   String participantsCount(int count) {
-    return '$count સહભાગીઓ';
+    return intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      zero: '0 સહભાગીઓ',
+      one: '1 સહભાગી',
+      other: '$count સહભાગીઓ',
+    );
   }
 
   @override
