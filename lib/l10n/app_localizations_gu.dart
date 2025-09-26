@@ -665,7 +665,8 @@ class AppLocalizationsGu extends AppLocalizations {
   String get otpMismatchError => 'OTP મેળ ખાતું નથી, કૃપા કરીને ફરી પ્રયાસ કરો';
 
   @override
-  String get usernameCharacterLimit => 'યુઝરનેમમાં 5 થી વધુ અક્ષરો હોવા જોઈએ.';
+  String get usernameCharacterLimit =>
+      'યુઝરનેમમાં ઓછામાં ઓછા 5 અક્ષરો હોવા જોઈએ.';
 
   @override
   String get submit => 'સબમિટ કરો';
