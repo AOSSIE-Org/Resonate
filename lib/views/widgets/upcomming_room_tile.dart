@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpCommingListTile extends StatelessWidget {
   UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
@@ -12,6 +14,52 @@ class UpCommingListTile extends StatelessWidget {
   final UpcomingRoomsController upcomingRoomsController = Get.put(
     UpcomingRoomsController(),
   );
+
+  Future<void> _showRemoveDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.removeRoom),
+          content: Text(AppLocalizations.of(context)!.removeRoomConfirmation),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: Text(AppLocalizations.of(context)!.hide),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                try {
+                  await upcomingRoomsController.removeUpcomingRoom(
+                    appwriteUpcommingRoom.id,
+                  );
+                  customSnackbar(
+                    AppLocalizations.of(Get.context!)!.success,
+                    AppLocalizations.of(Get.context!)!.roomRemovedSuccessfully,
+                    LogType.success,
+                  );
+                } catch (e) {
+                  customSnackbar(
+                    AppLocalizations.of(Get.context!)!.error,
+                    AppLocalizations.of(Get.context!)!.failedToRemoveRoom,
+                    LogType.error,
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +209,14 @@ class UpCommingListTile extends StatelessWidget {
                   child: const Icon(Icons.chat, color: Colors.white),
                 ),
                 Spacer(),
+                IconButton(
+                  onPressed: () => _showRemoveDialog(context),
+                  icon: Icon(
+                    Icons.remove_circle,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  tooltip: AppLocalizations.of(context)!.removeRoomFromList,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     if (appwriteUpcommingRoom.hasUserSubscribed) {

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -30,6 +32,8 @@ class UpcomingRoomsController extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late RxList<AppwriteUpcommingRoom> upcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+  static const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
@@ -55,6 +59,20 @@ class UpcomingRoomsController extends GetxController {
   void onInit() async {
     super.onInit();
     await getUpcomingRooms();
+  }
+  Future<List<String>> _getRemovedUpcomingRoomIds() async {
+    try {
+      String? removedRoomsJson = await _secureStorage.read(
+        key: _removedUpcomingRoomsKey,
+      );
+      if (removedRoomsJson != null) {
+        List<dynamic> decoded = jsonDecode(removedRoomsJson);
+        return decoded.cast<String>();
+      }
+    } catch (e) {
+      log('Error reading removed upcoming rooms: ${e.toString()}');
+    }
+    return [];
   }
 
   Future<void> addUserToSubscriberList(String upcomingRoomId) async {
@@ -172,6 +190,7 @@ class UpcomingRoomsController extends GetxController {
   Future<void> getUpcomingRooms() async {
     isLoading.value = true;
     try {
+      List<String> removedRoomIds = await _getRemovedUpcomingRoomIds();
       var upcomingRoomsDocuments = await databases
           .listDocuments(
             databaseId: upcomingRoomsDatabaseId,
@@ -181,9 +200,11 @@ class UpcomingRoomsController extends GetxController {
       upcomingRooms.value = [];
 
       for (var upcomingRoom in upcomingRoomsDocuments) {
-        AppwriteUpcommingRoom appwriteUpcomingRoom =
-            await fetchUpcomingRoomDetails(upcomingRoom);
-        upcomingRooms.add(appwriteUpcomingRoom);
+        if (!removedRoomIds.contains(upcomingRoom.$id)) {
+          AppwriteUpcommingRoom appwriteUpcomingRoom =
+              await fetchUpcomingRoomDetails(upcomingRoom);
+          upcomingRooms.add(appwriteUpcomingRoom);
+        }
       }
     } catch (e) {
       log(e.toString());
@@ -295,6 +316,24 @@ class UpcomingRoomsController extends GetxController {
               : pickedTime.hour == 0
               ? '00'
               : pickedTime.hour}:${pickedTime.minute.toString().length < 2 ? '0${pickedTime.minute}' : pickedTime.minute.toString()}  ${pickedTime.period.name.toUpperCase()}';
+    }
+  }
+
+  Future<void> removeUpcomingRoom(String upcomingRoomId) async {
+    try {
+      List<String> removedRoomIds = await _getRemovedUpcomingRoomIds();
+      if (!removedRoomIds.contains(upcomingRoomId)) {
+        removedRoomIds.add(upcomingRoomId);
+        String jsonString = jsonEncode(removedRoomIds);
+        await _secureStorage.write(
+          key: _removedUpcomingRoomsKey,
+          value: jsonString,
+        );
+      }
+      upcomingRooms.removeWhere((room) => room.id == upcomingRoomId);
+      update();
+    } catch (e) {
+      log("Error in Remove Upcoming Room Function: ${e.toString()}");
     }
   }
 

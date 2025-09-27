@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "title": "Resonate",
     "@title": {
         "description": "The title of the application."
@@ -432,6 +433,22 @@
     "cancel": "Cancel",
     "@cancel": {
         "description": "Generic button text for a cancel action."
+    },
+    "hide": "Remove",
+    "@hide": {
+        "description": "Button text to remove an item from view."
+    },
+    "removeRoom": "Remove Room",
+    "@removeRoom": {
+        "description": "Dialog title for removing an upcoming room."
+    },
+    "removeRoomFromList": "Remove from list",
+    "@removeRoomFromList": {
+        "description": "Tooltip text for the remove room button."
+    },
+    "removeRoomConfirmation": "Are you sure you want to remove this upcoming room from your list?",
+    "@removeRoomConfirmation": {
+        "description": "Confirmation message asking if the user wants to remove an upcoming room from their list."
     },
     "completeYourProfile": "Complete your Profile",
     "@completeYourProfile": {
@@ -1546,6 +1563,14 @@
     "updateFeaturesImprovement": "Get the latest features and improvements!",
     "@updateFeaturesImprovement": {
         "description": "A message highlighting the benefit of updating the application."
+    },
+    "failedToRemoveRoom": "Failed to remove room",
+    "@failedToRemoveRoom": {
+        "description": "Error message when unable to remove a room from the list"
+    },
+    "roomRemovedSuccessfully": "Room removed from your list successfully",
+    "@roomRemovedSuccessfully": {
+        "description": "Success message when a room is successfully removed from the user's list"
     },
     "alert": "Alert",
     "@alert": {

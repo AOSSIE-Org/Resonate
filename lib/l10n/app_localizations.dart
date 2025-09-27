@@ -742,6 +742,30 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// Button text to remove an item from view.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get hide;
+
+  /// Dialog title for removing an upcoming room.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Room'**
+  String get removeRoom;
+
+  /// Tooltip text for the remove room button.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from list'**
+  String get removeRoomFromList;
+
+  /// Confirmation message asking if the user wants to remove an upcoming room from their list.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this upcoming room from your list?'**
+  String get removeRoomConfirmation;
+
   /// Page title or prompt for the user to finish setting up their profile.
   ///
   /// In en, this message translates to:
@@ -2155,6 +2179,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get the latest features and improvements!'**
   String get updateFeaturesImprovement;
+
+  /// Error message when unable to remove a room from the list
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to remove room'**
+  String get failedToRemoveRoom;
+
+  /// Success message when a room is successfully removed from the user's list
+  ///
+  /// In en, this message translates to:
+  /// **'Room removed from your list successfully'**
+  String get roomRemovedSuccessfully;
 
   /// Title for an alert dialog.
   ///

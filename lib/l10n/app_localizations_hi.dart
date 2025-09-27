@@ -341,6 +341,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cancel => 'कैंसल';
 
   @override
+  String get hide => 'छुपाएं';
+
+  @override
+  String get removeRoom => 'रूम छुपाएं';
+
+  @override
+  String get removeRoomFromList => 'सूची से छुपाएं';
+
+  @override
+  String get removeRoomConfirmation =>
+      'क्या आप वाकई इस आने वाले रूम को अपनी सूची से छुपाना चाहते हैं?';
+
+  @override
   String get completeYourProfile => 'अपनी प्रोफ़ाइल पूरी करो';
 
   @override
@@ -1169,6 +1182,13 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'नवीनतम सुविधाएं और सुधार प्राप्त करें!';
+
+  @override
+  String get failedToRemoveRoom => 'रूम हटाने में विफल';
+
+  @override
+  String get roomRemovedSuccessfully =>
+      'रूम आपकी सूची से सफलतापूर्वक हटा दिया गया';
 
   @override
   String get alert => 'अलर्ट';
