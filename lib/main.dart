@@ -1,3 +1,22 @@
+import 'package:flutter/material.dart';
+void main() {
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My First App'),
+        ),
+        body: Center(
+          child: Text('Hello World!'),
+        ),
+      ),
+    );
+  }
+}
 import 'dart:convert';
 import 'dart:developer';
 
@@ -69,6 +88,7 @@ class MyApp extends StatelessWidget {
 
     return Obx(
       () => GetMaterialApp(
+        locale: locale('mr'),
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

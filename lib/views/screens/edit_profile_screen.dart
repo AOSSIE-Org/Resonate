@@ -12,8 +12,34 @@ import '../../controllers/auth_state_controller.dart';
 import '../../controllers/edit_profile_controller.dart';
 import '../../routes/app_routes.dart';
 
-class EditProfileScreen extends StatelessWidget {
+class EditProfileScreen extends StatefulsWidget {
   EditProfileScreen({super.key});
+  @override
+  _EditProfileScreenState createState() =>_EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen>{TextEditingController _usernameController = TextEditingController();
+bool? _isUsernameAvailable;
+Future<void> _checkUsernameAvailability(String username) async {
+  if (username.isEmpty) return;
+
+  // TEMPORARY CHECK — replace with real logic later
+  bool result = username != "taken"; // "taken" is just an example
+
+  setState(() {
+    _isUsernameAvailable = result;
+  });
+}
+Future<void> _checkUsernameAvailability(String username) async {
+  if (username.isEmpty) return;
+
+  // Replace this with your actual check logic
+  bool result = username != "taken"; // Example: "taken" is unavailable
+
+  setState(() {
+    _isUsernameAvailable = result;
+  });
+}
 
   // Initializing controllers
   final EditProfileController editProfileController = Get.put(
@@ -34,15 +60,7 @@ class EditProfileScreen extends StatelessWidget {
           return;
         }
 
-        if (!editProfileController.isLoading.value &&
-            editProfileController.isThereUnsavedChanges()) {
-          await saveChangesDialogue(context);
-        } else {
-          if (!editProfileController.isLoading.value) {
-            Get.back();
-          }
-        }
-      },
+
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(title: Text(AppLocalizations.of(context)!.editProfile)),
@@ -104,6 +122,26 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_40),
+                    TextFormField(
+  controller: _usernameController,
+  onChanged: (value) {
+    _checkUsernameAvailability(value);
+  },
+  decoration: InputDecoration(
+    labelText: AppLocalizations.of(context)!.username,
+    suffixIcon: _isUsernameAvailable == null
+        ? null
+        : _isUsernameAvailable!
+            ? Icon(Icons.check, color: Colors.green)
+            : Icon(Icons.close, color: Colors.red),
+    helperText: _isUsernameAvailable == null
+        ? ''
+        : _isUsernameAvailable!
+            ? AppLocalizations.of(context)!.usernameAvailable
+            : AppLocalizations.of(context)!.usernameNotAvailable,
+  ),
+),
+SizedBox(height: UiSizes.height_20),
                     TextFormField(
                       validator: (value) => value!.isNotEmpty
                           ? null
