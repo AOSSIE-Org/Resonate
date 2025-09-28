@@ -257,9 +257,11 @@
 │   │   └── theme_colors_page.dart
 │   ├── l10n
 │   │   ├── app_en.arb
+│   │   ├── app_gu.arb
 │   │   ├── app_hi.arb
 │   │   ├── app_localizations.dart
 │   │   ├── app_localizations_en.dart
+│   │   ├── app_localizations_gu.dart
 │   │   └── app_localizations_hi.dart
 │   ├── main.dart
 │   ├── models
@@ -412,4 +414,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 333 files
+80 directories, 335 files
