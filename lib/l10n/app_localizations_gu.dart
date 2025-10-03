@@ -433,15 +433,12 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noLyrics => 'કોઈ ગીત નથી';
 
   @override
-  String get aboutSection => 'વિશે';
-
-  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName કેટેગરીમાં હાલમાં રજૂ કરવા માટે કોઈ વાર્તાઓ અસ્તિત્વમાં નથી';
   }
 
   @override
-  String get pushNewChapters => 'નવા ચેપ્ટર્સ પુશ કરો';
+  String get newChapters => 'નવા ચેપ્ટર્સ';
 
   @override
   String get helpToGrow => 'વધવામાં મદદ કરો';
@@ -522,16 +519,13 @@ class AppLocalizationsGu extends AppLocalizations {
   String get joinRoom => 'રૂમમાં જોડાવો';
 
   @override
-  String get loadingDialogName => 'ડાયલોગ લોડ થઈ રહ્યો છે';
-
-  @override
   String get unknownUser => 'અજાણ્યો';
 
   @override
   String get canceled => 'રદ કર્યું';
 
   @override
-  String get english => 'અંગ્રેજી';
+  String get english => 'gu';
 
   @override
   String get emailVerificationRequired => 'ઈમેઈલ વેરિફિકેશન જરૂરી';
@@ -629,7 +623,7 @@ class AppLocalizationsGu extends AppLocalizations {
       'કનેક્શન એરર છે. કૃપા કરીને તમારું ઈન્ટરનેટ તપાસો અને ફરી પ્રયાસ કરો.';
 
   @override
-  String get seconds => 'સેકંડ';
+  String get seconds => 'સેકંડ.';
 
   @override
   String get unsavedChangesWarning =>
@@ -658,24 +652,13 @@ class AppLocalizationsGu extends AppLocalizations {
   String get stable => 'સ્થિર';
 
   @override
-  String get congratulationsEmailVerified =>
-      'અભિનંદન તમે તમારું ઈમેઈલ વેરિફાય કર્યું છે';
-
-  @override
-  String get otpMismatchError => 'OTP મેળ ખાતું નથી, કૃપા કરીને ફરી પ્રયાસ કરો';
-
-  @override
-  String get usernameCharacterLimit =>
-      'યુઝરનેમમાં ઓછામાં ઓછા 5 અક્ષરો હોવા જોઈએ.';
+  String get usernameCharacterLimit => 'યુઝરનેમમાં 5 થી વધુ અક્ષરો હોવા જોઈએ.';
 
   @override
   String get submit => 'સબમિટ કરો';
 
   @override
   String get anonymous => 'અજ્ઞાત';
-
-  @override
-  String get resonate => 'રેઝોનેટ';
 
   @override
   String get noSearchResults => 'કોઈ શોધ પરિણામો નથી';
@@ -686,25 +669,12 @@ class AppLocalizationsGu extends AppLocalizations {
     String description,
     int participants,
   ) {
-    final participantsLine = intl.Intl.pluralLogic(
-      participants,
-      locale: localeName,
-      zero: '👥 હવે જ જોડાવો! હજી સુધી કોઈ સહભાગી જોડાયા નથી.',
-      one: '👥 હવે જ 1 સહભાગી સાથે જોડાવો!',
-      other: '👥 હવે જ $participants સહભાગીઓ સાથે જોડાવો!',
-    );
-    return '🚀 આ અદ્ભુત રૂમ જુઓ: $roomName!\n\n📖 વર્ણન: $description\n$participantsLine';
+    return '🚀 આ અદ્ભુત રૂમ જુઓ: $roomName!\n\n📖 વર્ણન: $description\n👥 હવે જ $participants સહભાગીઓ સાથે જોડાવો!';
   }
 
   @override
   String participantsCount(int count) {
-    return intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      zero: '0 સહભાગીઓ',
-      one: '1 સહભાગી',
-      other: '$count સહભાગીઓ',
-    );
+    return '$count સહભાગીઓ';
   }
 
   @override
@@ -765,9 +735,6 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get currentChapters => 'હાલના ચેપ્ટર્સ';
-
-  @override
-  String get newChapters => 'નવા ચેપ્ટર્સ';
 
   @override
   String get sourceCodeOnGitHub => 'ગિટહબ પર સોર્સ કોડ';
@@ -962,9 +929,6 @@ class AppLocalizationsGu extends AppLocalizations {
   }
 
   @override
-  String get aboutStory => 'વિશે';
-
-  @override
   String get chapters => 'ચેપ્ટર્સ';
 
   @override
@@ -1058,12 +1022,6 @@ class AppLocalizationsGu extends AppLocalizations {
   String get requiredField => 'જરૂરી ફીલ્ડ';
 
   @override
-  String get clickPictureUsingCamera => 'કૅમેરા વાપરીને ફોટો લો';
-
-  @override
-  String get pickImageFromGallery => 'ગૅલેરીમાંથી ઈમેજ પસંદ કરો';
-
-  @override
   String get onlineUsers => 'ઓનલાઈન યુઝર્સ';
 
   @override
@@ -1086,6 +1044,61 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get followers => 'ફોલોવર્સ';
+
+  @override
+  String get friendRequests => 'મિત્ર વિનંતીઓ';
+
+  @override
+  String get friendRequestSent => 'મિત્ર વિનંતી મોકલાઈ';
+
+  @override
+  String friendRequestSentTo(String username) {
+    return '$username ને તમારી મિત્ર વિનંતી મોકલાઈ છે.';
+  }
+
+  @override
+  String get friendRequestCancelled => 'મિત્ર વિનંતી રદ કરાઈ';
+
+  @override
+  String friendRequestCancelledTo(String username) {
+    return '$username ને તમારી મિત્ર વિનંતી રદ કરાઈ છે.';
+  }
+
+  @override
+  String get requested => 'વિનંતી કરેલ';
+
+  @override
+  String get friends => 'મિત્રો';
+
+  @override
+  String get addFriend => 'મિત્ર ઉમેરો';
+
+  @override
+  String get friendRequestAccepted => 'મિત્ર વિનંતી સ્વીકારી';
+
+  @override
+  String friendRequestAcceptedTo(String username) {
+    return 'તમે હવે \$$username સાથે મિત્ર છો.';
+  }
+
+  @override
+  String get friendRequestDeclined => 'મિત્ર વિનંતી નકારી';
+
+  @override
+  String friendRequestDeclinedTo(String username) {
+    return 'તમે \$$username ની મિત્ર વિનંતી નકારી છે.';
+  }
+
+  @override
+  String get accept => 'સ્વીકારો';
+
+  @override
+  String get callDeclined => 'કૉલ નકારી';
+
+  @override
+  String callDeclinedTo(String username) {
+    return 'યુઝર \$$username એ કૉલ નકારી છે.';
+  }
 
   @override
   String get checkForUpdates => 'અપડેટ્સ તપાસો';
@@ -1154,57 +1167,46 @@ class AppLocalizationsGu extends AppLocalizations {
   String get updateFeaturesImprovement => 'નવા ફીચર્સ અને સુધારાઓ મેળવો!';
 
   @override
-  String get friendRequests => 'મિત્ર વિનંતીઓ';
+  String get alert => 'Alert';
 
   @override
-  String get friendRequestSent => 'મિત્ર વિનંતી મોકલાઈ';
+  String get removedFromRoom =>
+      'You have been reported or removed from the room';
 
   @override
-  String friendRequestSentTo(String username) {
-    return '$username ને તમારી મિત્ર વિનંતી મોકલાઈ છે.';
+  String reportType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'Harassment / Hate Speech',
+      'abuse': 'Abusive content / Violence',
+      'spam': 'Spam / Scams / Fraud',
+      'impersonation': 'Impersonation / Fake Accounts',
+      'illegal': 'Illegal Activities',
+      'selfharm': 'Self-harm / Suicide / Mental health',
+      'misuse': 'Misuse of platform',
+      'other': 'Other',
+    });
+    return '$_temp0';
   }
 
   @override
-  String get friendRequestCancelled => 'મિત્ર વિનંતી રદ કરાઈ';
+  String get userBlockedFromResonate =>
+      'You have recieved multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
 
   @override
-  String friendRequestCancelledTo(String username) {
-    return '$username ને તમારી મિત્ર વિનંતી રદ કરાઈ છે.';
-  }
+  String get reportParticipant => 'Report Participant';
 
   @override
-  String get requested => 'વિનંતી કરેલ';
+  String get selectReportType => 'Please select a report type';
 
   @override
-  String get friends => 'મિત્રો';
+  String get reportSubmitted => 'Report Submitted Successfully';
 
   @override
-  String get addFriend => 'મિત્ર ઉમેરો';
+  String get reportFailed => 'Report Submission Failed';
 
   @override
-  String get friendRequestAccepted => 'મિત્ર વિનંતી સ્વીકારી';
+  String get additionalDetailsOptional => 'Additional details (optional)';
 
   @override
-  String friendRequestAcceptedTo(String username) {
-    return 'તમે હવે $username સાથે મિત્ર છો.';
-  }
-
-  @override
-  String get friendRequestDeclined => 'મિત્ર વિનંતી નકારી';
-
-  @override
-  String friendRequestDeclinedTo(String username) {
-    return 'તમે $username ની મિત્ર વિનંતી નકારી છે.';
-  }
-
-  @override
-  String get accept => 'સ્વીકારો';
-
-  @override
-  String get callDeclined => 'કૉલ નકારી';
-
-  @override
-  String callDeclinedTo(String username) {
-    return 'યુઝર $username એ કૉલ નકારી છે.';
-  }
+  String get submitReport => 'Submit Report';
 }

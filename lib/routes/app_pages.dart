@@ -29,6 +29,7 @@ import 'package:resonate/views/screens/landing_screen.dart';
 import 'package:resonate/views/screens/splash_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/reset_password_screen.dart';
+import 'package:resonate/views/screens/user_blocked_screen.dart';
 import 'package:resonate/views/screens/welcome_screen.dart';
 import '../bindings/tabview_binding.dart';
 import '../views/screens/about_app_screen.dart';
@@ -137,5 +138,9 @@ class AppPages {
     ),
     GetPage(name: AppRoutes.ringingScreen, page: () => RingingScreen()),
     GetPage(name: AppRoutes.friendCallScreen, page: () => FriendCallScreen()),
+    GetPage(
+      name: AppRoutes.userBlockedScreen,
+      page: () => const UserBlockedScreen(),
+    ),
   ];
 }

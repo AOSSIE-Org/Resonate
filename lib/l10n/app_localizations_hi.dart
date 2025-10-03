@@ -1169,4 +1169,48 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'नवीनतम सुविधाएं और सुधार प्राप्त करें!';
+
+  @override
+  String get alert => 'अलर्ट';
+
+  @override
+  String get removedFromRoom =>
+      'आपको कमरे से रिपोर्ट किया गया है या हटा दिया गया है';
+
+  @override
+  String reportType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'हिंसा / नफरत भरा भाषण',
+      'abuse': 'दुरुपयोग सामग्री / हिंसा',
+      'spam': 'स्पैम / धोखाधड़ी',
+      'impersonation': 'नकली खाते',
+      'illegal': 'गैरकानूनी गतिविधियाँ',
+      'selfharm': 'आत्म-हानि / आत्महत्या / मानसिक स्वास्थ्य',
+      'misuse': 'प्लेटफ़ॉर्म का दुरुपयोग',
+      'other': 'अन्य',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get userBlockedFromResonate =>
+      'आपको कई उपयोगकर्ताओं द्वारा रिपोर्ट किया गया है और आपको रेज़ोनेट का उपयोग करने से ब्लॉक कर दिया गया है। यदि आपको लगता है कि यह गलती है, तो कृपया AOSSIE से संपर्क करें।';
+
+  @override
+  String get reportParticipant => 'प्रतिभागी की रिपोर्ट करें';
+
+  @override
+  String get selectReportType => 'रिपोर्ट का प्रकार चुनें';
+
+  @override
+  String get reportSubmitted => 'रिपोर्ट सफलतापूर्वक सबमिट की गई';
+
+  @override
+  String get reportFailed => 'रिपोर्ट सबमिशन फेल';
+
+  @override
+  String get additionalDetailsOptional => 'अतिरिक्त विवरण (वैकल्पिक)';
+
+  @override
+  String get submitReport => 'रिपोर्ट सबमिट करें';
 }

@@ -230,6 +230,7 @@ void main() {
     expect(authStateController.ratingCount, 1);
     expect(authStateController.ratingTotal, 5.0);
     expect(authStateController.userName, 'TestUser');
+    expect(authStateController.reportsCount, 0);
   });
 
   test('test getLoginState', () async {
