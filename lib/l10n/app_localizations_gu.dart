@@ -1190,7 +1190,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get userBlockedFromResonate =>
-      'You have recieved multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
+      'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
 
   @override
   String get reportParticipant => 'Report Participant';

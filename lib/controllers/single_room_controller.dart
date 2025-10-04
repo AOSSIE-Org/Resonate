@@ -322,6 +322,7 @@ class SingleRoomController extends GetxController {
             "reportedUsers": [...appwriteRoom.reportedUsers, participant.uid],
           },
         );
+        appwriteRoom.reportedUsers.add(participant.uid);
       } catch (e) {
         log(e.toString());
       }

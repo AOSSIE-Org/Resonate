@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -59,8 +58,8 @@ class _ReportWidgetState extends State<ReportWidget> {
       Get.back(result: true);
       await Future.delayed(Duration(milliseconds: 500));
       customSnackbar(
-        AppLocalizations.of(context)!.success,
-        AppLocalizations.of(context)!.reportSubmitted,
+        AppLocalizations.of(Get.context!)!.success,
+        AppLocalizations.of(Get.context!)!.reportSubmitted,
         LogType.success,
       );
 
@@ -68,8 +67,8 @@ class _ReportWidgetState extends State<ReportWidget> {
     } catch (e) {
       log(e.toString());
       customSnackbar(
-        AppLocalizations.of(context)!.error,
-        '${AppLocalizations.of(context)!.reportFailed}: $e',
+        AppLocalizations.of(Get.context!)!.error,
+        '${AppLocalizations.of(Get.context!)!.reportFailed}: $e',
         LogType.error,
       );
 

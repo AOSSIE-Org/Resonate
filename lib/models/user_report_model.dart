@@ -1,4 +1,3 @@
-import 'package:appwrite/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:resonate/utils/enums/report_type_enum.dart';
 

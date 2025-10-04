@@ -1565,7 +1565,7 @@
             }
         }
     },
-    "userBlockedFromResonate": "You have recieved multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.",
+    "userBlockedFromResonate": "You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.",
     "@userBlockedFromResonate": {
         "description": "Message shown when a user is blocked from using Resonate."
     },

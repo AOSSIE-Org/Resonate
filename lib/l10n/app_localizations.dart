@@ -2177,7 +2177,7 @@ abstract class AppLocalizations {
   /// Message shown when a user is blocked from using Resonate.
   ///
   /// In en, this message translates to:
-  /// **'You have recieved multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.'**
+  /// **'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.'**
   String get userBlockedFromResonate;
 
   /// Label for the button to report a participant.
