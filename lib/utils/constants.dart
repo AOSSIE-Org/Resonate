@@ -3,7 +3,7 @@
 // Appwrite Project Constants
 const String baseDomain = String.fromEnvironment(
   'APPWRITE_BASE_DOMAIN',
-  defaultValue: '192.168.29.24',
+  defaultValue: '10.12.40.89',
 );
 const String appwriteProjectId = String.fromEnvironment(
   'APPWRITE_PROJECT_ID',
@@ -49,6 +49,7 @@ const String usersCollectionID = "64a52f0a6c41ded09def";
 const String usernameCollectionID = "64a131980b5388c2a0af";
 const String followersCollectionID = "68b16bae0027e57ba2c6";
 const String friendsCollectionID = "68b43e30002f89343479";
+const String userReportsCollectionID = "68dfcba90010d07ee333";
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 
 // userProfileImagePlaceholder on theme constant IDs
