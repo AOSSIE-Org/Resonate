@@ -1165,4 +1165,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'Get the latest features and improvements!';
+
+  @override
+  String get alert => 'Alert';
+
+  @override
+  String get removedFromRoom =>
+      'You have been reported or removed from the room';
+
+  @override
+  String reportType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'Harassment / Hate Speech',
+      'abuse': 'Abusive content / Violence',
+      'spam': 'Spam / Scams / Fraud',
+      'impersonation': 'Impersonation / Fake Accounts',
+      'illegal': 'Illegal Activities',
+      'selfharm': 'Self-harm / Suicide / Mental health',
+      'misuse': 'Misuse of platform',
+      'other': 'Other',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get userBlockedFromResonate =>
+      'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
+
+  @override
+  String get reportParticipant => 'Report Participant';
+
+  @override
+  String get selectReportType => 'Please select a report type';
+
+  @override
+  String get reportSubmitted => 'Report Submitted Successfully';
+
+  @override
+  String get reportFailed => 'Report Submission Failed';
+
+  @override
+  String get additionalDetailsOptional => 'Additional details (optional)';
+
+  @override
+  String get submitReport => 'Submit Report';
 }

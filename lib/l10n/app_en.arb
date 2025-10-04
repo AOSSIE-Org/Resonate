@@ -1546,5 +1546,51 @@
     "updateFeaturesImprovement": "Get the latest features and improvements!",
     "@updateFeaturesImprovement": {
         "description": "A message highlighting the benefit of updating the application."
+    },
+    "alert": "Alert",
+    "@alert": {
+        "description": "Title for an alert dialog."
+    },
+    "removedFromRoom": "You have been reported or removed from the room",
+    "@removedFromRoom": {
+        "description": "Message shown when a user is removed or reported from a room."
+    },
+    "reportType": "{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} impersonation{Impersonation / Fake Accounts} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}",
+    "@reportType": {
+        "description": "Selects the appropriate report type label based on a key.",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
+    },
+    "userBlockedFromResonate": "You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.",
+    "@userBlockedFromResonate": {
+        "description": "Message shown when a user is blocked from using Resonate."
+    },
+    "reportParticipant": "Report Participant",
+    "@reportParticipant": {
+        "description": "Label for the button to report a participant."
+    },
+    "selectReportType": "Please select a report type",
+    "@selectReportType": {
+        "description": "Prompt for the user to select a report type."
+    },
+    "reportSubmitted": "Report Submitted Successfully",
+    "@reportSubmitted": {
+        "description": "Message shown when a report is submitted successfully."
+    },
+    "reportFailed": "Report Submission Failed",
+    "@reportFailed": {
+        "description": "Message shown when a report submission fails."
+    },
+    "additionalDetailsOptional": "Additional details (optional)",
+    "@additionalDetailsOptional": {
+        "description": "Label for an optional input field for additional details in a report."
+    },
+    "submitReport": "Submit Report",
+    "@submitReport": {
+        "description": "Button text to submit a report."
     }
 }

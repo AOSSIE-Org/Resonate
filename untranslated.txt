@@ -1,1 +1,14 @@
-{}
+{
+  "gu": [
+    "alert",
+    "removedFromRoom",
+    "reportType",
+    "userBlockedFromResonate",
+    "reportParticipant",
+    "selectReportType",
+    "reportSubmitted",
+    "reportFailed",
+    "additionalDetailsOptional",
+    "submitReport"
+  ]
+}

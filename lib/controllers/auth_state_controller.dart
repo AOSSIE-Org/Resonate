@@ -51,6 +51,7 @@ class AuthStateController extends GetxController {
   late int ratingCount;
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
+  late int reportsCount;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -217,6 +218,8 @@ class AuthStateController extends GetxController {
               return FollowerUserModel.fromJson(e);
             }).toList() ??
             [];
+        reportsCount =
+            (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
       }
 
       update();
@@ -233,6 +236,10 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
+      if (reportsCount > 5) {
+        Get.offNamed(AppRoutes.userBlockedScreen);
+        return;
+      }
       if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);
       } else {
