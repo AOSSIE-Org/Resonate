@@ -79,6 +79,7 @@ class CreateRoomController extends GetxController {
         state: RoomState.live,
         myDocId: myDocId,
         isUserAdmin: true,
+        reportedUsers: [],
       );
       Get.find<TabViewController>().openRoomSheet(room);
 

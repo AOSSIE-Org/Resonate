@@ -57,6 +57,7 @@ class RoomsController extends GetxController {
       memberAvatarUrls: memberAvatarUrls,
       state: RoomState.live,
       isUserAdmin: room.data["adminUid"] == userUid,
+      reportedUsers: List<String>.from(room.data["reportedUsers"] ?? []),
     );
 
     return appwriteRoom;
@@ -76,7 +77,9 @@ class RoomsController extends GetxController {
 
       for (var room in roomsCollectionRef.documents) {
         AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
-        rooms.add(appwriteRoom);
+        if (!appwriteRoom.reportedUsers.contains(userUid)) {
+          rooms.add(appwriteRoom);
+        }
       }
       update();
     } catch (e) {
