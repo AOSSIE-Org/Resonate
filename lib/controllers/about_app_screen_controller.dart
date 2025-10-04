@@ -23,7 +23,7 @@ class AboutAppScreenController extends GetxController {
     : upgrader =
           upgrader ??
           Upgrader(
-            debugDisplayAlways: kDebugMode,
+            debugDisplayAlways: false,
             debugDisplayOnce: false,
             debugLogging: kDebugMode,
             durationUntilAlertAgain: kDebugMode
@@ -73,11 +73,9 @@ class AboutAppScreenController extends GetxController {
       if (needsUpdate && showDialog) {
         await Get.to(
           UpgradeAlert(
-            shouldPopScope: () => false,
             upgrader: upgrader,
             onIgnore: onIgnore,
             onLater: onLater,
-
             barrierDismissible: false,
           ),
         );

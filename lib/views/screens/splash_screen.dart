@@ -6,6 +6,7 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/enums/update_enums.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/routes/app_routes.dart';
 
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Delay before navigation
     Timer(const Duration(milliseconds: 3000), () async {
-      await Get.find<AboutAppScreenController>().checkForUpdate(
+      final result = await Get.find<AboutAppScreenController>().checkForUpdate(
         onIgnore: () {
           authController.isUserLoggedIn();
           Get.offNamed(AppRoutes.landing);
@@ -65,6 +66,10 @@ class _SplashScreenState extends State<SplashScreen>
         },
         isManualCheck: false,
       );
+      if (result != UpdateCheckResult.updateAvailable) {
+        authController.isUserLoggedIn();
+       Get.offNamed(AppRoutes.landing);
+     }
     });
   }
 
