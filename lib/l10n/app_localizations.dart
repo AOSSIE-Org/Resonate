@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
 
 // ignore_for_file: type=lint
@@ -95,6 +96,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('gu'),
     Locale('hi'),
   ];
 
@@ -2153,6 +2155,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get the latest features and improvements!'**
   String get updateFeaturesImprovement;
+
+  /// Title for an alert dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert'**
+  String get alert;
+
+  /// Message shown when a user is removed or reported from a room.
+  ///
+  /// In en, this message translates to:
+  /// **'You have been reported or removed from the room'**
+  String get removedFromRoom;
+
+  /// Selects the appropriate report type label based on a key.
+  ///
+  /// In en, this message translates to:
+  /// **'{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} impersonation{Impersonation / Fake Accounts} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}'**
+  String reportType(String type);
+
+  /// Message shown when a user is blocked from using Resonate.
+  ///
+  /// In en, this message translates to:
+  /// **'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.'**
+  String get userBlockedFromResonate;
+
+  /// Label for the button to report a participant.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Participant'**
+  String get reportParticipant;
+
+  /// Prompt for the user to select a report type.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a report type'**
+  String get selectReportType;
+
+  /// Message shown when a report is submitted successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Submitted Successfully'**
+  String get reportSubmitted;
+
+  /// Message shown when a report submission fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Submission Failed'**
+  String get reportFailed;
+
+  /// Label for an optional input field for additional details in a report.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional details (optional)'**
+  String get additionalDetailsOptional;
+
+  /// Button text to submit a report.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Report'**
+  String get submitReport;
 }
 
 class _AppLocalizationsDelegate
@@ -2166,7 +2228,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'hi'].contains(locale.languageCode);
+      <String>['en', 'gu', 'hi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2177,6 +2239,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'gu':
+      return AppLocalizationsGu();
     case 'hi':
       return AppLocalizationsHi();
   }

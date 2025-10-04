@@ -10,13 +10,17 @@ import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
+import 'package:resonate/views/widgets/report_widget.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 
@@ -99,6 +103,11 @@ class SingleRoomController extends GetxController {
         payload["hasRequestedToBeSpeaker"] ?? false;
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
+    if (payload["uid"] == auth.uid &&
+        !payload["isSpeaker"] &&
+        me.value.isMicOn) {
+      turnOffMic();
+    }
     update();
   }
 
@@ -161,6 +170,11 @@ class SingleRoomController extends GetxController {
             case 'delete':
               {
                 if (updatedUserId == me.value.uid) {
+                  customSnackbar(
+                    AppLocalizations.of(Get.context!)!.alert,
+                    AppLocalizations.of(Get.context!)!.removedFromRoom,
+                    LogType.warning,
+                  );
                   await Get.delete<SingleRoomController>();
                 } else {
                   removeParticipantDataFromList(data.payload["uid"]);
@@ -201,6 +215,7 @@ class SingleRoomController extends GetxController {
 
   Future<void> leaveRoom() async {
     loadingDialog(Get.context!);
+    await subscription?.close();
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
     Get.delete<SingleRoomController>();
   }
@@ -288,6 +303,31 @@ class SingleRoomController extends GetxController {
       "hasRequestedToBeSpeaker": false,
       "isModerator": false,
     });
+  }
+
+  Future<void> reportParticipant(Participant participant) async {
+    final bool? didSubmit = await Get.dialog(
+      ReportWidget(
+        participantName: participant.name,
+        participantId: participant.uid,
+      ),
+    );
+    if (didSubmit == true) {
+      try {
+        await databases.updateDocument(
+          databaseId: masterDatabaseId,
+          collectionId: roomsCollectionId,
+          documentId: appwriteRoom.id,
+          data: {
+            "reportedUsers": [...appwriteRoom.reportedUsers, participant.uid],
+          },
+        );
+        appwriteRoom.reportedUsers.add(participant.uid);
+      } catch (e) {
+        log(e.toString());
+      }
+      kickOutParticipant(participant);
+    }
   }
 
   Future<void> makeSpeaker(Participant participant) async {
