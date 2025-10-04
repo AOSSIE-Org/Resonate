@@ -285,7 +285,10 @@
 │   │   ├── resonate_user.freezed.dart
 │   │   ├── resonate_user.g.dart
 │   │   ├── story.dart
-│   │   └── themes_model.dart
+│   │   ├── themes_model.dart
+│   │   ├── user_report_model.dart
+│   │   ├── user_report_model.freezed.dart
+│   │   └── user_report_model.g.dart
 │   ├── routes
 │   │   ├── app_pages.dart
 │   │   └── app_routes.dart
@@ -314,6 +317,7 @@
 │   │   │   ├── gender.dart
 │   │   │   ├── log_type.dart
 │   │   │   ├── notification_type.dart
+│   │   │   ├── report_type_enum.dart
 │   │   │   ├── room_state.dart
 │   │   │   ├── signed_in_by.dart
 │   │   │   ├── story_category.dart
@@ -362,6 +366,7 @@
 │       │   ├── story_screen.dart
 │       │   ├── tabview_screen.dart
 │       │   ├── user_account_screen.dart
+│       │   ├── user_blocked_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
 │           ├── auth_button.dart
@@ -381,6 +386,7 @@
 │           ├── password_strength_indicator.dart
 │           ├── profile_avatar.dart
 │           ├── rating_sheet.dart
+│           ├── report_widget.dart
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
 │           ├── snackbar.dart
@@ -414,4 +420,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 335 files
+80 directories, 341 files
