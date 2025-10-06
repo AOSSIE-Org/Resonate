@@ -61,6 +61,7 @@ class AboutAppScreenController extends GetxController {
     bool showDialog = true,
     required bool Function() onIgnore,
     required bool Function() onLater,
+    bool Function()? onUpdate,
   }) async {
     isCheckingForUpdate.value = true;
     try {
@@ -76,6 +77,7 @@ class AboutAppScreenController extends GetxController {
             upgrader: upgrader,
             onIgnore: onIgnore,
             onLater: onLater,
+            onUpdate: onUpdate,
             barrierDismissible: false,
           ),
         );
