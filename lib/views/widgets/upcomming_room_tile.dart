@@ -212,7 +212,7 @@ class UpCommingListTile extends StatelessWidget {
                 IconButton(
                   onPressed: () => _showRemoveDialog(context),
                   icon: Icon(
-                    Icons.remove_circle,
+                    Icons.delete_forever,
                     color: Theme.of(context).colorScheme.error,
                   ),
                   tooltip: AppLocalizations.of(context)!.removeRoomFromList,
