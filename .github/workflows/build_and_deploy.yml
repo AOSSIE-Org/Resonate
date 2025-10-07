@@ -2,57 +2,87 @@ name: Build and Deploy
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    types: [closed]
-    branches:
-      - master
-  workflow_dispatch:
+    branches: [master]
+  workflow_dispatch:  # This allows manual triggering
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      JAVA_VERSION: 21.0.6
+      FLUTTER_VERSION: 3.35.2
+      KEYSTORE_PATH: android/upload-keystore.jks
+      KEY_PROPS_PATH: android/key.properties
+      GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
+      FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
 
     steps:
-      # 1. Remove Cached Flutter Installation
-      - name: Remove Cached Flutter Installation
-        run: rm -rf $HOME/.flutter
-
-      - name: Clean up old build files
-        run: |
-          rm -rf build/app/outputs/bundle/release/*
-
-      # 2. Checkout repository
+      # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 3. Install Flutter SDK
-      - name: Install Flutter
+      # 2. Setup Java
+      - name: Setup Java to compile the Android project
+        uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # 3. Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # 4. Setup Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.35.2
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
-      # 4. Verify Flutter and Dart Versions
+      # 5. Verify Flutter Installation
       - name: Verify Flutter Installation
         run: |
           flutter --version
           dart --version
 
-      # 6. Install Flutter dependencies
+      # 6. Decode Android keystore
+      - name: Decode Android keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
+
+      # 7. Decode Android key properties
+      - name: Decode Android key properties
+        run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > ${{ env.KEY_PROPS_PATH }}
+
+      # 8. Decode Google Services JSON for Android
+      - name: Decode Android Google Services JSON
+        run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
+
+      # 9. Decode Firebase Options Dart file
+      - name: Decode Firebase Options
+        run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
+
+      # 10. Install Flutter dependencies
       - name: Install Flutter Dependencies
         run: flutter pub get
 
-      # 7. Build Android APK
-      - name: Build Android App Bundle
-        run: flutter build apk --release --split-per-abi
+      # 11. Run tests
+      - name: Run all app tests
+        run: flutter test
 
-      # 8. Upload build artifacts
+      # 12. Build Android APK
+      - name: Build Android APK
+        run: |
+          flutter build apk \
+          --release \
+          --split-per-abi \
+          --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
+          --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
+
+      # 13. Upload build artifacts
       - name: Upload APK as an artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apks
-          path: build/app/outputs/apk/release/*.apk
+          path: build/app/outputs/flutter-apk/*.apk
 
   release:
     runs-on: ubuntu-latest
@@ -69,14 +99,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-release-apks
-          path: build/app/outputs/bundle/release/
+          path: build/app/outputs/flutter-apk/
 
       # 3. Upload to Github Release
       - name: Github Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: build/app/outputs/bundle/release/*.apk
+          artifacts: build/app/outputs/flutter-apk/*.apk
           artifactContentType: apk
           generateReleaseNotes: true
-          tag: latest_build
+          tag: v1.0.${{ github.run_number }}
