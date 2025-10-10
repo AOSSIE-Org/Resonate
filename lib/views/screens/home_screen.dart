@@ -8,8 +8,10 @@ import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
+import 'package:resonate/views/widgets/room_search_bar.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 bool isLiveSelected = true;
 
@@ -25,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
     UpcomingRoomsController(),
   );
   final RoomsController roomsController = Get.put(RoomsController());
+  void syncUpcomingRoomsWithSearch() {
+    if (roomsController.searchBarIsEmpty.value) {
+      roomsController.filteredUpcomingRooms.value =
+          upcomingRoomsController.upcomingRooms;
+    }
+  }
 
   Future<void> pullToRefreshData() async {
     await upcomingRoomsController.getUpcomingRooms();
@@ -46,9 +54,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     isLiveSelected = selectedTab;
                   });
+                  if (!selectedTab) {
+                    syncUpcomingRoomsWithSearch();
+                  }
                 },
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: UiSizes.height_5),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
+                child: RoomSearchBar(
+                  onSearchChanged: (query) {
+                    roomsController.searchRooms(
+                      query,
+                      isLiveRooms: isLiveSelected,
+                      upcomingRooms: isLiveSelected
+                          ? null
+                          : upcomingRoomsController.upcomingRooms,
+                    );
+                  },
+                  onSearchSubmit: (query) {
+                    roomsController.searchRooms(
+                      query,
+                      isLiveRooms: isLiveSelected,
+                      upcomingRooms: isLiveSelected
+                          ? null
+                          : upcomingRoomsController.upcomingRooms,
+                    );
+                  },
+                  onClear: () {
+                    if (isLiveSelected) {
+                      roomsController.clearSearch();
+                    } else {
+                      roomsController.filteredUpcomingRooms.value =
+                          upcomingRoomsController.upcomingRooms;
+                    }
+                  },
+                  isSearching: isLiveSelected
+                      ? roomsController.isSearching.value
+                      : false,
+                ),
+              ),
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: pullToRefreshData,
@@ -132,26 +177,70 @@ class UpcomingRoomsListView extends StatelessWidget {
   final UpcomingRoomsController upcomingRoomsController = Get.put(
     UpcomingRoomsController(),
   );
-
+  final RoomsController roomsController = Get.find<RoomsController>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => upcomingRoomsController.upcomingRooms.isNotEmpty
-          ? ListView.builder(
-              itemCount: upcomingRoomsController.upcomingRooms.length,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: UpCommingListTile(
-                    appwriteUpcommingRoom:
-                        upcomingRoomsController.upcomingRooms[index],
-                  ),
-                );
-              },
-            )
-          : const NoRoomScreen(isRoom: false),
-    );
+    return Obx(() {
+      final roomsToShow =
+          roomsController.filteredUpcomingRooms.isNotEmpty ||
+              !roomsController.searchBarIsEmpty.value
+          ? roomsController.filteredUpcomingRooms
+          : upcomingRoomsController.upcomingRooms;
+
+      if (roomsToShow.isNotEmpty) {
+        return ListView.builder(
+          itemCount: roomsToShow.length,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
+              child: UpCommingListTile(
+                appwriteUpcommingRoom: roomsToShow[index],
+              ),
+            );
+          },
+        );
+      } else {
+        return upcomingRoomsController.upcomingRooms.isEmpty &&
+                roomsController.searchBarIsEmpty.value
+            ? const NoRoomScreen(isRoom: false)
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search_off,
+                      size: UiSizes.size_65,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.3),
+                    ),
+                    SizedBox(height: UiSizes.height_16),
+                    Text(
+                      AppLocalizations.of(context)!.noSearchResults,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+                    SizedBox(height: UiSizes.height_8),
+                    Text(
+                      AppLocalizations.of(context)!.clearSearch,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_14,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+      }
+    });
   }
 }
 
@@ -161,22 +250,85 @@ class LiveRoomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => roomsController.rooms.isNotEmpty
-          ? ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: roomsController.rooms.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomLiveRoomTile(
-                    appwriteRoom: roomsController.rooms[index],
-                  ),
-                );
-              },
-            )
-          : const NoRoomScreen(isRoom: true),
-    );
+    return Obx(() {
+      final roomsToShow = roomsController.searchBarIsEmpty.value
+          ? roomsController.rooms
+          : roomsController.filteredRooms;
+
+      if (roomsController.isSearching.value) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.fourRotatingDots(
+                color: Theme.of(context).colorScheme.primary,
+                size: UiSizes.size_20,
+              ),
+              SizedBox(height: UiSizes.height_16),
+              Text(
+                AppLocalizations.of(context)!.searchingRooms,
+                style: TextStyle(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
+      if (roomsToShow.isNotEmpty) {
+        return ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: roomsToShow.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
+              child: CustomLiveRoomTile(appwriteRoom: roomsToShow[index]),
+            );
+          },
+        );
+      } else {
+        return roomsController.searchBarIsEmpty.value
+            ? const NoRoomScreen(isRoom: true)
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search_off,
+                      size: UiSizes.size_65,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.3),
+                    ),
+                    SizedBox(height: UiSizes.height_16),
+                    Text(
+                      AppLocalizations.of(context)!.noSearchResults,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+                    SizedBox(height: UiSizes.height_8),
+                    Text(
+                      AppLocalizations.of(context)!.clearSearch,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_14,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+      }
+    });
   }
 }
 

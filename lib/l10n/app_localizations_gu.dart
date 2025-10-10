@@ -664,6 +664,31 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noSearchResults => 'કોઈ શોધ પરિણામો નથી';
 
   @override
+  String get searchRooms => 'Search rooms...';
+
+  @override
+  String get searchingRooms => 'Searching rooms...';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get searchError => 'Search Error';
+
+  @override
+  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'Failed to search upcoming rooms. Please try again.';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
   String shareRoomMessage(
     String roomName,
     String description,
