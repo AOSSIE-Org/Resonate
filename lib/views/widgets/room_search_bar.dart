@@ -17,10 +17,10 @@ class RoomSearchBar extends StatefulWidget {
   });
 
   @override
-  State<RoomSearchBar> createState() => _RoomSearchBarState();
+  State<RoomSearchBar> createState() => RoomSearchBarState();
 }
 
-class _RoomSearchBarState extends State<RoomSearchBar>
+class RoomSearchBarState extends State<RoomSearchBar>
     with SingleTickerProviderStateMixin {
   late TextEditingController _searchController;
   late AnimationController _animationController;
@@ -88,6 +88,10 @@ class _RoomSearchBarState extends State<RoomSearchBar>
     if (widget.onClear != null) {
       widget.onClear!();
     }
+  }
+
+  void clearSearch() {
+    _clearSearch();
   }
 
   void _performSearch() {

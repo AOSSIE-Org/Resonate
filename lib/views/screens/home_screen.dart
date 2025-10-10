@@ -27,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     UpcomingRoomsController(),
   );
   final RoomsController roomsController = Get.put(RoomsController());
+  final GlobalKey<RoomSearchBarState> _searchBarKey =
+      GlobalKey<RoomSearchBarState>();
+
   void syncUpcomingRoomsWithSearch() {
     if (roomsController.searchBarIsEmpty.value) {
       roomsController.filteredUpcomingRooms.value =
@@ -54,6 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     isLiveSelected = selectedTab;
                   });
+                  _searchBarKey.currentState?.clearSearch();
+                  roomsController.clearSearch();
+                  roomsController.filteredUpcomingRooms.value =
+                      upcomingRoomsController.upcomingRooms;
+
                   if (!selectedTab) {
                     syncUpcomingRoomsWithSearch();
                   }
@@ -63,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
                 child: RoomSearchBar(
+                  key: _searchBarKey,
                   onSearchChanged: (query) {
                     roomsController.searchRooms(
                       query,
