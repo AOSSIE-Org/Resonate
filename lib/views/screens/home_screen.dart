@@ -343,6 +343,7 @@ List<AppwriteRoom> appwriteRooms = [
     state: RoomState.live,
     isUserAdmin: true,
     myDocId: 'doc123',
+    reportedUsers: [],
   ),
   AppwriteRoom(
     id: 'room_002',
@@ -358,6 +359,7 @@ List<AppwriteRoom> appwriteRooms = [
     state: RoomState.live,
     isUserAdmin: false,
     myDocId: 'doc456',
+    reportedUsers: [],
   ),
   AppwriteRoom(
     id: 'room_003',
@@ -373,6 +375,7 @@ List<AppwriteRoom> appwriteRooms = [
     state: RoomState.live,
     isUserAdmin: false,
     myDocId: null,
+    reportedUsers: [],
   ),
   AppwriteRoom(
     id: 'room_004',
@@ -388,5 +391,6 @@ List<AppwriteRoom> appwriteRooms = [
     state: RoomState.live,
     isUserAdmin: true,
     myDocId: 'doc789',
+    reportedUsers: [],
   ),
 ];

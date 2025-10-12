@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -402,34 +404,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       } else {
                         if (friendModel.requestStatus ==
-                            FriendRequestStatus.sent) {
-                          if (friendModel.senderId == widget.creator!.uid) {
-                            await friendsController.acceptFriendRequest(
-                              friendModel,
-                            );
-                            customSnackbar(
-                              AppLocalizations.of(
-                                context,
-                              )!.friendRequestAccepted,
-                              AppLocalizations.of(
-                                context,
-                              )!.friendRequestAcceptedTo(widget.creator!.name!),
-                              LogType.success,
-                            );
-                          } else {
+                                FriendRequestStatus.sent &&
+                            friendModel.senderId == widget.creator!.uid) {
+                          await friendsController.acceptFriendRequest(
+                            friendModel,
+                          );
+                          customSnackbar(
+                            AppLocalizations.of(context)!.friendRequestAccepted,
+                            AppLocalizations.of(
+                              context,
+                            )!.friendRequestAcceptedTo(widget.creator!.name!),
+                            LogType.success,
+                          );
+                        } else {
+                          try {
                             await friendsController.removeFriend(friendModel);
-                            customSnackbar(
-                              AppLocalizations.of(
-                                context,
-                              )!.friendRequestCancelled,
-                              AppLocalizations.of(
-                                context,
-                              )!.friendRequestCancelledTo(
-                                widget.creator!.name!,
-                              ),
-                              LogType.info,
-                            );
+                          } catch (e) {
+                            log(e.toString());
                           }
+                          customSnackbar(
+                            AppLocalizations.of(
+                              context,
+                            )!.friendRequestCancelled,
+                            AppLocalizations.of(
+                              context,
+                            )!.friendRequestCancelledTo(widget.creator!.name!),
+                            LogType.info,
+                          );
                         }
                       }
                     },

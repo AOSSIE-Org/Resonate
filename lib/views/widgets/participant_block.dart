@@ -81,6 +81,12 @@ class ParticipantBlock extends StatelessWidget {
           FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
             controller.kickOutParticipant(participant);
           }),
+          FocusedMenuItemData(
+            AppLocalizations.of(context)!.reportParticipant,
+            () {
+              controller.reportParticipant(participant);
+            },
+          ),
         ], currentBrightness);
       } else {
         return makeMenuItems([
@@ -98,6 +104,12 @@ class ParticipantBlock extends StatelessWidget {
           FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
             controller.kickOutParticipant(participant);
           }),
+          FocusedMenuItemData(
+            AppLocalizations.of(context)!.reportParticipant,
+            () {
+              controller.reportParticipant(participant);
+            },
+          ),
         ], currentBrightness);
       }
     }
@@ -118,6 +130,12 @@ class ParticipantBlock extends StatelessWidget {
           FocusedMenuItemData(AppLocalizations.of(context)!.kickOut, () {
             controller.kickOutParticipant(participant);
           }),
+          FocusedMenuItemData(
+            AppLocalizations.of(context)!.reportParticipant,
+            () {
+              controller.reportParticipant(participant);
+            },
+          ),
         ], currentBrightness);
       }
     }

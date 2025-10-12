@@ -179,7 +179,7 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.aboutSection,
+                                AppLocalizations.of(context)!.about,
                                 style: Theme.of(context).textTheme.bodyMedium!
                                     .copyWith(
                                       color: Theme.of(

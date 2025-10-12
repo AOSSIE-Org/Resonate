@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/models/live_chapter_model.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class Story {
@@ -20,6 +21,7 @@ class Story {
   int playDuration;
   Color tintColor;
   List<Chapter> chapters;
+  LiveChapterModel? liveChapter;
 
   Story({
     required this.title,
@@ -37,6 +39,7 @@ class Story {
     required this.playDuration,
     required this.tintColor,
     required this.chapters,
+    this.liveChapter,
   }) : likesCount = likesCount.obs, // Observable
        isLikedByCurrentUser = isLikedByCurrentUser.obs; // Observable
 }

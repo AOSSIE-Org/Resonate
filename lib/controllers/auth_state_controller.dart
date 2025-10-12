@@ -10,10 +10,8 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
-import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/follower_user_model.dart';
@@ -53,6 +51,7 @@ class AuthStateController extends GetxController {
   late int ratingCount;
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
+  late int reportsCount;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -109,7 +108,7 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
 
     // ask for settings permissions
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -219,6 +218,8 @@ class AuthStateController extends GetxController {
               return FollowerUserModel.fromJson(e);
             }).toList() ??
             [];
+        reportsCount =
+            (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
       }
 
       update();
@@ -235,8 +236,9 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      if (Get.isRegistered<AboutAppScreenController>()) {
-        Get.find<AboutAppScreenController>().checkForUpdate();
+      if (reportsCount > 5) {
+        Get.offNamed(AppRoutes.userBlockedScreen);
+        return;
       }
       if (isUserProfileComplete == false) {
         Get.offNamed(AppRoutes.onBoarding);

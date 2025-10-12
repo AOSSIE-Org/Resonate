@@ -1,30 +1,100 @@
 {
+    "@@locale": "en",
     "title": "Resonate",
+    "@title": {
+        "description": "The title of the application."
+    },
     "roomDescription": "Be polite and respect the other person's opinion. Avoid rude comments.",
+    "@roomDescription": {
+        "description": "Guideline message for users in a chat room."
+    },
     "hidePassword": "Hide Password",
+    "@hidePassword": {
+        "description": "Button text to conceal the password field."
+    },
     "showPassword": "Show Password",
+    "@showPassword": {
+        "description": "Button text to reveal the password field."
+    },
     "passwordEmpty": "Password cannot be empty",
+    "@passwordEmpty": {
+        "description": "Error message when the password field is left blank."
+    },
     "password": "Password",
+    "@password": {
+        "description": "Label for the password input field."
+    },
     "confirmPassword": "Confirm Password",
+    "@confirmPassword": {
+        "description": "Label for the confirm password input field."
+    },
     "passwordsNotMatch": "Passwords do not match",
+    "@passwordsNotMatch": {
+        "description": "Error message when password and confirmation password do not match."
+    },
     "userCreatedStories": "User Created Stories",
+    "@userCreatedStories": {
+        "description": "Header for the section showing stories created by another user."
+    },
     "yourStories": "Your Stories",
+    "@yourStories": {
+        "description": "Header for the section showing stories created by the current user."
+    },
     "userNoStories": "User has not created any story",
+    "@userNoStories": {
+        "description": "Message displayed when viewing another user's profile and they have no stories."
+    },
     "youNoStories": "You have not created any story",
+    "@youNoStories": {
+        "description": "Message displayed on the current user's profile when they have no stories."
+    },
     "follow": "Follow",
+    "@follow": {
+        "description": "Button text to follow a user."
+    },
     "editProfile": "Edit Profile",
+    "@editProfile": {
+        "description": "Button text to navigate to the profile editing screen."
+    },
     "verifyEmail": "Verify Email",
+    "@verifyEmail": {
+        "description": "Button or link text to start the email verification process."
+    },
     "verified": "Verified",
+    "@verified": {
+        "description": "A status label indicating that the user's email has been verified."
+    },
     "profile": "Profile",
+    "@profile": {
+        "description": "Label for the user profile section or page."
+    },
     "userLikedStories": "User Liked Stories",
+    "@userLikedStories": {
+        "description": "Header for the section showing stories liked by another user."
+    },
     "yourLikedStories": "Your Liked Stories",
+    "@yourLikedStories": {
+        "description": "Header for the section showing stories liked by the current user."
+    },
     "userNoLikedStories": "User has not liked any story",
+    "@userNoLikedStories": {
+        "description": "Message displayed when viewing another user's profile and they have no liked stories."
+    },
     "youNoLikedStories": "You have not liked any story",
+    "@youNoLikedStories": {
+        "description": "Message displayed on the current user's profile when they have no liked stories."
+    },
     "live": "Live",
+    "@live": {
+        "description": "Tab or label for live audio rooms."
+    },
     "upcoming": "Upcoming",
+    "@upcoming": {
+        "description": "Tab or label for scheduled/upcoming audio rooms."
+    },
     "noAvailableRoom": "{isRoom, select, true{No Room Available} false{No Upcoming Room Available} other{No Room Information Available}}\nGet Started By Adding One Below!",
     "@noAvailableRoom": {
-        "description": "Message when no room or upcoming room is available",
+        "description": "Message when no room or upcoming room is available, with a call to action.",
         "placeholders": {
             "isRoom": {
                 "type": "String",
@@ -33,122 +103,460 @@
         }
     },
     "user1": "User 1",
+    "@user1": {
+        "description": "A generic placeholder name for a user."
+    },
     "user2": "User 2",
+    "@user2": {
+        "description": "A second generic placeholder name for a user."
+    },
     "you": "You",
+    "@you": {
+        "description": "Label to identify the current user in a list or chat."
+    },
     "areYouSure": "Are you sure?",
+    "@areYouSure": {
+        "description": "Confirmation prompt title."
+    },
     "loggingOut": "You are logging out of Resonate.",
+    "@loggingOut": {
+        "description": "Confirmation prompt message for logging out."
+    },
     "yes": "Yes",
+    "@yes": {
+        "description": "Generic confirmation button text."
+    },
     "no": "No",
+    "@no": {
+        "description": "Generic cancellation button text."
+    },
     "incorrectEmailOrPassword": "Incorrect email or password",
+    "@incorrectEmailOrPassword": {
+        "description": "Error message for failed login attempt."
+    },
     "passwordShort": "Password is less than 8 characters",
+    "@passwordShort": {
+        "description": "Error message for a password that is too short."
+    },
     "tryAgain": "Try Again!",
+    "@tryAgain": {
+        "description": "Button text to retry a failed action."
+    },
     "success": "Success",
+    "@success": {
+        "description": "Generic title for a successful operation."
+    },
     "passwordResetSent": "Password reset email sent!",
+    "@passwordResetSent": {
+        "description": "Success message after a password reset email has been dispatched."
+    },
     "error": "Error",
+    "@error": {
+        "description": "Generic title for a failed operation."
+    },
     "resetPassword": "Reset Password",
+    "@resetPassword": {
+        "description": "Title or button text for the reset password feature."
+    },
     "enterNewPassword": "Enter your new password",
+    "@enterNewPassword": {
+        "description": "Instructional text on the reset password screen."
+    },
     "newPassword": "New Password",
+    "@newPassword": {
+        "description": "Label for the new password input field."
+    },
     "setNewPassword": "Set New Password",
+    "@setNewPassword": {
+        "description": "Button text to confirm setting a new password."
+    },
     "emailChanged": "Email Changed",
+    "@emailChanged": {
+        "description": "Title for the success dialog after an email change."
+    },
     "emailChangeSuccess": "Email changed successfully!",
+    "@emailChangeSuccess": {
+        "description": "Success message after changing the user's email."
+    },
     "failed": "Failed",
+    "@failed": {
+        "description": "Generic title for a failed operation."
+    },
     "emailChangeFailed": "Failed to change email",
+    "@emailChangeFailed": {
+        "description": "Error message when an email change operation fails."
+    },
     "oops": "Oops!",
+    "@oops": {
+        "description": "An informal title for an error or warning message."
+    },
     "emailExists": "Email already exists",
+    "@emailExists": {
+        "description": "Error message when a user tries to register or change to an email that is already in use."
+    },
     "changeEmail": "Change Email",
+    "@changeEmail": {
+        "description": "Title or button text for the change email feature."
+    },
     "enterValidEmail": "Please enter a valid email address",
+    "@enterValidEmail": {
+        "description": "Error message for an invalid email format."
+    },
     "newEmail": "New Email",
+    "@newEmail": {
+        "description": "Label for the new email input field."
+    },
     "currentPassword": "Current Password",
+    "@currentPassword": {
+        "description": "Label for the current password input field, used for verification."
+    },
     "emailChangeInfo": "For added security, you must provide your account's current password when changing your email address. After changing your email, use the updated email for future logins.",
+    "@emailChangeInfo": {
+        "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
+    },
     "oauthUsersMessage": "(Only for users who logged in using Google or Github)",
+    "@oauthUsersMessage": {
+        "description": "A message to specify that the following instructions are for OAuth users."
+    },
     "oauthUsersEmailChangeInfo": "To change your email, please enter a new password in the \"Current Password\" field. Be sure to remember this password, as you'll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.",
+    "@oauthUsersEmailChangeInfo": {
+        "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
+    },
     "resonateTagline": "Enter a world of limitless\nconversations.",
+    "@resonateTagline": {
+        "description": "The application's tagline, used on splash or login screens."
+    },
     "signInWithEmail": "Sign in with Email",
+    "@signInWithEmail": {
+        "description": "Button text for signing in using email and password."
+    },
     "or": "Or",
+    "@or": {
+        "description": "A separator text, typically used between different login options."
+    },
     "continueWith": "Continue with",
+    "@continueWith": {
+        "description": "Informational text preceding a list of third-party login providers."
+    },
     "continueWithGoogle": "Continue with Google",
+    "@continueWithGoogle": {
+        "description": "Button text for signing in with a Google account."
+    },
     "continueWithGitHub": "Continue with GitHub",
+    "@continueWithGitHub": {
+        "description": "Button text for signing in with a GitHub account."
+    },
     "resonateLogo": "Resonate Logo",
+    "@resonateLogo": {
+        "description": "Accessibility text for the Resonate application logo image."
+    },
     "iAlreadyHaveAnAccount": "I already have an account",
+    "@iAlreadyHaveAnAccount": {
+        "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
+    },
     "createNewAccount": "Create new account",
+    "@createNewAccount": {
+        "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
+    },
     "userProfile": "User profile",
+    "@userProfile": {
+        "description": "Accessibility text for a user's profile picture or avatar."
+    },
     "passwordIsStrong": "Password is strong",
+    "@passwordIsStrong": {
+        "description": "Validation message indicating that the entered password meets all strength requirements."
+    },
     "admin": "Admin",
+    "@admin": {
+        "description": "Label for the Admin user role in a room."
+    },
     "moderator": "Moderator",
+    "@moderator": {
+        "description": "Label for the Moderator user role in a room."
+    },
     "speaker": "Speaker",
+    "@speaker": {
+        "description": "Label for the Speaker user role in a room."
+    },
     "listener": "Listener",
+    "@listener": {
+        "description": "Label for the Listener user role in a room."
+    },
     "removeModerator": "Remove Moderator",
+    "@removeModerator": {
+        "description": "Menu item text to revoke moderator privileges from a user."
+    },
     "kickOut": "Kick Out",
+    "@kickOut": {
+        "description": "Menu item text to remove a user from a room."
+    },
     "addModerator": "Add Moderator",
+    "@addModerator": {
+        "description": "Menu item text to grant moderator privileges to a user."
+    },
     "addSpeaker": "Add Speaker",
+    "@addSpeaker": {
+        "description": "Menu item text to grant speaker privileges to a listener."
+    },
     "makeListener": "Make Listener",
+    "@makeListener": {
+        "description": "Menu item text to change a speaker's role to listener."
+    },
     "pairChat": "Pair Chat",
+    "@pairChat": {
+        "description": "A feature name for one-on-one random chat."
+    },
     "chooseIdentity": "Choose Identity",
+    "@chooseIdentity": {
+        "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
+    },
     "selectLanguage": "Select Language",
+    "@selectLanguage": {
+        "description": "Label for the language selection setting."
+    },
     "noConnection": "No Connection",
+    "@noConnection": {
+        "description": "Title indicating that there is no internet connection."
+    },
     "loadingDialog": "Loading Dialog",
+    "@loadingDialog": {
+        "description": "Accessibility text for a loading indicator or spinner."
+    },
     "createAccount": "Create Account",
+    "@createAccount": {
+        "description": "Button text or page title for the account creation screen."
+    },
     "enterValidEmailAddress": "Enter Valid Email Address",
+    "@enterValidEmailAddress": {
+        "description": "Error message shown for an invalid email format."
+    },
     "email": "Email",
+    "@email": {
+        "description": "Label for the email input field."
+    },
     "passwordRequirements": "Password must be at least 8 characters long",
+    "@passwordRequirements": {
+        "description": "Instructional text listing the requirements for a valid password, part 1."
+    },
     "includeNumericDigit": "Include at least 1 numeric digit",
+    "@includeNumericDigit": {
+        "description": "Instructional text listing the requirements for a valid password, part 2."
+    },
     "includeUppercase": "Include at least 1 uppercase letter",
+    "@includeUppercase": {
+        "description": "Instructional text listing the requirements for a valid password, part 3."
+    },
     "includeLowercase": "Include at least 1 lowercase letter",
+    "@includeLowercase": {
+        "description": "Instructional text listing the requirements for a valid password, part 4."
+    },
     "includeSymbol": "Include at least 1 symbol",
+    "@includeSymbol": {
+        "description": "Instructional text listing the requirements for a valid password, part 5."
+    },
     "signedUpSuccessfully": "Signed Up Successfully",
+    "@signedUpSuccessfully": {
+        "description": "Title for a success message after account creation."
+    },
     "newAccountCreated": "You have successfully created a new account",
+    "@newAccountCreated": {
+        "description": "Success message confirming that a new account has been created."
+    },
     "signUp": "Sign up",
+    "@signUp": {
+        "description": "Button text to submit the sign-up form."
+    },
     "login": "Login",
+    "@login": {
+        "description": "Button text to submit the login form."
+    },
     "settings": "Settings",
+    "@settings": {
+        "description": "Title for the settings page."
+    },
     "accountSettings": "Account settings",
+    "@accountSettings": {
+        "description": "Sub-header for account-related settings."
+    },
     "account": "Account",
+    "@account": {
+        "description": "Label for the account settings section."
+    },
     "appSettings": "App settings",
+    "@appSettings": {
+        "description": "Sub-header for application-related settings."
+    },
     "themes": "Themes",
+    "@themes": {
+        "description": "Label for the theme selection setting."
+    },
     "about": "About",
+    "@about": {
+        "description": "Label for the 'About' section or page of the app or a story."
+    },
     "other": "Other",
+    "@other": {
+        "description": "A generic category label for miscellaneous settings or items."
+    },
     "contribute": "Contribute",
+    "@contribute": {
+        "description": "Label for a section encouraging users to contribute to the project."
+    },
     "logOut": "Log out",
+    "@logOut": {
+        "description": "Button text to log the user out of their account."
+    },
     "participants": "Participants",
+    "@participants": {
+        "description": "Label or title for the list of participants in a room."
+    },
     "delete": "delete",
+    "@delete": {
+        "description": "Generic button text for a delete action. Parameter for toRoomAction."
+    },
     "leave": "leave",
+    "@leave": {
+        "description": "Generic button text for a leave action. Parameter for toRoomAction."
+    },
     "leaveButton": "Leave",
+    "@leaveButton": {
+        "description": "Button text to leave a room or conversation."
+    },
     "findingRandomPartner": "Finding a Random Partner For You",
+    "@findingRandomPartner": {
+        "description": "Status message shown while the system is searching for a random chat partner."
+    },
     "quickFact": "Quick fact",
+    "@quickFact": {
+        "description": "Header for a quick fact or tip, often shown during loading."
+    },
     "cancel": "Cancel",
+    "@cancel": {
+        "description": "Generic button text for a cancel action."
+    },
     "completeYourProfile": "Complete your Profile",
+    "@completeYourProfile": {
+        "description": "Page title or prompt for the user to finish setting up their profile."
+    },
     "uploadProfilePicture": "Upload profile picture",
+    "@uploadProfilePicture": {
+        "description": "Instructional text or button to upload a profile picture."
+    },
     "enterValidName": "Enter Valid Name",
+    "@enterValidName": {
+        "description": "Error message for an invalid name format."
+    },
     "name": "Name",
+    "@name": {
+        "description": "Label for the name input field."
+    },
     "username": "Username",
+    "@username": {
+        "description": "Label for the username input field."
+    },
     "enterValidDOB": "Enter Valid DOB",
+    "@enterValidDOB": {
+        "description": "Error message for an invalid date of birth."
+    },
     "dateOfBirth": "Date of Birth",
+    "@dateOfBirth": {
+        "description": "Label for the date of birth input field."
+    },
     "forgotPassword": "Forgot Password?",
+    "@forgotPassword": {
+        "description": "Link text for users who have forgotten their password."
+    },
     "next": "Next",
+    "@next": {
+        "description": "Button text to proceed to the next step in a process."
+    },
     "noStoriesExist": "No stories exist to present",
+    "@noStoriesExist": {
+        "description": "Message displayed when there are no stories available in a list."
+    },
     "enterVerificationCode": "Enter your\nVerification Code",
+    "@enterVerificationCode": {
+        "description": "Prompt for the user to enter the verification code sent to their email."
+    },
     "verificationCodeSent": "We sent a 6-digit verification code to\n",
+    "@verificationCodeSent": {
+        "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
+    },
     "verificationComplete": "Verification Complete",
+    "@verificationComplete": {
+        "description": "Title for a success message after email verification."
+    },
     "verificationCompleteMessage": "Congratulations you have verified your Email",
+    "@verificationCompleteMessage": {
+        "description": "Success message confirming email verification."
+    },
     "verificationFailed": "Verification Failed",
+    "@verificationFailed": {
+        "description": "Title for an error message when verification fails."
+    },
     "otpMismatch": "OTP mismatch occurred please try again",
+    "@otpMismatch": {
+        "description": "Error message when the entered OTP is incorrect."
+    },
     "otpResent": "OTP resent",
+    "@otpResent": {
+        "description": "Confirmation message that the OTP has been resent."
+    },
     "requestNewCode": "Request a new code",
+    "@requestNewCode": {
+        "description": "Button text to request a new verification code."
+    },
     "requestNewCodeIn": "Request a new code in",
+    "@requestNewCodeIn": {
+        "description": "Text displayed before a countdown timer for requesting a new code."
+    },
     "clickPictureCamera": "Click picture using camera",
+    "@clickPictureCamera": {
+        "description": "Option to take a new photo using the device camera."
+    },
     "pickImageGallery": "Pick image from gallery",
+    "@pickImageGallery": {
+        "description": "Option to choose an existing image from the device gallery."
+    },
     "deleteMyAccount": "Delete My Account",
+    "@deleteMyAccount": {
+        "description": "Button text for the account deletion feature."
+    },
     "createNewRoom": "Create New Room",
+    "@createNewRoom": {
+        "description": "Button text or page title for creating a new audio room."
+    },
     "pleaseEnterScheduledDateTime": "Please Enter Scheduled Date-Time",
+    "@pleaseEnterScheduledDateTime": {
+        "description": "Error message when the scheduled date and time for a room is not provided."
+    },
     "scheduleDateTimeLabel": "Schedule Date Time",
+    "@scheduleDateTimeLabel": {
+        "description": "Label for the input field to schedule a room's date and time."
+    },
     "enterTags": "Enter tags",
+    "@enterTags": {
+        "description": "Placeholder or label for the input field for adding tags to a room or story."
+    },
     "joinCommunity": "Join Community",
+    "@joinCommunity": {
+        "description": "Button text or header for the community section."
+    },
     "followUsOnX": "Follow us on X",
+    "@followUsOnX": {
+        "description": "Link text to the company's profile on X (formerly Twitter)."
+    },
     "joinDiscordServer": "Join discord server",
+    "@joinDiscordServer": {
+        "description": "Link text to join the project's Discord server."
+    },
     "noLyrics": "No lyrics",
-    "aboutSection": "About",
+    "@noLyrics": {
+        "description": "Message displayed when lyrics for an audio file are not available."
+    },
     "noStoriesInCategory": "No stories currently exist in the {categoryName} category to present",
     "@noStoriesInCategory": {
-        "description": "Message when no stories exist in a category",
+        "description": "Message when no stories exist in a specific category.",
         "placeholders": {
             "categoryName": {
                 "type": "String",
@@ -156,23 +564,65 @@
             }
         }
     },
-    "pushNewChapters": "Push New Chapters",
+    "newChapters": "New Chapters",
+    "@newChapters": {
+        "description": "Header or label for the section to add or view new chapters of a story."
+    },
     "helpToGrow": "Help to grow",
+    "@helpToGrow": {
+        "description": "A call to action asking users to help the platform grow, often a header for sharing/rating."
+    },
     "share": "Share",
+    "@share": {
+        "description": "Button text for sharing content."
+    },
     "rate": "Rate",
+    "@rate": {
+        "description": "Button text for rating the app or content."
+    },
     "aboutResonate": "About Resonate",
+    "@aboutResonate": {
+        "description": "Title for the 'About' page of the Resonate application."
+    },
     "description": "Description",
+    "@description": {
+        "description": "Label for a description field."
+    },
     "confirm": "Confirm",
+    "@confirm": {
+        "description": "Generic button text for a confirm action."
+    },
     "classic": "Classic",
+    "@classic": {
+        "description": "Name of a theme option."
+    },
     "time": "Time",
+    "@time": {
+        "description": "Name of a theme option."
+    },
     "vintage": "Vintage",
+    "@vintage": {
+        "description": "Name of a theme option."
+    },
     "amber": "Amber",
+    "@amber": {
+        "description": "Name of a theme option."
+    },
     "forest": "Forest",
+    "@forest": {
+        "description": "Name of a theme option."
+    },
     "cream": "Cream",
+    "@cream": {
+        "description": "Name of a theme option."
+    },
     "none": "none",
+    "@none": {
+        "description": "Text representing no selection or absence of a value."
+    },
     "checkOutGitHub": "Check out our GitHub repository: {url}",
     "@checkOutGitHub": {
-        "description": "Share message for GitHub repository",
+        "description": "Share message for the GitHub repository, including a placeholder for the URL.",
         "placeholders": {
             "url": {
                 "type": "String",
@@ -181,26 +631,76 @@
         }
     },
     "aossie": "AOSSIE",
+    "@aossie": {
+        "description": "The name of the organization."
+    },
     "aossieLogo": "aossie logo",
+    "@aossieLogo": {
+        "description": "Accessibility text for the AOSSIE organization logo."
+    },
     "errorLoadPackageInfo": "Could not load package info",
+    "@errorLoadPackageInfo": {
+        "description": "Error message when the application fails to load its package information (e.g., version)."
+    },
     "updateAvailable": "Update Available",
+    "@updateAvailable": {
+        "description": "Title indicating that a new version of the app is available."
+    },
     "newVersionAvailable": "A new version is available!",
+    "@newVersionAvailable": {
+        "description": "Message informing the user about an available update."
+    },
     "upToDate": "Up to Date",
+    "@upToDate": {
+        "description": "Title indicating the application is on the latest version."
+    },
     "latestVersion": "You're using the latest version",
+    "@latestVersion": {
+        "description": "Message confirming the user has the latest version of the app."
+    },
     "profileCreatedSuccessfully": "Profile created successfully",
+    "@profileCreatedSuccessfully": {
+        "description": "Success message after a user's profile is created."
+    },
     "invalidScheduledDateTime": "Invalid Scheduled Date Time",
+    "@invalidScheduledDateTime": {
+        "description": "Error message for an invalid date-time format."
+    },
     "scheduledDateTimePast": "Scheduled Date Time cannot be in past",
+    "@scheduledDateTimePast": {
+        "description": "Error message when the user selects a past date-time for a scheduled event."
+    },
     "joinRoom": "Join Room",
-    "loadingDialogName": "Loading Dialog",
+    "@joinRoom": {
+        "description": "Button text to join an audio room."
+    },
     "unknownUser": "Unknown",
+    "@unknownUser": {
+        "description": "Placeholder text for a user whose name is not available."
+    },
     "canceled": "canceled",
+    "@canceled": {
+        "description": "A status label indicating that an action was canceled."
+    },
     "english": "en",
+    "@english": {
+        "description": "The language code for English."
+    },
     "emailVerificationRequired": "Email Verification Required",
+    "@emailVerificationRequired": {
+        "description": "A title or message indicating that email verification is needed to proceed."
+    },
     "verify": "Verify",
+    "@verify": {
+        "description": "Button text to initiate a verification process."
+    },
     "audioRoom": "Audio Room",
+    "@audioRoom": {
+        "description": "Generic title for an audio room."
+    },
     "toRoomAction": "To {action} the room",
     "@toRoomAction": {
-        "description": "Room action message",
+        "description": "A dynamic message for confirming an action on a room, like deleting or leaving.",
         "placeholders": {
             "action": {
                 "type": "String",
@@ -209,49 +709,160 @@
         }
     },
     "mailSentMessage": "mail sent",
+    "@mailSentMessage": {
+        "description": "A confirmation message indicating an email has been sent."
+    },
     "disconnected": "disconnected",
+    "@disconnected": {
+        "description": "A status label indicating a loss of connection."
+    },
     "micOn": "mic",
+    "@micOn": {
+        "description": "Accessibility label for the microphone button when it is on."
+    },
     "speakerOn": "speaker",
+    "@speakerOn": {
+        "description": "Accessibility label for the speakerphone button when it is on."
+    },
     "endChat": "end-chat",
+    "@endChat": {
+        "description": "Accessibility label for the end chat/call button."
+    },
     "monthJan": "Jan",
+    "@monthJan": {
+        "description": "Abbreviation for January."
+    },
     "monthFeb": "Feb",
+    "@monthFeb": {
+        "description": "Abbreviation for February."
+    },
     "monthMar": "March",
+    "@monthMar": {
+        "description": "Full name for March."
+    },
     "monthApr": "April",
+    "@monthApr": {
+        "description": "Full name for April."
+    },
     "monthMay": "May",
+    "@monthMay": {
+        "description": "Full name for May."
+    },
     "monthJun": "June",
+    "@monthJun": {
+        "description": "Full name for June."
+    },
     "monthJul": "July",
+    "@monthJul": {
+        "description": "Full name for July."
+    },
     "monthAug": "Aug",
+    "@monthAug": {
+        "description": "Abbreviation for August."
+    },
     "monthSep": "Sep",
+    "@monthSep": {
+        "description": "Abbreviation for September."
+    },
     "monthOct": "Oct",
+    "@monthOct": {
+        "description": "Abbreviation for October."
+    },
     "monthNov": "Nov",
+    "@monthNov": {
+        "description": "Abbreviation for November."
+    },
     "monthDec": "Dec",
+    "@monthDec": {
+        "description": "Abbreviation for December."
+    },
     "register": "Register",
+    "@register": {
+        "description": "Button text to register a new account."
+    },
     "newToResonate": "New to Resonate? ",
+    "@newToResonate": {
+        "description": "Text preceding the 'Create new account' link on the login screen."
+    },
     "alreadyHaveAccount": "Already have an account? ",
+    "@alreadyHaveAccount": {
+        "description": "Text preceding the 'Login' link on the sign-up screen."
+    },
     "checking": "Checking...",
+    "@checking": {
+        "description": "A temporary status message indicating a check is in progress."
+    },
     "forgotPasswordMessage": "Enter your registered email address to reset your password.",
+    "@forgotPasswordMessage": {
+        "description": "Instructional text on the forgot password screen."
+    },
     "usernameUnavailable": "Username Unavailable!",
+    "@usernameUnavailable": {
+        "description": "Title for the error when a chosen username is taken."
+    },
     "usernameInvalidOrTaken": "This username is invalid or either taken already.",
+    "@usernameInvalidOrTaken": {
+        "description": "Error message explaining why a username cannot be used."
+    },
     "otpResentMessage": "Please check your mail for a new OTP.",
+    "@otpResentMessage": {
+        "description": "Message informing the user to check their email for a new OTP."
+    },
     "connectionError": "There is a connection error. Please check your internet and try again.",
+    "@connectionError": {
+        "description": "Generic error message for network connection issues."
+    },
     "seconds": "seconds.",
+    "@seconds": {
+        "description": "The word 'seconds', often used after a countdown number."
+    },
     "unsavedChangesWarning": "If you proceed without saving, any unsaved changes will be lost.",
+    "@unsavedChangesWarning": {
+        "description": "A warning message shown when a user tries to leave a screen with unsaved changes."
+    },
     "deleteAccountPermanent": "This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.",
+    "@deleteAccountPermanent": {
+        "description": "A detailed warning message explaining the consequences of deleting an account."
+    },
     "giveGreatName": "Give a great name..",
+    "@giveGreatName": {
+        "description": "Placeholder text for a name input field, encouraging a creative name."
+    },
     "joinCommunityDescription": "By joining community you can Clear your doubts, Suggest for new features, Report issues you faced and More.",
+    "@joinCommunityDescription": {
+        "description": "A description of the benefits of joining the community."
+    },
     "resonateDescription": "Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+    "@resonateDescription": {
+        "description": "A short, user-facing description of the Resonate application."
+    },
     "resonateFullDescription": "Resonate is a revolutionary voice-based social media platform where every voice matters. \nJoin real-time audio conversations, participate in diverse discussions, and connect with \nlike-minded individuals. Our platform offers:\n- Live audio rooms with topic-based discussions\n- Seamless social networking through voice\n- Community-driven content moderation\n- Cross-platform compatibility\n- End-to-end encrypted private conversations\n\nDeveloped by the AOSSIE open source community, we prioritize user privacy and \ncommunity-driven development. Join us in shaping the future of social audio!",
+    "@resonateFullDescription": {
+        "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
+    },
     "stable": "Stable",
-    "congratulationsEmailVerified": "Congratulations you have verified your Email",
-    "otpMismatchError": "OTP mismatch occurred please try again",
+    "@stable": {
+        "description": "A label indicating a stable, non-beta version of the app."
+    },
     "usernameCharacterLimit": "Username should contain more than 5 characters.",
+    "@usernameCharacterLimit": {
+        "description": "Error message when a chosen username is too short."
+    },
     "submit": "Submit",
+    "@submit": {
+        "description": "Generic button text for submitting a form."
+    },
     "anonymous": "Anonymous",
-    "resonate": "Resonate",
+    "@anonymous": {
+        "description": "Label for an anonymous user or identity."
+    },
     "noSearchResults": "No Search Results",
+    "@noSearchResults": {
+        "description": "Message displayed when a search returns no results."
+    },
     "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!",
     "@shareRoomMessage": {
-        "description": "Message to share room information",
+        "description": "The default message template used when sharing a room.",
         "placeholders": {
             "roomName": {
                 "type": "String",
@@ -269,7 +880,7 @@
     },
     "participantsCount": "{count} Participants",
     "@participantsCount": {
-        "description": "Number of participants in a room",
+        "description": "Displays the number of participants in a room.",
         "placeholders": {
             "count": {
                 "type": "int",
@@ -278,23 +889,68 @@
         }
     },
     "join": "Join",
+    "@join": {
+        "description": "Generic button text to join an activity or group."
+    },
     "invalidTags": "Invalid Tag:",
+    "@invalidTags": {
+        "description": "Error message prefix for an invalid tag."
+    },
     "cropImage": "Crop Image",
+    "@cropImage": {
+        "description": "Title or button text for the image cropping tool."
+    },
     "profileSavedSuccessfully": "Profile updated",
+    "@profileSavedSuccessfully": {
+        "description": "Short success message indicating profile changes have been saved."
+    },
     "profileUpdatedSuccessfully": "All changes are saved successfully.",
+    "@profileUpdatedSuccessfully": {
+        "description": "Detailed success message confirming profile update."
+    },
     "profileUpToDate": "Profile up to date",
+    "@profileUpToDate": {
+        "description": "Title for the message when there are no changes to save on the profile."
+    },
     "noChangesToSave": "There are no new changes made, Nothing to save.",
+    "@noChangesToSave": {
+        "description": "Message displayed when the user tries to save their profile without making any changes."
+    },
     "connectionFailed": "Connection Failed",
+    "@connectionFailed": {
+        "description": "Generic title for connection-related errors."
+    },
     "unableToJoinRoom": "Unable to join the room. Please check your network and try again.",
+    "@unableToJoinRoom": {
+        "description": "Error message when a user fails to join a room due to connection issues."
+    },
     "connectionLost": "Connection Lost",
+    "@connectionLost": {
+        "description": "Title indicating that the connection to a service was lost."
+    },
     "unableToReconnect": "Unable to reconnect to the room. Please try rejoining.",
+    "@unableToReconnect": {
+        "description": "Error message when the app fails to reconnect the user to a room."
+    },
     "invalidFormat": "Invalid Format!",
+    "@invalidFormat": {
+        "description": "Generic error message for data with an incorrect format."
+    },
     "usernameAlphanumeric": "Username must be alphanumeric and should not contain special characters.",
+    "@usernameAlphanumeric": {
+        "description": "Error message detailing the character requirements for a valid username."
+    },
     "userProfileCreatedSuccessfully": "Your user profile is successfully created.",
+    "@userProfileCreatedSuccessfully": {
+        "description": "Success message after a user completes their profile setup."
+    },
     "emailVerificationMessage": "To proceed, verify your email address.",
+    "@emailVerificationMessage": {
+        "description": "An instructional message prompting the user to verify their email."
+    },
     "addNewChaptersToStory": "Add New Chapters to {storyName}",
     "@addNewChaptersToStory": {
-        "description": "Title for adding new chapters to a story",
+        "description": "Title for the screen where new chapters are added to an existing story.",
         "placeholders": {
             "storyName": {
                 "type": "String",
@@ -303,18 +959,44 @@
         }
     },
     "currentChapters": "Current Chapters",
-    "newChapters": "New Chapters",
+    "@currentChapters": {
+        "description": "Header for the list of existing chapters in a story."
+    },
     "sourceCodeOnGitHub": "Source code on GitHub",
+    "@sourceCodeOnGitHub": {
+        "description": "Link text to the project's source code on GitHub."
+    },
     "createAChapter": "Create a Chapter",
+    "@createAChapter": {
+        "description": "Title for the screen where a new chapter is created."
+    },
     "chapterTitle": "Chapter Title *",
+    "@chapterTitle": {
+        "description": "Label for the chapter title input field, indicating it is required."
+    },
     "aboutRequired": "About *",
+    "@aboutRequired": {
+        "description": "Label for the 'About' or description input field, indicating it is required."
+    },
     "changeCoverImage": "Change Cover Image",
+    "@changeCoverImage": {
+        "description": "Button text to change the cover image of a story or chapter."
+    },
     "uploadAudioFile": "Upload Audio File",
+    "@uploadAudioFile": {
+        "description": "Button text to upload an audio file."
+    },
     "uploadLyricsFile": "Upload Lyrics File",
+    "@uploadLyricsFile": {
+        "description": "Button text to upload a lyrics file."
+    },
     "createChapter": "Create Chapter",
+    "@createChapter": {
+        "description": "Button text to finalize and create a new chapter."
+    },
     "audioFileSelected": "Audio file Selected: {fileName}",
     "@audioFileSelected": {
-        "description": "Message when audio file is selected",
+        "description": "Message shown after an audio file has been selected for upload.",
         "placeholders": {
             "fileName": {
                 "type": "String",
@@ -324,7 +1006,7 @@
     },
     "lyricsFileSelected": "Lyrics File Selected: {fileName}",
     "@lyricsFileSelected": {
-        "description": "Message when lyrics file is selected",
+        "description": "Message shown after a lyrics file has been selected for upload.",
         "placeholders": {
             "fileName": {
                 "type": "String",
@@ -333,35 +1015,116 @@
         }
     },
     "fillAllRequiredFields": "Please fill in all required fields and upload your Audio file and Lyrics file",
+    "@fillAllRequiredFields": {
+        "description": "Error message when required fields or files are missing from a form."
+    },
     "scheduled": "Scheduled",
+    "@scheduled": {
+        "description": "A status label indicating an event is scheduled for the future."
+    },
     "ok": "OK",
+    "@ok": {
+        "description": "Generic confirmation button text, often for closing a dialog."
+    },
     "roomDescriptionOptional": "Room Description (optional)",
+    "@roomDescriptionOptional": {
+        "description": "Label for the room description input field, indicating it is not required."
+    },
     "deleteAccount": "Delete account",
+    "@deleteAccount": {
+        "description": "Button text to initiate the account deletion process."
+    },
     "createYourStory": "Create Your Story",
+    "@createYourStory": {
+        "description": "Title for the screen where a new story is created."
+    },
     "titleRequired": "Title *",
+    "@titleRequired": {
+        "description": "Label for the title input field, indicating it is required."
+    },
     "category": "Category *",
+    "@category": {
+        "description": "Label for the category selection, indicating it is required."
+    },
     "addChapter": "Add Chapter",
+    "@addChapter": {
+        "description": "Button text to add a chapter to a story."
+    },
     "createStory": "Create Story",
+    "@createStory": {
+        "description": "Button text to finalize and create a new story."
+    },
     "fillAllRequiredFieldsAndChapter": "Please fill in all required fields, add at least one chapter, and select a cover image.",
+    "@fillAllRequiredFieldsAndChapter": {
+        "description": "Error message for the story creation form when requirements are not met."
+    },
     "toConfirmType": "To confirm, type",
+    "@toConfirmType": {
+        "description": "Instructional text in a confirmation dialog, preceding the text to be typed."
+    },
     "inTheBoxBelow": "in the box below",
+    "@inTheBoxBelow": {
+        "description": "Instructional text in a confirmation dialog, following the text to be typed."
+    },
     "iUnderstandDeleteMyAccount": "I understand, Delete My Account",
+    "@iUnderstandDeleteMyAccount": {
+        "description": "The specific phrase a user must type to confirm account deletion."
+    },
     "whatDoYouWantToListenTo": "What do you want to listen to?",
+    "@whatDoYouWantToListenTo": {
+        "description": "A prompt on the main screen, encouraging user engagement."
+    },
     "categories": "Categories",
+    "@categories": {
+        "description": "Header for the list of categories."
+    },
     "stories": "Stories",
+    "@stories": {
+        "description": "Header for the list of stories."
+    },
     "someSuggestions": "Some Suggestions",
+    "@someSuggestions": {
+        "description": "Header for a list of suggested content."
+    },
     "getStarted": "Get Started",
+    "@getStarted": {
+        "description": "Button text on an onboarding screen to begin using the app."
+    },
     "skip": "Skip",
+    "@skip": {
+        "description": "Button text to skip an optional step, like onboarding."
+    },
     "welcomeToResonate": "Welcome to Resonate",
+    "@welcomeToResonate": {
+        "description": "Onboarding screen title."
+    },
     "exploreDiverseConversations": "Explore Diverse Conversations",
+    "@exploreDiverseConversations": {
+        "description": "Feature highlight on an onboarding screen."
+    },
     "yourVoiceMatters": "Your Voice Matters",
+    "@yourVoiceMatters": {
+        "description": "Feature highlight on an onboarding screen."
+    },
     "joinConversationExploreRooms": "Join the conversation! Explore rooms, connect with friends, and share your voice with the world.",
+    "@joinConversationExploreRooms": {
+        "description": "Descriptive text on an onboarding screen."
+    },
     "diveIntoDiverseDiscussions": "Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.",
+    "@diveIntoDiverseDiscussions": {
+        "description": "Descriptive text on an onboarding screen."
+    },
     "atResonateEveryVoiceValued": "At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.",
+    "@atResonateEveryVoiceValued": {
+        "description": "Descriptive text on an onboarding screen."
+    },
     "notifications": "Notifications",
+    "@notifications": {
+        "description": "Title for the notifications screen."
+    },
     "taggedYouInUpcomingRoom": "{username} tagged you in an upcoming room: {subject}",
     "@taggedYouInUpcomingRoom": {
-        "description": "Notification message when tagged in upcoming room",
+        "description": "Notification message when tagged in an upcoming room.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -375,7 +1138,7 @@
     },
     "taggedYouInRoom": "{username} tagged you in room: {subject}",
     "@taggedYouInRoom": {
-        "description": "Notification message when tagged in room",
+        "description": "Notification message when tagged in a live room.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -389,7 +1152,7 @@
     },
     "likedYourStory": "{username} liked your story: {subject}",
     "@likedYourStory": {
-        "description": "Notification message when someone likes your story",
+        "description": "Notification message when someone likes your story.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -403,7 +1166,7 @@
     },
     "subscribedToYourRoom": "{username} subscribed to your room: {subject}",
     "@subscribedToYourRoom": {
-        "description": "Notification message when someone subscribes to your room",
+        "description": "Notification message when someone subscribes to your room.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -417,7 +1180,7 @@
     },
     "startedFollowingYou": "{username} started following you",
     "@startedFollowingYou": {
-        "description": "Notification message when someone starts following you",
+        "description": "Notification message when someone starts following you.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -426,21 +1189,60 @@
         }
     },
     "youHaveNewNotification": "You have a new notification",
+    "@youHaveNewNotification": {
+        "description": "Generic title for a new notification."
+    },
     "hangOnGoodThingsTakeTime": "Hang on, Good Things take time 🔍",
+    "@hangOnGoodThingsTakeTime": {
+        "description": "A friendly message displayed during a long loading process."
+    },
     "resonateOpenSourceProject": "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
+    "@resonateOpenSourceProject": {
+        "description": "Informational text about the open-source nature of the project."
+    },
     "mute": "Mute",
+    "@mute": {
+        "description": "Button text to mute the microphone."
+    },
     "speakerLabel": "Speaker",
+    "@speakerLabel": {
+        "description": "Label for the speakerphone toggle."
+    },
     "end": "End",
+    "@end": {
+        "description": "Button text to end a call or session."
+    },
     "saveChanges": "Save changes",
+    "@saveChanges": {
+        "description": "Button text to save modified settings or profile information."
+    },
     "discard": "DISCARD",
+    "@discard": {
+        "description": "Button text to discard changes."
+    },
     "save": "SAVE",
+    "@save": {
+        "description": "Button text to save changes."
+    },
     "changeProfilePicture": "Change profile picture",
+    "@changeProfilePicture": {
+        "description": "Button text to open the profile picture selection options."
+    },
     "camera": "Camera",
+    "@camera": {
+        "description": "Option to use the camera to take a picture."
+    },
     "gallery": "Gallery",
+    "@gallery": {
+        "description": "Option to choose a picture from the gallery."
+    },
     "remove": "Remove",
+    "@remove": {
+        "description": "Button text to remove an item, like a profile picture."
+    },
     "created": "Created {date}",
     "@created": {
-        "description": "Story creation date",
+        "description": "Displays the creation date of a story or content.",
         "placeholders": {
             "date": {
                 "type": "String",
@@ -448,12 +1250,17 @@
             }
         }
     },
-    "aboutStory": "About",
     "chapters": "Chapters",
+    "@chapters": {
+        "description": "Header for the list of chapters in a story."
+    },
     "deleteStory": "Delete Story",
+    "@deleteStory": {
+        "description": "Button text to delete a story."
+    },
     "createdBy": "Created by {creatorName}",
     "@createdBy": {
-        "description": "Story creator information",
+        "description": "Displays the name of the content creator.",
         "placeholders": {
             "creatorName": {
                 "type": "String",
@@ -462,11 +1269,20 @@
         }
     },
     "start": "Start",
+    "@start": {
+        "description": "Button text to start an activity or session."
+    },
     "unsubscribe": "Unsubscribe",
+    "@unsubscribe": {
+        "description": "Button text to unsubscribe from a room or notification."
+    },
     "subscribe": "Subscribe",
+    "@subscribe": {
+        "description": "Button text to subscribe to a room or notification."
+    },
     "storyCategory": "{category, select, drama{Drama} comedy{Comedy} horror{Horror} romance{Romance} thriller{Thriller} spiritual{Spiritual} other{Other}}",
     "@storyCategory": {
-        "description": "Choose the category for Story",
+        "description": "Selects the appropriate category name for a story based on a key.",
         "placeholders": {
             "category": {
                 "type": "String",
@@ -476,7 +1292,7 @@
     },
     "chooseTheme": "{category, select, classicTheme{Classic} timeTheme{Time} vintageTheme{Vintage} amberTheme{Amber} forestTheme{Forest} creamTheme{Cream} other{Other}}",
     "@chooseTheme": {
-        "description": "Choose the theme for the app",
+        "description": "Selects the appropriate theme name based on a key.",
         "placeholders": {
             "category": {
                 "type": "String",
@@ -486,7 +1302,7 @@
     },
     "minutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
     "@minutesAgo": {
-        "description": "Time format for minutes ago",
+        "description": "Displays time in a relative format for minutes.",
         "placeholders": {
             "count": {
                 "type": "int",
@@ -496,7 +1312,7 @@
     },
     "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
     "@hoursAgo": {
-        "description": "Time format for hours ago",
+        "description": "Displays time in a relative format for hours.",
         "placeholders": {
             "count": {
                 "type": "int",
@@ -506,7 +1322,7 @@
     },
     "daysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
     "@daysAgo": {
-        "description": "Time format for days ago",
+        "description": "Displays time in a relative format for days.",
         "placeholders": {
             "count": {
                 "type": "int",
@@ -515,44 +1331,64 @@
         }
     },
     "by": "by",
+    "@by": {
+        "description": "A preposition, typically used between a content title and the author's name."
+    },
     "likes": "Likes",
+    "@likes": {
+        "description": "Label for the number of likes."
+    },
     "lengthMinutes": "min",
+    "@lengthMinutes": {
+        "description": "Abbreviation for 'minutes', used to display audio length."
+    },
     "requiredField": "Required field",
-    "clickPictureUsingCamera": "Click picture using camera",
-    "pickImageFromGallery": "Pick image from gallery",
+    "@requiredField": {
+        "description": "Error message for a mandatory field that was left empty."
+    },
     "onlineUsers": "Online Users",
+    "@onlineUsers": {
+        "description": "Header for the list of users who are currently online."
+    },
     "noOnlineUsers": "No users currently online",
+    "@noOnlineUsers": {
+        "description": "Message displayed when no users are online."
+    },
     "chooseUser": "Choose User to chat with",
+    "@chooseUser": {
+        "description": "Instructional text to select a user to start a chat."
+    },
     "quickMatch": "Quick Match",
+    "@quickMatch": {
+        "description": "Button text for a feature that quickly matches the user with a random chat partner."
+    },
     "story": "Story",
+    "@story": {
+        "description": "Label for a story."
+    },
     "user": "User",
+    "@user": {
+        "description": "Label for a user."
+    },
     "following": "Following",
+    "@following": {
+        "description": "Label for the list of users that the current user is following."
+    },
     "followers": "Followers",
-    "checkForUpdates": "Check Updates",
-    "updateNow": "Update Now",
-    "updateLater": "Later",
-    "updateSuccessful": "Update Successful",
-    "updateSuccessfulMessage": "Resonate has been updated successfully!",
-    "updateCancelled": "Update Cancelled",
-    "updateCancelledMessage": "Update was cancelled by user",
-    "updateFailed": "Update Failed",
-    "updateFailedMessage": "Failed to update. Please try updating from Play Store manually.",
-    "updateError": "Update Error",
-    "updateErrorMessage": "An error occurred while updating. Please try again.",
-    "platformNotSupported": "Platform Not Supported",
-    "platformNotSupportedMessage": "Update checking is only available on Android devices",
-    "updateCheckFailed": "Update Check Failed",
-    "updateCheckFailedMessage": "Could not check for updates. Please try again later.",
-    "upToDateTitle": "You're Up to Date!",
-    "upToDateMessage": "You're using the latest version of Resonate",
-    "updateAvailableTitle": "Update Available!",
-    "updateAvailableMessage": "A new version of Resonate is available on Play Store",
-    "updateFeaturesImprovement": "Get the latest features and improvements!",
+    "@followers": {
+        "description": "Label for the list of users who are following the current user."
+    },
     "friendRequests": "Friend Requests",
+    "@friendRequests": {
+        "description": "Header for the list of incoming friend requests."
+    },
     "friendRequestSent": "Friend request sent",
+    "@friendRequestSent": {
+        "description": "Title for the confirmation message after sending a friend request."
+    },
     "friendRequestSentTo": "Your friend request to {username} has been sent.",
     "@friendRequestSentTo": {
-        "description": "Message when a friend request is sent to a user",
+        "description": "Confirmation message after sending a friend request to a specific user.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -561,9 +1397,12 @@
         }
     },
     "friendRequestCancelled": "Friend request cancelled",
+    "@friendRequestCancelled": {
+        "description": "Title for the confirmation message after cancelling a friend request."
+    },
     "friendRequestCancelledTo": "Your friend request to {username} has been cancelled.",
     "@friendRequestCancelledTo": {
-        "description": "Message when a friend request is cancelled",
+        "description": "Confirmation message after cancelling a friend request to a specific user.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -572,12 +1411,24 @@
         }
     },
     "requested": "Requested",
+    "@requested": {
+        "description": "A status label on a button indicating a friend request has been sent."
+    },
     "friends": "Friends",
+    "@friends": {
+        "description": "A status label or header for the list of friends."
+    },
     "addFriend": "Add Friend",
+    "@addFriend": {
+        "description": "Button text to send a friend request."
+    },
     "friendRequestAccepted": "Friend request accepted",
-    "friendRequestAcceptedTo": "You are now friends with ${username}.",
+    "@friendRequestAccepted": {
+        "description": "Title for the confirmation message after accepting a friend request."
+    },
+    "friendRequestAcceptedTo": "You are now friends with {username}.",
     "@friendRequestAcceptedTo": {
-        "description": "Message when a friend request is accepted",
+        "description": "Confirmation message after accepting a friend request from a specific user.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -586,9 +1437,12 @@
         }
     },
     "friendRequestDeclined": "Friend request declined",
-    "friendRequestDeclinedTo": "You have declined the friend request from ${username}.",
+    "@friendRequestDeclined": {
+        "description": "Title for the confirmation message after declining a friend request."
+    },
+    "friendRequestDeclinedTo": "You have declined the friend request from {username}.",
     "@friendRequestDeclinedTo": {
-        "description": "Message when a friend request is declined",
+        "description": "Confirmation message after declining a friend request from a specific user.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -597,10 +1451,16 @@
         }
     },
     "accept": "Accept",
+    "@accept": {
+        "description": "Button text to accept a request or invitation."
+    },
     "callDeclined": "Call declined",
-    "callDeclinedTo": "User ${username} declined the call.",
+    "@callDeclined": {
+        "description": "Title for the message when a call is declined."
+    },
+    "callDeclinedTo": "User {username} declined the call.",
     "@callDeclinedTo": {
-        "description": "Message when a call is declined",
+        "description": "Message indicating that a specific user declined a call.",
         "placeholders": {
             "username": {
                 "type": "String",
@@ -609,23 +1469,169 @@
         }
     },
     "checkForUpdates": "Check Updates",
+    "@checkForUpdates": {
+        "description": "Button text to manually check for application updates."
+    },
     "updateNow": "Update Now",
+    "@updateNow": {
+        "description": "Button text to start the update process."
+    },
     "updateLater": "Later",
+    "@updateLater": {
+        "description": "Button text to postpone an update."
+    },
     "updateSuccessful": "Update Successful",
+    "@updateSuccessful": {
+        "description": "Title for the success message after an update."
+    },
     "updateSuccessfulMessage": "Resonate has been updated successfully!",
+    "@updateSuccessfulMessage": {
+        "description": "Success message confirming the application has been updated."
+    },
     "updateCancelled": "Update Cancelled",
+    "@updateCancelled": {
+        "description": "Title for the message when an update is cancelled."
+    },
     "updateCancelledMessage": "Update was cancelled by user",
+    "@updateCancelledMessage": {
+        "description": "Message indicating the user cancelled the update process."
+    },
     "updateFailed": "Update Failed",
+    "@updateFailed": {
+        "description": "Title for the message when an update fails."
+    },
     "updateFailedMessage": "Failed to update. Please try updating from Play Store manually.",
+    "@updateFailedMessage": {
+        "description": "Error message when an in-app update fails, suggesting a manual update."
+    },
     "updateError": "Update Error",
+    "@updateError": {
+        "description": "Generic title for an update-related error."
+    },
     "updateErrorMessage": "An error occurred while updating. Please try again.",
+    "@updateErrorMessage": {
+        "description": "Generic error message for an update that failed due to an unknown error."
+    },
     "platformNotSupported": "Platform Not Supported",
+    "@platformNotSupported": {
+        "description": "Title for an error when a feature is not supported on the current platform."
+    },
     "platformNotSupportedMessage": "Update checking is only available on Android devices",
+    "@platformNotSupportedMessage": {
+        "description": "Message explaining that the in-app update feature is platform-specific."
+    },
     "updateCheckFailed": "Update Check Failed",
+    "@updateCheckFailed": {
+        "description": "Title for an error when the app fails to check for updates."
+    },
     "updateCheckFailedMessage": "Could not check for updates. Please try again later.",
+    "@updateCheckFailedMessage": {
+        "description": "Error message when the check for updates process fails."
+    },
     "upToDateTitle": "You're Up to Date!",
+    "@upToDateTitle": {
+        "description": "Title for the message when the app is already up to date."
+    },
     "upToDateMessage": "You're using the latest version of Resonate",
+    "@upToDateMessage": {
+        "description": "Message confirming that no update is needed."
+    },
     "updateAvailableTitle": "Update Available!",
+    "@updateAvailableTitle": {
+        "description": "Title for the dialog informing the user about a new update."
+    },
     "updateAvailableMessage": "A new version of Resonate is available on Play Store",
-    "updateFeaturesImprovement": "Get the latest features and improvements!"
+    "@updateAvailableMessage": {
+        "description": "Message prompting the user to update the app from the Play Store."
+    },
+    "updateFeaturesImprovement": "Get the latest features and improvements!",
+    "@updateFeaturesImprovement": {
+        "description": "A message highlighting the benefit of updating the application."
+    },
+    "alert": "Alert",
+    "@alert": {
+        "description": "Title for an alert dialog."
+    },
+    "removedFromRoom": "You have been reported or removed from the room",
+    "@removedFromRoom": {
+        "description": "Message shown when a user is removed or reported from a room."
+    },
+    "reportType": "{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} impersonation{Impersonation / Fake Accounts} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}",
+    "@reportType": {
+        "description": "Selects the appropriate report type label based on a key.",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
+    },
+    "userBlockedFromResonate": "You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.",
+    "@userBlockedFromResonate": {
+        "description": "Message shown when a user is blocked from using Resonate."
+    },
+    "reportParticipant": "Report Participant",
+    "@reportParticipant": {
+        "description": "Label for the button to report a participant."
+    },
+    "selectReportType": "Please select a report type",
+    "@selectReportType": {
+        "description": "Prompt for the user to select a report type."
+    },
+    "reportSubmitted": "Report Submitted Successfully",
+    "@reportSubmitted": {
+        "description": "Message shown when a report is submitted successfully."
+    },
+    "reportFailed": "Report Submission Failed",
+    "@reportFailed": {
+        "description": "Message shown when a report submission fails."
+    },
+    "additionalDetailsOptional": "Additional details (optional)",
+    "@additionalDetailsOptional": {
+        "description": "Label for an optional input field for additional details in a report."
+    },
+    "submitReport": "Submit Report",
+    "@submitReport": {
+        "description": "Button text to submit a report."
+    },
+    "actionBlocked": "Action Blocked",
+    "@actionBlocked": {
+        "description": "Title for a message indicating that a user action is blocked."
+    },
+    "cannotStopRecording": "You cannot stop the recording manually, the recording will be stopped when the room is closed.",
+    "@cannotStopRecording": {
+        "description": "Message explaining why a user cannot stop a recording manually."
+    },
+    "liveChapter": "Live Chapter",
+    "@liveChapter": {
+        "description": "Label indicating that a chapter is currently live."
+    },
+    "viewOrEditLyrics": "View or Edit Lyrics",
+    "@viewOrEditLyrics": {
+        "description": "Button text to view or edit the lyrics of a chapter."
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Label for the button to close a dialog."
+    },
+    "verifyChapterDetails": "Verify Chapter Details",
+    "@verifyChapterDetails": {
+        "description": "Title for the screen where Live chapter details are verified before publishing."
+    },
+    "author": "Author",
+    "@author": {
+        "description": "Label for the author of a story or chapter."
+    },
+    "startLiveChapter": "Start a Live Chapter",
+    "@startLiveChapter": {
+        "description": "Title for the screen where a live chapter is initiated."
+    },
+    "fillAllFields": "Please fill in all required fields",
+    "@fillAllFields": {
+        "description": "Error message when required fields are not filled in a form."
+    },
+    "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
+    "@noRecordingError": {
+        "description": "Error message when trying to exit a live chapter room without any recording."
+    }
 }

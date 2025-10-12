@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:async';
-
+import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -17,12 +18,16 @@ class LiveKitController extends GetxController {
   var reconnectAttempts = 0;
   Timer? reconnectTimer;
   final isConnected = false.obs;
+  final bool isLiveChapter;
+  final mediaRecorder = MediaRecorder();
+  final RxBool isRecording = false.obs;
 
   LiveKitController({
     required this.liveKitUri,
     required this.roomToken,
     this.maxAttempts = 3, // Default value
     this.retryInterval = const Duration(seconds: 2), // Default value
+    this.isLiveChapter = false,
   });
 
   @override
@@ -30,7 +35,30 @@ class LiveKitController extends GetxController {
     await connectToRoom(); // Initial connection with retries
     liveKitRoom.addListener(onRoomDidUpdate);
     setUpListeners();
+    if (isLiveChapter) {
+      listenToRecordingStateChanges();
+    }
     super.onInit();
+  }
+
+  void listenToRecordingStateChanges() async {
+    final storagePath = await getApplicationDocumentsDirectory();
+    isRecording.listen((state) async {
+      if (state) {
+        log("Starting recording...");
+
+        log('Local track published: ${storagePath.path}');
+        await mediaRecorder.start(
+          '${storagePath.path}/recordings/${liveKitRoom.name}.mp4',
+          audioChannel: RecorderAudioChannel.INPUT,
+        );
+      } else {
+        await mediaRecorder.stop();
+        log(
+          'Recording stopped, file saved to: $storagePath/${liveKitRoom.name}.mp4',
+        );
+      }
+    });
   }
 
   @override
@@ -50,17 +78,19 @@ class LiveKitController extends GetxController {
 
     while (reconnectAttempts < maxAttempts) {
       try {
-        liveKitRoom = Room();
+        liveKitRoom = Room(
+          roomOptions: const RoomOptions(
+            dynacast: false,
+            adaptiveStream: false,
+            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
+          ),
+        );
         listener = liveKitRoom.createListener();
 
         await liveKitRoom.connect(
           liveKitUri,
           roomToken,
-          roomOptions: const RoomOptions(
-            adaptiveStream: false,
-            dynacast: false,
-            defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
-          ),
+          connectOptions: const ConnectOptions(autoSubscribe: true),
         );
 
         isConnected.value = true;

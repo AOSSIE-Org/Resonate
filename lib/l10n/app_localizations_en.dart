@@ -433,15 +433,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noLyrics => 'No lyrics';
 
   @override
-  String get aboutSection => 'About';
-
-  @override
   String noStoriesInCategory(String categoryName) {
     return 'No stories currently exist in the $categoryName category to present';
   }
 
   @override
-  String get pushNewChapters => 'Push New Chapters';
+  String get newChapters => 'New Chapters';
 
   @override
   String get helpToGrow => 'Help to grow';
@@ -519,9 +516,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get joinRoom => 'Join Room';
-
-  @override
-  String get loadingDialogName => 'Loading Dialog';
 
   @override
   String get unknownUser => 'Unknown';
@@ -657,13 +651,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stable => 'Stable';
 
   @override
-  String get congratulationsEmailVerified =>
-      'Congratulations you have verified your Email';
-
-  @override
-  String get otpMismatchError => 'OTP mismatch occurred please try again';
-
-  @override
   String get usernameCharacterLimit =>
       'Username should contain more than 5 characters.';
 
@@ -672,9 +659,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get anonymous => 'Anonymous';
-
-  @override
-  String get resonate => 'Resonate';
 
   @override
   String get noSearchResults => 'No Search Results';
@@ -752,9 +736,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currentChapters => 'Current Chapters';
-
-  @override
-  String get newChapters => 'New Chapters';
 
   @override
   String get sourceCodeOnGitHub => 'Source code on GitHub';
@@ -947,9 +928,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get aboutStory => 'About';
-
-  @override
   String get chapters => 'Chapters';
 
   @override
@@ -1043,12 +1021,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get requiredField => 'Required field';
 
   @override
-  String get clickPictureUsingCamera => 'Click picture using camera';
-
-  @override
-  String get pickImageFromGallery => 'Pick image from gallery';
-
-  @override
   String get onlineUsers => 'Online Users';
 
   @override
@@ -1071,73 +1043,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get followers => 'Followers';
-
-  @override
-  String get checkForUpdates => 'Check Updates';
-
-  @override
-  String get updateNow => 'Update Now';
-
-  @override
-  String get updateLater => 'Later';
-
-  @override
-  String get updateSuccessful => 'Update Successful';
-
-  @override
-  String get updateSuccessfulMessage =>
-      'Resonate has been updated successfully!';
-
-  @override
-  String get updateCancelled => 'Update Cancelled';
-
-  @override
-  String get updateCancelledMessage => 'Update was cancelled by user';
-
-  @override
-  String get updateFailed => 'Update Failed';
-
-  @override
-  String get updateFailedMessage =>
-      'Failed to update. Please try updating from Play Store manually.';
-
-  @override
-  String get updateError => 'Update Error';
-
-  @override
-  String get updateErrorMessage =>
-      'An error occurred while updating. Please try again.';
-
-  @override
-  String get platformNotSupported => 'Platform Not Supported';
-
-  @override
-  String get platformNotSupportedMessage =>
-      'Update checking is only available on Android devices';
-
-  @override
-  String get updateCheckFailed => 'Update Check Failed';
-
-  @override
-  String get updateCheckFailedMessage =>
-      'Could not check for updates. Please try again later.';
-
-  @override
-  String get upToDateTitle => 'You\'re Up to Date!';
-
-  @override
-  String get upToDateMessage => 'You\'re using the latest version of Resonate';
-
-  @override
-  String get updateAvailableTitle => 'Update Available!';
-
-  @override
-  String get updateAvailableMessage =>
-      'A new version of Resonate is available on Play Store';
-
-  @override
-  String get updateFeaturesImprovement =>
-      'Get the latest features and improvements!';
 
   @override
   String get friendRequests => 'Friend Requests';
@@ -1172,7 +1077,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'You are now friends with \$$username.';
+    return 'You are now friends with $username.';
   }
 
   @override
@@ -1180,7 +1085,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'You have declined the friend request from \$$username.';
+    return 'You have declined the friend request from $username.';
   }
 
   @override
@@ -1191,7 +1096,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return 'User \$$username declined the call.';
+    return 'User $username declined the call.';
   }
 
   @override
@@ -1260,4 +1165,80 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'Get the latest features and improvements!';
+
+  @override
+  String get alert => 'Alert';
+
+  @override
+  String get removedFromRoom =>
+      'You have been reported or removed from the room';
+
+  @override
+  String reportType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'Harassment / Hate Speech',
+      'abuse': 'Abusive content / Violence',
+      'spam': 'Spam / Scams / Fraud',
+      'impersonation': 'Impersonation / Fake Accounts',
+      'illegal': 'Illegal Activities',
+      'selfharm': 'Self-harm / Suicide / Mental health',
+      'misuse': 'Misuse of platform',
+      'other': 'Other',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get userBlockedFromResonate =>
+      'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
+
+  @override
+  String get reportParticipant => 'Report Participant';
+
+  @override
+  String get selectReportType => 'Please select a report type';
+
+  @override
+  String get reportSubmitted => 'Report Submitted Successfully';
+
+  @override
+  String get reportFailed => 'Report Submission Failed';
+
+  @override
+  String get additionalDetailsOptional => 'Additional details (optional)';
+
+  @override
+  String get submitReport => 'Submit Report';
+
+  @override
+  String get actionBlocked => 'Action Blocked';
+
+  @override
+  String get cannotStopRecording =>
+      'You cannot stop the recording manually, the recording will be stopped when the room is closed.';
+
+  @override
+  String get liveChapter => 'Live Chapter';
+
+  @override
+  String get viewOrEditLyrics => 'View or Edit Lyrics';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get verifyChapterDetails => 'Verify Chapter Details';
+
+  @override
+  String get author => 'Author';
+
+  @override
+  String get startLiveChapter => 'Start a Live Chapter';
+
+  @override
+  String get fillAllFields => 'Please fill in all required fields';
+
+  @override
+  String get noRecordingError =>
+      'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
 }

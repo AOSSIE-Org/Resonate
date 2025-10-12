@@ -32,4 +32,6 @@ class AppRoutes {
   static const pairChatUsers = "/pairChatUsers";
   static const ringingScreen = "/ringingScreen";
   static const friendCallScreen = "/friendCallScreen";
+  static const userBlockedScreen = "/userBlockedScreen";
+  static const liveChapterScreen = "/liveChapterScreen";
 }

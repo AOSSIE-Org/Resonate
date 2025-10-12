@@ -433,15 +433,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noLyrics => 'कोई लिरिक्स उपलब्ध नहीं';
 
   @override
-  String get aboutSection => 'चैप्टर के बारे में';
-
-  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName श्रेणी में कोई कहानी नहीं है';
   }
 
   @override
-  String get pushNewChapters => 'नए चैप्टर्स जोड़ें';
+  String get newChapters => 'नए चैप्टर्स जोड़ें';
 
   @override
   String get helpToGrow => 'साथ मिलकर बढ़ाएं';
@@ -521,9 +518,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get joinRoom => 'रूम में शामिल हों';
-
-  @override
-  String get loadingDialogName => 'लोडिंग डायलॉग';
 
   @override
   String get unknownUser => 'अज्ञात यूज़र';
@@ -659,14 +653,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stable => 'स्थिर';
 
   @override
-  String get congratulationsEmailVerified =>
-      'बधाई हो! आपका ईमेल वेरिफाई हो गया है';
-
-  @override
-  String get otpMismatchError =>
-      'OTP मेल नहीं खा रहा, कृपया फिर से प्रयास करें';
-
-  @override
   String get usernameCharacterLimit =>
       'यूज़रनेम में कम से कम 6 अक्षर होने चाहिए।';
 
@@ -675,9 +661,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get anonymous => 'गुमनाम';
-
-  @override
-  String get resonate => 'रेज़ोनेट';
 
   @override
   String get noSearchResults => 'कोई रिज़ल्ट नहीं मिला';
@@ -755,9 +738,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get currentChapters => 'मौजूदा चैप्टर्स';
-
-  @override
-  String get newChapters => 'नए चैप्टर्स';
 
   @override
   String get sourceCodeOnGitHub => 'GitHub पर सोर्स कोड';
@@ -952,9 +932,6 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get aboutStory => 'कहानी के बारे में';
-
-  @override
   String get chapters => 'चैप्टर';
 
   @override
@@ -1048,12 +1025,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get requiredField => 'आवश्यक फील्ड';
 
   @override
-  String get clickPictureUsingCamera => 'कैमरा से फोटो लें';
-
-  @override
-  String get pickImageFromGallery => 'गैलरी से फोटो चुनें';
-
-  @override
   String get onlineUsers => 'ऑनलाइन यूज़र्स';
 
   @override
@@ -1076,73 +1047,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get followers => 'फॉलोअर्स';
-
-  @override
-  String get checkForUpdates => 'अपडेट चेक करें';
-
-  @override
-  String get updateNow => 'अभी अपडेट करें';
-
-  @override
-  String get updateLater => 'बाद में';
-
-  @override
-  String get updateSuccessful => 'अपडेट सफल';
-
-  @override
-  String get updateSuccessfulMessage => 'रेज़ोनेट सफलतापूर्वक अपडेट हो गया है!';
-
-  @override
-  String get updateCancelled => 'अपडेट रद्द किया गया';
-
-  @override
-  String get updateCancelledMessage => 'अपडेट यूज़र द्वारा रद्द किया गया';
-
-  @override
-  String get updateFailed => 'अपडेट फेल';
-
-  @override
-  String get updateFailedMessage =>
-      'अपडेट फेल हो गया। कृपया Play Store से मैन्युअली अपडेट करने का प्रयास करें।';
-
-  @override
-  String get updateError => 'अपडेट एरर';
-
-  @override
-  String get updateErrorMessage =>
-      'अपडेट करने में कोई समस्या आई। कृपया फिर से प्रयास करें।';
-
-  @override
-  String get platformNotSupported => 'प्लेटफॉर्म सपोर्टेड नहीं';
-
-  @override
-  String get platformNotSupportedMessage =>
-      'अपडेट चेक करना केवल Android डिवाइस पर उपलब्ध है';
-
-  @override
-  String get updateCheckFailed => 'अपडेट चेक फेल';
-
-  @override
-  String get updateCheckFailedMessage =>
-      'अपडेट चेक नहीं हो सका। कृपया बाद में प्रयास करें।';
-
-  @override
-  String get upToDateTitle => 'आप अप टू डेट हैं!';
-
-  @override
-  String get upToDateMessage =>
-      'आप रेज़ोनेट का लेटेस्ट वर्शन इस्तेमाल कर रहे हैं';
-
-  @override
-  String get updateAvailableTitle => 'अपडेट उपलब्ध है!';
-
-  @override
-  String get updateAvailableMessage =>
-      'रेज़ोनेट का नया वर्शन Play Store पर उपलब्ध है';
-
-  @override
-  String get updateFeaturesImprovement =>
-      'नवीनतम सुविधाएं और सुधार प्राप्त करें!';
 
   @override
   String get friendRequests => 'फ्रेंड रिक्वेस्ट';
@@ -1265,4 +1169,80 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'नवीनतम सुविधाएं और सुधार प्राप्त करें!';
+
+  @override
+  String get alert => 'अलर्ट';
+
+  @override
+  String get removedFromRoom =>
+      'आपको कमरे से रिपोर्ट किया गया है या हटा दिया गया है';
+
+  @override
+  String reportType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'हिंसा / नफरत भरा भाषण',
+      'abuse': 'दुरुपयोग सामग्री / हिंसा',
+      'spam': 'स्पैम / धोखाधड़ी',
+      'impersonation': 'नकली खाते',
+      'illegal': 'गैरकानूनी गतिविधियाँ',
+      'selfharm': 'आत्म-हानि / आत्महत्या / मानसिक स्वास्थ्य',
+      'misuse': 'प्लेटफ़ॉर्म का दुरुपयोग',
+      'other': 'अन्य',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get userBlockedFromResonate =>
+      'आपको कई उपयोगकर्ताओं द्वारा रिपोर्ट किया गया है और आपको रेज़ोनेट का उपयोग करने से ब्लॉक कर दिया गया है। यदि आपको लगता है कि यह गलती है, तो कृपया AOSSIE से संपर्क करें।';
+
+  @override
+  String get reportParticipant => 'प्रतिभागी की रिपोर्ट करें';
+
+  @override
+  String get selectReportType => 'रिपोर्ट का प्रकार चुनें';
+
+  @override
+  String get reportSubmitted => 'रिपोर्ट सफलतापूर्वक सबमिट की गई';
+
+  @override
+  String get reportFailed => 'रिपोर्ट सबमिशन फेल';
+
+  @override
+  String get additionalDetailsOptional => 'अतिरिक्त विवरण (वैकल्पिक)';
+
+  @override
+  String get submitReport => 'रिपोर्ट सबमिट करें';
+
+  @override
+  String get actionBlocked => 'कार्रवाई अवरुद्ध';
+
+  @override
+  String get cannotStopRecording =>
+      'आप रिकॉर्डिंग को मैन्युअल रूप से रोक नहीं सकते, रिकॉर्डिंग तब रोकी जाएगी जब कमरा बंद होगा।';
+
+  @override
+  String get liveChapter => 'लाइव चैप्टर';
+
+  @override
+  String get viewOrEditLyrics => 'गीत देखें या संपादित करें';
+
+  @override
+  String get close => 'बंद करें';
+
+  @override
+  String get verifyChapterDetails => 'चैप्टर विवरण सत्यापित करें';
+
+  @override
+  String get author => 'लेखक';
+
+  @override
+  String get startLiveChapter => 'लाइव चैप्टर शुरू करें';
+
+  @override
+  String get fillAllFields => 'कृपया सभी आवश्यक फ़ील्ड भरें';
+
+  @override
+  String get noRecordingError =>
+      'आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।';
 }

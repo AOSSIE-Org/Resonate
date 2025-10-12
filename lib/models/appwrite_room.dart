@@ -10,6 +10,7 @@ class AppwriteRoom {
     required this.memberAvatarUrls,
     required this.state,
     required this.isUserAdmin,
+    required this.reportedUsers,
     this.myDocId,
   });
   late final String id;
@@ -21,4 +22,5 @@ class AppwriteRoom {
   late final RoomState state;
   late final bool isUserAdmin;
   late String? myDocId;
+  late final List<String> reportedUsers;
 }

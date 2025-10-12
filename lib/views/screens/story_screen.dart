@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/controllers/live_chapter_controller.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/views/screens/add_chapter_screen.dart';
@@ -13,6 +16,8 @@ import 'package:resonate/views/widgets/chapter_list_tile.dart';
 import 'package:resonate/views/widgets/like_button.dart';
 
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/widgets/live_chapter_list_tile.dart';
+import 'package:resonate/views/widgets/start_live_chapter_dialog.dart';
 
 class StoryScreen extends StatefulWidget {
   final Story story;
@@ -278,7 +283,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                   horizontal: 16.0,
                                 ),
                                 child: Text(
-                                  AppLocalizations.of(context)!.aboutStory,
+                                  AppLocalizations.of(context)!.about,
                                   style: Theme.of(context).textTheme.bodyLarge!
                                       .copyWith(
                                         color: Theme.of(
@@ -342,49 +347,107 @@ class _StoryScreenState extends State<StoryScreen> {
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemCount: widget.story.chapters.length,
+                                itemCount: widget.story.liveChapter != null
+                                    ? widget.story.chapters.length + 1
+                                    : widget.story.chapters.length,
                                 itemBuilder: (context, index) {
-                                  final chapter = widget.story.chapters[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Get.put(ChapterPlayerController());
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChapterPlayScreen(
-                                                chapter: chapter,
-                                              ),
-                                        ),
-                                      );
-                                    },
-                                    child: ChaperListTile(chapter: chapter),
-                                  );
+                                  log(index.toString());
+                                  log(widget.story.chapters.length.toString());
+                                  if (index == 0 &&
+                                      widget.story.liveChapter != null) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.put(
+                                          LiveChapterController(),
+                                        ).joinLiveChapter(
+                                          widget
+                                              .story
+                                              .liveChapter!
+                                              .livekitRoomId,
+                                          widget.story.liveChapter!,
+                                        );
+                                      },
+                                      child: LiveChapterListTile(
+                                        chapter: widget.story.liveChapter!,
+                                      ),
+                                    );
+                                  } else {
+                                    final chapter =
+                                        widget.story.chapters[widget
+                                                    .story
+                                                    .liveChapter ==
+                                                null
+                                            ? index
+                                            : index - 1];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.put(ChapterPlayerController());
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChapterPlayScreen(
+                                                  chapter: chapter,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      child: ChaperListTile(chapter: chapter),
+                                    );
+                                  }
                                 },
                               ),
                               const SizedBox(height: 50),
 
                               if (widget.story.userIsCreator) ...[
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => AddNewChapterScreen(
-                                            storyName: widget.story.title,
-                                            storyId: widget.story.storyId,
-                                            currentChapters:
-                                                widget.story.chapters,
-                                          ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  AddNewChapterScreen(
+                                                    storyName:
+                                                        widget.story.title,
+                                                    storyId:
+                                                        widget.story.storyId,
+                                                    currentChapters:
+                                                        widget.story.chapters,
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.addChapter,
                                         ),
-                                      );
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)!.addChapter,
+                                      ),
                                     ),
-                                  ),
+                                    Center(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          Get.dialog(
+                                            StartLiveChapterDialog(
+                                              story: widget.story,
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.liveChapter,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+
                                 const SizedBox(height: 20),
                                 Center(
                                   child: ElevatedButton(

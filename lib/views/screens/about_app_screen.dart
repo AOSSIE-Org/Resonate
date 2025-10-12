@@ -19,7 +19,11 @@ class AboutAppScreen extends StatelessWidget {
   final aboutAppScreenController = Get.find<AboutAppScreenController>();
 
   void _shareApp(BuildContext context) {
-    Share.share(AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl));
+    SharePlus.instance.share(
+      ShareParams(
+        text: AppLocalizations.of(context)!.checkOutGitHub(githubRepoUrl),
+      ),
+    );
   }
 
   @override
@@ -66,7 +70,7 @@ class AboutAppScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!.resonate,
+                                  AppLocalizations.of(context)!.title,
                                   style: TextStyle(fontSize: UiSizes.size_20),
                                 ),
                                 Obx(

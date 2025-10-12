@@ -50,11 +50,13 @@ class CustomLiveRoomTile extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
-                    Share.share(
-                      AppLocalizations.of(context)!.shareRoomMessage(
-                        appwriteRoom.name,
-                        appwriteRoom.description,
-                        appwriteRoom.totalParticipants,
+                    SharePlus.instance.share(
+                      ShareParams(
+                        text: AppLocalizations.of(context)!.shareRoomMessage(
+                          appwriteRoom.name,
+                          appwriteRoom.description,
+                          appwriteRoom.totalParticipants,
+                        ),
                       ),
                     );
                   },

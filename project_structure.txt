@@ -239,6 +239,7 @@
 │   │   ├── friend_call_screen.dart
 │   │   ├── friend_calling_controller.dart
 │   │   ├── friends_controller.dart
+│   │   ├── live_chapter_controller.dart
 │   │   ├── livekit_controller.dart
 │   │   ├── network_controller.dart
 │   │   ├── onboarding_controller.dart
@@ -250,16 +251,19 @@
 │   │   ├── splash_controller.dart
 │   │   ├── tabview_controller.dart
 │   │   ├── upcomming_rooms_controller.dart
-│   │   └── user_profile_controller.dart
+│   │   ├── user_profile_controller.dart
+│   │   └── whisper_transcription_controller.dart
 │   ├── for_developers
 │   │   ├── text_theme.dart
 │   │   ├── theme_color_model.dart
 │   │   └── theme_colors_page.dart
 │   ├── l10n
 │   │   ├── app_en.arb
+│   │   ├── app_gu.arb
 │   │   ├── app_hi.arb
 │   │   ├── app_localizations.dart
 │   │   ├── app_localizations_en.dart
+│   │   ├── app_localizations_gu.dart
 │   │   └── app_localizations_hi.dart
 │   ├── main.dart
 │   ├── models
@@ -275,6 +279,12 @@
 │   │   ├── friends_model.dart
 │   │   ├── friends_model.freezed.dart
 │   │   ├── friends_model.g.dart
+│   │   ├── live_chapter_attendees_model.dart
+│   │   ├── live_chapter_attendees_model.freezed.dart
+│   │   ├── live_chapter_attendees_model.g.dart
+│   │   ├── live_chapter_model.dart
+│   │   ├── live_chapter_model.freezed.dart
+│   │   ├── live_chapter_model.g.dart
 │   │   ├── message.dart
 │   │   ├── notification.dart
 │   │   ├── participant.dart
@@ -283,7 +293,10 @@
 │   │   ├── resonate_user.freezed.dart
 │   │   ├── resonate_user.g.dart
 │   │   ├── story.dart
-│   │   └── themes_model.dart
+│   │   ├── themes_model.dart
+│   │   ├── user_report_model.dart
+│   │   ├── user_report_model.freezed.dart
+│   │   └── user_report_model.g.dart
 │   ├── routes
 │   │   ├── app_pages.dart
 │   │   └── app_routes.dart
@@ -312,6 +325,7 @@
 │   │   │   ├── gender.dart
 │   │   │   ├── log_type.dart
 │   │   │   ├── notification_type.dart
+│   │   │   ├── report_type_enum.dart
 │   │   │   ├── room_state.dart
 │   │   │   ├── signed_in_by.dart
 │   │   │   ├── story_category.dart
@@ -342,6 +356,7 @@
 │       │   ├── friends_screen.dart
 │       │   ├── home_screen.dart
 │       │   ├── landing_screen.dart
+│       │   ├── live_chapter_screen.dart
 │       │   ├── login_screen.dart
 │       │   ├── no_room_screen.dart
 │       │   ├── notifications_screen.dart
@@ -360,6 +375,8 @@
 │       │   ├── story_screen.dart
 │       │   ├── tabview_screen.dart
 │       │   ├── user_account_screen.dart
+│       │   ├── user_blocked_screen.dart
+│       │   ├── verify_chapter_details_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
 │           ├── auth_button.dart
@@ -370,6 +387,9 @@
 │           ├── filtered_list_tile.dart
 │           ├── friend_request_list_tile.dart
 │           ├── like_button.dart
+│           ├── live_chapter_attendee_block.dart
+│           ├── live_chapter_header.dart
+│           ├── live_chapter_list_tile.dart
 │           ├── live_room_tile.dart
 │           ├── loading_dialog.dart
 │           ├── no_connection_dialog.dart
@@ -379,9 +399,11 @@
 │           ├── password_strength_indicator.dart
 │           ├── profile_avatar.dart
 │           ├── rating_sheet.dart
+│           ├── report_widget.dart
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
 │           ├── snackbar.dart
+│           ├── start_live_chapter_dialog.dart
 │           ├── story_card.dart
 │           ├── story_list_tile.dart
 │           ├── upcomming_room_tile.dart
@@ -412,4 +434,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 333 files
+80 directories, 355 files
