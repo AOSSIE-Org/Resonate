@@ -9,6 +9,15 @@
     "reportSubmitted",
     "reportFailed",
     "additionalDetailsOptional",
-    "submitReport"
+    "submitReport",
+    "actionBlocked",
+    "cannotStopRecording",
+    "liveChapter",
+    "viewOrEditLyrics",
+    "close",
+    "verifyChapterDetails",
+    "author",
+    "startLiveChapter",
+    "fillAllFields"
   ]
 }

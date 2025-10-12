@@ -13,10 +13,15 @@ class RoomService {
 
   static Future<void> joinLiveKitRoom(
     String livekitUri,
-    String roomToken,
-  ) async {
+    String roomToken, {
+    bool isLiveChapter = false,
+  }) async {
     Get.put(
-      LiveKitController(liveKitUri: livekitUri, roomToken: roomToken),
+      LiveKitController(
+        liveKitUri: livekitUri,
+        roomToken: roomToken,
+        isLiveChapter: isLiveChapter,
+      ),
       permanent: true,
     );
   }
@@ -115,6 +120,53 @@ class RoomService {
     await joinLiveKitRoom(livekitSocketUrl, livekitToken);
 
     return [appwriteRoomDocId, myDocId];
+  }
+
+  static Future<List<String>> createLiveChapterRoom({
+    required String appwriteRoomId,
+    required String adminUid,
+  }) async {
+    var response = await apiService.createLiveChapterRoom(
+      appwriteRoomId,
+      adminUid,
+    );
+    String appwriteRoomDocId = response["livekit_room"]["name"];
+    String livekitToken = response["access_token"];
+    String livekitSocketUrl =
+        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
+        ? localhostLivekitEndpoint
+        : response["livekit_socket_url"];
+
+    // Store Livekit Url and Token in Secure Storage
+    const storage = FlutterSecureStorage();
+    await storage.write(key: "createdRoomAdminToken", value: livekitToken);
+    await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
+
+    await joinLiveKitRoom(livekitSocketUrl, livekitToken, isLiveChapter: true);
+
+    return [appwriteRoomDocId];
+  }
+
+  static Future<void> joinLiveChapterRoom({
+    required roomId,
+    required String userId,
+  }) async {
+    var response = await apiService.joinRoom(roomId, userId);
+    String livekitToken = response["access_token"];
+    String livekitSocketUrl =
+        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
+        ? localhostLivekitEndpoint
+        : response["livekit_socket_url"];
+
+    await joinLiveKitRoom(livekitSocketUrl, livekitToken, isLiveChapter: true);
+  }
+
+  static Future deleteLiveChapterRoom({required roomId}) async {
+    const storage = FlutterSecureStorage();
+
+    // Delete room on livekit and roomdoc on appwrite
+    String? livekitToken = await storage.read(key: "createdRoomAdminToken");
+    await apiService.deleteLiveChapterRoom(roomId, livekitToken!);
   }
 
   static Future deleteRoom({required roomId}) async {

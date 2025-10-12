@@ -1209,4 +1209,32 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get submitReport => 'Submit Report';
+
+  @override
+  String get actionBlocked => 'Action Blocked';
+
+  @override
+  String get cannotStopRecording =>
+      'You cannot stop the recording manually, the recording will be stopped when the room is closed.';
+
+  @override
+  String get liveChapter => 'Live Chapter';
+
+  @override
+  String get viewOrEditLyrics => 'View or Edit Lyrics';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get verifyChapterDetails => 'Verify Chapter Details';
+
+  @override
+  String get author => 'Author';
+
+  @override
+  String get startLiveChapter => 'Start a Live Chapter';
+
+  @override
+  String get fillAllFields => 'Please fill in all required fields';
 }

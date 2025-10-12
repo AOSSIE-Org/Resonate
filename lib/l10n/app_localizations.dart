@@ -2215,6 +2215,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit Report'**
   String get submitReport;
+
+  /// Title for a message indicating that a user action is blocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Action Blocked'**
+  String get actionBlocked;
+
+  /// Message explaining why a user cannot stop a recording manually.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot stop the recording manually, the recording will be stopped when the room is closed.'**
+  String get cannotStopRecording;
+
+  /// Label indicating that a chapter is currently live.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Chapter'**
+  String get liveChapter;
+
+  /// Button text to view or edit the lyrics of a chapter.
+  ///
+  /// In en, this message translates to:
+  /// **'View or Edit Lyrics'**
+  String get viewOrEditLyrics;
+
+  /// Label for the button to close a dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Title for the screen where Live chapter details are verified before publishing.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Chapter Details'**
+  String get verifyChapterDetails;
+
+  /// Label for the author of a story or chapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get author;
+
+  /// Title for the screen where a live chapter is initiated.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a Live Chapter'**
+  String get startLiveChapter;
+
+  /// Error message when required fields are not filled in a form.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all required fields'**
+  String get fillAllFields;
 }
 
 class _AppLocalizationsDelegate

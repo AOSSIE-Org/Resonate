@@ -1593,5 +1593,41 @@
     "submitReport": "रिपोर्ट सबमिट करें",
     "@submitReport": {
         "description": "Button text to submit a report."
+    },
+    "actionBlocked": "कार्रवाई अवरुद्ध",
+    "@actionBlocked": {
+        "description": "Title for a message indicating that a user action is blocked."
+    },
+    "cannotStopRecording": "आप रिकॉर्डिंग को मैन्युअल रूप से रोक नहीं सकते, रिकॉर्डिंग तब रोकी जाएगी जब कमरा बंद होगा।",
+    "@cannotStopRecording": {
+        "description": "Message explaining why a user cannot stop a recording manually."
+    },
+    "liveChapter": "लाइव चैप्टर",
+    "@liveChapter": {
+        "description": "Label indicating that a chapter is currently live."
+    },
+    "viewOrEditLyrics": "गीत देखें या संपादित करें",
+    "@viewOrEditLyrics": {
+        "description": "Button text to view or edit the lyrics of a chapter."
+    },
+    "close": "बंद करें",
+    "@close": {
+        "description": "Label for the button to close a dialog."
+    },
+    "verifyChapterDetails": "चैप्टर विवरण सत्यापित करें",
+    "@verifyChapterDetails": {
+        "description": "Title for the screen where Live chapter details are verified before publishing."
+    },
+    "author": "लेखक",
+    "@author": {
+        "description": "Label for the author of a story or chapter."
+    },
+    "startLiveChapter": "लाइव चैप्टर शुरू करें",
+    "@startLiveChapter": {
+        "description": "Title for the screen where a live chapter is initiated."
+    },
+    "fillAllFields": "कृपया सभी आवश्यक फ़ील्ड भरें",
+    "@fillAllFields": {
+        "description": "Error message when required fields are not filled in a form."
     }
 }

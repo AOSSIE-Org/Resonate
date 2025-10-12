@@ -101,4 +101,64 @@ class ApiService {
       throw Exception('ERROR $error');
     }
   }
+
+  Future<Map<String, dynamic>> createLiveChapterRoom(
+    String appwriteRoomId,
+    String adminUid,
+  ) async {
+    final data = {"adminUid": adminUid, "appwriteRoomId": appwriteRoomId};
+
+    try {
+      final response = await functions.createExecution(
+        functionId: createLiveChapterRoomFunctionId,
+        body: json.encode(data),
+      );
+
+      if (response.responseStatusCode == 200) {
+        log(response.responseBody);
+
+        final Map<String, dynamic> responseData = jsonDecode(
+          response.responseBody,
+        );
+
+        return responseData;
+      } else {
+        throw Exception(
+          '${response.responseStatusCode}: ${response.responseBody}',
+        );
+      }
+    } on AppwriteException catch (error) {
+      throw Exception('ERROR $error');
+    }
+  }
+
+  Future<Map<String, dynamic>> deleteLiveChapterRoom(
+    String appwriteRoomDocId,
+    String token,
+  ) async {
+    final data = {"appwriteRoomDocId": appwriteRoomDocId, "token": token};
+
+    try {
+      final response = await functions.createExecution(
+        functionId: deleteLiveChapterRoomFunctionId,
+        body: json.encode(data),
+      );
+
+      if (response.responseStatusCode == 200) {
+        log(response.responseBody);
+
+        final Map<String, dynamic> responseData = jsonDecode(
+          response.responseBody,
+        );
+
+        return responseData;
+      } else {
+        throw Exception(
+          '${response.responseStatusCode}: ${response.responseBody}',
+        );
+      }
+    } catch (error) {
+      throw Exception('ERROR $error');
+    }
+  }
 }
