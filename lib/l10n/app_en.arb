@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "title": "Resonate",
     "@title": {
         "description": "The title of the application."
@@ -1592,5 +1593,41 @@
     "submitReport": "Submit Report",
     "@submitReport": {
         "description": "Button text to submit a report."
+    },
+    "actionBlocked": "Action Blocked",
+    "@actionBlocked": {
+        "description": "Title for a message indicating that a user action is blocked."
+    },
+    "cannotStopRecording": "You cannot stop the recording manually, the recording will be stopped when the room is closed.",
+    "@cannotStopRecording": {
+        "description": "Message explaining why a user cannot stop a recording manually."
+    },
+    "liveChapter": "Live Chapter",
+    "@liveChapter": {
+        "description": "Label indicating that a chapter is currently live."
+    },
+    "viewOrEditLyrics": "View or Edit Lyrics",
+    "@viewOrEditLyrics": {
+        "description": "Button text to view or edit the lyrics of a chapter."
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Label for the button to close a dialog."
+    },
+    "verifyChapterDetails": "Verify Chapter Details",
+    "@verifyChapterDetails": {
+        "description": "Title for the screen where Live chapter details are verified before publishing."
+    },
+    "author": "Author",
+    "@author": {
+        "description": "Label for the author of a story or chapter."
+    },
+    "startLiveChapter": "Start a Live Chapter",
+    "@startLiveChapter": {
+        "description": "Title for the screen where a live chapter is initiated."
+    },
+    "fillAllFields": "Please fill in all required fields",
+    "@fillAllFields": {
+        "description": "Error message when required fields are not filled in a form."
     }
 }

@@ -1213,4 +1213,32 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get submitReport => 'रिपोर्ट सबमिट करें';
+
+  @override
+  String get actionBlocked => 'कार्रवाई अवरुद्ध';
+
+  @override
+  String get cannotStopRecording =>
+      'आप रिकॉर्डिंग को मैन्युअल रूप से रोक नहीं सकते, रिकॉर्डिंग तब रोकी जाएगी जब कमरा बंद होगा।';
+
+  @override
+  String get liveChapter => 'लाइव चैप्टर';
+
+  @override
+  String get viewOrEditLyrics => 'गीत देखें या संपादित करें';
+
+  @override
+  String get close => 'बंद करें';
+
+  @override
+  String get verifyChapterDetails => 'चैप्टर विवरण सत्यापित करें';
+
+  @override
+  String get author => 'लेखक';
+
+  @override
+  String get startLiveChapter => 'लाइव चैप्टर शुरू करें';
+
+  @override
+  String get fillAllFields => 'कृपया सभी आवश्यक फ़ील्ड भरें';
 }

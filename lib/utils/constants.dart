@@ -3,7 +3,7 @@
 // Appwrite Project Constants
 const String baseDomain = String.fromEnvironment(
   'APPWRITE_BASE_DOMAIN',
-  defaultValue: '10.12.40.89',
+  defaultValue: '10.12.78.30',
 );
 const String appwriteProjectId = String.fromEnvironment(
   'APPWRITE_PROJECT_ID',
@@ -51,6 +51,8 @@ const String followersCollectionID = "68b16bae0027e57ba2c6";
 const String friendsCollectionID = "68b43e30002f89343479";
 const String userReportsCollectionID = "68dfcba90010d07ee333";
 const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
+const String liveChapterAttendeesCollectionId = "68e6427f0014f8b0e580";
+const String liveChaptersCollectionId = "68e5227e001b2f868c05";
 
 // userProfileImagePlaceholder on theme constant IDs
 const String amberUserProfileImagePlaceholderID = "67012e19003d00f39e10";
@@ -76,6 +78,8 @@ const String friendCallsCollectionId = "68b764ba002794fa2f61";
 const String createRoomServiceId = "651e2670b1e4a26e3cf1";
 const String joinRoomServiceId = "651e3d8fa35c690ed957";
 const String deleteRoomServiceId = "651e348775f28d84e11e";
+const String createLiveChapterRoomFunctionId = "68e8c39600152445ca07";
+const String deleteLiveChapterRoomFunctionId = "68ebff09000f814cc979";
 
 const String sendOtpFunctionID = "6513e9d40b57c6ec156f";
 const String verifyOtpFunctionID = "651303df122abc151bf3";
