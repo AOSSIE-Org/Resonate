@@ -14,21 +14,24 @@ class WhisperTranscriptionController extends GetxController {
 
   Future<String> transcribeChapter(String chapterId) async {
     log('Starting to Transcribe');
-    await convertMp4ToWav(chapterId);
-    final storagePath = await getApplicationDocumentsDirectory();
-    final transcription = await whisper.transcribe(
-      transcribeRequest: TranscribeRequest(
-        audio: '${storagePath.path}/recordings/$chapterId.wav',
-        isTranslate: true, // Translate result from audio lang to english text
-        isNoTimestamps: false, // Get segments in result,
-      ),
-    );
+    final convertResult = await convertMp4ToWav(chapterId);
+    if (convertResult) {
+      final storagePath = await getApplicationDocumentsDirectory();
+      final transcription = await whisper.transcribe(
+        transcribeRequest: TranscribeRequest(
+          audio: '${storagePath.path}/recordings/$chapterId.wav',
+          isTranslate: true, // Translate result from audio lang to english text
+          isNoTimestamps: false, // Get segments in result,
+        ),
+      );
 
-    log(convertToLrc(transcription.segments!));
-    return convertToLrc(transcription.segments!);
+      return convertToLrc(transcription.segments!);
+    }
+    return "Transcription Failed";
   }
 
-  Future<void> convertMp4ToWav(String chapterId) async {
+  Future<bool> convertMp4ToWav(String chapterId) async {
+    bool conversionSuccess = false;
     final String recordingsPath = await getApplicationDocumentsDirectory().then(
       (dir) => '${dir.path}/recordings',
     );
@@ -40,6 +43,7 @@ class WhisperTranscriptionController extends GetxController {
 
       if (ReturnCode.isSuccess(returnCode)) {
         log('✅ Conversion successful!');
+        conversionSuccess = true;
       } else if (ReturnCode.isCancel(returnCode)) {
         log('⚠️ Conversion cancelled.');
       } else {
@@ -47,6 +51,7 @@ class WhisperTranscriptionController extends GetxController {
         log('❌ FFmpeg error:\n$logs');
       }
     });
+    return conversionSuccess;
   }
 
   String convertToLrc(List<WhisperTranscribeSegment?> transcriptionSegments) {

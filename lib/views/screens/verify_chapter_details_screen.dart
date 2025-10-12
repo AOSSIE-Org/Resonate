@@ -53,6 +53,14 @@ class VerifyChapterDetailsScreenState
     });
   }
 
+  @override
+  void dispose() {
+    titleController.dispose();
+    aboutController.dispose();
+    lyricsController.dispose();
+    super.dispose();
+  }
+
   Future<void> loadInitialData() async {
     final storagePath = await getApplicationDocumentsDirectory();
     final String audioFilePath =
@@ -114,7 +122,7 @@ class VerifyChapterDetailsScreenState
         .createChapterFromLiveChapter(
           chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
           audioFile!.path,
-          widget.lyricsString,
+          lyricsController.text,
         );
 
     await exploreStoryController.pushChaptersToStory([

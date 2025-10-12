@@ -56,11 +56,13 @@ class LiveChapterController extends GetxController {
         }
         if (data.events.first.endsWith('.delete')) {
           log("delete detected");
-          await liveChapterAttendeesSubscription?.close();
-          await Get.delete<LiveKitController>(force: true);
+          if (!isAdmin) {
+            await liveChapterAttendeesSubscription?.close();
+            await Get.delete<LiveKitController>(force: true);
 
-          Get.offAllNamed(AppRoutes.tabview);
-          Get.delete<LiveChapterController>();
+            Get.offAllNamed(AppRoutes.tabview);
+            Get.delete<LiveChapterController>();
+          }
         }
       }
     });
@@ -270,6 +272,7 @@ class LiveChapterController extends GetxController {
       log(
         "Error in Delete Room Function (SingleRoomController): ${e.toString()}",
       );
+      Get.back();
     }
   }
 
