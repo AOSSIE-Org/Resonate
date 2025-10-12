@@ -1629,5 +1629,9 @@
     "fillAllFields": "कृपया सभी आवश्यक फ़ील्ड भरें",
     "@fillAllFields": {
         "description": "Error message when required fields are not filled in a form."
+    },
+    "noRecordingError": "आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।",
+    "@noRecordingError": {
+        "description": "Error message when trying to exit a live chapter room without any recording."
     }
 }

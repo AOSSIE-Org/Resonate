@@ -2269,6 +2269,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please fill in all required fields'**
   String get fillAllFields;
+
+  /// Error message when trying to exit a live chapter room without any recording.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
+  String get noRecordingError;
 }
 
 class _AppLocalizationsDelegate
