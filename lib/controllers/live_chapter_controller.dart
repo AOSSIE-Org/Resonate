@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io' as io;
 
@@ -70,6 +71,7 @@ class LiveChapterController extends GetxController {
     String chapterTitle,
     String chapterDescription,
     String storyId,
+    String storyName,
   ) async {
     try {
       final liveChapterData = LiveChapterModel(
@@ -107,6 +109,22 @@ class LiveChapterController extends GetxController {
         adminUid: authStateController.uid!,
       );
       liveChapterModel.value = liveChapterData;
+      if (authStateController.followerDocuments.isNotEmpty) {
+        log('Sending notification for created story');
+        var body = json.encode({
+          'creatorId': authStateController.uid,
+          'payload': {
+            'title': 'Live Chapter Starting!',
+            'body':
+                "${authStateController.displayName} is starting a Live Chapter in ${storyName}: ${liveChapterData.chapterTitle}. Tune In!",
+          },
+        });
+        var results = await functions.createExecution(
+          functionId: sendStoryNotificationFunctionID,
+          body: body.toString(),
+        );
+        log(results.status);
+      }
       listenForAttendeesAdded();
       Get.toNamed(AppRoutes.liveChapterScreen);
     } catch (e) {

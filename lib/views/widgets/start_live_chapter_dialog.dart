@@ -70,6 +70,7 @@ class StartLiveChapterDialog extends StatelessWidget {
                               chapterName,
                               chapterDescription,
                               story.storyId,
+                              story.title,
                             );
                           } catch (e) {
                             customSnackbar(
