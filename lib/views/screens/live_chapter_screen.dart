@@ -182,6 +182,7 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
 
   Widget _buildLeaveButton() {
     final controller = Get.find<LiveChapterController>();
+    final LiveKitController liveKitController = Get.find<LiveKitController>();
     return ElevatedButton.icon(
       onPressed: () async {
         await _deleteRoomDialog(
@@ -190,7 +191,15 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
               : AppLocalizations.of(context)!.leave,
           () async {
             if (controller.isAdmin) {
-              await controller.endLiveChapter();
+              if (liveKitController.isRecording.value == true) {
+                await controller.endLiveChapter();
+              } else {
+                customSnackbar(
+                  AppLocalizations.of(context)!.error,
+                  AppLocalizations.of(context)!.noRecordingError,
+                  LogType.error,
+                );
+              }
             } else {
               await controller.leaveRoom();
             }

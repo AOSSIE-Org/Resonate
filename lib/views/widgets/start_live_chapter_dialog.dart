@@ -5,6 +5,7 @@ import 'package:resonate/controllers/live_chapter_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class StartLiveChapterDialog extends StatelessWidget {
@@ -63,6 +64,7 @@ class StartLiveChapterDialog extends StatelessWidget {
                         if (chapterName.isNotEmpty &&
                             chapterDescription.isNotEmpty) {
                           try {
+                            loadingDialog(context);
                             await Get.put(
                               LiveChapterController(),
                             ).startLiveChapter(

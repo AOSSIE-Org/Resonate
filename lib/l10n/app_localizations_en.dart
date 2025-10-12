@@ -1237,4 +1237,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fillAllFields => 'Please fill in all required fields';
+
+  @override
+  String get noRecordingError =>
+      'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
 }

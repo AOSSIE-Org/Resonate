@@ -18,6 +18,7 @@
     "verifyChapterDetails",
     "author",
     "startLiveChapter",
-    "fillAllFields"
+    "fillAllFields",
+    "noRecordingError"
   ]
 }

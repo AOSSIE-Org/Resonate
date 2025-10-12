@@ -1629,5 +1629,9 @@
     "fillAllFields": "Please fill in all required fields",
     "@fillAllFields": {
         "description": "Error message when required fields are not filled in a form."
+    },
+    "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
+    "@noRecordingError": {
+        "description": "Error message when trying to exit a live chapter room without any recording."
     }
 }
