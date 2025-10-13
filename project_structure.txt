@@ -339,6 +339,7 @@
 │       ├── screens
 │       │   ├── about_app_screen.dart
 │       │   ├── add_chapter_screen.dart
+│       │   ├── app_preferences_screen.dart
 │       │   ├── category_screen.dart
 │       │   ├── change_email_screen.dart
 │       │   ├── chapter_play_screen.dart
@@ -434,4 +435,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 355 files
+80 directories, 356 files
