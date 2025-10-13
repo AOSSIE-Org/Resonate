@@ -1,9 +1,9 @@
 ![Google Summer of Code](https://summerofcode.withgoogle.com/assets/media/logo.svg)
 
-<div style="text-align: center;">
+<p align="center">
     <img src="https://aossie.org/logo1.png" alt="AOSSIE Logo" style="width: 150px; height: auto; margin-right: 20px;">
     <img src="https://github.com/AOSSIE-Org/Resonate/blob/1cc1dca874891966fab3eb02884eed260cbacb95/assets/images/resonate_logo.png?raw=true" alt="Resonate Logo" style="width: 150px; height: auto;">
-</div>
+</p>
 
 # Google Summer of Code 2025 End Term Eval
 
@@ -172,11 +172,11 @@ However, in my work on the Live Chapters feature, I have setup a controller for 
 
 ## For using and experiencing the features implemented by me as part of GSoC 2025, please download the Resonate App:
 
-<div style="text-align: center;">
+<p align="center">
     <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate&pcampaignid=web_share">
         <img src="../store_listing/download-from-google-play.svg" alt="Download from Google Play" style="width: 250px; height: auto;">
     </a>
-</div>
+</p>
 
 # Conclusion
 
