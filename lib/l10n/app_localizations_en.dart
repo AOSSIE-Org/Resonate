@@ -318,6 +318,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contribute => 'Contribute';
 
   @override
+  String get appPreferences => 'App Preferences';
+
+  @override
+  String get transcriptionModel => 'Transcription Model';
+
+  @override
+  String get transcriptionModelDescription =>
+      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+
+  @override
+  String get whisperModelTiny => 'Tiny';
+
+  @override
+  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+
+  @override
+  String get whisperModelBase => 'Base';
+
+  @override
+  String get whisperModelBaseDescription =>
+      'Balanced speed and accuracy (~74 MB)';
+
+  @override
+  String get whisperModelSmall => 'Small';
+
+  @override
+  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+
+  @override
+  String get whisperModelMedium => 'Medium';
+
+  @override
+  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+
+  @override
+  String get whisperModelLargeV1 => 'Large V1';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'Most accurate, slowest (~1.55 GB)';
+
+  @override
+  String get whisperModelLargeV2 => 'Large V2';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'Improved large model with higher accuracy (~1.55 GB)';
+
+  @override
+  String get modelDownloadInfo =>
+      'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+
+  @override
   String get logOut => 'Log out';
 
   @override
