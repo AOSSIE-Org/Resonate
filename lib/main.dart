@@ -9,6 +9,7 @@ import 'package:flutter_callkit_incoming/entities/android_params.dart';
 import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:resonate/firebase_options.dart';
 import 'package:resonate/routes/app_pages.dart';
@@ -16,7 +17,9 @@ import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/themes/theme.dart';
 import 'package:resonate/themes/theme_list.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 import 'themes/theme_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
@@ -55,7 +58,15 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
   Get.put(AboutAppScreenController());
-
+  languageLocale =
+      await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
+  final String? savedModel = await FlutterSecureStorage().read(
+    key: "whisperModel",
+  );
+  currentWhisperModel.value = WhisperModel.values.firstWhere(
+    (model) => model.modelName == (savedModel ?? "base"),
+    orElse: () => WhisperModel.base,
+  );
   runApp(const MyApp());
 }
 
@@ -75,7 +86,8 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [Locale('en'), Locale('hi'), Locale('gu')],
+        locale: Locale(languageLocale),
+        supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
         title: 'Resonate',
         theme: ThemeModes.setLightTheme(

@@ -4,11 +4,12 @@ import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 class WhisperTranscriptionController extends GetxController {
   final Whisper whisper = Whisper(
-    model: WhisperModel.base,
+    model: currentWhisperModel.value,
     downloadHost: "https://huggingface.co/ggerganov/whisper.cpp/resolve/main",
   );
 
