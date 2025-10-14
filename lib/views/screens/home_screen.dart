@@ -8,7 +8,7 @@ import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/screens/no_room_screen.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
-import 'package:resonate/views/widgets/room_search_bar.dart';
+import 'package:resonate/views/widgets/search_rooms.dart';
 import 'package:resonate/views/widgets/upcomming_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -27,15 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     UpcomingRoomsController(),
   );
   final RoomsController roomsController = Get.put(RoomsController());
-  final GlobalKey<RoomSearchBarState> _searchBarKey =
-      GlobalKey<RoomSearchBarState>();
-
-  void syncUpcomingRoomsWithSearch() {
-    if (roomsController.searchBarIsEmpty.value) {
-      roomsController.filteredUpcomingRooms.value =
-          upcomingRoomsController.upcomingRooms;
-    }
-  }
+  bool _showSearchOverlay = false;
 
   Future<void> pullToRefreshData() async {
     await upcomingRoomsController.getUpcomingRooms();
@@ -46,92 +38,82 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBarLiveRoom(
-                isLiveSelected: isLiveSelected,
-                onTabSelected: (bool selectedTab) {
-                  setState(() {
-                    isLiveSelected = selectedTab;
-                  });
-                  _searchBarKey.currentState?.clearSearch();
-                  roomsController.clearSearch();
-                  roomsController.filteredUpcomingRooms.value =
-                      upcomingRoomsController.upcomingRooms;
-
-                  if (!selectedTab) {
-                    syncUpcomingRoomsWithSearch();
-                  }
-                },
-              ),
-              SizedBox(height: UiSizes.height_5),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
-                child: RoomSearchBar(
-                  key: _searchBarKey,
-                  onSearchChanged: (query) {
-                    roomsController.searchRooms(
-                      query,
-                      isLiveRooms: isLiveSelected,
-                      upcomingRooms: isLiveSelected
-                          ? null
-                          : upcomingRoomsController.upcomingRooms,
-                    );
-                  },
-                  onSearchSubmit: (query) {
-                    roomsController.searchRooms(
-                      query,
-                      isLiveRooms: isLiveSelected,
-                      upcomingRooms: isLiveSelected
-                          ? null
-                          : upcomingRoomsController.upcomingRooms,
-                    );
-                  },
-                  onClear: () {
-                    if (isLiveSelected) {
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomAppBarLiveRoom(
+                    isLiveSelected: isLiveSelected,
+                    onTabSelected: (bool selectedTab) {
+                      setState(() {
+                        isLiveSelected = selectedTab;
+                        _showSearchOverlay = false;
+                      });
                       roomsController.clearSearch();
-                    } else {
-                      roomsController.filteredUpcomingRooms.value =
-                          upcomingRoomsController.upcomingRooms;
-                    }
-                  },
-                  isSearching: isLiveSelected
-                      ? roomsController.isSearching.value
-                      : false,
-                ),
-              ),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: pullToRefreshData,
-                  child: Obx(
-                    () => (isLiveSelected
-                        ? roomsController.isLoading.value
-                              ? Center(
-                                  child:
-                                      LoadingAnimationWidget.fourRotatingDots(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
-                                        size: Get.pixelRatio * 20,
-                                      ),
-                                )
-                              : LiveRoomListView()
-                        : upcomingRoomsController.isLoading.value
-                        ? Center(
-                            child: LoadingAnimationWidget.fourRotatingDots(
-                              color: Theme.of(context).colorScheme.primary,
-                              size: Get.pixelRatio * 20,
-                            ),
-                          )
-                        : UpcomingRoomsListView()),
+                    },
+                    onSearchTapped: () {
+                      setState(() {
+                        _showSearchOverlay = true;
+                      });
+                    },
                   ),
-                ),
+                  SizedBox(height: UiSizes.height_16),
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: pullToRefreshData,
+                      child: Obx(
+                        () => (isLiveSelected
+                            ? roomsController.isLoading.value
+                                  ? Center(
+                                      child:
+                                          LoadingAnimationWidget.fourRotatingDots(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
+                                            size: Get.pixelRatio * 20,
+                                          ),
+                                    )
+                                  : LiveRoomListView()
+                            : upcomingRoomsController.isLoading.value
+                            ? Center(
+                                child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: Get.pixelRatio * 20,
+                                ),
+                              )
+                            : UpcomingRoomsListView()),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            // Search bar
+            SearchOverlay(
+              isVisible: _showSearchOverlay,
+              onSearchChanged: (query) {
+                roomsController.searchRooms(
+                  query,
+                  isLiveRooms: isLiveSelected,
+                  upcomingRooms: isLiveSelected
+                      ? null
+                      : upcomingRoomsController.upcomingRooms,
+                );
+              },
+              onClose: () {
+                setState(() {
+                  _showSearchOverlay = false;
+                });
+                roomsController.clearSearch();
+              },
+              isSearching: isLiveSelected
+                  ? roomsController.isSearching.value
+                  : false,
+            ),
+          ],
         ),
       ),
     );
@@ -143,8 +125,10 @@ class CustomAppBarLiveRoom extends StatelessWidget {
     super.key,
     required this.isLiveSelected,
     required this.onTabSelected,
+    required this.onSearchTapped,
   });
   final Function(bool) onTabSelected;
+  final VoidCallback onSearchTapped;
   final bool isLiveSelected;
   @override
   Widget build(BuildContext context) {
@@ -163,7 +147,7 @@ class CustomAppBarLiveRoom extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 25),
+        SizedBox(width: UiSizes.width_25),
         GestureDetector(
           onTap: () => onTabSelected(false),
           child: Text(
@@ -175,6 +159,16 @@ class CustomAppBarLiveRoom extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+        ),
+        const Spacer(),
+        IconButton(
+          onPressed: onSearchTapped,
+          icon: Icon(
+            Icons.search,
+            color: Theme.of(context).colorScheme.primary,
+            size: UiSizes.size_24,
+          ),
+          tooltip: AppLocalizations.of(context)!.search,
         ),
       ],
     );
