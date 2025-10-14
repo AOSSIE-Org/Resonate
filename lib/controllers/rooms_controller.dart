@@ -13,9 +13,7 @@ import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/room_state.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -42,7 +40,7 @@ class RoomsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    roomsIndex = meilisearchClient.index('rooms');
+    roomsIndex = meilisearchClient.index('live_rooms');
     upcomingRoomsIndex = meilisearchClient.index('upcoming_rooms');
     await getRooms();
     filteredRooms.value = rooms;
@@ -182,57 +180,50 @@ class RoomsController extends GetxController {
     }
     try {
       if (isUsingMeilisearch) {
-        final indexToUse = isLiveRooms ? roomsIndex : upcomingRoomsIndex;
-        final meilisearchResult = await indexToUse.search(
-          query,
-          SearchQuery(
-            attributesToHighlight: ['name'],
-            attributesToSearchOn: ['name'],
-          ),
-        );
-        if (isLiveRooms) {
-          filteredRooms.value = await convertMeilisearchResults(
-            meilisearchResult.hits,
-            isLiveRooms: true,
+        try {
+          final indexToUse = isLiveRooms ? roomsIndex : upcomingRoomsIndex;
+          final meilisearchResult = await indexToUse.search(query);
+
+          if (isLiveRooms) {
+            filteredRooms.value = await convertMeilisearchResults(
+              meilisearchResult.hits,
+              isLiveRooms: true,
+            );
+          } else {
+            filteredUpcomingRooms.value = await convertMeilisearchResults(
+              meilisearchResult.hits,
+              isLiveRooms: false,
+              originalUpcomingRooms: upcomingRooms ?? [],
+            );
+          }
+          return;
+        } catch (meilisearchError) {
+          log(
+            'Meilisearch failed, falling back to local search: $meilisearchError',
           );
-        } else {
-          filteredUpcomingRooms.value = await convertMeilisearchResults(
-            meilisearchResult.hits,
-            isLiveRooms: false,
-            originalUpcomingRooms: upcomingRooms ?? [],
-          );
-        }
-      } else {
-        if (isLiveRooms) {
-          final searchResults = rooms.where((room) {
-            return room.name.toLowerCase().contains(query.toLowerCase());
-          }).toList();
-          filteredRooms.value = searchResults;
-        } else {
-          final filtered = (upcomingRooms ?? []).where((room) {
-            return room.name.toLowerCase().contains(query.toLowerCase());
-          }).toList();
-          filteredUpcomingRooms.value = filtered;
         }
       }
+      // Local search
+      final lowerQuery = query.toLowerCase();
+      if (isLiveRooms) {
+        filteredRooms.value = rooms.where((room) {
+          return room.name.toLowerCase().contains(lowerQuery) ||
+              room.description.toLowerCase().contains(lowerQuery) ||
+              room.tags.any((tag) => tag.toLowerCase().contains(lowerQuery));
+        }).toList();
+      } else {
+        filteredUpcomingRooms.value = (upcomingRooms ?? []).where((room) {
+          return room.name.toLowerCase().contains(lowerQuery) ||
+              room.description.toLowerCase().contains(lowerQuery) ||
+              room.tags.any((tag) => tag.toLowerCase().contains(lowerQuery));
+        }).toList();
+      }
     } catch (e) {
-      final roomType = isLiveRooms ? 'rooms' : 'upcoming rooms';
-      log('Error searching $roomType: $e');
+      log('Error searching ${isLiveRooms ? 'rooms' : 'upcoming rooms'}: $e');
       if (isLiveRooms) {
         filteredRooms.value = [];
       } else {
         filteredUpcomingRooms.value = [];
-      }
-      final context = Get.context;
-      if (context != null) {
-        final localizations = AppLocalizations.of(context)!;
-        customSnackbar(
-          localizations.searchError,
-          isLiveRooms
-              ? localizations.searchRoomsError
-              : localizations.searchUpcomingRoomsError,
-          LogType.error,
-        );
       }
     } finally {
       if (isLiveRooms) {
