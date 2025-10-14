@@ -22,6 +22,7 @@ class UiSizes {
   static late double height_35;
   static late double height_40;
   static late double height_45;
+  static late double height_50;
   static late double height_55;
   static late double height_56;
   static late double height_60;
@@ -133,6 +134,7 @@ class UiSizes {
     height_35 = screenHeight * 0.0425;
     height_40 = screenHeight * 0.045;
     height_45 = screenHeight * 0.05476;
+    height_50 = screenHeight * 0.059;
     height_55 = screenHeight * 0.067;
     height_56 = screenHeight * 0.06815;
     height_60 = screenHeight * 0.073;

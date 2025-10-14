@@ -6,6 +6,7 @@ import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpCommingListTile extends StatelessWidget {
@@ -142,14 +143,22 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FloatingActionButton(
-                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
-                  onPressed: () {
-                    upcomingRoomsController.openUpcomingChatSheet(
-                      appwriteUpcommingRoom,
-                    );
-                  },
-                  child: const Icon(Icons.chat, color: Colors.white),
+                SizedBox(
+                  height: UiSizes.height_50,
+                  width: UiSizes.width_56,
+                  child: FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                    onPressed: () {
+                      upcomingRoomsController.openUpcomingChatSheet(
+                        appwriteUpcommingRoom,
+                      );
+                    },
+                    child: Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: UiSizes.size_20,
+                    ),
+                  ),
                 ),
                 Spacer(),
                 ElevatedButton(
@@ -199,16 +208,6 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FloatingActionButton(
-                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
-                  onPressed: () {
-                    upcomingRoomsController.openUpcomingChatSheet(
-                      appwriteUpcommingRoom,
-                    );
-                  },
-                  child: const Icon(Icons.chat, color: Colors.white),
-                ),
-                Spacer(),
                 IconButton(
                   onPressed: () => _showRemoveDialog(context),
                   icon: Icon(
@@ -217,30 +216,51 @@ class UpCommingListTile extends StatelessWidget {
                   ),
                   tooltip: AppLocalizations.of(context)!.removeRoomFromList,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (appwriteUpcommingRoom.hasUserSubscribed) {
-                      upcomingRoomsController.removeUserFromSubscriberList(
-                        appwriteUpcommingRoom.id,
+                Spacer(),
+                SizedBox(
+                  height: UiSizes.height_50,
+                  width: UiSizes.width_56,
+                  child: FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                    onPressed: () {
+                      upcomingRoomsController.openUpcomingChatSheet(
+                        appwriteUpcommingRoom,
                       );
-                    } else {
-                      upcomingRoomsController.addUserToSubscriberList(
-                        appwriteUpcommingRoom.id,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appwriteUpcommingRoom.hasUserSubscribed
-                        ? Colors.red
-                        : Theme.of(context).colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                    },
+                    child: Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: UiSizes.size_20,
                     ),
                   ),
-                  child: Text(
-                    appwriteUpcommingRoom.hasUserSubscribed
-                        ? AppLocalizations.of(context)!.unsubscribe
-                        : AppLocalizations.of(context)!.subscribe,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (appwriteUpcommingRoom.hasUserSubscribed) {
+                        upcomingRoomsController.removeUserFromSubscriberList(
+                          appwriteUpcommingRoom.id,
+                        );
+                      } else {
+                        upcomingRoomsController.addUserToSubscriberList(
+                          appwriteUpcommingRoom.id,
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: appwriteUpcommingRoom.hasUserSubscribed
+                          ? Colors.red
+                          : Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: Text(
+                      appwriteUpcommingRoom.hasUserSubscribed
+                          ? AppLocalizations.of(context)!.unsubscribe
+                          : AppLocalizations.of(context)!.subscribe,
+                    ),
                   ),
                 ),
               ],
