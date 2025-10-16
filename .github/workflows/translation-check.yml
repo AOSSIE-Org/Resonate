@@ -1,148 +1,110 @@
-name: Check Missing Translations
+name: Translation notifier (post-merge)
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
       - dev
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
-  check-translations:
-    if: github.event.pull_request.merged == true
+  notify:
     runs-on: ubuntu-latest
-    
-    permissions:
-      pull-requests: write
-      contents: read
-    
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Important: get full git history
-      
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-      
-      - name: Check for Missing Translations
-        id: check
-        run: |
-          dart .github/scripts/check_translations.dart > result.json
-          echo "results=$(cat result.json)" >> $GITHUB_OUTPUT
-          
-          if [ "$(cat result.json)" != "{}" ]; then
-            echo "has_missing=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_missing=false" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Find Contributors for Each Language
-        if: steps.check.outputs.has_missing == 'true'
-        id: find-contributors
-        run: |
-          # This finds contributors using git blame
-          contributors_json="{"
-          
-          for file in lib/i18n/app_localization_*.arb; do
-            if [ -f "$file" ]; then
-              locale=$(basename "$file" .arb | sed 's/app_localization_//')
-              
-              if [ "$locale" != "en" ]; then
-                # Get last 3 people who edited this file
-                emails=$(git log --follow --format="%ae" -- "$file" | head -3 | sort -u)
-                
-                # Convert emails to GitHub usernames
-                usernames=""
-                for email in $emails; do
-                  # Try to find GitHub username from git config
-                  username=$(git log --author="$email" --format="%an" | head -1 | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
-                  if [ ! -z "$username" ]; then
-                    usernames="$usernames$username,"
-                  fi
-                done
-                
-                usernames=${usernames%,}  # Remove trailing comma
-                contributors_json="$contributors_json\"$locale\":[\"$usernames\"],"
-              fi
-            fi
-          done
-          
-          contributors_json="${contributors_json%,}}"  # Remove trailing comma and close
-          echo "contributors=$contributors_json" >> $GITHUB_OUTPUT
-      
-      - name: Comment on PR
-        if: steps.check.outputs.has_missing == 'true'
+
+      - name: Resolve merged PR number for this commit
+        id: pr
         uses: actions/github-script@v7
         with:
           script: |
-            const results = JSON.parse(`${{ steps.check.outputs.results }}`);
-            const fs = require('fs');
-            
-            let message = '## 🌍 Translation Check Results\n\n';
-            message += 'This PR introduced changes requiring translations:\n\n';
-            
-            for (const [locale, data] of Object.entries(results)) {
-              message += `### ${locale.toUpperCase()}\n`;
-              message += `**Missing Keys:** ${data.missingKeys.length}\n`;
-              message += `**Coverage:** ${data.coverage}%\n\n`;
-              message += data.missingKeys.slice(0, 10).map(key => `- \`${key}\``).join('\n');
-              
-              if (data.missingKeys.length > 10) {
-                message += `\n... and ${data.missingKeys.length - 10} more`;
-              }
-              
-              message += '\n\n';
-              
-              // Find contributors using git history
-              try {
-                const { execSync } = require('child_process');
-                const filePath = `lib/i18n/app_localization_${locale}.arb`;
-                
-                // Get unique contributors from git log
-                const gitLog = execSync(
-                  `git log --follow --pretty=format:"%ae" -- ${filePath} | head -5 | sort -u`,
-                  { encoding: 'utf-8' }
-                ).trim();
-                
-                if (gitLog) {
-                  const emails = gitLog.split('\n');
-                  const usernames = [];
-                  
-                  for (const email of emails) {
-                    // Try to find GitHub username from commits
-                    try {
-                      const user = await github.rest.search.users({
-                        q: `${email} in:email`
-                      });
-                      
-                      if (user.data.items.length > 0) {
-                        usernames.push(user.data.items[0].login);
-                      }
-                    } catch (e) {
-                      console.log(`Could not find user for: ${email}`);
-                    }
-                  }
-                  
-                  if (usernames.length > 0) {
-                    message += '**Contributors (auto-detected):** ';
-                    message += usernames.slice(0, 3).map(u => `@${u}`).join(' ');
-                    message += '\n\n';
-                  }
-                }
-              } catch (e) {
-                console.log(`Error finding contributors for ${locale}: ${e.message}`);
-              }
-            }
-            
-            message += '\n---\n';
-            message += '📝 Please add translations for these keys at your earliest convenience.';
-            
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const commitSha = context.sha;
+            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: message
+              commit_sha: commitSha
+            });
+            if (!prs.data.length) {
+              core.setFailed('No PR associated with this commit');
+              return;
+            }
+            core.setOutput('number', prs.data[0].number);
+
+      - name: Read untranslated.txt (if present)
+        id: txt
+        run: |
+          FILE="untranslated.txt"
+          if [ ! -f "$FILE" ]; then
+            {
+              echo 'list<<EOF'
+              echo ''
+              echo 'EOF'
+            } >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          content="$(cat "$FILE")"
+          {
+            echo 'list<<EOF'
+            echo "$content"
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+
+      - name: Fetch translator mapping issue body
+        id: issue
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: "488"   # <- change if your canonical issue is different
+        with:
+          script: |
+            const issue_number = Number(process.env.ISSUE_NUMBER);
+            const { data } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number
+            });
+            core.setOutput('body', data.body || '');
+
+      - name: Extract @handles from issue description
+        id: handles
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Basic: all @mentions in the issue body
+            const body = `${{ steps.issue.outputs.body }}`;
+            const tags = [...new Set((body.match(/@\w[\w-]+/g) || []))];
+            core.setOutput('handles', tags.join(' '));
+
+      - name: Build PR comment body
+        id: comment
+        run: |
+          {
+            echo 'body<<EOF'
+            echo '🔔 Translation check'
+            echo
+            echo 'The following keys/files are listed in lib/i18n/untranslated.txt:'
+            if [ -n "${{ steps.txt.outputs.list }}" ]; then
+              echo "${{ steps.txt.outputs.list }}"
+            else
+              echo '- No entries found'
+            fi
+            echo
+            echo "Notifying: ${{ steps.handles.outputs.handles }}"
+            echo
+            echo '_Automated post-merge notice_'
+            echo 'EOF'
+          } >> $GITHUB_OUTPUT
+
+      - name: Post comment to merged PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number('${{ steps.pr.outputs.number }}'),
+              body: `${{ steps.comment.outputs.body }}`
             });
