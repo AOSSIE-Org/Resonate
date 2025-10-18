@@ -130,9 +130,8 @@ class LandingScreen extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class LandingImage extends StatelessWidget {
-  LandingImage({
+  const LandingImage({
     super.key,
     required this.imagePath,
     required this.initialHeight,
@@ -140,10 +139,10 @@ class LandingImage extends StatelessWidget {
     required this.imageWidth,
   });
 
-  String imagePath;
-  double initialHeight;
-  double imageHeight;
-  double imageWidth;
+  final String imagePath;
+  final double initialHeight;
+  final double imageHeight;
+  final double imageWidth;
 
   @override
   Widget build(BuildContext context) {

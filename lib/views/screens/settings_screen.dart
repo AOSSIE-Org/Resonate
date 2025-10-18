@@ -81,6 +81,12 @@ class SettingsScreen extends StatelessWidget {
               Get.toNamed(AppRoutes.aboutApp);
             },
           ),
+          customTile(
+            str: AppLocalizations.of(context)!.appPreferences,
+            func: () {
+              Get.toNamed(AppRoutes.appPreferencesScreen);
+            },
+          ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.other),
           customTile(

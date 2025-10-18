@@ -402,6 +402,70 @@
     "@contribute": {
         "description": "Label for a section encouraging users to contribute to the project."
     },
+    "appPreferences": "App Preferences",
+    "@appPreferences": {
+        "description": "Label for the app preferences settings page."
+    },
+    "transcriptionModel": "Transcription Model",
+    "@transcriptionModel": {
+        "description": "Section title for choosing AI transcription model."
+    },
+    "transcriptionModelDescription": "Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.",
+    "@transcriptionModelDescription": {
+        "description": "Description text explaining transcription model choices."
+    },
+    "whisperModelTiny": "Tiny",
+    "@whisperModelTiny": {
+        "description": "Name of the smallest Whisper AI model."
+    },
+    "whisperModelTinyDescription": "Fastest, least accurate (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Description of the Tiny Whisper model performance and size."
+    },
+    "whisperModelBase": "Base",
+    "@whisperModelBase": {
+        "description": "Name of the base Whisper AI model."
+    },
+    "whisperModelBaseDescription": "Balanced speed and accuracy (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Description of the Base Whisper model performance and size."
+    },
+    "whisperModelSmall": "Small",
+    "@whisperModelSmall": {
+        "description": "Name of the small Whisper AI model."
+    },
+    "whisperModelSmallDescription": "Good accuracy, slower (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Description of the Small Whisper model performance and size."
+    },
+    "whisperModelMedium": "Medium",
+    "@whisperModelMedium": {
+        "description": "Name of the medium Whisper AI model."
+    },
+    "whisperModelMediumDescription": "High accuracy, slower (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Description of the Medium Whisper model performance and size."
+    },
+    "whisperModelLargeV1": "Large V1",
+    "@whisperModelLargeV1": {
+        "description": "Name of the large V1 Whisper AI model."
+    },
+    "whisperModelLargeV1Description": "Most accurate, slowest (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Description of the Large V1 Whisper model performance and size."
+    },
+    "whisperModelLargeV2": "Large V2",
+    "@whisperModelLargeV2": {
+        "description": "Name of the large V2 Whisper AI model."
+    },
+    "whisperModelLargeV2Description": "Improved large model with higher accuracy (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Description of the Large V2 Whisper model performance and size."
+    },
+    "modelDownloadInfo": "Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.",
+    "@modelDownloadInfo": {
+        "description": "Information message about model download."
+    },
     "logOut": "Log out",
     "@logOut": {
         "description": "Button text to log the user out of their account."
