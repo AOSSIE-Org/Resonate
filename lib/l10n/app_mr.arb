@@ -250,7 +250,7 @@
     "@resonateLogo": {
         "description": "रेजोनेट अनुप्रयोग लोगो इमेजसाठी अ‍ॅक्सेसिबिलिटी मजकूर."
     },
-    "iAlreadyHaveAnAccount": "मेरे पास पहले से खाता है",
+    "iAlreadyHaveAnAccount": "मेरे पास आधीच खाता आहे",
     "@iAlreadyHaveAnAccount": {
         "description": "साइन-अप स्क्रीनमधून लॉगिन स्क्रीनवर नेविगेट करण्यासाठी मजकूर किंवा बटण."
     },
@@ -746,7 +746,7 @@
     "@canceled": {
         "description": "स्थिति लेबल जो सूचित करते की कृती रद्द केली गई."
     },
-    "english": "mr",
+    "english": "en",
     "@english": {
         "description": "मराठीसाठी भाषा कोड."
     },
@@ -964,7 +964,7 @@
     "@cropImage": {
         "description": "प्रतिमा कातरण साधनचे शीर्षक किंवा बटण मजकूर."
     },
-    "profileSavedSuccessfully": "प्रोफाइल अद्यतन",
+    "profileSavedSuccessfully": "प्रोफाइल अद्यतनित झाले",
     "@profileSavedSuccessfully": {
         "description": "प्रोफाइल बदल सेव केले गेले हे दर्शविणारा लहान यशस्वी संदेश."
     },
@@ -1012,7 +1012,7 @@
     "@emailVerificationMessage": {
         "description": "वापरकर्त्याला त्यांचे ईमेल सत्यापन करण्यास प्रेरणा देणारा निर्देशक संदेश."
     },
-    "addNewChaptersToStory": "{storyName}मध्ये नविन अध्याय जोडा",
+    "addNewChaptersToStory": "{storyName} मध्ये नविन अध्याय जोडा",
     "@addNewChaptersToStory": {
         "description": "विद्यमान कथामध्ये नविन अध्याय जोडलेल्या स्क्रीनचे शीर्षक.",
         "placeholders": {
@@ -1304,7 +1304,7 @@
     "@remove": {
         "description": "प्रोफाइल चित्र यासारख्या आयटम काढून देण्यासाठी बटण मजकूर."
     },
-    "created": "{date}ला तयार केले",
+    "created": "{date} ला तयार केले",
     "@created": {
         "description": "कथा किंवा सामग्रीची निर्मेय तारीख दर्शविते.",
         "placeholders": {
@@ -1322,7 +1322,7 @@
     "@deleteStory": {
         "description": "कथा हटवण्यासाठी बटण मजकूर."
     },
-    "createdBy": "{creatorName}द्वारे निर्मित",
+    "createdBy": "{creatorName} द्वारे निर्मित",
     "@createdBy": {
         "description": "सामग्रीच्या निर्माताचे नाव दर्शविते.",
         "placeholders": {
@@ -1620,7 +1620,7 @@
     "@removedFromRoom": {
         "description": "जेव्हा वापरकर्त्याला कोठ्यातून काढून दिले जाते किंवा रिपोर्ट केले जाते तेव्हा संदेश."
     },
-    "reportType": "{type, select, harassment{उत्पीडन / द्वेष भाषण} abuse{अपमानजनक सामग्री / हिंसा} spam{स्पॅम / घोटाळे / धोखाधड़ी} impersonation{झूठी व्यक्तिमत्ता / खोटे खाते} illegal{अवैध क्रियाकलाप} selfharm{आत्महानि / आत्महत्या / मानसिक स्वास्थ्य} misuse{मंचचा दुरुपयोग} other{इतर}}",
+    "reportType": "{type, select, harassment{उत्पीडन / द्वेष भाषण} abuse{अपमानजनक सामग्री / हिंसा} spam{स्पॅम / घोटाळे / धोखाधरी} impersonation{झूठी व्यक्तिमत्ता / खोटे खाते} illegal{अवैध क्रियाकलाप} selfharm{आत्महानि / आत्महत्या / मानसिक स्वास्थ्य} misuse{मंचचा दुरुपयोग} other{इतर}}",
     "@reportType": {
         "description": "कुंजीवर आधारित योग्य रिपोर्ट प्रकार लेबल निवडते.",
         "placeholders": {

@@ -203,7 +203,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get resonateLogo => 'रेजोनेट लोगो';
 
   @override
-  String get iAlreadyHaveAnAccount => 'मेरे पास पहले से खाता है';
+  String get iAlreadyHaveAnAccount => 'मेरे पास आधीच खाता आहे';
 
   @override
   String get createNewAccount => 'नव्यान खाते तयार करा';
@@ -526,7 +526,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get canceled => 'रद्द';
 
   @override
-  String get english => 'mr';
+  String get english => 'en';
 
   @override
   String get emailVerificationRequired => 'ईमेल सत्यापन आवश्यक';
@@ -689,7 +689,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get cropImage => 'प्रतिमा काटा';
 
   @override
-  String get profileSavedSuccessfully => 'प्रोफाइल अद्यतन';
+  String get profileSavedSuccessfully => 'प्रोफाइल अद्यतनित झाले';
 
   @override
   String get profileUpdatedSuccessfully => 'सर्व बदल यशस्वीरित्या सेव केले.';
@@ -732,7 +732,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return '$storyNameमध्ये नविन अध्याय जोडा';
+    return '$storyName मध्ये नविन अध्याय जोडा';
   }
 
   @override
@@ -926,7 +926,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String created(String date) {
-    return '$dateला तयार केले';
+    return '$date ला तयार केले';
   }
 
   @override
@@ -937,7 +937,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String createdBy(String creatorName) {
-    return '$creatorNameद्वारे निर्मित';
+    return '$creatorName द्वारे निर्मित';
   }
 
   @override
@@ -1179,7 +1179,7 @@ class AppLocalizationsMr extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(type, {
       'harassment': 'उत्पीडन / द्वेष भाषण',
       'abuse': 'अपमानजनक सामग्री / हिंसा',
-      'spam': 'स्पॅम / घोटाळे / धोखाधड़ी',
+      'spam': 'स्पॅम / घोटाळे / धोखाधरी',
       'impersonation': 'झूठी व्यक्तिमत्ता / खोटे खाते',
       'illegal': 'अवैध क्रियाकलाप',
       'selfharm': 'आत्महानि / आत्महत्या / मानसिक स्वास्थ्य',
