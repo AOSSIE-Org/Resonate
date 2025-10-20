@@ -9,10 +9,12 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  issues: read
 
 jobs:
   notify:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -57,7 +59,7 @@ jobs:
         id: issue
         uses: actions/github-script@v7
         env:
-          ISSUE_NUMBER: "488"   # <- change if your canonical issue is different
+          ISSUE_NUMBER: "488"  # Replace with your issue number
         with:
           script: |
             const issue_number = Number(process.env.ISSUE_NUMBER);
@@ -68,43 +70,95 @@ jobs:
             });
             core.setOutput('body', data.body || '');
 
-      - name: Extract @handles from issue description
-        id: handles
+      - name: Map languages to maintainers (Dynamic)
+        id: mapping
         uses: actions/github-script@v7
+        env:
+          LANGUAGES: ${{ steps.txt.outputs.list }}
+          ISSUE_BODY: ${{ steps.issue.outputs.body }}
         with:
           script: |
-            // Basic: all @mentions in the issue body
-            const body = `${{ steps.issue.outputs.body }}`;
-            const tags = [...new Set((body.match(/@\w[\w-]+/g) || []))];
-            core.setOutput('handles', tags.join(' '));
+            const body = process.env.ISSUE_BODY || '';
+            const langJson = process.env.LANGUAGES || '{}';
+            
+            // Parse JSON keys from untranslated.txt
+            let untranslatedKeys = [];
+            try {
+              const parsed = JSON.parse(langJson);
+              untranslatedKeys = Object.keys(parsed).map(k => k.toLowerCase());
+            } catch(e) {
+              console.log("Failed to parse untranslated.txt JSON, fallback to lines");
+              untranslatedKeys = langJson.split(/\r?\n/).map(l => l.trim().toLowerCase()).filter(Boolean);
+            }
+
+            const langToHandles = {};
+
+            // Parse "- Language by @user" or table rows "| Language | @user |"
+            const listRegex = /([\w\s]+)\s+by\s+(.+)/gi;
+            const tableRegex = /\|\s*([\w\s]+)\s*\|\s*(.+)\s*\|/gi;
+
+            let match;
+            while ((match = listRegex.exec(body)) !== null) {
+              const lang = match[1].trim().toLowerCase();
+              const handles = match[2].trim().split(/\s+/);
+              langToHandles[lang] = handles;
+              langToHandles[lang.slice(0,2)] = handles; // map 2-letter code
+            }
+
+            while ((match = tableRegex.exec(body)) !== null) {
+              const lang = match[1].trim().toLowerCase();
+              const handles = match[2].trim().split(/\s+/);
+              langToHandles[lang] = handles;
+              langToHandles[lang.slice(0,2)] = handles; // map 2-letter code
+            }
+
+            // Build output mapping of language -> handles
+            const output = [];
+            for (const code of untranslatedKeys) {
+              const handles = langToHandles[code];
+              if (handles) {
+                const langName = Object.keys(langToHandles).find(k => k.slice(0,2)===code) || code;
+                output.push(`${langName}: ${handles.join(' ')}`);
+              }
+            }
+
+            core.setOutput('handles', output.join('\n'));
 
       - name: Build PR comment body
         id: comment
         run: |
           {
             echo 'body<<EOF'
-            echo '🔔 Translation check'
+            echo '🔔 **Translation Check Notice**'
             echo
-            echo 'The following keys/files are listed in lib/i18n/untranslated.txt:'
+            echo 'The following untranslated language codes were found in `untranslated.txt`:'
             if [ -n "${{ steps.txt.outputs.list }}" ]; then
+              echo '```'
               echo "${{ steps.txt.outputs.list }}"
+              echo '```'
             else
               echo '- No entries found'
             fi
             echo
-            echo "Notifying: ${{ steps.handles.outputs.handles }}"
+            echo "📣 Notifying maintainers per language:"
+            echo "${{ steps.mapping.outputs.handles }}"
             echo
-            echo '_Automated post-merge notice_'
+            echo '_Automated post-merge notice by Translation Notifier_'
             echo 'EOF'
           } >> $GITHUB_OUTPUT
 
       - name: Post comment to merged PR
         uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
           script: |
+            const issueNumber = Number(process.env.PR_NUMBER || 1);
+            const body = process.env.COMMENT_BODY || 'No comment generated.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: Number('${{ steps.pr.outputs.number }}'),
-              body: `${{ steps.comment.outputs.body }}`
+              issue_number: issueNumber,
+              body
             });
