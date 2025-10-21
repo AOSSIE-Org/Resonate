@@ -38,28 +38,29 @@ jobs:
 
       - name: Read untranslated.txt (if present)
         id: txt
+        shell: bash
         run: |
           FILE="untranslated.txt"
           if [ ! -f "$FILE" ]; then
             {
-              echo 'list<<EOF'
+              echo 'list<<COMMENT_EOF'
               echo ''
-              echo 'EOF'
-            } >> $GITHUB_OUTPUT
+              echo 'COMMENT_EOF'
+            } >> "$GITHUB_OUTPUT"
             exit 0
           fi
           content="$(cat "$FILE")"
           {
-            echo 'list<<EOF'
-            echo "$content"
-            echo 'EOF'
-          } >> $GITHUB_OUTPUT
+            echo 'list<<COMMENT_EOF'
+            printf '%s\n' "$content"
+            echo 'COMMENT_EOF'
+          } >> "$GITHUB_OUTPUT"
 
       - name: Fetch translator mapping issue body
         id: issue
         uses: actions/github-script@v7
         env:
-          ISSUE_NUMBER: "488"  # Replace with your issue number
+          ISSUE_NUMBER: "1"  # Replace with your mapping issue number
         with:
           script: |
             const issue_number = Number(process.env.ISSUE_NUMBER);
@@ -70,87 +71,100 @@ jobs:
             });
             core.setOutput('body', data.body || '');
 
-      - name: Map languages to maintainers (Dynamic)
+      - name: Map languages to maintainers (code from issue)
         id: mapping
         uses: actions/github-script@v7
         env:
-          LANGUAGES: ${{ steps.txt.outputs.list }}
-          ISSUE_BODY: ${{ steps.issue.outputs.body }}
+          LANGUAGES: ${{ steps.txt.outputs.list }}              # content of untranslated.txt
+          ISSUE_BODY: ${{ steps.issue.outputs.body }}           # issue text with "Language (xx) by ..."
+          TESTING: ${{ vars.TRANSLATION_TESTING || 'false' }}   # 'true' to avoid tagging real users
         with:
           script: |
             const body = process.env.ISSUE_BODY || '';
-            const langJson = process.env.LANGUAGES || '{}';
-            
-            // Parse JSON keys from untranslated.txt
-            let untranslatedKeys = [];
-            try {
-              const parsed = JSON.parse(langJson);
-              untranslatedKeys = Object.keys(parsed).map(k => k.toLowerCase());
-            } catch(e) {
-              console.log("Failed to parse untranslated.txt JSON, fallback to lines");
-              untranslatedKeys = langJson.split(/\r?\n/).map(l => l.trim().toLowerCase()).filter(Boolean);
-            }
+            const langPayload = process.env.LANGUAGES || '';
 
-            const langToHandles = {};
+            // Parse lines like:
+            // - English (en) by @user1 @user2
+            // - Marathi (mr) by @user
+            // Groups: 1=name, 2=code, 3=handles
+            const listRegex = /-?\s*([\w\s]+?)\s*\(\s*([a-z]{2,3})\s*\)\s+by\s+(@[A-Za-z0-9_-]+(?:\s+@[A-Za-z0-9_-]+)*)/gi;
 
-            // Parse "- Language by @user" or table rows "| Language | @user |"
-            const listRegex = /([\w\s]+)\s+by\s+(.+)/gi;
-            const tableRegex = /\|\s*([\w\s]+)\s*\|\s*(.+)\s*\|/gi;
-
+            const codeToHandles = {};
+            const codeToName = {};
             let match;
             while ((match = listRegex.exec(body)) !== null) {
-              const lang = match[1].trim().toLowerCase();
-              const handles = match[2].trim().split(/\s+/);
-              langToHandles[lang] = handles;
-              langToHandles[lang.slice(0,2)] = handles; // map 2-letter code
+              const name = match[1].trim();
+              const code = match[2].toLowerCase();
+              const handles = match[3].trim().split(/\s+/);
+              codeToHandles[code] = handles;
+              codeToName[code] = name; // use the canonical name from the issue line
             }
 
-            while ((match = tableRegex.exec(body)) !== null) {
-              const lang = match[1].trim().toLowerCase();
-              const handles = match[2].trim().split(/\s+/);
-              langToHandles[lang] = handles;
-              langToHandles[lang.slice(0,2)] = handles; // map 2-letter code
+            // Parse untranslated.txt as JSON object keys or newline-separated codes
+            let untranslatedCodes = [];
+            try {
+              const parsed = JSON.parse(langPayload);
+              untranslatedCodes = Object.keys(parsed).map(k => k.trim().toLowerCase());
+            } catch {
+              untranslatedCodes = (langPayload || '')
+                .split(/\r?\n/)
+                .map(s => s.trim().toLowerCase())
+                .filter(Boolean);
             }
 
-            // Build output mapping of language -> handles
-            const output = [];
-            for (const code of untranslatedKeys) {
-              const handles = langToHandles[code];
-              if (handles) {
-                const langName = Object.keys(langToHandles).find(k => k.slice(0,2)===code) || code;
-                output.push(`${langName}: ${handles.join(' ')}`);
+            const testing = (process.env.TESTING || '').toLowerCase() === 'true';
+            const dummy = '@translation-bot';
+            const linesCodeOnly = [];
+            const friendlyLines = [];
+
+            for (const code of untranslatedCodes) {
+              const handles = codeToHandles[code] || [];
+              const notify = testing && handles.length ? [dummy] : handles;
+              const fullName = codeToName[code] || code.toUpperCase();
+              if (notify.length) {
+                linesCodeOnly.push(`${code}: ${notify.join(' ')}`);
+                friendlyLines.push(`${fullName} (${code}): ${notify.join(' ')}`);
+              } else {
+                linesCodeOnly.push(`${code}: (no maintainer mapped)`);
+                friendlyLines.push(`${fullName} (${code}): (no maintainer mapped)`);
               }
             }
 
-            core.setOutput('handles', output.join('\n'));
+            core.setOutput('handles', linesCodeOnly.join('\n'));           // code-only mapping
+            core.setOutput('handles_friendly', friendlyLines.join('\n'));  // Full Name (code)
 
       - name: Build PR comment body
         id: comment
+        shell: bash
         run: |
+          UNTRANS="${{ steps.txt.outputs.list }}"
+          HANDLES_FRIENDLY="${{ steps.mapping.outputs.handles_friendly }}"
+
           {
-            echo 'body<<EOF'
+            echo 'body<<COMMENT_EOF'
             echo '🔔 **Translation Check Notice**'
             echo
             echo 'The following untranslated language codes were found in `untranslated.txt`:'
-            if [ -n "${{ steps.txt.outputs.list }}" ]; then
+            echo 'Please translate this keys:'
+            if [ -n "$UNTRANS" ]; then
               echo '```'
-              echo "${{ steps.txt.outputs.list }}"
+              printf '%s\n' "$UNTRANS"
               echo '```'
             else
               echo '- No entries found'
             fi
             echo
             echo "📣 Notifying maintainers per language:"
-            echo "${{ steps.mapping.outputs.handles }}"
+            printf '%s\n' "$HANDLES_FRIENDLY"
             echo
             echo '_Automated post-merge notice by Translation Notifier_'
-            echo 'EOF'
-          } >> $GITHUB_OUTPUT
+            echo 'COMMENT_EOF'
+          } >> "$GITHUB_OUTPUT"
 
       - name: Post comment to merged PR
         uses: actions/github-script@v7
         env:
-          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          PR_NUMBER: "1"
           COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
           script: |
