@@ -44,6 +44,42 @@ class RoomChatController extends GetxController {
     log(appwriteUpcommingRoom.toString());
   }
 
+  /// delete method
+  Future<void> deleteMessage(String messageId) async {
+    try {
+      Message messageToDelete = messages.firstWhere(
+        (msg) => msg.messageId == messageId,
+      );
+      messageToDelete = messageToDelete.copyWith(content: '', isdeleted: true);
+
+      await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
+        data: messageToDelete.toJsonForUpload(),
+      );
+      if (appwriteUpcommingRoom != null) {
+        log('Sending notification for deleted message');
+        var body = json.encode({
+          'roomId': appwriteUpcommingRoom?.id,
+          'payload': {
+            'title': 'Message Deleted in ${appwriteUpcommingRoom?.name}',
+            'body': '${messageToDelete.creatorName} deleted a message',
+          },
+        });
+        var results = await functions.createExecution(
+          functionId: sendMessageNotificationFunctionID,
+          body: body.toString(),
+        );
+        log(results.status);
+      }
+      log('Message deleted successfully');
+    } catch (e) {
+      log('Error deleting message: $e');
+      return;
+    }
+  }
+
   Future<void> loadMessages() async {
     messages.clear();
     var queries = [
@@ -98,6 +134,7 @@ class RoomChatController extends GetxController {
         isEdited: false,
         content: content,
         creationDateTime: DateTime.now(),
+        isdeleted: false,
       );
 
       await databases.createDocument(
@@ -148,6 +185,7 @@ class RoomChatController extends GetxController {
     updatedMessage = updatedMessage.copyWith(
       content: newContent,
       isEdited: true,
+      isdeleted: false,
     );
 
     try {
@@ -247,6 +285,7 @@ class RoomChatController extends GetxController {
               messages[index] = messages[index].copyWith(
                 content: updatedMessage.content,
                 isEdited: updatedMessage.isEdited,
+                isdeleted: updatedMessage.isdeleted,
               );
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(

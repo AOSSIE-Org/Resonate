@@ -112,12 +112,18 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           onEditMessage: (String newContent) async {
                             await updateMessage(index, newContent);
                           },
+                          onDeleteMessage: (String messageId) async {
+                            await chatController.deleteMessage(messageId);
+                          },
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
                           canEdit:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isEdited,
+                              !chatController.messages[index].isdeleted,
+                          canDelete:
+                              auth.appwriteUser.$id ==
+                              chatController.messages[index].creatorId,
                         );
                       },
                     ),
@@ -138,6 +144,8 @@ class ChatMessageItem extends StatefulWidget {
   final void Function(int) onTapReply;
   final void Function(String) onEditMessage;
   final void Function(Message) replytoMessage;
+  final void Function(String) onDeleteMessage;
+  final bool canDelete;
   final bool canEdit;
 
   const ChatMessageItem({
@@ -147,6 +155,8 @@ class ChatMessageItem extends StatefulWidget {
     required this.onEditMessage,
     required this.replytoMessage,
     required this.canEdit,
+    required this.onDeleteMessage,
+    required this.canDelete,
   });
 
   @override
@@ -156,6 +166,7 @@ class ChatMessageItem extends StatefulWidget {
 class ChatMessageItemState extends State<ChatMessageItem> {
   bool isEditing = false;
   late TextEditingController _editingController;
+
   double _dragOffset = 0.0;
   @override
   void initState() {
@@ -192,6 +203,68 @@ class ChatMessageItemState extends State<ChatMessageItem> {
     _editingController.text = widget.message.content;
   }
 
+  void _showMessageContextMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: Wrap(
+            children: [
+              if (widget.canDelete && !widget.message.isdeleted)
+                ///delete option
+                ListTile(
+                  leading: const Icon(
+                    Icons.delete,
+                    color: Color.fromARGB(255, 199, 169, 166),
+                  ),
+                  title: const Text('Delete'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _confirmDelete(context);
+                  },
+                ),
+
+              ///cancel option
+              ListTile(
+                leading: const Icon(Icons.close),
+                title: const Text('Cancel'),
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Message'),
+        content: const Text('Are you sure you want to delete this message?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              widget.onDeleteMessage(widget.message.messageId);
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -199,6 +272,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
         return Stack(
           children: [
             GestureDetector(
+              onLongPress: () => _showMessageContextMenu(context),
               onHorizontalDragUpdate: (details) {
                 if (_dragOffset + details.delta.dx > 0.0 &&
                     _dragOffset + details.delta.dx < 100) {
@@ -227,8 +301,11 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(8.0),
+
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: widget.message.isdeleted
+                          ? Colors.grey[300]
+                          : Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Column(
@@ -252,13 +329,20 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                     widget.message.creatorName.capitalizeFirst!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.secondary,
+
+                                      color:
+                                          widget
+                                              .message
+                                              .isdeleted // turns grey after getting deleted
+                                          ? Colors.grey[700]
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.secondary,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                  if (widget.message.replyTo != null)
+                                  if (widget.message.replyTo != null &&
+                                      !widget.message.isdeleted)
                                     GestureDetector(
                                       onTap: () => widget.onTapReply(
                                         widget.message.replyTo!.index,
@@ -297,7 +381,8 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                         ),
                                       ),
                                     ),
-                                  if (isEditing)
+                                  if (isEditing && !widget.message.isdeleted)
+                                    ///the message to edit it AND the message is not deleted
                                     Focus(
                                       onKeyEvent: (node, event) {
                                         if (event.logicalKey ==
@@ -326,6 +411,27 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                         ),
                                       ),
                                     )
+                                  else if (widget.message.isdeleted)
+                                    ///The message has been deleted (`isDeleted = true`)
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.delete_outline,
+                                          color: Colors.grey[600],
+                                          size: 18,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Text(
+                                            'This message was deleted',
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   else
                                     Row(
                                       children: [
@@ -350,6 +456,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                           ),
                                       ],
                                     ),
+
                                   const SizedBox(height: 5),
                                   Text(
                                     widget.message.creationDateTime
