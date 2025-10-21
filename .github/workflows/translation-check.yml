@@ -60,7 +60,7 @@ jobs:
         id: issue
         uses: actions/github-script@v7
         env:
-          ISSUE_NUMBER: "1"  # Replace with your mapping issue number
+          ISSUE_NUMBER: "488"  # Replace with your mapping issue number
         with:
           script: |
             const issue_number = Number(process.env.ISSUE_NUMBER);
@@ -164,7 +164,7 @@ jobs:
       - name: Post comment to merged PR
         uses: actions/github-script@v7
         env:
-          PR_NUMBER: "1"
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
           COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
           script: |
