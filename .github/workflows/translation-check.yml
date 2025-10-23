@@ -33,8 +33,7 @@ jobs:
               commit_sha: commitSha
             });
             if (!prs.data.length) {
-              core.setFailed('No PR associated with this commit');
-              return;
+              throw new Error('No PR associated with this commit');
             }
             core.setOutput('number', prs.data[0].number);
 
@@ -147,7 +146,7 @@ jobs:
             echo '🔔 **Translation Check Notice**'
             echo
             echo 'The following untranslated language codes were found in `untranslated.txt`:'
-            echo 'Please translate this keys:'
+            echo 'Please translate these keys:'
             if [ -n "$UNTRANS" ]; then
               echo '```'
               printf '%s\n' "$UNTRANS"
@@ -170,7 +169,7 @@ jobs:
           COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
           script: |
-            const issueNumber = Number(process.env.PR_NUMBER || 1);
+            const issueNumber = Number(process.env.PR_NUMBER);
             const body = process.env.COMMENT_BODY || 'No comment generated.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
