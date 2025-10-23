@@ -170,6 +170,9 @@ jobs:
         with:
           script: |
             const issueNumber = Number(process.env.PR_NUMBER);
+            if (!issueNumber || isNaN(issueNumber)) {
+              throw new Error('PR_NUMBER not set or invalid');
+            }
             const body = process.env.COMMENT_BODY || 'No comment generated.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
