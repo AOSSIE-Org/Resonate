@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - dev
+    paths:
+      - 'untranslated.txt'
 
 permissions:
   contents: read
