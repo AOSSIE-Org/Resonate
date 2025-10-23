@@ -1,10 +1,13 @@
+## Github Actions CI workflow to deploy to Internal testing in the Play Store
 name: CI_STORE_DEPLOY_ANDROID
 
 on:
+  # Run this workflow when any new code is pushed into the main branch
   push:
     branches:
+      - main
       - master
-  workflow_dispatch:  # This allows manual triggering
+      - deploy-actions
 
 jobs:
   store_deploy_android:
@@ -53,7 +56,7 @@ jobs:
       - name: Decode Android Service Account
         run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
 
-      # Decode Google Services JSON for Android
+      #Decode Google Services JSON for Android
       - name: Decode Android Google Services JSON
         run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
 
@@ -64,7 +67,7 @@ jobs:
       - name: 📦 Install dependencies
         run: flutter pub get
 
-      # Enable after Decoupling is completed
+      #Enable after Decoupling is completed
       # - name: 🕵️ Analyze to check for bad Dart/Flutter practices
       #   run: flutter analyze
 
