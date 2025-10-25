@@ -272,7 +272,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
         return Stack(
           children: [
             GestureDetector(
-              onLongPress: () => _showMessageContextMenu(context),
+              onLongPress: widget.canDelete
+                  ? () => _showMessageContextMenu(context)
+                  : null,
               onHorizontalDragUpdate: (details) {
                 if (_dragOffset + details.delta.dx > 0.0 &&
                     _dragOffset + details.delta.dx < 100) {
