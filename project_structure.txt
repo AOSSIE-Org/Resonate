@@ -14,6 +14,7 @@
 │       ├── greet_contributors.yml
 │       ├── run_tests.yml
 │       ├── store_deploy_android.yml
+│       ├── translation-check.yml
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
@@ -437,4 +438,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 358 files
+80 directories, 359 files
