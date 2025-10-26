@@ -85,7 +85,6 @@ class _SearchOverlayState extends State<SearchOverlay>
 
   void _clearSearch() {
     _searchController.clear();
-    widget.onSearchChanged('');
   }
 
   void _closeOverlay() {

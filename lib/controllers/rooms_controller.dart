@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
@@ -30,18 +29,10 @@ class RoomsController extends GetxController {
   RxList<AppwriteRoom> filteredRooms = <AppwriteRoom>[].obs;
   RxList<AppwriteUpcommingRoom> filteredUpcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
-  final MeiliSearchClient meilisearchClient = MeiliSearchClient(
-    meilisearchEndpoint,
-    meilisearchApiKey,
-  );
-  late final MeiliSearchIndex roomsIndex;
-  late final MeiliSearchIndex upcomingRoomsIndex;
 
   @override
   void onInit() async {
     super.onInit();
-    roomsIndex = meilisearchClient.index('live_rooms');
-    upcomingRoomsIndex = meilisearchClient.index('upcoming_rooms');
     await getRooms();
     filteredRooms.value = rooms;
   }
@@ -179,43 +170,16 @@ class RoomsController extends GetxController {
       searchBarIsEmpty.value = false;
     }
     try {
-      if (isUsingMeilisearch) {
-        try {
-          final indexToUse = isLiveRooms ? roomsIndex : upcomingRoomsIndex;
-          final meilisearchResult = await indexToUse.search(query);
-
-          if (isLiveRooms) {
-            filteredRooms.value = await convertMeilisearchResults(
-              meilisearchResult.hits,
-              isLiveRooms: true,
-            );
-          } else {
-            filteredUpcomingRooms.value = await convertMeilisearchResults(
-              meilisearchResult.hits,
-              isLiveRooms: false,
-              originalUpcomingRooms: upcomingRooms ?? [],
-            );
-          }
-          return;
-        } catch (meilisearchError) {
-          log(
-            'Meilisearch failed, falling back to local search: $meilisearchError',
-          );
-        }
-      }
-      // Local search
       final lowerQuery = query.toLowerCase();
       if (isLiveRooms) {
         filteredRooms.value = rooms.where((room) {
           return room.name.toLowerCase().contains(lowerQuery) ||
-              room.description.toLowerCase().contains(lowerQuery) ||
-              room.tags.any((tag) => tag.toLowerCase().contains(lowerQuery));
+              room.description.toLowerCase().contains(lowerQuery);
         }).toList();
       } else {
         filteredUpcomingRooms.value = (upcomingRooms ?? []).where((room) {
           return room.name.toLowerCase().contains(lowerQuery) ||
-              room.description.toLowerCase().contains(lowerQuery) ||
-              room.tags.any((tag) => tag.toLowerCase().contains(lowerQuery));
+              room.description.toLowerCase().contains(lowerQuery);
         }).toList();
       }
     } catch (e) {
@@ -229,68 +193,6 @@ class RoomsController extends GetxController {
       if (isLiveRooms) {
         isSearching.value = false;
       }
-    }
-  }
-
-  Future<dynamic> convertMeilisearchResults(
-    List<Map<String, dynamic>> meilisearchHits, {
-    required bool isLiveRooms,
-    List<AppwriteUpcommingRoom>? originalUpcomingRooms,
-  }) async {
-    if (isLiveRooms) {
-      //live rooms
-      return await Future.wait(
-        meilisearchHits.map((hit) async {
-          String userUid = Get.find<AuthStateController>().uid!;
-          var participantCollectionRef = await databases.listDocuments(
-            databaseId: masterDatabaseId,
-            collectionId: participantsCollectionId,
-            queries: [Query.equal('roomId', hit['\$id']), Query.limit(3)],
-          );
-          List<String> memberAvatarUrls = [];
-          for (var p in participantCollectionRef.documents) {
-            Document participantDoc = await databases.getDocument(
-              databaseId: userDatabaseID,
-              collectionId: usersCollectionID,
-              documentId: p.data['uid'],
-            );
-            memberAvatarUrls.add(participantDoc.data['profileImageUrl']);
-          }
-          return AppwriteRoom(
-            id: hit['\$id'],
-            name: hit['name'],
-            description: hit['description'],
-            totalParticipants: hit['totalParticipants'],
-            tags: List<String>.from(hit['tags'] ?? []),
-            memberAvatarUrls: memberAvatarUrls,
-            state: RoomState.live,
-            isUserAdmin: hit['adminUid'] == userUid,
-            reportedUsers: List<String>.from(hit['reportedUsers'] ?? []),
-          );
-        }).toList(),
-      );
-    } else {
-      //upcoming rooms
-      return meilisearchHits.map((hit) {
-        final originalRoom = (originalUpcomingRooms ?? []).firstWhere(
-          (room) => room.id == hit['\$id'],
-          orElse: () => AppwriteUpcommingRoom(
-            id: hit['\$id'] ?? '',
-            name: hit['name'] ?? 'Unknown',
-            isTime: hit['isTime'] ?? false,
-            scheduledDateTime:
-                DateTime.tryParse(hit['scheduledDateTime'] ?? '') ??
-                DateTime.now(),
-            totalSubscriberCount: 0,
-            tags: List<String>.from(hit['tags'] ?? []),
-            subscribersAvatarUrls: [],
-            userIsCreator: false,
-            description: hit['description'] ?? '',
-            hasUserSubscribed: false,
-          ),
-        );
-        return originalRoom;
-      }).toList();
     }
   }
 
