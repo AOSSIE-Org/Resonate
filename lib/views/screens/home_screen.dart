@@ -52,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         isLiveSelected = selectedTab;
                         _showSearchOverlay = false;
                       });
-                      roomsController.clearSearch();
+                      roomsController.clearLiveSearch();
+                      upcomingRoomsController.clearUpcomingSearch();
                     },
                     onSearchTapped: () {
                       setState(() {
@@ -95,19 +96,21 @@ class _HomeScreenState extends State<HomeScreen> {
             SearchOverlay(
               isVisible: _showSearchOverlay,
               onSearchChanged: (query) {
-                roomsController.searchRooms(
-                  query,
-                  isLiveRooms: isLiveSelected,
-                  upcomingRooms: isLiveSelected
-                      ? null
-                      : upcomingRoomsController.upcomingRooms,
-                );
+                if (isLiveSelected) {
+                  roomsController.searchLiveRooms(query);
+                } else {
+                  upcomingRoomsController.searchUpcomingRooms(query);
+                }
               },
               onClose: () {
                 setState(() {
                   _showSearchOverlay = false;
                 });
-                roomsController.clearSearch();
+                if (isLiveSelected) {
+                  roomsController.clearLiveSearch();
+                } else {
+                  upcomingRoomsController.clearUpcomingSearch();
+                }
               },
               isSearching: isLiveSelected
                   ? roomsController.isSearching.value
@@ -185,9 +188,9 @@ class UpcomingRoomsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       final roomsToShow =
-          roomsController.filteredUpcomingRooms.isNotEmpty ||
-              !roomsController.searchBarIsEmpty.value
-          ? roomsController.filteredUpcomingRooms
+          upcomingRoomsController.filteredUpcomingRooms.isNotEmpty ||
+              !upcomingRoomsController.searchBarIsEmpty.value
+          ? upcomingRoomsController.filteredUpcomingRooms
           : upcomingRoomsController.upcomingRooms;
 
       if (roomsToShow.isNotEmpty) {
@@ -205,7 +208,7 @@ class UpcomingRoomsListView extends StatelessWidget {
         );
       } else {
         return upcomingRoomsController.upcomingRooms.isEmpty &&
-                roomsController.searchBarIsEmpty.value
+                upcomingRoomsController.searchBarIsEmpty.value
             ? const NoRoomScreen(isRoom: false)
             : Center(
                 child: Column(

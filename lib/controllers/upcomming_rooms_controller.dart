@@ -36,6 +36,9 @@ class UpcomingRoomsController extends GetxController {
   late String localTimeZoneName;
   late bool isOffsetNegetive;
   Rx<bool> isLoading = false.obs;
+  RxBool searchBarIsEmpty = true.obs;
+  RxList<AppwriteUpcommingRoom> filteredUpcomingRooms =
+      <AppwriteUpcommingRoom>[].obs;
   late DateTime currentTimeInstance;
   final Map<String, String> monthMap = {
     "1": "Jan",
@@ -185,6 +188,9 @@ class UpcomingRoomsController extends GetxController {
             await fetchUpcomingRoomDetails(upcomingRoom);
         upcomingRooms.add(appwriteUpcomingRoom);
       }
+      if (searchBarIsEmpty.value) {
+        filteredUpcomingRooms.value = upcomingRooms;
+      }
     } catch (e) {
       log(e.toString());
     } finally {
@@ -205,8 +211,6 @@ class UpcomingRoomsController extends GetxController {
 
     // Delete UpcomingRoom as it is now a room
     await deleteUpcomingRoom(upcomingRoomId);
-
-    await getUpcomingRooms();
   }
 
   Future<void> createUpcomingRoom() async {
@@ -345,5 +349,31 @@ class UpcomingRoomsController extends GetxController {
       enableDrag: false,
       isDismissible: false,
     );
+  }
+
+  Future<void> searchUpcomingRooms(String query) async {
+    if (query.isEmpty) {
+      filteredUpcomingRooms.value = upcomingRooms;
+      searchBarIsEmpty.value = true;
+      return;
+    }
+
+    searchBarIsEmpty.value = false;
+
+    try {
+      final lowerQuery = query.toLowerCase();
+      filteredUpcomingRooms.value = upcomingRooms.where((room) {
+        return room.name.toLowerCase().contains(lowerQuery) ||
+            room.description.toLowerCase().contains(lowerQuery);
+      }).toList();
+    } catch (e) {
+      log('Error searching upcoming rooms: $e');
+      filteredUpcomingRooms.value = [];
+    }
+  }
+
+  void clearUpcomingSearch() {
+    filteredUpcomingRooms.value = upcomingRooms;
+    searchBarIsEmpty.value = true;
   }
 }

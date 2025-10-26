@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
-import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
@@ -27,8 +26,6 @@ class RoomsController extends GetxController {
   RxBool isSearching = false.obs;
   RxBool searchBarIsEmpty = true.obs;
   RxList<AppwriteRoom> filteredRooms = <AppwriteRoom>[].obs;
-  RxList<AppwriteUpcommingRoom> filteredUpcomingRooms =
-      <AppwriteUpcommingRoom>[].obs;
 
   @override
   void onInit() async {
@@ -151,52 +148,29 @@ class RoomsController extends GetxController {
     }
   }
 
-  Future<void> searchRooms(
-    String query, {
-    bool isLiveRooms = true,
-    List<AppwriteUpcommingRoom>? upcomingRooms,
-  }) async {
+  Future<void> searchLiveRooms(String query) async {
     if (query.isEmpty) {
-      if (isLiveRooms) {
-        filteredRooms.value = rooms;
-        searchBarIsEmpty.value = true;
-      } else {
-        filteredUpcomingRooms.value = upcomingRooms ?? [];
-      }
+      filteredRooms.value = rooms;
+      searchBarIsEmpty.value = true;
       return;
     }
-    if (isLiveRooms) {
-      isSearching.value = true;
-      searchBarIsEmpty.value = false;
-    }
+    isSearching.value = true;
+    searchBarIsEmpty.value = false;
     try {
       final lowerQuery = query.toLowerCase();
-      if (isLiveRooms) {
-        filteredRooms.value = rooms.where((room) {
-          return room.name.toLowerCase().contains(lowerQuery) ||
-              room.description.toLowerCase().contains(lowerQuery);
-        }).toList();
-      } else {
-        filteredUpcomingRooms.value = (upcomingRooms ?? []).where((room) {
-          return room.name.toLowerCase().contains(lowerQuery) ||
-              room.description.toLowerCase().contains(lowerQuery);
-        }).toList();
-      }
+      filteredRooms.value = rooms.where((room) {
+        return room.name.toLowerCase().contains(lowerQuery) ||
+            room.description.toLowerCase().contains(lowerQuery);
+      }).toList();
     } catch (e) {
-      log('Error searching ${isLiveRooms ? 'rooms' : 'upcoming rooms'}: $e');
-      if (isLiveRooms) {
-        filteredRooms.value = [];
-      } else {
-        filteredUpcomingRooms.value = [];
-      }
+      log('Error searching rooms: $e');
+      filteredRooms.value = [];
     } finally {
-      if (isLiveRooms) {
-        isSearching.value = false;
-      }
+      isSearching.value = false;
     }
   }
 
-  void clearSearch() {
+  void clearLiveSearch() {
     filteredRooms.value = rooms;
     searchBarIsEmpty.value = true;
   }
