@@ -15,12 +15,7 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class RoomChatController extends GetxController {
-  RoomChatController({
-    this.appwriteRoom,
-    this.appwriteUpcommingRoom,
-    Databases? databases,
-    AuthStateController? authController,
-  });
+  RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
 
   AuthStateController auth = Get.find<AuthStateController>();
   RxList<Message> messages = <Message>[].obs;
