@@ -123,7 +123,8 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                               !chatController.messages[index].isdeleted,
                           canDelete:
                               auth.appwriteUser.$id ==
-                              chatController.messages[index].creatorId,
+                                  chatController.messages[index].creatorId &&
+                              !chatController.messages[index].isEdited,
                         );
                       },
                     ),
@@ -415,24 +416,12 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                     )
                                   else if (widget.message.isdeleted)
                                     ///The message has been deleted (`isDeleted = true`)
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.delete_outline,
-                                          color: Colors.grey[600],
-                                          size: 18,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: Text(
-                                            'This message was deleted',
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontStyle: FontStyle.italic,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      'This message was deleted',
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     )
                                   else
                                     Row(

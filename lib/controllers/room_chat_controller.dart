@@ -15,7 +15,13 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class RoomChatController extends GetxController {
-  RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
+  RoomChatController({
+    this.appwriteRoom,
+    this.appwriteUpcommingRoom,
+    Databases? databases,
+    AuthStateController? authController,
+  });
+
   AuthStateController auth = Get.find<AuthStateController>();
   RxList<Message> messages = <Message>[].obs;
   final AppwriteRoom? appwriteRoom;
@@ -44,7 +50,7 @@ class RoomChatController extends GetxController {
     log(appwriteUpcommingRoom.toString());
   }
 
-  /// delete method
+  // delete method
   Future<void> deleteMessage(String messageId) async {
     try {
       Message messageToDelete = messages.firstWhere(
@@ -58,21 +64,6 @@ class RoomChatController extends GetxController {
         documentId: messageId,
         data: messageToDelete.toJsonForUpload(),
       );
-      if (appwriteUpcommingRoom != null) {
-        log('Sending notification for deleted message');
-        var body = json.encode({
-          'roomId': appwriteUpcommingRoom?.id,
-          'payload': {
-            'title': 'Message Deleted in ${appwriteUpcommingRoom?.name}',
-            'body': '${messageToDelete.creatorName} deleted a message',
-          },
-        });
-        var results = await functions.createExecution(
-          functionId: sendMessageNotificationFunctionID,
-          body: body.toString(),
-        );
-        log(results.status);
-      }
       log('Message deleted successfully');
     } catch (e) {
       log('Error deleting message: $e');
