@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/debouncer.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 import '../../controllers/auth_state_controller.dart';
@@ -22,6 +25,7 @@ class EditProfileScreen extends StatelessWidget {
   final AuthStateController authStateController = Get.put(
     AuthStateController(),
   );
+  final debouncer = Debouncer(milliseconds: 800);
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +116,6 @@ class EditProfileScreen extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       autocorrect: false,
                       decoration: InputDecoration(
-                        // hintText: "Name",
                         labelText: AppLocalizations.of(context)!.name,
                         prefixIcon: Icon(Icons.abc_rounded),
                       ),
@@ -120,8 +123,17 @@ class EditProfileScreen extends StatelessWidget {
                     SizedBox(height: UiSizes.height_20),
                     Obx(
                       () => TextFormField(
+                        maxLength: 36,
                         validator: (value) {
                           if (value!.length > 5) {
+                            final validUsername = RegExp(
+                              r'^[a-zA-Z0-9._-]+$',
+                            ).hasMatch(value.trim());
+                            if (!validUsername) {
+                              return AppLocalizations.of(
+                                context,
+                              )!.usernameInvalidOrTaken;
+                            }
                             return null;
                           } else {
                             return AppLocalizations.of(
@@ -131,22 +143,68 @@ class EditProfileScreen extends StatelessWidget {
                         },
                         controller: controller.usernameController,
                         onChanged: (value) async {
+                          Get.closeCurrentSnackbar();
+
                           if (value.length > 5) {
-                            controller.usernameAvailable.value =
-                                await controller.isUsernameAvailable(
-                                  value.trim(),
+                            final validUsername = RegExp(
+                              r'^[a-zA-Z0-9._-]+$',
+                            ).hasMatch(value.trim());
+
+                            if (!validUsername || value.trim().length > 36) {
+                              controller.usernameAvailable.value = false;
+                              controller.usernameAvailableChecking.value =
+                                  false;
+                              customSnackbar(
+                                AppLocalizations.of(
+                                  context,
+                                )!.usernameUnavailable,
+                                "Username can only contain letters, numbers, dots, hyphens, and underscores (max 36 characters)",
+                                LogType.error,
+                                snackbarDuration: 1,
+                              );
+                              return;
+                            }
+
+                            controller.usernameAvailableChecking.value = true;
+
+                            debouncer.run(() async {
+                              controller.usernameAvailable.value =
+                                  await controller.isUsernameAvailable(
+                                    value.trim(),
+                                  );
+
+                              controller.usernameAvailableChecking.value =
+                                  false;
+
+                              if (!controller.usernameAvailable.value) {
+                                customSnackbar(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.usernameUnavailable,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.usernameInvalidOrTaken,
+                                  LogType.error,
+                                  snackbarDuration: 1,
                                 );
+                              }
+                            });
                           } else {
                             controller.usernameAvailable.value = false;
+                            controller.usernameAvailableChecking.value = false;
                           }
                         },
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: InputDecoration(
-                          // hintText: "Username",
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
-                          suffixIcon: controller.usernameAvailable.value
+                          suffixText: controller.usernameAvailableChecking.value
+                              ? AppLocalizations.of(context)!.checking
+                              : null,
+                          suffixIcon:
+                              controller.usernameAvailable.value &&
+                                  !controller.usernameAvailableChecking.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
@@ -298,12 +356,9 @@ class EditProfileScreen extends StatelessWidget {
             Column(
               children: [
                 IconButton(
-                  tooltip: AppLocalizations.of(
-                    context,
-                  )!.clickPictureCamera,
+                  tooltip: AppLocalizations.of(context)!.clickPictureCamera,
                   onPressed: () {
                     Navigator.pop(context);
-                    // Display Loading Dialog
                     loadingDialog(context);
                     editProfileController.pickImageFromCamera();
                   },
@@ -322,8 +377,6 @@ class EditProfileScreen extends StatelessWidget {
                   tooltip: AppLocalizations.of(context)!.pickImageGallery,
                   onPressed: () {
                     Navigator.pop(context);
-
-                    // Display Loading Dialog
                     loadingDialog(context);
                     editProfileController.pickImageFromGallery();
                   },
