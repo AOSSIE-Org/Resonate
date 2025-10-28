@@ -120,11 +120,13 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           canEdit:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isdeleted,
+                              !chatController.messages[index].isdeleted &&
+                              !chatController.messages[index].isEdited,
+
                           canDelete:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isEdited,
+                              !chatController.messages[index].isdeleted,
                         );
                       },
                     ),

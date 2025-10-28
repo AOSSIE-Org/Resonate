@@ -36,7 +36,7 @@ void main() {
       );
     });
 
-    test('should successfully delete a message', () async {
+    test('test to successfully delete a message', () async {
       when(
         mockDatabases.updateDocument(
           databaseId: masterDatabaseId,
@@ -83,7 +83,7 @@ void main() {
       ).called(1);
     });
 
-    test('should handle error when message not found', () async {
+    test('test to handle error when message not found', () async {
       try {
         messages.firstWhere((msg) => msg.messageId == 'non-existent-message');
         fail('Should have thrown StateError');
@@ -101,7 +101,7 @@ void main() {
       );
     });
 
-    test('should handle database error gracefully', () async {
+    test('test to handle database errors', () async {
       when(
         mockDatabases.updateDocument(
           databaseId: masterDatabaseId,
