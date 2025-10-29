@@ -1,0 +1,182 @@
+name: Translation notifier (post-merge)
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - 'untranslated.txt'
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve merged PR number for this commit
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commitSha = context.sha;
+            const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: commitSha
+            });
+            if (!prs.data.length) {
+              throw new Error('No PR associated with this commit');
+            }
+            core.setOutput('number', prs.data[0].number);
+
+      - name: Read untranslated.txt (if present)
+        id: txt
+        shell: bash
+        run: |
+          FILE="untranslated.txt"
+          if [ ! -f "$FILE" ]; then
+            {
+              echo 'list<<COMMENT_EOF'
+              echo ''
+              echo 'COMMENT_EOF'
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          content="$(cat "$FILE")"
+          {
+            echo 'list<<COMMENT_EOF'
+            printf '%s\n' "$content"
+            echo 'COMMENT_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Fetch translator mapping issue body
+        id: issue
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: "488"  # Replace with your mapping issue number
+        with:
+          script: |
+            const issue_number = Number(process.env.ISSUE_NUMBER);
+            const { data } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number
+            });
+            core.setOutput('body', data.body || '');
+
+      - name: Map languages to maintainers (code from issue)
+        id: mapping
+        uses: actions/github-script@v7
+        env:
+          LANGUAGES: ${{ steps.txt.outputs.list }}              # content of untranslated.txt
+          ISSUE_BODY: ${{ steps.issue.outputs.body }}           # issue text with "Language (xx) by ..."
+          TESTING: ${{ vars.TRANSLATION_TESTING || 'false' }}   # 'true' to avoid tagging real users
+        with:
+          script: |
+            const body = process.env.ISSUE_BODY || '';
+            const langPayload = process.env.LANGUAGES || '';
+
+            // Parse lines like:
+            // - English (en) by @user1 @user2
+            // - Marathi (mr) by @user
+            // Groups: 1=name, 2=code, 3=handles
+            const listRegex = /-?\s*([\w\s]+?)\s*\(\s*([a-z]{2,3})\s*\)\s+by\s+(@[A-Za-z0-9_-]+(?:\s+@[A-Za-z0-9_-]+)*)/gi;
+
+            const codeToHandles = {};
+            const codeToName = {};
+            let match;
+            while ((match = listRegex.exec(body)) !== null) {
+              const name = match[1].trim();
+              const code = match[2].toLowerCase();
+              const handles = match[3].trim().split(/\s+/);
+              codeToHandles[code] = handles;
+              codeToName[code] = name; // use the canonical name from the issue line
+            }
+
+            // Parse untranslated.txt as JSON object keys or newline-separated codes
+            let untranslatedCodes = [];
+            try {
+              const parsed = JSON.parse(langPayload);
+              untranslatedCodes = Object.keys(parsed).map(k => k.trim().toLowerCase());
+            } catch {
+              untranslatedCodes = (langPayload || '')
+                .split(/\r?\n/)
+                .map(s => s.trim().toLowerCase())
+                .filter(Boolean);
+            }
+
+            const testing = (process.env.TESTING || '').toLowerCase() === 'true';
+            const dummy = '@translation-bot';
+            const linesCodeOnly = [];
+            const friendlyLines = [];
+
+            for (const code of untranslatedCodes) {
+              const handles = codeToHandles[code] || [];
+              const notify = testing && handles.length ? [dummy] : handles;
+              const fullName = codeToName[code] || code.toUpperCase();
+              if (notify.length) {
+                linesCodeOnly.push(`${code}: ${notify.join(' ')}`);
+                friendlyLines.push(`${fullName} (${code}): ${notify.join(' ')}`);
+              } else {
+                linesCodeOnly.push(`${code}: (no maintainer mapped)`);
+                friendlyLines.push(`${fullName} (${code}): (no maintainer mapped)`);
+              }
+            }
+
+            core.setOutput('handles', linesCodeOnly.join('\n'));           // code-only mapping
+            core.setOutput('handles_friendly', friendlyLines.join('\n'));  // Full Name (code)
+
+      - name: Build PR comment body
+        id: comment
+        shell: bash
+        run: |
+          UNTRANS="${{ steps.txt.outputs.list }}"
+          HANDLES_FRIENDLY="${{ steps.mapping.outputs.handles_friendly }}"
+
+          {
+            echo 'body<<COMMENT_EOF'
+            echo '🔔 **Translation Check Notice**'
+            echo
+            echo 'The following untranslated language codes were found in `untranslated.txt`:'
+            echo 'Please translate these keys:'
+            if [ -n "$UNTRANS" ]; then
+              echo '```'
+              printf '%s\n' "$UNTRANS"
+              echo '```'
+            else
+              echo '- No entries found'
+            fi
+            echo
+            echo "📣 Notifying maintainers per language:"
+            printf '%s\n' "$HANDLES_FRIENDLY"
+            echo
+            echo '_Automated post-merge notice by Translation Notifier_'
+            echo 'COMMENT_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Post comment to merged PR
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          COMMENT_BODY: ${{ steps.comment.outputs.body }}
+        with:
+          script: |
+            const issueNumber = Number(process.env.PR_NUMBER);
+            if (!issueNumber || isNaN(issueNumber)) {
+              throw new Error('PR_NUMBER not set or invalid');
+            }
+            const body = process.env.COMMENT_BODY || 'No comment generated.';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body
+            });

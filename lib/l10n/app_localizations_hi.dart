@@ -317,6 +317,58 @@ class AppLocalizationsHi extends AppLocalizations {
   String get contribute => 'योगदान करें';
 
   @override
+  String get appPreferences => 'ऐप प्राथमिकताएं';
+
+  @override
+  String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
+
+  @override
+  String get transcriptionModelDescription =>
+      'वॉयस ट्रांसक्रिप्शन के लिए AI मॉडल चुनें। बड़े मॉडल अधिक सटीक हैं लेकिन धीमे हैं और अधिक स्टोरेज की आवश्यकता होती है।';
+
+  @override
+  String get whisperModelTiny => 'टाइनी';
+
+  @override
+  String get whisperModelTinyDescription => 'सबसे तेज़, कम सटीक (~39 MB)';
+
+  @override
+  String get whisperModelBase => 'बेस';
+
+  @override
+  String get whisperModelBaseDescription => 'संतुलित गति और सटीकता (~74 MB)';
+
+  @override
+  String get whisperModelSmall => 'स्मॉल';
+
+  @override
+  String get whisperModelSmallDescription => 'अच्छी सटीकता, धीमा (~244 MB)';
+
+  @override
+  String get whisperModelMedium => 'मीडियम';
+
+  @override
+  String get whisperModelMediumDescription => 'उच्च सटीकता, धीमा (~769 MB)';
+
+  @override
+  String get whisperModelLargeV1 => 'लार्ज V1';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'सबसे अधिक सटीक, सबसे धीमा (~1.55 GB)';
+
+  @override
+  String get whisperModelLargeV2 => 'लार्ज V2';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'उच्च सटीकता के साथ बेहतर बड़ा मॉडल (~1.55 GB)';
+
+  @override
+  String get modelDownloadInfo =>
+      'मॉडल पहली बार उपयोग करने पर डाउनलोड हो जाते हैं। हम बेस, स्मॉल या मीडियम का उपयोग करने की सिफारिश करते हैं। बड़े मॉडल के लिए बहुत उच्च अंत उपकरणों की आवश्यकता होती है।';
+
+  @override
   String get logOut => 'लॉग आउट';
 
   @override
@@ -1233,4 +1285,36 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get submitReport => 'रिपोर्ट सबमिट करें';
+
+  @override
+  String get actionBlocked => 'कार्रवाई अवरुद्ध';
+
+  @override
+  String get cannotStopRecording =>
+      'आप रिकॉर्डिंग को मैन्युअल रूप से रोक नहीं सकते, रिकॉर्डिंग तब रोकी जाएगी जब कमरा बंद होगा।';
+
+  @override
+  String get liveChapter => 'लाइव चैप्टर';
+
+  @override
+  String get viewOrEditLyrics => 'गीत देखें या संपादित करें';
+
+  @override
+  String get close => 'बंद करें';
+
+  @override
+  String get verifyChapterDetails => 'चैप्टर विवरण सत्यापित करें';
+
+  @override
+  String get author => 'लेखक';
+
+  @override
+  String get startLiveChapter => 'लाइव चैप्टर शुरू करें';
+
+  @override
+  String get fillAllFields => 'कृपया सभी आवश्यक फ़ील्ड भरें';
+
+  @override
+  String get noRecordingError =>
+      'आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।';
 }

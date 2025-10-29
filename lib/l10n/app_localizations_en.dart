@@ -318,6 +318,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contribute => 'Contribute';
 
   @override
+  String get appPreferences => 'App Preferences';
+
+  @override
+  String get transcriptionModel => 'Transcription Model';
+
+  @override
+  String get transcriptionModelDescription =>
+      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+
+  @override
+  String get whisperModelTiny => 'Tiny';
+
+  @override
+  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+
+  @override
+  String get whisperModelBase => 'Base';
+
+  @override
+  String get whisperModelBaseDescription =>
+      'Balanced speed and accuracy (~74 MB)';
+
+  @override
+  String get whisperModelSmall => 'Small';
+
+  @override
+  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+
+  @override
+  String get whisperModelMedium => 'Medium';
+
+  @override
+  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+
+  @override
+  String get whisperModelLargeV1 => 'Large V1';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'Most accurate, slowest (~1.55 GB)';
+
+  @override
+  String get whisperModelLargeV2 => 'Large V2';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'Improved large model with higher accuracy (~1.55 GB)';
+
+  @override
+  String get modelDownloadInfo =>
+      'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+
+  @override
   String get logOut => 'Log out';
 
   @override
@@ -1229,4 +1282,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get submitReport => 'Submit Report';
+
+  @override
+  String get actionBlocked => 'Action Blocked';
+
+  @override
+  String get cannotStopRecording =>
+      'You cannot stop the recording manually, the recording will be stopped when the room is closed.';
+
+  @override
+  String get liveChapter => 'Live Chapter';
+
+  @override
+  String get viewOrEditLyrics => 'View or Edit Lyrics';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get verifyChapterDetails => 'Verify Chapter Details';
+
+  @override
+  String get author => 'Author';
+
+  @override
+  String get startLiveChapter => 'Start a Live Chapter';
+
+  @override
+  String get fillAllFields => 'Please fill in all required fields';
+
+  @override
+  String get noRecordingError =>
+      'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
 }

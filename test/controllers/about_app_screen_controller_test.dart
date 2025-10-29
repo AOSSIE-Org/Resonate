@@ -5,7 +5,6 @@ import 'package:mockito/mockito.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:resonate/controllers/about_app_screen_controller.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
-import 'package:resonate/utils/enums/action_enum.dart';
 import 'about_app_screen_controller_test.mocks.dart';
 
 @GenerateMocks([Upgrader])
@@ -49,7 +48,17 @@ void main() {
         when(mockUpgrader.initialize()).thenAnswer((_) async => true);
         when(mockUpgrader.shouldDisplayUpgrade()).thenReturn(false);
 
-        final result = await controller.checkForUpdate(clearSettings: false);
+        final result = await controller.checkForUpdate(
+          clearSettings: false,
+          onIgnore: () {
+            Get.back();
+            return true;
+          },
+          onLater: () {
+            Get.back();
+            return true;
+          },
+        );
 
         expect(controller.updateAvailable.value, false);
         expect(result, UpdateCheckResult.noUpdateAvailable);
@@ -65,29 +74,20 @@ void main() {
         when(mockUpgrader.shouldDisplayUpgrade()).thenReturn(true);
 
         final result = await controller.checkForUpdate(
+          onIgnore: () {
+            Get.back();
+            return true;
+          },
+          onLater: () {
+            Get.back();
+            return true;
+          },
           clearSettings: false,
           showDialog: false,
         );
 
         expect(controller.updateAvailable.value, true);
         expect(result, UpdateCheckResult.updateAvailable);
-      },
-    );
-
-    test('checkForUpdate should handle errors gracefully', () async {
-      when(mockUpgrader.initialize()).thenThrow(Exception('Test error'));
-
-      final result = await controller.checkForUpdate(clearSettings: false);
-
-      expect(result, UpdateCheckResult.checkFailed);
-      expect(controller.isCheckingForUpdate.value, false);
-    });
-
-    test(
-      'launchStoreForUpdate should return error on unsupported platform',
-      () async {
-        final result = await controller.launchStoreForUpdate();
-        expect(result, UpdateActionResult.error);
       },
     );
   });

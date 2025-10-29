@@ -1,15 +1,12 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/utils/enums/action_enum.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:upgrader/upgrader.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 
 class AboutAppScreenController extends GetxController {
@@ -26,19 +23,18 @@ class AboutAppScreenController extends GetxController {
     : upgrader =
           upgrader ??
           Upgrader(
-            debugDisplayAlways: kDebugMode, 
-            debugDisplayOnce: false, 
-            debugLogging: kDebugMode, 
+            debugDisplayAlways: false,
+            debugDisplayOnce: false,
+            debugLogging: kDebugMode,
             durationUntilAlertAgain: kDebugMode
-                ? const Duration(minutes: 1) 
-                : const Duration(days: 7), 
+                ? const Duration(minutes: 1)
+                : const Duration(days: 7),
           );
 
   @override
   void onInit() {
     super.onInit();
     _loadPackageInfo();
-    checkForUpdate(launchUpdateIfAvailable: false, isManualCheck: false);
   }
 
   Future<void> _loadPackageInfo() async {
@@ -60,10 +56,12 @@ class AboutAppScreenController extends GetxController {
   }
 
   Future<UpdateCheckResult> checkForUpdate({
-    bool launchUpdateIfAvailable = false,
     bool isManualCheck = false,
     bool clearSettings = true,
     bool showDialog = true,
+    required bool Function() onIgnore,
+    required bool Function() onLater,
+    bool Function()? onUpdate,
   }) async {
     isCheckingForUpdate.value = true;
     try {
@@ -74,25 +72,17 @@ class AboutAppScreenController extends GetxController {
       final needsUpdate = upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
       if (needsUpdate && showDialog) {
-        if (launchUpdateIfAvailable) {
-          await launchStoreForUpdate();
-        } else {
-          Get.dialog(
-            UpgradeAlert(
-              upgrader: upgrader,
-              onIgnore: () {
-                Get.back();
-                return true;
-              },
-              onLater: () {
-                Get.back();
-                return true;
-              },
-            ),
-            barrierDismissible: true,
-          );
-        }
+        await Get.to(
+          UpgradeAlert(
+            upgrader: upgrader,
+            onIgnore: onIgnore,
+            onLater: onLater,
+            onUpdate: onUpdate,
+            barrierDismissible: false,
+          ),
+        );
       }
+
       return needsUpdate
           ? UpdateCheckResult.updateAvailable
           : UpdateCheckResult.noUpdateAvailable;
@@ -101,31 +91,6 @@ class AboutAppScreenController extends GetxController {
       return UpdateCheckResult.checkFailed;
     } finally {
       isCheckingForUpdate.value = false;
-    }
-  }
-
-  Future<UpdateActionResult> launchStoreForUpdate() async {
-    try {
-      String storeUrl;
-      if (Platform.isAndroid) {
-        storeUrl =
-            'https://play.google.com/store/apps/details?id=com.resonate.resonate';
-      } else if (Platform.isIOS) {
-        // The App Store URL of app
-        storeUrl = '';
-      } else {
-        return UpdateActionResult.error;
-      }
-      final uri = Uri.parse(storeUrl);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-        return UpdateActionResult.success;
-      } else {
-        return UpdateActionResult.failed;
-      }
-    } catch (e) {
-      log('Update error: $e');
-      return UpdateActionResult.error;
     }
   }
 }

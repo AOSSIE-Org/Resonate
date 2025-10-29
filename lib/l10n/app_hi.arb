@@ -402,6 +402,70 @@
     "@contribute": {
         "description": "Label for a section encouraging users to contribute to the project."
     },
+    "appPreferences": "ऐप प्राथमिकताएं",
+    "@appPreferences": {
+        "description": "Label for the app preferences settings page."
+    },
+    "transcriptionModel": "ट्रांसक्रिप्शन मॉडल",
+    "@transcriptionModel": {
+        "description": "Section title for choosing AI transcription model."
+    },
+    "transcriptionModelDescription": "वॉयस ट्रांसक्रिप्शन के लिए AI मॉडल चुनें। बड़े मॉडल अधिक सटीक हैं लेकिन धीमे हैं और अधिक स्टोरेज की आवश्यकता होती है।",
+    "@transcriptionModelDescription": {
+        "description": "Description text explaining transcription model choices."
+    },
+    "whisperModelTiny": "टाइनी",
+    "@whisperModelTiny": {
+        "description": "Name of the smallest Whisper AI model."
+    },
+    "whisperModelTinyDescription": "सबसे तेज़, कम सटीक (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Description of the Tiny Whisper model performance and size."
+    },
+    "whisperModelBase": "बेस",
+    "@whisperModelBase": {
+        "description": "Name of the base Whisper AI model."
+    },
+    "whisperModelBaseDescription": "संतुलित गति और सटीकता (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Description of the Base Whisper model performance and size."
+    },
+    "whisperModelSmall": "स्मॉल",
+    "@whisperModelSmall": {
+        "description": "Name of the small Whisper AI model."
+    },
+    "whisperModelSmallDescription": "अच्छी सटीकता, धीमा (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Description of the Small Whisper model performance and size."
+    },
+    "whisperModelMedium": "मीडियम",
+    "@whisperModelMedium": {
+        "description": "Name of the medium Whisper AI model."
+    },
+    "whisperModelMediumDescription": "उच्च सटीकता, धीमा (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Description of the Medium Whisper model performance and size."
+    },
+    "whisperModelLargeV1": "लार्ज V1",
+    "@whisperModelLargeV1": {
+        "description": "Name of the large V1 Whisper AI model."
+    },
+    "whisperModelLargeV1Description": "सबसे अधिक सटीक, सबसे धीमा (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Description of the Large V1 Whisper model performance and size."
+    },
+    "whisperModelLargeV2": "लार्ज V2",
+    "@whisperModelLargeV2": {
+        "description": "Name of the large V2 Whisper AI model."
+    },
+    "whisperModelLargeV2Description": "उच्च सटीकता के साथ बेहतर बड़ा मॉडल (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Description of the Large V2 Whisper model performance and size."
+    },
+    "modelDownloadInfo": "मॉडल पहली बार उपयोग करने पर डाउनलोड हो जाते हैं। हम बेस, स्मॉल या मीडियम का उपयोग करने की सिफारिश करते हैं। बड़े मॉडल के लिए बहुत उच्च अंत उपकरणों की आवश्यकता होती है।",
+    "@modelDownloadInfo": {
+        "description": "Information message about model download."
+    },
     "logOut": "लॉग आउट",
     "@logOut": {
         "description": "Button text to log the user out of their account."
@@ -1375,6 +1439,9 @@
         "description": "Label for the list of users that the current user is following."
     },
     "followers": "फॉलोअर्स",
+    "@followers": {
+        "description": "Label for the list of users who are following the current user."
+    },
     "friendRequests": "फ्रेंड रिक्वेस्ट",
     "@friendRequests": {
         "description": "Header for the list of incoming friend requests."
@@ -1614,5 +1681,45 @@
     "submitReport": "रिपोर्ट सबमिट करें",
     "@submitReport": {
         "description": "Button text to submit a report."
+    },
+    "actionBlocked": "कार्रवाई अवरुद्ध",
+    "@actionBlocked": {
+        "description": "Title for a message indicating that a user action is blocked."
+    },
+    "cannotStopRecording": "आप रिकॉर्डिंग को मैन्युअल रूप से रोक नहीं सकते, रिकॉर्डिंग तब रोकी जाएगी जब कमरा बंद होगा।",
+    "@cannotStopRecording": {
+        "description": "Message explaining why a user cannot stop a recording manually."
+    },
+    "liveChapter": "लाइव चैप्टर",
+    "@liveChapter": {
+        "description": "Label indicating that a chapter is currently live."
+    },
+    "viewOrEditLyrics": "गीत देखें या संपादित करें",
+    "@viewOrEditLyrics": {
+        "description": "Button text to view or edit the lyrics of a chapter."
+    },
+    "close": "बंद करें",
+    "@close": {
+        "description": "Label for the button to close a dialog."
+    },
+    "verifyChapterDetails": "चैप्टर विवरण सत्यापित करें",
+    "@verifyChapterDetails": {
+        "description": "Title for the screen where Live chapter details are verified before publishing."
+    },
+    "author": "लेखक",
+    "@author": {
+        "description": "Label for the author of a story or chapter."
+    },
+    "startLiveChapter": "लाइव चैप्टर शुरू करें",
+    "@startLiveChapter": {
+        "description": "Title for the screen where a live chapter is initiated."
+    },
+    "fillAllFields": "कृपया सभी आवश्यक फ़ील्ड भरें",
+    "@fillAllFields": {
+        "description": "Error message when required fields are not filled in a form."
+    },
+    "noRecordingError": "आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।",
+    "@noRecordingError": {
+        "description": "Error message when trying to exit a live chapter room without any recording."
     }
 }
