@@ -1,1 +1,24 @@
-{}
+{
+  "gu": [
+    "alert",
+    "removedFromRoom",
+    "reportType",
+    "userBlockedFromResonate",
+    "reportParticipant",
+    "selectReportType",
+    "reportSubmitted",
+    "reportFailed",
+    "additionalDetailsOptional",
+    "submitReport",
+    "actionBlocked",
+    "cannotStopRecording",
+    "liveChapter",
+    "viewOrEditLyrics",
+    "close",
+    "verifyChapterDetails",
+    "author",
+    "startLiveChapter",
+    "fillAllFields",
+    "noRecordingError"
+  ]
+}
