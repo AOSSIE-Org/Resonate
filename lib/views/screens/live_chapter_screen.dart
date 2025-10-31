@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/live_chapter_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -11,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/views/widgets/live_chapter_header.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/views/widgets/audio_device_selector_dialog.dart';
 
 class LiveChapterScreen extends StatefulWidget {
   const LiveChapterScreen({super.key});
@@ -174,6 +174,7 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
               _buildMicButton(),
               _buildRecordButton(),
             ],
+            _buildAudioSettingsButton(),
           ],
         ),
       ),
@@ -260,5 +261,13 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
         );
       }
     });
+  }
+
+  Widget _buildAudioSettingsButton() {
+    return FloatingActionButton(
+      onPressed: () => showAudioDeviceSelector(context),
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      child: const Icon(Icons.settings_voice),
+    );
   }
 }

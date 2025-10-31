@@ -10,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/participant_block.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
+import 'package:resonate/views/widgets/audio_device_selector_dialog.dart';
 
 class RoomScreen extends StatefulWidget {
   final AppwriteRoom room;
@@ -178,6 +179,7 @@ class RoomScreenState extends State<RoomScreen> {
             _buildLeaveButton(),
             _buildMicButton(),
             _buildRaiseHandButton(),
+            _buildAudioSettingsButton(),
             _buildChatButton(),
           ],
         ),
@@ -288,6 +290,14 @@ class RoomScreenState extends State<RoomScreen> {
           child: Icon(Icons.chat, color: Colors.black),
         );
       },
+    );
+  }
+
+  Widget _buildAudioSettingsButton() {
+    return FloatingActionButton(
+      onPressed: () => showAudioDeviceSelector(context),
+      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      child: const Icon(Icons.volume_up),
     );
   }
 }
