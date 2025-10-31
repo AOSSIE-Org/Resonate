@@ -102,6 +102,7 @@ abstract class AppLocalizations {
     Locale('hi'),
     Locale('kn'),
     Locale('mr'),
+    Locale('mr'),
   ];
 
   /// The title of the application.
@@ -2478,7 +2479,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'gu', 'hi', 'kn', 'mr'].contains(locale.languageCode);
+      <String>['mr', 'en', 'gu', 'hi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2493,10 +2494,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsGu();
     case 'hi':
       return AppLocalizationsHi();
-    case 'kn':
-      return AppLocalizationsKn();
-    case 'mr':
-      return AppLocalizationsMr();
   }
 
   throw FlutterError(
