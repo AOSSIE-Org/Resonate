@@ -1,8 +1,6 @@
-# Github Actions CI workflow to deploy to Internal testing in the Play Store
-name: CI_STORE_DEPLOY_ANDROID
+name: CI_GITHUB_RELEASE_ANDROID
 
 on:
-  # Run this workflow when any new code is pushed into the main branch
   push:
     branches:
       - main
@@ -10,104 +8,78 @@ on:
       - deploy-actions
 
 jobs:
-  store_deploy_android:
-    name: android store release
+  github_release_android:
+    name: Android GitHub Release
     runs-on: ubuntu-latest
     env:
-      # Setup env variables that will be used throughout the workflow
-      # Changed to Java 17 for better Gradle compatibility
       JAVA_VERSION: 17
       FLUTTER_VERSION: 3.35.2
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
-      # Added paths for Play Store and Firebase secrets
-      SERVICE_ACCOUNT_PATH: store_credentials.json
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
       GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
       APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
     steps:
-      # Checkout repository codebase
-      - name: Checkout the code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Java in the VM
-      - name: Setup Java to compile the Android project
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: "zulu"
+          distribution: zulu
           java-version: ${{ env.JAVA_VERSION }}
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # Setup Flutter in the VM
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          cache: true # Added caching to speed up builds
+          cache: true
 
-      # Decode Android env variables
+      # --- Decode All Secrets ---
+      # These are required for the release build to sign the app
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
 
       - name: Decode Android key properties
         run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > ${{ env.KEY_PROPS_PATH }}
 
-      # --- Steps Added to fix deployment ---
-      # Decode Android release Service Account
-      - name: Decode Android Service Account
-        run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
-
-      #Decode Google Services JSON for Android
+      # These are required for Firebase/Google Services
       - name: Decode Android Google Services JSON
         run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
 
-      # Decode Firebase Options Dart file
       - name: Decode Firebase Options
         run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
-      # --- End of Added Steps ---
+      # --- End of Decode Steps ---
 
-      - name: 📦 Install dependencies
+      - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: 📉 Run all app tests
+      - name: Run tests
         run: flutter test
 
-      # Build Android Bundle release file
-      - name: Build AAB
+      # This build command is now correct
+      - name: Build Android App Bundle (AAB)
         run: |
-          flutter build appbundle \
-          --release \
+          flutter build appbundle --release \
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
-      # Upload generated aab to project artifacts
-      - name: Upload generated AAB to artifacts
+      - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aab-stores
+          name: aab-release
           path: ${{ env.AAB_PATH }}
 
-      # --- Deploy to Google Play Store ---
-      - name: Deploy to Play Store (Internal testing)
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
-          packageName: com.resonate.resonate # Using the package name from your other workflow
-          releaseFiles: ${{ env.AAB_PATH }}
-          track: internal
-      
-      # --- Added GitHub Release Step ---
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          # This will find the .aab file in the release directory
           artifacts: ${{ env.AAB_PATH }}
           artifactContentType: aab
           generateReleaseNotes: true
           tag: latest_build
           token: ${{ secrets.GITHUB_TOKEN }}
-
