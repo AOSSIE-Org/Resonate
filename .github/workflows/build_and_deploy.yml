@@ -1,22 +1,16 @@
-name: CI_GITHUB_RELEASE_ANDROID
-
-on:
-  push:
-    branches:
-      - main
-      - master
-      - deploy-actions
-
 jobs:
   github_release_android:
     name: Android GitHub Release
     runs-on: ubuntu-latest
+    # Add permissions for the release action to write to contents
+    permissions:
+      contents: write
     env:
       JAVA_VERSION: 17
       FLUTTER_VERSION: 3.35.2
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
-      KEYSTORE_PATH: android/upload-keystore.jks
-      KEY_PROPS_PATH: android/key.properties
+      KEYSTORE_PATH: upload-keystore.jks
+      KEY_PROPS_PATH: key.properties
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
       GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
       APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
@@ -67,6 +61,10 @@ jobs:
           flutter build appbundle --release \
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
+
+      # Debugging step to verify AAB file existence
+      - name: Verify AAB file existence
+        run: ls -lh ${{ env.AAB_PATH }} || true
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
