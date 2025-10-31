@@ -1,3 +1,12 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - deploy-actions
+
 jobs:
   github_release_android:
     name: Android GitHub Release
