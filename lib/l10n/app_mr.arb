@@ -1,0 +1,131 @@
+{
+  "@@locale": "mr",
+  "selectLanguage": "भाषा निवडा",
+  "@selectLanguage": {
+    "description": "The title displayed at the top of the language selection page"
+  },
+  "changeTheme": "थीम बदला",
+  "@changeTheme": {
+    "description": "The title displayed at the top of the theme changer page"
+  },
+  "system": "सिस्टम",
+  "@system": {
+    "description": "A button displayed in the list of app themes, to select system theme"
+  },
+  "dark": "गडद",
+  "@dark": {
+    "description": "A button displayed in the list of app themes, to select dark theme"
+  },
+  "light": "हलका",
+  "@light": {
+    "description": "A button displayed in the list of app themes, to select light theme"
+  },
+  "userName": "वापरकर्त्याचे नाव",
+  "@userName": {
+    "description": "A label shown over the text field for username during signup"
+  },
+  "email": "ईमेल",
+  "@email": {
+    "description": "A label shown over the text field for email during signup or login"
+  },
+  "password": "पासवर्ड",
+  "@password": {
+    "description": "A label shown over the text field for password during signup or login"
+  },
+  "confirmPassword": "पासवर्ड पुष्टी करा",
+  "@confirmPassword": {
+    "description": "A label shown over the text field for confirming password during signup"
+  },
+  "login": "लॉगिन",
+  "@login": {
+    "description": "A button to login to the app"
+  },
+  "signup": "साइन अप",
+  "@signup": {
+    "description": "A button to signup to the app"
+  },
+  "resetPassword": "पासवर्ड रीसेट करा",
+  "@resetPassword": {
+    "description": "A button to reset the password"
+  },
+  "forgotPassword": "पासवर्ड विसरलात?",
+  "@forgotPassword": {
+    "description": "A link to go to reset password screen"
+  },
+  "alreadyHaveAccount": "आधीच खाते आहे?",
+  "@alreadyHaveAccount": {
+    "description": "A text followed by login button on the signup page"
+  },
+  "dontHaveAccount": "खाते नाही?",
+  "@dontHaveAccount": {
+    "description": "A text followed by signup button on the login page"
+  },
+  "home": "मुख्यपृष्ठ",
+  "@home": {
+    "description": "The title shown in the app bar at home page"
+  },
+  "profile": "प्रोफाइल",
+  "@profile": {
+    "description": "The title shown in the app bar at profile page"
+  },
+  "settings": "सेटिंग्ज",
+  "@settings": {
+    "description": "The title shown in the app bar at settings page"
+  },
+  "logout": "लॉगआउट",
+  "@logout": {
+    "description": "A button to logout from the app"
+  },
+  "search": "शोधा",
+  "@search": {
+    "description": "A hint shown in the search field"
+  },
+  "noResults": "कोणतेही परिणाम आढळले नाहीत",
+  "@noResults": {
+    "description": "A message shown when search yields no results"
+  },
+  "error": "त्रुटी",
+  "@error": {
+    "description": "A generic error message"
+  },
+  "retry": "पुन्हा प्रयत्न करा",
+  "@retry": {
+    "description": "A button to retry an operation"
+  },
+  "cancel": "रद्द करा",
+  "@cancel": {
+    "description": "A button to cancel an operation"
+  },
+  "save": "जतन करा",
+  "@save": {
+    "description": "A button to save changes"
+  },
+  "delete": "हटवा",
+  "@delete": {
+    "description": "A button to delete something"
+  },
+  "edit": "संपादन करा",
+  "@edit": {
+    "description": "A button to edit something"
+  },
+  "ok": "ठीक आहे",
+  "@ok": {
+    "description": "A button to confirm an action"
+  },
+  "yes": "होय",
+  "@yes": {
+    "description": "A button to confirm positively"
+  },
+  "no": "नाही",
+  "@no": {
+    "description": "A button to confirm negatively"
+  },
+  "loading": "लोड होत आहे...",
+  "@loading": {
+    "description": "A message shown when data is being loaded"
+  },
+  "welcome": "स्वागत आहे",
+  "@welcome": {
+    "description": "A welcome message"
+  }
+}
