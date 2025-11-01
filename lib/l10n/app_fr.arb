@@ -1,0 +1,178 @@
+{
+  "app_name": "Resonate",
+  "@app_name": {
+    "description": "Le nom de l'application"
+  },
+  "explore": "Explorer",
+  "@explore": {
+    "description": "Option de navigation pour découvrir du nouveau contenu"
+  },
+  "my_network": "Mon réseau",
+  "@my_network": {
+    "description": "Affiche le réseau d'amis/contacts de l'utilisateur"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Affiche les notifications de l'utilisateur"
+  },
+  "tab_bar_feed": "Fil",
+  "@tab_bar_feed": {
+    "description": "Élément de la barre de navigation Feed"
+  },
+  "tab_bar_profile": "Profil",
+  "@tab_bar_profile": {
+    "description": "Élément de la barre de navigation Profil"
+  },
+  "tab_bar_play": "Lecture",
+  "@tab_bar_play": {
+    "description": "Élément de la barre de navigation Play"
+  },
+  "tab_bar_upload": "Téléverser",
+  "@tab_bar_upload": {
+    "description": "Élément de la barre de navigation Upload"
+  },
+  "welcome_to": "Bienvenue sur",
+  "@welcome_to": {
+    "description": "Message d'accueil à l'écran de démarrage"
+  },
+  "login_prompt": "Connectez-vous pour commencer",
+  "@login_prompt": {
+    "description": "Invite de connexion à l'écran de démarrage"
+  },
+  "login": "Connexion",
+  "@login": {
+    "description": "Bouton de connexion"
+  },
+  "sign_up": "S'inscrire",
+  "@sign_up": {
+    "description": "Bouton d'inscription"
+  },
+  "email": "E-mail",
+  "@email": {
+    "description": "Champ de saisie e-mail"
+  },
+  "password": "Mot de passe",
+  "@password": {
+    "description": "Champ de saisie mot de passe"
+  },
+  "forgot_password": "Mot de passe oublié ?",
+  "@forgot_password": {
+    "description": "Lien mot de passe oublié"
+  },
+  "confirm_password": "Confirmer le mot de passe",
+  "@confirm_password": {
+    "description": "Champ de confirmation du mot de passe"
+  },
+  "full_name": "Nom complet",
+  "@full_name": {
+    "description": "Champ de saisie du nom complet"
+  },
+  "username": "Nom d'utilisateur",
+  "@username": {
+    "description": "Champ de saisie du nom d'utilisateur"
+  },
+  "logout": "Déconnexion",
+  "@logout": {
+    "description": "Option de déconnexion"
+  },
+  "settings": "Paramètres",
+  "@settings": {
+    "description": "Page des paramètres"
+  },
+  "edit_profile": "Modifier le profil",
+  "@edit_profile": {
+    "description": "Option pour modifier le profil de l'utilisateur"
+  },
+  "bio": "Biographie",
+  "@bio": {
+    "description": "Champ de saisie de la biographie"
+  },
+  "save": "Enregistrer",
+  "@save": {
+    "description": "Bouton pour enregistrer les modifications"
+  },
+  "cancel": "Annuler",
+  "@cancel": {
+    "description": "Bouton d'annulation"
+  },
+  "search": "Rechercher",
+  "@search": {
+    "description": "Fonctionnalité de recherche"
+  },
+  "followers": "Abonnés",
+  "@followers": {
+    "description": "Nombre d'abonnés"
+  },
+  "following": "Abonnements",
+  "@following": {
+    "description": "Nombre d'abonnements"
+  },
+  "posts": "Publications",
+  "@posts": {
+    "description": "Publications de l'utilisateur"
+  },
+  "follow": "Suivre",
+  "@follow": {
+    "description": "Bouton pour suivre un utilisateur"
+  },
+  "unfollow": "Ne plus suivre",
+  "@unfollow": {
+    "description": "Bouton pour ne plus suivre un utilisateur"
+  },
+  "like": "J'aime",
+  "@like": {
+    "description": "Bouton J'aime"
+  },
+  "comment": "Commenter",
+  "@comment": {
+    "description": "Bouton de commentaire"
+  },
+  "share": "Partager",
+  "@share": {
+    "description": "Bouton de partage"
+  },
+  "delete": "Supprimer",
+  "@delete": {
+    "description": "Bouton de suppression"
+  },
+  "edit": "Modifier",
+  "@edit": {
+    "description": "Bouton de modification"
+  },
+  "report": "Signaler",
+  "@report": {
+    "description": "Option pour signaler du contenu"
+  },
+  "block": "Bloquer",
+  "@block": {
+    "description": "Option pour bloquer un utilisateur"
+  },
+  "dark_mode": "Mode sombre",
+  "@dark_mode": {
+    "description": "Basculer le mode sombre"
+  },
+  "language": "Langue",
+  "@language": {
+    "description": "Paramètres de langue"
+  },
+  "privacy": "Confidentialité",
+  "@privacy": {
+    "description": "Paramètres de confidentialité"
+  },
+  "about": "À propos",
+  "@about": {
+    "description": "Section À propos"
+  },
+  "help": "Aide",
+  "@help": {
+    "description": "Section d'aide"
+  },
+  "terms_of_service": "Conditions d'utilisation",
+  "@terms_of_service": {
+    "description": "Lien vers les conditions d'utilisation"
+  },
+  "privacy_policy": "Politique de confidentialité",
+  "@privacy_policy": {
+    "description": "Lien vers la politique de confidentialité"
+  }
+}
