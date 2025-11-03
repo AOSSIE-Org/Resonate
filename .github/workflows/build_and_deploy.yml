@@ -11,13 +11,12 @@ jobs:
   github_release_android:
     name: Android GitHub Release
     runs-on: ubuntu-latest
-    # Add permissions for the release action to write to contents
     permissions:
       contents: write
     env:
       JAVA_VERSION: 17
       FLUTTER_VERSION: 3.35.2
-      AAB_PATH: build/app/outputs/bundle/release/app-release.aab
+      APK_PATH: build/app/outputs/flutter-apk/app-release.apk
       KEYSTORE_PATH: upload-keystore.jks
       KEY_PROPS_PATH: key.properties
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
@@ -42,21 +41,17 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
 
-      # --- Decode All Secrets ---
-      # These are required for the release build to sign the app
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
 
       - name: Decode Android key properties
         run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > ${{ env.KEY_PROPS_PATH }}
 
-      # These are required for Firebase/Google Services
       - name: Decode Android Google Services JSON
         run: echo "${{ secrets.GOOGLE_SERVICES_ANDROID }}" | base64 --decode > ${{ env.GOOGLE_SERVICES_ANDROID_PATH }}
 
       - name: Decode Firebase Options
         run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
-      # --- End of Decode Steps ---
 
       - name: Install Flutter dependencies
         run: flutter pub get
@@ -64,29 +59,27 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      # This build command is now correct
-      - name: Build Android App Bundle (AAB)
+      - name: Build Android APK
         run: |
-          flutter build appbundle --release \
+          flutter build apk --release \
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
-      # Debugging step to verify AAB file existence
-      - name: Verify AAB file existence
-        run: ls -lh ${{ env.AAB_PATH }} || true
+      - name: Verify APK file existence
+        run: ls -lh ${{ env.APK_PATH }} || true
 
-      - name: Upload AAB artifact
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: aab-release
-          path: ${{ env.AAB_PATH }}
+          name: apk-release
+          path: ${{ env.APK_PATH }}
 
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: ${{ env.AAB_PATH }}
-          artifactContentType: aab
+          artifacts: ${{ env.APK_PATH }}
+          artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
           token: ${{ secrets.GITHUB_TOKEN }}
