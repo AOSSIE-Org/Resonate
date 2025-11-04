@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - master
       - deploy-actions
   workflow_dispatch:
 
