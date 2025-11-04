@@ -12,7 +12,7 @@ jobs:
     name: Build Android APK
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: 21
+      JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
       KEYSTORE_PATH: android/upload-keystore.jks
@@ -37,13 +37,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          cache: true
-
-      - name: Clean Flutter cache
-        run: |
-          flutter clean
-          flutter pub cache clean --force
-          rm -rf ~/.pub-cache
 
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
@@ -70,15 +63,7 @@ jobs:
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
       - name: Verify APK file existence
-        run: |
-          if [ ! -f "${{ env.APK_PATH }}" ]; then
-            echo "❌ ERROR: APK file not found at ${{ env.APK_PATH }}"
-            echo "Build may have failed. Please check the build logs above."
-            exit 1
-          else
-            echo "APK file found:"
-            ls -lh "${{ env.APK_PATH }}"
-          fi
+        run: ls -lh ${{ env.APK_PATH }}
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -102,7 +87,7 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: app-release.apk
+          artifacts: ${{ env.APK_PATH }}
           artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
