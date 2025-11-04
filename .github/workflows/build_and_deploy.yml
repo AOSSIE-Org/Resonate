@@ -8,17 +8,15 @@ on:
       - deploy-actions
 
 jobs:
-  github_release_android:
-    name: Android GitHub Release
+  build_android:
+    name: Build Android APK
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     env:
-      JAVA_VERSION: 17
+      JAVA_VERSION: 21
       FLUTTER_VERSION: 3.35.2
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
-      KEYSTORE_PATH: upload-keystore.jks
-      KEY_PROPS_PATH: key.properties
+      KEYSTORE_PATH: android/upload-keystore.jks
+      KEY_PROPS_PATH: android/key.properties
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
       GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
       APPWRITE_PROJECT_ID: ${{ secrets.APPWRITE_PROJECT_ID }}
@@ -40,6 +38,12 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
+
+      - name: Clean Flutter cache
+        run: |
+          flutter clean
+          flutter pub cache clean --force
+          rm -rf ~/.pub-cache
 
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
@@ -66,20 +70,33 @@ jobs:
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
       - name: Verify APK file existence
-        run: ls -lh ${{ env.APK_PATH }} || true
+        run: |
+          if [ ! -f "${{ env.APK_PATH }}" ]; then
+            echo "❌ ERROR: APK file not found at ${{ env.APK_PATH }}"
+            echo "Build may have failed. Please check the build logs above."
+            exit 1
+          else
+            echo "APK file found:"
+            ls -lh "${{ env.APK_PATH }}"
+          fi
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
+  deploy_github_release:
+    name: Deploy to GitHub Release
+    runs-on: ubuntu-latest
+    needs: build_android
+    permissions:
+      contents: write
+    steps:
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
         with:
           name: apk-release
-          path: ${{ env.APK_PATH }}
 
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: ${{ env.APK_PATH }}
+          artifacts: app-release.apk
           artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
-          token: ${{ secrets.GITHUB_TOKEN }}
