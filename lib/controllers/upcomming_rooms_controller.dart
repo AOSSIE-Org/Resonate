@@ -188,9 +188,6 @@ class UpcomingRoomsController extends GetxController {
             await fetchUpcomingRoomDetails(upcomingRoom);
         upcomingRooms.add(appwriteUpcomingRoom);
       }
-      if (searchBarIsEmpty.value) {
-        filteredUpcomingRooms.value = upcomingRooms;
-      }
     } catch (e) {
       log(e.toString());
     } finally {
@@ -211,6 +208,7 @@ class UpcomingRoomsController extends GetxController {
 
     // Delete UpcomingRoom as it is now a room
     await deleteUpcomingRoom(upcomingRoomId);
+    await getUpcomingRooms();
   }
 
   Future<void> createUpcomingRoom() async {
@@ -308,7 +306,6 @@ class UpcomingRoomsController extends GetxController {
       collectionId: upcomingRoomsCollectionId,
       documentId: upcomingRoomId,
     );
-    await getUpcomingRooms();
     deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
   }
 

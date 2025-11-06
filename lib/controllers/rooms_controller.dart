@@ -31,7 +31,6 @@ class RoomsController extends GetxController {
   void onInit() async {
     super.onInit();
     await getRooms();
-    filteredRooms.value = rooms;
   }
 
   Future<AppwriteRoom> createRoomObject(Document room, String userUid) async {
@@ -86,7 +85,6 @@ class RoomsController extends GetxController {
         }
       }
       update();
-      updateFilteredRooms();
     } catch (e) {
       log(e.toString());
     } finally {
@@ -175,9 +173,4 @@ class RoomsController extends GetxController {
     searchBarIsEmpty.value = true;
   }
 
-  void updateFilteredRooms() {
-    if (searchBarIsEmpty.value) {
-      filteredRooms.value = rooms;
-    }
-  }
 }
