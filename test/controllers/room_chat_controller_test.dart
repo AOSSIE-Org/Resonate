@@ -31,7 +31,7 @@ void main() {
           isEdited: false,
           content: 'Test message content',
           creationDateTime: DateTime.now(),
-          isdeleted: false,
+          isDeleted: false,
         ),
       );
     });
@@ -59,7 +59,7 @@ void main() {
       Message messageToDelete = messages.firstWhere(
         (msg) => msg.messageId == 'test-message-1',
       );
-      messageToDelete = messageToDelete.copyWith(content: '', isdeleted: true);
+      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
 
       await mockDatabases.updateDocument(
         databaseId: masterDatabaseId,
@@ -75,7 +75,7 @@ void main() {
           documentId: 'test-message-1',
           data: argThat(
             predicate<Map<String, dynamic>>(
-              (data) => data['content'] == '' && data['isdeleted'] == true,
+              (data) => data['content'] == '' && data['isDeleted'] == true,
             ),
             named: 'data',
           ),
@@ -115,7 +115,7 @@ void main() {
       Message messageToDelete = messages.firstWhere(
         (msg) => msg.messageId == 'test-message-1',
       );
-      messageToDelete = messageToDelete.copyWith(content: '', isdeleted: true);
+      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
 
       try {
         await mockDatabases.updateDocument(
