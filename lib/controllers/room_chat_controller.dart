@@ -51,7 +51,7 @@ class RoomChatController extends GetxController {
       Message messageToDelete = messages.firstWhere(
         (msg) => msg.messageId == messageId,
       );
-      messageToDelete = messageToDelete.copyWith(content: '', isdeleted: true);
+      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
 
       await databases.updateDocument(
         databaseId: masterDatabaseId,
@@ -120,7 +120,7 @@ class RoomChatController extends GetxController {
         isEdited: false,
         content: content,
         creationDateTime: DateTime.now(),
-        isdeleted: false,
+        isDeleted: false,
       );
 
       await databases.createDocument(
@@ -171,7 +171,7 @@ class RoomChatController extends GetxController {
     updatedMessage = updatedMessage.copyWith(
       content: newContent,
       isEdited: true,
-      isdeleted: false,
+      isDeleted: false,
     );
 
     try {
@@ -271,7 +271,7 @@ class RoomChatController extends GetxController {
               messages[index] = messages[index].copyWith(
                 content: updatedMessage.content,
                 isEdited: updatedMessage.isEdited,
-                isdeleted: updatedMessage.isdeleted,
+                isDeleted: updatedMessage.isDeleted,
               );
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(
