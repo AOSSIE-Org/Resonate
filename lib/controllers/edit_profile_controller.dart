@@ -27,7 +27,7 @@ class EditProfileController extends GetxController {
 
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
-  RxBool usernameAvailableChecking = false.obs;
+
 
   bool removeImage = false;
   bool showSuccessSnackbar = false;

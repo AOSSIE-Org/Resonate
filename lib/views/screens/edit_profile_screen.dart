@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -34,9 +33,7 @@ class EditProfileScreen extends StatelessWidget {
           !(editProfileController.isLoading.value ||
               editProfileController.isThereUnsavedChanges()),
       onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) {
-          return;
-        }
+        if (didPop) return;
 
         if (!editProfileController.isLoading.value &&
             editProfileController.isThereUnsavedChanges()) {
@@ -152,8 +149,6 @@ class EditProfileScreen extends StatelessWidget {
 
                             if (!validUsername || value.trim().length > 36) {
                               controller.usernameAvailable.value = false;
-                              controller.usernameAvailableChecking.value =
-                                  false;
                               customSnackbar(
                                 AppLocalizations.of(
                                   context,
@@ -165,18 +160,16 @@ class EditProfileScreen extends StatelessWidget {
                               return;
                             }
 
-                            controller.usernameAvailableChecking.value = true;
+                            // Temporarily show checking state
+                            controller.usernameAvailable.value = true;
 
                             debouncer.run(() async {
-                              controller.usernameAvailable.value =
-                                  await controller.isUsernameAvailable(
-                                    value.trim(),
-                                  );
+                              final available = await controller
+                                  .isUsernameAvailable(value.trim());
 
-                              controller.usernameAvailableChecking.value =
-                                  false;
+                              controller.usernameAvailable.value = available;
 
-                              if (!controller.usernameAvailable.value) {
+                              if (!available) {
                                 customSnackbar(
                                   AppLocalizations.of(
                                     context,
@@ -191,7 +184,6 @@ class EditProfileScreen extends StatelessWidget {
                             });
                           } else {
                             controller.usernameAvailable.value = false;
-                            controller.usernameAvailableChecking.value = false;
                           }
                         },
                         keyboardType: TextInputType.text,
@@ -199,12 +191,7 @@ class EditProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
-                          suffixText: controller.usernameAvailableChecking.value
-                              ? AppLocalizations.of(context)!.checking
-                              : null,
-                          suffixIcon:
-                              controller.usernameAvailable.value &&
-                                  !controller.usernameAvailableChecking.value
+                          suffixIcon: controller.usernameAvailable.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
