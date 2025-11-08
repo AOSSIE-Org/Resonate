@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/message.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 
@@ -120,13 +121,13 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           canEdit:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isdeleted &&
+                              !chatController.messages[index].isDeleted &&
                               !chatController.messages[index].isEdited,
 
                           canDelete:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isdeleted,
+                              !chatController.messages[index].isDeleted,
                         );
                       },
                     ),
@@ -184,6 +185,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
   }
 
   void startEditing() {
+    if (widget.message.isDeleted) {
+      return;
+    }
     setState(() {
       isEditing = true;
     });
@@ -218,14 +222,15 @@ class ChatMessageItemState extends State<ChatMessageItem> {
           ),
           child: Wrap(
             children: [
-              if (widget.canDelete && !widget.message.isdeleted)
+              if (widget.canDelete)
                 ///delete option
                 ListTile(
                   leading: const Icon(
                     Icons.delete,
                     color: Color.fromARGB(255, 199, 169, 166),
                   ),
-                  title: const Text('Delete'),
+                  title: Text(AppLocalizations.of(context)!.delete),
+
                   onTap: () {
                     Navigator.pop(context);
                     _confirmDelete(context);
@@ -235,7 +240,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
               ///cancel option
               ListTile(
                 leading: const Icon(Icons.close),
-                title: const Text('Cancel'),
+                title: Text(AppLocalizations.of(context)!.cancel),
                 onTap: () => Navigator.pop(context),
               ),
             ],
@@ -254,14 +259,14 @@ class ChatMessageItemState extends State<ChatMessageItem> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               widget.onDeleteMessage(widget.message.messageId);
             },
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),
@@ -275,9 +280,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
         return Stack(
           children: [
             GestureDetector(
-              onLongPress: widget.canDelete
-                  ? () => _showMessageContextMenu(context)
-                  : null,
+              onLongPress: () => _showMessageContextMenu(context),
               onHorizontalDragUpdate: (details) {
                 if (_dragOffset + details.delta.dx > 0.0 &&
                     _dragOffset + details.delta.dx < 100) {
@@ -308,8 +311,8 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                     padding: const EdgeInsets.all(8.0),
 
                     decoration: BoxDecoration(
-                      color: widget.message.isdeleted
-                          ? Colors.grey[300]
+                      color: widget.message.isDeleted
+                          ? Theme.of(context).colorScheme.secondaryContainer
                           : Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -334,20 +337,17 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                     widget.message.creatorName.capitalizeFirst!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-
-                                      color:
-                                          widget
-                                              .message
-                                              .isdeleted // turns grey after getting deleted
-                                          ? Colors.grey[700]
+                                      color: widget.message.isDeleted
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant
                                           : Theme.of(
                                               context,
                                             ).colorScheme.secondary,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
-                                  if (widget.message.replyTo != null &&
-                                      !widget.message.isdeleted)
+                                  if (widget.message.replyTo != null)
                                     GestureDetector(
                                       onTap: () => widget.onTapReply(
                                         widget.message.replyTo!.index,
@@ -358,7 +358,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                           bottom: 5,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey[200],
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.secondaryContainer,
                                           borderRadius: BorderRadius.circular(
                                             8,
                                           ),
@@ -386,7 +388,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                         ),
                                       ),
                                     ),
-                                  if (isEditing && !widget.message.isdeleted)
+                                  if (isEditing)
                                     ///the message to edit it AND the message is not deleted
                                     Focus(
                                       onKeyEvent: (node, event) {
@@ -416,12 +418,14 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                         ),
                                       ),
                                     )
-                                  else if (widget.message.isdeleted)
+                                  else if (widget.message.isDeleted)
                                     ///The message has been deleted (`isDeleted = true`)
                                     Text(
                                       'This message was deleted',
                                       style: TextStyle(
-                                        color: Colors.grey[600],
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
                                         fontStyle: FontStyle.italic,
                                       ),
                                     )
@@ -519,7 +523,9 @@ class ChatInputField extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 5),
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.secondaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
