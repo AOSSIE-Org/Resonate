@@ -2433,8 +2433,6 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'mr':
-      return AppLocalizationsMr();
     case 'en':
       return AppLocalizationsEn();
     case 'gu':
@@ -2443,6 +2441,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsHi();
     case 'kn':
       return AppLocalizationsKn();
+    case 'mr':
+      return AppLocalizationsMr();
   }
 
   throw FlutterError(

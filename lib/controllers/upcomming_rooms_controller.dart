@@ -33,6 +33,7 @@ class UpcomingRoomsController extends GetxController {
       <AppwriteUpcommingRoom>[].obs;
   final GetStorage _storage = GetStorage();
   static const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
+  List<String> _removedRoomsList = [];
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
@@ -57,21 +58,22 @@ class UpcomingRoomsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _removedRoomsList = List<String>.from(
+      _storage.read(_removedUpcomingRoomsKey) ?? [],
+    );
     await getUpcomingRooms();
   }
 
-  Future<void> _cleanupRemovedRooms(List<String> existingRoomIds) async {
+  Future<void> cleanupRemovedRooms(List<String> existingRoomIds) async {
     try {
-      List<dynamic> removedRoomsList =
-          _storage.read(_removedUpcomingRoomsKey) ?? [];
-      int initialCount = removedRoomsList.length;
-      removedRoomsList.removeWhere(
+      int initialCount = _removedRoomsList.length;
+      _removedRoomsList.removeWhere(
         (roomId) => !existingRoomIds.contains(roomId),
       );
-      if (removedRoomsList.length != initialCount) {
-        await _storage.write(_removedUpcomingRoomsKey, removedRoomsList);
+      if (_removedRoomsList.length != initialCount) {
+        await _storage.write(_removedUpcomingRoomsKey, _removedRoomsList);
         log(
-          'Cleaned up ${initialCount - removedRoomsList.length} non-existent rooms',
+          'Cleaned up ${initialCount - _removedRoomsList.length} non-existent rooms',
         );
       }
     } catch (e) {
@@ -194,28 +196,20 @@ class UpcomingRoomsController extends GetxController {
   Future<void> getUpcomingRooms() async {
     isLoading.value = true;
     try {
-      List<dynamic> removedRoomsList =
-          _storage.read(_removedUpcomingRoomsKey) ?? [];
-      Set<String> removedRoomIds = removedRoomsList.cast<String>().toSet();
       var upcomingRoomsDocuments = await databases
           .listDocuments(
             databaseId: upcomingRoomsDatabaseId,
             collectionId: upcomingRoomsCollectionId,
           )
           .then((value) => value.documents);
-      upcomingRooms.value = [];
-      for (var upcomingRoom in upcomingRoomsDocuments) {
-        if (removedRoomIds.contains(upcomingRoom.$id)) {
-          continue;
-        }
-        AppwriteUpcommingRoom appwriteUpcomingRoom =
-            await fetchUpcomingRoomDetails(upcomingRoom);
-        if (appwriteUpcomingRoom.scheduledDateTime.isBefore(DateTime.now())) {
-          continue;
-        }
-        upcomingRooms.add(appwriteUpcomingRoom);
-      }
-      await _cleanupRemovedRooms(
+      var nonRemovedRooms = upcomingRoomsDocuments.where(
+        (room) => !_removedRoomsList.contains(room.$id),
+      );
+      var roomsFutures = nonRemovedRooms.map(
+        (room) => fetchUpcomingRoomDetails(room),
+      );
+      upcomingRooms.value = await Future.wait(roomsFutures);
+      await cleanupRemovedRooms(
         upcomingRoomsDocuments.map((doc) => doc.$id).toList(),
       );
     } catch (e) {
@@ -332,12 +326,10 @@ class UpcomingRoomsController extends GetxController {
 
   Future<void> removeUpcomingRoom(String upcomingRoomId) async {
     try {
-      List<dynamic> removedRoomsList =
-          _storage.read(_removedUpcomingRoomsKey) ?? [];
-      if (!removedRoomsList.contains(upcomingRoomId)) {
-        removedRoomsList.add(upcomingRoomId);
-        await _storage.write(_removedUpcomingRoomsKey, removedRoomsList);
-        log('Room $upcomingRoomId removed. Total: ${removedRoomsList.length}');
+      if (!_removedRoomsList.contains(upcomingRoomId)) {
+        _removedRoomsList.add(upcomingRoomId);
+        await _storage.write(_removedUpcomingRoomsKey, _removedRoomsList);
+        log('Room $upcomingRoomId removed. Total: ${_removedRoomsList.length}');
       }
       upcomingRooms.removeWhere((room) => room.id == upcomingRoomId);
       update();

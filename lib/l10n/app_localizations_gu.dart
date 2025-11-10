@@ -1233,6 +1233,13 @@ class AppLocalizationsGu extends AppLocalizations {
   String get updateFeaturesImprovement => 'નવા ફીચર્સ અને સુધારાઓ મેળવો!';
 
   @override
+  String get failedToRemoveRoom => 'Failed to remove room';
+
+  @override
+  String get roomRemovedSuccessfully =>
+      'Room removed from your list successfully';
+
+  @override
   String get alert => 'ચેતવણી';
 
   @override
