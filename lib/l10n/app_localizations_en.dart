@@ -547,6 +547,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadPackageInfo => 'Could not load package info';
 
   @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
+
+  @override
   String get updateAvailable => 'Update Available';
 
   @override

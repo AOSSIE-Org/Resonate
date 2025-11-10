@@ -1136,6 +1136,12 @@ abstract class AppLocalizations {
   /// **'Could not load package info'**
   String get errorLoadPackageInfo;
 
+  /// Error message when searching for rooms fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search rooms. Please try again.'**
+  String get searchFailed;
+
   /// Title indicating that a new version of the app is available.
   ///
   /// In en, this message translates to:
@@ -2445,8 +2451,6 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'mr':
-      return AppLocalizationsMr();
     case 'en':
       return AppLocalizationsEn();
     case 'gu':
@@ -2455,6 +2459,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsHi();
     case 'kn':
       return AppLocalizationsKn();
+    case 'mr':
+      return AppLocalizationsMr();
   }
 
   throw FlutterError(

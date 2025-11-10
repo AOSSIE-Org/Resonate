@@ -11,7 +11,9 @@ import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -162,7 +164,12 @@ class RoomsController extends GetxController {
       }).toList();
     } catch (e) {
       log('Error searching rooms: $e');
-      filteredRooms.value = [];
+      filteredRooms.value = rooms;
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.error,
+        AppLocalizations.of(Get.context!)!.searchFailed,
+        LogType.error,
+      );
     } finally {
       isSearching.value = false;
     }
@@ -172,5 +179,4 @@ class RoomsController extends GetxController {
     filteredRooms.value = rooms;
     searchBarIsEmpty.value = true;
   }
-
 }

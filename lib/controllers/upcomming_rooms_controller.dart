@@ -15,7 +15,9 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -364,8 +366,12 @@ class UpcomingRoomsController extends GetxController {
             room.description.toLowerCase().contains(lowerQuery);
       }).toList();
     } catch (e) {
-      log('Error searching upcoming rooms: $e');
-      filteredUpcomingRooms.value = [];
+      filteredUpcomingRooms.value = upcomingRooms;
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.error,
+        AppLocalizations.of(Get.context!)!.searchFailed,
+        LogType.error,
+      );
     }
   }
 

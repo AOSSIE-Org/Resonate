@@ -547,6 +547,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get errorLoadPackageInfo => 'પૅકેજ માહિતી લોડ કરી શકાઈ નથી';
 
   @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
+
+  @override
   String get updateAvailable => 'અપડેટ ઉપલબ્ધ છે';
 
   @override

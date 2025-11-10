@@ -129,6 +129,7 @@ class _SearchOverlayState extends State<SearchOverlay>
                     ),
                   ],
                 ),
+                padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
                 child: Row(
                   children: [
                     IconButton(

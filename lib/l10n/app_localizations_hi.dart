@@ -546,6 +546,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get errorLoadPackageInfo => 'पैकेज जानकारी लोड नहीं हो सकी';
 
   @override
+  String get searchFailed => 'रूम खोजने में विफल। कृपया पुनः प्रयास करें।';
+
+  @override
   String get updateAvailable => 'अपडेट उपलब्ध है';
 
   @override

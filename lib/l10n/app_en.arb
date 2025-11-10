@@ -706,6 +706,10 @@
     "@errorLoadPackageInfo": {
         "description": "Error message when the application fails to load its package information (e.g., version)."
     },
+    "searchFailed": "Failed to search rooms. Please try again.",
+    "@searchFailed": {
+        "description": "Error message when searching for rooms fails."
+    },
     "updateAvailable": "Update Available",
     "@updateAvailable": {
         "description": "Title indicating that a new version of the app is available."
