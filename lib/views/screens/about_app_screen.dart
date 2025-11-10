@@ -263,6 +263,14 @@ class AboutAppScreen extends StatelessWidget {
 
   Future<void> _handleUpdateCheck() async {
     final result = await aboutAppScreenController.checkForUpdate(
+      onIgnore: () {
+        Get.back();
+        return true;
+      },
+      onLater: () {
+        Get.back();
+        return true;
+      },
       isManualCheck: true,
     );
     switch (result) {

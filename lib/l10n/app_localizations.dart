@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'app_localizations_en.dart';
 import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
+import 'app_localizations_kn.dart';
+import 'app_localizations_mr.dart';
 
 // ignore_for_file: type=lint
 
@@ -98,6 +100,8 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('gu'),
     Locale('hi'),
+    Locale('kn'),
+    Locale('mr'),
   ];
 
   /// The title of the application.
@@ -693,6 +697,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contribute'**
   String get contribute;
+
+  /// Label for the app preferences settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'App Preferences'**
+  String get appPreferences;
+
+  /// Section title for choosing AI transcription model.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcription Model'**
+  String get transcriptionModel;
+
+  /// Description text explaining transcription model choices.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.'**
+  String get transcriptionModelDescription;
+
+  /// Name of the smallest Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiny'**
+  String get whisperModelTiny;
+
+  /// Description of the Tiny Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest, least accurate (~39 MB)'**
+  String get whisperModelTinyDescription;
+
+  /// Name of the base Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Base'**
+  String get whisperModelBase;
+
+  /// Description of the Base Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced speed and accuracy (~74 MB)'**
+  String get whisperModelBaseDescription;
+
+  /// Name of the small Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Small'**
+  String get whisperModelSmall;
+
+  /// Description of the Small Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'Good accuracy, slower (~244 MB)'**
+  String get whisperModelSmallDescription;
+
+  /// Name of the medium Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get whisperModelMedium;
+
+  /// Description of the Medium Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'High accuracy, slower (~769 MB)'**
+  String get whisperModelMediumDescription;
+
+  /// Name of the large V1 Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Large V1'**
+  String get whisperModelLargeV1;
+
+  /// Description of the Large V1 Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'Most accurate, slowest (~1.55 GB)'**
+  String get whisperModelLargeV1Description;
+
+  /// Name of the large V2 Whisper AI model.
+  ///
+  /// In en, this message translates to:
+  /// **'Large V2'**
+  String get whisperModelLargeV2;
+
+  /// Description of the Large V2 Whisper model performance and size.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved large model with higher accuracy (~1.55 GB)'**
+  String get whisperModelLargeV2Description;
+
+  /// Information message about model download.
+  ///
+  /// In en, this message translates to:
+  /// **'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.'**
+  String get modelDownloadInfo;
 
   /// Button text to log the user out of their account.
   ///
@@ -2263,6 +2363,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit Report'**
   String get submitReport;
+
+  /// Title for a message indicating that a user action is blocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Action Blocked'**
+  String get actionBlocked;
+
+  /// Message explaining why a user cannot stop a recording manually.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot stop the recording manually, the recording will be stopped when the room is closed.'**
+  String get cannotStopRecording;
+
+  /// Label indicating that a chapter is currently live.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Chapter'**
+  String get liveChapter;
+
+  /// Button text to view or edit the lyrics of a chapter.
+  ///
+  /// In en, this message translates to:
+  /// **'View or Edit Lyrics'**
+  String get viewOrEditLyrics;
+
+  /// Label for the button to close a dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Title for the screen where Live chapter details are verified before publishing.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Chapter Details'**
+  String get verifyChapterDetails;
+
+  /// Label for the author of a story or chapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get author;
+
+  /// Title for the screen where a live chapter is initiated.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a Live Chapter'**
+  String get startLiveChapter;
+
+  /// Error message when required fields are not filled in a form.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all required fields'**
+  String get fillAllFields;
+
+  /// Error message when trying to exit a live chapter room without any recording.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
+  String get noRecordingError;
 }
 
 class _AppLocalizationsDelegate
@@ -2276,7 +2436,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'gu', 'hi'].contains(locale.languageCode);
+      <String>['en', 'gu', 'hi', 'kn', 'mr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2285,12 +2445,16 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'mr':
+      return AppLocalizationsMr();
     case 'en':
       return AppLocalizationsEn();
     case 'gu':
       return AppLocalizationsGu();
     case 'hi':
       return AppLocalizationsHi();
+    case 'kn':
+      return AppLocalizationsKn();
   }
 
   throw FlutterError(

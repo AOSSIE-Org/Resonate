@@ -14,6 +14,7 @@
 │       ├── greet_contributors.yml
 │       ├── run_tests.yml
 │       ├── store_deploy_android.yml
+│       ├── translation-check.yml
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
@@ -147,7 +148,8 @@
 │               ├── 5.png
 │               ├── 6.png
 │               ├── 7.png
-│               └── 8.png
+│               ├── 8.png
+│               └── 9.png
 ├── flutter_native_splash.yaml
 ├── ios
 │   ├── .gitignore
@@ -239,6 +241,7 @@
 │   │   ├── friend_call_screen.dart
 │   │   ├── friend_calling_controller.dart
 │   │   ├── friends_controller.dart
+│   │   ├── live_chapter_controller.dart
 │   │   ├── livekit_controller.dart
 │   │   ├── network_controller.dart
 │   │   ├── onboarding_controller.dart
@@ -250,7 +253,8 @@
 │   │   ├── splash_controller.dart
 │   │   ├── tabview_controller.dart
 │   │   ├── upcomming_rooms_controller.dart
-│   │   └── user_profile_controller.dart
+│   │   ├── user_profile_controller.dart
+│   │   └── whisper_transcription_controller.dart
 │   ├── for_developers
 │   │   ├── text_theme.dart
 │   │   ├── theme_color_model.dart
@@ -259,10 +263,14 @@
 │   │   ├── app_en.arb
 │   │   ├── app_gu.arb
 │   │   ├── app_hi.arb
+│   │   ├── app_kn.arb
 │   │   ├── app_localizations.dart
 │   │   ├── app_localizations_en.dart
 │   │   ├── app_localizations_gu.dart
-│   │   └── app_localizations_hi.dart
+│   │   ├── app_localizations_hi.dart
+│   │   ├── app_localizations_kn.dart
+│   │   ├── app_localizations_mr.dart
+│   │   └── app_mr.arb
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -277,6 +285,12 @@
 │   │   ├── friends_model.dart
 │   │   ├── friends_model.freezed.dart
 │   │   ├── friends_model.g.dart
+│   │   ├── live_chapter_attendees_model.dart
+│   │   ├── live_chapter_attendees_model.freezed.dart
+│   │   ├── live_chapter_attendees_model.g.dart
+│   │   ├── live_chapter_model.dart
+│   │   ├── live_chapter_model.freezed.dart
+│   │   ├── live_chapter_model.g.dart
 │   │   ├── message.dart
 │   │   ├── notification.dart
 │   │   ├── participant.dart
@@ -331,6 +345,7 @@
 │       ├── screens
 │       │   ├── about_app_screen.dart
 │       │   ├── add_chapter_screen.dart
+│       │   ├── app_preferences_screen.dart
 │       │   ├── category_screen.dart
 │       │   ├── change_email_screen.dart
 │       │   ├── chapter_play_screen.dart
@@ -348,6 +363,7 @@
 │       │   ├── friends_screen.dart
 │       │   ├── home_screen.dart
 │       │   ├── landing_screen.dart
+│       │   ├── live_chapter_screen.dart
 │       │   ├── login_screen.dart
 │       │   ├── no_room_screen.dart
 │       │   ├── notifications_screen.dart
@@ -367,6 +383,7 @@
 │       │   ├── tabview_screen.dart
 │       │   ├── user_account_screen.dart
 │       │   ├── user_blocked_screen.dart
+│       │   ├── verify_chapter_details_screen.dart
 │       │   └── welcome_screen.dart
 │       └── widgets
 │           ├── auth_button.dart
@@ -377,6 +394,9 @@
 │           ├── filtered_list_tile.dart
 │           ├── friend_request_list_tile.dart
 │           ├── like_button.dart
+│           ├── live_chapter_attendee_block.dart
+│           ├── live_chapter_header.dart
+│           ├── live_chapter_list_tile.dart
 │           ├── live_room_tile.dart
 │           ├── loading_dialog.dart
 │           ├── no_connection_dialog.dart
@@ -390,6 +410,7 @@
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
 │           ├── snackbar.dart
+│           ├── start_live_chapter_dialog.dart
 │           ├── story_card.dart
 │           ├── story_list_tile.dart
 │           ├── upcomming_room_tile.dart
@@ -397,27 +418,26 @@
 ├── project_structure.txt
 ├── pubspec.lock
 ├── pubspec.yaml
-├── test
-│   └── controllers
-│       ├── about_app_screen_controller_test.dart
-│       ├── about_app_screen_controller_test.mocks.dart
-│       ├── auth_state_controller_test.dart
-│       ├── auth_state_controller_test.mocks.dart
-│       ├── change_email_controller_test.dart
-│       ├── change_email_controller_test.mocks.dart
-│       ├── chapter_player_controller_test.dart
-│       ├── create_room_controller_test.dart
-│       ├── create_room_controller_test.mocks.dart
-│       ├── edit_profile_controller_test.dart
-│       ├── edit_profile_controller_test.mocks.dart
-│       ├── explore_story_controller_test.dart
-│       ├── explore_story_controller_test.mocks.dart
-│       ├── friend_calling_controller_test.dart
-│       ├── friend_calling_controller_test.mocks.dart
-│       ├── friends_controller_test.dart
-│       ├── friends_controller_test.mocks.dart
-│       ├── user_profile_controller_test.dart
-│       └── user_profile_controller_test.mocks.dart
-└── untranslated.txt
+└── test
+    └── controllers
+        ├── about_app_screen_controller_test.dart
+        ├── about_app_screen_controller_test.mocks.dart
+        ├── auth_state_controller_test.dart
+        ├── auth_state_controller_test.mocks.dart
+        ├── change_email_controller_test.dart
+        ├── change_email_controller_test.mocks.dart
+        ├── chapter_player_controller_test.dart
+        ├── create_room_controller_test.dart
+        ├── create_room_controller_test.mocks.dart
+        ├── edit_profile_controller_test.dart
+        ├── edit_profile_controller_test.mocks.dart
+        ├── explore_story_controller_test.dart
+        ├── explore_story_controller_test.mocks.dart
+        ├── friend_calling_controller_test.dart
+        ├── friend_calling_controller_test.mocks.dart
+        ├── friends_controller_test.dart
+        ├── friends_controller_test.mocks.dart
+        ├── user_profile_controller_test.dart
+        └── user_profile_controller_test.mocks.dart
 
-80 directories, 341 files
+80 directories, 361 files

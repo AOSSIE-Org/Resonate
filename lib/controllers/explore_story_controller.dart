@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/models/chapter.dart';
+import 'package:resonate/models/live_chapter_attendees_model.dart';
+import 'package:resonate/models/live_chapter_model.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/services/appwrite_service.dart';
@@ -97,6 +99,9 @@ class ExploreStoryController extends GetxController {
     story.chapters = storyChapters;
     story.isLikedByCurrentUser.value = hasUserLiked;
     story.likesCount.value = likes;
+
+    final liveChapter = await fetchLiveChapterForStory(story.storyId);
+    story.liveChapter = liveChapter;
     isLoadingStoryPage.value = false;
   }
 
@@ -669,6 +674,34 @@ class ExploreStoryController extends GetxController {
     }).toList();
 
     return currentStoryChapters;
+  }
+
+  Future<LiveChapterModel?> fetchLiveChapterForStory(String storyId) async {
+    List<Document> liveStoryDocuments = await databases
+        .listDocuments(
+          databaseId: storyDatabaseId,
+          collectionId: liveChaptersCollectionId,
+          queries: [Query.equal('storyId', storyId)],
+        )
+        .then((value) => value.documents);
+    if (liveStoryDocuments.isEmpty) {
+      return null;
+    }
+
+    final attendeesDocument = await databases.getDocument(
+      databaseId: userDatabaseID,
+      collectionId: liveChapterAttendeesCollectionId,
+      documentId: liveStoryDocuments.first.data['\$id'],
+    );
+
+    final attendeesModel = LiveChapterAttendeesModel.fromJson(
+      attendeesDocument.data,
+    );
+    final liveChapterModel = LiveChapterModel.fromJson(
+      liveStoryDocuments.first.data,
+    ).copyWith(attendees: attendeesModel);
+
+    return liveChapterModel;
   }
 
   Future<bool> checkIfStoryLikedByUser(String storyId) async {
