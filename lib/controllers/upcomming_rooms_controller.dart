@@ -201,18 +201,18 @@ class UpcomingRoomsController extends GetxController {
   Future<void> getUpcomingRooms() async {
     isLoading.value = true;
     try {
-      var upcomingRoomsDocuments = await databases
+      List<Document> upcomingRoomsDocuments = await databases
           .listDocuments(
             databaseId: upcomingRoomsDatabaseId,
             collectionId: upcomingRoomsCollectionId,
           )
           .then((value) => value.documents);
-      var nonRemovedRooms = upcomingRoomsDocuments.where(
-        (room) => !_removedRoomsList.contains(room.$id),
-      );
-      var roomsFutures = nonRemovedRooms.map(
-        (room) => fetchUpcomingRoomDetails(room),
-      );
+      List<Document> nonRemovedRooms = upcomingRoomsDocuments
+          .where((room) => !_removedRoomsList.contains(room.$id))
+          .toList();
+      List<Future<AppwriteUpcommingRoom>> roomsFutures = nonRemovedRooms
+          .map((room) => fetchUpcomingRoomDetails(room))
+          .toList();
       upcomingRooms.value = await Future.wait(roomsFutures);
       await cleanupRemovedRooms(
         upcomingRoomsDocuments.map((doc) => doc.$id).toList(),
