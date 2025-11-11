@@ -30,7 +30,16 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear"
   ],
 
   "mr": [
@@ -39,31 +48,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
-    "searchFailed",
-    "searchRooms",
-    "searchingRooms",
-    "clearSearch",
-    "searchError",
-    "searchRoomsError",
-    "searchUpcomingRoomsError",
-    "search",
-    "clear"
-  ],
-
-  "kn": [
-    "searchFailed",
-    "searchRooms",
-    "searchingRooms",
-    "clearSearch",
-    "searchError",
-    "searchRoomsError",
-    "searchUpcomingRoomsError",
-    "search",
-    "clear"
-  ],
-
-  "mr": [
+    "roomRemovedSuccessfully",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
