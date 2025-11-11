@@ -395,6 +395,19 @@ class AppLocalizationsKn extends AppLocalizations {
   String get cancel => 'ರದ್ದುಮಾಡಿ';
 
   @override
+  String get hide => 'Remove';
+
+  @override
+  String get removeRoom => 'Remove Room';
+
+  @override
+  String get removeRoomFromList => 'Remove from list';
+
+  @override
+  String get removeRoomConfirmation =>
+      'Are you sure you want to remove this upcoming room from your list?';
+
+  @override
   String get completeYourProfile => 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಪೂರ್ಣಗೊಳಿಸಿ';
 
   @override
@@ -1253,6 +1266,13 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get updateFeaturesImprovement =>
       'ಇತ್ತೀಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳು ಮತ್ತು ಸುಧಾರಣೆಗಳನ್ನು ಪಡೆಯಿರಿ!';
+
+  @override
+  String get failedToRemoveRoom => 'Failed to remove room';
+
+  @override
+  String get roomRemovedSuccessfully =>
+      'Room removed from your list successfully';
 
   @override
   String get alert => 'ಎಚ್ಚರಿಕೆ';

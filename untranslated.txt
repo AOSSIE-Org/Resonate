@@ -16,6 +16,30 @@
     "whisperModelLargeV2",
     "whisperModelLargeV2Description",
     "modelDownloadInfo",
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully"
+  ],
+
+  "kn": [
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully"
+  ],
+
+  "mr": [
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully"
     "searchFailed",
     "searchRooms",
     "searchingRooms",

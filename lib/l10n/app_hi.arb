@@ -1648,6 +1648,30 @@
     "@updateFeaturesImprovement": {
         "description": "A message highlighting the benefit of updating the application."
     },
+    "hide": "छुपाएं",
+    "@hide": {
+        "description": "Button text to hide an item from view."
+    },
+    "removeRoom": "रूम छुपाएं",
+    "@removeRoom": {
+        "description": "Dialog title for hiding an upcoming room."
+    },
+    "removeRoomFromList": "सूची से छुपाएं",
+    "@removeRoomFromList": {
+        "description": "Tooltip text for the hide room button."
+    },
+    "removeRoomConfirmation": "क्या आप वाकई इस आने वाले रूम को अपनी सूची से छुपाना चाहते हैं?",
+    "@removeRoomConfirmation": {
+        "description": "Confirmation message asking if the user wants to hide an upcoming room from their list."
+    },
+    "failedToRemoveRoom": "रूम हटाने में विफल",
+    "@failedToRemoveRoom": {
+        "description": "Error message when unable to remove a room from the list"
+    },
+    "roomRemovedSuccessfully": "रूम आपकी सूची से सफलतापूर्वक हटा दिया गया",
+    "@roomRemovedSuccessfully": {
+        "description": "Success message when a room is successfully removed from the user's list"
+    },
     "alert": "अलर्ट",
     "@alert": {
         "description": "Title for an alert dialog."
