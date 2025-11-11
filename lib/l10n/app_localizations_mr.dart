@@ -318,6 +318,59 @@ class AppLocalizationsMr extends AppLocalizations {
   String get contribute => 'योगदान द्या';
 
   @override
+  String get appPreferences => 'अॅप प्राधान्ये';
+
+  @override
+  String get transcriptionModel => 'प्रतिलेखन मॉडेल';
+
+  @override
+  String get transcriptionModelDescription =>
+      'व्हॉयस प्रतिलेखनसाठी एआई मॉडेल निवडा. मोठे मॉडेल अधिक अचूक आहेत परंतु हळू आणि अधिक स्टोरेज आवश्यक आहे.';
+
+  @override
+  String get whisperModelTiny => 'सूक्ष्म';
+
+  @override
+  String get whisperModelTinyDescription =>
+      'सर्वात वेगवान, कमीत कमी अचूक (~३९ एमबी)';
+
+  @override
+  String get whisperModelBase => 'बेस';
+
+  @override
+  String get whisperModelBaseDescription => 'संतुलित गती आणि अचूकता (~७४ एमबी)';
+
+  @override
+  String get whisperModelSmall => 'लहान';
+
+  @override
+  String get whisperModelSmallDescription => 'चांगली अचूकता, हळू (~२४४ एमबी)';
+
+  @override
+  String get whisperModelMedium => 'मध्यम';
+
+  @override
+  String get whisperModelMediumDescription => 'उच्च अचूकता, हळू (~७६९ एमबी)';
+
+  @override
+  String get whisperModelLargeV1 => 'मोठे व्ही१';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'सर्वात अचूक, सर्वात हळू (~१.५५ जीबी)';
+
+  @override
+  String get whisperModelLargeV2 => 'मोठे व्ही२';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'उन्नत मोठे मॉडेल उच्च अचूकतेसह (~१.५५ जीबी)';
+
+  @override
+  String get modelDownloadInfo =>
+      'मॉडेल्स प्रथम वापरणे सुरू असताना डाउनलोड केले जातात. आम्ही बेस, लहान किंवा मध्यम वापरण्याची शिफारस करतो. मोठे मॉडेल्स अत्यंत उच्च-अंत डिव्हाइस आवश्यक.';
+
+  @override
   String get logOut => 'लॉगआउट करा';
 
   @override
@@ -495,6 +548,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get errorLoadPackageInfo => 'पॅकेज माहिती लोड करू शकत नाही';
 
   @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
+
+  @override
   String get updateAvailable => 'अपडेट उपलब्ध';
 
   @override
@@ -664,6 +720,31 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get noSearchResults => 'कोणतेही शोध परिणाम नाहीत';
+
+  @override
+  String get searchRooms => 'Search rooms...';
+
+  @override
+  String get searchingRooms => 'Searching rooms...';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get searchError => 'Search Error';
+
+  @override
+  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'Failed to search upcoming rooms. Please try again.';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get clear => 'Clear';
 
   @override
   String shareRoomMessage(
