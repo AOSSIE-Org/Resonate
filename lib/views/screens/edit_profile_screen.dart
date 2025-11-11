@@ -24,7 +24,7 @@ class EditProfileScreen extends StatelessWidget {
   final AuthStateController authStateController = Get.put(
     AuthStateController(),
   );
-  final debouncer = Debouncer(milliseconds: 800);
+  final debouncer = Debouncer(milliseconds: 1000);
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +122,7 @@ class EditProfileScreen extends StatelessWidget {
                       () => TextFormField(
                         maxLength: 36,
                         validator: (value) {
-                          if (value!.length > 5) {
+                          if (value!.length >= 7) {
                             final validUsername = RegExp(
                               r'^[a-zA-Z0-9._-]+$',
                             ).hasMatch(value.trim());
@@ -142,7 +142,7 @@ class EditProfileScreen extends StatelessWidget {
                         onChanged: (value) async {
                           Get.closeCurrentSnackbar();
 
-                          if (value.length > 5) {
+                          if (value.length >= 7) {
                             final validUsername = RegExp(
                               r'^[a-zA-Z0-9._-]+$',
                             ).hasMatch(value.trim());

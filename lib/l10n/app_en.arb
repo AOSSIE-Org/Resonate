@@ -844,7 +844,7 @@
     "@stable": {
         "description": "A label indicating a stable, non-beta version of the app."
     },
-    "usernameCharacterLimit": "Username should contain more than 5 characters.",
+    "usernameCharacterLimit": "Username should contain more than 7 characters.",
     "@usernameCharacterLimit": {
         "description": "Error message when a chosen username is too short."
     },
@@ -1633,5 +1633,6 @@
     "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    }
+    },
+    
 }
