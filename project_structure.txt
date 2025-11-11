@@ -409,6 +409,7 @@
 │           ├── report_widget.dart
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
+│           ├── search_rooms.dart
 │           ├── snackbar.dart
 │           ├── start_live_chapter_dialog.dart
 │           ├── story_card.dart
@@ -418,26 +419,27 @@
 ├── project_structure.txt
 ├── pubspec.lock
 ├── pubspec.yaml
-└── test
-    └── controllers
-        ├── about_app_screen_controller_test.dart
-        ├── about_app_screen_controller_test.mocks.dart
-        ├── auth_state_controller_test.dart
-        ├── auth_state_controller_test.mocks.dart
-        ├── change_email_controller_test.dart
-        ├── change_email_controller_test.mocks.dart
-        ├── chapter_player_controller_test.dart
-        ├── create_room_controller_test.dart
-        ├── create_room_controller_test.mocks.dart
-        ├── edit_profile_controller_test.dart
-        ├── edit_profile_controller_test.mocks.dart
-        ├── explore_story_controller_test.dart
-        ├── explore_story_controller_test.mocks.dart
-        ├── friend_calling_controller_test.dart
-        ├── friend_calling_controller_test.mocks.dart
-        ├── friends_controller_test.dart
-        ├── friends_controller_test.mocks.dart
-        ├── user_profile_controller_test.dart
-        └── user_profile_controller_test.mocks.dart
+├── test
+│   └── controllers
+│       ├── about_app_screen_controller_test.dart
+│       ├── about_app_screen_controller_test.mocks.dart
+│       ├── auth_state_controller_test.dart
+│       ├── auth_state_controller_test.mocks.dart
+│       ├── change_email_controller_test.dart
+│       ├── change_email_controller_test.mocks.dart
+│       ├── chapter_player_controller_test.dart
+│       ├── create_room_controller_test.dart
+│       ├── create_room_controller_test.mocks.dart
+│       ├── edit_profile_controller_test.dart
+│       ├── edit_profile_controller_test.mocks.dart
+│       ├── explore_story_controller_test.dart
+│       ├── explore_story_controller_test.mocks.dart
+│       ├── friend_calling_controller_test.dart
+│       ├── friend_calling_controller_test.mocks.dart
+│       ├── friends_controller_test.dart
+│       ├── friends_controller_test.mocks.dart
+│       ├── user_profile_controller_test.dart
+│       └── user_profile_controller_test.mocks.dart
+└── untranslated.txt
 
-80 directories, 361 files
+80 directories, 363 files
