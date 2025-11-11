@@ -254,8 +254,8 @@ class ChatMessageItemState extends State<ChatMessageItem> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Message'),
-        content: const Text('Are you sure you want to delete this message?'),
+        title: Text(AppLocalizations.of(context)!.deleteMessageTitle),
+        content: Text(AppLocalizations.of(context)!.deleteMessageContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

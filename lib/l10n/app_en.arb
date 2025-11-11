@@ -1633,5 +1633,13 @@
     "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    }
+    },
+     "deleteMessageTitle": "Delete Message",
+"@deleteMessageTitle": {
+  "description": "Title shown in the delete message confirmation dialog."
+},
+"deleteMessageContent": "Are you sure you want to delete this message?",
+"@deleteMessageContent": {
+  "description": "Confirmation text asking the user if they want to delete a message."
+}
 }
