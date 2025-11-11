@@ -24,7 +24,7 @@ class EditProfileScreen extends StatelessWidget {
   final AuthStateController authStateController = Get.put(
     AuthStateController(),
   );
-  final debouncer = Debouncer(milliseconds: 1000);
+  final debouncer = Debouncer(milliseconds: 800);
 
   @override
   Widget build(BuildContext context) {
