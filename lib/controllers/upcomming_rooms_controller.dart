@@ -16,7 +16,9 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -40,6 +42,9 @@ class UpcomingRoomsController extends GetxController {
   late String localTimeZoneName;
   late bool isOffsetNegetive;
   Rx<bool> isLoading = false.obs;
+  RxBool searchBarIsEmpty = true.obs;
+  RxList<AppwriteUpcommingRoom> filteredUpcomingRooms =
+      <AppwriteUpcommingRoom>[].obs;
   late DateTime currentTimeInstance;
   final Map<String, String> monthMap = {
     "1": "Jan",
@@ -344,7 +349,6 @@ class UpcomingRoomsController extends GetxController {
       collectionId: upcomingRoomsCollectionId,
       documentId: upcomingRoomId,
     );
-    await getUpcomingRooms();
     deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
   }
 
@@ -385,5 +389,35 @@ class UpcomingRoomsController extends GetxController {
       enableDrag: false,
       isDismissible: false,
     );
+  }
+
+  Future<void> searchUpcomingRooms(String query) async {
+    if (query.isEmpty) {
+      filteredUpcomingRooms.value = upcomingRooms;
+      searchBarIsEmpty.value = true;
+      return;
+    }
+
+    searchBarIsEmpty.value = false;
+
+    try {
+      final lowerQuery = query.toLowerCase();
+      filteredUpcomingRooms.value = upcomingRooms.where((room) {
+        return room.name.toLowerCase().contains(lowerQuery) ||
+            room.description.toLowerCase().contains(lowerQuery);
+      }).toList();
+    } catch (e) {
+      filteredUpcomingRooms.value = upcomingRooms;
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.error,
+        AppLocalizations.of(Get.context!)!.searchFailed,
+        LogType.error,
+      );
+    }
+  }
+
+  void clearUpcomingSearch() {
+    filteredUpcomingRooms.value = upcomingRooms;
+    searchBarIsEmpty.value = true;
   }
 }

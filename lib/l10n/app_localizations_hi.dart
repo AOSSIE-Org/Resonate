@@ -559,6 +559,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get errorLoadPackageInfo => 'पैकेज जानकारी लोड नहीं हो सकी';
 
   @override
+  String get searchFailed => 'रूम खोजने में विफल। कृपया पुनः प्रयास करें।';
+
+  @override
   String get updateAvailable => 'अपडेट उपलब्ध है';
 
   @override
@@ -729,6 +732,32 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noSearchResults => 'कोई रिज़ल्ट नहीं मिला';
+
+  @override
+  String get searchRooms => 'रूम खोजें...';
+
+  @override
+  String get searchingRooms => 'रूम खोजे जा रहे हैं...';
+
+  @override
+  String get clearSearch => 'खोज साफ़ करें';
+
+  @override
+  String get searchError => 'खोज त्रुटि';
+
+  @override
+  String get searchRoomsError =>
+      'कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'आगामी कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।';
+
+  @override
+  String get search => 'खोजें';
+
+  @override
+  String get clear => 'साफ़ करें';
 
   @override
   String shareRoomMessage(

@@ -1160,6 +1160,12 @@ abstract class AppLocalizations {
   /// **'Could not load package info'**
   String get errorLoadPackageInfo;
 
+  /// Error message when searching for rooms fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search rooms. Please try again.'**
+  String get searchFailed;
+
   /// Title indicating that a new version of the app is available.
   ///
   /// In en, this message translates to:
@@ -1477,6 +1483,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Search Results'**
   String get noSearchResults;
+
+  /// Placeholder text for room search input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Search rooms...'**
+  String get searchRooms;
+
+  /// Loading message shown while searching for rooms.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching rooms...'**
+  String get searchingRooms;
+
+  /// Text for button to clear search results.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// Title for search error messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Error'**
+  String get searchError;
+
+  /// Error message when room search fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search rooms. Please try again.'**
+  String get searchRoomsError;
+
+  /// Error message when upcoming room search fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search upcoming rooms. Please try again.'**
+  String get searchUpcomingRoomsError;
+
+  /// Tooltip text for search button.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// Tooltip text for clear button.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
 
   /// The default message template used when sharing a room.
   ///

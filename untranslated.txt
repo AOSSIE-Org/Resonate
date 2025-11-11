@@ -40,5 +40,38 @@
     "removeRoomConfirmation",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully"
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear"
+  ],
+
+  "kn": [
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear"
+  ],
+
+  "mr": [
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear"
   ]
 }

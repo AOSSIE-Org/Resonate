@@ -706,6 +706,10 @@
     "@errorLoadPackageInfo": {
         "description": "Error message when the application fails to load its package information (e.g., version)."
     },
+    "searchFailed": "रूम खोजने में विफल। कृपया पुनः प्रयास करें।",
+    "@searchFailed": {
+        "description": "Error message when searching for rooms fails."
+    },
     "updateAvailable": "अपडेट उपलब्ध है",
     "@updateAvailable": {
         "description": "Title indicating that a new version of the app is available."
@@ -923,6 +927,38 @@
     "noSearchResults": "कोई रिज़ल्ट नहीं मिला",
     "@noSearchResults": {
         "description": "Message displayed when a search returns no results."
+    },
+    "searchRooms": "रूम खोजें...",
+    "@searchRooms": {
+        "description": "Placeholder text for room search input field."
+    },
+    "searchingRooms": "रूम खोजे जा रहे हैं...",
+    "@searchingRooms": {
+        "description": "Loading message shown while searching for rooms."
+    },
+    "clearSearch": "खोज साफ़ करें",
+    "@clearSearch": {
+        "description": "Text for button to clear search results."
+    },
+    "searchError": "खोज त्रुटि",
+    "@searchError": {
+        "description": "Title for search error messages."
+    },
+    "searchRoomsError": "कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।",
+    "@searchRoomsError": {
+        "description": "Error message when room search fails."
+    },
+    "searchUpcomingRoomsError": "आगामी कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।",
+    "@searchUpcomingRoomsError": {
+        "description": "Error message when upcoming room search fails."
+    },
+    "search": "खोजें",
+    "@search": {
+        "description": "Tooltip text for search button."
+    },
+    "clear": "साफ़ करें",
+    "@clear": {
+        "description": "Tooltip text for clear button."
     },
     "shareRoomMessage": "🚀 इस शानदार रूम को देखें: {roomName}!\n\n📖 विवरण: {description}\n👥 अभी {participants} लोग जुड़ चुके हैं!",
     "@shareRoomMessage": {

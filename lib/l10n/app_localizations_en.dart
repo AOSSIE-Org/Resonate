@@ -560,6 +560,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLoadPackageInfo => 'Could not load package info';
 
   @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
+
+  @override
   String get updateAvailable => 'Update Available';
 
   @override
@@ -728,6 +731,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSearchResults => 'No Search Results';
+
+  @override
+  String get searchRooms => 'Search rooms...';
+
+  @override
+  String get searchingRooms => 'Searching rooms...';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get searchError => 'Search Error';
+
+  @override
+  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'Failed to search upcoming rooms. Please try again.';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get clear => 'Clear';
 
   @override
   String shareRoomMessage(

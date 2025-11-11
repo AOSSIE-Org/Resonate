@@ -162,10 +162,11 @@ class UpCommingListTile extends StatelessWidget {
                 ),
                 Spacer(),
                 ElevatedButton(
-                  onPressed: () {
-                    upcomingRoomsController.deleteUpcomingRoom(
+                  onPressed: () async {
+                    await upcomingRoomsController.deleteUpcomingRoom(
                       appwriteUpcommingRoom.id,
                     );
+                    await upcomingRoomsController.getUpcomingRooms();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 234, 93, 83),
