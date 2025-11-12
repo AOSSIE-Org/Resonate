@@ -1349,4 +1349,19 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 }

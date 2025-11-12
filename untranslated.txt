@@ -20,8 +20,22 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ],
 
   "kn": [
@@ -29,8 +43,6 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -39,7 +51,14 @@
     "searchRoomsError",
     "searchUpcomingRoomsError",
     "search",
-    "clear"
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ],
 
   "mr": [
@@ -47,8 +66,6 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -57,6 +74,13 @@
     "searchRoomsError",
     "searchUpcomingRoomsError",
     "search",
-    "clear"
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ]
 }
