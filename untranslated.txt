@@ -20,8 +20,22 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully"
+  ],
+
+  "hi": [
+    "deleteMessageTitle",
+    "deleteMessageContent"
   ],
 
   "kn": [
@@ -29,8 +43,6 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -39,7 +51,11 @@
     "searchRoomsError",
     "searchUpcomingRoomsError",
     "search",
-    "clear"
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "deleteMessageTitle",
+    "deleteMessageContent"
   ],
 
   "mr": [
@@ -47,8 +63,6 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -57,6 +71,8 @@
     "searchRoomsError",
     "searchUpcomingRoomsError",
     "search",
-    "clear"
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully"
   ]
 }
