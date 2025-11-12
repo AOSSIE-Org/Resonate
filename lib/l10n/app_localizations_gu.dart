@@ -1342,4 +1342,11 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get noRecordingError =>
       'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
+
+  @override
+  String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
+
+  @override
+  String get deleteMessageContent =>
+      'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
 }
