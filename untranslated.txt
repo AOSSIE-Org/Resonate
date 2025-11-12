@@ -29,22 +29,8 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
-    "searchFailed",
-    "searchRooms",
-    "searchingRooms",
-    "clearSearch",
-    "searchError",
-    "searchRoomsError",
-    "searchUpcomingRoomsError",
-    "search",
-    "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully"
-  ],
-
-  "hi": [
-    "deleteMessageTitle",
-    "deleteMessageContent"
   ],
 
   "kn": [
