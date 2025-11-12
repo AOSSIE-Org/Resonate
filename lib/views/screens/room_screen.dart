@@ -191,7 +191,7 @@ class RoomScreenState extends State<RoomScreen> {
     return GetBuilder<SingleRoomController>(
       init: SingleRoomController(appwriteRoom: widget.room),
       builder: (controller) {
-        return ElevatedButton.icon(
+        return ElevatedButton(
           onPressed: () async {
             await _deleteRoomDialog(
               controller.appwriteRoom.isUserAdmin
@@ -207,13 +207,13 @@ class RoomScreenState extends State<RoomScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 241, 108, 98),
+            backgroundColor: Colors.redAccent,
+            foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          icon: const Icon(Icons.exit_to_app),
-          label: Text(AppLocalizations.of(context)!.leaveButton),
+          child: const Icon(Icons.call_end, size: 24),
         );
       },
     );

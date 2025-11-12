@@ -184,7 +184,7 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
   Widget _buildLeaveButton() {
     final controller = Get.find<LiveChapterController>();
     final LiveKitController liveKitController = Get.find<LiveKitController>();
-    return ElevatedButton.icon(
+    return ElevatedButton(
       onPressed: () async {
         await _deleteRoomDialog(
           controller.isAdmin
@@ -208,11 +208,11 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
         );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 241, 108, 98),
+        backgroundColor: Colors.redAccent,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
-      icon: const Icon(Icons.exit_to_app),
-      label: Text(AppLocalizations.of(context)!.leaveButton),
+      child: const Icon(Icons.call_end, size: 24),
     );
   }
 
