@@ -62,7 +62,7 @@ class RoomChatController extends GetxController {
       log('Message deleted successfully');
     } catch (e) {
       log('Error deleting message: $e');
-      return;
+      rethrow;
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+
 import 'package:resonate/models/message.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 
@@ -115,6 +116,22 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           },
                           onDeleteMessage: (String messageId) async {
                             await chatController.deleteMessage(messageId);
+                            try {
+                              await chatController.deleteMessage(messageId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    AppLocalizations.of(context)!.delete,
+                                  ),
+                                ),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Failed to delete message'),
+                                ),
+                              );
+                            }
                           },
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
@@ -421,7 +438,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                   else if (widget.message.isDeleted)
                                     ///The message has been deleted (`isDeleted = true`)
                                     Text(
-                                      'This message was deleted',
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.thisMessageWasDeleted,
                                       style: TextStyle(
                                         color: Theme.of(
                                           context,

@@ -1248,4 +1248,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteMessageContent =>
       'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }

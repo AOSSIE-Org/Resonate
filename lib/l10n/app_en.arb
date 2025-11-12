@@ -1641,5 +1641,9 @@
 "deleteMessageContent": "Are you sure you want to delete this message?",
 "@deleteMessageContent": {
   "description": "Confirmation text asking the user if they want to delete a message."
-}
+},
+"thisMessageWasDeleted": "This message was deleted",
+"failedToDeleteMessage": "Failed to delete message"
+
+
 }
