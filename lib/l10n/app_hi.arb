@@ -1633,5 +1633,13 @@
     "noRecordingError": "आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    }
+    },
+    "deleteMessageTitle": "संदेश हटाएँ",
+"@deleteMessageTitle": {
+  "description": "Title shown in the delete message confirmation dialog."
+},
+"deleteMessageContent": "क्या आप वाकई इस संदेश को हटाना चाहते हैं?",
+"@deleteMessageContent": {
+  "description": "Confirmation text asking the user if they want to delete a message."
+}
 }
