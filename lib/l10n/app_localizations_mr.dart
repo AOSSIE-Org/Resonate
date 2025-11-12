@@ -1345,17 +1345,8 @@ class AppLocalizationsMr extends AppLocalizations {
       'आपने अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कोठा बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
 
   @override
-  String get audioOutput => 'Audio Output';
+  String get deleteMessageTitle => 'संदेश हटवा';
 
   @override
-  String get selectPreferredSpeaker => 'Select your preferred speaker';
-
-  @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
-
-  @override
-  String get refresh => 'Refresh';
-
-  @override
-  String get done => 'Done';
+  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
 }
