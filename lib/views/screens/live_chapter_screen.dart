@@ -10,7 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/views/widgets/live_chapter_header.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
-import 'package:resonate/views/widgets/audio_device_selector_dialog.dart';
+import 'package:resonate/views/widgets/audio_selector_dialog.dart';
 
 class LiveChapterScreen extends StatefulWidget {
   const LiveChapterScreen({super.key});

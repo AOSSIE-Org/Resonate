@@ -3,7 +3,7 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 class AudioDevice {
   final String deviceId;
   final String label;
-  final String kind; // 'input' or 'output'
+  final String kind;
   final String groupId;
 
   AudioDevice({
@@ -22,38 +22,16 @@ class AudioDevice {
     );
   }
 
-  factory AudioDevice.fromMap(Map<dynamic, dynamic> map) {
-    return AudioDevice(
-      deviceId: map['deviceId'] as String? ?? '',
-      label: map['label'] as String? ?? 'Unknown Device',
-      kind: map['kind'] as String? ?? '',
-      groupId: map['groupId'] as String? ?? '',
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'deviceId': deviceId,
-      'label': label,
-      'kind': kind,
-      'groupId': groupId,
-    };
-  }
-
-  bool get isAudioInput => kind == 'audioinput';
   bool get isAudioOutput => kind == 'audiooutput';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
-    return other is AudioDevice &&
-        other.deviceId == deviceId &&
-        other.kind == kind;
+    return other is AudioDevice && other.deviceId == deviceId;
   }
 
   @override
-  int get hashCode => deviceId.hashCode ^ kind.hashCode;
+  int get hashCode => deviceId.hashCode;
 
   @override
   String toString() {

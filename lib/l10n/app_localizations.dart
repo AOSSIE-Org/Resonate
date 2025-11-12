@@ -102,7 +102,6 @@ abstract class AppLocalizations {
     Locale('hi'),
     Locale('kn'),
     Locale('mr'),
-    Locale('mr'),
   ];
 
   /// The title of the application.
@@ -2466,6 +2465,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
   String get noRecordingError;
+
+  /// Title for audio output device selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Output'**
+  String get audioOutput;
+
+  /// Subtitle for audio device selector dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred speaker'**
+  String get selectPreferredSpeaker;
+
+  /// Message shown when no audio output devices are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No audio output devices detected'**
+  String get noAudioOutputDevices;
+
+  /// Button text to refresh audio device list.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// Button text to close audio device selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
 }
 
 class _AppLocalizationsDelegate
@@ -2479,7 +2508,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['mr', 'en', 'gu', 'hi'].contains(locale.languageCode);
+      <String>['en', 'gu', 'hi', 'kn', 'mr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2494,6 +2523,10 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsGu();
     case 'hi':
       return AppLocalizationsHi();
+    case 'kn':
+      return AppLocalizationsKn();
+    case 'mr':
+      return AppLocalizationsMr();
   }
 
   throw FlutterError(
