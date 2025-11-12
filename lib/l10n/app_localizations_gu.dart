@@ -1344,9 +1344,17 @@ class AppLocalizationsGu extends AppLocalizations {
       'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
 
   @override
-  String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
+  String get audioOutput => 'Audio Output';
 
   @override
-  String get deleteMessageContent =>
-      'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 }

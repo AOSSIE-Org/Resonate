@@ -29,8 +29,22 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ],
 
   "kn": [
@@ -49,8 +63,11 @@
     "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
-    "deleteMessageTitle",
-    "deleteMessageContent"
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ],
 
   "mr": [
@@ -68,6 +85,11 @@
     "search",
     "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ]
 }
