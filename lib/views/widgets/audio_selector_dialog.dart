@@ -15,15 +15,15 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(UiSizes.width_20),
+        ),
       ),
       padding: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * 0.05,
-        right: MediaQuery.of(context).size.width * 0.05,
-        top: MediaQuery.of(context).size.width * 0.02,
-        bottom:
-            MediaQuery.of(context).viewInsets.bottom +
-            MediaQuery.of(context).size.width * 0.05,
+        left: UiSizes.width_20,
+        right: UiSizes.width_20,
+        top: UiSizes.height_8,
+        bottom: MediaQuery.of(context).viewInsets.bottom + UiSizes.height_20,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -56,9 +56,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.005,
-                    ),
+                    SizedBox(height: UiSizes.height_4),
                     Text(
                       AppLocalizations.of(context)!.selectPreferredSpeaker,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -76,9 +74,9 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          SizedBox(height: UiSizes.height_8),
           const Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: UiSizes.height_12),
           Flexible(
             child: Obx(
               () => SingleChildScrollView(
@@ -91,21 +89,18 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: UiSizes.height_12),
           const Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          SizedBox(height: UiSizes.height_8),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton.icon(
                 onPressed: () => controller.refreshDevices(),
-                icon: Icon(
-                  Icons.refresh,
-                  size: MediaQuery.of(context).size.width * 0.045,
-                ),
+                icon: Icon(Icons.refresh, size: UiSizes.size_18),
                 label: Text(AppLocalizations.of(context)!.refresh),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+              SizedBox(width: UiSizes.width_8),
               ElevatedButton(
                 onPressed: () => Get.back(),
                 style: ElevatedButton.styleFrom(
