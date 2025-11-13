@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [Locale('en'), Locale('hi'), Locale('gu')],
+        supportedLocales: [Locale('en'), Locale('hi'), Locale('gu'), Locale('raj')],
         debugShowCheckedModeBanner: false,
         title: 'Resonate',
         theme: ThemeModes.setLightTheme(
