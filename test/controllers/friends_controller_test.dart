@@ -82,6 +82,7 @@ final List<Document> mockFriendDocuments = [
     ).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[0].toJson(),
+    $sequence: 0,
   ),
   Document(
     $id: 'doc2',
@@ -95,7 +96,9 @@ final List<Document> mockFriendDocuments = [
     ).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[1].toJson(),
+    $sequence: 1,
   ),
+
   Document(
     $id: 'doc4',
     $collectionId: friendsCollectionID,
@@ -108,6 +111,7 @@ final List<Document> mockFriendDocuments = [
     ).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[2].toJson(),
+    $sequence: 2,
   ),
 ];
 final Document mockUserDocument = Document(
@@ -133,6 +137,7 @@ final Document mockUserDocument = Document(
       {"\$id": 'doc4', ...mockFriendDocuments[2].data},
     ],
   },
+  $sequence: 0,
 );
 final User mockUser = User(
   $id: 'id2',
@@ -180,6 +185,7 @@ final Document mockSentFriendRequestDocument = Document(
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
   data: mockSentFriendRequest.toJson(),
+  $sequence: 0,
 );
 final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(
   recieverFCMToken: 'testToken2',

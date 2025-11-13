@@ -10,27 +10,41 @@ class NoRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(height: MediaQuery.of(context).size.height / 6),
-        SvgPicture.asset(
-          AppImages.noRoomImage,
-          height: 200,
-          width: 200,
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.primary,
-            BlendMode.srcIn,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  AppImages.noRoomImage,
+                  height: 200,
+                  width: 200,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.primary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.noAvailableRoom(isRoom.toString()),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 30),
-        Text(
-          AppLocalizations.of(context)!.noAvailableRoom(isRoom.toString()),
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -54,6 +54,7 @@ void main() {
           $updatedAt: DateTime.now().toIso8601String(),
           $permissions: ['any'],
           data: {"email": "test@test.com"},
+          $sequence: 0,
         ),
       ),
     );

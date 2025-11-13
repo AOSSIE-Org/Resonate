@@ -317,6 +317,59 @@ class AppLocalizationsGu extends AppLocalizations {
   String get contribute => 'યોગદાન આપો';
 
   @override
+  String get appPreferences => 'App Preferences';
+
+  @override
+  String get transcriptionModel => 'Transcription Model';
+
+  @override
+  String get transcriptionModelDescription =>
+      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+
+  @override
+  String get whisperModelTiny => 'Tiny';
+
+  @override
+  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+
+  @override
+  String get whisperModelBase => 'Base';
+
+  @override
+  String get whisperModelBaseDescription =>
+      'Balanced speed and accuracy (~74 MB)';
+
+  @override
+  String get whisperModelSmall => 'Small';
+
+  @override
+  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+
+  @override
+  String get whisperModelMedium => 'Medium';
+
+  @override
+  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+
+  @override
+  String get whisperModelLargeV1 => 'Large V1';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'Most accurate, slowest (~1.55 GB)';
+
+  @override
+  String get whisperModelLargeV2 => 'Large V2';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'Improved large model with higher accuracy (~1.55 GB)';
+
+  @override
+  String get modelDownloadInfo =>
+      'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+
+  @override
   String get logOut => 'લોગ આઉટ';
 
   @override
@@ -339,6 +392,19 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get cancel => 'રદ કરો';
+
+  @override
+  String get hide => 'Remove';
+
+  @override
+  String get removeRoom => 'Remove Room';
+
+  @override
+  String get removeRoomFromList => 'Remove from list';
+
+  @override
+  String get removeRoomConfirmation =>
+      'Are you sure you want to remove this upcoming room from your list?';
 
   @override
   String get completeYourProfile => 'તમારી પ્રોફાઈલ પૂર્ણ કરો';
@@ -492,6 +558,9 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get errorLoadPackageInfo => 'પૅકેજ માહિતી લોડ કરી શકાઈ નથી';
+
+  @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
 
   @override
   String get updateAvailable => 'અપડેટ ઉપલબ્ધ છે';
@@ -662,6 +731,31 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get noSearchResults => 'કોઈ શોધ પરિણામો નથી';
+
+  @override
+  String get searchRooms => 'Search rooms...';
+
+  @override
+  String get searchingRooms => 'Searching rooms...';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get searchError => 'Search Error';
+
+  @override
+  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'Failed to search upcoming rooms. Please try again.';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get clear => 'Clear';
 
   @override
   String shareRoomMessage(
@@ -1167,78 +1261,85 @@ class AppLocalizationsGu extends AppLocalizations {
   String get updateFeaturesImprovement => 'નવા ફીચર્સ અને સુધારાઓ મેળવો!';
 
   @override
-  String get alert => 'Alert';
+  String get failedToRemoveRoom => 'Failed to remove room';
+
+  @override
+  String get roomRemovedSuccessfully =>
+      'Room removed from your list successfully';
+
+  @override
+  String get alert => 'ચેતવણી';
 
   @override
   String get removedFromRoom =>
-      'You have been reported or removed from the room';
+      'તમને રૂમમાંથી દૂર કરવામાં આવ્યા છે અથવા રિપોર્ટ કરવામાં આવ્યા છે.';
 
   @override
   String reportType(String type) {
     String _temp0 = intl.Intl.selectLogic(type, {
-      'harassment': 'Harassment / Hate Speech',
-      'abuse': 'Abusive content / Violence',
-      'spam': 'Spam / Scams / Fraud',
-      'impersonation': 'Impersonation / Fake Accounts',
-      'illegal': 'Illegal Activities',
-      'selfharm': 'Self-harm / Suicide / Mental health',
-      'misuse': 'Misuse of platform',
-      'other': 'Other',
+      'harassment': 'સતાવણી / દ્વેષપૂર્ણ ભાષણ',
+      'abuse': 'અપમાનજનક સામગ્રી / હિંસા',
+      'spam': 'સ્પામ / છેતરપિંડી / ફ્રોડ',
+      'impersonation': 'ઢોંગ / નકલી એકાઉન્ટ્સ',
+      'illegal': 'ગેરકાયદેસર પ્રવૃત્તિઓ',
+      'selfharm': 'સ્વ-નુકસાન / આત્મહત્યા / માનસિક સ્વાસ્થ્ય',
+      'misuse': 'પ્લેટફોર્મનો દુરુપયોગ',
+      'other': 'અન્ય',
     });
     return '$_temp0';
   }
 
   @override
   String get userBlockedFromResonate =>
-      'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
+      'તમે અન્ય વપરાશકર્તાઓ પાસેથી અનેક રિપોર્ટ્સ પ્રાપ્ત કર્યા છે અને તમને Resonate નો ઉપયોગ કરવા માટે અવરોધિત કરવામાં આવ્યા છે. જો તમને લાગે કે આ ભૂલ છે તો કૃપા કરીને AOSSIE નો સંપર્ક કરો.';
 
   @override
-  String get reportParticipant => 'Report Participant';
+  String get reportParticipant => 'ભાગીદારને રિપોર્ટ કરો';
 
   @override
-  String get selectReportType => 'Please select a report type';
+  String get selectReportType => 'કૃપા કરીને રિપોર્ટ પ્રકાર પસંદ કરો';
 
   @override
-  String get reportSubmitted => 'Report Submitted Successfully';
+  String get reportSubmitted => 'રિપોર્ટ સફળતાપૂર્વક સબમિટ થયો';
 
   @override
-  String get reportFailed => 'Report Submission Failed';
+  String get reportFailed => 'રિપોર્ટ સબમિટ કરવામાં નિષ્ફળ ગયું';
 
   @override
-  String get additionalDetailsOptional => 'Additional details (optional)';
+  String get additionalDetailsOptional => 'વધારાની વિગતો (વૈકલ્પિક)';
 
   @override
-  String get submitReport => 'Submit Report';
+  String get submitReport => 'રિપોર્ટ સબમિટ કરો';
 
   @override
-  String get actionBlocked => 'Action Blocked';
+  String get actionBlocked => 'ક્રિયા અવરોધિત';
 
   @override
   String get cannotStopRecording =>
-      'You cannot stop the recording manually, the recording will be stopped when the room is closed.';
+      'તમે હસ્તચાલિત રીતે રેકોર્ડિંગ બંધ કરી શકતા નથી, રૂમ બંધ થશે ત્યારે રેકોર્ડિંગ આપમેળે બંધ થશે.';
 
   @override
-  String get liveChapter => 'Live Chapter';
+  String get liveChapter => 'લાઈવ અધ્યાય';
 
   @override
-  String get viewOrEditLyrics => 'View or Edit Lyrics';
+  String get viewOrEditLyrics => 'ગીત જુઓ અથવા સંપાદિત કરો';
 
   @override
-  String get close => 'Close';
+  String get close => 'બંધ કરો';
 
   @override
-  String get verifyChapterDetails => 'Verify Chapter Details';
+  String get verifyChapterDetails => 'અધ્યાયની વિગતો ચકાસો';
 
   @override
-  String get author => 'Author';
+  String get author => 'લેખક';
 
   @override
-  String get startLiveChapter => 'Start a Live Chapter';
+  String get startLiveChapter => 'લાઈવ અધ્યાય શરૂ કરો';
 
   @override
-  String get fillAllFields => 'Please fill in all required fields';
+  String get fillAllFields => 'કૃપા કરીને તમામ જરૂરી ક્ષેત્રો ભરો';
 
   @override
   String get noRecordingError =>
-      'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
+      'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
 }

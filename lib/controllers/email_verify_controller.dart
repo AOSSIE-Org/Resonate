@@ -140,6 +140,6 @@ class EmailVerifyController extends GetxController {
       functionId: updateEmailFunctionID,
       body: updateEmailData.toString(),
     );
-    updateStatus = results.status;
+    updateStatus = results.status.name;
   }
 }

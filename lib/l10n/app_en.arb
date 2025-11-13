@@ -402,6 +402,70 @@
     "@contribute": {
         "description": "Label for a section encouraging users to contribute to the project."
     },
+    "appPreferences": "App Preferences",
+    "@appPreferences": {
+        "description": "Label for the app preferences settings page."
+    },
+    "transcriptionModel": "Transcription Model",
+    "@transcriptionModel": {
+        "description": "Section title for choosing AI transcription model."
+    },
+    "transcriptionModelDescription": "Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.",
+    "@transcriptionModelDescription": {
+        "description": "Description text explaining transcription model choices."
+    },
+    "whisperModelTiny": "Tiny",
+    "@whisperModelTiny": {
+        "description": "Name of the smallest Whisper AI model."
+    },
+    "whisperModelTinyDescription": "Fastest, least accurate (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Description of the Tiny Whisper model performance and size."
+    },
+    "whisperModelBase": "Base",
+    "@whisperModelBase": {
+        "description": "Name of the base Whisper AI model."
+    },
+    "whisperModelBaseDescription": "Balanced speed and accuracy (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Description of the Base Whisper model performance and size."
+    },
+    "whisperModelSmall": "Small",
+    "@whisperModelSmall": {
+        "description": "Name of the small Whisper AI model."
+    },
+    "whisperModelSmallDescription": "Good accuracy, slower (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Description of the Small Whisper model performance and size."
+    },
+    "whisperModelMedium": "Medium",
+    "@whisperModelMedium": {
+        "description": "Name of the medium Whisper AI model."
+    },
+    "whisperModelMediumDescription": "High accuracy, slower (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Description of the Medium Whisper model performance and size."
+    },
+    "whisperModelLargeV1": "Large V1",
+    "@whisperModelLargeV1": {
+        "description": "Name of the large V1 Whisper AI model."
+    },
+    "whisperModelLargeV1Description": "Most accurate, slowest (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Description of the Large V1 Whisper model performance and size."
+    },
+    "whisperModelLargeV2": "Large V2",
+    "@whisperModelLargeV2": {
+        "description": "Name of the large V2 Whisper AI model."
+    },
+    "whisperModelLargeV2Description": "Improved large model with higher accuracy (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Description of the Large V2 Whisper model performance and size."
+    },
+    "modelDownloadInfo": "Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.",
+    "@modelDownloadInfo": {
+        "description": "Information message about model download."
+    },
     "logOut": "Log out",
     "@logOut": {
         "description": "Button text to log the user out of their account."
@@ -433,6 +497,22 @@
     "cancel": "Cancel",
     "@cancel": {
         "description": "Generic button text for a cancel action."
+    },
+    "hide": "Remove",
+    "@hide": {
+        "description": "Button text to remove an item from view."
+    },
+    "removeRoom": "Remove Room",
+    "@removeRoom": {
+        "description": "Dialog title for removing an upcoming room."
+    },
+    "removeRoomFromList": "Remove from list",
+    "@removeRoomFromList": {
+        "description": "Tooltip text for the remove room button."
+    },
+    "removeRoomConfirmation": "Are you sure you want to remove this upcoming room from your list?",
+    "@removeRoomConfirmation": {
+        "description": "Confirmation message asking if the user wants to remove an upcoming room from their list."
     },
     "completeYourProfile": "Complete your Profile",
     "@completeYourProfile": {
@@ -641,6 +721,10 @@
     "errorLoadPackageInfo": "Could not load package info",
     "@errorLoadPackageInfo": {
         "description": "Error message when the application fails to load its package information (e.g., version)."
+    },
+    "searchFailed": "Failed to search rooms. Please try again.",
+    "@searchFailed": {
+        "description": "Error message when searching for rooms fails."
     },
     "updateAvailable": "Update Available",
     "@updateAvailable": {
@@ -859,6 +943,38 @@
     "noSearchResults": "No Search Results",
     "@noSearchResults": {
         "description": "Message displayed when a search returns no results."
+    },
+    "searchRooms": "Search rooms...",
+    "@searchRooms": {
+        "description": "Placeholder text for room search input field."
+    },
+    "searchingRooms": "Searching rooms...",
+    "@searchingRooms": {
+        "description": "Loading message shown while searching for rooms."
+    },
+    "clearSearch": "Clear search",
+    "@clearSearch": {
+        "description": "Text for button to clear search results."
+    },
+    "searchError": "Search Error",
+    "@searchError": {
+        "description": "Title for search error messages."
+    },
+    "searchRoomsError": "Failed to search rooms. Please try again.",
+    "@searchRoomsError": {
+        "description": "Error message when room search fails."
+    },
+    "searchUpcomingRoomsError": "Failed to search upcoming rooms. Please try again.",
+    "@searchUpcomingRoomsError": {
+        "description": "Error message when upcoming room search fails."
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Tooltip text for search button."
+    },
+    "clear": "Clear",
+    "@clear": {
+        "description": "Tooltip text for clear button."
     },
     "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!",
     "@shareRoomMessage": {
@@ -1547,6 +1663,14 @@
     "updateFeaturesImprovement": "Get the latest features and improvements!",
     "@updateFeaturesImprovement": {
         "description": "A message highlighting the benefit of updating the application."
+    },
+    "failedToRemoveRoom": "Failed to remove room",
+    "@failedToRemoveRoom": {
+        "description": "Error message when unable to remove a room from the list"
+    },
+    "roomRemovedSuccessfully": "Room removed from your list successfully",
+    "@roomRemovedSuccessfully": {
+        "description": "Success message when a room is successfully removed from the user's list"
     },
     "alert": "Alert",
     "@alert": {

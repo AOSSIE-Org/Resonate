@@ -402,6 +402,70 @@
     "@contribute": {
         "description": "Label for a section encouraging users to contribute to the project."
     },
+    "appPreferences": "ऐप प्राथमिकताएं",
+    "@appPreferences": {
+        "description": "Label for the app preferences settings page."
+    },
+    "transcriptionModel": "ट्रांसक्रिप्शन मॉडल",
+    "@transcriptionModel": {
+        "description": "Section title for choosing AI transcription model."
+    },
+    "transcriptionModelDescription": "वॉयस ट्रांसक्रिप्शन के लिए AI मॉडल चुनें। बड़े मॉडल अधिक सटीक हैं लेकिन धीमे हैं और अधिक स्टोरेज की आवश्यकता होती है।",
+    "@transcriptionModelDescription": {
+        "description": "Description text explaining transcription model choices."
+    },
+    "whisperModelTiny": "टाइनी",
+    "@whisperModelTiny": {
+        "description": "Name of the smallest Whisper AI model."
+    },
+    "whisperModelTinyDescription": "सबसे तेज़, कम सटीक (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Description of the Tiny Whisper model performance and size."
+    },
+    "whisperModelBase": "बेस",
+    "@whisperModelBase": {
+        "description": "Name of the base Whisper AI model."
+    },
+    "whisperModelBaseDescription": "संतुलित गति और सटीकता (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Description of the Base Whisper model performance and size."
+    },
+    "whisperModelSmall": "स्मॉल",
+    "@whisperModelSmall": {
+        "description": "Name of the small Whisper AI model."
+    },
+    "whisperModelSmallDescription": "अच्छी सटीकता, धीमा (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Description of the Small Whisper model performance and size."
+    },
+    "whisperModelMedium": "मीडियम",
+    "@whisperModelMedium": {
+        "description": "Name of the medium Whisper AI model."
+    },
+    "whisperModelMediumDescription": "उच्च सटीकता, धीमा (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Description of the Medium Whisper model performance and size."
+    },
+    "whisperModelLargeV1": "लार्ज V1",
+    "@whisperModelLargeV1": {
+        "description": "Name of the large V1 Whisper AI model."
+    },
+    "whisperModelLargeV1Description": "सबसे अधिक सटीक, सबसे धीमा (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Description of the Large V1 Whisper model performance and size."
+    },
+    "whisperModelLargeV2": "लार्ज V2",
+    "@whisperModelLargeV2": {
+        "description": "Name of the large V2 Whisper AI model."
+    },
+    "whisperModelLargeV2Description": "उच्च सटीकता के साथ बेहतर बड़ा मॉडल (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Description of the Large V2 Whisper model performance and size."
+    },
+    "modelDownloadInfo": "मॉडल पहली बार उपयोग करने पर डाउनलोड हो जाते हैं। हम बेस, स्मॉल या मीडियम का उपयोग करने की सिफारिश करते हैं। बड़े मॉडल के लिए बहुत उच्च अंत उपकरणों की आवश्यकता होती है।",
+    "@modelDownloadInfo": {
+        "description": "Information message about model download."
+    },
     "logOut": "लॉग आउट",
     "@logOut": {
         "description": "Button text to log the user out of their account."
@@ -642,6 +706,10 @@
     "@errorLoadPackageInfo": {
         "description": "Error message when the application fails to load its package information (e.g., version)."
     },
+    "searchFailed": "रूम खोजने में विफल। कृपया पुनः प्रयास करें।",
+    "@searchFailed": {
+        "description": "Error message when searching for rooms fails."
+    },
     "updateAvailable": "अपडेट उपलब्ध है",
     "@updateAvailable": {
         "description": "Title indicating that a new version of the app is available."
@@ -859,6 +927,38 @@
     "noSearchResults": "कोई रिज़ल्ट नहीं मिला",
     "@noSearchResults": {
         "description": "Message displayed when a search returns no results."
+    },
+    "searchRooms": "रूम खोजें...",
+    "@searchRooms": {
+        "description": "Placeholder text for room search input field."
+    },
+    "searchingRooms": "रूम खोजे जा रहे हैं...",
+    "@searchingRooms": {
+        "description": "Loading message shown while searching for rooms."
+    },
+    "clearSearch": "खोज साफ़ करें",
+    "@clearSearch": {
+        "description": "Text for button to clear search results."
+    },
+    "searchError": "खोज त्रुटि",
+    "@searchError": {
+        "description": "Title for search error messages."
+    },
+    "searchRoomsError": "कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।",
+    "@searchRoomsError": {
+        "description": "Error message when room search fails."
+    },
+    "searchUpcomingRoomsError": "आगामी कमरों की खोज असफल हुई। कृपया दोबारा कोशिश करें।",
+    "@searchUpcomingRoomsError": {
+        "description": "Error message when upcoming room search fails."
+    },
+    "search": "खोजें",
+    "@search": {
+        "description": "Tooltip text for search button."
+    },
+    "clear": "साफ़ करें",
+    "@clear": {
+        "description": "Tooltip text for clear button."
     },
     "shareRoomMessage": "🚀 इस शानदार रूम को देखें: {roomName}!\n\n📖 विवरण: {description}\n👥 अभी {participants} लोग जुड़ चुके हैं!",
     "@shareRoomMessage": {
@@ -1547,6 +1647,30 @@
     "updateFeaturesImprovement": "नवीनतम सुविधाएं और सुधार प्राप्त करें!",
     "@updateFeaturesImprovement": {
         "description": "A message highlighting the benefit of updating the application."
+    },
+    "hide": "छुपाएं",
+    "@hide": {
+        "description": "Button text to hide an item from view."
+    },
+    "removeRoom": "रूम छुपाएं",
+    "@removeRoom": {
+        "description": "Dialog title for hiding an upcoming room."
+    },
+    "removeRoomFromList": "सूची से छुपाएं",
+    "@removeRoomFromList": {
+        "description": "Tooltip text for the hide room button."
+    },
+    "removeRoomConfirmation": "क्या आप वाकई इस आने वाले रूम को अपनी सूची से छुपाना चाहते हैं?",
+    "@removeRoomConfirmation": {
+        "description": "Confirmation message asking if the user wants to hide an upcoming room from their list."
+    },
+    "failedToRemoveRoom": "रूम हटाने में विफल",
+    "@failedToRemoveRoom": {
+        "description": "Error message when unable to remove a room from the list"
+    },
+    "roomRemovedSuccessfully": "रूम आपकी सूची से सफलतापूर्वक हटा दिया गया",
+    "@roomRemovedSuccessfully": {
+        "description": "Success message when a room is successfully removed from the user's list"
     },
     "alert": "अलर्ट",
     "@alert": {

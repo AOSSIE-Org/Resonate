@@ -125,7 +125,7 @@ class LiveChapterController extends GetxController {
           functionId: sendStoryNotificationFunctionID,
           body: body.toString(),
         );
-        log(results.status);
+        log(results.status.name);
       }
       listenForAttendeesAdded();
       Get.toNamed(AppRoutes.liveChapterScreen);
