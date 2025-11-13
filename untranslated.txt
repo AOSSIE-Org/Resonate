@@ -54,8 +54,11 @@
     "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
-    "deleteMessageTitle",
-    "deleteMessageContent"
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ],
 
   "mr": [
@@ -73,6 +76,11 @@
     "search",
     "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ]
 }
