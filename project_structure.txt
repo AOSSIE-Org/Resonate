@@ -135,9 +135,12 @@
 ├── devtools_options.yaml
 ├── docs
 │   ├── gsoc
-│   │   └── GSoC23-Chandan_S_Gowda.pdf
+│   │   ├── GSoC23-Chandan_S_Gowda.pdf
+│   │   ├── GSoC25_Madhav_Gupta_End-Term.md
+│   │   └── GSoC_2025_Madhav_Gupta_Proposal.pdf
 │   └── store_listing
 │       ├── description.md
+│       ├── download-from-google-play.svg
 │       └── images
 │           ├── Resonate Poster.png
 │           └── playstore_screenshots
@@ -442,4 +445,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 363 files
+80 directories, 366 files
