@@ -21,21 +21,40 @@ import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpcomingRoomsController extends GetxController {
-  final Databases databases = AppwriteService.getDatabases();
+  final AuthStateController authStateController;
+  final CreateRoomController createRoomController;
+  final TabViewController controller;
+  final ThemeController themeController;
+  final RoomsController roomsController;
+  final Databases databases;
+  final FirebaseMessaging messaging;
   TextEditingController dateTimeController = TextEditingController(text: "");
-  AuthStateController authStateController = Get.find<AuthStateController>();
-  final CreateRoomController createRoomController =
-      Get.find<CreateRoomController>();
   Rx<ScrollController> upcomingRoomScrollController = ScrollController().obs;
-  final TabViewController controller = Get.find<TabViewController>();
-  final ThemeController themeController = Get.find<ThemeController>();
-  final RoomsController roomsController = Get.find<RoomsController>();
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
   late RxList<AppwriteUpcommingRoom> upcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
-  final GetStorage _storage = GetStorage();
+  late final GetStorage _storage;
   static const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
   List<String> _removedRoomsList = [];
+  UpcomingRoomsController({
+    AuthStateController? authStateController,
+    CreateRoomController? createRoomController,
+    TabViewController? tabViewController,
+    ThemeController? themeController,
+    RoomsController? roomsController,
+    Databases? databases,
+    FirebaseMessaging? messaging,
+    GetStorage? storage,
+  }) : authStateController =
+           authStateController ?? Get.find<AuthStateController>(),
+       createRoomController =
+           createRoomController ?? Get.find<CreateRoomController>(),
+       controller = tabViewController ?? Get.find<TabViewController>(),
+       themeController = themeController ?? Get.find<ThemeController>(),
+       roomsController = roomsController ?? Get.find<RoomsController>(),
+       databases = databases ?? AppwriteService.getDatabases(),
+       messaging = messaging ?? FirebaseMessaging.instance {
+    _storage = storage ?? GetStorage();
+  }
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
