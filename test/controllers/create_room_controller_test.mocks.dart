@@ -24,6 +24,7 @@ import 'package:resonate/themes/theme_controller.dart' as _i3;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeRx_0<T> extends _i1.SmartFake implements _i2.Rx<T> {
   _FakeRx_0(Object parent, Invocation parentInvocation)
@@ -89,17 +90,16 @@ class MockThemeController extends _i1.Mock implements _i3.ThemeController {
           as String);
 
   @override
-  set currentTheme(_i2.Rx<String>? _currentTheme) => super.noSuchMethod(
-    Invocation.setter(#currentTheme, _currentTheme),
+  set currentTheme(_i2.Rx<String>? value) => super.noSuchMethod(
+    Invocation.setter(#currentTheme, value),
     returnValueForMissingStub: null,
   );
 
   @override
-  set currentThemePlaceHolder(_i2.Rx<String>? _currentThemePlaceHolder) =>
-      super.noSuchMethod(
-        Invocation.setter(#currentThemePlaceHolder, _currentThemePlaceHolder),
-        returnValueForMissingStub: null,
-      );
+  set currentThemePlaceHolder(_i2.Rx<String>? value) => super.noSuchMethod(
+    Invocation.setter(#currentThemePlaceHolder, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
   _i2.InternalFinalCallback<void> get onStart =>
