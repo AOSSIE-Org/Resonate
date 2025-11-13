@@ -128,7 +128,7 @@ class RoomChatController extends GetxController {
           functionId: sendMessageNotificationFunctionID,
           body: body.toString(),
         );
-        log(results.status);
+        log(results.status.name);
       }
       message.replyTo = replyingTo.value;
 
@@ -171,7 +171,7 @@ class RoomChatController extends GetxController {
           functionId: sendMessageNotificationFunctionID,
           body: body.toString(),
         );
-        log(results.status);
+        log(results.status.name);
       }
       log('Message edited successfully');
     } catch (e) {

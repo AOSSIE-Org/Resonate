@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/enums.dart';
+import 'package:appwrite/enums.dart' hide Theme;
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

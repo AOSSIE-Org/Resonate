@@ -444,7 +444,7 @@ class ExploreStoryController extends GetxController {
           functionId: sendStoryNotificationFunctionID,
           body: body.toString(),
         );
-        log(results.status);
+        log(results.status.name);
       }
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");

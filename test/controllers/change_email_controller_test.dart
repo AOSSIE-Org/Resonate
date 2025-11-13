@@ -67,6 +67,7 @@ void main() {
       'ratingTotal': 5,
       'ratingCount': 1,
     },
+    $sequence: 0,
   );
 
   setUp(() {
@@ -104,6 +105,7 @@ void main() {
         data: Map<String, dynamic>.from(
           invocation.namedArguments[#data] as Map,
         ),
+        $sequence: 0,
       );
     });
     when(

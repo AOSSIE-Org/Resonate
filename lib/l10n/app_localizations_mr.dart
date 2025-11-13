@@ -1343,10 +1343,4 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get noRecordingError =>
       'आपने अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कोठा बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
-
-  @override
-  String get deleteMessageTitle => 'संदेश हटवा';
-
-  @override
-  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
 }
