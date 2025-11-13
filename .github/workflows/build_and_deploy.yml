@@ -77,8 +77,6 @@ jobs:
     needs: build_android
     permissions:
       contents: write
-    env:
-      APK_RELEASE_PATH: apk-release/app-release.apk
     steps:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
@@ -89,7 +87,7 @@ jobs:
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: ${{ env.APK_RELEASE_PATH }}
+          artifacts: ${{ env.APK_PATH }}
           artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
