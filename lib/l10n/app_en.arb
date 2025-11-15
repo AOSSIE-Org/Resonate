@@ -1757,5 +1757,25 @@
     "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
+    },
+    "audioOutput": "Audio Output",
+    "@audioOutput": {
+        "description": "Title for audio output device selector."
+    },
+    "selectPreferredSpeaker": "Select your preferred speaker",
+    "@selectPreferredSpeaker": {
+        "description": "Subtitle for audio device selector dialog."
+    },
+    "noAudioOutputDevices": "No audio output devices detected",
+    "@noAudioOutputDevices": {
+        "description": "Message shown when no audio output devices are available."
+    },
+    "refresh": "Refresh",
+    "@refresh": {
+        "description": "Button text to refresh audio device list."
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Button text to close audio device selector."
     }
 }

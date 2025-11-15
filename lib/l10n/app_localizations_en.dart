@@ -1342,4 +1342,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 }
