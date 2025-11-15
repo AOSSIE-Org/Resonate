@@ -52,6 +52,7 @@ void main() {
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),
           $permissions: [],
+          $sequence: 0,
           data: {},
         ),
       );
