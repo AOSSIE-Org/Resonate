@@ -196,4 +196,165 @@ void main() {
       },
     );
   });
+
+  group('UpcomingRoomsController - Search Functionality', () {
+    late UpcomingRoomsController controller;
+    late GetStorage testStorage;
+    late MockDatabases mockDatabases;
+    late MockAccount mockAccount;
+    late MockClient mockClient;
+    late MockFirebaseMessaging mockMessaging;
+    late AuthStateController authStateController;
+    late CreateRoomController createRoomController;
+    late TabViewController tabViewController;
+    late ThemeController themeController;
+    late RoomsController roomsController;
+
+    final mockSearchRooms = [
+      AppwriteUpcommingRoom(
+        id: 'search1',
+        name: 'Future Tech Discussion',
+        description: 'Exploring upcoming technology trends and innovations',
+        isTime: true,
+        scheduledDateTime: DateTime.now().add(Duration(days: 1)),
+        totalSubscriberCount: 10,
+        tags: ['tech', 'future'],
+        subscribersAvatarUrls: ['url1', 'url2'],
+        userIsCreator: false,
+        hasUserSubscribed: false,
+      ),
+      AppwriteUpcommingRoom(
+        id: 'search2',
+        name: 'Music Jam Session',
+        description: 'Live music performance and collaboration',
+        isTime: true,
+        scheduledDateTime: DateTime.now().add(Duration(days: 2)),
+        totalSubscriberCount: 5,
+        tags: ['music', 'live'],
+        subscribersAvatarUrls: ['url1'],
+        userIsCreator: false,
+        hasUserSubscribed: true,
+      ),
+      AppwriteUpcommingRoom(
+        id: 'search3',
+        name: 'Book Club Meeting',
+        description: 'Discussing the latest bestseller books',
+        isTime: false,
+        scheduledDateTime: DateTime.now().add(Duration(days: 3)),
+        totalSubscriberCount: 8,
+        tags: ['books', 'discussion'],
+        subscribersAvatarUrls: ['url1', 'url2', 'url3'],
+        userIsCreator: true,
+        hasUserSubscribed: false,
+      ),
+    ];
+
+    setUpAll(() async {
+      await GetStorage.init('test_storage_search');
+    });
+
+    setUp(() {
+      testStorage = GetStorage('test_storage_search');
+      testStorage.erase();
+      mockDatabases = MockDatabases();
+      mockAccount = MockAccount();
+      mockClient = MockClient();
+      mockMessaging = MockFirebaseMessaging();
+      authStateController = AuthStateController(
+        account: mockAccount,
+        databases: mockDatabases,
+        client: mockClient,
+        messaging: mockMessaging,
+      );
+      tabViewController = TabViewController();
+      themeController = ThemeController();
+      Get.put<ThemeController>(themeController);
+      createRoomController = CreateRoomController(
+        themeController: themeController,
+      );
+      roomsController = RoomsController();
+      controller = UpcomingRoomsController(
+        authStateController: authStateController,
+        createRoomController: createRoomController,
+        tabViewController: tabViewController,
+        themeController: themeController,
+        roomsController: roomsController,
+        databases: mockDatabases,
+        messaging: mockMessaging,
+        storage: testStorage,
+      );
+      controller.upcomingRooms.value = List.from(mockSearchRooms);
+    });
+
+    tearDown(() {
+      Get.reset();
+      testStorage.erase();
+    });
+
+    test('should filter upcoming rooms by name', () {
+      controller.searchUpcomingRooms('Tech');
+      expect(controller.filteredUpcomingRooms.length, 1);
+      expect(
+        controller.filteredUpcomingRooms[0].name,
+        'Future Tech Discussion',
+      );
+    });
+
+    test('should filter upcoming rooms by description', () {
+      controller.searchUpcomingRooms('music');
+      expect(controller.filteredUpcomingRooms.length, 1);
+      expect(controller.filteredUpcomingRooms[0].name, 'Music Jam Session');
+    });
+
+    test('should be case-insensitive for upcoming rooms', () {
+      controller.searchUpcomingRooms('BOOK');
+      expect(controller.filteredUpcomingRooms.length, 1);
+      expect(controller.filteredUpcomingRooms[0].name, 'Book Club Meeting');
+    });
+
+    test('should return all upcoming rooms when query is empty', () {
+      controller.searchUpcomingRooms('');
+      expect(controller.filteredUpcomingRooms.length, 3);
+    });
+
+    test(
+      'should return empty list when no matches found in upcoming rooms',
+      () {
+        controller.searchUpcomingRooms('NonExistent');
+        expect(controller.filteredUpcomingRooms.length, 0);
+      },
+    );
+
+    test('should match partial strings in upcoming rooms', () {
+      controller.searchUpcomingRooms('Disc');
+      expect(controller.filteredUpcomingRooms.length, 2);
+    });
+
+    test('should clear upcoming search results', () {
+      controller.searchUpcomingRooms('Music');
+      expect(controller.searchBarIsEmpty.value, false);
+      expect(controller.filteredUpcomingRooms.length, 1);
+
+      controller.clearUpcomingSearch();
+      expect(controller.searchBarIsEmpty.value, true);
+      expect(controller.filteredUpcomingRooms.length, 3);
+    });
+
+    test('should match across multiple fields in upcoming rooms', () {
+      controller.searchUpcomingRooms('discuss');
+      expect(controller.filteredUpcomingRooms.length, 2);
+      expect(
+        controller.filteredUpcomingRooms.any(
+          (room) => room.name == 'Future Tech Discussion',
+        ),
+        true,
+      );
+      expect(
+        controller.filteredUpcomingRooms.any(
+          (room) => room.name == 'Book Club Meeting',
+        ),
+        true,
+      );
+    });
+  });
 }
