@@ -243,9 +243,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
               if (widget.canDelete)
                 ///delete option
                 ListTile(
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.delete,
-                    color: Color.fromARGB(255, 199, 169, 166),
+                    color: Theme.of(context).colorScheme.error,
                   ),
                   title: Text(AppLocalizations.of(context)!.delete),
 
