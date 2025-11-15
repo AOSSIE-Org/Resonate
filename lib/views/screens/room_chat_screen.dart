@@ -6,7 +6,9 @@ import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 import 'package:resonate/models/message.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class RoomChatScreen extends StatefulWidget {
   const RoomChatScreen({super.key});
@@ -118,18 +120,18 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                             await chatController.deleteMessage(messageId);
                             try {
                               await chatController.deleteMessage(messageId);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    AppLocalizations.of(context)!.delete,
-                                  ),
-                                ),
+                              customSnackbar(
+                                'success',
+                                AppLocalizations.of(context)!.delete,
+                                LogType.success,
                               );
                             } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Failed to delete message'),
-                                ),
+                              customSnackbar(
+                                "Error",
+                                AppLocalizations.of(
+                                  context,
+                                )!.failedToDeleteMessage,
+                                LogType.error,
                               );
                             }
                           },
