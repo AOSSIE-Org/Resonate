@@ -41,7 +41,7 @@ class _FakeDocument_2 extends _i1.SmartFake implements _i3.Document {
 
 /// A class which mocks [Databases].
 ///
-/// See the documentation for Mockito's code generation for more information.
+/// See the documentation for Mockito's code generation for more informatio
 class MockDatabases extends _i1.Mock implements _i4.Databases {
   MockDatabases() {
     _i1.throwOnMissingStub(this);
