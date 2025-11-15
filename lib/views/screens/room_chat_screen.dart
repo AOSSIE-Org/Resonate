@@ -117,7 +117,6 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                             await updateMessage(index, newContent);
                           },
                           onDeleteMessage: (String messageId) async {
-                            await chatController.deleteMessage(messageId);
                             try {
                               await chatController.deleteMessage(messageId);
                               customSnackbar(
