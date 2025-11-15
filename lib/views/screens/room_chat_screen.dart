@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+
 import 'package:resonate/models/message.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class RoomChatScreen extends StatefulWidget {
   const RoomChatScreen({super.key});
@@ -112,12 +116,36 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           onEditMessage: (String newContent) async {
                             await updateMessage(index, newContent);
                           },
+                          onDeleteMessage: (String messageId) async {
+                            try {
+                              await chatController.deleteMessage(messageId);
+                              customSnackbar(
+                                AppLocalizations.of(context)!.success,
+                                AppLocalizations.of(context)!.delete,
+                                LogType.success,
+                              );
+                            } catch (e) {
+                              customSnackbar(
+                                AppLocalizations.of(context)!.error,
+                                AppLocalizations.of(
+                                  context,
+                                )!.failedToDeleteMessage,
+                                LogType.error,
+                              );
+                            }
+                          },
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
                           canEdit:
                               auth.appwriteUser.$id ==
                                   chatController.messages[index].creatorId &&
+                              !chatController.messages[index].isDeleted &&
                               !chatController.messages[index].isEdited,
+
+                          canDelete:
+                              auth.appwriteUser.$id ==
+                                  chatController.messages[index].creatorId &&
+                              !chatController.messages[index].isDeleted,
                         );
                       },
                     ),
@@ -138,6 +166,8 @@ class ChatMessageItem extends StatefulWidget {
   final void Function(int) onTapReply;
   final void Function(String) onEditMessage;
   final void Function(Message) replytoMessage;
+  final void Function(String) onDeleteMessage;
+  final bool canDelete;
   final bool canEdit;
 
   const ChatMessageItem({
@@ -147,6 +177,8 @@ class ChatMessageItem extends StatefulWidget {
     required this.onEditMessage,
     required this.replytoMessage,
     required this.canEdit,
+    required this.onDeleteMessage,
+    required this.canDelete,
   });
 
   @override
@@ -156,6 +188,7 @@ class ChatMessageItem extends StatefulWidget {
 class ChatMessageItemState extends State<ChatMessageItem> {
   bool isEditing = false;
   late TextEditingController _editingController;
+
   double _dragOffset = 0.0;
   @override
   void initState() {
@@ -170,6 +203,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
   }
 
   void startEditing() {
+    if (widget.message.isDeleted) {
+      return;
+    }
     setState(() {
       isEditing = true;
     });
@@ -192,6 +228,69 @@ class ChatMessageItemState extends State<ChatMessageItem> {
     _editingController.text = widget.message.content;
   }
 
+  void _showMessageContextMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: Wrap(
+            children: [
+              if (widget.canDelete)
+                ///delete option
+                ListTile(
+                  leading: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  title: Text(AppLocalizations.of(context)!.delete),
+
+                  onTap: () {
+                    Navigator.pop(context);
+                    _confirmDelete(context);
+                  },
+                ),
+
+              ///cancel option
+              ListTile(
+                leading: const Icon(Icons.close),
+                title: Text(AppLocalizations.of(context)!.cancel),
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.deleteMessageTitle),
+        content: Text(AppLocalizations.of(context)!.deleteMessageContent),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              widget.onDeleteMessage(widget.message.messageId);
+            },
+            child: Text(AppLocalizations.of(context)!.delete),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -199,6 +298,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
         return Stack(
           children: [
             GestureDetector(
+              onLongPress: () => _showMessageContextMenu(context),
               onHorizontalDragUpdate: (details) {
                 if (_dragOffset + details.delta.dx > 0.0 &&
                     _dragOffset + details.delta.dx < 100) {
@@ -227,8 +327,11 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(8.0),
+
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: widget.message.isDeleted
+                          ? Theme.of(context).colorScheme.secondaryContainer
+                          : Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Column(
@@ -252,9 +355,13 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                     widget.message.creatorName.capitalizeFirst!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.secondary,
+                                      color: widget.message.isDeleted
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.secondary,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
@@ -269,7 +376,9 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                           bottom: 5,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.grey[200],
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.secondaryContainer,
                                           borderRadius: BorderRadius.circular(
                                             8,
                                           ),
@@ -298,6 +407,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                       ),
                                     ),
                                   if (isEditing)
+                                    ///the message to edit it AND the message is not deleted
                                     Focus(
                                       onKeyEvent: (node, event) {
                                         if (event.logicalKey ==
@@ -326,6 +436,19 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                         ),
                                       ),
                                     )
+                                  else if (widget.message.isDeleted)
+                                    ///The message has been deleted (`isDeleted = true`)
+                                    Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.thisMessageWasDeleted,
+                                      style: TextStyle(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    )
                                   else
                                     Row(
                                       children: [
@@ -350,6 +473,7 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                           ),
                                       ],
                                     ),
+
                                   const SizedBox(height: 5),
                                   Text(
                                     widget.message.creationDateTime
@@ -419,7 +543,9 @@ class ChatInputField extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 5),
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.secondaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(

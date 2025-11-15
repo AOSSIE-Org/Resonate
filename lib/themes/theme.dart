@@ -18,6 +18,10 @@ class ThemeModes {
         surface: theme.surfaceColor,
         onSurface: theme.onSurfaceColor,
         surfaceTint: Colors.transparent,
+        surfaceContainerHighest: const Color.fromARGB(255, 122, 122, 122),
+        onSurfaceVariant: const Color(0xFF616161),
+
+        secondaryContainer: const Color(0xFFEEEEEE),
       ),
       appBarTheme: AppBarTheme(
         surfaceTintColor: Colors.transparent,
@@ -92,6 +96,11 @@ class ThemeModes {
         surface: theme.surfaceColor,
         onSurface: theme.onSurfaceColor,
         surfaceTint: Colors.transparent,
+
+        surfaceContainerHighest: const Color(0xFF424242),
+        onSurfaceVariant: const Color(0xFFBDBDBD),
+
+        secondaryContainer: const Color(0xFF616161),
       ),
       appBarTheme: AppBarTheme(
         surfaceTintColor: Colors.transparent,
