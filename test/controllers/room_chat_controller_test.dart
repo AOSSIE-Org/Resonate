@@ -6,6 +6,7 @@ import 'package:appwrite/models.dart';
 import 'package:resonate/models/message.dart';
 import 'package:resonate/utils/constants.dart';
 
+// Generate mocks for Databases class
 @GenerateMocks([Databases])
 import 'room_chat_controller_test.mocks.dart';
 
@@ -39,10 +40,11 @@ void main() {
     test('test to successfully delete a message', () async {
       when(
         mockDatabases.updateDocument(
-          databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
-          documentId: 'test-message-1',
+          databaseId: anyNamed('databaseId'),
+          collectionId: anyNamed('collectionId'),
+          documentId: anyNamed('documentId'),
           data: anyNamed('data'),
+          permissions: anyNamed('permissions'),
         ),
       ).thenAnswer(
         (_) async => Document(
@@ -52,7 +54,6 @@ void main() {
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),
           $permissions: [],
-          $sequence: 0,
           data: {},
         ),
       );
@@ -105,14 +106,14 @@ void main() {
     test('test to handle database errors', () async {
       when(
         mockDatabases.updateDocument(
-          databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
-          documentId: 'test-message-1',
+          databaseId: anyNamed('databaseId'),
+          collectionId: anyNamed('collectionId'),
+          documentId: anyNamed('documentId'),
           data: anyNamed('data'),
+          permissions: anyNamed('permissions'),
         ),
       ).thenThrow(AppwriteException('Database error'));
 
-      // Act
       Message messageToDelete = messages.firstWhere(
         (msg) => msg.messageId == 'test-message-1',
       );
