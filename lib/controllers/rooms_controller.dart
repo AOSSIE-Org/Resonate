@@ -11,7 +11,9 @@ import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -23,6 +25,9 @@ class RoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
   RxList<AppwriteRoom> rooms = <AppwriteRoom>[].obs;
   final ThemeController themeController = Get.find<ThemeController>();
+  RxBool isSearching = false.obs;
+  RxBool searchBarIsEmpty = true.obs;
+  RxList<AppwriteRoom> filteredRooms = <AppwriteRoom>[].obs;
 
   @override
   void onInit() async {
@@ -141,5 +146,37 @@ class RoomsController extends GetxController {
       // Close the loading dialog
       Get.back();
     }
+  }
+
+  Future<void> searchLiveRooms(String query) async {
+    if (query.isEmpty) {
+      filteredRooms.value = rooms;
+      searchBarIsEmpty.value = true;
+      return;
+    }
+    isSearching.value = true;
+    searchBarIsEmpty.value = false;
+    try {
+      final lowerQuery = query.toLowerCase();
+      filteredRooms.value = rooms.where((room) {
+        return room.name.toLowerCase().contains(lowerQuery) ||
+            room.description.toLowerCase().contains(lowerQuery);
+      }).toList();
+    } catch (e) {
+      log('Error searching rooms: $e');
+      filteredRooms.value = rooms;
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.error,
+        AppLocalizations.of(Get.context!)!.searchFailed,
+        LogType.error,
+      );
+    } finally {
+      isSearching.value = false;
+    }
+  }
+
+  void clearLiveSearch() {
+    filteredRooms.value = rooms;
+    searchBarIsEmpty.value = true;
   }
 }

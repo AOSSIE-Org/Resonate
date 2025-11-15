@@ -100,7 +100,7 @@ class FriendsController extends GetxController {
       collectionId: usersCollectionID,
       documentId: authStateController.uid!,
     );
-    for (var friend in userDoc.data["friends"] as List<dynamic>) {
+    for (var friend in (userDoc.data["friends"] ?? []) as List<dynamic>) {
       final friendModel = FriendsModel.fromJson(friend);
       if (friendModel.requestStatus == FriendRequestStatus.accepted) {
         friendsList.add(friendModel);

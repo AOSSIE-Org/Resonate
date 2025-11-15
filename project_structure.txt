@@ -14,6 +14,7 @@
 │       ├── greet_contributors.yml
 │       ├── run_tests.yml
 │       ├── store_deploy_android.yml
+│       ├── translation-check.yml
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
@@ -134,9 +135,12 @@
 ├── devtools_options.yaml
 ├── docs
 │   ├── gsoc
-│   │   └── GSoC23-Chandan_S_Gowda.pdf
+│   │   ├── GSoC23-Chandan_S_Gowda.pdf
+│   │   ├── GSoC25_Madhav_Gupta_End-Term.md
+│   │   └── GSoC_2025_Madhav_Gupta_Proposal.pdf
 │   └── store_listing
 │       ├── description.md
+│       ├── download-from-google-play.svg
 │       └── images
 │           ├── Resonate Poster.png
 │           └── playstore_screenshots
@@ -147,7 +151,8 @@
 │               ├── 5.png
 │               ├── 6.png
 │               ├── 7.png
-│               └── 8.png
+│               ├── 8.png
+│               └── 9.png
 ├── flutter_native_splash.yaml
 ├── ios
 │   ├── .gitignore
@@ -261,10 +266,14 @@
 │   │   ├── app_en.arb
 │   │   ├── app_gu.arb
 │   │   ├── app_hi.arb
+│   │   ├── app_kn.arb
 │   │   ├── app_localizations.dart
 │   │   ├── app_localizations_en.dart
 │   │   ├── app_localizations_gu.dart
-│   │   └── app_localizations_hi.dart
+│   │   ├── app_localizations_hi.dart
+│   │   ├── app_localizations_kn.dart
+│   │   ├── app_localizations_mr.dart
+│   │   └── app_mr.arb
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -339,6 +348,7 @@
 │       ├── screens
 │       │   ├── about_app_screen.dart
 │       │   ├── add_chapter_screen.dart
+│       │   ├── app_preferences_screen.dart
 │       │   ├── category_screen.dart
 │       │   ├── change_email_screen.dart
 │       │   ├── chapter_play_screen.dart
@@ -402,6 +412,7 @@
 │           ├── report_widget.dart
 │           ├── room_app_bar.dart
 │           ├── room_header.dart
+│           ├── search_rooms.dart
 │           ├── snackbar.dart
 │           ├── start_live_chapter_dialog.dart
 │           ├── story_card.dart
@@ -434,4 +445,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 355 files
+80 directories, 366 files

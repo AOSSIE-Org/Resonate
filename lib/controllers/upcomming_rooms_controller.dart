@@ -4,6 +4,7 @@ import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
@@ -15,7 +16,9 @@ import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpcomingRoomsController extends GetxController {
   final Databases databases = AppwriteService.getDatabases();
@@ -30,12 +33,18 @@ class UpcomingRoomsController extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late RxList<AppwriteUpcommingRoom> upcomingRooms =
       <AppwriteUpcommingRoom>[].obs;
+  final GetStorage _storage = GetStorage();
+  static const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
+  List<String> _removedRoomsList = [];
   late String scheduledDateTime;
   late Document currentUserDoc;
   late Duration localTimeZoneOffset;
   late String localTimeZoneName;
   late bool isOffsetNegetive;
   Rx<bool> isLoading = false.obs;
+  RxBool searchBarIsEmpty = true.obs;
+  RxList<AppwriteUpcommingRoom> filteredUpcomingRooms =
+      <AppwriteUpcommingRoom>[].obs;
   late DateTime currentTimeInstance;
   final Map<String, String> monthMap = {
     "1": "Jan",
@@ -54,7 +63,27 @@ class UpcomingRoomsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _removedRoomsList = List<String>.from(
+      _storage.read(_removedUpcomingRoomsKey) ?? [],
+    );
     await getUpcomingRooms();
+  }
+
+  Future<void> cleanupRemovedRooms(List<String> existingRoomIds) async {
+    try {
+      int initialCount = _removedRoomsList.length;
+      _removedRoomsList.removeWhere(
+        (roomId) => !existingRoomIds.contains(roomId),
+      );
+      if (_removedRoomsList.length != initialCount) {
+        await _storage.write(_removedUpcomingRoomsKey, _removedRoomsList);
+        log(
+          'Cleaned up ${initialCount - _removedRoomsList.length} non-existent rooms',
+        );
+      }
+    } catch (e) {
+      log('Error cleaning up removed rooms: ${e.toString()}');
+    }
   }
 
   Future<void> addUserToSubscriberList(String upcomingRoomId) async {
@@ -172,19 +201,22 @@ class UpcomingRoomsController extends GetxController {
   Future<void> getUpcomingRooms() async {
     isLoading.value = true;
     try {
-      var upcomingRoomsDocuments = await databases
+      List<Document> upcomingRoomsDocuments = await databases
           .listDocuments(
             databaseId: upcomingRoomsDatabaseId,
             collectionId: upcomingRoomsCollectionId,
           )
           .then((value) => value.documents);
-      upcomingRooms.value = [];
-
-      for (var upcomingRoom in upcomingRoomsDocuments) {
-        AppwriteUpcommingRoom appwriteUpcomingRoom =
-            await fetchUpcomingRoomDetails(upcomingRoom);
-        upcomingRooms.add(appwriteUpcomingRoom);
-      }
+      List<Document> nonRemovedRooms = upcomingRoomsDocuments
+          .where((room) => !_removedRoomsList.contains(room.$id))
+          .toList();
+      List<Future<AppwriteUpcommingRoom>> roomsFutures = nonRemovedRooms
+          .map((room) => fetchUpcomingRoomDetails(room))
+          .toList();
+      upcomingRooms.value = await Future.wait(roomsFutures);
+      await cleanupRemovedRooms(
+        upcomingRoomsDocuments.map((doc) => doc.$id).toList(),
+      );
     } catch (e) {
       log(e.toString());
     } finally {
@@ -205,7 +237,6 @@ class UpcomingRoomsController extends GetxController {
 
     // Delete UpcomingRoom as it is now a room
     await deleteUpcomingRoom(upcomingRoomId);
-
     await getUpcomingRooms();
   }
 
@@ -298,13 +329,26 @@ class UpcomingRoomsController extends GetxController {
     }
   }
 
+  Future<void> removeUpcomingRoom(String upcomingRoomId) async {
+    try {
+      if (!_removedRoomsList.contains(upcomingRoomId)) {
+        _removedRoomsList.add(upcomingRoomId);
+        await _storage.write(_removedUpcomingRoomsKey, _removedRoomsList);
+        log('Room $upcomingRoomId removed. Total: ${_removedRoomsList.length}');
+      }
+      upcomingRooms.removeWhere((room) => room.id == upcomingRoomId);
+      update();
+    } catch (e) {
+      log("Error in Remove Upcoming Room Function: ${e.toString()}");
+    }
+  }
+
   Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await databases.deleteDocument(
       databaseId: upcomingRoomsDatabaseId,
       collectionId: upcomingRoomsCollectionId,
       documentId: upcomingRoomId,
     );
-    await getUpcomingRooms();
     deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
   }
 
@@ -345,5 +389,35 @@ class UpcomingRoomsController extends GetxController {
       enableDrag: false,
       isDismissible: false,
     );
+  }
+
+  Future<void> searchUpcomingRooms(String query) async {
+    if (query.isEmpty) {
+      filteredUpcomingRooms.value = upcomingRooms;
+      searchBarIsEmpty.value = true;
+      return;
+    }
+
+    searchBarIsEmpty.value = false;
+
+    try {
+      final lowerQuery = query.toLowerCase();
+      filteredUpcomingRooms.value = upcomingRooms.where((room) {
+        return room.name.toLowerCase().contains(lowerQuery) ||
+            room.description.toLowerCase().contains(lowerQuery);
+      }).toList();
+    } catch (e) {
+      filteredUpcomingRooms.value = upcomingRooms;
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.error,
+        AppLocalizations.of(Get.context!)!.searchFailed,
+        LogType.error,
+      );
+    }
+  }
+
+  void clearUpcomingSearch() {
+    filteredUpcomingRooms.value = upcomingRooms;
+    searchBarIsEmpty.value = true;
   }
 }
