@@ -121,13 +121,13 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                             try {
                               await chatController.deleteMessage(messageId);
                               customSnackbar(
-                                'success',
+                                AppLocalizations.of(context)!.success,
                                 AppLocalizations.of(context)!.delete,
                                 LogType.success,
                               );
                             } catch (e) {
                               customSnackbar(
-                                "Error",
+                                AppLocalizations.of(context)!.error,
                                 AppLocalizations.of(
                                   context,
                                 )!.failedToDeleteMessage,
