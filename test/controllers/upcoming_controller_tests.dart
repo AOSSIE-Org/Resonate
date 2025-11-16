@@ -30,6 +30,44 @@ void main() {
           return null;
         },
       );
+  final mockRooms = [
+    AppwriteUpcommingRoom(
+      id: 'room1',
+      name: 'Future Tech Discussion',
+      description: 'Exploring upcoming technology trends and innovations',
+      isTime: true,
+      scheduledDateTime: DateTime.now().add(Duration(days: 1)),
+      totalSubscriberCount: 10,
+      tags: ['tech', 'future'],
+      subscribersAvatarUrls: ['url1', 'url2'],
+      userIsCreator: true,
+      hasUserSubscribed: false,
+    ),
+    AppwriteUpcommingRoom(
+      id: 'room2',
+      name: 'Music Jam Session',
+      description: 'Live music performance and collaboration',
+      isTime: true,
+      scheduledDateTime: DateTime.now().add(Duration(days: 2)),
+      totalSubscriberCount: 5,
+      tags: ['music', 'live'],
+      subscribersAvatarUrls: ['url1'],
+      userIsCreator: false,
+      hasUserSubscribed: true,
+    ),
+    AppwriteUpcommingRoom(
+      id: 'room3',
+      name: 'Book Club Meeting',
+      description: 'Discussing the latest bestseller books',
+      isTime: false,
+      scheduledDateTime: DateTime.now().add(Duration(days: 3)),
+      totalSubscriberCount: 8,
+      tags: ['books', 'discussion'],
+      subscribersAvatarUrls: ['url1', 'url2', 'url3'],
+      userIsCreator: true,
+      hasUserSubscribed: false,
+    ),
+  ];
 
   group('UpcomingRoomsController - Remove Room Functionality', () {
     late UpcomingRoomsController controller;
@@ -43,45 +81,6 @@ void main() {
     late TabViewController tabViewController;
     late ThemeController themeController;
     late RoomsController roomsController;
-
-    final mockRooms = [
-      AppwriteUpcommingRoom(
-        id: 'room1',
-        name: 'Upcoming Room 1',
-        description: 'Test room 1',
-        isTime: true,
-        scheduledDateTime: DateTime.now().add(Duration(days: 1)),
-        totalSubscriberCount: 5,
-        tags: ['music', 'podcast'],
-        subscribersAvatarUrls: ['url1', 'url2'],
-        userIsCreator: true,
-        hasUserSubscribed: false,
-      ),
-      AppwriteUpcommingRoom(
-        id: 'room2',
-        name: 'Upcoming Room 2',
-        description: 'Test room 2',
-        isTime: false,
-        scheduledDateTime: DateTime.now().add(Duration(days: 2)),
-        totalSubscriberCount: 3,
-        tags: ['discussion'],
-        subscribersAvatarUrls: ['url1'],
-        userIsCreator: false,
-        hasUserSubscribed: true,
-      ),
-      AppwriteUpcommingRoom(
-        id: 'room3',
-        name: 'Upcoming Room 3',
-        description: 'Test room 3',
-        isTime: true,
-        scheduledDateTime: DateTime.now().add(Duration(days: 3)),
-        totalSubscriberCount: 2,
-        tags: ['tech'],
-        subscribersAvatarUrls: [],
-        userIsCreator: true,
-        hasUserSubscribed: false,
-      ),
-    ];
 
     setUpAll(() async {
       await GetStorage.init('test_storage');
@@ -210,45 +209,6 @@ void main() {
     late ThemeController themeController;
     late RoomsController roomsController;
 
-    final mockSearchRooms = [
-      AppwriteUpcommingRoom(
-        id: 'search1',
-        name: 'Future Tech Discussion',
-        description: 'Exploring upcoming technology trends and innovations',
-        isTime: true,
-        scheduledDateTime: DateTime.now().add(Duration(days: 1)),
-        totalSubscriberCount: 10,
-        tags: ['tech', 'future'],
-        subscribersAvatarUrls: ['url1', 'url2'],
-        userIsCreator: false,
-        hasUserSubscribed: false,
-      ),
-      AppwriteUpcommingRoom(
-        id: 'search2',
-        name: 'Music Jam Session',
-        description: 'Live music performance and collaboration',
-        isTime: true,
-        scheduledDateTime: DateTime.now().add(Duration(days: 2)),
-        totalSubscriberCount: 5,
-        tags: ['music', 'live'],
-        subscribersAvatarUrls: ['url1'],
-        userIsCreator: false,
-        hasUserSubscribed: true,
-      ),
-      AppwriteUpcommingRoom(
-        id: 'search3',
-        name: 'Book Club Meeting',
-        description: 'Discussing the latest bestseller books',
-        isTime: false,
-        scheduledDateTime: DateTime.now().add(Duration(days: 3)),
-        totalSubscriberCount: 8,
-        tags: ['books', 'discussion'],
-        subscribersAvatarUrls: ['url1', 'url2', 'url3'],
-        userIsCreator: true,
-        hasUserSubscribed: false,
-      ),
-    ];
-
     setUpAll(() async {
       await GetStorage.init('test_storage_search');
     });
@@ -283,7 +243,7 @@ void main() {
         messaging: mockMessaging,
         storage: testStorage,
       );
-      controller.upcomingRooms.value = List.from(mockSearchRooms);
+      controller.upcomingRooms.value = List.from(mockRooms);
     });
 
     tearDown(() {
