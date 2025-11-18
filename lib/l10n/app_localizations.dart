@@ -8,7 +8,7 @@ import 'package:intl/intl.dart' as intl;
 import 'app_localizations_en.dart';
 import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
-import 'app_localizations_raj.dart';
+import 'raj_intl.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
 
