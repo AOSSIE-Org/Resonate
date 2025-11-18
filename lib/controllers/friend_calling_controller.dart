@@ -22,7 +22,7 @@ import 'package:resonate/views/widgets/snackbar.dart';
 class FriendCallingController extends GetxController {
   final Rx<FriendCallModel?> friendCallModel = Rx<FriendCallModel?>(null);
 
-  final Databases databases;
+  final TablesDB tables;
   final Functions functions;
   final Realtime realtime;
   final RxBool isMicOn = false.obs;
@@ -30,9 +30,10 @@ class FriendCallingController extends GetxController {
   RealtimeSubscription? callSubscription;
   FriendCallingController({
     Databases? databases,
+    TablesDB? tables,
     Functions? functions,
     Realtime? realtime,
-  }) : databases = databases ?? AppwriteService.getDatabases(),
+  }) : tables = tables ?? AppwriteService.getTables(),
        functions = functions ?? AppwriteService.getFunctions(),
        realtime = realtime ?? AppwriteService.getRealtime();
 
@@ -61,10 +62,10 @@ class FriendCallingController extends GetxController {
       callStatus: FriendCallStatus.waiting,
       docId: ID.unique(),
     );
-    await databases.createDocument(
+    await tables.createRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: callModel.docId,
+      tableId: friendCallsCollectionId,
+      rowId: callModel.docId,
       data: callModel.toJson(),
     );
 
@@ -121,10 +122,10 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onAnswerCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: extra['call_id'],
+      tableId: friendCallsCollectionId,
+      rowId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
     log(callDoc.data.toString());
@@ -133,10 +134,10 @@ class FriendCallingController extends GetxController {
       return;
     } else {
       callModel = callModel.copyWith(callStatus: FriendCallStatus.connected);
-      await databases.updateDocument(
+      await tables.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: callModel.docId,
+        tableId: friendCallsCollectionId,
+        rowId: callModel.docId,
         data: callModel.toJson(),
       );
       friendCallModel.value = callModel;
@@ -150,38 +151,38 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onDeclinedCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: extra['call_id'],
+      tableId: friendCallsCollectionId,
+      rowId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
     callModel = callModel.copyWith(callStatus: FriendCallStatus.declined);
 
-    await databases.updateDocument(
+    await tables.updateRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: callModel.docId,
+      tableId: friendCallsCollectionId,
+      rowId: callModel.docId,
       data: callModel.toJson(),
     );
     friendCallModel.value = callModel;
   }
 
   Future<void> onEndedCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: extra['call_id'],
+      tableId: friendCallsCollectionId,
+      rowId: extra['call_id'],
     );
 
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
     callModel = callModel.copyWith(callStatus: FriendCallStatus.ended);
-    await databases.updateDocument(
+    await tables.updateRow(
       databaseId: masterDatabaseId,
-      collectionId: friendCallsCollectionId,
-      documentId: callModel.docId,
+      tableId: friendCallsCollectionId,
+      rowId: callModel.docId,
       data: callModel.toJson(),
     );
     friendCallModel.value = callModel;

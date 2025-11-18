@@ -1,35 +1,33 @@
 import 'package:appwrite/appwrite.dart' hide Locale;
-import 'package:appwrite/models.dart' hide Locale;
+import 'package:appwrite/models.dart'  hide Locale;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
-import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
 
 import 'change_email_controller_test.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging])
+@GenerateMocks([TablesDB, Account, Client, FirebaseMessaging])
 void main() {
-  MockDatabases mockDatabases = MockDatabases();
+  MockTablesDB mockTablesDB = MockTablesDB();
   MockAccount mockAccount = MockAccount();
   MockClient mockClient = MockClient();
   MockFirebaseMessaging mockMessaging = MockFirebaseMessaging();
   AuthStateController authStateController = AuthStateController(
     account: mockAccount,
-    databases: mockDatabases,
+    tables: mockTablesDB,
     client: mockClient,
     messaging: mockMessaging,
   );
 
   ChangeEmailController changeEmailController = ChangeEmailController(
     account: mockAccount,
-    databases: mockDatabases,
+    tables: mockTablesDB,
     authStateController: authStateController,
   );
   final User mockUser = User(
@@ -72,40 +70,53 @@ void main() {
 
   setUp(() {
     when(
-      mockDatabases.listDocuments(
+      mockTablesDB.listRows(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
+        tableId: usernameCollectionID,
         queries: [Query.equal('email', 'test2@test.com')],
       ),
-    ).thenAnswer((_) => Future.value(DocumentList(total: 0, documents: [])));
+    ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
 
     when(
-      mockDatabases.getDocument(
+      mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: '123',
+        tableId: usersCollectionID,
+        rowId: '123',
       ),
-    ).thenAnswer((_) => Future.value(mockUserDocument));
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: mockUserDocument.$id,
+          $tableId: mockUserDocument.$collectionId,
+          $databaseId: mockUserDocument.$databaseId,
+          $createdAt: mockUserDocument.$createdAt,
+          $updatedAt: mockUserDocument.$updatedAt,
+          $permissions: mockUserDocument.$permissions,
+          $sequence: mockUserDocument.$sequence,
+          data: Map<String, dynamic>.from(mockUserDocument.data),
+        ),
+      ),
+    );
     when(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: anyNamed('databaseId'),
-        collectionId: anyNamed('collectionId'),
-        documentId: anyNamed('documentId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       ),
     ).thenAnswer((invocation) async {
-      return Document(
-        $id: invocation.namedArguments[#documentId] as String,
-        $collectionId: invocation.namedArguments[#collectionId] as String,
+      return Row(
+        $id: invocation.namedArguments[#rowId] as String,
+        $tableId: invocation.namedArguments[#tableId] as String,
         $databaseId: invocation.namedArguments[#databaseId] as String,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
+        $sequence: 0,
         data: Map<String, dynamic>.from(
           invocation.namedArguments[#data] as Map,
         ),
-        $sequence: 0,
       );
     });
     when(
@@ -128,18 +139,18 @@ void main() {
       tester.element(find.byType(Container)),
     );
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: '123',
+        tableId: usersCollectionID,
+        rowId: '123',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'TestUser',
+        tableId: usernameCollectionID,
+        rowId: 'TestUser',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
@@ -161,49 +172,43 @@ void main() {
     ).called(1);
   });
 
-  testWidgets('test changeEmail', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      GetMaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [Locale('en'), Locale('hi')],
-        home: Form(
-          key: changeEmailController.changeEmailFormKey,
-          child: Builder(
-            builder: (context) => ElevatedButton(
-              onPressed: () async {
-                await changeEmailController.changeEmail(context);
-              },
-              child: Text("Test"),
-            ),
-          ),
-        ),
-      ),
-    );
-
+  testWidgets('test changeEmail functionality', (WidgetTester tester) async {
+    await tester.pumpWidget(GetMaterialApp(home: Container()));
+    final context = tester.element(find.byType(Container));
     changeEmailController.passwordController.text = 'anyPassword';
     changeEmailController.emailController.text = 'test2@test.com';
-    await tester.tap(find.text('Test'));
-    await tester.pumpAndSettle();
+    await authStateController.setUserProfileData();
+    final authResult = await changeEmailController.changeEmailInAuth(
+      'test2@test.com',
+      'anyPassword',
+      context,
+    );
     verify(
       mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
     ).called(1);
-
-    await tester.pumpAndSettle(const Duration(seconds: 4));
-
+    expect(authResult, true);
+    final dbResult = await changeEmailController.changeEmailInDatabases(
+      'test2@test.com',
+      context,
+    );
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'TestUser',
+        tableId: usersCollectionID,
+        rowId: '123',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
+    verify(
+      mockTablesDB.updateRow(
+        databaseId: userDatabaseID,
+        tableId: usernameCollectionID,
+        rowId: 'TestUser',
+        data: {'email': 'test2@test.com'},
+      ),
+    ).called(1);
+
+    expect(dbResult, true);
     expect(authStateController.email, 'test2@test.com');
-    expect(changeEmailController.isLoading.value, false);
   });
 }

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Row;
 
 import 'package:get/get.dart';
 
@@ -42,7 +42,7 @@ class SingleRoomController extends GetxController {
   Client client = AppwriteService.getClient();
   final AppwriteRoom appwriteRoom;
   final Realtime realtime = AppwriteService.getRealtime();
-  final Databases databases = AppwriteService.getDatabases();
+  final TablesDB tablesDB = AppwriteService.getTables();
   late final RealtimeSubscription? subscription;
   RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
 
@@ -64,11 +64,11 @@ class SingleRoomController extends GetxController {
     super.onClose();
   }
 
-  Future<void> addParticipantDataToList(Document participant) async {
-    Document userDataDoc = await databases.getDocument(
+  Future<void> addParticipantDataToList(Row participant) async {
+    Row userDataDoc = await tablesDB.getRow(
       databaseId: userDatabaseID,
-      collectionId: usersCollectionID,
-      documentId: participant.data["uid"],
+      tableId: usersCollectionID,
+      rowId: participant.data["uid"],
     );
     final p = Rx(
       Participant(
@@ -115,12 +115,12 @@ class SingleRoomController extends GetxController {
     try {
       isLoading.value = true;
       participants.value = <Rx<Participant>>[];
-      var participantCollectionRef = await databases.listDocuments(
+      var participantCollectionRef = await tablesDB.listRows(
         databaseId: masterDatabaseId,
-        collectionId: participantsCollectionId,
+        tableId: participantsCollectionId,
         queries: [Query.equal('roomId', appwriteRoom.id)],
       );
-      for (Document participant in participantCollectionRef.documents) {
+      for (Row participant in participantCollectionRef.rows) {
         addParticipantDataToList(participant);
       }
       update();
@@ -149,7 +149,7 @@ class SingleRoomController extends GetxController {
           switch (action) {
             case 'create':
               {
-                addParticipantDataToList(Document.fromMap(data.payload));
+                addParticipantDataToList(Row.fromMap(data.payload));
                 sortParticipants();
                 break;
               }
@@ -236,25 +236,25 @@ class SingleRoomController extends GetxController {
   }
 
   Future<String> getParticipantDocId(Participant participant) async {
-    var participantDocsRef = await databases.listDocuments(
+    var participantDocsRef = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      collectionId: participantsCollectionId,
+      tableId: participantsCollectionId,
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
       ],
     );
-    return participantDocsRef.documents.first.$id;
+    return participantDocsRef.rows.first.$id;
   }
 
   Future<void> updateParticipantDoc(
     String participantDocId,
     Map<String, dynamic> data,
   ) async {
-    await databases.updateDocument(
+    await tablesDB.updateRow(
       databaseId: masterDatabaseId,
-      collectionId: participantsCollectionId,
-      documentId: participantDocId,
+      tableId: participantsCollectionId,
+      rowId: participantDocId,
       data: data,
     );
   }
@@ -314,10 +314,10 @@ class SingleRoomController extends GetxController {
     );
     if (didSubmit == true) {
       try {
-        await databases.updateDocument(
+        await tablesDB.updateRow(
           databaseId: masterDatabaseId,
-          collectionId: roomsCollectionId,
-          documentId: appwriteRoom.id,
+          tableId: roomsCollectionId,
+          rowId: appwriteRoom.id,
           data: {
             "reportedUsers": [...appwriteRoom.reportedUsers, participant.uid],
           },
@@ -348,10 +348,10 @@ class SingleRoomController extends GetxController {
 
   Future<void> kickOutParticipant(Participant participant) async {
     String participantDocId = await getParticipantDocId(participant);
-    await databases.deleteDocument(
+    await tablesDB.deleteRow(
       databaseId: masterDatabaseId,
-      collectionId: participantsCollectionId,
-      documentId: participantDocId,
+      tableId: participantsCollectionId,
+      rowId: participantDocId,
     );
   }
 

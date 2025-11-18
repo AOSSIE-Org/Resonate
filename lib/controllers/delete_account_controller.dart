@@ -12,7 +12,7 @@ class DeleteAccountController extends GetxController {
   AuthStateController authStateController = Get.put(AuthStateController());
 
   late final Storage storage;
-  late final Databases databases;
+  late final TablesDB tables;
 
   //
   //-------------------------------------------------------------------
@@ -25,7 +25,7 @@ class DeleteAccountController extends GetxController {
     super.onInit();
 
     storage = AppwriteService.getStorage();
-    databases = AppwriteService.getDatabases();
+    tables = AppwriteService.getTables();
   }
 
   Future<void> deleteUserProfilePicture() async {
@@ -41,10 +41,10 @@ class DeleteAccountController extends GetxController {
 
   Future<void> deleteUsernamesCollectionDocument() async {
     try {
-      await databases.deleteDocument(
+      await tables.deleteRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: authStateController.userName!,
+        tableId: usernameCollectionID,
+        rowId: authStateController.userName!,
       );
     } catch (e) {
       log(e.toString());
@@ -53,10 +53,10 @@ class DeleteAccountController extends GetxController {
 
   Future<void> deleteUsersCollectionDocument() async {
     try {
-      await databases.deleteDocument(
+      await tables.deleteRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: authStateController.uid!,
+        tableId: usersCollectionID,
+        rowId: authStateController.uid!,
       );
     } catch (e) {
       log(e.toString());

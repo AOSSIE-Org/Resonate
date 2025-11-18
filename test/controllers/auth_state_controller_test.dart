@@ -11,26 +11,17 @@ import 'package:resonate/utils/constants.dart';
 
 import 'auth_state_controller_test.mocks.dart';
 
-@GenerateMocks([
-  Account,
-  Databases,
-  Storage,
-  Functions,
-  Client,
-  User,
-  FirebaseMessaging,
-  Session,
-])
+@GenerateMocks([Account, TablesDB, Client, User, FirebaseMessaging, Session])
 void main() {
   Get.testMode = true;
   TestWidgetsFlutterBinding.ensureInitialized();
   final MockAccount mockAccount = MockAccount();
-  final MockDatabases mockDatabases = MockDatabases();
+  final MockTablesDB mockTablesDB = MockTablesDB();
   final MockClient mockClient = MockClient();
   final MockFirebaseMessaging mockFirebaseMessaging = MockFirebaseMessaging();
   final AuthStateController authStateController = AuthStateController(
     account: mockAccount,
-    databases: mockDatabases,
+    tables: mockTablesDB,
     client: mockClient,
     messaging: mockFirebaseMessaging,
   );
@@ -147,63 +138,9 @@ void main() {
 
   setUp(() {
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
-
-    when(
-      mockDatabases.getDocument(
-        databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: '123',
-      ),
-    ).thenAnswer((_) => Future.value(mockUserDocument));
     when(
       mockFirebaseMessaging.getToken(),
     ).thenAnswer((_) => Future.value('mockToken'));
-    when(
-      mockDatabases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        queries: [
-          Query.equal("userID", ['123']),
-        ],
-      ),
-    ).thenAnswer(
-      (_) => Future.value(
-        DocumentList(total: 2, documents: mockSubscribedUserDocuments),
-      ),
-    );
-    when(
-      mockDatabases.listDocuments(
-        databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        queries: [Query.equal("creatorUid", "123")],
-      ),
-    ).thenAnswer(
-      (_) => Future.value(
-        DocumentList(total: 2, documents: mockUpcomingRoomsDocuments),
-      ),
-    );
-    when(
-      mockDatabases.updateDocument(
-        databaseId: anyNamed('databaseId'),
-        collectionId: anyNamed('collectionId'),
-        documentId: anyNamed('documentId'),
-        data: anyNamed('data'),
-      ),
-    ).thenAnswer((invocation) async {
-      return Document(
-        $id: invocation.namedArguments[#documentId] as String,
-        $collectionId: invocation.namedArguments[#collectionId] as String,
-        $databaseId: invocation.namedArguments[#databaseId] as String,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: ['any'],
-        data: Map<String, dynamic>.from(
-          invocation.namedArguments[#data] as Map,
-        ),
-        $sequence: 0,
-      );
-    });
-
     when(
       mockAccount.create(
         userId: anyNamed('userId'),
@@ -211,13 +148,110 @@ void main() {
         password: 'anyPassword',
       ),
     ).thenAnswer((_) => Future.value(mockUser));
-
     when(
       mockAccount.createEmailPasswordSession(
         email: 'test@test.com',
         password: 'anyPassword',
       ),
     ).thenAnswer((_) => Future.value(MockSession()));
+    when(
+      mockTablesDB.getRow(
+        databaseId: userDatabaseID,
+        tableId: usersCollectionID,
+        rowId: '123',
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: mockUserDocument.$id,
+          $tableId: mockUserDocument.$collectionId,
+          $databaseId: mockUserDocument.$databaseId,
+          $createdAt: mockUserDocument.$createdAt,
+          $updatedAt: mockUserDocument.$updatedAt,
+          $permissions: mockUserDocument.$permissions,
+          $sequence: mockUserDocument.$sequence,
+          data: Map<String, dynamic>.from(mockUserDocument.data)
+            ..addAll({'followers': []}),
+        ),
+      ),
+    );
+    when(
+      mockTablesDB.listRows(
+        databaseId: upcomingRoomsDatabaseId,
+        tableId: subscribedUserCollectionId,
+        queries: [
+          Query.equal("userID", ['123']),
+        ],
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        RowList(
+          total: mockSubscribedUserDocuments.length,
+          rows: mockSubscribedUserDocuments
+              .map(
+                (doc) => Row(
+                  $id: doc.$id,
+                  $tableId: doc.$collectionId,
+                  $databaseId: doc.$databaseId,
+                  $createdAt: doc.$createdAt,
+                  $updatedAt: doc.$updatedAt,
+                  $permissions: doc.$permissions,
+                  $sequence: doc.$sequence,
+                  data: Map<String, dynamic>.from(doc.data),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+    when(
+      mockTablesDB.listRows(
+        databaseId: upcomingRoomsDatabaseId,
+        tableId: upcomingRoomsCollectionId,
+        queries: [Query.equal("creatorUid", "123")],
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        RowList(
+          total: mockUpcomingRoomsDocuments.length,
+          rows: mockUpcomingRoomsDocuments
+              .map(
+                (doc) => Row(
+                  $id: doc.$id,
+                  $tableId: doc.$collectionId,
+                  $databaseId: doc.$databaseId,
+                  $createdAt: doc.$createdAt,
+                  $updatedAt: doc.$updatedAt,
+                  $permissions: doc.$permissions,
+                  $sequence: doc.$sequence,
+                  data: Map<String, dynamic>.from(doc.data),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+    when(
+      mockTablesDB.updateRow(
+        databaseId: upcomingRoomsDatabaseId,
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: '123',
+          $tableId: 'table',
+          $databaseId: upcomingRoomsDatabaseId,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0,
+          data: {},
+        ),
+      ),
+    );
   });
 
   test('test setUserProfileData', () async {
@@ -251,10 +285,10 @@ void main() {
       await authStateController
           .addRegistrationTokentoSubscribedandCreatedUpcomingRooms();
       verify(
-        mockDatabases.updateDocument(
+        mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: 'subUserDoc1',
+          tableId: subscribedUserCollectionId,
+          rowId: 'subUserDoc1',
           data: {
             'registrationTokens': [
               'token1',
@@ -266,10 +300,10 @@ void main() {
         ),
       ).called(1);
       verify(
-        mockDatabases.updateDocument(
+        mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          collectionId: subscribedUserCollectionId,
-          documentId: 'subUserDoc2',
+          tableId: subscribedUserCollectionId,
+          rowId: 'subUserDoc2',
           data: {
             'registrationTokens': [
               'token1',
@@ -281,10 +315,10 @@ void main() {
         ),
       ).called(1);
       verify(
-        mockDatabases.updateDocument(
+        mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: 'room1',
+          tableId: upcomingRoomsCollectionId,
+          rowId: 'room1',
           data: {
             'creator_fcm_tokens': [
               'token1',
@@ -296,10 +330,10 @@ void main() {
         ),
       ).called(1);
       verify(
-        mockDatabases.updateDocument(
+        mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          collectionId: upcomingRoomsCollectionId,
-          documentId: 'room2',
+          tableId: upcomingRoomsCollectionId,
+          rowId: 'room2',
           data: {
             'creator_fcm_tokens': [
               'token1',
@@ -317,40 +351,40 @@ void main() {
     await authStateController
         .removeRegistrationTokenFromSubscribedUpcomingRooms();
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        documentId: 'subUserDoc1',
+        tableId: subscribedUserCollectionId,
+        rowId: 'subUserDoc1',
         data: {
           'registrationTokens': ['token1', 'token2', 'mockToken'],
         },
       ),
     ).called(1);
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        collectionId: subscribedUserCollectionId,
-        documentId: 'subUserDoc2',
+        tableId: subscribedUserCollectionId,
+        rowId: 'subUserDoc2',
         data: {
           'registrationTokens': ['token1', 'token2', 'mockToken'],
         },
       ),
     ).called(1);
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        documentId: 'room1',
+        tableId: upcomingRoomsCollectionId,
+        rowId: 'room1',
         data: {
           'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
         },
       ),
     ).called(1);
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        collectionId: upcomingRoomsCollectionId,
-        documentId: 'room2',
+        tableId: upcomingRoomsCollectionId,
+        rowId: 'room2',
         data: {
           'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
         },

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Row;
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -22,7 +22,7 @@ class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isOnActive = false.obs;
   Client client = AppwriteService.getClient();
-  final Databases databases = AppwriteService.getDatabases();
+  final TablesDB tablesDB = AppwriteService.getTables();
   RxList<AppwriteRoom> rooms = <AppwriteRoom>[].obs;
   final ThemeController themeController = Get.find<ThemeController>();
   RxBool isSearching = false.obs;
@@ -35,19 +35,19 @@ class RoomsController extends GetxController {
     await getRooms();
   }
 
-  Future<AppwriteRoom> createRoomObject(Document room, String userUid) async {
+  Future<AppwriteRoom> createRoomObject(Row room, String userUid) async {
     // Get three particpant data to use for memberAvatar widget
-    var participantCollectionRef = await databases.listDocuments(
+    var participantCollectionRef = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      collectionId: participantsCollectionId,
+      tableId: participantsCollectionId,
       queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)],
     );
     List<String> memberAvatarUrls = [];
-    for (var p in participantCollectionRef.documents) {
-      Document participantDoc = await databases.getDocument(
+    for (var p in participantCollectionRef.rows) {
+      Row participantDoc = await tablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: p.data["uid"],
+        tableId: usersCollectionID,
+        rowId: p.data["uid"],
       );
       memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
     }
@@ -75,12 +75,12 @@ class RoomsController extends GetxController {
 
       // Get active rooms and add it to rooms list
       rooms.value = [];
-      var roomsCollectionRef = await databases.listDocuments(
+      var roomsCollectionRef = await tablesDB.listRows(
         databaseId: masterDatabaseId,
-        collectionId: roomsCollectionId,
+        tableId: roomsCollectionId,
       );
 
-      for (var room in roomsCollectionRef.documents) {
+      for (var room in roomsCollectionRef.rows) {
         AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
         if (!appwriteRoom.reportedUsers.contains(userUid)) {
           rooms.add(appwriteRoom);
@@ -96,10 +96,10 @@ class RoomsController extends GetxController {
 
   Future getRoomById(String roomId) async {
     try {
-      Document room = await databases.getDocument(
+      Row room = await tablesDB.getRow(
         databaseId: masterDatabaseId,
-        collectionId: roomsCollectionId,
-        documentId: roomId,
+        tableId: roomsCollectionId,
+        rowId: roomId,
       );
       String userUid = Get.find<AuthStateController>().uid!;
 

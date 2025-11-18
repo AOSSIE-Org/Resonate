@@ -16,7 +16,14 @@ import 'package:resonate/themes/theme_controller.dart';
 
 import 'upcoming_controller_tests.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging, Realtime])
+@GenerateMocks([
+  Databases,
+  TablesDB,
+  Account,
+  Client,
+  FirebaseMessaging,
+  Realtime,
+])
 void main() {
   Get.testMode = true;
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -73,6 +80,7 @@ void main() {
     late UpcomingRoomsController controller;
     late GetStorage testStorage;
     late MockDatabases mockDatabases;
+    late MockTablesDB mockTables;
     late MockAccount mockAccount;
     late MockClient mockClient;
     late MockFirebaseMessaging mockMessaging;
@@ -90,12 +98,13 @@ void main() {
       testStorage = GetStorage('test_storage');
       testStorage.erase(); //clear before each test
       mockDatabases = MockDatabases();
+      mockTables = MockTablesDB();
       mockAccount = MockAccount();
       mockClient = MockClient();
       mockMessaging = MockFirebaseMessaging();
       authStateController = AuthStateController(
         account: mockAccount,
-        databases: mockDatabases,
+        tables: mockTables,
         client: mockClient,
         messaging: mockMessaging,
       );
@@ -200,6 +209,7 @@ void main() {
     late UpcomingRoomsController controller;
     late GetStorage testStorage;
     late MockDatabases mockDatabases;
+    late MockTablesDB mockTables;
     late MockAccount mockAccount;
     late MockClient mockClient;
     late MockFirebaseMessaging mockMessaging;
@@ -217,12 +227,13 @@ void main() {
       testStorage = GetStorage('test_storage_search');
       testStorage.erase();
       mockDatabases = MockDatabases();
+      mockTables = MockTablesDB();
       mockAccount = MockAccount();
       mockClient = MockClient();
       mockMessaging = MockFirebaseMessaging();
       authStateController = AuthStateController(
         account: mockAccount,
-        databases: mockDatabases,
+        tables: mockTables,
         client: mockClient,
         messaging: mockMessaging,
       );
