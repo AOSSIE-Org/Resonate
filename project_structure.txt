@@ -443,10 +443,12 @@
 │       ├── friends_controller_test.mocks.dart
 │       ├── room_chat_controller_test.dart
 │       ├── room_chat_controller_test.mocks.dart
+│       ├── rooms_controller_test.dart
+│       ├── rooms_controller_test.mocks.dart
 │       ├── upcoming_controller_tests.dart
 │       ├── upcoming_controller_tests.mocks.dart
 │       ├── user_profile_controller_test.dart
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 370 files
+80 directories, 372 files
