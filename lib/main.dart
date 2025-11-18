@@ -89,6 +89,18 @@ class MyApp extends StatelessWidget {
         locale: Locale(languageLocale),
         supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
+          localeResolutionCallback: (locale, supportedLocales) {
+          if (locale != null && locale.languageCode == 'raj') {
+            return const Locale('raj');
+          }
+          for (final supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale?.languageCode) {
+              return supportedLocale;
+            }
+          }
+
+          return const Locale('en');
+        },
         title: 'Resonate',
         theme: ThemeModes.setLightTheme(
           ThemeList.getThemeModel(themeController.currentTheme.value),
