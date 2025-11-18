@@ -1342,4 +1342,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
+
+  @override
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get deleteMessageContent =>
+      'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }
