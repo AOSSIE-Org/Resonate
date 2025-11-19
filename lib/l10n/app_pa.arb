@@ -1,0 +1,1597 @@
+{
+  "@@locale": "pa",
+  "title": "ਰੇਜ਼ੋਨੇਟ",
+  "@title": {
+    "description": "The title of the application."
+  },
+  "roomDescription": "ਵਿਨਮ੍ਰ ਰਹੋ ਅਤੇ ਦੂਜੇ ਵਿਅਕਤੀ ਦੀ ਰਾਏ ਦਾ ਆਦਰ ਕਰੋ। ਅਪਮਾਨਜਨਕ ਟਿੱਪਣੀਆਂ ਤੋਂ ਬਚੋ।",
+  "@roomDescription": {
+    "description": "Guideline message for users in a chat room."
+  },
+  "hidePassword": "ਪਾਸਵਰਡ ਲੁਕਾਓ",
+  "@hidePassword": {
+    "description": "Button text to conceal the password field."
+  },
+  "showPassword": "ਪਾਸਵਰਡ ਦਿਖਾਓ",
+  "@showPassword": {
+    "description": "Button text to reveal the password field."
+  },
+  "passwordEmpty": "ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ",
+  "@passwordEmpty": {
+    "description": "Error message when the password field is left blank."
+  },
+  "password": "ਪਾਸਵਰਡ",
+  "@password": {
+    "description": "Label for the password input field."
+  },
+  "confirmPassword": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@confirmPassword": {
+    "description": "Label for the confirm password input field."
+  },
+  "passwordsNotMatch": "ਪਾਸਵਰਡ ਮਿਲਦੇ ਨਹੀਂ ਹਨ",
+  "@passwordsNotMatch": {
+    "description": "Error message when password and confirmation password do not match."
+  },
+  "userCreatedStories": "ਯੂਜ਼ਰ ਵਲੋਂ ਬਣਾਈਆਂ ਕਹਾਣੀਆਂ",
+  "@userCreatedStories": {
+    "description": "Header for the section showing stories created by another user."
+  },
+  "yourStories": "ਤੁਹਾਡੀਆਂ ਕਹਾਣੀਆਂ",
+  "@yourStories": {
+    "description": "Header for the section showing stories created by the current user."
+  },
+  "userNoStories": "ਯੂਜ਼ਰ ਨੇ ਹਾਲੇ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ ਬਣਾਈ",
+  "@userNoStories": {
+    "description": "Message displayed when viewing another user's profile and they have no stories."
+  },
+  "youNoStories": "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ ਬਣਾਈ",
+  "@youNoStories": {
+    "description": "Message displayed on the current user's profile when they have no stories."
+  },
+  "follow": "ਫਾਲो ਕਰੋ",
+  "@follow": {
+    "description": "Button text to follow a user."
+  },
+  "editProfile": "ਪ੍ਰੋਫਾਈਲ ਐਡਿਟ ਕਰੋ",
+  "@editProfile": {
+    "description": "Button text to navigate to the profile editing screen."
+  },
+  "verifyEmail": "ਈਮੇਲ ਵੇਰੀਫਾਈ ਕਰੋ",
+  "@verifyEmail": {
+    "description": "Button or link text to start the email verification process."
+  },
+  "verified": "ਵੇਰੀਫਾਈਡ",
+  "@verified": {
+    "description": "A status label indicating that the user's email has been verified."
+  },
+  "profile": "ਪ੍ਰੋਫਾਈਲ",
+  "@profile": {
+    "description": "Label for the user profile section or page."
+  },
+  "userLikedStories": "ਯੂਜ਼ਰ ਨੂੰ ਪਸੰਦ ਆਈਆਂ ਕਹਾਣੀਆਂ",
+  "@userLikedStories": {
+    "description": "Header for the section showing stories liked by another user."
+  },
+  "yourLikedStories": "ਤੁਹਾਨੂੰ ਪਸੰਦ ਆਈਆਂ ਕਹਾਣੀਆਂ",
+  "@yourLikedStories": {
+    "description": "Header for the section showing stories liked by the current user."
+  },
+  "userNoLikedStories": "ਯੂਜ਼ਰ ਨੇ ਹਾਲੇ ਕੋਈ ਕਹਾਣੀ ਲਾਈਕ ਨਹੀਂ ਕੀਤੀ",
+  "@userNoLikedStories": {
+    "description": "Message displayed when viewing another user's profile and they have no liked stories."
+  },
+  "youNoLikedStories": "ਤੁਸੀਂ ਹਾਲੇ ਕੋਈ ਕਹਾਣੀ ਲਾਈਕ ਨਹੀਂ ਕੀਤੀ",
+  "@youNoLikedStories": {
+    "description": "Message displayed on the current user's profile when they have no liked stories."
+  },
+  "live": "ਲਾਈਵ",
+  "@live": {
+    "description": "Tab or label for live audio rooms."
+  },
+  "upcoming": "ਆਉਣ ਵਾਲਾ",
+  "@upcoming": {
+    "description": "Tab or label for scheduled/upcoming audio rooms."
+  },
+  "noAvailableRoom": "{isRoom, select, true{ਕੋਈ ਰੂਮ ਉਪਲਬਧ ਨਹੀਂ ਹੈ} false{ਕੋਈ ਆਉਣ ਵਾਲਾ ਰੂਮ ਉਪਲਬਧ ਨਹੀਂ ਹੈ} other{ਰੂਮ ਦੀ ਜਾਣਕਾਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ}}\nਹੇਠਾਂ ਤੋਂ ਇੱਕ ਰੂਮ ਬਣਾਕੇ ਸ਼ੁਰੂਆਤ ਕਰੋ!",
+  "@noAvailableRoom": {
+    "description": "Message shown when no rooms are available. Uses ICU select for room type. The placeholder is 'isRoom'.",
+    "placeholders": {
+      "isRoom": {
+        "type": "String",
+        "example": "true"
+      }
+    }
+  },
+  "user1": "ਯੂਜ਼ਰ 1",
+  "@user1": {
+    "description": "A generic placeholder name for a user."
+  },
+  "user2": "ਯੂਜ਼ਰ 2",
+  "@user2": {
+    "description": "A second generic placeholder name for a user."
+  },
+  "you": "ਤੁਸੀਂ",
+  "@you": {
+    "description": "Label to identify the current user in a list or chat."
+  },
+  "areYouSure": "ਕੀ ਤੁਸੀਂ ਪੱਕੇ ਹੋ?",
+  "@areYouSure": {
+    "description": "Confirmation prompt title."
+  },
+  "loggingOut": "ਤੁਸੀਂ ਰੇਜ਼ੋਨੇਟ ਤੋਂ ਲੌਗ ਆਉਟ ਹੋ ਰਹੇ ਹੋ।",
+  "@loggingOut": {
+    "description": "Confirmation prompt message for logging out."
+  },
+  "yes": "ਹਾਂ",
+  "@yes": {
+    "description": "Generic confirmation button text."
+  },
+  "no": "ਨਹੀਂ",
+  "@no": {
+    "description": "Generic cancellation button text."
+  },
+  "incorrectEmailOrPassword": "ਈਮੇਲ ਜਾਂ ਪਾਸਵਰਡ ਗਲਤ ਹੈ",
+  "@incorrectEmailOrPassword": {
+    "description": "Error message for failed login attempt."
+  },
+  "passwordShort": "ਪਾਸਵਰਡ 8 ਅੱਖਰ ਤੋਂ ਛੋਟਾ ਹੈ",
+  "@passwordShort": {
+    "description": "Error message for a password that is too short."
+  },
+  "tryAgain": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ!",
+  "@tryAgain": {
+    "description": "Button text to retry a failed action."
+  },
+  "success": "ਸਫਲਤਾ",
+  "@success": {
+    "description": "Generic title for a successful operation."
+  },
+  "passwordResetSent": "ਪਾਸਵਰਡ ਰੀਸੈਟ ਈਮੇਲ ਭੇਜੀ ਗਈ!",
+  "@passwordResetSent": {
+    "description": "Success message after a password reset email has been dispatched."
+  },
+  "error": "ਗਲਤੀ",
+  "@error": {
+    "description": "Generic title for a failed operation."
+  },
+  "resetPassword": "ਪਾਸਵਰਡ ਰੀਸੈਟ ਕਰੋ",
+  "@resetPassword": {
+    "description": "Title or button text for the reset password feature."
+  },
+  "enterNewPassword": "ਨਵਾਂ ਪਾਸਵਰਡ ਦਾਖਲ ਕਰੋ",
+  "@enterNewPassword": {
+    "description": "Instructional text on the reset password screen."
+  },
+  "newPassword": "ਨਵਾਂ ਪਾਸਵਰਡ",
+  "@newPassword": {
+    "description": "Label for the new password input field."
+  },
+  "setNewPassword": "ਨਵਾਂ ਪਾਸਵਰਡ ਸੈੱਟ ਕਰੋ",
+  "@setNewPassword": {
+    "description": "Button text to confirm setting a new password."
+  },
+  "emailChanged": "ਈਮੇਲ ਬਦਲ ਦਿੱਤੀ ਗਈ",
+  "@emailChanged": {
+    "description": "Title for the success dialog after an email change."
+  },
+  "emailChangeSuccess": "ਈਮੇਲ ਸਫਲਤਾਪੂਰਵਕ ਬਦਲ ਗਈ!",
+  "@emailChangeSuccess": {
+    "description": "Success message after changing the user's email."
+  },
+  "failed": "ਅਸਫਲ",
+  "@failed": {
+    "description": "Generic title for a failed operation."
+  },
+  "emailChangeFailed": "ਈਮੇਲ ਬਦਲਣ ਵਿੱਚ ਅਸਫਲ",
+  "@emailChangeFailed": {
+    "description": "Error message when an email change operation fails."
+  },
+  "oops": "ਉਫ਼!",
+  "@oops": {
+    "description": "An informal title for an error or warning message."
+  },
+  "emailExists": "ਈਮੇਲ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਹੈ",
+  "@emailExists": {
+    "description": "Error message when a user tries to register or change to an email that is already in use."
+  },
+  "changeEmail": "ਈਮੇਲ ਬਦਲੋ",
+  "@changeEmail": {
+    "description": "Title or button text for the change email feature."
+  },
+  "enterValidEmail": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੈਧ ਈਮੇਲ ਦਾਖਲ ਕਰੋ",
+  "@enterValidEmail": {
+    "description": "Error message for an invalid email format."
+  },
+  "newEmail": "ਨਵੀਂ ਈਮੇਲ",
+  "@newEmail": {
+    "description": "Label for the new email input field."
+  },
+  "currentPassword": "ਮੌਜੂਦਾ ਪਾਸਵਰਡ",
+  "@currentPassword": {
+    "description": "Label for the current password input field, used for verification."
+  },
+  "emailChangeInfo": "ਸੁਰੱਖਿਆ ਲਈ, ਈਮੇਲ ਬਦਲਣ ਲਈ ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਾਖਲ ਕਰੋ। ਬਦਲਣ ਤੋਂ ਬਾਅਦ, ਨਵੀਂ ਈਮੇਲ ਨਾਲ ਲੌਗਿਨ ਕਰੋ।",
+  "@emailChangeInfo": {
+    "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
+  },
+  "oauthUsersMessage": "(ਕੇਵਲ ਗੂਗਲ ਜਾਂ ਗਿਥੁਬ ਨਾਲ ਲੌਗਿਨ ਕਰਨ ਵਾਲੇ ਯੂਜ਼ਰਾਂ ਲਈ)",
+  "@oauthUsersMessage": {
+    "description": "A message to specify that the following instructions are for OAuth users."
+  },
+  "oauthUsersEmailChangeInfo": "ਈਮੇਲ ਬਦਲਣ ਲਈ, \"ਮੌਜੂਦਾ ਪਾਸਵਰਡ\" ਫੀਲਡ ਵਿੱਚ ਨਵਾਂ ਪਾਸਵਰਡ ਦਾਖਲ ਕਰੋ। ਇਸ ਨੂੰ ਯਾਦ ਰੱਖੋ—ਅੱਗੇ ਕੇਵਲ ਗੂਗਲ/ਗਿਥੁਬ ਜਾਂ ਨਵੇਂ ਪਾਸਵਰਡ ਨਾਲ ਲੌਗਿਨ ਹੋਵੇਗਾ।",
+  "@oauthUsersEmailChangeInfo": {
+    "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
+  },
+  "resonateTagline": "ਗੱਲਾਂ ਦੀ ਇੱਕ ਅਨੰਤ ਦੁਨੀਆ ਵਿੱਚ ਕਦਮ ਰੱਖੋ",
+  "@resonateTagline": {
+    "description": "The application's tagline, used on splash or login screens."
+  },
+  "signInWithEmail": "ਈਮੇਲ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ",
+  "@signInWithEmail": {
+    "description": "Button text for signing in using email and password."
+  },
+  "or": "ਜਾਂ",
+  "@or": {
+    "description": "A separator text, typically used between different login options."
+  },
+  "continueWith": "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਨਾਲ ਲੌਗਿਨ ਕਰੋ",
+  "@continueWith": {
+    "description": "Informational text preceding a list of third-party login providers."
+  },
+  "continueWithGoogle": "ਗੂਗਲ ਨਾਲ ਲੌਗਿਨ ਕਰੋ",
+  "@continueWithGoogle": {
+    "description": "Button text for signing in with a Google account."
+  },
+  "continueWithGitHub": "ਗਿਥੁਬ ਨਾਲ ਲੌਗਿਨ ਕਰੋ",
+  "@continueWithGitHub": {
+    "description": "Button text for signing in with a GitHub account."
+  },
+  "resonateLogo": "ਰੇਜ਼ੋਨੇਟ ਲੋਗੋ",
+  "@resonateLogo": {
+    "description": "Accessibility text for the Resonate application logo image."
+  },
+  "iAlreadyHaveAnAccount": "ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਤੋਂ ਇੱਕ ਅਕਾਊਂਟ ਹੈ",
+  "@iAlreadyHaveAnAccount": {
+    "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
+  },
+  "createNewAccount": "ਨਵਾਂ ਅਕਾਊਂਟ ਬਣਾਓ",
+  "@createNewAccount": {
+    "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
+  },
+  "userProfile": "ਯੂਜ਼ਰ ਪ੍ਰੋਫਾਈਲ",
+  "@userProfile": {
+    "description": "Accessibility text for a user's profile picture or avatar."
+  },
+  "passwordIsStrong": "ਪਾਸਵਰਡ ਮਜ਼ਬੂਤ ਹੈ",
+  "@passwordIsStrong": {
+    "description": "Validation message indicating that the entered password meets all strength requirements."
+  },
+  "admin": "ਐਡਮਿਨ",
+  "@admin": {
+    "description": "Label for the Admin user role in a room."
+  },
+  "moderator": "ਮੋਡਰੇਟਰ",
+  "@moderator": {
+    "description": "Label for the Moderator user role in a room."
+  },
+  "speaker": "ਸਪੀਕਰ",
+  "@speaker": {
+    "description": "Label for the Speaker user role in a room."
+  },
+  "listener": "ਲਿਸਨਰ",
+  "@listener": {
+    "description": "Label for the Listener user role in a room."
+  },
+  "removeModerator": "ਮੋਡਰੇਟਰ ਹਟਾਓ",
+  "@removeModerator": {
+    "description": "Menu item text to revoke moderator privileges from a user."
+  },
+  "kickOut": "ਕਿਕ ਆਉਟ ਕਰੋ",
+  "@kickOut": {
+    "description": "Menu item text to remove a user from a room."
+  },
+  "addModerator": "ਮੋਡਰੇਟਰ ਜੋੜੋ",
+  "@addModerator": {
+    "description": "Menu item text to grant moderator privileges to a user."
+  },
+  "addSpeaker": "ਸਪੀਕਰ ਜੋੜੋ",
+  "@addSpeaker": {
+    "description": "Menu item text to grant speaker privileges to a listener."
+  },
+  "makeListener": "ਲਿਸਨਰ ਬਣਾਓ",
+  "@makeListener": {
+    "description": "Menu item text to change a speaker's role to listener."
+  },
+  "pairChat": "ਪੇਅਰ ਚੈਟ",
+  "@pairChat": {
+    "description": "A feature name for one-on-one random chat."
+  },
+  "chooseIdentity": "ਪਛਾਣ ਚੁਣੋ",
+  "@chooseIdentity": {
+    "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
+  },
+  "selectLanguage": "ਭਾਸ਼ਾ ਚੁਣੋ",
+  "@selectLanguage": {
+    "description": "Label for the language selection setting."
+  },
+  "noConnection": "ਕੋਈ ਕਨੈਕਸ਼ਨ ਨਹੀਂ",
+  "@noConnection": {
+    "description": "Title indicating that there is no internet connection."
+  },
+  "loadingDialog": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+  "@loadingDialog": {
+    "description": "Accessibility text for a loading indicator or spinner."
+  },
+  "createAccount": "ਅਕਾਊਂਟ ਬਣਾਓ",
+  "@createAccount": {
+    "description": "Button text or page title for the account creation screen."
+  },
+  "enterValidEmailAddress": "ਵੈਧ ਈਮੇਲ ਪਤਾ ਦਾਖਲ ਕਰੋ",
+  "@enterValidEmailAddress": {
+    "description": "Error message shown for an invalid email format."
+  },
+  "email": "ਈਮੇਲ",
+  "@email": {
+    "description": "Label for the email input field."
+  },
+  "passwordRequirements": "ਪਾਸਵਰਡ ਘੱਟੋ-ਘੱਟ 8 ਅੱਖਰ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+  "@passwordRequirements": {
+    "description": "Instructional text listing the requirements for a valid password, part 1."
+  },
+  "includeNumericDigit": "ਘੱਟੋ-ਘੱਟ 1 ਸੰਖਿਆ ਸ਼ਾਮਲ ਕਰੋ",
+  "@includeNumericDigit": {
+    "description": "Instructional text listing the requirements for a valid password, part 2."
+  },
+  "includeUppercase": "ਘੱਟੋ-ਘੱਟ 1 ਵੱਡਾ ਅੱਖਰ ਸ਼ਾਮਲ ਕਰੋ",
+  "@includeUppercase": {
+    "description": "Instructional text listing the requirements for a valid password, part 3."
+  },
+  "includeLowercase": "ਘੱਟੋ-ਘੱਟ 1 ਛੋਟਾ ਅੱਖਰ ਸ਼ਾਮਲ ਕਰੋ",
+  "@includeLowercase": {
+    "description": "Instructional text listing the requirements for a valid password, part 4."
+  },
+  "includeSymbol": "ਘੱਟੋ-ਘੱਟ 1 ਚਿੰਨ੍ਹ ਸ਼ਾਮਲ ਕਰੋ",
+  "@includeSymbol": {
+    "description": "Instructional text listing the requirements for a valid password, part 5."
+  },
+  "signedUpSuccessfully": "ਸਫਲਤਾਪੂਰਵਕ ਸਾਈਨ ਅੱਪ ਹੋ ਗਿਆ!",
+  "@signedUpSuccessfully": {
+    "description": "Title for a success message after account creation."
+  },
+  "newAccountCreated": "ਤੁਹਾਡਾ ਨਵਾਂ ਅਕਾਊਂਟ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ",
+  "@newAccountCreated": {
+    "description": "Success message confirming that a new account has been created."
+  },
+  "signUp": "ਸਾਈਨ ਅੱਪ",
+  "@signUp": {
+    "description": "Button text to submit the sign-up form."
+  },
+  "login": "ਲੌਗਿਨ",
+  "@login": {
+    "description": "Button text to submit the login form."
+  },
+  "settings": "ਸੈਟਿੰਗਜ਼",
+  "@settings": {
+    "description": "Title for the settings page."
+  },
+  "accountSettings": "ਅਕਾਊਂਟ ਸੈਟਿੰਗਜ਼",
+  "@accountSettings": {
+    "description": "Sub-header for account-related settings."
+  },
+  "account": "ਅਕਾਊਂਟ",
+  "@account": {
+    "description": "Label for the account settings section."
+  },
+  "appSettings": "ਐਪ ਸੈਟਿੰਗਜ਼",
+  "@appSettings": {
+    "description": "Sub-header for application-related settings."
+  },
+  "themes": "ਥੀਮਜ਼",
+  "@themes": {
+    "description": "Label for the theme selection setting."
+  },
+  "about": "ਰੇਜ਼ੋਨੇਟ ਬਾਰੇ",
+  "@about": {
+    "description": "Label for the 'About' section or page of the app or a story."
+  },
+  "other": "ਹੋਰ",
+  "@other": {
+    "description": "A generic category label for miscellaneous settings or items."
+  },
+  "contribute": "ਯੋਗਦਾਨ ਕਰੋ",
+  "@contribute": {
+    "description": "Label for a section encouraging users to contribute to the project."
+  },
+  "appPreferences": "ਐਪ ਪਸੰਦ",
+  "@appPreferences": {
+    "description": "Label for the app preferences settings page."
+  },
+  "transcriptionModel": "ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਮਾਡਲ",
+  "@transcriptionModel": {
+    "description": "Section title for choosing AI transcription model."
+  },
+  "transcriptionModelDescription": "ਵਾਇਸ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਲਈ AI ਮਾਡਲ ਚੁਣੋ। ਵੱਡੇ ਮਾਡਲ ਵਧੇਰੇ ਸਟੀਕ ਹਨ ਪਰ ਹੌਲੇ ਹਨ ਅਤੇ ਵਧੇਰੇ ਸਟੋਰੇਜ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
+  "@transcriptionModelDescription": {
+    "description": "Description text explaining transcription model choices."
+  },
+  "whisperModelTiny": "ਟਾਈਨੀ",
+  "@whisperModelTiny": {
+    "description": "Name of the smallest Whisper AI model."
+  },
+  "whisperModelTinyDescription": "ਸਭ ਤੋਂ ਤੇਜ਼, ਘੱਟ ਸਟੀਕ (~39 MB)",
+  "@whisperModelTinyDescription": {
+    "description": "Description of the Tiny Whisper model performance and size."
+  },
+  "whisperModelBase": "ਬੇਸ",
+  "@whisperModelBase": {
+    "description": "Name of the base Whisper AI model."
+  },
+  "whisperModelBaseDescription": "ਸੰਤੁਲਿਤ ਗਤੀ ਅਤੇ ਸਟੀਕਤਾ (~74 MB)",
+  "@whisperModelBaseDescription": {
+    "description": "Description of the Base Whisper model performance and size."
+  },
+  "whisperModelSmall": "ਸਮਾਲ",
+  "@whisperModelSmall": {
+    "description": "Name of the small Whisper AI model."
+  },
+  "whisperModelSmallDescription": "ਚੰਗੀ ਸਟੀਕਤਾ, ਹੌਲਾ (~244 MB)",
+  "@whisperModelSmallDescription": {
+    "description": "Description of the Small Whisper model performance and size."
+  },
+  "whisperModelMedium": "ਮੀਡੀਅਮ",
+  "@whisperModelMedium": {
+    "description": "Name of the medium Whisper AI model."
+  },
+  "whisperModelMediumDescription": "ਉੱਚ ਸਟੀਕਤਾ, ਹੌਲਾ (~769 MB)",
+  "@whisperModelMediumDescription": {
+    "description": "Description of the Medium Whisper model performance and size."
+  },
+  "whisperModelLargeV1": "ਲਾਰਜ V1",
+  "@whisperModelLargeV1": {
+    "description": "Name of the large V1 Whisper AI model."
+  },
+  "whisperModelLargeV1Description": "ਸਭ ਤੋਂ ਵਧੇਰੇ ਸਟੀਕ, ਸਭ ਤੋਂ ਹੌਲਾ (~1.55 GB)",
+  "@whisperModelLargeV1Description": {
+    "description": "Description of the Large V1 Whisper model performance and size."
+  },
+  "whisperModelLargeV2": "ਲਾਰਜ V2",
+  "@whisperModelLargeV2": {
+    "description": "Name of the large V2 Whisper AI model."
+  },
+  "whisperModelLargeV2Description": "ਉੱਚ ਸਟੀਕਤਾ ਨਾਲ ਵਧੀਆ ਵੱਡਾ ਮਾਡਲ (~1.55 GB)",
+  "@whisperModelLargeV2Description": {
+    "description": "Description of the Large V2 Whisper model performance and size."
+  },
+  "modelDownloadInfo": "ਮਾਡਲ ਪਹਿਲੀ ਵਾਰ ਵਰਤਣ 'ਤੇ ਡਾਊਨਲੋਡ ਹੋ ਜਾਂਦੇ ਹਨ। ਅਸੀਂ ਬੇਸ, ਸਮਾਲ ਜਾਂ ਮੀਡੀਅਮ ਵਰਤਣ ਦੀ ਸਿਫਾਰਸ਼ ਕਰਦੇ ਹਾਂ। ਵੱਡੇ ਮਾਡਲ ਲਈ ਬਹੁਤ ਉੱਚ-ਅੰਤ ਡਿਵਾਈਸ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
+  "@modelDownloadInfo": {
+    "description": "Information message about model download."
+  },
+  "logOut": "ਲੌਗ ਆਉਟ",
+  "@logOut": {
+    "description": "Button text to log the user out of their account."
+  },
+  "participants": "ਭਾਗੀਦਾਰ",
+  "@participants": {
+    "description": "Label or title for the list of participants in a room."
+  },
+  "delete": "ਡਿਲੀਟ",
+  "@delete": {
+    "description": "Generic button text for a delete action. Parameter for toRoomAction."
+  },
+  "leave": "ਛੱਡੋ",
+  "@leave": {
+    "description": "Generic button text for a leave action. Parameter for toRoomAction."
+  },
+  "leaveButton": "ਛੱਡੋ",
+  "@leaveButton": {
+    "description": "Button text to leave a room or conversation."
+  },
+  "findingRandomPartner": "ਤੁਹਾਡੇ ਲਈ ਇੱਕ ਰੈਂਡਮ ਭਾਗੀਦਾਰ ਲੱਭ ਰਹੇ ਹਾਂ",
+  "@findingRandomPartner": {
+    "description": "Status message shown while the system is searching for a random chat partner."
+  },
+  "quickFact": "ਤੁਰੰਤ ਤੱਥ",
+  "@quickFact": {
+    "description": "Header for a quick fact or tip, often shown during loading."
+  },
+  "cancel": "ਕੈਂਸਲ",
+  "@cancel": {
+    "description": "Generic button text for a cancel action."
+  },
+  "completeYourProfile": "ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਪੂਰੀ ਕਰੋ",
+  "@completeYourProfile": {
+    "description": "Page title or prompt for the user to finish setting up their profile."
+  },
+  "uploadProfilePicture": "ਪ੍ਰੋਫਾਈਲ ਪਿਕਚਰ ਅੱਪਲੋਡ ਕਰੋ",
+  "@uploadProfilePicture": {
+    "description": "Instructional text or button to upload a profile picture."
+  },
+  "enterValidName": "ਵੈਧ ਨਾਮ ਦਾਖਲ ਕਰੋ",
+  "@enterValidName": {
+    "description": "Error message for an invalid name format."
+  },
+  "name": "ਨਾਮ",
+  "@name": {
+    "description": "Label for the name input field."
+  },
+  "username": "ਯੂਜ਼ਰਨੇਮ",
+  "@username": {
+    "description": "Label for the username input field."
+  },
+  "enterValidDOB": "ਠੀक ਜਨਮ ਤਾਰੀਖ ਦਾਖਲ ਕਰੋ",
+  "@enterValidDOB": {
+    "description": "Error message for an invalid date of birth."
+  },
+  "dateOfBirth": "ਜਨਮ ਤਾਰੀਖ",
+  "@dateOfBirth": {
+    "description": "Label for the date of birth input field."
+  },
+  "forgotPassword": "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?",
+  "@forgotPassword": {
+    "description": "Link text for users who have forgotten their password."
+  },
+  "next": "ਅੱਗੇ",
+  "@next": {
+    "description": "Button text to proceed to the next step in a process."
+  },
+  "noStoriesExist": "ਕੋਈ ਕਹਾਣੀ ਹਾਲੇ ਮੌਜੂਦ ਨਹੀਂ ਹੈ",
+  "@noStoriesExist": {
+    "description": "Message displayed when there are no stories available in a list."
+  },
+  "enterVerificationCode": "ਆਪਣਾ\nਵੇਰੀਫਿਕੇਸ਼ਨ ਕੋਡ ਦਾਖਲ ਕਰੋ",
+  "@enterVerificationCode": {
+    "description": "Prompt for the user to enter the verification code sent to their email."
+  },
+  "verificationCodeSent": "ਅਸੀਂ 6-ਅੰਕਾਂ ਦਾ ਕੋਡ ਭੇਜਿਆ ਹੈ\n",
+  "@verificationCodeSent": {
+    "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
+  },
+  "verificationComplete": "ਵੇਰੀਫਿਕੇਸ਼ਨ ਪੂਰਾ ਹੋ ਗਿਆ",
+  "@verificationComplete": {
+    "description": "Title for a success message after email verification."
+  },
+  "verificationCompleteMessage": "ਵਧਾਈ ਹੋ! ਤੁਹਾਡੀ ਈਮੇਲ ਵੇਰੀਫਾਈ ਹੋ ਗਈ ਹੈ",
+  "@verificationCompleteMessage": {
+    "description": "Success message confirming email verification."
+  },
+  "verificationFailed": "ਵੇਰੀਫਿਕੇਸ਼ਨ ਅਸਫਲ ਹੋ گیا",
+  "@verificationFailed": {
+    "description": "Title for an error message when verification fails."
+  },
+  "otpMismatch": "OTP ਮਿਲਦਾ ਨਹੀਂ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+  "@otpMismatch": {
+    "description": "Error message when the entered OTP is incorrect."
+  },
+  "otpResent": "OTP ਮੁੜ ਭੇਜਿਆ ਗਿਆ",
+  "@otpResent": {
+    "description": "Confirmation message that the OTP has been resent."
+  },
+  "requestNewCode": "ਨਵਾਂ ਕੋਡ ਮੰਗੋ",
+  "@requestNewCode": {
+    "description": "Button text to request a new verification code."
+  },
+  "requestNewCodeIn": "ਨਵਾਂ ਕੋਡ ਮੰਗਣ ਲਈ ਉਡੀਕ ਕਰੋ",
+  "@requestNewCodeIn": {
+    "description": "Text displayed before a countdown timer for requesting a new code."
+  },
+  "clickPictureCamera": "ਕੈਮਰਾ ਨਾਲ ਫੋਟੋ ਲਓ",
+  "@clickPictureCamera": {
+    "description": "Option to take a new photo using the device camera."
+  },
+  "pickImageGallery": "ਗੈਲਰੀ ਤੋਂ ਚਿੱਤਰ ਚੁਣੋ",
+  "@pickImageGallery": {
+    "description": "Option to choose an existing image from the device gallery."
+  },
+  "deleteMessageTitle": "ਸੁਨੇਹਾ ਹਟਾਓ",
+  "@deleteMessageTitle": {
+    "description": "Title shown in the delete message confirmation dialog."
+  },
+  "deleteMessageContent": "ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਸ ਸੁਨੇਹੇ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@deleteMessageContent": {
+    "description": "Confirmation text asking the user if they want to delete a message."
+  },
+  "thisMessageWasDeleted": "ਇਹ ਸੁਨੇਹਾ ਹਟਾ ਦਿੱਤਾ ਗਿਆ ਹੈ",
+  "@thisMessageWasDeleted": {
+    "description": "Text shown in place of a deleted message."
+  },
+  "failedToDeleteMessage": "ਸੁਨੇਹਾ ਹਟਾਉਣ ਵਿੱਚ ਅਸਫਲ",
+  "@failedToDeleteMessage": {
+    "description": "Error message shown when a message deletion fails."
+  },
+  "hide": "ਲੁਕਾਓ",
+  "@hide": {
+    "description": "Button text to hide something."
+  },
+  "removeRoom": "ਰੂਮ ਹਟਾਓ",
+  "@removeRoom": {
+    "description": "Button text to remove a room."
+  },
+  "removeRoomFromList": "ਲਿਸਟ ਤੋਂ ਰੂਮ ਹਟਾਓ",
+  "@removeRoomFromList": {
+    "description": "Button text to remove a room from the list."
+  },
+  "removeRoomConfirmation": "ਕੀ ਤੁਸੀਂ ਇਹ ਰੂਮ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@removeRoomConfirmation": {
+    "description": "Confirmation text for removing a room."
+  },
+  "deleteMyAccount": "ਮੇਰਾ ਅਕਾਊਂਟ ਹਟਾਓ",
+  "@deleteMyAccount": {
+    "description": "Button text to delete user's account."
+  },
+  "createNewRoom": "ਨਵਾਂ ਰੂਮ ਬਣਾਓ",
+  "@createNewRoom": {
+    "description": "Button text to create a new room."
+  },
+  "pleaseEnterScheduledDateTime": "ਕਿਰਪਾ ਕਰਕੇ ਨਿਰਧਾਰਤ ਤਾਰੀਖ ਅਤੇ ਸਮਾਂ ਦਾਖਲ ਕਰੋ",
+  "@pleaseEnterScheduledDateTime": {
+    "description": "Prompt to enter scheduled date and time."
+  },
+  "scheduleDateTimeLabel": "ਨਿਰਧਾਰਤ ਤਾਰੀਖ ਅਤੇ ਸਮਾਂ",
+  "@scheduleDateTimeLabel": {
+    "description": "Label for scheduled date and time field."
+  },
+  "enterTags": "ਟੈਗ ਦਾਖਲ ਕਰੋ",
+  "@enterTags": {
+    "description": "Prompt to enter tags."
+  },
+  "joinCommunity": "ਕਮਿਊਨਿਟੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ",
+  "@joinCommunity": {
+    "description": "Button text to join the community."
+  },
+  "followUsOnX": "X 'ਤੇ ਸਾਡਾ ਪਾਲਣਾ ਕਰੋ",
+  "@followUsOnX": {
+    "description": "Prompt to follow on X (Twitter)."
+  },
+  "joinDiscordServer": "Discord ਸਰਵਰ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ",
+  "@joinDiscordServer": {
+    "description": "Button text to join Discord server."
+  },
+  "noLyrics": "ਕੋਈ ਲਿਰਿਕਸ ਨਹੀਂ",
+  "@noLyrics": {
+    "description": "Message when no lyrics are available."
+  },
+  "noStoriesInCategory": "ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ",
+  "@noStoriesInCategory": {
+    "description": "Message when no stories exist in a category."
+  },
+  "newChapters": "ਨਵੇਂ ਅਧਿਆਇ",
+  "@newChapters": {
+    "description": "Label for new chapters."
+  },
+  "helpToGrow": "ਵਧਣ ਵਿੱਚ ਮਦਦ ਕਰੋ",
+  "@helpToGrow": {
+    "description": "Prompt to help the app grow."
+  },
+  "share": "ਸਾਂਝਾ ਕਰੋ",
+  "@share": {
+    "description": "Button text to share something."
+  },
+  "rate": "ਰੇਟ ਕਰੋ",
+  "@rate": {
+    "description": "Button text to rate the app."
+  },
+  "aboutResonate": "ਰੇਜ਼ੋਨੇਟ ਬਾਰੇ",
+  "@aboutResonate": {
+    "description": "About Resonate section."
+  },
+  "description": "ਵਰਣਨ",
+  "@description": {
+    "description": "Label for description field."
+  },
+  "confirm": "ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@confirm": {
+    "description": "Button text to confirm an action."
+  },
+  "classic": "ਕਲਾਸਿਕ",
+  "@classic": {
+    "description": "Classic theme label."
+  },
+  "time": "ਸਮਾਂ",
+  "@time": {
+    "description": "Label for time field."
+  },
+  "vintage": "ਵਿੰਟੇਜ",
+  "@vintage": {
+    "description": "Vintage theme label."
+  },
+  "amber": "ਐਂਬਰ",
+  "@amber": {
+    "description": "Amber theme label."
+  },
+  "forest": "ਫਾਰਸਟ",
+  "@forest": {
+    "description": "Forest theme label."
+  },
+  "cream": "ਕਰੀਮ",
+  "@cream": {
+    "description": "Cream theme label."
+  },
+  "none": "ਕੋਈ ਨਹੀਂ",
+  "@none": {
+    "description": "None option label."
+  },
+  "checkOutGitHub": "ਗਿਥੁਬ ਤੇ ਵੇਖੋ",
+  "@checkOutGitHub": {
+    "description": "Prompt to check out GitHub."
+  },
+  "aossie": "AOSSIE",
+  "@aossie": {
+    "description": "AOSSIE organization label."
+  },
+  "aossieLogo": "AOSSIE ਲੋਗੋ",
+  "@aossieLogo": {
+    "description": "Accessibility text for AOSSIE logo."
+  },
+  "errorLoadPackageInfo": "ਪੈਕੇਜ ਜਾਣਕਾਰੀ ਲੋਡ ਕਰਨ ਵਿੱਚ ਗਲਤੀ",
+  "@errorLoadPackageInfo": {
+    "description": "Error loading package info message."
+  },
+  "searchFailed": "ਖੋਜ ਅਸਫਲ ਰਹੀ",
+  "@searchFailed": {
+    "description": "Message when search fails."
+  },
+  "updateAvailable": "ਅੱਪਡੇਟ ਉਪਲਬਧ ਹੈ",
+  "@updateAvailable": {
+    "description": "Message when update is available."
+  },
+  "newVersionAvailable": "ਨਵਾਂ ਵਰਜਨ ਉਪਲਬਧ ਹੈ",
+  "@newVersionAvailable": {
+    "description": "Message when a new version is available."
+  },
+  "upToDate": "ਅੱਪ-ਟੂ-ਡੇਟ",
+  "@upToDate": {
+    "description": "Message when app is up to date."
+  },
+  "latestVersion": "ਨਵਾਂ ਵਰਜਨ",
+  "@latestVersion": {
+    "description": "Label for latest version."
+  },
+  "profileCreatedSuccessfully": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਬਣਾਈ ਗਈ",
+  "@profileCreatedSuccessfully": {
+    "description": "Message when profile is created successfully."
+  },
+  "invalidScheduledDateTime": "ਅਵੈਧ ਨਿਰਧਾਰਤ ਤਾਰੀਖ/ਸਮਾਂ",
+  "@invalidScheduledDateTime": {
+    "description": "Error for invalid scheduled date/time."
+  },
+  "scheduledDateTimePast": "ਨਿਰਧਾਰਤ ਤਾਰੀਖ/ਸਮਾਂ ਪਿਛਲੇ ਸਮੇਂ ਵਿੱਚ ਹੈ",
+  "@scheduledDateTimePast": {
+    "description": "Error for scheduled date/time in the past."
+  },
+  "joinRoom": "ਰੂਮ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ",
+  "@joinRoom": {
+    "description": "Button text to join a room."
+  },
+  "unknownUser": "ਅਣਜਾਣ ਯੂਜ਼ਰ",
+  "@unknownUser": {
+    "description": "Label for unknown user."
+  },
+  "canceled": "ਰੱਦ ਕੀਤਾ ਗਿਆ",
+  "@canceled": {
+    "description": "Label for canceled action."
+  },
+  "english": "ਅੰਗਰੇਜ਼ੀ",
+  "@english": {
+    "description": "Label for English language."
+  },
+  "emailVerificationRequired": "ਈਮੇਲ ਵੈਰੀਫਿਕੇਸ਼ਨ ਲਾਜ਼ਮੀ ਹੈ",
+  "@emailVerificationRequired": {
+    "description": "Message that email verification is required."
+  },
+  "verify": "ਵੇਰੀਫਾਈ ਕਰੋ",
+  "@verify": {
+    "description": "Button text to verify something."
+  },
+  "audioRoom": "ਆਡੀਓ ਰੂਮ",
+  "@audioRoom": {
+    "description": "Label for audio room."
+  },
+  "toRoomAction": "ਰੂਮ ਕਾਰਵਾਈ",
+  "@toRoomAction": {
+    "description": "Label for room action parameter."
+  },
+  "mailSentMessage": "ਮੇਲ ਭੇਜੀ ਗਈ",
+  "@mailSentMessage": {
+    "description": "Message that mail has been sent."
+  },
+  "disconnected": "ਡਿਸਕਨੈਕਟ ਕੀਤਾ ਗਿਆ",
+  "@disconnected": {
+    "description": "Message for disconnected state."
+  },
+  "micOn": "ਮਾਈਕ ਚਾਲੂ",
+  "@micOn": {
+    "description": "Label for mic on state."
+  },
+  "speakerOn": "ਸਪੀਕਰ ਚਾਲੂ",
+  "@speakerOn": {
+    "description": "Label for speaker on state."
+  },
+  "endChat": "ਚੈਟ ਖਤਮ ਕਰੋ",
+  "@endChat": {
+    "description": "Button text to end chat."
+  },
+  "monthJan": "ਜਨਵਰੀ",
+  "@monthJan": {
+    "description": "Label for January."
+  },
+  "monthFeb": "ਫਰਵਰੀ",
+  "@monthFeb": {
+    "description": "Label for February."
+  },
+  "monthMar": "ਮਾਰਚ",
+  "@monthMar": {
+    "description": "Label for March."
+  },
+  "monthApr": "ਅਪ੍ਰੈਲ",
+  "@monthApr": {
+    "description": "Label for April."
+  },
+  "monthMay": "ਮਈ",
+  "@monthMay": {
+    "description": "Label for May."
+  },
+  "monthJun": "ਜੂਨ",
+  "@monthJun": {
+    "description": "Label for June."
+  },
+  "monthJul": "ਜੁਲਾਈ",
+  "@monthJul": {
+    "description": "Label for July."
+  },
+  "monthAug": "ਅਗਸਤ",
+  "@monthAug": {
+    "description": "Label for August."
+  },
+  "monthSep": "ਸਤੰਬਰ",
+  "@monthSep": {
+    "description": "Label for September."
+  },
+  "monthOct": "ਅਕਤੂਬਰ",
+  "@monthOct": {
+    "description": "Label for October."
+  },
+  "monthNov": "ਨਵੰਬਰ",
+  "@monthNov": {
+    "description": "Label for November."
+  },
+  "monthDec": "ਦਸੰਬਰ",
+  "@monthDec": {
+    "description": "Label for December."
+  },
+  "register": "ਰਜਿਸਟਰ ਕਰੋ",
+  "@register": {
+    "description": "Button text to register."
+  },
+  "newToResonate": "ਰੇਜ਼ੋਨੇਟ ਲਈ ਨਵੇਂ ਹੋ?",
+  "@newToResonate": {
+    "description": "Prompt for new users to Resonate."
+  },
+  "alreadyHaveAccount": "ਪਹਿਲਾਂ ਤੋਂ ਅਕਾਊਂਟ ਹੈ?",
+  "@alreadyHaveAccount": {
+    "description": "Prompt for users who already have an account."
+  },
+  "checking": "ਚੈੱਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+  "@checking": {
+    "description": "Message for checking/loading state."
+  },
+  "forgotPasswordMessage": "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?",
+  "@forgotPasswordMessage": {
+    "description": "Message for forgot password prompt."
+  },
+  "usernameUnavailable": "ਯੂਜ਼ਰਨੇਮ ਉਪਲਬਧ ਨਹੀਂ ਹੈ",
+  "@usernameUnavailable": {
+    "description": "Message when username is unavailable."
+  },
+  "usernameInvalidOrTaken": "ਯੂਜ਼ਰਨੇਮ ਗਲਤ ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਲਿਆ ਹੋਇਆ ਹੈ",
+  "@usernameInvalidOrTaken": {
+    "description": "Message when username is invalid or taken."
+  },
+  "otpResentMessage": "OTP ਮੁੜ ਭੇਜਿਆ ਗਿਆ",
+  "@otpResentMessage": {
+    "description": "Message when OTP is resent."
+  },
+  "connectionError": "ਕਨੈਕਸ਼ਨ ਵਿੱਚ ਗਲਤੀ",
+  "@connectionError": {
+    "description": "Message for connection error."
+  },
+  "seconds": "ਸਕਿੰਟ",
+  "@seconds": {
+    "description": "Label for seconds unit."
+  },
+  "unsavedChangesWarning": "ਅਸੁਰੱਖਿਅਤ ਤਬਦੀਲੀਆਂ ਚੇਤਾਵਨੀ",
+  "@unsavedChangesWarning": {
+    "description": "Warning for unsaved changes."
+  },
+  "deleteAccountPermanent": "ਅਕਾਊਂਟ ਸਥਾਈ ਤੌਰ 'ਤੇ ਹਟਾਓ",
+  "@deleteAccountPermanent": {
+    "description": "Prompt for permanent account deletion."
+  },
+  "giveGreatName": "ਵਧੀਆ ਨਾਮ ਦਿਓ",
+  "@giveGreatName": {
+    "description": "Prompt to give a great name."
+  },
+  "joinCommunityDescription": "ਰੇਜ਼ੋਨੇਟ ਕਮਿਊਨਿਟੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ ਅਤੇ ਵਧੋ!",
+  "@joinCommunityDescription": {
+    "description": "Description for joining the community."
+  },
+  "resonateDescription": "ਰੇਜ਼ੋਨੇਟ ਇੱਕ ਸੋਸ਼ਲ ਮੀਡੀਆ ਪਲੇਟਫਾਰਮ ਹੈ, ਜਿੱਥੇ ਹਰ ਆਵਾਜ਼ ਦੀ ਕਦਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਆਪਣੇ ਵਿਚਾਰ, ਕਹਾਣੀਆਂ ਅਤੇ ਤਜ਼ਰਬੇ ਹੋਰਾਂ ਨਾਲ ਸਾਂਝੇ ਕਰੋ। ਆਪਣੀ ਆਡੀਓ ਯਾਤਰਾ ਹੁਣ ਸ਼ੁਰੂ ਕਰੋ। ਵੱਖ-ਵੱਖ ਚਰਚਾਵਾਂ ਅਤੇ ਵਿਸ਼ਿਆਂ ਵਿੱਚ ਡੁੱਬੋ। ਉਹ ਰੂਮ ਲੱਭੋ ਜੋ ਤੁਹਾਡੇ ਨਾਲ ਗੂੰਝਦੇ ਹਨ ਅਤੇ ਕਮਿਊਨਿਟੀ ਦਾ ਹਿੱਸਾ ਬਣੋ। ਗੱਲਬਾਤ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ! ਰੂਮ ਖੋਜੋ, ਦੋਸਤਾਂ ਨਾਲ ਜੁੜੋ, ਅਤੇ ਦੁਨੀਆਂ ਨਾਲ ਆਪਣੀ ਆਵਾਜ਼ ਸਾਂਝੀ ਕਰੋ।",
+  "@resonateDescription": {
+    "description": "Description about Resonate."
+  },
+  "resonateFullDescription": "ਰੇਜ਼ੋਨੇਟ - ਗੱਲਾਂ ਦੀ ਦੁਨੀਆ!",
+  "@resonateFullDescription": {
+    "description": "Full description about Resonate."
+  },
+  "stable": "ਸਥਿਰ",
+  "@stable": {
+    "description": "Label for stable version."
+  },
+  "usernameCharacterLimit": "ਯੂਜ਼ਰਨੇਮ ਅੱਖਰ ਸੀਮਾ",
+  "@usernameCharacterLimit": {
+    "description": "Label for username character limit."
+  },
+  "submit": "ਸਬਮਿਟ ਕਰੋ",
+  "@submit": {
+    "description": "Button text to submit."
+  },
+  "anonymous": "ਅਗਿਆਤ",
+  "@anonymous": {
+    "description": "Label for anonymous user."
+  },
+  "noSearchResults": "ਕੋਈ ਖੋਜ ਨਤੀਜੇ ਨਹੀਂ",
+  "@noSearchResults": {
+    "description": "Message when no search results found."
+  },
+  "searchRooms": "ਰੂਮ ਖੋਜੋ",
+  "@searchRooms": {
+    "description": "Prompt to search rooms."
+  },
+  "searchingRooms": "ਰੂਮ ਖੋਜੇ ਜਾ ਰਹੇ ਹਨ...",
+  "@searchingRooms": {
+    "description": "Message for searching rooms."
+  },
+  "clearSearch": "ਖੋਜ ਸਾਫ਼ ਕਰੋ",
+  "@clearSearch": {
+    "description": "Button text to clear search."
+  },
+  "searchError": "ਖੋਜ ਵਿੱਚ ਗਲਤੀ",
+  "@searchError": {
+    "description": "Error message for search."
+  },
+  "searchRoomsError": "ਰੂਮ ਖੋਜਣ ਵਿੱਚ ਗਲਤੀ",
+  "@searchRoomsError": {
+    "description": "Message when searching rooms fails."
+  },
+  "searchUpcomingRoomsError": "ਆਉਣ ਵਾਲੇ ਰੂਮ ਖੋਜਣ ਵਿੱਚ ਗਲਤੀ",
+  "@searchUpcomingRoomsError": {
+    "description": "Message when searching upcoming rooms fails."
+  },
+  "search": "ਖੋਜੋ",
+  "@search": {
+    "description": "Button text to search."
+  },
+  "clear": "ਸਾਫ਼ ਕਰੋ",
+  "@clear": {
+    "description": "Button text to clear something."
+  },
+  "shareRoomMessage": "ਰੂਮ ਸਾਂਝਾ ਕਰੋ",
+  "@shareRoomMessage": {
+    "description": "Message to share a room."
+  },
+  "participantsCount": "ਭਾਗੀਦਾਰ ਗਿਣਤੀ",
+  "@participantsCount": {
+    "description": "Label for participants count."
+  },
+  "join": "ਸ਼ਾਮਲ ਹੋਵੋ",
+  "@join": {
+    "description": "Button text to join."
+  },
+  "invalidTags": "ਅਵੈਧ ਟੈਗ",
+  "@invalidTags": {
+    "description": "Error for invalid tags."
+  },
+  "cropImage": "ਚਿੱਤਰ ਕੱਟੋ",
+  "@cropImage": {
+    "description": "Button text to crop image."
+  },
+  "profileSavedSuccessfully": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਸੰਭਾਲੀ ਗਈ",
+  "@profileSavedSuccessfully": {
+    "description": "Message when profile is saved successfully."
+  },
+  "profileUpdatedSuccessfully": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਅੱਪਡੇਟ ਹੋਈ",
+  "@profileUpdatedSuccessfully": {
+    "description": "Message when profile is updated successfully."
+  },
+  "profileUpToDate": "ਪ੍ਰੋਫਾਈਲ ਅੱਪ-ਟੂ-ਡੇਟ ਹੈ",
+  "@profileUpToDate": {
+    "description": "Message when profile is up to date."
+  },
+  "noChangesToSave": "ਸੰਭਾਲਣ ਲਈ ਕੋਈ ਤਬਦੀਲੀਆਂ ਨਹੀਂ",
+  "@noChangesToSave": {
+    "description": "Message when there are no changes to save."
+  },
+  "connectionFailed": "ਕਨੈਕਸ਼ਨ ਅਸਫਲ",
+  "@connectionFailed": {
+    "description": "Message when connection fails."
+  },
+  "unableToJoinRoom": "ਰੂਮ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਵਿੱਚ ਅਸਮਰਥ",
+  "@unableToJoinRoom": {
+    "description": "Message when unable to join room."
+  },
+  "connectionLost": "ਕਨੈਕਸ਼ਨ ਖਤਮ ਹੋ ਗਿਆ",
+  "@connectionLost": {
+    "description": "Message when connection is lost."
+  },
+  "unableToReconnect": "ਮੁੜ-ਕਨੈਕਟ ਕਰਨ ਵਿੱਚ ਅਸਮਰਥ",
+  "@unableToReconnect": {
+    "description": "Message when unable to reconnect."
+  },
+  "invalidFormat": "ਅਵੈਧ ਫਾਰਮੈਟ",
+  "@invalidFormat": {
+    "description": "Error for invalid format."
+  },
+  "usernameAlphanumeric": "ਯੂਜ਼ਰਨੇਮ ਅਲਫਾ-ਨਿਊਮੈਰਿਕ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+  "@usernameAlphanumeric": {
+    "description": "Message for alphanumeric username requirement."
+  },
+  "userProfileCreatedSuccessfully": "ਯੂਜ਼ਰ ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਬਣਾਈ ਗਈ",
+  "@userProfileCreatedSuccessfully": {
+    "description": "Message when user profile is created successfully."
+  },
+  "emailVerificationMessage": "ਈਮੇਲ ਵੈਰੀਫਿਕੇਸ਼ਨ ਸੁਨੇਹਾ",
+  "@emailVerificationMessage": {
+    "description": "Message for email verification."
+  },
+  "addNewChaptersToStory": "ਕਹਾਣੀ ਵਿੱਚ ਨਵੇਂ ਅਧਿਆਇ ਜੋੜੋ",
+  "@addNewChaptersToStory": {
+    "description": "Prompt to add new chapters to story."
+  },
+  "currentChapters": "ਮੌਜੂਦਾ ਅਧਿਆਇ",
+  "@currentChapters": {
+    "description": "Label for current chapters."
+  },
+  "sourceCodeOnGitHub": "ਗਿਥੁਬ ਤੇ ਸਰੋਤ ਕੋਡ",
+  "@sourceCodeOnGitHub": {
+    "description": "Label for source code on GitHub."
+  },
+  "createAChapter": "ਅਧਿਆਇ ਬਣਾਓ",
+  "@createAChapter": {
+    "description": "Button text to create a chapter."
+  },
+  "chapterTitle": "ਅਧਿਆਇ ਸਿਰਲੇਖ",
+  "@chapterTitle": {
+    "description": "Label for chapter title."
+  },
+  "aboutRequired": "'ਬਾਰੇ' ਲਾਜ਼ਮੀ ਹੈ",
+  "@aboutRequired": {
+    "description": "Message that 'about' is required."
+  },
+  "changeCoverImage": "ਕਵਰ ਚਿੱਤਰ ਬਦਲੋ",
+  "@changeCoverImage": {
+    "description": "Button text to change cover image."
+  },
+  "uploadAudioFile": "ਆਡੀਓ ਫਾਈਲ ਅੱਪਲੋਡ ਕਰੋ",
+  "@uploadAudioFile": {
+    "description": "Button text to upload audio file."
+  },
+  "uploadLyricsFile": "ਲਿਰਿਕਸ ਫਾਈਲ ਅੱਪਲੋਡ ਕਰੋ",
+  "@uploadLyricsFile": {
+    "description": "Button text to upload lyrics file."
+  },
+  "createChapter": "ਅਧਿਆਇ ਬਣਾਓ",
+  "@createChapter": {
+    "description": "Button text to create chapter."
+  },
+  "audioFileSelected": "ਆਡੀਓ ਫਾਈਲ ਚੁਣੀ ਗਈ",
+  "@audioFileSelected": {
+    "description": "Message when audio file is selected."
+  },
+  "lyricsFileSelected": "ਲਿਰਿਕਸ ਫਾਈਲ ਚੁਣੀ ਗਈ",
+  "@lyricsFileSelected": {
+    "description": "Message when lyrics file is selected."
+  },
+  "fillAllRequiredFields": "ਸਾਰੇ ਲਾਜ਼ਮੀ ਖੇਤਰ ਭਰੋ",
+  "@fillAllRequiredFields": {
+    "description": "Prompt to fill all required fields."
+  },
+  "scheduled": "ਨਿਰਧਾਰਤ",
+  "@scheduled": {
+    "description": "Label for scheduled status."
+  },
+  "ok": "ਠੀਕ ਹੈ",
+  "@ok": {
+    "description": "Button text for OK."
+  },
+  "roomDescriptionOptional": "ਰੂਮ ਵਰਣਨ ਵਿਕਲਪਿਕ ਹੈ",
+  "@roomDescriptionOptional": {
+    "description": "Message that room description is optional."
+  },
+  "deleteAccount": "ਅਕਾਊਂਟ ਹਟਾਓ",
+  "@deleteAccount": {
+    "description": "Button text to delete account."
+  },
+  "createYourStory": "ਆਪਣੀ ਕਹਾਣੀ ਬਣਾਓ",
+  "@createYourStory": {
+    "description": "Button text to create your story."
+  },
+  "titleRequired": "ਸਿਰਲੇਖ ਲਾਜ਼ਮੀ ਹੈ",
+  "@titleRequired": {
+    "description": "Message that title is required."
+  },
+  "category": "ਸ਼੍ਰੇਣੀ",
+  "@category": {
+    "description": "Label for category field."
+  },
+  "addChapter": "ਅਧਿਆਇ ਜੋੜੋ",
+  "@addChapter": {
+    "description": "Button text to add chapter."
+  },
+  "createStory": "ਕਹਾਣੀ ਬਣਾਓ",
+  "@createStory": {
+    "description": "Button text to create story."
+  },
+  "fillAllRequiredFieldsAndChapter": "ਸਾਰੇ ਲਾਜ਼ਮੀ ਖੇਤਰ ਅਤੇ ਅਧਿਆਇ ਭਰੋ",
+  "@fillAllRequiredFieldsAndChapter": {
+    "description": "Prompt to fill all required fields and chapter."
+  },
+  "toConfirmType": "ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਟਾਈਪ ਕਰੋ",
+  "@toConfirmType": {
+    "description": "Prompt to type for confirmation."
+  },
+  "inTheBoxBelow": "ਹੇਠਾਂ ਵਾਲੇ ਬਾਕਸ ਵਿੱਚ",
+  "@inTheBoxBelow": {
+    "description": "Instruction to type in the box below."
+  },
+  "iUnderstandDeleteMyAccount": "ਮੈਂ ਸਮਝਦਾ ਹਾਂ ਕਿ ਮੇਰਾ ਅਕਾਊਂਟ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ",
+  "@iUnderstandDeleteMyAccount": {
+    "description": "Confirmation text for account deletion."
+  },
+  "whatDoYouWantToListenTo": "ਤੁਸੀਂ ਕੀ ਸੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+  "@whatDoYouWantToListenTo": {
+    "description": "Prompt asking what user wants to listen to."
+  },
+  "categories": "ਸ਼੍ਰੇਣੀਆਂ",
+  "@categories": {
+    "description": "Label for categories."
+  },
+  "stories": "ਕਹਾਣੀਆਂ",
+  "@stories": {
+    "description": "Label for stories."
+  },
+  "someSuggestions": "ਕੁਝ ਸੁਝਾਵ",
+  "@someSuggestions": {
+    "description": "Label for some suggestions."
+  },
+  "getStarted": "ਸ਼ੁਰੂ ਕਰੋ",
+  "@getStarted": {
+    "description": "Button text to get started."
+  },
+  "skip": "ਛੱਡੋ",
+  "@skip": {
+    "description": "Button text to skip."
+  },
+  "welcomeToResonate": "ਰੇਜ਼ੋਨੇਟ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
+  "@welcomeToResonate": {
+    "description": "Welcome message for Resonate."
+  },
+  "exploreDiverseConversations": "ਵੱਖ-ਵੱਖ ਗੱਲਬਾਤਾਂ ਦੀ ਖੋਜ ਕਰੋ",
+  "@exploreDiverseConversations": {
+    "description": "Prompt to explore diverse conversations."
+  },
+  "yourVoiceMatters": "ਤੁਹਾਡੀ ਆਵਾਜ਼ ਮਹੱਤਵਪੂਰਨ ਹੈ",
+  "@yourVoiceMatters": {
+    "description": "Message that your voice matters."
+  },
+  "joinConversationExploreRooms": "ਗੱਲਬਾਤ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ, ਰੂਮ ਖੋਜੋ",
+  "@joinConversationExploreRooms": {
+    "description": "Prompt to join conversation and explore rooms."
+  },
+  "diveIntoDiverseDiscussions": "ਵੱਖ-ਵੱਖ ਚਰਚਾਵਾਂ ਵਿੱਚ ਡੁੱਬੋ",
+  "@diveIntoDiverseDiscussions": {
+    "description": "Prompt to dive into diverse discussions."
+  },
+  "atResonateEveryVoiceValued": "ਰੇਜ਼ੋਨੇਟ 'ਤੇ ਹਰ ਆवਾਜ਼ ਦੀ ਕਦਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ",
+  "@atResonateEveryVoiceValued": {
+    "description": "Message that every voice is valued at Resonate."
+  },
+  "notifications": "ਨੋਟੀਫਿਕੇਸ਼ਨ",
+  "@notifications": {
+    "description": "Label for notifications."
+  },
+  "taggedYouInUpcomingRoom": "ਤੁਹਾਨੂੰ ਆਉਣ ਵਾਲੇ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ",
+  "@taggedYouInUpcomingRoom": {
+    "description": "Notification for being tagged in upcoming room."
+  },
+  "taggedYouInRoom": "ਤੁਹਾਨੂੰ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ",
+  "@taggedYouInRoom": {
+    "description": "Notification for being tagged in room."
+  },
+  "likedYourStory": "ਤੁਹਾਡੀ ਕਹਾਣੀ ਪਸੰਦ ਆਈ",
+  "@likedYourStory": {
+    "description": "Notification for liked story."
+  },
+  "subscribedToYourRoom": "ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ",
+  "@subscribedToYourRoom": {
+    "description": "Notification for room subscription."
+  },
+  "startedFollowingYou": "ਤੁਹਾਡਾ ਪਾਲਣਾ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ",
+  "@startedFollowingYou": {
+    "description": "Notification for started following you."
+  },
+  "youHaveNewNotification": "ਤੁਹਾਨੂੰ ਨਵੀਂ ਨੋਟੀਫਿਕੇਸ਼ਨ ਮਿਲੀ ਹੈ",
+  "@youHaveNewNotification": {
+    "description": "Message for new notification."
+  },
+  "hangOnGoodThingsTakeTime": "ਇੰਤਜ਼ਾਰ ਕਰੋ, ਚੰਗੀਆਂ ਚੀਜ਼ਾਂ ਸਮਾਂ ਲੈਂਦੀਆਂ ਹਨ",
+  "@hangOnGoodThingsTakeTime": {
+    "description": "Message to hang on, good things take time."
+  },
+  "resonateOpenSourceProject": "ਰੇਜ਼ੋਨੇਟ ਖੁੱਲਾ ਸਰੋਤ ਪ੍ਰੋਜੈਕਟ ਹੈ",
+  "@resonateOpenSourceProject": {
+    "description": "Message that Resonate is open source project."
+  },
+  "mute": "ਮਿਊਟ",
+  "@mute": {
+    "description": "Button text to mute."
+  },
+  "speakerLabel": "ਸਪੀਕਰ",
+  "@speakerLabel": {
+    "description": "Label for speaker."
+  },
+  "end": "ਅੰਤ",
+  "@end": {
+    "description": "Label for end."
+  },
+  "saveChanges": "ਤਬਦੀਲੀਆਂ ਸੰਭਾਲੋ",
+  "@saveChanges": {
+    "description": "Button text to save changes."
+  },
+  "discard": "ਅਣਡਿੱਠਾ ਕਰੋ",
+  "@discard": {
+    "description": "Button text to discard changes."
+  },
+  "save": "ਸੰਭਾਲੋ",
+  "@save": {
+    "description": "Button text to save."
+  },
+  "changeProfilePicture": "ਪ੍ਰੋਫਾਈਲ ਚਿੱਤਰ ਬਦਲੋ",
+  "@changeProfilePicture": {
+    "description": "Button text to change profile picture."
+  },
+  "camera": "ਕੈਮਰਾ",
+  "@camera": {
+    "description": "Label for camera."
+  },
+  "gallery": "ਗੈਲਰੀ",
+  "@gallery": {
+    "description": "Label for gallery."
+  },
+  "remove": "ਹਟਾਓ",
+  "@remove": {
+    "description": "Button text to remove something."
+  },
+  "created": "ਬਣਾਇਆ ਗਿਆ",
+  "@created": {
+    "description": "Label for created."
+  },
+  "chapters": "ਅਧਿਆਇ",
+  "@chapters": {
+    "description": "Label for chapters."
+  },
+  "deleteStory": "ਕਹਾਣੀ ਹਟਾਓ",
+  "@deleteStory": {
+    "description": "Button text to delete story."
+  },
+  "createdBy": "ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ",
+  "@createdBy": {
+    "description": "Label for created by."
+  },
+  "start": "ਸ਼ੁਰੂ ਕਰੋ",
+  "@start": {
+    "description": "Button text to start something."
+  },
+  "unsubscribe": "ਅਣ-ਸਬਸਕ੍ਰਾਈਬ ਕਰੋ",
+  "@unsubscribe": {
+    "description": "Button text to unsubscribe."
+  },
+  "subscribe": "ਸਬਸਕ੍ਰਾਈਬ ਕਰੋ",
+  "@subscribe": {
+    "description": "Button text to subscribe."
+  },
+  "storyCategory": "ਕਹਾਣੀ ਸ਼੍ਰੇਣੀ",
+  "@storyCategory": {
+    "description": "Label for story category."
+  },
+  "chooseTheme": "ਥੀਮ ਚੁਣੋ",
+  "@chooseTheme": {
+    "description": "Prompt to choose theme."
+  },
+  "minutesAgo": "ਮਿੰਟ ਪਹਿਲਾਂ",
+  "@minutesAgo": {
+    "description": "Label for minutes ago."
+  },
+  "hoursAgo": "ਘੰਟੇ ਪਹਿਲਾਂ",
+  "@hoursAgo": {
+    "description": "Label for hours ago."
+  },
+  "daysAgo": "ਦਿਨ ਪਹਿਲਾਂ",
+  "@daysAgo": {
+    "description": "Label for days ago."
+  },
+  "by": "ਦੁਆਰਾ",
+  "@by": {
+    "description": "Label for by."
+  },
+  "likes": "ਪਸੰਦ",
+  "@likes": {
+    "description": "Label for likes."
+  },
+  "lengthMinutes": "ਮਿੰਟ ਲੰਬਾਈ",
+  "@lengthMinutes": {
+    "description": "Label for length in minutes."
+  },
+  "requiredField": "ਲਾਜ਼ਮੀ ਖੇਤਰ",
+  "@requiredField": {
+    "description": "Label for required field."
+  },
+  "onlineUsers": "ਆਨਲਾਈਨ ਯੂਜ਼ਰ",
+  "@onlineUsers": {
+    "description": "Label for online users."
+  },
+  "noOnlineUsers": "ਕੋਈ ਆਨਲਾਈਨ ਯੂਜ਼ਰ ਨਹੀਂ",
+  "@noOnlineUsers": {
+    "description": "Message when no online users."
+  },
+  "chooseUser": "ਯੂਜ਼ਰ ਚੁਣੋ",
+  "@chooseUser": {
+    "description": "Prompt to choose user."
+  },
+  "quickMatch": "ਤੁਰੰਤ ਮੇਲ",
+  "@quickMatch": {
+    "description": "Label for quick match feature."
+  },
+  "story": "ਕਹਾਣੀ",
+  "@story": {
+    "description": "Label for story."
+  },
+  "user": "ਯੂਜ਼ਰ",
+  "@user": {
+    "description": "Label for user."
+  },
+  "following": "ਫਾਲੋ ਕਰ ਰਹੇ ਹੋ",
+  "@following": {
+    "description": "Label for following."
+  },
+  "followers": "ਫਾਲੋਅਰ",
+  "@followers": {
+    "description": "Label for followers."
+  },
+  "friendRequests": "ਦੋਸਤ ਅਰਜ਼ੀਆਂ",
+  "@friendRequests": {
+    "description": "Label for friend requests."
+  },
+  "friendRequestSent": "ਦੋਸਤ ਅਰਜ਼ੀ ਭੇਜੀ ਗਈ",
+  "@friendRequestSent": {
+    "description": "Message when friend request is sent."
+  },
+  "friendRequestSentTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਭੇਜੀ ਗਈ (to)",
+  "@friendRequestSentTo": {
+    "description": "Message when friend request is sent to someone."
+  },
+  "friendRequestCancelled": "ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ",
+  "@friendRequestCancelled": {
+    "description": "Message when friend request is cancelled."
+  },
+  "friendRequestCancelledTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ (to)",
+  "@friendRequestCancelledTo": {
+    "description": "Message when friend request is cancelled to someone."
+  },
+  "requested": "ਅਰਜ਼ੀ ਕੀਤੀ",
+  "@requested": {
+    "description": "Label for requested status."
+  },
+  "friends": "ਦੋਸਤ",
+  "@friends": {
+    "description": "Label for friends."
+  },
+  "addFriend": "ਦੋਸਤ ਜੋੜੋ",
+  "@addFriend": {
+    "description": "Button text to add friend."
+  },
+  "friendRequestAccepted": "ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਹੋਈ",
+  "@friendRequestAccepted": {
+    "description": "Message when friend request is accepted."
+  },
+  "friendRequestAcceptedTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਹੋਈ (to)",
+  "@friendRequestAcceptedTo": {
+    "description": "Message when friend request is accepted to someone."
+  },
+  "friendRequestDeclined": "ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ",
+  "@friendRequestDeclined": {
+    "description": "Message when friend request is declined."
+  },
+  "friendRequestDeclinedTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)",
+  "@friendRequestDeclinedTo": {
+    "description": "Message when friend request is declined to someone."
+  },
+  "accept": "ਮਨਜ਼ੂਰ ਕਰੋ",
+  "@accept": {
+    "description": "Button text to accept."
+  },
+  "callDeclined": "ਕਾਲ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ",
+  "@callDeclined": {
+    "description": "Message when call is declined."
+  },
+  "callDeclinedTo": "ਕਾਲ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)",
+  "@callDeclinedTo": {
+    "description": "Message when call is declined to someone."
+  },
+  "checkForUpdates": "ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ",
+  "@checkForUpdates": {
+    "description": "Button text to check for updates."
+  },
+  "updateNow": "ਹੁਣ ਅੱਪਡੇਟ ਕਰੋ",
+  "@updateNow": {
+    "description": "Button text to update now."
+  },
+  "updateLater": "ਬਾਅਦ ਵਿੱਚ ਅੱਪਡੇਟ ਕਰੋ",
+  "@updateLater": {
+    "description": "Button text to update later."
+  },
+  "updateSuccessful": "ਅੱਪਡੇਟ ਸਫਲ",
+  "@updateSuccessful": {
+    "description": "Message when update is successful."
+  },
+  "updateSuccessfulMessage": "ਅੱਪਡੇਟ ਸਫਲਤਾਪੂਰਵਕ ਹੋ ਗਿਆ",
+  "@updateSuccessfulMessage": {
+    "description": "Message for successful update."
+  },
+  "updateCancelled": "ਅੱਪਡੇਟ ਰੱਦ ਕੀਤਾ ਗਿਆ",
+  "@updateCancelled": {
+    "description": "Message when update is cancelled."
+  },
+  "updateCancelledMessage": "ਅੱਪਡੇਟ ਰੱਦ ਹੋ ਗਿਆ",
+  "@updateCancelledMessage": {
+    "description": "Message for cancelled update."
+  },
+  "updateFailed": "ਅੱਪਡੇਟ ਅਸਫਲ",
+  "@updateFailed": {
+    "description": "Message when update fails."
+  },
+  "updateFailedMessage": "ਅੱਪਡੇਟ ਅਸਫਲ ਹੋ ਗਿਆ",
+  "@updateFailedMessage": {
+    "description": "Message for failed update."
+  },
+  "updateError": "ਅੱਪਡੇਟ ਵਿੱਚ ਗਲਤੀ",
+  "@updateError": {
+    "description": "Error message for update."
+  },
+  "updateErrorMessage": "ਅੱਪਡੇਟ ਵਿੱਚ ਗਲਤੀ ਆਈ",
+  "@updateErrorMessage": {
+    "description": "Message for update error."
+  },
+  "platformNotSupported": "ਪਲੇਟਫਾਰਮ ਸਹਾਇਕ ਨਹੀਂ ਹੈ",
+  "@platformNotSupported": {
+    "description": "Message when platform is not supported."
+  },
+  "platformNotSupportedMessage": "ਇਹ ਪਲੇਟਫਾਰਮ ਸਹਾਇਕ ਨਹੀਂ ਹੈ",
+  "@platformNotSupportedMessage": {
+    "description": "Message for unsupported platform."
+  },
+  "updateCheckFailed": "ਅੱਪਡੇਟ ਚੈੱਕ ਅਸਫਲ",
+  "@updateCheckFailed": {
+    "description": "Message when update check fails."
+  },
+  "updateCheckFailedMessage": "ਅੱਪਡੇਟ ਚੈੱਕ ਕਰਨ ਵਿੱਚ ਅਸਫਲਤਾ",
+  "@updateCheckFailedMessage": {
+    "description": "Message for update check failure."
+  },
+  "upToDateTitle": "ਅੱਪ-ਟੂ-ਡੇਟ",
+  "@upToDateTitle": {
+    "description": "Title for up to date status."
+  },
+  "upToDateMessage": "ਐਪ ਅੱਪ-ਟੂ-ਡੇਟ ਹੈ",
+  "@upToDateMessage": {
+    "description": "Message for up to date app."
+  },
+  "updateAvailableTitle": "ਅੱਪਡੇਟ ਉਪਲਬਧ",
+  "@updateAvailableTitle": {
+    "description": "Title for update available."
+  },
+  "updateAvailableMessage": "ਨਵਾਂ ਅੱਪਡੇਟ ਉਪਲਬਧ ਹੈ",
+  "@updateAvailableMessage": {
+    "description": "Message for update available."
+  },
+  "updateFeaturesImprovement": "ਅੱਪਡੇਟ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਧਾਰ",
+  "@updateFeaturesImprovement": {
+    "description": "Label for update features and improvements."
+  },
+  "failedToRemoveRoom": "ਰੂਮ ਹਟਾਉਣ ਵਿੱਚ ਅਸਫਲ",
+  "@failedToRemoveRoom": {
+    "description": "Message when failed to remove room."
+  },
+  "roomRemovedSuccessfully": "ਰੂਮ ਸਫਲਤਾਪੂਰਵਕ ਹਟਾਇਆ ਗਿਆ",
+  "@roomRemovedSuccessfully": {
+    "description": "Message when room is removed successfully."
+  },
+  "alert": "ਚੇਤਾਵਨੀ",
+  "@alert": {
+    "description": "Label for alert."
+  },
+  "removedFromRoom": "ਰੂਮ ਤੋਂ ਹਟਾਇਆ ਗਿਆ",
+  "@removedFromRoom": {
+    "description": "Message when removed from room."
+  },
+  "reportType": "ਰਿਪੋਰਟ ਕਿਸਮ",
+  "@reportType": {
+    "description": "Label for report type."
+  },
+  "userBlockedFromResonate": "ਰੇਜ਼ੋਨੇਟ ਤੋਂ ਯੂਜ਼ਰ ਬਲੌਕ ਕੀਤਾ ਗਿਆ",
+  "@userBlockedFromResonate": {
+    "description": "Message when user is blocked from Resonate."
+  },
+  "reportParticipant": "ਭਾਗੀਦਾਰ ਦੀ ਰਿਪੋਰਟ ਕਰੋ",
+  "@reportParticipant": {
+    "description": "Button text to report participant."
+  },
+  "selectReportType": "ਰਿਪੋਰਟ ਕਿਸਮ ਚੁਣੋ",
+  "@selectReportType": {
+    "description": "Prompt to select report type."
+  },
+  "reportSubmitted": "ਰਿਪੋਰਟ ਜਮ੍ਹਾਂ ਹੋਈ",
+  "@reportSubmitted": {
+    "description": "Message when report is submitted."
+  },
+  "reportFailed": "ਰਿਪੋਰਟ ਅਸਫਲ",
+  "@reportFailed": {
+    "description": "Message when report fails."
+  },
+  "additionalDetailsOptional": "ਵਾਧੂ ਵੇਰਵੇ ਵਿਕਲਪਿਕ ਹਨ",
+  "@additionalDetailsOptional": {
+    "description": "Message that additional details are optional."
+  },
+  "submitReport": "ਰਿਪੋਰਟ ਜਮ੍ਹਾਂ ਕਰੋ",
+  "@submitReport": {
+    "description": "Button text to submit report."
+  },
+  "actionBlocked": "ਕਾਰਵਾਈ ਰੋਕੀ ਗਈ",
+  "@actionBlocked": {
+    "description": "Message when action is blocked."
+  },
+  "cannotStopRecording": "ਰਿਕਾਰਡਿੰਗ ਰੋਕੀ ਨਹੀਂ ਜਾ ਸਕਦੀ",
+  "@cannotStopRecording": {
+    "description": "Message when recording cannot be stopped."
+  },
+  "liveChapter": "ਲਾਈਵ ਅਧਿਆਇ",
+  "@liveChapter": {
+    "description": "Label for live chapter."
+  },
+  "viewOrEditLyrics": "ਲਿਰਿਕਸ ਵੇਖੋ ਜਾਂ ਐਡਿਟ ਕਰੋ",
+  "@viewOrEditLyrics": {
+    "description": "Button text to view or edit lyrics."
+  },
+  "close": "ਬੰਦ ਕਰੋ",
+  "@close": {
+    "description": "Button text to close something."
+  },
+  "verifyChapterDetails": "ਅਧਿਆਇ ਵੇਰਵੇ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+  "@verifyChapterDetails": {
+    "description": "Prompt to verify chapter details."
+  },
+  "author": "ਲੇਖਕ",
+  "@author": {
+    "description": "Label for author."
+  },
+  "startLiveChapter": "ਲਾਈਵ ਅਧਿਆਇ ਸ਼ੁਰੂ ਕਰੋ",
+  "@startLiveChapter": {
+    "description": "Button text to start live chapter."
+  },
+  "fillAllFields": "ਸਾਰੇ ਖੇਤਰ ਭਰੋ",
+  "@fillAllFields": {
+    "description": "Prompt to fill all fields."
+  },
+  "noRecordingError": "ਕੋਈ ਰਿਕਾਰਡਿੰਗ ਗਲਤੀ ਨਹੀਂ",
+  "@noRecordingError": {
+    "description": "Message when there is no recording error."
+  }
+}
