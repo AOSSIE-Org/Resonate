@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpCommingListTile extends StatelessWidget {
   UpCommingListTile({super.key, required this.appwriteUpcommingRoom});
@@ -12,6 +15,52 @@ class UpCommingListTile extends StatelessWidget {
   final UpcomingRoomsController upcomingRoomsController = Get.put(
     UpcomingRoomsController(),
   );
+
+  Future<void> _showRemoveDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.removeRoom),
+          content: Text(AppLocalizations.of(context)!.removeRoomConfirmation),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: Text(AppLocalizations.of(context)!.hide),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                try {
+                  await upcomingRoomsController.removeUpcomingRoom(
+                    appwriteUpcommingRoom.id,
+                  );
+                  customSnackbar(
+                    AppLocalizations.of(Get.context!)!.success,
+                    AppLocalizations.of(Get.context!)!.roomRemovedSuccessfully,
+                    LogType.success,
+                  );
+                } catch (e) {
+                  customSnackbar(
+                    AppLocalizations.of(Get.context!)!.error,
+                    AppLocalizations.of(Get.context!)!.failedToRemoveRoom,
+                    LogType.error,
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,21 +143,30 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FloatingActionButton(
-                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
-                  onPressed: () {
-                    upcomingRoomsController.openUpcomingChatSheet(
-                      appwriteUpcommingRoom,
-                    );
-                  },
-                  child: const Icon(Icons.chat, color: Colors.white),
+                SizedBox(
+                  height: UiSizes.height_50,
+                  width: UiSizes.width_56,
+                  child: FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                    onPressed: () {
+                      upcomingRoomsController.openUpcomingChatSheet(
+                        appwriteUpcommingRoom,
+                      );
+                    },
+                    child: Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: UiSizes.size_20,
+                    ),
+                  ),
                 ),
                 Spacer(),
                 ElevatedButton(
-                  onPressed: () {
-                    upcomingRoomsController.deleteUpcomingRoom(
+                  onPressed: () async {
+                    await upcomingRoomsController.deleteUpcomingRoom(
                       appwriteUpcommingRoom.id,
                     );
+                    await upcomingRoomsController.getUpcomingRooms();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 234, 93, 83),
@@ -151,40 +209,59 @@ class UpCommingListTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FloatingActionButton(
-                  backgroundColor: const Color.fromARGB(255, 234, 93, 83),
-                  onPressed: () {
-                    upcomingRoomsController.openUpcomingChatSheet(
-                      appwriteUpcommingRoom,
-                    );
-                  },
-                  child: const Icon(Icons.chat, color: Colors.white),
+                IconButton(
+                  onPressed: () => _showRemoveDialog(context),
+                  icon: Icon(
+                    Icons.delete_forever,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  tooltip: AppLocalizations.of(context)!.removeRoomFromList,
                 ),
                 Spacer(),
-                ElevatedButton(
-                  onPressed: () {
-                    if (appwriteUpcommingRoom.hasUserSubscribed) {
-                      upcomingRoomsController.removeUserFromSubscriberList(
-                        appwriteUpcommingRoom.id,
+                SizedBox(
+                  height: UiSizes.height_50,
+                  width: UiSizes.width_56,
+                  child: FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 234, 93, 83),
+                    onPressed: () {
+                      upcomingRoomsController.openUpcomingChatSheet(
+                        appwriteUpcommingRoom,
                       );
-                    } else {
-                      upcomingRoomsController.addUserToSubscriberList(
-                        appwriteUpcommingRoom.id,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: appwriteUpcommingRoom.hasUserSubscribed
-                        ? Colors.red
-                        : Theme.of(context).colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+                    },
+                    child: Icon(
+                      Icons.chat,
+                      color: Colors.white,
+                      size: UiSizes.size_20,
                     ),
                   ),
-                  child: Text(
-                    appwriteUpcommingRoom.hasUserSubscribed
-                        ? AppLocalizations.of(context)!.unsubscribe
-                        : AppLocalizations.of(context)!.subscribe,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (appwriteUpcommingRoom.hasUserSubscribed) {
+                        upcomingRoomsController.removeUserFromSubscriberList(
+                          appwriteUpcommingRoom.id,
+                        );
+                      } else {
+                        upcomingRoomsController.addUserToSubscriberList(
+                          appwriteUpcommingRoom.id,
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: appwriteUpcommingRoom.hasUserSubscribed
+                          ? Colors.red
+                          : Theme.of(context).colorScheme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: Text(
+                      appwriteUpcommingRoom.hasUserSubscribed
+                          ? AppLocalizations.of(context)!.unsubscribe
+                          : AppLocalizations.of(context)!.subscribe,
+                    ),
                   ),
                 ),
               ],

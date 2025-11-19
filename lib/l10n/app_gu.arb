@@ -1,4 +1,5 @@
 {
+    
     "title": "રેઝોનેટ",
     "roomDescription": "નમ્ર બનો અને અન્ય વ્યક્તિના અભિપ્રાયનો આદર કરો. અસભ્ય ટિપ્પણીઓ ટાળો.",
     "hidePassword": "પાસવર્ડ છુપાવો",
@@ -627,6 +628,37 @@
 "upToDateMessage": "તમે Resonate નું નવું વર્ઝન ઉપયોગ કરી રહ્યા છો",
 "updateAvailableTitle": "અપડેટ ઉપલબ્ધ છે!",
 "updateAvailableMessage": "Resonate નું નવું વર્ઝન Play Store પર ઉપલબ્ધ છે",
-"updateFeaturesImprovement": "નવા ફીચર્સ અને સુધારાઓ મેળવો!"
-
+"updateFeaturesImprovement": "નવા ફીચર્સ અને સુધારાઓ મેળવો!",
+  "alert": "ચેતવણી",
+  "removedFromRoom": "તમને રૂમમાંથી દૂર કરવામાં આવ્યા છે અથવા રિપોર્ટ કરવામાં આવ્યા છે.",
+"reportType": "{type, select, harassment{સતાવણી / દ્વેષપૂર્ણ ભાષણ} abuse{અપમાનજનક સામગ્રી / હિંસા} spam{સ્પામ / છેતરપિંડી / ફ્રોડ} impersonation{ઢોંગ / નકલી એકાઉન્ટ્સ} illegal{ગેરકાયદેસર પ્રવૃત્તિઓ} selfharm{સ્વ-નુકસાન / આત્મહત્યા / માનસિક સ્વાસ્થ્ય} misuse{પ્લેટફોર્મનો દુરુપયોગ} other{અન્ય}}",
+"@reportType": {
+    "description": "Report type selection for reporting users",
+    "placeholders": {
+        "type": {
+            "type": "String",
+            "example": "harassment"
+        }
+    }
+},
+  "userBlockedFromResonate": "તમે અન્ય વપરાશકર્તાઓ પાસેથી અનેક રિપોર્ટ્સ પ્રાપ્ત કર્યા છે અને તમને Resonate નો ઉપયોગ કરવા માટે અવરોધિત કરવામાં આવ્યા છે. જો તમને લાગે કે આ ભૂલ છે તો કૃપા કરીને AOSSIE નો સંપર્ક કરો.",
+  "reportParticipant": "ભાગીદારને રિપોર્ટ કરો",
+  "selectReportType": "કૃપા કરીને રિપોર્ટ પ્રકાર પસંદ કરો",
+  "reportSubmitted": "રિપોર્ટ સફળતાપૂર્વક સબમિટ થયો",
+  "reportFailed": "રિપોર્ટ સબમિટ કરવામાં નિષ્ફળ ગયું",
+  "additionalDetailsOptional": "વધારાની વિગતો (વૈકલ્પિક)",
+  "submitReport": "રિપોર્ટ સબમિટ કરો",
+  "actionBlocked": "ક્રિયા અવરોધિત",
+  "cannotStopRecording": "તમે હસ્તચાલિત રીતે રેકોર્ડિંગ બંધ કરી શકતા નથી, રૂમ બંધ થશે ત્યારે રેકોર્ડિંગ આપમેળે બંધ થશે.",
+  "liveChapter": "લાઈવ અધ્યાય",
+  "viewOrEditLyrics": "ગીત જુઓ અથવા સંપાદિત કરો",
+  "close": "બંધ કરો",
+  "verifyChapterDetails": "અધ્યાયની વિગતો ચકાસો",
+  "author": "લેખક",
+  "startLiveChapter": "લાઈવ અધ્યાય શરૂ કરો",
+  "fillAllFields": "કૃપા કરીને તમામ જરૂરી ક્ષેત્રો ભરો",
+  "noRecordingError": "તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.",
+  "deleteMessageTitle": "સંદેશ કાઢી નાખો",
+  "deleteMessageContent": "શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?"
 }
+

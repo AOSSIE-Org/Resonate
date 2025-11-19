@@ -34,7 +34,7 @@ class PairChatController extends GetxController {
   final Realtime realtime = AppwriteService.getRealtime();
   final Databases databases = AppwriteService.getDatabases();
   late RealtimeSubscription? subscription;
-  late RealtimeSubscription? userAddedSubscription;
+  RealtimeSubscription? userAddedSubscription;
   AuthStateController authController = Get.find<AuthStateController>();
 
   RxList<ResonateUser> usersList = <ResonateUser>[].obs;

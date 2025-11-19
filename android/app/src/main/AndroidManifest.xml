@@ -63,7 +63,6 @@
                 <data android:scheme="appwrite-callback-${PROJECT_ID}" />
             </intent-filter>
         </activity>
-
         
 
         <!-- Don't delete the meta-data below.

@@ -9,6 +9,8 @@
 		<string>hi</string>
 		<string>en</string>
 		<string>gu</string>
+		<string>kn</string>
+		<string>mr</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Resonate</string>

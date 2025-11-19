@@ -29,6 +29,7 @@ import 'package:upgrader/src/upgrader_version_info.dart' as _i8;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeUpgraderStoreController_0 extends _i1.SmartFake
     implements _i2.UpgraderStoreController {
@@ -88,16 +89,15 @@ class MockUpgrader extends _i1.Mock implements _i6.Upgrader {
           as _i7.Stream<_i3.UpgraderState>);
 
   @override
-  set storeController(_i2.UpgraderStoreController? _storeController) =>
-      super.noSuchMethod(
-        Invocation.setter(#storeController, _storeController),
-        returnValueForMissingStub: null,
-      );
+  set storeController(_i2.UpgraderStoreController? value) => super.noSuchMethod(
+    Invocation.setter(#storeController, value),
+    returnValueForMissingStub: null,
+  );
 
   @override
-  set willDisplayUpgrade(_i6.WillDisplayUpgradeCallback? _willDisplayUpgrade) =>
+  set willDisplayUpgrade(_i6.WillDisplayUpgradeCallback? value) =>
       super.noSuchMethod(
-        Invocation.setter(#willDisplayUpgrade, _willDisplayUpgrade),
+        Invocation.setter(#willDisplayUpgrade, value),
         returnValueForMissingStub: null,
       );
 

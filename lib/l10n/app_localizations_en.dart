@@ -318,6 +318,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contribute => 'Contribute';
 
   @override
+  String get appPreferences => 'App Preferences';
+
+  @override
+  String get transcriptionModel => 'Transcription Model';
+
+  @override
+  String get transcriptionModelDescription =>
+      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+
+  @override
+  String get whisperModelTiny => 'Tiny';
+
+  @override
+  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+
+  @override
+  String get whisperModelBase => 'Base';
+
+  @override
+  String get whisperModelBaseDescription =>
+      'Balanced speed and accuracy (~74 MB)';
+
+  @override
+  String get whisperModelSmall => 'Small';
+
+  @override
+  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+
+  @override
+  String get whisperModelMedium => 'Medium';
+
+  @override
+  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+
+  @override
+  String get whisperModelLargeV1 => 'Large V1';
+
+  @override
+  String get whisperModelLargeV1Description =>
+      'Most accurate, slowest (~1.55 GB)';
+
+  @override
+  String get whisperModelLargeV2 => 'Large V2';
+
+  @override
+  String get whisperModelLargeV2Description =>
+      'Improved large model with higher accuracy (~1.55 GB)';
+
+  @override
+  String get modelDownloadInfo =>
+      'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+
+  @override
   String get logOut => 'Log out';
 
   @override
@@ -340,6 +393,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get hide => 'Remove';
+
+  @override
+  String get removeRoom => 'Remove Room';
+
+  @override
+  String get removeRoomFromList => 'Remove from list';
+
+  @override
+  String get removeRoomConfirmation =>
+      'Are you sure you want to remove this upcoming room from your list?';
 
   @override
   String get completeYourProfile => 'Complete your Profile';
@@ -492,6 +558,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorLoadPackageInfo => 'Could not load package info';
+
+  @override
+  String get searchFailed => 'Failed to search rooms. Please try again.';
 
   @override
   String get updateAvailable => 'Update Available';
@@ -662,6 +731,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSearchResults => 'No Search Results';
+
+  @override
+  String get searchRooms => 'Search rooms...';
+
+  @override
+  String get searchingRooms => 'Searching rooms...';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get searchError => 'Search Error';
+
+  @override
+  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+
+  @override
+  String get searchUpcomingRoomsError =>
+      'Failed to search upcoming rooms. Please try again.';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get clear => 'Clear';
 
   @override
   String shareRoomMessage(
@@ -1167,6 +1261,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Get the latest features and improvements!';
 
   @override
+  String get failedToRemoveRoom => 'Failed to remove room';
+
+  @override
+  String get roomRemovedSuccessfully =>
+      'Room removed from your list successfully';
+
+  @override
   String get alert => 'Alert';
 
   @override
@@ -1241,4 +1342,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
+
+  @override
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get deleteMessageContent =>
+      'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }

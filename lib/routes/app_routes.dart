@@ -34,4 +34,5 @@ class AppRoutes {
   static const friendCallScreen = "/friendCallScreen";
   static const userBlockedScreen = "/userBlockedScreen";
   static const liveChapterScreen = "/liveChapterScreen";
+  static const appPreferencesScreen = "/appPreferencesScreen";
 }
