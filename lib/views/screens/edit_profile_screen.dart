@@ -120,6 +120,7 @@ class EditProfileScreen extends StatelessWidget {
                     SizedBox(height: UiSizes.height_20),
                     Obx(
                       () => TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         maxLength: 36,
                         validator: (value) {
                           if (value!.length >= 7) {
@@ -149,24 +150,18 @@ class EditProfileScreen extends StatelessWidget {
 
                             if (!validUsername || value.trim().length > 36) {
                               controller.usernameAvailable.value = false;
-                              customSnackbar(
-                                AppLocalizations.of(
-                                  context,
-                                )!.usernameUnavailable,
-                                "Username can only contain letters, numbers, dots, hyphens, and underscores (max 36 characters)",
-                                LogType.error,
-                                snackbarDuration: 1,
-                              );
+                              controller.usernameChecking.value = false;
                               return;
                             }
 
-                            // Temporarily show checking state
-                            controller.usernameAvailable.value = true;
+                            controller.usernameChecking.value = true;
+                            controller.usernameAvailable.value = false;
 
                             debouncer.run(() async {
                               final available = await controller
                                   .isUsernameAvailable(value.trim());
 
+                              controller.usernameChecking.value = false;
                               controller.usernameAvailable.value = available;
 
                               if (!available) {
@@ -184,6 +179,7 @@ class EditProfileScreen extends StatelessWidget {
                             });
                           } else {
                             controller.usernameAvailable.value = false;
+                            controller.usernameChecking.value = false;
                           }
                         },
                         keyboardType: TextInputType.text,
@@ -191,7 +187,9 @@ class EditProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
-                          suffixIcon: controller.usernameAvailable.value
+                          suffixIcon:
+                              !controller.usernameChecking.value &&
+                                  controller.usernameAvailable.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
