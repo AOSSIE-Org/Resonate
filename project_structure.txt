@@ -18,6 +18,7 @@
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
+├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── CSAE_STANDARDS.md
@@ -451,4 +452,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 372 files
+80 directories, 373 files
