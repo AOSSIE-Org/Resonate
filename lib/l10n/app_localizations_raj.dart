@@ -316,52 +316,52 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get contribute => 'योगदान करो';
 
   @override
-  String get appPreferences => 'App Preferences';
+  String get appPreferences => 'ऐप पसंद';
 
   @override
-  String get transcriptionModel => 'Transcription Model';
+  String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
 
   @override
-  String get transcriptionModelDescription => 'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+  String get transcriptionModelDescription => 'आवाज ट्रांसक्रिप्शन खातिर AI मॉडल चुनो। बड़ा मॉडल ज्यादा सही होवे, पर धीमा चले अने ज्यादा स्टोरेज लेवे।';
 
   @override
-  String get whisperModelTiny => 'Tiny';
+  String get whisperModelTiny => 'टिनी';
 
   @override
-  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+  String get whisperModelTinyDescription => 'सबतैं तेज, पर सबसे कम सही (~39 MB)';
 
   @override
-  String get whisperModelBase => 'Base';
+  String get whisperModelBase => 'बेस';
 
   @override
-  String get whisperModelBaseDescription => 'Balanced speed and accuracy (~74 MB)';
+  String get whisperModelBaseDescription => 'गति अने सटीकता में संतुलित (~74 MB)';
 
   @override
-  String get whisperModelSmall => 'Small';
+  String get whisperModelSmall => 'स्मॉल';
 
   @override
-  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+  String get whisperModelSmallDescription => 'सही परिणाम, थोड़ो धीमो (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'Medium';
+  String get whisperModelMedium => 'मीडियम';
 
   @override
-  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+  String get whisperModelMediumDescription => 'ऊँची सटीकता, पर धीमो (~769 MB';
 
   @override
-  String get whisperModelLargeV1 => 'Large V1';
+  String get whisperModelLargeV1 => 'लार्ज V1';
 
   @override
-  String get whisperModelLargeV1Description => 'Most accurate, slowest (~1.55 GB)';
+  String get whisperModelLargeV1Description => 'सबतैं सही, पर सबसे धीमो (~1.55 GB)';
 
   @override
-  String get whisperModelLargeV2 => 'Large V2';
+  String get whisperModelLargeV2 => 'लार्ज V2';
 
   @override
-  String get whisperModelLargeV2Description => 'Improved large model with higher accuracy (~1.55 GB)';
+  String get whisperModelLargeV2Description => 'सुधारेलो लार्ज मॉडल, और सही (~1.55 GB)';
 
   @override
-  String get modelDownloadInfo => 'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+  String get modelDownloadInfo => 'मॉडल पहली बार उपयोग करते वखत डाउनलोड होवे। बेस, स्मॉल, अर मीडियम मॉडल उपयोग करणो सुझाव। लार्ज मॉडल खातिर बहुत शक्तिशाली डिवाइस चाहिए।';
 
   @override
   String get logOut => 'लॉगआउट करो';
@@ -388,16 +388,15 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get cancel => 'रद्द करो';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'हटाओ';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'रूम हटाओ';
+  @override
+  String get removeRoomFromList => 'लिस्ट में सूं हटाओ';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
-
-  @override
-  String get removeRoomConfirmation => 'Are you sure you want to remove this upcoming room from your list?';
+  String get removeRoomConfirmation => 'के थाने पक्को है के थूं इस आने वालो रूम ने अपनी लिस्ट में सूं हटाणा चाह्यो है?';
 
   @override
   String get completeYourProfile => 'थारो प्रोफाइल पूरा करो';
