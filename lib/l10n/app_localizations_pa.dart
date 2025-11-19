@@ -1026,7 +1026,16 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String storyCategory(String category) {
-    return 'ਕਹਾਣੀ ਸ਼੍ਰੇਣੀ';
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'drama': 'ਨਾਟਕ',
+      'comedy': 'ਹਾਸਿਆਸਪਦ',
+      'horror': 'ਭਿਆਨਕ',
+      'romance': 'ਰੋਮਾਂਟਿਕ',
+      'thriller': 'ਥ੍ਰਿਲਰ',
+      'spiritual': 'ਆਧਿਆਤਮਿਕ',
+      'other': 'ਹੋਰ',
+    });
+    return '$_temp0';
   }
 
   @override

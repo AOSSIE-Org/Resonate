@@ -1298,9 +1298,15 @@
   "@subscribe": {
     "description": "Button text to subscribe."
   },
-  "storyCategory": "ਕਹਾਣੀ ਸ਼੍ਰੇਣੀ",
+  "storyCategory": "{category, select, drama{ਨਾਟਕ} comedy{ਹਾਸਿਆਸਪਦ} horror{ਭਿਆਨਕ} romance{ਰੋਮਾਂਟਿਕ} thriller{ਥ੍ਰਿਲਰ} spiritual{ਆਧਿਆਤਮਿਕ} other{ਹੋਰ}}",
   "@storyCategory": {
-    "description": "Label for story category."
+    "description": "Selects the appropriate category name for a story based on a key.",
+    "placeholders": {
+      "category": {
+        "type": "String",
+        "example": "drama"
+      }
+    }
   },
   "chooseTheme": "ਥੀਮ ਚੁਣੋ",
   "@chooseTheme": {
