@@ -260,14 +260,14 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> turnOnMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant
+    await Get.find<LiveKitController>().liveKitRoom?.localParticipant
         ?.setMicrophoneEnabled(true);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": true});
     me.value.isMicOn = true;
   }
 
   Future<void> turnOffMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant
+    await Get.find<LiveKitController>().liveKitRoom?.localParticipant
         ?.setMicrophoneEnabled(false);
     await updateParticipantDoc(appwriteRoom.myDocId!, {"isMicOn": false});
     me.value.isMicOn = false;

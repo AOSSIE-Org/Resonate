@@ -192,13 +192,13 @@ class LiveChapterController extends GetxController {
   }
 
   Future<void> turnOnMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant
+    await Get.find<LiveKitController>().liveKitRoom?.localParticipant
         ?.setMicrophoneEnabled(true);
     isMicOn.value = true;
   }
 
   Future<void> turnOffMic() async {
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant
+    await Get.find<LiveKitController>().liveKitRoom?.localParticipant
         ?.setMicrophoneEnabled(false);
     isMicOn.value = false;
   }

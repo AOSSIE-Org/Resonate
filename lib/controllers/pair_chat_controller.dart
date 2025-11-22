@@ -251,7 +251,7 @@ class PairChatController extends GetxController {
 
   void toggleMic() async {
     isMicOn.value = !isMicOn.value;
-    await Get.find<LiveKitController>().liveKitRoom.localParticipant
+    await Get.find<LiveKitController>().liveKitRoom?.localParticipant
         ?.setMicrophoneEnabled(isMicOn.value);
   }
 

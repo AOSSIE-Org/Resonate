@@ -9,8 +9,8 @@ import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 
 class LiveKitController extends GetxController {
-  late final Room liveKitRoom;
-  late final EventsListener<RoomEvent> listener;
+  Room? liveKitRoom;
+  EventsListener<RoomEvent>? listener;
   final String liveKitUri;
   final String roomToken;
   final int maxAttempts; // Configurable max retry attempts
@@ -31,31 +31,55 @@ class LiveKitController extends GetxController {
   });
 
   @override
-  void onInit() async {
-    await connectToRoom(); // Initial connection with retries
-    liveKitRoom.addListener(onRoomDidUpdate);
-    setUpListeners();
-    if (isLiveChapter) {
-      listenToRecordingStateChanges();
-    }
+  void onInit() {
     super.onInit();
+    _initializeConnection();
+  }
+
+  Future<void> _initializeConnection() async {
+    try {
+      final success = await connectToRoom();
+      if (success && liveKitRoom != null) {
+        liveKitRoom?.addListener(onRoomDidUpdate);
+        setUpListeners();
+        if (isLiveChapter) {
+          listenToRecordingStateChanges();
+        }
+      } else {
+        log('Failed to initialize LiveKit connection');
+        // Connection failed after all retries
+        // User already notified via snackbar in connectToRoom()
+      }
+    } catch (e) {
+      log('Error initializing LiveKit connection: $e');
+      Get.snackbar(
+        AppLocalizations.of(Get.context!)!.connectionFailed,
+        'An unexpected error occurred while connecting to the room',
+        duration: const Duration(seconds: 5),
+      );
+    }
   }
 
   void listenToRecordingStateChanges() async {
     final storagePath = await getApplicationDocumentsDirectory();
     isRecording.listen((state) async {
+      if (liveKitRoom == null) {
+        log('Cannot record: LiveKit room not initialized');
+        return;
+      }
+
       if (state) {
         log("Starting recording...");
 
         log('Local track published: ${storagePath.path}');
         await mediaRecorder.start(
-          '${storagePath.path}/recordings/${liveKitRoom.name}.mp4',
+          '${storagePath.path}/recordings/${liveKitRoom!.name}.mp4',
           audioChannel: RecorderAudioChannel.INPUT,
         );
       } else {
         await mediaRecorder.stop();
         log(
-          'Recording stopped, file saved to: $storagePath/${liveKitRoom.name}.mp4',
+          'Recording stopped, file saved to: $storagePath/${liveKitRoom!.name}.mp4',
         );
       }
     });
@@ -64,11 +88,9 @@ class LiveKitController extends GetxController {
   @override
   void onClose() async {
     reconnectTimer?.cancel();
-    (() async {
-      liveKitRoom.removeListener(onRoomDidUpdate);
-      await listener.dispose();
-      await liveKitRoom.dispose();
-    })();
+    liveKitRoom?.removeListener(onRoomDidUpdate);
+    await listener?.dispose();
+    await liveKitRoom?.dispose();
     super.onClose();
   }
 
