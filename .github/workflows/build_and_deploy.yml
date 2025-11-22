@@ -15,7 +15,7 @@ jobs:
       JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
-      KEYSTORE_PATH: android/upload-keystore.jks
+      KEYSTORE_PATH: android/app/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
       GOOGLE_SERVICES_ANDROID_PATH: android/app/google-services.json
