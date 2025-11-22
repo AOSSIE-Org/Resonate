@@ -554,7 +554,7 @@
   "@verificationCompleteMessage": {
     "description": "Success message confirming email verification."
   },
-  "verificationFailed": "ਵੇਰੀਫਿਕੇਸ਼ਨ ਅਸਫਲ ਹੋ گیا",
+  "verificationFailed": "ਵੇਰੀਫਿਕੇਸ਼ਨ ਅਸਫਲ ਹੋ ਗਿਆ",
   "@verificationFailed": {
     "description": "Title for an error message when verification fails."
   },
@@ -1752,7 +1752,7 @@
   "@fillAllFields": {
     "description": "Prompt to fill all fields."
   },
-  "noRecordingError": "ਕੋਈ ਰਿਕਾਰਡਿੰਗ ਗਲਤੀ ਨਹੀਂ",
+  "noRecordingError": "ਤੁਸੀਂ ਇਸ ਅਧਿਆਇ ਲਈ ਕੁਝ ਵੀ ਰਿਕਾਰਡ ਨਹੀਂ ਕੀਤਾ। ਕਿਰਪਾ ਕਰਕੇ ਰੂਮ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕਰੋ",
   "@noRecordingError": {
     "description": "Message when there is no recording error."
   }
