@@ -650,9 +650,15 @@
   "@noLyrics": {
     "description": "Message when no lyrics are available."
   },
-  "noStoriesInCategory": "ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ",
+  "noStoriesInCategory": "{categoryName} ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ",
   "@noStoriesInCategory": {
-    "description": "Message when no stories exist in a category."
+    "description": "Message when no stories exist in a category.",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "drama"
+      }
+    }
   },
   "newChapters": "ਨਵੇਂ ਅਧਿਆਇ",
   "@newChapters": {
@@ -710,9 +716,15 @@
   "@none": {
     "description": "None option label."
   },
-  "checkOutGitHub": "ਗਿਥੁਬ ਤੇ ਵੇਖੋ",
+  "checkOutGitHub": "ਸਾਡਾ GitHub ਰੈਪੋ ਦੇਖੋ: {url}",
   "@checkOutGitHub": {
-    "description": "Prompt to check out GitHub."
+    "description": "Prompt to check out GitHub.",
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "https://github.com/AOSSIE-Org/Resonate"
+      }
+    }
   },
   "aossie": "AOSSIE",
   "@aossie": {
@@ -786,9 +798,15 @@
   "@audioRoom": {
     "description": "Label for audio room."
   },
-  "toRoomAction": "ਰੂਮ ਕਾਰਵਾਈ",
+  "toRoomAction": "ਰੂਮ ਨੂੰ {action} ਕਰਨ ਲਈ",
   "@toRoomAction": {
-    "description": "Label for room action parameter."
+    "description": "Label for room action parameter.",
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "example": "delete"
+      }
+    }
   },
   "mailSentMessage": "ਮੇਲ ਭੇਜੀ ਗਈ",
   "@mailSentMessage": {
@@ -974,13 +992,33 @@
   "@clear": {
     "description": "Button text to clear something."
   },
-  "shareRoomMessage": "ਰੂਮ ਸਾਂਝਾ ਕਰੋ",
+  "shareRoomMessage": "ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: {roomName}!\n\n📖 ਵੇਰਵਾ: {description}\n👥 ਹੁਣੇ {participants} ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!",
   "@shareRoomMessage": {
-    "description": "Message to share a room."
+    "description": "Message to share a room.",
+    "placeholders": {
+      "roomName": {
+        "type": "String",
+        "example": "Discussion Room"
+      },
+      "description": {
+        "type": "String",
+        "example": "A great place to discuss"
+      },
+      "participants": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   },
-  "participantsCount": "ਭਾਗੀਦਾਰ ਗਿਣਤੀ",
+  "participantsCount": "{count} ਭਾਗੀਦਾਰ",
   "@participantsCount": {
-    "description": "Label for participants count."
+    "description": "Label for participants count.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   },
   "join": "ਸ਼ਾਮਲ ਹੋਵੋ",
   "@join": {
@@ -1042,9 +1080,15 @@
   "@emailVerificationMessage": {
     "description": "Message for email verification."
   },
-  "addNewChaptersToStory": "ਕਹਾਣੀ ਵਿੱਚ ਨਵੇਂ ਅਧਿਆਇ ਜੋੜੋ",
+  "addNewChaptersToStory": "{storyName} ਵਿੱਚ ਨਵੇਂ ਅਧਿਆਇ ਜੋੜੋ",
   "@addNewChaptersToStory": {
-    "description": "Prompt to add new chapters to story."
+    "description": "Prompt to add new chapters to story.",
+    "placeholders": {
+      "storyName": {
+        "type": "String",
+        "example": "My Story"
+      }
+    }
   },
   "currentChapters": "ਮੌਜੂਦਾ ਅਧਿਆਇ",
   "@currentChapters": {
@@ -1198,25 +1242,71 @@
   "@notifications": {
     "description": "Label for notifications."
   },
-  "taggedYouInUpcomingRoom": "ਤੁਹਾਨੂੰ ਆਉਣ ਵਾਲੇ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ",
+  "taggedYouInUpcomingRoom": "{username} ਨੇ ਤੁਹਾਨੂੰ ਇੱਕ ਆਉਣ ਵਾਲੇ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ: {subject}",
   "@taggedYouInUpcomingRoom": {
-    "description": "Notification for being tagged in upcoming room."
+    "description": "Notification for being tagged in upcoming room.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "Discussion Room"
+      }
+    }
   },
-  "taggedYouInRoom": "ਤੁਹਾਨੂੰ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ",
+  "taggedYouInRoom": "{username} ਨੇ ਤੁਹਾਨੂੰ ਇੱਕ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ: {subject}",
   "@taggedYouInRoom": {
-    "description": "Notification for being tagged in room."
+    "description": "Notification for being tagged in room.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "Discussion Room"
+      }
+    }
   },
-  "likedYourStory": "ਤੁਹਾਡੀ ਕਹਾਣੀ ਪਸੰਦ ਆਈ",
+  "likedYourStory": "{username} ਨੇ ਤੁਹਾਡੀ ਕਹਾਣੀ ਨੂੰ ਪਸੰਦ ਕੀਤਾ: {subject}",
   "@likedYourStory": {
-    "description": "Notification for liked story."
+    "description": "Notification for liked story.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "My Story"
+      }
+    }
   },
-  "subscribedToYourRoom": "ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ",
+  "subscribedToYourRoom": "{username} ਨੇ ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ: {subject}",
   "@subscribedToYourRoom": {
-    "description": "Notification for room subscription."
+    "description": "Notification for room subscription.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "My Room"
+      }
+    }
   },
-  "startedFollowingYou": "ਤੁਹਾਡਾ ਪਾਲਣਾ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ",
+  "startedFollowingYou": "{username} ਨੇ ਤੁਹਾਨੂੰ ਫਾਲੋ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ",
   "@startedFollowingYou": {
-    "description": "Notification for started following you."
+    "description": "Notification for started following you.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "youHaveNewNotification": "ਤੁਹਾਨੂੰ ਨਵੀਂ ਨੋਟੀਫਿਕੇਸ਼ਨ ਮਿਲੀ ਹੈ",
   "@youHaveNewNotification": {
@@ -1270,9 +1360,15 @@
   "@remove": {
     "description": "Button text to remove something."
   },
-  "created": "ਬਣਾਇਆ ਗਿਆ",
+  "created": "ਬਣਾਇਆ ਗਿਆ: {date}",
   "@created": {
-    "description": "Label for created."
+    "description": "Label for created.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Jan 15, 2023"
+      }
+    }
   },
   "chapters": "ਅਧਿਆਇ",
   "@chapters": {
@@ -1282,9 +1378,15 @@
   "@deleteStory": {
     "description": "Button text to delete story."
   },
-  "createdBy": "ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ",
+  "createdBy": "{creatorName} ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ",
   "@createdBy": {
-    "description": "Label for created by."
+    "description": "Label for created by.",
+    "placeholders": {
+      "creatorName": {
+        "type": "String",
+        "example": "John Doe"
+      }
+    }
   },
   "start": "ਸ਼ੁਰੂ ਕਰੋ",
   "@start": {
@@ -1312,17 +1414,35 @@
   "@chooseTheme": {
     "description": "Prompt to choose theme."
   },
-  "minutesAgo": "ਮਿੰਟ ਪਹਿਲਾਂ",
+  "minutesAgo": "{count, plural, =1{1 ਮਿੰਟ ਪਹਿਲਾਂ} other{{count} ਮਿੰਟ ਪਹਿਲਾਂ}}",
   "@minutesAgo": {
-    "description": "Label for minutes ago."
+    "description": "Label for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
   },
-  "hoursAgo": "ਘੰਟੇ ਪਹਿਲਾਂ",
+  "hoursAgo": "{count, plural, =1{1 ਘੰਟਾ ਪਹਿਲਾਂ} other{{count} ਘੰਟੇ ਪਹਿਲਾਂ}}",
   "@hoursAgo": {
-    "description": "Label for hours ago."
+    "description": "Label for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
   },
-  "daysAgo": "ਦਿਨ ਪਹਿਲਾਂ",
+  "daysAgo": "{count, plural, =1{1 ਦਿਨ ਪਹਿਲਾਂ} other{{count} ਦਿਨ ਪਹਿਲਾਂ}}",
   "@daysAgo": {
-    "description": "Label for days ago."
+    "description": "Label for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
   },
   "by": "ਦੁਆਰਾ",
   "@by": {
@@ -1380,17 +1500,29 @@
   "@friendRequestSent": {
     "description": "Message when friend request is sent."
   },
-  "friendRequestSentTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਭੇਜੀ ਗਈ (to)",
+  "friendRequestSentTo": "ਤੁਹਾਡੀ ਦੋਸਤ ਅਰਜ਼ੀ {username} ਨੂੰ ਭੇਜੀ ਗਈ ਹੈ",
   "@friendRequestSentTo": {
-    "description": "Message when friend request is sent to someone."
+    "description": "Message when friend request is sent to someone.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "friendRequestCancelled": "ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ",
   "@friendRequestCancelled": {
     "description": "Message when friend request is cancelled."
   },
-  "friendRequestCancelledTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ (to)",
+  "friendRequestCancelledTo": "ਤੁਹਾਡੀ {username} ਨੂੰ ਭੇਜੀ ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ",
   "@friendRequestCancelledTo": {
-    "description": "Message when friend request is cancelled to someone."
+    "description": "Message when friend request is cancelled to someone.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "requested": "ਅਰਜ਼ੀ ਕੀਤੀ",
   "@requested": {
@@ -1408,17 +1540,29 @@
   "@friendRequestAccepted": {
     "description": "Message when friend request is accepted."
   },
-  "friendRequestAcceptedTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਹੋਈ (to)",
+  "friendRequestAcceptedTo": "ਤੁਸੀਂ {username} ਦੀ ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਕਰ ਲਈ ਹੈ",
   "@friendRequestAcceptedTo": {
-    "description": "Message when friend request is accepted to someone."
+    "description": "Message when friend request is accepted to someone.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "friendRequestDeclined": "ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ",
   "@friendRequestDeclined": {
     "description": "Message when friend request is declined."
   },
-  "friendRequestDeclinedTo": "ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)",
+  "friendRequestDeclinedTo": "ਤੁਸੀਂ {username} ਦੀ ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕਰ ਦਿੱਤੀ ਹੈ",
   "@friendRequestDeclinedTo": {
-    "description": "Message when friend request is declined to someone."
+    "description": "Message when friend request is declined to someone.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "accept": "ਮਨਜ਼ੂਰ ਕਰੋ",
   "@accept": {
@@ -1428,9 +1572,15 @@
   "@callDeclined": {
     "description": "Message when call is declined."
   },
-  "callDeclinedTo": "ਕਾਲ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)",
+  "callDeclinedTo": "{username} ਨੇ ਕਾਲ ਅਸਵੀਕਾਰ ਕਰ ਦਿੱਤੀ",
   "@callDeclinedTo": {
-    "description": "Message when call is declined to someone."
+    "description": "Message when call is declined to someone.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      }
+    }
   },
   "checkForUpdates": "ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ",
   "@checkForUpdates": {
@@ -1528,9 +1678,15 @@
   "@removedFromRoom": {
     "description": "Message when removed from room."
   },
-  "reportType": "ਰਿਪੋਰਟ ਕਿਸਮ",
+  "reportType": "{type, select, harassment{ਪਰੇਸ਼ਾਨੀ / ਨਫ਼ਰਤ ਭਰਿਆ ਭਾਸ਼ਣ} abuse{ਅਪਮਾਨਜਨਕ ਸਮੱਗਰੀ / ਹਿੰਸਾ} spam{ਸਪੈਮ / ਘੁਟਾਲੇ / ਧੋਖਾਧੜੀ} impersonation{ਰੂਪ ਬਦਲਣਾ / ਜਾਅਲੀ ਖਾਤੇ} illegal{ਗੈਰ-ਕਾਨੂੰਨੀ ਗਤੀਵਿਧੀਆਂ} selfharm{ਆਤਮ-ਹੱਤਿਆ / ਖੁਦਕੁਸ਼ੀ / ਮਾਨਸਿਕ ਸਿਹਤ} misuse{ਪਲੇਟਫਾਰਮ ਦੀ ਦੁਰਵਰਤੋਂ} other{ਹੋਰ}}",
   "@reportType": {
-    "description": "Label for report type."
+    "description": "Label for report type.",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "harassment"
+      }
+    }
   },
   "userBlockedFromResonate": "ਰੇਜ਼ੋਨੇਟ ਤੋਂ ਯੂਜ਼ਰ ਬਲੌਕ ਕੀਤਾ ਗਿਆ",
   "@userBlockedFromResonate": {
