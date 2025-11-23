@@ -1768,8 +1768,6 @@
 },
 "thisMessageWasDeleted": "This message was deleted",
 "failedToDeleteMessage": "Failed to delete message",
-"usernameAllowedChars": "Username can only contain letters, numbers, dots, hyphens, and underscores",
-
  "usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
   "usernameAlreadyTaken": "This username is already taken. Try a different one."
 

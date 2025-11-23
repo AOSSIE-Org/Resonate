@@ -1357,10 +1357,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedToDeleteMessage => 'Failed to delete message';
 
   @override
-  String get usernameAllowedChars =>
-      'Username can only contain letters, numbers, dots, hyphens, and underscores';
-
-  @override
   String get usernameInvalidFormat =>
       'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
 
