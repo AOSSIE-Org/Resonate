@@ -63,7 +63,7 @@ class FriendCallingController extends GetxController {
     );
     await tables.createRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: callModel.docId,
       data: callModel.toJson(),
     );
@@ -123,7 +123,7 @@ class FriendCallingController extends GetxController {
   Future<void> onAnswerCall(Map<String, dynamic> extra) async {
     final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
@@ -135,7 +135,7 @@ class FriendCallingController extends GetxController {
       callModel = callModel.copyWith(callStatus: FriendCallStatus.connected);
       await tables.updateRow(
         databaseId: masterDatabaseId,
-        tableId: friendCallsCollectionId,
+        tableId: friendCallsTableId,
         rowId: callModel.docId,
         data: callModel.toJson(),
       );
@@ -152,7 +152,7 @@ class FriendCallingController extends GetxController {
   Future<void> onDeclinedCall(Map<String, dynamic> extra) async {
     final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
@@ -161,7 +161,7 @@ class FriendCallingController extends GetxController {
 
     await tables.updateRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: callModel.docId,
       data: callModel.toJson(),
     );
@@ -171,7 +171,7 @@ class FriendCallingController extends GetxController {
   Future<void> onEndedCall(Map<String, dynamic> extra) async {
     final callDoc = await tables.getRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: extra['call_id'],
     );
 
@@ -180,7 +180,7 @@ class FriendCallingController extends GetxController {
     callModel = callModel.copyWith(callStatus: FriendCallStatus.ended);
     await tables.updateRow(
       databaseId: masterDatabaseId,
-      tableId: friendCallsCollectionId,
+      tableId: friendCallsTableId,
       rowId: callModel.docId,
       data: callModel.toJson(),
     );
@@ -194,7 +194,7 @@ class FriendCallingController extends GetxController {
 
   void listenToCallChanges() async {
     String channel =
-        'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.${friendCallModel.value!.docId}';
+        'databases.$masterDatabaseId.collections.$friendCallsTableId.documents.${friendCallModel.value!.docId}';
     callSubscription = realtime.subscribe([channel]);
     callSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

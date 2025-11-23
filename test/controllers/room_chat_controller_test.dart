@@ -49,7 +49,7 @@ void main() {
       ).thenAnswer(
         (_) async => Document(
           $id: 'test-message-1',
-          $collectionId: chatMessagesCollectionId,
+          $collectionId: chatMessagesTableId,
           $databaseId: masterDatabaseId,
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),
@@ -66,7 +66,7 @@ void main() {
 
       await mockDatabases.updateDocument(
         databaseId: masterDatabaseId,
-        collectionId: chatMessagesCollectionId,
+        collectionId: chatMessagesTableId,
         documentId: 'test-message-1',
         data: messageToDelete.toJsonForUpload(),
       );
@@ -74,7 +74,7 @@ void main() {
       verify(
         mockDatabases.updateDocument(
           databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
+          collectionId: chatMessagesTableId,
           documentId: 'test-message-1',
           data: argThat(
             predicate<Map<String, dynamic>>(
@@ -123,7 +123,7 @@ void main() {
       try {
         await mockDatabases.updateDocument(
           databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
+          collectionId: chatMessagesTableId,
           documentId: 'test-message-1',
           data: messageToDelete.toJsonForUpload(),
         );
@@ -135,7 +135,7 @@ void main() {
       verify(
         mockDatabases.updateDocument(
           databaseId: masterDatabaseId,
-          collectionId: chatMessagesCollectionId,
+          collectionId: chatMessagesTableId,
           documentId: 'test-message-1',
           data: anyNamed('data'),
         ),

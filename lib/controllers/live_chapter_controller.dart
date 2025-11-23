@@ -41,7 +41,7 @@ class LiveChapterController extends GetxController {
 
   void listenForAttendeesAdded() async {
     String channel =
-        "databases.$userDatabaseID.collections.$liveChapterAttendeesCollectionId.documents.${liveChapterModel.value!.id}";
+        "databases.$userDatabaseID.collections.$liveChapterAttendeesTableId.documents.${liveChapterModel.value!.id}";
     liveChapterAttendeesSubscription = realtime.subscribe([channel]);
     liveChapterAttendeesSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -96,13 +96,13 @@ class LiveChapterController extends GetxController {
       );
       await tables.createRow(
         databaseId: storyDatabaseId,
-        tableId: liveChaptersCollectionId,
+        tableId: liveChaptersTableId,
         rowId: roomId,
         data: liveChapterData.toJson(),
       );
       await tables.createRow(
         databaseId: userDatabaseID,
-        tableId: liveChapterAttendeesCollectionId,
+        tableId: liveChapterAttendeesTableId,
         rowId: roomId,
         data: liveChapterData.attendees!.toJson(),
       );
@@ -161,7 +161,7 @@ class LiveChapterController extends GetxController {
 
       await tables.updateRow(
         databaseId: userDatabaseID,
-        tableId: liveChapterAttendeesCollectionId,
+        tableId: liveChapterAttendeesTableId,
         rowId: roomId,
         data: newAttendeesModel.toJson(),
       );
@@ -227,7 +227,7 @@ class LiveChapterController extends GetxController {
         );
     await tables.updateRow(
       databaseId: userDatabaseID,
-      tableId: liveChapterAttendeesCollectionId,
+      tableId: liveChapterAttendeesTableId,
       rowId: liveChapterModel.value!.id,
       data: updatedAttendees.toJson(),
     );
@@ -244,12 +244,12 @@ class LiveChapterController extends GetxController {
       try {
         await tables.deleteRow(
           databaseId: storyDatabaseId,
-          tableId: liveChaptersCollectionId,
+          tableId: liveChaptersTableId,
           rowId: liveChapterModel.value!.id,
         );
         await tables.deleteRow(
           databaseId: userDatabaseID,
-          tableId: liveChapterAttendeesCollectionId,
+          tableId: liveChapterAttendeesTableId,
           rowId: liveChapterModel.value!.id,
         );
       } catch (e) {

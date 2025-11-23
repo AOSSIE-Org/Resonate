@@ -43,7 +43,7 @@ class DeleteAccountController extends GetxController {
     try {
       await tables.deleteRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: authStateController.userName!,
       );
     } catch (e) {
@@ -55,7 +55,7 @@ class DeleteAccountController extends GetxController {
     try {
       await tables.deleteRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: authStateController.uid!,
       );
     } catch (e) {

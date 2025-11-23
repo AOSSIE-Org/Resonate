@@ -72,7 +72,7 @@ final List<FriendsModel> mockFriendModelList = [
 final List<Row> mockFriendRows = [
   Row(
     $id: 'doc1',
-    $tableId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -86,7 +86,7 @@ final List<Row> mockFriendRows = [
   ),
   Row(
     $id: 'doc2',
-    $tableId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -100,7 +100,7 @@ final List<Row> mockFriendRows = [
   ),
   Row(
     $id: 'doc4',
-    $tableId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -115,7 +115,7 @@ final List<Row> mockFriendRows = [
 ];
 final Row mockUserRow = Row(
   $id: 'doc1',
-  $tableId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -178,7 +178,7 @@ final FriendsModel mockSentFriendRequest = FriendsModel(
 );
 final Row mockSentFriendRequestRow = Row(
   $id: 'doc3',
-  $tableId: friendsCollectionID,
+  $tableId: friendsTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -220,7 +220,7 @@ void main() {
     when(
       tables.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: 'id2',
       ),
     ).thenAnswer(
@@ -229,7 +229,7 @@ void main() {
     when(
       tables.createRow(
         databaseId: userDatabaseID,
-        tableId: friendsCollectionID,
+        tableId: friendsTableID,
         rowId: anyNamed('rowId'),
         data: mockSentFriendRequest.toJson(),
       ),
@@ -244,14 +244,14 @@ void main() {
     when(
       tables.deleteRow(
         databaseId: userDatabaseID,
-        tableId: friendsCollectionID,
+        tableId: friendsTableID,
         rowId: anyNamed('rowId'),
       ),
     ).thenAnswer((_) => Future.delayed(Duration(seconds: 0)));
     when(
       tables.updateRow(
         databaseId: userDatabaseID,
-        tableId: friendsCollectionID,
+        tableId: friendsTableID,
         rowId: anyNamed('rowId'),
         data: mockAcceptedRequestModel.toJson(),
       ),

@@ -19,7 +19,7 @@ import 'user_profile_controller_test.mocks.dart';
 List<Row> mockStoryDocuments = [
   Row(
     $id: 'doc1',
-    $tableId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -44,7 +44,7 @@ List<Row> mockStoryDocuments = [
   ),
   Row(
     $id: 'doc2',
-    $tableId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -71,7 +71,7 @@ List<Row> mockStoryDocuments = [
 
 final Row mockSearchedUserDocument = Row(
   $id: 'doc1',
-  $tableId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -110,7 +110,7 @@ final Row mockSearchedUserDocument = Row(
 );
 final Row mockUserDocument = Row(
   $id: 'doc1',
-  $tableId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -180,7 +180,7 @@ final FollowerUserModel mockFollowerUserModel = FollowerUserModel(
 );
 final Row mockFollowerDocument = Row(
   $id: 'fdocid1',
-  $tableId: followersCollectionID,
+  $tableId: followersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -223,7 +223,7 @@ void main() {
     when(
       tablesDB.listRows(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         queries: [
           Query.equal(
             'creatorId',
@@ -240,7 +240,7 @@ void main() {
     when(
       tablesDB.listRows(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         queries: [Query.equal('creatorId', 'id1')],
       ),
     ).thenAnswer(
@@ -252,7 +252,7 @@ void main() {
     when(
       tablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: 'id1',
       ),
     ).thenAnswer(
@@ -262,7 +262,7 @@ void main() {
     when(
       tablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: 'id2',
       ),
     ).thenAnswer(
@@ -271,7 +271,7 @@ void main() {
     when(
       tablesDB.createRow(
         databaseId: userDatabaseID,
-        tableId: followersCollectionID,
+        tableId: followersTableID,
         rowId: anyNamed('rowId'),
         data: mockFollowerUserModel.toJson(),
       ),

@@ -71,7 +71,7 @@ class FriendsController extends GetxController {
     );
     await tables.createRow(
       databaseId: userDatabaseID,
-      tableId: friendsCollectionID,
+      tableId: friendsTableID,
       rowId: docId,
       data: friendModel.toJson(),
     );
@@ -81,7 +81,7 @@ class FriendsController extends GetxController {
   Future<void> removeFriend(FriendsModel friendModel) async {
     await tables.deleteRow(
       databaseId: userDatabaseID,
-      tableId: friendsCollectionID,
+      tableId: friendsTableID,
       rowId: friendModel.docId,
     );
     friendsList.removeWhere((friend) => friend.docId == friendModel.docId);
@@ -97,7 +97,7 @@ class FriendsController extends GetxController {
 
     final userDoc = await tables.getRow(
       databaseId: userDatabaseID,
-      tableId: usersCollectionID,
+      tableId: usersTableID,
       rowId: authStateController.uid!,
     );
     for (var friend in (userDoc.data["friends"] ?? []) as List<dynamic>) {
@@ -122,7 +122,7 @@ class FriendsController extends GetxController {
 
     await tables.updateRow(
       databaseId: userDatabaseID,
-      tableId: friendsCollectionID,
+      tableId: friendsTableID,
       rowId: friendModel.docId,
       data: updatedFriendModel.toJson(),
     );
@@ -136,7 +136,7 @@ class FriendsController extends GetxController {
   Future<void> declineFriendRequest(FriendsModel friendModel) async {
     await tables.deleteRow(
       databaseId: userDatabaseID,
-      tableId: friendsCollectionID,
+      tableId: friendsTableID,
       rowId: friendModel.docId,
     );
     friendRequestsList.removeWhere(
@@ -146,7 +146,7 @@ class FriendsController extends GetxController {
 
   void listenForChangesInFriends() {
     String channel =
-        'databases.$userDatabaseID.collections.$friendsCollectionID.documents';
+        'databases.$userDatabaseID.collections.$friendsTableID.documents';
     friendRequestsSubscription = realtime.subscribe([channel]);
     friendRequestsSubscription.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

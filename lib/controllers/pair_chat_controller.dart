@@ -58,7 +58,7 @@ class PairChatController extends GetxController {
     // Add request to pair-request collection
     Row requestDoc = await tablesDB.createRow(
       databaseId: masterDatabaseId,
-      tableId: pairRequestCollectionId,
+      tableId: pairRequestTableId,
       rowId: ID.unique(),
       data: requestData,
     );
@@ -86,7 +86,7 @@ class PairChatController extends GetxController {
     // Add request to pair-request collection
     Row requestDoc = await tablesDB.createRow(
       databaseId: masterDatabaseId,
-      tableId: pairRequestCollectionId,
+      tableId: pairRequestTableId,
       rowId: ID.unique(),
       data: requestData,
     );
@@ -99,7 +99,7 @@ class PairChatController extends GetxController {
     getRealtimeStream();
     await tablesDB.updateRow(
       databaseId: masterDatabaseId,
-      tableId: pairRequestCollectionId,
+      tableId: pairRequestTableId,
       rowId: requestDocId!,
       data: {'isRandom': true},
     );
@@ -109,7 +109,7 @@ class PairChatController extends GetxController {
   void getRealtimeStream() {
     String uid = authController.uid!;
     String channel =
-        'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
+        'databases.$masterDatabaseId.collections.$activePairsTableId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -131,7 +131,7 @@ class PairChatController extends GetxController {
                   pairUsername = data.payload["userName2"];
                   Row participantDoc = await tablesDB.getRow(
                     databaseId: userDatabaseID,
-                    tableId: usersCollectionID,
+                    tableId: usersTableID,
                     rowId: data.payload["uid2"],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
@@ -140,7 +140,7 @@ class PairChatController extends GetxController {
                   pairUsername = data.payload["userName1"];
                   Row participantDoc = await tablesDB.getRow(
                     databaseId: userDatabaseID,
-                    tableId: usersCollectionID,
+                    tableId: usersTableID,
                     rowId: data.payload["uid1"],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
@@ -163,7 +163,7 @@ class PairChatController extends GetxController {
     log('pairing');
     await tablesDB.createRow(
       databaseId: masterDatabaseId,
-      tableId: activePairsCollectionId,
+      tableId: activePairsTableId,
       rowId: ID.unique(),
       data: {
         'uid1': authController.uid,
@@ -179,7 +179,7 @@ class PairChatController extends GetxController {
   void checkForNewUsers() {
     log('listening for new users');
     String channel =
-        'databases.$masterDatabaseId.collections.$pairRequestCollectionId.documents';
+        'databases.$masterDatabaseId.collections.$pairRequestTableId.documents';
     userAddedSubscription = realtime.subscribe([channel]);
     userAddedSubscription?.stream.listen((data) async {
       final event = data.events.first;
@@ -209,7 +209,7 @@ class PairChatController extends GetxController {
     usersList.clear();
     final result = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      tableId: pairRequestCollectionId,
+      tableId: pairRequestTableId,
       queries: [
         Query.notEqual('uid', authController.uid!),
         Query.notEqual('isAnonymous', true),
@@ -241,7 +241,7 @@ class PairChatController extends GetxController {
   Future<void> cancelRequest() async {
     await tablesDB.deleteRow(
       databaseId: masterDatabaseId,
-      tableId: pairRequestCollectionId,
+      tableId: pairRequestTableId,
       rowId: requestDocId!,
     );
     subscription?.close();
@@ -265,7 +265,7 @@ class PairChatController extends GetxController {
     try {
       await tablesDB.deleteRow(
         databaseId: masterDatabaseId,
-        tableId: activePairsCollectionId,
+        tableId: activePairsTableId,
         rowId: activePairDocId!,
       );
     } catch (e) {

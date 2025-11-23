@@ -39,14 +39,14 @@ class RoomsController extends GetxController {
     // Get three particpant data to use for memberAvatar widget
     var participantCollectionRef = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      tableId: participantsCollectionId,
-      queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)],
+      tableId: participantsTableId,
+      queries: [Query.equal("roomId", room.$id), Query.limit(3)],
     );
     List<String> memberAvatarUrls = [];
     for (var p in participantCollectionRef.rows) {
       Row participantDoc = await tablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: p.data["uid"],
       );
       memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
@@ -54,7 +54,7 @@ class RoomsController extends GetxController {
 
     // Create appwrite room object and add it to rooms list
     AppwriteRoom appwriteRoom = AppwriteRoom(
-      id: room.data['\$id'],
+      id: room.$id,
       name: room.data["name"],
       description: room.data["description"],
       totalParticipants: room.data["totalParticipants"],
@@ -77,7 +77,7 @@ class RoomsController extends GetxController {
       rooms.value = [];
       var roomsCollectionRef = await tablesDB.listRows(
         databaseId: masterDatabaseId,
-        tableId: roomsCollectionId,
+        tableId: roomsTableId,
       );
 
       for (var room in roomsCollectionRef.rows) {
@@ -98,7 +98,7 @@ class RoomsController extends GetxController {
     try {
       Row room = await tablesDB.getRow(
         databaseId: masterDatabaseId,
-        tableId: roomsCollectionId,
+        tableId: roomsTableId,
         rowId: roomId,
       );
       String userUid = Get.find<AuthStateController>().uid!;

@@ -59,7 +59,7 @@ class RatingSheetWidget extends StatelessWidget {
               onPressed: () async {
                 await tablesDB.updateRow(
                   databaseId: userDatabaseID,
-                  tableId: usersCollectionID,
+                  tableId: usersTableID,
                   rowId: authController.uid!,
                   data: {
                     "ratingTotal":

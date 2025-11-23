@@ -31,8 +31,8 @@ void main() {
     rows: [
       Row(
         $id: 'subUserDoc1',
-        $tableId: upcomingRoomsCollectionId,
-        $databaseId: subscribedUserCollectionId,
+        $tableId: upcomingRoomsTableId,
+        $databaseId: subscribedUserTableId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
@@ -46,8 +46,8 @@ void main() {
       ),
       Row(
         $id: 'subUserDoc2',
-        $tableId: upcomingRoomsCollectionId,
-        $databaseId: subscribedUserCollectionId,
+        $tableId: upcomingRoomsTableId,
+        $databaseId: subscribedUserTableId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
@@ -66,7 +66,7 @@ void main() {
     rows: [
       Row(
         $id: 'room1',
-        $tableId: upcomingRoomsCollectionId,
+        $tableId: upcomingRoomsTableId,
         $databaseId: upcomingRoomsDatabaseId,
         $permissions: ['any'],
         data: {
@@ -86,7 +86,7 @@ void main() {
       ),
       Row(
         $id: 'room2',
-        $tableId: upcomingRoomsCollectionId,
+        $tableId: upcomingRoomsTableId,
         $databaseId: upcomingRoomsDatabaseId,
         $permissions: ['any'],
         data: {
@@ -126,7 +126,7 @@ void main() {
     hashOptions: {},
   );
   final Row mockUserDocument = Row(
-    $tableId: usersCollectionID,
+    $tableId: usersTableID,
     $createdAt: DateTime.now().toIso8601String(),
     $databaseId: userDatabaseID,
     $id: '123',
@@ -163,14 +163,14 @@ void main() {
     when(
       mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: '123',
       ),
     ).thenAnswer((_) => Future.value(mockUserDocument));
     when(
       mockTablesDB.listRows(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         queries: [
           Query.equal("userID", ['123']),
         ],
@@ -179,7 +179,7 @@ void main() {
     when(
       mockTablesDB.listRows(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         queries: [Query.equal("creatorUid", "123")],
       ),
     ).thenAnswer((_) => Future.value(mockUpcomingRoomsRowList));
@@ -241,7 +241,7 @@ void main() {
       verify(
         mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserCollectionId,
+          tableId: subscribedUserTableId,
           rowId: 'subUserDoc1',
           data: {
             'registrationTokens': [
@@ -256,7 +256,7 @@ void main() {
       verify(
         mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserCollectionId,
+          tableId: subscribedUserTableId,
           rowId: 'subUserDoc2',
           data: {
             'registrationTokens': [
@@ -271,7 +271,7 @@ void main() {
       verify(
         mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsCollectionId,
+          tableId: upcomingRoomsTableId,
           rowId: 'room1',
           data: {
             'creator_fcm_tokens': [
@@ -286,7 +286,7 @@ void main() {
       verify(
         mockTablesDB.updateRow(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsCollectionId,
+          tableId: upcomingRoomsTableId,
           rowId: 'room2',
           data: {
             'creator_fcm_tokens': [
@@ -307,7 +307,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: 'subUserDoc1',
         data: {
           'registrationTokens': ['token1', 'token2', 'mockToken'],
@@ -317,7 +317,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: 'subUserDoc2',
         data: {
           'registrationTokens': ['token1', 'token2', 'mockToken'],
@@ -327,7 +327,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         rowId: 'room1',
         data: {
           'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
@@ -337,7 +337,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         rowId: 'room2',
         data: {
           'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],

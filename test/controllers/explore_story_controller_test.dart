@@ -25,7 +25,7 @@ import 'explore_story_controller_test.mocks.dart';
 List<Row> mockStoryDocuments = [
   Row(
     $id: 'doc1',
-    $tableId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -50,7 +50,7 @@ List<Row> mockStoryDocuments = [
   ),
   Row(
     $id: 'doc2',
-    $tableId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -77,7 +77,7 @@ List<Row> mockStoryDocuments = [
 List<Row> mockUsersDocuments = [
   Row(
     $id: 'doc1',
-    $tableId: usersCollectionID,
+    $tableId: usersTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -100,7 +100,7 @@ List<Row> mockUsersDocuments = [
   ),
   Row(
     $id: 'doc2',
-    $tableId: usersCollectionID,
+    $tableId: usersTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -192,7 +192,7 @@ void main() {
     when(
       tables.listRows(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         queries: [
           Query.equal(
             'creatorId',
@@ -209,7 +209,7 @@ void main() {
     when(
       tables.listRows(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         queries: [Query.equal('creatorId', 'id1')],
       ),
     ).thenAnswer(
@@ -221,7 +221,7 @@ void main() {
     when(
       tables.listRows(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         queries: [Query.limit(10)],
       ),
     ).thenAnswer(

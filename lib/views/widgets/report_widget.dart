@@ -51,7 +51,7 @@ class _ReportWidgetState extends State<ReportWidget> {
       );
       await authStateController.tables.createRow(
         databaseId: userDatabaseID,
-        tableId: userReportsCollectionID,
+        tableId: userReportsTableID,
         rowId: ID.unique(),
         data: report.toJson(),
       );

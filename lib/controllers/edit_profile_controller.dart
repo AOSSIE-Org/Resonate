@@ -160,7 +160,7 @@ class EditProfileController extends GetxController {
     try {
       await tables.getRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: username,
       );
       return false;
@@ -236,7 +236,7 @@ class EditProfileController extends GetxController {
         // Update user profile picture URL in Database
         await tables.updateRow(
           databaseId: userDatabaseID,
-          tableId: usersCollectionID,
+          tableId: usersTableID,
           rowId: authStateController.uid!,
           data: {
             "profileImageUrl": imageController.text,
@@ -251,7 +251,7 @@ class EditProfileController extends GetxController {
         // Update user profile picture URL in Database
         await tables.updateRow(
           databaseId: userDatabaseID,
-          tableId: usersCollectionID,
+          tableId: usersTableID,
           rowId: authStateController.uid!,
           data: {"profileImageUrl": imageController.text},
         );
@@ -280,7 +280,7 @@ class EditProfileController extends GetxController {
         // Create new doc of New Username
         await tables.createRow(
           databaseId: userDatabaseID,
-          tableId: usernameCollectionID,
+          tableId: usernameTableID,
           rowId: usernameController.text.trim(),
           data: {'email': authStateController.email},
         );
@@ -289,7 +289,7 @@ class EditProfileController extends GetxController {
           // Delete Old Username doc, so Username can be re-usable
           await tables.deleteRow(
             databaseId: userDatabaseID,
-            tableId: usernameCollectionID,
+            tableId: usernameTableID,
             rowId: oldUsername,
           );
         } catch (e) {
@@ -298,7 +298,7 @@ class EditProfileController extends GetxController {
 
         await tables.updateRow(
           databaseId: userDatabaseID,
-          tableId: usersCollectionID,
+          tableId: usersTableID,
           rowId: authStateController.uid!,
           data: {"username": usernameController.text.trim()},
         );
@@ -313,7 +313,7 @@ class EditProfileController extends GetxController {
 
         await tables.updateRow(
           databaseId: userDatabaseID,
-          tableId: usersCollectionID,
+          tableId: usersTableID,
           rowId: authStateController.uid!,
           data: {"name": nameController.text.trim()},
         );

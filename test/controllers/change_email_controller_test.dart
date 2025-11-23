@@ -58,7 +58,7 @@ void main() {
     rows: [
       Row(
         $id: '123',
-        $tableId: usersCollectionID,
+        $tableId: usersTableID,
         $databaseId: userDatabaseID,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
@@ -79,7 +79,7 @@ void main() {
     when(
       mockTablesDB.listRows(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         queries: [Query.equal('email', 'test2@test.com')],
       ),
     ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));
@@ -88,7 +88,7 @@ void main() {
     when(
       mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: '123',
       ),
     ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
@@ -135,7 +135,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: '123',
         data: {'email': 'test2@test.com'},
       ),
@@ -143,7 +143,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: 'TestUser',
         data: {'email': 'test2@test.com'},
       ),
@@ -202,7 +202,7 @@ void main() {
     verify(
       mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: 'TestUser',
         data: {'email': 'test2@test.com'},
       ),

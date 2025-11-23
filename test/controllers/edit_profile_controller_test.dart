@@ -40,14 +40,14 @@ void main() {
     when(
       mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: 'testuser',
       ),
     ).thenAnswer(
       (_) => Future.value(
         Row(
           $id: 'testuser',
-          $tableId: usernameCollectionID,
+          $tableId: usernameTableID,
           $databaseId: userDatabaseID,
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),

@@ -205,7 +205,7 @@ class AuthStateController extends GetxController {
       if (isUserProfileComplete == true) {
         Row userDataDoc = await tables.getRow(
           databaseId: userDatabaseID,
-          tableId: usersCollectionID,
+          tableId: usersTableID,
           rowId: appwriteUser.$id,
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
@@ -276,7 +276,7 @@ class AuthStateController extends GetxController {
     List<Row> subscribedUpcomingRooms = await tables
         .listRows(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserCollectionId,
+          tableId: subscribedUserTableId,
           queries: [
             Query.equal("userID", [uid]),
           ],
@@ -288,7 +288,7 @@ class AuthStateController extends GetxController {
       registrationTokens.add(fcmToken!);
       tables.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: subscription.$id,
         data: {"registrationTokens": registrationTokens},
       );
@@ -298,7 +298,7 @@ class AuthStateController extends GetxController {
     List<Row> createdUpcomingRooms = await tables
         .listRows(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsCollectionId,
+          tableId: upcomingRoomsTableId,
           queries: [
             Query.equal("creatorUid", [uid]),
           ],
@@ -309,7 +309,7 @@ class AuthStateController extends GetxController {
       creatorFcmTokens.add(fcmToken!);
       tables.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         rowId: upcomingRoom.$id,
         data: {"creator_fcm_tokens": creatorFcmTokens},
       );
@@ -323,7 +323,7 @@ class AuthStateController extends GetxController {
     List<Row> subscribedUpcomingRooms = await tables
         .listRows(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserCollectionId,
+          tableId: subscribedUserTableId,
           queries: [
             Query.equal("userID", [uid]),
           ],
@@ -335,7 +335,7 @@ class AuthStateController extends GetxController {
       registrationTokens.remove(fcmToken!);
       tables.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: subscription.$id,
         data: {"registrationTokens": registrationTokens},
       );
@@ -345,7 +345,7 @@ class AuthStateController extends GetxController {
     List<Row> createdUpcomingRooms = await tables
         .listRows(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsCollectionId,
+          tableId: upcomingRoomsTableId,
           queries: [
             Query.equal("creatorUid", [uid]),
           ],
@@ -356,7 +356,7 @@ class AuthStateController extends GetxController {
       creatorFcmTokens.remove(fcmToken!);
       tables.updateRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         rowId: upcomingRoom.$id,
         data: {"creator_fcm_tokens": creatorFcmTokens},
       );

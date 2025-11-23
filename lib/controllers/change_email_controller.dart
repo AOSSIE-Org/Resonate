@@ -37,7 +37,7 @@ class ChangeEmailController extends GetxController {
   Future<bool> isEmailAvailable(String changedEmail) async {
     final docs = await tables.listRows(
       databaseId: userDatabaseID,
-      tableId: usernameCollectionID,
+      tableId: usernameTableID,
       queries: [Query.equal('email', changedEmail)],
     );
 
@@ -56,7 +56,7 @@ class ChangeEmailController extends GetxController {
       // change in user info collection
       await tables.updateRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: authStateController.uid!,
         data: {'email': changedEmail},
       );
@@ -64,7 +64,7 @@ class ChangeEmailController extends GetxController {
       // change in username - email collection
       await tables.updateRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: authStateController.userName!,
         data: {'email': changedEmail},
       );

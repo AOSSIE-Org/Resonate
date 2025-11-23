@@ -109,7 +109,7 @@ class UpcomingRoomsController extends GetxController {
     final fcmToken = await messaging.getToken();
     await tablesDB.createRow(
       databaseId: upcomingRoomsDatabaseId,
-      tableId: subscribedUserCollectionId,
+      tableId: subscribedUserTableId,
       rowId: ID.unique(),
       data: {
         "userID": authStateController.uid,
@@ -127,7 +127,7 @@ class UpcomingRoomsController extends GetxController {
       var subscribeDocument = await tablesDB
           .listRows(
             databaseId: upcomingRoomsDatabaseId,
-            tableId: subscribedUserCollectionId,
+            tableId: subscribedUserTableId,
             queries: [
               Query.and([
                 Query.equal('userID', authStateController.uid),
@@ -139,7 +139,7 @@ class UpcomingRoomsController extends GetxController {
 
       await tablesDB.deleteRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: subscribeDocument.$id,
       );
 
@@ -162,7 +162,7 @@ class UpcomingRoomsController extends GetxController {
       upcomingRoomSubscribers = await tablesDB
           .listRows(
             databaseId: upcomingRoomsDatabaseId,
-            tableId: subscribedUserCollectionId,
+            tableId: subscribedUserTableId,
             queries: [
               Query.equal('upcomingRoomId', [upcomingRoom.$id]),
             ],
@@ -223,7 +223,7 @@ class UpcomingRoomsController extends GetxController {
       List<Row> upcomingRoomsDocuments = await tablesDB
           .listRows(
             databaseId: upcomingRoomsDatabaseId,
-            tableId: upcomingRoomsCollectionId,
+            tableId: upcomingRoomsTableId,
           )
           .then((value) => value.rows);
       List<Row> nonRemovedRooms = upcomingRoomsDocuments
@@ -267,7 +267,7 @@ class UpcomingRoomsController extends GetxController {
       final fcmToken = await messaging.getToken();
       await tablesDB.createRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsCollectionId,
+        tableId: upcomingRoomsTableId,
         rowId: ID.unique(),
         data: {
           "name": createRoomController.nameController.text,
@@ -365,7 +365,7 @@ class UpcomingRoomsController extends GetxController {
   Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await tablesDB.deleteRow(
       databaseId: upcomingRoomsDatabaseId,
-      tableId: upcomingRoomsCollectionId,
+      tableId: upcomingRoomsTableId,
       rowId: upcomingRoomId,
     );
     deleteAllDeletedUpcomingRoomsSubscribers(upcomingRoomId);
@@ -377,7 +377,7 @@ class UpcomingRoomsController extends GetxController {
     List<Row> deletedUpcomingRoomSubscribers = await tablesDB
         .listRows(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserCollectionId,
+          tableId: subscribedUserTableId,
           queries: [
             Query.equal('upcomingRoomId', [upcomingRoomId]),
           ],
@@ -387,7 +387,7 @@ class UpcomingRoomsController extends GetxController {
     for (Row subscriber in deletedUpcomingRoomSubscribers) {
       await tablesDB.deleteRow(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserCollectionId,
+        tableId: subscribedUserTableId,
         rowId: subscriber.$id,
       );
     }

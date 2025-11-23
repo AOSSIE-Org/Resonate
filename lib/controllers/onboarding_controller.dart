@@ -87,7 +87,7 @@ class OnboardingController extends GetxController {
       // Update username collection
       await tables.createRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: usernameController.text.trim(),
         data: {"email": authStateController.email},
       );
@@ -118,7 +118,7 @@ class OnboardingController extends GetxController {
       //log(authStateController.uid!);
       await tables.createRow(
         databaseId: userDatabaseID,
-        tableId: usersCollectionID,
+        tableId: usersTableID,
         rowId: authStateController.uid!,
         data: {
           "name": nameController.text.trim(),
@@ -191,7 +191,7 @@ class OnboardingController extends GetxController {
     try {
       await tables.getRow(
         databaseId: userDatabaseID,
-        tableId: usernameCollectionID,
+        tableId: usernameTableID,
         rowId: username,
       );
       return false;

@@ -67,7 +67,7 @@ class SingleRoomController extends GetxController {
   Future<void> addParticipantDataToList(Row participant) async {
     Row userDataDoc = await tablesDB.getRow(
       databaseId: userDatabaseID,
-      tableId: usersCollectionID,
+      tableId: usersTableID,
       rowId: participant.data["uid"],
     );
     final p = Rx(
@@ -117,7 +117,7 @@ class SingleRoomController extends GetxController {
       participants.value = <Rx<Participant>>[];
       var participantCollectionRef = await tablesDB.listRows(
         databaseId: masterDatabaseId,
-        tableId: participantsCollectionId,
+        tableId: participantsTableId,
         queries: [Query.equal('roomId', appwriteRoom.id)],
       );
       for (Row participant in participantCollectionRef.rows) {
@@ -133,7 +133,7 @@ class SingleRoomController extends GetxController {
 
   void getRealtimeStream() {
     String channel =
-        'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
+        'databases.$masterDatabaseId.collections.$participantsTableId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -238,7 +238,7 @@ class SingleRoomController extends GetxController {
   Future<String> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      tableId: participantsCollectionId,
+      tableId: participantsTableId,
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
@@ -253,7 +253,7 @@ class SingleRoomController extends GetxController {
   ) async {
     await tablesDB.updateRow(
       databaseId: masterDatabaseId,
-      tableId: participantsCollectionId,
+      tableId: participantsTableId,
       rowId: participantDocId,
       data: data,
     );
@@ -316,7 +316,7 @@ class SingleRoomController extends GetxController {
       try {
         await tablesDB.updateRow(
           databaseId: masterDatabaseId,
-          tableId: roomsCollectionId,
+          tableId: roomsTableId,
           rowId: appwriteRoom.id,
           data: {
             "reportedUsers": [...appwriteRoom.reportedUsers, participant.uid],
@@ -350,7 +350,7 @@ class SingleRoomController extends GetxController {
     String participantDocId = await getParticipantDocId(participant);
     await tablesDB.deleteRow(
       databaseId: masterDatabaseId,
-      tableId: participantsCollectionId,
+      tableId: participantsTableId,
       rowId: participantDocId,
     );
   }

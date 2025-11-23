@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' ;
+import 'package:appwrite/models.dart';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
-import 'package:flutter/material.dart'hide Row;
+import 'package:flutter/material.dart' hide Row;
 import 'package:get/get.dart';
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -87,7 +87,7 @@ class ExploreStoryController extends GetxController {
     }
     Row doc = await tables.getRow(
       databaseId: storyDatabaseId,
-      tableId: storyCollectionId,
+      tableId: storyTableId,
       rowId: story.storyId,
       queries: [
         Query.select(["likes"]),
@@ -108,7 +108,7 @@ class ExploreStoryController extends GetxController {
   Future<void> updateLikesCountAndUserLikeStatus(Story story) async {
     Row doc = await tables.getRow(
       databaseId: storyDatabaseId,
-      tableId: storyCollectionId,
+      tableId: storyTableId,
       rowId: story.storyId,
       queries: [
         Query.select(["likes"]),
@@ -138,7 +138,7 @@ class ExploreStoryController extends GetxController {
       List<Row> storyDocuments = await tables
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: storyCollectionId,
+            tableId: storyTableId,
             queries: [
               Query.or([
                 Query.search('title', query),
@@ -169,7 +169,7 @@ class ExploreStoryController extends GetxController {
       List<Row> userDocuments = await tables
           .listRows(
             databaseId: userDatabaseID,
-            tableId: usersCollectionID,
+            tableId: usersTableID,
             queries: [
               Query.or([
                 Query.search('name', query),
@@ -189,9 +189,7 @@ class ExploreStoryController extends GetxController {
     log(searchResponseUsers.toString());
   }
 
-  List<ResonateUser> convertAppwriteDocListToUserList(
-    List<Row> userDocuments,
-  ) {
+  List<ResonateUser> convertAppwriteDocListToUserList(List<Row> userDocuments) {
     return userDocuments.map((doc) {
       // log(doc.data.toString());
       final userData = doc.data;
@@ -238,7 +236,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.updateRow(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         rowId: storyId,
         data: {"playDuration": totalStoryDuration},
       );
@@ -275,7 +273,7 @@ class ExploreStoryController extends GetxController {
       );
       await tables.createRow(
         databaseId: storyDatabaseId,
-        tableId: chapterCollectionId,
+        tableId: chapterTableId,
         rowId: chapter.chapterId,
         data: {
           'title': chapter.title,
@@ -298,7 +296,7 @@ class ExploreStoryController extends GetxController {
       storyDocuments = await tables
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: storyCollectionId,
+            tableId: storyTableId,
             queries: [Query.limit(15), Query.equal('category', category.name)],
           )
           .then((value) => value.rows);
@@ -414,7 +412,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.createRow(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         rowId: storyId,
         data: {
           'title': title,
@@ -458,7 +456,7 @@ class ExploreStoryController extends GetxController {
     List<Row> userLikedDocuments = await tables
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: likeCollectionId,
+          tableId: likeTableId,
           queries: [Query.equal('uId', authStateController.uid)],
         )
         .then((value) => value.rows);
@@ -467,7 +465,7 @@ class ExploreStoryController extends GetxController {
       userLikedDocuments.map((value) async {
         return await tables.getRow(
           databaseId: storyDatabaseId,
-          tableId: storyCollectionId,
+          tableId: storyTableId,
           rowId: value.data['storyId'],
         );
       }).toList(),
@@ -500,7 +498,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.deleteRow(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         rowId: story.storyId,
       );
     } on AppwriteException catch (e) {
@@ -514,7 +512,7 @@ class ExploreStoryController extends GetxController {
     List<Row> storyLikeDocuments = await tables
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: likeCollectionId,
+          tableId: likeTableId,
           queries: [Query.equal('storyId', storyId)],
         )
         .then((value) => value.rows);
@@ -522,7 +520,7 @@ class ExploreStoryController extends GetxController {
     for (Row like in storyLikeDocuments) {
       await tables.deleteRow(
         databaseId: storyDatabaseId,
-        tableId: likeCollectionId,
+        tableId: likeTableId,
         rowId: like.$id,
       );
     }
@@ -548,7 +546,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.deleteRow(
         databaseId: storyDatabaseId,
-        tableId: chapterCollectionId,
+        tableId: chapterTableId,
         rowId: chapter.chapterId,
       );
     } on AppwriteException catch (e) {
@@ -568,7 +566,7 @@ class ExploreStoryController extends GetxController {
       storyDocuments = await tables
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: storyCollectionId,
+            tableId: storyTableId,
             queries: [Query.equal('creatorId', authStateController.uid)],
           )
           .then((value) => value.rows);
@@ -585,7 +583,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.createRow(
         databaseId: storyDatabaseId,
-        tableId: likeCollectionId,
+        tableId: likeTableId,
         rowId: ID.unique(),
         data: {'uId': authStateController.uid, 'storyId': story.storyId},
       );
@@ -596,7 +594,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.updateRow(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         rowId: story.storyId,
         data: {"likes": story.likesCount.value + 1},
       );
@@ -613,7 +611,7 @@ class ExploreStoryController extends GetxController {
       userLikeDocuments = await tables
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: likeCollectionId,
+            tableId: likeTableId,
             queries: [
               Query.and([
                 Query.equal('uId', authStateController.uid),
@@ -629,7 +627,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.deleteRow(
         databaseId: storyDatabaseId,
-        tableId: likeCollectionId,
+        tableId: likeTableId,
         rowId: userLikeDocuments.first.$id,
       );
     } on AppwriteException catch (e) {
@@ -639,7 +637,7 @@ class ExploreStoryController extends GetxController {
     try {
       await tables.updateRow(
         databaseId: storyDatabaseId,
-        tableId: storyCollectionId,
+        tableId: storyTableId,
         rowId: story.storyId,
         data: {"likes": story.likesCount.value - 1},
       );
@@ -654,7 +652,7 @@ class ExploreStoryController extends GetxController {
     List<Row> chapterDocuments = await tables
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: chapterCollectionId,
+          tableId: chapterTableId,
           queries: [Query.equal('storyId', storyId)],
         )
         .then((value) => value.rows);
@@ -680,7 +678,7 @@ class ExploreStoryController extends GetxController {
     List<Row> liveStoryDocuments = await tables
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: liveChaptersCollectionId,
+          tableId: liveChaptersTableId,
           queries: [Query.equal('storyId', storyId)],
         )
         .then((value) => value.rows);
@@ -690,8 +688,8 @@ class ExploreStoryController extends GetxController {
 
     final attendeesDocument = await tables.getRow(
       databaseId: userDatabaseID,
-      tableId: liveChapterAttendeesCollectionId,
-      rowId: liveStoryDocuments.first.data['\$id'],
+      tableId: liveChapterAttendeesTableId,
+      rowId: liveStoryDocuments.first.$id,
     );
 
     final attendeesModel = LiveChapterAttendeesModel.fromJson(
@@ -708,7 +706,7 @@ class ExploreStoryController extends GetxController {
     List<Row> userLikeDocuments = await tables
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: likeCollectionId,
+          tableId: likeTableId,
           queries: [
             Query.and([
               Query.equal('uId', authStateController.uid),
@@ -728,7 +726,7 @@ class ExploreStoryController extends GetxController {
       storyDocuments = await tables
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: storyCollectionId,
+            tableId: storyTableId,
             queries: [Query.limit(10)],
           )
           .then((value) => value.rows);

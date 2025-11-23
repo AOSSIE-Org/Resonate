@@ -48,7 +48,7 @@ class UserProfileController extends GetxController {
     List<Row> userLikedDocuments = await tablesDB
         .listRows(
           databaseId: storyDatabaseId,
-          tableId: likeCollectionId,
+          tableId: likeTableId,
           queries: [Query.equal('uId', creatorId)],
         )
         .then((value) => value.rows);
@@ -57,7 +57,7 @@ class UserProfileController extends GetxController {
       userLikedDocuments.map((value) async {
         return await tablesDB.getRow(
           databaseId: storyDatabaseId,
-          tableId: storyCollectionId,
+          tableId: storyTableId,
           rowId: value.data['storyId'],
         );
       }).toList(),
@@ -106,7 +106,7 @@ class UserProfileController extends GetxController {
       storyDocuments = await tablesDB
           .listRows(
             databaseId: storyDatabaseId,
-            tableId: storyCollectionId,
+            tableId: storyTableId,
             queries: [Query.equal('creatorId', creatorId)],
           )
           .then((value) => value.rows);
@@ -121,7 +121,7 @@ class UserProfileController extends GetxController {
   Future<void> fetchUserFollowers(String userId) async {
     Row userDocument = await tablesDB.getRow(
       databaseId: userDatabaseID,
-      tableId: usersCollectionID,
+      tableId: usersTableID,
       rowId: userId,
     );
 
@@ -155,7 +155,7 @@ class UserProfileController extends GetxController {
 
     await tablesDB.createRow(
       databaseId: userDatabaseID,
-      tableId: followersCollectionID,
+      tableId: followersTableID,
       rowId: follower.docId,
       data: follower.toJson(),
     );
@@ -168,7 +168,7 @@ class UserProfileController extends GetxController {
   Future<void> unfollowCreator() async {
     await tablesDB.deleteRow(
       databaseId: userDatabaseID,
-      tableId: followersCollectionID,
+      tableId: followersTableID,
       rowId: followerDocumentId ?? "",
     );
     isFollowingUser.value = false;

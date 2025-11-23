@@ -55,7 +55,7 @@ class RoomChatController extends GetxController {
 
       await tablesDB.updateRow(
         databaseId: masterDatabaseId,
-        tableId: chatMessagesCollectionId,
+        tableId: chatMessagesTableId,
         rowId: messageId,
         data: messageToDelete.toJsonForUpload(),
       );
@@ -76,14 +76,14 @@ class RoomChatController extends GetxController {
     ReplyTo? replyTo;
     RowList messagesList = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      tableId: chatMessagesCollectionId,
+      tableId: chatMessagesTableId,
       queries: queries,
     );
     for (Row message in messagesList.rows) {
       try {
         Row replyToDoc = await tablesDB.getRow(
           databaseId: masterDatabaseId,
-          tableId: chatMessageReplyCollectionId,
+          tableId: chatMessageReplyTableId,
           rowId: message.$id,
         );
         replyTo = ReplyTo.fromJson(replyToDoc.data);
@@ -125,7 +125,7 @@ class RoomChatController extends GetxController {
 
       await tablesDB.createRow(
         databaseId: masterDatabaseId,
-        tableId: chatMessagesCollectionId,
+        tableId: chatMessagesTableId,
         rowId: messageId,
         data: message.toJsonForUpload(),
       );
@@ -133,7 +133,7 @@ class RoomChatController extends GetxController {
       if (replyingTo.value != null) {
         await tablesDB.createRow(
           databaseId: masterDatabaseId,
-          tableId: chatMessageReplyCollectionId,
+          tableId: chatMessageReplyTableId,
           rowId: messageId,
           data: replyingTo.value!.toJson(),
         );
@@ -177,7 +177,7 @@ class RoomChatController extends GetxController {
     try {
       await tablesDB.updateRow(
         databaseId: masterDatabaseId,
-        tableId: chatMessagesCollectionId,
+        tableId: chatMessagesTableId,
         rowId: messageId,
         data: updatedMessage.toJsonForUpload(),
       );
@@ -221,7 +221,7 @@ class RoomChatController extends GetxController {
   void subscribeToMessages() {
     try {
       String channel =
-          'databases.$masterDatabaseId.collections.$chatMessagesCollectionId.documents';
+          'databases.$masterDatabaseId.collections.$chatMessagesTableId.documents';
       subscription = realtime.subscribe([channel]);
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {
@@ -238,7 +238,7 @@ class RoomChatController extends GetxController {
               try {
                 Row replyToDoc = await tablesDB.getRow(
                   databaseId: masterDatabaseId,
-                  tableId: chatMessageReplyCollectionId,
+                  tableId: chatMessageReplyTableId,
                   rowId: newMessage.messageId,
                 );
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
