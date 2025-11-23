@@ -1767,9 +1767,24 @@
   "description": "Confirmation text asking the user if they want to delete a message."
 },
 "thisMessageWasDeleted": "This message was deleted",
+"@thisMessageWasDeleted": {
+  "description": "Status text shown when a previously sent message has been deleted."
+},
+
 "failedToDeleteMessage": "Failed to delete message",
- "usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
-  "usernameAlreadyTaken": "This username is already taken. Try a different one."
+"@failedToDeleteMessage": {
+  "description": "Error message shown when the system is unable to delete a message."
+},
+
+"usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
+"@usernameInvalidFormat": {
+  "description": "Validation error displayed when the user enters a username with unsupported characters."
+},
+
+"usernameAlreadyTaken": "This username is already taken. Try a different one.",
+"@usernameAlreadyTaken": {
+  "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+}
 
 
 }
