@@ -130,7 +130,7 @@ class EditProfileScreen extends StatelessWidget {
                             if (!validUsername) {
                               return AppLocalizations.of(
                                 context,
-                              )!.usernameInvalidOrTaken;
+                              )!.usernameInvalidFormat;
                             }
                             return null;
                           } else {
@@ -151,6 +151,17 @@ class EditProfileScreen extends StatelessWidget {
                             if (!validUsername || value.trim().length > 36) {
                               controller.usernameAvailable.value = false;
                               controller.usernameChecking.value = false;
+
+                              customSnackbar(
+                                AppLocalizations.of(
+                                  context,
+                                )!.usernameUnavailable,
+                                AppLocalizations.of(
+                                  context,
+                                )!.usernameInvalidFormat,
+                                LogType.error,
+                                snackbarDuration: 1,
+                              );
                               return;
                             }
 
@@ -171,7 +182,7 @@ class EditProfileScreen extends StatelessWidget {
                                   )!.usernameUnavailable,
                                   AppLocalizations.of(
                                     context,
-                                  )!.usernameInvalidOrTaken,
+                                  )!.usernameAlreadyTaken,
                                   LogType.error,
                                   snackbarDuration: 1,
                                 );
@@ -179,7 +190,6 @@ class EditProfileScreen extends StatelessWidget {
                             });
                           } else {
                             controller.usernameAvailable.value = false;
-                            controller.usernameChecking.value = false;
                           }
                         },
                         keyboardType: TextInputType.text,

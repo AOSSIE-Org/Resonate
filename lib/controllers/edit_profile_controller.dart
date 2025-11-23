@@ -28,7 +28,6 @@ class EditProfileController extends GetxController {
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
   Rx<bool> usernameChecking = false.obs;
-
   bool removeImage = false;
   bool showSuccessSnackbar = false;
 
@@ -267,12 +266,12 @@ class EditProfileController extends GetxController {
           usernameAvailable.value = false;
           customSnackbar(
             AppLocalizations.of(Get.context!)!.usernameUnavailable,
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
+            AppLocalizations.of(Get.context!)!.usernameAlreadyTaken,
             LogType.error,
           );
 
           SemanticsService.announce(
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
+            AppLocalizations.of(Get.context!)!.usernameAlreadyTaken,
             TextDirection.ltr,
           );
           return;
