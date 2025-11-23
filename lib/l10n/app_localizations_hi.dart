@@ -1361,4 +1361,17 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get done => 'हो गया';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटाएँ';
+
+  @override
+  String get deleteMessageContent =>
+      'क्या आप वाकई इस संदेश को हटाना चाहते हैं?';
+
+  @override
+  String get thisMessageWasDeleted => 'यह संदेश हटा दिया गया है';
+
+  @override
+  String get failedToDeleteMessage => 'संदेश हटाने में विफल रहा';
 }
