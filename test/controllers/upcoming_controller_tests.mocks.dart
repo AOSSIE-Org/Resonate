@@ -52,487 +52,102 @@ class _FakeTransaction_2 extends _i1.SmartFake implements _i3.Transaction {
     : super(parent, parentInvocation);
 }
 
-class _FakeDocumentList_3 extends _i1.SmartFake implements _i3.DocumentList {
-  _FakeDocumentList_3(Object parent, Invocation parentInvocation)
+class _FakeRowList_3 extends _i1.SmartFake implements _i3.RowList {
+  _FakeRowList_3(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeDocument_4 extends _i1.SmartFake implements _i3.Document {
-  _FakeDocument_4(Object parent, Invocation parentInvocation)
+class _FakeRow_4 extends _i1.SmartFake implements _i3.Row {
+  _FakeRow_4(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeRowList_5 extends _i1.SmartFake implements _i3.RowList {
-  _FakeRowList_5(Object parent, Invocation parentInvocation)
+class _FakeUser_5 extends _i1.SmartFake implements _i3.User {
+  _FakeUser_5(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeRow_6 extends _i1.SmartFake implements _i3.Row {
-  _FakeRow_6(Object parent, Invocation parentInvocation)
+class _FakeIdentityList_6 extends _i1.SmartFake implements _i3.IdentityList {
+  _FakeIdentityList_6(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeUser_7 extends _i1.SmartFake implements _i3.User {
-  _FakeUser_7(Object parent, Invocation parentInvocation)
+class _FakeJwt_7 extends _i1.SmartFake implements _i3.Jwt {
+  _FakeJwt_7(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeIdentityList_8 extends _i1.SmartFake implements _i3.IdentityList {
-  _FakeIdentityList_8(Object parent, Invocation parentInvocation)
+class _FakeLogList_8 extends _i1.SmartFake implements _i3.LogList {
+  _FakeLogList_8(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeJwt_9 extends _i1.SmartFake implements _i3.Jwt {
-  _FakeJwt_9(Object parent, Invocation parentInvocation)
+class _FakeMfaType_9 extends _i1.SmartFake implements _i3.MfaType {
+  _FakeMfaType_9(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeLogList_10 extends _i1.SmartFake implements _i3.LogList {
-  _FakeLogList_10(Object parent, Invocation parentInvocation)
+class _FakeMfaChallenge_10 extends _i1.SmartFake implements _i3.MfaChallenge {
+  _FakeMfaChallenge_10(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeMfaType_11 extends _i1.SmartFake implements _i3.MfaType {
-  _FakeMfaType_11(Object parent, Invocation parentInvocation)
+class _FakeSession_11 extends _i1.SmartFake implements _i3.Session {
+  _FakeSession_11(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeMfaChallenge_12 extends _i1.SmartFake implements _i3.MfaChallenge {
-  _FakeMfaChallenge_12(Object parent, Invocation parentInvocation)
+class _FakeMfaFactors_12 extends _i1.SmartFake implements _i3.MfaFactors {
+  _FakeMfaFactors_12(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeSession_13 extends _i1.SmartFake implements _i3.Session {
-  _FakeSession_13(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeMfaFactors_14 extends _i1.SmartFake implements _i3.MfaFactors {
-  _FakeMfaFactors_14(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeMfaRecoveryCodes_15 extends _i1.SmartFake
+class _FakeMfaRecoveryCodes_13 extends _i1.SmartFake
     implements _i3.MfaRecoveryCodes {
-  _FakeMfaRecoveryCodes_15(Object parent, Invocation parentInvocation)
+  _FakeMfaRecoveryCodes_13(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakePreferences_16 extends _i1.SmartFake implements _i3.Preferences {
-  _FakePreferences_16(Object parent, Invocation parentInvocation)
+class _FakePreferences_14 extends _i1.SmartFake implements _i3.Preferences {
+  _FakePreferences_14(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeToken_17 extends _i1.SmartFake implements _i3.Token {
-  _FakeToken_17(Object parent, Invocation parentInvocation)
+class _FakeToken_15 extends _i1.SmartFake implements _i3.Token {
+  _FakeToken_15(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeSessionList_18 extends _i1.SmartFake implements _i3.SessionList {
-  _FakeSessionList_18(Object parent, Invocation parentInvocation)
+class _FakeSessionList_16 extends _i1.SmartFake implements _i3.SessionList {
+  _FakeSessionList_16(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeTarget_19 extends _i1.SmartFake implements _i3.Target {
-  _FakeTarget_19(Object parent, Invocation parentInvocation)
+class _FakeTarget_17 extends _i1.SmartFake implements _i3.Target {
+  _FakeTarget_17(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeResponse_20<T> extends _i1.SmartFake implements _i4.Response<T> {
-  _FakeResponse_20(Object parent, Invocation parentInvocation)
+class _FakeResponse_18<T> extends _i1.SmartFake implements _i4.Response<T> {
+  _FakeResponse_18(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeFirebaseApp_21 extends _i1.SmartFake implements _i5.FirebaseApp {
-  _FakeFirebaseApp_21(Object parent, Invocation parentInvocation)
+class _FakeFirebaseApp_19 extends _i1.SmartFake implements _i5.FirebaseApp {
+  _FakeFirebaseApp_19(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeNotificationSettings_22 extends _i1.SmartFake
+class _FakeNotificationSettings_20 extends _i1.SmartFake
     implements _i6.NotificationSettings {
-  _FakeNotificationSettings_22(Object parent, Invocation parentInvocation)
+  _FakeNotificationSettings_20(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeRealtimeSubscription_23 extends _i1.SmartFake
+class _FakeRealtimeSubscription_21 extends _i1.SmartFake
     implements _i7.RealtimeSubscription {
-  _FakeRealtimeSubscription_23(Object parent, Invocation parentInvocation)
+  _FakeRealtimeSubscription_21(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
-}
-
-/// A class which mocks [Databases].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDatabases extends _i1.Mock implements _i8.Databases {
-  MockDatabases() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.Client get client =>
-      (super.noSuchMethod(
-            Invocation.getter(#client),
-            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
-          )
-          as _i2.Client);
-
-  @override
-  _i9.Future<_i3.TransactionList> listTransactions({List<String>? queries}) =>
-      (super.noSuchMethod(
-            Invocation.method(#listTransactions, [], {#queries: queries}),
-            returnValue: _i9.Future<_i3.TransactionList>.value(
-              _FakeTransactionList_1(
-                this,
-                Invocation.method(#listTransactions, [], {#queries: queries}),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.TransactionList>);
-
-  @override
-  _i9.Future<_i3.Transaction> createTransaction({int? ttl}) =>
-      (super.noSuchMethod(
-            Invocation.method(#createTransaction, [], {#ttl: ttl}),
-            returnValue: _i9.Future<_i3.Transaction>.value(
-              _FakeTransaction_2(
-                this,
-                Invocation.method(#createTransaction, [], {#ttl: ttl}),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Transaction>);
-
-  @override
-  _i9.Future<_i3.Transaction> getTransaction({
-    required String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getTransaction, [], {
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Transaction>.value(
-              _FakeTransaction_2(
-                this,
-                Invocation.method(#getTransaction, [], {
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Transaction>);
-
-  @override
-  _i9.Future<_i3.Transaction> updateTransaction({
-    required String? transactionId,
-    bool? commit,
-    bool? rollback,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#updateTransaction, [], {
-              #transactionId: transactionId,
-              #commit: commit,
-              #rollback: rollback,
-            }),
-            returnValue: _i9.Future<_i3.Transaction>.value(
-              _FakeTransaction_2(
-                this,
-                Invocation.method(#updateTransaction, [], {
-                  #transactionId: transactionId,
-                  #commit: commit,
-                  #rollback: rollback,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Transaction>);
-
-  @override
-  _i9.Future<dynamic> deleteTransaction({required String? transactionId}) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteTransaction, [], {
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<dynamic>.value(),
-          )
-          as _i9.Future<dynamic>);
-
-  @override
-  _i9.Future<_i3.Transaction> createOperations({
-    required String? transactionId,
-    List<Map<dynamic, dynamic>>? operations,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#createOperations, [], {
-              #transactionId: transactionId,
-              #operations: operations,
-            }),
-            returnValue: _i9.Future<_i3.Transaction>.value(
-              _FakeTransaction_2(
-                this,
-                Invocation.method(#createOperations, [], {
-                  #transactionId: transactionId,
-                  #operations: operations,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Transaction>);
-
-  @override
-  _i9.Future<_i3.DocumentList> listDocuments({
-    required String? databaseId,
-    required String? collectionId,
-    List<String>? queries,
-    String? transactionId,
-    bool? total,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#listDocuments, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #queries: queries,
-              #transactionId: transactionId,
-              #total: total,
-            }),
-            returnValue: _i9.Future<_i3.DocumentList>.value(
-              _FakeDocumentList_3(
-                this,
-                Invocation.method(#listDocuments, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #queries: queries,
-                  #transactionId: transactionId,
-                  #total: total,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.DocumentList>);
-
-  @override
-  _i9.Future<_i3.Document> createDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required Map<dynamic, dynamic>? data,
-    List<String>? permissions,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#createDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #data: data,
-              #permissions: permissions,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#createDocument, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #data: data,
-                  #permissions: permissions,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
-
-  @override
-  _i9.Future<_i3.Document> getDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    List<String>? queries,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #queries: queries,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#getDocument, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #queries: queries,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
-
-  @override
-  _i9.Future<_i3.Document> upsertDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required Map<dynamic, dynamic>? data,
-    List<String>? permissions,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#upsertDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #data: data,
-              #permissions: permissions,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#upsertDocument, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #data: data,
-                  #permissions: permissions,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
-
-  @override
-  _i9.Future<_i3.Document> updateDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    Map<dynamic, dynamic>? data,
-    List<String>? permissions,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#updateDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #data: data,
-              #permissions: permissions,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#updateDocument, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #data: data,
-                  #permissions: permissions,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
-
-  @override
-  _i9.Future<dynamic> deleteDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<dynamic>.value(),
-          )
-          as _i9.Future<dynamic>);
-
-  @override
-  _i9.Future<_i3.Document> decrementDocumentAttribute({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required String? attribute,
-    double? value,
-    double? min,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#decrementDocumentAttribute, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #attribute: attribute,
-              #value: value,
-              #min: min,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#decrementDocumentAttribute, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #attribute: attribute,
-                  #value: value,
-                  #min: min,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
-
-  @override
-  _i9.Future<_i3.Document> incrementDocumentAttribute({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required String? attribute,
-    double? value,
-    double? max,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#incrementDocumentAttribute, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #attribute: attribute,
-              #value: value,
-              #max: max,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i9.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#incrementDocumentAttribute, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #attribute: attribute,
-                  #value: value,
-                  #max: max,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i9.Future<_i3.Document>);
 }
 
 /// A class which mocks [TablesDB].
@@ -670,7 +285,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #total: total,
             }),
             returnValue: _i9.Future<_i3.RowList>.value(
-              _FakeRowList_5(
+              _FakeRowList_3(
                 this,
                 Invocation.method(#listRows, [], {
                   #databaseId: databaseId,
@@ -703,7 +318,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#createRow, [], {
                   #databaseId: databaseId,
@@ -735,7 +350,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#getRow, [], {
                   #databaseId: databaseId,
@@ -768,7 +383,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#upsertRow, [], {
                   #databaseId: databaseId,
@@ -802,7 +417,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#updateRow, [], {
                   #databaseId: databaseId,
@@ -856,7 +471,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#decrementRowColumn, [], {
                   #databaseId: databaseId,
@@ -893,7 +508,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #transactionId: transactionId,
             }),
             returnValue: _i9.Future<_i3.Row>.value(
-              _FakeRow_6(
+              _FakeRow_4(
                 this,
                 Invocation.method(#incrementRowColumn, [], {
                   #databaseId: databaseId,
@@ -931,7 +546,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#get, []),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(this, Invocation.method(#get, [])),
+              _FakeUser_5(this, Invocation.method(#get, [])),
             ),
           )
           as _i9.Future<_i3.User>);
@@ -951,7 +566,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #name: name,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#create, [], {
                   #userId: userId,
@@ -975,7 +590,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #password: password,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updateEmail, [], {
                   #email: email,
@@ -997,7 +612,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #total: total,
             }),
             returnValue: _i9.Future<_i3.IdentityList>.value(
-              _FakeIdentityList_8(
+              _FakeIdentityList_6(
                 this,
                 Invocation.method(#listIdentities, [], {
                   #queries: queries,
@@ -1021,7 +636,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createJWT, []),
             returnValue: _i9.Future<_i3.Jwt>.value(
-              _FakeJwt_9(this, Invocation.method(#createJWT, [])),
+              _FakeJwt_7(this, Invocation.method(#createJWT, [])),
             ),
           )
           as _i9.Future<_i3.Jwt>);
@@ -1034,7 +649,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #total: total,
             }),
             returnValue: _i9.Future<_i3.LogList>.value(
-              _FakeLogList_10(
+              _FakeLogList_8(
                 this,
                 Invocation.method(#listLogs, [], {
                   #queries: queries,
@@ -1050,7 +665,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateMFA, [], {#mfa: mfa}),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(this, Invocation.method(#updateMFA, [], {#mfa: mfa})),
+              _FakeUser_5(this, Invocation.method(#updateMFA, [], {#mfa: mfa})),
             ),
           )
           as _i9.Future<_i3.User>);
@@ -1062,7 +677,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMfaAuthenticator, [], {#type: type}),
             returnValue: _i9.Future<_i3.MfaType>.value(
-              _FakeMfaType_11(
+              _FakeMfaType_9(
                 this,
                 Invocation.method(#createMfaAuthenticator, [], {#type: type}),
               ),
@@ -1077,7 +692,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMFAAuthenticator, [], {#type: type}),
             returnValue: _i9.Future<_i3.MfaType>.value(
-              _FakeMfaType_11(
+              _FakeMfaType_9(
                 this,
                 Invocation.method(#createMFAAuthenticator, [], {#type: type}),
               ),
@@ -1096,7 +711,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #otp: otp,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updateMfaAuthenticator, [], {
                   #type: type,
@@ -1118,7 +733,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #otp: otp,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updateMFAAuthenticator, [], {
                   #type: type,
@@ -1156,7 +771,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMfaChallenge, [], {#factor: factor}),
             returnValue: _i9.Future<_i3.MfaChallenge>.value(
-              _FakeMfaChallenge_12(
+              _FakeMfaChallenge_10(
                 this,
                 Invocation.method(#createMfaChallenge, [], {#factor: factor}),
               ),
@@ -1171,7 +786,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMFAChallenge, [], {#factor: factor}),
             returnValue: _i9.Future<_i3.MfaChallenge>.value(
-              _FakeMfaChallenge_12(
+              _FakeMfaChallenge_10(
                 this,
                 Invocation.method(#createMFAChallenge, [], {#factor: factor}),
               ),
@@ -1190,7 +805,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #otp: otp,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#updateMfaChallenge, [], {
                   #challengeId: challengeId,
@@ -1212,7 +827,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #otp: otp,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#updateMFAChallenge, [], {
                   #challengeId: challengeId,
@@ -1228,7 +843,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#listMfaFactors, []),
             returnValue: _i9.Future<_i3.MfaFactors>.value(
-              _FakeMfaFactors_14(this, Invocation.method(#listMfaFactors, [])),
+              _FakeMfaFactors_12(this, Invocation.method(#listMfaFactors, [])),
             ),
           )
           as _i9.Future<_i3.MfaFactors>);
@@ -1238,7 +853,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#listMFAFactors, []),
             returnValue: _i9.Future<_i3.MfaFactors>.value(
-              _FakeMfaFactors_14(this, Invocation.method(#listMFAFactors, [])),
+              _FakeMfaFactors_12(this, Invocation.method(#listMFAFactors, [])),
             ),
           )
           as _i9.Future<_i3.MfaFactors>);
@@ -1248,7 +863,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#getMfaRecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#getMfaRecoveryCodes, []),
               ),
@@ -1261,7 +876,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#getMFARecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#getMFARecoveryCodes, []),
               ),
@@ -1274,7 +889,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMfaRecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#createMfaRecoveryCodes, []),
               ),
@@ -1287,7 +902,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createMFARecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#createMFARecoveryCodes, []),
               ),
@@ -1300,7 +915,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateMfaRecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#updateMfaRecoveryCodes, []),
               ),
@@ -1313,7 +928,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateMFARecoveryCodes, []),
             returnValue: _i9.Future<_i3.MfaRecoveryCodes>.value(
-              _FakeMfaRecoveryCodes_15(
+              _FakeMfaRecoveryCodes_13(
                 this,
                 Invocation.method(#updateMFARecoveryCodes, []),
               ),
@@ -1326,7 +941,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateName, [], {#name: name}),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updateName, [], {#name: name}),
               ),
@@ -1345,7 +960,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #oldPassword: oldPassword,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updatePassword, [], {
                   #password: password,
@@ -1367,7 +982,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #password: password,
             }),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updatePhone, [], {
                   #phone: phone,
@@ -1383,7 +998,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#getPrefs, []),
             returnValue: _i9.Future<_i3.Preferences>.value(
-              _FakePreferences_16(this, Invocation.method(#getPrefs, [])),
+              _FakePreferences_14(this, Invocation.method(#getPrefs, [])),
             ),
           )
           as _i9.Future<_i3.Preferences>);
@@ -1393,7 +1008,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updatePrefs, [], {#prefs: prefs}),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(
+              _FakeUser_5(
                 this,
                 Invocation.method(#updatePrefs, [], {#prefs: prefs}),
               ),
@@ -1409,7 +1024,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createRecovery, [], {#email: email, #url: url}),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createRecovery, [], {
                   #email: email,
@@ -1433,7 +1048,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #password: password,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#updateRecovery, [], {
                   #userId: userId,
@@ -1450,7 +1065,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#listSessions, []),
             returnValue: _i9.Future<_i3.SessionList>.value(
-              _FakeSessionList_18(this, Invocation.method(#listSessions, [])),
+              _FakeSessionList_16(this, Invocation.method(#listSessions, [])),
             ),
           )
           as _i9.Future<_i3.SessionList>);
@@ -1468,7 +1083,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createAnonymousSession, []),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#createAnonymousSession, []),
               ),
@@ -1487,7 +1102,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #password: password,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#createEmailPasswordSession, [], {
                   #email: email,
@@ -1509,7 +1124,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#updateMagicURLSession, [], {
                   #userId: userId,
@@ -1549,7 +1164,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#updatePhoneSession, [], {
                   #userId: userId,
@@ -1571,7 +1186,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#createSession, [], {
                   #userId: userId,
@@ -1587,7 +1202,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#getSession, [], {#sessionId: sessionId}),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#getSession, [], {#sessionId: sessionId}),
               ),
@@ -1600,7 +1215,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateSession, [], {#sessionId: sessionId}),
             returnValue: _i9.Future<_i3.Session>.value(
-              _FakeSession_13(
+              _FakeSession_11(
                 this,
                 Invocation.method(#updateSession, [], {#sessionId: sessionId}),
               ),
@@ -1621,7 +1236,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#updateStatus, []),
             returnValue: _i9.Future<_i3.User>.value(
-              _FakeUser_7(this, Invocation.method(#updateStatus, [])),
+              _FakeUser_5(this, Invocation.method(#updateStatus, [])),
             ),
           )
           as _i9.Future<_i3.User>);
@@ -1639,7 +1254,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #providerId: providerId,
             }),
             returnValue: _i9.Future<_i3.Target>.value(
-              _FakeTarget_19(
+              _FakeTarget_17(
                 this,
                 Invocation.method(#createPushTarget, [], {
                   #targetId: targetId,
@@ -1662,7 +1277,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #identifier: identifier,
             }),
             returnValue: _i9.Future<_i3.Target>.value(
-              _FakeTarget_19(
+              _FakeTarget_17(
                 this,
                 Invocation.method(#updatePushTarget, [], {
                   #targetId: targetId,
@@ -1694,7 +1309,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #phrase: phrase,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createEmailToken, [], {
                   #userId: userId,
@@ -1721,7 +1336,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #phrase: phrase,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createMagicURLToken, [], {
                   #userId: userId,
@@ -1763,7 +1378,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #phone: phone,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createPhoneToken, [], {
                   #userId: userId,
@@ -1779,7 +1394,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createEmailVerification, [], {#url: url}),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createEmailVerification, [], {#url: url}),
               ),
@@ -1792,7 +1407,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createVerification, [], {#url: url}),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createVerification, [], {#url: url}),
               ),
@@ -1811,7 +1426,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#updateEmailVerification, [], {
                   #userId: userId,
@@ -1833,7 +1448,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#updateVerification, [], {
                   #userId: userId,
@@ -1849,7 +1464,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
       (super.noSuchMethod(
             Invocation.method(#createPhoneVerification, []),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#createPhoneVerification, []),
               ),
@@ -1868,7 +1483,7 @@ class MockAccount extends _i1.Mock implements _i8.Account {
               #secret: secret,
             }),
             returnValue: _i9.Future<_i3.Token>.value(
-              _FakeToken_17(
+              _FakeToken_15(
                 this,
                 Invocation.method(#updatePhoneVerification, [], {
                   #userId: userId,
@@ -1944,7 +1559,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
               #onProgress: onProgress,
             }),
             returnValue: _i9.Future<_i4.Response<dynamic>>.value(
-              _FakeResponse_20<dynamic>(
+              _FakeResponse_18<dynamic>(
                 this,
                 Invocation.method(#chunkedUpload, [], {
                   #path: path,
@@ -2088,7 +1703,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
               },
             ),
             returnValue: _i9.Future<_i4.Response<dynamic>>.value(
-              _FakeResponse_20<dynamic>(
+              _FakeResponse_18<dynamic>(
                 this,
                 Invocation.method(
                   #call,
@@ -2118,7 +1733,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i14.FirebaseMessaging {
   _i5.FirebaseApp get app =>
       (super.noSuchMethod(
             Invocation.getter(#app),
-            returnValue: _FakeFirebaseApp_21(this, Invocation.getter(#app)),
+            returnValue: _FakeFirebaseApp_19(this, Invocation.getter(#app)),
           )
           as _i5.FirebaseApp);
 
@@ -2198,7 +1813,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i14.FirebaseMessaging {
       (super.noSuchMethod(
             Invocation.method(#getNotificationSettings, []),
             returnValue: _i9.Future<_i6.NotificationSettings>.value(
-              _FakeNotificationSettings_22(
+              _FakeNotificationSettings_20(
                 this,
                 Invocation.method(#getNotificationSettings, []),
               ),
@@ -2229,7 +1844,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i14.FirebaseMessaging {
               #providesAppNotificationSettings: providesAppNotificationSettings,
             }),
             returnValue: _i9.Future<_i6.NotificationSettings>.value(
-              _FakeNotificationSettings_22(
+              _FakeNotificationSettings_20(
                 this,
                 Invocation.method(#requestPermission, [], {
                   #alert: alert,
@@ -2321,7 +1936,7 @@ class MockRealtime extends _i1.Mock implements _i15.Realtime {
   _i7.RealtimeSubscription subscribe(List<String>? channels) =>
       (super.noSuchMethod(
             Invocation.method(#subscribe, [channels]),
-            returnValue: _FakeRealtimeSubscription_23(
+            returnValue: _FakeRealtimeSubscription_21(
               this,
               Invocation.method(#subscribe, [channels]),
             ),

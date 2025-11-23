@@ -1,13 +1,15 @@
 import 'package:appwrite/appwrite.dart' hide Locale;
-import 'package:appwrite/models.dart'  hide Locale;
+import 'package:appwrite/models.dart' hide Locale;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide Row;
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
 
 import 'change_email_controller_test.mocks.dart';
@@ -51,21 +53,26 @@ void main() {
     targets: [],
     hashOptions: {},
   );
-  final Document mockUserDocument = Document(
-    $collectionId: usersCollectionID,
-    $createdAt: DateTime.now().toIso8601String(),
-    $databaseId: userDatabaseID,
-    $id: '123',
-    $updatedAt: DateTime.now().toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'profileImageUrl': 'https://example.com/image.jpg',
-      'username': 'TestUser',
-      'profileImageID': 'image123',
-      'ratingTotal': 5,
-      'ratingCount': 1,
-    },
-    $sequence: 0,
+  final RowList mockUserDocument = RowList(
+    total: 1,
+    rows: [
+      Row(
+        $id: '123',
+        $tableId: usersCollectionID,
+        $databaseId: userDatabaseID,
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $permissions: ['any'],
+        $sequence: 0,
+        data: {
+          'profileImageUrl': 'https://example.com/image.jpg',
+          'username': 'TestUser',
+          'profileImageID': 'image123',
+          'ratingTotal': 5,
+          'ratingCount': 1,
+        },
+      ),
+    ],
   );
 
   setUp(() {
@@ -84,20 +91,7 @@ void main() {
         tableId: usersCollectionID,
         rowId: '123',
       ),
-    ).thenAnswer(
-      (_) => Future.value(
-        Row(
-          $id: mockUserDocument.$id,
-          $tableId: mockUserDocument.$collectionId,
-          $databaseId: mockUserDocument.$databaseId,
-          $createdAt: mockUserDocument.$createdAt,
-          $updatedAt: mockUserDocument.$updatedAt,
-          $permissions: mockUserDocument.$permissions,
-          $sequence: mockUserDocument.$sequence,
-          data: Map<String, dynamic>.from(mockUserDocument.data),
-        ),
-      ),
-    );
+    ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
     when(
       mockTablesDB.updateRow(
         databaseId: anyNamed('databaseId'),
@@ -172,33 +166,39 @@ void main() {
     ).called(1);
   });
 
-  testWidgets('test changeEmail functionality', (WidgetTester tester) async {
-    await tester.pumpWidget(GetMaterialApp(home: Container()));
-    final context = tester.element(find.byType(Container));
+  testWidgets('test changeEmail', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      GetMaterialApp(
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('hi')],
+        home: Scaffold(
+          body: Form(
+            key: changeEmailController.changeEmailFormKey,
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () async {
+                  await changeEmailController.changeEmail(context);
+                },
+                child: const Text("Test"),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
     changeEmailController.passwordController.text = 'anyPassword';
     changeEmailController.emailController.text = 'test2@test.com';
-    await authStateController.setUserProfileData();
-    final authResult = await changeEmailController.changeEmailInAuth(
-      'test2@test.com',
-      'anyPassword',
-      context,
-    );
+    await tester.tap(find.text('Test'));
+    await tester.pumpAndSettle();
     verify(
       mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
     ).called(1);
-    expect(authResult, true);
-    final dbResult = await changeEmailController.changeEmailInDatabases(
-      'test2@test.com',
-      context,
-    );
-    verify(
-      mockTablesDB.updateRow(
-        databaseId: userDatabaseID,
-        tableId: usersCollectionID,
-        rowId: '123',
-        data: {'email': 'test2@test.com'},
-      ),
-    ).called(1);
+    await tester.pumpAndSettle(const Duration(seconds: 4));
     verify(
       mockTablesDB.updateRow(
         databaseId: userDatabaseID,
@@ -207,8 +207,7 @@ void main() {
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
-
-    expect(dbResult, true);
     expect(authStateController.email, 'test2@test.com');
+    expect(changeEmailController.isLoading.value, false);
   });
 }

@@ -4,22 +4,20 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i8;
-import 'dart:typed_data' as _i12;
 
 import 'package:appwrite/appwrite.dart' as _i7;
 import 'package:appwrite/enums.dart' as _i9;
 import 'package:appwrite/models.dart' as _i3;
 import 'package:appwrite/src/client.dart' as _i2;
-import 'package:appwrite/src/enums.dart' as _i14;
-import 'package:appwrite/src/input_file.dart' as _i10;
+import 'package:appwrite/src/enums.dart' as _i12;
 import 'package:appwrite/src/response.dart' as _i4;
 import 'package:appwrite/src/upload_progress.dart' as _i11;
 import 'package:firebase_core/firebase_core.dart' as _i5;
-import 'package:firebase_messaging/firebase_messaging.dart' as _i15;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i13;
 import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart'
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i13;
+import 'package:mockito/src/dummies.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -128,39 +126,19 @@ class _FakeRow_17 extends _i1.SmartFake implements _i3.Row {
     : super(parent, parentInvocation);
 }
 
-class _FakeFileList_18 extends _i1.SmartFake implements _i3.FileList {
-  _FakeFileList_18(Object parent, Invocation parentInvocation)
+class _FakeResponse_18<T> extends _i1.SmartFake implements _i4.Response<T> {
+  _FakeResponse_18(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeFile_19 extends _i1.SmartFake implements _i3.File {
-  _FakeFile_19(Object parent, Invocation parentInvocation)
+class _FakeFirebaseApp_19 extends _i1.SmartFake implements _i5.FirebaseApp {
+  _FakeFirebaseApp_19(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeExecutionList_20 extends _i1.SmartFake implements _i3.ExecutionList {
-  _FakeExecutionList_20(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeExecution_21 extends _i1.SmartFake implements _i3.Execution {
-  _FakeExecution_21(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeResponse_22<T> extends _i1.SmartFake implements _i4.Response<T> {
-  _FakeResponse_22(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeFirebaseApp_23 extends _i1.SmartFake implements _i5.FirebaseApp {
-  _FakeFirebaseApp_23(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeNotificationSettings_24 extends _i1.SmartFake
+class _FakeNotificationSettings_20 extends _i1.SmartFake
     implements _i6.NotificationSettings {
-  _FakeNotificationSettings_24(Object parent, Invocation parentInvocation)
+  _FakeNotificationSettings_20(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -1509,317 +1487,6 @@ class MockTablesDB extends _i1.Mock implements _i7.TablesDB {
           as _i8.Future<_i3.Row>);
 }
 
-/// A class which mocks [Storage].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockStorage extends _i1.Mock implements _i7.Storage {
-  MockStorage() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.Client get client =>
-      (super.noSuchMethod(
-            Invocation.getter(#client),
-            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
-          )
-          as _i2.Client);
-
-  @override
-  _i8.Future<_i3.FileList> listFiles({
-    required String? bucketId,
-    List<String>? queries,
-    String? search,
-    bool? total,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#listFiles, [], {
-              #bucketId: bucketId,
-              #queries: queries,
-              #search: search,
-              #total: total,
-            }),
-            returnValue: _i8.Future<_i3.FileList>.value(
-              _FakeFileList_18(
-                this,
-                Invocation.method(#listFiles, [], {
-                  #bucketId: bucketId,
-                  #queries: queries,
-                  #search: search,
-                  #total: total,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.FileList>);
-
-  @override
-  _i8.Future<_i3.File> createFile({
-    required String? bucketId,
-    required String? fileId,
-    required _i10.InputFile? file,
-    List<String>? permissions,
-    dynamic Function(_i11.UploadProgress)? onProgress,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#createFile, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-              #file: file,
-              #permissions: permissions,
-              #onProgress: onProgress,
-            }),
-            returnValue: _i8.Future<_i3.File>.value(
-              _FakeFile_19(
-                this,
-                Invocation.method(#createFile, [], {
-                  #bucketId: bucketId,
-                  #fileId: fileId,
-                  #file: file,
-                  #permissions: permissions,
-                  #onProgress: onProgress,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.File>);
-
-  @override
-  _i8.Future<_i3.File> getFile({
-    required String? bucketId,
-    required String? fileId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getFile, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-            }),
-            returnValue: _i8.Future<_i3.File>.value(
-              _FakeFile_19(
-                this,
-                Invocation.method(#getFile, [], {
-                  #bucketId: bucketId,
-                  #fileId: fileId,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.File>);
-
-  @override
-  _i8.Future<_i3.File> updateFile({
-    required String? bucketId,
-    required String? fileId,
-    String? name,
-    List<String>? permissions,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#updateFile, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-              #name: name,
-              #permissions: permissions,
-            }),
-            returnValue: _i8.Future<_i3.File>.value(
-              _FakeFile_19(
-                this,
-                Invocation.method(#updateFile, [], {
-                  #bucketId: bucketId,
-                  #fileId: fileId,
-                  #name: name,
-                  #permissions: permissions,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.File>);
-
-  @override
-  _i8.Future<dynamic> deleteFile({
-    required String? bucketId,
-    required String? fileId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteFile, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-            }),
-            returnValue: _i8.Future<dynamic>.value(),
-          )
-          as _i8.Future<dynamic>);
-
-  @override
-  _i8.Future<_i12.Uint8List> getFileDownload({
-    required String? bucketId,
-    required String? fileId,
-    String? token,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getFileDownload, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-              #token: token,
-            }),
-            returnValue: _i8.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
-          )
-          as _i8.Future<_i12.Uint8List>);
-
-  @override
-  _i8.Future<_i12.Uint8List> getFilePreview({
-    required String? bucketId,
-    required String? fileId,
-    int? width,
-    int? height,
-    _i9.ImageGravity? gravity,
-    int? quality,
-    int? borderWidth,
-    String? borderColor,
-    int? borderRadius,
-    double? opacity,
-    int? rotation,
-    String? background,
-    _i9.ImageFormat? output,
-    String? token,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getFilePreview, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-              #width: width,
-              #height: height,
-              #gravity: gravity,
-              #quality: quality,
-              #borderWidth: borderWidth,
-              #borderColor: borderColor,
-              #borderRadius: borderRadius,
-              #opacity: opacity,
-              #rotation: rotation,
-              #background: background,
-              #output: output,
-              #token: token,
-            }),
-            returnValue: _i8.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
-          )
-          as _i8.Future<_i12.Uint8List>);
-
-  @override
-  _i8.Future<_i12.Uint8List> getFileView({
-    required String? bucketId,
-    required String? fileId,
-    String? token,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getFileView, [], {
-              #bucketId: bucketId,
-              #fileId: fileId,
-              #token: token,
-            }),
-            returnValue: _i8.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
-          )
-          as _i8.Future<_i12.Uint8List>);
-}
-
-/// A class which mocks [Functions].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFunctions extends _i1.Mock implements _i7.Functions {
-  MockFunctions() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.Client get client =>
-      (super.noSuchMethod(
-            Invocation.getter(#client),
-            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
-          )
-          as _i2.Client);
-
-  @override
-  _i8.Future<_i3.ExecutionList> listExecutions({
-    required String? functionId,
-    List<String>? queries,
-    bool? total,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#listExecutions, [], {
-              #functionId: functionId,
-              #queries: queries,
-              #total: total,
-            }),
-            returnValue: _i8.Future<_i3.ExecutionList>.value(
-              _FakeExecutionList_20(
-                this,
-                Invocation.method(#listExecutions, [], {
-                  #functionId: functionId,
-                  #queries: queries,
-                  #total: total,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.ExecutionList>);
-
-  @override
-  _i8.Future<_i3.Execution> createExecution({
-    required String? functionId,
-    String? body,
-    bool? xasync,
-    String? path,
-    _i9.ExecutionMethod? method,
-    Map<dynamic, dynamic>? headers,
-    String? scheduledAt,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#createExecution, [], {
-              #functionId: functionId,
-              #body: body,
-              #xasync: xasync,
-              #path: path,
-              #method: method,
-              #headers: headers,
-              #scheduledAt: scheduledAt,
-            }),
-            returnValue: _i8.Future<_i3.Execution>.value(
-              _FakeExecution_21(
-                this,
-                Invocation.method(#createExecution, [], {
-                  #functionId: functionId,
-                  #body: body,
-                  #xasync: xasync,
-                  #path: path,
-                  #method: method,
-                  #headers: headers,
-                  #scheduledAt: scheduledAt,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.Execution>);
-
-  @override
-  _i8.Future<_i3.Execution> getExecution({
-    required String? functionId,
-    required String? executionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getExecution, [], {
-              #functionId: functionId,
-              #executionId: executionId,
-            }),
-            returnValue: _i8.Future<_i3.Execution>.value(
-              _FakeExecution_21(
-                this,
-                Invocation.method(#getExecution, [], {
-                  #functionId: functionId,
-                  #executionId: executionId,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.Execution>);
-}
-
 /// A class which mocks [Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1840,7 +1507,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
   String get endPoint =>
       (super.noSuchMethod(
             Invocation.getter(#endPoint),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#endPoint),
             ),
@@ -1884,7 +1551,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
               #onProgress: onProgress,
             }),
             returnValue: _i8.Future<_i4.Response<dynamic>>.value(
-              _FakeResponse_22<dynamic>(
+              _FakeResponse_18<dynamic>(
                 this,
                 Invocation.method(#chunkedUpload, [], {
                   #path: path,
@@ -2003,18 +1670,18 @@ class MockClient extends _i1.Mock implements _i2.Client {
       (super.noSuchMethod(
             Invocation.method(#ping, []),
             returnValue: _i8.Future<String>.value(
-              _i13.dummyValue<String>(this, Invocation.method(#ping, [])),
+              _i10.dummyValue<String>(this, Invocation.method(#ping, [])),
             ),
           )
           as _i8.Future<String>);
 
   @override
   _i8.Future<_i4.Response<dynamic>> call(
-    _i14.HttpMethod? method, {
+    _i12.HttpMethod? method, {
     String? path = '',
     Map<String, String>? headers = const {},
     Map<String, dynamic>? params = const {},
-    _i14.ResponseType? responseType,
+    _i12.ResponseType? responseType,
   }) =>
       (super.noSuchMethod(
             Invocation.method(
@@ -2028,7 +1695,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
               },
             ),
             returnValue: _i8.Future<_i4.Response<dynamic>>.value(
-              _FakeResponse_22<dynamic>(
+              _FakeResponse_18<dynamic>(
                 this,
                 Invocation.method(
                   #call,
@@ -2058,7 +1725,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get $id =>
       (super.noSuchMethod(
             Invocation.getter(#$id),
-            returnValue: _i13.dummyValue<String>(this, Invocation.getter(#$id)),
+            returnValue: _i10.dummyValue<String>(this, Invocation.getter(#$id)),
           )
           as String);
 
@@ -2066,7 +1733,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get $createdAt =>
       (super.noSuchMethod(
             Invocation.getter(#$createdAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#$createdAt),
             ),
@@ -2077,7 +1744,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get $updatedAt =>
       (super.noSuchMethod(
             Invocation.getter(#$updatedAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#$updatedAt),
             ),
@@ -2088,7 +1755,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get name =>
       (super.noSuchMethod(
             Invocation.getter(#name),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#name),
             ),
@@ -2099,7 +1766,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get registration =>
       (super.noSuchMethod(
             Invocation.getter(#registration),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#registration),
             ),
@@ -2120,7 +1787,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get passwordUpdate =>
       (super.noSuchMethod(
             Invocation.getter(#passwordUpdate),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#passwordUpdate),
             ),
@@ -2131,7 +1798,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get email =>
       (super.noSuchMethod(
             Invocation.getter(#email),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#email),
             ),
@@ -2142,7 +1809,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get phone =>
       (super.noSuchMethod(
             Invocation.getter(#phone),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#phone),
             ),
@@ -2189,7 +1856,7 @@ class MockUser extends _i1.Mock implements _i3.User {
   String get accessedAt =>
       (super.noSuchMethod(
             Invocation.getter(#accessedAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#accessedAt),
             ),
@@ -2208,7 +1875,7 @@ class MockUser extends _i1.Mock implements _i3.User {
 /// A class which mocks [FirebaseMessaging].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
+class MockFirebaseMessaging extends _i1.Mock implements _i13.FirebaseMessaging {
   MockFirebaseMessaging() {
     _i1.throwOnMissingStub(this);
   }
@@ -2217,7 +1884,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
   _i5.FirebaseApp get app =>
       (super.noSuchMethod(
             Invocation.getter(#app),
-            returnValue: _FakeFirebaseApp_23(this, Invocation.getter(#app)),
+            returnValue: _FakeFirebaseApp_19(this, Invocation.getter(#app)),
           )
           as _i5.FirebaseApp);
 
@@ -2297,7 +1964,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
       (super.noSuchMethod(
             Invocation.method(#getNotificationSettings, []),
             returnValue: _i8.Future<_i6.NotificationSettings>.value(
-              _FakeNotificationSettings_24(
+              _FakeNotificationSettings_20(
                 this,
                 Invocation.method(#getNotificationSettings, []),
               ),
@@ -2328,7 +1995,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
               #providesAppNotificationSettings: providesAppNotificationSettings,
             }),
             returnValue: _i8.Future<_i6.NotificationSettings>.value(
-              _FakeNotificationSettings_24(
+              _FakeNotificationSettings_20(
                 this,
                 Invocation.method(#requestPermission, [], {
                   #alert: alert,
@@ -2412,7 +2079,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get $id =>
       (super.noSuchMethod(
             Invocation.getter(#$id),
-            returnValue: _i13.dummyValue<String>(this, Invocation.getter(#$id)),
+            returnValue: _i10.dummyValue<String>(this, Invocation.getter(#$id)),
           )
           as String);
 
@@ -2420,7 +2087,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get $createdAt =>
       (super.noSuchMethod(
             Invocation.getter(#$createdAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#$createdAt),
             ),
@@ -2431,7 +2098,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get $updatedAt =>
       (super.noSuchMethod(
             Invocation.getter(#$updatedAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#$updatedAt),
             ),
@@ -2442,7 +2109,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get userId =>
       (super.noSuchMethod(
             Invocation.getter(#userId),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#userId),
             ),
@@ -2453,7 +2120,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get expire =>
       (super.noSuchMethod(
             Invocation.getter(#expire),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#expire),
             ),
@@ -2464,7 +2131,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get provider =>
       (super.noSuchMethod(
             Invocation.getter(#provider),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#provider),
             ),
@@ -2475,7 +2142,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get providerUid =>
       (super.noSuchMethod(
             Invocation.getter(#providerUid),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#providerUid),
             ),
@@ -2486,7 +2153,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get providerAccessToken =>
       (super.noSuchMethod(
             Invocation.getter(#providerAccessToken),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#providerAccessToken),
             ),
@@ -2497,7 +2164,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get providerAccessTokenExpiry =>
       (super.noSuchMethod(
             Invocation.getter(#providerAccessTokenExpiry),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#providerAccessTokenExpiry),
             ),
@@ -2508,7 +2175,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get providerRefreshToken =>
       (super.noSuchMethod(
             Invocation.getter(#providerRefreshToken),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#providerRefreshToken),
             ),
@@ -2519,7 +2186,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get ip =>
       (super.noSuchMethod(
             Invocation.getter(#ip),
-            returnValue: _i13.dummyValue<String>(this, Invocation.getter(#ip)),
+            returnValue: _i10.dummyValue<String>(this, Invocation.getter(#ip)),
           )
           as String);
 
@@ -2527,7 +2194,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get osCode =>
       (super.noSuchMethod(
             Invocation.getter(#osCode),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#osCode),
             ),
@@ -2538,7 +2205,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get osName =>
       (super.noSuchMethod(
             Invocation.getter(#osName),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#osName),
             ),
@@ -2549,7 +2216,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get osVersion =>
       (super.noSuchMethod(
             Invocation.getter(#osVersion),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#osVersion),
             ),
@@ -2560,7 +2227,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientType =>
       (super.noSuchMethod(
             Invocation.getter(#clientType),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientType),
             ),
@@ -2571,7 +2238,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientCode =>
       (super.noSuchMethod(
             Invocation.getter(#clientCode),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientCode),
             ),
@@ -2582,7 +2249,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientName =>
       (super.noSuchMethod(
             Invocation.getter(#clientName),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientName),
             ),
@@ -2593,7 +2260,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientVersion =>
       (super.noSuchMethod(
             Invocation.getter(#clientVersion),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientVersion),
             ),
@@ -2604,7 +2271,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientEngine =>
       (super.noSuchMethod(
             Invocation.getter(#clientEngine),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientEngine),
             ),
@@ -2615,7 +2282,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get clientEngineVersion =>
       (super.noSuchMethod(
             Invocation.getter(#clientEngineVersion),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#clientEngineVersion),
             ),
@@ -2626,7 +2293,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get deviceName =>
       (super.noSuchMethod(
             Invocation.getter(#deviceName),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#deviceName),
             ),
@@ -2637,7 +2304,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get deviceBrand =>
       (super.noSuchMethod(
             Invocation.getter(#deviceBrand),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#deviceBrand),
             ),
@@ -2648,7 +2315,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get deviceModel =>
       (super.noSuchMethod(
             Invocation.getter(#deviceModel),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#deviceModel),
             ),
@@ -2659,7 +2326,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get countryCode =>
       (super.noSuchMethod(
             Invocation.getter(#countryCode),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#countryCode),
             ),
@@ -2670,7 +2337,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get countryName =>
       (super.noSuchMethod(
             Invocation.getter(#countryName),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#countryName),
             ),
@@ -2691,7 +2358,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get secret =>
       (super.noSuchMethod(
             Invocation.getter(#secret),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#secret),
             ),
@@ -2702,7 +2369,7 @@ class MockSession extends _i1.Mock implements _i3.Session {
   String get mfaUpdatedAt =>
       (super.noSuchMethod(
             Invocation.getter(#mfaUpdatedAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i10.dummyValue<String>(
               this,
               Invocation.getter(#mfaUpdatedAt),
             ),

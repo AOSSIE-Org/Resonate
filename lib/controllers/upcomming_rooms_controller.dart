@@ -41,7 +41,7 @@ class UpcomingRoomsController extends GetxController {
     TabViewController? tabViewController,
     ThemeController? themeController,
     RoomsController? roomsController,
-    Databases? databases,
+    TablesDB? tablesDB,
     FirebaseMessaging? messaging,
     GetStorage? storage,
   }) : authStateController =
@@ -51,7 +51,7 @@ class UpcomingRoomsController extends GetxController {
        controller = tabViewController ?? Get.find<TabViewController>(),
        themeController = themeController ?? Get.find<ThemeController>(),
        roomsController = roomsController ?? Get.find<RoomsController>(),
-       tablesDB = AppwriteService.getTables(),
+       tablesDB = tablesDB ?? AppwriteService.getTables(),
        messaging = messaging ?? FirebaseMessaging.instance {
     _storage = storage ?? GetStorage();
   }

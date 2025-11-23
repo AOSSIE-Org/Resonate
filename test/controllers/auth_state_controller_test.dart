@@ -26,78 +26,84 @@ void main() {
     messaging: mockFirebaseMessaging,
   );
 
-  final List<Document> mockSubscribedUserDocuments = [
-    Document(
-      $id: 'subUserDoc1',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: subscribedUserCollectionId,
-      $permissions: ['any'],
-      data: {
-        'userID': '123',
-        'userProfileUrl': 'https://example.com/user1.jpg',
-        'upcomingRoomId': 'room1',
-        'registrationTokens': ["token1", "token2", 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-      $sequence: 0,
-    ),
-    Document(
-      $id: 'subUserDoc2',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: subscribedUserCollectionId,
-      $permissions: ['any'],
-      data: {
-        'userID': '123',
-        'userProfileUrl': 'https://example.com/user2.jpg',
-        'upcomingRoomId': 'room2',
-        'registrationTokens': ["token1", "token2", 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-      $sequence: 1,
-    ),
-  ];
-  final List<Document> mockUpcomingRoomsDocuments = [
-    Document(
-      $id: 'room1',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: upcomingRoomsDatabaseId,
-      $permissions: ['any'],
-      data: {
-        'isTime': false,
-        'description': 'Description for room 1',
-        'name': 'Upcoming Room 1',
-        'creatorUid': '123',
-        'scheduledDateTime': DateTime.now()
-            .add(Duration(days: 1))
-            .toIso8601String(),
-        'tags': ['tag1', 'tag2'],
-        'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-      $sequence: 0,
-    ),
-    Document(
-      $id: 'room2',
-      $collectionId: upcomingRoomsCollectionId,
-      $databaseId: upcomingRoomsDatabaseId,
-      $permissions: ['any'],
-      data: {
-        'isTime': true,
-        'description': 'Description for room 2',
-        'name': 'Upcoming Room 2',
-        'creatorUid': '123',
-        'scheduledDateTime': DateTime.now().toIso8601String(),
-        'tags': ['tag3', 'tag4'],
-        'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
-      },
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-      $sequence: 1,
-    ),
-  ];
+  final RowList mockSubscribedUserRowList = RowList(
+    total: 2,
+    rows: [
+      Row(
+        $id: 'subUserDoc1',
+        $tableId: upcomingRoomsCollectionId,
+        $databaseId: subscribedUserCollectionId,
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $permissions: ['any'],
+        $sequence: 0,
+        data: {
+          'userID': '123',
+          'userProfileUrl': 'https://example.com/user1.jpg',
+          'upcomingRoomId': 'room1',
+          'registrationTokens': ["token1", "token2", 'mockToken'],
+        },
+      ),
+      Row(
+        $id: 'subUserDoc2',
+        $tableId: upcomingRoomsCollectionId,
+        $databaseId: subscribedUserCollectionId,
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $permissions: ['any'],
+        $sequence: 1,
+        data: {
+          'userID': '123',
+          'userProfileUrl': 'https://example.com/user2.jpg',
+          'upcomingRoomId': 'room2',
+          'registrationTokens': ["token1", "token2", 'mockToken'],
+        },
+      ),
+    ],
+  );
+  final RowList mockUpcomingRoomsRowList = RowList(
+    total: 2,
+    rows: [
+      Row(
+        $id: 'room1',
+        $tableId: upcomingRoomsCollectionId,
+        $databaseId: upcomingRoomsDatabaseId,
+        $permissions: ['any'],
+        data: {
+          'isTime': false,
+          'description': 'Description for room 1',
+          'name': 'Upcoming Room 1',
+          'creatorUid': '123',
+          'scheduledDateTime': DateTime.now()
+              .add(Duration(days: 1))
+              .toIso8601String(),
+          'tags': ['tag1', 'tag2'],
+          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $sequence: 0,
+      ),
+      Row(
+        $id: 'room2',
+        $tableId: upcomingRoomsCollectionId,
+        $databaseId: upcomingRoomsDatabaseId,
+        $permissions: ['any'],
+        data: {
+          'isTime': true,
+          'description': 'Description for room 2',
+          'name': 'Upcoming Room 2',
+          'creatorUid': '123',
+          'scheduledDateTime': DateTime.now().toIso8601String(),
+          'tags': ['tag3', 'tag4'],
+          'creator_fcm_tokens': ['token1', 'token2', 'mockToken'],
+        },
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $sequence: 1,
+      ),
+    ],
+  );
   final User mockUser = User(
     $id: '123',
     name: 'Test User',
@@ -119,8 +125,8 @@ void main() {
     targets: [],
     hashOptions: {},
   );
-  final Document mockUserDocument = Document(
-    $collectionId: usersCollectionID,
+  final Row mockUserDocument = Row(
+    $tableId: usersCollectionID,
     $createdAt: DateTime.now().toIso8601String(),
     $databaseId: userDatabaseID,
     $id: '123',
@@ -160,21 +166,7 @@ void main() {
         tableId: usersCollectionID,
         rowId: '123',
       ),
-    ).thenAnswer(
-      (_) => Future.value(
-        Row(
-          $id: mockUserDocument.$id,
-          $tableId: mockUserDocument.$collectionId,
-          $databaseId: mockUserDocument.$databaseId,
-          $createdAt: mockUserDocument.$createdAt,
-          $updatedAt: mockUserDocument.$updatedAt,
-          $permissions: mockUserDocument.$permissions,
-          $sequence: mockUserDocument.$sequence,
-          data: Map<String, dynamic>.from(mockUserDocument.data)
-            ..addAll({'followers': []}),
-        ),
-      ),
-    );
+    ).thenAnswer((_) => Future.value(mockUserDocument));
     when(
       mockTablesDB.listRows(
         databaseId: upcomingRoomsDatabaseId,
@@ -183,72 +175,34 @@ void main() {
           Query.equal("userID", ['123']),
         ],
       ),
-    ).thenAnswer(
-      (_) => Future.value(
-        RowList(
-          total: mockSubscribedUserDocuments.length,
-          rows: mockSubscribedUserDocuments
-              .map(
-                (doc) => Row(
-                  $id: doc.$id,
-                  $tableId: doc.$collectionId,
-                  $databaseId: doc.$databaseId,
-                  $createdAt: doc.$createdAt,
-                  $updatedAt: doc.$updatedAt,
-                  $permissions: doc.$permissions,
-                  $sequence: doc.$sequence,
-                  data: Map<String, dynamic>.from(doc.data),
-                ),
-              )
-              .toList(),
-        ),
-      ),
-    );
+    ).thenAnswer((_) => Future.value(mockSubscribedUserRowList));
     when(
       mockTablesDB.listRows(
         databaseId: upcomingRoomsDatabaseId,
         tableId: upcomingRoomsCollectionId,
         queries: [Query.equal("creatorUid", "123")],
       ),
-    ).thenAnswer(
-      (_) => Future.value(
-        RowList(
-          total: mockUpcomingRoomsDocuments.length,
-          rows: mockUpcomingRoomsDocuments
-              .map(
-                (doc) => Row(
-                  $id: doc.$id,
-                  $tableId: doc.$collectionId,
-                  $databaseId: doc.$databaseId,
-                  $createdAt: doc.$createdAt,
-                  $updatedAt: doc.$updatedAt,
-                  $permissions: doc.$permissions,
-                  $sequence: doc.$sequence,
-                  data: Map<String, dynamic>.from(doc.data),
-                ),
-              )
-              .toList(),
-        ),
-      ),
-    );
+    ).thenAnswer((_) => Future.value(mockUpcomingRoomsRowList));
     when(
       mockTablesDB.updateRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: anyNamed('databaseId'),
         tableId: anyNamed('tableId'),
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       ),
     ).thenAnswer(
-      (_) => Future.value(
+      (invocation) => Future.value(
         Row(
-          $id: '123',
-          $tableId: 'table',
-          $databaseId: upcomingRoomsDatabaseId,
+          $id: invocation.namedArguments[#rowId] as String,
+          $tableId: invocation.namedArguments[#tableId] as String,
+          $databaseId: invocation.namedArguments[#databaseId] as String,
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),
           $permissions: ['any'],
           $sequence: 0,
-          data: {},
+          data: Map<String, dynamic>.from(
+            invocation.namedArguments[#data] as Map,
+          ),
         ),
       ),
     );

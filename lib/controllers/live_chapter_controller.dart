@@ -29,7 +29,6 @@ class LiveChapterController extends GetxController {
   RealtimeSubscription? liveChapterAttendeesSubscription;
 
   LiveChapterController({
-    Databases? databases,
     TablesDB? tables,
     Realtime? realtime,
     Functions? functions,

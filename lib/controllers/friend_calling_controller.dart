@@ -29,7 +29,6 @@ class FriendCallingController extends GetxController {
   final RxBool isLoudSpeakerOn = true.obs;
   RealtimeSubscription? callSubscription;
   FriendCallingController({
-    Databases? databases,
     TablesDB? tables,
     Functions? functions,
     Realtime? realtime,

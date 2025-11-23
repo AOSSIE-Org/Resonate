@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
@@ -15,17 +13,7 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 
 import 'friends_controller_test.mocks.dart';
 
-@GenerateMocks(
-  [
-    TablesDB,
-    Functions,
-    FirebaseMessaging,
-    AuthStateController,
-    Account,
-    Client,
-  ],
-  customMocks: [MockSpec<Realtime>(as: #MockRealtimeFriends)],
-)
+@GenerateMocks([TablesDB, Functions, FirebaseMessaging, Account, Client])
 @GenerateNiceMocks([MockSpec<Realtime>()])
 final List<FriendsModel> mockFriendModelList = [
   FriendsModel(
@@ -204,17 +192,6 @@ final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(
 );
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-        const MethodChannel('plugins.flutter.io/path_provider'),
-        (MethodCall methodCall) async {
-          if (methodCall.method == 'getApplicationDocumentsDirectory') {
-            return Directory.systemTemp.path;
-          }
-          return null;
-        },
-      );
   late MockTablesDB tables;
   late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
@@ -235,7 +212,7 @@ void main() {
       tables: tables,
       firebaseMessaging: mockFirebaseMessaging,
       functions: MockFunctions(),
-      realtime: MockRealtimeFriends(),
+      realtime: MockRealtime(),
     );
 
     friendsController.authStateController.uid = 'id2';

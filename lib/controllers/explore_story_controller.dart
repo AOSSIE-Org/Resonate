@@ -743,7 +743,7 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
-    List<dynamic> storyDocuments,
+    List<Row> storyDocuments,
   ) async {
     return await Future.wait(
       storyDocuments.map((value) async {
