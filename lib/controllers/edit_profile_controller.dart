@@ -259,52 +259,35 @@ class EditProfileController extends GetxController {
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail = await isUsernameAvailable(
-          usernameController.text.trim(),
-        );
-        if (!usernameAvail) {
-          usernameAvailable.value = false;
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.usernameUnavailable,
-            AppLocalizations.of(Get.context!)!.usernameAlreadyTaken,
-            LogType.error,
-          );
-
-          SemanticsService.announce(
-            AppLocalizations.of(Get.context!)!.usernameAlreadyTaken,
-            TextDirection.ltr,
-          );
-          return;
-        }
-
-        // Create new doc of New Username
-        await databases.createDocument(
-          databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: usernameController.text.trim(),
-          data: {'email': authStateController.email},
-        );
-
         try {
-          // Delete Old Username doc, so Username can be re-usable
-          await databases.deleteDocument(
+          await databases.createDocument(
             databaseId: userDatabaseID,
             collectionId: usernameCollectionID,
-            documentId: oldUsername,
+            documentId: usernameController.text.trim(),
+            data: {'email': authStateController.email},
+          );
+
+          try {
+            await databases.deleteDocument(
+              databaseId: userDatabaseID,
+              collectionId: usernameCollectionID,
+              documentId: oldUsername,
+            );
+          } catch (e) {
+            log(e.toString());
+          }
+
+          await databases.updateDocument(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: authStateController.uid!,
+            data: {"username": usernameController.text.trim()},
           );
         } catch (e) {
           log(e.toString());
+          rethrow;
         }
-
-        await databases.updateDocument(
-          databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
-          data: {"username": usernameController.text.trim()},
-        );
-      }
-
-      //Update user DISPLAY-NAME
+      } //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
         await authStateController.account.updateName(
