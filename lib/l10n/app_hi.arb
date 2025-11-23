@@ -1778,4 +1778,16 @@
     "@done": {
         "description": "Button text to close audio device selector."
     }
+    "deleteMessageTitle": "संदेश हटाएँ",
+"@deleteMessageTitle": {
+  "description": "Title shown in the delete message confirmation dialog."
+},
+"deleteMessageContent": "क्या आप वाकई इस संदेश को हटाना चाहते हैं?",
+"@deleteMessageContent": {
+  "description": "Confirmation text asking the user if they want to delete a message."
+},
+"thisMessageWasDeleted": "यह संदेश हटा दिया गया है",
+"failedToDeleteMessage": "संदेश हटाने में विफल रहा"
+
+
 }

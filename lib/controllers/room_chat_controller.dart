@@ -16,6 +16,7 @@ import 'package:resonate/utils/constants.dart';
 
 class RoomChatController extends GetxController {
   RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
+
   AuthStateController auth = Get.find<AuthStateController>();
   RxList<Message> messages = <Message>[].obs;
   final AppwriteRoom? appwriteRoom;
@@ -42,6 +43,27 @@ class RoomChatController extends GetxController {
     subscribeToMessages();
     log(appwriteRoom.toString());
     log(appwriteUpcommingRoom.toString());
+  }
+
+  // delete method
+  Future<void> deleteMessage(String messageId) async {
+    try {
+      Message messageToDelete = messages.firstWhere(
+        (msg) => msg.messageId == messageId,
+      );
+      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
+
+      await databases.updateDocument(
+        databaseId: masterDatabaseId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
+        data: messageToDelete.toJsonForUpload(),
+      );
+      log('Message deleted successfully');
+    } catch (e) {
+      log('Error deleting message: $e');
+      rethrow;
+    }
   }
 
   Future<void> loadMessages() async {
@@ -98,6 +120,7 @@ class RoomChatController extends GetxController {
         isEdited: false,
         content: content,
         creationDateTime: DateTime.now(),
+        isDeleted: false,
       );
 
       await databases.createDocument(
@@ -148,6 +171,7 @@ class RoomChatController extends GetxController {
     updatedMessage = updatedMessage.copyWith(
       content: newContent,
       isEdited: true,
+      isDeleted: false,
     );
 
     try {
@@ -247,6 +271,7 @@ class RoomChatController extends GetxController {
               messages[index] = messages[index].copyWith(
                 content: updatedMessage.content,
                 isEdited: updatedMessage.isEdited,
+                isDeleted: updatedMessage.isDeleted,
               );
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(

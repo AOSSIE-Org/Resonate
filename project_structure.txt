@@ -18,6 +18,7 @@
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
+├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── CSAE_STANDARDS.md
@@ -441,10 +442,14 @@
 │       ├── friend_calling_controller_test.mocks.dart
 │       ├── friends_controller_test.dart
 │       ├── friends_controller_test.mocks.dart
+│       ├── room_chat_controller_test.dart
+│       ├── room_chat_controller_test.mocks.dart
+│       ├── rooms_controller_test.dart
+│       ├── rooms_controller_test.mocks.dart
 │       ├── upcoming_controller_tests.dart
 │       ├── upcoming_controller_tests.mocks.dart
 │       ├── user_profile_controller_test.dart
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 368 files
+80 directories, 373 files
