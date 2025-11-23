@@ -274,7 +274,9 @@
 │   │   ├── app_localizations_hi.dart
 │   │   ├── app_localizations_kn.dart
 │   │   ├── app_localizations_mr.dart
-│   │   └── app_mr.arb
+│   │   ├── app_localizations_pa.dart
+│   │   ├── app_mr.arb
+│   │   └── app_pa.arb
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -452,4 +454,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 373 files
+80 directories, 375 files
