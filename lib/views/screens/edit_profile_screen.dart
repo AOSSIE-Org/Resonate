@@ -235,11 +235,13 @@ class EditProfileScreen extends StatelessWidget {
                       () => SizedBox(
                         width: double.maxFinite,
                         child: ElevatedButton(
-                          onPressed: () async {
-                            if (!controller.isLoading.value) {
-                              await controller.saveProfile();
-                            }
-                          },
+                          onPressed:
+                              (!controller.isLoading.value &&
+                                  controller.usernameAvailable.value)
+                              ? () async {
+                                  await controller.saveProfile();
+                                }
+                              : null,
                           child: controller.isLoading.value
                               ? Center(
                                   child:
