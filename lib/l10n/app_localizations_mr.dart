@@ -1358,4 +1358,16 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटवा';
+
+  @override
+  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }

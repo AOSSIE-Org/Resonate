@@ -1357,4 +1357,17 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
+
+  @override
+  String get deleteMessageContent =>
+      'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }

@@ -2495,6 +2495,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
+
+  /// Title shown in the delete message confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Message'**
+  String get deleteMessageTitle;
+
+  /// Confirmation text asking the user if they want to delete a message.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this message?'**
+  String get deleteMessageContent;
+
+  /// No description provided for @thisMessageWasDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted'**
+  String get thisMessageWasDeleted;
+
+  /// No description provided for @failedToDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete message'**
+  String get failedToDeleteMessage;
 }
 
 class _AppLocalizationsDelegate
