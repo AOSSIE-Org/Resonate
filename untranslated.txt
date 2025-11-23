@@ -31,6 +31,8 @@
     "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
