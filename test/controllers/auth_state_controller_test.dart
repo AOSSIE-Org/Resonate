@@ -31,8 +31,8 @@ void main() {
     rows: [
       Row(
         $id: 'subUserDoc1',
-        $tableId: upcomingRoomsTableId,
-        $databaseId: subscribedUserTableId,
+        $tableId: subscribedUserTableId,
+        $databaseId: upcomingRoomsDatabaseId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
@@ -46,8 +46,8 @@ void main() {
       ),
       Row(
         $id: 'subUserDoc2',
-        $tableId: upcomingRoomsTableId,
-        $databaseId: subscribedUserTableId,
+        $tableId: subscribedUserTableId,
+        $databaseId: upcomingRoomsDatabaseId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],

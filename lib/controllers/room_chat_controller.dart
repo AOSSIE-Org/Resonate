@@ -221,7 +221,7 @@ class RoomChatController extends GetxController {
   void subscribeToMessages() {
     try {
       String channel =
-          'databases.$masterDatabaseId.collections.$chatMessagesTableId.documents';
+          'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
       subscription = realtime.subscribe([channel]);
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {

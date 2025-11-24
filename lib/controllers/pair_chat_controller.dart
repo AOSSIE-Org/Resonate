@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' ;
+import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -109,7 +109,7 @@ class PairChatController extends GetxController {
   void getRealtimeStream() {
     String uid = authController.uid!;
     String channel =
-        'databases.$masterDatabaseId.collections.$activePairsTableId.documents';
+        'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -179,7 +179,7 @@ class PairChatController extends GetxController {
   void checkForNewUsers() {
     log('listening for new users');
     String channel =
-        'databases.$masterDatabaseId.collections.$pairRequestTableId.documents';
+        'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
     userAddedSubscription = realtime.subscribe([channel]);
     userAddedSubscription?.stream.listen((data) async {
       final event = data.events.first;

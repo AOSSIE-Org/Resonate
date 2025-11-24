@@ -194,7 +194,7 @@ class FriendCallingController extends GetxController {
 
   void listenToCallChanges() async {
     String channel =
-        'databases.$masterDatabaseId.collections.$friendCallsTableId.documents.${friendCallModel.value!.docId}';
+        'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${friendCallModel.value!.docId}';
     callSubscription = realtime.subscribe([channel]);
     callSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

@@ -41,7 +41,7 @@ class LiveChapterController extends GetxController {
 
   void listenForAttendeesAdded() async {
     String channel =
-        "databases.$userDatabaseID.collections.$liveChapterAttendeesTableId.documents.${liveChapterModel.value!.id}";
+        "databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.${liveChapterModel.value!.id}";
     liveChapterAttendeesSubscription = realtime.subscribe([channel]);
     liveChapterAttendeesSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

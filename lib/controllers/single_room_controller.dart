@@ -133,7 +133,7 @@ class SingleRoomController extends GetxController {
 
   void getRealtimeStream() {
     String channel =
-        'databases.$masterDatabaseId.collections.$participantsTableId.documents';
+        'databases.$masterDatabaseId.tables.$participantsTableId.rows';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

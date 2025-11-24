@@ -145,8 +145,7 @@ class FriendsController extends GetxController {
   }
 
   void listenForChangesInFriends() {
-    String channel =
-        'databases.$userDatabaseID.collections.$friendsTableID.documents';
+    String channel = 'databases.$userDatabaseID.tables.$friendsTableID.rows';
     friendRequestsSubscription = realtime.subscribe([channel]);
     friendRequestsSubscription.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
