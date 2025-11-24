@@ -448,7 +448,7 @@ class AppLocalizationsPa extends AppLocalizations {
       'ਵਧਾਈ ਹੋ! ਤੁਹਾਡੀ ਈਮੇਲ ਵੇਰੀਫਾਈ ਹੋ ਗਈ ਹੈ';
 
   @override
-  String get verificationFailed => 'ਵੇਰੀਫਿਕੇਸ਼ਨ ਅਸਫਲ ਹੋ گیا';
+  String get verificationFailed => 'ਵੇਰੀਫਿਕੇਸ਼ਨ ਅਸਫਲ ਹੋ ਗਿਆ';
 
   @override
   String get otpMismatch => 'OTP ਮਿਲਦਾ ਨਹੀਂ, ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ';
@@ -498,7 +498,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String noStoriesInCategory(String categoryName) {
-    return 'ਇਸ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ';
+    return '$categoryName ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ';
   }
 
   @override
@@ -545,7 +545,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String checkOutGitHub(String url) {
-    return 'ਗਿਥੁਬ ਤੇ ਵੇਖੋ';
+    return 'ਸਾਡਾ GitHub ਰੈਪੋ ਦੇਖੋ: $url';
   }
 
   @override
@@ -604,7 +604,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String toRoomAction(String action) {
-    return 'ਰੂਮ ਕਾਰਵਾਈ';
+    return 'ਰੂਮ ਨੂੰ $action ਕਰਨ ਲਈ';
   }
 
   @override
@@ -754,12 +754,12 @@ class AppLocalizationsPa extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return 'ਰੂਮ ਸਾਂਝਾ ਕਰੋ';
+    return 'ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: $roomName!\n\n📖 ਵੇਰਵਾ: $description\n👥 ਹੁਣੇ $participants ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!';
   }
 
   @override
   String participantsCount(int count) {
-    return 'ਭਾਗੀਦਾਰ ਗਿਣਤੀ';
+    return '$count ਭਾਗੀਦਾਰ';
   }
 
   @override
@@ -810,7 +810,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return 'ਕਹਾਣੀ ਵਿੱਚ ਨਵੇਂ ਅਧਿਆਇ ਜੋੜੋ';
+    return '$storyName ਵਿੱਚ ਨਵੇਂ ਅਧਿਆਇ ਜੋੜੋ';
   }
 
   @override
@@ -936,27 +936,27 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
-    return 'ਤੁਹਾਨੂੰ ਆਉਣ ਵਾਲੇ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ';
+    return '$username ਨੇ ਤੁਹਾਨੂੰ ਇੱਕ ਆਉਣ ਵਾਲੇ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ: $subject';
   }
 
   @override
   String taggedYouInRoom(String username, String subject) {
-    return 'ਤੁਹਾਨੂੰ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ';
+    return '$username ਨੇ ਤੁਹਾਨੂੰ ਇੱਕ ਰੂਮ ਵਿੱਚ ਟੈਗ ਕੀਤਾ: $subject';
   }
 
   @override
   String likedYourStory(String username, String subject) {
-    return 'ਤੁਹਾਡੀ ਕਹਾਣੀ ਪਸੰਦ ਆਈ';
+    return '$username ਨੇ ਤੁਹਾਡੀ ਕਹਾਣੀ ਨੂੰ ਪਸੰਦ ਕੀਤਾ: $subject';
   }
 
   @override
   String subscribedToYourRoom(String username, String subject) {
-    return 'ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ';
+    return '$username ਨੇ ਤੁਹਾਡੇ ਰੂਮ ਨੂੰ ਸਬਸਕ੍ਰਾਈਬ ਕੀਤਾ: $subject';
   }
 
   @override
   String startedFollowingYou(String username) {
-    return 'ਤੁਹਾਡਾ ਪਾਲਣਾ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ';
+    return '$username ਨੇ ਤੁਹਾਨੂੰ ਫਾਲੋ ਕਰਨਾ ਸ਼ੁਰੂ ਕੀਤਾ';
   }
 
   @override
@@ -1001,7 +1001,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String created(String date) {
-    return 'ਬਣਾਇਆ ਗਿਆ';
+    return 'ਬਣਾਇਆ ਗਿਆ: $date';
   }
 
   @override
@@ -1012,7 +1012,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String createdBy(String creatorName) {
-    return 'ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ';
+    return '$creatorName ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ';
   }
 
   @override
@@ -1045,17 +1045,35 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String minutesAgo(int count) {
-    return 'ਮਿੰਟ ਪਹਿਲਾਂ';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ਮਿੰਟ ਪਹਿਲਾਂ',
+      one: '1 ਮਿੰਟ ਪਹਿਲਾਂ',
+    );
+    return '$_temp0';
   }
 
   @override
   String hoursAgo(int count) {
-    return 'ਘੰਟੇ ਪਹਿਲਾਂ';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ਘੰਟੇ ਪਹਿਲਾਂ',
+      one: '1 ਘੰਟਾ ਪਹਿਲਾਂ',
+    );
+    return '$_temp0';
   }
 
   @override
   String daysAgo(int count) {
-    return 'ਦਿਨ ਪਹਿਲਾਂ';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ਦਿਨ ਪਹਿਲਾਂ',
+      one: '1 ਦਿਨ ਪਹਿਲਾਂ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1102,7 +1120,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String friendRequestSentTo(String username) {
-    return 'ਦੋਸਤ ਅਰਜ਼ੀ ਭੇਜੀ ਗਈ (to)';
+    return 'ਤੁਹਾਡੀ ਦੋਸਤ ਅਰਜ਼ੀ $username ਨੂੰ ਭੇਜੀ ਗਈ ਹੈ';
   }
 
   @override
@@ -1110,7 +1128,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String friendRequestCancelledTo(String username) {
-    return 'ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕੀਤੀ ਗਈ (to)';
+    return 'ਤੁਹਾਡੀ $username ਨੂੰ ਭੇਜੀ ਦੋਸਤ ਅਰਜ਼ੀ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ';
   }
 
   @override
@@ -1127,7 +1145,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਹੋਈ (to)';
+    return 'ਤੁਸੀਂ $username ਦੀ ਦੋਸਤ ਅਰਜ਼ੀ ਮਨਜ਼ੂਰ ਕਰ ਲਈ ਹੈ';
   }
 
   @override
@@ -1135,7 +1153,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)';
+    return 'ਤੁਸੀਂ $username ਦੀ ਦੋਸਤ ਅਰਜ਼ੀ ਅਸਵੀਕਾਰ ਕਰ ਦਿੱਤੀ ਹੈ';
   }
 
   @override
@@ -1146,7 +1164,7 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return 'ਕਾਲ ਅਸਵੀਕਾਰ ਕੀਤੀ ਗਈ (to)';
+    return '$username ਨੇ ਕਾਲ ਅਸਵੀਕਾਰ ਕਰ ਦਿੱਤੀ';
   }
 
   @override
@@ -1223,7 +1241,17 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String reportType(String type) {
-    return 'ਰਿਪੋਰਟ ਕਿਸਮ';
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'ਪਰੇਸ਼ਾਨੀ / ਨਫ਼ਰਤ ਭਰਿਆ ਭਾਸ਼ਣ',
+      'abuse': 'ਅਪਮਾਨਜਨਕ ਸਮੱਗਰੀ / ਹਿੰਸਾ',
+      'spam': 'ਸਪੈਮ / ਘੁਟਾਲੇ / ਧੋਖਾਧੜੀ',
+      'impersonation': 'ਰੂਪ ਬਦਲਣਾ / ਜਾਅਲੀ ਖਾਤੇ',
+      'illegal': 'ਗੈਰ-ਕਾਨੂੰਨੀ ਗਤੀਵਿਧੀਆਂ',
+      'selfharm': 'ਆਤਮ-ਹੱਤਿਆ / ਖੁਦਕੁਸ਼ੀ / ਮਾਨਸਿਕ ਸਿਹਤ',
+      'misuse': 'ਪਲੇਟਫਾਰਮ ਦੀ ਦੁਰਵਰਤੋਂ',
+      'other': 'ਹੋਰ',
+    });
+    return '$_temp0';
   }
 
   @override
@@ -1275,7 +1303,8 @@ class AppLocalizationsPa extends AppLocalizations {
   String get fillAllFields => 'ਸਾਰੇ ਖੇਤਰ ਭਰੋ';
 
   @override
-  String get noRecordingError => 'ਕੋਈ ਰਿਕਾਰਡਿੰਗ ਗਲਤੀ ਨਹੀਂ';
+  String get noRecordingError =>
+      'ਤੁਸੀਂ ਇਸ ਅਧਿਆਇ ਲਈ ਕੁਝ ਵੀ ਰਿਕਾਰਡ ਨਹੀਂ ਕੀਤਾ। ਕਿਰਪਾ ਕਰਕੇ ਰੂਮ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕਰੋ';
 
   @override
   String get deleteMessageTitle => 'ਸੁਨੇਹਾ ਹਟਾਓ';

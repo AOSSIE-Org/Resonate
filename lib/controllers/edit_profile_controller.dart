@@ -23,7 +23,7 @@ class EditProfileController extends GetxController {
 
   final ThemeController themeController;
   late final Storage storage;
-  late final Databases databases;
+  late final TablesDB tables;
 
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
@@ -45,12 +45,12 @@ class EditProfileController extends GetxController {
     ThemeController? themeController,
     AuthStateController? authStateController,
     Storage? storage,
-    Databases? databases,
+    TablesDB? tables,
   }) : themeController = themeController ?? Get.find<ThemeController>(),
        authStateController =
            authStateController ?? Get.find<AuthStateController>(),
        storage = storage ?? AppwriteService.getStorage(),
-       databases = databases ?? AppwriteService.getDatabases();
+       tables = tables ?? AppwriteService.getTables();
 
   @override
   void onInit() {
@@ -158,10 +158,10 @@ class EditProfileController extends GetxController {
 
   Future<bool> isUsernameAvailable(String username) async {
     try {
-      await databases.getDocument(
+      await tables.getRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: username,
+        tableId: usernameTableID,
+        rowId: username,
       );
       return false;
     } catch (e) {
@@ -234,10 +234,10 @@ class EditProfileController extends GetxController {
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
 
         // Update user profile picture URL in Database
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {
             "profileImageUrl": imageController.text,
             "profileImageID": uniqueIdForProfileImage,
@@ -249,10 +249,10 @@ class EditProfileController extends GetxController {
         imageController.text = "";
 
         // Update user profile picture URL in Database
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {"profileImageUrl": imageController.text},
         );
       }
@@ -278,28 +278,28 @@ class EditProfileController extends GetxController {
         }
 
         // Create new doc of New Username
-        await databases.createDocument(
+        await tables.createRow(
           databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: usernameController.text.trim(),
+          tableId: usernameTableID,
+          rowId: usernameController.text.trim(),
           data: {'email': authStateController.email},
         );
 
         try {
           // Delete Old Username doc, so Username can be re-usable
-          await databases.deleteDocument(
+          await tables.deleteRow(
             databaseId: userDatabaseID,
-            collectionId: usernameCollectionID,
-            documentId: oldUsername,
+            tableId: usernameTableID,
+            rowId: oldUsername,
           );
         } catch (e) {
           log(e.toString());
         }
 
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {"username": usernameController.text.trim()},
         );
       }
@@ -311,10 +311,10 @@ class EditProfileController extends GetxController {
           name: nameController.text.trim(),
         );
 
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {"name": nameController.text.trim()},
         );
       }

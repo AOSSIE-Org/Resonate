@@ -23,7 +23,7 @@ class RoomChatController extends GetxController {
   final Functions functions = AppwriteService.getFunctions();
   final AppwriteUpcommingRoom? appwriteUpcommingRoom;
   final Realtime realtime = AppwriteService.getRealtime();
-  final Databases databases = AppwriteService.getDatabases();
+  final TablesDB tablesDB = AppwriteService.getTables();
   late final RealtimeSubscription? subscription;
   Rx<ReplyTo?> replyingTo = Rxn<ReplyTo>();
   final NotificationDetails notificationDetails = NotificationDetails(
@@ -53,10 +53,10 @@ class RoomChatController extends GetxController {
       );
       messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
 
-      await databases.updateDocument(
+      await tablesDB.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: chatMessagesCollectionId,
-        documentId: messageId,
+        tableId: chatMessagesTableId,
+        rowId: messageId,
         data: messageToDelete.toJsonForUpload(),
       );
       log('Message deleted successfully');
@@ -74,17 +74,17 @@ class RoomChatController extends GetxController {
       Query.limit(100),
     ];
     ReplyTo? replyTo;
-    DocumentList messagesList = await databases.listDocuments(
+    RowList messagesList = await tablesDB.listRows(
       databaseId: masterDatabaseId,
-      collectionId: chatMessagesCollectionId,
+      tableId: chatMessagesTableId,
       queries: queries,
     );
-    for (Document message in messagesList.documents) {
+    for (Row message in messagesList.rows) {
       try {
-        Document replyToDoc = await databases.getDocument(
+        Row replyToDoc = await tablesDB.getRow(
           databaseId: masterDatabaseId,
-          collectionId: chatMessageReplyCollectionId,
-          documentId: message.$id,
+          tableId: chatMessageReplyTableId,
+          rowId: message.$id,
         );
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
@@ -123,18 +123,18 @@ class RoomChatController extends GetxController {
         isDeleted: false,
       );
 
-      await databases.createDocument(
+      await tablesDB.createRow(
         databaseId: masterDatabaseId,
-        collectionId: chatMessagesCollectionId,
-        documentId: messageId,
+        tableId: chatMessagesTableId,
+        rowId: messageId,
         data: message.toJsonForUpload(),
       );
 
       if (replyingTo.value != null) {
-        await databases.createDocument(
+        await tablesDB.createRow(
           databaseId: masterDatabaseId,
-          collectionId: chatMessageReplyCollectionId,
-          documentId: messageId,
+          tableId: chatMessageReplyTableId,
+          rowId: messageId,
           data: replyingTo.value!.toJson(),
         );
       }
@@ -175,10 +175,10 @@ class RoomChatController extends GetxController {
     );
 
     try {
-      await databases.updateDocument(
+      await tablesDB.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: chatMessagesCollectionId,
-        documentId: messageId,
+        tableId: chatMessagesTableId,
+        rowId: messageId,
         data: updatedMessage.toJsonForUpload(),
       );
       if (appwriteUpcommingRoom != null) {
@@ -221,7 +221,7 @@ class RoomChatController extends GetxController {
   void subscribeToMessages() {
     try {
       String channel =
-          'databases.$masterDatabaseId.collections.$chatMessagesCollectionId.documents';
+          'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
       subscription = realtime.subscribe([channel]);
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {
@@ -236,10 +236,10 @@ class RoomChatController extends GetxController {
               Message newMessage = Message.fromJson(data.payload);
               ReplyTo? replyTo;
               try {
-                Document replyToDoc = await databases.getDocument(
+                Row replyToDoc = await tablesDB.getRow(
                   databaseId: masterDatabaseId,
-                  collectionId: chatMessageReplyCollectionId,
-                  documentId: newMessage.messageId,
+                  tableId: chatMessageReplyTableId,
+                  rowId: newMessage.messageId,
                 );
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
