@@ -18,6 +18,7 @@
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
+├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── CSAE_STANDARDS.md
@@ -273,7 +274,9 @@
 │   │   ├── app_localizations_hi.dart
 │   │   ├── app_localizations_kn.dart
 │   │   ├── app_localizations_mr.dart
-│   │   └── app_mr.arb
+│   │   ├── app_localizations_pa.dart
+│   │   ├── app_mr.arb
+│   │   └── app_pa.arb
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -451,4 +454,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 372 files
+80 directories, 375 files

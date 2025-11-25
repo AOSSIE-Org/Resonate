@@ -50,13 +50,13 @@ class _FakeTransaction_2 extends _i1.SmartFake implements _i3.Transaction {
     : super(parent, parentInvocation);
 }
 
-class _FakeDocumentList_3 extends _i1.SmartFake implements _i3.DocumentList {
-  _FakeDocumentList_3(Object parent, Invocation parentInvocation)
+class _FakeRowList_3 extends _i1.SmartFake implements _i3.RowList {
+  _FakeRowList_3(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeDocument_4 extends _i1.SmartFake implements _i3.Document {
-  _FakeDocument_4(Object parent, Invocation parentInvocation)
+class _FakeRow_4 extends _i1.SmartFake implements _i3.Row {
+  _FakeRow_4(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -142,21 +142,11 @@ class _FakeNotificationSettings_20 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeExecutionList_21 extends _i1.SmartFake implements _i3.ExecutionList {
-  _FakeExecutionList_21(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeExecution_22 extends _i1.SmartFake implements _i3.Execution {
-  _FakeExecution_22(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-/// A class which mocks [Databases].
+/// A class which mocks [TablesDB].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabases extends _i1.Mock implements _i7.Databases {
-  MockDatabases() {
+class MockTablesDB extends _i1.Mock implements _i7.TablesDB {
+  MockTablesDB() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -271,27 +261,27 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
           as _i8.Future<_i3.Transaction>);
 
   @override
-  _i8.Future<_i3.DocumentList> listDocuments({
+  _i8.Future<_i3.RowList> listRows({
     required String? databaseId,
-    required String? collectionId,
+    required String? tableId,
     List<String>? queries,
     String? transactionId,
     bool? total,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#listDocuments, [], {
+            Invocation.method(#listRows, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
+              #tableId: tableId,
               #queries: queries,
               #transactionId: transactionId,
               #total: total,
             }),
-            returnValue: _i8.Future<_i3.DocumentList>.value(
-              _FakeDocumentList_3(
+            returnValue: _i8.Future<_i3.RowList>.value(
+              _FakeRowList_3(
                 this,
-                Invocation.method(#listDocuments, [], {
+                Invocation.method(#listRows, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
+                  #tableId: tableId,
                   #queries: queries,
                   #transactionId: transactionId,
                   #total: total,
@@ -299,33 +289,33 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
               ),
             ),
           )
-          as _i8.Future<_i3.DocumentList>);
+          as _i8.Future<_i3.RowList>);
 
   @override
-  _i8.Future<_i3.Document> createDocument({
+  _i8.Future<_i3.Row> createRow({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
+    required String? tableId,
+    required String? rowId,
     required Map<dynamic, dynamic>? data,
     List<String>? permissions,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#createDocument, [], {
+            Invocation.method(#createRow, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
+              #tableId: tableId,
+              #rowId: rowId,
               #data: data,
               #permissions: permissions,
               #transactionId: transactionId,
             }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
                 this,
-                Invocation.method(#createDocument, [], {
+                Invocation.method(#createRow, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
+                  #tableId: tableId,
+                  #rowId: rowId,
                   #data: data,
                   #permissions: permissions,
                   #transactionId: transactionId,
@@ -333,98 +323,64 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
               ),
             ),
           )
-          as _i8.Future<_i3.Document>);
+          as _i8.Future<_i3.Row>);
 
   @override
-  _i8.Future<_i3.Document> getDocument({
+  _i8.Future<_i3.Row> getRow({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
+    required String? tableId,
+    required String? rowId,
     List<String>? queries,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#getDocument, [], {
+            Invocation.method(#getRow, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
+              #tableId: tableId,
+              #rowId: rowId,
               #queries: queries,
               #transactionId: transactionId,
             }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
                 this,
-                Invocation.method(#getDocument, [], {
+                Invocation.method(#getRow, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
+                  #tableId: tableId,
+                  #rowId: rowId,
                   #queries: queries,
                   #transactionId: transactionId,
                 }),
               ),
             ),
           )
-          as _i8.Future<_i3.Document>);
+          as _i8.Future<_i3.Row>);
 
   @override
-  _i8.Future<_i3.Document> upsertDocument({
+  _i8.Future<_i3.Row> upsertRow({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required Map<dynamic, dynamic>? data,
-    List<String>? permissions,
-    String? transactionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#upsertDocument, [], {
-              #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #data: data,
-              #permissions: permissions,
-              #transactionId: transactionId,
-            }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
-                this,
-                Invocation.method(#upsertDocument, [], {
-                  #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #data: data,
-                  #permissions: permissions,
-                  #transactionId: transactionId,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.Document>);
-
-  @override
-  _i8.Future<_i3.Document> updateDocument({
-    required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
+    required String? tableId,
+    required String? rowId,
     Map<dynamic, dynamic>? data,
     List<String>? permissions,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#updateDocument, [], {
+            Invocation.method(#upsertRow, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
+              #tableId: tableId,
+              #rowId: rowId,
               #data: data,
               #permissions: permissions,
               #transactionId: transactionId,
             }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
                 this,
-                Invocation.method(#updateDocument, [], {
+                Invocation.method(#upsertRow, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
+                  #tableId: tableId,
+                  #rowId: rowId,
                   #data: data,
                   #permissions: permissions,
                   #transactionId: transactionId,
@@ -432,20 +388,54 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
               ),
             ),
           )
-          as _i8.Future<_i3.Document>);
+          as _i8.Future<_i3.Row>);
 
   @override
-  _i8.Future<dynamic> deleteDocument({
+  _i8.Future<_i3.Row> updateRow({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
+    required String? tableId,
+    required String? rowId,
+    Map<dynamic, dynamic>? data,
+    List<String>? permissions,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#deleteDocument, [], {
+            Invocation.method(#updateRow, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
+              #tableId: tableId,
+              #rowId: rowId,
+              #data: data,
+              #permissions: permissions,
+              #transactionId: transactionId,
+            }),
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
+                this,
+                Invocation.method(#updateRow, [], {
+                  #databaseId: databaseId,
+                  #tableId: tableId,
+                  #rowId: rowId,
+                  #data: data,
+                  #permissions: permissions,
+                  #transactionId: transactionId,
+                }),
+              ),
+            ),
+          )
+          as _i8.Future<_i3.Row>);
+
+  @override
+  _i8.Future<dynamic> deleteRow({
+    required String? databaseId,
+    required String? tableId,
+    required String? rowId,
+    String? transactionId,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteRow, [], {
+              #databaseId: databaseId,
+              #tableId: tableId,
+              #rowId: rowId,
               #transactionId: transactionId,
             }),
             returnValue: _i8.Future<dynamic>.value(),
@@ -453,33 +443,33 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
           as _i8.Future<dynamic>);
 
   @override
-  _i8.Future<_i3.Document> decrementDocumentAttribute({
+  _i8.Future<_i3.Row> decrementRowColumn({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required String? attribute,
+    required String? tableId,
+    required String? rowId,
+    required String? column,
     double? value,
     double? min,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#decrementDocumentAttribute, [], {
+            Invocation.method(#decrementRowColumn, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #attribute: attribute,
+              #tableId: tableId,
+              #rowId: rowId,
+              #column: column,
               #value: value,
               #min: min,
               #transactionId: transactionId,
             }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
                 this,
-                Invocation.method(#decrementDocumentAttribute, [], {
+                Invocation.method(#decrementRowColumn, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #attribute: attribute,
+                  #tableId: tableId,
+                  #rowId: rowId,
+                  #column: column,
                   #value: value,
                   #min: min,
                   #transactionId: transactionId,
@@ -487,36 +477,36 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
               ),
             ),
           )
-          as _i8.Future<_i3.Document>);
+          as _i8.Future<_i3.Row>);
 
   @override
-  _i8.Future<_i3.Document> incrementDocumentAttribute({
+  _i8.Future<_i3.Row> incrementRowColumn({
     required String? databaseId,
-    required String? collectionId,
-    required String? documentId,
-    required String? attribute,
+    required String? tableId,
+    required String? rowId,
+    required String? column,
     double? value,
     double? max,
     String? transactionId,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#incrementDocumentAttribute, [], {
+            Invocation.method(#incrementRowColumn, [], {
               #databaseId: databaseId,
-              #collectionId: collectionId,
-              #documentId: documentId,
-              #attribute: attribute,
+              #tableId: tableId,
+              #rowId: rowId,
+              #column: column,
               #value: value,
               #max: max,
               #transactionId: transactionId,
             }),
-            returnValue: _i8.Future<_i3.Document>.value(
-              _FakeDocument_4(
+            returnValue: _i8.Future<_i3.Row>.value(
+              _FakeRow_4(
                 this,
-                Invocation.method(#incrementDocumentAttribute, [], {
+                Invocation.method(#incrementRowColumn, [], {
                   #databaseId: databaseId,
-                  #collectionId: collectionId,
-                  #documentId: documentId,
-                  #attribute: attribute,
+                  #tableId: tableId,
+                  #rowId: rowId,
+                  #column: column,
                   #value: value,
                   #max: max,
                   #transactionId: transactionId,
@@ -524,7 +514,7 @@ class MockDatabases extends _i1.Mock implements _i7.Databases {
               ),
             ),
           )
-          as _i8.Future<_i3.Document>);
+          as _i8.Future<_i3.Row>);
 }
 
 /// A class which mocks [Account].
@@ -1916,105 +1906,4 @@ class MockFirebaseMessaging extends _i1.Mock implements _i13.FirebaseMessaging {
             returnValueForMissingStub: _i8.Future<void>.value(),
           )
           as _i8.Future<void>);
-}
-
-/// A class which mocks [Functions].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFunctions extends _i1.Mock implements _i7.Functions {
-  MockFunctions() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.Client get client =>
-      (super.noSuchMethod(
-            Invocation.getter(#client),
-            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
-          )
-          as _i2.Client);
-
-  @override
-  _i8.Future<_i3.ExecutionList> listExecutions({
-    required String? functionId,
-    List<String>? queries,
-    bool? total,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#listExecutions, [], {
-              #functionId: functionId,
-              #queries: queries,
-              #total: total,
-            }),
-            returnValue: _i8.Future<_i3.ExecutionList>.value(
-              _FakeExecutionList_21(
-                this,
-                Invocation.method(#listExecutions, [], {
-                  #functionId: functionId,
-                  #queries: queries,
-                  #total: total,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.ExecutionList>);
-
-  @override
-  _i8.Future<_i3.Execution> createExecution({
-    required String? functionId,
-    String? body,
-    bool? xasync,
-    String? path,
-    _i9.ExecutionMethod? method,
-    Map<dynamic, dynamic>? headers,
-    String? scheduledAt,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#createExecution, [], {
-              #functionId: functionId,
-              #body: body,
-              #xasync: xasync,
-              #path: path,
-              #method: method,
-              #headers: headers,
-              #scheduledAt: scheduledAt,
-            }),
-            returnValue: _i8.Future<_i3.Execution>.value(
-              _FakeExecution_22(
-                this,
-                Invocation.method(#createExecution, [], {
-                  #functionId: functionId,
-                  #body: body,
-                  #xasync: xasync,
-                  #path: path,
-                  #method: method,
-                  #headers: headers,
-                  #scheduledAt: scheduledAt,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.Execution>);
-
-  @override
-  _i8.Future<_i3.Execution> getExecution({
-    required String? functionId,
-    required String? executionId,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getExecution, [], {
-              #functionId: functionId,
-              #executionId: executionId,
-            }),
-            returnValue: _i8.Future<_i3.Execution>.value(
-              _FakeExecution_22(
-                this,
-                Invocation.method(#getExecution, [], {
-                  #functionId: functionId,
-                  #executionId: executionId,
-                }),
-              ),
-            ),
-          )
-          as _i8.Future<_i3.Execution>);
 }
