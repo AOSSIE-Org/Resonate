@@ -6,11 +6,20 @@ on:
       - master
       - deploy-actions
   workflow_dispatch:
+    inputs:
+      selected_runner:
+        description: 'Select runner'          
+        required: true                        
+        default: 'ubuntu-latest'              
+        type: choice                          
+        options:                              
+          - ubuntu-latest
+          - ubuntu-22.04-large
 
 jobs:
   build_android:
     name: Build Android APK
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.selected_runner || 'ubuntu-latest' }}
     env:
       JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
