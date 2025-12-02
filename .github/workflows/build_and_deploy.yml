@@ -27,20 +27,6 @@ jobs:
       - name: Show disk usage before cleanup
         run: df -h /
 
-      - name: Free disk space on runner
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          android: true
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Show disk usage after cleanup
-        run: df -h /
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -63,6 +49,9 @@ jobs:
           rm -rf ~/.gradle/caches
           rm -rf ~/.gradle/daemon
           rm -rf ~/.android/build-cache
+
+      - name: Show disk usage after cleanup
+        run: df -h /
 
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
