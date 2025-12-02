@@ -116,6 +116,6 @@ jobs:
         with:
           allowUpdates: true
           artifacts: ${{ env.APK_RELEASE_PATH }}
-          artifactContentType: application/vnd.android.package-archive
+          artifactContentType: apk
           generateReleaseNotes: true
           tag: latest_build
