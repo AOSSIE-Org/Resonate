@@ -27,6 +27,20 @@ jobs:
       - name: Show disk usage before cleanup
         run: df -h /
 
+      - name: Free disk space on runner
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          android: false
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - name: Show disk usage after cleanup
+        run: df -h /
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -40,8 +54,9 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
 
-      - name: Clean previous build and caches
+      - name: Clean Flutter project
         run: |
           flutter clean
           rm -rf build
