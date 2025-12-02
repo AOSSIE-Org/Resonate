@@ -108,15 +108,16 @@ jobs:
     permissions:
       contents: write
     env:
-      APK_RELEASE_PATH: apk-release/app-release.apk
+      APK_RELEASE_PATH: apk-release/*.apk
     steps:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
           name: apk-release
+          path : apk-release
 
       - name: Deploy to GitHub Release
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v2
         with:
           allowUpdates: true
           artifacts: ${{ env.APK_RELEASE_PATH }}
