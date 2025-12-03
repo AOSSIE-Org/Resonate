@@ -117,7 +117,7 @@ jobs:
           path : apk-release
 
       - name: Deploy to GitHub Release
-        uses: ncipollo/release-action@v2
+        uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           artifacts: ${{ env.APK_RELEASE_PATH }}
