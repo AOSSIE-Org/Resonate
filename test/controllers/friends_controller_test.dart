@@ -13,7 +13,7 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 
 import 'friends_controller_test.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging, Functions])
+@GenerateMocks([TablesDB, Functions, FirebaseMessaging, Account, Client])
 @GenerateNiceMocks([MockSpec<Realtime>()])
 final List<FriendsModel> mockFriendModelList = [
   FriendsModel(
@@ -69,10 +69,10 @@ final List<FriendsModel> mockFriendModelList = [
     senderFCMToken: 'testToken5',
   ),
 ];
-final List<Document> mockFriendDocuments = [
-  Document(
+final List<Row> mockFriendRows = [
+  Row(
     $id: 'doc1',
-    $collectionId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -84,9 +84,9 @@ final List<Document> mockFriendDocuments = [
     data: mockFriendModelList[0].toJson(),
     $sequence: 0,
   ),
-  Document(
+  Row(
     $id: 'doc2',
-    $collectionId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -98,10 +98,9 @@ final List<Document> mockFriendDocuments = [
     data: mockFriendModelList[1].toJson(),
     $sequence: 1,
   ),
-
-  Document(
+  Row(
     $id: 'doc4',
-    $collectionId: friendsCollectionID,
+    $tableId: friendsTableID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -114,9 +113,9 @@ final List<Document> mockFriendDocuments = [
     $sequence: 2,
   ),
 ];
-final Document mockUserDocument = Document(
+final Row mockUserRow = Row(
   $id: 'doc1',
-  $collectionId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -132,9 +131,9 @@ final Document mockUserDocument = Document(
     'ratingTotal': 25,
     'followers': [],
     'friends': [
-      {"\$id": 'doc1', ...mockFriendDocuments[0].data},
-      {"\$id": 'doc2', ...mockFriendDocuments[1].data},
-      {"\$id": 'doc4', ...mockFriendDocuments[2].data},
+      {"\$id": 'doc1', ...mockFriendRows[0].data},
+      {"\$id": 'doc2', ...mockFriendRows[1].data},
+      {"\$id": 'doc4', ...mockFriendRows[2].data},
     ],
   },
   $sequence: 0,
@@ -177,9 +176,9 @@ final FriendsModel mockSentFriendRequest = FriendsModel(
   users: ['id2', 'id4'],
   senderFCMToken: 'testToken2',
 );
-final Document mockSentFriendRequestDocument = Document(
+final Row mockSentFriendRequestRow = Row(
   $id: 'doc3',
-  $collectionId: friendsCollectionID,
+  $tableId: friendsTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -193,25 +192,24 @@ final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(
 );
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  late MockDatabases databases;
+  late MockTablesDB tables;
   late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
   late FriendsController friendsController;
 
   setUp(() {
     Get.testMode = true;
-    databases = MockDatabases();
+    tables = MockTablesDB();
     mockAccount = MockAccount();
     mockFirebaseMessaging = MockFirebaseMessaging();
     friendsController = FriendsController(
       authStateController: AuthStateController(
         account: mockAccount,
         client: MockClient(),
-        databases: databases,
+        tables: tables,
         messaging: mockFirebaseMessaging,
       ),
-      databases: databases,
+      tables: tables,
       firebaseMessaging: mockFirebaseMessaging,
       functions: MockFunctions(),
       realtime: MockRealtime(),
@@ -220,47 +218,45 @@ void main() {
     friendsController.authStateController.uid = 'id2';
 
     when(
-      databases.getDocument(
+      tables.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: 'id2',
+        tableId: usersTableID,
+        rowId: 'id2',
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockUserDocument),
+      (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),
     );
     when(
-      databases.createDocument(
+      tables.createRow(
         databaseId: userDatabaseID,
-        collectionId: friendsCollectionID,
-        documentId: anyNamed('documentId'),
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
         data: mockSentFriendRequest.toJson(),
       ),
     ).thenAnswer(
-      (_) => Future.delayed(
-        Duration(seconds: 2),
-        () => mockSentFriendRequestDocument,
-      ),
+      (_) =>
+          Future.delayed(Duration(seconds: 2), () => mockSentFriendRequestRow),
     );
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
     when(
       mockFirebaseMessaging.getToken(),
     ).thenAnswer((_) => Future.value('testToken2'));
     when(
-      databases.deleteDocument(
+      tables.deleteRow(
         databaseId: userDatabaseID,
-        collectionId: friendsCollectionID,
-        documentId: anyNamed('documentId'),
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
       ),
     ).thenAnswer((_) => Future.delayed(Duration(seconds: 0)));
     when(
-      databases.updateDocument(
+      tables.updateRow(
         databaseId: userDatabaseID,
-        collectionId: friendsCollectionID,
-        documentId: anyNamed('documentId'),
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
         data: mockAcceptedRequestModel.toJson(),
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockFriendDocuments[2]),
+      (_) => Future.delayed(Duration(seconds: 2), () => mockFriendRows[2]),
     );
   });
 
