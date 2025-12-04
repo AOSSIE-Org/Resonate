@@ -9,8 +9,9 @@ import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 
 class LiveKitController extends GetxController {
-  late final Room liveKitRoom;
-  late final EventsListener<RoomEvent> listener;
+  Room? liveKitRoom;
+  EventsListener<RoomEvent>? listener;
+
   final String liveKitUri;
   final String roomToken;
   final int maxAttempts; // Configurable max retry attempts
@@ -31,15 +32,29 @@ class LiveKitController extends GetxController {
   });
 
   @override
-  void onInit() async {
-    await connectToRoom(); // Initial connection with retries
-    liveKitRoom.addListener(onRoomDidUpdate);
-    setUpListeners();
-    if (isLiveChapter) {
-      listenToRecordingStateChanges();
-    }
-    super.onInit();
+  void onInit() {
+    super.onInit();          // MUST be first
+    _initLiveKitSafe();      // Safe async init
   }
+
+  Future<void> _initLiveKitSafe() async {
+    final success = await connectToRoom();
+
+    if (success && liveKitRoom != null) {
+      liveKitRoom!.addListener(onRoomDidUpdate);
+      setUpListeners();
+
+      if (isLiveChapter) {
+        listenToRecordingStateChanges();
+      }
+    } else {
+      Get.snackbar(
+        AppLocalizations.of(Get.context!)!.connectionFailed,
+        AppLocalizations.of(Get.context!)!.unableToJoinRoom,
+      );
+    }
+  }
+
 
   void listenToRecordingStateChanges() async {
     final storagePath = await getApplicationDocumentsDirectory();
@@ -49,13 +64,13 @@ class LiveKitController extends GetxController {
 
         log('Local track published: ${storagePath.path}');
         await mediaRecorder.start(
-          '${storagePath.path}/recordings/${liveKitRoom.name}.mp4',
+          '${storagePath.path}/recordings/${liveKitRoom?.name ?? "recording"}.mp4',
           audioChannel: RecorderAudioChannel.INPUT,
         );
       } else {
         await mediaRecorder.stop();
         log(
-          'Recording stopped, file saved to: $storagePath/${liveKitRoom.name}.mp4',
+          'Recording stopped, file saved to: ${storagePath.path}/${liveKitRoom?.name ?? "recording"}.mp4',
         );
       }
     });
@@ -65,9 +80,10 @@ class LiveKitController extends GetxController {
   void onClose() async {
     reconnectTimer?.cancel();
     (() async {
-      liveKitRoom.removeListener(onRoomDidUpdate);
-      await listener.dispose();
-      await liveKitRoom.dispose();
+      liveKitRoom?.removeListener(onRoomDidUpdate);
+      await listener?.dispose();
+      await liveKitRoom?.dispose();
+
     })();
     super.onClose();
   }
@@ -85,9 +101,10 @@ class LiveKitController extends GetxController {
             defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
           ),
         );
-        listener = liveKitRoom.createListener();
+        // use non-null assertion because liveKitRoom was just created above
+        listener = liveKitRoom!.createListener();
 
-        await liveKitRoom.connect(
+        await liveKitRoom!.connect(
           liveKitUri,
           roomToken,
           connectOptions: const ConnectOptions(autoSubscribe: true),
@@ -151,7 +168,8 @@ class LiveKitController extends GetxController {
   }
 
   void setUpListeners() => listener
-    ..on<RoomDisconnectedEvent>((event) async {
+    ?..on<RoomDisconnectedEvent>((event) async {
+
       if (event.reason != null) {
         log('Room disconnected: reason => ${event.reason}');
         await handleDisconnection();
@@ -165,12 +183,12 @@ class LiveKitController extends GetxController {
         });
       }
     })
-    ..on<RoomMetadataChangedEvent>((event) {
+    ?..on<RoomMetadataChangedEvent>((event) {
       if (event.metadata == "disconnected") {
         handleDisconnection();
       }
     })
-    ..on<RoomRecordingStatusChanged>((event) {
+    ?..on<RoomRecordingStatusChanged>((event) {
       // context.showRecordingStatusChangedDialog(event.activeRecording);
 
       log('Recording status changed: ${event.activeRecording}');
