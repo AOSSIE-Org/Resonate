@@ -110,6 +110,36 @@ jobs:
     env:
       APK_RELEASE_PATH: apk-release/*.apk
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse Build Tag & Release Notes from CHANGELOG.md
+        id: parse_changelog
+        run: |
+          echo "Parsing CHANGELOG.md"
+
+          awk '
+            BEGIN {found=0}
+            /^##[[:space:]]*\[?v?[0-9]+\.[0-9]+\.[0-9]+.*\]?/ && found==0 {
+              line=$0
+              gsub(/^##[[:space:]]*/, "", line)
+              sub(/[[:space:]]+-[[:space:]]*.*$/, "", line)
+              gsub(/^\[|\]$/, "", line)
+              tag=line
+              if (tag !~ /^v/) tag = "v" tag
+              found=1
+              next
+            }
+            found==1 {
+              if (/^##[[:space:]]+/) exit
+              notes = notes $0 "\n"
+            }
+            END {
+              printf("build_tag=%s\n", tag)
+              printf("release_notes<<EOF\n%s\nEOF\n", notes)
+            }
+          ' CHANGELOG.md >> $GITHUB_OUTPUT
+
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
@@ -122,5 +152,5 @@ jobs:
           allowUpdates: true
           artifacts: ${{ env.APK_RELEASE_PATH }}
           artifactContentType: apk
-          generateReleaseNotes: true
-          tag: latest_build
+          tag: ${{ steps.parse_changelog.outputs.build_tag }}
+          body: ${{ steps.parse_changelog.outputs.release_notes }}
