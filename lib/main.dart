@@ -59,7 +59,7 @@ Future<void> main() async {
   await GetStorage.init();
   Get.put(AboutAppScreenController());
   languageLocale =
-      await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
+      await FlutterSecureStorage().read(key: "languageLocale") ?? "bn";
   final String? savedModel = await FlutterSecureStorage().read(
     key: "whisperModel",
   );
