@@ -118,7 +118,7 @@ class LiveChapterController extends GetxController {
           'payload': {
             'title': 'Live Chapter Starting!',
             'body':
-                "${authStateController.displayName} is starting a Live Chapter in ${storyName}: ${liveChapterData.chapterTitle}. Tune In!",
+                "${authStateController.displayName} is starting a Live Chapter in $storyName: ${liveChapterData.chapterTitle}. Tune In!",
           },
         });
         var results = await functions.createExecution(
