@@ -9,753 +9,760 @@ class AppLocalizationsBn extends AppLocalizations {
   AppLocalizationsBn([String locale = 'bn']) : super(locale);
 
   @override
-  String get title => 'Resonate';
+  String get title => 'রেজনেট';
 
   @override
   String get roomDescription =>
-      'Be polite and respect the other person\'s opinion. Avoid rude comments.';
+      'ভদ্রতা বজায় রাখুন এবং অন্য ব্যক্তির মতামতকে সম্মান করুন। অভদ্র মন্তব্য এড়িয়ে চলুন।';
 
   @override
-  String get hidePassword => 'Hide Password';
+  String get hidePassword => 'পাসওয়ার্ড লুকান';
 
   @override
-  String get showPassword => 'Show Password';
+  String get showPassword => 'পাসওয়ার্ড দেখান';
 
   @override
-  String get passwordEmpty => 'Password cannot be empty';
+  String get passwordEmpty => 'পাসওয়ার্ড খালি হতে পারে না';
 
   @override
-  String get password => 'Password';
+  String get password => 'পাসওয়ার্ড';
 
   @override
-  String get confirmPassword => 'Confirm Password';
+  String get confirmPassword => 'পাসওয়ার্ড নিশ্চিত করুন';
 
   @override
-  String get passwordsNotMatch => 'Passwords do not match';
+  String get passwordsNotMatch => 'পাসওয়ার্ড মিলছে না';
 
   @override
-  String get userCreatedStories => 'User Created Stories';
+  String get userCreatedStories => 'ইউজার দ্বারা তৈরি গল্প';
 
   @override
-  String get yourStories => 'Your Stories';
+  String get yourStories => 'আপনার গল্প';
 
   @override
-  String get userNoStories => 'User has not created any story';
+  String get userNoStories => 'ইউজার কোনও গল্প তৈরি করেনি';
 
   @override
-  String get youNoStories => 'You have not created any story';
+  String get youNoStories => 'আপনি কোন গল্প তৈরি করেননি';
 
   @override
-  String get follow => 'Follow';
+  String get follow => 'ফলো করুন';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get editProfile => 'প্রোফাইল সম্পাদনা করুন';
 
   @override
-  String get verifyEmail => 'Verify Email';
+  String get verifyEmail => 'ইমেইল যাচাই করুন';
 
   @override
-  String get verified => 'Verified';
+  String get verified => 'ইমেইল যাচাই করা হয়েছে';
 
   @override
-  String get profile => 'Profile';
+  String get profile => 'প্রোফাইল';
 
   @override
-  String get userLikedStories => 'User Liked Stories';
+  String get userLikedStories => 'ইউজারের পছন্দের গল্পগুলো';
 
   @override
-  String get yourLikedStories => 'Your Liked Stories';
+  String get yourLikedStories => 'আপনার পছন্দের গল্পগুলো';
 
   @override
-  String get userNoLikedStories => 'User has not liked any story';
+  String get userNoLikedStories => 'ইউজার কোনও গল্প পছন্দ করেনি';
 
   @override
-  String get youNoLikedStories => 'You have not liked any story';
+  String get youNoLikedStories => 'আপনি কোন গল্প পছন্দ করেননি';
 
   @override
-  String get live => 'Live';
+  String get live => 'লাইভ';
 
   @override
-  String get upcoming => 'Upcoming';
+  String get upcoming => 'আসন্ন';
 
   @override
   String noAvailableRoom(String isRoom) {
     String _temp0 = intl.Intl.selectLogic(isRoom, {
-      'true': 'No Room Available',
-      'false': 'No Upcoming Room Available',
-      'other': 'No Room Information Available',
+      'true': 'কোন রুম খালি নেই',
+      'false': 'আসন্ন কোনও রুম খালি নেই',
+      'other': 'রুমের কোনও তথ্য পাওয়া যাচ্ছে না',
     });
-    return '$_temp0\nGet Started By Adding One Below!';
+    return '$_temp0\nনিচে একটি রুম যোগ করে শুরু করুন!';
   }
 
   @override
-  String get user1 => 'User 1';
+  String get user1 => 'ইউজার ১';
 
   @override
-  String get user2 => 'User 2';
+  String get user2 => 'ইউজার ২';
 
   @override
-  String get you => 'You';
+  String get you => 'আপনি';
 
   @override
-  String get areYouSure => 'Are you sure?';
+  String get areYouSure => 'আপনি কি নিশ্চিত?';
 
   @override
-  String get loggingOut => 'You are logging out of Resonate.';
+  String get loggingOut => 'আপনি রেজোনেট থেকে লগ আউট করছেন।';
 
   @override
-  String get yes => 'Yes';
+  String get yes => 'হাঁ';
 
   @override
-  String get no => 'No';
+  String get no => 'না';
 
   @override
-  String get incorrectEmailOrPassword => 'Incorrect email or password';
+  String get incorrectEmailOrPassword => 'ভুল ইমেইল বা পাসওয়ার্ড';
 
   @override
-  String get passwordShort => 'Password is less than 8 characters';
+  String get passwordShort => 'পাসওয়ার্ড ৮ অক্ষরের কম';
 
   @override
-  String get tryAgain => 'Try Again!';
+  String get tryAgain => 'আবার চেষ্টা করুন!';
 
   @override
-  String get success => 'Success';
+  String get success => 'সাফল্য';
 
   @override
-  String get passwordResetSent => 'Password reset email sent!';
+  String get passwordResetSent => 'পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!';
 
   @override
-  String get error => 'Error';
+  String get error => 'ত্রুটি';
 
   @override
-  String get resetPassword => 'Reset Password';
+  String get resetPassword => 'পাসওয়ার্ড রিসেট করুন';
 
   @override
-  String get enterNewPassword => 'Enter your new password';
+  String get enterNewPassword => 'আপনার নতুন পাসওয়ার্ড লিখুন';
 
   @override
-  String get newPassword => 'New Password';
+  String get newPassword => 'নতুন পাসওয়ার্ড';
 
   @override
-  String get setNewPassword => 'Set New Password';
+  String get setNewPassword => 'নতুন পাসওয়ার্ড সেট করুন';
 
   @override
-  String get emailChanged => 'Email Changed';
+  String get emailChanged => 'ইমেইল পরিবর্তন করা হয়েছে';
 
   @override
-  String get emailChangeSuccess => 'Email changed successfully!';
+  String get emailChangeSuccess => 'ইমেইল সফলভাবে পরিবর্তন করা হয়েছে!';
 
   @override
-  String get failed => 'Failed';
+  String get failed => 'ব্যর্থ হয়েছে';
 
   @override
-  String get emailChangeFailed => 'Failed to change email';
+  String get emailChangeFailed => 'ইমেইল পরিবর্তন করতে ব্যর্থ হয়েছে';
 
   @override
-  String get oops => 'Oops!';
+  String get oops => 'ওহো!';
 
   @override
-  String get emailExists => 'Email already exists';
+  String get emailExists => 'ইমেইল ইতিমধ্যেই বিদ্যমান';
 
   @override
-  String get changeEmail => 'Change Email';
+  String get changeEmail => 'ইমেইল পরিবর্তন করুন';
 
   @override
-  String get enterValidEmail => 'Please enter a valid email address';
+  String get enterValidEmail => 'দয়া করে একটি বৈধ ইমেইল ঠিকানা লিখুন';
 
   @override
-  String get newEmail => 'New Email';
+  String get newEmail => 'নতুন ইমেইল';
 
   @override
-  String get currentPassword => 'Current Password';
+  String get currentPassword => 'বর্তমান পাসওয়ার্ড';
 
   @override
   String get emailChangeInfo =>
-      'For added security, you must provide your account\'s current password when changing your email address. After changing your email, use the updated email for future logins.';
+      'অতিরিক্ত নিরাপত্তার জন্য, আপনার ইমেল ঠিকানা পরিবর্তন করার সময় আপনাকে অবশ্যই আপনার অ্যাকাউন্টের বর্তমান পাসওয়ার্ড প্রদান করতে হবে। আপনার ইমেল পরিবর্তন করার পরে, ভবিষ্যতে লগইনের জন্য আপডেট করা ইমেলটি ব্যবহার করুন।';
 
   @override
   String get oauthUsersMessage =>
-      '(Only for users who logged in using Google or Github)';
+      '(শুধুমাত্র Google বা Github ব্যবহার করে লগ ইন করা উজারদের জন্য)';
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'To change your email, please enter a new password in the \"Current Password\" field. Be sure to remember this password, as you\'ll need it for any future email changes. Moving forward, you can log in using Google/GitHub or your new email and password combination.';
+      'যদি আপনি আপনার ইমেল পরিবর্তন করতে চান, \"বর্তমান পাসওয়ার্ড\" ক্ষেত্রে একটি নতুন পাসওয়ার্ড লিখুন। এই পাসওয়ার্ডটি মনে রাখতে ভুলবেন না, কারণ ভবিষ্যতে যেকোনো ইমেল পরিবর্তনের জন্য আপনার এটির প্রয়োজন হবে। ভবিষ্যতে, আপনি Google/GitHub অথবা আপনার নতুন ইমেল এবং পাসওয়ার্ড সংমিশ্রণ ব্যবহার করে লগ ইন করতে পারেন।';
 
   @override
-  String get resonateTagline => 'Enter a world of limitless\nconversations.';
+  String get resonateTagline => 'সীমাহীন এক জগতে প্রবেশ করুন\nকথোপকথন।';
 
   @override
-  String get signInWithEmail => 'Sign in with Email';
+  String get signInWithEmail => 'ইমেল দিয়ে সাইন ইন করুন';
 
   @override
-  String get or => 'Or';
+  String get or => 'অথবা';
 
   @override
-  String get continueWith => 'Continue with';
+  String get continueWith => 'এর মধ্যে যেকোনো একটি দিয়ে সাইন ইন করুন';
 
   @override
-  String get continueWithGoogle => 'Continue with Google';
+  String get continueWithGoogle => 'Google দিয়ে সাইন ইন করুন';
 
   @override
-  String get continueWithGitHub => 'Continue with GitHub';
+  String get continueWithGitHub => 'GitHub দিয়ে সাইন ইন করুন';
 
   @override
-  String get resonateLogo => 'Resonate Logo';
+  String get resonateLogo => 'রেজনেট লোগো';
 
   @override
-  String get iAlreadyHaveAnAccount => 'I already have an account';
+  String get iAlreadyHaveAnAccount => 'আপনার ইতিমধ্যেই একটি অ্যাকাউন্ট আছে';
 
   @override
-  String get createNewAccount => 'Create new account';
+  String get createNewAccount => 'নতুন অ্যাকাউন্ট তৈরি করুন';
 
   @override
-  String get userProfile => 'User profile';
+  String get userProfile => 'ইউসার প্রোফাইল';
 
   @override
-  String get passwordIsStrong => 'Password is strong';
+  String get passwordIsStrong => 'পাসওয়ার্ড শক্তিশালী আছে';
 
   @override
-  String get admin => 'Admin';
+  String get admin => 'অ্যাডমিন';
 
   @override
-  String get moderator => 'Moderator';
+  String get moderator => 'মডারেটর';
 
   @override
-  String get speaker => 'Speaker';
+  String get speaker => 'বক্তা';
 
   @override
-  String get listener => 'Listener';
+  String get listener => 'শ্রোতা';
 
   @override
-  String get removeModerator => 'Remove Moderator';
+  String get removeModerator => 'মডারেটর সরান';
 
   @override
-  String get kickOut => 'Kick Out';
+  String get kickOut => 'কিক আউট';
 
   @override
-  String get addModerator => 'Add Moderator';
+  String get addModerator => 'মডারেটর যোগ করুন';
 
   @override
-  String get addSpeaker => 'Add Speaker';
+  String get addSpeaker => 'বক্তা যোগ করুন';
 
   @override
-  String get makeListener => 'Make Listener';
+  String get makeListener => 'শ্রোতা বানান';
 
   @override
-  String get pairChat => 'Pair Chat';
+  String get pairChat => 'পেয়ার চ্যাট';
 
   @override
-  String get chooseIdentity => 'Choose Identity';
+  String get chooseIdentity => 'পরিচয় নির্বাচন করুন';
 
   @override
-  String get selectLanguage => 'Select Language';
+  String get selectLanguage => 'ভাষা নির্বাচন কর';
 
   @override
-  String get noConnection => 'No Connection';
+  String get noConnection => 'কোন সংযোগ নেই';
 
   @override
-  String get loadingDialog => 'Loading Dialog';
+  String get loadingDialog => 'লোড হচ্ছে...';
 
   @override
-  String get createAccount => 'Create Account';
+  String get createAccount => 'অ্যাকাউন্ট তৈরি করুন';
 
   @override
-  String get enterValidEmailAddress => 'Enter Valid Email Address';
+  String get enterValidEmailAddress => 'বৈধ ইমেইল ঠিকানা লিখুন';
 
   @override
-  String get email => 'Email';
+  String get email => 'ইমেইল';
 
   @override
-  String get passwordRequirements =>
-      'Password must be at least 8 characters long';
+  String get passwordRequirements => 'পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে';
 
   @override
-  String get includeNumericDigit => 'Include at least 1 numeric digit';
+  String get includeNumericDigit =>
+      'অন্তত ১টি সাংখ্যিক সংখ্যা অন্তর্ভুক্ত করুন';
 
   @override
-  String get includeUppercase => 'Include at least 1 uppercase letter';
+  String get includeUppercase => 'অন্তত ১টি বড় হাতের অক্ষর অন্তর্ভুক্ত করুন';
 
   @override
-  String get includeLowercase => 'Include at least 1 lowercase letter';
+  String get includeLowercase => 'অন্তত ১টি ছোট হাতের অক্ষর অন্তর্ভুক্ত করুন';
 
   @override
-  String get includeSymbol => 'Include at least 1 symbol';
+  String get includeSymbol => 'অন্তত ১টি চিহ্ন অন্তর্ভুক্ত করুন';
 
   @override
-  String get signedUpSuccessfully => 'Signed Up Successfully';
+  String get signedUpSuccessfully => 'সফলভাবে সাইন আপ করা হয়েছে';
 
   @override
-  String get newAccountCreated => 'You have successfully created a new account';
+  String get newAccountCreated =>
+      'আপনি সফলভাবে একটি নতুন অ্যাকাউন্ট তৈরি করেছেন';
 
   @override
-  String get signUp => 'Sign up';
+  String get signUp => 'সাইন আপ';
 
   @override
-  String get login => 'Login';
+  String get login => 'লগইন';
 
   @override
-  String get settings => 'Settings';
+  String get settings => 'সেটিংস';
 
   @override
-  String get accountSettings => 'Account settings';
+  String get accountSettings => 'অ্যাকাউন্ট সেটিংস';
 
   @override
-  String get account => 'Account';
+  String get account => 'অ্যাকাউন্ট';
 
   @override
-  String get appSettings => 'App settings';
+  String get appSettings => 'অ্যাপ সেটিংস';
 
   @override
-  String get themes => 'Themes';
+  String get themes => 'থিম';
 
   @override
-  String get about => 'About';
+  String get about => 'রেজোনেট সম্পর্কে';
 
   @override
-  String get other => 'Other';
+  String get other => 'অন্যান্য';
 
   @override
-  String get contribute => 'Contribute';
+  String get contribute => 'অবদান রাখুন';
 
   @override
-  String get appPreferences => 'App Preferences';
+  String get appPreferences => 'অ্যাপ পছন্দসমূহ';
 
   @override
-  String get transcriptionModel => 'Transcription Model';
+  String get transcriptionModel => 'ট্রান্সক্রিপশন মডেল';
 
   @override
   String get transcriptionModelDescription =>
-      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+      'ভয়েস ট্রান্সক্রিপশনের জন্য AI মডেলটি বেছে নিন। বড় মডেলগুলি আরও নির্ভুল কিন্তু ধীর এবং আরও বেশি স্টোরেজ প্রয়োজন।';
 
   @override
-  String get whisperModelTiny => 'Tiny';
+  String get whisperModelTiny => 'টিনি';
 
   @override
-  String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
+  String get whisperModelTinyDescription =>
+      'দ্রুততম, সবচেয়ে কম নির্ভুল (~39 MB)';
 
   @override
-  String get whisperModelBase => 'Base';
+  String get whisperModelBase => 'বেশ';
 
   @override
-  String get whisperModelBaseDescription =>
-      'Balanced speed and accuracy (~74 MB)';
+  String get whisperModelBaseDescription => 'সুষম গতি এবং নির্ভুলতা (~74 MB)';
 
   @override
-  String get whisperModelSmall => 'Small';
+  String get whisperModelSmall => 'স্মল';
 
   @override
-  String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
+  String get whisperModelSmallDescription =>
+      'ভালো নির্ভুলতা, ধীর গতি (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'Medium';
+  String get whisperModelMedium => 'মিডিয়াম';
 
   @override
-  String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
+  String get whisperModelMediumDescription =>
+      'উচ্চ নির্ভুলতা, ধীর গতি (~769 MB)';
 
   @override
-  String get whisperModelLargeV1 => 'Large V1';
+  String get whisperModelLargeV1 => 'লার্জ V1';
 
   @override
   String get whisperModelLargeV1Description =>
-      'Most accurate, slowest (~1.55 GB)';
+      'সবচেয়ে নির্ভুল, সবচেয়ে ধীর (~1.55 GB)';
 
   @override
-  String get whisperModelLargeV2 => 'Large V2';
+  String get whisperModelLargeV2 => 'লার্জ V2';
 
   @override
   String get whisperModelLargeV2Description =>
-      'Improved large model with higher accuracy (~1.55 GB)';
+      'উন্নত বড় মডেল, উচ্চ নির্ভুলতা সহ (~1.55 GB)';
 
   @override
   String get modelDownloadInfo =>
-      'Models are downloaded when first used. We recommend using Base, Small, or Medium. Large models require very high-end devices.';
+      'মডেলগুলি প্রথমবার ব্যবহার করার সময় ডাউনলোড করা হয়। আমরা বেস, স্মল বা মিডিয়াম ব্যবহার করার পরামর্শ দিই। বড় মডেলগুলির জন্য খুব উচ্চমানের ডিভাইসের প্রয়োজন হয়।';
 
   @override
-  String get logOut => 'Log out';
+  String get logOut => 'লগ আউট';
 
   @override
-  String get participants => 'Participants';
+  String get participants => 'পার্টিসিপেন্টস';
 
   @override
-  String get delete => 'delete';
+  String get delete => 'ডিলিট';
 
   @override
-  String get leave => 'leave';
+  String get leave => 'বিদায়';
 
   @override
-  String get leaveButton => 'Leave';
+  String get leaveButton => 'বিদায়';
 
   @override
-  String get findingRandomPartner => 'Finding a Random Partner For You';
+  String get findingRandomPartner =>
+      'আপনার জন্য একটি রেন্ডম পার্টনার খোঁজা হচ্ছে';
 
   @override
-  String get quickFact => 'Quick fact';
+  String get quickFact => 'দ্রুত তথ্য';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'ক্যানসেল';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'রিমুভ';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'রিমুভ রুম';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'রিমুভ ফ্রম লিস্ট';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'আপনি কি নিশ্চিত যে আপনি এই আসন্ন রুমটি আপনার তালিকা থেকে সরিয়ে ফেলতে চান?';
 
   @override
-  String get completeYourProfile => 'Complete your Profile';
+  String get completeYourProfile => 'আপনার প্রোফাইল সম্পূর্ণ করুন';
 
   @override
-  String get uploadProfilePicture => 'Upload profile picture';
+  String get uploadProfilePicture => 'প্রোফাইল ছবি আপলোড করুন';
 
   @override
-  String get enterValidName => 'Enter Valid Name';
+  String get enterValidName => 'বৈধ নাম লিখুন';
 
   @override
-  String get name => 'Name';
+  String get name => 'নাম';
 
   @override
-  String get username => 'Username';
+  String get username => 'ইউজারনেম';
 
   @override
-  String get enterValidDOB => 'Enter Valid DOB';
+  String get enterValidDOB => 'বৈধ জন্ম তারিখ লিখুন';
 
   @override
-  String get dateOfBirth => 'Date of Birth';
+  String get dateOfBirth => 'জন্ম তারিখ';
 
   @override
-  String get forgotPassword => 'Forgot Password?';
+  String get forgotPassword => 'পাসওয়ার্ড ভুলে গেছেন?';
 
   @override
-  String get next => 'Next';
+  String get next => 'পরবর্তী';
 
   @override
-  String get noStoriesExist => 'No stories exist to present';
+  String get noStoriesExist => 'উপস্থাপন করার মতো কোনও গল্প নেই';
 
   @override
-  String get enterVerificationCode => 'Enter your\nVerification Code';
+  String get enterVerificationCode => 'আপনার\nভেরিফিকেশন কোড লিখুন';
 
   @override
-  String get verificationCodeSent => 'We sent a 6-digit verification code to\n';
+  String get verificationCodeSent =>
+      'আমরা 6-সংখ্যার একটি ভেরিফিকেশন কোড পাঠিয়েছি\n';
 
   @override
-  String get verificationComplete => 'Verification Complete';
+  String get verificationComplete => 'ভেরিফিকেশন সম্পন্ন হয়েছে';
 
   @override
   String get verificationCompleteMessage =>
-      'Congratulations you have verified your Email';
+      'অভিনন্দন! আপনি আপনার ইমেইল ভেরিফাই করেছেন';
 
   @override
-  String get verificationFailed => 'Verification Failed';
+  String get verificationFailed => 'ভেরিফিকেশন ব্যর্থ হয়েছে';
 
   @override
-  String get otpMismatch => 'OTP mismatch occurred please try again';
+  String get otpMismatch => 'OTP অমিল হয়েছে, অনুগ্রহ করে আবার চেষ্টা করুন';
 
   @override
-  String get otpResent => 'OTP resent';
+  String get otpResent => 'OTP পুনরায় পাঠানো হয়েছে';
 
   @override
-  String get requestNewCode => 'Request a new code';
+  String get requestNewCode => 'একটি নতুন কোডের অনুরোধ করুন';
 
   @override
-  String get requestNewCodeIn => 'Request a new code in';
+  String get requestNewCodeIn => 'এই সময়ের পরে একটি নতুন কোডের অনুরোধ করুন';
 
   @override
-  String get clickPictureCamera => 'Click picture using camera';
+  String get clickPictureCamera => 'ক্যামেরা ব্যবহার করে ছবি তুলুন';
 
   @override
-  String get pickImageGallery => 'Pick image from gallery';
+  String get pickImageGallery => 'গ্যালারি থেকে ছবি নির্বাচন করুন';
 
   @override
-  String get deleteMyAccount => 'Delete My Account';
+  String get deleteMyAccount => 'আমার অ্যাকাউন্ট ডিলিট করুন';
 
   @override
-  String get createNewRoom => 'Create New Room';
+  String get createNewRoom => 'নতুন রুম তৈরি করুন';
 
   @override
-  String get pleaseEnterScheduledDateTime => 'Please Enter Scheduled Date-Time';
+  String get pleaseEnterScheduledDateTime =>
+      'অনুগ্রহ করে নির্ধারিত তারিখ-সময় লিখুন';
 
   @override
-  String get scheduleDateTimeLabel => 'Schedule Date Time';
+  String get scheduleDateTimeLabel => 'তারিখ সময় নির্ধারণ করুন';
 
   @override
-  String get enterTags => 'Enter tags';
+  String get enterTags => 'ট্যাগ লিখুন';
 
   @override
-  String get joinCommunity => 'Join Community';
+  String get joinCommunity => 'কমিউনিটিতে যোগদান করুন!';
 
   @override
-  String get followUsOnX => 'Follow us on X';
+  String get followUsOnX => 'X এ আমাদের ফলো করুন';
 
   @override
-  String get joinDiscordServer => 'Join discord server';
+  String get joinDiscordServer => 'Discord সার্ভারে যোগদান করুন';
 
   @override
-  String get noLyrics => 'No lyrics';
+  String get noLyrics => 'কোনও লিরিক উপলব্ধ নেই';
 
   @override
   String noStoriesInCategory(String categoryName) {
-    return 'No stories currently exist in the $categoryName category to present';
+    return 'বর্তমানে $categoryName বিভাগে কোনও গল্প নেই।';
   }
 
   @override
-  String get newChapters => 'New Chapters';
+  String get newChapters => 'নতুন অধ্যায়';
 
   @override
-  String get helpToGrow => 'Help to grow';
+  String get helpToGrow => 'বৃদ্ধিতে সাহায্য করুন!';
 
   @override
-  String get share => 'Share';
+  String get share => 'শেয়ার করুন';
 
   @override
-  String get rate => 'Rate';
+  String get rate => 'রেটিং দিন';
 
   @override
-  String get aboutResonate => 'About Resonate';
+  String get aboutResonate => 'রেজোনেট সম্পর্কে';
 
   @override
-  String get description => 'Description';
+  String get description => 'বিবরণ';
 
   @override
-  String get confirm => 'Confirm';
+  String get confirm => 'নিশ্চিত করুন';
 
   @override
-  String get classic => 'Classic';
+  String get classic => 'ক্লাসিক';
 
   @override
-  String get time => 'Time';
+  String get time => 'টাইম';
 
   @override
-  String get vintage => 'Vintage';
+  String get vintage => 'ভিনটেজ';
 
   @override
-  String get amber => 'Amber';
+  String get amber => 'অ্যাম্বার';
 
   @override
-  String get forest => 'Forest';
+  String get forest => 'ফরেস্ট';
 
   @override
-  String get cream => 'Cream';
+  String get cream => 'ক্রিম';
 
   @override
-  String get none => 'none';
+  String get none => 'কোনটিই নয়';
 
   @override
   String checkOutGitHub(String url) {
-    return 'Check out our GitHub repository: $url';
+    return 'আমাদের GitHub রিপোজিটরি দেখুন: $url';
   }
 
   @override
   String get aossie => 'AOSSIE';
 
   @override
-  String get aossieLogo => 'aossie logo';
+  String get aossieLogo => 'aossie লোগো';
 
   @override
-  String get errorLoadPackageInfo => 'Could not load package info';
+  String get errorLoadPackageInfo => 'প্যাকেজ তথ্য লোড করা যায়নি';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed =>
+      'রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
-  String get updateAvailable => 'Update Available';
+  String get updateAvailable => 'আপডেট উপলব্ধ আছে';
 
   @override
-  String get newVersionAvailable => 'A new version is available!';
+  String get newVersionAvailable => 'একটি নতুন ভার্সন পাওয়া যাচ্ছে!';
 
   @override
-  String get upToDate => 'Up to Date';
+  String get upToDate => 'আপ টু ডেট';
 
   @override
-  String get latestVersion => 'You\'re using the latest version';
+  String get latestVersion => 'আপনি সর্বশেষ ভার্সন ব্যবহার করছেন';
 
   @override
-  String get profileCreatedSuccessfully => 'Profile created successfully';
+  String get profileCreatedSuccessfully => 'প্রোফাইল সফলভাবে তৈরি করা হয়েছে!';
 
   @override
-  String get invalidScheduledDateTime => 'Invalid Scheduled Date Time';
+  String get invalidScheduledDateTime => 'অবৈধ নির্ধারিত তারিখ-সময়';
 
   @override
-  String get scheduledDateTimePast => 'Scheduled Date Time cannot be in past';
+  String get scheduledDateTimePast => 'নির্ধারিত তারিখ-সময় অতীতের হতে পারে না';
 
   @override
-  String get joinRoom => 'Join Room';
+  String get joinRoom => 'রুমে যৌন করুন';
 
   @override
-  String get unknownUser => 'Unknown';
+  String get unknownUser => 'অজানা';
 
   @override
-  String get canceled => 'canceled';
+  String get canceled => 'বাতিল করা হয়েছে';
 
   @override
   String get english => 'en';
 
   @override
-  String get emailVerificationRequired => 'Email Verification Required';
+  String get emailVerificationRequired => 'ইমেল যাচাইকরণ প্রয়োজন';
 
   @override
-  String get verify => 'Verify';
+  String get verify => 'যাচাই করুন';
 
   @override
-  String get audioRoom => 'Audio Room';
+  String get audioRoom => 'অডিও রুম';
 
   @override
   String toRoomAction(String action) {
-    return 'To $action the room';
+    return 'রুমে $action করার জন্য';
   }
 
   @override
-  String get mailSentMessage => 'mail sent';
+  String get mailSentMessage => 'মেইল পাঠানো হয়েছে';
 
   @override
-  String get disconnected => 'disconnected';
+  String get disconnected => 'সংযোগ বিচ্ছিন্ন';
 
   @override
-  String get micOn => 'mic';
+  String get micOn => 'মাইক';
 
   @override
-  String get speakerOn => 'speaker';
+  String get speakerOn => 'স্পিকার';
 
   @override
-  String get endChat => 'end-chat';
+  String get endChat => 'চ্যাট বন্ধ করুন';
 
   @override
-  String get monthJan => 'Jan';
+  String get monthJan => 'জানুয়ারী';
 
   @override
-  String get monthFeb => 'Feb';
+  String get monthFeb => 'ফেব্রুয়ারি';
 
   @override
-  String get monthMar => 'March';
+  String get monthMar => 'মার্চ';
 
   @override
-  String get monthApr => 'April';
+  String get monthApr => 'এপ্রিল';
 
   @override
-  String get monthMay => 'May';
+  String get monthMay => 'মে';
 
   @override
-  String get monthJun => 'June';
+  String get monthJun => 'জুন';
 
   @override
-  String get monthJul => 'July';
+  String get monthJul => 'জুলাই';
 
   @override
-  String get monthAug => 'Aug';
+  String get monthAug => 'আগস্ট';
 
   @override
-  String get monthSep => 'Sep';
+  String get monthSep => 'সেপ্টেম্বর';
 
   @override
-  String get monthOct => 'Oct';
+  String get monthOct => 'অক্টোবর';
 
   @override
-  String get monthNov => 'Nov';
+  String get monthNov => 'নভেম্বর';
 
   @override
-  String get monthDec => 'Dec';
+  String get monthDec => 'ডিসেম্বর';
 
   @override
-  String get register => 'Register';
+  String get register => 'রেজিস্টার';
 
   @override
-  String get newToResonate => 'New to Resonate? ';
+  String get newToResonate => 'রেজোনেটে নতুন? ';
 
   @override
-  String get alreadyHaveAccount => 'Already have an account? ';
+  String get alreadyHaveAccount => 'ইতিমধ্যে একটি অ্যাকাউন্ট আছে? ';
 
   @override
-  String get checking => 'Checking...';
+  String get checking => 'পরীক্ষা করা হচ্ছে...';
 
   @override
   String get forgotPasswordMessage =>
-      'Enter your registered email address to reset your password.';
+      'আপনার পাসওয়ার্ড রিসেট করতে আপনার ইতিমধ্যে রেজিস্টার্ড ইমেইল ঠিকানাটি দিন';
 
   @override
-  String get usernameUnavailable => 'Username Unavailable!';
+  String get usernameUnavailable => 'ইউজারনেম অনুপলব্ধ!';
 
   @override
   String get usernameInvalidOrTaken =>
-      'This username is invalid or either taken already.';
+      'এই ইউজারনেমটি অবৈধ অথবা ইতিমধ্যেই নেওয়া হয়েছে।';
 
   @override
-  String get otpResentMessage => 'Please check your mail for a new OTP.';
+  String get otpResentMessage => 'নতুন OTP এর জন্য আপনার মেইল ​​চেক করুন।';
 
   @override
   String get connectionError =>
-      'There is a connection error. Please check your internet and try again.';
+      'সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট পরীক্ষা করে আবার চেষ্টা করুন।';
 
   @override
-  String get seconds => 'seconds.';
+  String get seconds => 'সেকেন্ড।';
 
   @override
   String get unsavedChangesWarning =>
-      'If you proceed without saving, any unsaved changes will be lost.';
+      'যদি আপনি সেভ না করে এগিয়ে যান, তাহলে যেকোনো সেভ না করা পরিবর্তন হারিয়ে যাবে।';
 
   @override
   String get deleteAccountPermanent =>
-      'This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.';
+      'এই পদক্ষেপটি আপনার অ্যাকাউন্ট স্থায়ীভাবে ডিলিট করে দেবে। এটি একটি অপরিবর্তনীয় প্রক্রিয়া। আমরা আপনার ইউজারনেম, ইমেইল ঠিকানা এবং আপনার অ্যাকাউন্টের সাথে সম্পর্কিত অন্যান্য সমস্ত ডেটা ডিলিট করে দেব। আপনি এটি পুনরুদ্ধার করতে পারবেন না।';
 
   @override
-  String get giveGreatName => 'Give a great name..';
+  String get giveGreatName => 'দারুন একটা নাম দিন..';
 
   @override
   String get joinCommunityDescription =>
-      'By joining community you can Clear your doubts, Suggest for new features, Report issues you faced and More.';
+      'কমিউনিটিতে যোগদানের মাধ্যমে আপনি আপনার সন্দেহ দূর করতে পারেন, নতুন বৈশিষ্ট্যগুলির জন্য পরামর্শ দিতে পারেন, আপনার সম্মুখীন সমস্যাগুলি রিপোর্ট করতে পারেন এবং আরও অনেক কিছু করতে পারেন।';
 
   @override
   String get resonateDescription =>
-      'Resonate is a social media platform, where every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now. Dive into diverse discussions and topics. Find rooms that resonate with you and become a part of the community. Join the conversation! Explore rooms, connect with friends, and share your voice with the world.';
+      'রেজোনেট একটি সোশ্যাল মিডিয়া প্ল্যাটফর্ম, যেখানে প্রতিটি কণ্ঠস্বরকে মূল্য দেওয়া হয়। আপনার চিন্তাভাবনা, গল্প এবং অভিজ্ঞতা অন্যদের সাথে ভাগ করে নিন। এখনই আপনার অডিও যাত্রা শুরু করুন। বিভিন্ন আলোচনা এবং বিষয়ে ডুবে যান। এমন রুম খুঁজুন যা আপনার সাথে প্রতিধ্বনিত হয় এবং সম্প্রদায়ের অংশ হয়ে উঠুন। কথোপকথনে যোগ দিন! রুমগুলি অন্বেষণ করুন, বন্ধুদের সাথে সংযোগ স্থাপন করুন এবং বিশ্বের সাথে আপনার কণ্ঠস্বর ভাগ করুন।';
 
   @override
   String get resonateFullDescription =>
-      'Resonate is a revolutionary voice-based social media platform where every voice matters. \nJoin real-time audio conversations, participate in diverse discussions, and connect with \nlike-minded individuals. Our platform offers:\n- Live audio rooms with topic-based discussions\n- Seamless social networking through voice\n- Community-driven content moderation\n- Cross-platform compatibility\n- End-to-end encrypted private conversations\n\nDeveloped by the AOSSIE open source community, we prioritize user privacy and \ncommunity-driven development. Join us in shaping the future of social audio!';
+      'রেজোনেট একটি বিপ্লবী ভয়েস-ভিত্তিক সোশ্যাল মিডিয়া প্ল্যাটফর্ম যেখানে প্রতিটি ভয়েস গুরুত্বপূর্ণ। \nরিয়েল-টাইম অডিও কথোপকথনে যোগ দিন, বিভিন্ন আলোচনায় অংশগ্রহণ করুন এবং \nএকই মনের ইউজারদের সাথে সংযোগ স্থাপন করুন। আমাদের প্ল্যাটফর্মটি অফার করে:\n- বিষয়-ভিত্তিক আলোচনা সহ লাইভ অডিও রুম\n- ভয়েসের মাধ্যমে নিরবচ্ছিন্ন সোশ্যাল নেটওয়ার্কিং\n- সম্প্রদায়-চালিত কন্টেন্ট মডারেশন\n- ক্রস-প্ল্যাটফর্ম সামঞ্জস্য\n- এন্ড-টু-এন্ড এনক্রিপ্ট করা ব্যক্তিগত কথোপকথন\n\n AOSSIE ওপেন সোর্স কমিউনিটি দ্বারা তৈরি, আমরা ব্যবহারকারীর গোপনীয়তা এবং \n সম্প্রদায়-চালিত উন্নয়নকে অগ্রাধিকার দিই। সামাজিক অডিওর ভবিষ্যত গঠনে আমাদের সাথে যোগ দিন!';
 
   @override
-  String get stable => 'Stable';
+  String get stable => 'স্থিতিশীল';
 
   @override
-  String get usernameCharacterLimit =>
-      'Username should contain more than 5 characters.';
+  String get usernameCharacterLimit => 'ইউজারনেম ৫টির বেশি অক্ষরের হতে হবে।';
 
   @override
-  String get submit => 'Submit';
+  String get submit => 'জমা দিন';
 
   @override
-  String get anonymous => 'Anonymous';
+  String get anonymous => 'অজানা';
 
   @override
-  String get noSearchResults => 'No Search Results';
+  String get noSearchResults => 'কোনও রেজাল্ট পাওয়া যায়নি';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'রুম খুঁজুন...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'রুম খোঁজা চলছে...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'সার্চ মুছে ফেলুন';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'সার্চে ত্রুটি';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError =>
+      'রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
   String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+      'আসন্ন রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
-  String get search => 'Search';
+  String get search => 'সার্চ';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'মুছে ফেলুন';
 
   @override
   String shareRoomMessage(
@@ -763,294 +770,296 @@ class AppLocalizationsBn extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀 Check out this amazing room: $roomName!\n\n📖 Description: $description\n👥 Join $participants participants now!';
+    return '🚀এই অসাধারণ রুমটি দেখুন: $roomName!\n\n📖 বিবরণ: $description\n👥 এখনই $participants অংশগ্রহণকারীরদেড় সাথে যোগ দিন!';
   }
 
   @override
   String participantsCount(int count) {
-    return '$count Participants';
+    return '$count অংশগ্রহণকারীরা';
   }
 
   @override
-  String get join => 'Join';
+  String get join => 'যোগ দিন';
 
   @override
-  String get invalidTags => 'Invalid Tag:';
+  String get invalidTags => 'অবৈধ ট্যাগ:';
 
   @override
-  String get cropImage => 'Crop Image';
+  String get cropImage => 'ছবি ক্রপ করুন';
 
   @override
-  String get profileSavedSuccessfully => 'Profile updated';
+  String get profileSavedSuccessfully => 'প্রোফাইল আপডেট করা হয়েছে';
 
   @override
   String get profileUpdatedSuccessfully =>
-      'All changes are saved successfully.';
+      'সকল পরিবর্তন সফলভাবে সেভ হয়ে গেছে।';
 
   @override
-  String get profileUpToDate => 'Profile up to date';
+  String get profileUpToDate => 'প্রোফাইল আপ টু ডেট আছে';
 
   @override
   String get noChangesToSave =>
-      'There are no new changes made, Nothing to save.';
+      'নতুন কোনও পরিবর্তন করা হয়নি, সেভ করার মতো কিছু নেই।';
 
   @override
-  String get connectionFailed => 'Connection Failed';
+  String get connectionFailed => 'সংযোগ ব্যর্থ হয়েছে!';
 
   @override
   String get unableToJoinRoom =>
-      'Unable to join the room. Please check your network and try again.';
+      'রুম যৌন করতে ব্যার্থ হয়েছে। আপনার নেটওয়ার্ক পরীক্ষা করে আবার চেষ্টা করুন।';
 
   @override
-  String get connectionLost => 'Connection Lost';
+  String get connectionLost => 'সংযোগ বিচ্ছিন্ন';
 
   @override
   String get unableToReconnect =>
-      'Unable to reconnect to the room. Please try rejoining.';
+      'রুমে পুনরায় যৌন করা যাচ্ছে না। অনুগ্রহ করে আবার যোগদানের চেষ্টা করুন।';
 
   @override
-  String get invalidFormat => 'Invalid Format!';
+  String get invalidFormat => 'অবৈধ ফর্ম্যাট!';
 
   @override
   String get usernameAlphanumeric =>
-      'Username must be alphanumeric and should not contain special characters.';
+      'ইউজারনেম অবশ্যই আলফানিউমেরিক হতে হবে এবং বিশেষ অক্ষর থাকা উচিত নয়।';
 
   @override
   String get userProfileCreatedSuccessfully =>
-      'Your user profile is successfully created.';
+      'আপনার ইউজার প্রোফাইল সফলভাবে তৈরি হয়েছে।';
 
   @override
   String get emailVerificationMessage =>
-      'To proceed, verify your email address.';
+      'এগিয়ে যেতে, আপনার ইমেল ঠিকানা যাচাই করুন।';
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return 'Add New Chapters to $storyName';
+    return '$storyName এ নতুন অধ্যায় যোগ করুন';
   }
 
   @override
-  String get currentChapters => 'Current Chapters';
+  String get currentChapters => 'বর্তমান অধ্যায়গুলি';
 
   @override
-  String get sourceCodeOnGitHub => 'Source code on GitHub';
+  String get sourceCodeOnGitHub => 'GitHub এর সোর্স কোড';
 
   @override
-  String get createAChapter => 'Create a Chapter';
+  String get createAChapter => 'একটি নতুন অধ্যায় তৈরি করুন';
 
   @override
-  String get chapterTitle => 'Chapter Title *';
+  String get chapterTitle => 'অধ্যায়ের শিরোনাম *';
 
   @override
-  String get aboutRequired => 'About *';
+  String get aboutRequired => 'অধ্যায় সম্পর্কে *';
 
   @override
-  String get changeCoverImage => 'Change Cover Image';
+  String get changeCoverImage => 'কভার ছবি পরিবর্তন করুন';
 
   @override
-  String get uploadAudioFile => 'Upload Audio File';
+  String get uploadAudioFile => 'অডিও ফাইল আপলোড করুন';
 
   @override
-  String get uploadLyricsFile => 'Upload Lyrics File';
+  String get uploadLyricsFile => 'লিরিক্স ফাইল আপলোড করুন';
 
   @override
-  String get createChapter => 'Create Chapter';
+  String get createChapter => 'একটি নতুন অধ্যায় বানান';
 
   @override
   String audioFileSelected(String fileName) {
-    return 'Audio file Selected: $fileName';
+    return 'অডিও ফাইলটি নির্বাচিত: $fileName';
   }
 
   @override
   String lyricsFileSelected(String fileName) {
-    return 'Lyrics File Selected: $fileName';
+    return 'লিরিক্স ফাইলটি নির্বাচিত: $fileName';
   }
 
   @override
   String get fillAllRequiredFields =>
-      'Please fill in all required fields and upload your Audio file and Lyrics file';
+      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন এবং আপনার অডিও ফাইল এবং লিরিক্স ফাইল আপলোড করুন।';
 
   @override
-  String get scheduled => 'Scheduled';
+  String get scheduled => 'নির্ধারিত';
 
   @override
-  String get ok => 'OK';
+  String get ok => 'ঠিক আছে';
 
   @override
-  String get roomDescriptionOptional => 'Room Description (optional)';
+  String get roomDescriptionOptional => 'রুমের বর্ণনা (ঐচ্ছিক)';
 
   @override
-  String get deleteAccount => 'Delete account';
+  String get deleteAccount => 'অ্যাকাউন্ট ডিলিট করুন';
 
   @override
-  String get createYourStory => 'Create Your Story';
+  String get createYourStory => 'আপনার গল্প তৈরি করুন';
 
   @override
-  String get titleRequired => 'Title *';
+  String get titleRequired => 'শিরোনাম *';
 
   @override
-  String get category => 'Category *';
+  String get category => 'বিভাগ *';
 
   @override
-  String get addChapter => 'Add Chapter';
+  String get addChapter => 'অধ্যায় যোগ করুন';
 
   @override
-  String get createStory => 'Create Story';
+  String get createStory => 'গল্প তৈরি করুন';
 
   @override
   String get fillAllRequiredFieldsAndChapter =>
-      'Please fill in all required fields, add at least one chapter, and select a cover image.';
+      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন, কমপক্ষে একটি অধ্যায় যোগ করুন এবং একটি কভার ছবি নির্বাচন করুন।';
 
   @override
-  String get toConfirmType => 'To confirm, type';
+  String get toConfirmType => 'নিশ্চিত করতে, টাইপ করুন';
 
   @override
-  String get inTheBoxBelow => 'in the box below';
+  String get inTheBoxBelow => 'নিচের বাক্সে লিখুন';
 
   @override
-  String get iUnderstandDeleteMyAccount => 'I understand, Delete My Account';
+  String get iUnderstandDeleteMyAccount =>
+      'আমি বুঝতে পারছি, আমার অ্যাকাউন্ট ডিলিট করে দিন';
 
   @override
-  String get whatDoYouWantToListenTo => 'What do you want to listen to?';
+  String get whatDoYouWantToListenTo => 'আপনি কী শুনতে চান?';
 
   @override
-  String get categories => 'Categories';
+  String get categories => 'বিভাগসমূহ';
 
   @override
-  String get stories => 'Stories';
+  String get stories => 'গল্পসমূহ';
 
   @override
-  String get someSuggestions => 'Some Suggestions';
+  String get someSuggestions => 'কিছু পরামর্শ';
 
   @override
-  String get getStarted => 'Get Started';
+  String get getStarted => 'শুরু করুন';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'এড়িয়ে যান';
 
   @override
-  String get welcomeToResonate => 'Welcome to Resonate';
+  String get welcomeToResonate => 'রেজোনেটে স্বাগতম';
 
   @override
   String get exploreDiverseConversations => 'Explore Diverse Conversations';
 
   @override
-  String get yourVoiceMatters => 'Your Voice Matters';
+  String get yourVoiceMatters => 'আপনার কণ্ঠস্বর গুরুত্বপূর্ণ';
 
   @override
   String get joinConversationExploreRooms =>
-      'Join the conversation! Explore rooms, connect with friends, and share your voice with the world.';
+      'আলোচনায় যোগ দিন! রুমগুলি ঘুরে দেখুন, বন্ধুদের সাথে সংযুক্ত হন এবং বিশ্বের সাথে আপনার মতামত ভাগ করে নিন।';
 
   @override
   String get diveIntoDiverseDiscussions =>
-      'Dive into diverse discussions and topics. \nFind rooms that resonate with you and become a part of the community.';
+      'বিভিন্ন আলোচনা এবং বিষয়গুলিতে ডুবে যান। \nএমন রুম খুঁজুন যা আপনার সাথে রেজোনেট করে এবং সম্প্রদায়ের অংশ হয়ে উঠুন।';
 
   @override
   String get atResonateEveryVoiceValued =>
-      'At Resonate, every voice is valued. Share your thoughts, stories, and experiences with others. Start your audio journey now.';
+      'রেজোনেটে, প্রতিটি কণ্ঠস্বরকে মূল্য দেওয়া হয়। আপনার চিন্তাভাবনা, গল্প এবং অভিজ্ঞতা অন্যদের সাথে ভাগ করুন। এখনই আপনার অডিও যাত্রা শুরু করুন।';
 
   @override
-  String get notifications => 'Notifications';
+  String get notifications => 'নোটিফিকেশন্স';
 
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
-    return '$username tagged you in an upcoming room: $subject';
+    return '$username আপনাকে একটি আসন্ন রুমে ট্যাগ করেছে: $subject';
   }
 
   @override
   String taggedYouInRoom(String username, String subject) {
-    return '$username tagged you in room: $subject';
+    return '$username আপনাকে এই রুমে ট্যাগ করেছে: $subject';
   }
 
   @override
   String likedYourStory(String username, String subject) {
-    return '$username liked your story: $subject';
+    return '$username আপনার গল্পটা লাইক করেছে: $subject';
   }
 
   @override
   String subscribedToYourRoom(String username, String subject) {
-    return '$username subscribed to your room: $subject';
+    return '$username আপনার রুমে সাবস্ক্রাইব করেছে: $subject';
   }
 
   @override
   String startedFollowingYou(String username) {
-    return '$username started following you';
+    return '$username আপনাকে ফলো করা শুরু করেছে:';
   }
 
   @override
-  String get youHaveNewNotification => 'You have a new notification';
+  String get youHaveNewNotification => 'আপনার একটি নতুন নোটিফিকেশন আছে।';
 
   @override
-  String get hangOnGoodThingsTakeTime => 'Hang on, Good Things take time 🔍';
+  String get hangOnGoodThingsTakeTime =>
+      'একটু অপেক্ষা করুন, ভালো জিনিসের জন্য সময় লাগে 🔍';
 
   @override
   String get resonateOpenSourceProject =>
-      'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.';
+      'Resonate হল AOSSIE দ্বারা পরিচালিত একটি ওপেন সোর্স প্রকল্প। অবদান রাখতে আমাদের github দেখুন।';
 
   @override
-  String get mute => 'Mute';
+  String get mute => 'মিউট';
 
   @override
-  String get speakerLabel => 'Speaker';
+  String get speakerLabel => 'স্পিকার';
 
   @override
-  String get end => 'End';
+  String get end => 'শেষ করুন';
 
   @override
-  String get saveChanges => 'Save changes';
+  String get saveChanges => 'পরিবর্তনগুলি সেভ করুন';
 
   @override
-  String get discard => 'DISCARD';
+  String get discard => 'বাতিল করুন';
 
   @override
-  String get save => 'SAVE';
+  String get save => 'সেভ করুন';
 
   @override
-  String get changeProfilePicture => 'Change profile picture';
+  String get changeProfilePicture => 'প্রোফাইল ছবি পরিবর্তন করুন';
 
   @override
-  String get camera => 'Camera';
+  String get camera => 'ক্যামেরা';
 
   @override
-  String get gallery => 'Gallery';
+  String get gallery => 'গ্যালারি';
 
   @override
-  String get remove => 'Remove';
+  String get remove => 'সরিয়ে ফেলুন';
 
   @override
   String created(String date) {
-    return 'Created $date';
+    return 'বানানো হয়েছিল $date';
   }
 
   @override
-  String get chapters => 'Chapters';
+  String get chapters => 'অধ্যায়গুলি';
 
   @override
-  String get deleteStory => 'Delete Story';
+  String get deleteStory => 'গল্প ডিলিট করুন';
 
   @override
   String createdBy(String creatorName) {
-    return 'Created by $creatorName';
+    return '$creatorName এনার দ্বারা বানানো হয়েছে';
   }
 
   @override
-  String get start => 'Start';
+  String get start => 'শুরু করুন';
 
   @override
-  String get unsubscribe => 'Unsubscribe';
+  String get unsubscribe => 'আনসাবস্ক্রাইব করুন';
 
   @override
-  String get subscribe => 'Subscribe';
+  String get subscribe => 'সাবস্ক্রাইব করুন';
 
   @override
   String storyCategory(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'drama': 'Drama',
-      'comedy': 'Comedy',
-      'horror': 'Horror',
-      'romance': 'Romance',
-      'thriller': 'Thriller',
-      'spiritual': 'Spiritual',
-      'other': 'Other',
+      'drama': 'নাটক',
+      'comedy': 'কমেডি',
+      'horror': 'ভয়ের',
+      'romance': 'রমন্যাস',
+      'thriller': 'থ্রিলার',
+      'spiritual': 'আধ্যাত্মিক',
+      'other': 'অন্যান্য',
     });
     return '$_temp0';
   }
@@ -1058,13 +1067,13 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String chooseTheme(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'classicTheme': 'Classic',
-      'timeTheme': 'Time',
-      'vintageTheme': 'Vintage',
-      'amberTheme': 'Amber',
-      'forestTheme': 'Forest',
-      'creamTheme': 'Cream',
-      'other': 'Other',
+      'classicTheme': 'ক্লাসিক',
+      'timeTheme': 'সময়',
+      'vintageTheme': 'ভিনটেজ',
+      'amberTheme': 'অ্যাম্বার',
+      'forestTheme': 'জনজঙ্গল',
+      'creamTheme': 'ক্রিম',
+      'other': 'অন্যান্য',
     });
     return '$_temp0';
   }
@@ -1074,8 +1083,8 @@ class AppLocalizationsBn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count minutes ago',
-      one: '1 minute ago',
+      other: '$count মিনিট আগে',
+      one: '১ মিনিট আগে',
     );
     return '$_temp0';
   }
@@ -1085,8 +1094,8 @@ class AppLocalizationsBn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count hours ago',
-      one: '1 hour ago',
+      other: '$count ঘন্টা আগে',
+      one: '১ ঘন্টা আগে',
     );
     return '$_temp0';
   }
@@ -1096,250 +1105,252 @@ class AppLocalizationsBn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days ago',
-      one: '1 day ago',
+      other: '$count দিন আগে',
+      one: '১ দিন আগে',
     );
     return '$_temp0';
   }
 
   @override
-  String get by => 'by';
+  String get by => 'লিখেছেন';
 
   @override
-  String get likes => 'Likes';
+  String get likes => 'লাইক';
 
   @override
-  String get lengthMinutes => 'min';
+  String get lengthMinutes => 'মিনিট';
 
   @override
-  String get requiredField => 'Required field';
+  String get requiredField => 'প্রয়োজনীয় ক্ষেত্র';
 
   @override
-  String get onlineUsers => 'Online Users';
+  String get onlineUsers => 'অনলাইন উজার্স';
 
   @override
-  String get noOnlineUsers => 'No users currently online';
+  String get noOnlineUsers => 'বর্তমানে কোনও ইউজার অনলাইনে নেই।';
 
   @override
-  String get chooseUser => 'Choose User to chat with';
+  String get chooseUser => 'চ্যাট করার জন্য ইউজার পছন্দ করুন';
 
   @override
-  String get quickMatch => 'Quick Match';
+  String get quickMatch => 'দ্রুত মিল করুন';
 
   @override
-  String get story => 'Story';
+  String get story => 'গল্প';
 
   @override
-  String get user => 'User';
+  String get user => 'ইউজার';
 
   @override
-  String get following => 'Following';
+  String get following => 'ফলো করছে';
 
   @override
-  String get followers => 'Followers';
+  String get followers => 'ফলোয়ার্স';
 
   @override
-  String get friendRequests => 'Friend Requests';
+  String get friendRequests => 'বন্ধুত্বের অনুরোধ';
 
   @override
-  String get friendRequestSent => 'Friend request sent';
+  String get friendRequestSent => 'বন্ধুত্বের অনুরোধ পাঠানো হয়েছে';
 
   @override
   String friendRequestSentTo(String username) {
-    return 'Your friend request to $username has been sent.';
+    return 'আপনার বন্ধুত্বের অনুরোধ $username-কে পাঠানো হয়েছে।';
   }
 
   @override
-  String get friendRequestCancelled => 'Friend request cancelled';
+  String get friendRequestCancelled => 'বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে';
 
   @override
   String friendRequestCancelledTo(String username) {
-    return 'Your friend request to $username has been cancelled.';
+    return '$username-এর কাছে আপনার বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে।';
   }
 
   @override
-  String get requested => 'Requested';
+  String get requested => 'অনুরোধ পাঠানো হয়েছে';
 
   @override
-  String get friends => 'Friends';
+  String get friends => 'বন্ধুরা';
 
   @override
-  String get addFriend => 'Add Friend';
+  String get addFriend => 'বন্ধু যোগ করুন';
 
   @override
-  String get friendRequestAccepted => 'Friend request accepted';
+  String get friendRequestAccepted => 'বন্ধুত্বের অনুরোধ গৃহীত হয়েছে';
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'You are now friends with $username.';
+    return 'আপনি এখন $username এর বন্ধু।';
   }
 
   @override
-  String get friendRequestDeclined => 'Friend request declined';
+  String get friendRequestDeclined =>
+      'বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করা হয়েছে';
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'You have declined the friend request from $username.';
+    return 'আপনি $username এর বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করেছেন।';
   }
 
   @override
-  String get accept => 'Accept';
+  String get accept => 'গ্রহণ করুন';
 
   @override
-  String get callDeclined => 'Call declined';
+  String get callDeclined => 'কল প্রত্যাখ্যান করা হয়েছে';
 
   @override
   String callDeclinedTo(String username) {
-    return 'User $username declined the call.';
+    return '$username কলটি প্রত্যাখ্যান করেছেন।';
   }
 
   @override
-  String get checkForUpdates => 'Check Updates';
+  String get checkForUpdates => 'আপডেট চেক করুন';
 
   @override
-  String get updateNow => 'Update Now';
+  String get updateNow => 'এখনই আপডেট করুন';
 
   @override
-  String get updateLater => 'Later';
+  String get updateLater => 'পরে';
 
   @override
-  String get updateSuccessful => 'Update Successful';
+  String get updateSuccessful => 'আপডেট সফল হয়েছে';
 
   @override
-  String get updateSuccessfulMessage =>
-      'Resonate has been updated successfully!';
+  String get updateSuccessfulMessage => 'রেজোনেট সফলভাবে আপডেট করা হয়েছে!';
 
   @override
-  String get updateCancelled => 'Update Cancelled';
+  String get updateCancelled => 'আপডেট বাতিল করা হয়েছে';
 
   @override
-  String get updateCancelledMessage => 'Update was cancelled by user';
+  String get updateCancelledMessage => 'ইউসার আপডেট বাতিল করেছেন';
 
   @override
-  String get updateFailed => 'Update Failed';
+  String get updateFailed => 'আপডেট ব্যর্থ হয়েছে';
 
   @override
   String get updateFailedMessage =>
-      'Failed to update. Please try updating from Play Store manually.';
+      'আপডেট করা যায়নি। অনুগ্রহ করে Play Store থেকে ম্যানুয়ালি আপডেট করার চেষ্টা করুন।';
 
   @override
-  String get updateError => 'Update Error';
+  String get updateError => 'আপডেটে ত্রুটি';
 
   @override
   String get updateErrorMessage =>
-      'An error occurred while updating. Please try again.';
+      'আপডেট করার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
-  String get platformNotSupported => 'Platform Not Supported';
+  String get platformNotSupported => 'প্ল্যাটফর্ম সমর্থিত নয়';
 
   @override
   String get platformNotSupportedMessage =>
-      'Update checking is only available on Android devices';
+      'আপডেট চেকিং শুধুমাত্র Android ডিভাইসেই উপলব্ধ';
 
   @override
-  String get updateCheckFailed => 'Update Check Failed';
+  String get updateCheckFailed => 'আপডেট চেক ব্যর্থ হয়েছে';
 
   @override
   String get updateCheckFailedMessage =>
-      'Could not check for updates. Please try again later.';
+      'আপডেটগুলি পরীক্ষা করা যায়নি। অনুগ্রহ করে পরে আবার চেষ্টা করুন।';
 
   @override
-  String get upToDateTitle => 'You\'re Up to Date!';
+  String get upToDateTitle => 'আপনি আপ টু ডেট আছেন!';
 
   @override
-  String get upToDateMessage => 'You\'re using the latest version of Resonate';
+  String get upToDateMessage => 'আপনি রেজোনেটের সর্বশেষ ভার্সন ব্যবহার করছেন।';
 
   @override
-  String get updateAvailableTitle => 'Update Available!';
+  String get updateAvailableTitle => 'আপডেট উপলব্ধ আছে!';
 
   @override
   String get updateAvailableMessage =>
-      'A new version of Resonate is available on Play Store';
+      'রেজোনেটের একটি নতুন ভার্সন Play Store এ উপলব্ধ আছে';
 
   @override
   String get updateFeaturesImprovement =>
-      'Get the latest features and improvements!';
+      'সর্বশেষ বৈশিষ্ট্য এবং উন্নতি সহ আপডেট করুন।';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'রুম সরানো যায়নি';
 
   @override
   String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+      'আপনার তালিকা থেকে রুমটি সফলভাবে সরানো হয়েছে';
 
   @override
-  String get alert => 'Alert';
+  String get alert => 'সতর্কতা';
 
   @override
   String get removedFromRoom =>
-      'You have been reported or removed from the room';
+      'আপনার বিরুদ্ধে অভিযোগ করা হয়েছে অথবা আপনাকে রুম থেকে সরিয়ে দেওয়া হয়েছে।';
 
   @override
   String reportType(String type) {
     String _temp0 = intl.Intl.selectLogic(type, {
-      'harassment': 'Harassment / Hate Speech',
-      'abuse': 'Abusive content / Violence',
-      'spam': 'Spam / Scams / Fraud',
-      'impersonation': 'Impersonation / Fake Accounts',
-      'illegal': 'Illegal Activities',
-      'selfharm': 'Self-harm / Suicide / Mental health',
-      'misuse': 'Misuse of platform',
-      'other': 'Other',
+      'harassment': 'হ্যারাসমেন্ট / ঘৃণাত্মক বক্তব্য',
+      'abuse': 'অপমানজনক বিষয়বস্তু / হিংস্রতা',
+      'spam': 'স্প্যাম / স্ক্যাম / জালিয়াতি',
+      'impersonation': 'নকল পরিচয় / নকল অ্যাকাউন্ট',
+      'illegal': 'অবৈধ কার্যকলাপ',
+      'selfharm': 'নিজের ক্ষতি / আত্মহত্যা / মানসিক স্বাস্থ্য',
+      'misuse': 'প্ল্যাটফর্মের অপব্যবহার',
+      'other': 'অন্যান্য',
     });
     return '$_temp0';
   }
 
   @override
   String get userBlockedFromResonate =>
-      'You have received multiple reports from users and you have been blocked from using Resonate. Please contact AOSSIE if you believe this is a mistake.';
+      'আপনি উজারদের কাছ থেকে একাধিক প্রতিবেদন পেয়েছেন এবং আপনাকে Resonate ব্যবহার থেকে ব্লক করা হয়েছে। যদি আপনি মনে করেন এটি একটি ভুল, তাহলে অনুগ্রহ করে AOSSIE-এর সাথে যোগাযোগ করুন।';
 
   @override
-  String get reportParticipant => 'Report Participant';
+  String get reportParticipant => 'অংশগ্রহণকারীকে রিপোর্ট করুন';
 
   @override
-  String get selectReportType => 'Please select a report type';
+  String get selectReportType =>
+      'অনুগ্রহ করে একটি রিপোর্টের ধরণ নির্বাচন করুন।';
 
   @override
-  String get reportSubmitted => 'Report Submitted Successfully';
+  String get reportSubmitted => 'রিপোর্ট সফলভাবে জমা দেওয়া হয়েছে';
 
   @override
-  String get reportFailed => 'Report Submission Failed';
+  String get reportFailed => 'রিপোর্ট জমা দেওয়া ব্যর্থ হয়েছে';
 
   @override
-  String get additionalDetailsOptional => 'Additional details (optional)';
+  String get additionalDetailsOptional => 'অতিরিক্ত বিবরণ (ঐচ্ছিক)';
 
   @override
-  String get submitReport => 'Submit Report';
+  String get submitReport => 'রিপোর্ট জমা দিন';
 
   @override
-  String get actionBlocked => 'Action Blocked';
+  String get actionBlocked => 'অ্যাকশন ব্লক করা হয়েছে';
 
   @override
   String get cannotStopRecording =>
-      'You cannot stop the recording manually, the recording will be stopped when the room is closed.';
+      'আপনি ম্যানুয়ালি রেকর্ডিং বন্ধ করতে পারবেন না, রুম বন্ধ হয়ে গেলে রেকর্ডিং বন্ধ হয়ে যাবে।';
 
   @override
-  String get liveChapter => 'Live Chapter';
+  String get liveChapter => 'লাইভ অধ্যায়';
 
   @override
-  String get viewOrEditLyrics => 'View or Edit Lyrics';
+  String get viewOrEditLyrics => 'লিরিকস দেখুন বা সম্পাদনা করুন';
 
   @override
-  String get close => 'Close';
+  String get close => 'বন্ধ করুন';
 
   @override
-  String get verifyChapterDetails => 'Verify Chapter Details';
+  String get verifyChapterDetails => 'অধ্যায়ের বিবরণ যাচাই করুন';
 
   @override
-  String get author => 'Author';
+  String get author => 'লেখক';
 
   @override
-  String get startLiveChapter => 'Start a Live Chapter';
+  String get startLiveChapter => 'একটি লাইভ অধ্যায় শুরু করুন';
 
   @override
-  String get fillAllFields => 'Please fill in all required fields';
+  String get fillAllFields =>
+      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন।';
 
   @override
   String get noRecordingError =>
-      'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
+      'আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।';
 }
