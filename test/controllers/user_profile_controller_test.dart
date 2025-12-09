@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
@@ -14,13 +13,13 @@ import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
-import 'explore_story_controller_test.mocks.dart';
+import 'user_profile_controller_test.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging, Functions])
-List<Document> mockStoryDocuments = [
-  Document(
+@GenerateMocks([TablesDB, Account, Client, FirebaseMessaging])
+List<Row> mockStoryDocuments = [
+  Row(
     $id: 'doc1',
-    $collectionId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -29,6 +28,7 @@ List<Document> mockStoryDocuments = [
       1754337186,
     ).toIso8601String(),
     $permissions: ['any'],
+    $sequence: 0,
     data: {
       'title': 'Story 1',
       'description': 'Description of Story 1',
@@ -41,11 +41,10 @@ List<Document> mockStoryDocuments = [
       'tintColor': '0000FF',
       'playDuration': 120,
     },
-    $sequence: 0,
   ),
-  Document(
+  Row(
     $id: 'doc2',
-    $collectionId: storyCollectionId,
+    $tableId: storyTableId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -54,6 +53,7 @@ List<Document> mockStoryDocuments = [
       1754337186,
     ).toIso8601String(),
     $permissions: ['any'],
+    $sequence: 1,
     data: {
       'title': 'Story 2',
       'description': 'Description of Story 2',
@@ -66,17 +66,17 @@ List<Document> mockStoryDocuments = [
       'tintColor': '0000FF',
       'playDuration': 120,
     },
-    $sequence: 1,
   ),
 ];
 
-final Document mockSearchedUserDocument = Document(
+final Row mockSearchedUserDocument = Row(
   $id: 'doc1',
-  $collectionId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0,
   data: {
     'name': "Test User 1",
     'dob': "2000-01-01",
@@ -107,15 +107,15 @@ final Document mockSearchedUserDocument = Document(
       },
     ],
   },
-  $sequence: 0,
 );
-final Document mockUserDocument = Document(
+final Row mockUserDocument = Row(
   $id: 'doc1',
-  $collectionId: usersCollectionID,
+  $tableId: usersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0,
   data: {
     'name': "Test User 2",
     'dob': "2000-01-01",
@@ -146,7 +146,6 @@ final Document mockUserDocument = Document(
       },
     ],
   },
-  $sequence: 0,
 );
 final User mockUser = User(
   $id: 'id2',
@@ -179,13 +178,14 @@ final FollowerUserModel mockFollowerUserModel = FollowerUserModel(
   followingUserId: 'id1',
   followerRating: 5,
 );
-final Document mockFollowerDocument = Document(
+final Row mockFollowerDocument = Row(
   $id: 'fdocid1',
-  $collectionId: followersCollectionID,
+  $tableId: followersTableID,
   $databaseId: userDatabaseID,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $permissions: ['any'],
+  $sequence: 0,
   data: {
     "followerUserId": "id2",
     "followerUsername": "testu2",
@@ -195,36 +195,35 @@ final Document mockFollowerDocument = Document(
     "followerRating": 5,
     "followingUserId": "id1",
   },
-  $sequence: 0,
 );
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockDatabases databases;
+  late MockTablesDB tablesDB;
   late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
   late UserProfileController userProfileController;
 
   setUp(() {
     Get.testMode = true;
-    databases = MockDatabases();
+    tablesDB = MockTablesDB();
     mockAccount = MockAccount();
     mockFirebaseMessaging = MockFirebaseMessaging();
     userProfileController = UserProfileController(
       authStateController: AuthStateController(
         account: mockAccount,
         client: MockClient(),
-        databases: databases,
+        tables: tablesDB,
         messaging: mockFirebaseMessaging,
       ),
-      databases: databases,
+      tablesDB: tablesDB,
     );
 
     userProfileController.authStateController.uid = 'id2';
 
     when(
-      databases.listDocuments(
+      tablesDB.listRows(
         databaseId: storyDatabaseId,
-        collectionId: storyCollectionId,
+        tableId: storyTableId,
         queries: [
           Query.equal(
             'creatorId',
@@ -234,50 +233,50 @@ void main() {
       ),
     ).thenAnswer(
       (_) => Future.delayed(
-        Duration(seconds: 2),
-        () => DocumentList(total: 1, documents: [mockStoryDocuments[1]]),
+        Duration(seconds: 1),
+        () => RowList(total: 1, rows: [mockStoryDocuments[1]]),
       ),
     );
     when(
-      databases.listDocuments(
+      tablesDB.listRows(
         databaseId: storyDatabaseId,
-        collectionId: storyCollectionId,
+        tableId: storyTableId,
         queries: [Query.equal('creatorId', 'id1')],
       ),
     ).thenAnswer(
       (_) => Future.delayed(
-        Duration(seconds: 2),
-        () => DocumentList(total: 1, documents: [mockStoryDocuments[0]]),
+        Duration(seconds: 1),
+        () => RowList(total: 1, rows: [mockStoryDocuments[0]]),
       ),
     );
     when(
-      databases.getDocument(
+      tablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: 'id1',
+        tableId: usersTableID,
+        rowId: 'id1',
       ),
     ).thenAnswer(
       (_) =>
-          Future.delayed(Duration(seconds: 2), () => mockSearchedUserDocument),
+          Future.delayed(Duration(seconds: 1), () => mockSearchedUserDocument),
     );
     when(
-      databases.getDocument(
+      tablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: 'id2',
+        tableId: usersTableID,
+        rowId: 'id2',
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockUserDocument),
+      (_) => Future.delayed(Duration(seconds: 1), () => mockUserDocument),
     );
     when(
-      databases.createDocument(
+      tablesDB.createRow(
         databaseId: userDatabaseID,
-        collectionId: followersCollectionID,
-        documentId: anyNamed('documentId'),
+        tableId: followersTableID,
+        rowId: anyNamed('rowId'),
         data: mockFollowerUserModel.toJson(),
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockFollowerDocument),
+      (_) => Future.delayed(Duration(seconds: 1), () => mockFollowerDocument),
     );
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
     when(

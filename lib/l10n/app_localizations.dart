@@ -11,6 +11,7 @@ import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
+import 'app_localizations_pa.dart';
 
 // ignore_for_file: type=lint
 
@@ -104,6 +105,7 @@ abstract class AppLocalizations {
     Locale('hi'),
     Locale('kn'),
     Locale('mr'),
+    Locale('pa'),
   ];
 
   /// The title of the application.
@@ -2467,6 +2469,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
   String get noRecordingError;
+
+  /// Title shown in the delete message confirmation dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Message'**
+  String get deleteMessageTitle;
+
+  /// Confirmation text asking the user if they want to delete a message.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this message?'**
+  String get deleteMessageContent;
+
+  /// No description provided for @thisMessageWasDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted'**
+  String get thisMessageWasDeleted;
+
+  /// No description provided for @failedToDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete message'**
+  String get failedToDeleteMessage;
 }
 
 class _AppLocalizationsDelegate
@@ -2486,6 +2512,7 @@ class _AppLocalizationsDelegate
     'hi',
     'kn',
     'mr',
+    'pa',
   ].contains(locale.languageCode);
 
   @override
@@ -2507,6 +2534,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsKn();
     case 'mr':
       return AppLocalizationsMr();
+    case 'pa':
+      return AppLocalizationsPa();
   }
 
   throw FlutterError(

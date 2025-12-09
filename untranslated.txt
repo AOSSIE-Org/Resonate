@@ -34,7 +34,9 @@
     "search",
     "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
   ],
 
   "kn": [
@@ -52,7 +54,11 @@
     "search",
     "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "deleteMessageTitle",
+    "deleteMessageContent",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
   ],
 
   "mr": [
@@ -70,6 +76,8 @@
     "search",
     "clear",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
   ]
 }
