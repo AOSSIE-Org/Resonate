@@ -1758,5 +1758,21 @@
     "noRecordingError": "আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
+    },
+    "deleteMessageTitle": "বার্তা মুছে ফেলুন",
+    "@deleteMessageTitle": {
+        "description": "Title shown in the delete message confirmation dialog."
+    },
+    "deleteMessageContent": "আপনি কি নিশ্চিত যে আপনি এই বার্তাটি মুছে ফেলতে চান?",
+    "@deleteMessageContent": {
+        "description": "Confirmation text asking the user if they want to delete a message."
+    },
+    "thisMessageWasDeleted": "এই বার্তাটি মুছে ফেলা হয়েছে",
+    "@thisMessageWasDeleted": {
+        "description": "Placeholder text indicating that a message has been deleted."
+    },
+    "failedToDeleteMessage": "বার্তা মুছে ফেলা ব্যর্থ হয়েছে",
+    "@failedToDeleteMessage": {
+        "description": "Error message shown when a message deletion fails."
     }
 }

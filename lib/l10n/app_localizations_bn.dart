@@ -1355,15 +1355,15 @@ class AppLocalizationsBn extends AppLocalizations {
       'আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।';
 
   @override
-  String get deleteMessageTitle => 'Delete Message';
+  String get deleteMessageTitle => 'বার্তা মুছে ফেলুন';
 
   @override
   String get deleteMessageContent =>
-      'Are you sure you want to delete this message?';
+      'আপনি কি নিশ্চিত যে আপনি এই বার্তাটি মুছে ফেলতে চান?';
 
   @override
-  String get thisMessageWasDeleted => 'This message was deleted';
+  String get thisMessageWasDeleted => 'এই বার্তাটি মুছে ফেলা হয়েছে';
 
   @override
-  String get failedToDeleteMessage => 'Failed to delete message';
+  String get failedToDeleteMessage => 'বার্তা মুছে ফেলা ব্যর্থ হয়েছে';
 }

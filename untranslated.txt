@@ -1,11 +1,4 @@
 {
-  "bn": [
-    "deleteMessageTitle",
-    "deleteMessageContent",
-    "thisMessageWasDeleted",
-    "failedToDeleteMessage"
-  ],
-
   "gu": [
     "appPreferences",
     "transcriptionModel",
