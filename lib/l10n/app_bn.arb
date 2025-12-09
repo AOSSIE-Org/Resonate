@@ -214,7 +214,7 @@
     "@emailChangeInfo": {
         "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
     },
-    "oauthUsersMessage": "(শুধুমাত্র Google বা Github ব্যবহার করে লগ ইন করা উজারদের জন্য)",
+    "oauthUsersMessage": "(শুধুমাত্র Google বা Github ব্যবহার করে লগ ইন করা ইউজারদের জন্য)",
     "@oauthUsersMessage": {
         "description": "A message to specify that the following instructions are for OAuth users."
     },
@@ -1214,6 +1214,10 @@
     "@welcomeToResonate": {
         "description": "Feature highlight on an onboarding screen."
     },
+    "exploreDiverseConversations": "বিভিন্ন ধরনের আলোচনায় যোগ দিন",
+    "@exploreDiverseConversations": {
+    "description": "Prompt to explore diverse conversations."
+    },
 
     "yourVoiceMatters": "আপনার কণ্ঠস্বর গুরুত্বপূর্ণ",
     "@yourVoiceMatters": {
@@ -1459,7 +1463,7 @@
     "@requiredField": {
         "description": "Error message for a mandatory field that was left empty."
     },
-    "onlineUsers": "অনলাইন উজার্স",
+    "onlineUsers": "অনলাইন ইউজার্স",
     "@onlineUsers": {
         "description": "Header for the list of users who are currently online."
     },
@@ -1687,7 +1691,7 @@
             }
         }
     },
-    "userBlockedFromResonate": "আপনি উজারদের কাছ থেকে একাধিক প্রতিবেদন পেয়েছেন এবং আপনাকে Resonate ব্যবহার থেকে ব্লক করা হয়েছে। যদি আপনি মনে করেন এটি একটি ভুল, তাহলে অনুগ্রহ করে AOSSIE-এর সাথে যোগাযোগ করুন।",
+    "userBlockedFromResonate": "আপনি ইউজারদের কাছ থেকে একাধিক প্রতিবেদন পেয়েছেন এবং আপনাকে Resonate ব্যবহার থেকে ব্লক করা হয়েছে। যদি আপনি মনে করেন এটি একটি ভুল, তাহলে অনুগ্রহ করে AOSSIE-এর সাথে যোগাযোগ করুন।",
     "@userBlockedFromResonate": {
         "description": "Message shown when a user is blocked from using Resonate."
     },
