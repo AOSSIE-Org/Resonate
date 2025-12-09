@@ -40,10 +40,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get yourStories => 'আপনার গল্প';
 
   @override
-  String get userNoStories => 'ইউজার কোনো গল্প তৈরি করেনি';
+  String get userNoStories => 'ইউজার কোনও গল্প তৈরি করেনি';
 
   @override
-  String get youNoStories => 'আপনি কোনো গল্প তৈরি করেননি';
+  String get youNoStories => 'আপনি কোনও গল্প তৈরি করেননি';
 
   @override
   String get follow => 'ফলো করুন';
@@ -67,10 +67,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get yourLikedStories => 'আপনার পছন্দের গল্পগুলো';
 
   @override
-  String get userNoLikedStories => 'ইউজার কোনো গল্প পছন্দ করেনি';
+  String get userNoLikedStories => 'ইউজার কোনও গল্প পছন্দ করেনি';
 
   @override
-  String get youNoLikedStories => 'আপনি কোনো গল্প পছন্দ করেননি';
+  String get youNoLikedStories => 'আপনি কোন গল্প পছন্দ করেননি';
 
   @override
   String get live => 'লাইভ';
@@ -81,11 +81,11 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String noAvailableRoom(String isRoom) {
     String _temp0 = intl.Intl.selectLogic(isRoom, {
-      'true': 'কোনো রুম উপলব্ধ নেই',
-      'false': 'কোনো আসন্ন রুম উপলব্ধ নেই',
-      'other': 'কোনো রুম তথ্য উপলব্ধ নেই',
+      'true': 'কোনও রুম খালি নেই',
+      'false': 'আসন্ন কোনও রুম খালি নেই',
+      'other': 'রুমের কোনও তথ্য পাওয়া যাচ্ছে না',
     });
-    return '$_temp0\n';
+    return '$_temp0\nনিচে একটি রুম যোগ করে শুরু করুন!';
   }
 
   @override
@@ -104,7 +104,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get loggingOut => 'আপনি রেজোনেট থেকে লগ আউট করছেন।';
 
   @override
-  String get yes => 'হ্যাঁ';
+  String get yes => 'হাঁ';
 
   @override
   String get no => 'না';
@@ -119,7 +119,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get tryAgain => 'আবার চেষ্টা করুন!';
 
   @override
-  String get success => 'সফল';
+  String get success => 'সাফল্য';
 
   @override
   String get passwordResetSent => 'পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে!';
@@ -161,7 +161,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get changeEmail => 'ইমেইল পরিবর্তন করুন';
 
   @override
-  String get enterValidEmail => 'একটি বৈধ ইমেইল ঠিকানা লিখুন';
+  String get enterValidEmail => 'দয়া করে একটি বৈধ ইমেইল ঠিকানা লিখুন';
 
   @override
   String get newEmail => 'নতুন ইমেইল';
@@ -171,15 +171,15 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get emailChangeInfo =>
-      'অতিরিক্ত নিরাপত্তার  জন্য, আপনার ইমেইল ঠিকানা পরিবর্তন করার সময় আপনার অ্যাকাউন্টের বর্তমান পাসওয়ার্ড প্রদান করতে হবে। ইমেইল পরিবর্তনের পরে, ভবিষ্যতের লগইনের জন্য আপডেট করা ইমেইল ব্যবহার করুন।';
+      'অতিরিক্ত নিরাপত্তার জন্য, আপনার ইমেইল ঠিকানা পরিবর্তন করার সময় আপনাকে অবশ্যই আপনার অ্যাকাউন্টের বর্তমান পাসওয়ার্ড প্রদান করতে হবে। আপনার ইমেইল পরিবর্তন করার পরে, ভবিষ্যতে লগইনের জন্য আপডেট করা ইমেইলটি ব্যবহার করুন।';
 
   @override
   String get oauthUsersMessage =>
-      '(শুধুমাত্র Google বা Github ব্যবহার করে লগইন করা ইউজারদের জন্য)';
+      '(শুধুমাত্র Google বা Github ব্যবহার করে লগ ইন করা ইউজারদের জন্য)';
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'ইমেইল পরিবর্তন করতে, দয়া করে "বর্তমান পাসওয়ার্ড" ফিল্ডে একটি নতুন পাসওয়ার্ড লিখুন। এই পাসওয়ার্ডটি মনে রাখুন, কারণ ভবিষ্যতে ইমেইল পরিবর্তনের জন্য এটি প্রয়োজন হবে। ভবিষ্যতে, আপনি Google/GitHub বা আপনার নতুন ইমেইল এবং পাসওয়ার্ড সংমিশ্রণ ব্যবহার করে লগইন করতে পারবেন।';
+      'যদি আপনি আপনার ইমেইল পরিবর্তন করতে চান, \"বর্তমান পাসওয়ার্ড\" ক্ষেত্রে একটি নতুন পাসওয়ার্ড লিখুন। এই পাসওয়ার্ডটি মনে রাখতে ভুলবেন না, কারণ ভবিষ্যতে যেকোনো ইমেইল পরিবর্তনের জন্য আপনার এটির প্রয়োজন হবে। ভবিষ্যতে, আপনি Google/GitHub অথবা আপনার নতুন ইমেইল এবং পাসওয়ার্ড সংমিশ্রণ ব্যবহার করে লগ ইন করতে পারেন।';
 
   @override
   String get resonateTagline => 'সীমাহীন এক জগতে প্রবেশ করুন\nকথোপকথন।';
@@ -203,7 +203,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get resonateLogo => 'রেজনেট লোগো';
 
   @override
-  String get iAlreadyHaveAnAccount => 'আমার ইতিমধ্যেই একটি অ্যাকাউন্ট আছে';
+  String get iAlreadyHaveAnAccount => 'আপনার ইতিমধ্যেই একটি অ্যাকাউন্ট আছে';
 
   @override
   String get createNewAccount => 'নতুন অ্যাকাউন্ট তৈরি করুন';
@@ -248,7 +248,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get chooseIdentity => 'পরিচয় নির্বাচন করুন';
 
   @override
-  String get selectLanguage => 'ভাষা নির্বাচন করুন';
+  String get selectLanguage => 'ভাষা নির্বাচন কর';
 
   @override
   String get noConnection => 'কোন সংযোগ নেই';
@@ -257,19 +257,20 @@ class AppLocalizationsBn extends AppLocalizations {
   String get loadingDialog => 'লোড হচ্ছে...';
 
   @override
-  String get createAccount => 'নতুন অ্যাকাউন্ট তৈরি করুন';
+  String get createAccount => 'অ্যাকাউন্ট তৈরি করুন';
 
   @override
-  String get enterValidEmailAddress => 'একটি বৈধ ইমেইল ঠিকানা লিখুন';
+  String get enterValidEmailAddress => 'বৈধ ইমেইল ঠিকানা লিখুন';
 
   @override
   String get email => 'ইমেইল';
 
   @override
-  String get passwordRequirements =>
-      'পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে';
+  String get passwordRequirements => 'পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে';
+
   @override
-  String get includeNumericDigit => 'অন্তত ১টি সংখ্যাসূচক অক্ষর অন্তর্ভুক্ত করুন';
+  String get includeNumericDigit =>
+      'অন্তত ১টি সাংখ্যিক সংখ্যা অন্তর্ভুক্ত করুন';
 
   @override
   String get includeUppercase => 'অন্তত ১টি বড় হাতের অক্ষর অন্তর্ভুক্ত করুন';
@@ -281,10 +282,11 @@ class AppLocalizationsBn extends AppLocalizations {
   String get includeSymbol => 'অন্তত ১টি চিহ্ন অন্তর্ভুক্ত করুন';
 
   @override
-  String get signedUpSuccessfully => 'সফলভাবে সাইন আপ হয়েছে';
+  String get signedUpSuccessfully => 'সফলভাবে সাইন আপ করা হয়েছে';
 
   @override
-  String get newAccountCreated => 'আপনি সফলভাবে একটি নতুন অ্যাকাউন্ট তৈরি করেছেন';
+  String get newAccountCreated =>
+      'আপনি সফলভাবে একটি নতুন অ্যাকাউন্ট তৈরি করেছেন';
 
   @override
   String get signUp => 'সাইন আপ';
@@ -308,7 +310,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get themes => 'থিম';
 
   @override
-  String get about => 'সম্পর্কে';
+  String get about => 'রেজোনেট সম্পর্কে';
 
   @override
   String get other => 'অন্যান্য';
@@ -324,32 +326,34 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get transcriptionModelDescription =>
-      'ভয়েস ট্রান্সক্রিপশনের জন্য AI মডেল নির্বাচন করুন। বড় মডেলগুলি আরও সঠিক কিন্তু ধীর এবং আরও বেশি স্টোরেজ প্রয়োজন।';
+      'ভয়েস ট্রান্সক্রিপশনের জন্য AI মডেলটি বেছে নিন। বড় মডেলগুলি আরও নির্ভুল কিন্তু ধীর এবং আরও বেশি স্টোরেজ প্রয়োজন।';
+
   @override
   String get whisperModelTiny => 'টিনি';
 
   @override
-  String get whisperModelTinyDescription => 'দ্রুততম, সবচেয়ে কম নির্ভুল (~39 MB)';
+  String get whisperModelTinyDescription =>
+      'দ্রুততম, সবচেয়ে কম নির্ভুল (~39 MB)';
 
   @override
-  String get whisperModelBase => 'বেস';
+  String get whisperModelBase => 'বেশ';
 
   @override
-  String get whisperModelBaseDescription => 
-      'সুষম গতি এবং নির্ভুলতা (~74 MB)';
+  String get whisperModelBaseDescription => 'সুষম গতি এবং নির্ভুলতা (~74 MB)';
 
   @override
   String get whisperModelSmall => 'স্মল';
 
   @override
-  String get whisperModelSmallDescription => 
-      'ভালো নির্ভুলতা, ধীর (~244 MB)';
+  String get whisperModelSmallDescription =>
+      'ভালো নির্ভুলতা, ধীর গতি (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'মিডিয়াম';
+  String get whisperModelMedium => 'মিডিয়াম';
 
   @override
-  String get whisperModelMediumDescription => 'উচ্চ নির্ভুলতা, ধীর (~769 MB)';
+  String get whisperModelMediumDescription =>
+      'উচ্চ নির্ভুলতা, ধীর গতি (~769 MB)';
 
   @override
   String get whisperModelLargeV1 => 'লার্জ V1';
@@ -367,7 +371,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get modelDownloadInfo =>
-      'মডেলগুলি প্রথম ব্যবহারের সময় ডাউনলোড করা হয়। আমরা বেস, স্মল, বা মিডিয়াম ব্যবহারের পরামর্শ দিই। বড় মডেলগুলি খুব উচ্চ-শেষ ডিভাইসের প্রয়োজন।';
+      'মডেলগুলি প্রথমবার ব্যবহার করার সময় ডাউনলোড করা হয়। আমরা বেস, স্মল বা মিডিয়াম ব্যবহার করার পরামর্শ দিই। বড় মডেলগুলির জন্য খুব উচ্চমানের ডিভাইসের প্রয়োজন হয়।';
 
   @override
   String get logOut => 'লগ আউট';
@@ -385,7 +389,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get leaveButton => 'বিদায়';
 
   @override
-  String get findingRandomPartner => 'আপনার জন্য একটি রেন্ডম পার্টনার খোঁজা হচ্ছে';
+  String get findingRandomPartner =>
+      'আপনার জন্য একটি রেন্ডম পার্টনার খোঁজা হচ্ছে';
 
   @override
   String get quickFact => 'দ্রুত তথ্য';
@@ -404,7 +409,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get removeRoomConfirmation =>
-      'আপনি কি নিশ্চিত যে আপনি এই আসন্ন রুমটি আপনার তালিকা থেকে রিমুভ করতে চান?';
+      'আপনি কি নিশ্চিত যে আপনি এই আসন্ন রুমটি আপনার তালিকা থেকে সরিয়ে ফেলতে চান?';
 
   @override
   String get completeYourProfile => 'আপনার প্রোফাইল সম্পূর্ণ করুন';
@@ -440,19 +445,21 @@ class AppLocalizationsBn extends AppLocalizations {
   String get enterVerificationCode => 'আপনার\nভেরিফিকেশন কোড লিখুন';
 
   @override
-  String get verificationCodeSent => 'আমরা একটি ৬-অঙ্কের ভেরিফিকেশন কোড পাঠিয়েছি\n';
+  String get verificationCodeSent =>
+      'আমরা 6-সংখ্যার একটি ভেরিফিকেশন কোড পাঠিয়েছি\n';
 
   @override
   String get verificationComplete => 'ভেরিফিকেশন সম্পন্ন হয়েছে';
 
   @override
   String get verificationCompleteMessage =>
-      'অভিনন্দন আপনি আপনার ইমেইল ভেরিফাই করেছেন';
+      'অভিনন্দন! আপনি আপনার ইমেইল ভেরিফাই করেছেন';
+
   @override
   String get verificationFailed => 'ভেরিফিকেশন ব্যর্থ হয়েছে';
 
   @override
-  String get otpMismatch => 'OTP মিলছে না, অনুগ্রহ করে আবার চেষ্টা করুন';
+  String get otpMismatch => 'OTP অমিল হয়েছে, অনুগ্রহ করে আবার চেষ্টা করুন';
 
   @override
   String get otpResent => 'OTP পুনরায় পাঠানো হয়েছে';
@@ -476,10 +483,11 @@ class AppLocalizationsBn extends AppLocalizations {
   String get createNewRoom => 'নতুন রুম তৈরি করুন';
 
   @override
-  String get pleaseEnterScheduledDateTime => 'অনুগ্রহ করে নির্ধারিত তারিখ-সময় লিখুন';
+  String get pleaseEnterScheduledDateTime =>
+      'অনুগ্রহ করে নির্ধারিত তারিখ-সময় লিখুন';
 
   @override
-  String get scheduleDateTimeLabel => 'নির্ধারিত তারিখ-সময়';
+  String get scheduleDateTimeLabel => 'তারিখ সময় নির্ধারণ করুন';
 
   @override
   String get enterTags => 'ট্যাগ লিখুন';
@@ -498,7 +506,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String noStoriesInCategory(String categoryName) {
-    return 'No stories currently exist in the $categoryName category to present';
+    return 'বর্তমানে $categoryName বিভাগে কোনও গল্প নেই।';
   }
 
   @override
@@ -508,16 +516,16 @@ class AppLocalizationsBn extends AppLocalizations {
   String get helpToGrow => 'বৃদ্ধিতে সাহায্য করুন!';
 
   @override
-  String get share => 'শেয়ার করুন';
+  String get share => 'শেয়ার করুন';
 
   @override
-  String get rate => 'রেট করুন';
+  String get rate => 'রেটিং দিন';
 
   @override
   String get aboutResonate => 'রেজোনেট সম্পর্কে';
 
   @override
-  String get description => 'বর্ণনা';
+  String get description => 'বিবরণ';
 
   @override
   String get confirm => 'নিশ্চিত করুন';
@@ -526,10 +534,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get classic => 'ক্লাসিক';
 
   @override
-  String get time => 'সময়';
+  String get time => 'টাইম';
 
   @override
-  String get vintage => 'ভিন্টেজ';
+  String get vintage => 'ভিনটেজ';
 
   @override
   String get amber => 'অ্যাম্বার';
@@ -541,7 +549,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get cream => 'ক্রিম';
 
   @override
-  String get none => 'কোনোটিই নয়';
+  String get none => 'কোনটিই নয়';
 
   @override
   String checkOutGitHub(String url) {
@@ -558,7 +566,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get errorLoadPackageInfo => 'প্যাকেজ তথ্য লোড করা যায়নি';
 
   @override
-  String get searchFailed => 'রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
+  String get searchFailed =>
+      'রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
   String get updateAvailable => 'আপডেট উপলব্ধ আছে';
@@ -573,13 +582,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get latestVersion => 'আপনি সর্বশেষ ভার্সন ব্যবহার করছেন';
 
   @override
-  String get profileCreatedSuccessfully => 'প্রোফাইল সফলভাবে তৈরি হয়েছে!';
+  String get profileCreatedSuccessfully => 'প্রোফাইল সফলভাবে তৈরি করা হয়েছে!';
 
   @override
   String get invalidScheduledDateTime => 'অবৈধ নির্ধারিত তারিখ-সময়';
 
   @override
-  String get scheduledDateTimePast => 'নির্ধারিত তারিখ-সময় অতীত হতে পারে না';
+  String get scheduledDateTimePast => 'নির্ধারিত তারিখ-সময় অতীতের হতে পারে না';
 
   @override
   String get joinRoom => 'রুমে যৌন করুন';
@@ -594,13 +603,14 @@ class AppLocalizationsBn extends AppLocalizations {
   String get english => 'en';
 
   @override
-  String get emailVerificationRequired => 'ইমেইল ভেরিফিকেশন প্রয়োজন';
+  String get emailVerificationRequired => 'ইমেইল যাচাইকরণ প্রয়োজন';
 
   @override
-  String get verify => 'ভেরিফাই করুন';
+  String get verify => 'যাচাই করুন';
 
   @override
   String get audioRoom => 'অডিও রুম';
+
   @override
   String toRoomAction(String action) {
     return 'রুমে $action করার জন্য';
@@ -610,7 +620,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get mailSentMessage => 'মেইল পাঠানো হয়েছে';
 
   @override
-  String get disconnected => 'সংযোগ বিচ্ছিন্ন হয়েছে';
+  String get disconnected => 'সংযোগ বিচ্ছিন্ন';
+
   @override
   String get micOn => 'মাইক';
 
@@ -618,13 +629,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get speakerOn => 'স্পিকার';
 
   @override
-  String get endChat => 'চ্যাট শেষ করুন';
+  String get endChat => 'চ্যাট বন্ধ করুন';
 
   @override
-  String get monthJan => 'জানুয়ারি';
+  String get monthJan => 'জানুয়ারী';
 
   @override
-  String get monthFeb => 'ফেব্রুয়ারি';
+  String get monthFeb => 'ফেব্রুয়ারি';
 
   @override
   String get monthMar => 'মার্চ';
@@ -657,7 +668,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get monthDec => 'ডিসেম্বর';
 
   @override
-  String get register => 'রেজিস্টার করুন';
+  String get register => 'রেজিস্টার';
 
   @override
   String get newToResonate => 'রেজোনেটে নতুন? ';
@@ -670,20 +681,21 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get forgotPasswordMessage =>
-      'আপনার পাসওয়ার্ড রিসেট করতে আপনার রেজিস্টার্ড ইমেইল ঠিকানা লিখুন।';
+      'আপনার পাসওয়ার্ড রিসেট করতে আপনার ইতিমধ্যে রেজিস্টার্ড ইমেইল ঠিকানাটি দিন';
 
   @override
-  String get usernameUnavailable => 'ইউজারনেম উপলব্ধ নয়!';
+  String get usernameUnavailable => 'ইউজারনেম অনুপলব্ধ!';
+
   @override
   String get usernameInvalidOrTaken =>
-      'এই ইউজারনেমটি অবৈধ বা ইতিমধ্যে নেওয়া হয়েছে।';
+      'এই ইউজারনেমটি অবৈধ অথবা ইতিমধ্যেই নেওয়া হয়েছে।';
 
   @override
-  String get otpResentMessage => 'অনুগ্রহ করে নতুন OTP এর জন্য আপনার মেইল চেক করুন।';
+  String get otpResentMessage => 'নতুন OTP এর জন্য আপনার মেইল ​​চেক করুন।';
 
   @override
   String get connectionError =>
-      'সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট চেক করুন এবং আবার চেষ্টা করুন।';
+      'সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট পরীক্ষা করে আবার চেষ্টা করুন।';
 
   @override
   String get seconds => 'সেকেন্ড।';
@@ -715,8 +727,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get stable => 'স্থিতিশীল';
 
   @override
-  String get usernameCharacterLimit =>
-      'ইউজারনেম ৫টির বেশি অক্ষরের হতে হবে।';
+  String get usernameCharacterLimit => 'ইউজারনেম ৫টির বেশি অক্ষরের হতে হবে।';
 
   @override
   String get submit => 'জমা দিন';
@@ -725,7 +736,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get anonymous => 'অজানা';
 
   @override
-  String get noSearchResults => 'ককোনও রেজাল্ট পাওয়া যায়নি';
+  String get noSearchResults => 'কোনও রেজাল্ট পাওয়া যায়নি';
 
   @override
   String get searchRooms => 'রুম খুঁজুন...';
@@ -740,11 +751,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get searchError => 'সার্চে ত্রুটি';
 
   @override
-  String get searchRoomsError => 'রুম খোঁজার সময় ত্রুটি হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+  String get searchRoomsError =>
+      'রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   @override
   String get searchUpcomingRoomsError =>
-      'আসন্ন রুম খোঁজার সময় ত্রুটি হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+      'আসন্ন রুমগুলি অনুসন্ধান করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।';
+
   @override
   String get search => 'সার্চ';
 
@@ -757,7 +770,7 @@ class AppLocalizationsBn extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀 এই অসাধারণ রুমটি দেখুন: $roomName!\n\n📖 বিবরণ: $description\n👥 এখনই $participants অংশগ্রহণকারীরদেড় সাথে যোগ দিন!';
+    return '🚀এই অসাধারণ রুমটি দেখুন: $roomName!\n\n📖 বিবরণ: $description\n👥 এখনই $participants অংশগ্রহণকারীরদেড় সাথে যোগ দিন!';
   }
 
   @override
@@ -780,6 +793,7 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get profileUpdatedSuccessfully =>
       'সকল পরিবর্তন সফলভাবে সেভ হয়ে গেছে।';
+
   @override
   String get profileUpToDate => 'প্রোফাইল আপ টু ডেট আছে';
 
@@ -788,7 +802,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'নতুন কোনও পরিবর্তন করা হয়নি, সেভ করার মতো কিছু নেই।';
 
   @override
-  String get connectionFailed => 'সংযোগ ব্যর্থ হয়েছে';
+  String get connectionFailed => 'সংযোগ ব্যর্থ হয়েছে!';
 
   @override
   String get unableToJoinRoom =>
@@ -800,16 +814,17 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get unableToReconnect =>
       'রুমে পুনরায় যৌন করা যাচ্ছে না। অনুগ্রহ করে আবার যোগদানের চেষ্টা করুন।';
+
   @override
-  String get invalidFormat => 'অবৈধ ফরম্যাট!';
+  String get invalidFormat => 'অবৈধ ফর্ম্যাট!';
 
   @override
   String get usernameAlphanumeric =>
-      'ইউজারনেম অবশ্যই আলফানিউমেরিক হতে হবে এবং এতে বিশেষ অক্ষর থাকা উচিত নয়।';
+      'ইউজারনেম অবশ্যই আলফানিউমেরিক হতে হবে এবং বিশেষ অক্ষর থাকা উচিত নয়।';
 
   @override
   String get userProfileCreatedSuccessfully =>
-      'আপনার ইউজার প্রোফাইল সফলভাবে তৈরি হয়েছে!';
+      'আপনার ইউজার প্রোফাইল সফলভাবে তৈরি হয়েছে।';
 
   @override
   String get emailVerificationMessage =>
@@ -830,13 +845,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get createAChapter => 'একটি নতুন অধ্যায় তৈরি করুন';
 
   @override
-  String get chapterTitle => 'অধ্যায় শিরোনাম *';
+  String get chapterTitle => 'অধ্যায়ের শিরোনাম *';
 
   @override
   String get aboutRequired => 'অধ্যায় সম্পর্কে *';
 
   @override
-  String get changeCoverImage => 'কভার ইমেজ পরিবর্তন করুন';
+  String get changeCoverImage => 'কভার ছবি পরিবর্তন করুন';
 
   @override
   String get uploadAudioFile => 'অডিও ফাইল আপলোড করুন';
@@ -849,12 +864,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String audioFileSelected(String fileName) {
-    return 'অডিও ফাইল নির্বাচিত: $fileName';
+    return 'অডিও ফাইলটি নির্বাচিত: $fileName';
   }
 
   @override
   String lyricsFileSelected(String fileName) {
-    return 'লিরিক্স ফাইল নির্বাচিত: $fileName';
+    return 'লিরিক্স ফাইলটি নির্বাচিত: $fileName';
   }
 
   @override
@@ -868,7 +883,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get ok => 'ঠিক আছে';
 
   @override
-  String get roomDescriptionOptional => 'রুমের বিবরণ (ঐচ্ছিক)';
+  String get roomDescriptionOptional => 'রুমের বর্ণনা (ঐচ্ছিক)';
 
   @override
   String get deleteAccount => 'অ্যাকাউন্ট ডিলিট করুন';
@@ -881,6 +896,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get category => 'বিভাগ *';
+
   @override
   String get addChapter => 'অধ্যায় যোগ করুন';
 
@@ -889,15 +905,17 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get fillAllRequiredFieldsAndChapter =>
-      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন, অন্তত একটি অধ্যায় যোগ করুন, এবং একটি কভার ছবি নির্বাচন করুন।';
+      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন, কমপক্ষে একটি অধ্যায় যোগ করুন এবং একটি কভার ছবি নির্বাচন করুন।';
+
   @override
-  String get toConfirmType => 'নিশ্চিত করতে টাইপ করুন';
+  String get toConfirmType => 'নিশ্চিত করতে, টাইপ করুন';
 
   @override
   String get inTheBoxBelow => 'নিচের বাক্সে লিখুন';
 
   @override
-  String get iUnderstandDeleteMyAccount => 'আমি বুঝতে পারছি, আমার অ্যাকাউন্ট ডিলিট করে দিন';
+  String get iUnderstandDeleteMyAccount =>
+      'আমি বুঝতে পারছি, আমার অ্যাকাউন্ট ডিলিট করে দিন';
 
   @override
   String get whatDoYouWantToListenTo => 'আপনি কী শুনতে চান?';
@@ -929,6 +947,7 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get joinConversationExploreRooms =>
       'আলোচনায় যোগ দিন! রুমগুলি ঘুরে দেখুন, বন্ধুদের সাথে সংযুক্ত হন এবং বিশ্বের সাথে আপনার মতামত ভাগ করে নিন।';
+
   @override
   String get diveIntoDiverseDiscussions =>
       'বিভিন্ন আলোচনা এবং বিষয়গুলিতে ডুবে যান। \nএমন রুম খুঁজুন যা আপনার সাথে রেজোনেট করে এবং সম্প্রদায়ের অংশ হয়ে উঠুন।';
@@ -936,6 +955,7 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get atResonateEveryVoiceValued =>
       'রেজোনেটে, প্রতিটি কণ্ঠস্বরকে মূল্য দেওয়া হয়। আপনার চিন্তাভাবনা, গল্প এবং অভিজ্ঞতা অন্যদের সাথে ভাগ করুন। এখনই আপনার অডিও যাত্রা শুরু করুন।';
+
   @override
   String get notifications => 'নোটিফিকেশন্স';
 
@@ -961,14 +981,16 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String startedFollowingYou(String username) {
-    return '$username আপনাকে ফলো করা শুরু করেছে';
+    return '$username আপনাকে ফলো করা শুরু করেছে:';
   }
 
   @override
-  String get youHaveNewNotification => 'আপনার একটি নতুন নোটিফিকেশন আছে';
+  String get youHaveNewNotification => 'আপনার একটি নতুন নোটিফিকেশন আছে।';
 
   @override
-  String get hangOnGoodThingsTakeTime => 'একটু অপেক্ষা করুন, ভালো জিনিসের জন্য সময় লাগে 🔍';
+  String get hangOnGoodThingsTakeTime =>
+      'একটু অপেক্ষা করুন, ভালো জিনিসের জন্য সময় লাগে 🔍';
+
   @override
   String get resonateOpenSourceProject =>
       'Resonate হল AOSSIE দ্বারা পরিচালিত একটি ওপেন সোর্স প্রকল্প। অবদান রাখতে আমাদের github দেখুন।';
@@ -1001,7 +1023,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get gallery => 'গ্যালারি';
 
   @override
-  String get remove => 'মুছে ফেলুন';
+  String get remove => 'সরিয়ে ফেলুন';
 
   @override
   String created(String date) {
@@ -1049,7 +1071,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'timeTheme': 'সময়',
       'vintageTheme': 'ভিনটেজ',
       'amberTheme': 'অ্যাম্বার',
-      'forestTheme': 'ফরেস্ট',
+      'forestTheme': 'জনজঙ্গল',
       'creamTheme': 'ক্রিম',
       'other': 'অন্যান্য',
     });
@@ -1105,10 +1127,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String get onlineUsers => 'অনলাইন ইউজার্স';
 
   @override
-  String get noOnlineUsers => 'বর্তমানে কোন ইউজার অনলাইনে নেই';
+  String get noOnlineUsers => 'বর্তমানে কোনও ইউজার অনলাইনে নেই।';
 
   @override
-  String get chooseUser => 'চ্যাট করার জন্য ইউজার নির্বাচন করুন';
+  String get chooseUser => 'চ্যাট করার জন্য ইউজার পছন্দ করুন';
 
   @override
   String get quickMatch => 'দ্রুত মিল করুন';
@@ -1123,7 +1145,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get following => 'ফলো করছে';
 
   @override
-  String get followers => 'ফলোয়ার্স';
+  String get followers => 'ফলোয়ার্স';
 
   @override
   String get friendRequests => 'বন্ধুত্বের অনুরোধ';
@@ -1138,13 +1160,15 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get friendRequestCancelled => 'বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে';
+
   @override
   String friendRequestCancelledTo(String username) {
     return '$username-এর কাছে আপনার বন্ধুত্বের অনুরোধ বাতিল করা হয়েছে।';
   }
 
   @override
-  String get requested => 'অনুরোধ করা হয়েছে';
+  String get requested => 'অনুরোধ পাঠানো হয়েছে';
+
   @override
   String get friends => 'বন্ধুরা';
 
@@ -1156,18 +1180,21 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'আপনি এখন $username-এর বন্ধু।';
+    return 'আপনি এখন $username এর বন্ধু।';
   }
 
   @override
-  String get friendRequestDeclined => 'বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করা হয়েছে';
+  String get friendRequestDeclined =>
+      'বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করা হয়েছে';
+
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'আপনি $username-এর বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করেছেন।';
+    return 'আপনি $username এর বন্ধুত্বের অনুরোধ প্রত্যাখ্যান করেছেন।';
   }
 
   @override
   String get accept => 'গ্রহণ করুন';
+
   @override
   String get callDeclined => 'কল প্রত্যাখ্যান করা হয়েছে';
 
@@ -1178,6 +1205,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get checkForUpdates => 'আপডেট চেক করুন';
+
   @override
   String get updateNow => 'এখনই আপডেট করুন';
 
@@ -1188,8 +1216,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get updateSuccessful => 'আপডেট সফল হয়েছে';
 
   @override
-  String get updateSuccessfulMessage =>
-      'রেজোনেট সফলভাবে আপডেট হয়েছে!';
+  String get updateSuccessfulMessage => 'রেজোনেট সফলভাবে আপডেট করা হয়েছে!';
 
   @override
   String get updateCancelled => 'আপডেট বাতিল করা হয়েছে';
@@ -1203,8 +1230,9 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get updateFailedMessage =>
       'আপডেট করা যায়নি। অনুগ্রহ করে Play Store থেকে ম্যানুয়ালি আপডেট করার চেষ্টা করুন।';
+
   @override
-  String get updateError => 'আপডেট ত্রুটি';
+  String get updateError => 'আপডেটে ত্রুটি';
 
   @override
   String get updateErrorMessage =>
@@ -1229,13 +1257,14 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get upToDateMessage => 'আপনি রেজোনেটের সর্বশেষ ভার্সন ব্যবহার করছেন।';
-  
+
   @override
   String get updateAvailableTitle => 'আপডেট উপলব্ধ আছে!';
 
   @override
   String get updateAvailableMessage =>
       'রেজোনেটের একটি নতুন ভার্সন Play Store এ উপলব্ধ আছে';
+
   @override
   String get updateFeaturesImprovement =>
       'সর্বশেষ বৈশিষ্ট্য এবং উন্নতি সহ আপডেট করুন।';
@@ -1245,7 +1274,8 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get roomRemovedSuccessfully =>
-      'রুম আপনার তালিকা থেকে সফলভাবে সরানো হয়েছে।';
+      'আপনার তালিকা থেকে রুমটি সফলভাবে সরানো হয়েছে';
+
   @override
   String get alert => 'সতর্কতা';
 
@@ -1276,10 +1306,11 @@ class AppLocalizationsBn extends AppLocalizations {
   String get reportParticipant => 'অংশগ্রহণকারীকে রিপোর্ট করুন';
 
   @override
-  String get selectReportType => 'অনুগ্রহ করে একটি রিপোর্টের ধরন নির্বাচন করুন';
+  String get selectReportType =>
+      'অনুগ্রহ করে একটি রিপোর্টের ধরণ নির্বাচন করুন।';
 
   @override
-  String get reportSubmitted => 'রিপোর্ট সফলভাবে জমা দেওয়া হয়েছে';
+  String get reportSubmitted => 'রিপোর্ট সফলভাবে জমা দেওয়া হয়েছে';
 
   @override
   String get reportFailed => 'রিপোর্ট জমা দেওয়া ব্যর্থ হয়েছে';
@@ -1295,10 +1326,11 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get cannotStopRecording =>
-      'আপনি ম্যানুয়ালি রেকর্ডিং বন্ধ করতে পারবেন না, রুম বন্ধ হলে রেকর্ডিং বন্ধ হয়ে যাবে।';
+      'আপনি ম্যানুয়ালি রেকর্ডিং বন্ধ করতে পারবেন না, রুম বন্ধ হয়ে গেলে রেকর্ডিং বন্ধ হয়ে যাবে।';
 
   @override
   String get liveChapter => 'লাইভ অধ্যায়';
+
   @override
   String get viewOrEditLyrics => 'লিরিকস দেখুন বা সম্পাদনা করুন';
 
@@ -1312,15 +1344,26 @@ class AppLocalizationsBn extends AppLocalizations {
   String get author => 'লেখক';
 
   @override
-  String get startLiveChapter => 'লাইভ অধ্যায় শুরু করুন';
+  String get startLiveChapter => 'একটি লাইভ অধ্যায় শুরু করুন';
 
   @override
-  String get fillAllFields => 'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন';
+  String get fillAllFields =>
+      'অনুগ্রহ করে সমস্ত প্রয়োজনীয় ক্ষেত্র পূরণ করুন।';
 
   @override
   String get noRecordingError =>
-      'আপনি অধ্যায়ের জন্য কিছুই রেকর্ড করেননি। রুম থেকে বের হওয়ার আগে একটি অধ্যায় রেকর্ড করুন';
+      'আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।';
 
   @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get deleteMessageContent =>
+      'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }
