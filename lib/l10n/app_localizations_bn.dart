@@ -70,7 +70,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get userNoLikedStories => 'ইউজার কোনও গল্প পছন্দ করেনি';
 
   @override
-  String get youNoLikedStories => 'আপনি কোন গল্প পছন্দ করেননি';
+  String get youNoLikedStories => 'আপনি কোনও গল্প পছন্দ করেননি';
 
   @override
   String get live => 'লাইভ';
