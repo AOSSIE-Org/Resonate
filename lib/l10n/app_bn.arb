@@ -210,7 +210,7 @@
     "@currentPassword": {
         "description": "Label for the current password input field, used for verification."
     },
-    "emailChangeInfo": "অতিরিক্ত নিরাপত্তার জন্য, আপনার ইমেল ঠিকানা পরিবর্তন করার সময় আপনাকে অবশ্যই আপনার অ্যাকাউন্টের বর্তমান পাসওয়ার্ড প্রদান করতে হবে। আপনার ইমেল পরিবর্তন করার পরে, ভবিষ্যতে লগইনের জন্য আপডেট করা ইমেলটি ব্যবহার করুন।",
+    "emailChangeInfo": "অতিরিক্ত নিরাপত্তার জন্য, আপনার ইমেইল ঠিকানা পরিবর্তন করার সময় আপনাকে অবশ্যই আপনার অ্যাকাউন্টের বর্তমান পাসওয়ার্ড প্রদান করতে হবে। আপনার ইমেইল পরিবর্তন করার পরে, ভবিষ্যতে লগইনের জন্য আপডেট করা ইমেইলটি ব্যবহার করুন।",
     "@emailChangeInfo": {
         "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
     },
@@ -218,7 +218,7 @@
     "@oauthUsersMessage": {
         "description": "A message to specify that the following instructions are for OAuth users."
     },
-    "oauthUsersEmailChangeInfo": "যদি আপনি আপনার ইমেল পরিবর্তন করতে চান, \"বর্তমান পাসওয়ার্ড\" ক্ষেত্রে একটি নতুন পাসওয়ার্ড লিখুন। এই পাসওয়ার্ডটি মনে রাখতে ভুলবেন না, কারণ ভবিষ্যতে যেকোনো ইমেল পরিবর্তনের জন্য আপনার এটির প্রয়োজন হবে। ভবিষ্যতে, আপনি Google/GitHub অথবা আপনার নতুন ইমেল এবং পাসওয়ার্ড সংমিশ্রণ ব্যবহার করে লগ ইন করতে পারেন।",
+    "oauthUsersEmailChangeInfo": "যদি আপনি আপনার ইমেইল পরিবর্তন করতে চান, \"বর্তমান পাসওয়ার্ড\" ক্ষেত্রে একটি নতুন পাসওয়ার্ড লিখুন। এই পাসওয়ার্ডটি মনে রাখতে ভুলবেন না, কারণ ভবিষ্যতে যেকোনো ইমেইল পরিবর্তনের জন্য আপনার এটির প্রয়োজন হবে। ভবিষ্যতে, আপনি Google/GitHub অথবা আপনার নতুন ইমেইল এবং পাসওয়ার্ড সংমিশ্রণ ব্যবহার করে লগ ইন করতে পারেন।",
     "@oauthUsersEmailChangeInfo": {
         "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
     },
@@ -226,7 +226,7 @@
     "@resonateTagline": {
         "description": "The application's tagline, used on splash or login screens."
     },
-    "signInWithEmail": "ইমেল দিয়ে সাইন ইন করুন",
+    "signInWithEmail": "ইমেইল দিয়ে সাইন ইন করুন",
     "@signInWithEmail": {
         "description": "Button text for signing in using email and password."
     },
@@ -258,7 +258,7 @@
     "@createNewAccount": {
         "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
     },
-    "userProfile": "ইউসার প্রোফাইল",
+    "userProfile": "ইউজার প্রোফাইল",
     "@userProfile": {
         "description": "Accessibility text for a user's profile picture or avatar."
     },
@@ -770,7 +770,7 @@
     "@english": {
         "description": "The language code for English."
     },
-    "emailVerificationRequired": "ইমেল যাচাইকরণ প্রয়োজন",
+    "emailVerificationRequired": "ইমেইল যাচাইকরণ প্রয়োজন",
     "@emailVerificationRequired": {
         "description": "A title or message indicating that email verification is needed to proceed."
     },
@@ -920,7 +920,7 @@
     "@resonateDescription": {
         "description": "A short, user-facing description of the Resonate application."
     },
-    "resonateFullDescription": "রেজোনেট একটি বিপ্লবী ভয়েস-ভিত্তিক সোশ্যাল মিডিয়া প্ল্যাটফর্ম যেখানে প্রতিটি ভয়েস গুরুত্বপূর্ণ। \nরিয়েল-টাইম অডিও কথোপকথনে যোগ দিন, বিভিন্ন আলোচনায় অংশগ্রহণ করুন এবং \nএকই মনের ইউজারদের সাথে সংযোগ স্থাপন করুন। আমাদের প্ল্যাটফর্মটি অফার করে:\n- বিষয়-ভিত্তিক আলোচনা সহ লাইভ অডিও রুম\n- ভয়েসের মাধ্যমে নিরবচ্ছিন্ন সোশ্যাল নেটওয়ার্কিং\n- সম্প্রদায়-চালিত কন্টেন্ট মডারেশন\n- ক্রস-প্ল্যাটফর্ম সামঞ্জস্য\n- এন্ড-টু-এন্ড এনক্রিপ্ট করা ব্যক্তিগত কথোপকথন\n\n AOSSIE ওপেন সোর্স কমিউনিটি দ্বারা তৈরি, আমরা ব্যবহারকারীর গোপনীয়তা এবং \n সম্প্রদায়-চালিত উন্নয়নকে অগ্রাধিকার দিই। সামাজিক অডিওর ভবিষ্যত গঠনে আমাদের সাথে যোগ দিন!",
+    "resonateFullDescription": "রেজোনেট একটি বিপ্লবী ভয়েস-ভিত্তিক সোশ্যাল মিডিয়া প্ল্যাটফর্ম যেখানে প্রতিটি ভয়েস গুরুত্বপূর্ণ। \nরিয়েল-টাইম অডিও কথোপকথনে যোগ দিন, বিভিন্ন আলোচনায় অংশগ্রহণ করুন এবং \nএকই মনের ইউজারদের সাথে সংযোগ স্থাপন করুন। আমাদের প্ল্যাটফর্মটি অফার করে:\n- বিষয়-ভিত্তিক আলোচনা সহ লাইভ অডিও রুম\n- ভয়েসের মাধ্যমে নিরবচ্ছিন্ন সোশ্যাল নেটওয়ার্কিং\n- সম্প্রদায়-চালিত কন্টেন্ট মডারেশন\n- ক্রস-প্ল্যাটফর্ম সামঞ্জস্য\n- এন্ড-টু-এন্ড এনক্রিপ্ট করা ব্যক্তিগত কথোপকথন\n\n AOSSIE ওপেন সোর্স কমিউনিটি দ্বারা তৈরি, আমরা উজারদের গোপনীয়তা এবং \n সম্প্রদায়-চালিত উন্নয়নকে অগ্রাধিকার দিই। সামাজিক অডিওর ভবিষ্যত গঠনে আমাদের সাথে যোগ দিন!",
     "@resonateFullDescription": {
         "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
     },
@@ -1060,7 +1060,7 @@
     "@userProfileCreatedSuccessfully": {
         "description": "Success message after a user completes their profile setup."
     },
-    "emailVerificationMessage": "এগিয়ে যেতে, আপনার ইমেল ঠিকানা যাচাই করুন।",
+    "emailVerificationMessage": "এগিয়ে যেতে, আপনার ইমেইল ঠিকানা যাচাই করুন।",
     "@emailVerificationMessage": {
         "description": "An instructional message prompting the user to verify their email."
     },
@@ -1605,7 +1605,7 @@
     "@updateCancelled": {
         "description": "Title for the message when an update is cancelled."
     },
-    "updateCancelledMessage": "ইউসার আপডেট বাতিল করেছেন",
+    "updateCancelledMessage": "ইউজার আপডেট বাতিল করেছেন",
     "@updateCancelledMessage": {
         "description": "Message indicating the user cancelled the update process."
     },

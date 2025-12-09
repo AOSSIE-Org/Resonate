@@ -1,6 +1,9 @@
 {
   "bn": [
-    "exploreDiverseConversations"
+    "deleteMessageTitle",
+    "deleteMessageContent",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
   ],
 
   "gu": [
