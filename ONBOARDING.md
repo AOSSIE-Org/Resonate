@@ -1,6 +1,6 @@
 # Onboarding Guide
 
-Client side set up is straightforward and standard, i.e clone the repo [Resonate Client Side Repo](https://github.com/AOSSIE-Org/Resonate), do `flutter pub get` in the root of the project etc so this guide would focus on the backend env setup.
+Client-side set-up is straightforward and standard, i.e., clone the repo [Resonate Client Side Repo](https://github.com/AOSSIE-Org/Resonate), do `flutter pub get` in the root of the project, etc. This guide would focus on the backend env setup.
 
 Please strictly stick to the guide; do not go off installing stuff on your own.
 
