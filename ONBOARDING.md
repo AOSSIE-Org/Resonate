@@ -83,7 +83,7 @@ Now you will be prompted for `Collection` Set Up
 
 ![Screenshot 2024-07-06 at 5 14 46 PM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/5155b124-07e4-4769-a9f1-ac574816f85e)
 
-Press "a" to select all and press enter, same goes for  `Buckets` set up coming after this. The `Functions` will be pushed at then end of the script after the Livekit env vars are pushed as the Function need redeployment after a new env var is pushed in order to read the var.
+Press "a" to select all and press enter, same goes for  `Buckets` set up coming after this. The `Functions` will be pushed at the end of the script after the Livekit env vars are pushed as the Functions need redeployment after a new env var is pushed in order to read the var.
 
 This completes the Resonate project Set Up (functions will be pushed in the end) in your local Appwrite Instance 🚀🍀
 <br/>
