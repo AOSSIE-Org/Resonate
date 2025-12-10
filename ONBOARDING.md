@@ -5,7 +5,7 @@ Client-side set-up is straightforward and standard, i.e., clone the repo [Resona
 Please strictly stick to the guide; do not go off installing stuff on your own.
 
 > #### **Setting up Firebase for FCM**
-> To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), set up a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
+> To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), set up a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM-specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
 <br/>
 
 ### Prerequisits (must be installed) for Backend Env Set-Up
@@ -23,7 +23,7 @@ Clone the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend
 <br/>
 
 
-Navigate to the root directory of the project in your terminal (for windows powershell), and run the command
+Navigate to the root directory of the project in your terminal (for windows PowerShell), and run the command
 
 ##### Linux and MacOS
 
