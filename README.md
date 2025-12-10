@@ -45,7 +45,7 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 1. Real-time Audio Communication by joining rooms and talking to people.
 2. Ability to create rooms and moderate speakers and events.
 3. Create Scheduled Rooms and notify subscribers as reminders to join
-4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favourate creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progess)
+4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favorite  creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progress)
 5. Pair chatting to enable users to find random partners to talk to in the app.
 6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
 
@@ -62,10 +62,10 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 
 ## :four_leaf_clover: Getting Started
 
-Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
+Resonate is a broad project that makes use of other software solutions like Appwrite and Livekit, starting up can be a little challenging.
 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you.
-Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
+Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contributions.
 
 ## ▶️ Play Store Feature Graphic
 
@@ -96,7 +96,8 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 
 :star: Don't forget to star this repository if you find it useful! :star:
 
-Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed (P.S. to the `dev` branch). To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
+Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed. (Please contribute to the `dev` branch.) To ensure smooth collaboration, refer to the Contribution Guidelines.
+ [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
 
 We appreciate your contributions and look forward to working with you to make this project even better!
 
