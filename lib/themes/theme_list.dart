@@ -64,6 +64,16 @@ class ThemeList {
       onSurfaceColor: Colors.white,
       themeMode: ThemeMode.dark,
     ),
+    ThemeModel(
+      name: "Bright",
+      primaryColor: Color(0xFF4CAF50), // Vibrant green for Join Button
+      onPrimaryColor: Colors.white,
+      secondaryColor: Color(0xFF2196F3), // Clean blue for Share Icon
+      onSecondaryColor: Colors.white,
+      surfaceColor: Colors.white,
+      onSurfaceColor: Colors.black,
+      themeMode: ThemeMode.light,
+    ),
   ];
 
   static ThemeModel getThemeModel(String themeName) {
