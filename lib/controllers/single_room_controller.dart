@@ -118,7 +118,11 @@ class SingleRoomController extends GetxController {
       var participantCollectionRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: participantsCollectionId,
-        queries: [Query.equal('roomId', appwriteRoom.id)],
+        queries: [
+          Query.equal('roomId', appwriteRoom.id),
+          // FIX: Added to ensure participant data is loaded correctly
+          Query.select(['*']),
+        ],
       );
       for (Document participant in participantCollectionRef.documents) {
         addParticipantDataToList(participant);
@@ -242,6 +246,8 @@ class SingleRoomController extends GetxController {
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
+        // FIX: Added to ensure we get the document ID correctly
+        Query.select(['*']),
       ],
     );
     return participantDocsRef.documents.first.$id;

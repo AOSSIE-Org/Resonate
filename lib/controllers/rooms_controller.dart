@@ -40,7 +40,12 @@ class RoomsController extends GetxController {
     var participantCollectionRef = await databases.listDocuments(
       databaseId: masterDatabaseId,
       collectionId: participantsCollectionId,
-      queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)],
+      queries: [
+        Query.equal("roomId", room.data["\$id"]),
+        Query.limit(3),
+        // FIX: Added to ensure participant relationships are fetched
+        Query.select(['*']),
+      ],
     );
     List<String> memberAvatarUrls = [];
     for (var p in participantCollectionRef.documents) {
@@ -78,6 +83,8 @@ class RoomsController extends GetxController {
       var roomsCollectionRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: roomsCollectionId,
+        // FIX: Added to ensure room data is complete
+        queries: [Query.select(['*'])],
       );
 
       for (var room in roomsCollectionRef.documents) {

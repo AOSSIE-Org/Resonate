@@ -22,9 +22,9 @@ class ChangeEmailController extends GetxController {
     Databases? databases,
     Account? account,
   }) : authStateController =
-           authStateController ?? Get.find<AuthStateController>(),
-       databases = databases ?? AppwriteService.getDatabases(),
-       account = account ?? AppwriteService.getAccount();
+            authStateController ?? Get.find<AuthStateController>(),
+        databases = databases ?? AppwriteService.getDatabases(),
+        account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
   RxBool isLoading = false.obs;
@@ -38,7 +38,11 @@ class ChangeEmailController extends GetxController {
     final docs = await databases.listDocuments(
       databaseId: userDatabaseID,
       collectionId: usernameCollectionID,
-      queries: [Query.equal('email', changedEmail)],
+      queries: [
+        Query.equal('email', changedEmail),
+        // FIX: Added Query.select(['*']) to ensure all fields/relationships are returned
+        Query.select(['*']), 
+      ],
     );
 
     if (docs.total > 0) {

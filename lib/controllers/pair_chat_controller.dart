@@ -214,6 +214,8 @@ class PairChatController extends GetxController {
         Query.notEqual('uid', authController.uid!),
         Query.notEqual('isAnonymous', true),
         Query.limit(100),
+        // FIX: Added this line to fetch all relationship fields
+        Query.select(['*']), 
       ],
     );
     if (result.documents.isEmpty) {

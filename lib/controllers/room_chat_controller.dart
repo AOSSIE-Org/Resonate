@@ -50,6 +50,8 @@ class RoomChatController extends GetxController {
       Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
       Query.orderAsc('index'),
       Query.limit(100),
+      // FIX: Added this line to fetch all fields including relationships
+      Query.select(['*']),
     ];
     ReplyTo? replyTo;
     DocumentList messagesList = await databases.listDocuments(
