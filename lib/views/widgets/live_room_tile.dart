@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter/services.dart';
+import 'package:resonate/utils/constants.dart';
 
 class CustomLiveRoomTile extends StatelessWidget {
   final AppwriteRoom appwriteRoom;
@@ -44,22 +46,43 @@ class CustomLiveRoomTile extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () {
-                    SharePlus.instance.share(
-                      ShareParams(
-                        text: AppLocalizations.of(context)!.shareRoomMessage(
-                          appwriteRoom.name,
-                          appwriteRoom.description,
-                          appwriteRoom.totalParticipants,
-                        ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                    );
-                  },
+                      onPressed: () {
+                        SharePlus.instance.share(
+                          ShareParams(
+                            text: AppLocalizations.of(context)!.shareRoomMessage(
+                              appwriteRoom.name,
+                              appwriteRoom.description,
+                              appwriteRoom.totalParticipants,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      tooltip: 'Copy link',
+                      icon: Icon(
+                        Icons.link,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () async {
+                        final link = 'http://$baseDomain/room/${appwriteRoom.id}';
+                        await Clipboard.setData(ClipboardData(text: link));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Link copied to clipboard'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
