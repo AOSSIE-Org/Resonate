@@ -114,8 +114,7 @@ class AuthenticationController extends GetxController {
       var account = AppwriteService.getAccount();
       await account.createRecovery(
         email: email,
-        url:
-            'https://localhost/reset-password', // Replace with actual reset password URL
+        url: "*",
       );
       customSnackbar(
         AppLocalizations.of(context)!.success,

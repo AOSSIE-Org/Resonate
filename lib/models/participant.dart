@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:resonate/themes/theme_controller.dart';
+
 class Participant {
   Participant({
     required this.uid,
@@ -21,12 +24,11 @@ class Participant {
   late bool hasRequestedToBeSpeaker;
 
   Participant.fromJson(Map<String, dynamic> json) {
+    final themeController = Get.find<ThemeController>();
     uid = json["uid"];
     email = json['email'];
     name = json['name'] ?? "Unknown";
-    dpUrl =
-        json['dpUrl'] ??
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80";
+    dpUrl = json['dpUrl'] ?? themeController.userProfileImagePlaceholderUrl;
     isAdmin = json['isAdmin'];
     isMicOn = json['isMicOn'];
     isModerator = json['isModerator'];

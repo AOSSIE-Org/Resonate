@@ -7,7 +7,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import '../../utils/app_images.dart';
 
 class NotificationsScreen extends StatelessWidget {
-  final List<NotificationModel> notifications = getMockNotifications();
+  final List<NotificationModel> notifications = [];
 
   NotificationsScreen({super.key});
 
@@ -138,65 +138,4 @@ class NotificationTile extends StatelessWidget {
       ),
     );
   }
-}
-
-List<NotificationModel> getMockNotifications() {
-  return [
-    NotificationModel(
-      notificationType: NotificationType.subscribe,
-      initiatorUsername: 'john_doe',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: 'Machine Learning 101',
-      isTagInUpcomingRoom: false,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.like,
-      initiatorUsername: 'jane_doe',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: 'Deep Dive into AI',
-      isTagInUpcomingRoom: false,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.follow,
-      initiatorUsername: 'mark_smith',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: '',
-      isTagInUpcomingRoom: false,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.tag,
-      initiatorUsername: 'lucy_brown',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: 'Upcoming Coding Room',
-      isTagInUpcomingRoom: true,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.subscribe,
-      initiatorUsername: 'anna_kim',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: 'AI for Beginners',
-      isTagInUpcomingRoom: true,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.like,
-      initiatorUsername: 'alex_lee',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: 'Quantum Computing Basics',
-      isTagInUpcomingRoom: false,
-    ),
-    NotificationModel(
-      notificationType: NotificationType.follow,
-      initiatorUsername: 'sara_white',
-      initiatorProfileImgUrl:
-          'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg',
-      subject: '',
-      isTagInUpcomingRoom: false,
-    ),
-  ];
 }
