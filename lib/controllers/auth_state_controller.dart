@@ -207,6 +207,10 @@ class AuthStateController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: appwriteUser.$id,
+          queries: [
+            // Appwrite v1.8.0+ requires explicit selection of relationship fields
+            Query.select(["*", "followers.*"]),
+          ],
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
