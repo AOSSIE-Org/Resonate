@@ -55,6 +55,9 @@
 - [Key Features](#-key-features)
 - [Technology Stack](#-technology-stack)
 - [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Quick Start Guide](#quick-start-guide-for-new-contributors)
+  - [Troubleshooting](#troubleshooting)
 - [Project Structure](#-project-structure)
 - [Contributing](#-contributing)
 - [Community Guidelines](#-community-guidelines)
@@ -306,63 +309,35 @@ You can explore the UI without backend by:
 2. The app will show connection errors, but UI is still navigable
 3. Great for UI/UX contributions or theme development
 
-### Troubleshooting Common Issues
+### Troubleshooting
 
-#### Flutter Issues
+Encountering issues? We've got you covered!
 
-**"Flutter command not found"**
-- Ensure Flutter is added to your PATH
-- Restart your terminal/IDE after installation
-- See [Flutter PATH setup](https://docs.flutter.dev/get-started/install)
+📘 **[Complete Troubleshooting Guide](TROUBLESHOOTING.md)**
 
-**"Android licenses not accepted"**
-```bash
-flutter doctor --android-licenses
-```
-Accept all licenses by typing 'y'
+The troubleshooting guide includes detailed solutions for:
+- 🐳 **Docker and container issues**
+- 🔌 **Backend connection problems**
+- 📱 **Device detection and build errors**
+- ⚙️ **Appwrite setup issues**
+- 🎤 **LiveKit audio problems**
+- 🔍 **Meilisearch configuration**
+- 🔧 **Flutter dependency conflicts**
 
-**"CocoaPods not installed" (iOS/macOS)**
-```bash
-sudo gem install cocoapods
-cd ios
-pod install
-```
+**Quick Fixes for Common Issues:**
 
-**"Gradle build failed" (Android)**
-- Clear Gradle cache: `cd android && ./gradlew clean`
-- Invalidate Android Studio caches: File → Invalidate Caches / Restart
+| Issue | Quick Solution |
+|-------|---------------|
+| "Docker daemon not running" | Start Docker Desktop application |
+| "Cannot connect to Appwrite" | Verify `docker ps` shows appwrite container running |
+| "Android licenses not accepted" | Run `flutter doctor --android-licenses` |
+| "Package conflicts" | Run `flutter clean && flutter pub get` |
+| "Device not detected" | Enable USB debugging (Android) or trust computer (iOS) |
 
-#### Backend Connection Issues
-
-**"Cannot connect to Appwrite"**
-1. Verify Docker is running: `docker ps`
-2. Check if Appwrite container is running
-3. Verify `baseDomain` in constants.dart matches your setup
-4. Ensure firewall allows local connections
-
-**"LiveKit connection failed"**
-- Verify LiveKit container/cloud service is running
-- Check LiveKit endpoint in backend configuration
-- Ensure network allows WebRTC connections
-
-#### Device-Specific Issues
-
-**Physical Device Not Detected**
-- **Android:** Enable USB debugging in Developer Options
-- **iOS:** Trust computer in device settings
-- Verify device connection: `flutter devices`
-
-**Emulator/Simulator Issues**
-- **Android Emulator slow:** Allocate more RAM in AVD Manager
-- **iOS Simulator:** Requires macOS and Xcode
-- Try cold boot: Android Studio → AVD Manager → Cold Boot Now
-
-#### General Tips
-
-- **Always run `flutter pub get` after pulling new changes**
-- **Use `flutter clean` if you encounter persistent build issues**
-- **Check [GitHub Issues](https://github.com/AOSSIE-Org/Resonate/issues) for known problems**
-- **Ask for help on [Discord](https://discord.gg/MMZBadkYFm) if stuck**
+**Still stuck?** 
+- 💬 [Join our Discord](https://discord.gg/MMZBadkYFm) for real-time help
+- 🐛 [Create an issue](https://github.com/AOSSIE-Org/Resonate/issues) with details
+- 📖 Check [ONBOARDING.md](ONBOARDING.md) for detailed setup instructions
 
 ### Project Setup for Contributors
 
