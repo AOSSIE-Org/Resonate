@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Connection Manager</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Base styles are for Light Mode */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        
+        /* Dark Mode adjustments */
+        .dark body {
+            background-color: #111827; /* Gray-900 */
+        }
+        
+        .scrollable-content {
+            max-height: calc(100vh - 12rem); /* Adjusted for header and padding */
+            overflow-y: auto;
+        }
+        /* Custom scrollbar for aesthetics */
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark .scrollable-content::-webkit-scrollbar-thumb {
+            background-color: #4b5563; /* Gray-600 */
+        }
+        .scrollable-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
+    <!-- Firebase Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
+        // Initialize Firebase
+        if (firebaseConfig) {
+            setLogLevel('Debug');
+            window.app = initializeApp(firebaseConfig);
+            window.db = getFirestore(window.app);
+            window.auth = getAuth(window.app);
+
+            // Authentication setup
+            onAuthStateChanged(window.auth, async (user) => {
+                if (!user) {
+                    // Try to sign in using the custom token or anonymously
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(window.auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(window.auth);
+                        }
+                    } catch (error) {
+                        console.error("Firebase Auth Error:", error);
+                    }
+                }
+                
+                // Once authenticated, update the UI with the user ID
+                const currentUserId = window.auth.currentUser?.uid || 'Not Authenticated';
+                const userIdDisplay = document.getElementById('userIdDisplay');
+                if (userIdDisplay) {
+                    userIdDisplay.textContent = currentUserId;
+                }
+            });
+        }
+    </script>
+</head>
+<body class="min-h-screen p-4 sm:p-8">
+
+    <div id="app" class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-xl dark:shadow-2xl dark:shadow-teal-500/20 rounded-2xl overflow-hidden">
+        
+        <!-- Header -->
+        <header class="p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-gray-50">Social Connections</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">User ID: <span id="userIdDisplay" class="font-mono text-xs text-blue-600 dark:text-teal-400 bg-blue-50 dark:bg-gray-700 px-2 py-0.5 rounded">Loading...</span></p>
+            </div>
+
+            <!-- Theme Toggle and State Toggles -->
+            <div class="flex flex-col sm:flex-row items-end sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <button onclick="toggleTheme()" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-teal-400 transition p-1">
+                    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Icon will be set by JavaScript -->
+                    </svg>
+                </button>
+                <div class="flex space-x-2">
+                    <button onclick="toggleState('friends')" id="toggleFriendsBtn" class="px-3 py-1 text-sm rounded-full transition-colors duration-150"></button>
+                    <button onclick="toggleState('requests')" id="toggleRequestsBtn" class="px-3 py-1 text-sm rounded-full transition-colors duration-150"></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="flex border-b border-gray-200 dark:border-gray-700">
+            <button id="friends-tab" class="tab-button flex-1 py-3 text-center text-sm font-semibold transition-all duration-200" onclick="switchTab('friends')">Friends</button>
+            <button id="requests-tab" class="tab-button flex-1 py-3 text-center text-sm font-semibold transition-all duration-200" onclick="switchTab('requests')">Requests</button>
+        </nav>
+
+        <!-- Content Area -->
+        <main id="content-container" class="p-6 scrollable-content"></main>
+
+    </div>
+
+    <!-- Simple Modal for Action Feedback -->
+    <div id="action-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-2xl w-full max-w-sm">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-50" id="modal-title">Action Success</h3>
+            <p class="mt-2 text-gray-600 dark:text-gray-300" id="modal-message">Action was performed successfully!</p>
+            <button onclick="document.getElementById('action-modal').classList.add('hidden')" class="mt-4 w-full bg-blue-600 dark:bg-teal-600 text-white py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-teal-500 transition">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Application State Management ---
+        const state = {
+            activeTab: 'friends', // 'friends' or 'requests'
+            hasFriends: false,
+            hasRequests: false,
+            isDarkMode: true, // Will be overridden by localStorage/system preference on load
+            friends: [
+                { id: 1, name: "Aurora Blake", status: "Online" },
+                { id: 2, name: "Jax Teller", status: "Offline" },
+                { id: 3, name: "Lena Cruz", status: "Away" },
+            ],
+            requests: [
+                { id: 4, name: "Kai Chen", type: "Incoming" },
+                { id: 5, name: "Eliza Ray", type: "Outgoing" },
+            ]
+        };
+
+        const contentContainer = document.getElementById('content-container');
+        const friendsTab = document.getElementById('friends-tab');
+        const requestsTab = document.getElementById('requests-tab');
+        const toggleFriendsBtn = document.getElementById('toggleFriendsBtn');
+        const toggleRequestsBtn = document.getElementById('toggleRequestsBtn');
+
+        // --- Theme Toggle Logic ---
+
+        /** Toggles the dark/light theme state. */
+        function toggleTheme() {
+            state.isDarkMode = !state.isDarkMode;
+            localStorage.setItem('theme', state.isDarkMode ? 'dark' : 'light');
+            applyTheme();
+        }
+
+        /** Applies the current theme setting to the document root and icon. */
+        function applyTheme() {
+            const root = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (state.isDarkMode) {
+                root.classList.add('dark');
+                // Sun Icon (when in dark mode, clicking switches to light mode)
+                icon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+            } else {
+                root.classList.remove('dark');
+                // Moon Icon (when in light mode, clicking switches to dark mode)
+                icon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+            }
+            // Re-render to ensure tab colors and content are fully updated
+            renderApp();
+        }
+
+
+        // --- Utility Functions ---
+
+        /** Shows a simple modal message for button actions. */
+        function showActionFeedback(title, message) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            const modal = document.getElementById('action-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        /** Handles click actions for the actionable buttons. */
+        function handleAction(action) {
+            const actions = {
+                'find': 'Opening discovery page...',
+                'share': 'Profile link copied to clipboard!',
+                'invite': 'Opening external share dialog...'
+            };
+            showActionFeedback(
+                action === 'share' ? 'Profile Shared' : 'Action Performed',
+                actions[action] || 'Unknown action performed.'
+            );
+        }
+
+        // --- Components (HTML String Generators) ---
+
+        /** Generates the Empty State component. */
+        function createEmptyState(type) {
+            const isFriends = type === 'friends';
+            // Techy Icons (using existing lucide icons for simplicity)
+            const icon = isFriends ? `
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 dark:text-teal-400">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            ` : `
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 dark:text-teal-400">
+                    <path d="M22 10a8 8 0 0 1-8 8h-2c-2.8 0-5-2.2-5-5V9.45a5 5 0 0 1-.9.3c-1.3 0-2.2-1-2.2-2.2v-2c0-1.2.9-2.2 2.2-2.2 1.4 0 2.5 1.1 2.5 2.5v1.4c0 1.2 1.3 2.5 2.5 2.5h2a4 4 0 0 0 4-4V2"/>
+                </svg>
+            `;
+
+            const title = isFriends ? "You haven't made any friends yet." : "You have no pending requests.";
+            const description = isFriends ?
+                "Start building your network! Use the actions below to connect with people." :
+                "Don't worry, friend requests will appear here when others send them to you, and outgoing requests will show up here too.";
+
+            return `
+                <div class="flex flex-col items-center justify-center p-8 text-center bg-blue-50 dark:bg-gray-900 border border-blue-200 dark:border-teal-600/30 rounded-xl shadow-inner min-h-[400px]">
+                    ${icon}
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-50 mt-4">${title}</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2 max-w-sm">${description}</p>
+                    <div class="mt-8 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full max-w-md">
+                        <button onclick="handleAction('find')" class="w-full sm:flex-1 p-3 bg-blue-600 dark:bg-teal-600 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-teal-500 transition duration-150 shadow-md">
+                            Find Friends
+                        </button>
+                        <button onclick="handleAction('share')" class="w-full sm:flex-1 p-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-50 border border-gray-300 dark:border-gray-600 font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150 shadow-md">
+                            Share Your Profile
+                        </button>
+                    </div>
+                    <button onclick="handleAction('invite')" class="mt-4 text-blue-600 dark:text-teal-400 hover:text-blue-800 dark:hover:text-teal-300 font-medium transition duration-150">
+                        Invite a Friend
+                    </button>
+                </div>
+            `;
+        }
+
+        /** Generates the Populated Friends List component. */
+        function createFriendsList(friends) {
+            const friendItems = friends.map(f => `
+                <div class="flex items-center justify-between p-4 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:shadow-lg dark:hover:shadow-teal-500/20 transition duration-200">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-lg font-semibold text-gray-600 dark:text-gray-300">${f.name.charAt(0)}</div>
+                        <div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-50">${f.name}</p>
+                            <span class="text-sm ${f.status === 'Online' ? 'text-green-500 dark:text-green-400' : f.status === 'Away' ? 'text-yellow-500 dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}">
+                                ${f.status}
+                            </span>
+                        </div>
+                    </div>
+                    <button class="text-sm text-red-500 hover:text-red-700 transition" onclick="showActionFeedback('Friend Action', 'Removing ${f.name}...')">
+                        Remove
+                    </button>
+                </div>
+            `).join('');
+
+            return `
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-50 mb-4">Your Friends (${friends.length})</h2>
+                <div class="space-y-3">
+                    ${friendItems}
+                </div>
+            `;
+        }
+
+        /** Generates the Populated Requests List component. */
+        function createRequestsList(requests) {
+            const requestItems = requests.map(r => `
+                <div class="flex items-center justify-between p-4 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg hover:shadow-lg dark:hover:shadow-teal-500/20 transition duration-200">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-lg font-semibold text-gray-600 dark:text-gray-300">${r.name.charAt(0)}</div>
+                        <div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-50">${r.name}</p>
+                            <span class="text-sm ${r.type === 'Incoming' ? 'text-purple-600 dark:text-purple-400' : 'text-gray-500 dark:text-gray-400'}">
+                                ${r.type} Request
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        ${r.type === 'Incoming' ? `
+                            <button class="px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition" onclick="showActionFeedback('Request Action', 'Accepted request from ${r.name}')">Accept</button>
+                            <button class="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition" onclick="showActionFeedback('Request Action', 'Rejected request from ${r.name}')">Reject</button>
+                        ` : `
+                            <button class="px-3 py-1 text-sm bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition" onclick="showActionFeedback('Request Action', 'Canceled request to ${r.name}')">Cancel</button>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-50 mb-4">Pending Requests (${requests.length})</h2>
+                <div class="space-y-3">
+                    ${requestItems}
+                </div>
+            `;
+        }
+
+        // --- Core Rendering Functions ---
+
+        /** Updates the view based on the current state. */
+        function renderContent() {
+            if (state.activeTab === 'friends') {
+                contentContainer.innerHTML = state.hasFriends
+                    ? createFriendsList(state.friends)
+                    : createEmptyState('friends');
+            } else { // 'requests'
+                contentContainer.innerHTML = state.hasRequests
+                    ? createRequestsList(state.requests)
+                    : createEmptyState('requests');
+            }
+        }
+
+        /** Updates the tab appearance. */
+        function renderTabs() {
+            // Light Mode: Blue accent. Dark Mode: Teal accent.
+            const activeClasses = 'text-blue-600 dark:text-teal-400 border-b-2 border-blue-600 dark:border-teal-400';
+            const inactiveClasses = 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-teal-300 border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600';
+
+            friendsTab.className = 'tab-button flex-1 py-3 text-center text-sm font-semibold transition-all duration-200 ' + (state.activeTab === 'friends' ? activeClasses : inactiveClasses);
+            requestsTab.className = 'tab-button flex-1 py-3 text-center text-sm font-semibold transition-all duration-200 ' + (state.activeTab === 'requests' ? activeClasses : inactiveClasses);
+        }
+
+        /** Updates the dynamic state toggle buttons. */
+        function renderToggleButtons() {
+            // Logic remains the same, but the button colors are updated for both themes
+            
+            const btnBaseClasses = 'px-3 py-1 text-sm rounded-full transition-colors duration-150 text-white';
+            const populateClasses = 'bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600';
+            const emptyClasses = 'bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600';
+            
+            // Friends Toggle
+            if (state.hasFriends) {
+                toggleFriendsBtn.textContent = 'Empty Friends List';
+                toggleFriendsBtn.className = btnBaseClasses + ' ' + emptyClasses;
+            } else {
+                toggleFriendsBtn.textContent = 'Populate Friends List';
+                toggleFriendsBtn.className = btnBaseClasses + ' ' + populateClasses;
+            }
+
+            // Requests Toggle
+            if (state.hasRequests) {
+                toggleRequestsBtn.textContent = 'Empty Requests';
+                toggleRequestsBtn.className = btnBaseClasses + ' ' + emptyClasses;
+            } else {
+                toggleRequestsBtn.textContent = 'Populate Requests';
+                toggleRequestsBtn.className = btnBaseClasses + ' ' + populateClasses;
+            }
+        }
+
+
+        /** Main render loop to update all parts of the UI. */
+        function renderApp() {
+            renderTabs();
+            renderContent();
+            renderToggleButtons();
+        }
+
+        // --- Event Handlers ---
+
+        /** Switches the active tab and re-renders. */
+        function switchTab(tab) {
+            state.activeTab = tab;
+            renderApp();
+        }
+
+        /** Toggles the state (empty/populated) for friends or requests. */
+        function toggleState(type) {
+            if (type === 'friends') {
+                state.hasFriends = !state.hasFriends;
+            } else if (type === 'requests') {
+                state.hasRequests = !state.hasRequests;
+            }
+            renderApp();
+        }
+
+        // Initial render on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load theme from localStorage or default to dark (techy)
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                state.isDarkMode = true;
+            } else {
+                state.isDarkMode = false;
+            }
+            applyTheme(); // Apply theme before initial content render
+
+            // Set initial content state to empty lists to showcase the main feature
+            state.hasFriends = false;
+            state.hasRequests = false;
+            renderApp();
+        });
+    </script>
+</body>
+</html>
