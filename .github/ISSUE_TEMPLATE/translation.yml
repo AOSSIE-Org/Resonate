@@ -1,0 +1,59 @@
+name: 🌐 Translation
+description: Add or improve translations for internationalization (i18n)
+title: "i18n: <Please write a comprehensive title after the 'i18n: ' prefix>"
+
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Use this template for adding new language translations or fixing existing translation issues.
+
+  - type: input
+    id: language
+    attributes:
+      label: 🌍 Language
+      description: >
+        Which language are you adding or updating? (e.g., Spanish, French, Hindi, Punjabi)
+      placeholder: "Spanish (es)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: translation-type
+    attributes:
+      label: Translation Type
+      description: What type of translation work is this?
+      options:
+        - "New language addition"
+        - "Fix existing translation"
+        - "Update outdated translation"
+        - "Complete partial translation"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Translation Scope
+      description: >
+        What parts of the app will be translated? (e.g., all UI strings, specific screens, error messages)
+      placeholder: |
+        - All main navigation strings
+        - Home screen content
+        - Settings menu
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: >
+        Any additional information about this translation? (e.g., regional variant, reference materials used, native speaker review)
+      placeholder: |
+        I am a native speaker and have reviewed all strings for cultural appropriateness.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for helping make Resonate accessible to more people! 🌐
