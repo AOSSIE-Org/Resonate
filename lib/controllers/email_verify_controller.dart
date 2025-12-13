@@ -114,9 +114,10 @@ class EmailVerifyController extends GetxController {
 
   Future<String> checkVerificationStatus() async {
     final document = await databases.getDocument(
-      databaseId: emailVerificationDatabaseID,
-      collectionId: verificationCollectionID,
-      documentId: verificationID,
+      databaseId: userDatabaseID,
+      collectionId: usersCollectionID,
+      documentId: authStateController.uid!,
+      queries: [Query.select(["*"])],
     );
     var isVerified = document.data['status'];
     return isVerified;

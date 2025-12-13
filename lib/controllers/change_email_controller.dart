@@ -38,7 +38,10 @@ class ChangeEmailController extends GetxController {
     final docs = await databases.listDocuments(
       databaseId: userDatabaseID,
       collectionId: usernameCollectionID,
-      queries: [Query.equal('email', changedEmail)],
+      queries: [
+        Query.equal('email', changedEmail),
+        Query.select(["*"]),
+      ],
     );
 
     if (docs.total > 0) {

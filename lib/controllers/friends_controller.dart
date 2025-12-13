@@ -99,6 +99,7 @@ class FriendsController extends GetxController {
       databaseId: userDatabaseID,
       collectionId: usersCollectionID,
       documentId: authStateController.uid!,
+      queries: [Query.select(["*"])],
     );
     for (var friend in (userDoc.data["friends"] ?? []) as List<dynamic>) {
       final friendModel = FriendsModel.fromJson(friend);

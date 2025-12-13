@@ -40,7 +40,11 @@ class RoomsController extends GetxController {
     var participantCollectionRef = await databases.listDocuments(
       databaseId: masterDatabaseId,
       collectionId: participantsCollectionId,
-      queries: [Query.equal("roomId", room.data["\$id"]), Query.limit(3)],
+      queries: [
+        Query.equal("roomId", room.data["\$id"]),
+        Query.limit(3),
+        Query.select(["*"]),
+      ],
     );
     List<String> memberAvatarUrls = [];
     for (var p in participantCollectionRef.documents) {
@@ -48,6 +52,7 @@ class RoomsController extends GetxController {
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
         documentId: p.data["uid"],
+        queries: [Query.select(["*"])],
       );
       memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
     }
@@ -78,6 +83,7 @@ class RoomsController extends GetxController {
       var roomsCollectionRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: roomsCollectionId,
+        queries: [Query.select(["*"])],
       );
 
       for (var room in roomsCollectionRef.documents) {
@@ -100,6 +106,7 @@ class RoomsController extends GetxController {
         databaseId: masterDatabaseId,
         collectionId: roomsCollectionId,
         documentId: roomId,
+        queries: [Query.select(["*"])],
       );
       String userUid = Get.find<AuthStateController>().uid!;
 

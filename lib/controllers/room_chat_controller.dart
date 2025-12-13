@@ -50,6 +50,7 @@ class RoomChatController extends GetxController {
       Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
       Query.orderAsc('index'),
       Query.limit(100),
+      Query.select(["*"]),
     ];
     ReplyTo? replyTo;
     DocumentList messagesList = await databases.listDocuments(
@@ -63,6 +64,7 @@ class RoomChatController extends GetxController {
           databaseId: masterDatabaseId,
           collectionId: chatMessageReplyCollectionId,
           documentId: message.$id,
+          queries: [Query.select(["*"])],
         );
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
@@ -216,6 +218,7 @@ class RoomChatController extends GetxController {
                   databaseId: masterDatabaseId,
                   collectionId: chatMessageReplyCollectionId,
                   documentId: newMessage.messageId,
+                  queries: [Query.select(["*"])],
                 );
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
