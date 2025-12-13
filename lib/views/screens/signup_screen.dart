@@ -67,22 +67,26 @@ class _SignupScreenState extends State<SignupScreen> {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     SizedBox(height: UiSizes.height_40),
-                    TextFormField(
-                      validator: (value) => value!.isValidEmail()
-                          ? null
-                          : AppLocalizations.of(
-                              context,
-                            )!.enterValidEmailAddress,
-                      controller: controller.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)!.email,
+                    Obx(
+                      () => TextFormField(
+                        enabled: !controller.isLoading.value,
+                        validator: (value) => value!.isValidEmail()
+                            ? null
+                            : AppLocalizations.of(
+                                context,
+                              )!.enterValidEmailAddress,
+                        controller: controller.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.email,
+                        ),
                       ),
                     ),
                     SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
+                        enabled: !controller.isLoading.value,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         controller: controller.passwordController,
                         validator: (value) => value! == ""
@@ -125,6 +129,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     SizedBox(height: UiSizes.height_10),
                     Obx(
                       () => TextFormField(
+                        enabled: !controller.isLoading.value,
                         validator: (value) =>
                             value!.isSamePassword(
                               controller.passwordController.text,
@@ -230,60 +235,63 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_10),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        onPressed: emailVerifyController.signUpIsAllowed.value
-                            ? () async {
-                                if (controller.registrationFormKey.currentState!
-                                    .validate()) {
-                                  emailVerifyController.signUpIsAllowed.value =
-                                      false;
-                                  var isSignedIn = await controller.signup(
-                                    context,
-                                  );
-                                  if (isSignedIn) {
-                                    Get.toNamed(AppRoutes.onBoarding);
-                                    customSnackbar(
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.signedUpSuccessfully,
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.newAccountCreated,
-                                      LogType.success,
+                    Obx(
+                      () => SizedBox(
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: (controller.isLoading.value ||
+                                  !emailVerifyController.signUpIsAllowed.value)
+                              ? null
+                              : () async {
+                                  if (controller
+                                      .registrationFormKey.currentState!
+                                      .validate()) {
+                                    emailVerifyController
+                                        .signUpIsAllowed
+                                        .value = false;
+                                    var isSignedIn = await controller.signup(
+                                      context,
                                     );
+                                    if (isSignedIn) {
+                                      Get.toNamed(AppRoutes.onBoarding);
+                                      customSnackbar(
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.signedUpSuccessfully,
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.newAccountCreated,
+                                        LogType.success,
+                                      );
 
-                                    SemanticsService.announce(
-                                      AppLocalizations.of(
-                                        context,
-                                      )!.newAccountCreated,
-                                      TextDirection.ltr,
-                                    );
-                                    emailVerifyController
-                                            .signUpIsAllowed
-                                            .value =
-                                        true;
-                                  } else {
-                                    emailVerifyController
-                                            .signUpIsAllowed
-                                            .value =
-                                        true;
+                                      SemanticsService.announce(
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.newAccountCreated,
+                                        TextDirection.ltr,
+                                      );
+                                      emailVerifyController
+                                          .signUpIsAllowed
+                                          .value = true;
+                                    } else {
+                                      emailVerifyController
+                                          .signUpIsAllowed
+                                          .value = true;
+                                    }
                                   }
-                                }
-                              }
-                            : null,
-                        child: controller.isLoading.value
-                            ? Center(
-                                child:
-                                    LoadingAnimationWidget.horizontalRotatingDots(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimary,
-                                      size: UiSizes.size_40,
-                                    ),
-                              )
-                            : Text(AppLocalizations.of(context)!.signUp),
+                                },
+                          child: controller.isLoading.value
+                              ? Center(
+                                  child: LoadingAnimationWidget
+                                      .horizontalRotatingDots(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                    size: UiSizes.size_40,
+                                  ),
+                                )
+                              : Text(AppLocalizations.of(context)!.signUp),
+                        ),
                       ),
                     ),
                   ],

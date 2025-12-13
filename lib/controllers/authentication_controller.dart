@@ -67,6 +67,9 @@ class AuthenticationController extends GetxController {
   }
 
   Future<bool> signup(BuildContext context) async {
+    // Early return if already processing - prevents duplicate API calls
+    if (isLoading.value) return false;
+
     try {
       isLoading.value = true;
       await authStateController.signup(
