@@ -21,6 +21,7 @@ class UserProfileController extends GetxController {
   Rx<bool> isLoadingProfilePage = false.obs;
   Rx<bool> isFollowingUser = false.obs;
   String? followerDocumentId;
+  Rx<ResonateUser?> searchedUser = Rx<ResonateUser?>(null);
 
   UserProfileController({
     Databases? databases,
@@ -32,6 +33,13 @@ class UserProfileController extends GetxController {
   Future<void> initializeProfile(String creatorId) async {
     isLoadingProfilePage.value = true;
     try {
+      Document userDocument = await databases.getDocument(
+        databaseId: userDatabaseID,
+        collectionId: usersCollectionID,
+        documentId: creatorId,
+      );
+      searchedUser.value = ResonateUser.fromJson(userDocument.data);
+
       await Future.wait([
         fetchUserCreatedStories(creatorId),
         fetchUserLikedStories(creatorId),

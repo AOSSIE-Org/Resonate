@@ -52,6 +52,9 @@ class AuthStateController extends GetxController {
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
   late int reportsCount;
+  late String? discordUrl;
+  late String? twitterUrl;
+  late String? instagramUrl;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -220,6 +223,9 @@ class AuthStateController extends GetxController {
             [];
         reportsCount =
             (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
+        discordUrl = userDataDoc.data["discordUrl"];
+        twitterUrl = userDataDoc.data["twitterUrl"];
+        instagramUrl = userDataDoc.data["instagramUrl"];
       }
 
       update();

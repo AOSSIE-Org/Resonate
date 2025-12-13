@@ -14,6 +14,9 @@ abstract class ResonateUser with _$ResonateUser {
     @JsonKey(name: 'dob') String? dateOfBirth,
     String? docId,
     @JsonKey(fromJson: toDouble) double? userRating,
+    String? discordUrl,
+    String? twitterUrl,
+    String? instagramUrl,
   }) = _ResonateUser;
 
   factory ResonateUser.fromJson(Map<String, dynamic> json) =>

@@ -24,6 +24,8 @@ import '../../routes/app_routes.dart';
 import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ResonateUser? creator;
@@ -41,6 +43,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      log('Could not launch $url');
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -255,6 +262,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(height: UiSizes.height_10),
+                  Row(
+                    children: [
+                      if (widget.isCreatorProfile == null
+                          ? controller.discordUrl != null &&
+                              controller.discordUrl!.isNotEmpty
+                          : userProfileController.searchedUser.value
+                                  ?.discordUrl !=
+                              null &&
+                              userProfileController.searchedUser.value!
+                                  .discordUrl!.isNotEmpty)
+                        IconButton(
+                          onPressed: () {
+                            _launchUrl(Uri.parse(
+                                widget.isCreatorProfile == null
+                                    ? controller.discordUrl!
+                                    : userProfileController
+                                        .searchedUser.value!.discordUrl!));
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.discord),
+                          color: Colors.blueAccent,
+                        ),
+                      if (widget.isCreatorProfile == null
+                          ? controller.twitterUrl != null &&
+                              controller.twitterUrl!.isNotEmpty
+                          : userProfileController.searchedUser.value
+                                  ?.twitterUrl !=
+                              null &&
+                              userProfileController.searchedUser.value!
+                                  .twitterUrl!.isNotEmpty)
+                        IconButton(
+                          onPressed: () {
+                            _launchUrl(Uri.parse(
+                                widget.isCreatorProfile == null
+                                    ? controller.twitterUrl!
+                                    : userProfileController
+                                        .searchedUser.value!.twitterUrl!));
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.twitter),
+                          color: Colors.lightBlue,
+                        ),
+                      if (widget.isCreatorProfile == null
+                          ? controller.instagramUrl != null &&
+                              controller.instagramUrl!.isNotEmpty
+                          : userProfileController.searchedUser.value
+                                  ?.instagramUrl !=
+                              null &&
+                              userProfileController.searchedUser.value!
+                                  .instagramUrl!.isNotEmpty)
+                        IconButton(
+                          onPressed: () {
+                            _launchUrl(Uri.parse(
+                                widget.isCreatorProfile == null
+                                    ? controller.instagramUrl!
+                                    : userProfileController
+                                        .searchedUser.value!.instagramUrl!));
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.instagram),
+                          color: Colors.pinkAccent,
+                        ),
+                    ],
                   ),
                 ],
               ),
