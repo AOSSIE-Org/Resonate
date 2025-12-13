@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Setup env variables that will be used throughout the workflow
-      JAVA_VERSION: 21.0.6
-      FLUTTER_VERSION: 3.35.2
+      JAVA_VERSION: "21"
+      FLUTTER_VERSION: "3.27.2"
     steps:
       # Checkout repository codebase
       - name: Checkout the code
@@ -36,6 +36,13 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      # Create local.properties file required by Gradle
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> android/local.properties
 
       - name: 📦 Install dependencies
         run: flutter pub get

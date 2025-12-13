@@ -53,3 +53,5 @@ app.*.map.json
 .vscode/
 appwrite
 ios/Runner/GoogleService-Info.plist
+aossie-org-resonate-8a5edab282632443.txt
+.github/instructions

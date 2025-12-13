@@ -8,6 +8,7 @@ on:
       - main
       - master
       - deploy-actions
+  workflow_dispatch:
 
 jobs:
   store_deploy_android:
@@ -15,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Setup env variables that will be used throughout the workflow
-      JAVA_VERSION: 21.0.6
-      FLUTTER_VERSION: 3.35.2
+      JAVA_VERSION: "21"
+      FLUTTER_VERSION: "3.27.2"
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
@@ -44,6 +45,19 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      # Create local.properties file required by Gradle
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> android/local.properties
+          echo "flutter.buildMode=release" >> android/local.properties
+          PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
+          VERSION_NAME=$(echo $PUBSPEC_VERSION | cut -d '+' -f 1)
+          VERSION_CODE=$(echo $PUBSPEC_VERSION | cut -d '+' -f 2)
+          echo "flutter.versionName=$VERSION_NAME" >> android/local.properties
+          echo "flutter.versionCode=$VERSION_CODE" >> android/local.properties
 
       # Decode Android env variables
       - name: Decode Android keystore
@@ -88,6 +102,7 @@ jobs:
         with:
           name: aab-stores
           path: ${{ env.AAB_PATH }}
+          retention-days: 30
 
       # Deploy bundle to Google Play internal testing
       - name: Deploy to Play Store (Internal testing)
@@ -97,3 +112,4 @@ jobs:
           packageName: com.resonate.resonate
           releaseFiles: ${{ env.AAB_PATH }}
           track: internal
+          status: completed

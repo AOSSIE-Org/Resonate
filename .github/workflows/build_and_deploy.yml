@@ -12,8 +12,8 @@ jobs:
     name: Build Android APK
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: 21.0.6
-      FLUTTER_VERSION: 3.35.2
+      JAVA_VERSION: "21"
+      FLUTTER_VERSION: "3.27.2"
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
@@ -37,6 +37,15 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> android/local.properties
+          echo "flutter.buildMode=release" >> android/local.properties
+          echo "flutter.versionName=${{ github.ref_name }}" >> android/local.properties
+          echo "flutter.versionCode=${{ github.run_number }}" >> android/local.properties
 
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
@@ -70,6 +79,7 @@ jobs:
         with:
           name: apk-release
           path: ${{ env.APK_PATH }}
+          retention-days: 30
 
   deploy_github_release:
     name: Deploy to GitHub Release
@@ -77,17 +87,32 @@ jobs:
     needs: build_android
     permissions:
       contents: write
+    env:
+      APK_PATH: app-release.apk
     steps:
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
           name: apk-release
+          path: ./
+
+      - name: Get version from pubspec.yaml
+        id: version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        if: github.event_name == 'push'
 
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
           artifacts: ${{ env.APK_PATH }}
-          artifactContentType: apk
+          artifactContentType: application/vnd.android.package-archive
           generateReleaseNotes: true
           tag: latest_build
+          name: Latest Build
+          body: |
+            Latest build from ${{ github.ref_name }} branch
+            Commit: ${{ github.sha }}
+            Build Number: ${{ github.run_number }}
