@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:resonate/controllers/notifications_controller.dart';
 import 'package:resonate/models/notification.dart';
 import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/views/screens/profile_screen.dart';
@@ -7,7 +8,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import '../../utils/app_images.dart';
 
 class NotificationsScreen extends StatelessWidget {
-  final List<NotificationModel> notifications = [];
+  final NotificationsController controller = Get.put(NotificationsController());
 
   NotificationsScreen({super.key});
 
@@ -39,15 +40,76 @@ class NotificationsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: notifications.length,
-          itemBuilder: (context, index) {
-            final notification = notifications[index];
-            return NotificationTile(notification: notification);
-          },
-        ),
+      body: Obx(
+        () {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (controller.error.value != null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.error,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(controller.error.value!),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => controller.refreshNotifications(),
+                    child: Text(AppLocalizations.of(context)!.tryAgain),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          if (controller.notifications.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.notifications_none,
+                    size: 64,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No notifications yet',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return RefreshIndicator(
+            onRefresh: () => controller.refreshNotifications(),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListView.builder(
+                itemCount: controller.notifications.length,
+                itemBuilder: (context, index) {
+                  final notification = controller.notifications[index];
+                  return NotificationTile(
+                    notification: notification,
+                    onDelete: () =>
+                        controller.deleteNotification(notification),
+                  );
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -55,8 +117,13 @@ class NotificationsScreen extends StatelessWidget {
 
 class NotificationTile extends StatelessWidget {
   final NotificationModel notification;
+  final VoidCallback? onDelete;
 
-  const NotificationTile({super.key, required this.notification});
+  const NotificationTile({
+    super.key,
+    required this.notification,
+    this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +201,14 @@ class NotificationTile extends StatelessWidget {
             ),
           ),
           icon,
+          const SizedBox(width: 8),
+          if (onDelete != null)
+            IconButton(
+              icon: const Icon(Icons.close, size: 20),
+              onPressed: onDelete,
+              padding: const EdgeInsets.all(4),
+              constraints: const BoxConstraints(minHeight: 32, minWidth: 32),
+            ),
         ],
       ),
     );

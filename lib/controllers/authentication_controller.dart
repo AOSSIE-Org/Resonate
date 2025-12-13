@@ -112,9 +112,12 @@ class AuthenticationController extends GetxController {
       }
 
       var account = AppwriteService.getAccount();
+      // Use the app's reset password route with appwriteEndpoint domain
+      // The URL will be used by Appwrite to construct the recovery link
+      final recoveryUrl = '$appwriteEndpoint/recovery';
       await account.createRecovery(
         email: email,
-        url: "*",
+        url: recoveryUrl,
       );
       customSnackbar(
         AppLocalizations.of(context)!.success,

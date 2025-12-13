@@ -1,5 +1,4 @@
-import 'package:get/get.dart';
-import 'package:resonate/themes/theme_controller.dart';
+import 'package:resonate/utils/constants.dart';
 
 class Participant {
   Participant({
@@ -23,12 +22,15 @@ class Participant {
   late bool isSpeaker;
   late bool hasRequestedToBeSpeaker;
 
-  Participant.fromJson(Map<String, dynamic> json) {
-    final themeController = Get.find<ThemeController>();
+  Participant.fromJson(Map<String, dynamic> json,
+      {String? placeholderUrl}) {
     uid = json["uid"];
     email = json['email'];
     name = json['name'] ?? "Unknown";
-    dpUrl = json['dpUrl'] ?? themeController.userProfileImagePlaceholderUrl;
+    // Use provided placeholderUrl or fall back to chapter placeholder
+    // In production, the backend should always provide dpUrl
+    dpUrl = json['dpUrl'] ??
+        (placeholderUrl ?? chapterCoverImagePlaceholderUrl);
     isAdmin = json['isAdmin'];
     isMicOn = json['isMicOn'];
     isModerator = json['isModerator'];
