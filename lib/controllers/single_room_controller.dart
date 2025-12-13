@@ -120,7 +120,6 @@ class SingleRoomController extends GetxController {
         collectionId: participantsCollectionId,
         queries: [
           Query.equal('roomId', appwriteRoom.id),
-          // FIX: Added to ensure participant data is loaded correctly
           Query.select(['*']),
         ],
       );
@@ -143,7 +142,6 @@ class SingleRoomController extends GetxController {
       if (data.payload.isNotEmpty) {
         String roomId = data.payload["roomId"];
         if (roomId == appwriteRoom.id) {
-          // This event belongs to the room current user is part of
           String updatedUserId = data.payload["uid"];
           String docId = data.payload["\$id"];
           String action = data.events.first.substring(
@@ -159,7 +157,6 @@ class SingleRoomController extends GetxController {
               }
             case 'update':
               {
-                // if the change is related to the current user
                 if (updatedUserId == me.value.uid) {
                   me.value.isModerator = data.payload["isModerator"];
                   me.value.hasRequestedToBeSpeaker =
@@ -194,15 +191,11 @@ class SingleRoomController extends GetxController {
 
   void sortParticipants() {
     participants.sort((a, b) {
-      // Sort by isAdmin (admins first, then non-admins)
       if (b.value.isAdmin && !a.value.isAdmin) return 1;
       if (!b.value.isAdmin && a.value.isAdmin) return -1;
-
-      // If isAdmin is the same, sort by isModerator (moderators first, then non-moderators)
       if (b.value.isModerator && !a.value.isModerator) return 1;
       if (!b.value.isModerator && a.value.isModerator) return -1;
 
-      // Continue sorting by isSpeaker, hasRequestedToBeSpeaker (true first, then false)
       if (b.value.isSpeaker && !a.value.isSpeaker) return 1;
       if (!b.value.isSpeaker && a.value.isSpeaker) return -1;
 
@@ -213,7 +206,7 @@ class SingleRoomController extends GetxController {
         return -1;
       }
 
-      return 0; // If all properties are equal (or if Listener), maintain the current order.
+      return 0;
     });
   }
 
@@ -246,7 +239,6 @@ class SingleRoomController extends GetxController {
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
-        // FIX: Added to ensure we get the document ID correctly
         Query.select(['*']),
       ],
     );

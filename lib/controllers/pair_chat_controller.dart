@@ -43,8 +43,6 @@ class PairChatController extends GetxController {
   void quickMatch() async {
     String uid = authController.uid!;
     String userName = authController.userName!;
-
-    // Open realtime stream to check whether the request is paired
     getRealtimeStream();
 
     Map<String, dynamic> requestData = {
@@ -54,8 +52,6 @@ class PairChatController extends GetxController {
       "isRandom": true,
     };
     requestData.addIf(!isAnonymous.value, "userName", userName);
-
-    // Add request to pair-request collection
     Document requestDoc = await databases.createDocument(
       databaseId: masterDatabaseId,
       collectionId: pairRequestCollectionId,
@@ -63,8 +59,6 @@ class PairChatController extends GetxController {
       data: requestData,
     );
     requestDocId = requestDoc.$id;
-
-    // Go to pairing screen
     Get.toNamed(AppRoutes.pairing);
   }
 
@@ -82,8 +76,6 @@ class PairChatController extends GetxController {
       "name": authController.displayName,
       "userRating": authController.ratingTotal / authController.ratingCount,
     };
-
-    // Add request to pair-request collection
     Document requestDoc = await databases.createDocument(
       databaseId: masterDatabaseId,
       collectionId: pairRequestCollectionId,
@@ -115,8 +107,6 @@ class PairChatController extends GetxController {
       if (data.payload.isNotEmpty) {
         String uid1 = data.payload["uid1"];
         String uid2 = data.payload["uid2"];
-
-        // If the request was served and the user was paired
         if (uid1 == uid || uid2 == uid) {
           log(data.toString());
           var docId = data.payload["\$id"].toString();
@@ -186,12 +176,11 @@ class PairChatController extends GetxController {
       if (data.payload.isNotEmpty) {
         if (event.endsWith('.create')) {
           log('adding new user');
-          // If a new user is added to the pair request collection
           final userData = data.payload;
           final eventSplit = event.split('.');
           final docId =
-              eventSplit[eventSplit.length - 2]; // Get the second last
-          userData['docId'] = docId; // Add docId to the user
+              eventSplit[eventSplit.length - 2]; 
+          userData['docId'] = docId; 
           ResonateUser newUser = ResonateUser.fromJson(userData);
 
           usersList.add(newUser);
@@ -214,7 +203,6 @@ class PairChatController extends GetxController {
         Query.notEqual('uid', authController.uid!),
         Query.notEqual('isAnonymous', true),
         Query.limit(100),
-        // FIX: Added this line to fetch all relationship fields
         Query.select(['*']), 
       ],
     );
@@ -225,7 +213,7 @@ class PairChatController extends GetxController {
       usersList.addAll(
         result.documents.map((doc) {
           final userData = doc.data;
-          userData['docId'] = doc.$id; // Add docId to the user data
+          userData['docId'] = doc.$id; 
           ResonateUser user = ResonateUser.fromJson(userData);
 
           return user;

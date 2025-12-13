@@ -36,14 +36,12 @@ class RoomsController extends GetxController {
   }
 
   Future<AppwriteRoom> createRoomObject(Document room, String userUid) async {
-    // Get three particpant data to use for memberAvatar widget
     var participantCollectionRef = await databases.listDocuments(
       databaseId: masterDatabaseId,
       collectionId: participantsCollectionId,
       queries: [
         Query.equal("roomId", room.data["\$id"]),
         Query.limit(3),
-        // FIX: Added to ensure participant relationships are fetched
         Query.select(['*']),
       ],
     );
@@ -57,7 +55,6 @@ class RoomsController extends GetxController {
       memberAvatarUrls.add(participantDoc.data["profileImageUrl"]);
     }
 
-    // Create appwrite room object and add it to rooms list
     AppwriteRoom appwriteRoom = AppwriteRoom(
       id: room.data['\$id'],
       name: room.data["name"],
@@ -77,13 +74,10 @@ class RoomsController extends GetxController {
     try {
       isLoading.value = true;
       String userUid = Get.find<AuthStateController>().uid!;
-
-      // Get active rooms and add it to rooms list
       rooms.value = [];
       var roomsCollectionRef = await databases.listDocuments(
         databaseId: masterDatabaseId,
         collectionId: roomsCollectionId,
-        // FIX: Added to ensure room data is complete
         queries: [Query.select(['*'])],
       );
 
@@ -133,7 +127,6 @@ class RoomsController extends GetxController {
         name: AppLocalizations.of(Get.context!)!.loadingDialog,
       );
 
-      // Get the token and livekit url and join livekit room
       AuthStateController authStateController = Get.find<AuthStateController>();
       String myDocId = await RoomService.joinRoom(
         roomId: room.id,
@@ -142,15 +135,12 @@ class RoomsController extends GetxController {
       );
       room.myDocId = myDocId;
 
-      // Close the loading dialog
       Get.back();
-      // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet(room);
     } catch (e) {
       log(e.toString());
       getRooms();
       update();
-      // Close the loading dialog
       Get.back();
     }
   }

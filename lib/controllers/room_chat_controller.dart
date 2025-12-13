@@ -50,7 +50,6 @@ class RoomChatController extends GetxController {
       Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
       Query.orderAsc('index'),
       Query.limit(100),
-      // FIX: Added this line to fetch all fields including relationships
       Query.select(['*']),
     ];
     ReplyTo? replyTo;
@@ -69,10 +68,9 @@ class RoomChatController extends GetxController {
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
         if (e is AppwriteException && e.code == 404) {
-          // If replyTo document not found, set it to null
           replyTo = null;
         } else {
-          rethrow; // Rethrow if it's a different error
+          rethrow; 
         }
       }
       messages.add(
@@ -134,7 +132,6 @@ class RoomChatController extends GetxController {
       }
       message.replyTo = replyingTo.value;
 
-      // messages.add(message);
       replyingTo.value = null;
     } catch (e) {
       log('Error sending message: $e');
@@ -222,11 +219,10 @@ class RoomChatController extends GetxController {
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
                 if (e is AppwriteException && e.code == 404) {
-                  // If replyTo document not found, set it to null
                   replyTo = null;
                 } else {
                   log("Error fetching replyTo document: ${e.toString()}");
-                  rethrow; // Rethrow if it's a different error
+                  rethrow; 
                 }
               }
               newMessage.replyTo = replyTo;

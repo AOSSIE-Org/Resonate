@@ -40,7 +40,6 @@ class ChangeEmailController extends GetxController {
       collectionId: usernameCollectionID,
       queries: [
         Query.equal('email', changedEmail),
-        // FIX: Added Query.select(['*']) to ensure all fields/relationships are returned
         Query.select(['*']), 
       ],
     );
@@ -57,7 +56,6 @@ class ChangeEmailController extends GetxController {
     BuildContext context,
   ) async {
     try {
-      // change in user info collection
       await databases.updateDocument(
         databaseId: userDatabaseID,
         collectionId: usersCollectionID,
@@ -65,7 +63,6 @@ class ChangeEmailController extends GetxController {
         data: {'email': changedEmail},
       );
 
-      // change in username - email collection
       await databases.updateDocument(
         databaseId: userDatabaseID,
         collectionId: usernameCollectionID,
@@ -73,7 +70,6 @@ class ChangeEmailController extends GetxController {
         data: {'email': changedEmail},
       );
 
-      // Set user profile in authStateController
       await authStateController.setUserProfileData();
 
       return true;
@@ -100,7 +96,6 @@ class ChangeEmailController extends GetxController {
     BuildContext context,
   ) async {
     try {
-      // change in auth section
       await account.updateEmail(email: changedEmail, password: password);
 
       return true;
