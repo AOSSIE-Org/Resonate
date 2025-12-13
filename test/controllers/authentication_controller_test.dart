@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 
 import 'authentication_controller_test.mocks.dart';
 
@@ -33,96 +35,155 @@ void main() {
       // Arrange: Set isLoading to true to simulate an in-progress signup
       authController.isLoading.value = true;
 
-      // Act: Try to call signup while already loading
-      final result = await authController.signup(
-        _MockBuildContext(),
-      );
+      // Act: Try to call signup while already loading (context not needed for early return)
+      final result = await authController.signup(_MockBuildContext());
 
       // Assert: Should return false without making any API call
       expect(result, false);
-      verifyNever(
-        mockAuthStateController.signup(any, any),
+      verifyNever(mockAuthStateController.signup(any, any));
+    });
+
+    testWidgets('signup resets isLoading to false after successful completion',
+        (WidgetTester tester) async {
+      // Arrange
+      authController.emailController.text = 'test@test.com';
+      authController.passwordController.text = 'Password123';
+
+      when(mockAuthStateController.signup(any, any)).thenAnswer((_) async {});
+
+      late BuildContext testContext;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) {
+              testContext = context;
+              return const SizedBox();
+            },
+          ),
+        ),
       );
-    });
-
-    test('signup sets isLoading to true at the start', () async {
-      // Arrange
-      authController.emailController.text = 'test@test.com';
-      authController.passwordController.text = 'Password123';
-
-      when(
-        mockAuthStateController.signup(any, any),
-      ).thenAnswer((_) async {});
+      await tester.pumpAndSettle();
 
       // Act
-      expect(authController.isLoading.value, false);
-      final signupFuture = authController.signup(_MockBuildContext());
-
-      // Assert: isLoading should be true during the call
-      // Note: This is tricky to test synchronously, so we verify after completion
-      await signupFuture;
-    });
-
-    test('signup resets isLoading to false after successful completion',
-        () async {
-      // Arrange
-      authController.emailController.text = 'test@test.com';
-      authController.passwordController.text = 'Password123';
-
-      when(
-        mockAuthStateController.signup(any, any),
-      ).thenAnswer((_) async {});
-
-      // Act
-      await authController.signup(_MockBuildContext());
+      await authController.signup(testContext);
 
       // Assert
       expect(authController.isLoading.value, false);
     });
 
-    test('signup resets isLoading to false after failure', () async {
+    testWidgets('signup resets isLoading to false after failure',
+        (WidgetTester tester) async {
       // Arrange
       authController.emailController.text = 'test@test.com';
       authController.passwordController.text = 'Password123';
 
-      when(
-        mockAuthStateController.signup(any, any),
-      ).thenThrow(Exception('Signup failed'));
+      when(mockAuthStateController.signup(any, any))
+          .thenThrow(Exception('Signup failed'));
+
+      late BuildContext testContext;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) {
+              testContext = context;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
       // Act
-      await authController.signup(_MockBuildContext());
+      await authController.signup(testContext);
 
       // Assert: isLoading should be reset even after failure
       expect(authController.isLoading.value, false);
     });
 
-    test('signup returns true on successful signup', () async {
+    testWidgets('signup returns true on successful signup',
+        (WidgetTester tester) async {
       // Arrange
       authController.emailController.text = 'test@test.com';
       authController.passwordController.text = 'Password123';
 
-      when(
-        mockAuthStateController.signup(any, any),
-      ).thenAnswer((_) async {});
+      when(mockAuthStateController.signup(any, any)).thenAnswer((_) async {});
+
+      late BuildContext testContext;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) {
+              testContext = context;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
       // Act
-      final result = await authController.signup(_MockBuildContext());
+      final result = await authController.signup(testContext);
 
       // Assert
       expect(result, true);
     });
 
-    test('signup returns false on failed signup', () async {
+    testWidgets('signup returns false on failed signup',
+        (WidgetTester tester) async {
       // Arrange
       authController.emailController.text = 'test@test.com';
       authController.passwordController.text = 'Password123';
 
-      when(
-        mockAuthStateController.signup(any, any),
-      ).thenThrow(Exception('User already exists'));
+      when(mockAuthStateController.signup(any, any))
+          .thenThrow(Exception('User already exists'));
+
+      late BuildContext testContext;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) {
+              testContext = context;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
 
       // Act
-      final result = await authController.signup(_MockBuildContext());
+      final result = await authController.signup(testContext);
 
       // Assert
       expect(result, false);
@@ -130,5 +191,5 @@ void main() {
   });
 }
 
-/// Mock BuildContext for testing
+/// Mock BuildContext for early return test (no localization needed)
 class _MockBuildContext extends Mock implements BuildContext {}
