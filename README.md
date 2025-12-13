@@ -148,53 +148,221 @@ To democratize voice-based social interaction by creating an accessible, feature
 
 Before you begin, ensure you have the following installed:
 
-- **Flutter SDK** (3.0 or higher) - [Installation Guide](https://docs.flutter.dev/get-started/install)
+#### Essential Requirements
+- **Flutter SDK** (3.24.0 or higher recommended) - [Installation Guide](https://docs.flutter.dev/get-started/install)
+  - Verify installation: `flutter --version`
+  - Run `flutter doctor` to check for any issues
 - **Dart SDK** (included with Flutter)
-- **Android Studio** or **VS Code** with Flutter extensions
-- **Git** for version control
-- **A device or emulator** for testing
+- **Git** for version control - [Download Git](https://git-scm.com/downloads)
+- **Docker Desktop** (required for backend setup) - [Download Docker](https://www.docker.com/products/docker-desktop/)
+  - Ensure Docker is running before starting backend setup
 
-### Quick Start Guide
+#### Development Environment (Choose One)
+- **Android Studio** with Flutter plugin ([Setup Guide](https://docs.flutter.dev/get-started/install/windows#android-setup))
+  - Includes Android SDK and emulator
+  - Recommended for Android development
+- **VS Code** with Flutter and Dart extensions ([Setup Guide](https://docs.flutter.dev/get-started/editor))
+  - Lightweight option
+  - Great for Flutter development
 
-#### 1️⃣ Clone the Repository
+#### Testing Device (Choose One)
+- **Android Emulator** (via Android Studio)
+- **iOS Simulator** (macOS only, via Xcode)
+- **Physical Device** (Android/iOS) connected via USB with developer mode enabled
+
+### Quick Start Guide for New Contributors
+
+#### 1️⃣ Verify Your Development Environment
+
+Before cloning the repository, verify your setup:
 
 ```bash
+# Check Flutter installation
+flutter doctor -v
+
+# Check Git installation
+git --version
+
+# Check Docker installation (if setting up backend)
+docker --version
+```
+
+**Note:** If `flutter doctor` shows any issues, resolve them before proceeding. Common issues include missing Android SDK, command-line tools, or licenses.
+
+#### 2️⃣ Clone the Repository
+
+```bash
+# Clone the repository
 git clone https://github.com/AOSSIE-Org/Resonate.git
 cd Resonate
+
+# Create a new branch for your work
+git checkout -b your-feature-name
 ```
 
-#### 2️⃣ Install Dependencies
+#### 3️⃣ Install Flutter Dependencies
 
 ```bash
+# Install all Flutter packages
 flutter pub get
+
+# Verify no dependency conflicts
+flutter pub outdated
 ```
 
-#### 3️⃣ Complete Setup
+**Common Issues:**
+- If you get version conflicts, ensure your Flutter SDK version meets requirements
+- Clear pub cache if needed: `flutter pub cache repair`
 
-Resonate requires proper configuration of Appwrite and LiveKit services. We've created a comprehensive guide to help you:
+#### 4️⃣ Backend Setup (Required for Full Functionality)
+
+Resonate requires proper configuration of Appwrite and LiveKit services for full functionality:
 
 📘 **[Follow the Detailed Onboarding Guide](ONBOARDING.md)**
 
-The onboarding guide includes:
-- Backend environment setup (automated script available)
-- Appwrite configuration and API keys
-- LiveKit integration setup
-- Firebase setup for push notifications
-- Environment variable configuration
-- Troubleshooting common issues
+The comprehensive onboarding guide includes:
+- ✅ **Automated backend setup script** (recommended for beginners)
+- ✅ **Docker and Appwrite installation**
+- ✅ **LiveKit integration** (cloud or self-hosted options)
+- ✅ **Meilisearch setup** (optional, for advanced search)
+- ✅ **Environment configuration** for different platforms
+- ✅ **Firebase setup** (optional, for push notifications)
+- ✅ **Common troubleshooting solutions**
 
-#### 4️⃣ Run the Application
+**Quick Backend Setup:**
+```bash
+# Clone the backend repository
+git clone https://github.com/AOSSIE-Org/Resonate-Backend.git
+
+# Navigate to backend directory
+cd Resonate-Backend
+
+# Run the automated setup script
+
+# For Linux/macOS:
+sudo ./init.sh
+
+# For Windows (PowerShell):
+./init.ps1
+```
+
+The script will automatically:
+- Install Appwrite CLI
+- Set up Docker containers
+- Configure databases and collections
+- Set up LiveKit and Meilisearch
+- Generate necessary environment variables
+
+#### 5️⃣ Configure the Frontend
+
+After backend setup, configure the client app to connect to your local backend:
+
+**Option 1: Update constants.dart (Simple)**
+1. Open `lib/utils/constants.dart`
+2. Update the `baseDomain` default value based on your platform:
+   - Android Emulator: `10.0.2.2`
+   - iOS Simulator: `localhost`
+   - Physical Device: Your computer's IP address on local network
+
+**Option 2: Use Environment Variables (Recommended)**
+```bash
+# Android Emulator
+flutter run --dart-define=APPWRITE_BASE_DOMAIN=10.0.2.2
+
+# iOS Simulator
+flutter run --dart-define=APPWRITE_BASE_DOMAIN=localhost
+
+# Physical Device (replace with your IP)
+flutter run --dart-define=APPWRITE_BASE_DOMAIN=192.168.1.100
+```
+
+**Finding Your Local IP Address:**
+- Windows: Run `ipconfig` in Command Prompt
+- macOS/Linux: Run `ifconfig` or `ip addr` in Terminal
+- Look for the IP address under your WiFi adapter (usually starts with 192.168.x.x)
+
+#### 6️⃣ Run the Application
 
 ```bash
-# Run on connected device or emulator
+# List all available devices
+flutter devices
+
+# Run on the first available device
 flutter run
 
-# Run in release mode
-flutter run --release
-
-# Run on specific device
+# Run on a specific device
 flutter run -d <device-id>
+
+# Run with hot reload (recommended for development)
+flutter run --hot
+
+# Run in release mode (for performance testing)
+flutter run --release
 ```
+
+**Quick Testing (Without Full Backend Setup):**
+You can explore the UI without backend by:
+1. Running `flutter run`
+2. The app will show connection errors, but UI is still navigable
+3. Great for UI/UX contributions or theme development
+
+### Troubleshooting Common Issues
+
+#### Flutter Issues
+
+**"Flutter command not found"**
+- Ensure Flutter is added to your PATH
+- Restart your terminal/IDE after installation
+- See [Flutter PATH setup](https://docs.flutter.dev/get-started/install)
+
+**"Android licenses not accepted"**
+```bash
+flutter doctor --android-licenses
+```
+Accept all licenses by typing 'y'
+
+**"CocoaPods not installed" (iOS/macOS)**
+```bash
+sudo gem install cocoapods
+cd ios
+pod install
+```
+
+**"Gradle build failed" (Android)**
+- Clear Gradle cache: `cd android && ./gradlew clean`
+- Invalidate Android Studio caches: File → Invalidate Caches / Restart
+
+#### Backend Connection Issues
+
+**"Cannot connect to Appwrite"**
+1. Verify Docker is running: `docker ps`
+2. Check if Appwrite container is running
+3. Verify `baseDomain` in constants.dart matches your setup
+4. Ensure firewall allows local connections
+
+**"LiveKit connection failed"**
+- Verify LiveKit container/cloud service is running
+- Check LiveKit endpoint in backend configuration
+- Ensure network allows WebRTC connections
+
+#### Device-Specific Issues
+
+**Physical Device Not Detected**
+- **Android:** Enable USB debugging in Developer Options
+- **iOS:** Trust computer in device settings
+- Verify device connection: `flutter devices`
+
+**Emulator/Simulator Issues**
+- **Android Emulator slow:** Allocate more RAM in AVD Manager
+- **iOS Simulator:** Requires macOS and Xcode
+- Try cold boot: Android Studio → AVD Manager → Cold Boot Now
+
+#### General Tips
+
+- **Always run `flutter pub get` after pulling new changes**
+- **Use `flutter clean` if you encounter persistent build issues**
+- **Check [GitHub Issues](https://github.com/AOSSIE-Org/Resonate/issues) for known problems**
+- **Ask for help on [Discord](https://discord.gg/MMZBadkYFm) if stuck**
 
 ### Project Setup for Contributors
 
