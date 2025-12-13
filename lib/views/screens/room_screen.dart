@@ -69,7 +69,7 @@ class RoomScreenState extends State<RoomScreen> {
               const RoomAppBar(),
               Positioned(
                 right: 16,
-                top: 40, 
+                 
                 child: Row(
                   children: [
                     IconButton(
@@ -110,7 +110,7 @@ class RoomScreenState extends State<RoomScreen> {
               ),
             ],
           ),
-          // ------------------------------------------------
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: RoomHeader(
