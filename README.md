@@ -1,131 +1,452 @@
-<div align="center">
- <span>
- <img src="https://github.com/ShivamMenda/Resonate/assets/74780977/ca9e88d2-f4ca-4d8c-8a8a-289286b91e54" alt="Resonate logo" width="150" height="auto" />
-<img src="assets/images/aossie_logo.png" alt="Resonate logo" width="150" height="auto" />
- </span>
-
-# :microphone: Resonate - An Open Source Social Voice Platform
-
-</div>
-<div align="center" style="text-align:center;"> 
-<span>
- <a href="https://appwrite.io" target="_blank">
-  <picture>
-   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite.svg"      
-    alt="Appwrite Logo" width="200">
-   <img alt="Appwrite Logo" align="center" src="https://github.com/appwrite/website/blob/main/static/images/logos/appwrite-light.svg" alt="Appwrite Logo" 
-    width="200">
-  </picture>
- </a>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <a href="https://livekit.io" target="_blank">
-  <picture>
-   <source media="(prefers-color-scheme: dark)" align="center" srcset="https://github.com/AKASHANGADII/Resonate/assets/81625153/87bb173f-d5b0-4386-b9ca-6e69cd53578f" alt="Livekit Logo" width="140" height="30">
-   <img alt="Livekit Logo" align="center" src="https://github.com/AKASHANGADII/Resonate/assets/81625153/1466de84-d00e-4db7-9b51-a99f3c1997ff"  width="140" 
-    height="30">
-  </picture>
- </a>
-</span>
-</div>
-<br>
-<br>
+# 🎤 Resonate - An Open Source Social Voice Platform
 
 <div align="center">
-  
-[![License:GPL-3.0](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/license/gpl-3-0/)
-![GitHub Org's stars](https://img.shields.io/github/stars/AOSSIE-Org/Resonate?style=social)
+
+![Resonate Logo](assets/images/aossie_logo.png)
+
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL-yellow.svg)](https://opensource.org/license/gpl-3-0/)
+[![GitHub Stars](https://img.shields.io/github/stars/AOSSIE-Org/Resonate?style=social)](https://github.com/AOSSIE-Org/Resonate/stargazers)
 [![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-00C851?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.resonate.resonate)
 
-</div>
+**Powered by:**
 
-With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experiencing rapid growth, Resonate is here to harness the power of open-source for voice-based social media. Whether it's sharing immersive stories, engaging in dynamic live discussions, or connecting through pair chats and voice calls, Resonate is designed to put voice at the center of your social experience. By fostering innovation and growth, this project aims to reach new heights, continually expanding its features and community, all while staying true to the open-source spirit of collaboration and transparency.
-
-## :rocket: Features
-
-1. Real-time Audio Communication by joining rooms and talking to people.
-2. Ability to create rooms and moderate speakers and events.
-3. Create Scheduled Rooms and notify subscribers as reminders to join
-4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favourate creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progess)
-5. Pair chatting to enable users to find random partners to talk to in the app.
-6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
-
-## :computer: Technologies Used
-
-1.  **Flutter** - Mobile application
-2.  **Appwrite** - Authentication, Database, Storage and Cloud functions.
-3.  **LiveKit** - Web Real-Time Communication
-
-## :link: Repository Links
-
-1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
-2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
-
-## :four_leaf_clover: Getting Started
-
-Resonate is a wide project taking use of other software solutions like Appwrite and Livekit, starting up can be a little challenging
-
-We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you.
-Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contribution
-
-## ▶️ Play Store Feature Graphic
-
-<div align="center">
-<img width="1024" height="500" alt="Resonate_V1 1" src="https://github.com/user-attachments/assets/c3223f3f-067b-4316-815a-439728f92f52" />
-
- </div>
-
-## :movie_camera: App Screenshots
-
-<div align="center">
- 
-| Login Screen (Forest)                                                                                                    | Home Screen (Time)                                                                                                      | Create Room Screen (Time)                                                                                               |
-| :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| <img src= "https://github.com/user-attachments/assets/e76147b1-0e51-4852-8198-06bbc975b25c" width="260" height="auto" /> | <img src="https://github.com/user-attachments/assets/ad62eecb-b621-4c31-a01c-001ff5462b28" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/31ce6e73-8dca-4e2d-8f48-c22480fa1332" width="250" height="auto" /> |
-
-| Room Screen (Cream)                                                                                                     | Profile Screen (Amber)                                                                                                  | Explore Story (Forest)                                                                                                 |
-| :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/f1d6e62f-5f25-47c1-9f59-e165d7018c0c" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/b9dfe363-79b1-4eee-8d00-28f5c14f93ee" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/c7657be8-bce2-4c3a-aee3-dd3cc33379a2" width="250" height="auto"/> |
-
-| Explore Story (Amber)                                                                                                   | Theme Screen (Vintage)                                                                                                  | Upcoming Room Screen (Cream)                                                                                           |
-| :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/> |
+[![Appwrite](https://img.shields.io/badge/Appwrite-F02E65?style=for-the-badge&logo=appwrite&logoColor=white)](https://appwrite.io)
+[![LiveKit](https://img.shields.io/badge/LiveKit-00ADD8?style=for-the-badge)](https://livekit.io)
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 
 </div>
 
-## :raised_hands: Contributing
+---
 
-:star: Don't forget to star this repository if you find it useful! :star:
+## 📖 About Resonate
 
-Thank you for considering contributing to this project! Contributions are highly appreciated and welcomed (P.S. to the `dev` branch). To ensure a smooth collaboration, Refer to the [Contribution Guidelines](https://github.com/AOSSIE-Org/Resonate/blob/master/CONTRIBUTING.md).
+With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experiencing rapid growth, **Resonate** harnesses the power of open-source for voice-based social media. Whether it's sharing immersive stories, engaging in dynamic live discussions, or connecting through pair chats and voice calls, Resonate is designed to put voice at the center of your social experience.
 
-We appreciate your contributions and look forward to working with you to make this project even better!
+By fostering innovation and growth, this project aims to reach new heights, continually expanding its features and community, all while staying true to the open-source spirit of collaboration and transparency.
 
-By following these guidelines, we can maintain a productive and collaborative open-source environment. Thank you for your support!
+---
 
-## :v: Maintainers
+## ✨ Features
 
-- [Jaideep Prasad](https://github.com/jddeep)
-- [Chandan S Gowda](https://github.com/chandansgowda)
+### Current Features
 
-## :mailbox: Communication Channels
+🎙️ **Real-time Audio Rooms**
+- Join voice rooms and talk to people in real-time
+- Create your own rooms with custom settings
+- Moderate speakers and manage room events
 
-If you have any questions, need clarifications, or want to discuss ideas, feel free to reach out through the following channels:
+📅 **Scheduled Rooms**
+- Create scheduled discussions
+- Notify subscribers with reminders
+- Never miss important conversations
 
--   [Discord Server](https://discord.gg/MMZBadkYFm)
--   [Email](mailto:aossie.oss@gmail.com)
+📚 **Audio Stories** *(Work in Progress)*
+- Listen to stories as chapters with synced lyrics
+- Browse through entire catalog of stories
+- Follow your favorite creators
+- Wait for latest chapter/story releases
+- Post your own stories with chapters
 
+👥 **Pair Chat**
+- Find random partners to talk to
+- One-on-one voice conversations
+- Meet new people in the community
 
-<!-- License -->
+🎨 **Customizable Themes**
+- Multiple theme options: Forest, Amber, Classic, Cream, Time, Vintage
+- Personalize your app experience
 
-## :round_pushpin: License
+🌍 **Multi-language Support**
+- Available in multiple languages
+- Easy translation contribution
 
-Distributed under the [GNU General Public License](https://opensource.org/license/gpl-3-0/). See [LICENSE](https://github.com/AOSSIE-Org/Resonate/blob/master/LICENSE) for more information.
+### Coming Soon
 
-## 💪 Thanks To All Contributors
+✅ Friend profiles and connections
+✅ Direct voice calls and messaging
+✅ Enhanced story marketplace
+✅ Advanced search and discovery
 
-Thanks a lot for spending your time helping Resonate grow. Keep rocking 🥂
+---
 
-<a href="https://github.com/AOSSIE-Org/Resonate/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AOSSIE-Org/Resonate" alt="Contributors"/>
+## 🏗️ Architecture
+
+Resonate is built using modern, scalable technologies:
+
+- **Frontend**: Flutter (Dart) - Cross-platform mobile application
+- **Backend**: Appwrite - Authentication, Database, Storage, Cloud Functions
+- **Real-time Communication**: LiveKit - WebRTC for voice/video
+- **State Management**: GetX / Provider
+- **Database**: Appwrite Database Collections
+
+---
+
+## 🚀 Quick Start for New Contributors
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- ✅ **Flutter SDK** (3.19 or higher) - [Install Guide](https://docs.flutter.dev/get-started/install)
+- ✅ **Git** - [Download](https://git-scm.com/downloads)
+- ✅ **Android Studio** or **VS Code** with Flutter extensions
+- ✅ **Node.js & npm** (for backend) - [Download](https://nodejs.org/)
+- ✅ **Appwrite CLI** - Install: `npm install -g appwrite-cli`
+
+### Quick Setup (5 Minutes)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/Resonate.git
+cd Resonate
+
+# 2. Install dependencies
+flutter pub get
+
+# 3. Check your Flutter setup
+flutter doctor
+
+# 4. Run the app
+flutter run
+```
+
+### Full Setup Guide
+
+For detailed setup instructions including backend configuration, please refer to our comprehensive **[Onboarding Guide](ONBOARDING.md)**.
+
+The onboarding guide covers:
+- 📦 Complete environment setup
+- 🔧 Backend configuration (Appwrite + LiveKit)
+- 🐛 Troubleshooting common issues
+- 💻 Development workflow
+- 🤝 Contribution guidelines
+
+---
+
+## 📂 Project Structure
+
+```
+Resonate/
+├── android/                 # Android native code
+├── ios/                     # iOS native code
+├── lib/
+│   ├── main.dart           # Application entry point
+│   ├── models/             # Data models
+│   ├── views/              # UI screens and widgets
+│   │   ├── screens/        # Main app screens
+│   │   └── widgets/        # Reusable widgets
+│   ├── controllers/        # Business logic (GetX/Provider)
+│   ├── services/           # API and service classes
+│   ├── utils/              # Utility functions and constants
+│   ├── routes/             # App routing
+│   └── themes/             # Theme configurations
+├── assets/
+│   ├── images/             # Image assets
+│   ├── icons/              # App icons
+│   └── translations/       # Localization files
+├── test/                   # Unit and widget tests
+├── docs/                   # Documentation
+├── pubspec.yaml            # Dependencies
+└── README.md               # This file
+```
+
+---
+
+## 🔗 Repository Links
+
+This project consists of two main repositories:
+
+1. **[Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)** - Mobile application (This repo)
+2. **[Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)** - Appwrite Cloud Functions
+
+---
+
+## 🤝 Contributing
+
+We ❤️ contributions! Resonate is open-source and we welcome contributors of all skill levels.
+
+### How to Contribute
+
+1. **🍴 Fork the Repository**
+   - Click the "Fork" button at the top right of this page
+
+2. **📥 Clone Your Fork**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/Resonate.git
+   cd Resonate
+   ```
+
+3. **🌿 Create a Branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+4. **✨ Make Your Changes**
+   - Write clean, well-documented code
+   - Follow the existing code style
+   - Test your changes thoroughly
+
+5. **✅ Commit Your Changes**
+   ```bash
+   git commit -m "feat: add amazing feature"
+   ```
+
+6. **📤 Push to Your Fork**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+7. **🎉 Open a Pull Request**
+   - Go to the original repository
+   - Click "New Pull Request"
+   - Select your branch
+   - Fill in the PR template
+   - Submit for review!
+
+### Contribution Guidelines
+
+Please read our detailed [Contribution Guidelines](CONTRIBUTING.md) before submitting a PR.
+
+**Important Notes:**
+- 🎯 All contributions should target the `dev` branch, not `master`
+- 📝 Follow the commit message format: `type: description`
+- 🧪 Include tests for new features
+- 📖 Update documentation as needed
+- ✅ Ensure all checks pass before requesting review
+
+### Good First Issues
+
+New to open source? Look for issues labeled with:
+- `good first issue` - Perfect for beginners
+- `documentation` - Help improve our docs
+- `bug` - Fix existing issues
+- `enhancement` - Add new features
+
+---
+
+## 🎨 App Screenshots
+
+<div align="center">
+
+| Login Screen | Home Screen | Create Room |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/login.png" width="200"/> | <img src="docs/screenshots/home.png" width="200"/> | <img src="docs/screenshots/create_room.png" width="200"/> |
+
+| Room Screen | Profile | Explore Stories |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/room.png" width="200"/> | <img src="docs/screenshots/profile.png" width="200"/> | <img src="docs/screenshots/explore.png" width="200"/> |
+
+</div>
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Flutter 3.19+
+- **Language**: Dart
+- **State Management**: GetX / Provider
+- **UI Components**: Material Design
+
+### Backend
+- **BaaS**: Appwrite
+- **Authentication**: Appwrite Auth (Email, Phone, OAuth)
+- **Database**: Appwrite Database
+- **Storage**: Appwrite Storage
+- **Functions**: Appwrite Cloud Functions (Node.js)
+
+### Real-time Communication
+- **WebRTC**: LiveKit
+- **Audio**: LiveKit SDK
+- **Rooms**: LiveKit Room Management
+
+### Tools & Services
+- **Version Control**: Git & GitHub
+- **CI/CD**: GitHub Actions
+- **Package Manager**: Pub
+- **Build Tools**: Gradle (Android), Xcode (iOS)
+
+---
+
+## 📱 Installation
+
+### For Users
+
+Download Resonate from Google Play Store:
+
+<a href="https://play.google.com/store/apps/details?id=com.resonate.resonate">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80"/>
 </a>
-<br>
+
+### For Developers
+
+Follow our [Onboarding Guide](ONBOARDING.md) for complete setup instructions.
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Issue: "Cannot connect to Appwrite"**
+- Check your internet connection
+- Verify Appwrite endpoint URL
+- Ensure project ID is correct
+
+**Issue: "LiveKit connection failed"**
+- Check microphone permissions
+- Verify LiveKit credentials
+- Test network connectivity
+
+**Issue: "Build failed"**
+- Run `flutter clean`
+- Delete `pubspec.lock`
+- Run `flutter pub get`
+- Try building again
+
+For more troubleshooting tips, see our [Onboarding Guide - Troubleshooting Section](ONBOARDING.md#troubleshooting).
+
+---
+
+## 📚 Documentation
+
+- **[Onboarding Guide](ONBOARDING.md)** - Complete setup for contributors
+- **[Contributing Guidelines](CONTRIBUTING.md)** - How to contribute
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** - Community guidelines
+- **[Security Policy](SECURITY.md)** - Report security issues
+- **[Translation Guide](TRANSLATIONS.md)** - Help translate the app
+
+---
+
+## 🌟 Community & Support
+
+### Get Help
+
+- 💬 **Discord**: [Join our server](https://discord.gg/MMZBadkYFm)
+- 📧 **Email**: aossie.oss@gmail.com
+- 🐛 **Issues**: [Report bugs](https://github.com/AOSSIE-Org/Resonate/issues)
+- 💡 **Discussions**: [Ask questions](https://github.com/AOSSIE-Org/Resonate/discussions)
+
+### Stay Updated
+
+- ⭐ Star this repository to show support
+- 👀 Watch for updates and releases
+- 🐦 Follow us on social media (coming soon!)
+
+---
+
+## 👥 Maintainers
+
+- **[Jaideep Prasad](https://github.com/jddeep)** - Project Lead
+- **[Chandan S Gowda](https://github.com/chandansgowda)** - Core Maintainer
+
+---
+
+## 🙏 Contributors
+
+Thanks to all our amazing contributors! 🎉
+
+[![Contributors](https://contrib.rocks/image?repo=AOSSIE-Org/Resonate)](https://github.com/AOSSIE-Org/Resonate/graphs/contributors)
+
+Want to see your name here? [Start contributing!](#contributing)
+
+---
+
+## 📜 License
+
+This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
+
+```
+Resonate - An Open Source Social Voice Platform
+Copyright (C) 2023-2025 AOSSIE
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+```
+
+---
+
+## 🏆 Achievements
+
+- 🎓 **Google Summer of Code 2023 & 2024** - Selected Project
+- 🌟 **290+ GitHub Stars**
+- 🍴 **270+ Forks**
+- 👥 **45+ Contributors**
+- 📥 **Available on Google Play Store**
+
+---
+
+## 🎯 Roadmap
+
+### Q1 2025
+- [ ] Enhanced story marketplace
+- [ ] Advanced search functionality
+- [ ] Profile customization
+- [ ] Friend system implementation
+
+### Q2 2025
+- [ ] Direct messaging
+- [ ] Voice notes feature
+- [ ] Notification improvements
+- [ ] Performance optimizations
+
+### Q3 2025
+- [ ] Web platform support
+- [ ] Desktop application
+- [ ] Advanced analytics
+- [ ] Premium features
+
+*Want to suggest a feature? [Open a discussion](https://github.com/AOSSIE-Org/Resonate/discussions)!*
+
+---
+
+## 🤗 Acknowledgments
+
+- **AOSSIE** - Australian Open Source Software Innovation and Education
+- **Appwrite** - For providing an amazing backend platform
+- **LiveKit** - For real-time communication infrastructure
+- **Flutter** - For the cross-platform framework
+- **All Contributors** - For making this project possible
+
+---
+
+## 📞 Contact
+
+- **Organization**: AOSSIE (Australian Open Source Software Innovation and Education)
+- **Email**: aossie.oss@gmail.com
+- **Discord**: https://discord.gg/MMZBadkYFm
+- **GitHub**: https://github.com/AOSSIE-Org
+
+---
+
+<div align="center">
+
+### ⭐ Don't forget to star this repository if you find it useful! ⭐
+
+**Made with ❤️ by the AOSSIE Community**
+
+</div>
+
+---
+
+## 💝 Support the Project
+
+If you like Resonate, consider:
+- ⭐ Starring the repository
+- 🐛 Reporting bugs
+- 💡 Suggesting features
+- 🤝 Contributing code
+- 📢 Spreading the word
+
+Every contribution, no matter how small, makes a difference!
+
+---
+
+**Happy Contributing! 🎉**
