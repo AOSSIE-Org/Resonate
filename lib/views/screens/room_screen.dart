@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:flutter/services.dart'; 
+import 'package:share_plus/share_plus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -61,7 +63,54 @@ class RoomScreenState extends State<RoomScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const RoomAppBar(),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              const RoomAppBar(),
+              Positioned(
+                right: 16,
+                top: 40, 
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.copy),
+                      tooltip: 'Copy Room Link',
+                      color: Theme.of(context).brightness == Brightness.light 
+                          ? Colors.black 
+                          : Colors.white,
+                      onPressed: () async {
+                        await Clipboard.setData(
+                          ClipboardData(
+                              text: 'https://resonate.social/room/${widget.room.id}'),
+                        );
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Room Link Copied to Clipboard!'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.share),
+                      tooltip: 'Share Room',
+                      color: Theme.of(context).brightness == Brightness.light 
+                          ? Colors.black 
+                          : Colors.white,
+                      onPressed: () {
+                        Share.share(
+                          'Join me in the room "${widget.room.name}" on Resonate! 🚀\nLink: https://resonate.social/room/${widget.room.id}',
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // ------------------------------------------------
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: RoomHeader(
