@@ -1,0 +1,11 @@
+name: Release
+description: Track new releases, version bumps, and changelog updates
+title: "[Release] "
+labels: ["release"]
+body:
+  - type: textarea
+    attributes:
+      label: Release Details
+      description: Describe the release scope, version, or changes.
+    validations:
+      required: true

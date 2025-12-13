@@ -1,0 +1,20 @@
+# Add New Issue Templates (Minimal & Clean)
+
+name: UI / UX Redesign
+description: Propose or discuss UI/UX redesigns or visual improvements
+title: "[UI] "
+labels: ["ui", "design"]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Describe the UI/UX change or redesign.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation
+      description: Why is this redesign needed?
+    validations:
+      required: true

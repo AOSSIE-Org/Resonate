@@ -8,11 +8,14 @@ Fixes # (issue)
 
 Please delete options that are not relevant.
 
-- [ ] Bug fix (non-breaking CHANGE which fixes an issue)
+- [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Refactor (does not change functionality, e.g. code style improvements, linting)
+- [ ] Refactor (no functional change, e.g. restructuring or cleanup)
 - [ ] Documentation update
+- [ ] UI / UX Redesign
+- [ ] Release (version bump, changelog, or release automation)
+
 
 ## How Has This Been Tested?
 
