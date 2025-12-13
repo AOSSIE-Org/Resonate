@@ -64,16 +64,27 @@ class ThemeList {
       onSurfaceColor: Colors.white,
       themeMode: ThemeMode.dark,
     ),
+    // New Bright Theme - exactly as per proposal
+    ThemeModel(
+      name: "Bright",
+      primaryColor: Color(0xFF4CAF50), // Vibrant green shade for Join Button and core actions
+      onPrimaryColor: Colors.white,
+      secondaryColor: Color(0xFF2196F3), // Clean blue tone for Share Icon and connectivity
+      onSecondaryColor: Colors.white,
+      surfaceColor: Colors.white, // White background for high-contrast bright look
+      onSurfaceColor: Colors.black, // Black text for maximum readability
+      themeMode: ThemeMode.light, // Light mode for vibrant accessibility
+    ),
   ];
 
   static ThemeModel getThemeModel(String themeName) {
     for (var themeModel in themesList) {
-      if (themeModel.name.toLowerCase() == themeName) {
+      if (themeModel.name.toLowerCase() == themeName.toLowerCase()) {
         return themeModel;
       }
     }
 
-    // Return Classic Theme
+    // Return Classic Theme as fallback
     return themesList.first;
   }
 }
