@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:share_plus/share_plus.dart'; // <--- 1. IMPORT ADDED
 
 import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -61,7 +62,29 @@ class RoomScreenState extends State<RoomScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const RoomAppBar(),
+          // --- 2. UPDATED HEADER WITH SHARE BUTTON ---
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              const RoomAppBar(),
+              Positioned(
+                right: 16,
+                top: 40, // Adjusts for Status Bar
+                child: IconButton(
+                  icon: const Icon(Icons.share),
+                  color: Theme.of(context).brightness == Brightness.light 
+                      ? Colors.black 
+                      : Colors.white,
+                  onPressed: () {
+                    Share.share(
+                      'Join me in the room "${widget.room.name}" on Resonate! 🚀',
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          // -------------------------------------------
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: RoomHeader(
