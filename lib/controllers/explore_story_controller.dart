@@ -15,6 +15,7 @@ import 'package:resonate/models/live_chapter_model.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/services/badge_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
@@ -200,6 +201,7 @@ class ExploreStoryController extends GetxController {
       userData['userName'] = userData['username'];
       userData['userRating'] =
           userData['ratingTotal'] / userData['ratingCount'];
+      userData['badges'] = userData['badges'] ?? [];
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);
@@ -219,6 +221,7 @@ class ExploreStoryController extends GetxController {
       userData['userName'] = userData['username'];
       userData['userRating'] =
           userData['ratingTotal'] / userData['ratingCount'];
+      userData['badges'] = userData['badges'] ?? [];
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);
@@ -445,6 +448,23 @@ class ExploreStoryController extends GetxController {
           body: body.toString(),
         );
         log(results.status.name);
+      }
+
+      // Check for badge assignment (STORYTELLER badge)
+      try {
+        final badgeService = BadgeService();
+        final newBadges = await badgeService.checkAndAssignBadges(
+          authStateController.uid!,
+        );
+        if (newBadges.isNotEmpty) {
+          // Update local badges
+          authStateController.badges = await badgeService.getUserBadges(
+            authStateController.uid!,
+          );
+          authStateController.update();
+        }
+      } catch (e) {
+        log('Error checking badges after story creation: $e');
       }
     } on AppwriteException catch (e) {
       log("failed to upload story to appwrite: ${e.message}");

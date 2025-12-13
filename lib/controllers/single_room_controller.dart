@@ -16,6 +16,7 @@ import 'package:resonate/models/participant.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/services/badge_service.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
@@ -82,6 +83,7 @@ class SingleRoomController extends GetxController {
         isSpeaker: participant.data["isSpeaker"],
         hasRequestedToBeSpeaker:
             participant.data["hasRequestedToBeSpeaker"] ?? false,
+        badges: List<String>.from(userDataDoc.data["badges"] ?? []),
       ),
     );
     participants.add(p);
@@ -225,6 +227,24 @@ class SingleRoomController extends GetxController {
       isLoading.value = true;
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       await roomsController.getRooms();
+      
+      // Check for badge assignment (CROWD_FAVORITE badge)
+      if (appwriteRoom.isUserAdmin) {
+        try {
+          final badgeService = BadgeService();
+          final newBadges = await badgeService.checkAndAssignBadges(
+            auth.uid!,
+          );
+          if (newBadges.isNotEmpty) {
+            // Update local badges
+            auth.badges = await badgeService.getUserBadges(auth.uid!);
+            auth.update();
+          }
+        } catch (e) {
+          log('Error checking badges after room deletion: $e');
+        }
+      }
+      
       Get.delete<SingleRoomController>();
     } catch (e) {
       log(

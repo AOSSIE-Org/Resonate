@@ -52,6 +52,7 @@ class AuthStateController extends GetxController {
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
   late int reportsCount;
+  late List<String> badges = [];
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -220,6 +221,7 @@ class AuthStateController extends GetxController {
             [];
         reportsCount =
             (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
+        badges = List<String>.from(userDataDoc.data['badges'] ?? []);
       }
 
       update();

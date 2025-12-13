@@ -10,6 +10,7 @@ import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
+import 'package:resonate/services/badge_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/views/widgets/rating_sheet.dart';
 
@@ -147,6 +148,19 @@ class PairChatController extends GetxController {
                 }
                 activePairDocId = data.payload["\$id"];
                 await joinPairChat(activePairDocId, uid);
+                
+                // Check for badge assignment (CONVERSATIONALIST badge)
+                try {
+                  final badgeService = BadgeService();
+                  final newBadges = await badgeService.checkAndAssignBadges(uid);
+                  if (newBadges.isNotEmpty) {
+                    // Update local badges
+                    authController.badges = await badgeService.getUserBadges(uid);
+                    authController.update();
+                  }
+                } catch (e) {
+                  log('Error checking badges after pair chat creation: $e');
+                }
                 break;
               }
             case 'delete':

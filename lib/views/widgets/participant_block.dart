@@ -4,6 +4,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/badge_widget.dart';
 
 import '../../models/participant.dart';
 
@@ -218,6 +219,10 @@ class ParticipantBlock extends StatelessWidget {
                   Text(
                     participant.name.split(' ').first,
                     style: TextStyle(fontSize: UiSizes.size_16),
+                  ),
+                  BadgeWidget(
+                    badges: participant.badges,
+                    size: 14,
                   ),
                 ],
               ),

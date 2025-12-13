@@ -9,6 +9,7 @@ import 'package:textfield_tags/textfield_tags.dart';
 
 import '../models/appwrite_room.dart';
 import '../services/room_service.dart';
+import '../services/badge_service.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class CreateRoomController extends GetxController {
@@ -82,6 +83,23 @@ class CreateRoomController extends GetxController {
         reportedUsers: [],
       );
       Get.find<TabViewController>().openRoomSheet(room);
+
+      // Check for badge assignment (ANCHOR badge)
+      try {
+        final badgeService = BadgeService();
+        final newBadges = await badgeService.checkAndAssignBadges(
+          authStateController.uid!,
+        );
+        if (newBadges.isNotEmpty) {
+          // Update local badges
+          authStateController.badges = await badgeService.getUserBadges(
+            authStateController.uid!,
+          );
+          authStateController.update();
+        }
+      } catch (e) {
+        log('Error checking badges after room creation: $e');
+      }
 
       // Clear Create Room Form
       nameController.clear();

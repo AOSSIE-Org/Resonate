@@ -9,6 +9,7 @@ class Participant {
     required this.isModerator,
     required this.isSpeaker,
     required this.hasRequestedToBeSpeaker,
+    this.badges = const [],
   });
   late final String uid;
   late final String email;
@@ -19,6 +20,7 @@ class Participant {
   late bool isModerator;
   late bool isSpeaker;
   late bool hasRequestedToBeSpeaker;
+  late final List<String> badges;
 
   Participant.fromJson(Map<String, dynamic> json) {
     uid = json["uid"];
@@ -32,6 +34,7 @@ class Participant {
     isModerator = json['isModerator'];
     isSpeaker = json['isSpeaker'];
     hasRequestedToBeSpeaker = json["hasRequestedToBeSpeaker"];
+    badges = List<String>.from(json['badges'] ?? []);
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +48,7 @@ class Participant {
     data['isModerator'] = isModerator;
     data['isSpeaker'] = isSpeaker;
     data['hasRequestedToBeSpeaker'] = hasRequestedToBeSpeaker;
+    data['badges'] = badges;
     return data;
   }
 }

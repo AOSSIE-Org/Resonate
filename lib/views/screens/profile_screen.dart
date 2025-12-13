@@ -18,6 +18,7 @@ import 'package:resonate/views/screens/friends_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/views/widgets/badge_widget.dart';
 import '../../controllers/auth_state_controller.dart';
 import '../../controllers/email_verify_controller.dart';
 import '../../routes/app_routes.dart';
@@ -175,15 +176,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                  Text(
-                    widget.isCreatorProfile != null
-                        ? widget.creator!.name ?? ''
-                        : controller.displayName.toString(),
-                    style: TextStyle(
-                      fontSize: UiSizes.size_24,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.isCreatorProfile != null
+                              ? widget.creator!.name ?? ''
+                              : controller.displayName.toString(),
+                          style: TextStyle(
+                            fontSize: UiSizes.size_24,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      BadgeWidget(
+                        badges: widget.isCreatorProfile != null
+                            ? (widget.creator!.badges ?? [])
+                            : controller.badges,
+                        size: 18,
+                      ),
+                    ],
                   ),
                   Chip(
                     label: Text(
