@@ -52,29 +52,49 @@ class CustomLiveRoomTile extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // --- NEW COPY LINK BUTTON ---
+                    // --- RECTIFIED COPY LINK BUTTON ---
                     IconButton(
                       icon: Icon(
                         Icons.link, // Alternative: Icons.copy
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      tooltip: 'Copy Link',
+                      // Use localized string for tooltip
+                      tooltip: AppLocalizations.of(context)!.copyLink, 
                       onPressed: () async {
+                        // 1. Build the link using Uri.https for correctness and security
+                        final Uri roomUri = Uri.https(
+                          'resonate.app',
+                          '/room/${appwriteRoom.id}',
+                        );
+                        final String roomLink = roomUri.toString();
                         
-                        // Assuming you have an ID field, e.g., appwriteRoom.id
-                        final String roomLink = "https://resonate.app/room/${appwriteRoom.id}"; 
-                        
-                        await Clipboard.setData(ClipboardData(text: roomLink));
+                        // 2. Wrap Clipboard operation in try-catch for error handling
+                        try {
+                          await Clipboard.setData(ClipboardData(text: roomLink));
 
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                AppLocalizations.of(context)?.linkCopied ?? 'Link copied to clipboard',
+                          // 3. Show success SnackBar only if context is mounted
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!.linkCopied),
+                                duration: const Duration(seconds: 2),
                               ),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
+                            );
+                          }
+                        } catch (e) {
+                          // Log the error and show a localized failure SnackBar
+                          debugPrint('Error copying link to clipboard: $e');
+                          
+                          // 4. Show failure SnackBar only if context is mounted
+                          if (context.mounted) {
+                             ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!.copyLinkFailed),
+                                duration: const Duration(seconds: 3),
+                                backgroundColor: Theme.of(context).colorScheme.error,
+                              ),
+                            );
+                          }
                         }
                       },
                     ),
