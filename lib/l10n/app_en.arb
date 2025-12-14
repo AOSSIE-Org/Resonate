@@ -1757,5 +1757,21 @@
     "noRecordingError": "You have not recorded anything for the chapter. Please record a chapter before exiting the room",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
+    },
+    "shareRoomSubject": "Resonate Room Invite",
+"@shareRoomSubject": {
+  "description": "Subject line used when sharing a room."
+},
+
+"shareRoomMessage": "Join my room on Resonate 🎶\n{roomUrl}",
+"@shareRoomMessage": {
+  "description": "Message used when sharing a room link.",
+  "placeholders": {
+    "roomUrl": {
+      "type": "String",
+      "example": "https://resonate.aossie.org/room/123"
     }
+  }
+}
+
 }
