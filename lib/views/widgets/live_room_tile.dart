@@ -7,7 +7,10 @@ import 'package:resonate/models/appwrite_room.dart';
 import 'package:share_plus/share_plus.dart';
 
 
-const String _kWebDomain = 'resonate.app';
+const String _kWebDomain = String.fromEnvironment(
+  'WEB_DOMAIN',
+  defaultValue: 'resonate.app',
+);
 
 
 class CustomLiveRoomTile extends StatelessWidget {
@@ -18,7 +21,7 @@ class CustomLiveRoomTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Display the first three member avatars or as many as available.
+    
     List<String> memberAvatars = appwriteRoom.memberAvatarUrls.length > 3
         ? appwriteRoom.memberAvatarUrls.sublist(0, 3)
         : appwriteRoom.memberAvatarUrls;
@@ -39,7 +42,7 @@ class CustomLiveRoomTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Wrapped in Expanded to prevent overflow against the buttons
+                // Wrapped in Expanded for proper overflow handling (LGTM)
                 Expanded(
                   child: Text(
                     appwriteRoom.name,
@@ -56,27 +59,23 @@ class CustomLiveRoomTile extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // --- RECTIFIED COPY LINK BUTTON ---
+                    // --- COPY LINK BUTTON (LGTM) ---
                     IconButton(
                       icon: Icon(
-                        Icons.link, // Alternative: Icons.copy
+                        Icons.link,
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      // Use localized string for tooltip
                       tooltip: AppLocalizations.of(context)!.copyLink, 
                       onPressed: () async {
-                        // 1. Build the link using Uri.https with externalized domain
                         final Uri roomUri = Uri.https(
-                          _kWebDomain, // Using the externalized constant
+                          _kWebDomain, 
                           '/room/${appwriteRoom.id}',
                         );
                         final String roomLink = roomUri.toString();
                         
-                        // 2. Wrap Clipboard operation in try-catch for error handling
                         try {
                           await Clipboard.setData(ClipboardData(text: roomLink));
 
-                          // 3. Show success SnackBar only if context is mounted
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -86,10 +85,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                             );
                           }
                         } catch (e) {
-                          // Log the error and show a localized failure SnackBar
                           debugPrint('Error copying link to clipboard: $e');
                           
-                          // 4. Show failure SnackBar only if context is mounted
                           if (context.mounted) {
                              ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -108,6 +105,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                         Icons.share,
                         color: Theme.of(context).colorScheme.primary,
                       ),
+                      
+                      tooltip: AppLocalizations.of(context)!.share, 
                       onPressed: () {
                         SharePlus.instance.share(
                           ShareParams(
@@ -150,7 +149,7 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(context)
+                
                     .colorScheme
                     .onSurface
                     .withOpacity(0.7),
