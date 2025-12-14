@@ -10,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/participant_block.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
+import 'package:share_plus/share_plus.dart'; // ✅ ADDED
 
 class RoomScreen extends StatefulWidget {
   final AppwriteRoom room;
@@ -27,6 +28,16 @@ class RoomScreenState extends State<RoomScreen> {
   void initState() {
     super.initState();
     Get.put(SingleRoomController(appwriteRoom: widget.room));
+  }
+
+  // ✅ ADDED: Share room logic
+  void _shareRoom() {
+    final roomUrl = 'https://resonate.app/room/${widget.room.id}';
+
+    Share.share(
+      'Join my room on Resonate 🎶\n$roomUrl',
+      subject: 'Resonate Room Invite',
+    );
   }
 
   Future<dynamic> _deleteRoomDialog(String text, Function() onTap) async {
@@ -92,9 +103,10 @@ class RoomScreenState extends State<RoomScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSecondary.withValues(alpha: 0.15),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSecondary
+                    .withValues(alpha: 0.15),
               ),
             ),
             SingleChildScrollView(
@@ -123,7 +135,6 @@ class RoomScreenState extends State<RoomScreen> {
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             title,
@@ -179,9 +190,18 @@ class RoomScreenState extends State<RoomScreen> {
             _buildMicButton(),
             _buildRaiseHandButton(),
             _buildChatButton(),
+            _buildShareButton(), // ✅ ADDED
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildShareButton() {
+    return FloatingActionButton(
+      onPressed: _shareRoom,
+      backgroundColor: Colors.blueAccent,
+      child: const Icon(Icons.share, color: Colors.white),
     );
   }
 
@@ -235,8 +255,8 @@ class RoomScreenState extends State<RoomScreen> {
           backgroundColor: hasRequestedToBeSpeaker
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).brightness == Brightness.light
-              ? Colors.white
-              : Colors.black54,
+                  ? Colors.white
+                  : Colors.black54,
           child: Icon(
             hasRequestedToBeSpeaker
                 ? Icons.back_hand
@@ -244,8 +264,8 @@ class RoomScreenState extends State<RoomScreen> {
             color: hasRequestedToBeSpeaker
                 ? Colors.black
                 : Theme.of(context).brightness == Brightness.light
-                ? Colors.black
-                : Colors.white54,
+                    ? Colors.black
+                    : Colors.white54,
           ),
         );
       },
@@ -285,7 +305,7 @@ class RoomScreenState extends State<RoomScreen> {
             controller.openChatSheet();
           },
           backgroundColor: Colors.redAccent,
-          child: Icon(Icons.chat, color: Colors.black),
+          child: const Icon(Icons.chat, color: Colors.black),
         );
       },
     );
