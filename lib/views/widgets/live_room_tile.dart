@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Required for Clipboard
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
@@ -29,40 +30,77 @@ class CustomLiveRoomTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Room Name and Share Button
+            // Room Name, Copy Link, and Share Button
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  appwriteRoom.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
+                // Wrapped in Expanded to prevent overflow against the buttons
+                Expanded(
+                  child: Text(
+                    appwriteRoom.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.share,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onPressed: () {
-                    SharePlus.instance.share(
-                      ShareParams(
-                        text: AppLocalizations.of(context)!.shareRoomMessage(
-                          appwriteRoom.name,
-                          appwriteRoom.description,
-                          appwriteRoom.totalParticipants,
-                        ),
+                // Buttons Row
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // --- NEW COPY LINK BUTTON ---
+                    IconButton(
+                      icon: Icon(
+                        Icons.link, // Alternative: Icons.copy
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                    );
-                  },
+                      tooltip: 'Copy Link',
+                      onPressed: () async {
+                        
+                        // Assuming you have an ID field, e.g., appwriteRoom.id
+                        final String roomLink = "https://resonate.app/room/${appwriteRoom.id}"; 
+                        
+                        await Clipboard.setData(ClipboardData(text: roomLink));
+
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(context)?.linkCopied ?? 'Link copied to clipboard',
+                              ),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    // --- EXISTING SHARE BUTTON ---
+                    IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () {
+                        SharePlus.instance.share(
+                          ShareParams(
+                            text: AppLocalizations.of(context)!.shareRoomMessage(
+                              appwriteRoom.name,
+                              appwriteRoom.description,
+                              appwriteRoom.totalParticipants,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
+            
             // Room Tags
             Wrap(
               spacing: 8.0,
@@ -88,16 +126,17 @@ class CustomLiveRoomTile extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.7),
                 fontSize: 14,
               ),
             ),
 
             const SizedBox(height: 5),
 
-            // Total participants count
+            // Total participants count and Join Button
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -133,9 +172,8 @@ class CustomLiveRoomTile extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.participantsCount(appwriteRoom.totalParticipants),
+                          AppLocalizations.of(context)!
+                              .participantsCount(appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 14,
@@ -162,8 +200,6 @@ class CustomLiveRoomTile extends StatelessWidget {
                 ),
               ],
             ),
-
-            // Join button
           ],
         ),
       ),
