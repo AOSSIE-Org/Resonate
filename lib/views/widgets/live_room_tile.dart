@@ -153,7 +153,7 @@ class CustomLiveRoomTile extends StatelessWidget {
                 color: Theme.of(context)
                     .colorScheme
                     .onSurface
-                    .withOpacity(0.7), // Reverted to withOpacity for simplicity as withValues(alpha: 0.7) is non-standard
+                    .withOpacity(0.7),
                 fontSize: 14,
               ),
             ),
