@@ -6,6 +6,10 @@ import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:share_plus/share_plus.dart';
 
+
+const String _kWebDomain = 'resonate.app';
+
+
 class CustomLiveRoomTile extends StatelessWidget {
   final AppwriteRoom appwriteRoom;
 
@@ -61,9 +65,9 @@ class CustomLiveRoomTile extends StatelessWidget {
                       // Use localized string for tooltip
                       tooltip: AppLocalizations.of(context)!.copyLink, 
                       onPressed: () async {
-                        // 1. Build the link using Uri.https for correctness and security
+                        // 1. Build the link using Uri.https with externalized domain
                         final Uri roomUri = Uri.https(
-                          'resonate.app',
+                          _kWebDomain, // Using the externalized constant
                           '/room/${appwriteRoom.id}',
                         );
                         final String roomLink = roomUri.toString();
@@ -149,7 +153,7 @@ class CustomLiveRoomTile extends StatelessWidget {
                 color: Theme.of(context)
                     .colorScheme
                     .onSurface
-                    .withValues(alpha: 0.7),
+                    .withOpacity(0.7), // Reverted to withOpacity for simplicity as withValues(alpha: 0.7) is non-standard
                 fontSize: 14,
               ),
             ),
