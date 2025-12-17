@@ -47,23 +47,10 @@ println("PROJECT_ID: $projectId")
     buildTypes {
         signingConfigs {
         create("release") {
-            val keyAliasProp = keystoreProperties.getProperty("keyAlias")
-            val keyPasswordProp = keystoreProperties.getProperty("keyPassword")
-            val storeFileProp = keystoreProperties.getProperty("storeFile")
-            val storePasswordProp = keystoreProperties.getProperty("storePassword")
-
-            if (!keyAliasProp.isNullOrBlank()) {
-                keyAlias = keyAliasProp
-            }
-            if (!keyPasswordProp.isNullOrBlank()) {
-                keyPassword = keyPasswordProp
-            }
-            if (!storeFileProp.isNullOrBlank()) {
-                storeFile = file(storeFileProp)
-            }
-            if (!storePasswordProp.isNullOrBlank()) {
-                storePassword = storePasswordProp
-            }
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String
         }
     }
         release {
