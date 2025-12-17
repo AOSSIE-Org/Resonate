@@ -1,0 +1,76 @@
+name: 🔧 CI/CD & Tooling
+description: Improve CI/CD workflows, build scripts, or development tools
+title: "CI/CD: <Please write a comprehensive title after the 'CI/CD: ' prefix>"
+
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Use this template for proposing improvements to CI/CD pipelines, GitHub Actions workflows, build scripts, linting, formatting, or other development tools.
+
+  - type: textarea
+    id: cicd-tooling-change
+    attributes:
+      label: 🔧 The CI/CD or Tooling Change
+      description: >
+        Describe the CI/CD or tooling change you're proposing. Which workflow, script, or tool needs improvement?
+      placeholder: |
+        Update GitHub Actions workflow to cache dependencies and reduce build time.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tooling-category
+    attributes:
+      label: Category
+      description: What category does this change fall into?
+      options:
+        - "GitHub Actions workflow"
+        - "Build scripts"
+        - "Linting/formatting"
+        - "Development environment"
+        - "Deployment pipeline"
+        - "Other tooling"
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Motivation
+      description: >
+        Why is this change needed? How will it improve the development or deployment process?
+      placeholder: |
+        - Current CI builds take 15+ minutes
+        - Caching dependencies will reduce build time to ~5 minutes
+        - Faster feedback for contributors
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Impact on Contributors
+      description: >
+        How will this change affect contributors? Will they need to update their local setup or workflows?
+      placeholder: |
+        No impact on local development. Contributors will see faster CI feedback.
+    validations:
+      required: false
+
+  - type: checkboxes
+    attributes:
+      label: Tooling Focus Areas
+      description: What aspects does this change address?
+      options:
+        - label: "Build performance"
+        - label: "Code quality automation"
+        - label: "Deployment automation"
+        - label: "Developer experience"
+        - label: "CI/CD reliability"
+        - label: "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for improving Resonate's development workflow! 🔧
