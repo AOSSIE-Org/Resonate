@@ -121,11 +121,10 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onAnswerCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    Document callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
       collectionId: friendCallsCollectionId,
       documentId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
     log(callDoc.data.toString());
@@ -151,11 +150,10 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onDeclinedCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    Document callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
       collectionId: friendCallsCollectionId,
       documentId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
@@ -171,11 +169,10 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onEndedCall(Map<String, dynamic> extra) async {
-    final callDoc = await databases.getDocument(
+    Document callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
       collectionId: friendCallsCollectionId,
       documentId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
 
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);

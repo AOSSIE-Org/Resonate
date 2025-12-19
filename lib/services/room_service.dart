@@ -41,7 +41,6 @@ class RoomService {
           queries: [
             Query.equal("uid", [uid]),
             Query.equal('roomId', [roomId]),
-            Query.select(["*"]),
           ],
         );
     for (var document in participantDocsRef.documents) {
@@ -71,7 +70,6 @@ class RoomService {
         databaseId: masterDatabaseId,
         collectionId: roomsCollectionId,
         documentId: roomId,
-        queries: [Query.select(["*"])],
       );
 
       // Increment the totalParticipants Attribute
@@ -186,7 +184,6 @@ class RoomService {
           collectionId: participantsCollectionId,
           queries: [
             Query.equal('roomId', [roomId]),
-            Query.select(["*"]),
           ],
         );
 
@@ -228,7 +225,6 @@ class RoomService {
       databaseId: masterDatabaseId,
       collectionId: roomsCollectionId,
       documentId: roomId,
-      queries: [Query.select(["*"])],
     );
 
     // Get all documents with participant uid and roomid and delete them
@@ -239,7 +235,6 @@ class RoomService {
           queries: [
             Query.equal("uid", [userId]),
             Query.equal('roomId', [roomId]),
-            Query.select(["*"]),
           ],
         );
     for (var document in participantDocsRef.documents) {

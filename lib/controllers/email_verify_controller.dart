@@ -117,7 +117,6 @@ class EmailVerifyController extends GetxController {
       databaseId: userDatabaseID,
       collectionId: usersCollectionID,
       documentId: authStateController.uid!,
-      queries: [Query.select(["*"])],
     );
     var isVerified = document.data['status'];
     return isVerified;

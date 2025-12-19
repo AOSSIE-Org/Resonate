@@ -207,7 +207,7 @@ class AuthStateController extends GetxController {
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: appwriteUser.$id,
-          queries: [Query.select(["*"])],
+          queries: [Query.select(["*", "followers.*"])],
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
@@ -280,7 +280,6 @@ class AuthStateController extends GetxController {
           collectionId: subscribedUserCollectionId,
           queries: [
             Query.equal("userID", [uid]),
-            Query.select(["*"]),
           ],
         )
         .then((value) => value.documents);
@@ -303,7 +302,6 @@ class AuthStateController extends GetxController {
           collectionId: upcomingRoomsCollectionId,
           queries: [
             Query.equal("creatorUid", [uid]),
-            Query.select(["*"]),
           ],
         )
         .then((value) => value.documents);
@@ -329,7 +327,6 @@ class AuthStateController extends GetxController {
           collectionId: subscribedUserCollectionId,
           queries: [
             Query.equal("userID", [uid]),
-            Query.select(["*"]),
           ],
         )
         .then((value) => value.documents);
@@ -352,7 +349,6 @@ class AuthStateController extends GetxController {
           collectionId: upcomingRoomsCollectionId,
           queries: [
             Query.equal("creatorUid", [uid]),
-            Query.select(["*"]),
           ],
         )
         .then((value) => value.documents);

@@ -123,7 +123,7 @@ class UserProfileController extends GetxController {
       databaseId: userDatabaseID,
       collectionId: usersCollectionID,
       documentId: userId,
-      queries: [Query.select(["*"])],
+      queries: [Query.select(["*", "followers.*"])],
     );
 
     searchedUserFollowers.value =

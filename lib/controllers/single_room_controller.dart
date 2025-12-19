@@ -69,7 +69,6 @@ class SingleRoomController extends GetxController {
       databaseId: userDatabaseID,
       collectionId: usersCollectionID,
       documentId: participant.data["uid"],
-      queries: [Query.select(["*"])],
     );
     final p = Rx(
       Participant(
@@ -121,7 +120,6 @@ class SingleRoomController extends GetxController {
         collectionId: participantsCollectionId,
         queries: [
           Query.equal('roomId', appwriteRoom.id),
-          Query.select(["*"]),
         ],
       );
       for (Document participant in participantCollectionRef.documents) {
@@ -246,7 +244,6 @@ class SingleRoomController extends GetxController {
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
-        Query.select(["*"]),
       ],
     );
     return participantDocsRef.documents.first.$id;
