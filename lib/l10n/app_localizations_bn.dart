@@ -9,7 +9,7 @@ class AppLocalizationsBn extends AppLocalizations {
   AppLocalizationsBn([String locale = 'bn']) : super(locale);
 
   @override
-  String get title => 'রেজনেট';
+  String get title => 'রেজোনেট';
 
   @override
   String get roomDescription =>
@@ -200,7 +200,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get continueWithGitHub => 'GitHub দিয়ে সাইন ইন করুন';
 
   @override
-  String get resonateLogo => 'রেজনেট লোগো';
+  String get resonateLogo => 'রেজোনেট লোগো'; 
 
   @override
   String get iAlreadyHaveAnAccount => 'আপনার ইতিমধ্যেই একটি অ্যাকাউন্ট আছে';

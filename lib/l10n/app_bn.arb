@@ -1,6 +1,6 @@
 {
     "@@locale": "bn",
-    "title": "রেজনেট",
+    "title": "রেজোনেট",
     "@title": {
         "description": "The title of the application."
     },
@@ -246,7 +246,7 @@
     "@continueWithGitHub": {
         "description": "Button text for signing in with a GitHub account."
     },
-    "resonateLogo": "রেজনেট লোগো",
+    "resonateLogo": "রেজোনেট লোগো", 
     "@resonateLogo": {
         "description": "Accessibility text for the Resonate application logo image."
     },
@@ -976,7 +976,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {description}\n👥 এখনই {participants} অংশগ্রহণকারীরদেড় সাথে যোগ দিন!",
+    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {description}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!", 
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
