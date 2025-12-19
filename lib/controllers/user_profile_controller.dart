@@ -12,7 +12,7 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class UserProfileController extends GetxController {
-  final Databases databases;
+  final TablesDB tablesDB;
 
   final AuthStateController authStateController;
   RxList<FollowerUserModel> searchedUserFollowers = <FollowerUserModel>[].obs;
@@ -23,9 +23,9 @@ class UserProfileController extends GetxController {
   String? followerDocumentId;
 
   UserProfileController({
-    Databases? databases,
+    TablesDB? tablesDB,
     AuthStateController? authStateController,
-  }) : databases = databases ?? AppwriteService.getDatabases(),
+  }) : tablesDB = tablesDB ?? AppwriteService.getTables(),
        authStateController =
            authStateController ??
            Get.put<AuthStateController>(AuthStateController());
@@ -45,20 +45,20 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> fetchUserLikedStories(String creatorId) async {
-    List<Document> userLikedDocuments = await databases
-        .listDocuments(
+    List<Row> userLikedDocuments = await tablesDB
+        .listRows(
           databaseId: storyDatabaseId,
-          collectionId: likeCollectionId,
+          tableId: likeTableId,
           queries: [Query.equal('uId', creatorId)],
         )
-        .then((value) => value.documents);
+        .then((value) => value.rows);
 
-    List<Document> userLikedStoriesDocuments = await Future.wait(
+    List<Row> userLikedStoriesDocuments = await Future.wait(
       userLikedDocuments.map((value) async {
-        return await databases.getDocument(
+        return await tablesDB.getRow(
           databaseId: storyDatabaseId,
-          collectionId: storyCollectionId,
-          documentId: value.data['storyId'],
+          tableId: storyTableId,
+          rowId: value.data['storyId'],
         );
       }).toList(),
     );
@@ -69,7 +69,7 @@ class UserProfileController extends GetxController {
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
-    List<Document> storyDocuments,
+    List<Row> storyDocuments,
   ) async {
     return await Future.wait(
       storyDocuments.map((value) async {
@@ -101,15 +101,15 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> fetchUserCreatedStories(String creatorId) async {
-    List<Document> storyDocuments = [];
+    List<Row> storyDocuments = [];
     try {
-      storyDocuments = await databases
-          .listDocuments(
+      storyDocuments = await tablesDB
+          .listRows(
             databaseId: storyDatabaseId,
-            collectionId: storyCollectionId,
+            tableId: storyTableId,
             queries: [Query.equal('creatorId', creatorId)],
           )
-          .then((value) => value.documents);
+          .then((value) => value.rows);
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
@@ -119,10 +119,10 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> fetchUserFollowers(String userId) async {
-    Document userDocument = await databases.getDocument(
+    Row userDocument = await tablesDB.getRow(
       databaseId: userDatabaseID,
-      collectionId: usersCollectionID,
-      documentId: userId,
+      tableId: usersTableID,
+      rowId: userId,
       queries: [Query.select(["*", "followers.*"])],
     );
 
@@ -154,10 +154,10 @@ class UserProfileController extends GetxController {
           authStateController.ratingTotal / authStateController.ratingCount,
     );
 
-    await databases.createDocument(
+    await tablesDB.createRow(
       databaseId: userDatabaseID,
-      collectionId: followersCollectionID,
-      documentId: follower.docId,
+      tableId: followersTableID,
+      rowId: follower.docId,
       data: follower.toJson(),
     );
     searchedUserFollowers.add(follower);
@@ -167,10 +167,10 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> unfollowCreator() async {
-    await databases.deleteDocument(
+    await tablesDB.deleteRow(
       databaseId: userDatabaseID,
-      collectionId: followersCollectionID,
-      documentId: followerDocumentId ?? "",
+      tableId: followersTableID,
+      rowId: followerDocumentId ?? "",
     );
     isFollowingUser.value = false;
     searchedUserFollowers.removeWhere(
