@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/live_chapter_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
