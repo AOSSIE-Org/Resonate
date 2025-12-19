@@ -27,6 +27,7 @@
 ├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
+├── COPYRIGHT.md
 ├── CSAE_STANDARDS.md
 ├── LICENSE
 ├── ONBOARDING.md
@@ -460,4 +461,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 381 files
+80 directories, 382 files
