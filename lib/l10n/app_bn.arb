@@ -1,6 +1,6 @@
 {
     "@@locale": "bn",
-    "title": "রেজনেট",
+    "title": "রেজোনেট",
     "@title": {
         "description": "The title of the application."
     },
@@ -246,7 +246,7 @@
     "@continueWithGitHub": {
         "description": "Button text for signing in with a GitHub account."
     },
-    "resonateLogo": "রেজনেট লোগো",
+    "resonateLogo": "রেজোনেট লোগো", 
     "@resonateLogo": {
         "description": "Accessibility text for the Resonate application logo image."
     },
