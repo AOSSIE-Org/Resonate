@@ -219,6 +219,11 @@ void main() {
     );
 
     userProfileController.authStateController.uid = 'id2';
+    userProfileController.authStateController.userName = 'testu2';
+    userProfileController.authStateController.profileImageUrl = 'https://example.com/profile2.jpg';
+    userProfileController.authStateController.displayName = 'Test User 2';
+    userProfileController.authStateController.ratingTotal = 25.0;
+    userProfileController.authStateController.ratingCount = 5;
 
     when(
       tablesDB.listRows(
@@ -254,6 +259,7 @@ void main() {
         databaseId: userDatabaseID,
         tableId: usersTableID,
         rowId: 'id1',
+        queries: [Query.select(["*", "followers.*"])],
       ),
     ).thenAnswer(
       (_) =>

@@ -90,6 +90,7 @@ void main() {
         databaseId: userDatabaseID,
         tableId: usersTableID,
         rowId: '123',
+        queries: [Query.select(["*", "followers.*"])],
       ),
     ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
     when(

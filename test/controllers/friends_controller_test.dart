@@ -216,12 +216,18 @@ void main() {
     );
 
     friendsController.authStateController.uid = 'id2';
+    friendsController.authStateController.userName = 'testu2';
+    friendsController.authStateController.profileImageUrl = 'https://example.com/profile2.jpg';
+    friendsController.authStateController.displayName = 'Test User 2';
+    friendsController.authStateController.ratingTotal = 25.0;
+    friendsController.authStateController.ratingCount = 5;
 
     when(
       tables.getRow(
         databaseId: userDatabaseID,
         tableId: usersTableID,
         rowId: 'id2',
+        queries: [Query.select(["*", "followers.*"])],
       ),
     ).thenAnswer(
       (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),
