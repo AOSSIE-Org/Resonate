@@ -754,7 +754,7 @@
     "@scheduledDateTimePast": {
         "description": "Error message when the user selects a past date-time for a scheduled event."
     },
-    "joinRoom": "রুমে যৌন করুন",
+    "joinRoom": "রুমে যোগ দিন", 
     "@joinRoom": {
         "description": "Button text to join an audio room."
     },
@@ -1036,7 +1036,7 @@
     "@connectionFailed": {
         "description": "Generic title for connection-related errors."
     },
-    "unableToJoinRoom": "রুম যৌন করতে ব্যার্থ হয়েছে। আপনার নেটওয়ার্ক পরীক্ষা করে আবার চেষ্টা করুন।",
+    "unableToJoinRoom": "রুমে যোগ দেওয়া সম্ভব হচ্ছে না। অনুগ্রহ করে আপনার নেটওয়ার্ক চেক করুন এবং আবার চেষ্টা করুন।", 
     "@unableToJoinRoom": {
         "description": "Error message when a user fails to join a room due to connection issues."
     },
@@ -1044,7 +1044,7 @@
     "@connectionLost": {
         "description": "Title indicating that the connection to a service was lost."
     },
-    "unableToReconnect": "রুমে পুনরায় যৌন করা যাচ্ছে না। অনুগ্রহ করে আবার যোগদানের চেষ্টা করুন।",
+    "unableToReconnect": "রুমে পুনরায় সংযোগ করা সম্ভব হচ্ছে না। অনুগ্রহ করে আবার যোগ দেওয়ার চেষ্টা করুন।", 
     "@unableToReconnect": {
         "description": "Error message when the app fails to reconnect the user to a room."
     },
