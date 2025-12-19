@@ -233,6 +233,30 @@ void main() {
       (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),
     );
     when(
+      tables.getRow(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        rowId: 'id2',
+        queries: anyNamed('queries'),
+      ),
+    ).thenAnswer(
+      (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),
+    );
+    // Add stub for getRow on friendsTableID
+    when(
+      tables.getRow(
+        databaseId: userDatabaseID,
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
+      ),
+    ).thenAnswer((invocation) {
+      final String? rowId = invocation.namedArguments[#rowId];
+      if (rowId == 'doc1') return Future.value(mockFriendRows[0]);
+      if (rowId == 'doc2') return Future.value(mockFriendRows[1]);
+      if (rowId == 'doc4') return Future.value(mockFriendRows[2]);
+      throw Exception('Unexpected rowId: $rowId');
+    });
+    when(
       tables.createRow(
         databaseId: userDatabaseID,
         tableId: friendsTableID,
