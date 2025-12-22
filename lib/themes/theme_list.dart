@@ -73,9 +73,7 @@ class ThemeList {
       surfaceColor: Color(0xff0F1220),
       onSurfaceColor: Colors.white,
       themeMode: ThemeMode.dark,
-    ),
-
-     
+    ),   
   ];
 
   static ThemeModel getThemeModel(String themeName) {
