@@ -45,7 +45,7 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 1. Real-time Audio Communication by joining rooms and talking to people.
 2. Ability to create rooms and moderate speakers and events.
 3. Create Scheduled Rooms and notify subscribers as reminders to join
-4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favourate creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progess)
+4. Listen to and Stories as chapters with synced lyrics, browse through entire catalog of stories following your favorite creators and waiting for their latest chapter/story releases. Post your own stories having chapters. (work in progress)
 5. Pair chatting to enable users to find random partners to talk to in the app.
 6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
 

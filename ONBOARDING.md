@@ -4,6 +4,18 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 Please strictly stick to the guide do not go off installing stuff on your own
 
+## Quick Start for First-Time Contributors (Without Full Backend)
+
+If you are a first-time contributor or GSoC aspirant, you do **not** need to set up the complete backend environment to start contributing.
+
+You can begin by:
+- Exploring the Flutter codebase (screens, controllers, routes, and UI)
+- Reading documentation files like README.md, CONTRIBUTING.md, and ONBOARDING.md
+- Running `flutter pub get` to understand dependencies
+- Reporting build issues, documentation gaps, or UI inconsistencies
+
+Backend setup (Appwrite, LiveKit, Meilisearch) is only required for contributors working on backend-dependent features. New contributors are encouraged to start small and gradually move to advanced areas.
+
 > #### **Setting up Firebase for FCM**
 > To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), setup a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
 <br/>

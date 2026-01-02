@@ -54,3 +54,17 @@ Make sure to use conventional commit structure as follows:
 ```
 
 Know more about Conventional Commits [here](https://www.conventionalcommits.org/en/v1.0.0/).
+
+### First-Time Contributor Workflow
+
+If you are new to open source or contributing to Resonate, follow these steps:
+
+1. Fork the repository on GitHub
+2. Clone your fork locally
+3. Create a new branch from the `dev` branch
+4. Make your changes (documentation, fixes, or improvements)
+5. Commit your changes with a clear message
+6. Push your branch to your fork
+7. Open a Pull Request targeting the `dev` branch
+
+If you are unsure about an issue, feel free to open a discussion or issue before starting.
