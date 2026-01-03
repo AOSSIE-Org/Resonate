@@ -111,6 +111,7 @@ void main() {
         databaseId: masterDatabaseId,
         tableId: friendCallsTableId,
         rowId: 'doc1',
+        queries: [Query.select(["*"])],
       ),
     ).thenAnswer((_) => Future.value(mockFriendCallRow));
     when(

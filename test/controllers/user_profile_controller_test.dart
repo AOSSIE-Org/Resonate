@@ -234,6 +234,7 @@ void main() {
             'creatorId',
             userProfileController.authStateController.uid,
           ),
+          Query.select(["*"]),
         ],
       ),
     ).thenAnswer(
@@ -246,7 +247,10 @@ void main() {
       tablesDB.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
-        queries: [Query.equal('creatorId', 'id1')],
+        queries: [
+          Query.equal('creatorId', 'id1'),
+          Query.select(["*"]),
+        ],
       ),
     ).thenAnswer(
       (_) => Future.delayed(
