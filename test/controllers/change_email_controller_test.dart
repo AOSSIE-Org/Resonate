@@ -82,7 +82,6 @@ void main() {
         tableId: usernameTableID,
         queries: [
           Query.equal('email', 'test2@test.com'),
-          Query.select(["*"]),
         ],
       ),
     ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));

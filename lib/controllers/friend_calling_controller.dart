@@ -125,7 +125,6 @@ class FriendCallingController extends GetxController {
       databaseId: masterDatabaseId,
       tableId: friendCallsTableId,
       rowId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
     log(callDoc.data.toString());
@@ -155,7 +154,6 @@ class FriendCallingController extends GetxController {
       databaseId: masterDatabaseId,
       tableId: friendCallsTableId,
       rowId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
@@ -175,7 +173,6 @@ class FriendCallingController extends GetxController {
       databaseId: masterDatabaseId,
       tableId: friendCallsTableId,
       rowId: extra['call_id'],
-      queries: [Query.select(["*"])],
     );
 
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);

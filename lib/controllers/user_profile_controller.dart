@@ -49,10 +49,7 @@ class UserProfileController extends GetxController {
         .listRows(
           databaseId: storyDatabaseId,
           tableId: likeTableId,
-          queries: [
-            Query.equal('uId', creatorId),
-            Query.select(["*"]),
-          ],
+          queries: [Query.equal('uId', creatorId)],
         )
         .then((value) => value.rows);
 
@@ -62,7 +59,6 @@ class UserProfileController extends GetxController {
           databaseId: storyDatabaseId,
           tableId: storyTableId,
           rowId: value.data['storyId'],
-          queries: [Query.select(["*"])],
         );
       }).toList(),
     );
@@ -111,10 +107,7 @@ class UserProfileController extends GetxController {
           .listRows(
             databaseId: storyDatabaseId,
             tableId: storyTableId,
-            queries: [
-              Query.equal('creatorId', creatorId),
-              Query.select(["*"]),
-            ],
+            queries: [Query.equal('creatorId', creatorId)],
           )
           .then((value) => value.rows);
     } on AppwriteException catch (e) {

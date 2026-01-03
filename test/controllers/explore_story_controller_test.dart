@@ -198,7 +198,6 @@ void main() {
             'creatorId',
             exploreStoryController.authStateController.uid,
           ),
-          Query.select(["*"]),
         ],
       ),
     ).thenAnswer(
@@ -211,10 +210,7 @@ void main() {
       tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
-        queries: [
-          Query.equal('creatorId', 'id1'),
-          Query.select(["*"]),
-        ],
+        queries: [Query.equal('creatorId', 'id1')],
       ),
     ).thenAnswer(
       (_) => Future.delayed(

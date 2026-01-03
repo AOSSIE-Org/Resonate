@@ -42,7 +42,6 @@ void main() {
         databaseId: userDatabaseID,
         tableId: usernameTableID,
         rowId: 'testuser',
-        queries: [Query.select(["*"])],
       ),
     ).thenAnswer(
       (_) => Future.value(

@@ -40,7 +40,6 @@ class ChangeEmailController extends GetxController {
       tableId: usernameTableID,
       queries: [
         Query.equal('email', changedEmail),
-        Query.select(["*"]),
       ],
     );
 

@@ -193,7 +193,6 @@ class OnboardingController extends GetxController {
         databaseId: userDatabaseID,
         tableId: usernameTableID,
         rowId: username,
-        queries: [Query.select(["*"])],
       );
       return false;
     } catch (e) {
