@@ -133,6 +133,7 @@ class PairChatController extends GetxController {
                     databaseId: userDatabaseID,
                     tableId: usersTableID,
                     rowId: data.payload["uid2"],
+                    queries: [Query.select(["*"])],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 } else {
@@ -142,6 +143,7 @@ class PairChatController extends GetxController {
                     databaseId: userDatabaseID,
                     tableId: usersTableID,
                     rowId: data.payload["uid1"],
+                    queries: [Query.select(["*"])],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 }
@@ -214,6 +216,7 @@ class PairChatController extends GetxController {
         Query.notEqual('uid', authController.uid!),
         Query.notEqual('isAnonymous', true),
         Query.limit(100),
+        Query.select(["*"]),
       ],
     );
     if (result.rows.isEmpty) {

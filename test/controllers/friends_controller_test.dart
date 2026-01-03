@@ -227,7 +227,7 @@ void main() {
         databaseId: userDatabaseID,
         tableId: usersTableID,
         rowId: 'id2',
-        queries: [Query.select(["*", "followers.*"])],
+        queries: [Query.select(["*", "friends.*"])],
       ),
     ).thenAnswer(
       (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),

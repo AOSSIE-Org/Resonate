@@ -117,6 +117,7 @@ class EmailVerifyController extends GetxController {
       databaseId: emailVerificationDatabaseID,
       tableId: verificationTableID,
       rowId: verificationID,
+      queries: [Query.select(["*"])],
     );
     var isVerified = document.data['status'];
     return isVerified;

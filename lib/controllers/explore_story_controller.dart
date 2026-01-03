@@ -146,6 +146,7 @@ class ExploreStoryController extends GetxController {
                 Query.search('description', query),
               ]),
               Query.limit(16),
+              Query.select(["*"]),
             ],
           )
           .then((value) => value.rows);
@@ -177,6 +178,7 @@ class ExploreStoryController extends GetxController {
               ]),
               Query.notEqual('\$id', authStateController.uid),
               Query.limit(16),
+              Query.select(["*"]),
             ],
           )
           .then((value) => value.rows);
@@ -457,7 +459,10 @@ class ExploreStoryController extends GetxController {
         .listRows(
           databaseId: storyDatabaseId,
           tableId: likeTableId,
-          queries: [Query.equal('uId', authStateController.uid)],
+          queries: [
+            Query.equal('uId', authStateController.uid),
+            Query.select(["*"]),
+          ],
         )
         .then((value) => value.rows);
 
@@ -467,6 +472,7 @@ class ExploreStoryController extends GetxController {
           databaseId: storyDatabaseId,
           tableId: storyTableId,
           rowId: value.data['storyId'],
+          queries: [Query.select(["*"])],
         );
       }).toList(),
     );
@@ -567,7 +573,10 @@ class ExploreStoryController extends GetxController {
           .listRows(
             databaseId: storyDatabaseId,
             tableId: storyTableId,
-            queries: [Query.equal('creatorId', authStateController.uid)],
+            queries: [
+              Query.equal('creatorId', authStateController.uid),
+              Query.select(["*"]),
+            ],
           )
           .then((value) => value.rows);
     } on AppwriteException catch (e) {
@@ -690,6 +699,7 @@ class ExploreStoryController extends GetxController {
       databaseId: userDatabaseID,
       tableId: liveChapterAttendeesTableId,
       rowId: liveStoryDocuments.first.$id,
+      queries: [Query.select(["*"])],
     );
 
     final attendeesModel = LiveChapterAttendeesModel.fromJson(

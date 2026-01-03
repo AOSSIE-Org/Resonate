@@ -69,6 +69,7 @@ class SingleRoomController extends GetxController {
       databaseId: userDatabaseID,
       tableId: usersTableID,
       rowId: participant.data["uid"],
+      queries: [Query.select(["*"])],
     );
     final p = Rx(
       Participant(
@@ -118,7 +119,10 @@ class SingleRoomController extends GetxController {
       var participantCollectionRef = await tablesDB.listRows(
         databaseId: masterDatabaseId,
         tableId: participantsTableId,
-        queries: [Query.equal('roomId', appwriteRoom.id)],
+        queries: [
+          Query.equal('roomId', appwriteRoom.id),
+          Query.select(["*"]),
+        ],
       );
       for (Row participant in participantCollectionRef.rows) {
         addParticipantDataToList(participant);
@@ -242,6 +246,7 @@ class SingleRoomController extends GetxController {
       queries: [
         Query.equal('roomId', appwriteRoom.id),
         Query.equal('uid', participant.uid),
+        Query.select(["*"]),
       ],
     );
     return participantDocsRef.rows.first.$id;
