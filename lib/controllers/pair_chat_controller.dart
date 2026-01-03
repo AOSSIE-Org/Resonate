@@ -238,13 +238,13 @@ class PairChatController extends GetxController {
     Get.toNamed(AppRoutes.pairChat);
   }
 
- Future<void> cancelRequest() async {
+Future<void> cancelRequest() async {
   try {
     if (requestDocId != null) {
-      await databases.deleteDocument(
+      await tablesDB.deleteRow(
         databaseId: masterDatabaseId,
-        collectionId: pairRequestCollectionId,
-        documentId: requestDocId!,
+        tableId: pairRequestTableId,
+        rowId: requestDocId!,
       );
     }
 
