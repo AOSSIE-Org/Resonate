@@ -690,6 +690,7 @@ class ExploreStoryController extends GetxController {
       databaseId: userDatabaseID,
       tableId: liveChapterAttendeesTableId,
       rowId: liveStoryDocuments.first.$id,
+      queries: [Query.select(["*", "users.*"])],
     );
 
     final attendeesModel = LiveChapterAttendeesModel.fromJson(
