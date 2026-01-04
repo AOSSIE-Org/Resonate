@@ -140,58 +140,39 @@ class EditProfileScreen extends StatelessWidget {
                           }
                         },
                         controller: controller.usernameController,
-                        onChanged: (value) async {
+                        onChanged: (value) {
                           Get.closeCurrentSnackbar();
 
-                          if (value.length >= 7) {
-                            final validUsername = RegExp(
-                              r'^[a-zA-Z0-9._-]+$',
-                            ).hasMatch(value.trim());
+                          if (value.length < 7) {
+                            controller.usernameAvailable.value = false;
+                            return;
+                          }
 
-                            if (!validUsername || value.trim().length > 36) {
-                              controller.usernameAvailable.value = false;
-                              controller.usernameChecking.value = false;
+                          controller.usernameChecking.value = true;
+                          controller.usernameAvailable.value = false;
 
+                          debouncer.run(() async {
+                            final available = await controller
+                                .isUsernameAvailable(value.trim());
+
+                            controller.usernameChecking.value = false;
+                            controller.usernameAvailable.value = available;
+
+                            if (!available) {
                               customSnackbar(
                                 AppLocalizations.of(
                                   context,
                                 )!.usernameUnavailable,
                                 AppLocalizations.of(
                                   context,
-                                )!.usernameInvalidFormat,
+                                )!.usernameAlreadyTaken,
                                 LogType.error,
                                 snackbarDuration: 1,
                               );
-                              return;
                             }
-
-                            controller.usernameChecking.value = true;
-                            controller.usernameAvailable.value = false;
-
-                            debouncer.run(() async {
-                              final available = await controller
-                                  .isUsernameAvailable(value.trim());
-
-                              controller.usernameChecking.value = false;
-                              controller.usernameAvailable.value = available;
-
-                              if (!available) {
-                                customSnackbar(
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.usernameUnavailable,
-                                  AppLocalizations.of(
-                                    context,
-                                  )!.usernameAlreadyTaken,
-                                  LogType.error,
-                                  snackbarDuration: 1,
-                                );
-                              }
-                            });
-                          } else {
-                            controller.usernameAvailable.value = false;
-                          }
+                          });
                         },
+
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: InputDecoration(
