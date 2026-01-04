@@ -207,7 +207,7 @@ class AuthStateController extends GetxController {
           databaseId: userDatabaseID,
           tableId: usersTableID,
           rowId: appwriteUser.$id,
-          queries: [Query.select(["*", "followers.*"])],
+          queries: [Query.select(["*", "followers.*", "userReports.*"])],
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
