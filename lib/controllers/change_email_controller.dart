@@ -19,11 +19,11 @@ class ChangeEmailController extends GetxController {
   final passwordController = TextEditingController();
   ChangeEmailController({
     AuthStateController? authStateController,
-    Databases? databases,
+    TablesDB? tables,
     Account? account,
   }) : authStateController =
            authStateController ?? Get.find<AuthStateController>(),
-       databases = databases ?? AppwriteService.getDatabases(),
+       tables = tables ?? AppwriteService.getTables(),
        account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
@@ -31,13 +31,13 @@ class ChangeEmailController extends GetxController {
 
   final changeEmailFormKey = GlobalKey<FormState>();
 
-  late final Databases databases;
+  late final TablesDB tables;
   late final Account account;
 
   Future<bool> isEmailAvailable(String changedEmail) async {
-    final docs = await databases.listDocuments(
+    final docs = await tables.listRows(
       databaseId: userDatabaseID,
-      collectionId: usernameCollectionID,
+      tableId: usernameTableID,
       queries: [Query.equal('email', changedEmail)],
     );
 
@@ -54,18 +54,18 @@ class ChangeEmailController extends GetxController {
   ) async {
     try {
       // change in user info collection
-      await databases.updateDocument(
+      await tables.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: authStateController.uid!,
+        tableId: usersTableID,
+        rowId: authStateController.uid!,
         data: {'email': changedEmail},
       );
 
       // change in username - email collection
-      await databases.updateDocument(
+      await tables.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: authStateController.userName!,
+        tableId: usernameTableID,
+        rowId: authStateController.userName!,
         data: {'email': changedEmail},
       );
 
