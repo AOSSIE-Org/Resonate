@@ -180,7 +180,14 @@ class EditProfileScreen extends StatelessWidget {
                           prefixIcon: const Icon(Icons.person),
                           suffixIcon:
                               !controller.usernameChecking.value &&
-                                  controller.usernameAvailable.value
+                                  controller.usernameAvailable.value &&
+                                  controller.usernameController.text
+                                          .trim()
+                                          .length >=
+                                      7 &&
+                                  RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(
+                                    controller.usernameController.text.trim(),
+                                  )
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
@@ -218,7 +225,14 @@ class EditProfileScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed:
                               (!controller.isLoading.value &&
-                                  controller.usernameAvailable.value)
+                                  controller.usernameAvailable.value &&
+                                  controller.usernameController.text
+                                          .trim()
+                                          .length >=
+                                      7 &&
+                                  RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(
+                                    controller.usernameController.text.trim(),
+                                  ))
                               ? () async {
                                   await controller.saveProfile();
                                 }
