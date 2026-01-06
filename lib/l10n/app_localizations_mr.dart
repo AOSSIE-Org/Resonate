@@ -395,17 +395,17 @@ class AppLocalizationsMr extends AppLocalizations {
   String get cancel => 'रद्द करा';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'लपवा';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'खोली लपवा';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'यादीतून लपवा';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'तुम्हाला खात्री आहे की तुम्ही ही आगामी खोली तुमच्या यादीतून काढू इच्छिता?';
 
   @override
   String get completeYourProfile => 'आपल्या प्रोफाइल पूर्ण करा';
@@ -735,29 +735,30 @@ class AppLocalizationsMr extends AppLocalizations {
   String get noSearchResults => 'कोणतेही शोध परिणाम नाहीत';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'खोल्या शोधा...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'खोल्या शोधत आहे...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'शोध साफ करा';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'शोध त्रुटी';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError =>
+      'खोल्या शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.';
 
   @override
   String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+      'आगामी खोल्या शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.';
 
   @override
-  String get search => 'Search';
+  String get search => 'शोधा';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'साफ करा';
 
   @override
   String shareRoomMessage(
@@ -1262,11 +1263,11 @@ class AppLocalizationsMr extends AppLocalizations {
   String get updateFeaturesImprovement => 'नविन वैशिष्ट्य आणि सुधार मिळवा!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'खोली काढण्यात अयशस्वी';
 
   @override
   String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+      'खोली तुमच्या यादीतून यशस्वीरित्या काढली गेली';
 
   @override
   String get alert => 'सतर्क';
