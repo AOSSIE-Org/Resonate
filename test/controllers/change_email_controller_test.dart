@@ -80,7 +80,9 @@ void main() {
       mockTablesDB.listRows(
         databaseId: userDatabaseID,
         tableId: usernameTableID,
-        queries: [Query.equal('email', 'test2@test.com')],
+        queries: [
+          Query.equal('email', 'test2@test.com'),
+        ],
       ),
     ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
@@ -90,6 +92,7 @@ void main() {
         databaseId: userDatabaseID,
         tableId: usersTableID,
         rowId: '123',
+        queries: [Query.select(["*", "followers.*", "userReports.*"])],
       ),
     ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
     when(
