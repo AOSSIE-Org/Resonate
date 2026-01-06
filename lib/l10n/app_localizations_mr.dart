@@ -1,4 +1,4 @@
-// ignore: unused_import
+﻿// ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
@@ -9,755 +9,756 @@ class AppLocalizationsMr extends AppLocalizations {
   AppLocalizationsMr([String locale = 'mr']) : super(locale);
 
   @override
-  String get title => 'रेजोनेट';
+  String get title => 'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ';
 
   @override
   String get roomDescription =>
-      'विनम्र रहा आणि दुसऱ्या व्यक्तीच्या मतीचा सन्मान करा. असभ्य टिप्पण्या टाळा.';
+      'αñ╡αñ┐αñ¿αñ«αÑìαñ░ αñ░αñ╣αñ╛ αñåαñúαñ┐ αñªαÑüαñ╕αñ▒αÑìαñ»αñ╛ αñ╡αÑìαñ»αñòαÑìαññαÑÇαñÜαÑìαñ»αñ╛ αñ«αññαÑÇαñÜαñ╛ αñ╕αñ¿αÑìαñ«αñ╛αñ¿ αñòαñ░αñ╛. αñàαñ╕αñ¡αÑìαñ» αñƒαñ┐αñ¬αÑìαñ¬αñúαÑìαñ»αñ╛ αñƒαñ╛αñ│αñ╛.';
 
   @override
-  String get hidePassword => 'पासवर्ड लपवा';
+  String get hidePassword => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ▓αñ¬αñ╡αñ╛';
 
   @override
-  String get showPassword => 'पासवर्ड दाखवा';
+  String get showPassword => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñªαñ╛αñûαñ╡αñ╛';
 
   @override
-  String get passwordEmpty => 'पासवर्ड रिक्त असू शकत नाही';
+  String get passwordEmpty => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ░αñ┐αñòαÑìαññ αñàαñ╕αÑé αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get password => 'पासवर्ड';
+  String get password => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí';
 
   @override
-  String get confirmPassword => 'पासवर्ड पुष्टी करा';
+  String get confirmPassword => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ¬αÑüαñ╖αÑìαñƒαÑÇ αñòαñ░αñ╛';
 
   @override
-  String get passwordsNotMatch => 'पासवर्ड मिळत नाहीत';
+  String get passwordsNotMatch => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ«αñ┐αñ│αññ αñ¿αñ╛αñ╣αÑÇαññ';
 
   @override
-  String get userCreatedStories => 'वापरकर्ता निर्मित कथा';
+  String get userCreatedStories => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñ¿αñ┐αñ░αÑìαñ«αñ┐αññ αñòαñÑαñ╛';
 
   @override
-  String get yourStories => 'आपल्या कथा';
+  String get yourStories => 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñòαñÑαñ╛';
 
   @override
-  String get userNoStories => 'वापरकर्त्याने कोणतीही कथा निर्मित केली नाही';
+  String get userNoStories => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑìαñ»αñ╛αñ¿αÑç αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¿αñ┐αñ░αÑìαñ«αñ┐αññ αñòαÑçαñ▓αÑÇ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get youNoStories => 'आपण कोणतीही कथा निर्मित केली नाही';
+  String get youNoStories => 'αñåαñ¬αñú αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¿αñ┐αñ░αÑìαñ«αñ┐αññ αñòαÑçαñ▓αÑÇ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get follow => 'फॉलो करा';
+  String get follow => 'αñ½αÑëαñ▓αÑï αñòαñ░αñ╛';
 
   @override
-  String get editProfile => 'प्रोफाइल संपादित करा';
+  String get editProfile => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñ╕αñéαñ¬αñ╛αñªαñ┐αññ αñòαñ░αñ╛';
 
   @override
-  String get verifyEmail => 'ईमेल सत्यापित करा';
+  String get verifyEmail => 'αñêαñ«αÑçαñ▓ αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ αñòαñ░αñ╛';
 
   @override
-  String get verified => 'सत्यापित';
+  String get verified => 'αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ';
 
   @override
-  String get profile => 'प्रोफाइल';
+  String get profile => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓';
 
   @override
-  String get userLikedStories => 'वापरकर्ता पसंदीची कथा';
+  String get userLikedStories => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñ¬αñ╕αñéαñªαÑÇαñÜαÑÇ αñòαñÑαñ╛';
 
   @override
-  String get yourLikedStories => 'आपल्या पसंदीची कथा';
+  String get yourLikedStories => 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ¬αñ╕αñéαñªαÑÇαñÜαÑÇ αñòαñÑαñ╛';
 
   @override
-  String get userNoLikedStories => 'वापरकर्त्याने कोणतीही कथा पसंद केली नाही';
+  String get userNoLikedStories => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑìαñ»αñ╛αñ¿αÑç αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¬αñ╕αñéαñª αñòαÑçαñ▓αÑÇ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get youNoLikedStories => 'आपण कोणतीही कथा पसंद केली नाही';
+  String get youNoLikedStories => 'αñåαñ¬αñú αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¬αñ╕αñéαñª αñòαÑçαñ▓αÑÇ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get live => 'लाइव्ह';
+  String get live => 'αñ▓αñ╛αñçαñ╡αÑìαñ╣';
 
   @override
-  String get upcoming => 'आगामी';
+  String get upcoming => 'αñåαñùαñ╛αñ«αÑÇ';
 
   @override
   String noAvailableRoom(String isRoom) {
     String _temp0 = intl.Intl.selectLogic(isRoom, {
-      'true': 'कोण्ठा उपलब्ध नाही',
-      'false': 'आगामी कोण्ठा उपलब्ध नाही',
-      'other': 'कोण्ठा माहिती उपलब्ध नाही',
+      'true': 'αñòαÑïαñúαÑìαñáαñ╛ αñëαñ¬αñ▓αñ¼αÑìαñº αñ¿αñ╛αñ╣αÑÇ',
+      'false': 'αñåαñùαñ╛αñ«αÑÇ αñòαÑïαñúαÑìαñáαñ╛ αñëαñ¬αñ▓αñ¼αÑìαñº αñ¿αñ╛αñ╣αÑÇ',
+      'other': 'αñòαÑïαñúαÑìαñáαñ╛ αñ«αñ╛αñ╣αñ┐αññαÑÇ αñëαñ¬αñ▓αñ¼αÑìαñº αñ¿αñ╛αñ╣αÑÇ',
     });
-    return '$_temp0\nखाली एक जोडून सुरुवात करा!';
+    return '$_temp0\nαñûαñ╛αñ▓αÑÇ αñÅαñò αñ£αÑïαñíαÑéαñ¿ αñ╕αÑüαñ░αÑüαñ╡αñ╛αññ αñòαñ░αñ╛!';
   }
 
   @override
-  String get user1 => 'वापरकर्ता १';
+  String get user1 => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αÑº';
 
   @override
-  String get user2 => 'वापरकर्ता २';
+  String get user2 => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αÑ¿';
 
   @override
-  String get you => 'आप';
+  String get you => 'αñåαñ¬';
 
   @override
-  String get areYouSure => 'आप निश्चित आहात?';
+  String get areYouSure => 'αñåαñ¬ αñ¿αñ┐αñ╢αÑìαñÜαñ┐αññ αñåαñ╣αñ╛αññ?';
 
   @override
-  String get loggingOut => 'आप रेजोनेटमधून लॉगआउट करत आहात.';
+  String get loggingOut => 'αñåαñ¬ αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñ«αñºαÑéαñ¿ αñ▓αÑëαñùαñåαñëαñƒ αñòαñ░αññ αñåαñ╣αñ╛αññ.';
 
   @override
-  String get yes => 'होय';
+  String get yes => 'αñ╣αÑïαñ»';
 
   @override
-  String get no => 'नाही';
+  String get no => 'αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get incorrectEmailOrPassword => 'गलत ईमेल किंवा पासवर्ड';
+  String get incorrectEmailOrPassword => 'αñùαñ▓αññ αñêαñ«αÑçαñ▓ αñòαñ┐αñéαñ╡αñ╛ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí';
 
   @override
-  String get passwordShort => 'पासवर्ड ८ अक्षरांपेक्षा कमी आहे';
+  String get passwordShort => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αÑ« αñàαñòαÑìαñ╖αñ░αñ╛αñéαñ¬αÑçαñòαÑìαñ╖αñ╛ αñòαñ«αÑÇ αñåαñ╣αÑç';
 
   @override
-  String get tryAgain => 'पुन्हा प्रयत्न करा!';
+  String get tryAgain => 'αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛!';
 
   @override
-  String get success => 'यशस्वी';
+  String get success => 'αñ»αñ╢αñ╕αÑìαñ╡αÑÇ';
 
   @override
-  String get passwordResetSent => 'पासवर्ड रीसेट ईमेल पाठवली गेली!';
+  String get passwordResetSent => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ░αÑÇαñ╕αÑçαñƒ αñêαñ«αÑçαñ▓ αñ¬αñ╛αñáαñ╡αñ▓αÑÇ αñùαÑçαñ▓αÑÇ!';
 
   @override
-  String get error => 'त्रुटी';
+  String get error => 'αññαÑìαñ░αÑüαñƒαÑÇ';
 
   @override
-  String get resetPassword => 'पासवर्ड रीसेट करा';
+  String get resetPassword => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ░αÑÇαñ╕αÑçαñƒ αñòαñ░αñ╛';
 
   @override
-  String get enterNewPassword => 'आपला नवीन पासवर्ड प्रविष्ट करा';
+  String get enterNewPassword => 'αñåαñ¬αñ▓αñ╛ αñ¿αñ╡αÑÇαñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get newPassword => 'नवीन पासवर्ड';
+  String get newPassword => 'αñ¿αñ╡αÑÇαñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí';
 
   @override
-  String get setNewPassword => 'नवीन पासवर्ड सेट करा';
+  String get setNewPassword => 'αñ¿αñ╡αÑÇαñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ╕αÑçαñƒ αñòαñ░αñ╛';
 
   @override
-  String get emailChanged => 'ईमेल बदलली';
+  String get emailChanged => 'αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αñ▓αÑÇ';
 
   @override
-  String get emailChangeSuccess => 'ईमेल यशस्वीरित्या बदलली!';
+  String get emailChangeSuccess => 'αñêαñ«αÑçαñ▓ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñ¼αñªαñ▓αñ▓αÑÇ!';
 
   @override
-  String get failed => 'अयोग्य';
+  String get failed => 'αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
-  String get emailChangeFailed => 'ईमेल बदलणे अयोग्य';
+  String get emailChangeFailed => 'αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αñúαÑç αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
-  String get oops => 'अरे!';
+  String get oops => 'αñàαñ░αÑç!';
 
   @override
-  String get emailExists => 'ईमेल आधीच अस्तित्वात आहे';
+  String get emailExists => 'αñêαñ«αÑçαñ▓ αñåαñºαÑÇαñÜ αñàαñ╕αÑìαññαñ┐αññαÑìαñ╡αñ╛αññ αñåαñ╣αÑç';
 
   @override
-  String get changeEmail => 'ईमेल बदला';
+  String get changeEmail => 'αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αñ╛';
 
   @override
-  String get enterValidEmail => 'कृपया एक वैध ईमेल पत्ता प्रविष्ट करा';
+  String get enterValidEmail => 'αñòαÑâαñ¬αñ»αñ╛ αñÅαñò αñ╡αÑêαñº αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get newEmail => 'नवीन ईमेल';
+  String get newEmail => 'αñ¿αñ╡αÑÇαñ¿ αñêαñ«αÑçαñ▓';
 
   @override
-  String get currentPassword => 'वर्तमान पासवर्ड';
+  String get currentPassword => 'αñ╡αñ░αÑìαññαñ«αñ╛αñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí';
 
   @override
   String get emailChangeInfo =>
-      'अतिरिक्त सुरक्षेसाठी, आपले ईमेल पत्ता बदलताना आपण आपल्या खात्याचा वर्तमान पासवर्ड प्रदान करणे आवश्यक आहे. आपला ईमेल बदल्यानंतर, भविष्यातील लॉगिनसाठी अद्यतन ईमेल वापरा.';
+      'αñàαññαñ┐αñ░αñ┐αñòαÑìαññ αñ╕αÑüαñ░αñòαÑìαñ╖αÑçαñ╕αñ╛αñáαÑÇ, αñåαñ¬αñ▓αÑç αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛ αñ¼αñªαñ▓αññαñ╛αñ¿αñ╛ αñåαñ¬αñú αñåαñ¬αñ▓αÑìαñ»αñ╛ αñûαñ╛αññαÑìαñ»αñ╛αñÜαñ╛ αñ╡αñ░αÑìαññαñ«αñ╛αñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ¬αÑìαñ░αñªαñ╛αñ¿ αñòαñ░αñúαÑç αñåαñ╡αñ╢αÑìαñ»αñò αñåαñ╣αÑç. αñåαñ¬αñ▓αñ╛ αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αÑìαñ»αñ╛αñ¿αñéαññαñ░, αñ¡αñ╡αñ┐αñ╖αÑìαñ»αñ╛αññαÑÇαñ▓ αñ▓αÑëαñùαñ┐αñ¿αñ╕αñ╛αñáαÑÇ αñàαñªαÑìαñ»αññαñ¿ αñêαñ«αÑçαñ▓ αñ╡αñ╛αñ¬αñ░αñ╛.';
 
   @override
   String get oauthUsersMessage =>
-      '(फक्त Google किंवा Github वापरून लॉगिन केलेल्या वापरकर्त्यांसाठी)';
+      '(αñ½αñòαÑìαññ Google αñòαñ┐αñéαñ╡αñ╛ Github αñ╡αñ╛αñ¬αñ░αÑéαñ¿ αñ▓αÑëαñùαñ┐αñ¿ αñòαÑçαñ▓αÑçαñ▓αÑìαñ»αñ╛ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑìαñ»αñ╛αñéαñ╕αñ╛αñáαÑÇ)';
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'आपले ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आप Google/GitHub किंवा आपला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.';
+      'αñåαñ¬αñ▓αÑç αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ, αñòαÑâαñ¬αñ»αñ╛ \"αñ╡αñ░αÑìαññαñ«αñ╛αñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí\" αñ½αÑÇαñ▓αÑìαñíαñ«αñºαÑìαñ»αÑç αñ¿αñ╡αÑÇαñ¿ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛. αñ╣αñ╛ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ▓αñòαÑìαñ╖αñ╛αññ αñáαÑçαñ╡αñ╛, αñòαñ╛αñ░αñú αñ¡αñ╡αñ┐αñ╖αÑìαñ»αñ╛αññαÑÇαñ▓ αñêαñ«αÑçαñ▓ αñ¼αñªαñ▓αñ╛αñéαñ╕αñ╛αñáαÑÇ αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ╣αñ╡αñ╛ αñàαñ╕αÑçαñ▓. αñ¬αÑüαñóαÑç, αñåαñ¬ Google/GitHub αñòαñ┐αñéαñ╡αñ╛ αñåαñ¬αñ▓αñ╛ αñ¿αñ╡αÑÇαñ¿ αñêαñ«αÑçαñ▓ αñåαñúαñ┐ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ╕αñéαñ»αÑïαñ£αñ¿ αñ╡αñ╛αñ¬αñ░αÑéαñ¿ αñ▓αÑëαñùαñ┐αñ¿ αñòαñ░αÑé αñ╢αñòαññαñ╛.';
 
   @override
-  String get resonateTagline => 'असीमित संभाषणांच्या जगात प्रवेश करा.';
+  String get resonateTagline => 'αñàαñ╕αÑÇαñ«αñ┐αññ αñ╕αñéαñ¡αñ╛αñ╖αñúαñ╛αñéαñÜαÑìαñ»αñ╛ αñ£αñùαñ╛αññ αñ¬αÑìαñ░αñ╡αÑçαñ╢ αñòαñ░αñ╛.';
 
   @override
-  String get signInWithEmail => 'ईमेलने साइन इन करा';
+  String get signInWithEmail => 'αñêαñ«αÑçαñ▓αñ¿αÑç αñ╕αñ╛αñçαñ¿ αñçαñ¿ αñòαñ░αñ╛';
 
   @override
-  String get or => 'किंवा';
+  String get or => 'αñòαñ┐αñéαñ╡αñ╛';
 
   @override
-  String get continueWith => 'यासह सुरू ठेवा';
+  String get continueWith => 'αñ»αñ╛αñ╕αñ╣ αñ╕αÑüαñ░αÑé αñáαÑçαñ╡αñ╛';
 
   @override
-  String get continueWithGoogle => 'Google सह सुरू ठेवा';
+  String get continueWithGoogle => 'Google αñ╕αñ╣ αñ╕αÑüαñ░αÑé αñáαÑçαñ╡αñ╛';
 
   @override
-  String get continueWithGitHub => 'GitHub सह सुरू ठेवा';
+  String get continueWithGitHub => 'GitHub αñ╕αñ╣ αñ╕αÑüαñ░αÑé αñáαÑçαñ╡αñ╛';
 
   @override
-  String get resonateLogo => 'रेजोनेट लोगो';
+  String get resonateLogo => 'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñ▓αÑïαñùαÑï';
 
   @override
-  String get iAlreadyHaveAnAccount => 'मेरे पास आधीच खाता आहे';
+  String get iAlreadyHaveAnAccount => 'αñ«αÑçαñ░αÑç αñ¬αñ╛αñ╕ αñåαñºαÑÇαñÜ αñûαñ╛αññαñ╛ αñåαñ╣αÑç';
 
   @override
-  String get createNewAccount => 'नव्यान खाते तयार करा';
+  String get createNewAccount => 'αñ¿αñ╡αÑìαñ»αñ╛αñ¿ αñûαñ╛αññαÑç αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
-  String get userProfile => 'वापरकर्ता प्रोफाइल';
+  String get userProfile => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓';
 
   @override
-  String get passwordIsStrong => 'पासवर्ड मजबूत आहे';
+  String get passwordIsStrong => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ«αñ£αñ¼αÑéαññ αñåαñ╣αÑç';
 
   @override
-  String get admin => 'प्रशासक';
+  String get admin => 'αñ¬αÑìαñ░αñ╢αñ╛αñ╕αñò';
 
   @override
-  String get moderator => 'मॉडरेटर';
+  String get moderator => 'αñ«αÑëαñíαñ░αÑçαñƒαñ░';
 
   @override
-  String get speaker => 'स्पीकर';
+  String get speaker => 'αñ╕αÑìαñ¬αÑÇαñòαñ░';
 
   @override
-  String get listener => 'श्रोता';
+  String get listener => 'αñ╢αÑìαñ░αÑïαññαñ╛';
 
   @override
-  String get removeModerator => 'मॉडरेटर काढून टाका';
+  String get removeModerator => 'αñ«αÑëαñíαñ░αÑçαñƒαñ░ αñòαñ╛αñóαÑéαñ¿ αñƒαñ╛αñòαñ╛';
 
   @override
-  String get kickOut => 'बाहेर काढा';
+  String get kickOut => 'αñ¼αñ╛αñ╣αÑçαñ░ αñòαñ╛αñóαñ╛';
 
   @override
-  String get addModerator => 'मॉडरेटर जोडा';
+  String get addModerator => 'αñ«αÑëαñíαñ░αÑçαñƒαñ░ αñ£αÑïαñíαñ╛';
 
   @override
-  String get addSpeaker => 'स्पीकर जोडा';
+  String get addSpeaker => 'αñ╕αÑìαñ¬αÑÇαñòαñ░ αñ£αÑïαñíαñ╛';
 
   @override
-  String get makeListener => 'श्रोता बनवा';
+  String get makeListener => 'αñ╢αÑìαñ░αÑïαññαñ╛ αñ¼αñ¿αñ╡αñ╛';
 
   @override
-  String get pairChat => 'जोडी चॅट';
+  String get pairChat => 'αñ£αÑïαñíαÑÇ αñÜαÑàαñƒ';
 
   @override
-  String get chooseIdentity => 'ओळख निवडा';
+  String get chooseIdentity => 'αñôαñ│αñû αñ¿αñ┐αñ╡αñíαñ╛';
 
   @override
-  String get selectLanguage => 'भाषा निवडा';
+  String get selectLanguage => 'αñ¡αñ╛αñ╖αñ╛ αñ¿αñ┐αñ╡αñíαñ╛';
 
   @override
-  String get noConnection => 'कोणता कनेक्शन नाही';
+  String get noConnection => 'αñòαÑïαñúαññαñ╛ αñòαñ¿αÑçαñòαÑìαñ╢αñ¿ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get loadingDialog => 'लोडिंग संवाद';
+  String get loadingDialog => 'αñ▓αÑïαñíαñ┐αñéαñù αñ╕αñéαñ╡αñ╛αñª';
 
   @override
-  String get createAccount => 'खाते तयार करा';
+  String get createAccount => 'αñûαñ╛αññαÑç αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
-  String get enterValidEmailAddress => 'वैध ईमेल पत्ता प्रविष्ट करा';
+  String get enterValidEmailAddress => 'αñ╡αÑêαñº αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get email => 'ईमेल';
+  String get email => 'αñêαñ«αÑçαñ▓';
 
   @override
   String get passwordRequirements =>
-      'पासवर्ड किमान ८ अक्षर लांब असणे आवश्यक आहे';
+      'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñòαñ┐αñ«αñ╛αñ¿ αÑ« αñàαñòαÑìαñ╖αñ░ αñ▓αñ╛αñéαñ¼ αñàαñ╕αñúαÑç αñåαñ╡αñ╢αÑìαñ»αñò αñåαñ╣αÑç';
 
   @override
-  String get includeNumericDigit => 'किमान १ संख्या अंक समाविष्ट करा';
+  String get includeNumericDigit => 'αñòαñ┐αñ«αñ╛αñ¿ αÑº αñ╕αñéαñûαÑìαñ»αñ╛ αñàαñéαñò αñ╕αñ«αñ╛αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get includeUppercase => 'किमान १ मोठे अक्षर समाविष्ट करा';
+  String get includeUppercase => 'αñòαñ┐αñ«αñ╛αñ¿ αÑº αñ«αÑïαñáαÑç αñàαñòαÑìαñ╖αñ░ αñ╕αñ«αñ╛αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get includeLowercase => 'किमान १ लहान अक्षर समाविष्ट करा';
+  String get includeLowercase => 'αñòαñ┐αñ«αñ╛αñ¿ αÑº αñ▓αñ╣αñ╛αñ¿ αñàαñòαÑìαñ╖αñ░ αñ╕αñ«αñ╛αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get includeSymbol => 'किमान १ चिन्ह समाविष्ट करा';
+  String get includeSymbol => 'αñòαñ┐αñ«αñ╛αñ¿ αÑº αñÜαñ┐αñ¿αÑìαñ╣ αñ╕αñ«αñ╛αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get signedUpSuccessfully => 'यशस्वीरित्या साइन अप केले';
+  String get signedUpSuccessfully => 'αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñ╕αñ╛αñçαñ¿ αñàαñ¬ αñòαÑçαñ▓αÑç';
 
   @override
-  String get newAccountCreated => 'आपण यशस्वीरित्या नव्यान खाते तयार केले आहे';
+  String get newAccountCreated => 'αñåαñ¬αñú αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñ¿αñ╡αÑìαñ»αñ╛αñ¿ αñûαñ╛αññαÑç αññαñ»αñ╛αñ░ αñòαÑçαñ▓αÑç αñåαñ╣αÑç';
 
   @override
-  String get signUp => 'साइन अप करा';
+  String get signUp => 'αñ╕αñ╛αñçαñ¿ αñàαñ¬ αñòαñ░αñ╛';
 
   @override
-  String get login => 'लॉगिन';
+  String get login => 'αñ▓αÑëαñùαñ┐αñ¿';
 
   @override
-  String get settings => 'सेटिंग्स';
+  String get settings => 'αñ╕αÑçαñƒαñ┐αñéαñùαÑìαñ╕';
 
   @override
-  String get accountSettings => 'खाता सेटिंग्स';
+  String get accountSettings => 'αñûαñ╛αññαñ╛ αñ╕αÑçαñƒαñ┐αñéαñùαÑìαñ╕';
 
   @override
-  String get account => 'खाता';
+  String get account => 'αñûαñ╛αññαñ╛';
 
   @override
-  String get appSettings => 'अॅप सेटिंग्स';
+  String get appSettings => 'αñàαÑàαñ¬ αñ╕αÑçαñƒαñ┐αñéαñùαÑìαñ╕';
 
   @override
-  String get themes => 'थीम्स';
+  String get themes => 'αñÑαÑÇαñ«αÑìαñ╕';
 
   @override
-  String get about => 'बद्दल';
+  String get about => 'αñ¼αñªαÑìαñªαñ▓';
 
   @override
-  String get other => 'इतर';
+  String get other => 'αñçαññαñ░';
 
   @override
-  String get contribute => 'योगदान द्या';
+  String get contribute => 'αñ»αÑïαñùαñªαñ╛αñ¿ αñªαÑìαñ»αñ╛';
 
   @override
-  String get appPreferences => 'अॅप प्राधान्ये';
+  String get appPreferences => 'αñàαÑàαñ¬ αñ¬αÑìαñ░αñ╛αñºαñ╛αñ¿αÑìαñ»αÑç';
 
   @override
-  String get transcriptionModel => 'प्रतिलेखन मॉडेल';
+  String get transcriptionModel => 'αñ¬αÑìαñ░αññαñ┐αñ▓αÑçαñûαñ¿ αñ«αÑëαñíαÑçαñ▓';
 
   @override
   String get transcriptionModelDescription =>
-      'व्हॉयस प्रतिलेखनसाठी एआई मॉडेल निवडा. मोठे मॉडेल अधिक अचूक आहेत परंतु हळू आणि अधिक स्टोरेज आवश्यक आहे.';
+      'αñ╡αÑìαñ╣αÑëαñ»αñ╕ αñ¬αÑìαñ░αññαñ┐αñ▓αÑçαñûαñ¿αñ╕αñ╛αñáαÑÇ αñÅαñåαñê αñ«αÑëαñíαÑçαñ▓ αñ¿αñ┐αñ╡αñíαñ╛. αñ«αÑïαñáαÑç αñ«αÑëαñíαÑçαñ▓ αñàαñºαñ┐αñò αñàαñÜαÑéαñò αñåαñ╣αÑçαññ αñ¬αñ░αñéαññαÑü αñ╣αñ│αÑé αñåαñúαñ┐ αñàαñºαñ┐αñò αñ╕αÑìαñƒαÑïαñ░αÑçαñ£ αñåαñ╡αñ╢αÑìαñ»αñò αñåαñ╣αÑç.';
 
   @override
-  String get whisperModelTiny => 'सूक्ष्म';
+  String get whisperModelTiny => 'αñ╕αÑéαñòαÑìαñ╖αÑìαñ«';
 
   @override
   String get whisperModelTinyDescription =>
-      'सर्वात वेगवान, कमीत कमी अचूक (~३९ एमबी)';
+      'αñ╕αñ░αÑìαñ╡αñ╛αññ αñ╡αÑçαñùαñ╡αñ╛αñ¿, αñòαñ«αÑÇαññ αñòαñ«αÑÇ αñàαñÜαÑéαñò (~αÑ⌐αÑ» αñÅαñ«αñ¼αÑÇ)';
 
   @override
-  String get whisperModelBase => 'बेस';
+  String get whisperModelBase => 'αñ¼αÑçαñ╕';
 
   @override
-  String get whisperModelBaseDescription => 'संतुलित गती आणि अचूकता (~७४ एमबी)';
+  String get whisperModelBaseDescription => 'αñ╕αñéαññαÑüαñ▓αñ┐αññ αñùαññαÑÇ αñåαñúαñ┐ αñàαñÜαÑéαñòαññαñ╛ (~αÑ¡αÑ¬ αñÅαñ«αñ¼αÑÇ)';
 
   @override
-  String get whisperModelSmall => 'लहान';
+  String get whisperModelSmall => 'αñ▓αñ╣αñ╛αñ¿';
 
   @override
-  String get whisperModelSmallDescription => 'चांगली अचूकता, हळू (~२४४ एमबी)';
+  String get whisperModelSmallDescription => 'αñÜαñ╛αñéαñùαñ▓αÑÇ αñàαñÜαÑéαñòαññαñ╛, αñ╣αñ│αÑé (~αÑ¿αÑ¬αÑ¬ αñÅαñ«αñ¼αÑÇ)';
 
   @override
-  String get whisperModelMedium => 'मध्यम';
+  String get whisperModelMedium => 'αñ«αñºαÑìαñ»αñ«';
 
   @override
-  String get whisperModelMediumDescription => 'उच्च अचूकता, हळू (~७६९ एमबी)';
+  String get whisperModelMediumDescription => 'αñëαñÜαÑìαñÜ αñàαñÜαÑéαñòαññαñ╛, αñ╣αñ│αÑé (~αÑ¡αÑ¼αÑ» αñÅαñ«αñ¼αÑÇ)';
 
   @override
-  String get whisperModelLargeV1 => 'मोठे व्ही१';
+  String get whisperModelLargeV1 => 'αñ«αÑïαñáαÑç αñ╡αÑìαñ╣αÑÇαÑº';
 
   @override
   String get whisperModelLargeV1Description =>
-      'सर्वात अचूक, सर्वात हळू (~१.५५ जीबी)';
+      'αñ╕αñ░αÑìαñ╡αñ╛αññ αñàαñÜαÑéαñò, αñ╕αñ░αÑìαñ╡αñ╛αññ αñ╣αñ│αÑé (~αÑº.αÑ½αÑ½ αñ£αÑÇαñ¼αÑÇ)';
 
   @override
-  String get whisperModelLargeV2 => 'मोठे व्ही२';
+  String get whisperModelLargeV2 => 'αñ«αÑïαñáαÑç αñ╡αÑìαñ╣αÑÇαÑ¿';
 
   @override
   String get whisperModelLargeV2Description =>
-      'उन्नत मोठे मॉडेल उच्च अचूकतेसह (~१.५५ जीबी)';
+      'αñëαñ¿αÑìαñ¿αññ αñ«αÑïαñáαÑç αñ«αÑëαñíαÑçαñ▓ αñëαñÜαÑìαñÜ αñàαñÜαÑéαñòαññαÑçαñ╕αñ╣ (~αÑº.αÑ½αÑ½ αñ£αÑÇαñ¼αÑÇ)';
 
   @override
   String get modelDownloadInfo =>
-      'मॉडेल्स प्रथम वापरणे सुरू असताना डाउनलोड केले जातात. आम्ही बेस, लहान किंवा मध्यम वापरण्याची शिफारस करतो. मोठे मॉडेल्स अत्यंत उच्च-अंत डिव्हाइस आवश्यक.';
+      'αñ«αÑëαñíαÑçαñ▓αÑìαñ╕ αñ¬αÑìαñ░αñÑαñ« αñ╡αñ╛αñ¬αñ░αñúαÑç αñ╕αÑüαñ░αÑé αñàαñ╕αññαñ╛αñ¿αñ╛ αñíαñ╛αñëαñ¿αñ▓αÑïαñí αñòαÑçαñ▓αÑç αñ£αñ╛αññαñ╛αññ. αñåαñ«αÑìαñ╣αÑÇ αñ¼αÑçαñ╕, αñ▓αñ╣αñ╛αñ¿ αñòαñ┐αñéαñ╡αñ╛ αñ«αñºαÑìαñ»αñ« αñ╡αñ╛αñ¬αñ░αñúαÑìαñ»αñ╛αñÜαÑÇ αñ╢αñ┐αñ½αñ╛αñ░αñ╕ αñòαñ░αññαÑï. αñ«αÑïαñáαÑç αñ«αÑëαñíαÑçαñ▓αÑìαñ╕ αñàαññαÑìαñ»αñéαññ αñëαñÜαÑìαñÜ-αñàαñéαññ αñíαñ┐αñ╡αÑìαñ╣αñ╛αñçαñ╕ αñåαñ╡αñ╢αÑìαñ»αñò.';
 
   @override
-  String get logOut => 'लॉगआउट करा';
+  String get logOut => 'αñ▓αÑëαñùαñåαñëαñƒ αñòαñ░αñ╛';
 
   @override
-  String get participants => 'सहभागी';
+  String get participants => 'αñ╕αñ╣αñ¡αñ╛αñùαÑÇ';
 
   @override
-  String get delete => 'हटवा';
+  String get delete => 'αñ╣αñƒαñ╡αñ╛';
 
   @override
-  String get leave => 'सोडून द्या';
+  String get leave => 'αñ╕αÑïαñíαÑéαñ¿ αñªαÑìαñ»αñ╛';
 
   @override
-  String get leaveButton => 'सोडून द्या';
+  String get leaveButton => 'αñ╕αÑïαñíαÑéαñ¿ αñªαÑìαñ»αñ╛';
 
   @override
-  String get findingRandomPartner => 'आपल्यासाठी यादृच्छिक सहभागी शोधत आहे';
+  String get findingRandomPartner => 'αñåαñ¬αñ▓αÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñ»αñ╛αñªαÑâαñÜαÑìαñ¢αñ┐αñò αñ╕αñ╣αñ¡αñ╛αñùαÑÇ αñ╢αÑïαñºαññ αñåαñ╣αÑç';
 
   @override
-  String get quickFact => 'द्रुत वस्तुस्थिती';
+  String get quickFact => 'αñªαÑìαñ░αÑüαññ αñ╡αñ╕αÑìαññαÑüαñ╕αÑìαñÑαñ┐αññαÑÇ';
 
   @override
-  String get cancel => 'रद्द करा';
+  String get cancel => 'αñ░αñªαÑìαñª αñòαñ░αñ╛';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'αñ▓αñ¬αñ╡αñ╛';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'αñûαÑïαñ▓αÑÇ αñ▓αñ¬αñ╡αñ╛';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'αñ»αñ╛αñªαÑÇαññαÑéαñ¿ αñ▓αñ¬αñ╡αñ╛';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'αññαÑüαñ«αÑìαñ╣αñ╛αñ▓αñ╛ αñûαñ╛αññαÑìαñ░αÑÇ αñåαñ╣αÑç αñòαÑÇ αññαÑüαñ«αÑìαñ╣αÑÇ αñ╣αÑÇ αñåαñùαñ╛αñ«αÑÇ αñûαÑïαñ▓αÑÇ αññαÑüαñ«αñÜαÑìαñ»αñ╛ αñ»αñ╛αñªαÑÇαññαÑéαñ¿ αñòαñ╛αñóαÑé αñçαñÜαÑìαñ¢αñ┐αññαñ╛?';
 
   @override
-  String get completeYourProfile => 'आपल्या प्रोफाइल पूर्ण करा';
+  String get completeYourProfile => 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñ¬αÑéαñ░αÑìαñú αñòαñ░αñ╛';
 
   @override
-  String get uploadProfilePicture => 'प्रोफाइल चित्र अपलोड करा';
+  String get uploadProfilePicture => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñÜαñ┐αññαÑìαñ░ αñàαñ¬αñ▓αÑïαñí αñòαñ░αñ╛';
 
   @override
-  String get enterValidName => 'वैध नाव प्रविष्ट करा';
+  String get enterValidName => 'αñ╡αÑêαñº αñ¿αñ╛αñ╡ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get name => 'नाव';
+  String get name => 'αñ¿αñ╛αñ╡';
 
   @override
-  String get username => 'वापरकर्तानाव';
+  String get username => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡';
 
   @override
-  String get enterValidDOB => 'वैध जन्मतारीख प्रविष्ट करा';
+  String get enterValidDOB => 'αñ╡αÑêαñº αñ£αñ¿αÑìαñ«αññαñ╛αñ░αÑÇαñû αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get dateOfBirth => 'जन्मतारीख';
+  String get dateOfBirth => 'αñ£αñ¿αÑìαñ«αññαñ╛αñ░αÑÇαñû';
 
   @override
-  String get forgotPassword => 'पासवर्ड विसरलात?';
+  String get forgotPassword => 'αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñí αñ╡αñ┐αñ╕αñ░αñ▓αñ╛αññ?';
 
   @override
-  String get next => 'पुढील';
+  String get next => 'αñ¬αÑüαñóαÑÇαñ▓';
 
   @override
-  String get noStoriesExist => 'सादर करण्यासाठी कोणतीही कथा नाही';
+  String get noStoriesExist => 'αñ╕αñ╛αñªαñ░ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get enterVerificationCode => 'आपला\nसत्यापन कोड प्रविष्ट करा';
+  String get enterVerificationCode => 'αñåαñ¬αñ▓αñ╛\nαñ╕αññαÑìαñ»αñ╛αñ¬αñ¿ αñòαÑïαñí αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get verificationCodeSent => 'आम्ही एक ६-अंकीय सत्यापन कोड\n';
+  String get verificationCodeSent => 'αñåαñ«αÑìαñ╣αÑÇ αñÅαñò αÑ¼-αñàαñéαñòαÑÇαñ» αñ╕αññαÑìαñ»αñ╛αñ¬αñ¿ αñòαÑïαñí\n';
 
   @override
-  String get verificationComplete => 'सत्यापन पूर्ण';
+  String get verificationComplete => 'αñ╕αññαÑìαñ»αñ╛αñ¬αñ¿ αñ¬αÑéαñ░αÑìαñú';
 
   @override
   String get verificationCompleteMessage =>
-      'अभिनंदन आपण आपले ईमेल सत्यापित केले आहे';
+      'αñàαñ¡αñ┐αñ¿αñéαñªαñ¿ αñåαñ¬αñú αñåαñ¬αñ▓αÑç αñêαñ«αÑçαñ▓ αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ αñòαÑçαñ▓αÑç αñåαñ╣αÑç';
 
   @override
-  String get verificationFailed => 'सत्यापन अयोग्य';
+  String get verificationFailed => 'αñ╕αññαÑìαñ»αñ╛αñ¬αñ¿ αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
-  String get otpMismatch => 'ओटीपी मिळत नाही कृपया पुन्हा प्रयत्न करा';
+  String get otpMismatch => 'αñôαñƒαÑÇαñ¬αÑÇ αñ«αñ┐αñ│αññ αñ¿αñ╛αñ╣αÑÇ αñòαÑâαñ¬αñ»αñ╛ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛';
 
   @override
-  String get otpResent => 'ओटीपी पुन्हा पाठविली गई';
+  String get otpResent => 'αñôαñƒαÑÇαñ¬αÑÇ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αñ╛αñáαñ╡αñ┐αñ▓αÑÇ αñùαñê';
 
   @override
-  String get requestNewCode => 'नवीन कोड विनंती करा';
+  String get requestNewCode => 'αñ¿αñ╡αÑÇαñ¿ αñòαÑïαñí αñ╡αñ┐αñ¿αñéαññαÑÇ αñòαñ░αñ╛';
 
   @override
-  String get requestNewCodeIn => 'नवीन कोड विनंती करा';
+  String get requestNewCodeIn => 'αñ¿αñ╡αÑÇαñ¿ αñòαÑïαñí αñ╡αñ┐αñ¿αñéαññαÑÇ αñòαñ░αñ╛';
 
   @override
-  String get clickPictureCamera => 'कॅमेरा वापरून चित्र क्लिक करा';
+  String get clickPictureCamera => 'αñòαÑàαñ«αÑçαñ░αñ╛ αñ╡αñ╛αñ¬αñ░αÑéαñ¿ αñÜαñ┐αññαÑìαñ░ αñòαÑìαñ▓αñ┐αñò αñòαñ░αñ╛';
 
   @override
-  String get pickImageGallery => 'गॅलेरीमधून प्रतिमा निवडा';
+  String get pickImageGallery => 'αñùαÑàαñ▓αÑçαñ░αÑÇαñ«αñºαÑéαñ¿ αñ¬αÑìαñ░αññαñ┐αñ«αñ╛ αñ¿αñ┐αñ╡αñíαñ╛';
 
   @override
-  String get deleteMyAccount => 'माझे खाते हटवा';
+  String get deleteMyAccount => 'αñ«αñ╛αñ¥αÑç αñûαñ╛αññαÑç αñ╣αñƒαñ╡αñ╛';
 
   @override
-  String get createNewRoom => 'नवीन कोठा तयार करा';
+  String get createNewRoom => 'αñ¿αñ╡αÑÇαñ¿ αñòαÑïαñáαñ╛ αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
   String get pleaseEnterScheduledDateTime =>
-      'कृपया शेड्यूल केलेली तारीख-वेळ प्रविष्ट करा';
+      'αñòαÑâαñ¬αñ»αñ╛ αñ╢αÑçαñíαÑìαñ»αÑéαñ▓ αñòαÑçαñ▓αÑçαñ▓αÑÇ αññαñ╛αñ░αÑÇαñû-αñ╡αÑçαñ│ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get scheduleDateTimeLabel => 'शेड्यूल तारीख वेळ';
+  String get scheduleDateTimeLabel => 'αñ╢αÑçαñíαÑìαñ»αÑéαñ▓ αññαñ╛αñ░αÑÇαñû αñ╡αÑçαñ│';
 
   @override
-  String get enterTags => 'टॅग्स प्रविष्ट करा';
+  String get enterTags => 'αñƒαÑàαñùαÑìαñ╕ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get joinCommunity => 'समुदाय जोडा';
+  String get joinCommunity => 'αñ╕αñ«αÑüαñªαñ╛αñ» αñ£αÑïαñíαñ╛';
 
   @override
-  String get followUsOnX => 'X वर आमचे अनुसरण करा';
+  String get followUsOnX => 'X αñ╡αñ░ αñåαñ«αñÜαÑç αñàαñ¿αÑüαñ╕αñ░αñú αñòαñ░αñ╛';
 
   @override
-  String get joinDiscordServer => 'Discord सर्व्हर जोडा';
+  String get joinDiscordServer => 'Discord αñ╕αñ░αÑìαñ╡αÑìαñ╣αñ░ αñ£αÑïαñíαñ╛';
 
   @override
-  String get noLyrics => 'कोणतेही गीत नाहीत';
+  String get noLyrics => 'αñòαÑïαñúαññαÑçαñ╣αÑÇ αñùαÑÇαññ αñ¿αñ╛αñ╣αÑÇαññ';
 
   @override
   String noStoriesInCategory(String categoryName) {
-    return '$categoryName श्रेणीमध्ये सादर करण्यासाठी कोणतीही कथा नाही';
+    return '$categoryName αñ╢αÑìαñ░αÑçαñúαÑÇαñ«αñºαÑìαñ»αÑç αñ╕αñ╛αñªαñ░ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñòαÑïαñúαññαÑÇαñ╣αÑÇ αñòαñÑαñ╛ αñ¿αñ╛αñ╣αÑÇ';
   }
 
   @override
-  String get newChapters => 'नविन अध्याय';
+  String get newChapters => 'αñ¿αñ╡αñ┐αñ¿ αñàαñºαÑìαñ»αñ╛αñ»';
 
   @override
-  String get helpToGrow => 'वाढायला मदत करा';
+  String get helpToGrow => 'αñ╡αñ╛αñóαñ╛αñ»αñ▓αñ╛ αñ«αñªαññ αñòαñ░αñ╛';
 
   @override
-  String get share => 'शेअर करा';
+  String get share => 'αñ╢αÑçαñàαñ░ αñòαñ░αñ╛';
 
   @override
-  String get rate => 'रेट करा';
+  String get rate => 'αñ░αÑçαñƒ αñòαñ░αñ╛';
 
   @override
-  String get aboutResonate => 'रेजोनेटबद्दल';
+  String get aboutResonate => 'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñ¼αñªαÑìαñªαñ▓';
 
   @override
-  String get description => 'वर्णन';
+  String get description => 'αñ╡αñ░αÑìαñúαñ¿';
 
   @override
-  String get confirm => 'पुष्टी करा';
+  String get confirm => 'αñ¬αÑüαñ╖αÑìαñƒαÑÇ αñòαñ░αñ╛';
 
   @override
-  String get classic => 'शास्त्रीय';
+  String get classic => 'αñ╢αñ╛αñ╕αÑìαññαÑìαñ░αÑÇαñ»';
 
   @override
-  String get time => 'वेळ';
+  String get time => 'αñ╡αÑçαñ│';
 
   @override
-  String get vintage => 'विंटेज';
+  String get vintage => 'αñ╡αñ┐αñéαñƒαÑçαñ£';
 
   @override
-  String get amber => 'एम्बर';
+  String get amber => 'αñÅαñ«αÑìαñ¼αñ░';
 
   @override
-  String get forest => 'जंगल';
+  String get forest => 'αñ£αñéαñùαñ▓';
 
   @override
-  String get cream => 'क्रीम';
+  String get cream => 'αñòαÑìαñ░αÑÇαñ«';
 
   @override
-  String get none => 'काहीही नाही';
+  String get none => 'αñòαñ╛αñ╣αÑÇαñ╣αÑÇ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
   String checkOutGitHub(String url) {
-    return 'आमचे GitHub रिपोजिटरी पहा: $url';
+    return 'αñåαñ«αñÜαÑç GitHub αñ░αñ┐αñ¬αÑïαñ£αñ┐αñƒαñ░αÑÇ αñ¬αñ╣αñ╛: $url';
   }
 
   @override
   String get aossie => 'AOSSIE';
 
   @override
-  String get aossieLogo => 'aossie लोगो';
+  String get aossieLogo => 'aossie αñ▓αÑïαñùαÑï';
 
   @override
-  String get errorLoadPackageInfo => 'पॅकेज माहिती लोड करू शकत नाही';
+  String get errorLoadPackageInfo => 'αñ¬αÑàαñòαÑçαñ£ αñ«αñ╛αñ╣αñ┐αññαÑÇ αñ▓αÑïαñí αñòαñ░αÑé αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
   String get searchFailed => 'Failed to search rooms. Please try again.';
 
   @override
-  String get updateAvailable => 'अपडेट उपलब्ध';
+  String get updateAvailable => 'αñàαñ¬αñíαÑçαñƒ αñëαñ¬αñ▓αñ¼αÑìαñº';
 
   @override
-  String get newVersionAvailable => 'नविन संस्करण उपलब्ध आहे!';
+  String get newVersionAvailable => 'αñ¿αñ╡αñ┐αñ¿ αñ╕αñéαñ╕αÑìαñòαñ░αñú αñëαñ¬αñ▓αñ¼αÑìαñº αñåαñ╣αÑç!';
 
   @override
-  String get upToDate => 'अद्यावधिक आहे';
+  String get upToDate => 'αñàαñªαÑìαñ»αñ╛αñ╡αñºαñ┐αñò αñåαñ╣αÑç';
 
   @override
-  String get latestVersion => 'आप नवीनतम संस्करण वापरत आहात';
+  String get latestVersion => 'αñåαñ¬ αñ¿αñ╡αÑÇαñ¿αññαñ« αñ╕αñéαñ╕αÑìαñòαñ░αñú αñ╡αñ╛αñ¬αñ░αññ αñåαñ╣αñ╛αññ';
 
   @override
-  String get profileCreatedSuccessfully => 'प्रोफाइल यशस्वीरित्या तयार केली';
+  String get profileCreatedSuccessfully => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αññαñ»αñ╛αñ░ αñòαÑçαñ▓αÑÇ';
 
   @override
-  String get invalidScheduledDateTime => 'अवैध शेड्यूल केलेली तारीख वेळ';
+  String get invalidScheduledDateTime => 'αñàαñ╡αÑêαñº αñ╢αÑçαñíαÑìαñ»αÑéαñ▓ αñòαÑçαñ▓αÑçαñ▓αÑÇ αññαñ╛αñ░αÑÇαñû αñ╡αÑçαñ│';
 
   @override
   String get scheduledDateTimePast =>
-      'शेड्यूल केलेली तारीख वेळ अतीतमध्ये असू शकत नाही';
+      'αñ╢αÑçαñíαÑìαñ»αÑéαñ▓ αñòαÑçαñ▓αÑçαñ▓αÑÇ αññαñ╛αñ░αÑÇαñû αñ╡αÑçαñ│ αñàαññαÑÇαññαñ«αñºαÑìαñ»αÑç αñàαñ╕αÑé αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get joinRoom => 'कोठामध्ये जोडा';
+  String get joinRoom => 'αñòαÑïαñáαñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαñ╛';
 
   @override
-  String get unknownUser => 'अज्ञात';
+  String get unknownUser => 'αñàαñ£αÑìαñ₧αñ╛αññ';
 
   @override
-  String get canceled => 'रद्द';
+  String get canceled => 'αñ░αñªαÑìαñª';
 
   @override
   String get english => 'en';
 
   @override
-  String get emailVerificationRequired => 'ईमेल सत्यापन आवश्यक';
+  String get emailVerificationRequired => 'αñêαñ«αÑçαñ▓ αñ╕αññαÑìαñ»αñ╛αñ¬αñ¿ αñåαñ╡αñ╢αÑìαñ»αñò';
 
   @override
-  String get verify => 'सत्यापित करा';
+  String get verify => 'αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ αñòαñ░αñ╛';
 
   @override
-  String get audioRoom => 'ऑडियो कोठा';
+  String get audioRoom => 'αñæαñíαñ┐αñ»αÑï αñòαÑïαñáαñ╛';
 
   @override
   String toRoomAction(String action) {
-    return 'कोठ्याला $action करण्यासाठी';
+    return 'αñòαÑïαñáαÑìαñ»αñ╛αñ▓αñ╛ $action αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ';
   }
 
   @override
-  String get mailSentMessage => 'ईमेल पाठविली गई';
+  String get mailSentMessage => 'αñêαñ«αÑçαñ▓ αñ¬αñ╛αñáαñ╡αñ┐αñ▓αÑÇ αñùαñê';
 
   @override
-  String get disconnected => 'जोडलेले नाही';
+  String get disconnected => 'αñ£αÑïαñíαñ▓αÑçαñ▓αÑç αñ¿αñ╛αñ╣αÑÇ';
 
   @override
-  String get micOn => 'मायक्रोफोन';
+  String get micOn => 'αñ«αñ╛αñ»αñòαÑìαñ░αÑïαñ½αÑïαñ¿';
 
   @override
-  String get speakerOn => 'स्पीकर';
+  String get speakerOn => 'αñ╕αÑìαñ¬αÑÇαñòαñ░';
 
   @override
-  String get endChat => 'चॅट समाप्त';
+  String get endChat => 'αñÜαÑàαñƒ αñ╕αñ«αñ╛αñ¬αÑìαññ';
 
   @override
-  String get monthJan => 'जान';
+  String get monthJan => 'αñ£αñ╛αñ¿';
 
   @override
-  String get monthFeb => 'फेब';
+  String get monthFeb => 'αñ½αÑçαñ¼';
 
   @override
-  String get monthMar => 'मार्च';
+  String get monthMar => 'αñ«αñ╛αñ░αÑìαñÜ';
 
   @override
-  String get monthApr => 'एप्रिल';
+  String get monthApr => 'αñÅαñ¬αÑìαñ░αñ┐αñ▓';
 
   @override
-  String get monthMay => 'मे';
+  String get monthMay => 'αñ«αÑç';
 
   @override
-  String get monthJun => 'जून';
+  String get monthJun => 'αñ£αÑéαñ¿';
 
   @override
-  String get monthJul => 'जुलै';
+  String get monthJul => 'αñ£αÑüαñ▓αÑê';
 
   @override
-  String get monthAug => 'ऑग';
+  String get monthAug => 'αñæαñù';
 
   @override
-  String get monthSep => 'सप्ट';
+  String get monthSep => 'αñ╕αñ¬αÑìαñƒ';
 
   @override
-  String get monthOct => 'ऑक्ट';
+  String get monthOct => 'αñæαñòαÑìαñƒ';
 
   @override
-  String get monthNov => 'नोव';
+  String get monthNov => 'αñ¿αÑïαñ╡';
 
   @override
-  String get monthDec => 'डिस';
+  String get monthDec => 'αñíαñ┐αñ╕';
 
   @override
-  String get register => 'नोंदणी करा';
+  String get register => 'αñ¿αÑïαñéαñªαñúαÑÇ αñòαñ░αñ╛';
 
   @override
-  String get newToResonate => 'रेजोनेटमध्ये नविन? ';
+  String get newToResonate => 'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñ«αñºαÑìαñ»αÑç αñ¿αñ╡αñ┐αñ¿? ';
 
   @override
-  String get alreadyHaveAccount => 'पहिल्यापासून खाता आहे? ';
+  String get alreadyHaveAccount => 'αñ¬αñ╣αñ┐αñ▓αÑìαñ»αñ╛αñ¬αñ╛αñ╕αÑéαñ¿ αñûαñ╛αññαñ╛ αñåαñ╣αÑç? ';
 
   @override
-  String get checking => 'तपास करत आहे...';
+  String get checking => 'αññαñ¬αñ╛αñ╕ αñòαñ░αññ αñåαñ╣αÑç...';
 
   @override
   String get forgotPasswordMessage =>
-      'आपल्या नोंदणीकृत ईमेल पत्ता प्रविष्ट करा आपल्या पासवर्डचा रीसेट करण्यासाठी.';
+      'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ¿αÑïαñéαñªαñúαÑÇαñòαÑâαññ αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛ αñ¬αÑìαñ░αñ╡αñ┐αñ╖αÑìαñƒ αñòαñ░αñ╛ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ¬αñ╛αñ╕αñ╡αñ░αÑìαñíαñÜαñ╛ αñ░αÑÇαñ╕αÑçαñƒ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ.';
 
   @override
-  String get usernameUnavailable => 'वापरकर्तानाव उपलब्ध नाही!';
+  String get usernameUnavailable => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡ αñëαñ¬αñ▓αñ¼αÑìαñº αñ¿αñ╛αñ╣αÑÇ!';
 
   @override
   String get usernameInvalidOrTaken =>
-      'हे वापरकर्तानाव अवैध आहे किंवा आधीच घेतले आहे.';
+      'αñ╣αÑç αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡ αñàαñ╡αÑêαñº αñåαñ╣αÑç αñòαñ┐αñéαñ╡αñ╛ αñåαñºαÑÇαñÜ αñÿαÑçαññαñ▓αÑç αñåαñ╣αÑç.';
 
   @override
-  String get otpResentMessage => 'कृपया आपल्या मेलमध्ये नविन ओटीपी तपासा.';
+  String get otpResentMessage => 'αñòαÑâαñ¬αñ»αñ╛ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ«αÑçαñ▓αñ«αñºαÑìαñ»αÑç αñ¿αñ╡αñ┐αñ¿ αñôαñƒαÑÇαñ¬αÑÇ αññαñ¬αñ╛αñ╕αñ╛.';
 
   @override
   String get connectionError =>
-      'कनेक्शन त्रुटी आहे. कृपया आपल्या इंटरनेट तपासा आणि पुन्हा प्रयत्न करा.';
+      'αñòαñ¿αÑçαñòαÑìαñ╢αñ¿ αññαÑìαñ░αÑüαñƒαÑÇ αñåαñ╣αÑç. αñòαÑâαñ¬αñ»αñ╛ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñçαñéαñƒαñ░αñ¿αÑçαñƒ αññαñ¬αñ╛αñ╕αñ╛ αñåαñúαñ┐ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get seconds => 'सेकंद.';
+  String get seconds => 'αñ╕αÑçαñòαñéαñª.';
 
   @override
   String get unsavedChangesWarning =>
-      'जर आप सेव केल्याशिवाय पुढे जाल तर कोणतेही न-सेव केलेले बदल गमावले जातील.';
+      'αñ£αñ░ αñåαñ¬ αñ╕αÑçαñ╡ αñòαÑçαñ▓αÑìαñ»αñ╛αñ╢αñ┐αñ╡αñ╛αñ» αñ¬αÑüαñóαÑç αñ£αñ╛αñ▓ αññαñ░ αñòαÑïαñúαññαÑçαñ╣αÑÇ αñ¿-αñ╕αÑçαñ╡ αñòαÑçαñ▓αÑçαñ▓αÑç αñ¼αñªαñ▓ αñùαñ«αñ╛αñ╡αñ▓αÑç αñ£αñ╛αññαÑÇαñ▓.';
 
   @override
   String get deleteAccountPermanent =>
-      'ही क्रिया आपल्या खात्याला कायमचा हटवेल. हा अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आप ते पुनर्प्राप्त करू शकणार नाहीत.';
+      'αñ╣αÑÇ αñòαÑìαñ░αñ┐αñ»αñ╛ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñûαñ╛αññαÑìαñ»αñ╛αñ▓αñ╛ αñòαñ╛αñ»αñ«αñÜαñ╛ αñ╣αñƒαñ╡αÑçαñ▓. αñ╣αñ╛ αñàαñ¬αñ░αñ┐αñ╡αñ░αÑìαññαñ¿αÑÇαñ» αñ¬αÑìαñ░αñòαÑìαñ░αñ┐αñ»αñ╛ αñåαñ╣αÑç. αñåαñ«αÑìαñ╣αÑÇ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡, αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛, αñåαñúαñ┐ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñûαñ╛αññαÑìαñ»αñ╛αñ╢αÑÇ αñ╕αñéαñ¼αñéαñºαñ┐αññ αñ╕αñ░αÑìαñ╡ αñçαññαñ░ αñíαÑçαñƒαñ╛ αñ╣αñƒαñ╡αÑé. αñåαñ¬ αññαÑç αñ¬αÑüαñ¿αñ░αÑìαñ¬αÑìαñ░αñ╛αñ¬αÑìαññ αñòαñ░αÑé αñ╢αñòαñúαñ╛αñ░ αñ¿αñ╛αñ╣αÑÇαññ.';
 
   @override
-  String get giveGreatName => 'एक महान नाव द्या..';
+  String get giveGreatName => 'αñÅαñò αñ«αñ╣αñ╛αñ¿ αñ¿αñ╛αñ╡ αñªαÑìαñ»αñ╛..';
 
   @override
   String get joinCommunityDescription =>
-      'समुदायामध्ये जोडून आप आपल्या संशय स्पष्ट करू शकता, नविन वैशिष्ट्यांचा प्रस्ताव द्यू शकता, आपण सामोरे आलेल्या समस्यांची रिपोर्ट करू शकता आणि बरेच काही.';
+      'αñ╕αñ«αÑüαñªαñ╛αñ»αñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαÑéαñ¿ αñåαñ¬ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ╕αñéαñ╢αñ» αñ╕αÑìαñ¬αñ╖αÑìαñƒ αñòαñ░αÑé αñ╢αñòαññαñ╛, αñ¿αñ╡αñ┐αñ¿ αñ╡αÑêαñ╢αñ┐αñ╖αÑìαñƒαÑìαñ»αñ╛αñéαñÜαñ╛ αñ¬αÑìαñ░αñ╕αÑìαññαñ╛αñ╡ αñªαÑìαñ»αÑé αñ╢αñòαññαñ╛, αñåαñ¬αñú αñ╕αñ╛αñ«αÑïαñ░αÑç αñåαñ▓αÑçαñ▓αÑìαñ»αñ╛ αñ╕αñ«αñ╕αÑìαñ»αñ╛αñéαñÜαÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαñ░αÑé αñ╢αñòαññαñ╛ αñåαñúαñ┐ αñ¼αñ░αÑçαñÜ αñòαñ╛αñ╣αÑÇ.';
 
   @override
   String get resonateDescription =>
-      'रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. आपल्याला रेजोनेट करणार्या कोठे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा. संभाषणामध्ये जोडा! कोठे अन्वेषण करा, मित्रांशी जोडा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñÅαñò αñ╕αñ╛αñ«αñ╛αñ£αñ┐αñò αñ«αñ╛αñºαÑìαñ»αñ« αñ«αñéαñÜ αñåαñ╣αÑç, αñ£αÑçαñÑαÑç αñ¬αÑìαñ░αññαÑìαñ»αÑçαñò αñåαñ╡αñ╛αñ£ αñ«αÑéαñ▓αÑìαñ»αñ╡αñ╛αñ¿ αñåαñ╣αÑç. αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ╡αñ┐αñÜαñ╛αñ░, αñòαñÑαñ╛, αñåαñúαñ┐ αñàαñ¿αÑüαñ¡αñ╡ αñªαÑüαñ╕αñ▒αÑìαñ»αñ╛αñéαñ╕αñ╣ αñ╕αñ╛αñ«αñ╛αñ»αñ┐αñò αñòαñ░αñ╛. αñåαñ¬αñ▓αÑìαñ»αñ╛ αñæαñíαñ┐αñ»αÑï αñ»αñ╛αññαÑìαñ░αñ╛ αñåαññαñ╛ αñ╕αÑüαñ░αÑé αñòαñ░αñ╛. αñ╡αñ┐αñ╡αñ┐αñº αñÜαñ░αÑìαñÜαñ╛ αñåαñúαñ┐ αñ╡αñ┐αñ╖αñ»αñ╛αñéαñ«αñºαÑìαñ»αÑç αñ£αñ╛αñ╣αñ┐αñ░αÑÇαñòαñ░αñú αñòαñ░αñ╛. αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñòαñ░αñúαñ╛αñ░αÑìαñ»αñ╛ αñòαÑïαñáαÑç αñ╢αÑïαñºαñ╛ αñåαñúαñ┐ αñ╕αñ«αÑüαñªαñ╛αñ»αñÜαñ╛ αñ¡αñ╛αñù αñ¼αñ¿αÑéαñ¿ αñ£αñ╛αñ╣αñ┐αñ░αÑÇαñòαñ░αñú αñòαñ░αñ╛. αñ╕αñéαñ¡αñ╛αñ╖αñúαñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαñ╛! αñòαÑïαñáαÑç αñàαñ¿αÑìαñ╡αÑçαñ╖αñú αñòαñ░αñ╛, αñ«αñ┐αññαÑìαñ░αñ╛αñéαñ╢αÑÇ αñ£αÑïαñíαñ╛, αñåαñúαñ┐ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñåαñ╡αñ╛αñ£ αñ╡αñ┐αñ╢αÑìαñ╡αñ╛αñ╕αñ╣ αñ╕αñ╛αñ«αñ╛αñ»αñ┐αñò αñòαñ░αñ╛.';
 
   @override
   String get resonateFullDescription =>
-      'रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये जोडा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी जोडा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कोठे\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- समाप्त-समाप्त एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात जोडा!';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñÅαñò αñòαÑìαñ░αñ╛αñéαññαñ┐αñòαñ╛αñ░αÑÇ αñ╡αÑìαñ╣αÑëαñ»αñ╕-αñåαñºαñ╛αñ░αñ┐αññ αñ╕αñ╛αñ«αñ╛αñ£αñ┐αñò αñ«αñ╛αñºαÑìαñ»αñ« αñ«αñéαñÜ αñåαñ╣αÑç αñ£αÑçαñÑαÑç αñ¬αÑìαñ░αññαÑìαñ»αÑçαñò αñåαñ╡αñ╛αñ£ αñ«αñ╣αññαÑìαñ╡αñ╛αñÜαñ╛ αñåαñ╣αÑç. \nαñ░αÑÇαñàαñ▓-αñƒαñ╛αñçαñ« αñæαñíαñ┐αñ»αÑï αñ╕αñéαñ¡αñ╛αñ╖αñúαñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαñ╛, αñ╡αñ┐αñ╡αñ┐αñº αñÜαñ░αÑìαñÜαñ╛αñ»αÑïαñ£αñ¿αñ╛αñéαñ«αñºαÑìαñ»αÑç αñ¡αñ╛αñù αñÿαÑìαñ»αñ╛, αñåαñúαñ┐ \nαñ╕αñ«αñ╛αñ¿ αñ╡αñ┐αñÜαñ╛αñ░αñ╛αñéαñ╕αñ╣ αñ╡αÑìαñ»αñòαÑìαññαÑÇαñéαñ╢αÑÇ αñ£αÑïαñíαñ╛. αñåαñ«αñÜαÑç αñ«αñéαñÜ αñªαÑçαññαÑç:\n- αñ╡αñ┐αñ╖αñ»-αñåαñºαñ╛αñ░αñ┐αññ αñÜαñ░αÑìαñÜαÑçαñ╕αñ╣ αñ▓αñ╛αñçαñ╡αÑìαñ╣ αñæαñíαñ┐αñ»αÑï αñòαÑïαñáαÑç\n- αñ╡αÑìαñ╣αÑëαñ»αñ╕αñªαÑìαñ╡αñ╛αñ░αÑç αñ╕αñ╣αñ£ αñ╕αñ╛αñ«αñ╛αñ£αñ┐αñò αñ¿αÑçαñƒαñ╡αñ░αÑìαñòαñ┐αñéαñù\n- αñ╕αñ«αÑüαñªαñ╛αñ»-αñÜαñ╛αñ▓αñ┐αññ αñ╕αñ╛αñ«αñùαÑìαñ░αÑÇ αñ«αÑëαñíαñ░αÑçαñ╢αñ¿\n- αñòαÑìαñ░αÑëαñ╕-αñ«αñéαñÜ αñ╕αÑüαñ╕αñéαñùαññαññαñ╛\n- αñ╕αñ«αñ╛αñ¬αÑìαññ-αñ╕αñ«αñ╛αñ¬αÑìαññ αñÅαñ¿αÑìαñòαÑìαñ░αñ┐αñ¬αÑìαñƒαÑçαñí αñûαñ╛αñ£αñùαÑÇ αñ╕αñéαñ¡αñ╛αñ╖αñúαÑç\n\nAOSSIE αñ«αÑüαñòαÑìαññ αñ╕αÑìαñ░αÑïαññ αñ╕αñ«αÑüαñªαñ╛αñ»αñªαÑìαñ╡αñ╛αñ░αÑç αñ╡αñ┐αñòαñ╕αñ┐αññ, αñåαñ«αÑìαñ╣αÑÇ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñùαÑïαñ¬αñ¿αÑÇαñ»αññαñ╛ αñåαñúαñ┐ \nαñ╕αñ«αÑüαñªαñ╛αñ»-αñÜαñ╛αñ▓αñ┐αññ αñ╡αñ┐αñòαñ╛αñ╕αñ¿αñ╛ αñ¬αÑìαñ░αñ╛αñºαñ╛αñ¿αÑìαñ» αñªαÑçαññαÑï. αñ╕αñ╛αñ«αñ╛αñ£αñ┐αñò αñæαñíαñ┐αñ»αÑïαñÜαÑç αñ¡αñ╡αñ┐αñ╖αÑìαñ» αñåαñòαñ╛αñ░ αñªαÑçαñúαÑìαñ»αñ╛αñ«αñºαÑìαñ»αÑç αñåαñ«αñÜαÑìαñ»αñ╛αññ αñ£αÑïαñíαñ╛!';
 
   @override
-  String get stable => 'स्थिर';
+  String get stable => 'αñ╕αÑìαñÑαñ┐αñ░';
 
   @override
   String get usernameCharacterLimit =>
-      'वापरकर्तानाव ५ अक्षरांपेक्षा अधिक असणे आवश्यक आहे.';
+      'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡ αÑ½ αñàαñòαÑìαñ╖αñ░αñ╛αñéαñ¬αÑçαñòαÑìαñ╖αñ╛ αñàαñºαñ┐αñò αñàαñ╕αñúαÑç αñåαñ╡αñ╢αÑìαñ»αñò αñåαñ╣αÑç.';
 
   @override
-  String get submit => 'सबमिट करा';
+  String get submit => 'αñ╕αñ¼αñ«αñ┐αñƒ αñòαñ░αñ╛';
 
   @override
-  String get anonymous => 'अनामिक';
+  String get anonymous => 'αñàαñ¿αñ╛αñ«αñ┐αñò';
 
   @override
-  String get noSearchResults => 'कोणतेही शोध परिणाम नाहीत';
+  String get noSearchResults => 'αñòαÑïαñúαññαÑçαñ╣αÑÇ αñ╢αÑïαñº αñ¬αñ░αñ┐αñúαñ╛αñ« αñ¿αñ╛αñ╣αÑÇαññ';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'αñûαÑïαñ▓αÑìαñ»αñ╛ αñ╢αÑïαñºαñ╛...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'αñûαÑïαñ▓αÑìαñ»αñ╛ αñ╢αÑïαñºαññ αñåαñ╣αÑç...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'αñ╢αÑïαñº αñ╕αñ╛αñ½ αñòαñ░αñ╛';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'αñ╢αÑïαñº αññαÑìαñ░αÑüαñƒαÑÇ';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError =>
+      'αñûαÑïαñ▓αÑìαñ»αñ╛ αñ╢αÑïαñºαñúαÑìαñ»αñ╛αññ αñàαñ»αñ╢αñ╕αÑìαñ╡αÑÇ. αñòαÑâαñ¬αñ»αñ╛ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
   String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+      'αñåαñùαñ╛αñ«αÑÇ αñûαÑïαñ▓αÑìαñ»αñ╛ αñ╢αÑïαñºαñúαÑìαñ»αñ╛αññ αñàαñ»αñ╢αñ╕αÑìαñ╡αÑÇ. αñòαÑâαñ¬αñ»αñ╛ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get search => 'Search';
+  String get search => 'αñ╢αÑïαñºαñ╛';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'αñ╕αñ╛αñ½ αñòαñ░αñ╛';
 
   @override
   String shareRoomMessage(
@@ -765,294 +766,294 @@ class AppLocalizationsMr extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀 या अद्भुत कोठा पहा: $roomName!\n\n📖 वर्णन: $description\n👥 आता $participants सहभागींशी जोडा!';
+    return '≡ƒÜÇ αñ»αñ╛ αñàαñªαÑìαñ¡αÑüαññ αñòαÑïαñáαñ╛ αñ¬αñ╣αñ╛: $roomName!\n\n≡ƒôû αñ╡αñ░αÑìαñúαñ¿: $description\n≡ƒæÑ αñåαññαñ╛ $participants αñ╕αñ╣αñ¡αñ╛αñùαÑÇαñéαñ╢αÑÇ αñ£αÑïαñíαñ╛!';
   }
 
   @override
   String participantsCount(int count) {
-    return '$count सहभागी';
+    return '$count αñ╕αñ╣αñ¡αñ╛αñùαÑÇ';
   }
 
   @override
-  String get join => 'जोडा';
+  String get join => 'αñ£αÑïαñíαñ╛';
 
   @override
-  String get invalidTags => 'अवैध टॅग:';
+  String get invalidTags => 'αñàαñ╡αÑêαñº αñƒαÑàαñù:';
 
   @override
-  String get cropImage => 'प्रतिमा काटा';
+  String get cropImage => 'αñ¬αÑìαñ░αññαñ┐αñ«αñ╛ αñòαñ╛αñƒαñ╛';
 
   @override
-  String get profileSavedSuccessfully => 'प्रोफाइल अद्यतनित झाले';
+  String get profileSavedSuccessfully => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñàαñªαÑìαñ»αññαñ¿αñ┐αññ αñ¥αñ╛αñ▓αÑç';
 
   @override
-  String get profileUpdatedSuccessfully => 'सर्व बदल यशस्वीरित्या सेव केले.';
+  String get profileUpdatedSuccessfully => 'αñ╕αñ░αÑìαñ╡ αñ¼αñªαñ▓ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñ╕αÑçαñ╡ αñòαÑçαñ▓αÑç.';
 
   @override
-  String get profileUpToDate => 'प्रोफाइल अद्यावधिक आहे';
+  String get profileUpToDate => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñàαñªαÑìαñ»αñ╛αñ╡αñºαñ┐αñò αñåαñ╣αÑç';
 
   @override
   String get noChangesToSave =>
-      'कोणतेही नविन बदल केले नाहीत, सेव करण्यासाठी काहीही नाही.';
+      'αñòαÑïαñúαññαÑçαñ╣αÑÇ αñ¿αñ╡αñ┐αñ¿ αñ¼αñªαñ▓ αñòαÑçαñ▓αÑç αñ¿αñ╛αñ╣αÑÇαññ, αñ╕αÑçαñ╡ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñòαñ╛αñ╣αÑÇαñ╣αÑÇ αñ¿αñ╛αñ╣αÑÇ.';
 
   @override
-  String get connectionFailed => 'कनेक्शन अयोग्य';
+  String get connectionFailed => 'αñòαñ¿αÑçαñòαÑìαñ╢αñ¿ αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
   String get unableToJoinRoom =>
-      'कोठामध्ये जोडना अक्षम. कृपया आपल्या नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.';
+      'αñòαÑïαñáαñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαñ¿αñ╛ αñàαñòαÑìαñ╖αñ«. αñòαÑâαñ¬αñ»αñ╛ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ¿αÑçαñƒαñ╡αñ░αÑìαñò αññαñ¬αñ╛αñ╕αñ╛ αñåαñúαñ┐ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get connectionLost => 'कनेक्शन हरविली';
+  String get connectionLost => 'αñòαñ¿αÑçαñòαÑìαñ╢αñ¿ αñ╣αñ░αñ╡αñ┐αñ▓αÑÇ';
 
   @override
   String get unableToReconnect =>
-      'कोठासह पुन्हा कनेक्ट करना अक्षम. कृपया पुन्हा जोडना प्रयत्न करा.';
+      'αñòαÑïαñáαñ╛αñ╕αñ╣ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñòαñ¿αÑçαñòαÑìαñƒ αñòαñ░αñ¿αñ╛ αñàαñòαÑìαñ╖αñ«. αñòαÑâαñ¬αñ»αñ╛ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ£αÑïαñíαñ¿αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get invalidFormat => 'अवैध स्वरूप!';
+  String get invalidFormat => 'αñàαñ╡αÑêαñº αñ╕αÑìαñ╡αñ░αÑéαñ¬!';
 
   @override
   String get usernameAlphanumeric =>
-      'वापरकर्तानाव अल्फान्यूमेरिक असणे आवश्यक आहे आणि विशेष अक्षर असू शकत नाहीत.';
+      'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛αñ¿αñ╛αñ╡ αñàαñ▓αÑìαñ½αñ╛αñ¿αÑìαñ»αÑéαñ«αÑçαñ░αñ┐αñò αñàαñ╕αñúαÑç αñåαñ╡αñ╢αÑìαñ»αñò αñåαñ╣αÑç αñåαñúαñ┐ αñ╡αñ┐αñ╢αÑçαñ╖ αñàαñòαÑìαñ╖αñ░ αñàαñ╕αÑé αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇαññ.';
 
   @override
   String get userProfileCreatedSuccessfully =>
-      'आपल्या वापरकर्ता प्रोफाइल यशस्वीरित्या तयार केली.';
+      'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αññαñ»αñ╛αñ░ αñòαÑçαñ▓αÑÇ.';
 
   @override
   String get emailVerificationMessage =>
-      'पुढे जाण्यासाठी, आपले ईमेल पत्ता सत्यापित करा.';
+      'αñ¬αÑüαñóαÑç αñ£αñ╛αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ, αñåαñ¬αñ▓αÑç αñêαñ«αÑçαñ▓ αñ¬αññαÑìαññαñ╛ αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ αñòαñ░αñ╛.';
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return '$storyName मध्ये नविन अध्याय जोडा';
+    return '$storyName αñ«αñºαÑìαñ»αÑç αñ¿αñ╡αñ┐αñ¿ αñàαñºαÑìαñ»αñ╛αñ» αñ£αÑïαñíαñ╛';
   }
 
   @override
-  String get currentChapters => 'वर्तमान अध्याय';
+  String get currentChapters => 'αñ╡αñ░αÑìαññαñ«αñ╛αñ¿ αñàαñºαÑìαñ»αñ╛αñ»';
 
   @override
-  String get sourceCodeOnGitHub => 'GitHub वर स्रोत कोड';
+  String get sourceCodeOnGitHub => 'GitHub αñ╡αñ░ αñ╕αÑìαñ░αÑïαññ αñòαÑïαñí';
 
   @override
-  String get createAChapter => 'एक अध्याय तयार करा';
+  String get createAChapter => 'αñÅαñò αñàαñºαÑìαñ»αñ╛αñ» αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
-  String get chapterTitle => 'अध्याय शीर्षक *';
+  String get chapterTitle => 'αñàαñºαÑìαñ»αñ╛αñ» αñ╢αÑÇαñ░αÑìαñ╖αñò *';
 
   @override
-  String get aboutRequired => 'बद्दल *';
+  String get aboutRequired => 'αñ¼αñªαÑìαñªαñ▓ *';
 
   @override
-  String get changeCoverImage => 'कव्हर इमेज बदला';
+  String get changeCoverImage => 'αñòαñ╡αÑìαñ╣αñ░ αñçαñ«αÑçαñ£ αñ¼αñªαñ▓αñ╛';
 
   @override
-  String get uploadAudioFile => 'ऑडियो फाईल अपलोड करा';
+  String get uploadAudioFile => 'αñæαñíαñ┐αñ»αÑï αñ½αñ╛αñêαñ▓ αñàαñ¬αñ▓αÑïαñí αñòαñ░αñ╛';
 
   @override
-  String get uploadLyricsFile => 'गीत फाईल अपलोड करा';
+  String get uploadLyricsFile => 'αñùαÑÇαññ αñ½αñ╛αñêαñ▓ αñàαñ¬αñ▓αÑïαñí αñòαñ░αñ╛';
 
   @override
-  String get createChapter => 'अध्याय तयार करा';
+  String get createChapter => 'αñàαñºαÑìαñ»αñ╛αñ» αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
   String audioFileSelected(String fileName) {
-    return 'ऑडियो फाईल निवडली: $fileName';
+    return 'αñæαñíαñ┐αñ»αÑï αñ½αñ╛αñêαñ▓ αñ¿αñ┐αñ╡αñíαñ▓αÑÇ: $fileName';
   }
 
   @override
   String lyricsFileSelected(String fileName) {
-    return 'गीत फाईल निवडली: $fileName';
+    return 'αñùαÑÇαññ αñ½αñ╛αñêαñ▓ αñ¿αñ┐αñ╡αñíαñ▓αÑÇ: $fileName';
   }
 
   @override
   String get fillAllRequiredFields =>
-      'कृपया सर्व आवश्यक फील्ड भरा आणि आपल्या ऑडियो फाईल आणि गीत फाईल अपलोड करा';
+      'αñòαÑâαñ¬αñ»αñ╛ αñ╕αñ░αÑìαñ╡ αñåαñ╡αñ╢αÑìαñ»αñò αñ½αÑÇαñ▓αÑìαñí αñ¡αñ░αñ╛ αñåαñúαñ┐ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñæαñíαñ┐αñ»αÑï αñ½αñ╛αñêαñ▓ αñåαñúαñ┐ αñùαÑÇαññ αñ½αñ╛αñêαñ▓ αñàαñ¬αñ▓αÑïαñí αñòαñ░αñ╛';
 
   @override
-  String get scheduled => 'शेड्यूल केलेले';
+  String get scheduled => 'αñ╢αÑçαñíαÑìαñ»αÑéαñ▓ αñòαÑçαñ▓αÑçαñ▓αÑç';
 
   @override
-  String get ok => 'ठीक आहे';
+  String get ok => 'αñáαÑÇαñò αñåαñ╣αÑç';
 
   @override
-  String get roomDescriptionOptional => 'कोठा वर्णन (वैकल्पिक)';
+  String get roomDescriptionOptional => 'αñòαÑïαñáαñ╛ αñ╡αñ░αÑìαñúαñ¿ (αñ╡αÑêαñòαñ▓αÑìαñ¬αñ┐αñò)';
 
   @override
-  String get deleteAccount => 'खाता हटवा';
+  String get deleteAccount => 'αñûαñ╛αññαñ╛ αñ╣αñƒαñ╡αñ╛';
 
   @override
-  String get createYourStory => 'आपल्या कथा तयार करा';
+  String get createYourStory => 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñòαñÑαñ╛ αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
-  String get titleRequired => 'शीर्षक *';
+  String get titleRequired => 'αñ╢αÑÇαñ░αÑìαñ╖αñò *';
 
   @override
-  String get category => 'श्रेणी *';
+  String get category => 'αñ╢αÑìαñ░αÑçαñúαÑÇ *';
 
   @override
-  String get addChapter => 'अध्याय जोडा';
+  String get addChapter => 'αñàαñºαÑìαñ»αñ╛αñ» αñ£αÑïαñíαñ╛';
 
   @override
-  String get createStory => 'कथा तयार करा';
+  String get createStory => 'αñòαñÑαñ╛ αññαñ»αñ╛αñ░ αñòαñ░αñ╛';
 
   @override
   String get fillAllRequiredFieldsAndChapter =>
-      'कृपया सर्व आवश्यक फील्ड भरा, किमान एक अध्याय जोडा, आणि कव्हर प्रतिमा निवडा.';
+      'αñòαÑâαñ¬αñ»αñ╛ αñ╕αñ░αÑìαñ╡ αñåαñ╡αñ╢αÑìαñ»αñò αñ½αÑÇαñ▓αÑìαñí αñ¡αñ░αñ╛, αñòαñ┐αñ«αñ╛αñ¿ αñÅαñò αñàαñºαÑìαñ»αñ╛αñ» αñ£αÑïαñíαñ╛, αñåαñúαñ┐ αñòαñ╡αÑìαñ╣αñ░ αñ¬αÑìαñ░αññαñ┐αñ«αñ╛ αñ¿αñ┐αñ╡αñíαñ╛.';
 
   @override
-  String get toConfirmType => 'पुष्टी करण्यासाठी, टाइप करा';
+  String get toConfirmType => 'αñ¬αÑüαñ╖αÑìαñƒαÑÇ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ, αñƒαñ╛αñçαñ¬ αñòαñ░αñ╛';
 
   @override
-  String get inTheBoxBelow => 'खाली बॉक्समध्ये';
+  String get inTheBoxBelow => 'αñûαñ╛αñ▓αÑÇ αñ¼αÑëαñòαÑìαñ╕αñ«αñºαÑìαñ»αÑç';
 
   @override
-  String get iUnderstandDeleteMyAccount => 'मी समजतो, माझे खाते हटवा';
+  String get iUnderstandDeleteMyAccount => 'αñ«αÑÇ αñ╕αñ«αñ£αññαÑï, αñ«αñ╛αñ¥αÑç αñûαñ╛αññαÑç αñ╣αñƒαñ╡αñ╛';
 
   @override
-  String get whatDoYouWantToListenTo => 'आप काय ऐकू इच्छात?';
+  String get whatDoYouWantToListenTo => 'αñåαñ¬ αñòαñ╛αñ» αñÉαñòαÑé αñçαñÜαÑìαñ¢αñ╛αññ?';
 
   @override
-  String get categories => 'श्रेण्या';
+  String get categories => 'αñ╢αÑìαñ░αÑçαñúαÑìαñ»αñ╛';
 
   @override
-  String get stories => 'कथा';
+  String get stories => 'αñòαñÑαñ╛';
 
   @override
-  String get someSuggestions => 'काही सुझाव';
+  String get someSuggestions => 'αñòαñ╛αñ╣αÑÇ αñ╕αÑüαñ¥αñ╛αñ╡';
 
   @override
-  String get getStarted => 'सुरुवात करा';
+  String get getStarted => 'αñ╕αÑüαñ░αÑüαñ╡αñ╛αññ αñòαñ░αñ╛';
 
   @override
-  String get skip => 'वगळा';
+  String get skip => 'αñ╡αñùαñ│αñ╛';
 
   @override
-  String get welcomeToResonate => 'रेजोनेटमध्ये स्वागतम';
+  String get welcomeToResonate => 'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñ«αñºαÑìαñ»αÑç αñ╕αÑìαñ╡αñ╛αñùαññαñ«';
 
   @override
-  String get exploreDiverseConversations => 'विविध संभाषण अन्वेषण करा';
+  String get exploreDiverseConversations => 'αñ╡αñ┐αñ╡αñ┐αñº αñ╕αñéαñ¡αñ╛αñ╖αñú αñàαñ¿αÑìαñ╡αÑçαñ╖αñú αñòαñ░αñ╛';
 
   @override
-  String get yourVoiceMatters => 'आपल्या आवाजाला महत्त्व आहे';
+  String get yourVoiceMatters => 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñåαñ╡αñ╛αñ£αñ╛αñ▓αñ╛ αñ«αñ╣αññαÑìαññαÑìαñ╡ αñåαñ╣αÑç';
 
   @override
   String get joinConversationExploreRooms =>
-      'संभाषणामध्ये जोडा! कोठे अन्वेषण करा, मित्रांशी जोडा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
+      'αñ╕αñéαñ¡αñ╛αñ╖αñúαñ╛αñ«αñºαÑìαñ»αÑç αñ£αÑïαñíαñ╛! αñòαÑïαñáαÑç αñàαñ¿αÑìαñ╡αÑçαñ╖αñú αñòαñ░αñ╛, αñ«αñ┐αññαÑìαñ░αñ╛αñéαñ╢αÑÇ αñ£αÑïαñíαñ╛, αñåαñúαñ┐ αñåαñ¬αñ▓αÑìαñ»αñ╛ αñåαñ╡αñ╛αñ£ αñ╡αñ┐αñ╢αÑìαñ╡αñ╛αñ╕αñ╣ αñ╕αñ╛αñ«αñ╛αñ»αñ┐αñò αñòαñ░αñ╛.';
 
   @override
   String get diveIntoDiverseDiscussions =>
-      'विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. \nआपल्याला रेजोनेट करणार्या कोठे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा.';
+      'αñ╡αñ┐αñ╡αñ┐αñº αñÜαñ░αÑìαñÜαñ╛ αñåαñúαñ┐ αñ╡αñ┐αñ╖αñ»αñ╛αñéαñ«αñºαÑìαñ»αÑç αñ£αñ╛αñ╣αñ┐αñ░αÑÇαñòαñ░αñú αñòαñ░αñ╛. \nαñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñòαñ░αñúαñ╛αñ░αÑìαñ»αñ╛ αñòαÑïαñáαÑç αñ╢αÑïαñºαñ╛ αñåαñúαñ┐ αñ╕αñ«αÑüαñªαñ╛αñ»αñÜαñ╛ αñ¡αñ╛αñù αñ¼αñ¿αÑéαñ¿ αñ£αñ╛αñ╣αñ┐αñ░αÑÇαñòαñ░αñú αñòαñ░αñ╛.';
 
   @override
   String get atResonateEveryVoiceValued =>
-      'रेजोनेटमध्ये, प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा.';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñ«αñºαÑìαñ»αÑç, αñ¬αÑìαñ░αññαÑìαñ»αÑçαñò αñåαñ╡αñ╛αñ£ αñ«αÑéαñ▓αÑìαñ»αñ╡αñ╛αñ¿ αñåαñ╣αÑç. αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ╡αñ┐αñÜαñ╛αñ░, αñòαñÑαñ╛, αñåαñúαñ┐ αñàαñ¿αÑüαñ¡αñ╡ αñªαÑüαñ╕αñ▒αÑìαñ»αñ╛αñéαñ╕αñ╣ αñ╕αñ╛αñ«αñ╛αñ»αñ┐αñò αñòαñ░αñ╛. αñåαñ¬αñ▓αÑìαñ»αñ╛ αñæαñíαñ┐αñ»αÑï αñ»αñ╛αññαÑìαñ░αñ╛ αñåαññαñ╛ αñ╕αÑüαñ░αÑé αñòαñ░αñ╛.';
 
   @override
-  String get notifications => 'सूचना';
+  String get notifications => 'αñ╕αÑéαñÜαñ¿αñ╛';
 
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
-    return '$username ने आपल्याला आगामी कोठामध्ये टॅग केले: $subject';
+    return '$username αñ¿αÑç αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñåαñùαñ╛αñ«αÑÇ αñòαÑïαñáαñ╛αñ«αñºαÑìαñ»αÑç αñƒαÑàαñù αñòαÑçαñ▓αÑç: $subject';
   }
 
   @override
   String taggedYouInRoom(String username, String subject) {
-    return '$username ने आपल्याला कोठामध्ये टॅग केले: $subject';
+    return '$username αñ¿αÑç αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñòαÑïαñáαñ╛αñ«αñºαÑìαñ»αÑç αñƒαÑàαñù αñòαÑçαñ▓αÑç: $subject';
   }
 
   @override
   String likedYourStory(String username, String subject) {
-    return '$username ने आपल्या कथा पसंद केली: $subject';
+    return '$username αñ¿αÑç αñåαñ¬αñ▓αÑìαñ»αñ╛ αñòαñÑαñ╛ αñ¬αñ╕αñéαñª αñòαÑçαñ▓αÑÇ: $subject';
   }
 
   @override
   String subscribedToYourRoom(String username, String subject) {
-    return '$username ने आपल्या कोठासाठी सदस्यता घेतली: $subject';
+    return '$username αñ¿αÑç αñåαñ¬αñ▓αÑìαñ»αñ╛ αñòαÑïαñáαñ╛αñ╕αñ╛αñáαÑÇ αñ╕αñªαñ╕αÑìαñ»αññαñ╛ αñÿαÑçαññαñ▓αÑÇ: $subject';
   }
 
   @override
   String startedFollowingYou(String username) {
-    return '$username ने आपल्याचा अनुसरण सुरू केला';
+    return '$username αñ¿αÑç αñåαñ¬αñ▓αÑìαñ»αñ╛αñÜαñ╛ αñàαñ¿αÑüαñ╕αñ░αñú αñ╕αÑüαñ░αÑé αñòαÑçαñ▓αñ╛';
   }
 
   @override
-  String get youHaveNewNotification => 'आपल्याला नविन सूचना आहे';
+  String get youHaveNewNotification => 'αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ¿αñ╡αñ┐αñ¿ αñ╕αÑéαñÜαñ¿αñ╛ αñåαñ╣αÑç';
 
   @override
   String get hangOnGoodThingsTakeTime =>
-      'थामा, चांगल्या गोष्टींसाठी वेळ लागतो 🔍';
+      'αñÑαñ╛αñ«αñ╛, αñÜαñ╛αñéαñùαñ▓αÑìαñ»αñ╛ αñùαÑïαñ╖αÑìαñƒαÑÇαñéαñ╕αñ╛αñáαÑÇ αñ╡αÑçαñ│ αñ▓αñ╛αñùαññαÑï ≡ƒöì';
 
   @override
   String get resonateOpenSourceProject =>
-      'रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा github पहा.';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ AOSSIE αñªαÑìαñ╡αñ╛αñ░αÑç αñ░αñ╛αñûαñ▓αÑçαñ▓αñ╛ αñ«αÑüαñòαÑìαññ αñ╕αÑìαñ░αÑïαññ αñ¬αÑìαñ░αñòαñ▓αÑìαñ¬ αñåαñ╣αÑç. αñ»αÑïαñùαñªαñ╛αñ¿ αñªαÑçαñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñåαñ«αñÜαñ╛ github αñ¬αñ╣αñ╛.';
 
   @override
-  String get mute => 'मौन करा';
+  String get mute => 'αñ«αÑîαñ¿ αñòαñ░αñ╛';
 
   @override
-  String get speakerLabel => 'स्पीकर';
+  String get speakerLabel => 'αñ╕αÑìαñ¬αÑÇαñòαñ░';
 
   @override
-  String get end => 'समाप्त करा';
+  String get end => 'αñ╕αñ«αñ╛αñ¬αÑìαññ αñòαñ░αñ╛';
 
   @override
-  String get saveChanges => 'बदल सेव करा';
+  String get saveChanges => 'αñ¼αñªαñ▓ αñ╕αÑçαñ╡ αñòαñ░αñ╛';
 
   @override
-  String get discard => 'त्याग करा';
+  String get discard => 'αññαÑìαñ»αñ╛αñù αñòαñ░αñ╛';
 
   @override
-  String get save => 'सेव करा';
+  String get save => 'αñ╕αÑçαñ╡ αñòαñ░αñ╛';
 
   @override
-  String get changeProfilePicture => 'प्रोफाइल चित्र बदला';
+  String get changeProfilePicture => 'αñ¬αÑìαñ░αÑïαñ½αñ╛αñçαñ▓ αñÜαñ┐αññαÑìαñ░ αñ¼αñªαñ▓αñ╛';
 
   @override
-  String get camera => 'कॅमेरा';
+  String get camera => 'αñòαÑàαñ«αÑçαñ░αñ╛';
 
   @override
-  String get gallery => 'गॅलेरी';
+  String get gallery => 'αñùαÑàαñ▓αÑçαñ░αÑÇ';
 
   @override
-  String get remove => 'काढून टाका';
+  String get remove => 'αñòαñ╛αñóαÑéαñ¿ αñƒαñ╛αñòαñ╛';
 
   @override
   String created(String date) {
-    return '$date ला तयार केले';
+    return '$date αñ▓αñ╛ αññαñ»αñ╛αñ░ αñòαÑçαñ▓αÑç';
   }
 
   @override
-  String get chapters => 'अध्याय';
+  String get chapters => 'αñàαñºαÑìαñ»αñ╛αñ»';
 
   @override
-  String get deleteStory => 'कथा हटवा';
+  String get deleteStory => 'αñòαñÑαñ╛ αñ╣αñƒαñ╡αñ╛';
 
   @override
   String createdBy(String creatorName) {
-    return '$creatorName द्वारे निर्मित';
+    return '$creatorName αñªαÑìαñ╡αñ╛αñ░αÑç αñ¿αñ┐αñ░αÑìαñ«αñ┐αññ';
   }
 
   @override
-  String get start => 'सुरू करा';
+  String get start => 'αñ╕αÑüαñ░αÑé αñòαñ░αñ╛';
 
   @override
-  String get unsubscribe => 'सदस्यता रद्द करा';
+  String get unsubscribe => 'αñ╕αñªαñ╕αÑìαñ»αññαñ╛ αñ░αñªαÑìαñª αñòαñ░αñ╛';
 
   @override
-  String get subscribe => 'सदस्यता घ्या';
+  String get subscribe => 'αñ╕αñªαñ╕αÑìαñ»αññαñ╛ αñÿαÑìαñ»αñ╛';
 
   @override
   String storyCategory(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'drama': 'नाटक',
-      'comedy': 'हास्य',
-      'horror': 'भयानक',
-      'romance': 'प्रेम',
-      'thriller': 'रोमांच',
-      'spiritual': 'आध्यात्मिक',
-      'other': 'इतर',
+      'drama': 'αñ¿αñ╛αñƒαñò',
+      'comedy': 'αñ╣αñ╛αñ╕αÑìαñ»',
+      'horror': 'αñ¡αñ»αñ╛αñ¿αñò',
+      'romance': 'αñ¬αÑìαñ░αÑçαñ«',
+      'thriller': 'αñ░αÑïαñ«αñ╛αñéαñÜ',
+      'spiritual': 'αñåαñºαÑìαñ»αñ╛αññαÑìαñ«αñ┐αñò',
+      'other': 'αñçαññαñ░',
     });
     return '$_temp0';
   }
@@ -1060,13 +1061,13 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String chooseTheme(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'classicTheme': 'शास्त्रीय',
-      'timeTheme': 'वेळ',
-      'vintageTheme': 'विंटेज',
-      'amberTheme': 'एम्बर',
-      'forestTheme': 'जंगल',
-      'creamTheme': 'क्रीम',
-      'other': 'इतर',
+      'classicTheme': 'αñ╢αñ╛αñ╕αÑìαññαÑìαñ░αÑÇαñ»',
+      'timeTheme': 'αñ╡αÑçαñ│',
+      'vintageTheme': 'αñ╡αñ┐αñéαñƒαÑçαñ£',
+      'amberTheme': 'αñÅαñ«αÑìαñ¼αñ░',
+      'forestTheme': 'αñ£αñéαñùαñ▓',
+      'creamTheme': 'αñòαÑìαñ░αÑÇαñ«',
+      'other': 'αñçαññαñ░',
     });
     return '$_temp0';
   }
@@ -1076,8 +1077,8 @@ class AppLocalizationsMr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count मिनिटे आधी',
-      one: '१ मिनिट आधी',
+      other: '$count αñ«αñ┐αñ¿αñ┐αñƒαÑç αñåαñºαÑÇ',
+      one: 'αÑº αñ«αñ┐αñ¿αñ┐αñƒ αñåαñºαÑÇ',
     );
     return '$_temp0';
   }
@@ -1087,8 +1088,8 @@ class AppLocalizationsMr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count तास आधी',
-      one: '१ तास आधी',
+      other: '$count αññαñ╛αñ╕ αñåαñºαÑÇ',
+      one: 'αÑº αññαñ╛αñ╕ αñåαñºαÑÇ',
     );
     return '$_temp0';
   }
@@ -1098,249 +1099,249 @@ class AppLocalizationsMr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count दिवस आधी',
-      one: '१ दिवस आधी',
+      other: '$count αñªαñ┐αñ╡αñ╕ αñåαñºαÑÇ',
+      one: 'αÑº αñªαñ┐αñ╡αñ╕ αñåαñºαÑÇ',
     );
     return '$_temp0';
   }
 
   @override
-  String get by => 'द्वारे';
+  String get by => 'αñªαÑìαñ╡αñ╛αñ░αÑç';
 
   @override
-  String get likes => 'आवडते';
+  String get likes => 'αñåαñ╡αñíαññαÑç';
 
   @override
-  String get lengthMinutes => 'मिनिट';
+  String get lengthMinutes => 'αñ«αñ┐αñ¿αñ┐αñƒ';
 
   @override
-  String get requiredField => 'आवश्यक फील्ड';
+  String get requiredField => 'αñåαñ╡αñ╢αÑìαñ»αñò αñ½αÑÇαñ▓αÑìαñí';
 
   @override
-  String get onlineUsers => 'ऑनलाइन वापरकर्ते';
+  String get onlineUsers => 'αñæαñ¿αñ▓αñ╛αñçαñ¿ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑç';
 
   @override
-  String get noOnlineUsers => 'सध्या कोणतेही वापरकर्ते ऑनलाइन नाहीत';
+  String get noOnlineUsers => 'αñ╕αñºαÑìαñ»αñ╛ αñòαÑïαñúαññαÑçαñ╣αÑÇ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑç αñæαñ¿αñ▓αñ╛αñçαñ¿ αñ¿αñ╛αñ╣αÑÇαññ';
 
   @override
-  String get chooseUser => 'चॅट करण्यासाठी वापरकर्ता निवडा';
+  String get chooseUser => 'αñÜαÑàαñƒ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ αñ¿αñ┐αñ╡αñíαñ╛';
 
   @override
-  String get quickMatch => 'द्रुत जुळणी';
+  String get quickMatch => 'αñªαÑìαñ░αÑüαññ αñ£αÑüαñ│αñúαÑÇ';
 
   @override
-  String get story => 'कथा';
+  String get story => 'αñòαñÑαñ╛';
 
   @override
-  String get user => 'वापरकर्ता';
+  String get user => 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛';
 
   @override
-  String get following => 'अनुसरण करत आहे';
+  String get following => 'αñàαñ¿αÑüαñ╕αñ░αñú αñòαñ░αññ αñåαñ╣αÑç';
 
   @override
-  String get followers => 'अनुयायी';
+  String get followers => 'αñàαñ¿αÑüαñ»αñ╛αñ»αÑÇ';
 
   @override
-  String get friendRequests => 'मित्र विनंत्या';
+  String get friendRequests => 'αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑìαñ»αñ╛';
 
   @override
-  String get friendRequestSent => 'मित्र विनंती पाठविली';
+  String get friendRequestSent => 'αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ αñ¬αñ╛αñáαñ╡αñ┐αñ▓αÑÇ';
 
   @override
   String friendRequestSentTo(String username) {
-    return 'आपल्या मित्र विनंती $username ला पाठविली गई आहे.';
+    return 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ $username αñ▓αñ╛ αñ¬αñ╛αñáαñ╡αñ┐αñ▓αÑÇ αñùαñê αñåαñ╣αÑç.';
   }
 
   @override
-  String get friendRequestCancelled => 'मित्र विनंती रद्द';
+  String get friendRequestCancelled => 'αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ αñ░αñªαÑìαñª';
 
   @override
   String friendRequestCancelledTo(String username) {
-    return 'आपल्या मित्र विनंती $username ला रद्द केली गई आहे.';
+    return 'αñåαñ¬αñ▓αÑìαñ»αñ╛ αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ $username αñ▓αñ╛ αñ░αñªαÑìαñª αñòαÑçαñ▓αÑÇ αñùαñê αñåαñ╣αÑç.';
   }
 
   @override
-  String get requested => 'विनंती केली';
+  String get requested => 'αñ╡αñ┐αñ¿αñéαññαÑÇ αñòαÑçαñ▓αÑÇ';
 
   @override
-  String get friends => 'मित्र';
+  String get friends => 'αñ«αñ┐αññαÑìαñ░';
 
   @override
-  String get addFriend => 'मित्र जोडा';
+  String get addFriend => 'αñ«αñ┐αññαÑìαñ░ αñ£αÑïαñíαñ╛';
 
   @override
-  String get friendRequestAccepted => 'मित्र विनंती स्वीकारली';
+  String get friendRequestAccepted => 'αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ αñ╕αÑìαñ╡αÑÇαñòαñ╛αñ░αñ▓αÑÇ';
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'आप आता $username सह मित्र आहात.';
+    return 'αñåαñ¬ αñåαññαñ╛ $username αñ╕αñ╣ αñ«αñ┐αññαÑìαñ░ αñåαñ╣αñ╛αññ.';
   }
 
   @override
-  String get friendRequestDeclined => 'मित्र विनंती नकारली';
+  String get friendRequestDeclined => 'αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ αñ¿αñòαñ╛αñ░αñ▓αÑÇ';
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'आपने $username कडून मित्र विनंती नकारली आहे.';
+    return 'αñåαñ¬αñ¿αÑç $username αñòαñíαÑéαñ¿ αñ«αñ┐αññαÑìαñ░ αñ╡αñ┐αñ¿αñéαññαÑÇ αñ¿αñòαñ╛αñ░αñ▓αÑÇ αñåαñ╣αÑç.';
   }
 
   @override
-  String get accept => 'स्वीकारा';
+  String get accept => 'αñ╕αÑìαñ╡αÑÇαñòαñ╛αñ░αñ╛';
 
   @override
-  String get callDeclined => 'कॉल नकारली';
+  String get callDeclined => 'αñòαÑëαñ▓ αñ¿αñòαñ╛αñ░αñ▓αÑÇ';
 
   @override
   String callDeclinedTo(String username) {
-    return 'वापरकर्ता $username ने कॉल नकारली.';
+    return 'αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαñ╛ $username αñ¿αÑç αñòαÑëαñ▓ αñ¿αñòαñ╛αñ░αñ▓αÑÇ.';
   }
 
   @override
-  String get checkForUpdates => 'अपडेट तपासा';
+  String get checkForUpdates => 'αñàαñ¬αñíαÑçαñƒ αññαñ¬αñ╛αñ╕αñ╛';
 
   @override
-  String get updateNow => 'आता अपडेट करा';
+  String get updateNow => 'αñåαññαñ╛ αñàαñ¬αñíαÑçαñƒ αñòαñ░αñ╛';
 
   @override
-  String get updateLater => 'नंतर';
+  String get updateLater => 'αñ¿αñéαññαñ░';
 
   @override
-  String get updateSuccessful => 'अपडेट यशस्वी';
+  String get updateSuccessful => 'αñàαñ¬αñíαÑçαñƒ αñ»αñ╢αñ╕αÑìαñ╡αÑÇ';
 
   @override
   String get updateSuccessfulMessage =>
-      'रेजोनेट यशस्वीरित्या अपडेट केली गई आहे!';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñàαñ¬αñíαÑçαñƒ αñòαÑçαñ▓αÑÇ αñùαñê αñåαñ╣αÑç!';
 
   @override
-  String get updateCancelled => 'अपडेट रद्द';
+  String get updateCancelled => 'αñàαñ¬αñíαÑçαñƒ αñ░αñªαÑìαñª';
 
   @override
-  String get updateCancelledMessage => 'अपडेट वापरकर्त्याद्वारे रद्द केली गई';
+  String get updateCancelledMessage => 'αñàαñ¬αñíαÑçαñƒ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑìαñ»αñ╛αñªαÑìαñ╡αñ╛αñ░αÑç αñ░αñªαÑìαñª αñòαÑçαñ▓αÑÇ αñùαñê';
 
   @override
-  String get updateFailed => 'अपडेट अयोग्य';
+  String get updateFailed => 'αñàαñ¬αñíαÑçαñƒ αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
   String get updateFailedMessage =>
-      'अपडेट करणे अयोग्य. कृपया Play Store मधून व्यक्तिमत्तेने अपडेट करा.';
+      'αñàαñ¬αñíαÑçαñƒ αñòαñ░αñúαÑç αñàαñ»αÑïαñùαÑìαñ». αñòαÑâαñ¬αñ»αñ╛ Play Store αñ«αñºαÑéαñ¿ αñ╡αÑìαñ»αñòαÑìαññαñ┐αñ«αññαÑìαññαÑçαñ¿αÑç αñàαñ¬αñíαÑçαñƒ αñòαñ░αñ╛.';
 
   @override
-  String get updateError => 'अपडेट त्रुटी';
+  String get updateError => 'αñàαñ¬αñíαÑçαñƒ αññαÑìαñ░αÑüαñƒαÑÇ';
 
   @override
   String get updateErrorMessage =>
-      'अपडेट करताना त्रुटी उद्भवली. कृपया पुन्हा प्रयत्न करा.';
+      'αñàαñ¬αñíαÑçαñƒ αñòαñ░αññαñ╛αñ¿αñ╛ αññαÑìαñ░αÑüαñƒαÑÇ αñëαñªαÑìαñ¡αñ╡αñ▓αÑÇ. αñòαÑâαñ¬αñ»αñ╛ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get platformNotSupported => 'मंच समर्थित नाही';
+  String get platformNotSupported => 'αñ«αñéαñÜ αñ╕αñ«αñ░αÑìαñÑαñ┐αññ αñ¿αñ╛αñ╣αÑÇ';
 
   @override
   String get platformNotSupportedMessage =>
-      'अपडेट तपास फक्त Android डिव्हाइसवर उपलब्ध आहे';
+      'αñàαñ¬αñíαÑçαñƒ αññαñ¬αñ╛αñ╕ αñ½αñòαÑìαññ Android αñíαñ┐αñ╡αÑìαñ╣αñ╛αñçαñ╕αñ╡αñ░ αñëαñ¬αñ▓αñ¼αÑìαñº αñåαñ╣αÑç';
 
   @override
-  String get updateCheckFailed => 'अपडेट तपास अयोग्य';
+  String get updateCheckFailed => 'αñàαñ¬αñíαÑçαñƒ αññαñ¬αñ╛αñ╕ αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
   String get updateCheckFailedMessage =>
-      'अपडेट तपास करू शकत नाही. कृपया नंतर पुन्हा प्रयत्न करा.';
+      'αñàαñ¬αñíαÑçαñƒ αññαñ¬αñ╛αñ╕ αñòαñ░αÑé αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇ. αñòαÑâαñ¬αñ»αñ╛ αñ¿αñéαññαñ░ αñ¬αÑüαñ¿αÑìαñ╣αñ╛ αñ¬αÑìαñ░αñ»αññαÑìαñ¿ αñòαñ░αñ╛.';
 
   @override
-  String get upToDateTitle => 'आप अद्यावधिक आहात!';
+  String get upToDateTitle => 'αñåαñ¬ αñàαñªαÑìαñ»αñ╛αñ╡αñºαñ┐αñò αñåαñ╣αñ╛αññ!';
 
   @override
-  String get upToDateMessage => 'आप रेजोनेटचे नवीनतम संस्करण वापरत आहात';
+  String get upToDateMessage => 'αñåαñ¬ αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñÜαÑç αñ¿αñ╡αÑÇαñ¿αññαñ« αñ╕αñéαñ╕αÑìαñòαñ░αñú αñ╡αñ╛αñ¬αñ░αññ αñåαñ╣αñ╛αññ';
 
   @override
-  String get updateAvailableTitle => 'अपडेट उपलब्ध!';
+  String get updateAvailableTitle => 'αñàαñ¬αñíαÑçαñƒ αñëαñ¬αñ▓αñ¼αÑìαñº!';
 
   @override
   String get updateAvailableMessage =>
-      'रेजोनेटचे नविन संस्करण Play Store वर उपलब्ध आहे';
+      'αñ░αÑçαñ£αÑïαñ¿αÑçαñƒαñÜαÑç αñ¿αñ╡αñ┐αñ¿ αñ╕αñéαñ╕αÑìαñòαñ░αñú Play Store αñ╡αñ░ αñëαñ¬αñ▓αñ¼αÑìαñº αñåαñ╣αÑç';
 
   @override
-  String get updateFeaturesImprovement => 'नविन वैशिष्ट्य आणि सुधार मिळवा!';
+  String get updateFeaturesImprovement => 'αñ¿αñ╡αñ┐αñ¿ αñ╡αÑêαñ╢αñ┐αñ╖αÑìαñƒαÑìαñ» αñåαñúαñ┐ αñ╕αÑüαñºαñ╛αñ░ αñ«αñ┐αñ│αñ╡αñ╛!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'αñûαÑïαñ▓αÑÇ αñòαñ╛αñóαñúαÑìαñ»αñ╛αññ αñàαñ»αñ╢αñ╕αÑìαñ╡αÑÇ';
 
   @override
   String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+      'αñûαÑïαñ▓αÑÇ αññαÑüαñ«αñÜαÑìαñ»αñ╛ αñ»αñ╛αñªαÑÇαññαÑéαñ¿ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñòαñ╛αñóαñ▓αÑÇ αñùαÑçαñ▓αÑÇ';
 
   @override
-  String get alert => 'सतर्क';
+  String get alert => 'αñ╕αññαñ░αÑìαñò';
 
   @override
   String get removedFromRoom =>
-      'आपल्याला रिपोर्ट केली गई किंवा कोठ्यातून काढून देण्यात आली';
+      'αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαÑçαñ▓αÑÇ αñùαñê αñòαñ┐αñéαñ╡αñ╛ αñòαÑïαñáαÑìαñ»αñ╛αññαÑéαñ¿ αñòαñ╛αñóαÑéαñ¿ αñªαÑçαñúαÑìαñ»αñ╛αññ αñåαñ▓αÑÇ';
 
   @override
   String reportType(String type) {
     String _temp0 = intl.Intl.selectLogic(type, {
-      'harassment': 'उत्पीडन / द्वेष भाषण',
-      'abuse': 'अपमानजनक सामग्री / हिंसा',
-      'spam': 'स्पॅम / घोटाळे / धोखाधरी',
-      'impersonation': 'झूठी व्यक्तिमत्ता / खोटे खाते',
-      'illegal': 'अवैध क्रियाकलाप',
-      'selfharm': 'आत्महानि / आत्महत्या / मानसिक स्वास्थ्य',
-      'misuse': 'मंचचा दुरुपयोग',
-      'other': 'इतर',
+      'harassment': 'αñëαññαÑìαñ¬αÑÇαñíαñ¿ / αñªαÑìαñ╡αÑçαñ╖ αñ¡αñ╛αñ╖αñú',
+      'abuse': 'αñàαñ¬αñ«αñ╛αñ¿αñ£αñ¿αñò αñ╕αñ╛αñ«αñùαÑìαñ░αÑÇ / αñ╣αñ┐αñéαñ╕αñ╛',
+      'spam': 'αñ╕αÑìαñ¬αÑàαñ« / αñÿαÑïαñƒαñ╛αñ│αÑç / αñºαÑïαñûαñ╛αñºαñ░αÑÇ',
+      'impersonation': 'αñ¥αÑéαñáαÑÇ αñ╡αÑìαñ»αñòαÑìαññαñ┐αñ«αññαÑìαññαñ╛ / αñûαÑïαñƒαÑç αñûαñ╛αññαÑç',
+      'illegal': 'αñàαñ╡αÑêαñº αñòαÑìαñ░αñ┐αñ»αñ╛αñòαñ▓αñ╛αñ¬',
+      'selfharm': 'αñåαññαÑìαñ«αñ╣αñ╛αñ¿αñ┐ / αñåαññαÑìαñ«αñ╣αññαÑìαñ»αñ╛ / αñ«αñ╛αñ¿αñ╕αñ┐αñò αñ╕αÑìαñ╡αñ╛αñ╕αÑìαñÑαÑìαñ»',
+      'misuse': 'αñ«αñéαñÜαñÜαñ╛ αñªαÑüαñ░αÑüαñ¬αñ»αÑïαñù',
+      'other': 'αñçαññαñ░',
     });
     return '$_temp0';
   }
 
   @override
   String get userBlockedFromResonate =>
-      'आपल्याला वापरकर्त्यांकडून अनेक रिपोर्ट प्राप्त झाली आहे आणि आपल्याला रेजोनेट वापरणे ब्लॉक केले गई आहे. आप यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.';
+      'αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ╡αñ╛αñ¬αñ░αñòαñ░αÑìαññαÑìαñ»αñ╛αñéαñòαñíαÑéαñ¿ αñàαñ¿αÑçαñò αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ¬αÑìαñ░αñ╛αñ¬αÑìαññ αñ¥αñ╛αñ▓αÑÇ αñåαñ╣αÑç αñåαñúαñ┐ αñåαñ¬αñ▓αÑìαñ»αñ╛αñ▓αñ╛ αñ░αÑçαñ£αÑïαñ¿αÑçαñƒ αñ╡αñ╛αñ¬αñ░αñúαÑç αñ¼αÑìαñ▓αÑëαñò αñòαÑçαñ▓αÑç αñùαñê αñåαñ╣αÑç. αñåαñ¬ αñ»αñ╛αñ╡αñ░ αñ╡αñ┐αñ╢αÑìαñ╡αñ╛αñ╕ αñòαñ░αññ αñ¿αñ╛αñ╣αÑÇ αñàαñ╕αñ▓αÑìαñ»αñ╛αñ╕ αñòαÑâαñ¬αñ»αñ╛ AOSSIE αñ╢αÑÇ αñ╕αñéαñ¬αñ░αÑìαñò αñòαñ░αñ╛.';
 
   @override
-  String get reportParticipant => 'सहभागी रिपोर्ट करा';
+  String get reportParticipant => 'αñ╕αñ╣αñ¡αñ╛αñùαÑÇ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñòαñ░αñ╛';
 
   @override
-  String get selectReportType => 'कृपया रिपोर्ट प्रकार निवडा';
+  String get selectReportType => 'αñòαÑâαñ¬αñ»αñ╛ αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ¬αÑìαñ░αñòαñ╛αñ░ αñ¿αñ┐αñ╡αñíαñ╛';
 
   @override
-  String get reportSubmitted => 'रिपोर्ट यशस्वीरित्या सबमिट केली';
+  String get reportSubmitted => 'αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ»αñ╢αñ╕αÑìαñ╡αÑÇαñ░αñ┐αññαÑìαñ»αñ╛ αñ╕αñ¼αñ«αñ┐αñƒ αñòαÑçαñ▓αÑÇ';
 
   @override
-  String get reportFailed => 'रिपोर्ट सबमिशन अयोग्य';
+  String get reportFailed => 'αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ╕αñ¼αñ«αñ┐αñ╢αñ¿ αñàαñ»αÑïαñùαÑìαñ»';
 
   @override
-  String get additionalDetailsOptional => 'अतिरिक्त विवरण (वैकल्पिक)';
+  String get additionalDetailsOptional => 'αñàαññαñ┐αñ░αñ┐αñòαÑìαññ αñ╡αñ┐αñ╡αñ░αñú (αñ╡αÑêαñòαñ▓αÑìαñ¬αñ┐αñò)';
 
   @override
-  String get submitReport => 'रिपोर्ट सबमिट करा';
+  String get submitReport => 'αñ░αñ┐αñ¬αÑïαñ░αÑìαñƒ αñ╕αñ¼αñ«αñ┐αñƒ αñòαñ░αñ╛';
 
   @override
-  String get actionBlocked => 'क्रिया ब्लॉक केली';
+  String get actionBlocked => 'αñòαÑìαñ░αñ┐αñ»αñ╛ αñ¼αÑìαñ▓αÑëαñò αñòαÑçαñ▓αÑÇ';
 
   @override
   String get cannotStopRecording =>
-      'आप रेकॉर्डिंग व्यक्तिमत्तेने रोक शकत नाहीत, कोठा बंद होताच रेकॉर्डिंग रोक दिली जाईल.';
+      'αñåαñ¬ αñ░αÑçαñòαÑëαñ░αÑìαñíαñ┐αñéαñù αñ╡αÑìαñ»αñòαÑìαññαñ┐αñ«αññαÑìαññαÑçαñ¿αÑç αñ░αÑïαñò αñ╢αñòαññ αñ¿αñ╛αñ╣αÑÇαññ, αñòαÑïαñáαñ╛ αñ¼αñéαñª αñ╣αÑïαññαñ╛αñÜ αñ░αÑçαñòαÑëαñ░αÑìαñíαñ┐αñéαñù αñ░αÑïαñò αñªαñ┐αñ▓αÑÇ αñ£αñ╛αñêαñ▓.';
 
   @override
-  String get liveChapter => 'लाइव्ह अध्याय';
+  String get liveChapter => 'αñ▓αñ╛αñçαñ╡αÑìαñ╣ αñàαñºαÑìαñ»αñ╛αñ»';
 
   @override
-  String get viewOrEditLyrics => 'गीत पाहा किंवा संपादित करा';
+  String get viewOrEditLyrics => 'αñùαÑÇαññ αñ¬αñ╛αñ╣αñ╛ αñòαñ┐αñéαñ╡αñ╛ αñ╕αñéαñ¬αñ╛αñªαñ┐αññ αñòαñ░αñ╛';
 
   @override
-  String get close => 'बंद करा';
+  String get close => 'αñ¼αñéαñª αñòαñ░αñ╛';
 
   @override
-  String get verifyChapterDetails => 'अध्याय तपशील सत्यापित करा';
+  String get verifyChapterDetails => 'αñàαñºαÑìαñ»αñ╛αñ» αññαñ¬αñ╢αÑÇαñ▓ αñ╕αññαÑìαñ»αñ╛αñ¬αñ┐αññ αñòαñ░αñ╛';
 
   @override
-  String get author => 'लेखक';
+  String get author => 'αñ▓αÑçαñûαñò';
 
   @override
-  String get startLiveChapter => 'लाइव्ह अध्याय सुरू करा';
+  String get startLiveChapter => 'αñ▓αñ╛αñçαñ╡αÑìαñ╣ αñàαñºαÑìαñ»αñ╛αñ» αñ╕αÑüαñ░αÑé αñòαñ░αñ╛';
 
   @override
-  String get fillAllFields => 'कृपया सर्व आवश्यक फील्ड भरा';
+  String get fillAllFields => 'αñòαÑâαñ¬αñ»αñ╛ αñ╕αñ░αÑìαñ╡ αñåαñ╡αñ╢αÑìαñ»αñò αñ½αÑÇαñ▓αÑìαñí αñ¡αñ░αñ╛';
 
   @override
   String get noRecordingError =>
-      'आपने अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कोठा बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
+      'αñåαñ¬αñ¿αÑç αñàαñºαÑìαñ»αñ╛αñ»αñ╕αñ╛αñáαÑÇ αñòαÑïαñúαññαÑçαñ╣αÑÇ αñ░αÑçαñòαÑëαñ░αÑìαñíαñ┐αñéαñù αñòαÑçαñ▓αÑç αñ¿αñ╛αñ╣αÑÇ. αñòαÑïαñáαñ╛ αñ¼αñéαñª αñòαñ░αñúαÑìαñ»αñ╛αñ¬αÑéαñ░αÑìαñ╡αÑÇ αñòαÑâαñ¬αñ»αñ╛ αñàαñºαÑìαñ»αñ╛αñ» αñ░αÑçαñòαÑëαñ░αÑìαñí αñòαñ░αñ╛';
 }

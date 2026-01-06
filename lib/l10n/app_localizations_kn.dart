@@ -1,4 +1,4 @@
-// ignore: unused_import
+﻿// ignore: unused_import
 import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
@@ -9,757 +9,758 @@ class AppLocalizationsKn extends AppLocalizations {
   AppLocalizationsKn([String locale = 'kn']) : super(locale);
 
   @override
-  String get title => 'ರೆಸೋನೇಟ್';
+  String get title => 'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì';
 
   @override
   String get roomDescription =>
-      'ವಿನಯಶೀಲರಾಗಿರಿ ಮತ್ತು ಇತರರ ಅಭಿಪ್ರಾಯವನ್ನು ಗೌರವಿಸಿ. ಅಸಭ್ಯ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಬಳಸಬೇಡಿ.';
+      'α▓╡α▓┐α▓¿α▓»α▓╢α│Çα▓▓α▓░α▓╛α▓ùα▓┐α▓░α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓çα▓ñα▓░α▓░ α▓àα▓¡α▓┐α▓¬α│ìα▓░α▓╛α▓»α▓╡α▓¿α│ìα▓¿α│ü α▓ùα│îα▓░α▓╡α▓┐α▓╕α▓┐. α▓àα▓╕α▓¡α│ìα▓» α▓òα▓╛α▓«α│åα▓éα▓ƒα│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¼α▓│α▓╕α▓¼α│çα▓íα▓┐.';
 
   @override
-  String get hidePassword => 'ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಬೇಡ';
+  String get hidePassword => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓ñα│ïα▓░α▓┐α▓╕α▓¼α│çα▓í';
 
   @override
-  String get showPassword => 'ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ';
+  String get showPassword => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓ñα│ïα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get passwordEmpty => 'ಪಾಸ್‌ವರ್ಡ್ ಖಾಲಿ ಇರಬಾರದು';
+  String get passwordEmpty => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓ûα▓╛α▓▓α▓┐ α▓çα▓░α▓¼α▓╛α▓░α▓ªα│ü';
 
   @override
-  String get password => 'ಪಾಸ್‌ವರ್ಡ್';
+  String get password => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì';
 
   @override
-  String get confirmPassword => 'ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ';
+  String get confirmPassword => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓ªα│âα▓óα│Çα▓òα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get passwordsNotMatch => 'ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ';
+  String get passwordsNotMatch => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ìΓÇîα▓ùα▓│α│ü α▓╣α│èα▓éα▓ªα▓┐α▓òα│åα▓»α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get userCreatedStories => 'ಬಳಕೆದಾರರು ರಚಿಸಿದ ಕಥೆಗಳು';
+  String get userCreatedStories => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü α▓░α▓Üα▓┐α▓╕α▓┐α▓ª α▓òα▓Ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get yourStories => 'ನಿಮ್ಮ ಕಥೆಗಳು';
+  String get yourStories => 'α▓¿α▓┐α▓«α│ìα▓« α▓òα▓Ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get userNoStories => 'ಬಳಕೆದಾರರು ಯಾವುದೇ ಕಥೆ ರಚಿಸಿಲ್ಲ';
+  String get userNoStories => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│å α▓░α▓Üα▓┐α▓╕α▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get youNoStories => 'ನೀವು ಯಾವುದೇ ಕಥೆ ರಚಿಸಿಲ್ಲ';
+  String get youNoStories => 'α▓¿α│Çα▓╡α│ü α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│å α▓░α▓Üα▓┐α▓╕α▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get follow => 'ಫಾಲೋ';
+  String get follow => 'α▓½α▓╛α▓▓α│ï';
 
   @override
-  String get editProfile => 'ಪ್ರೊಫೈಲ್ ಮಾರ್ಪಡಿಸು';
+  String get editProfile => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓«α▓╛α▓░α│ìα▓¬α▓íα▓┐α▓╕α│ü';
 
   @override
-  String get verifyEmail => 'ಇಮೇಲ್ ಪರಿಶೀಲಿಸಿ';
+  String get verifyEmail => 'α▓çα▓«α│çα▓▓α│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get verified => 'ಪರಿಶೀಲಿಸಲಾಗಿದೆ';
+  String get verified => 'α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get profile => 'ಪ್ರೊಫೈಲ್';
+  String get profile => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì';
 
   @override
-  String get userLikedStories => 'ಬಳಕೆದಾರರು ಇಷ್ಟಪಟ್ಟ ಕಥೆಗಳು';
+  String get userLikedStories => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü α▓çα▓╖α│ìα▓ƒα▓¬α▓ƒα│ìα▓ƒ α▓òα▓Ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get yourLikedStories => 'ನೀವು ಇಷ್ಟಪಟ್ಟ ಕಥೆಗಳು';
+  String get yourLikedStories => 'α▓¿α│Çα▓╡α│ü α▓çα▓╖α│ìα▓ƒα▓¬α▓ƒα│ìα▓ƒ α▓òα▓Ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get userNoLikedStories => 'ಬಳಕೆದಾರರು ಯಾವುದೇ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿಲ್ಲ';
+  String get userNoLikedStories => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓çα▓╖α│ìα▓ƒα▓¬α▓ƒα│ìα▓ƒα▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get youNoLikedStories => 'ನೀವು ಯಾವುದೇ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿಲ್ಲ';
+  String get youNoLikedStories => 'α▓¿α│Çα▓╡α│ü α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓çα▓╖α│ìα▓ƒα▓¬α▓ƒα│ìα▓ƒα▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get live => 'ಲೈವ್';
+  String get live => 'α▓▓α│êα▓╡α│ì';
 
   @override
-  String get upcoming => 'ಮುಂಬರುವ';
+  String get upcoming => 'α▓«α│üα▓éα▓¼α▓░α│üα▓╡';
 
   @override
   String noAvailableRoom(String isRoom) {
     String _temp0 = intl.Intl.selectLogic(isRoom, {
-      'true': 'ಯಾವುದೇ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ',
-      'false': 'ಯಾವುದೇ ಮುಂಬರುವ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ',
-      'other': 'ರೂಮ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ',
+      'true': 'α▓»α▓╛α▓╡α│üα▓ªα│ç α▓░α│éα▓«α│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓',
+      'false': 'α▓»α▓╛α▓╡α│üα▓ªα│ç α▓«α│üα▓éα▓¼α▓░α│üα▓╡ α▓░α│éα▓«α│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓',
+      'other': 'α▓░α│éα▓«α│ì α▓«α▓╛α▓╣α▓┐α▓ñα▓┐ α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓',
     });
-    return '$_temp0\nಕೆಳಗೆ ಒಂದು ರೂಮ್ಅನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ!';
+    return '$_temp0\nα▓òα│åα▓│α▓ùα│å α▓Æα▓éα▓ªα│ü α▓░α│éα▓«α│ìα▓àα▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α│üα▓╡ α▓«α│éα▓▓α▓ò α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐!';
   }
 
   @override
-  String get user1 => 'ಬಳಕೆದಾರ 1';
+  String get user1 => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ 1';
 
   @override
-  String get user2 => 'ಬಳಕೆದಾರ 2';
+  String get user2 => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ 2';
 
   @override
-  String get you => 'ನೀವು';
+  String get you => 'α▓¿α│Çα▓╡α│ü';
 
   @override
-  String get areYouSure => 'ಖಚಿತವೇ?';
+  String get areYouSure => 'α▓ûα▓Üα▓┐α▓ñα▓╡α│ç?';
 
   @override
-  String get loggingOut => 'ನೀವು ರೆಸೋನೇಟ್‌ನಿಂದ ಲಾಗ್ ಔಟ್ ಆಗುತ್ತಿದ್ದೀರಿ.';
+  String get loggingOut => 'α▓¿α│Çα▓╡α│ü α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓¿α▓┐α▓éα▓ª α▓▓α▓╛α▓ùα│ì α▓öα▓ƒα│ì α▓åα▓ùα│üα▓ñα│ìα▓ñα▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐.';
 
   @override
-  String get yes => 'ಹೌದು';
+  String get yes => 'α▓╣α│îα▓ªα│ü';
 
   @override
-  String get no => 'ಇಲ್ಲ';
+  String get no => 'α▓çα▓▓α│ìα▓▓';
 
   @override
-  String get incorrectEmailOrPassword => 'ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ';
+  String get incorrectEmailOrPassword => 'α▓çα▓«α│çα▓▓α│ì α▓àα▓Ñα▓╡α▓╛ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓ñα▓¬α│ìα▓¬α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get passwordShort => 'ಪಾಸ್‌ವರ್ಡ್ 8 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ ಇದೆ';
+  String get passwordShort => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì 8 α▓àα▓òα│ìα▓╖α▓░α▓ùα▓│α▓┐α▓ùα▓┐α▓éα▓ñ α▓òα▓íα▓┐α▓«α│å α▓çα▓ªα│å';
 
   @override
-  String get tryAgain => 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!';
+  String get tryAgain => 'α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐!';
 
   @override
-  String get success => 'ಯಶಸ್ವಿ';
+  String get success => 'α▓»α▓╢α▓╕α│ìα▓╡α▓┐';
 
   @override
-  String get passwordResetSent => 'ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸುವ ಇಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ!';
+  String get passwordResetSent => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α│üα▓╡ α▓çα▓«α│çα▓▓α│ì α▓òα▓│α│üα▓╣α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å!';
 
   @override
-  String get error => 'ಏನೋ ತಪ್ಪಾಗಿದೆ';
+  String get error => 'α▓Åα▓¿α│ï α▓ñα▓¬α│ìα▓¬α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get resetPassword => 'ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ';
+  String get resetPassword => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐';
 
   @override
-  String get enterNewPassword => 'ನಿಮ್ಮ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ';
+  String get enterNewPassword => 'α▓¿α▓┐α▓«α│ìα▓« α▓╣α│èα▓╕ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get newPassword => 'ಹೊಸ ಪಾಸ್‌ವರ್ಡ್';
+  String get newPassword => 'α▓╣α│èα▓╕ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì';
 
   @override
-  String get setNewPassword => 'ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ';
+  String get setNewPassword => 'α▓╣α│èα▓╕ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓╣α│èα▓éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get emailChanged => 'ಇಮೇಲ್ ಬದಲಾಯಿಸಲಾಗಿದೆ';
+  String get emailChanged => 'α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get emailChangeSuccess => 'ಇಮೇಲ್ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ!';
+  String get emailChangeSuccess => 'α▓çα▓«α│çα▓▓α│ì α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å!';
 
   @override
-  String get failed => 'ವಿಫಲವಾಗಿದೆ';
+  String get failed => 'α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get emailChangeFailed => 'ಇಮೇಲ್ ಬದಲಾಯಿಸಲು ವಿಫಲವಾಗಿದೆ';
+  String get emailChangeFailed => 'α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓▓α│ü α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get oops => 'ಅಯ್ಯೋ!';
+  String get oops => 'α▓àα▓»α│ìα▓»α│ï!';
 
   @override
-  String get emailExists => 'ಇಮೇಲ್ ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ';
+  String get emailExists => 'α▓çα▓«α│çα▓▓α│ì α▓êα▓ùα▓╛α▓ùα▓▓α│ç α▓¼α▓│α▓òα│åα▓»α▓▓α│ìα▓▓α▓┐α▓ªα│å';
 
   @override
-  String get changeEmail => 'ಇಮೇಲ್ ಬದಲಾಯಿಸಿ';
+  String get changeEmail => 'α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐';
 
   @override
-  String get enterValidEmail => 'ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ';
+  String get enterValidEmail => 'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ª α▓çα▓«α│çα▓▓α│ì α▓╡α▓┐α▓│α▓╛α▓╕α▓╡α▓¿α│ìα▓¿α│ü α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get newEmail => 'ಹೊಸ ಇಮೇಲ್';
+  String get newEmail => 'α▓╣α│èα▓╕ α▓çα▓«α│çα▓▓α│ì';
 
   @override
-  String get currentPassword => 'ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್';
+  String get currentPassword => 'α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì';
 
   @override
   String get emailChangeInfo =>
-      'ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಬದಲಾಯಿಸುವಾಗ ನಿಮ್ಮ ಖಾತೆಯ ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್ ಒದಗಿಸಬೇಕು. ನಿಮ್ಮ ಇಮೇಲ್ ಬದಲಾಯಿಸಿದ ನಂತರ, ಮುಂದಿನ ಲಾಗಿನ್‌ಗಳಿಗಾಗಿ ಬದಲಾಯಿಸಿದ ಇಮೇಲ್ ಬಳಸಿ. ಹೆಚ್ಚುವರಿ ಭದ್ರತೆಗಾಗಿ ನಾವು ಇದನ್ನು ಮಾಡಿದ್ದೇವೆ';
+      'α▓¿α▓┐α▓«α│ìα▓« α▓çα▓«α│çα▓▓α│ì α▓╡α▓┐α▓│α▓╛α▓╕α▓╡α▓¿α│ìα▓¿α│ü α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α│üα▓╡α▓╛α▓ù α▓¿α▓┐α▓«α│ìα▓« α▓ûα▓╛α▓ñα│åα▓» α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓Æα▓ªα▓ùα▓┐α▓╕α▓¼α│çα▓òα│ü. α▓¿α▓┐α▓«α│ìα▓« α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐α▓ª α▓¿α▓éα▓ñα▓░, α▓«α│üα▓éα▓ªα▓┐α▓¿ α▓▓α▓╛α▓ùα▓┐α▓¿α│ìΓÇîα▓ùα▓│α▓┐α▓ùα▓╛α▓ùα▓┐ α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐α▓ª α▓çα▓«α│çα▓▓α│ì α▓¼α▓│α▓╕α▓┐. α▓╣α│åα▓Üα│ìα▓Üα│üα▓╡α▓░α▓┐ α▓¡α▓ªα│ìα▓░α▓ñα│åα▓ùα▓╛α▓ùα▓┐ α▓¿α▓╛α▓╡α│ü α▓çα▓ªα▓¿α│ìα▓¿α│ü α▓«α▓╛α▓íα▓┐α▓ªα│ìα▓ªα│çα▓╡α│å';
 
   @override
   String get oauthUsersMessage =>
-      '(ಗೂಗಲ್ ಅಥವಾ Github ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿದ ಬಳಕೆದಾರರಿಗೆ ಮಾತ್ರ)';
+      '(α▓ùα│éα▓ùα▓▓α│ì α▓àα▓Ñα▓╡α▓╛ Github α▓¼α▓│α▓╕α▓┐ α▓▓α▓╛α▓ùα▓┐α▓¿α│ì α▓«α▓╛α▓íα▓┐α▓ª α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α▓┐α▓ùα│å α▓«α▓╛α▓ñα│ìα▓░)';
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'ನಿಮ್ಮ ಇಮೇಲ್ ಬದಲಾಯಿಸಲು, ದಯವಿಟ್ಟು \"ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್\" ಜಾಗದಲ್ಲಿ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ. ಈ ಪಾಸ್‌ವರ್ಡ್ ನೆನಪಿನಲ್ಲಿಡಿ, ಯಾಕೆಂದರೆ ಮುಂದೆ ಇಮೇಲ್ ಬದಲಾವಣೆಗಳಿಗೆ ಇದು ಅಗತ್ಯವಾಗುತ್ತದೆ. ಮುಂದೆ, ನೀವು ಗೂಗಲ್/GitHub ಅಥವಾ ನಿಮ್ಮ ಹೊಸ ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ಗಳನ್ನು ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಬಹುದು.';
+      'α▓¿α▓┐α▓«α│ìα▓« α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓▓α│ü, α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü \"α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì\" α▓£α▓╛α▓ùα▓ªα▓▓α│ìα▓▓α▓┐ α▓╣α│èα▓╕ α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐. α▓ê α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓¿α│åα▓¿α▓¬α▓┐α▓¿α▓▓α│ìα▓▓α▓┐α▓íα▓┐, α▓»α▓╛α▓òα│åα▓éα▓ªα▓░α│å α▓«α│üα▓éα▓ªα│å α▓çα▓«α│çα▓▓α│ì α▓¼α▓ªα▓▓α▓╛α▓╡α▓úα│åα▓ùα▓│α▓┐α▓ùα│å α▓çα▓ªα│ü α▓àα▓ùα▓ñα│ìα▓»α▓╡α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓ªα│å. α▓«α│üα▓éα▓ªα│å, α▓¿α│Çα▓╡α│ü α▓ùα│éα▓ùα▓▓α│ì/GitHub α▓àα▓Ñα▓╡α▓╛ α▓¿α▓┐α▓«α│ìα▓« α▓╣α│èα▓╕ α▓çα▓«α│çα▓▓α│ì α▓«α▓ñα│ìα▓ñα│ü α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ìα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¼α▓│α▓╕α▓┐ α▓▓α▓╛α▓ùα▓┐α▓¿α│ì α▓«α▓╛α▓íα▓¼α▓╣α│üα▓ªα│ü.';
 
   @override
-  String get resonateTagline => 'ಮಿತಿಯೇ ಇಲ್ಲ ಸಂಭಾಷಣೆಗಳ\nಲೋಕಕ್ಕೆ ಪ್ರವೇಶಿಸಿ.';
+  String get resonateTagline => 'α▓«α▓┐α▓ñα▓┐α▓»α│ç α▓çα▓▓α│ìα▓▓ α▓╕α▓éα▓¡α▓╛α▓╖α▓úα│åα▓ùα▓│\nα▓▓α│ïα▓òα▓òα│ìα▓òα│å α▓¬α│ìα▓░α▓╡α│çα▓╢α▓┐α▓╕α▓┐.';
 
   @override
-  String get signInWithEmail => 'ಇಮೇಲ್‌ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ';
+  String get signInWithEmail => 'α▓çα▓«α│çα▓▓α│ìΓÇîα▓¿α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α│êα▓¿α│ì α▓çα▓¿α│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get or => 'ಅಥವಾ';
+  String get or => 'α▓àα▓Ñα▓╡α▓╛';
 
   @override
-  String get continueWith => 'ಇದರೊಂದಿಗೆ ಮುಂದುವರಿಸಿ';
+  String get continueWith => 'α▓çα▓ªα▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓«α│üα▓éα▓ªα│üα▓╡α▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get continueWithGoogle => 'ಗೂಗಲ್ ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ';
+  String get continueWithGoogle => 'α▓ùα│éα▓ùα▓▓α│ì α▓¿α│èα▓éα▓ªα▓┐α▓ùα│å α▓«α│üα▓éα▓ªα│üα▓╡α▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get continueWithGitHub => 'GitHub ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ';
+  String get continueWithGitHub => 'GitHub α▓¿α│èα▓éα▓ªα▓┐α▓ùα│å α▓«α│üα▓éα▓ªα│üα▓╡α▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get resonateLogo => 'ರೆಸೋನೇಟ್ ಲೋಗೋ';
+  String get resonateLogo => 'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì α▓▓α│ïα▓ùα│ï';
 
   @override
-  String get iAlreadyHaveAnAccount => 'ನನ್ನ ಬಳಿ ಈಗಾಗಲೇ ಖಾತೆ ಇದೆ';
+  String get iAlreadyHaveAnAccount => 'α▓¿α▓¿α│ìα▓¿ α▓¼α▓│α▓┐ α▓êα▓ùα▓╛α▓ùα▓▓α│ç α▓ûα▓╛α▓ñα│å α▓çα▓ªα│å';
 
   @override
-  String get createNewAccount => 'ಹೊಸ ಖಾತೆ ರಚಿಸಿ';
+  String get createNewAccount => 'α▓╣α│èα▓╕ α▓ûα▓╛α▓ñα│å α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
-  String get userProfile => 'ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್';
+  String get userProfile => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░ α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì';
 
   @override
-  String get passwordIsStrong => 'ಪಾಸ್‌ವರ್ಡ್ ಶಕ್ತಿಯುತವಾಗಿದೆ';
+  String get passwordIsStrong => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓╢α▓òα│ìα▓ñα▓┐α▓»α│üα▓ñα▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get admin => 'ನಿರ್ವಾಹಕ';
+  String get admin => 'α▓¿α▓┐α▓░α│ìα▓╡α▓╛α▓╣α▓ò';
 
   @override
-  String get moderator => 'ಮಾಡರೇಟರ್';
+  String get moderator => 'α▓«α▓╛α▓íα▓░α│çα▓ƒα▓░α│ì';
 
   @override
-  String get speaker => 'ಮಾತನಾಡುವವರು';
+  String get speaker => 'α▓«α▓╛α▓ñα▓¿α▓╛α▓íα│üα▓╡α▓╡α▓░α│ü';
 
   @override
-  String get listener => 'ಕೇಳುಗ';
+  String get listener => 'α▓òα│çα▓│α│üα▓ù';
 
   @override
-  String get removeModerator => 'ಮಾಡರೇಟರ್ ತೆಗೆದುಹಾಕಿ';
+  String get removeModerator => 'α▓«α▓╛α▓íα▓░α│çα▓ƒα▓░α│ì α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓┐';
 
   @override
-  String get kickOut => 'ಹೊರಗೆ ಕಳುಹಿಸಿ';
+  String get kickOut => 'α▓╣α│èα▓░α▓ùα│å α▓òα▓│α│üα▓╣α▓┐α▓╕α▓┐';
 
   @override
-  String get addModerator => 'ಮಾಡರೇಟರ್ ಸೇರಿಸಿ';
+  String get addModerator => 'α▓«α▓╛α▓íα▓░α│çα▓ƒα▓░α│ì α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get addSpeaker => 'ಮಾತನಾಡುವವರನ್ನು ಸೇರಿಸಿ';
+  String get addSpeaker => 'α▓«α▓╛α▓ñα▓¿α▓╛α▓íα│üα▓╡α▓╡α▓░α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get makeListener => 'ಕೇಳುಗನ್ನಾಗಿ ಮಾಡಿ';
+  String get makeListener => 'α▓òα│çα▓│α│üα▓ùα▓¿α│ìα▓¿α▓╛α▓ùα▓┐ α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get pairChat => 'ಚಾಟ್ ಪೇರ್ ಮಾಡಿ';
+  String get pairChat => 'α▓Üα▓╛α▓ƒα│ì α▓¬α│çα▓░α│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get chooseIdentity => 'ಗುರುತಿನ ಆಯ್ಕೆ';
+  String get chooseIdentity => 'α▓ùα│üα▓░α│üα▓ñα▓┐α▓¿ α▓åα▓»α│ìα▓òα│å';
 
   @override
-  String get selectLanguage => 'ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ';
+  String get selectLanguage => 'α▓¡α▓╛α▓╖α│å α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get noConnection => 'ಇಂಟರ್ನೆಟ್ ಕನೆಕ್ಷನ್ ಲಭ್ಯವಿಲ್ಲ';
+  String get noConnection => 'α▓çα▓éα▓ƒα▓░α│ìα▓¿α│åα▓ƒα│ì α▓òα▓¿α│åα▓òα│ìα▓╖α▓¿α│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓';
 
   @override
-  String get loadingDialog => 'ಲೋಡ್ ಆಗುತ್ತಿದೆ';
+  String get loadingDialog => 'α▓▓α│ïα▓íα│ì α▓åα▓ùα│üα▓ñα│ìα▓ñα▓┐α▓ªα│å';
 
   @override
-  String get createAccount => 'ಖಾತೆ ರಚಿಸಿ';
+  String get createAccount => 'α▓ûα▓╛α▓ñα│å α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
-  String get enterValidEmailAddress => 'ಮಾನ್ಯವಾದ ಇಮೇಲ್ ನಮೂದಿಸಿ';
+  String get enterValidEmailAddress => 'α▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ª α▓çα▓«α│çα▓▓α│ì α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get email => 'ಇಮೇಲ್';
+  String get email => 'α▓çα▓«α│çα▓▓α│ì';
 
   @override
-  String get passwordRequirements => 'ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಿರಬೇಕು ';
+  String get passwordRequirements => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓òα▓¿α▓┐α▓╖α│ìα▓á 8 α▓àα▓òα│ìα▓╖α▓░α▓ùα▓│α▓┐α▓░α▓¼α│çα▓òα│ü ';
 
   @override
-  String get includeNumericDigit => 'ಕನಿಷ್ಠ 1 ಸಂಖ್ಯೆಯನ್ನು ಸೇರಿಸಿ';
+  String get includeNumericDigit => 'α▓òα▓¿α▓┐α▓╖α│ìα▓á 1 α▓╕α▓éα▓ûα│ìα▓»α│åα▓»α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get includeUppercase => 'ಕನಿಷ್ಠ 1 ಅಪ್ಪರ್ ಕೇಸ್ ಸೇರಿಸಿ';
+  String get includeUppercase => 'α▓òα▓¿α▓┐α▓╖α│ìα▓á 1 α▓àα▓¬α│ìα▓¬α▓░α│ì α▓òα│çα▓╕α│ì α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get includeLowercase => 'ಕನಿಷ್ಠ 1 ಲೋವರ್ ಕೇಸ್ ಸೇರಿಸಿ';
+  String get includeLowercase => 'α▓òα▓¿α▓┐α▓╖α│ìα▓á 1 α▓▓α│ïα▓╡α▓░α│ì α▓òα│çα▓╕α│ì α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get includeSymbol => 'ಕನಿಷ್ಠ 1 ಚಿಹ್ನೆಯನ್ನು ಸೇರಿಸಿ';
+  String get includeSymbol => 'α▓òα▓¿α▓┐α▓╖α│ìα▓á 1 α▓Üα▓┐α▓╣α│ìα▓¿α│åα▓»α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get signedUpSuccessfully => 'ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಅಪ್ ಆಗಿದೆ';
+  String get signedUpSuccessfully => 'α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓╕α│êα▓¿α│ì α▓àα▓¬α│ì α▓åα▓ùα▓┐α▓ªα│å';
 
   @override
-  String get newAccountCreated => 'ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಹೊಸ ಖಾತೆಯನ್ನು ರಚಿಸಿದ್ದೀರಿ';
+  String get newAccountCreated => 'α▓¿α│Çα▓╡α│ü α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓╣α│èα▓╕ α▓ûα▓╛α▓ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓░α▓Üα▓┐α▓╕α▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐';
 
   @override
-  String get signUp => 'ಸೈನ್ ಅಪ್';
+  String get signUp => 'α▓╕α│êα▓¿α│ì α▓àα▓¬α│ì';
 
   @override
-  String get login => 'ಲಾಗಿನ್';
+  String get login => 'α▓▓α▓╛α▓ùα▓┐α▓¿α│ì';
 
   @override
-  String get settings => 'ಸೆಟ್ಟಿಂಗ್‌ಗಳು';
+  String get settings => 'α▓╕α│åα▓ƒα│ìα▓ƒα▓┐α▓éα▓ùα│ìΓÇîα▓ùα▓│α│ü';
 
   @override
-  String get accountSettings => 'ಖಾತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು';
+  String get accountSettings => 'α▓ûα▓╛α▓ñα│å α▓╕α│åα▓ƒα│ìα▓ƒα▓┐α▓éα▓ùα│ìΓÇîα▓ùα▓│α│ü';
 
   @override
-  String get account => 'ಖಾತೆ';
+  String get account => 'α▓ûα▓╛α▓ñα│å';
 
   @override
-  String get appSettings => 'ಆ್ಯಪ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು';
+  String get appSettings => 'α▓åα│ìα▓»α▓¬α│ì α▓╕α│åα▓ƒα│ìα▓ƒα▓┐α▓éα▓ùα│ìΓÇîα▓ùα▓│α│ü';
 
   @override
-  String get themes => 'ಥೀಮ್‌ಗಳು';
+  String get themes => 'α▓Ñα│Çα▓«α│ìΓÇîα▓ùα▓│α│ü';
 
   @override
-  String get about => 'ನಮ್ಮ ಬಗ್ಗೆ';
+  String get about => 'α▓¿α▓«α│ìα▓« α▓¼α▓ùα│ìα▓ùα│å';
 
   @override
-  String get other => 'ಇತರೆ';
+  String get other => 'α▓çα▓ñα▓░α│å';
 
   @override
-  String get contribute => 'ಕೊಡುಗೆ ನೀಡಿ';
+  String get contribute => 'α▓òα│èα▓íα│üα▓ùα│å α▓¿α│Çα▓íα▓┐';
 
   @override
-  String get appPreferences => 'ಆ್ಯಪ್ ಆದ್ಯತೆಗಳು';
+  String get appPreferences => 'α▓åα│ìα▓»α▓¬α│ì α▓åα▓ªα│ìα▓»α▓ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get transcriptionModel => 'ಪ್ರತಿಲೇಖನ ಮಾದರಿ';
+  String get transcriptionModel => 'α▓¬α│ìα▓░α▓ñα▓┐α▓▓α│çα▓ûα▓¿ α▓«α▓╛α▓ªα▓░α▓┐';
 
   @override
   String get transcriptionModelDescription =>
-      'ಧ್ವನಿ ಪ್ರತಿಲೇಖನಕ್ಕಾಗಿ AI ಮಾಡೆಲ್ ಆಯ್ಕೆಮಾಡಿ. ದೊಡ್ಡ ಮಾಡೆಲ್ಗಳು ಹೆಚ್ಚು ನಿಖರವಾಗಿರುತ್ತವೆ ಆದರೆ ಅವುಗಳು ನಿಧಾನ ಮತ್ತು ಹೆಚ್ಚು ಸ್ಟೋರೇಜ್ ತೆಗುದುಕೊಳ್ಳುತ್ತದೆ.';
+      'α▓ºα│ìα▓╡α▓¿α▓┐ α▓¬α│ìα▓░α▓ñα▓┐α▓▓α│çα▓ûα▓¿α▓òα│ìα▓òα▓╛α▓ùα▓┐ AI α▓«α▓╛α▓íα│åα▓▓α│ì α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐. α▓ªα│èα▓íα│ìα▓í α▓«α▓╛α▓íα│åα▓▓α│ìα▓ùα▓│α│ü α▓╣α│åα▓Üα│ìα▓Üα│ü α▓¿α▓┐α▓ûα▓░α▓╡α▓╛α▓ùα▓┐α▓░α│üα▓ñα│ìα▓ñα▓╡α│å α▓åα▓ªα▓░α│å α▓àα▓╡α│üα▓ùα▓│α│ü α▓¿α▓┐α▓ºα▓╛α▓¿ α▓«α▓ñα│ìα▓ñα│ü α▓╣α│åα▓Üα│ìα▓Üα│ü α▓╕α│ìα▓ƒα│ïα▓░α│çα▓£α│ì α▓ñα│åα▓ùα│üα▓ªα│üα▓òα│èα▓│α│ìα▓│α│üα▓ñα│ìα▓ñα▓ªα│å.';
 
   @override
-  String get whisperModelTiny => 'ಟೈನಿ';
+  String get whisperModelTiny => 'α▓ƒα│êα▓¿α▓┐';
 
   @override
   String get whisperModelTinyDescription =>
-      'ಅತ್ಯಂತ ವೇಗವಾದ, ಕಡಿಮೆ ನಿಖರವಾದ (~39 MB)';
+      'α▓àα▓ñα│ìα▓»α▓éα▓ñ α▓╡α│çα▓ùα▓╡α▓╛α▓ª, α▓òα▓íα▓┐α▓«α│å α▓¿α▓┐α▓ûα▓░α▓╡α▓╛α▓ª (~39 MB)';
 
   @override
-  String get whisperModelBase => 'ಬೇಸ್';
+  String get whisperModelBase => 'α▓¼α│çα▓╕α│ì';
 
   @override
-  String get whisperModelBaseDescription => 'ಸಮತೋಲಿತ ವೇಗ ಮತ್ತು ನಿಖರತೆ (~74 MB)';
+  String get whisperModelBaseDescription => 'α▓╕α▓«α▓ñα│ïα▓▓α▓┐α▓ñ α▓╡α│çα▓ù α▓«α▓ñα│ìα▓ñα│ü α▓¿α▓┐α▓ûα▓░α▓ñα│å (~74 MB)';
 
   @override
-  String get whisperModelSmall => 'ಸ್ಮಾಲ್';
+  String get whisperModelSmall => 'α▓╕α│ìα▓«α▓╛α▓▓α│ì';
 
   @override
-  String get whisperModelSmallDescription => 'ಉತ್ತಮ ನಿಖರತೆ, ನಿಧಾನ (~244 MB)';
+  String get whisperModelSmallDescription => 'α▓ëα▓ñα│ìα▓ñα▓« α▓¿α▓┐α▓ûα▓░α▓ñα│å, α▓¿α▓┐α▓ºα▓╛α▓¿ (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'ಮೀಡಿಯಂ';
+  String get whisperModelMedium => 'α▓«α│Çα▓íα▓┐α▓»α▓é';
 
   @override
-  String get whisperModelMediumDescription => 'ಹೆಚ್ಚಿನ ನಿಖರತೆ, ನಿಧಾನ (~769 MB)';
+  String get whisperModelMediumDescription => 'α▓╣α│åα▓Üα│ìα▓Üα▓┐α▓¿ α▓¿α▓┐α▓ûα▓░α▓ñα│å, α▓¿α▓┐α▓ºα▓╛α▓¿ (~769 MB)';
 
   @override
-  String get whisperModelLargeV1 => 'ಲಾರ್ಜ್ V1';
+  String get whisperModelLargeV1 => 'α▓▓α▓╛α▓░α│ìα▓£α│ì V1';
 
   @override
   String get whisperModelLargeV1Description =>
-      'ಅತ್ಯಂತ ನಿಖರ, ಅತ್ಯಂತ ನಿಧಾನ (~1.55 GB)';
+      'α▓àα▓ñα│ìα▓»α▓éα▓ñ α▓¿α▓┐α▓ûα▓░, α▓àα▓ñα│ìα▓»α▓éα▓ñ α▓¿α▓┐α▓ºα▓╛α▓¿ (~1.55 GB)';
 
   @override
-  String get whisperModelLargeV2 => 'ಲಾರ್ಜ್ V2';
+  String get whisperModelLargeV2 => 'α▓▓α▓╛α▓░α│ìα▓£α│ì V2';
 
   @override
   String get whisperModelLargeV2Description =>
-      'ಸುಧಾರಿತ ದೊಡ್ಡ ಮಾಡೆಲ್ ಹೆಚ್ಚಿನ ನಿಖರತೆಯೊಂದಿಗೆ (~1.55 GB)';
+      'α▓╕α│üα▓ºα▓╛α▓░α▓┐α▓ñ α▓ªα│èα▓íα│ìα▓í α▓«α▓╛α▓íα│åα▓▓α│ì α▓╣α│åα▓Üα│ìα▓Üα▓┐α▓¿ α▓¿α▓┐α▓ûα▓░α▓ñα│åα▓»α│èα▓éα▓ªα▓┐α▓ùα│å (~1.55 GB)';
 
   @override
   String get modelDownloadInfo =>
-      'ಮಾಡೆಲ್ಳನ್ನು ಮೊದಲ ಬಾರಿಗೆ ಬಳಸಿದಾಗ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತದೆ. ನಾವು ಬೇಸ್, ಸ್ಮಾಲ್ ಅಥವಾ ಮೀಡಿಯಂ ಬಳಸಲು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ. ದೊಡ್ಡ ಮಾಡೆಲ್ಗಳಿಗೆ ಅತ್ಯಂತ ಉನ್ನತ ದರ್ಜೆಯ ಮೊಬೈಲ್/ಸಾಧನಗಳು ಬೇಕಾಗುತ್ತವೆ.';
+      'α▓«α▓╛α▓íα│åα▓▓α│ìα▓│α▓¿α│ìα▓¿α│ü α▓«α│èα▓ªα▓▓ α▓¼α▓╛α▓░α▓┐α▓ùα│å α▓¼α▓│α▓╕α▓┐α▓ªα▓╛α▓ù α▓íα│îα▓¿α│ìΓÇîα▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓▓α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓ªα│å. α▓¿α▓╛α▓╡α│ü α▓¼α│çα▓╕α│ì, α▓╕α│ìα▓«α▓╛α▓▓α│ì α▓àα▓Ñα▓╡α▓╛ α▓«α│Çα▓íα▓┐α▓»α▓é α▓¼α▓│α▓╕α▓▓α│ü α▓╢α▓┐α▓½α▓╛α▓░α▓╕α│ü α▓«α▓╛α▓íα│üα▓ñα│ìα▓ñα│çα▓╡α│å. α▓ªα│èα▓íα│ìα▓í α▓«α▓╛α▓íα│åα▓▓α│ìα▓ùα▓│α▓┐α▓ùα│å α▓àα▓ñα│ìα▓»α▓éα▓ñ α▓ëα▓¿α│ìα▓¿α▓ñ α▓ªα▓░α│ìα▓£α│åα▓» α▓«α│èα▓¼α│êα▓▓α│ì/α▓╕α▓╛α▓ºα▓¿α▓ùα▓│α│ü α▓¼α│çα▓òα▓╛α▓ùα│üα▓ñα│ìα▓ñα▓╡α│å.';
 
   @override
-  String get logOut => 'ಲಾಗ್ ಔಟ್';
+  String get logOut => 'α▓▓α▓╛α▓ùα│ì α▓öα▓ƒα│ì';
 
   @override
-  String get participants => 'ಭಾಗವಹಿಸುವವರು';
+  String get participants => 'α▓¡α▓╛α▓ùα▓╡α▓╣α▓┐α▓╕α│üα▓╡α▓╡α▓░α│ü';
 
   @override
-  String get delete => 'ಅಳಿಸಿ';
+  String get delete => 'α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get leave => 'ಬಿಟ್ಟುಹೋಗಿ';
+  String get leave => 'α▓¼α▓┐α▓ƒα│ìα▓ƒα│üα▓╣α│ïα▓ùα▓┐';
 
   @override
-  String get leaveButton => 'ಬಿಡಿ';
+  String get leaveButton => 'α▓¼α▓┐α▓íα▓┐';
 
   @override
   String get findingRandomPartner =>
-      'ನಿಮಗಾಗಿ ಯಾದೃಚ್ಛಿಕ ಪಾಲುದಾರರನ್ನು ಹುಡುಕುತ್ತಿದೆ';
+      'α▓¿α▓┐α▓«α▓ùα▓╛α▓ùα▓┐ α▓»α▓╛α▓ªα│âα▓Üα│ìα▓¢α▓┐α▓ò α▓¬α▓╛α▓▓α│üα▓ªα▓╛α▓░α▓░α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα│üα▓ñα│ìα▓ñα▓┐α▓ªα│å';
 
   @override
-  String get quickFact => 'ತ್ವರಿತ ಸತ್ಯ';
+  String get quickFact => 'α▓ñα│ìα▓╡α▓░α▓┐α▓ñ α▓╕α▓ñα│ìα▓»';
 
   @override
-  String get cancel => 'ರದ್ದುಮಾಡಿ';
+  String get cancel => 'α▓░α▓ªα│ìα▓ªα│üα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'α▓«α▓░α│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'α▓░α│éα▓«α│ì α▓«α▓░α│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'α▓¬α▓ƒα│ìα▓ƒα▓┐α▓»α▓▓α│ìα▓▓α▓┐ α▓«α▓░α│åα▓«α▓╛α▓íα▓┐';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'α▓¿α│Çα▓╡α│ü α▓ê α▓«α│üα▓éα▓¼α▓░α│üα▓╡ α▓░α│éα▓«α│ì α▓¿α▓┐α▓«α│ìα▓« α▓¬α▓ƒα│ìα▓ƒα▓┐α▓»α▓▓α│ìα▓▓α▓┐ α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓▓α│ü α▓¼α▓»α▓╕α│üα▓ñα│ìα▓ñα│Çα▓░α▓╛?';
 
   @override
-  String get completeYourProfile => 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಪೂರ್ಣಗೊಳಿಸಿ';
+  String get completeYourProfile => 'α▓¿α▓┐α▓«α│ìα▓« α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓¬α│éα▓░α│ìα▓úα▓ùα│èα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get uploadProfilePicture => 'ಪ್ರೊಫೈಲ್ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ';
+  String get uploadProfilePicture => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓Üα▓┐α▓ñα│ìα▓░α▓╡α▓¿α│ìα▓¿α│ü α▓àα▓¬α│ìΓÇîα▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get enterValidName => 'ಮಾನ್ಯವಾದ ಹೆಸರು ನಮೂದಿಸಿ';
+  String get enterValidName => 'α▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ª α▓╣α│åα▓╕α▓░α│ü α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get name => 'ಹೆಸರು';
+  String get name => 'α▓╣α│åα▓╕α▓░α│ü';
 
   @override
-  String get username => 'ಬಳಕೆದಾರ ಹೆಸರು';
+  String get username => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ α▓╣α│åα▓╕α▓░α│ü';
 
   @override
-  String get enterValidDOB => 'ಮಾನ್ಯವಾದ ಜನ್ಮ ದಿನಾಂಕ ನಮೂದಿಸಿ';
+  String get enterValidDOB => 'α▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ª α▓£α▓¿α│ìα▓« α▓ªα▓┐α▓¿α▓╛α▓éα▓ò α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get dateOfBirth => 'ಜನ್ಮ ದಿನಾಂಕ';
+  String get dateOfBirth => 'α▓£α▓¿α│ìα▓« α▓ªα▓┐α▓¿α▓╛α▓éα▓ò';
 
   @override
-  String get forgotPassword => 'ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?';
+  String get forgotPassword => 'α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓«α▓░α│åα▓ñα▓┐α▓░α▓╛?';
 
   @override
-  String get next => 'ಮುಂದೆ';
+  String get next => 'α▓«α│üα▓éα▓ªα│å';
 
   @override
-  String get noStoriesExist => 'ಪ್ರಸ್ತುತಪಡಿಸಲು ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ';
+  String get noStoriesExist => 'α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñα▓¬α▓íα▓┐α▓╕α▓▓α│ü α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│åα▓ùα▓│α│ü α▓çα▓▓α│ìα▓▓';
 
   @override
-  String get enterVerificationCode => 'ನಿಮ್ಮ ಪರಿಶೀಲನಾ\nಕೋಡ್ ನಮೂದಿಸಿ';
+  String get enterVerificationCode => 'α▓¿α▓┐α▓«α│ìα▓« α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α▓╛\nα▓òα│ïα▓íα│ì α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
   String get verificationCodeSent =>
-      'ನಾವು 6-ಅಂಕಿಯ ಪರಿಶೀಲನಾ ಕೋಡ್ ಕಳುಹಿಸಿದ್ದೇವೆ\n';
+      'α▓¿α▓╛α▓╡α│ü 6-α▓àα▓éα▓òα▓┐α▓» α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α▓╛ α▓òα│ïα▓íα│ì α▓òα▓│α│üα▓╣α▓┐α▓╕α▓┐α▓ªα│ìα▓ªα│çα▓╡α│å\n';
 
   @override
-  String get verificationComplete => 'ಪರಿಶೀಲನೆ ಪೂರ್ಣಗೊಂಡಿದೆ';
+  String get verificationComplete => 'α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α│å α▓¬α│éα▓░α│ìα▓úα▓ùα│èα▓éα▓íα▓┐α▓ªα│å';
 
   @override
   String get verificationCompleteMessage =>
-      'ಅಭಿನಂದನೆಗಳು ನೀವು ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿದ್ದೀರಿ';
+      'α▓àα▓¡α▓┐α▓¿α▓éα▓ªα▓¿α│åα▓ùα▓│α│ü α▓¿α│Çα▓╡α│ü α▓¿α▓┐α▓«α│ìα▓« α▓çα▓«α│çα▓▓α│ì α▓àα▓¿α│ìα▓¿α│ü α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐';
 
   @override
-  String get verificationFailed => 'ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ';
+  String get verificationFailed => 'α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α│å α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get otpMismatch =>
-      'OTP ಹೊಂದಾಣಿಕೆಯಾಗುತ್ತಿಲ್ಲ ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ';
+      'OTP α▓╣α│èα▓éα▓ªα▓╛α▓úα▓┐α▓òα│åα▓»α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓┐α▓▓α│ìα▓▓ α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐';
 
   @override
-  String get otpResent => 'OTP ಮರು ಕಳುಹಿಸಲಾಗಿದೆ';
+  String get otpResent => 'OTP α▓«α▓░α│ü α▓òα▓│α│üα▓╣α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get requestNewCode => 'ಹೊಸ ಕೋಡ್ ವಿನಂತಿಸಿ';
+  String get requestNewCode => 'α▓╣α│èα▓╕ α▓òα│ïα▓íα│ì α▓╡α▓┐α▓¿α▓éα▓ñα▓┐α▓╕α▓┐';
 
   @override
-  String get requestNewCodeIn => 'ಹೊಸ ಕೋಡ್ ವಿನಂತಿಸಿ';
+  String get requestNewCodeIn => 'α▓╣α│èα▓╕ α▓òα│ïα▓íα│ì α▓╡α▓┐α▓¿α▓éα▓ñα▓┐α▓╕α▓┐';
 
   @override
-  String get clickPictureCamera => 'ಕ್ಯಾಮೆರಾ ಬಳಸಿ ಚಿತ್ರ ತೆಗೆಯಿರಿ';
+  String get clickPictureCamera => 'α▓òα│ìα▓»α▓╛α▓«α│åα▓░α▓╛ α▓¼α▓│α▓╕α▓┐ α▓Üα▓┐α▓ñα│ìα▓░ α▓ñα│åα▓ùα│åα▓»α▓┐α▓░α▓┐';
 
   @override
-  String get pickImageGallery => 'ಗ್ಯಾಲರಿಯಿಂದ ಚಿತ್ರ ಆಯ್ಕೆಮಾಡಿ';
+  String get pickImageGallery => 'α▓ùα│ìα▓»α▓╛α▓▓α▓░α▓┐α▓»α▓┐α▓éα▓ª α▓Üα▓┐α▓ñα│ìα▓░ α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get deleteMyAccount => 'ನನ್ನ ಖಾತೆ ಅಳಿಸಿ';
+  String get deleteMyAccount => 'α▓¿α▓¿α│ìα▓¿ α▓ûα▓╛α▓ñα│å α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get createNewRoom => 'ಹೊಸ ರೂಮ್ ರಚಿಸಿ';
+  String get createNewRoom => 'α▓╣α│èα▓╕ α▓░α│éα▓«α│ì α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
   String get pleaseEnterScheduledDateTime =>
-      'ದಯವಿಟ್ಟು ನಿಗದಿತ ದಿನಾಂಕ-ಸಮಯ ನಮೂದಿಸಿ';
+      'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¿α▓┐α▓ùα▓ªα▓┐α▓ñ α▓ªα▓┐α▓¿α▓╛α▓éα▓ò-α▓╕α▓«α▓» α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get scheduleDateTimeLabel => 'ದಿನಾಂಕ ಸಮಯ ನಿಗದಿಪಡಿಸಿ';
+  String get scheduleDateTimeLabel => 'α▓ªα▓┐α▓¿α▓╛α▓éα▓ò α▓╕α▓«α▓» α▓¿α▓┐α▓ùα▓ªα▓┐α▓¬α▓íα▓┐α▓╕α▓┐';
 
   @override
-  String get enterTags => 'ಟ್ಯಾಗ್‌ಗಳನ್ನು ನಮೂದಿಸಿ';
+  String get enterTags => 'α▓ƒα│ìα▓»α▓╛α▓ùα│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐';
 
   @override
-  String get joinCommunity => 'ಕಮ್ಯೂನಿಟಿಗೆ ಸೇರಿ';
+  String get joinCommunity => 'α▓òα▓«α│ìα▓»α│éα▓¿α▓┐α▓ƒα▓┐α▓ùα│å α▓╕α│çα▓░α▓┐';
 
   @override
-  String get followUsOnX => 'X ನಲ್ಲಿ ನಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡಿ';
+  String get followUsOnX => 'X α▓¿α▓▓α│ìα▓▓α▓┐ α▓¿α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓½α▓╛α▓▓α│ï α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get joinDiscordServer => 'Discord ಸರ್ವರ್‌ಗೆ ಸೇರಿ';
+  String get joinDiscordServer => 'Discord α▓╕α▓░α│ìα▓╡α▓░α│ìΓÇîα▓ùα│å α▓╕α│çα▓░α▓┐';
 
   @override
-  String get noLyrics => 'ಯಾವುದೇ ಸಾಹಿತ್ಯ ಇಲ್ಲ';
+  String get noLyrics => 'α▓»α▓╛α▓╡α│üα▓ªα│ç α▓╕α▓╛α▓╣α▓┐α▓ñα│ìα▓» α▓çα▓▓α│ìα▓▓';
 
   @override
   String noStoriesInCategory(String categoryName) {
-    return '$categoryName ವರ್ಗದಲ್ಲಿ ಪ್ರಸ್ತುತ ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ';
+    return '$categoryName α▓╡α▓░α│ìα▓ùα▓ªα▓▓α│ìα▓▓α▓┐ α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓»α▓╛α▓╡α│üα▓ªα│ç α▓òα▓Ñα│åα▓ùα▓│α│ü α▓çα▓▓α│ìα▓▓';
   }
 
   @override
-  String get newChapters => 'ಹೊಸ ಅಧ್ಯಾಯಗಳು';
+  String get newChapters => 'α▓╣α│èα▓╕ α▓àα▓ºα│ìα▓»α▓╛α▓»α▓ùα▓│α│ü';
 
   @override
-  String get helpToGrow => 'ಬೆಳೆಯಲು ಸಹಾಯ ಮಾಡಿ';
+  String get helpToGrow => 'α▓¼α│åα▓│α│åα▓»α▓▓α│ü α▓╕α▓╣α▓╛α▓» α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get share => 'ಹಂಚಿಕೊಳ್ಳಿ';
+  String get share => 'α▓╣α▓éα▓Üα▓┐α▓òα│èα▓│α│ìα▓│α▓┐';
 
   @override
-  String get rate => 'ರೇಟ್ ಮಾಡಿ';
+  String get rate => 'α▓░α│çα▓ƒα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get aboutResonate => 'ರೆಸೋನೇಟ್ ಬಗ್ಗೆ';
+  String get aboutResonate => 'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì α▓¼α▓ùα│ìα▓ùα│å';
 
   @override
-  String get description => 'ವಿವರಣೆ';
+  String get description => 'α▓╡α▓┐α▓╡α▓░α▓úα│å';
 
   @override
-  String get confirm => 'ದೃಢೀಕರಿಸಿ';
+  String get confirm => 'α▓ªα│âα▓óα│Çα▓òα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get classic => 'ಕ್ಲಾಸಿಕ್';
+  String get classic => 'α▓òα│ìα▓▓α▓╛α▓╕α▓┐α▓òα│ì';
 
   @override
-  String get time => 'ಟೈಮ್';
+  String get time => 'α▓ƒα│êα▓«α│ì';
 
   @override
-  String get vintage => 'ವಿಂಟೇಜ್';
+  String get vintage => 'α▓╡α▓┐α▓éα▓ƒα│çα▓£α│ì';
 
   @override
-  String get amber => 'ಆಂಬರ್';
+  String get amber => 'α▓åα▓éα▓¼α▓░α│ì';
 
   @override
-  String get forest => 'ಫಾರೆಸ್ಟ್';
+  String get forest => 'α▓½α▓╛α▓░α│åα▓╕α│ìα▓ƒα│ì';
 
   @override
-  String get cream => 'ಕ್ರೀಮ್';
+  String get cream => 'α▓òα│ìα▓░α│Çα▓«α│ì';
 
   @override
-  String get none => 'ಯಾವುದೂ ಇಲ್ಲ';
+  String get none => 'α▓»α▓╛α▓╡α│üα▓ªα│é α▓çα▓▓α│ìα▓▓';
 
   @override
   String checkOutGitHub(String url) {
-    return 'ನಮ್ಮ GitHub ರೆಪೊಸಿಟರಿ ನೋಡಿ: $url';
+    return 'α▓¿α▓«α│ìα▓« GitHub α▓░α│åα▓¬α│èα▓╕α▓┐α▓ƒα▓░α▓┐ α▓¿α│ïα▓íα▓┐: $url';
   }
 
   @override
   String get aossie => 'AOSSIE';
 
   @override
-  String get aossieLogo => 'aossie ಲೋಗೋ';
+  String get aossieLogo => 'aossie α▓▓α│ïα▓ùα│ï';
 
   @override
   String get errorLoadPackageInfo =>
-      'ಪ್ಯಾಕೇಜ್ ಮಾಹಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
+      'α▓¬α│ìα▓»α▓╛α▓òα│çα▓£α│ì α▓«α▓╛α▓╣α▓┐α▓ñα▓┐α▓»α▓¿α│ìα▓¿α│ü α▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓╛α▓ùα▓▓α▓┐α▓▓α│ìα▓▓';
 
   @override
   String get searchFailed => 'Failed to search rooms. Please try again.';
 
   @override
-  String get updateAvailable => 'ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ';
+  String get updateAvailable => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å';
 
   @override
-  String get newVersionAvailable => 'ಹೊಸ ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ!';
+  String get newVersionAvailable => 'α▓╣α│èα▓╕ α▓àα▓¬α│ìα▓íα│çα▓ƒα│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å!';
 
   @override
-  String get upToDate => 'ಅಪ್ಡೇಟ್ ಆಗಿದೆ';
+  String get upToDate => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ì α▓åα▓ùα▓┐α▓ªα│å';
 
   @override
-  String get latestVersion => 'ನೀವು ಇತ್ತೀಚಿನ ಅಪ್ಡೇಟ್ಅನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ';
+  String get latestVersion => 'α▓¿α│Çα▓╡α│ü α▓çα▓ñα│ìα▓ñα│Çα▓Üα▓┐α▓¿ α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓àα▓¿α│ìα▓¿α│ü α▓¼α▓│α▓╕α│üα▓ñα│ìα▓ñα▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐';
 
   @override
-  String get profileCreatedSuccessfully => 'ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ';
+  String get profileCreatedSuccessfully => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓░α▓Üα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get invalidScheduledDateTime => 'ನಿಗದಿತ ದಿನಾಂಕ ಸಮಯ ಅಮಾನ್ಯವಾಗಿದೆ';
+  String get invalidScheduledDateTime => 'α▓¿α▓┐α▓ùα▓ªα▓┐α▓ñ α▓ªα▓┐α▓¿α▓╛α▓éα▓ò α▓╕α▓«α▓» α▓àα▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get scheduledDateTimePast => 'ನಿಗದಿತ ದಿನಾಂಕ ಸಮಯ ಹಿಂದಿನ ದಿನವಾಗಿರಬಾರದು';
+  String get scheduledDateTimePast => 'α▓¿α▓┐α▓ùα▓ªα▓┐α▓ñ α▓ªα▓┐α▓¿α▓╛α▓éα▓ò α▓╕α▓«α▓» α▓╣α▓┐α▓éα▓ªα▓┐α▓¿ α▓ªα▓┐α▓¿α▓╡α▓╛α▓ùα▓┐α▓░α▓¼α▓╛α▓░α▓ªα│ü';
 
   @override
-  String get joinRoom => 'ರೂಮ್‌ಗೆ ಸೇರಿ';
+  String get joinRoom => 'α▓░α│éα▓«α│ìΓÇîα▓ùα│å α▓╕α│çα▓░α▓┐';
 
   @override
-  String get unknownUser => 'ಅಜ್ಞಾತ/ಅನ್ನೋನ್';
+  String get unknownUser => 'α▓àα▓£α│ìα▓₧α▓╛α▓ñ/α▓àα▓¿α│ìα▓¿α│ïα▓¿α│ì';
 
   @override
-  String get canceled => 'ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ';
+  String get canceled => 'α▓░α▓ªα│ìα▓ªα│üα▓ùα│èα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get english => 'en';
 
   @override
-  String get emailVerificationRequired => 'ಇಮೇಲ್ ಪರಿಶೀಲನೆ ಅಗತ್ಯವಿದೆ';
+  String get emailVerificationRequired => 'α▓çα▓«α│çα▓▓α│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α│å α▓àα▓ùα▓ñα│ìα▓»α▓╡α▓┐α▓ªα│å';
 
   @override
-  String get verify => 'ಪರಿಶೀಲಿಸಿ';
+  String get verify => 'α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get audioRoom => 'ಆಡಿಯೋ ರೂಮ್';
+  String get audioRoom => 'α▓åα▓íα▓┐α▓»α│ï α▓░α│éα▓«α│ì';
 
   @override
   String toRoomAction(String action) {
-    return 'ರೂಮ್ ಅನ್ನು $action ಮಾಡಲು';
+    return 'α▓░α│éα▓«α│ì α▓àα▓¿α│ìα▓¿α│ü $action α▓«α▓╛α▓íα▓▓α│ü';
   }
 
   @override
-  String get mailSentMessage => 'ಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ';
+  String get mailSentMessage => 'α▓«α│çα▓▓α│ì α▓òα▓│α│üα▓╣α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get disconnected => 'ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಕಡಿತಗೊಂಡಿದೆ';
+  String get disconnected => 'α▓çα▓éα▓ƒα▓░α│ìα▓¿α│åα▓ƒα│ì α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓òα▓íα▓┐α▓ñα▓ùα│èα▓éα▓íα▓┐α▓ªα│å';
 
   @override
-  String get micOn => 'ಮೈಕ್';
+  String get micOn => 'α▓«α│êα▓òα│ì';
 
   @override
-  String get speakerOn => 'ಮಾತನಾಡುವವರು';
+  String get speakerOn => 'α▓«α▓╛α▓ñα▓¿α▓╛α▓íα│üα▓╡α▓╡α▓░α│ü';
 
   @override
-  String get endChat => 'ಚಾಟ್ ಮುಗಿಸಿ';
+  String get endChat => 'α▓Üα▓╛α▓ƒα│ì α▓«α│üα▓ùα▓┐α▓╕α▓┐';
 
   @override
-  String get monthJan => 'ಜನವರಿ';
+  String get monthJan => 'α▓£α▓¿α▓╡α▓░α▓┐';
 
   @override
-  String get monthFeb => 'ಫೆಬ್ರವರಿ';
+  String get monthFeb => 'α▓½α│åα▓¼α│ìα▓░α▓╡α▓░α▓┐';
 
   @override
-  String get monthMar => 'ಮಾರ್ಚ್';
+  String get monthMar => 'α▓«α▓╛α▓░α│ìα▓Üα│ì';
 
   @override
-  String get monthApr => 'ಏಪ್ರಿಲ್';
+  String get monthApr => 'α▓Åα▓¬α│ìα▓░α▓┐α▓▓α│ì';
 
   @override
-  String get monthMay => 'ಮೇ';
+  String get monthMay => 'α▓«α│ç';
 
   @override
-  String get monthJun => 'ಜೂನ್';
+  String get monthJun => 'α▓£α│éα▓¿α│ì';
 
   @override
-  String get monthJul => 'ಜುಲೈ';
+  String get monthJul => 'α▓£α│üα▓▓α│ê';
 
   @override
-  String get monthAug => 'ಆಗಸ್ಟ್';
+  String get monthAug => 'α▓åα▓ùα▓╕α│ìα▓ƒα│ì';
 
   @override
-  String get monthSep => 'ಸೆಪ್ಟೆಂಬರ್';
+  String get monthSep => 'α▓╕α│åα▓¬α│ìα▓ƒα│åα▓éα▓¼α▓░α│ì';
 
   @override
-  String get monthOct => 'ಅಕ್ಟೋಬರ್';
+  String get monthOct => 'α▓àα▓òα│ìα▓ƒα│ïα▓¼α▓░α│ì';
 
   @override
-  String get monthNov => 'ನವೆಂಬರ್';
+  String get monthNov => 'α▓¿α▓╡α│åα▓éα▓¼α▓░α│ì';
 
   @override
-  String get monthDec => 'ಡಿಸೆಂಬರ್';
+  String get monthDec => 'α▓íα▓┐α▓╕α│åα▓éα▓¼α▓░α│ì';
 
   @override
-  String get register => 'ನೋಂದಾಯಿಸಿ';
+  String get register => 'α▓¿α│ïα▓éα▓ªα▓╛α▓»α▓┐α▓╕α▓┐';
 
   @override
-  String get newToResonate => 'ರೆಸೋನೇಟ್‌ಗೆ ಹೊಸಬರೇ? ';
+  String get newToResonate => 'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓ùα│å α▓╣α│èα▓╕α▓¼α▓░α│ç? ';
 
   @override
-  String get alreadyHaveAccount => 'ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ? ';
+  String get alreadyHaveAccount => 'α▓êα▓ùα▓╛α▓ùα▓▓α│ç α▓ûα▓╛α▓ñα│å α▓çα▓ªα│åα▓»α│ç? ';
 
   @override
-  String get checking => 'ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...';
+  String get checking => 'α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓▓α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓┐α▓ªα│å...';
 
   @override
   String get forgotPasswordMessage =>
-      'ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸಲು ನಿಮ್ಮ ನೋಂದಾಯಿತ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ.';
+      'α▓¿α▓┐α▓«α│ìα▓« α▓¬α▓╛α▓╕α│ìΓÇîα▓╡α▓░α│ìα▓íα│ì α▓«α▓░α│üα▓╣α│èα▓éα▓ªα▓┐α▓╕α▓▓α│ü α▓¿α▓┐α▓«α│ìα▓« α▓¿α│ïα▓éα▓ªα▓╛α▓»α▓┐α▓ñ α▓çα▓«α│çα▓▓α│ì α▓╡α▓┐α▓│α▓╛α▓╕α▓╡α▓¿α│ìα▓¿α│ü α▓¿α▓«α│éα▓ªα▓┐α▓╕α▓┐.';
 
   @override
-  String get usernameUnavailable => 'ಹೆಸರು ಲಭ್ಯವಿಲ್ಲ!';
+  String get usernameUnavailable => 'α▓╣α│åα▓╕α▓░α│ü α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓!';
 
   @override
   String get usernameInvalidOrTaken =>
-      'ಈ ಹೆಸರು ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಈಗಾಗಲೇ ತೆಗೆದುಕೊಳ್ಳಲಾಗಿದೆ.';
+      'α▓ê α▓╣α│åα▓╕α▓░α│ü α▓àα▓«α▓╛α▓¿α│ìα▓»α▓╡α▓╛α▓ùα▓┐α▓ªα│å α▓àα▓Ñα▓╡α▓╛ α▓êα▓ùα▓╛α▓ùα▓▓α│ç α▓ñα│åα▓ùα│åα▓ªα│üα▓òα│èα▓│α│ìα▓│α▓▓α▓╛α▓ùα▓┐α▓ªα│å.';
 
   @override
-  String get otpResentMessage => 'ಹೊಸ OTP ಗಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೇಲ್ ಪರಿಶೀಲಿಸಿ.';
+  String get otpResentMessage => 'α▓╣α│èα▓╕ OTP α▓ùα▓╛α▓ùα▓┐ α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¿α▓┐α▓«α│ìα▓« α▓«α│çα▓▓α│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐.';
 
   @override
   String get connectionError =>
-      'ಸಂಪರ್ಕ ದೋಷವಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓ªα│ïα▓╖α▓╡α▓┐α▓ªα│å. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¿α▓┐α▓«α│ìα▓« α▓çα▓éα▓ƒα▓░α│ìα▓¿α│åα▓ƒα│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get seconds => 'ಸೆಕೆಂಡುಗಳು.';
+  String get seconds => 'α▓╕α│åα▓òα│åα▓éα▓íα│üα▓ùα▓│α│ü.';
 
   @override
   String get unsavedChangesWarning =>
-      'ನೀವು ಸೇವ್ ಮಾಡದೆ ಮುಂದುವರಿದರೆ, ಸೇವ್ ಮಾಡದ ಬದಲಾವಣೆಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ.';
+      'α▓¿α│Çα▓╡α│ü α▓╕α│çα▓╡α│ì α▓«α▓╛α▓íα▓ªα│å α▓«α│üα▓éα▓ªα│üα▓╡α▓░α▓┐α▓ªα▓░α│å, α▓╕α│çα▓╡α│ì α▓«α▓╛α▓íα▓ª α▓¼α▓ªα▓▓α▓╛α▓╡α▓úα│åα▓ùα▓│α│ü α▓òα▓│α│åα▓ªα│üα▓╣α│ïα▓ùα│üα▓ñα│ìα▓ñα▓╡α│å.';
 
   @override
   String get deleteAccountPermanent =>
-      'ಈ ಕ್ರಿಯೆ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಇದು ಬದಲಾಯಿಸಲಾಗದ ಪ್ರಕ್ರಿಯೆ. ನಾವು ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು, ಇಮೇಲ್ ವಿಳಾಸ ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಗೆ ಸಂಬಂಧಿಸಿದ ಎಲ್ಲಾ ಇತರ ಡೇಟಾವನ್ನು ಅಳಿಸುತ್ತೇವೆ. ನೀವು ಅದನ್ನು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.';
+      'α▓ê α▓òα│ìα▓░α▓┐α▓»α│å α▓¿α▓┐α▓«α│ìα▓« α▓ûα▓╛α▓ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓╢α▓╛α▓╢α│ìα▓╡α▓ñα▓╡α▓╛α▓ùα▓┐ α▓àα▓│α▓┐α▓╕α│üα▓ñα│ìα▓ñα▓ªα│å. α▓çα▓ªα│ü α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓▓α▓╛α▓ùα▓ª α▓¬α│ìα▓░α▓òα│ìα▓░α▓┐α▓»α│å. α▓¿α▓╛α▓╡α│ü α▓¿α▓┐α▓«α│ìα▓« α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ α▓╣α│åα▓╕α▓░α│ü, α▓çα▓«α│çα▓▓α│ì α▓╡α▓┐α▓│α▓╛α▓╕ α▓«α▓ñα│ìα▓ñα│ü α▓¿α▓┐α▓«α│ìα▓« α▓ûα▓╛α▓ñα│åα▓ùα│å α▓╕α▓éα▓¼α▓éα▓ºα▓┐α▓╕α▓┐α▓ª α▓Äα▓▓α│ìα▓▓α▓╛ α▓çα▓ñα▓░ α▓íα│çα▓ƒα▓╛α▓╡α▓¿α│ìα▓¿α│ü α▓àα▓│α▓┐α▓╕α│üα▓ñα│ìα▓ñα│çα▓╡α│å. α▓¿α│Çα▓╡α│ü α▓àα▓ªα▓¿α│ìα▓¿α│ü α▓«α▓░α│üα▓¬α▓íα│åα▓»α▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓╛α▓ùα│üα▓╡α│üα▓ªα▓┐α▓▓α│ìα▓▓.';
 
   @override
-  String get giveGreatName => 'ಉತ್ತಮ ಹೆಸರು ನೀಡಿ..';
+  String get giveGreatName => 'α▓ëα▓ñα│ìα▓ñα▓« α▓╣α│åα▓╕α▓░α│ü α▓¿α│Çα▓íα▓┐..';
 
   @override
   String get joinCommunityDescription =>
-      'ಕಮ್ಯೂನಿಟಿ ಸೇರುವ ಮೂಲಕ ನೀವು ನಿಮ್ಮ ಸಂದೇಹಗಳನ್ನು ಸ್ಪಷ್ಟಪಡಿಸಬಹುದು, ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳಿಗಾಗಿ ಸಲಹೆ ನೀಡಬಹುದು, ನೀವು ಎದುರಿಸಿದ ಸಮಸ್ಯೆಗಳನ್ನು ವರದಿ ಮಾಡಬಹುದು ಮತ್ತು ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು ಲಭ್ಯವಿದೆ.';
+      'α▓òα▓«α│ìα▓»α│éα▓¿α▓┐α▓ƒα▓┐ α▓╕α│çα▓░α│üα▓╡ α▓«α│éα▓▓α▓ò α▓¿α│Çα▓╡α│ü α▓¿α▓┐α▓«α│ìα▓« α▓╕α▓éα▓ªα│çα▓╣α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╕α│ìα▓¬α▓╖α│ìα▓ƒα▓¬α▓íα▓┐α▓╕α▓¼α▓╣α│üα▓ªα│ü, α▓╣α│èα▓╕ α▓╡α│êα▓╢α▓┐α▓╖α│ìα▓ƒα│ìα▓»α▓ùα▓│α▓┐α▓ùα▓╛α▓ùα▓┐ α▓╕α▓▓α▓╣α│å α▓¿α│Çα▓íα▓¼α▓╣α│üα▓ªα│ü, α▓¿α│Çα▓╡α│ü α▓Äα▓ªα│üα▓░α▓┐α▓╕α▓┐α▓ª α▓╕α▓«α▓╕α│ìα▓»α│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╡α▓░α▓ªα▓┐ α▓«α▓╛α▓íα▓¼α▓╣α│üα▓ªα│ü α▓«α▓ñα│ìα▓ñα│ü α▓çα▓¿α│ìα▓¿α▓╖α│ìα▓ƒα│ü α▓åα▓»α│ìα▓òα│åα▓ùα▓│α│ü α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å.';
 
   @override
   String get resonateDescription =>
-      'ರೆಸೊನೇಟ್ ಒಂದು ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ ವೇದಿಕೆ — ಇಲ್ಲಿ ಪ್ರತಿಯೊಬ್ಬರ ಧ್ವನಿಗೂ ಮಹತ್ವ ಇದೆ, ನಿಮ್ಮ ಆಲೋಚನೆಗಳು, ಕಥೆಗಳು ಮತ್ತು ಅನುಭವಗಳನ್ನು ಇತರರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ, ಇಗಲೇ ನಿಮ್ಮ ಧ್ವನಿ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ, ವಿವಿಧ ಚರ್ಚೆಗಳು ಮತ್ತು ವಿಷಯಗಳಲ್ಲಿ ಮುಳುಗಿ ನೋಡಿ. ನಿಮ್ಮ ಮನಸ್ಸಿಗೆ ಹತ್ತಿರವಾದ ರೂಮ್ಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ಕಮ್ಯೂನಿಟಿಯ ಭಾಗವಾಗಿರಿ.ಈಗಲೇ ಈ ಮಾತುಕತೆಗಳಿಗೆ ಸೇರಿ!, ರೂಮ್ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ, ಸ್ನೇಹಿತರೊಂದಿಗೆ ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ವಿಶ್ವದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ';
+      'α▓░α│åα▓╕α│èα▓¿α│çα▓ƒα│ì α▓Æα▓éα▓ªα│ü α▓╕α▓╛α▓«α▓╛α▓£α▓┐α▓ò α▓«α▓╛α▓ºα│ìα▓»α▓« α▓╡α│çα▓ªα▓┐α▓òα│å ΓÇö α▓çα▓▓α│ìα▓▓α▓┐ α▓¬α│ìα▓░α▓ñα▓┐α▓»α│èα▓¼α│ìα▓¼α▓░ α▓ºα│ìα▓╡α▓¿α▓┐α▓ùα│é α▓«α▓╣α▓ñα│ìα▓╡ α▓çα▓ªα│å, α▓¿α▓┐α▓«α│ìα▓« α▓åα▓▓α│ïα▓Üα▓¿α│åα▓ùα▓│α│ü, α▓òα▓Ñα│åα▓ùα▓│α│ü α▓«α▓ñα│ìα▓ñα│ü α▓àα▓¿α│üα▓¡α▓╡α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓çα▓ñα▓░α▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓╣α▓éα▓Üα▓┐α▓òα│èα▓│α│ìα▓│α▓┐, α▓çα▓ùα▓▓α│ç α▓¿α▓┐α▓«α│ìα▓« α▓ºα│ìα▓╡α▓¿α▓┐ α▓¬α│ìα▓░α▓»α▓╛α▓úα▓╡α▓¿α│ìα▓¿α│ü α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐, α▓╡α▓┐α▓╡α▓┐α▓º α▓Üα▓░α│ìα▓Üα│åα▓ùα▓│α│ü α▓«α▓ñα│ìα▓ñα│ü α▓╡α▓┐α▓╖α▓»α▓ùα▓│α▓▓α│ìα▓▓α▓┐ α▓«α│üα▓│α│üα▓ùα▓┐ α▓¿α│ïα▓íα▓┐. α▓¿α▓┐α▓«α│ìα▓« α▓«α▓¿α▓╕α│ìα▓╕α▓┐α▓ùα│å α▓╣α▓ñα│ìα▓ñα▓┐α▓░α▓╡α▓╛α▓ª α▓░α│éα▓«α│ìα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓òα▓«α│ìα▓»α│éα▓¿α▓┐α▓ƒα▓┐α▓» α▓¡α▓╛α▓ùα▓╡α▓╛α▓ùα▓┐α▓░α▓┐.α▓êα▓ùα▓▓α│ç α▓ê α▓«α▓╛α▓ñα│üα▓òα▓ñα│åα▓ùα▓│α▓┐α▓ùα│å α▓╕α│çα▓░α▓┐!, α▓░α│éα▓«α│ìα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓àα▓¿α│ìα▓╡α│çα▓╖α▓┐α▓╕α▓┐, α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α▓éα▓¬α▓░α│ìα▓òα▓┐α▓╕α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓¿α▓┐α▓«α│ìα▓« α▓ºα│ìα▓╡α▓¿α▓┐α▓»α▓¿α│ìα▓¿α│ü α▓╡α▓┐α▓╢α│ìα▓╡α▓ªα│èα▓éα▓ªα▓┐α▓ùα│å α▓╣α▓éα▓Üα▓┐α▓òα│èα▓│α│ìα▓│α▓┐';
 
   @override
   String get resonateFullDescription =>
-      'ರೆಸೋನೇಟ್ ಒಂದು ಕ್ರಾಂತಿಕಾರಿ ಧ್ವನಿ-ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ ವೇದಿಕೆಯಾಗಿದ್ದು, ಇಲ್ಲಿ ಪ್ರತಿಯೊಂದು ಧ್ವನಿ ಮಹತ್ವವಾಗಿದೆ. \nಲೈವ್ ಆಡಿಯೋ ಸಂಭಾಷಣೆಗಳಿಗೆ ಸೇರಿ, ವೈವಿಧ್ಯಮಯ ಚರ್ಚೆಗಳಲ್ಲಿ ಭಾಗವಹಿಸಿ, ಮತ್ತು \nಸಮಾನ ಮನಸ್ಸಿನ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ. ನಮ್ಮ ವೇದಿಕೆ ನಿಮಗೆ:\n- ವಿಷಯ-ಆಧಾರಿತ ಚರ್ಚೆಗಳೊಂದಿಗೆ ಲೈವ್ ಆಡಿಯೋ ರೂಮ್‌ಗಳು\n- ಧ್ವನಿಯ ಮೂಲಕ ಸರಾಗವಾದ ಸಾಮಾಜಿಕ ನೆಟ್‌ವರ್ಕಿಂಗ್\n- ಕಮ್ಯೂನಿಟಿ-ನಡೆಸುವ ವಿಷಯ ಮಾಡರೇಶನ್\n- ಕ್ರಾಸ್-ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಹೊಂದಾಣಿಕೆ\n- ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಖಾಸಗಿ ಸಂಭಾಷಣೆಗಳು\n\nAOSSIE ಓಪನ್ ಸೋರ್ಸ್ ಕಂಮ್ಯುನಿಟಿಯಿಂದ ಅಭಿವೃದ್ಧಿಪಡಿಸಲಾಗಿದೆ, ನಾವು ಬಳಕೆದಾರರ ಗೌಪ್ಯತೆ ಮತ್ತು \nಕಮ್ಯೂನಿಟಿ ನಡೆಸುವ ಅಭಿವೃದ್ಧಿಗೆ ಆದ್ಯತೆ ನೀಡುತ್ತೇವೆ. ಸಾಮಾಜಿಕ ಆಡಿಯೋದ ಭವಿಷ್ಯವನ್ನು ರೂಪಿಸುವಲ್ಲಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ!';
+      'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì α▓Æα▓éα▓ªα│ü α▓òα│ìα▓░α▓╛α▓éα▓ñα▓┐α▓òα▓╛α▓░α▓┐ α▓ºα│ìα▓╡α▓¿α▓┐-α▓åα▓ºα▓╛α▓░α▓┐α▓ñ α▓╕α▓╛α▓«α▓╛α▓£α▓┐α▓ò α▓«α▓╛α▓ºα│ìα▓»α▓« α▓╡α│çα▓ªα▓┐α▓òα│åα▓»α▓╛α▓ùα▓┐α▓ªα│ìα▓ªα│ü, α▓çα▓▓α│ìα▓▓α▓┐ α▓¬α│ìα▓░α▓ñα▓┐α▓»α│èα▓éα▓ªα│ü α▓ºα│ìα▓╡α▓¿α▓┐ α▓«α▓╣α▓ñα│ìα▓╡α▓╡α▓╛α▓ùα▓┐α▓ªα│å. \nα▓▓α│êα▓╡α│ì α▓åα▓íα▓┐α▓»α│ï α▓╕α▓éα▓¡α▓╛α▓╖α▓úα│åα▓ùα▓│α▓┐α▓ùα│å α▓╕α│çα▓░α▓┐, α▓╡α│êα▓╡α▓┐α▓ºα│ìα▓»α▓«α▓» α▓Üα▓░α│ìα▓Üα│åα▓ùα▓│α▓▓α│ìα▓▓α▓┐ α▓¡α▓╛α▓ùα▓╡α▓╣α▓┐α▓╕α▓┐, α▓«α▓ñα│ìα▓ñα│ü \nα▓╕α▓«α▓╛α▓¿ α▓«α▓¿α▓╕α│ìα▓╕α▓┐α▓¿ α▓╡α│ìα▓»α▓òα│ìα▓ñα▓┐α▓ùα▓│α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓╕α▓╛α▓ºα▓┐α▓╕α▓┐. α▓¿α▓«α│ìα▓« α▓╡α│çα▓ªα▓┐α▓òα│å α▓¿α▓┐α▓«α▓ùα│å:\n- α▓╡α▓┐α▓╖α▓»-α▓åα▓ºα▓╛α▓░α▓┐α▓ñ α▓Üα▓░α│ìα▓Üα│åα▓ùα▓│α│èα▓éα▓ªα▓┐α▓ùα│å α▓▓α│êα▓╡α│ì α▓åα▓íα▓┐α▓»α│ï α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α│ü\n- α▓ºα│ìα▓╡α▓¿α▓┐α▓» α▓«α│éα▓▓α▓ò α▓╕α▓░α▓╛α▓ùα▓╡α▓╛α▓ª α▓╕α▓╛α▓«α▓╛α▓£α▓┐α▓ò α▓¿α│åα▓ƒα│ìΓÇîα▓╡α▓░α│ìα▓òα▓┐α▓éα▓ùα│ì\n- α▓òα▓«α│ìα▓»α│éα▓¿α▓┐α▓ƒα▓┐-α▓¿α▓íα│åα▓╕α│üα▓╡ α▓╡α▓┐α▓╖α▓» α▓«α▓╛α▓íα▓░α│çα▓╢α▓¿α│ì\n- α▓òα│ìα▓░α▓╛α▓╕α│ì-α▓¬α│ìα▓▓α▓╛α▓ƒα│ìΓÇîα▓½α▓╛α▓░α│ìα▓«α│ì α▓╣α│èα▓éα▓ªα▓╛α▓úα▓┐α▓òα│å\n- α▓Äα▓éα▓íα│ì-α▓ƒα│ü-α▓Äα▓éα▓íα│ì α▓Äα▓¿α│ìΓÇîα▓òα│ìα▓░α▓┐α▓¬α│ìα▓ƒα│ì α▓«α▓╛α▓íα▓┐α▓ª α▓ûα▓╛α▓╕α▓ùα▓┐ α▓╕α▓éα▓¡α▓╛α▓╖α▓úα│åα▓ùα▓│α│ü\n\nAOSSIE α▓ôα▓¬α▓¿α│ì α▓╕α│ïα▓░α│ìα▓╕α│ì α▓òα▓éα▓«α│ìα▓»α│üα▓¿α▓┐α▓ƒα▓┐α▓»α▓┐α▓éα▓ª α▓àα▓¡α▓┐α▓╡α│âα▓ªα│ìα▓ºα▓┐α▓¬α▓íα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å, α▓¿α▓╛α▓╡α│ü α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░ α▓ùα│îα▓¬α│ìα▓»α▓ñα│å α▓«α▓ñα│ìα▓ñα│ü \nα▓òα▓«α│ìα▓»α│éα▓¿α▓┐α▓ƒα▓┐ α▓¿α▓íα│åα▓╕α│üα▓╡ α▓àα▓¡α▓┐α▓╡α│âα▓ªα│ìα▓ºα▓┐α▓ùα│å α▓åα▓ªα│ìα▓»α▓ñα│å α▓¿α│Çα▓íα│üα▓ñα│ìα▓ñα│çα▓╡α│å. α▓╕α▓╛α▓«α▓╛α▓£α▓┐α▓ò α▓åα▓íα▓┐α▓»α│ïα▓ª α▓¡α▓╡α▓┐α▓╖α│ìα▓»α▓╡α▓¿α│ìα▓¿α│ü α▓░α│éα▓¬α▓┐α▓╕α│üα▓╡α▓▓α│ìα▓▓α▓┐ α▓¿α▓«α│ìα▓«α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α│çα▓░α▓┐!';
 
   @override
-  String get stable => 'ಸ್ಥಿರ';
+  String get stable => 'α▓╕α│ìα▓Ñα▓┐α▓░';
 
   @override
   String get usernameCharacterLimit =>
-      'ಬಳಕೆದಾರ ಹೆಸರು 5 ಅಕ್ಷರಗಳಿಗಿಂತ ಹೆಚ್ಚು ಇರಬೇಕು.';
+      'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ α▓╣α│åα▓╕α▓░α│ü 5 α▓àα▓òα│ìα▓╖α▓░α▓ùα▓│α▓┐α▓ùα▓┐α▓éα▓ñ α▓╣α│åα▓Üα│ìα▓Üα│ü α▓çα▓░α▓¼α│çα▓òα│ü.';
 
   @override
-  String get submit => 'ಸಲ್ಲಿಸಿ';
+  String get submit => 'α▓╕α▓▓α│ìα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get anonymous => 'ಅನಾಮಧೇಯ';
+  String get anonymous => 'α▓àα▓¿α▓╛α▓«α▓ºα│çα▓»';
 
   @override
-  String get noSearchResults => 'ಫಲಿತಾಂಶಗಳು ಇಲ್ಲ';
+  String get noSearchResults => 'α▓½α▓▓α▓┐α▓ñα▓╛α▓éα▓╢α▓ùα▓│α│ü α▓çα▓▓α│ìα▓▓';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα▓┐...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα│üα▓ñα│ìα▓ñα▓┐α▓ªα│å...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'α▓╣α│üα▓íα│üα▓òα▓╛α▓ƒα▓¿α│ìα▓¿α│ü α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'α▓╣α│üα▓íα│üα▓òα▓╛α▓ƒ α▓ñα▓¬α│ìα▓¬α│ü';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError =>
+      'α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα▓▓α│ü α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
   String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+      'α▓«α│üα▓éα▓¼α▓░α│üα▓╡ α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα▓▓α│ü α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get search => 'Search';
+  String get search => 'α▓╣α│üα▓íα│üα▓òα▓┐';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
   String shareRoomMessage(
@@ -767,296 +768,296 @@ class AppLocalizationsKn extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: $roomName!\n\n📖 ವಿವರಣೆ: $description\n👥 ಈಗಲೇ $participants ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!';
+    return '≡ƒÜÇ α▓ê α▓àα▓ªα│ìα▓¡α│üα▓ñ α▓░α│éα▓«α│ì α▓¿α│ïα▓íα▓┐: $roomName!\n\n≡ƒôû α▓╡α▓┐α▓╡α▓░α▓úα│å: $description\n≡ƒæÑ α▓êα▓ùα▓▓α│ç $participants α▓¡α▓╛α▓ùα▓╡α▓╣α▓┐α▓╕α│üα▓╡α▓╡α▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α│çα▓░α▓┐!';
   }
 
   @override
   String participantsCount(int count) {
-    return '$count ಭಾಗವಹಿಸುವವರು';
+    return '$count α▓¡α▓╛α▓ùα▓╡α▓╣α▓┐α▓╕α│üα▓╡α▓╡α▓░α│ü';
   }
 
   @override
-  String get join => 'ಸೇರಿ';
+  String get join => 'α▓╕α│çα▓░α▓┐';
 
   @override
-  String get invalidTags => 'ಅಮಾನ್ಯ ಟ್ಯಾಗ್:';
+  String get invalidTags => 'α▓àα▓«α▓╛α▓¿α│ìα▓» α▓ƒα│ìα▓»α▓╛α▓ùα│ì:';
 
   @override
-  String get cropImage => 'ಚಿತ್ರ ಕತ್ತರಿಸಿ';
+  String get cropImage => 'α▓Üα▓┐α▓ñα│ìα▓░ α▓òα▓ñα│ìα▓ñα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get profileSavedSuccessfully => 'ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲಾಗಿದೆ';
+  String get profileSavedSuccessfully => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓¿α▓╡α│Çα▓òα▓░α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get profileUpdatedSuccessfully =>
-      'ಎಲ್ಲಾ ಬದಲಾವಣೆಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ.';
+      'α▓Äα▓▓α│ìα▓▓α▓╛ α▓¼α▓ªα▓▓α▓╛α▓╡α▓úα│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓ëα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å.';
 
   @override
-  String get profileUpToDate => 'ಪ್ರೊಫೈಲ್ ನವೀಕೃತವಾಗಿದೆ';
+  String get profileUpToDate => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓¿α▓╡α│Çα▓òα│âα▓ñα▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get noChangesToSave =>
-      'ಯಾವುದೇ ಹೊಸ ಬದಲಾವಣೆಗಳನ್ನು ಮಾಡಲಾಗಿಲ್ಲ, ಉಳಿಸಲು ಏನೂ ಇಲ್ಲ.';
+      'α▓»α▓╛α▓╡α│üα▓ªα│ç α▓╣α│èα▓╕ α▓¼α▓ªα▓▓α▓╛α▓╡α▓úα│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓«α▓╛α▓íα▓▓α▓╛α▓ùα▓┐α▓▓α│ìα▓▓, α▓ëα▓│α▓┐α▓╕α▓▓α│ü α▓Åα▓¿α│é α▓çα▓▓α│ìα▓▓.';
 
   @override
-  String get connectionFailed => 'ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ';
+  String get connectionFailed => 'α▓çα▓éα▓ƒα▓░α│ìα▓¿α│åα▓ƒα│ì α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get unableToJoinRoom =>
-      'ರೂಮ್‌ಗೆ ಸೇರಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓░α│éα▓«α│ìΓÇîα▓ùα│å α▓╕α│çα▓░α▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓┐α▓▓α│ìα▓▓. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¿α▓┐α▓«α│ìα▓« α▓¿α│åα▓ƒα│ìΓÇîα▓╡α▓░α│ìα▓òα│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get connectionLost => 'ಸಂಪರ್ಕ ಕಳೆದುಹೋಗಿದೆ';
+  String get connectionLost => 'α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓òα▓│α│åα▓ªα│üα▓╣α│ïα▓ùα▓┐α▓ªα│å';
 
   @override
   String get unableToReconnect =>
-      'ರೂಮ್‌ಗೆ ಮರುಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಸೇರಲು ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓░α│éα▓«α│ìΓÇîα▓ùα│å α▓«α▓░α│üα▓╕α▓éα▓¬α▓░α│ìα▓òα▓┐α▓╕α▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓┐α▓▓α│ìα▓▓. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓ñα│ìα▓ñα│å α▓╕α│çα▓░α▓▓α│ü α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get invalidFormat => 'ಅಮಾನ್ಯ ರೂಪ/ಫಾರ್ಮ್ಯಾಟ್!';
+  String get invalidFormat => 'α▓àα▓«α▓╛α▓¿α│ìα▓» α▓░α│éα▓¬/α▓½α▓╛α▓░α│ìα▓«α│ìα▓»α▓╛α▓ƒα│ì!';
 
   @override
   String get usernameAlphanumeric =>
-      'ಬಳಕೆದಾರ ಹೆಸರಿನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಅಕ್ಷರಗಳು ಅಥವಾ ಸಂಖ್ಯೆಗಳು ಇರಬಹುದು ಮತ್ತು ವಿಶೇಷ ಅಕ್ಷರಗಳನ್ನು ಒಳಗೊಂಡಿರಬಾರದು.';
+      'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ α▓╣α│åα▓╕α▓░α▓┐α▓¿α▓▓α│ìα▓▓α▓┐ α▓çα▓éα▓ùα│ìα▓▓α▓┐α▓╖α│ì α▓àα▓òα│ìα▓╖α▓░α▓ùα▓│α│ü α▓àα▓Ñα▓╡α▓╛ α▓╕α▓éα▓ûα│ìα▓»α│åα▓ùα▓│α│ü α▓çα▓░α▓¼α▓╣α│üα▓ªα│ü α▓«α▓ñα│ìα▓ñα│ü α▓╡α▓┐α▓╢α│çα▓╖ α▓àα▓òα│ìα▓╖α▓░α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓Æα▓│α▓ùα│èα▓éα▓íα▓┐α▓░α▓¼α▓╛α▓░α▓ªα│ü.';
 
   @override
   String get userProfileCreatedSuccessfully =>
-      'ನಿಮ್ಮ ಬಳಕೆದಾರ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ.';
+      'α▓¿α▓┐α▓«α│ìα▓« α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓àα▓¿α│ìα▓¿α│ü α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓░α▓Üα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å.';
 
   @override
   String get emailVerificationMessage =>
-      'ಮುಂದುವರೆಯಲು, ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ.';
+      'α▓«α│üα▓éα▓ªα│üα▓╡α▓░α│åα▓»α▓▓α│ü, α▓¿α▓┐α▓«α│ìα▓« α▓çα▓«α│çα▓▓α│ì α▓╡α▓┐α▓│α▓╛α▓╕α▓╡α▓¿α│ìα▓¿α│ü α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐.';
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return '$storyName ಗೆ ಹೊಸ ಅಧ್ಯಾಯಗಳನ್ನು ಸೇರಿಸಿ';
+    return '$storyName α▓ùα│å α▓╣α│èα▓╕ α▓àα▓ºα│ìα▓»α▓╛α▓»α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐';
   }
 
   @override
-  String get currentChapters => 'ಪ್ರಸ್ತುತ ಅಧ್ಯಾಯಗಳು';
+  String get currentChapters => 'α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓àα▓ºα│ìα▓»α▓╛α▓»α▓ùα▓│α│ü';
 
   @override
-  String get sourceCodeOnGitHub => 'GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್';
+  String get sourceCodeOnGitHub => 'GitHub α▓¿α▓▓α│ìα▓▓α▓┐ α▓╕α│ïα▓░α│ìα▓╕α│ì α▓òα│ïα▓íα│ì';
 
   @override
-  String get createAChapter => 'ಅಧ್ಯಾಯ ರಚಿಸಿ';
+  String get createAChapter => 'α▓àα▓ºα│ìα▓»α▓╛α▓» α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
-  String get chapterTitle => 'ಅಧ್ಯಾಯದ ಶೀರ್ಷಿಕೆ *';
+  String get chapterTitle => 'α▓àα▓ºα│ìα▓»α▓╛α▓»α▓ª α▓╢α│Çα▓░α│ìα▓╖α▓┐α▓òα│å *';
 
   @override
-  String get aboutRequired => 'ಬಗ್ಗೆ *';
+  String get aboutRequired => 'α▓¼α▓ùα│ìα▓ùα│å *';
 
   @override
-  String get changeCoverImage => 'ಕವರ್ ಚಿತ್ರ ಬದಲಾಯಿಸಿ';
+  String get changeCoverImage => 'α▓òα▓╡α▓░α│ì α▓Üα▓┐α▓ñα│ìα▓░ α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐';
 
   @override
-  String get uploadAudioFile => 'ಆಡಿಯೋ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ';
+  String get uploadAudioFile => 'α▓åα▓íα▓┐α▓»α│ï α▓½α│êα▓▓α│ì α▓àα▓¬α│ìΓÇîα▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get uploadLyricsFile => 'ಸಾಹಿತ್ಯ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ';
+  String get uploadLyricsFile => 'α▓╕α▓╛α▓╣α▓┐α▓ñα│ìα▓» α▓½α│êα▓▓α│ì α▓àα▓¬α│ìΓÇîα▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get createChapter => 'ಅಧ್ಯಾಯ ರಚಿಸಿ';
+  String get createChapter => 'α▓àα▓ºα│ìα▓»α▓╛α▓» α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
   String audioFileSelected(String fileName) {
-    return 'ಆಡಿಯೋ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: $fileName';
+    return 'α▓åα▓íα▓┐α▓»α│ï α▓½α│êα▓▓α│ì α▓åα▓»α│ìα▓òα│åα▓»α▓╛α▓ùα▓┐α▓ªα│å: $fileName';
   }
 
   @override
   String lyricsFileSelected(String fileName) {
-    return 'ಸಾಹಿತ್ಯ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: $fileName';
+    return 'α▓╕α▓╛α▓╣α▓┐α▓ñα│ìα▓» α▓½α│êα▓▓α│ì α▓åα▓»α│ìα▓òα│åα▓»α▓╛α▓ùα▓┐α▓ªα│å: $fileName';
   }
 
   @override
   String get fillAllRequiredFields =>
-      'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಆಡಿಯೋ ಫೈಲ್ ಮತ್ತು ಸಾಹಿತ್ಯ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ';
+      'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓Äα▓▓α│ìα▓▓α▓╛ α▓àα▓ùα▓ñα│ìα▓» α▓òα│ìα▓╖α│çα▓ñα│ìα▓░α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¡α▓░α│ìα▓ñα▓┐ α▓«α▓╛α▓íα▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓¿α▓┐α▓«α│ìα▓« α▓åα▓íα▓┐α▓»α│ï α▓½α│êα▓▓α│ì α▓«α▓ñα│ìα▓ñα│ü α▓╕α▓╛α▓╣α▓┐α▓ñα│ìα▓» α▓½α│êα▓▓α│ì α▓àα▓¬α│ìΓÇîα▓▓α│ïα▓íα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get scheduled => 'ನಿಗದಿಪಡಿಸಲಾಗಿದೆ';
+  String get scheduled => 'α▓¿α▓┐α▓ùα▓ªα▓┐α▓¬α▓íα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get ok => 'ಸರಿ';
+  String get ok => 'α▓╕α▓░α▓┐';
 
   @override
-  String get roomDescriptionOptional => 'ರೂಮ್ ವಿವರಣೆ (ಐಚ್ಛಿಕ/optional)';
+  String get roomDescriptionOptional => 'α▓░α│éα▓«α│ì α▓╡α▓┐α▓╡α▓░α▓úα│å (α▓Éα▓Üα│ìα▓¢α▓┐α▓ò/optional)';
 
   @override
-  String get deleteAccount => 'ಖಾತೆ ಅಳಿಸಿ';
+  String get deleteAccount => 'α▓ûα▓╛α▓ñα│å α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get createYourStory => 'ನಿಮ್ಮ ಕಥೆ ರಚಿಸಿ';
+  String get createYourStory => 'α▓¿α▓┐α▓«α│ìα▓« α▓òα▓Ñα│å α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
-  String get titleRequired => 'ಶೀರ್ಷಿಕೆ *';
+  String get titleRequired => 'α▓╢α│Çα▓░α│ìα▓╖α▓┐α▓òα│å *';
 
   @override
-  String get category => 'ವರ್ಗ *';
+  String get category => 'α▓╡α▓░α│ìα▓ù *';
 
   @override
-  String get addChapter => 'ಅಧ್ಯಾಯ ಸೇರಿಸಿ';
+  String get addChapter => 'α▓àα▓ºα│ìα▓»α▓╛α▓» α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get createStory => 'ಕಥೆ ರಚಿಸಿ';
+  String get createStory => 'α▓òα▓Ñα│å α▓░α▓Üα▓┐α▓╕α▓┐';
 
   @override
   String get fillAllRequiredFieldsAndChapter =>
-      'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ, ಕನಿಷ್ಠ ಒಂದು ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಕವರ್ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.';
+      'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓Äα▓▓α│ìα▓▓α▓╛ α▓àα▓ùα▓ñα│ìα▓» α▓òα│ìα▓╖α│çα▓ñα│ìα▓░α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¡α▓░α│ìα▓ñα▓┐ α▓«α▓╛α▓íα▓┐, α▓òα▓¿α▓┐α▓╖α│ìα▓á α▓Æα▓éα▓ªα│ü α▓àα▓ºα│ìα▓»α▓╛α▓»α▓╡α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓òα▓╡α▓░α│ì α▓Üα▓┐α▓ñα│ìα▓░α▓╡α▓¿α│ìα▓¿α│ü α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐.';
 
   @override
-  String get toConfirmType => 'ದೃಢೀಕರಿಸಲು, ಟೈಪ್ ಮಾಡಿ';
+  String get toConfirmType => 'α▓ªα│âα▓óα│Çα▓òα▓░α▓┐α▓╕α▓▓α│ü, α▓ƒα│êα▓¬α│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get inTheBoxBelow => 'ಕೆಳಗಿನ ಬಾಕ್ಸ್‌ನಲ್ಲಿ';
+  String get inTheBoxBelow => 'α▓òα│åα▓│α▓ùα▓┐α▓¿ α▓¼α▓╛α▓òα│ìα▓╕α│ìΓÇîα▓¿α▓▓α│ìα▓▓α▓┐';
 
   @override
   String get iUnderstandDeleteMyAccount =>
-      'ನನಗೆ ಅರ್ಥವಾಗಿದೆ, ನನ್ನ ಖಾತೆಯನ್ನು ಅಳಿಸಿ';
+      'α▓¿α▓¿α▓ùα│å α▓àα▓░α│ìα▓Ñα▓╡α▓╛α▓ùα▓┐α▓ªα│å, α▓¿α▓¿α│ìα▓¿ α▓ûα▓╛α▓ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get whatDoYouWantToListenTo => 'ನೀವು ಏನನ್ನು ಕೇಳಲು ಬಯಸುತ್ತೀರಿ?';
+  String get whatDoYouWantToListenTo => 'α▓¿α│Çα▓╡α│ü α▓Åα▓¿α▓¿α│ìα▓¿α│ü α▓òα│çα▓│α▓▓α│ü α▓¼α▓»α▓╕α│üα▓ñα│ìα▓ñα│Çα▓░α▓┐?';
 
   @override
-  String get categories => 'ವರ್ಗಗಳು';
+  String get categories => 'α▓╡α▓░α│ìα▓ùα▓ùα▓│α│ü';
 
   @override
-  String get stories => 'ಕಥೆಗಳು';
+  String get stories => 'α▓òα▓Ñα│åα▓ùα▓│α│ü';
 
   @override
-  String get someSuggestions => 'ಕೆಲವು ಸಲಹೆಗಳು';
+  String get someSuggestions => 'α▓òα│åα▓▓α▓╡α│ü α▓╕α▓▓α▓╣α│åα▓ùα▓│α│ü';
 
   @override
-  String get getStarted => 'ಪ್ರಾರಂಭಿಸಿ';
+  String get getStarted => 'α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐';
 
   @override
-  String get skip => 'ಬಿಟ್ಟುಬಿಡಿ';
+  String get skip => 'α▓¼α▓┐α▓ƒα│ìα▓ƒα│üα▓¼α▓┐α▓íα▓┐';
 
   @override
-  String get welcomeToResonate => 'ರೆಸೋನೇಟ್‌ಗೆ ಸ್ವಾಗತ';
+  String get welcomeToResonate => 'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓ùα│å α▓╕α│ìα▓╡α▓╛α▓ùα▓ñ';
 
   @override
-  String get exploreDiverseConversations => 'ವೈವಿಧ್ಯಮಯ ಸಂಭಾಷಣೆಗಳನ್ನು ಅನ್ವೇಷಿಸಿ';
+  String get exploreDiverseConversations => 'α▓╡α│êα▓╡α▓┐α▓ºα│ìα▓»α▓«α▓» α▓╕α▓éα▓¡α▓╛α▓╖α▓úα│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓àα▓¿α│ìα▓╡α│çα▓╖α▓┐α▓╕α▓┐';
 
   @override
-  String get yourVoiceMatters => 'ನಿಮ್ಮ ಧ್ವನಿ ಮಹತ್ವವಾಗಿದೆ';
+  String get yourVoiceMatters => 'α▓¿α▓┐α▓«α│ìα▓« α▓ºα│ìα▓╡α▓¿α▓┐ α▓«α▓╣α▓ñα│ìα▓╡α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get joinConversationExploreRooms =>
-      'ಸಂಭಾಷಣೆಗೆ ಸೇರಿ! ರೂಮ್‌ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ, ಸ್ನೇಹಿತರೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಜಗತ್ತಿನೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.';
+      'α▓╕α▓éα▓¡α▓╛α▓╖α▓úα│åα▓ùα│å α▓╕α│çα▓░α▓┐! α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓àα▓¿α│ìα▓╡α│çα▓╖α▓┐α▓╕α▓┐, α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓╕α▓éα▓¬α▓░α│ìα▓ò α▓╕α▓╛α▓ºα▓┐α▓╕α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓¿α▓┐α▓«α│ìα▓« α▓ºα│ìα▓╡α▓¿α▓┐α▓»α▓¿α│ìα▓¿α│ü α▓£α▓ùα▓ñα│ìα▓ñα▓┐α▓¿α│èα▓éα▓ªα▓┐α▓ùα│å α▓╣α▓éα▓Üα▓┐α▓òα│èα▓│α│ìα▓│α▓┐.';
 
   @override
   String get diveIntoDiverseDiscussions =>
-      'ವೈವಿಧ್ಯಮಯ ಚರ್ಚೆಗಳು ಮತ್ತು ವಿಷಯಗಳಲ್ಲಿ ಮುಳುಗಿ. \nನಿಮಗೆ ಹೊಂದಿಕೆಯಾಗುವ ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ಕಂಮ್ಯುನಿಟಿಯ ಭಾಗವಾಗಿರಿ.';
+      'α▓╡α│êα▓╡α▓┐α▓ºα│ìα▓»α▓«α▓» α▓Üα▓░α│ìα▓Üα│åα▓ùα▓│α│ü α▓«α▓ñα│ìα▓ñα│ü α▓╡α▓┐α▓╖α▓»α▓ùα▓│α▓▓α│ìα▓▓α▓┐ α▓«α│üα▓│α│üα▓ùα▓┐. \nα▓¿α▓┐α▓«α▓ùα│å α▓╣α│èα▓éα▓ªα▓┐α▓òα│åα▓»α▓╛α▓ùα│üα▓╡ α▓░α│éα▓«α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╣α│üα▓íα│üα▓òα▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓òα▓éα▓«α│ìα▓»α│üα▓¿α▓┐α▓ƒα▓┐α▓» α▓¡α▓╛α▓ùα▓╡α▓╛α▓ùα▓┐α▓░α▓┐.';
 
   @override
   String get atResonateEveryVoiceValued =>
-      'ರೆಸೋನೇಟ್‌ನಲ್ಲಿ, ಪ್ರತಿಯೊಂದು ಧ್ವನಿಯನ್ನು ಮೌಲ್ಯೀಕರಿಸಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಆಲೋಚನೆಗಳು, ಕಥೆಗಳು ಮತ್ತು ಅನುಭವಗಳನ್ನು ಇತರರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ. ಈಗಲೇ ನಿಮ್ಮ ಆಡಿಯೋ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ.';
+      'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓¿α▓▓α│ìα▓▓α▓┐, α▓¬α│ìα▓░α▓ñα▓┐α▓»α│èα▓éα▓ªα│ü α▓ºα│ìα▓╡α▓¿α▓┐α▓»α▓¿α│ìα▓¿α│ü α▓«α│îα▓▓α│ìα▓»α│Çα▓òα▓░α▓┐α▓╕α▓▓α▓╛α▓ùα│üα▓ñα│ìα▓ñα▓ªα│å. α▓¿α▓┐α▓«α│ìα▓« α▓åα▓▓α│ïα▓Üα▓¿α│åα▓ùα▓│α│ü, α▓òα▓Ñα│åα▓ùα▓│α│ü α▓«α▓ñα│ìα▓ñα│ü α▓àα▓¿α│üα▓¡α▓╡α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓çα▓ñα▓░α▓░α│èα▓éα▓ªα▓┐α▓ùα│å α▓╣α▓éα▓Üα▓┐α▓òα│èα▓│α│ìα▓│α▓┐. α▓êα▓ùα▓▓α│ç α▓¿α▓┐α▓«α│ìα▓« α▓åα▓íα▓┐α▓»α│ï α▓¬α│ìα▓░α▓»α▓╛α▓úα▓╡α▓¿α│ìα▓¿α│ü α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐.';
 
   @override
-  String get notifications => 'ಮೆಸೇಜ್ಗಳು';
+  String get notifications => 'α▓«α│åα▓╕α│çα▓£α│ìα▓ùα▓│α│ü';
 
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
-    return '$username ನಿಮ್ಮನ್ನು ಮುಂಬರುವ ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: $subject';
+    return '$username α▓¿α▓┐α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓«α│üα▓éα▓¼α▓░α│üα▓╡ α▓░α│éα▓«α│ìΓÇîα▓¿α▓▓α│ìα▓▓α▓┐ α▓ƒα│ìα▓»α▓╛α▓ùα│ì α▓«α▓╛α▓íα▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å: $subject';
   }
 
   @override
   String taggedYouInRoom(String username, String subject) {
-    return '$username ನಿಮ್ಮನ್ನು ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: $subject';
+    return '$username α▓¿α▓┐α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓░α│éα▓«α│ìΓÇîα▓¿α▓▓α│ìα▓▓α▓┐ α▓ƒα│ìα▓»α▓╛α▓ùα│ì α▓«α▓╛α▓íα▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å: $subject';
   }
 
   @override
   String likedYourStory(String username, String subject) {
-    return '$username ನಿಮ್ಮ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ: $subject';
+    return '$username α▓¿α▓┐α▓«α│ìα▓« α▓òα▓Ñα│åα▓»α▓¿α│ìα▓¿α│ü α▓çα▓╖α│ìα▓ƒα▓¬α▓ƒα│ìα▓ƒα▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å: $subject';
   }
 
   @override
   String subscribedToYourRoom(String username, String subject) {
-    return '$username ನಿಮ್ಮ ರೂಮ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬರಾಗಿದ್ದಾರೆ: $subject';
+    return '$username α▓¿α▓┐α▓«α│ìα▓« α▓░α│éα▓«α│ìΓÇîα▓ùα│å α▓╕α▓¼α│ìΓÇîα▓╕α│ìα▓òα│ìα▓░α│êα▓¼α▓░α▓╛α▓ùα▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å: $subject';
   }
 
   @override
   String startedFollowingYou(String username) {
-    return '$username ನಿಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡುತ್ತಿದ್ದಾರೆ';
+    return '$username α▓¿α▓┐α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓½α▓╛α▓▓α│ï α▓«α▓╛α▓íα│üα▓ñα│ìα▓ñα▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å';
   }
 
   @override
-  String get youHaveNewNotification => 'ನಿಮಗೆ ಹೊಸ ಮೆಸೇಜ್ ಇದೆ';
+  String get youHaveNewNotification => 'α▓¿α▓┐α▓«α▓ùα│å α▓╣α│èα▓╕ α▓«α│åα▓╕α│çα▓£α│ì α▓çα▓ªα│å';
 
   @override
   String get hangOnGoodThingsTakeTime =>
-      'ತಾಳ್ಮೆಯಿಂದಿರಿ, ಉತ್ತಮ ವಿಷಯಗಳಿಗೆ ಸಮಯ ಬೇಕು 🔍';
+      'α▓ñα▓╛α▓│α│ìα▓«α│åα▓»α▓┐α▓éα▓ªα▓┐α▓░α▓┐, α▓ëα▓ñα│ìα▓ñα▓« α▓╡α▓┐α▓╖α▓»α▓ùα▓│α▓┐α▓ùα│å α▓╕α▓«α▓» α▓¼α│çα▓òα│ü ≡ƒöì';
 
   @override
   String get resonateOpenSourceProject =>
-      'ರೆಸೋನೇಟ್ AOSSIE ನಿರ್ವಹಿಸುವ ಓಪನ್ ಸೋರ್ಸ್ ಪ್ರಾಜೆಕ್ಟ್ ಆಗಿದೆ.ನಿಮ್ಮ ಕೊಡುಗೆ ನೀಡಲು ನಮ್ಮ github ನೋಡಿ.';
+      'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì AOSSIE α▓¿α▓┐α▓░α│ìα▓╡α▓╣α▓┐α▓╕α│üα▓╡ α▓ôα▓¬α▓¿α│ì α▓╕α│ïα▓░α│ìα▓╕α│ì α▓¬α│ìα▓░α▓╛α▓£α│åα▓òα│ìα▓ƒα│ì α▓åα▓ùα▓┐α▓ªα│å.α▓¿α▓┐α▓«α│ìα▓« α▓òα│èα▓íα│üα▓ùα│å α▓¿α│Çα▓íα▓▓α│ü α▓¿α▓«α│ìα▓« github α▓¿α│ïα▓íα▓┐.';
 
   @override
-  String get mute => 'ಮ್ಯೂಟ್';
+  String get mute => 'α▓«α│ìα▓»α│éα▓ƒα│ì';
 
   @override
-  String get speakerLabel => 'ಮಾತನಾಡುವವರು';
+  String get speakerLabel => 'α▓«α▓╛α▓ñα▓¿α▓╛α▓íα│üα▓╡α▓╡α▓░α│ü';
 
   @override
-  String get end => 'ಮುಗಿಸಿ';
+  String get end => 'α▓«α│üα▓ùα▓┐α▓╕α▓┐';
 
   @override
-  String get saveChanges => 'ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ';
+  String get saveChanges => 'α▓¼α▓ªα▓▓α▓╛α▓╡α▓úα│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓ëα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get discard => 'ತ್ಯಜಿಸಿ';
+  String get discard => 'α▓ñα│ìα▓»α▓£α▓┐α▓╕α▓┐';
 
   @override
-  String get save => 'ಉಳಿಸಿ';
+  String get save => 'α▓ëα▓│α▓┐α▓╕α▓┐';
 
   @override
-  String get changeProfilePicture => 'ಪ್ರೊಫೈಲ್ ಚಿತ್ರ ಬದಲಾಯಿಸಿ';
+  String get changeProfilePicture => 'α▓¬α│ìα▓░α│èα▓½α│êα▓▓α│ì α▓Üα▓┐α▓ñα│ìα▓░ α▓¼α▓ªα▓▓α▓╛α▓»α▓┐α▓╕α▓┐';
 
   @override
-  String get camera => 'ಕ್ಯಾಮೆರಾ';
+  String get camera => 'α▓òα│ìα▓»α▓╛α▓«α│åα▓░α▓╛';
 
   @override
-  String get gallery => 'ಗ್ಯಾಲರಿ';
+  String get gallery => 'α▓ùα│ìα▓»α▓╛α▓▓α▓░α▓┐';
 
   @override
-  String get remove => 'ತೆಗೆದುಹಾಕಿ';
+  String get remove => 'α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓┐';
 
   @override
   String created(String date) {
-    return 'ರಚಿಸಲಾಗಿದೆ $date';
+    return 'α▓░α▓Üα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å $date';
   }
 
   @override
-  String get chapters => 'ಅಧ್ಯಾಯಗಳು';
+  String get chapters => 'α▓àα▓ºα│ìα▓»α▓╛α▓»α▓ùα▓│α│ü';
 
   @override
-  String get deleteStory => 'ಕಥೆ ಅಳಿಸಿ';
+  String get deleteStory => 'α▓òα▓Ñα│å α▓àα▓│α▓┐α▓╕α▓┐';
 
   @override
   String createdBy(String creatorName) {
-    return 'ರಚಿಸಿರುವವವರು $creatorName';
+    return 'α▓░α▓Üα▓┐α▓╕α▓┐α▓░α│üα▓╡α▓╡α▓╡α▓░α│ü $creatorName';
   }
 
   @override
-  String get start => 'ಪ್ರಾರಂಭಿಸಿ';
+  String get start => 'α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐';
 
   @override
-  String get unsubscribe => 'ಅನ್‌ಸಬ್‌ಸ್ಕ್ರೈಬ್';
+  String get unsubscribe => 'α▓àα▓¿α│ìΓÇîα▓╕α▓¼α│ìΓÇîα▓╕α│ìα▓òα│ìα▓░α│êα▓¼α│ì';
 
   @override
-  String get subscribe => 'ಸಬ್‌ಸ್ಕ್ರೈಬ್';
+  String get subscribe => 'α▓╕α▓¼α│ìΓÇîα▓╕α│ìα▓òα│ìα▓░α│êα▓¼α│ì';
 
   @override
   String storyCategory(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'drama': 'ನಾಟಕ',
-      'comedy': 'ಹಾಸ್ಯ',
-      'horror': 'ಭಯಾನಕ',
-      'romance': 'ಪ್ರಣಯ',
-      'thriller': 'ರೋಮಾಂಚಕ',
-      'spiritual': 'ಆಧ್ಯಾತ್ಮಿಕ',
-      'other': 'ಇತರೆ',
+      'drama': 'α▓¿α▓╛α▓ƒα▓ò',
+      'comedy': 'α▓╣α▓╛α▓╕α│ìα▓»',
+      'horror': 'α▓¡α▓»α▓╛α▓¿α▓ò',
+      'romance': 'α▓¬α│ìα▓░α▓úα▓»',
+      'thriller': 'α▓░α│ïα▓«α▓╛α▓éα▓Üα▓ò',
+      'spiritual': 'α▓åα▓ºα│ìα▓»α▓╛α▓ñα│ìα▓«α▓┐α▓ò',
+      'other': 'α▓çα▓ñα▓░α│å',
     });
     return '$_temp0';
   }
@@ -1064,13 +1065,13 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String chooseTheme(String category) {
     String _temp0 = intl.Intl.selectLogic(category, {
-      'classicTheme': 'ಕ್ಲಾಸಿಕ್',
-      'timeTheme': 'ಟೈಮ್',
-      'vintageTheme': 'ವಿಂಟೇಜ್',
-      'amberTheme': 'ಆಂಬರ್',
-      'forestTheme': 'ಫಾರೆಸ್ಟ್',
-      'creamTheme': 'ಕ್ರೀಮ್',
-      'other': 'ಇತರೆ',
+      'classicTheme': 'α▓òα│ìα▓▓α▓╛α▓╕α▓┐α▓òα│ì',
+      'timeTheme': 'α▓ƒα│êα▓«α│ì',
+      'vintageTheme': 'α▓╡α▓┐α▓éα▓ƒα│çα▓£α│ì',
+      'amberTheme': 'α▓åα▓éα▓¼α▓░α│ì',
+      'forestTheme': 'α▓½α▓╛α▓░α│åα▓╕α│ìα▓ƒα│ì',
+      'creamTheme': 'α▓òα│ìα▓░α│Çα▓«α│ì',
+      'other': 'α▓çα▓ñα▓░α│å',
     });
     return '$_temp0';
   }
@@ -1080,8 +1081,8 @@ class AppLocalizationsKn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count ನಿಮಿಷಗಳ ಹಿಂದೆ',
-      one: '1 ನಿಮಿಷದ ಹಿಂದೆ',
+      other: '$count α▓¿α▓┐α▓«α▓┐α▓╖α▓ùα▓│ α▓╣α▓┐α▓éα▓ªα│å',
+      one: '1 α▓¿α▓┐α▓«α▓┐α▓╖α▓ª α▓╣α▓┐α▓éα▓ªα│å',
     );
     return '$_temp0';
   }
@@ -1091,8 +1092,8 @@ class AppLocalizationsKn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count ಗಂಟೆಗಳ ಹಿಂದೆ',
-      one: '1 ಗಂಟೆ ಹಿಂದೆ',
+      other: '$count α▓ùα▓éα▓ƒα│åα▓ùα▓│ α▓╣α▓┐α▓éα▓ªα│å',
+      one: '1 α▓ùα▓éα▓ƒα│å α▓╣α▓┐α▓éα▓ªα│å',
     );
     return '$_temp0';
   }
@@ -1102,251 +1103,251 @@ class AppLocalizationsKn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count ದಿನಗಳ ಹಿಂದೆ',
-      one: '1 ದಿನದ ಹಿಂದೆ',
+      other: '$count α▓ªα▓┐α▓¿α▓ùα▓│ α▓╣α▓┐α▓éα▓ªα│å',
+      one: '1 α▓ªα▓┐α▓¿α▓ª α▓╣α▓┐α▓éα▓ªα│å',
     );
     return '$_temp0';
   }
 
   @override
-  String get by => 'ರಿಂದ';
+  String get by => 'α▓░α▓┐α▓éα▓ª';
 
   @override
-  String get likes => 'ಲೈಕ್‌ಗಳು';
+  String get likes => 'α▓▓α│êα▓òα│ìΓÇîα▓ùα▓│α│ü';
 
   @override
-  String get lengthMinutes => 'ನಿಮಿಷ';
+  String get lengthMinutes => 'α▓¿α▓┐α▓«α▓┐α▓╖';
 
   @override
-  String get requiredField => 'ಈ ಕ್ಷೇತ್ರ ಭರ್ತಿಮಾಡಿ';
+  String get requiredField => 'α▓ê α▓òα│ìα▓╖α│çα▓ñα│ìα▓░ α▓¡α▓░α│ìα▓ñα▓┐α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get onlineUsers => 'ಆನ್‌ಲೈನ್ ಬಳಕೆದಾರರು';
+  String get onlineUsers => 'α▓åα▓¿α│ìΓÇîα▓▓α│êα▓¿α│ì α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü';
 
   @override
-  String get noOnlineUsers => 'ಪ್ರಸ್ತುತ ಯಾವುದೇ ಬಳಕೆದಾರರು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಇಲ್ಲ';
+  String get noOnlineUsers => 'α▓¬α│ìα▓░α▓╕α│ìα▓ñα│üα▓ñ α▓»α▓╛α▓╡α│üα▓ªα│ç α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α│ü α▓åα▓¿α│ìΓÇîα▓▓α│êα▓¿α│ìΓÇîα▓¿α▓▓α│ìα▓▓α▓┐ α▓çα▓▓α│ìα▓▓';
 
   @override
-  String get chooseUser => 'ಚಾಟ್ ಮಾಡಲು ಬಳಕೆದಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ';
+  String get chooseUser => 'α▓Üα▓╛α▓ƒα│ì α▓«α▓╛α▓íα▓▓α│ü α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α▓¿α│ìα▓¿α│ü α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get quickMatch => 'ಕ್ವಿಕ್ ಮ್ಯಾಚ್';
+  String get quickMatch => 'α▓òα│ìα▓╡α▓┐α▓òα│ì α▓«α│ìα▓»α▓╛α▓Üα│ì';
 
   @override
-  String get story => 'ಕಥೆ';
+  String get story => 'α▓òα▓Ñα│å';
 
   @override
-  String get user => 'ಬಳಕೆದಾರ';
+  String get user => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░';
 
   @override
-  String get following => 'ಫಾಲೋವಿಂಗ್';
+  String get following => 'α▓½α▓╛α▓▓α│ïα▓╡α▓┐α▓éα▓ùα│ì';
 
   @override
-  String get followers => 'ಫಾಲ್ಲೋವರ್ಸ್';
+  String get followers => 'α▓½α▓╛α▓▓α│ìα▓▓α│ïα▓╡α▓░α│ìα▓╕α│ì';
 
   @override
-  String get friendRequests => 'ಸ್ನೇಹಿತರ ವಿನಂತಿಗಳು';
+  String get friendRequests => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐α▓ùα▓│α│ü';
 
   @override
-  String get friendRequestSent => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ಕಳುಹಿಸಲಾಗಿದೆ';
+  String get friendRequestSent => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓òα▓│α│üα▓╣α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String friendRequestSentTo(String username) {
-    return '$username ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ಕಳುಹಿಸಲಾಗಿದೆ.';
+    return '$username α▓ùα│å α▓¿α▓┐α▓«α│ìα▓« α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓òα▓│α│üα▓╣α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å.';
   }
 
   @override
-  String get friendRequestCancelled => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ';
+  String get friendRequestCancelled => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓░α▓ªα│ìα▓ªα│üα▓ùα│èα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String friendRequestCancelledTo(String username) {
-    return '$username ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.';
+    return '$username α▓ùα│å α▓¿α▓┐α▓«α│ìα▓« α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓░α▓ªα│ìα▓ªα│üα▓ùα│èα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å.';
   }
 
   @override
-  String get requested => 'ವಿನಂತಿಸಲಾಗಿದೆ';
+  String get requested => 'α▓╡α▓┐α▓¿α▓éα▓ñα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get friends => 'ಸ್ನೇಹಿತರು';
+  String get friends => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░α│ü';
 
   @override
-  String get addFriend => 'ಸ್ನೇಹಿತರನ್ನು ಸೇರಿಸಿ';
+  String get addFriend => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░α▓¿α│ìα▓¿α│ü α▓╕α│çα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get friendRequestAccepted => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ';
+  String get friendRequestAccepted => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓╕α│ìα▓╡α│Çα▓òα▓░α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'ನೀವು ಈಗ $username ಜೊತೆ ಸ್ನೇಹಿತರಾಗಿದ್ದೀರಿ.';
+    return 'α▓¿α│Çα▓╡α│ü α▓êα▓ù $username α▓£α│èα▓ñα│å α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░α▓╛α▓ùα▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐.';
   }
 
   @override
-  String get friendRequestDeclined => 'ಸ್ನೇಹಿತರ ವಿನಂತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ';
+  String get friendRequestDeclined => 'α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐ α▓¿α▓┐α▓░α▓╛α▓òα▓░α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'ನೀವು $username ರಿಂದ ಸ್ನೇಹಿತರ ವಿನಂತಿಯನ್ನು ನಿರಾಕರಿಸಿದ್ದೀರಿ.';
+    return 'α▓¿α│Çα▓╡α│ü $username α▓░α▓┐α▓éα▓ª α▓╕α│ìα▓¿α│çα▓╣α▓┐α▓ñα▓░ α▓╡α▓┐α▓¿α▓éα▓ñα▓┐α▓»α▓¿α│ìα▓¿α│ü α▓¿α▓┐α▓░α▓╛α▓òα▓░α▓┐α▓╕α▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐.';
   }
 
   @override
-  String get accept => 'ಸ್ವೀಕರಿಸಿ';
+  String get accept => 'α▓╕α│ìα▓╡α│Çα▓òα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get callDeclined => 'ಕರೆ ನಿರಾಕರಿಸಲಾಗಿದೆ';
+  String get callDeclined => 'α▓òα▓░α│å α▓¿α▓┐α▓░α▓╛α▓òα▓░α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String callDeclinedTo(String username) {
-    return 'ಬಳಕೆದಾರ $username ಕರೆಯನ್ನು ನಿರಾಕರಿಸಿದ್ದಾರೆ.';
+    return 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░ $username α▓òα▓░α│åα▓»α▓¿α│ìα▓¿α│ü α▓¿α▓┐α▓░α▓╛α▓òα▓░α▓┐α▓╕α▓┐α▓ªα│ìα▓ªα▓╛α▓░α│å.';
   }
 
   @override
-  String get checkForUpdates => 'ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ';
+  String get checkForUpdates => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get updateNow => 'ಈಗಲೇ ನವೀಕರಿಸಿ';
+  String get updateNow => 'α▓êα▓ùα▓▓α│ç α▓¿α▓╡α│Çα▓òα▓░α▓┐α▓╕α▓┐';
 
   @override
-  String get updateLater => 'ನಂತರ';
+  String get updateLater => 'α▓¿α▓éα▓ñα▓░';
 
   @override
-  String get updateSuccessful => 'ಅಪ್ಡೇಟ್ಸ್ ಯಶಸ್ವಿಯಾಗಿದೆ';
+  String get updateSuccessful => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get updateSuccessfulMessage =>
-      'ರೆಸೋನೇಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಪ್ಡೇಟ್ಸ್ ಮಾಡಲಾಗಿದೆ!';
+      'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì α▓àα▓¿α│ìα▓¿α│ü α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓«α▓╛α▓íα▓▓α▓╛α▓ùα▓┐α▓ªα│å!';
 
   @override
-  String get updateCancelled => 'ಅಪ್ಡೇಟ್ಸ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ';
+  String get updateCancelled => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓░α▓ªα│ìα▓ªα│üα▓ùα│èα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get updateCancelledMessage => 'ಬಳಕೆದಾರರಿಂದ ಅಪ್ಡೇಟ್ಸ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ';
+  String get updateCancelledMessage => 'α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α▓┐α▓éα▓ª α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓░α▓ªα│ìα▓ªα│üα▓ùα│èα▓│α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get updateFailed => 'ಅಪ್ಡೇಟ್ಸ್ ವಿಫಲವಾಗಿದೆ';
+  String get updateFailed => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get updateFailedMessage =>
-      'ಅಪ್ಡೇಟ್ಸ್ ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಪ್ಲೇ ಸ್ಟೋರ್ ನಿಂದ ಅಪ್ಡೇಟ್ಸ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¬α│ìα▓▓α│ç α▓╕α│ìα▓ƒα│ïα▓░α│ì α▓¿α▓┐α▓éα▓ª α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓«α▓╛α▓íα▓▓α│ü α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get updateError => 'ಅಪ್ಡೇಟ್ಸ್ ದೋಷ';
+  String get updateError => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓ªα│ïα▓╖';
 
   @override
   String get updateErrorMessage =>
-      'ಅಪ್ಡೇಟ್ಸ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓«α▓╛α▓íα│üα▓╡α▓╛α▓ù α▓ªα│ïα▓╖ α▓╕α▓éα▓¡α▓╡α▓┐α▓╕α▓┐α▓ªα│å. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓«α▓ñα│ìα▓ñα│å α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get platformNotSupported => 'ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಪೋರ್ಟ್ ಮಾಡುತ್ತಿಲ್ಲ';
+  String get platformNotSupported => 'α▓¬α│ìα▓▓α▓╛α▓ƒα│ìΓÇîα▓½α▓╛α▓░α│ìα▓«α│ì α▓╕α▓¬α│ïα▓░α│ìα▓ƒα│ì α▓«α▓╛α▓íα│üα▓ñα│ìα▓ñα▓┐α▓▓α│ìα▓▓';
 
   @override
   String get platformNotSupportedMessage =>
-      'ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ಆಂಡ್ರಾಯ್ಡ್ ಸಾಧನಗಳಲ್ಲಿ ಮಾತ್ರ ಲಭ್ಯವಿದೆ';
+      'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α│å α▓åα▓éα▓íα│ìα▓░α▓╛α▓»α│ìα▓íα│ì α▓╕α▓╛α▓ºα▓¿α▓ùα▓│α▓▓α│ìα▓▓α▓┐ α▓«α▓╛α▓ñα│ìα▓░ α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å';
 
   @override
-  String get updateCheckFailed => 'ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ';
+  String get updateCheckFailed => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ì α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓¿α│å α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get updateCheckFailedMessage =>
-      'ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನ ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.';
+      'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ìα▓╕α│ìΓÇîα▓ùα▓│α▓¿α│ìα▓¿ α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓╛α▓ùα▓▓α▓┐α▓▓α│ìα▓▓. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓¿α▓éα▓ñα▓░ α▓¬α│ìα▓░α▓»α▓ñα│ìα▓¿α▓┐α▓╕α▓┐.';
 
   @override
-  String get upToDateTitle => 'ನೀವು ಅಪ್ಡೇಟೆಡ್ ಆಗಿದ್ದೀರಿ!';
+  String get upToDateTitle => 'α▓¿α│Çα▓╡α│ü α▓àα▓¬α│ìα▓íα│çα▓ƒα│åα▓íα│ì α▓åα▓ùα▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐!';
 
   @override
   String get upToDateMessage =>
-      'ನೀವು ರೆಸೋನೇಟ್‌ನ ಇತ್ತೀಚಿನ ವರ್ಷನನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ';
+      'α▓¿α│Çα▓╡α│ü α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓¿ α▓çα▓ñα│ìα▓ñα│Çα▓Üα▓┐α▓¿ α▓╡α▓░α│ìα▓╖α▓¿α▓¿α│ìα▓¿α│ü α▓¼α▓│α▓╕α│üα▓ñα│ìα▓ñα▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐';
 
   @override
-  String get updateAvailableTitle => 'ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ!';
+  String get updateAvailableTitle => 'α▓àα▓¬α│ìα▓íα│çα▓ƒα│ì α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å!';
 
   @override
   String get updateAvailableMessage =>
-      'ರೆಸೋನೇಟ್‌ನ ಹೊಸ ವರ್ಷನ್ ಪ್ಲೇ ಸ್ಟೋರ್ ನಲ್ಲಿ ಲಭ್ಯವಿದೆ';
+      'α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ìΓÇîα▓¿ α▓╣α│èα▓╕ α▓╡α▓░α│ìα▓╖α▓¿α│ì α▓¬α│ìα▓▓α│ç α▓╕α│ìα▓ƒα│ïα▓░α│ì α▓¿α▓▓α│ìα▓▓α▓┐ α▓▓α▓¡α│ìα▓»α▓╡α▓┐α▓ªα│å';
 
   @override
   String get updateFeaturesImprovement =>
-      'ಇತ್ತೀಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳು ಮತ್ತು ಸುಧಾರಣೆಗಳನ್ನು ಪಡೆಯಿರಿ!';
+      'α▓çα▓ñα│ìα▓ñα│Çα▓Üα▓┐α▓¿ α▓╡α│êα▓╢α▓┐α▓╖α│ìα▓ƒα│ìα▓»α▓ùα▓│α│ü α▓«α▓ñα│ìα▓ñα│ü α▓╕α│üα▓ºα▓╛α▓░α▓úα│åα▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¬α▓íα│åα▓»α▓┐α▓░α▓┐!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'α▓░α│éα▓«α│ì α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓▓α│ü α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+      'α▓░α│éα▓«α│ì α▓¿α▓┐α▓«α│ìα▓« α▓¬α▓ƒα│ìα▓ƒα▓┐α▓»α▓▓α│ìα▓▓α▓┐ α▓╕α▓╛α▓½α▓▓α│ìα▓»α▓╡α▓╛α▓ùα▓┐ α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get alert => 'ಎಚ್ಚರಿಕೆ';
+  String get alert => 'α▓Äα▓Üα│ìα▓Üα▓░α▓┐α▓òα│å';
 
   @override
   String get removedFromRoom =>
-      'ನಿಮ್ಮನ್ನು ವರದಿ ಮಾಡಲಾಗಿದೆ ಅಥವಾ ರೂಮ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ';
+      'α▓¿α▓┐α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓╡α▓░α▓ªα▓┐ α▓«α▓╛α▓íα▓▓α▓╛α▓ùα▓┐α▓ªα│å α▓àα▓Ñα▓╡α▓╛ α▓░α│éα▓«α│ìΓÇîα▓¿α▓┐α▓éα▓ª α▓ñα│åα▓ùα│åα▓ªα│üα▓╣α▓╛α▓òα▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String reportType(String type) {
     String _temp0 = intl.Intl.selectLogic(type, {
-      'harassment': 'ಕಿರುಕುಳ / ದ್ವೇಷದ ಭಾಷಣ',
-      'abuse': 'ನಿಂದನೀಯ ವಿಷಯ / ಹಿಂಸೆ',
-      'spam': 'ಸ್ಪ್ಯಾಮ್ / ವಂಚನೆಗಳು / ಮೋಸ',
-      'impersonation': 'ವ್ಯಕ್ತಿತ್ವ ಸೋಗು / ನಕಲಿ ಖಾತೆಗಳು',
-      'illegal': 'ಕಾನೂನುಬಾಹಿರ ಚಟುವಟಿಕೆಗಳು',
-      'selfharm': 'ಆತ್ಮಹಾನಿ / ಆತ್ಮಹತ್ಯೆ / ಮಾನಸಿಕ ಆರೋಗ್ಯ',
-      'misuse': 'ವೇದಿಕೆಯ ದುರುಪಯೋಗ',
-      'other': 'ಇತರೆ',
+      'harassment': 'α▓òα▓┐α▓░α│üα▓òα│üα▓│ / α▓ªα│ìα▓╡α│çα▓╖α▓ª α▓¡α▓╛α▓╖α▓ú',
+      'abuse': 'α▓¿α▓┐α▓éα▓ªα▓¿α│Çα▓» α▓╡α▓┐α▓╖α▓» / α▓╣α▓┐α▓éα▓╕α│å',
+      'spam': 'α▓╕α│ìα▓¬α│ìα▓»α▓╛α▓«α│ì / α▓╡α▓éα▓Üα▓¿α│åα▓ùα▓│α│ü / α▓«α│ïα▓╕',
+      'impersonation': 'α▓╡α│ìα▓»α▓òα│ìα▓ñα▓┐α▓ñα│ìα▓╡ α▓╕α│ïα▓ùα│ü / α▓¿α▓òα▓▓α▓┐ α▓ûα▓╛α▓ñα│åα▓ùα▓│α│ü',
+      'illegal': 'α▓òα▓╛α▓¿α│éα▓¿α│üα▓¼α▓╛α▓╣α▓┐α▓░ α▓Üα▓ƒα│üα▓╡α▓ƒα▓┐α▓òα│åα▓ùα▓│α│ü',
+      'selfharm': 'α▓åα▓ñα│ìα▓«α▓╣α▓╛α▓¿α▓┐ / α▓åα▓ñα│ìα▓«α▓╣α▓ñα│ìα▓»α│å / α▓«α▓╛α▓¿α▓╕α▓┐α▓ò α▓åα▓░α│ïα▓ùα│ìα▓»',
+      'misuse': 'α▓╡α│çα▓ªα▓┐α▓òα│åα▓» α▓ªα│üα▓░α│üα▓¬α▓»α│ïα▓ù',
+      'other': 'α▓çα▓ñα▓░α│å',
     });
     return '$_temp0';
   }
 
   @override
   String get userBlockedFromResonate =>
-      'ನೀವು ಬಳಕೆದಾರರಿಂದ ಅನೇಕ ವರದಿಗಳನ್ನು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ ಮತ್ತು ರೆಸೋನೇಟ್ ಬಳಸುವುದರಿಂದ ನಿಮ್ಮನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ. ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ ಎಂದು ನೀವು ನಂಬಿದರೆ ದಯವಿಟ್ಟು AOSSIE ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.';
+      'α▓¿α│Çα▓╡α│ü α▓¼α▓│α▓òα│åα▓ªα▓╛α▓░α▓░α▓┐α▓éα▓ª α▓àα▓¿α│çα▓ò α▓╡α▓░α▓ªα▓┐α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓╕α│ìα▓╡α│Çα▓òα▓░α▓┐α▓╕α▓┐α▓ªα│ìα▓ªα│Çα▓░α▓┐ α▓«α▓ñα│ìα▓ñα│ü α▓░α│åα▓╕α│ïα▓¿α│çα▓ƒα│ì α▓¼α▓│α▓╕α│üα▓╡α│üα▓ªα▓░α▓┐α▓éα▓ª α▓¿α▓┐α▓«α│ìα▓«α▓¿α│ìα▓¿α│ü α▓¿α▓┐α▓░α│ìα▓¼α▓éα▓ºα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å. α▓çα▓ªα▓░α▓▓α│ìα▓▓α▓┐ α▓Åα▓¿α│ï α▓ñα▓¬α│ìα▓¬α▓┐α▓ªα│å α▓Äα▓éα▓ªα│ü α▓¿α│Çα▓╡α│ü α▓¿α▓éα▓¼α▓┐α▓ªα▓░α│å α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü AOSSIE α▓àα▓¿α│ìα▓¿α│ü α▓╕α▓éα▓¬α▓░α│ìα▓òα▓┐α▓╕α▓┐.';
 
   @override
-  String get reportParticipant => 'ಭಾಗವಹಿಸುವವರನ್ನು ವರದಿ ಮಾಡಿ';
+  String get reportParticipant => 'α▓¡α▓╛α▓ùα▓╡α▓╣α▓┐α▓╕α│üα▓╡α▓╡α▓░α▓¿α│ìα▓¿α│ü α▓╡α▓░α▓ªα▓┐ α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get selectReportType => 'ದಯವಿಟ್ಟು ವರದಿ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ';
+  String get selectReportType => 'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓╡α▓░α▓ªα▓┐ α▓¬α│ìα▓░α▓òα▓╛α▓░α▓╡α▓¿α│ìα▓¿α│ü α▓åα▓»α│ìα▓òα│åα▓«α▓╛α▓íα▓┐';
 
   @override
-  String get reportSubmitted => 'ವರದಿ ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ';
+  String get reportSubmitted => 'α▓╡α▓░α▓ªα▓┐ α▓»α▓╢α▓╕α│ìα▓╡α▓┐α▓»α▓╛α▓ùα▓┐ α▓╕α▓▓α│ìα▓▓α▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get reportFailed => 'ವರದಿ ಸಲ್ಲಿಕೆ ವಿಫಲವಾಗಿದೆ';
+  String get reportFailed => 'α▓╡α▓░α▓ªα▓┐ α▓╕α▓▓α│ìα▓▓α▓┐α▓òα│å α▓╡α▓┐α▓½α▓▓α▓╡α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
-  String get additionalDetailsOptional => 'ಹೆಚ್ಚುವರಿ ವಿವರಗಳು (ಐಚ್ಛಿಕ)';
+  String get additionalDetailsOptional => 'α▓╣α│åα▓Üα│ìα▓Üα│üα▓╡α▓░α▓┐ α▓╡α▓┐α▓╡α▓░α▓ùα▓│α│ü (α▓Éα▓Üα│ìα▓¢α▓┐α▓ò)';
 
   @override
-  String get submitReport => 'ವರದಿ ಸಲ್ಲಿಸಿ';
+  String get submitReport => 'α▓╡α▓░α▓ªα▓┐ α▓╕α▓▓α│ìα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get actionBlocked => 'ಕ್ರಿಯೆ ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ';
+  String get actionBlocked => 'α▓òα│ìα▓░α▓┐α▓»α│å α▓¿α▓┐α▓░α│ìα▓¼α▓éα▓ºα▓┐α▓╕α▓▓α▓╛α▓ùα▓┐α▓ªα│å';
 
   @override
   String get cannotStopRecording =>
-      'ನೀವು ರೆಕಾರ್ಡಿಂಗ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ, ರೂಮ್ ಮುಚ್ಚಿದಾಗ ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲುತ್ತದೆ.';
+      'α▓¿α│Çα▓╡α│ü α▓░α│åα▓òα▓╛α▓░α│ìα▓íα▓┐α▓éα▓ùα│ì α▓àα▓¿α│ìα▓¿α│ü α▓¿α▓┐α▓▓α│ìα▓▓α▓┐α▓╕α▓▓α│ü α▓╕α▓╛α▓ºα│ìα▓»α▓╡α▓┐α▓▓α│ìα▓▓, α▓░α│éα▓«α│ì α▓«α│üα▓Üα│ìα▓Üα▓┐α▓ªα▓╛α▓ù α▓░α│åα▓òα▓╛α▓░α│ìα▓íα▓┐α▓éα▓ùα│ì α▓¿α▓┐α▓▓α│ìα▓▓α│üα▓ñα│ìα▓ñα▓ªα│å.';
 
   @override
-  String get liveChapter => 'ಲೈವ್ ಅಧ್ಯಾಯ';
+  String get liveChapter => 'α▓▓α│êα▓╡α│ì α▓àα▓ºα│ìα▓»α▓╛α▓»';
 
   @override
-  String get viewOrEditLyrics => 'ಸಾಹಿತ್ಯ ನೋಡಿ ಅಥವಾ ಎಡಿಟ್ ಮಾಡಿ';
+  String get viewOrEditLyrics => 'α▓╕α▓╛α▓╣α▓┐α▓ñα│ìα▓» α▓¿α│ïα▓íα▓┐ α▓àα▓Ñα▓╡α▓╛ α▓Äα▓íα▓┐α▓ƒα│ì α▓«α▓╛α▓íα▓┐';
 
   @override
-  String get close => 'ಮುಚ್ಚಿ';
+  String get close => 'α▓«α│üα▓Üα│ìα▓Üα▓┐';
 
   @override
-  String get verifyChapterDetails => 'ಅಧ್ಯಾಯ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ';
+  String get verifyChapterDetails => 'α▓àα▓ºα│ìα▓»α▓╛α▓» α▓╡α▓┐α▓╡α▓░α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¬α▓░α▓┐α▓╢α│Çα▓▓α▓┐α▓╕α▓┐';
 
   @override
-  String get author => 'ಲೇಖಕ';
+  String get author => 'α▓▓α│çα▓ûα▓ò';
 
   @override
-  String get startLiveChapter => 'ಲೈವ್ ಅಧ್ಯಾಯ ಪ್ರಾರಂಭಿಸಿ';
+  String get startLiveChapter => 'α▓▓α│êα▓╡α│ì α▓àα▓ºα│ìα▓»α▓╛α▓» α▓¬α│ìα▓░α▓╛α▓░α▓éα▓¡α▓┐α▓╕α▓┐';
 
   @override
-  String get fillAllFields => 'ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ';
+  String get fillAllFields => 'α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓Äα▓▓α│ìα▓▓α▓╛ α▓àα▓ùα▓ñα│ìα▓» α▓òα│ìα▓╖α│çα▓ñα│ìα▓░α▓ùα▓│α▓¿α│ìα▓¿α│ü α▓¡α▓░α│ìα▓ñα▓┐ α▓«α▓╛α▓íα▓┐';
 
   @override
   String get noRecordingError =>
-      'ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ';
+      'α▓¿α│Çα▓╡α│ü α▓àα▓ºα│ìα▓»α▓╛α▓»α▓òα│ìα▓òα▓╛α▓ùα▓┐ α▓Åα▓¿α▓¿α│ìα▓¿α│é α▓░α│åα▓òα▓╛α▓░α│ìα▓íα│ì α▓«α▓╛α▓íα▓┐α▓▓α│ìα▓▓. α▓ªα▓»α▓╡α▓┐α▓ƒα│ìα▓ƒα│ü α▓░α│éα▓«α│ìΓÇîα▓¿α▓┐α▓éα▓ª α▓¿α▓┐α▓░α│ìα▓ùα▓«α▓┐α▓╕α│üα▓╡ α▓«α│èα▓ªα▓▓α│ü α▓àα▓ºα│ìα▓»α▓╛α▓»α▓╡α▓¿α│ìα▓¿α│ü α▓░α│åα▓òα▓╛α▓░α│ìα▓íα│ì α▓«α▓╛α▓íα▓┐';
 }
