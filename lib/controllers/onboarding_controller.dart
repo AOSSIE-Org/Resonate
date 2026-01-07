@@ -24,7 +24,7 @@ class OnboardingController extends GetxController {
       Get.find<AuthenticationController>();
   final themeController = Get.find<ThemeController>();
   late final Storage storage;
-  late final Databases databases;
+  late final TablesDB tables;
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
@@ -43,7 +43,7 @@ class OnboardingController extends GetxController {
   void onInit() async {
     super.onInit();
     storage = Storage(authStateController.client);
-    databases = Databases(authStateController.client);
+    tables = TablesDB(authStateController.client);
   }
 
   Future<void> chooseDate() async {
@@ -85,10 +85,10 @@ class OnboardingController extends GetxController {
       isLoading.value = true;
 
       // Update username collection
-      await databases.createDocument(
+      await tables.createRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: usernameController.text.trim(),
+        tableId: usernameTableID,
+        rowId: usernameController.text.trim(),
         data: {"email": authStateController.email},
       );
       //Update User Meta Data
@@ -116,10 +116,10 @@ class OnboardingController extends GetxController {
         name: nameController.text.trim(),
       );
       //log(authStateController.uid!);
-      await databases.createDocument(
+      await tables.createRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: authStateController.uid!,
+        tableId: usersTableID,
+        rowId: authStateController.uid!,
         data: {
           "name": nameController.text.trim(),
           "username": usernameController.text.trim(),
@@ -189,10 +189,10 @@ class OnboardingController extends GetxController {
 
   Future<bool> isUsernameAvailable(String username) async {
     try {
-      await databases.getDocument(
+      await tables.getRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: username,
+        tableId: usernameTableID,
+        rowId: username,
       );
       return false;
     } catch (e) {

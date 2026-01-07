@@ -2,12 +2,18 @@
 ├── .github
 │   ├── ISSUE_TEMPLATE
 │   │   ├── bug_report.yml
+│   │   ├── ci_cd_tooling.yml
 │   │   ├── configuration_change.yml
+│   │   ├── dependency_update.yml
 │   │   ├── documentation_issue.yml
 │   │   ├── feature_request.yml
+│   │   ├── new_release.yml
 │   │   ├── re-implementation.yml
 │   │   ├── refactor-to-enhance.yml
-│   │   └── security_improvement.yml
+│   │   ├── security_improvement.yml
+│   │   ├── testing.yml
+│   │   ├── translation.yml
+│   │   └── ui_ux_update.yml
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   └── workflows
 │       ├── build_and_deploy.yml
@@ -18,8 +24,10 @@
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
+├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
+├── COPYRIGHT.md
 ├── CSAE_STANDARDS.md
 ├── LICENSE
 ├── ONBOARDING.md
@@ -263,17 +271,21 @@
 │   │   ├── theme_color_model.dart
 │   │   └── theme_colors_page.dart
 │   ├── l10n
+│   │   ├── app_bn.arb
 │   │   ├── app_en.arb
 │   │   ├── app_gu.arb
 │   │   ├── app_hi.arb
 │   │   ├── app_kn.arb
 │   │   ├── app_localizations.dart
+│   │   ├── app_localizations_bn.dart
 │   │   ├── app_localizations_en.dart
 │   │   ├── app_localizations_gu.dart
 │   │   ├── app_localizations_hi.dart
 │   │   ├── app_localizations_kn.dart
 │   │   ├── app_localizations_mr.dart
-│   │   └── app_mr.arb
+│   │   ├── app_localizations_pa.dart
+│   │   ├── app_mr.arb
+│   │   └── app_pa.arb
 │   ├── main.dart
 │   ├── models
 │   │   ├── appwrite_room.dart
@@ -441,8 +453,14 @@
 │       ├── friend_calling_controller_test.mocks.dart
 │       ├── friends_controller_test.dart
 │       ├── friends_controller_test.mocks.dart
+│       ├── room_chat_controller_test.dart
+│       ├── room_chat_controller_test.mocks.dart
+│       ├── rooms_controller_test.dart
+│       ├── rooms_controller_test.mocks.dart
+│       ├── upcoming_controller_tests.dart
+│       ├── upcoming_controller_tests.mocks.dart
 │       ├── user_profile_controller_test.dart
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 366 files
+80 directories, 384 files

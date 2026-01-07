@@ -9,6 +9,7 @@
     "whisperModelLargeV2",
     "whisperModelLargeV2Description",
     "modelDownloadInfo",
+
     "clear"
   ],
 
@@ -18,5 +19,66 @@
 
   "mr": [
     "clear"
+
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
+  ],
+
+  "kn": [
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "deleteMessageTitle",
+    "deleteMessageContent",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
+  ],
+
+  "mr": [
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
+
   ]
 }
