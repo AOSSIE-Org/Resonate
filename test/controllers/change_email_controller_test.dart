@@ -1,7 +1,7 @@
 import 'package:appwrite/appwrite.dart' hide Locale;
 import 'package:appwrite/models.dart' hide Locale;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -14,22 +14,22 @@ import 'package:resonate/utils/constants.dart';
 
 import 'change_email_controller_test.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging])
+@GenerateMocks([TablesDB, Account, Client, FirebaseMessaging])
 void main() {
-  MockDatabases mockDatabases = MockDatabases();
+  MockTablesDB mockTablesDB = MockTablesDB();
   MockAccount mockAccount = MockAccount();
   MockClient mockClient = MockClient();
   MockFirebaseMessaging mockMessaging = MockFirebaseMessaging();
   AuthStateController authStateController = AuthStateController(
     account: mockAccount,
-    databases: mockDatabases,
+    tables: mockTablesDB,
     client: mockClient,
     messaging: mockMessaging,
   );
 
   ChangeEmailController changeEmailController = ChangeEmailController(
     account: mockAccount,
-    databases: mockDatabases,
+    tables: mockTablesDB,
     authStateController: authStateController,
   );
   final User mockUser = User(
@@ -53,59 +53,67 @@ void main() {
     targets: [],
     hashOptions: {},
   );
-  final Document mockUserDocument = Document(
-    $collectionId: usersCollectionID,
-    $createdAt: DateTime.now().toIso8601String(),
-    $databaseId: userDatabaseID,
-    $id: '123',
-    $updatedAt: DateTime.now().toIso8601String(),
-    $permissions: ['any'],
-    data: {
-      'profileImageUrl': 'https://example.com/image.jpg',
-      'username': 'TestUser',
-      'profileImageID': 'image123',
-      'ratingTotal': 5,
-      'ratingCount': 1,
-    },
-    $sequence: 0,
+  final RowList mockUserDocument = RowList(
+    total: 1,
+    rows: [
+      Row(
+        $id: '123',
+        $tableId: usersTableID,
+        $databaseId: userDatabaseID,
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $permissions: ['any'],
+        $sequence: 0,
+        data: {
+          'profileImageUrl': 'https://example.com/image.jpg',
+          'username': 'TestUser',
+          'profileImageID': 'image123',
+          'ratingTotal': 5,
+          'ratingCount': 1,
+        },
+      ),
+    ],
   );
 
   setUp(() {
     when(
-      mockDatabases.listDocuments(
+      mockTablesDB.listRows(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        queries: [Query.equal('email', 'test2@test.com')],
+        tableId: usernameTableID,
+        queries: [
+          Query.equal('email', 'test2@test.com'),
+        ],
       ),
-    ).thenAnswer((_) => Future.value(DocumentList(total: 0, documents: [])));
+    ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));
     when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
 
     when(
-      mockDatabases.getDocument(
+      mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: '123',
+        tableId: usersTableID,
+        rowId: '123',
+        queries: [Query.select(["*", "followers.*", "userReports.*"])],
       ),
-    ).thenAnswer((_) => Future.value(mockUserDocument));
+    ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
     when(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: anyNamed('databaseId'),
-        collectionId: anyNamed('collectionId'),
-        documentId: anyNamed('documentId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       ),
     ).thenAnswer((invocation) async {
-      return Document(
-        $id: invocation.namedArguments[#documentId] as String,
-        $collectionId: invocation.namedArguments[#collectionId] as String,
+      return Row(
+        $id: invocation.namedArguments[#rowId] as String,
+        $tableId: invocation.namedArguments[#tableId] as String,
         $databaseId: invocation.namedArguments[#databaseId] as String,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
+        $sequence: 0,
         data: Map<String, dynamic>.from(
           invocation.namedArguments[#data] as Map,
         ),
-        $sequence: 0,
       );
     });
     when(
@@ -128,18 +136,18 @@ void main() {
       tester.element(find.byType(Container)),
     );
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usersCollectionID,
-        documentId: '123',
+        tableId: usersTableID,
+        rowId: '123',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'TestUser',
+        tableId: usernameTableID,
+        rowId: 'TestUser',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
@@ -170,21 +178,22 @@ void main() {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [Locale('en'), Locale('hi')],
-        home: Form(
-          key: changeEmailController.changeEmailFormKey,
-          child: Builder(
-            builder: (context) => ElevatedButton(
-              onPressed: () async {
-                await changeEmailController.changeEmail(context);
-              },
-              child: Text("Test"),
+        supportedLocales: const [Locale('en'), Locale('hi')],
+        home: Scaffold(
+          body: Form(
+            key: changeEmailController.changeEmailFormKey,
+            child: Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () async {
+                  await changeEmailController.changeEmail(context);
+                },
+                child: const Text("Test"),
+              ),
             ),
           ),
         ),
       ),
     );
-
     changeEmailController.passwordController.text = 'anyPassword';
     changeEmailController.emailController.text = 'test2@test.com';
     await tester.tap(find.text('Test'));
@@ -192,14 +201,12 @@ void main() {
     verify(
       mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
     ).called(1);
-
     await tester.pumpAndSettle(const Duration(seconds: 4));
-
     verify(
-      mockDatabases.updateDocument(
+      mockTablesDB.updateRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'TestUser',
+        tableId: usernameTableID,
+        rowId: 'TestUser',
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);

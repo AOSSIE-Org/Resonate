@@ -16,7 +16,13 @@ import 'package:resonate/themes/theme_controller.dart';
 
 import 'upcoming_controller_tests.mocks.dart';
 
-@GenerateMocks([Databases, Account, Client, FirebaseMessaging, Realtime])
+@GenerateMocks([
+  TablesDB,
+  Account,
+  Client,
+  FirebaseMessaging,
+  Realtime,
+])
 void main() {
   Get.testMode = true;
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +78,7 @@ void main() {
   group('UpcomingRoomsController - Remove Room Functionality', () {
     late UpcomingRoomsController controller;
     late GetStorage testStorage;
-    late MockDatabases mockDatabases;
+    late MockTablesDB mockTables;
     late MockAccount mockAccount;
     late MockClient mockClient;
     late MockFirebaseMessaging mockMessaging;
@@ -89,13 +95,13 @@ void main() {
     setUp(() {
       testStorage = GetStorage('test_storage');
       testStorage.erase(); //clear before each test
-      mockDatabases = MockDatabases();
+      mockTables = MockTablesDB();
       mockAccount = MockAccount();
       mockClient = MockClient();
       mockMessaging = MockFirebaseMessaging();
       authStateController = AuthStateController(
         account: mockAccount,
-        databases: mockDatabases,
+        tables: mockTables,
         client: mockClient,
         messaging: mockMessaging,
       );
@@ -112,7 +118,6 @@ void main() {
         tabViewController: tabViewController,
         themeController: themeController,
         roomsController: roomsController,
-        databases: mockDatabases,
         messaging: mockMessaging,
         storage: testStorage,
       );
@@ -185,7 +190,6 @@ void main() {
           tabViewController: tabViewController,
           themeController: themeController,
           roomsController: roomsController,
-          databases: mockDatabases,
           messaging: mockMessaging,
           storage: testStorage,
         );
@@ -199,7 +203,7 @@ void main() {
   group('UpcomingRoomsController - Search Functionality', () {
     late UpcomingRoomsController controller;
     late GetStorage testStorage;
-    late MockDatabases mockDatabases;
+    late MockTablesDB mockTables;
     late MockAccount mockAccount;
     late MockClient mockClient;
     late MockFirebaseMessaging mockMessaging;
@@ -216,13 +220,13 @@ void main() {
     setUp(() {
       testStorage = GetStorage('test_storage_search');
       testStorage.erase();
-      mockDatabases = MockDatabases();
+      mockTables = MockTablesDB();
       mockAccount = MockAccount();
       mockClient = MockClient();
       mockMessaging = MockFirebaseMessaging();
       authStateController = AuthStateController(
         account: mockAccount,
-        databases: mockDatabases,
+        tables: mockTables,
         client: mockClient,
         messaging: mockMessaging,
       );
@@ -239,7 +243,6 @@ void main() {
         tabViewController: tabViewController,
         themeController: themeController,
         roomsController: roomsController,
-        databases: mockDatabases,
         messaging: mockMessaging,
         storage: testStorage,
       );
