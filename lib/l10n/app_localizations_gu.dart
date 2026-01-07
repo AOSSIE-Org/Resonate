@@ -317,35 +317,36 @@ class AppLocalizationsGu extends AppLocalizations {
   String get contribute => 'યોગદાન આપો';
 
   @override
-  String get appPreferences => 'એપ પસદગઓ';
+  String get appPreferences => 'એપ પસંદગીઓ';
 
   @override
-  String get transcriptionModel => 'ટરનસકરપશન મડલ';
+  String get transcriptionModel => 'ટ્રાન્સક્રિપ્શન મોડેલ';
 
   @override
-  String get transcriptionModelDescription => 'AI મડલ દવર ઓડયન ટકસટમ કનવરટ કર';
+  String get transcriptionModelDescription =>
+      'AI મોડેલ દ્વારા ઓડિયોને ટેક્સ્ટમાં કન્વર્ટ કરો';
 
   @override
-  String get whisperModelTiny => 'ટઈન';
+  String get whisperModelTiny => 'ટાઈની';
 
   @override
   String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
 
   @override
-  String get whisperModelBase => 'બઝ';
+  String get whisperModelBase => 'બેઝ';
 
   @override
   String get whisperModelBaseDescription =>
       'Balanced speed and accuracy (~74 MB)';
 
   @override
-  String get whisperModelSmall => 'સમલ';
+  String get whisperModelSmall => 'સ્મૉલ';
 
   @override
   String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'મડયમ';
+  String get whisperModelMedium => 'મીડિયમ';
 
   @override
   String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
@@ -393,16 +394,17 @@ class AppLocalizationsGu extends AppLocalizations {
   String get cancel => 'રદ કરો';
 
   @override
-  String get hide => 'છપવ';
+  String get hide => 'છુપાવો';
 
   @override
-  String get removeRoom => 'રમ છપવ';
+  String get removeRoom => 'રૂમ છુપાવો';
 
   @override
-  String get removeRoomFromList => 'આ રમન તમર રમ લસટમથ છપવ';
+  String get removeRoomFromList => 'આ રૂમને તમારી રૂમ લિસ્ટમાંથી છુપાવો';
 
   @override
-  String get removeRoomConfirmation => 'શ તમ ખરખર આ રમન છપવવ મગ છ?';
+  String get removeRoomConfirmation =>
+      'શું તમે ખરેખર આ રૂમને છુપાવવા માંગો છો?';
 
   @override
   String get completeYourProfile => 'તમારી પ્રોફાઈલ પૂર્ણ કરો';
@@ -558,7 +560,7 @@ class AppLocalizationsGu extends AppLocalizations {
   String get errorLoadPackageInfo => 'પૅકેજ માહિતી લોડ કરી શકાઈ નથી';
 
   @override
-  String get searchFailed => 'શધ નષફળ';
+  String get searchFailed => 'શોધ નિષ્ફળ';
 
   @override
   String get updateAvailable => 'અપડેટ ઉપલબ્ધ છે';
@@ -731,25 +733,25 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noSearchResults => 'કોઈ શોધ પરિણામો નથી';
 
   @override
-  String get searchRooms => 'રમ શધ...';
+  String get searchRooms => 'રૂમ શોધો...';
 
   @override
-  String get searchingRooms => 'રમ શધ રહય છએ...';
+  String get searchingRooms => 'રૂમ શોધી રહ્યા છીએ...';
 
   @override
-  String get clearSearch => 'શધ સફ કર';
+  String get clearSearch => 'શોધ સાફ કરો';
 
   @override
-  String get searchError => 'શધ દરમયન એરર';
+  String get searchError => 'શોધ દરમિયાન એરર';
 
   @override
-  String get searchRoomsError => 'રમ શધત વખત એરર';
+  String get searchRoomsError => 'રૂમ શોધતી વખતે એરર';
 
   @override
-  String get searchUpcomingRoomsError => 'આગમ રમ શધત વખત એરર';
+  String get searchUpcomingRoomsError => 'આગામી રૂમ શોધતી વખતે એરર';
 
   @override
-  String get search => 'શધ';
+  String get search => 'શોધો';
 
   @override
   String get clear => 'Clear';
@@ -1258,10 +1260,10 @@ class AppLocalizationsGu extends AppLocalizations {
   String get updateFeaturesImprovement => 'નવા ફીચર્સ અને સુધારાઓ મેળવો!';
 
   @override
-  String get failedToRemoveRoom => 'રમ છપવવમ નષફળ';
+  String get failedToRemoveRoom => 'રૂમ છુપાવવામાં નિષ્ફળ';
 
   @override
-  String get roomRemovedSuccessfully => 'રમ સફળતપરવક છપવ';
+  String get roomRemovedSuccessfully => 'રૂમ સફળતાપૂર્વક છુપાવી';
 
   @override
   String get alert => 'ચેતવણી';
