@@ -15,6 +15,7 @@
 │   │   ├── translation.yml
 │   │   └── ui_ux_update.yml
 │   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── dependabot.yml
 │   └── workflows
 │       ├── build_and_deploy.yml
 │       ├── greet_contributors.yml
@@ -463,4 +464,4 @@
 │       └── user_profile_controller_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 384 files
+80 directories, 385 files
