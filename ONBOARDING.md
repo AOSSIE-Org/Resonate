@@ -4,17 +4,21 @@ Client side set up is straight forward and standard, i.e clone the repo [Resonte
 
 Please strictly stick to the guide do not go off installing stuff on your own
 
-## Quick Start for First-Time Contributors (Without Full Backend)
+## Guidance for First-Time Contributors
 
-If you are a first-time contributor or GSoC aspirant, you do **not** need to set up the complete backend environment to start contributing.
+Resonate requires backend services (Appwrite, LiveKit, Meilisearch) to run the application.
+The app will not function without setting up the backend in some capacity.
 
-You can begin by:
-- Exploring the Flutter codebase (screens, controllers, routes, and UI)
-- Reading documentation files like README.md, CONTRIBUTING.md, and ONBOARDING.md
-- Running `flutter pub get` to understand dependencies
-- Reporting build issues, documentation gaps, or UI inconsistencies
+We understand that backend setup can feel overwhelming for first-time contributors or GSoC aspirants.
+If you are new to the project, we recommend the following approach:
 
-Backend setup (Appwrite, LiveKit, Meilisearch) is only required for contributors working on backend-dependent features. New contributors are encouraged to start small and gradually move to advanced areas.
+- First, read the README.md, CONTRIBUTING.md, and ONBOARDING.md carefully
+- Familiarize yourself with the Flutter codebase structure (screens, controllers, routes, UI)
+- Review existing issues and pull requests to understand the development flow
+- Proceed with backend setup when you are ready to run, debug, or modify features
+
+This helps new contributors build confidence while ensuring the documentation remains accurate.
+
 
 > #### **Setting up Firebase for FCM**
 > To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), setup a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM specific code in the files: ```main.dart , auth_state_controller.dart, and upcomming_rooms_controller.dart ``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
