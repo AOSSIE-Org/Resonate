@@ -143,7 +143,16 @@ class EditProfileScreen extends StatelessWidget {
                         onChanged: (value) {
                           Get.closeCurrentSnackbar();
 
-                          if (value.length < 7) {
+                          final trimmedValue = value.trim();
+
+                          if (trimmedValue.length < 7) {
+                            controller.usernameAvailable.value = false;
+                            return;
+                          }
+
+                          if (!RegExp(
+                            r'^[a-zA-Z0-9._-]+$',
+                          ).hasMatch(trimmedValue)) {
                             controller.usernameAvailable.value = false;
                             return;
                           }
@@ -180,14 +189,7 @@ class EditProfileScreen extends StatelessWidget {
                           prefixIcon: const Icon(Icons.person),
                           suffixIcon:
                               !controller.usernameChecking.value &&
-                                  controller.usernameAvailable.value &&
-                                  controller.usernameController.text
-                                          .trim()
-                                          .length >=
-                                      7 &&
-                                  RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(
-                                    controller.usernameController.text.trim(),
-                                  )
+                                  controller.usernameAvailable.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
@@ -225,14 +227,7 @@ class EditProfileScreen extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed:
                               (!controller.isLoading.value &&
-                                  controller.usernameAvailable.value &&
-                                  controller.usernameController.text
-                                          .trim()
-                                          .length >=
-                                      7 &&
-                                  RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(
-                                    controller.usernameController.text.trim(),
-                                  ))
+                                  controller.usernameAvailable.value)
                               ? () async {
                                   await controller.saveProfile();
                                 }
