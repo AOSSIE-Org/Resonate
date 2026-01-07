@@ -1351,8 +1351,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
 
   @override
-  String get thisMessageWasDeleted => 'This message was deleted';
+  String get thisMessageWasDeleted => 'हा संदेश डिलीट केला गेला';
 
   @override
-  String get failedToDeleteMessage => 'Failed to delete message';
+  String get failedToDeleteMessage => 'संदेश डिलीट करण्यात अयशस्वी';
+
+  @override
+  String get usernameInvalidFormat =>
+      'कृपया वैध युजरनेम प्रविष्ट करा. फक्त अक्षरे, संख्या, बिंदू, अंडरस्कोर आणि हायफनला परवानगी आहे.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'हे युजरनेम आधीच घेतले गेले आहे. वेगळे युजरनेम वापरून पहा.';
 }
