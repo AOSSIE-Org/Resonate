@@ -1,0 +1,13 @@
+# Global default for all files
+* @AOSSIE-Org/maintainers
+
+# Flutter mobile app (lib/ is standard)
+lib/ @AOSSIE-Org/flutter-team
+*.dart @AOSSIE-Org/flutter-team
+
+# Docs and general
+docs/ @AOSSIE-Org/maintainers
+*.md @AOSSIE-Org/maintainers
+
+# Secure this file
+.github/CODEOWNERS @AOSSIE-Org/maintainers
