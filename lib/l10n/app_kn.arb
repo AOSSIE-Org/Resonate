@@ -6,1696 +6,1524 @@
     },
     "roomDescription": "ವಿನಯಶೀಲರಾಗಿರಿ ಮತ್ತು ಇತರರ ಅಭಿಪ್ರಾಯವನ್ನು ಗೌರವಿಸಿ. ಅಸಭ್ಯ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಬಳಸಬೇಡಿ.",
     "@roomDescription": {
-        "description": "Guideline message for users in a chat room."
+        "description": "Metadata"
     },
     "hidePassword": "ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಬೇಡ",
     "@hidePassword": {
-        "description": "Button text to conceal the password field."
+        "description": "Metadata"
     },
     "showPassword": "ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ",
     "@showPassword": {
-        "description": "Button text to reveal the password field."
+        "description": "Metadata"
     },
     "passwordEmpty": "ಪಾಸ್‌ವರ್ಡ್ ಖಾಲಿ ಇರಬಾರದು",
     "@passwordEmpty": {
-        "description": "Error message when the password field is left blank."
+        "description": "Metadata"
     },
     "password": "ಪಾಸ್‌ವರ್ಡ್",
     "@password": {
-        "description": "Label for the password input field."
+        "description": "Metadata"
     },
     "confirmPassword": "ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ",
     "@confirmPassword": {
-        "description": "Label for the confirm password input field."
+        "description": "Metadata"
     },
     "passwordsNotMatch": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ",
     "@passwordsNotMatch": {
-        "description": "Error message when password and confirmation password do not match."
+        "description": "Metadata"
     },
     "userCreatedStories": "ಬಳಕೆದಾರರು ರಚಿಸಿದ ಕಥೆಗಳು",
     "@userCreatedStories": {
-        "description": "Header for the section showing stories created by another user."
+        "description": "Metadata"
     },
     "yourStories": "ನಿಮ್ಮ ಕಥೆಗಳು",
     "@yourStories": {
-        "description": "Header for the section showing stories created by the current user."
+        "description": "Metadata"
     },
     "userNoStories": "ಬಳಕೆದಾರರು ಯಾವುದೇ ಕಥೆ ರಚಿಸಿಲ್ಲ",
     "@userNoStories": {
-        "description": "Message displayed when viewing another user's profile and they have no stories."
+        "description": "Metadata"
     },
     "youNoStories": "ನೀವು ಯಾವುದೇ ಕಥೆ ರಚಿಸಿಲ್ಲ",
     "@youNoStories": {
-        "description": "Message displayed on the current user's profile when they have no stories."
+        "description": "Metadata"
     },
     "follow": "ಫಾಲೋ",
     "@follow": {
-        "description": "Button text to follow a user."
+        "description": "Metadata"
     },
     "editProfile": "ಪ್ರೊಫೈಲ್ ಮಾರ್ಪಡಿಸು",
     "@editProfile": {
-        "description": "Button text to navigate to the profile editing screen."
+        "description": "Metadata"
     },
     "verifyEmail": "ಇಮೇಲ್ ಪರಿಶೀಲಿಸಿ",
     "@verifyEmail": {
-        "description": "Button or link text to start the email verification process."
+        "description": "Metadata"
     },
     "verified": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
     "@verified": {
-        "description": "A status label indicating that the user's email has been verified."
+        "description": "Metadata"
     },
     "profile": "ಪ್ರೊಫೈಲ್",
     "@profile": {
-        "description": "Label for the user profile section or page."
+        "description": "Metadata"
     },
     "userLikedStories": "ಬಳಕೆದಾರರು ಇಷ್ಟಪಟ್ಟ ಕಥೆಗಳು",
     "@userLikedStories": {
-        "description": "Header for the section showing stories liked by another user."
+        "description": "Metadata"
     },
     "yourLikedStories": "ನೀವು ಇಷ್ಟಪಟ್ಟ ಕಥೆಗಳು",
     "@yourLikedStories": {
-        "description": "Header for the section showing stories liked by the current user."
+        "description": "Metadata"
     },
     "userNoLikedStories": "ಬಳಕೆದಾರರು ಯಾವುದೇ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿಲ್ಲ",
     "@userNoLikedStories": {
-        "description": "Message displayed when viewing another user's profile and they have no liked stories."
+        "description": "Metadata"
     },
     "youNoLikedStories": "ನೀವು ಯಾವುದೇ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿಲ್ಲ",
     "@youNoLikedStories": {
-        "description": "Message displayed on the current user's profile when they have no liked stories."
+        "description": "Metadata"
     },
     "live": "ಲೈವ್",
     "@live": {
-        "description": "Tab or label for live audio rooms."
+        "description": "Metadata"
     },
     "upcoming": "ಮುಂಬರುವ",
     "@upcoming": {
-        "description": "Tab or label for scheduled/upcoming audio rooms."
+        "description": "Metadata"
     },
     "noAvailableRoom": "{isRoom, select, true{ಯಾವುದೇ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ} false{ಯಾವುದೇ ಮುಂಬರುವ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ} other{ರೂಮ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ}}\nಕೆಳಗೆ ಒಂದು ರೂಮ್ಅನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ!",
     "@noAvailableRoom": {
-        "description": "Message when no room or upcoming room is available, with a call to action.",
-        "placeholders": {
-            "isRoom": {
-                "type": "String",
-                "example": "true"
-            }
-        }
+        "description": "Metadata"
     },
     "user1": "ಬಳಕೆದಾರ 1",
     "@user1": {
-        "description": "A generic placeholder name for a user."
+        "description": "Metadata"
     },
     "user2": "ಬಳಕೆದಾರ 2",
     "@user2": {
-        "description": "A second generic placeholder name for a user."
+        "description": "Metadata"
     },
     "you": "ನೀವು",
     "@you": {
-        "description": "Label to identify the current user in a list or chat."
+        "description": "Metadata"
     },
     "areYouSure": "ಖಚಿತವೇ?",
     "@areYouSure": {
-        "description": "Confirmation prompt title."
+        "description": "Metadata"
     },
     "loggingOut": "ನೀವು ರೆಸೋನೇಟ್‌ನಿಂದ ಲಾಗ್ ಔಟ್ ಆಗುತ್ತಿದ್ದೀರಿ.",
     "@loggingOut": {
-        "description": "Confirmation prompt message for logging out."
+        "description": "Metadata"
     },
     "yes": "ಹೌದು",
     "@yes": {
-        "description": "Generic confirmation button text."
+        "description": "Metadata"
     },
     "no": "ಇಲ್ಲ",
     "@no": {
-        "description": "Generic cancellation button text."
+        "description": "Metadata"
     },
     "incorrectEmailOrPassword": "ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ",
     "@incorrectEmailOrPassword": {
-        "description": "Error message for failed login attempt."
+        "description": "Metadata"
     },
     "passwordShort": "ಪಾಸ್‌ವರ್ಡ್ 8 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ ಇದೆ",
     "@passwordShort": {
-        "description": "Error message for a password that is too short."
+        "description": "Metadata"
     },
     "tryAgain": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!",
     "@tryAgain": {
-        "description": "Button text to retry a failed action."
+        "description": "Metadata"
     },
     "success": "ಯಶಸ್ವಿ",
     "@success": {
-        "description": "Generic title for a successful operation."
+        "description": "Metadata"
     },
     "passwordResetSent": "ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸುವ ಇಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ!",
     "@passwordResetSent": {
-        "description": "Success message after a password reset email has been dispatched."
+        "description": "Metadata"
     },
     "error": "ಏನೋ ತಪ್ಪಾಗಿದೆ",
     "@error": {
-        "description": "Generic title for a failed operation."
+        "description": "Metadata"
     },
     "resetPassword": "ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ",
     "@resetPassword": {
-        "description": "Title or button text for the reset password feature."
+        "description": "Metadata"
     },
     "enterNewPassword": "ನಿಮ್ಮ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
     "@enterNewPassword": {
-        "description": "Instructional text on the reset password screen."
+        "description": "Metadata"
     },
     "newPassword": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್",
     "@newPassword": {
-        "description": "Label for the new password input field."
+        "description": "Metadata"
     },
     "setNewPassword": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ",
     "@setNewPassword": {
-        "description": "Button text to confirm setting a new password."
+        "description": "Metadata"
     },
     "emailChanged": "ಇಮೇಲ್ ಬದಲಾಯಿಸಲಾಗಿದೆ",
     "@emailChanged": {
-        "description": "Title for the success dialog after an email change."
+        "description": "Metadata"
     },
     "emailChangeSuccess": "ಇಮೇಲ್ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ!",
     "@emailChangeSuccess": {
-        "description": "Success message after changing the user's email."
+        "description": "Metadata"
     },
     "failed": "ವಿಫಲವಾಗಿದೆ",
     "@failed": {
-        "description": "Generic title for a failed operation."
+        "description": "Metadata"
     },
     "emailChangeFailed": "ಇಮೇಲ್ ಬದಲಾಯಿಸಲು ವಿಫಲವಾಗಿದೆ",
     "@emailChangeFailed": {
-        "description": "Error message when an email change operation fails."
+        "description": "Metadata"
     },
     "oops": "ಅಯ್ಯೋ!",
     "@oops": {
-        "description": "An informal title for an error or warning message."
+        "description": "Metadata"
     },
     "emailExists": "ಇಮೇಲ್ ಈಗಾಗಲೇ ಬಳಕೆಯಲ್ಲಿದೆ",
     "@emailExists": {
-        "description": "Error message when a user tries to register or change to an email that is already in use."
+        "description": "Metadata"
     },
     "changeEmail": "ಇಮೇಲ್ ಬದಲಾಯಿಸಿ",
     "@changeEmail": {
-        "description": "Title or button text for the change email feature."
+        "description": "Metadata"
     },
     "enterValidEmail": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
     "@enterValidEmail": {
-        "description": "Error message for an invalid email format."
+        "description": "Metadata"
     },
     "newEmail": "ಹೊಸ ಇಮೇಲ್",
     "@newEmail": {
-        "description": "Label for the new email input field."
+        "description": "Metadata"
     },
     "currentPassword": "ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್",
     "@currentPassword": {
-        "description": "Label for the current password input field, used for verification."
+        "description": "Metadata"
     },
     "emailChangeInfo": "ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಬದಲಾಯಿಸುವಾಗ ನಿಮ್ಮ ಖಾತೆಯ ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್ ಒದಗಿಸಬೇಕು. ನಿಮ್ಮ ಇಮೇಲ್ ಬದಲಾಯಿಸಿದ ನಂತರ, ಮುಂದಿನ ಲಾಗಿನ್‌ಗಳಿಗಾಗಿ ಬದಲಾಯಿಸಿದ ಇಮೇಲ್ ಬಳಸಿ. ಹೆಚ್ಚುವರಿ ಭದ್ರತೆಗಾಗಿ ನಾವು ಇದನ್ನು ಮಾಡಿದ್ದೇವೆ",
     "@emailChangeInfo": {
-        "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
+        "description": "Metadata"
     },
     "oauthUsersMessage": "(ಗೂಗಲ್ ಅಥವಾ Github ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿದ ಬಳಕೆದಾರರಿಗೆ ಮಾತ್ರ)",
     "@oauthUsersMessage": {
-        "description": "A message to specify that the following instructions are for OAuth users."
+        "description": "Metadata"
     },
     "oauthUsersEmailChangeInfo": "ನಿಮ್ಮ ಇಮೇಲ್ ಬದಲಾಯಿಸಲು, ದಯವಿಟ್ಟು \"ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್\" ಜಾಗದಲ್ಲಿ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ. ಈ ಪಾಸ್‌ವರ್ಡ್ ನೆನಪಿನಲ್ಲಿಡಿ, ಯಾಕೆಂದರೆ ಮುಂದೆ ಇಮೇಲ್ ಬದಲಾವಣೆಗಳಿಗೆ ಇದು ಅಗತ್ಯವಾಗುತ್ತದೆ. ಮುಂದೆ, ನೀವು ಗೂಗಲ್/GitHub ಅಥವಾ ನಿಮ್ಮ ಹೊಸ ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ಗಳನ್ನು ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಬಹುದು.",
     "@oauthUsersEmailChangeInfo": {
-        "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
+        "description": "Metadata"
     },
     "resonateTagline": "ಮಿತಿಯೇ ಇಲ್ಲ ಸಂಭಾಷಣೆಗಳ\nಲೋಕಕ್ಕೆ ಪ್ರವೇಶಿಸಿ.",
     "@resonateTagline": {
-        "description": "The application's tagline, used on splash or login screens."
+        "description": "Metadata"
     },
     "signInWithEmail": "ಇಮೇಲ್‌ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ",
     "@signInWithEmail": {
-        "description": "Button text for signing in using email and password."
+        "description": "Metadata"
     },
     "or": "ಅಥವಾ",
     "@or": {
-        "description": "A separator text, typically used between different login options."
+        "description": "Metadata"
     },
     "continueWith": "ಇದರೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
     "@continueWith": {
-        "description": "Informational text preceding a list of third-party login providers."
+        "description": "Metadata"
     },
     "continueWithGoogle": "ಗೂಗಲ್ ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
     "@continueWithGoogle": {
-        "description": "Button text for signing in with a Google account."
+        "description": "Metadata"
     },
     "continueWithGitHub": "GitHub ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
     "@continueWithGitHub": {
-        "description": "Button text for signing in with a GitHub account."
+        "description": "Metadata"
     },
     "resonateLogo": "ರೆಸೋನೇಟ್ ಲೋಗೋ",
     "@resonateLogo": {
-        "description": "Accessibility text for the Resonate application logo image."
+        "description": "Metadata"
     },
     "iAlreadyHaveAnAccount": "ನನ್ನ ಬಳಿ ಈಗಾಗಲೇ ಖಾತೆ ಇದೆ",
     "@iAlreadyHaveAnAccount": {
-        "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
+        "description": "Metadata"
     },
     "createNewAccount": "ಹೊಸ ಖಾತೆ ರಚಿಸಿ",
     "@createNewAccount": {
-        "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
+        "description": "Metadata"
     },
     "userProfile": "ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್",
     "@userProfile": {
-        "description": "Accessibility text for a user's profile picture or avatar."
+        "description": "Metadata"
     },
     "passwordIsStrong": "ಪಾಸ್‌ವರ್ಡ್ ಶಕ್ತಿಯುತವಾಗಿದೆ",
     "@passwordIsStrong": {
-        "description": "Validation message indicating that the entered password meets all strength requirements."
+        "description": "Metadata"
     },
     "admin": "ನಿರ್ವಾಹಕ",
     "@admin": {
-        "description": "Label for the Admin user role in a room."
+        "description": "Metadata"
     },
     "moderator": "ಮಾಡರೇಟರ್",
     "@moderator": {
-        "description": "Label for the Moderator user role in a room."
+        "description": "Metadata"
     },
     "speaker": "ಮಾತನಾಡುವವರು",
     "@speaker": {
-        "description": "Label for the Speaker user role in a room."
+        "description": "Metadata"
     },
     "listener": "ಕೇಳುಗ",
     "@listener": {
-        "description": "Label for the Listener user role in a room."
+        "description": "Metadata"
     },
     "removeModerator": "ಮಾಡರೇಟರ್ ತೆಗೆದುಹಾಕಿ",
     "@removeModerator": {
-        "description": "Menu item text to revoke moderator privileges from a user."
+        "description": "Metadata"
     },
     "kickOut": "ಹೊರಗೆ ಕಳುಹಿಸಿ",
     "@kickOut": {
-        "description": "Menu item text to remove a user from a room."
+        "description": "Metadata"
     },
     "addModerator": "ಮಾಡರೇಟರ್ ಸೇರಿಸಿ",
     "@addModerator": {
-        "description": "Menu item text to grant moderator privileges to a user."
+        "description": "Metadata"
     },
     "addSpeaker": "ಮಾತನಾಡುವವರನ್ನು ಸೇರಿಸಿ",
     "@addSpeaker": {
-        "description": "Menu item text to grant speaker privileges to a listener."
+        "description": "Metadata"
     },
     "makeListener": "ಕೇಳುಗನ್ನಾಗಿ ಮಾಡಿ",
     "@makeListener": {
-        "description": "Menu item text to change a speaker's role to listener."
+        "description": "Metadata"
     },
     "pairChat": "ಚಾಟ್ ಪೇರ್ ಮಾಡಿ",
     "@pairChat": {
-        "description": "A feature name for one-on-one random chat."
+        "description": "Metadata"
     },
     "chooseIdentity": "ಗುರುತಿನ ಆಯ್ಕೆ",
     "@chooseIdentity": {
-        "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
+        "description": "Metadata"
     },
     "selectLanguage": "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ",
     "@selectLanguage": {
-        "description": "Label for the language selection setting."
+        "description": "Metadata"
     },
     "noConnection": "ಇಂಟರ್ನೆಟ್ ಕನೆಕ್ಷನ್ ಲಭ್ಯವಿಲ್ಲ",
     "@noConnection": {
-        "description": "Title indicating that there is no internet connection."
+        "description": "Metadata"
     },
     "loadingDialog": "ಲೋಡ್ ಆಗುತ್ತಿದೆ",
     "@loadingDialog": {
-        "description": "Accessibility text for a loading indicator or spinner."
+        "description": "Metadata"
     },
     "createAccount": "ಖಾತೆ ರಚಿಸಿ",
     "@createAccount": {
-        "description": "Button text or page title for the account creation screen."
+        "description": "Metadata"
     },
     "enterValidEmailAddress": "ಮಾನ್ಯವಾದ ಇಮೇಲ್ ನಮೂದಿಸಿ",
     "@enterValidEmailAddress": {
-        "description": "Error message shown for an invalid email format."
+        "description": "Metadata"
     },
     "email": "ಇಮೇಲ್",
     "@email": {
-        "description": "Label for the email input field."
+        "description": "Metadata"
     },
     "passwordRequirements": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರಗಳಿರಬೇಕು ",
     "@passwordRequirements": {
-        "description": "Instructional text listing the requirements for a valid password, part 1."
+        "description": "Metadata"
     },
     "includeNumericDigit": "ಕನಿಷ್ಠ 1 ಸಂಖ್ಯೆಯನ್ನು ಸೇರಿಸಿ",
     "@includeNumericDigit": {
-        "description": "Instructional text listing the requirements for a valid password, part 2."
+        "description": "Metadata"
     },
     "includeUppercase": "ಕನಿಷ್ಠ 1 ಅಪ್ಪರ್ ಕೇಸ್ ಸೇರಿಸಿ",
     "@includeUppercase": {
-        "description": "Instructional text listing the requirements for a valid password, part 3."
+        "description": "Metadata"
     },
     "includeLowercase": "ಕನಿಷ್ಠ 1 ಲೋವರ್ ಕೇಸ್ ಸೇರಿಸಿ",
     "@includeLowercase": {
-        "description": "Instructional text listing the requirements for a valid password, part 4."
+        "description": "Metadata"
     },
     "includeSymbol": "ಕನಿಷ್ಠ 1 ಚಿಹ್ನೆಯನ್ನು ಸೇರಿಸಿ",
     "@includeSymbol": {
-        "description": "Instructional text listing the requirements for a valid password, part 5."
+        "description": "Metadata"
     },
     "signedUpSuccessfully": "ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಅಪ್ ಆಗಿದೆ",
     "@signedUpSuccessfully": {
-        "description": "Title for a success message after account creation."
+        "description": "Metadata"
     },
     "newAccountCreated": "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಹೊಸ ಖಾತೆಯನ್ನು ರಚಿಸಿದ್ದೀರಿ",
     "@newAccountCreated": {
-        "description": "Success message confirming that a new account has been created."
+        "description": "Metadata"
     },
     "signUp": "ಸೈನ್ ಅಪ್",
     "@signUp": {
-        "description": "Button text to submit the sign-up form."
+        "description": "Metadata"
     },
     "login": "ಲಾಗಿನ್",
     "@login": {
-        "description": "Button text to submit the login form."
+        "description": "Metadata"
     },
     "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
     "@settings": {
-        "description": "Title for the settings page."
+        "description": "Metadata"
     },
     "accountSettings": "ಖಾತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
     "@accountSettings": {
-        "description": "Sub-header for account-related settings."
+        "description": "Metadata"
     },
     "account": "ಖಾತೆ",
     "@account": {
-        "description": "Label for the account settings section."
+        "description": "Metadata"
     },
     "appSettings": "ಆ್ಯಪ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
     "@appSettings": {
-        "description": "Sub-header for application-related settings."
+        "description": "Metadata"
     },
     "themes": "ಥೀಮ್‌ಗಳು",
     "@themes": {
-        "description": "Label for the theme selection setting."
+        "description": "Metadata"
     },
     "about": "ನಮ್ಮ ಬಗ್ಗೆ",
     "@about": {
-        "description": "Label for the 'About' section or page of the app or a story."
+        "description": "Metadata"
     },
     "other": "ಇತರೆ",
     "@other": {
-        "description": "A generic category label for miscellaneous settings or items."
+        "description": "Metadata"
     },
     "contribute": "ಕೊಡುಗೆ ನೀಡಿ",
+    "hide": "ಮರೆಮಾಡಿ",
+    "removeRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomFromList": "ನಿಮ್ಮ ಕೋಣೆಗಳ ಪಟ್ಟಿಯಿಂದ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomConfirmation": "ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ಬಯಸುವಿರಾ?",
+    "searchFailed": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ",
+    "searchRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಿ...",
+    "searchingRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+    "clearSearch": "ಹುಡುಕಾಟ ತೆರವುಮಾಡಿ",
+    "searchError": "ಹುಡುಕಾಟ ದೋಷ",
+    "searchRoomsError": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "searchUpcomingRoomsError": "ಮುಂಬರುವ ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "search": "ಹುಡುಕಿ",
+    "failedToRemoveRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ವಿಫಲವಾಗಿದೆ",
+    "roomRemovedSuccessfully": "ಕೋಣೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ",
     "@contribute": {
-        "description": "Label for a section encouraging users to contribute to the project."
+        "description": "Metadata"
     },
     "appPreferences": "ಆ್ಯಪ್ ಆದ್ಯತೆಗಳು",
     "@appPreferences": {
-        "description": "Label for the app preferences settings page."
+        "description": "Metadata"
     },
     "transcriptionModel": "ಪ್ರತಿಲೇಖನ ಮಾದರಿ",
     "@transcriptionModel": {
-        "description": "Section title for choosing AI transcription model."
+        "description": "Metadata"
     },
     "transcriptionModelDescription": "ಧ್ವನಿ ಪ್ರತಿಲೇಖನಕ್ಕಾಗಿ AI ಮಾಡೆಲ್ ಆಯ್ಕೆಮಾಡಿ. ದೊಡ್ಡ ಮಾಡೆಲ್ಗಳು ಹೆಚ್ಚು ನಿಖರವಾಗಿರುತ್ತವೆ ಆದರೆ ಅವುಗಳು ನಿಧಾನ ಮತ್ತು ಹೆಚ್ಚು ಸ್ಟೋರೇಜ್ ತೆಗುದುಕೊಳ್ಳುತ್ತದೆ.",
     "@transcriptionModelDescription": {
-        "description": "Description text explaining transcription model choices."
+        "description": "Metadata"
     },
     "whisperModelTiny": "ಟೈನಿ",
     "@whisperModelTiny": {
-        "description": "Name of the smallest Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelTinyDescription": "ಅತ್ಯಂತ ವೇಗವಾದ, ಕಡಿಮೆ ನಿಖರವಾದ (~39 MB)",
     "@whisperModelTinyDescription": {
-        "description": "Description of the Tiny Whisper model performance and size."
+        "description": "Metadata"
     },
     "whisperModelBase": "ಬೇಸ್",
     "@whisperModelBase": {
-        "description": "Name of the base Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelBaseDescription": "ಸಮತೋಲಿತ ವೇಗ ಮತ್ತು ನಿಖರತೆ (~74 MB)",
     "@whisperModelBaseDescription": {
-        "description": "Description of the Base Whisper model performance and size."
+        "description": "Metadata"
     },
     "whisperModelSmall": "ಸ್ಮಾಲ್",
     "@whisperModelSmall": {
-        "description": "Name of the small Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelSmallDescription": "ಉತ್ತಮ ನಿಖರತೆ, ನಿಧಾನ (~244 MB)",
     "@whisperModelSmallDescription": {
-        "description": "Description of the Small Whisper model performance and size."
+        "description": "Metadata"
     },
     "whisperModelMedium": "ಮೀಡಿಯಂ",
     "@whisperModelMedium": {
-        "description": "Name of the medium Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelMediumDescription": "ಹೆಚ್ಚಿನ ನಿಖರತೆ, ನಿಧಾನ (~769 MB)",
     "@whisperModelMediumDescription": {
-        "description": "Description of the Medium Whisper model performance and size."
+        "description": "Metadata"
     },
     "whisperModelLargeV1": "ಲಾರ್ಜ್ V1",
     "@whisperModelLargeV1": {
-        "description": "Name of the large V1 Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelLargeV1Description": "ಅತ್ಯಂತ ನಿಖರ, ಅತ್ಯಂತ ನಿಧಾನ (~1.55 GB)",
     "@whisperModelLargeV1Description": {
-        "description": "Description of the Large V1 Whisper model performance and size."
+        "description": "Metadata"
     },
     "whisperModelLargeV2": "ಲಾರ್ಜ್ V2",
     "@whisperModelLargeV2": {
-        "description": "Name of the large V2 Whisper AI model."
+        "description": "Metadata"
     },
     "whisperModelLargeV2Description": "ಸುಧಾರಿತ ದೊಡ್ಡ ಮಾಡೆಲ್ ಹೆಚ್ಚಿನ ನಿಖರತೆಯೊಂದಿಗೆ (~1.55 GB)",
     "@whisperModelLargeV2Description": {
-        "description": "Description of the Large V2 Whisper model performance and size."
+        "description": "Metadata"
     },
     "modelDownloadInfo": "ಮಾಡೆಲ್ಳನ್ನು ಮೊದಲ ಬಾರಿಗೆ ಬಳಸಿದಾಗ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತದೆ. ನಾವು ಬೇಸ್, ಸ್ಮಾಲ್ ಅಥವಾ ಮೀಡಿಯಂ ಬಳಸಲು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ. ದೊಡ್ಡ ಮಾಡೆಲ್ಗಳಿಗೆ ಅತ್ಯಂತ ಉನ್ನತ ದರ್ಜೆಯ ಮೊಬೈಲ್/ಸಾಧನಗಳು ಬೇಕಾಗುತ್ತವೆ.",
     "@modelDownloadInfo": {
-        "description": "Information message about model download."
+        "description": "Metadata"
     },
     "logOut": "ಲಾಗ್ ಔಟ್",
     "@logOut": {
-        "description": "Button text to log the user out of their account."
+        "description": "Metadata"
     },
     "participants": "ಭಾಗವಹಿಸುವವರು",
     "@participants": {
-        "description": "Label or title for the list of participants in a room."
+        "description": "Metadata"
     },
     "delete": "ಅಳಿಸಿ",
     "@delete": {
-        "description": "Generic button text for a delete action. Parameter for toRoomAction."
+        "description": "Metadata"
     },
     "leave": "ಬಿಟ್ಟುಹೋಗಿ",
     "@leave": {
-        "description": "Generic button text for a leave action. Parameter for toRoomAction."
+        "description": "Metadata"
     },
     "leaveButton": "ಬಿಡಿ",
     "@leaveButton": {
-        "description": "Button text to leave a room or conversation."
+        "description": "Metadata"
     },
     "findingRandomPartner": "ನಿಮಗಾಗಿ ಯಾದೃಚ್ಛಿಕ ಪಾಲುದಾರರನ್ನು ಹುಡುಕುತ್ತಿದೆ",
     "@findingRandomPartner": {
-        "description": "Status message shown while the system is searching for a random chat partner."
+        "description": "Metadata"
     },
     "quickFact": "ತ್ವರಿತ ಸತ್ಯ",
     "@quickFact": {
-        "description": "Header for a quick fact or tip, often shown during loading."
+        "description": "Metadata"
     },
     "cancel": "ರದ್ದುಮಾಡಿ",
     "@cancel": {
-        "description": "Generic button text for a cancel action."
+        "description": "Metadata"
     },
     "completeYourProfile": "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಪೂರ್ಣಗೊಳಿಸಿ",
     "@completeYourProfile": {
-        "description": "Page title or prompt for the user to finish setting up their profile."
+        "description": "Metadata"
     },
     "uploadProfilePicture": "ಪ್ರೊಫೈಲ್ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
     "@uploadProfilePicture": {
-        "description": "Instructional text or button to upload a profile picture."
+        "description": "Metadata"
     },
     "enterValidName": "ಮಾನ್ಯವಾದ ಹೆಸರು ನಮೂದಿಸಿ",
     "@enterValidName": {
-        "description": "Error message for an invalid name format."
+        "description": "Metadata"
     },
     "name": "ಹೆಸರು",
     "@name": {
-        "description": "Label for the name input field."
+        "description": "Metadata"
     },
     "username": "ಬಳಕೆದಾರ ಹೆಸರು",
     "@username": {
-        "description": "Label for the username input field."
+        "description": "Metadata"
     },
     "enterValidDOB": "ಮಾನ್ಯವಾದ ಜನ್ಮ ದಿನಾಂಕ ನಮೂದಿಸಿ",
     "@enterValidDOB": {
-        "description": "Error message for an invalid date of birth."
+        "description": "Metadata"
     },
     "dateOfBirth": "ಜನ್ಮ ದಿನಾಂಕ",
     "@dateOfBirth": {
-        "description": "Label for the date of birth input field."
+        "description": "Metadata"
     },
     "forgotPassword": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?",
     "@forgotPassword": {
-        "description": "Link text for users who have forgotten their password."
+        "description": "Metadata"
     },
     "next": "ಮುಂದೆ",
     "@next": {
-        "description": "Button text to proceed to the next step in a process."
+        "description": "Metadata"
     },
     "noStoriesExist": "ಪ್ರಸ್ತುತಪಡಿಸಲು ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ",
     "@noStoriesExist": {
-        "description": "Message displayed when there are no stories available in a list."
+        "description": "Metadata"
     },
     "enterVerificationCode": "ನಿಮ್ಮ ಪರಿಶೀಲನಾ\nಕೋಡ್ ನಮೂದಿಸಿ",
     "@enterVerificationCode": {
-        "description": "Prompt for the user to enter the verification code sent to their email."
+        "description": "Metadata"
     },
     "verificationCodeSent": "ನಾವು 6-ಅಂಕಿಯ ಪರಿಶೀಲನಾ ಕೋಡ್ ಕಳುಹಿಸಿದ್ದೇವೆ\n",
     "@verificationCodeSent": {
-        "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
+        "description": "Metadata"
     },
     "verificationComplete": "ಪರಿಶೀಲನೆ ಪೂರ್ಣಗೊಂಡಿದೆ",
     "@verificationComplete": {
-        "description": "Title for a success message after email verification."
+        "description": "Metadata"
     },
     "verificationCompleteMessage": "ಅಭಿನಂದನೆಗಳು ನೀವು ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿದ್ದೀರಿ",
     "@verificationCompleteMessage": {
-        "description": "Success message confirming email verification."
+        "description": "Metadata"
     },
     "verificationFailed": "ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
     "@verificationFailed": {
-        "description": "Title for an error message when verification fails."
+        "description": "Metadata"
     },
     "otpMismatch": "OTP ಹೊಂದಾಣಿಕೆಯಾಗುತ್ತಿಲ್ಲ ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
     "@otpMismatch": {
-        "description": "Error message when the entered OTP is incorrect."
+        "description": "Metadata"
     },
     "otpResent": "OTP ಮರು ಕಳುಹಿಸಲಾಗಿದೆ",
     "@otpResent": {
-        "description": "Confirmation message that the OTP has been resent."
+        "description": "Metadata"
     },
     "requestNewCode": "ಹೊಸ ಕೋಡ್ ವಿನಂತಿಸಿ",
     "@requestNewCode": {
-        "description": "Button text to request a new verification code."
+        "description": "Metadata"
     },
     "requestNewCodeIn": "ಹೊಸ ಕೋಡ್ ವಿನಂತಿಸಿ",
     "@requestNewCodeIn": {
-        "description": "Text displayed before a countdown timer for requesting a new code."
+        "description": "Metadata"
     },
     "clickPictureCamera": "ಕ್ಯಾಮೆರಾ ಬಳಸಿ ಚಿತ್ರ ತೆಗೆಯಿರಿ",
     "@clickPictureCamera": {
-        "description": "Option to take a new photo using the device camera."
+        "description": "Metadata"
     },
     "pickImageGallery": "ಗ್ಯಾಲರಿಯಿಂದ ಚಿತ್ರ ಆಯ್ಕೆಮಾಡಿ",
     "@pickImageGallery": {
-        "description": "Option to choose an existing image from the device gallery."
+        "description": "Metadata"
     },
     "deleteMyAccount": "ನನ್ನ ಖಾತೆ ಅಳಿಸಿ",
     "@deleteMyAccount": {
-        "description": "Button text for the account deletion feature."
+        "description": "Metadata"
     },
     "createNewRoom": "ಹೊಸ ರೂಮ್ ರಚಿಸಿ",
     "@createNewRoom": {
-        "description": "Button text or page title for creating a new audio room."
+        "description": "Metadata"
     },
     "pleaseEnterScheduledDateTime": "ದಯವಿಟ್ಟು ನಿಗದಿತ ದಿನಾಂಕ-ಸಮಯ ನಮೂದಿಸಿ",
     "@pleaseEnterScheduledDateTime": {
-        "description": "Error message when the scheduled date and time for a room is not provided."
+        "description": "Metadata"
     },
     "scheduleDateTimeLabel": "ದಿನಾಂಕ ಸಮಯ ನಿಗದಿಪಡಿಸಿ",
     "@scheduleDateTimeLabel": {
-        "description": "Label for the input field to schedule a room's date and time."
+        "description": "Metadata"
     },
     "enterTags": "ಟ್ಯಾಗ್‌ಗಳನ್ನು ನಮೂದಿಸಿ",
     "@enterTags": {
-        "description": "Placeholder or label for the input field for adding tags to a room or story."
+        "description": "Metadata"
     },
     "joinCommunity": "ಕಮ್ಯೂನಿಟಿಗೆ ಸೇರಿ",
     "@joinCommunity": {
-        "description": "Button text or header for the community section."
+        "description": "Metadata"
     },
     "followUsOnX": "X ನಲ್ಲಿ ನಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡಿ",
     "@followUsOnX": {
-        "description": "Link text to the company's profile on X (formerly Twitter)."
+        "description": "Metadata"
     },
     "joinDiscordServer": "Discord ಸರ್ವರ್‌ಗೆ ಸೇರಿ",
     "@joinDiscordServer": {
-        "description": "Link text to join the project's Discord server."
+        "description": "Metadata"
     },
     "noLyrics": "ಯಾವುದೇ ಸಾಹಿತ್ಯ ಇಲ್ಲ",
     "@noLyrics": {
-        "description": "Message displayed when lyrics for an audio file are not available."
+        "description": "Metadata"
     },
     "noStoriesInCategory": "{categoryName} ವರ್ಗದಲ್ಲಿ ಪ್ರಸ್ತುತ ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ",
     "@noStoriesInCategory": {
-        "description": "Message when no stories exist in a specific category.",
-        "placeholders": {
-            "categoryName": {
-                "type": "String",
-                "example": "drama"
-            }
-        }
+        "description": "Metadata"
     },
     "newChapters": "ಹೊಸ ಅಧ್ಯಾಯಗಳು",
     "@newChapters": {
-        "description": "Header or label for the section to add or view new chapters of a story."
+        "description": "Metadata"
     },
     "helpToGrow": "ಬೆಳೆಯಲು ಸಹಾಯ ಮಾಡಿ",
     "@helpToGrow": {
-        "description": "A call to action asking users to help the platform grow, often a header for sharing/rating."
+        "description": "Metadata"
     },
     "share": "ಹಂಚಿಕೊಳ್ಳಿ",
     "@share": {
-        "description": "Button text for sharing content."
+        "description": "Metadata"
     },
     "rate": "ರೇಟ್ ಮಾಡಿ",
     "@rate": {
-        "description": "Button text for rating the app or content."
+        "description": "Metadata"
     },
     "aboutResonate": "ರೆಸೋನೇಟ್ ಬಗ್ಗೆ",
     "@aboutResonate": {
-        "description": "Title for the 'About' page of the Resonate application."
+        "description": "Metadata"
     },
     "description": "ವಿವರಣೆ",
     "@description": {
-        "description": "Label for a description field."
+        "description": "Metadata"
     },
     "confirm": "ದೃಢೀಕರಿಸಿ",
     "@confirm": {
-        "description": "Generic button text for a confirm action."
+        "description": "Metadata"
     },
     "classic": "ಕ್ಲಾಸಿಕ್",
     "@classic": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "time": "ಟೈಮ್",
     "@time": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "vintage": "ವಿಂಟೇಜ್",
     "@vintage": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "amber": "ಆಂಬರ್",
     "@amber": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "forest": "ಫಾರೆಸ್ಟ್",
     "@forest": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "cream": "ಕ್ರೀಮ್",
     "@cream": {
-        "description": "Name of a theme option."
+        "description": "Metadata"
     },
     "none": "ಯಾವುದೂ ಇಲ್ಲ",
     "@none": {
-        "description": "Text representing no selection or absence of a value."
+        "description": "Metadata"
     },
     "checkOutGitHub": "ನಮ್ಮ GitHub ರೆಪೊಸಿಟರಿ ನೋಡಿ: {url}",
     "@checkOutGitHub": {
-        "description": "Share message for the GitHub repository, including a placeholder for the URL.",
-        "placeholders": {
-            "url": {
-                "type": "String",
-                "example": "https://github.com/AOSSIE-Org/Resonate"
-            }
-        }
+        "description": "Metadata"
     },
     "aossie": "AOSSIE",
     "@aossie": {
-        "description": "The name of the organization."
+        "description": "Metadata"
     },
     "aossieLogo": "aossie ಲೋಗೋ",
     "@aossieLogo": {
-        "description": "Accessibility text for the AOSSIE organization logo."
+        "description": "Metadata"
     },
     "errorLoadPackageInfo": "ಪ್ಯಾಕೇಜ್ ಮಾಹಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
     "@errorLoadPackageInfo": {
-        "description": "Error message when the application fails to load its package information (e.g., version)."
+        "description": "Metadata"
     },
     "updateAvailable": "ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ",
     "@updateAvailable": {
-        "description": "Title indicating that a new version of the app is available."
+        "description": "Metadata"
     },
     "newVersionAvailable": "ಹೊಸ ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ!",
     "@newVersionAvailable": {
-        "description": "Message informing the user about an available update."
+        "description": "Metadata"
     },
     "upToDate": "ಅಪ್ಡೇಟ್ ಆಗಿದೆ",
     "@upToDate": {
-        "description": "Title indicating the application is on the latest version."
+        "description": "Metadata"
     },
     "latestVersion": "ನೀವು ಇತ್ತೀಚಿನ ಅಪ್ಡೇಟ್ಅನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ",
     "@latestVersion": {
-        "description": "Message confirming the user has the latest version of the app."
+        "description": "Metadata"
     },
     "profileCreatedSuccessfully": "ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ",
     "@profileCreatedSuccessfully": {
-        "description": "Success message after a user's profile is created."
+        "description": "Metadata"
     },
     "invalidScheduledDateTime": "ನಿಗದಿತ ದಿನಾಂಕ ಸಮಯ ಅಮಾನ್ಯವಾಗಿದೆ",
     "@invalidScheduledDateTime": {
-        "description": "Error message for an invalid date-time format."
+        "description": "Metadata"
     },
     "scheduledDateTimePast": "ನಿಗದಿತ ದಿನಾಂಕ ಸಮಯ ಹಿಂದಿನ ದಿನವಾಗಿರಬಾರದು",
     "@scheduledDateTimePast": {
-        "description": "Error message when the user selects a past date-time for a scheduled event."
+        "description": "Metadata"
     },
     "joinRoom": "ರೂಮ್‌ಗೆ ಸೇರಿ",
     "@joinRoom": {
-        "description": "Button text to join an audio room."
+        "description": "Metadata"
     },
     "unknownUser": "ಅಜ್ಞಾತ/ಅನ್ನೋನ್",
     "@unknownUser": {
-        "description": "Placeholder text for a user whose name is not available."
+        "description": "Metadata"
     },
     "canceled": "ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
     "@canceled": {
-        "description": "A status label indicating that an action was canceled."
+        "description": "Metadata"
     },
     "english": "en",
     "@english": {
-        "description": "The language code for English."
+        "description": "Metadata"
     },
     "emailVerificationRequired": "ಇಮೇಲ್ ಪರಿಶೀಲನೆ ಅಗತ್ಯವಿದೆ",
     "@emailVerificationRequired": {
-        "description": "A title or message indicating that email verification is needed to proceed."
+        "description": "Metadata"
     },
     "verify": "ಪರಿಶೀಲಿಸಿ",
     "@verify": {
-        "description": "Button text to initiate a verification process."
+        "description": "Metadata"
     },
     "audioRoom": "ಆಡಿಯೋ ರೂಮ್",
     "@audioRoom": {
-        "description": "Generic title for an audio room."
+        "description": "Metadata"
     },
     "toRoomAction": "ರೂಮ್ ಅನ್ನು {action} ಮಾಡಲು",
     "@toRoomAction": {
-        "description": "A dynamic message for confirming an action on a room, like deleting or leaving.",
-        "placeholders": {
-            "action": {
-                "type": "String",
-                "example": "delete"
-            }
-        }
+        "description": "Metadata"
     },
     "mailSentMessage": "ಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ",
     "@mailSentMessage": {
-        "description": "A confirmation message indicating an email has been sent."
+        "description": "Metadata"
     },
     "disconnected": "ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಕಡಿತಗೊಂಡಿದೆ",
     "@disconnected": {
-        "description": "A status label indicating a loss of connection."
+        "description": "Metadata"
     },
     "micOn": "ಮೈಕ್",
     "@micOn": {
-        "description": "Accessibility label for the microphone button when it is on."
+        "description": "Metadata"
     },
     "speakerOn": "ಮಾತನಾಡುವವರು",
     "@speakerOn": {
-        "description": "Accessibility label for the speakerphone button when it is on."
+        "description": "Metadata"
     },
     "endChat": "ಚಾಟ್ ಮುಗಿಸಿ",
     "@endChat": {
-        "description": "Accessibility label for the end chat/call button."
+        "description": "Metadata"
     },
     "monthJan": "ಜನವರಿ",
     "@monthJan": {
-        "description": "Abbreviation for January."
+        "description": "Metadata"
     },
     "monthFeb": "ಫೆಬ್ರವರಿ",
     "@monthFeb": {
-        "description": "Abbreviation for February."
+        "description": "Metadata"
     },
     "monthMar": "ಮಾರ್ಚ್",
     "@monthMar": {
-        "description": "Full name for March."
+        "description": "Metadata"
     },
     "monthApr": "ಏಪ್ರಿಲ್",
     "@monthApr": {
-        "description": "Full name for April."
+        "description": "Metadata"
     },
     "monthMay": "ಮೇ",
     "@monthMay": {
-        "description": "Full name for May."
+        "description": "Metadata"
     },
     "monthJun": "ಜೂನ್",
     "@monthJun": {
-        "description": "Full name for June."
+        "description": "Metadata"
     },
     "monthJul": "ಜುಲೈ",
     "@monthJul": {
-        "description": "Full name for July."
+        "description": "Metadata"
     },
     "monthAug": "ಆಗಸ್ಟ್",
     "@monthAug": {
-        "description": "Abbreviation for August."
+        "description": "Metadata"
     },
     "monthSep": "ಸೆಪ್ಟೆಂಬರ್",
     "@monthSep": {
-        "description": "Abbreviation for September."
+        "description": "Metadata"
     },
     "monthOct": "ಅಕ್ಟೋಬರ್",
     "@monthOct": {
-        "description": "Abbreviation for October."
+        "description": "Metadata"
     },
     "monthNov": "ನವೆಂಬರ್",
     "@monthNov": {
-        "description": "Abbreviation for November."
+        "description": "Metadata"
     },
     "monthDec": "ಡಿಸೆಂಬರ್",
     "@monthDec": {
-        "description": "Abbreviation for December."
+        "description": "Metadata"
     },
     "register": "ನೋಂದಾಯಿಸಿ",
     "@register": {
-        "description": "Button text to register a new account."
+        "description": "Metadata"
     },
     "newToResonate": "ರೆಸೋನೇಟ್‌ಗೆ ಹೊಸಬರೇ? ",
     "@newToResonate": {
-        "description": "Text preceding the 'Create new account' link on the login screen."
+        "description": "Metadata"
     },
     "alreadyHaveAccount": "ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ? ",
     "@alreadyHaveAccount": {
-        "description": "Text preceding the 'Login' link on the sign-up screen."
+        "description": "Metadata"
     },
     "checking": "ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...",
     "@checking": {
-        "description": "A temporary status message indicating a check is in progress."
+        "description": "Metadata"
     },
     "forgotPasswordMessage": "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸಲು ನಿಮ್ಮ ನೋಂದಾಯಿತ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ.",
     "@forgotPasswordMessage": {
-        "description": "Instructional text on the forgot password screen."
+        "description": "Metadata"
     },
     "usernameUnavailable": "ಹೆಸರು ಲಭ್ಯವಿಲ್ಲ!",
     "@usernameUnavailable": {
-        "description": "Title for the error when a chosen username is taken."
+        "description": "Metadata"
     },
     "usernameInvalidOrTaken": "ಈ ಹೆಸರು ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಈಗಾಗಲೇ ತೆಗೆದುಕೊಳ್ಳಲಾಗಿದೆ.",
     "@usernameInvalidOrTaken": {
-        "description": "Error message explaining why a username cannot be used."
+        "description": "Metadata"
     },
     "otpResentMessage": "ಹೊಸ OTP ಗಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೇಲ್ ಪರಿಶೀಲಿಸಿ.",
     "@otpResentMessage": {
-        "description": "Message informing the user to check their email for a new OTP."
+        "description": "Metadata"
     },
     "connectionError": "ಸಂಪರ್ಕ ದೋಷವಿದೆ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "@connectionError": {
-        "description": "Generic error message for network connection issues."
+        "description": "Metadata"
     },
     "seconds": "ಸೆಕೆಂಡುಗಳು.",
     "@seconds": {
-        "description": "The word 'seconds', often used after a countdown number."
+        "description": "Metadata"
     },
     "unsavedChangesWarning": "ನೀವು ಸೇವ್ ಮಾಡದೆ ಮುಂದುವರಿದರೆ, ಸೇವ್ ಮಾಡದ ಬದಲಾವಣೆಗಳು ಕಳೆದುಹೋಗುತ್ತವೆ.",
     "@unsavedChangesWarning": {
-        "description": "A warning message shown when a user tries to leave a screen with unsaved changes."
+        "description": "Metadata"
     },
     "deleteAccountPermanent": "ಈ ಕ್ರಿಯೆ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಇದು ಬದಲಾಯಿಸಲಾಗದ ಪ್ರಕ್ರಿಯೆ. ನಾವು ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು, ಇಮೇಲ್ ವಿಳಾಸ ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಗೆ ಸಂಬಂಧಿಸಿದ ಎಲ್ಲಾ ಇತರ ಡೇಟಾವನ್ನು ಅಳಿಸುತ್ತೇವೆ. ನೀವು ಅದನ್ನು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.",
     "@deleteAccountPermanent": {
-        "description": "A detailed warning message explaining the consequences of deleting an account."
+        "description": "Metadata"
     },
     "giveGreatName": "ಉತ್ತಮ ಹೆಸರು ನೀಡಿ..",
     "@giveGreatName": {
-        "description": "Placeholder text for a name input field, encouraging a creative name."
+        "description": "Metadata"
     },
     "joinCommunityDescription": "ಕಮ್ಯೂನಿಟಿ ಸೇರುವ ಮೂಲಕ ನೀವು ನಿಮ್ಮ ಸಂದೇಹಗಳನ್ನು ಸ್ಪಷ್ಟಪಡಿಸಬಹುದು, ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳಿಗಾಗಿ ಸಲಹೆ ನೀಡಬಹುದು, ನೀವು ಎದುರಿಸಿದ ಸಮಸ್ಯೆಗಳನ್ನು ವರದಿ ಮಾಡಬಹುದು ಮತ್ತು ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು ಲಭ್ಯವಿದೆ.",
     "@joinCommunityDescription": {
-        "description": "A description of the benefits of joining the community."
+        "description": "Metadata"
     },
     "resonateDescription": "ರೆಸೊನೇಟ್ ಒಂದು ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ ವೇದಿಕೆ — ಇಲ್ಲಿ ಪ್ರತಿಯೊಬ್ಬರ ಧ್ವನಿಗೂ ಮಹತ್ವ ಇದೆ, ನಿಮ್ಮ ಆಲೋಚನೆಗಳು, ಕಥೆಗಳು ಮತ್ತು ಅನುಭವಗಳನ್ನು ಇತರರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ, ಇಗಲೇ ನಿಮ್ಮ ಧ್ವನಿ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ, ವಿವಿಧ ಚರ್ಚೆಗಳು ಮತ್ತು ವಿಷಯಗಳಲ್ಲಿ ಮುಳುಗಿ ನೋಡಿ. ನಿಮ್ಮ ಮನಸ್ಸಿಗೆ ಹತ್ತಿರವಾದ ರೂಮ್ಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ಕಮ್ಯೂನಿಟಿಯ ಭಾಗವಾಗಿರಿ.ಈಗಲೇ ಈ ಮಾತುಕತೆಗಳಿಗೆ ಸೇರಿ!, ರೂಮ್ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ, ಸ್ನೇಹಿತರೊಂದಿಗೆ ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ವಿಶ್ವದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ",
     "@resonateDescription": {
-        "description": "A short, user-facing description of the Resonate application."
+        "description": "Metadata"
     },
     "resonateFullDescription": "ರೆಸೋನೇಟ್ ಒಂದು ಕ್ರಾಂತಿಕಾರಿ ಧ್ವನಿ-ಆಧಾರಿತ ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮ ವೇದಿಕೆಯಾಗಿದ್ದು, ಇಲ್ಲಿ ಪ್ರತಿಯೊಂದು ಧ್ವನಿ ಮಹತ್ವವಾಗಿದೆ. \nಲೈವ್ ಆಡಿಯೋ ಸಂಭಾಷಣೆಗಳಿಗೆ ಸೇರಿ, ವೈವಿಧ್ಯಮಯ ಚರ್ಚೆಗಳಲ್ಲಿ ಭಾಗವಹಿಸಿ, ಮತ್ತು \nಸಮಾನ ಮನಸ್ಸಿನ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ. ನಮ್ಮ ವೇದಿಕೆ ನಿಮಗೆ:\n- ವಿಷಯ-ಆಧಾರಿತ ಚರ್ಚೆಗಳೊಂದಿಗೆ ಲೈವ್ ಆಡಿಯೋ ರೂಮ್‌ಗಳು\n- ಧ್ವನಿಯ ಮೂಲಕ ಸರಾಗವಾದ ಸಾಮಾಜಿಕ ನೆಟ್‌ವರ್ಕಿಂಗ್\n- ಕಮ್ಯೂನಿಟಿ-ನಡೆಸುವ ವಿಷಯ ಮಾಡರೇಶನ್\n- ಕ್ರಾಸ್-ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಹೊಂದಾಣಿಕೆ\n- ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಖಾಸಗಿ ಸಂಭಾಷಣೆಗಳು\n\nAOSSIE ಓಪನ್ ಸೋರ್ಸ್ ಕಂಮ್ಯುನಿಟಿಯಿಂದ ಅಭಿವೃದ್ಧಿಪಡಿಸಲಾಗಿದೆ, ನಾವು ಬಳಕೆದಾರರ ಗೌಪ್ಯತೆ ಮತ್ತು \nಕಮ್ಯೂನಿಟಿ ನಡೆಸುವ ಅಭಿವೃದ್ಧಿಗೆ ಆದ್ಯತೆ ನೀಡುತ್ತೇವೆ. ಸಾಮಾಜಿಕ ಆಡಿಯೋದ ಭವಿಷ್ಯವನ್ನು ರೂಪಿಸುವಲ್ಲಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ!",
     "@resonateFullDescription": {
-        "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
+        "description": "Metadata"
     },
     "stable": "ಸ್ಥಿರ",
     "@stable": {
-        "description": "A label indicating a stable, non-beta version of the app."
+        "description": "Metadata"
     },
     "usernameCharacterLimit": "ಬಳಕೆದಾರ ಹೆಸರು 5 ಅಕ್ಷರಗಳಿಗಿಂತ ಹೆಚ್ಚು ಇರಬೇಕು.",
     "@usernameCharacterLimit": {
-        "description": "Error message when a chosen username is too short."
+        "description": "Metadata"
     },
     "submit": "ಸಲ್ಲಿಸಿ",
     "@submit": {
-        "description": "Generic button text for submitting a form."
+        "description": "Metadata"
     },
     "anonymous": "ಅನಾಮಧೇಯ",
     "@anonymous": {
-        "description": "Label for an anonymous user or identity."
+        "description": "Metadata"
     },
     "noSearchResults": "ಫಲಿತಾಂಶಗಳು ಇಲ್ಲ",
     "@noSearchResults": {
-        "description": "Message displayed when a search returns no results."
+        "description": "Metadata"
     },
     "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {description}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!",
     "@shareRoomMessage": {
-        "description": "The default message template used when sharing a room.",
-        "placeholders": {
-            "roomName": {
-                "type": "String",
-                "example": "Discussion Room"
-            },
-            "description": {
-                "type": "String",
-                "example": "A great place to discuss"
-            },
-            "participants": {
-                "type": "int",
-                "example": "5"
-            }
-        }
+        "description": "Metadata"
     },
     "participantsCount": "{count} ಭಾಗವಹಿಸುವವರು",
     "@participantsCount": {
-        "description": "Displays the number of participants in a room.",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "example": "5"
-            }
-        }
+        "description": "Metadata"
     },
     "join": "ಸೇರಿ",
     "@join": {
-        "description": "Generic button text to join an activity or group."
+        "description": "Metadata"
     },
     "invalidTags": "ಅಮಾನ್ಯ ಟ್ಯಾಗ್:",
     "@invalidTags": {
-        "description": "Error message prefix for an invalid tag."
+        "description": "Metadata"
     },
     "cropImage": "ಚಿತ್ರ ಕತ್ತರಿಸಿ",
     "@cropImage": {
-        "description": "Title or button text for the image cropping tool."
+        "description": "Metadata"
     },
     "profileSavedSuccessfully": "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲಾಗಿದೆ",
     "@profileSavedSuccessfully": {
-        "description": "Short success message indicating profile changes have been saved."
+        "description": "Metadata"
     },
     "profileUpdatedSuccessfully": "ಎಲ್ಲಾ ಬದಲಾವಣೆಗಳನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ.",
     "@profileUpdatedSuccessfully": {
-        "description": "Detailed success message confirming profile update."
+        "description": "Metadata"
     },
     "profileUpToDate": "ಪ್ರೊಫೈಲ್ ನವೀಕೃತವಾಗಿದೆ",
     "@profileUpToDate": {
-        "description": "Title for the message when there are no changes to save on the profile."
+        "description": "Metadata"
     },
     "noChangesToSave": "ಯಾವುದೇ ಹೊಸ ಬದಲಾವಣೆಗಳನ್ನು ಮಾಡಲಾಗಿಲ್ಲ, ಉಳಿಸಲು ಏನೂ ಇಲ್ಲ.",
     "@noChangesToSave": {
-        "description": "Message displayed when the user tries to save their profile without making any changes."
+        "description": "Metadata"
     },
     "connectionFailed": "ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ವಿಫಲವಾಗಿದೆ",
     "@connectionFailed": {
-        "description": "Generic title for connection-related errors."
+        "description": "Metadata"
     },
     "unableToJoinRoom": "ರೂಮ್‌ಗೆ ಸೇರಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ನೆಟ್‌ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "@unableToJoinRoom": {
-        "description": "Error message when a user fails to join a room due to connection issues."
+        "description": "Metadata"
     },
     "connectionLost": "ಸಂಪರ್ಕ ಕಳೆದುಹೋಗಿದೆ",
     "@connectionLost": {
-        "description": "Title indicating that the connection to a service was lost."
+        "description": "Metadata"
     },
     "unableToReconnect": "ರೂಮ್‌ಗೆ ಮರುಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಸೇರಲು ಪ್ರಯತ್ನಿಸಿ.",
     "@unableToReconnect": {
-        "description": "Error message when the app fails to reconnect the user to a room."
+        "description": "Metadata"
     },
     "invalidFormat": "ಅಮಾನ್ಯ ರೂಪ/ಫಾರ್ಮ್ಯಾಟ್!",
     "@invalidFormat": {
-        "description": "Generic error message for data with an incorrect format."
+        "description": "Metadata"
     },
     "usernameAlphanumeric": "ಬಳಕೆದಾರ ಹೆಸರಿನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಅಕ್ಷರಗಳು ಅಥವಾ ಸಂಖ್ಯೆಗಳು ಇರಬಹುದು ಮತ್ತು ವಿಶೇಷ ಅಕ್ಷರಗಳನ್ನು ಒಳಗೊಂಡಿರಬಾರದು.",
     "@usernameAlphanumeric": {
-        "description": "Error message detailing the character requirements for a valid username."
+        "description": "Metadata"
     },
     "userProfileCreatedSuccessfully": "ನಿಮ್ಮ ಬಳಕೆದಾರ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ.",
     "@userProfileCreatedSuccessfully": {
-        "description": "Success message after a user completes their profile setup."
+        "description": "Metadata"
     },
     "emailVerificationMessage": "ಮುಂದುವರೆಯಲು, ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ.",
     "@emailVerificationMessage": {
-        "description": "An instructional message prompting the user to verify their email."
+        "description": "Metadata"
     },
     "addNewChaptersToStory": "{storyName} ಗೆ ಹೊಸ ಅಧ್ಯಾಯಗಳನ್ನು ಸೇರಿಸಿ",
     "@addNewChaptersToStory": {
-        "description": "Title for the screen where new chapters are added to an existing story.",
-        "placeholders": {
-            "storyName": {
-                "type": "String",
-                "example": "My Story"
-            }
-        }
+        "description": "Metadata"
     },
     "currentChapters": "ಪ್ರಸ್ತುತ ಅಧ್ಯಾಯಗಳು",
     "@currentChapters": {
-        "description": "Header for the list of existing chapters in a story."
+        "description": "Metadata"
     },
     "sourceCodeOnGitHub": "GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್",
     "@sourceCodeOnGitHub": {
-        "description": "Link text to the project's source code on GitHub."
+        "description": "Metadata"
     },
     "createAChapter": "ಅಧ್ಯಾಯ ರಚಿಸಿ",
     "@createAChapter": {
-        "description": "Title for the screen where a new chapter is created."
+        "description": "Metadata"
     },
     "chapterTitle": "ಅಧ್ಯಾಯದ ಶೀರ್ಷಿಕೆ *",
     "@chapterTitle": {
-        "description": "Label for the chapter title input field, indicating it is required."
+        "description": "Metadata"
     },
     "aboutRequired": "ಬಗ್ಗೆ *",
     "@aboutRequired": {
-        "description": "Label for the 'About' or description input field, indicating it is required."
+        "description": "Metadata"
     },
     "changeCoverImage": "ಕವರ್ ಚಿತ್ರ ಬದಲಾಯಿಸಿ",
     "@changeCoverImage": {
-        "description": "Button text to change the cover image of a story or chapter."
+        "description": "Metadata"
     },
     "uploadAudioFile": "ಆಡಿಯೋ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
     "@uploadAudioFile": {
-        "description": "Button text to upload an audio file."
+        "description": "Metadata"
     },
     "uploadLyricsFile": "ಸಾಹಿತ್ಯ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
     "@uploadLyricsFile": {
-        "description": "Button text to upload a lyrics file."
+        "description": "Metadata"
     },
     "createChapter": "ಅಧ್ಯಾಯ ರಚಿಸಿ",
     "@createChapter": {
-        "description": "Button text to finalize and create a new chapter."
+        "description": "Metadata"
     },
     "audioFileSelected": "ಆಡಿಯೋ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: {fileName}",
     "@audioFileSelected": {
-        "description": "Message shown after an audio file has been selected for upload.",
-        "placeholders": {
-            "fileName": {
-                "type": "String",
-                "example": "audio.mp3"
-            }
-        }
+        "description": "Metadata"
     },
     "lyricsFileSelected": "ಸಾಹಿತ್ಯ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: {fileName}",
     "@lyricsFileSelected": {
-        "description": "Message shown after a lyrics file has been selected for upload.",
-        "placeholders": {
-            "fileName": {
-                "type": "String",
-                "example": "lyrics.txt"
-            }
-        }
+        "description": "Metadata"
     },
     "fillAllRequiredFields": "ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಆಡಿಯೋ ಫೈಲ್ ಮತ್ತು ಸಾಹಿತ್ಯ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
     "@fillAllRequiredFields": {
-        "description": "Error message when required fields or files are missing from a form."
+        "description": "Metadata"
     },
     "scheduled": "ನಿಗದಿಪಡಿಸಲಾಗಿದೆ",
     "@scheduled": {
-        "description": "A status label indicating an event is scheduled for the future."
+        "description": "Metadata"
     },
     "ok": "ಸರಿ",
     "@ok": {
-        "description": "Generic confirmation button text, often for closing a dialog."
+        "description": "Metadata"
     },
     "roomDescriptionOptional": "ರೂಮ್ ವಿವರಣೆ (ಐಚ್ಛಿಕ/optional)",
     "@roomDescriptionOptional": {
-        "description": "Label for the room description input field, indicating it is not required."
+        "description": "Metadata"
     },
     "deleteAccount": "ಖಾತೆ ಅಳಿಸಿ",
     "@deleteAccount": {
-        "description": "Button text to initiate the account deletion process."
+        "description": "Metadata"
     },
     "createYourStory": "ನಿಮ್ಮ ಕಥೆ ರಚಿಸಿ",
     "@createYourStory": {
-        "description": "Title for the screen where a new story is created."
+        "description": "Metadata"
     },
     "titleRequired": "ಶೀರ್ಷಿಕೆ *",
     "@titleRequired": {
-        "description": "Label for the title input field, indicating it is required."
+        "description": "Metadata"
     },
     "category": "ವರ್ಗ *",
     "@category": {
-        "description": "Label for the category selection, indicating it is required."
+        "description": "Metadata"
     },
     "addChapter": "ಅಧ್ಯಾಯ ಸೇರಿಸಿ",
     "@addChapter": {
-        "description": "Button text to add a chapter to a story."
+        "description": "Metadata"
     },
     "createStory": "ಕಥೆ ರಚಿಸಿ",
     "@createStory": {
-        "description": "Button text to finalize and create a new story."
+        "description": "Metadata"
     },
     "fillAllRequiredFieldsAndChapter": "ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ, ಕನಿಷ್ಠ ಒಂದು ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಕವರ್ ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
     "@fillAllRequiredFieldsAndChapter": {
-        "description": "Error message for the story creation form when requirements are not met."
+        "description": "Metadata"
     },
     "toConfirmType": "ದೃಢೀಕರಿಸಲು, ಟೈಪ್ ಮಾಡಿ",
     "@toConfirmType": {
-        "description": "Instructional text in a confirmation dialog, preceding the text to be typed."
+        "description": "Metadata"
     },
     "inTheBoxBelow": "ಕೆಳಗಿನ ಬಾಕ್ಸ್‌ನಲ್ಲಿ",
     "@inTheBoxBelow": {
-        "description": "Instructional text in a confirmation dialog, following the text to be typed."
+        "description": "Metadata"
     },
     "iUnderstandDeleteMyAccount": "ನನಗೆ ಅರ್ಥವಾಗಿದೆ, ನನ್ನ ಖಾತೆಯನ್ನು ಅಳಿಸಿ",
     "@iUnderstandDeleteMyAccount": {
-        "description": "The specific phrase a user must type to confirm account deletion."
+        "description": "Metadata"
     },
     "whatDoYouWantToListenTo": "ನೀವು ಏನನ್ನು ಕೇಳಲು ಬಯಸುತ್ತೀರಿ?",
     "@whatDoYouWantToListenTo": {
-        "description": "A prompt on the main screen, encouraging user engagement."
+        "description": "Metadata"
     },
     "categories": "ವರ್ಗಗಳು",
     "@categories": {
-        "description": "Header for the list of categories."
+        "description": "Metadata"
     },
     "stories": "ಕಥೆಗಳು",
     "@stories": {
-        "description": "Header for the list of stories."
+        "description": "Metadata"
     },
     "someSuggestions": "ಕೆಲವು ಸಲಹೆಗಳು",
     "@someSuggestions": {
-        "description": "Header for a list of suggested content."
+        "description": "Metadata"
     },
     "getStarted": "ಪ್ರಾರಂಭಿಸಿ",
     "@getStarted": {
-        "description": "Button text on an onboarding screen to begin using the app."
+        "description": "Metadata"
     },
     "skip": "ಬಿಟ್ಟುಬಿಡಿ",
     "@skip": {
-        "description": "Button text to skip an optional step, like onboarding."
+        "description": "Metadata"
     },
     "welcomeToResonate": "ರೆಸೋನೇಟ್‌ಗೆ ಸ್ವಾಗತ",
     "@welcomeToResonate": {
-        "description": "Onboarding screen title."
+        "description": "Metadata"
     },
     "exploreDiverseConversations": "ವೈವಿಧ್ಯಮಯ ಸಂಭಾಷಣೆಗಳನ್ನು ಅನ್ವೇಷಿಸಿ",
     "@exploreDiverseConversations": {
-        "description": "Feature highlight on an onboarding screen."
+        "description": "Metadata"
     },
     "yourVoiceMatters": "ನಿಮ್ಮ ಧ್ವನಿ ಮಹತ್ವವಾಗಿದೆ",
     "@yourVoiceMatters": {
-        "description": "Feature highlight on an onboarding screen."
+        "description": "Metadata"
     },
     "joinConversationExploreRooms": "ಸಂಭಾಷಣೆಗೆ ಸೇರಿ! ರೂಮ್‌ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ, ಸ್ನೇಹಿತರೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಜಗತ್ತಿನೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.",
     "@joinConversationExploreRooms": {
-        "description": "Descriptive text on an onboarding screen."
+        "description": "Metadata"
     },
     "diveIntoDiverseDiscussions": "ವೈವಿಧ್ಯಮಯ ಚರ್ಚೆಗಳು ಮತ್ತು ವಿಷಯಗಳಲ್ಲಿ ಮುಳುಗಿ. \nನಿಮಗೆ ಹೊಂದಿಕೆಯಾಗುವ ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕಿ ಮತ್ತು ಕಂಮ್ಯುನಿಟಿಯ ಭಾಗವಾಗಿರಿ.",
     "@diveIntoDiverseDiscussions": {
-        "description": "Descriptive text on an onboarding screen."
+        "description": "Metadata"
     },
     "atResonateEveryVoiceValued": "ರೆಸೋನೇಟ್‌ನಲ್ಲಿ, ಪ್ರತಿಯೊಂದು ಧ್ವನಿಯನ್ನು ಮೌಲ್ಯೀಕರಿಸಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಆಲೋಚನೆಗಳು, ಕಥೆಗಳು ಮತ್ತು ಅನುಭವಗಳನ್ನು ಇತರರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ. ಈಗಲೇ ನಿಮ್ಮ ಆಡಿಯೋ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
     "@atResonateEveryVoiceValued": {
-        "description": "Descriptive text on an onboarding screen."
+        "description": "Metadata"
     },
     "notifications": "ಮೆಸೇಜ್ಗಳು",
     "@notifications": {
-        "description": "Title for the notifications screen."
+        "description": "Metadata"
     },
     "taggedYouInUpcomingRoom": "{username} ನಿಮ್ಮನ್ನು ಮುಂಬರುವ ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: {subject}",
     "@taggedYouInUpcomingRoom": {
-        "description": "Notification message when tagged in an upcoming room.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            },
-            "subject": {
-                "type": "String",
-                "example": "Discussion Room"
-            }
-        }
+        "description": "Metadata"
     },
     "taggedYouInRoom": "{username} ನಿಮ್ಮನ್ನು ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: {subject}",
     "@taggedYouInRoom": {
-        "description": "Notification message when tagged in a live room.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            },
-            "subject": {
-                "type": "String",
-                "example": "Discussion Room"
-            }
-        }
+        "description": "Metadata"
     },
     "likedYourStory": "{username} ನಿಮ್ಮ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ: {subject}",
     "@likedYourStory": {
-        "description": "Notification message when someone likes your story.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            },
-            "subject": {
-                "type": "String",
-                "example": "My Story"
-            }
-        }
+        "description": "Metadata"
     },
     "subscribedToYourRoom": "{username} ನಿಮ್ಮ ರೂಮ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬರಾಗಿದ್ದಾರೆ: {subject}",
     "@subscribedToYourRoom": {
-        "description": "Notification message when someone subscribes to your room.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            },
-            "subject": {
-                "type": "String",
-                "example": "My Room"
-            }
-        }
+        "description": "Metadata"
     },
     "startedFollowingYou": "{username} ನಿಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡುತ್ತಿದ್ದಾರೆ",
     "@startedFollowingYou": {
-        "description": "Notification message when someone starts following you.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
+        "description": "Metadata"
     },
     "youHaveNewNotification": "ನಿಮಗೆ ಹೊಸ ಮೆಸೇಜ್ ಇದೆ",
     "@youHaveNewNotification": {
-        "description": "Generic title for a new notification."
+        "description": "Metadata"
     },
     "hangOnGoodThingsTakeTime": "ತಾಳ್ಮೆಯಿಂದಿರಿ, ಉತ್ತಮ ವಿಷಯಗಳಿಗೆ ಸಮಯ ಬೇಕು 🔍",
     "@hangOnGoodThingsTakeTime": {
-        "description": "A friendly message displayed during a long loading process."
+        "description": "Metadata"
     },
     "resonateOpenSourceProject": "ರೆಸೋನೇಟ್ AOSSIE ನಿರ್ವಹಿಸುವ ಓಪನ್ ಸೋರ್ಸ್ ಪ್ರಾಜೆಕ್ಟ್ ಆಗಿದೆ.ನಿಮ್ಮ ಕೊಡುಗೆ ನೀಡಲು ನಮ್ಮ github ನೋಡಿ.",
     "@resonateOpenSourceProject": {
-        "description": "Informational text about the open-source nature of the project."
+        "description": "Metadata"
     },
     "mute": "ಮ್ಯೂಟ್",
     "@mute": {
-        "description": "Button text to mute the microphone."
+        "description": "Metadata"
     },
     "speakerLabel": "ಮಾತನಾಡುವವರು",
     "@speakerLabel": {
-        "description": "Label for the speakerphone toggle."
+        "description": "Metadata"
     },
     "end": "ಮುಗಿಸಿ",
     "@end": {
-        "description": "Button text to end a call or session."
+        "description": "Metadata"
     },
     "saveChanges": "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ",
     "@saveChanges": {
-        "description": "Button text to save modified settings or profile information."
+        "description": "Metadata"
     },
     "discard": "ತ್ಯಜಿಸಿ",
     "@discard": {
-        "description": "Button text to discard changes."
+        "description": "Metadata"
     },
     "save": "ಉಳಿಸಿ",
     "@save": {
-        "description": "Button text to save changes."
+        "description": "Metadata"
     },
     "changeProfilePicture": "ಪ್ರೊಫೈಲ್ ಚಿತ್ರ ಬದಲಾಯಿಸಿ",
     "@changeProfilePicture": {
-        "description": "Button text to open the profile picture selection options."
+        "description": "Metadata"
     },
     "camera": "ಕ್ಯಾಮೆರಾ",
     "@camera": {
-        "description": "Option to use the camera to take a picture."
+        "description": "Metadata"
     },
     "gallery": "ಗ್ಯಾಲರಿ",
     "@gallery": {
-        "description": "Option to choose a picture from the gallery."
+        "description": "Metadata"
     },
     "remove": "ತೆಗೆದುಹಾಕಿ",
     "@remove": {
-        "description": "Button text to remove an item, like a profile picture."
+        "description": "Metadata"
     },
     "created": "ರಚಿಸಲಾಗಿದೆ {date}",
     "@created": {
-        "description": "Displays the creation date of a story or content.",
-        "placeholders": {
-            "date": {
-                "type": "String",
-                "example": "Jan 15, 2023"
-            }
-        }
+        "description": "Metadata"
     },
     "chapters": "ಅಧ್ಯಾಯಗಳು",
     "@chapters": {
-        "description": "Header for the list of chapters in a story."
+        "description": "Metadata"
     },
     "deleteStory": "ಕಥೆ ಅಳಿಸಿ",
     "@deleteStory": {
-        "description": "Button text to delete a story."
+        "description": "Metadata"
     },
     "createdBy": "ರಚಿಸಿರುವವವರು {creatorName}",
     "@createdBy": {
-        "description": "Displays the name of the content creator.",
-        "placeholders": {
-            "creatorName": {
-                "type": "String",
-                "example": "John Doe"
-            }
-        }
+        "description": "Metadata"
     },
     "start": "ಪ್ರಾರಂಭಿಸಿ",
     "@start": {
-        "description": "Button text to start an activity or session."
+        "description": "Metadata"
     },
     "unsubscribe": "ಅನ್‌ಸಬ್‌ಸ್ಕ್ರೈಬ್",
     "@unsubscribe": {
-        "description": "Button text to unsubscribe from a room or notification."
+        "description": "Metadata"
     },
     "subscribe": "ಸಬ್‌ಸ್ಕ್ರೈಬ್",
     "@subscribe": {
-        "description": "Button text to subscribe to a room or notification."
+        "description": "Metadata"
     },
     "storyCategory": "{category, select, drama{ನಾಟಕ} comedy{ಹಾಸ್ಯ} horror{ಭಯಾನಕ} romance{ಪ್ರಣಯ} thriller{ರೋಮಾಂಚಕ} spiritual{ಆಧ್ಯಾತ್ಮಿಕ} other{ಇತರೆ}}",
     "@storyCategory": {
-        "description": "Selects the appropriate category name for a story based on a key.",
-        "placeholders": {
-            "category": {
-                "type": "String",
-                "example": "drama"
-            }
-        }
+        "description": "Metadata"
     },
     "chooseTheme": "{category, select, classicTheme{ಕ್ಲಾಸಿಕ್} timeTheme{ಟೈಮ್} vintageTheme{ವಿಂಟೇಜ್} amberTheme{ಆಂಬರ್} forestTheme{ಫಾರೆಸ್ಟ್} creamTheme{ಕ್ರೀಮ್} other{ಇತರೆ}}",
     "@chooseTheme": {
-        "description": "Selects the appropriate theme name based on a key.",
-        "placeholders": {
-            "category": {
-                "type": "String",
-                "example": "classic"
-            }
-        }
+        "description": "Metadata"
     },
     "minutesAgo": "{count, plural, =1{1 ನಿಮಿಷದ ಹಿಂದೆ} other{{count} ನಿಮಿಷಗಳ ಹಿಂದೆ}}",
     "@minutesAgo": {
-        "description": "Displays time in a relative format for minutes.",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "example": "5"
-            }
-        }
+        "description": "Metadata"
     },
     "hoursAgo": "{count, plural, =1{1 ಗಂಟೆ ಹಿಂದೆ} other{{count} ಗಂಟೆಗಳ ಹಿಂದೆ}}",
     "@hoursAgo": {
-        "description": "Displays time in a relative format for hours.",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "example": "2"
-            }
-        }
+        "description": "Metadata"
     },
     "daysAgo": "{count, plural, =1{1 ದಿನದ ಹಿಂದೆ} other{{count} ದಿನಗಳ ಹಿಂದೆ}}",
     "@daysAgo": {
-        "description": "Displays time in a relative format for days.",
-        "placeholders": {
-            "count": {
-                "type": "int",
-                "example": "3"
-            }
-        }
+        "description": "Metadata"
     },
     "by": "ರಿಂದ",
     "@by": {
-        "description": "A preposition, typically used between a content title and the author's name."
+        "description": "Metadata"
     },
-    "likes": "ಲೈಕ್\u200Cಗಳು",
+    "likes": "ಲೈಕ್‌ಗಳು",
     "@likes": {
-        "description": "Label for the number of likes."
+        "description": "Metadata"
     },
     "lengthMinutes": "ನಿಮಿಷ",
     "@lengthMinutes": {
-        "description": "Abbreviation for 'minutes', used to display audio length."
+        "description": "Metadata"
     },
     "requiredField": "ಈ ಕ್ಷೇತ್ರ ಭರ್ತಿಮಾಡಿ",
     "@requiredField": {
-        "description": "Error message for a mandatory field that was left empty."
+        "description": "Metadata"
     },
     "onlineUsers": "ಆನ್‌ಲೈನ್ ಬಳಕೆದಾರರು",
     "@onlineUsers": {
-        "description": "Header for the list of users who are currently online."
+        "description": "Metadata"
     },
     "noOnlineUsers": "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಬಳಕೆದಾರರು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಇಲ್ಲ",
     "@noOnlineUsers": {
-        "description": "Message displayed when no users are online."
+        "description": "Metadata"
     },
     "chooseUser": "ಚಾಟ್ ಮಾಡಲು ಬಳಕೆದಾರರನ್ನು ಆಯ್ಕೆಮಾಡಿ",
     "@chooseUser": {
-        "description": "Instructional text to select a user to start a chat."
+        "description": "Metadata"
     },
     "quickMatch": "ಕ್ವಿಕ್ ಮ್ಯಾಚ್",
     "@quickMatch": {
-        "description": "Button text for a feature that quickly matches the user with a random chat partner."
+        "description": "Metadata"
     },
     "story": "ಕಥೆ",
     "@story": {
-        "description": "Label for a story."
+        "description": "Metadata"
     },
     "user": "ಬಳಕೆದಾರ",
     "@user": {
-        "description": "Label for a user."
+        "description": "Metadata"
     },
     "following": "ಫಾಲೋವಿಂಗ್",
     "@following": {
-        "description": "Label for the list of users that the current user is following."
+        "description": "Metadata"
     },
     "followers": "ಫಾಲ್ಲೋವರ್ಸ್",
     "@followers": {
-        "description": "Label for the list of users who are following the current user."
+        "description": "Metadata"
     },
     "friendRequests": "ಸ್ನೇಹಿತರ ವಿನಂತಿಗಳು",
     "@friendRequests": {
-        "description": "Header for the list of incoming friend requests."
+        "description": "Metadata"
     },
     "friendRequestSent": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ಕಳುಹಿಸಲಾಗಿದೆ",
     "@friendRequestSent": {
-        "description": "Title for the confirmation message after sending a friend request."
+        "description": "Metadata"
     },
     "friendRequestSentTo": "{username} ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ಕಳುಹಿಸಲಾಗಿದೆ.",
     "@friendRequestSentTo": {
-        "description": "Confirmation message after sending a friend request to a specific user.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
+        "description": "Metadata"
     },
     "friendRequestCancelled": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
     "@friendRequestCancelled": {
-        "description": "Title for the confirmation message after cancelling a friend request."
+        "description": "Metadata"
     },
     "friendRequestCancelledTo": "{username} ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.",
     "@friendRequestCancelledTo": {
-        "description": "Confirmation message after cancelling a friend request to a specific user.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
+        "description": "Metadata"
     },
     "requested": "ವಿನಂತಿಸಲಾಗಿದೆ",
     "@requested": {
-        "description": "A status label on a button indicating a friend request has been sent."
+        "description": "Metadata"
     },
     "friends": "ಸ್ನೇಹಿತರು",
     "@friends": {
-        "description": "A status label or header for the list of friends."
+        "description": "Metadata"
     },
     "addFriend": "ಸ್ನೇಹಿತರನ್ನು ಸೇರಿಸಿ",
     "@addFriend": {
-        "description": "Button text to send a friend request."
+        "description": "Metadata"
     },
     "friendRequestAccepted": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ",
     "@friendRequestAccepted": {
-        "description": "Title for the confirmation message after accepting a friend request."
+        "description": "Metadata"
     },
     "friendRequestAcceptedTo": "ನೀವು ಈಗ {username} ಜೊತೆ ಸ್ನೇಹಿತರಾಗಿದ್ದೀರಿ.",
     "@friendRequestAcceptedTo": {
-        "description": "Confirmation message after accepting a friend request from a specific user.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
+        "description": "Metadata"
     },
     "friendRequestDeclined": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ",
     "@friendRequestDeclined": {
-        "description": "Title for the confirmation message after declining a friend request."
+        "description": "Metadata"
     },
     "friendRequestDeclinedTo": "ನೀವು {username} ರಿಂದ ಸ್ನೇಹಿತರ ವಿನಂತಿಯನ್ನು ನಿರಾಕರಿಸಿದ್ದೀರಿ.",
     "@friendRequestDeclinedTo": {
-        "description": "Confirmation message after declining a friend request from a specific user.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
+        "description": "Metadata"
     },
     "accept": "ಸ್ವೀಕರಿಸಿ",
     "@accept": {
-        "description": "Button text to accept a request or invitation."
+        "description": "Metadata"
     },
     "callDeclined": "ಕರೆ ನಿರಾಕರಿಸಲಾಗಿದೆ",
     "@callDeclined": {
-        "description": "Title for the message when a call is declined."
+        "description": "Metadata"
     },
     "callDeclinedTo": "ಬಳಕೆದಾರ {username} ಕರೆಯನ್ನು ನಿರಾಕರಿಸಿದ್ದಾರೆ.",
     "@callDeclinedTo": {
-        "description": "Message indicating that a specific user declined a call.",
-        "placeholders": {
-            "username": {
-                "type": "String",
-                "example": "john_doe"
-            }
-        }
-    }, 
-    "checkForUpdates": "ಅಪ್ಡೇಟ್ಸ್\u200Cಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
+        "description": "Metadata"
+    },
+    "checkForUpdates": "ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
     "@checkForUpdates": {
-        "description": "Button text to manually check for application updates."
+        "description": "Metadata"
     },
     "updateNow": "ಈಗಲೇ ನವೀಕರಿಸಿ",
     "@updateNow": {
-        "description": "Button text to start the update process."
+        "description": "Metadata"
     },
     "updateLater": "ನಂತರ",
     "@updateLater": {
-        "description": "Button text to postpone an update."
+        "description": "Metadata"
     },
     "updateSuccessful": "ಅಪ್ಡೇಟ್ಸ್ ಯಶಸ್ವಿಯಾಗಿದೆ",
     "@updateSuccessful": {
-        "description": "Title for the success message after an update."
+        "description": "Metadata"
     },
     "updateSuccessfulMessage": "ರೆಸೋನೇಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಪ್ಡೇಟ್ಸ್ ಮಾಡಲಾಗಿದೆ!",
     "@updateSuccessfulMessage": {
-        "description": "Success message confirming the application has been updated."
+        "description": "Metadata"
     },
     "updateCancelled": "ಅಪ್ಡೇಟ್ಸ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
     "@updateCancelled": {
-        "description": "Title for the message when an update is cancelled."
+        "description": "Metadata"
     },
     "updateCancelledMessage": "ಬಳಕೆದಾರರಿಂದ ಅಪ್ಡೇಟ್ಸ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
     "@updateCancelledMessage": {
-        "description": "Message indicating the user cancelled the update process."
+        "description": "Metadata"
     },
     "updateFailed": "ಅಪ್ಡೇಟ್ಸ್ ವಿಫಲವಾಗಿದೆ",
     "@updateFailed": {
-        "description": "Title for the message when an update fails."
+        "description": "Metadata"
     },
     "updateFailedMessage": "ಅಪ್ಡೇಟ್ಸ್ ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಪ್ಲೇ ಸ್ಟೋರ್ ನಿಂದ ಅಪ್ಡೇಟ್ಸ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ.",
     "@updateFailedMessage": {
-        "description": "Error message when an in-app update fails, suggesting a manual update."
+        "description": "Metadata"
     },
     "updateError": "ಅಪ್ಡೇಟ್ಸ್ ದೋಷ",
     "@updateError": {
-        "description": "Generic title for an update-related error."
+        "description": "Metadata"
     },
     "updateErrorMessage": "ಅಪ್ಡೇಟ್ಸ್ ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "@updateErrorMessage": {
-        "description": "Generic error message for an update that failed due to an unknown error."
+        "description": "Metadata"
     },
     "platformNotSupported": "ಪ್ಲಾಟ್‌ಫಾರ್ಮ್ ಸಪೋರ್ಟ್ ಮಾಡುತ್ತಿಲ್ಲ",
     "@platformNotSupported": {
-        "description": "Title for an error when a feature is not supported on the current platform."
+        "description": "Metadata"
     },
     "platformNotSupportedMessage": "ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ಆಂಡ್ರಾಯ್ಡ್ ಸಾಧನಗಳಲ್ಲಿ ಮಾತ್ರ ಲಭ್ಯವಿದೆ",
     "@platformNotSupportedMessage": {
-        "description": "Message explaining that the in-app update feature is platform-specific."
+        "description": "Metadata"
     },
-        "updateCheckFailed": "ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
+    "updateCheckFailed": "ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
     "@updateCheckFailed": {
-        "description": "Title for an error when the app fails to check for updates."
+        "description": "Metadata"
     },
-    "updateCheckFailedMessage": "ಅಪ್ಡೇಟ್ಸ್\u200Cಗಳನ್ನ ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.",
+    "updateCheckFailedMessage": "ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನ ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.",
     "@updateCheckFailedMessage": {
-        "description": "Error message when the check for updates process fails."
+        "description": "Metadata"
     },
     "upToDateTitle": "ನೀವು ಅಪ್ಡೇಟೆಡ್ ಆಗಿದ್ದೀರಿ!",
     "@upToDateTitle": {
-        "description": "Title for the message when the app is already up to date."
+        "description": "Metadata"
     },
     "upToDateMessage": "ನೀವು ರೆಸೋನೇಟ್‌ನ ಇತ್ತೀಚಿನ ವರ್ಷನನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ",
     "@upToDateMessage": {
-        "description": "Message confirming that no update is needed."
+        "description": "Metadata"
     },
     "updateAvailableTitle": "ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ!",
     "@updateAvailableTitle": {
-        "description": "Title for the dialog informing the user about a new update."
+        "description": "Metadata"
     },
     "updateAvailableMessage": "ರೆಸೋನೇಟ್‌ನ ಹೊಸ ವರ್ಷನ್ ಪ್ಲೇ ಸ್ಟೋರ್ ನಲ್ಲಿ ಲಭ್ಯವಿದೆ",
     "@updateAvailableMessage": {
-        "description": "Message prompting the user to update the app from the Play Store."
+        "description": "Metadata"
     },
     "updateFeaturesImprovement": "ಇತ್ತೀಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳು ಮತ್ತು ಸುಧಾರಣೆಗಳನ್ನು ಪಡೆಯಿರಿ!",
     "@updateFeaturesImprovement": {
-        "description": "A message highlighting the benefit of updating the application."
+        "description": "Metadata"
     },
     "alert": "ಎಚ್ಚರಿಕೆ",
     "@alert": {
-        "description": "Title for an alert dialog."
+        "description": "Metadata"
     },
     "removedFromRoom": "ನಿಮ್ಮನ್ನು ವರದಿ ಮಾಡಲಾಗಿದೆ ಅಥವಾ ರೂಮ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ",
     "@removedFromRoom": {
-        "description": "Message shown when a user is removed or reported from a room."
+        "description": "Metadata"
     },
     "reportType": "{type, select, harassment{ಕಿರುಕುಳ / ದ್ವೇಷದ ಭಾಷಣ} abuse{ನಿಂದನೀಯ ವಿಷಯ / ಹಿಂಸೆ} spam{ಸ್ಪ್ಯಾಮ್ / ವಂಚನೆಗಳು / ಮೋಸ} impersonation{ವ್ಯಕ್ತಿತ್ವ ಸೋಗು / ನಕಲಿ ಖಾತೆಗಳು} illegal{ಕಾನೂನುಬಾಹಿರ ಚಟುವಟಿಕೆಗಳು} selfharm{ಆತ್ಮಹಾನಿ / ಆತ್ಮಹತ್ಯೆ / ಮಾನಸಿಕ ಆರೋಗ್ಯ} misuse{ವೇದಿಕೆಯ ದುರುಪಯೋಗ} other{ಇತರೆ}}",
     "@reportType": {
-        "description": "Selects the appropriate report type label based on a key.",
-        "placeholders": {
-            "type": {
-                "type": "String",
-                "example": "harassment"
-            }
-        }
+        "description": "Metadata"
     },
     "userBlockedFromResonate": "ನೀವು ಬಳಕೆದಾರರಿಂದ ಅನೇಕ ವರದಿಗಳನ್ನು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ ಮತ್ತು ರೆಸೋನೇಟ್ ಬಳಸುವುದರಿಂದ ನಿಮ್ಮನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ. ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ ಎಂದು ನೀವು ನಂಬಿದರೆ ದಯವಿಟ್ಟು AOSSIE ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.",
     "@userBlockedFromResonate": {
-        "description": "Message shown when a user is blocked from using Resonate."
+        "description": "Metadata"
     },
     "reportParticipant": "ಭಾಗವಹಿಸುವವರನ್ನು ವರದಿ ಮಾಡಿ",
     "@reportParticipant": {
-        "description": "Label for the button to report a participant."
+        "description": "Metadata"
     },
     "selectReportType": "ದಯವಿಟ್ಟು ವರದಿ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
     "@selectReportType": {
-        "description": "Prompt for the user to select a report type."
+        "description": "Metadata"
     },
     "reportSubmitted": "ವರದಿ ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ",
     "@reportSubmitted": {
-        "description": "Message shown when a report is submitted successfully."
+        "description": "Metadata"
     },
     "reportFailed": "ವರದಿ ಸಲ್ಲಿಕೆ ವಿಫಲವಾಗಿದೆ",
     "@reportFailed": {
-        "description": "Message shown when a report submission fails."
+        "description": "Metadata"
     },
     "additionalDetailsOptional": "ಹೆಚ್ಚುವರಿ ವಿವರಗಳು (ಐಚ್ಛಿಕ)",
     "@additionalDetailsOptional": {
-        "description": "Label for an optional input field for additional details in a report."
+        "description": "Metadata"
     },
     "submitReport": "ವರದಿ ಸಲ್ಲಿಸಿ",
     "@submitReport": {
-        "description": "Button text to submit a report."
+        "description": "Metadata"
     },
     "actionBlocked": "ಕ್ರಿಯೆ ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ",
     "@actionBlocked": {
-        "description": "Title for a message indicating that a user action is blocked."
+        "description": "Metadata"
     },
     "cannotStopRecording": "ನೀವು ರೆಕಾರ್ಡಿಂಗ್ ಅನ್ನು ನಿಲ್ಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ, ರೂಮ್ ಮುಚ್ಚಿದಾಗ ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲುತ್ತದೆ.",
     "@cannotStopRecording": {
-        "description": "Message explaining why a user cannot stop a recording manually."
+        "description": "Metadata"
     },
     "liveChapter": "ಲೈವ್ ಅಧ್ಯಾಯ",
     "@liveChapter": {
-        "description": "Label indicating that a chapter is currently live."
+        "description": "Metadata"
     },
     "viewOrEditLyrics": "ಸಾಹಿತ್ಯ ನೋಡಿ ಅಥವಾ ಎಡಿಟ್ ಮಾಡಿ",
     "@viewOrEditLyrics": {
-        "description": "Button text to view or edit the lyrics of a chapter."
+        "description": "Metadata"
     },
     "close": "ಮುಚ್ಚಿ",
     "@close": {
-        "description": "Label for the button to close a dialog."
+        "description": "Metadata"
     },
     "verifyChapterDetails": "ಅಧ್ಯಾಯ ವಿವರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
     "@verifyChapterDetails": {
-        "description": "Title for the screen where Live chapter details are verified before publishing."
+        "description": "Metadata"
     },
     "author": "ಲೇಖಕ",
     "@author": {
-        "description": "Label for the author of a story or chapter."
+        "description": "Metadata"
     },
     "startLiveChapter": "ಲೈವ್ ಅಧ್ಯಾಯ ಪ್ರಾರಂಭಿಸಿ",
     "@startLiveChapter": {
-        "description": "Title for the screen where a live chapter is initiated."
+        "description": "Metadata"
     },
     "fillAllFields": "ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
     "@fillAllFields": {
-        "description": "Error message when required fields are not filled in a form."
+        "description": "Metadata"
     },
     "noRecordingError": "ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ",
     "@noRecordingError": {
-        "description": "Error message when trying to exit a live chapter room without any recording."
+        "description": "Metadata"
     }
 }

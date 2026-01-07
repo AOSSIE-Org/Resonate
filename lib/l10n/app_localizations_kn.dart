@@ -398,14 +398,14 @@ class AppLocalizationsKn extends AppLocalizations {
   String get hide => 'ಮರೆಮಾಡಿ';
 
   @override
-  String get removeRoom => 'ರೂಮ್ ಮರೆಮಾಡಿ';
+  String get removeRoom => 'ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ';
 
   @override
-  String get removeRoomFromList => 'ಪಟ್ಟಿಯಲ್ಲಿ ಮರೆಮಾಡಿ';
+  String get removeRoomFromList => 'ನಿಮ್ಮ ಕೋಣೆಗಳ ಪಟ್ಟಿಯಿಂದ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ';
 
   @override
   String get removeRoomConfirmation =>
-      'ನೀವು ಈ ಮುಂಬರುವ ರೂಮ್ ನಿಮ್ಮ ಪಟ್ಟಿಯಲ್ಲಿ ತೆಗೆದುಹಾಕಲು ಬಯಸುತ್ತೀರಾ?';
+      'ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ಬಯಸುವಿರಾ?';
 
   @override
   String get completeYourProfile => 'ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಪೂರ್ಣಗೊಳಿಸಿ';
@@ -564,7 +564,7 @@ class AppLocalizationsKn extends AppLocalizations {
       'ಪ್ಯಾಕೇಜ್ ಮಾಹಿತಿಯನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed => 'ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ';
 
   @override
   String get updateAvailable => 'ಅಪ್ಡೇಟ್ ಲಭ್ಯವಿದೆ';
@@ -737,30 +737,28 @@ class AppLocalizationsKn extends AppLocalizations {
   String get noSearchResults => 'ಫಲಿತಾಂಶಗಳು ಇಲ್ಲ';
 
   @override
-  String get searchRooms => 'ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕಿ...';
+  String get searchRooms => 'ಕೋಣೆಗಳನ್ನು ಹುಡುಕಿ...';
 
   @override
-  String get searchingRooms => 'ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕುತ್ತಿದೆ...';
+  String get searchingRooms => 'ಕೋಣೆಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...';
 
   @override
-  String get clearSearch => 'ಹುಡುಕಾಟನ್ನು ಅಳಿಸಿ';
+  String get clearSearch => 'ಹುಡುಕಾಟ ತೆರವುಮಾಡಿ';
 
   @override
-  String get searchError => 'ಹುಡುಕಾಟ ತಪ್ಪು';
+  String get searchError => 'ಹುಡುಕಾಟ ದೋಷ';
 
   @override
-  String get searchRoomsError =>
-      'ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+  String get searchRoomsError => 'ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ';
 
   @override
-  String get searchUpcomingRoomsError =>
-      'ಮುಂಬರುವ ರೂಮ್‌ಗಳನ್ನು ಹುಡುಕಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+  String get searchUpcomingRoomsError => 'ಮುಂಬರುವ ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ';
 
   @override
   String get search => 'ಹುಡುಕಿ';
 
   @override
-  String get clear => 'ಅಳಿಸಿ';
+  String get clear => 'Clear';
 
   @override
   String shareRoomMessage(
@@ -1269,11 +1267,10 @@ class AppLocalizationsKn extends AppLocalizations {
       'ಇತ್ತೀಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳು ಮತ್ತು ಸುಧಾರಣೆಗಳನ್ನು ಪಡೆಯಿರಿ!';
 
   @override
-  String get failedToRemoveRoom => 'ರೂಮ್ ತೆಗೆದುಹಾಕಲು ವಿಫಲವಾಗಿದೆ';
+  String get failedToRemoveRoom => 'ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ವಿಫಲವಾಗಿದೆ';
 
   @override
-  String get roomRemovedSuccessfully =>
-      'ರೂಮ್ ನಿಮ್ಮ ಪಟ್ಟಿಯಲ್ಲಿ ಸಾಫಲ್ಯವಾಗಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ';
+  String get roomRemovedSuccessfully => 'ಕೋಣೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ';
 
   @override
   String get alert => 'ಎಚ್ಚರಿಕೆ';
