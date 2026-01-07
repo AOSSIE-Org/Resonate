@@ -69,7 +69,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
             ],
           ),
@@ -101,7 +101,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
               SizedBox(width: UiSizes.width_8),
               ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -246,14 +246,13 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
   }
 }
 
-void showAudioDeviceSelector(BuildContext context) {
+Future<void> showAudioDeviceSelector(BuildContext context) async {
   final controller = AudioDeviceController();
-  controller.refreshDevices();
+  await controller.refreshDevices();
 
-  showModalBottomSheet(
-    context: context,
+  Get.bottomSheet(
+    AudioDeviceSelectorDialog(controller: controller),
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (context) => AudioDeviceSelectorDialog(controller: controller),
   ).whenComplete(() => controller.dispose());
 }
