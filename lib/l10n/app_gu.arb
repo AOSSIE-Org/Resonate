@@ -444,18 +444,18 @@
     "friends": "મિત્રો",
     "addFriend": "મિત્ર ઉમેરો",
     "friendRequestAccepted": "મિત્ર વિનંતી સ્વીકારી",
-    "friendRequestAcceptedTo": "તમે હવે ${username} સાથે મિત્ર છો.",
+    "friendRequestAcceptedTo": "તમે હવે {username} સાથે મિત્ર છો.",
     "@friendRequestAcceptedTo": {
         "description": "Metadata"
     },
     "friendRequestDeclined": "મિત્ર વિનંતી નકારી",
-    "friendRequestDeclinedTo": "તમે ${username} ની મિત્ર વિનંતી નકારી છે.",
+    "friendRequestDeclinedTo": "તમે {username} ની મિત્ર વિનંતી નકારી છે.",
     "@friendRequestDeclinedTo": {
         "description": "Metadata"
     },
     "accept": "સ્વીકારો",
     "callDeclined": "કૉલ નકારી",
-    "callDeclinedTo": "યુઝર ${username} એ કૉલ નકારી છે.",
+    "callDeclinedTo": "યુઝર {username} એ કૉલ નકારી છે.",
     "@callDeclinedTo": {
         "description": "Metadata"
     },
