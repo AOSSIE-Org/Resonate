@@ -1,4 +1,12 @@
 {
+  "bn": [
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
+  ],
+
   "gu": [
     "appPreferences",
     "transcriptionModel",
@@ -31,8 +39,6 @@
     "clear",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
-    "thisMessageWasDeleted",
-    "failedToDeleteMessage",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -92,5 +98,13 @@
     "done",
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
+  ],
+
+  "pa": [
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
   ]
 }

@@ -6,12 +6,11 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class AudioDeviceSelectorDialog extends StatelessWidget {
-  const AudioDeviceSelectorDialog({super.key});
+  final AudioDeviceController controller;
+  const AudioDeviceSelectorDialog({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    final AudioDeviceController controller = Get.find<AudioDeviceController>();
-
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -70,7 +69,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () => Get.back(),
+                onPressed: () => Navigator.of(context).pop(),
               ),
             ],
           ),
@@ -102,7 +101,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
               ),
               SizedBox(width: UiSizes.width_8),
               ElevatedButton(
-                onPressed: () => Get.back(),
+                onPressed: () => Navigator.of(context).pop(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -248,14 +247,13 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
 }
 
 void showAudioDeviceSelector(BuildContext context) {
-  if (!Get.isRegistered<AudioDeviceController>()) {
-    Get.put(AudioDeviceController());
-  }
+  final controller = AudioDeviceController();
+  controller.refreshDevices();
 
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (context) => const AudioDeviceSelectorDialog(),
-  );
+    builder: (context) => AudioDeviceSelectorDialog(controller: controller),
+  ).whenComplete(() => controller.dispose());
 }

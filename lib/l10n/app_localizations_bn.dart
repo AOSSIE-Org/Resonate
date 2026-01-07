@@ -200,7 +200,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get continueWithGitHub => 'GitHub দিয়ে সাইন ইন করুন';
 
   @override
-  String get resonateLogo => 'রেজোনেট লোগো'; 
+  String get resonateLogo => 'রেজোনেট লোগো';
 
   @override
   String get iAlreadyHaveAnAccount => 'আপনার ইতিমধ্যেই একটি অ্যাকাউন্ট আছে';
@@ -591,7 +591,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get scheduledDateTimePast => 'নির্ধারিত তারিখ-সময় অতীতের হতে পারে না';
 
   @override
-  String get joinRoom => 'রুমে যোগ দিন'; 
+  String get joinRoom => 'রুমে যোগ দিন';
 
   @override
   String get unknownUser => 'অজানা';
@@ -770,7 +770,7 @@ class AppLocalizationsBn extends AppLocalizations {
     String description,
     int participants,
   ) {
-    return '🚀এই অসাধারণ রুমটি দেখুন: $roomName!\n\n📖 বিবরণ: $description\n👥 এখনই $participants অংশগ্রহণকারীদের সাথে যোগ দিন!'; 
+    return '🚀এই অসাধারণ রুমটি দেখুন: $roomName!\n\n📖 বিবরণ: $description\n👥 এখনই $participants অংশগ্রহণকারীদের সাথে যোগ দিন!';
   }
 
   @override
@@ -813,7 +813,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get unableToReconnect =>
-      'রুমে পুনরায় সংযোগ করা সম্ভব হচ্ছে না। অনুগ্রহ করে আবার যোগ দেওয়ার চেষ্টা করুন।'; 
+      'রুমে পুনরায় সংযোগ করা সম্ভব হচ্ছে না। অনুগ্রহ করে আবার যোগ দেওয়ার চেষ্টা করুন।';
 
   @override
   String get invalidFormat => 'অবৈধ ফর্ম্যাট!';
@@ -1353,6 +1353,21 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 
   @override
   String get deleteMessageTitle => 'বার্তা মুছে ফেলুন';
