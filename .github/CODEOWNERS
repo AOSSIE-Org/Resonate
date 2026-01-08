@@ -1,20 +1,20 @@
 # Default code owner for the entire repository
-<!-- * @AOSSIE-Org/maintainers -->
+# * @AOSSIE-Org/maintainers
 * @M4dhav
 
-<!-- # Flutter mobile app (lib/ is standard) -->
-<!-- lib/ @AOSSIE-Org/flutter-team -->
-<!-- *.dart @AOSSIE-Org/flutter-team -->
+# Flutter mobile app (lib/ is standard)
+# lib/ @AOSSIE-Org/flutter-team
+# *.dart @AOSSIE-Org/flutter-team
 
-<!-- # Docs and general -->
-<!-- docs/ @AOSSIE-Org/maintainers -->
-<!-- *.md @AOSSIE-Org/maintainers -->
+# Docs and general
+# docs/ @AOSSIE-Org/maintainers
+# *.md @AOSSIE-Org/maintainers
 
-<!-- # GitHub workflows and configs -->
-<!-- .github/ @AOSSIE-Org/devops -->
+# GitHub workflows and configs
+# .github/ @AOSSIE-Org/devops
 
-<!-- # Backend-related (if any scripts/functions) -->
-<!-- functions/ @AOSSIE-Org/backend-team -->
+# Backend-related (if any scripts/functions)
+# functions/ @AOSSIE-Org/backend-team
 
 # Secure this file
 .github/CODEOWNERS @AOSSIE-Org/maintainers
