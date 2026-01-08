@@ -247,12 +247,12 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
 }
 
 Future<void> showAudioDeviceSelector(BuildContext context) async {
-  final controller = AudioDeviceController();
+  final controller = Get.put(AudioDeviceController(), permanent: true);
   await controller.refreshDevices();
 
   Get.bottomSheet(
     AudioDeviceSelectorDialog(controller: controller),
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-  ).whenComplete(() => controller.dispose());
+  );
 }

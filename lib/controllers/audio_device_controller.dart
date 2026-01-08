@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webrtc;
 import 'package:get/get.dart';
 import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/utils/enums/audio_device_enum.dart';
 
 class AudioDeviceController extends GetxController {
   final RxList<AudioDevice> audioOutputDevices = <AudioDevice>[].obs;
@@ -52,36 +53,25 @@ class AudioDeviceController extends GetxController {
     }
   }
 
+  AudioDeviceType getDeviceType(AudioDevice device) {
+    return AudioDeviceType.fromLabel(device.label);
+  }
+
   String getDeviceName(AudioDevice device) {
-    final label = device.label.toLowerCase();
-    if (label.contains('earpiece') || label.contains('receiver')) {
-      return 'Phone Earpiece';
-    } else if (label.contains('speaker')) {
-      return 'Loudspeaker';
-    } else if (label.contains('bluetooth')) {
-      return 'Bluetooth ${device.label}';
-    } else if (label.contains('wired') ||
-        label.contains('headset') ||
-        label.contains('headphone')) {
-      return 'Wired Headset';
-    } else if (label.contains('usb')) {
-      return 'USB Audio';
+    final deviceType = getDeviceType(device);
+    log('Device label: "${device.label}" -> type: ${deviceType.name}');
+
+    if (deviceType == AudioDeviceType.bluetoothAudio) {
+      return device.label;
+    } else if (deviceType == AudioDeviceType.unknown &&
+        device.label.isNotEmpty) {
+      return device.label;
     }
-    return device.label.isNotEmpty ? device.label : 'Unknown Device';
+    return device.label.isNotEmpty ? deviceType.displayName : 'Unknown Device';
   }
 
   String getDeviceIcon(AudioDevice device) {
-    final label = device.label.toLowerCase();
-    if (label.contains('earpiece') || label.contains('receiver')) {
-      return 'phone';
-    } else if (label.contains('bluetooth')) {
-      return 'bluetooth_audio';
-    } else if (label.contains('headset') || label.contains('headphone')) {
-      return 'headset';
-    } else if (label.contains('speaker')) {
-      return 'speaker';
-    }
-    return 'volume_up';
+    return getDeviceType(device).iconName;
   }
 
   Future<void> refreshDevices() async {
