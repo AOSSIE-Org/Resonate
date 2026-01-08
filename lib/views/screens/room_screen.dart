@@ -295,7 +295,7 @@ class RoomScreenState extends State<RoomScreen> {
 
   Widget _buildAudioSettingsButton() {
     return FloatingActionButton(
-      onPressed: () => showAudioDeviceSelector(context),
+      onPressed: () async => await showAudioDeviceSelector(context),
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
       child: const Icon(Icons.volume_up),
     );

@@ -98,13 +98,5 @@
     "done",
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
-  ],
-
-  "pa": [
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done"
   ]
 }

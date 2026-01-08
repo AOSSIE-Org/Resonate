@@ -132,7 +132,7 @@ class FriendCallScreen extends StatelessWidget {
             _buildControlButton(
               icon: Icons.settings_voice,
               label: 'Audio Options',
-              onPressed: () => showAudioDeviceSelector(context),
+              onPressed: () async => await showAudioDeviceSelector(context),
               backgroundColor: _getControlButtonBackgroundColor(
                 currentBrightness,
               ),

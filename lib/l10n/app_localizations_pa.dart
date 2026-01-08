@@ -1307,19 +1307,19 @@ class AppLocalizationsPa extends AppLocalizations {
       'ਤੁਸੀਂ ਇਸ ਅਧਿਆਇ ਲਈ ਕੁਝ ਵੀ ਰਿਕਾਰਡ ਨਹੀਂ ਕੀਤਾ। ਕਿਰਪਾ ਕਰਕੇ ਰੂਮ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕਰੋ';
 
   @override
-  String get audioOutput => 'Audio Output';
+  String get audioOutput => 'ਆਡੀਓ ਆਊਟਪੁੱਟ';
 
   @override
-  String get selectPreferredSpeaker => 'Select your preferred speaker';
+  String get selectPreferredSpeaker => 'ਆਪਣਾ ਪਸੰਦੀਦਾ ਸਪੀਕਰ ਚੁਣੋ';
 
   @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
+  String get noAudioOutputDevices => 'ਕੋਈ ਆਡੀਓ ਆਊਟਪੁੱਟ ਡਿਵਾਈਸ ਨਹੀਂ ਮਿਲੀ';
 
   @override
-  String get refresh => 'Refresh';
+  String get refresh => 'ਰਿਫ੍ਰੈਸ਼ ਕਰੋ';
 
   @override
-  String get done => 'Done';
+  String get done => 'ਹੋ ਗਿਆ';
 
   @override
   String get deleteMessageTitle => 'ਸੁਨੇਹਾ ਹਟਾਓ';

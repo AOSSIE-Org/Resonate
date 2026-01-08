@@ -265,7 +265,7 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
 
   Widget _buildAudioSettingsButton() {
     return FloatingActionButton(
-      onPressed: () => showAudioDeviceSelector(context),
+      onPressed: () async => await showAudioDeviceSelector(context),
       backgroundColor: Theme.of(context).colorScheme.secondary,
       child: const Icon(Icons.settings_voice),
     );
