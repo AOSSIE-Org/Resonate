@@ -108,7 +108,7 @@ void main() {
             groupId: 'g3',
           ),
         ),
-        'Bluetooth Bluetooth Headset',
+        'Bluetooth Headset',
       );
     });
 
