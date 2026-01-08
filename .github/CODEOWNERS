@@ -1,13 +1,15 @@
-# Global owners for all files
+# Default code owner for the entire repository
 * @AOSSIE-Org/maintainers
+* @M4dhav
 
 # Flutter mobile app (lib/ is standard)
 lib/ @AOSSIE-Org/flutter-team
 *.dart @AOSSIE-Org/flutter-team
 
-# Documentation
-docs/ @M4dhav @AOSSIE-Org/maintainers
-*.md @M4dhav @AOSSIE-Org/maintainers
+# Docs and general
+docs/ @AOSSIE-Org/maintainers
+*.md @AOSSIE-Org/maintainers
+
 # GitHub workflows and configs
 .github/ @AOSSIE-Org/devops
 
