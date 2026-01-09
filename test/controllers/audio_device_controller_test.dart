@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webrtc;
 import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/utils/enums/audio_device_enum.dart';
 
 void main() {
   late AudioDeviceController controller;
@@ -112,51 +113,14 @@ void main() {
       );
     });
 
-    test('should return correct device icons', () {
+    test('should return correct device icon names', () {
       expect(
-        controller.getDeviceIcon(
-          AudioDevice(
-            deviceId: '1',
-            label: 'Bluetooth Speaker',
-            kind: 'audiooutput',
-            groupId: 'g1',
-          ),
-        ),
+        AudioDeviceType.fromLabel('Bluetooth Speaker').iconName,
         'bluetooth_audio',
       );
-      expect(
-        controller.getDeviceIcon(
-          AudioDevice(
-            deviceId: '2',
-            label: 'Earpiece',
-            kind: 'audiooutput',
-            groupId: 'g2',
-          ),
-        ),
-        'phone',
-      );
-      expect(
-        controller.getDeviceIcon(
-          AudioDevice(
-            deviceId: '3',
-            label: 'Wired Headset',
-            kind: 'audiooutput',
-            groupId: 'g3',
-          ),
-        ),
-        'headset',
-      );
-      expect(
-        controller.getDeviceIcon(
-          AudioDevice(
-            deviceId: '4',
-            label: 'Speaker',
-            kind: 'audiooutput',
-            groupId: 'g4',
-          ),
-        ),
-        'speaker',
-      );
+      expect(AudioDeviceType.fromLabel('Earpiece').iconName, 'phone');
+      expect(AudioDeviceType.fromLabel('Wired Headset').iconName, 'headset');
+      expect(AudioDeviceType.fromLabel('Speaker').iconName, 'speaker');
     });
 
     test('should update selected device', () {

@@ -53,12 +53,8 @@ class AudioDeviceController extends GetxController {
     }
   }
 
-  AudioDeviceType getDeviceType(AudioDevice device) {
-    return AudioDeviceType.fromLabel(device.label);
-  }
-
   String getDeviceName(AudioDevice device) {
-    final deviceType = getDeviceType(device);
+    final deviceType = AudioDeviceType.fromLabel(device.label);
     log('Device label: "${device.label}" -> type: ${deviceType.name}');
 
     if (deviceType == AudioDeviceType.bluetoothAudio) {
@@ -68,10 +64,6 @@ class AudioDeviceController extends GetxController {
       return device.label;
     }
     return device.label.isNotEmpty ? deviceType.displayName : 'Unknown Device';
-  }
-
-  String getDeviceIcon(AudioDevice device) {
-    return getDeviceType(device).iconName;
   }
 
   Future<void> refreshDevices() async {
