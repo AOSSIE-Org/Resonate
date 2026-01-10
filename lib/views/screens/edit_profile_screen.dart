@@ -145,8 +145,15 @@ class EditProfileScreen extends StatelessWidget {
 
                           final trimmedValue = value.trim();
 
+                          if (trimmedValue == authStateController.userName) {
+                            controller.usernameAvailable.value = true;
+                            controller.usernameChecking.value = false;
+                            return;
+                          }
+
                           if (trimmedValue.length < 7) {
                             controller.usernameAvailable.value = false;
+                            controller.usernameChecking.value = false;
                             return;
                           }
 
@@ -154,6 +161,7 @@ class EditProfileScreen extends StatelessWidget {
                             r'^[a-zA-Z0-9._-]+$',
                           ).hasMatch(trimmedValue)) {
                             controller.usernameAvailable.value = false;
+                            controller.usernameChecking.value = false;
                             return;
                           }
 
@@ -181,19 +189,34 @@ class EditProfileScreen extends StatelessWidget {
                             }
                           });
                         },
-
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
-                          suffixIcon:
-                              !controller.usernameChecking.value &&
-                                  controller.usernameAvailable.value
+                          suffixIcon: controller.usernameChecking.value
+                              ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  ),
+                                )
+                              : controller.usernameAvailable.value
                               ? const Icon(
                                   Icons.verified_outlined,
                                   color: Colors.green,
                                 )
+                              : (controller.usernameController.text
+                                            .trim()
+                                            .length >=
+                                        7 &&
+                                    RegExp(r'^[a-zA-Z0-9._-]+$').hasMatch(
+                                      controller.usernameController.text.trim(),
+                                    ))
+                              ? const Icon(Icons.close, color: Colors.red)
                               : null,
                         ),
                       ),
