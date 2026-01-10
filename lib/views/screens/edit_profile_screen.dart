@@ -187,6 +187,7 @@ class EditProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
+                          //condition for red x when username conditions are not met
                           suffixIcon: !controller.usernameChecking.value
                               ? controller.usernameAvailable.value
                                     ? const Icon(

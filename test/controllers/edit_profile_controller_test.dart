@@ -67,6 +67,11 @@ void main() {
     expect(editProfileController.usernameController.text, 'testuser');
   });
   test('check isUsernameAvailable', () async {
+    final resultOwnUsername = await editProfileController.isUsernameAvailable(
+      'testuser',
+    );
+    expect(resultOwnUsername, true);
+
     final result = await editProfileController.isUsernameAvailable('testuser');
     expect(result, false);
   });

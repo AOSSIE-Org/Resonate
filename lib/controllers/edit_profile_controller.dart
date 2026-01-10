@@ -58,7 +58,6 @@ class EditProfileController extends GetxController {
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
 
-    // Initializing as true since user starts with their own username
     usernameAvailable.value = true;
 
     nameController.text = authStateController.displayName!.trim();
