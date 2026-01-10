@@ -12,6 +12,19 @@ Please strictly stick to the guide do not go off installing stuff on your own
 
 - Docker
 
+### Windows note (Backend setup)
+
+When setting up the backend on Windows, make sure you are using the
+correct backend branch (`dev`) as the setup scripts differ between
+branches.
+
+Although the backend uses Appwrite CLI, on Windows the resolved
+`appwrite` binary can depend on PATH precedence (e.g. Scoop/Bun vs npm).
+If you face unexpected CLI errors, using the Node-based CLI via:
+
+npx appwrite-cli
+
+can help avoid runtime ambiguity.
 
 ### Installing Appwrite and Appwrite CLI 
 
