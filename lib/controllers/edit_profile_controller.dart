@@ -26,7 +26,7 @@ class EditProfileController extends GetxController {
   late final TablesDB tables;
 
   RxBool isLoading = false.obs;
-  Rx<bool> usernameAvailable = true.obs;
+  Rx<bool> usernameAvailable = false.obs;
   Rx<bool> usernameChecking = false.obs;
   bool removeImage = false;
   bool showSuccessSnackbar = false;
@@ -57,7 +57,10 @@ class EditProfileController extends GetxController {
     super.onInit();
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
+
+    // Initializing as true since user starts with their own username
     usernameAvailable.value = true;
+
     nameController.text = authStateController.displayName!.trim();
     usernameController.text = authStateController.userName!.trim();
     log(profileImagePath.toString());
@@ -157,6 +160,10 @@ class EditProfileController extends GetxController {
   }
 
   Future<bool> isUsernameAvailable(String username) async {
+    // condition to check if the username is same as the current username
+    if (username.trim() == oldUsername) {
+      return true;
+    }
     try {
       await tables.getRow(
         databaseId: userDatabaseID,
