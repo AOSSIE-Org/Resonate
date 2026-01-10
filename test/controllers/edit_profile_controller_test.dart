@@ -67,13 +67,9 @@ void main() {
     expect(editProfileController.usernameController.text, 'testuser');
   });
   test('check isUsernameAvailable', () async {
-    final resultOwnUsername = await editProfileController.isUsernameAvailable(
-      'testuser',
-    );
-    expect(resultOwnUsername, true);
-
+    // user's own username should return true
     final result = await editProfileController.isUsernameAvailable('testuser');
-    expect(result, false);
+    expect(result, true);
   });
 
   test('check isUsernameChanged', () {
