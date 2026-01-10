@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/models/audio_device.dart';
-import 'package:resonate/utils/enums/audio_device_enum.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -144,7 +143,7 @@ class AudioDeviceSelectorDialog extends StatelessWidget {
         final device = devices[index];
         final isSelected = selectedDevice?.deviceId == device.deviceId;
         final friendlyName = controller.getDeviceName(device);
-        final iconName = AudioDeviceType.fromLabel(device.label).iconName;
+        final iconName = device.deviceType.iconName;
         return _buildDeviceItem(
           context,
           device,

@@ -54,7 +54,7 @@ class AudioDeviceController extends GetxController {
   }
 
   String getDeviceName(AudioDevice device) {
-    final deviceType = AudioDeviceType.fromLabel(device.label);
+    final deviceType = device.deviceType;
     log('Device label: "${device.label}" -> type: ${deviceType.name}');
 
     if (deviceType == AudioDeviceType.bluetoothAudio) {

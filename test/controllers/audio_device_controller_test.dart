@@ -68,6 +68,7 @@ void main() {
         label: 'Test Speaker',
         kind: 'audiooutput',
         groupId: 'test-group',
+        deviceType: AudioDeviceType.speaker,
       );
 
       controller.audioOutputDevices.add(testDevice);
@@ -85,6 +86,7 @@ void main() {
             label: 'Earpiece',
             kind: 'audiooutput',
             groupId: 'g1',
+            deviceType: AudioDeviceType.phone,
           ),
         ),
         'Phone Earpiece',
@@ -96,6 +98,7 @@ void main() {
             label: 'Speaker',
             kind: 'audiooutput',
             groupId: 'g2',
+            deviceType: AudioDeviceType.speaker,
           ),
         ),
         'Loudspeaker',
@@ -107,6 +110,7 @@ void main() {
             label: 'Bluetooth Headset',
             kind: 'audiooutput',
             groupId: 'g3',
+            deviceType: AudioDeviceType.bluetoothAudio,
           ),
         ),
         'Bluetooth Headset',
@@ -129,6 +133,7 @@ void main() {
         label: 'Speaker 1',
         kind: 'audiooutput',
         groupId: 'group1',
+        deviceType: AudioDeviceType.speaker,
       );
 
       final device2 = AudioDevice(
@@ -136,6 +141,7 @@ void main() {
         label: 'Speaker 2',
         kind: 'audiooutput',
         groupId: 'group2',
+        deviceType: AudioDeviceType.speaker,
       );
 
       controller.selectAudioOutput(device1);
@@ -169,6 +175,7 @@ void main() {
         label: 'Speaker',
         kind: 'audiooutput',
         groupId: 'group',
+        deviceType: AudioDeviceType.speaker,
       );
 
       final inputDevice = AudioDevice(
@@ -176,6 +183,7 @@ void main() {
         label: 'Microphone',
         kind: 'audioinput',
         groupId: 'group',
+        deviceType: AudioDeviceType.unknown,
       );
 
       expect(outputDevice.isAudioOutput, true);
