@@ -190,6 +190,7 @@ class EditProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: AppLocalizations.of(context)!.username,
                           prefixIcon: const Icon(Icons.person),
+                          //added circular progress indicator when checking
                           suffixIcon: controller.usernameChecking.value
                               ? Padding(
                                   padding: EdgeInsets.all(12),

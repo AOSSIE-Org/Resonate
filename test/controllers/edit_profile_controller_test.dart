@@ -57,6 +57,26 @@ void main() {
         ),
       ),
     );
+    when(
+      mockTablesDB.getRow(
+        databaseId: userDatabaseID,
+        tableId: usernameTableID,
+        rowId: 'anotheruser',
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: 'anotheruser',
+          $tableId: usernameTableID,
+          $databaseId: userDatabaseID,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0,
+          data: {"email": "another@test.com"},
+        ),
+      ),
+    );
   });
 
   test('check onInit', () {
