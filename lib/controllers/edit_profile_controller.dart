@@ -289,6 +289,8 @@ class EditProfileController extends GetxController {
           );
         } catch (e) {
           log(e.toString());
+          showSuccessSnackbar = false;
+          rethrow;
         }
       }
 
