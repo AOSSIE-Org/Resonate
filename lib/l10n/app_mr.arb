@@ -6,391 +6,391 @@
     },
     "roomDescription": "विनम्र रहा आणि दुसऱ्या व्यक्तीच्या मतीचा सन्मान करा. असभ्य टिप्पण्या टाळा.",
     "@roomDescription": {
-        "description": "Metadata"
+        "description": "Guideline message for users in a chat room."
     },
     "hidePassword": "पासवर्ड लपवा",
     "@hidePassword": {
-        "description": "Metadata"
+        "description": "Button text to conceal the password field."
     },
     "showPassword": "पासवर्ड दाखवा",
     "@showPassword": {
-        "description": "Metadata"
+        "description": "Button text to reveal the password field."
     },
     "passwordEmpty": "पासवर्ड रिक्त असू शकत नाही",
     "@passwordEmpty": {
-        "description": "Metadata"
+        "description": "Error message when the password field is left blank."
     },
     "password": "पासवर्ड",
     "@password": {
-        "description": "Metadata"
+        "description": "Label for the password input field."
     },
     "confirmPassword": "पासवर्ड पुष्टी करा",
     "@confirmPassword": {
-        "description": "Metadata"
+        "description": "Label for the confirm password input field."
     },
     "passwordsNotMatch": "पासवर्ड मिळत नाहीत",
     "@passwordsNotMatch": {
-        "description": "Metadata"
+        "description": "Error message when password and confirmation password do not match."
     },
     "userCreatedStories": "वापरकर्ता निर्मित कथा",
     "@userCreatedStories": {
-        "description": "Metadata"
+        "description": "Header for the section showing stories created by another user."
     },
     "yourStories": "आपल्या कथा",
     "@yourStories": {
-        "description": "Metadata"
+        "description": "Header for the section showing stories created by the current user."
     },
     "userNoStories": "वापरकर्त्याने कोणतीही कथा निर्मित केली नाही",
     "@userNoStories": {
-        "description": "Metadata"
+        "description": "Message displayed when viewing another user's profile and they have no stories."
     },
     "youNoStories": "आपण कोणतीही कथा निर्मित केली नाही",
     "@youNoStories": {
-        "description": "Metadata"
+        "description": "Message displayed on the current user's profile when they have no stories."
     },
     "follow": "फॉलो करा",
     "@follow": {
-        "description": "Metadata"
+        "description": "Button text to follow a user."
     },
     "editProfile": "प्रोफाइल संपादित करा",
     "@editProfile": {
-        "description": "Metadata"
+        "description": "Button text to navigate to the profile editing screen."
     },
     "verifyEmail": "ईमेल सत्यापित करा",
     "@verifyEmail": {
-        "description": "Metadata"
+        "description": "Button or link text to start the email verification process."
     },
     "verified": "सत्यापित",
     "@verified": {
-        "description": "Metadata"
+        "description": "A status label indicating that the user's email has been verified."
     },
     "profile": "प्रोफाइल",
     "@profile": {
-        "description": "Metadata"
+        "description": "Label for the user profile section or page."
     },
     "userLikedStories": "वापरकर्ता पसंदीची कथा",
     "@userLikedStories": {
-        "description": "Metadata"
+        "description": "Header for the section showing stories liked by another user."
     },
     "yourLikedStories": "आपल्या पसंदीची कथा",
     "@yourLikedStories": {
-        "description": "Metadata"
+        "description": "Header for the section showing stories liked by the current user."
     },
     "userNoLikedStories": "वापरकर्त्याने कोणतीही कथा पसंद केली नाही",
     "@userNoLikedStories": {
-        "description": "Metadata"
+        "description": "Message displayed when viewing another user's profile and they have no liked stories."
     },
     "youNoLikedStories": "आपण कोणतीही कथा पसंद केली नाही",
     "@youNoLikedStories": {
-        "description": "Metadata"
+        "description": "Message displayed on the current user's profile when they have no liked stories."
     },
     "live": "लाइव्ह",
     "@live": {
-        "description": "Metadata"
+        "description": "Tab or label for live audio rooms."
     },
     "upcoming": "आगामी",
     "@upcoming": {
-        "description": "Metadata"
+        "description": "Tab or label for scheduled/upcoming audio rooms."
     },
     "noAvailableRoom": "{isRoom, select, true{कोण्ठा उपलब्ध नाही} false{आगामी कोण्ठा उपलब्ध नाही} other{कोण्ठा माहिती उपलब्ध नाही}}\nखाली एक जोडून सुरुवात करा!",
     "@noAvailableRoom": {
-        "description": "Metadata"
+        "description": "Message when no room or upcoming room is available, with a call to action."
     },
     "user1": "वापरकर्ता १",
     "@user1": {
-        "description": "Metadata"
+        "description": "A generic placeholder name for a user."
     },
     "user2": "वापरकर्ता २",
     "@user2": {
-        "description": "Metadata"
+        "description": "A second generic placeholder name for a user."
     },
     "you": "आप",
     "@you": {
-        "description": "Metadata"
+        "description": "Label to identify the current user in a list or chat."
     },
     "areYouSure": "आप निश्चित आहात?",
     "@areYouSure": {
-        "description": "Metadata"
+        "description": "Confirmation prompt title."
     },
     "loggingOut": "आप रेजोनेटमधून लॉगआउट करत आहात.",
     "@loggingOut": {
-        "description": "Metadata"
+        "description": "Confirmation prompt message for logging out."
     },
     "yes": "होय",
     "@yes": {
-        "description": "Metadata"
+        "description": "Generic confirmation button text."
     },
     "no": "नाही",
     "@no": {
-        "description": "Metadata"
+        "description": "Generic cancellation button text."
     },
     "incorrectEmailOrPassword": "गलत ईमेल किंवा पासवर्ड",
     "@incorrectEmailOrPassword": {
-        "description": "Metadata"
+        "description": "Error message for failed login attempt."
     },
     "passwordShort": "पासवर्ड ८ अक्षरांपेक्षा कमी आहे",
     "@passwordShort": {
-        "description": "Metadata"
+        "description": "Error message for a password that is too short."
     },
     "tryAgain": "पुन्हा प्रयत्न करा!",
     "@tryAgain": {
-        "description": "Metadata"
+        "description": "Button text to retry a failed action."
     },
     "success": "यशस्वी",
     "@success": {
-        "description": "Metadata"
+        "description": "Generic title for a successful operation."
     },
     "passwordResetSent": "पासवर्ड रीसेट ईमेल पाठवली गेली!",
     "@passwordResetSent": {
-        "description": "Metadata"
+        "description": "Success message after a password reset email has been dispatched."
     },
     "error": "त्रुटी",
     "@error": {
-        "description": "Metadata"
+        "description": "Generic title for a failed operation."
     },
     "resetPassword": "पासवर्ड रीसेट करा",
     "@resetPassword": {
-        "description": "Metadata"
+        "description": "Title or button text for the reset password feature."
     },
     "enterNewPassword": "आपला नवीन पासवर्ड प्रविष्ट करा",
     "@enterNewPassword": {
-        "description": "Metadata"
+        "description": "Instructional text on the reset password screen."
     },
     "newPassword": "नवीन पासवर्ड",
     "@newPassword": {
-        "description": "Metadata"
+        "description": "Label for the new password input field."
     },
     "setNewPassword": "नवीन पासवर्ड सेट करा",
     "@setNewPassword": {
-        "description": "Metadata"
+        "description": "Button text to confirm setting a new password."
     },
     "emailChanged": "ईमेल बदलली",
     "@emailChanged": {
-        "description": "Metadata"
+        "description": "Title for the success dialog after an email change."
     },
     "emailChangeSuccess": "ईमेल यशस्वीरित्या बदलली!",
     "@emailChangeSuccess": {
-        "description": "Metadata"
+        "description": "Success message after changing the user's email."
     },
     "failed": "अयोग्य",
     "@failed": {
-        "description": "Metadata"
+        "description": "Generic title for a failed operation."
     },
     "emailChangeFailed": "ईमेल बदलणे अयोग्य",
     "@emailChangeFailed": {
-        "description": "Metadata"
+        "description": "Error message when an email change operation fails."
     },
     "oops": "अरे!",
     "@oops": {
-        "description": "Metadata"
+        "description": "An informal title for an error or warning message."
     },
     "emailExists": "ईमेल आधीच अस्तित्वात आहे",
     "@emailExists": {
-        "description": "Metadata"
+        "description": "Error message when a user tries to register or change to an email that is already in use."
     },
     "changeEmail": "ईमेल बदला",
     "@changeEmail": {
-        "description": "Metadata"
+        "description": "Title or button text for the change email feature."
     },
     "enterValidEmail": "कृपया एक वैध ईमेल पत्ता प्रविष्ट करा",
     "@enterValidEmail": {
-        "description": "Metadata"
+        "description": "Error message for an invalid email format."
     },
     "newEmail": "नवीन ईमेल",
     "@newEmail": {
-        "description": "Metadata"
+        "description": "Label for the new email input field."
     },
     "currentPassword": "वर्तमान पासवर्ड",
     "@currentPassword": {
-        "description": "Metadata"
+        "description": "Label for the current password input field, used for verification."
     },
     "emailChangeInfo": "अतिरिक्त सुरक्षेसाठी, आपले ईमेल पत्ता बदलताना आपण आपल्या खात्याचा वर्तमान पासवर्ड प्रदान करणे आवश्यक आहे. आपला ईमेल बदल्यानंतर, भविष्यातील लॉगिनसाठी अद्यतन ईमेल वापरा.",
     "@emailChangeInfo": {
-        "description": "Metadata"
+        "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
     },
     "oauthUsersMessage": "(फक्त Google किंवा Github वापरून लॉगिन केलेल्या वापरकर्त्यांसाठी)",
     "@oauthUsersMessage": {
-        "description": "Metadata"
+        "description": "A message to specify that the following instructions are for OAuth users."
     },
     "oauthUsersEmailChangeInfo": "आपले ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आप Google/GitHub किंवा आपला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.",
     "@oauthUsersEmailChangeInfo": {
-        "description": "Metadata"
+        "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
     },
     "resonateTagline": "असीमित संभाषणांच्या जगात प्रवेश करा.",
     "@resonateTagline": {
-        "description": "Metadata"
+        "description": "The application's tagline, used on splash or login screens."
     },
     "signInWithEmail": "ईमेलने साइन इन करा",
     "@signInWithEmail": {
-        "description": "Metadata"
+        "description": "Button text for signing in using email and password."
     },
     "or": "किंवा",
     "@or": {
-        "description": "Metadata"
+        "description": "A separator text, typically used between different login options."
     },
     "continueWith": "यासह सुरू ठेवा",
     "@continueWith": {
-        "description": "Metadata"
+        "description": "Informational text preceding a list of third-party login providers."
     },
     "continueWithGoogle": "Google सह सुरू ठेवा",
     "@continueWithGoogle": {
-        "description": "Metadata"
+        "description": "Button text for signing in with a Google account."
     },
     "continueWithGitHub": "GitHub सह सुरू ठेवा",
     "@continueWithGitHub": {
-        "description": "Metadata"
+        "description": "Button text for signing in with a GitHub account."
     },
     "resonateLogo": "रेजोनेट लोगो",
     "@resonateLogo": {
-        "description": "Metadata"
+        "description": "Accessibility text for the Resonate application logo image."
     },
     "iAlreadyHaveAnAccount": "मेरे पास आधीच खाता आहे",
     "@iAlreadyHaveAnAccount": {
-        "description": "Metadata"
+        "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
     },
     "createNewAccount": "नव्यान खाते तयार करा",
     "@createNewAccount": {
-        "description": "Metadata"
+        "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
     },
     "userProfile": "वापरकर्ता प्रोफाइल",
     "@userProfile": {
-        "description": "Metadata"
+        "description": "Accessibility text for a user's profile picture or avatar."
     },
     "passwordIsStrong": "पासवर्ड मजबूत आहे",
     "@passwordIsStrong": {
-        "description": "Metadata"
+        "description": "Validation message indicating that the entered password meets all strength requirements."
     },
     "admin": "प्रशासक",
     "@admin": {
-        "description": "Metadata"
+        "description": "Label for the Admin user role in a room."
     },
     "moderator": "मॉडरेटर",
     "@moderator": {
-        "description": "Metadata"
+        "description": "Label for the Moderator user role in a room."
     },
     "speaker": "स्पीकर",
     "@speaker": {
-        "description": "Metadata"
+        "description": "Label for the Speaker user role in a room."
     },
     "listener": "श्रोता",
     "@listener": {
-        "description": "Metadata"
+        "description": "Label for the Listener user role in a room."
     },
     "removeModerator": "मॉडरेटर काढून टाका",
     "@removeModerator": {
-        "description": "Metadata"
+        "description": "Menu item text to revoke moderator privileges from a user."
     },
     "kickOut": "बाहेर काढा",
     "@kickOut": {
-        "description": "Metadata"
+        "description": "Menu item text to remove a user from a room."
     },
     "addModerator": "मॉडरेटर जोडा",
     "@addModerator": {
-        "description": "Metadata"
+        "description": "Menu item text to grant moderator privileges to a user."
     },
     "addSpeaker": "स्पीकर जोडा",
     "@addSpeaker": {
-        "description": "Metadata"
+        "description": "Menu item text to grant speaker privileges to a listener."
     },
     "makeListener": "श्रोता बनवा",
     "@makeListener": {
-        "description": "Metadata"
+        "description": "Menu item text to change a speaker's role to listener."
     },
     "pairChat": "जोडी चॅट",
     "@pairChat": {
-        "description": "Metadata"
+        "description": "A feature name for one-on-one random chat."
     },
     "chooseIdentity": "ओळख निवडा",
     "@chooseIdentity": {
-        "description": "Metadata"
+        "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
     },
     "selectLanguage": "भाषा निवडा",
     "@selectLanguage": {
-        "description": "Metadata"
+        "description": "Label for the language selection setting."
     },
     "noConnection": "कोणता कनेक्शन नाही",
     "@noConnection": {
-        "description": "Metadata"
+        "description": "Title indicating that there is no internet connection."
     },
     "loadingDialog": "लोडिंग संवाद",
     "@loadingDialog": {
-        "description": "Metadata"
+        "description": "Accessibility text for a loading indicator or spinner."
     },
     "createAccount": "खाते तयार करा",
     "@createAccount": {
-        "description": "Metadata"
+        "description": "Button text or page title for the account creation screen."
     },
     "enterValidEmailAddress": "वैध ईमेल पत्ता प्रविष्ट करा",
     "@enterValidEmailAddress": {
-        "description": "Metadata"
+        "description": "Error message shown for an invalid email format."
     },
     "email": "ईमेल",
     "@email": {
-        "description": "Metadata"
+        "description": "Label for the email input field."
     },
     "passwordRequirements": "पासवर्ड किमान ८ अक्षर लांब असणे आवश्यक आहे",
     "@passwordRequirements": {
-        "description": "Metadata"
+        "description": "Instructional text listing the requirements for a valid password, part 1."
     },
     "includeNumericDigit": "किमान १ संख्या अंक समाविष्ट करा",
     "@includeNumericDigit": {
-        "description": "Metadata"
+        "description": "Instructional text listing the requirements for a valid password, part 2."
     },
     "includeUppercase": "किमान १ मोठे अक्षर समाविष्ट करा",
     "@includeUppercase": {
-        "description": "Metadata"
+        "description": "Instructional text listing the requirements for a valid password, part 3."
     },
     "includeLowercase": "किमान १ लहान अक्षर समाविष्ट करा",
     "@includeLowercase": {
-        "description": "Metadata"
+        "description": "Instructional text listing the requirements for a valid password, part 4."
     },
     "includeSymbol": "किमान १ चिन्ह समाविष्ट करा",
     "@includeSymbol": {
-        "description": "Metadata"
+        "description": "Instructional text listing the requirements for a valid password, part 5."
     },
     "signedUpSuccessfully": "यशस्वीरित्या साइन अप केले",
     "@signedUpSuccessfully": {
-        "description": "Metadata"
+        "description": "Title for a success message after account creation."
     },
     "newAccountCreated": "आपण यशस्वीरित्या नव्यान खाते तयार केले आहे",
     "@newAccountCreated": {
-        "description": "Metadata"
+        "description": "Success message confirming that a new account has been created."
     },
     "signUp": "साइन अप करा",
     "@signUp": {
-        "description": "Metadata"
+        "description": "Button text to submit the sign-up form."
     },
     "login": "लॉगिन",
     "@login": {
-        "description": "Metadata"
+        "description": "Button text to submit the login form."
     },
     "settings": "सेटिंग्स",
     "@settings": {
-        "description": "Metadata"
+        "description": "Title for the settings page."
     },
     "accountSettings": "खाता सेटिंग्स",
     "@accountSettings": {
-        "description": "Metadata"
+        "description": "Sub-header for account-related settings."
     },
     "account": "खाता",
     "@account": {
-        "description": "Metadata"
+        "description": "Label for the account settings section."
     },
     "appSettings": "अॅप सेटिंग्स",
     "@appSettings": {
-        "description": "Metadata"
+        "description": "Sub-header for application-related settings."
     },
     "themes": "थीम्स",
     "@themes": {
-        "description": "Metadata"
+        "description": "Label for the theme selection setting."
     },
     "about": "बद्दल",
     "@about": {
-        "description": "Metadata"
+        "description": "Label for the 'About' section or page of the app or a story."
     },
     "other": "इतर",
     "@other": {
-        "description": "Metadata"
+        "description": "A generic category label for miscellaneous settings or items."
     },
     "contribute": "योगदान द्या",
     "hide": "लपवा",
@@ -408,1130 +408,1130 @@
     "failedToRemoveRoom": "रूम लपवण्यात अयशस्वी",
     "roomRemovedSuccessfully": "रूम यशस्वीरित्या लपवली",
     "@contribute": {
-        "description": "Metadata"
+        "description": "Label for a section encouraging users to contribute to the project."
     },
     "appPreferences": "अॅप प्राधान्ये",
     "@appPreferences": {
-        "description": "Metadata"
+        "description": "Label for the app preferences settings page."
     },
     "transcriptionModel": "प्रतिलेखन मॉडेल",
     "@transcriptionModel": {
-        "description": "Metadata"
+        "description": "Section title for choosing AI transcription model."
     },
     "transcriptionModelDescription": "व्हॉयस प्रतिलेखनसाठी एआई मॉडेल निवडा. मोठे मॉडेल अधिक अचूक आहेत परंतु हळू आणि अधिक स्टोरेज आवश्यक आहे.",
     "@transcriptionModelDescription": {
-        "description": "Metadata"
+        "description": "Description text explaining transcription model choices."
     },
     "whisperModelTiny": "सूक्ष्म",
     "@whisperModelTiny": {
-        "description": "Metadata"
+        "description": "Name of the smallest Whisper AI model."
     },
     "whisperModelTinyDescription": "सर्वात वेगवान, कमीत कमी अचूक (~३९ एमबी)",
     "@whisperModelTinyDescription": {
-        "description": "Metadata"
+        "description": "Description of the Tiny Whisper model performance and size."
     },
     "whisperModelBase": "बेस",
     "@whisperModelBase": {
-        "description": "Metadata"
+        "description": "Name of the base Whisper AI model."
     },
     "whisperModelBaseDescription": "संतुलित गती आणि अचूकता (~७४ एमबी)",
     "@whisperModelBaseDescription": {
-        "description": "Metadata"
+        "description": "Description of the Base Whisper model performance and size."
     },
     "whisperModelSmall": "लहान",
     "@whisperModelSmall": {
-        "description": "Metadata"
+        "description": "Name of the small Whisper AI model."
     },
     "whisperModelSmallDescription": "चांगली अचूकता, हळू (~२४४ एमबी)",
     "@whisperModelSmallDescription": {
-        "description": "Metadata"
+        "description": "Description of the Small Whisper model performance and size."
     },
     "whisperModelMedium": "मध्यम",
     "@whisperModelMedium": {
-        "description": "Metadata"
+        "description": "Name of the medium Whisper AI model."
     },
     "whisperModelMediumDescription": "उच्च अचूकता, हळू (~७६९ एमबी)",
     "@whisperModelMediumDescription": {
-        "description": "Metadata"
+        "description": "Description of the Medium Whisper model performance and size."
     },
     "whisperModelLargeV1": "मोठे व्ही१",
     "@whisperModelLargeV1": {
-        "description": "Metadata"
+        "description": "Name of the large V1 Whisper AI model."
     },
     "whisperModelLargeV1Description": "सर्वात अचूक, सर्वात हळू (~१.५५ जीबी)",
     "@whisperModelLargeV1Description": {
-        "description": "Metadata"
+        "description": "Description of the Large V1 Whisper model performance and size."
     },
     "whisperModelLargeV2": "मोठे व्ही२",
     "@whisperModelLargeV2": {
-        "description": "Metadata"
+        "description": "Name of the large V2 Whisper AI model."
     },
     "whisperModelLargeV2Description": "उन्नत मोठे मॉडेल उच्च अचूकतेसह (~१.५५ जीबी)",
     "@whisperModelLargeV2Description": {
-        "description": "Metadata"
+        "description": "Description of the Large V2 Whisper model performance and size."
     },
     "modelDownloadInfo": "मॉडेल्स प्रथम वापरणे सुरू असताना डाउनलोड केले जातात. आम्ही बेस, लहान किंवा मध्यम वापरण्याची शिफारस करतो. मोठे मॉडेल्स अत्यंत उच्च-अंत डिव्हाइस आवश्यक.",
     "@modelDownloadInfo": {
-        "description": "Metadata"
+        "description": "Information message about model download."
     },
     "logOut": "लॉगआउट करा",
     "@logOut": {
-        "description": "Metadata"
+        "description": "Button text to log the user out of their account."
     },
     "participants": "सहभागी",
     "@participants": {
-        "description": "Metadata"
+        "description": "Label or title for the list of participants in a room."
     },
     "delete": "हटवा",
     "@delete": {
-        "description": "Metadata"
+        "description": "Generic button text for a delete action. Parameter for toRoomAction."
     },
     "leave": "सोडून द्या",
     "@leave": {
-        "description": "Metadata"
+        "description": "Generic button text for a leave action. Parameter for toRoomAction."
     },
     "leaveButton": "सोडून द्या",
     "@leaveButton": {
-        "description": "Metadata"
+        "description": "Button text to leave a room or conversation."
     },
     "findingRandomPartner": "आपल्यासाठी यादृच्छिक सहभागी शोधत आहे",
     "@findingRandomPartner": {
-        "description": "Metadata"
+        "description": "Status message shown while the system is searching for a random chat partner."
     },
     "quickFact": "द्रुत वस्तुस्थिती",
     "@quickFact": {
-        "description": "Metadata"
+        "description": "Header for a quick fact or tip, often shown during loading."
     },
     "cancel": "रद्द करा",
     "@cancel": {
-        "description": "Metadata"
+        "description": "Generic button text for a cancel action."
     },
     "completeYourProfile": "आपल्या प्रोफाइल पूर्ण करा",
     "@completeYourProfile": {
-        "description": "Metadata"
+        "description": "Page title or prompt for the user to finish setting up their profile."
     },
     "uploadProfilePicture": "प्रोफाइल चित्र अपलोड करा",
     "@uploadProfilePicture": {
-        "description": "Metadata"
+        "description": "Instructional text or button to upload a profile picture."
     },
     "enterValidName": "वैध नाव प्रविष्ट करा",
     "@enterValidName": {
-        "description": "Metadata"
+        "description": "Error message for an invalid name format."
     },
     "name": "नाव",
     "@name": {
-        "description": "Metadata"
+        "description": "Label for the name input field."
     },
     "username": "वापरकर्तानाव",
     "@username": {
-        "description": "Metadata"
+        "description": "Label for the username input field."
     },
     "enterValidDOB": "वैध जन्मतारीख प्रविष्ट करा",
     "@enterValidDOB": {
-        "description": "Metadata"
+        "description": "Error message for an invalid date of birth."
     },
     "dateOfBirth": "जन्मतारीख",
     "@dateOfBirth": {
-        "description": "Metadata"
+        "description": "Label for the date of birth input field."
     },
     "forgotPassword": "पासवर्ड विसरलात?",
     "@forgotPassword": {
-        "description": "Metadata"
+        "description": "Link text for users who have forgotten their password."
     },
     "next": "पुढील",
     "@next": {
-        "description": "Metadata"
+        "description": "Button text to proceed to the next step in a process."
     },
     "noStoriesExist": "सादर करण्यासाठी कोणतीही कथा नाही",
     "@noStoriesExist": {
-        "description": "Metadata"
+        "description": "Message displayed when there are no stories available in a list."
     },
     "enterVerificationCode": "आपला\nसत्यापन कोड प्रविष्ट करा",
     "@enterVerificationCode": {
-        "description": "Metadata"
+        "description": "Prompt for the user to enter the verification code sent to their email."
     },
     "verificationCodeSent": "आम्ही एक ६-अंकीय सत्यापन कोड\n",
     "@verificationCodeSent": {
-        "description": "Metadata"
+        "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
     },
     "verificationComplete": "सत्यापन पूर्ण",
     "@verificationComplete": {
-        "description": "Metadata"
+        "description": "Title for a success message after email verification."
     },
     "verificationCompleteMessage": "अभिनंदन आपण आपले ईमेल सत्यापित केले आहे",
     "@verificationCompleteMessage": {
-        "description": "Metadata"
+        "description": "Success message confirming email verification."
     },
     "verificationFailed": "सत्यापन अयोग्य",
     "@verificationFailed": {
-        "description": "Metadata"
+        "description": "Title for an error message when verification fails."
     },
     "otpMismatch": "ओटीपी मिळत नाही कृपया पुन्हा प्रयत्न करा",
     "@otpMismatch": {
-        "description": "Metadata"
+        "description": "Error message when the entered OTP is incorrect."
     },
     "otpResent": "ओटीपी पुन्हा पाठविली गई",
     "@otpResent": {
-        "description": "Metadata"
+        "description": "Confirmation message that the OTP has been resent."
     },
     "requestNewCode": "नवीन कोड विनंती करा",
     "@requestNewCode": {
-        "description": "Metadata"
+        "description": "Button text to request a new verification code."
     },
     "requestNewCodeIn": "नवीन कोड विनंती करा",
     "@requestNewCodeIn": {
-        "description": "Metadata"
+        "description": "Text displayed before a countdown timer for requesting a new code."
     },
     "clickPictureCamera": "कॅमेरा वापरून चित्र क्लिक करा",
     "@clickPictureCamera": {
-        "description": "Metadata"
+        "description": "Option to take a new photo using the device camera."
     },
     "pickImageGallery": "गॅलेरीमधून प्रतिमा निवडा",
     "@pickImageGallery": {
-        "description": "Metadata"
+        "description": "Option to choose an existing image from the device gallery."
     },
     "deleteMyAccount": "माझे खाते हटवा",
     "@deleteMyAccount": {
-        "description": "Metadata"
+        "description": "Button text for the account deletion feature."
     },
     "createNewRoom": "नवीन कोठा तयार करा",
     "@createNewRoom": {
-        "description": "Metadata"
+        "description": "Button text or page title for creating a new audio room."
     },
     "pleaseEnterScheduledDateTime": "कृपया शेड्यूल केलेली तारीख-वेळ प्रविष्ट करा",
     "@pleaseEnterScheduledDateTime": {
-        "description": "Metadata"
+        "description": "Error message when the scheduled date and time for a room is not provided."
     },
     "scheduleDateTimeLabel": "शेड्यूल तारीख वेळ",
     "@scheduleDateTimeLabel": {
-        "description": "Metadata"
+        "description": "Label for the input field to schedule a room's date and time."
     },
     "enterTags": "टॅग्स प्रविष्ट करा",
     "@enterTags": {
-        "description": "Metadata"
+        "description": "Placeholder or label for the input field for adding tags to a room or story."
     },
     "joinCommunity": "समुदाय जोडा",
     "@joinCommunity": {
-        "description": "Metadata"
+        "description": "Button text or header for the community section."
     },
     "followUsOnX": "X वर आमचे अनुसरण करा",
     "@followUsOnX": {
-        "description": "Metadata"
+        "description": "Link text to the company's profile on X (formerly Twitter)."
     },
     "joinDiscordServer": "Discord सर्व्हर जोडा",
     "@joinDiscordServer": {
-        "description": "Metadata"
+        "description": "Link text to join the project's Discord server."
     },
     "noLyrics": "कोणतेही गीत नाहीत",
     "@noLyrics": {
-        "description": "Metadata"
+        "description": "Message displayed when lyrics for an audio file are not available."
     },
     "noStoriesInCategory": "{categoryName} श्रेणीमध्ये सादर करण्यासाठी कोणतीही कथा नाही",
     "@noStoriesInCategory": {
-        "description": "Metadata"
+        "description": "Message when no stories exist in a specific category."
     },
     "newChapters": "नविन अध्याय",
     "@newChapters": {
-        "description": "Metadata"
+        "description": "Header or label for the section to add or view new chapters of a story."
     },
     "helpToGrow": "वाढायला मदत करा",
     "@helpToGrow": {
-        "description": "Metadata"
+        "description": "A call to action asking users to help the platform grow, often a header for sharing/rating."
     },
     "share": "शेअर करा",
     "@share": {
-        "description": "Metadata"
+        "description": "Button text for sharing content."
     },
     "rate": "रेट करा",
     "@rate": {
-        "description": "Metadata"
+        "description": "Button text for rating the app or content."
     },
     "aboutResonate": "रेजोनेटबद्दल",
     "@aboutResonate": {
-        "description": "Metadata"
+        "description": "Title for the 'About' page of the Resonate application."
     },
     "description": "वर्णन",
     "@description": {
-        "description": "Metadata"
+        "description": "Label for a description field."
     },
     "confirm": "पुष्टी करा",
     "@confirm": {
-        "description": "Metadata"
+        "description": "Generic button text for a confirm action."
     },
     "classic": "शास्त्रीय",
     "@classic": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "time": "वेळ",
     "@time": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "vintage": "विंटेज",
     "@vintage": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "amber": "एम्बर",
     "@amber": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "forest": "जंगल",
     "@forest": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "cream": "क्रीम",
     "@cream": {
-        "description": "Metadata"
+        "description": "Name of a theme option."
     },
     "none": "काहीही नाही",
     "@none": {
-        "description": "Metadata"
+        "description": "Text representing no selection or absence of a value."
     },
     "checkOutGitHub": "आमचे GitHub रिपोजिटरी पहा: {url}",
     "@checkOutGitHub": {
-        "description": "Metadata"
+        "description": "Share message for the GitHub repository, including a placeholder for the URL."
     },
     "aossie": "AOSSIE",
     "@aossie": {
-        "description": "Metadata"
+        "description": "The name of the organization."
     },
     "aossieLogo": "aossie लोगो",
     "@aossieLogo": {
-        "description": "Metadata"
+        "description": "Accessibility text for the AOSSIE organization logo."
     },
     "errorLoadPackageInfo": "पॅकेज माहिती लोड करू शकत नाही",
     "@errorLoadPackageInfo": {
-        "description": "Metadata"
+        "description": "Error message when the application fails to load its package information (e.g., version)."
     },
     "updateAvailable": "अपडेट उपलब्ध",
     "@updateAvailable": {
-        "description": "Metadata"
+        "description": "Title indicating that a new version of the app is available."
     },
     "newVersionAvailable": "नविन संस्करण उपलब्ध आहे!",
     "@newVersionAvailable": {
-        "description": "Metadata"
+        "description": "Message informing the user about an available update."
     },
     "upToDate": "अद्यावधिक आहे",
     "@upToDate": {
-        "description": "Metadata"
+        "description": "Title indicating the application is on the latest version."
     },
     "latestVersion": "आप नवीनतम संस्करण वापरत आहात",
     "@latestVersion": {
-        "description": "Metadata"
+        "description": "Message confirming the user has the latest version of the app."
     },
     "profileCreatedSuccessfully": "प्रोफाइल यशस्वीरित्या तयार केली",
     "@profileCreatedSuccessfully": {
-        "description": "Metadata"
+        "description": "Success message after a user's profile is created."
     },
     "invalidScheduledDateTime": "अवैध शेड्यूल केलेली तारीख वेळ",
     "@invalidScheduledDateTime": {
-        "description": "Metadata"
+        "description": "Error message for an invalid date-time format."
     },
     "scheduledDateTimePast": "शेड्यूल केलेली तारीख वेळ अतीतमध्ये असू शकत नाही",
     "@scheduledDateTimePast": {
-        "description": "Metadata"
+        "description": "Error message when the user selects a past date-time for a scheduled event."
     },
     "joinRoom": "कोठामध्ये जोडा",
     "@joinRoom": {
-        "description": "Metadata"
+        "description": "Button text to join an audio room."
     },
     "unknownUser": "अज्ञात",
     "@unknownUser": {
-        "description": "Metadata"
+        "description": "Placeholder text for a user whose name is not available."
     },
     "canceled": "रद्द",
     "@canceled": {
-        "description": "Metadata"
+        "description": "A status label indicating that an action was canceled."
     },
     "english": "en",
     "@english": {
-        "description": "Metadata"
+        "description": "The language code for English."
     },
     "emailVerificationRequired": "ईमेल सत्यापन आवश्यक",
     "@emailVerificationRequired": {
-        "description": "Metadata"
+        "description": "A title or message indicating that email verification is needed to proceed."
     },
     "verify": "सत्यापित करा",
     "@verify": {
-        "description": "Metadata"
+        "description": "Button text to initiate a verification process."
     },
     "audioRoom": "ऑडियो कोठा",
     "@audioRoom": {
-        "description": "Metadata"
+        "description": "Generic title for an audio room."
     },
     "toRoomAction": "कोठ्याला {action} करण्यासाठी",
     "@toRoomAction": {
-        "description": "Metadata"
+        "description": "A dynamic message for confirming an action on a room, like deleting or leaving."
     },
     "mailSentMessage": "ईमेल पाठविली गई",
     "@mailSentMessage": {
-        "description": "Metadata"
+        "description": "A confirmation message indicating an email has been sent."
     },
     "disconnected": "जोडलेले नाही",
     "@disconnected": {
-        "description": "Metadata"
+        "description": "A status label indicating a loss of connection."
     },
     "micOn": "मायक्रोफोन",
     "@micOn": {
-        "description": "Metadata"
+        "description": "Accessibility label for the microphone button when it is on."
     },
     "speakerOn": "स्पीकर",
     "@speakerOn": {
-        "description": "Metadata"
+        "description": "Accessibility label for the speakerphone button when it is on."
     },
     "endChat": "चॅट समाप्त",
     "@endChat": {
-        "description": "Metadata"
+        "description": "Accessibility label for the end chat/call button."
     },
     "monthJan": "जान",
     "@monthJan": {
-        "description": "Metadata"
+        "description": "Abbreviation for January."
     },
     "monthFeb": "फेब",
     "@monthFeb": {
-        "description": "Metadata"
+        "description": "Abbreviation for February."
     },
     "monthMar": "मार्च",
     "@monthMar": {
-        "description": "Metadata"
+        "description": "Full name for March."
     },
     "monthApr": "एप्रिल",
     "@monthApr": {
-        "description": "Metadata"
+        "description": "Full name for April."
     },
     "monthMay": "मे",
     "@monthMay": {
-        "description": "Metadata"
+        "description": "Full name for May."
     },
     "monthJun": "जून",
     "@monthJun": {
-        "description": "Metadata"
+        "description": "Full name for June."
     },
     "monthJul": "जुलै",
     "@monthJul": {
-        "description": "Metadata"
+        "description": "Full name for July."
     },
     "monthAug": "ऑग",
     "@monthAug": {
-        "description": "Metadata"
+        "description": "Abbreviation for August."
     },
     "monthSep": "सप्ट",
     "@monthSep": {
-        "description": "Metadata"
+        "description": "Abbreviation for September."
     },
     "monthOct": "ऑक्ट",
     "@monthOct": {
-        "description": "Metadata"
+        "description": "Abbreviation for October."
     },
     "monthNov": "नोव",
     "@monthNov": {
-        "description": "Metadata"
+        "description": "Abbreviation for November."
     },
     "monthDec": "डिस",
     "@monthDec": {
-        "description": "Metadata"
+        "description": "Abbreviation for December."
     },
     "register": "नोंदणी करा",
     "@register": {
-        "description": "Metadata"
+        "description": "Button text to register a new account."
     },
     "newToResonate": "रेजोनेटमध्ये नविन? ",
     "@newToResonate": {
-        "description": "Metadata"
+        "description": "Text preceding the 'Create new account' link on the login screen."
     },
     "alreadyHaveAccount": "पहिल्यापासून खाता आहे? ",
     "@alreadyHaveAccount": {
-        "description": "Metadata"
+        "description": "Text preceding the 'Login' link on the sign-up screen."
     },
     "checking": "तपास करत आहे...",
     "@checking": {
-        "description": "Metadata"
+        "description": "A temporary status message indicating a check is in progress."
     },
     "forgotPasswordMessage": "आपल्या नोंदणीकृत ईमेल पत्ता प्रविष्ट करा आपल्या पासवर्डचा रीसेट करण्यासाठी.",
     "@forgotPasswordMessage": {
-        "description": "Metadata"
+        "description": "Instructional text on the forgot password screen."
     },
     "usernameUnavailable": "वापरकर्तानाव उपलब्ध नाही!",
     "@usernameUnavailable": {
-        "description": "Metadata"
+        "description": "Title for the error when a chosen username is taken."
     },
     "usernameInvalidOrTaken": "हे वापरकर्तानाव अवैध आहे किंवा आधीच घेतले आहे.",
     "@usernameInvalidOrTaken": {
-        "description": "Metadata"
+        "description": "Error message explaining why a username cannot be used."
     },
     "otpResentMessage": "कृपया आपल्या मेलमध्ये नविन ओटीपी तपासा.",
     "@otpResentMessage": {
-        "description": "Metadata"
+        "description": "Message informing the user to check their email for a new OTP."
     },
     "connectionError": "कनेक्शन त्रुटी आहे. कृपया आपल्या इंटरनेट तपासा आणि पुन्हा प्रयत्न करा.",
     "@connectionError": {
-        "description": "Metadata"
+        "description": "Generic error message for network connection issues."
     },
     "seconds": "सेकंद.",
     "@seconds": {
-        "description": "Metadata"
+        "description": "The word 'seconds', often used after a countdown number."
     },
     "unsavedChangesWarning": "जर आप सेव केल्याशिवाय पुढे जाल तर कोणतेही न-सेव केलेले बदल गमावले जातील.",
     "@unsavedChangesWarning": {
-        "description": "Metadata"
+        "description": "A warning message shown when a user tries to leave a screen with unsaved changes."
     },
     "deleteAccountPermanent": "ही क्रिया आपल्या खात्याला कायमचा हटवेल. हा अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आप ते पुनर्प्राप्त करू शकणार नाहीत.",
     "@deleteAccountPermanent": {
-        "description": "Metadata"
+        "description": "A detailed warning message explaining the consequences of deleting an account."
     },
     "giveGreatName": "एक महान नाव द्या..",
     "@giveGreatName": {
-        "description": "Metadata"
+        "description": "Placeholder text for a name input field, encouraging a creative name."
     },
     "joinCommunityDescription": "समुदायामध्ये जोडून आप आपल्या संशय स्पष्ट करू शकता, नविन वैशिष्ट्यांचा प्रस्ताव द्यू शकता, आपण सामोरे आलेल्या समस्यांची रिपोर्ट करू शकता आणि बरेच काही.",
     "@joinCommunityDescription": {
-        "description": "Metadata"
+        "description": "A description of the benefits of joining the community."
     },
     "resonateDescription": "रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. आपल्याला रेजोनेट करणार्या कोठे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा. संभाषणामध्ये जोडा! कोठे अन्वेषण करा, मित्रांशी जोडा, आणि आपल्या आवाज विश्वासह सामायिक करा.",
     "@resonateDescription": {
-        "description": "Metadata"
+        "description": "A short, user-facing description of the Resonate application."
     },
     "resonateFullDescription": "रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये जोडा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी जोडा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कोठे\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- समाप्त-समाप्त एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात जोडा!",
     "@resonateFullDescription": {
-        "description": "Metadata"
+        "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
     },
     "stable": "स्थिर",
     "@stable": {
-        "description": "Metadata"
+        "description": "A label indicating a stable, non-beta version of the app."
     },
     "usernameCharacterLimit": "वापरकर्तानाव ५ अक्षरांपेक्षा अधिक असणे आवश्यक आहे.",
     "@usernameCharacterLimit": {
-        "description": "Metadata"
+        "description": "Error message when a chosen username is too short."
     },
     "submit": "सबमिट करा",
     "@submit": {
-        "description": "Metadata"
+        "description": "Generic button text for submitting a form."
     },
     "anonymous": "अनामिक",
     "@anonymous": {
-        "description": "Metadata"
+        "description": "Label for an anonymous user or identity."
     },
     "noSearchResults": "कोणतेही शोध परिणाम नाहीत",
     "@noSearchResults": {
-        "description": "Metadata"
+        "description": "Message displayed when a search returns no results."
     },
     "shareRoomMessage": "🚀 या अद्भुत कोठा पहा: {roomName}!\n\n📖 वर्णन: {description}\n👥 आता {participants} सहभागींशी जोडा!",
     "@shareRoomMessage": {
-        "description": "Metadata"
+        "description": "The default message template used when sharing a room."
     },
     "participantsCount": "{count} सहभागी",
     "@participantsCount": {
-        "description": "Metadata"
+        "description": "Displays the number of participants in a room."
     },
     "join": "जोडा",
     "@join": {
-        "description": "Metadata"
+        "description": "Generic button text to join an activity or group."
     },
     "invalidTags": "अवैध टॅग:",
     "@invalidTags": {
-        "description": "Metadata"
+        "description": "Error message prefix for an invalid tag."
     },
     "cropImage": "प्रतिमा काटा",
     "@cropImage": {
-        "description": "Metadata"
+        "description": "Title or button text for the image cropping tool."
     },
     "profileSavedSuccessfully": "प्रोफाइल अद्यतनित झाले",
     "@profileSavedSuccessfully": {
-        "description": "Metadata"
+        "description": "Short success message indicating profile changes have been saved."
     },
     "profileUpdatedSuccessfully": "सर्व बदल यशस्वीरित्या सेव केले.",
     "@profileUpdatedSuccessfully": {
-        "description": "Metadata"
+        "description": "Detailed success message confirming profile update."
     },
     "profileUpToDate": "प्रोफाइल अद्यावधिक आहे",
     "@profileUpToDate": {
-        "description": "Metadata"
+        "description": "Title for the message when there are no changes to save on the profile."
     },
     "noChangesToSave": "कोणतेही नविन बदल केले नाहीत, सेव करण्यासाठी काहीही नाही.",
     "@noChangesToSave": {
-        "description": "Metadata"
+        "description": "Message displayed when the user tries to save their profile without making any changes."
     },
     "connectionFailed": "कनेक्शन अयोग्य",
     "@connectionFailed": {
-        "description": "Metadata"
+        "description": "Generic title for connection-related errors."
     },
     "unableToJoinRoom": "कोठामध्ये जोडना अक्षम. कृपया आपल्या नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.",
     "@unableToJoinRoom": {
-        "description": "Metadata"
+        "description": "Error message when a user fails to join a room due to connection issues."
     },
     "connectionLost": "कनेक्शन हरविली",
     "@connectionLost": {
-        "description": "Metadata"
+        "description": "Title indicating that the connection to a service was lost."
     },
     "unableToReconnect": "कोठासह पुन्हा कनेक्ट करना अक्षम. कृपया पुन्हा जोडना प्रयत्न करा.",
     "@unableToReconnect": {
-        "description": "Metadata"
+        "description": "Error message when the app fails to reconnect the user to a room."
     },
     "invalidFormat": "अवैध स्वरूप!",
     "@invalidFormat": {
-        "description": "Metadata"
+        "description": "Generic error message for data with an incorrect format."
     },
     "usernameAlphanumeric": "वापरकर्तानाव अल्फान्यूमेरिक असणे आवश्यक आहे आणि विशेष अक्षर असू शकत नाहीत.",
     "@usernameAlphanumeric": {
-        "description": "Metadata"
+        "description": "Error message detailing the character requirements for a valid username."
     },
     "userProfileCreatedSuccessfully": "आपल्या वापरकर्ता प्रोफाइल यशस्वीरित्या तयार केली.",
     "@userProfileCreatedSuccessfully": {
-        "description": "Metadata"
+        "description": "Success message after a user completes their profile setup."
     },
     "emailVerificationMessage": "पुढे जाण्यासाठी, आपले ईमेल पत्ता सत्यापित करा.",
     "@emailVerificationMessage": {
-        "description": "Metadata"
+        "description": "An instructional message prompting the user to verify their email."
     },
     "addNewChaptersToStory": "{storyName} मध्ये नविन अध्याय जोडा",
     "@addNewChaptersToStory": {
-        "description": "Metadata"
+        "description": "Title for the screen where new chapters are added to an existing story."
     },
     "currentChapters": "वर्तमान अध्याय",
     "@currentChapters": {
-        "description": "Metadata"
+        "description": "Header for the list of existing chapters in a story."
     },
     "sourceCodeOnGitHub": "GitHub वर स्रोत कोड",
     "@sourceCodeOnGitHub": {
-        "description": "Metadata"
+        "description": "Link text to the project's source code on GitHub."
     },
     "createAChapter": "एक अध्याय तयार करा",
     "@createAChapter": {
-        "description": "Metadata"
+        "description": "Title for the screen where a new chapter is created."
     },
     "chapterTitle": "अध्याय शीर्षक *",
     "@chapterTitle": {
-        "description": "Metadata"
+        "description": "Label for the chapter title input field, indicating it is required."
     },
     "aboutRequired": "बद्दल *",
     "@aboutRequired": {
-        "description": "Metadata"
+        "description": "Label for the 'About' or description input field, indicating it is required."
     },
     "changeCoverImage": "कव्हर इमेज बदला",
     "@changeCoverImage": {
-        "description": "Metadata"
+        "description": "Button text to change the cover image of a story or chapter."
     },
     "uploadAudioFile": "ऑडियो फाईल अपलोड करा",
     "@uploadAudioFile": {
-        "description": "Metadata"
+        "description": "Button text to upload an audio file."
     },
     "uploadLyricsFile": "गीत फाईल अपलोड करा",
     "@uploadLyricsFile": {
-        "description": "Metadata"
+        "description": "Button text to upload a lyrics file."
     },
     "createChapter": "अध्याय तयार करा",
     "@createChapter": {
-        "description": "Metadata"
+        "description": "Button text to finalize and create a new chapter."
     },
     "audioFileSelected": "ऑडियो फाईल निवडली: {fileName}",
     "@audioFileSelected": {
-        "description": "Metadata"
+        "description": "Message shown after an audio file has been selected for upload."
     },
     "lyricsFileSelected": "गीत फाईल निवडली: {fileName}",
     "@lyricsFileSelected": {
-        "description": "Metadata"
+        "description": "Message shown after a lyrics file has been selected for upload."
     },
     "fillAllRequiredFields": "कृपया सर्व आवश्यक फील्ड भरा आणि आपल्या ऑडियो फाईल आणि गीत फाईल अपलोड करा",
     "@fillAllRequiredFields": {
-        "description": "Metadata"
+        "description": "Error message when required fields or files are missing from a form."
     },
     "scheduled": "शेड्यूल केलेले",
     "@scheduled": {
-        "description": "Metadata"
+        "description": "A status label indicating an event is scheduled for the future."
     },
     "ok": "ठीक आहे",
     "@ok": {
-        "description": "Metadata"
+        "description": "Generic confirmation button text, often for closing a dialog."
     },
     "roomDescriptionOptional": "कोठा वर्णन (वैकल्पिक)",
     "@roomDescriptionOptional": {
-        "description": "Metadata"
+        "description": "Label for the room description input field, indicating it is not required."
     },
     "deleteAccount": "खाता हटवा",
     "@deleteAccount": {
-        "description": "Metadata"
+        "description": "Button text to initiate the account deletion process."
     },
     "createYourStory": "आपल्या कथा तयार करा",
     "@createYourStory": {
-        "description": "Metadata"
+        "description": "Title for the screen where a new story is created."
     },
     "titleRequired": "शीर्षक *",
     "@titleRequired": {
-        "description": "Metadata"
+        "description": "Label for the title input field, indicating it is required."
     },
     "category": "श्रेणी *",
     "@category": {
-        "description": "Metadata"
+        "description": "Label for the category selection, indicating it is required."
     },
     "addChapter": "अध्याय जोडा",
     "@addChapter": {
-        "description": "Metadata"
+        "description": "Button text to add a chapter to a story."
     },
     "createStory": "कथा तयार करा",
     "@createStory": {
-        "description": "Metadata"
+        "description": "Button text to finalize and create a new story."
     },
     "fillAllRequiredFieldsAndChapter": "कृपया सर्व आवश्यक फील्ड भरा, किमान एक अध्याय जोडा, आणि कव्हर प्रतिमा निवडा.",
     "@fillAllRequiredFieldsAndChapter": {
-        "description": "Metadata"
+        "description": "Error message for the story creation form when requirements are not met."
     },
     "toConfirmType": "पुष्टी करण्यासाठी, टाइप करा",
     "@toConfirmType": {
-        "description": "Metadata"
+        "description": "Instructional text in a confirmation dialog, preceding the text to be typed."
     },
     "inTheBoxBelow": "खाली बॉक्समध्ये",
     "@inTheBoxBelow": {
-        "description": "Metadata"
+        "description": "Instructional text in a confirmation dialog, following the text to be typed."
     },
     "iUnderstandDeleteMyAccount": "मी समजतो, माझे खाते हटवा",
     "@iUnderstandDeleteMyAccount": {
-        "description": "Metadata"
+        "description": "The specific phrase a user must type to confirm account deletion."
     },
     "whatDoYouWantToListenTo": "आप काय ऐकू इच्छात?",
     "@whatDoYouWantToListenTo": {
-        "description": "Metadata"
+        "description": "A prompt on the main screen, encouraging user engagement."
     },
     "categories": "श्रेण्या",
     "@categories": {
-        "description": "Metadata"
+        "description": "Header for the list of categories."
     },
     "stories": "कथा",
     "@stories": {
-        "description": "Metadata"
+        "description": "Header for the list of stories."
     },
     "someSuggestions": "काही सुझाव",
     "@someSuggestions": {
-        "description": "Metadata"
+        "description": "Header for a list of suggested content."
     },
     "getStarted": "सुरुवात करा",
     "@getStarted": {
-        "description": "Metadata"
+        "description": "Button text on an onboarding screen to begin using the app."
     },
     "skip": "वगळा",
     "@skip": {
-        "description": "Metadata"
+        "description": "Button text to skip an optional step, like onboarding."
     },
     "welcomeToResonate": "रेजोनेटमध्ये स्वागतम",
     "@welcomeToResonate": {
-        "description": "Metadata"
+        "description": "Onboarding screen title."
     },
     "exploreDiverseConversations": "विविध संभाषण अन्वेषण करा",
     "@exploreDiverseConversations": {
-        "description": "Metadata"
+        "description": "Feature highlight on an onboarding screen."
     },
     "yourVoiceMatters": "आपल्या आवाजाला महत्त्व आहे",
     "@yourVoiceMatters": {
-        "description": "Metadata"
+        "description": "Feature highlight on an onboarding screen."
     },
     "joinConversationExploreRooms": "संभाषणामध्ये जोडा! कोठे अन्वेषण करा, मित्रांशी जोडा, आणि आपल्या आवाज विश्वासह सामायिक करा.",
     "@joinConversationExploreRooms": {
-        "description": "Metadata"
+        "description": "Descriptive text on an onboarding screen."
     },
     "diveIntoDiverseDiscussions": "विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. \nआपल्याला रेजोनेट करणार्या कोठे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा.",
     "@diveIntoDiverseDiscussions": {
-        "description": "Metadata"
+        "description": "Descriptive text on an onboarding screen."
     },
     "atResonateEveryVoiceValued": "रेजोनेटमध्ये, प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा.",
     "@atResonateEveryVoiceValued": {
-        "description": "Metadata"
+        "description": "Descriptive text on an onboarding screen."
     },
     "notifications": "सूचना",
     "@notifications": {
-        "description": "Metadata"
+        "description": "Title for the notifications screen."
     },
     "taggedYouInUpcomingRoom": "{username} ने आपल्याला आगामी कोठामध्ये टॅग केले: {subject}",
     "@taggedYouInUpcomingRoom": {
-        "description": "Metadata"
+        "description": "Notification message when tagged in an upcoming room."
     },
     "taggedYouInRoom": "{username} ने आपल्याला कोठामध्ये टॅग केले: {subject}",
     "@taggedYouInRoom": {
-        "description": "Metadata"
+        "description": "Notification message when tagged in a live room."
     },
     "likedYourStory": "{username} ने आपल्या कथा पसंद केली: {subject}",
     "@likedYourStory": {
-        "description": "Metadata"
+        "description": "Notification message when someone likes your story."
     },
     "subscribedToYourRoom": "{username} ने आपल्या कोठासाठी सदस्यता घेतली: {subject}",
     "@subscribedToYourRoom": {
-        "description": "Metadata"
+        "description": "Notification message when someone subscribes to your room."
     },
     "startedFollowingYou": "{username} ने आपल्याचा अनुसरण सुरू केला",
     "@startedFollowingYou": {
-        "description": "Metadata"
+        "description": "Notification message when someone starts following you."
     },
     "youHaveNewNotification": "आपल्याला नविन सूचना आहे",
     "@youHaveNewNotification": {
-        "description": "Metadata"
+        "description": "Generic title for a new notification."
     },
     "hangOnGoodThingsTakeTime": "थामा, चांगल्या गोष्टींसाठी वेळ लागतो 🔍",
     "@hangOnGoodThingsTakeTime": {
-        "description": "Metadata"
+        "description": "A friendly message displayed during a long loading process."
     },
     "resonateOpenSourceProject": "रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा github पहा.",
     "@resonateOpenSourceProject": {
-        "description": "Metadata"
+        "description": "Informational text about the open-source nature of the project."
     },
     "mute": "मौन करा",
     "@mute": {
-        "description": "Metadata"
+        "description": "Button text to mute the microphone."
     },
     "speakerLabel": "स्पीकर",
     "@speakerLabel": {
-        "description": "Metadata"
+        "description": "Label for the speakerphone toggle."
     },
     "end": "समाप्त करा",
     "@end": {
-        "description": "Metadata"
+        "description": "Button text to end a call or session."
     },
     "saveChanges": "बदल सेव करा",
     "@saveChanges": {
-        "description": "Metadata"
+        "description": "Button text to save modified settings or profile information."
     },
     "discard": "त्याग करा",
     "@discard": {
-        "description": "Metadata"
+        "description": "Button text to discard changes."
     },
     "save": "सेव करा",
     "@save": {
-        "description": "Metadata"
+        "description": "Button text to save changes."
     },
     "changeProfilePicture": "प्रोफाइल चित्र बदला",
     "@changeProfilePicture": {
-        "description": "Metadata"
+        "description": "Button text to open the profile picture selection options."
     },
     "camera": "कॅमेरा",
     "@camera": {
-        "description": "Metadata"
+        "description": "Option to use the camera to take a picture."
     },
     "gallery": "गॅलेरी",
     "@gallery": {
-        "description": "Metadata"
+        "description": "Option to choose a picture from the gallery."
     },
     "remove": "काढून टाका",
     "@remove": {
-        "description": "Metadata"
+        "description": "Button text to remove an item, like a profile picture."
     },
     "created": "{date} ला तयार केले",
     "@created": {
-        "description": "Metadata"
+        "description": "Displays the creation date of a story or content."
     },
     "chapters": "अध्याय",
     "@chapters": {
-        "description": "Metadata"
+        "description": "Header for the list of chapters in a story."
     },
     "deleteStory": "कथा हटवा",
     "@deleteStory": {
-        "description": "Metadata"
+        "description": "Button text to delete a story."
     },
     "createdBy": "{creatorName} द्वारे निर्मित",
     "@createdBy": {
-        "description": "Metadata"
+        "description": "Displays the name of the content creator."
     },
     "start": "सुरू करा",
     "@start": {
-        "description": "Metadata"
+        "description": "Button text to start an activity or session."
     },
     "unsubscribe": "सदस्यता रद्द करा",
     "@unsubscribe": {
-        "description": "Metadata"
+        "description": "Button text to unsubscribe from a room or notification."
     },
     "subscribe": "सदस्यता घ्या",
     "@subscribe": {
-        "description": "Metadata"
+        "description": "Button text to subscribe to a room or notification."
     },
     "storyCategory": "{category, select, drama{नाटक} comedy{हास्य} horror{भयानक} romance{प्रेम} thriller{रोमांच} spiritual{आध्यात्मिक} other{इतर}}",
     "@storyCategory": {
-        "description": "Metadata"
+        "description": "Selects the appropriate category name for a story based on a key."
     },
     "chooseTheme": "{category, select, classicTheme{शास्त्रीय} timeTheme{वेळ} vintageTheme{विंटेज} amberTheme{एम्बर} forestTheme{जंगल} creamTheme{क्रीम} other{इतर}}",
     "@chooseTheme": {
-        "description": "Metadata"
+        "description": "Selects the appropriate theme name based on a key."
     },
     "minutesAgo": "{count, plural, =1{१ मिनिट आधी} other{{count} मिनिटे आधी}}",
     "@minutesAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for minutes."
     },
     "hoursAgo": "{count, plural, =1{१ तास आधी} other{{count} तास आधी}}",
     "@hoursAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for hours."
     },
     "daysAgo": "{count, plural, =1{१ दिवस आधी} other{{count} दिवस आधी}}",
     "@daysAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for days."
     },
     "by": "द्वारे",
     "@by": {
-        "description": "Metadata"
+        "description": "A preposition, typically used between a content title and the author's name."
     },
     "likes": "आवडते",
     "@likes": {
-        "description": "Metadata"
+        "description": "Label for the number of likes."
     },
     "lengthMinutes": "मिनिट",
     "@lengthMinutes": {
-        "description": "Metadata"
+        "description": "Abbreviation for 'minutes', used to display audio length."
     },
     "requiredField": "आवश्यक फील्ड",
     "@requiredField": {
-        "description": "Metadata"
+        "description": "Error message for a mandatory field that was left empty."
     },
     "onlineUsers": "ऑनलाइन वापरकर्ते",
     "@onlineUsers": {
-        "description": "Metadata"
+        "description": "Header for the list of users who are currently online."
     },
     "noOnlineUsers": "सध्या कोणतेही वापरकर्ते ऑनलाइन नाहीत",
     "@noOnlineUsers": {
-        "description": "Metadata"
+        "description": "Message displayed when no users are online."
     },
     "chooseUser": "चॅट करण्यासाठी वापरकर्ता निवडा",
     "@chooseUser": {
-        "description": "Metadata"
+        "description": "Instructional text to select a user to start a chat."
     },
     "quickMatch": "द्रुत जुळणी",
     "@quickMatch": {
-        "description": "Metadata"
+        "description": "Button text for a feature that quickly matches the user with a random chat partner."
     },
     "story": "कथा",
     "@story": {
-        "description": "Metadata"
+        "description": "Label for a story."
     },
     "user": "वापरकर्ता",
     "@user": {
-        "description": "Metadata"
+        "description": "Label for a user."
     },
     "following": "अनुसरण करत आहे",
     "@following": {
-        "description": "Metadata"
+        "description": "Label for the list of users that the current user is following."
     },
     "followers": "अनुयायी",
     "@followers": {
-        "description": "Metadata"
+        "description": "Label for the list of users who are following the current user."
     },
     "friendRequests": "मित्र विनंत्या",
     "@friendRequests": {
-        "description": "Metadata"
+        "description": "Header for the list of incoming friend requests."
     },
     "friendRequestSent": "मित्र विनंती पाठविली",
     "@friendRequestSent": {
-        "description": "Metadata"
+        "description": "Title for the confirmation message after sending a friend request."
     },
     "friendRequestSentTo": "आपल्या मित्र विनंती {username} ला पाठविली गई आहे.",
     "@friendRequestSentTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after sending a friend request to a specific user."
     },
     "friendRequestCancelled": "मित्र विनंती रद्द",
     "@friendRequestCancelled": {
-        "description": "Metadata"
+        "description": "Title for the confirmation message after cancelling a friend request."
     },
     "friendRequestCancelledTo": "आपल्या मित्र विनंती {username} ला रद्द केली गई आहे.",
     "@friendRequestCancelledTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after cancelling a friend request to a specific user."
     },
     "requested": "विनंती केली",
     "@requested": {
-        "description": "Metadata"
+        "description": "A status label on a button indicating a friend request has been sent."
     },
     "friends": "मित्र",
     "@friends": {
-        "description": "Metadata"
+        "description": "A status label or header for the list of friends."
     },
     "addFriend": "मित्र जोडा",
     "@addFriend": {
-        "description": "Metadata"
+        "description": "Button text to send a friend request."
     },
     "friendRequestAccepted": "मित्र विनंती स्वीकारली",
     "@friendRequestAccepted": {
-        "description": "Metadata"
+        "description": "Title for the confirmation message after accepting a friend request."
     },
     "friendRequestAcceptedTo": "आप आता {username} सह मित्र आहात.",
     "@friendRequestAcceptedTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after accepting a friend request from a specific user."
     },
     "friendRequestDeclined": "मित्र विनंती नकारली",
     "@friendRequestDeclined": {
-        "description": "Metadata"
+        "description": "Title for the confirmation message after declining a friend request."
     },
     "friendRequestDeclinedTo": "आपने {username} कडून मित्र विनंती नकारली आहे.",
     "@friendRequestDeclinedTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after declining a friend request from a specific user."
     },
     "accept": "स्वीकारा",
     "@accept": {
-        "description": "Metadata"
+        "description": "Button text to accept a request or invitation."
     },
     "callDeclined": "कॉल नकारली",
     "@callDeclined": {
-        "description": "Metadata"
+        "description": "Title for the message when a call is declined."
     },
     "callDeclinedTo": "वापरकर्ता {username} ने कॉल नकारली.",
     "@callDeclinedTo": {
-        "description": "Metadata"
+        "description": "Message indicating that a specific user declined a call."
     },
     "checkForUpdates": "अपडेट तपासा",
     "@checkForUpdates": {
-        "description": "Metadata"
+        "description": "Button text to manually check for application updates."
     },
     "updateNow": "आता अपडेट करा",
     "@updateNow": {
-        "description": "Metadata"
+        "description": "Button text to start the update process."
     },
     "updateLater": "नंतर",
     "@updateLater": {
-        "description": "Metadata"
+        "description": "Button text to postpone an update."
     },
     "updateSuccessful": "अपडेट यशस्वी",
     "@updateSuccessful": {
-        "description": "Metadata"
+        "description": "Title for the success message after an update."
     },
     "updateSuccessfulMessage": "रेजोनेट यशस्वीरित्या अपडेट केली गई आहे!",
     "@updateSuccessfulMessage": {
-        "description": "Metadata"
+        "description": "Success message confirming the application has been updated."
     },
     "updateCancelled": "अपडेट रद्द",
     "@updateCancelled": {
-        "description": "Metadata"
+        "description": "Title for the message when an update is cancelled."
     },
     "updateCancelledMessage": "अपडेट वापरकर्त्याद्वारे रद्द केली गई",
     "@updateCancelledMessage": {
-        "description": "Metadata"
+        "description": "Message indicating the user cancelled the update process."
     },
     "updateFailed": "अपडेट अयोग्य",
     "@updateFailed": {
-        "description": "Metadata"
+        "description": "Title for the message when an update fails."
     },
     "updateFailedMessage": "अपडेट करणे अयोग्य. कृपया Play Store मधून व्यक्तिमत्तेने अपडेट करा.",
     "@updateFailedMessage": {
-        "description": "Metadata"
+        "description": "Error message when an in-app update fails, suggesting a manual update."
     },
     "updateError": "अपडेट त्रुटी",
     "@updateError": {
-        "description": "Metadata"
+        "description": "Generic title for an update-related error."
     },
     "updateErrorMessage": "अपडेट करताना त्रुटी उद्भवली. कृपया पुन्हा प्रयत्न करा.",
     "@updateErrorMessage": {
-        "description": "Metadata"
+        "description": "Generic error message for an update that failed due to an unknown error."
     },
     "platformNotSupported": "मंच समर्थित नाही",
     "@platformNotSupported": {
-        "description": "Metadata"
+        "description": "Title for an error when a feature is not supported on the current platform."
     },
     "platformNotSupportedMessage": "अपडेट तपास फक्त Android डिव्हाइसवर उपलब्ध आहे",
     "@platformNotSupportedMessage": {
-        "description": "Metadata"
+        "description": "Message explaining that the in-app update feature is platform-specific."
     },
     "updateCheckFailed": "अपडेट तपास अयोग्य",
     "@updateCheckFailed": {
-        "description": "Metadata"
+        "description": "Title for an error when the app fails to check for updates."
     },
     "updateCheckFailedMessage": "अपडेट तपास करू शकत नाही. कृपया नंतर पुन्हा प्रयत्न करा.",
     "@updateCheckFailedMessage": {
-        "description": "Metadata"
+        "description": "Error message when the check for updates process fails."
     },
     "upToDateTitle": "आप अद्यावधिक आहात!",
     "@upToDateTitle": {
-        "description": "Metadata"
+        "description": "Title for the message when the app is already up to date."
     },
     "upToDateMessage": "आप रेजोनेटचे नवीनतम संस्करण वापरत आहात",
     "@upToDateMessage": {
-        "description": "Metadata"
+        "description": "Message confirming that no update is needed."
     },
     "updateAvailableTitle": "अपडेट उपलब्ध!",
     "@updateAvailableTitle": {
-        "description": "Metadata"
+        "description": "Title for the dialog informing the user about a new update."
     },
     "updateAvailableMessage": "रेजोनेटचे नविन संस्करण Play Store वर उपलब्ध आहे",
     "@updateAvailableMessage": {
-        "description": "Metadata"
+        "description": "Message prompting the user to update the app from the Play Store."
     },
     "updateFeaturesImprovement": "नविन वैशिष्ट्य आणि सुधार मिळवा!",
     "@updateFeaturesImprovement": {
-        "description": "Metadata"
+        "description": "A message highlighting the benefit of updating the application."
     },
     "alert": "सतर्क",
     "@alert": {
-        "description": "Metadata"
+        "description": "Title for an alert dialog."
     },
     "removedFromRoom": "आपल्याला रिपोर्ट केली गई किंवा कोठ्यातून काढून देण्यात आली",
     "@removedFromRoom": {
-        "description": "Metadata"
+        "description": "Message shown when a user is removed or reported from a room."
     },
     "reportType": "{type, select, harassment{उत्पीडन / द्वेष भाषण} abuse{अपमानजनक सामग्री / हिंसा} spam{स्पॅम / घोटाळे / धोखाधरी} impersonation{झूठी व्यक्तिमत्ता / खोटे खाते} illegal{अवैध क्रियाकलाप} selfharm{आत्महानि / आत्महत्या / मानसिक स्वास्थ्य} misuse{मंचचा दुरुपयोग} other{इतर}}",
     "@reportType": {
-        "description": "Metadata"
+        "description": "Selects the appropriate report type label based on a key."
     },
     "userBlockedFromResonate": "आपल्याला वापरकर्त्यांकडून अनेक रिपोर्ट प्राप्त झाली आहे आणि आपल्याला रेजोनेट वापरणे ब्लॉक केले गई आहे. आप यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.",
     "@userBlockedFromResonate": {
-        "description": "Metadata"
+        "description": "Message shown when a user is blocked from using Resonate."
     },
     "reportParticipant": "सहभागी रिपोर्ट करा",
     "@reportParticipant": {
-        "description": "Metadata"
+        "description": "Label for the button to report a participant."
     },
     "selectReportType": "कृपया रिपोर्ट प्रकार निवडा",
     "@selectReportType": {
-        "description": "Metadata"
+        "description": "Prompt for the user to select a report type."
     },
     "reportSubmitted": "रिपोर्ट यशस्वीरित्या सबमिट केली",
     "@reportSubmitted": {
-        "description": "Metadata"
+        "description": "Message shown when a report is submitted successfully."
     },
     "reportFailed": "रिपोर्ट सबमिशन अयोग्य",
     "@reportFailed": {
-        "description": "Metadata"
+        "description": "Message shown when a report submission fails."
     },
     "additionalDetailsOptional": "अतिरिक्त विवरण (वैकल्पिक)",
     "@additionalDetailsOptional": {
-        "description": "Metadata"
+        "description": "Label for an optional input field for additional details in a report."
     },
     "submitReport": "रिपोर्ट सबमिट करा",
     "@submitReport": {
-        "description": "Metadata"
+        "description": "Button text to submit a report."
     },
     "actionBlocked": "क्रिया ब्लॉक केली",
     "@actionBlocked": {
-        "description": "Metadata"
+        "description": "Title for a message indicating that a user action is blocked."
     },
     "cannotStopRecording": "आप रेकॉर्डिंग व्यक्तिमत्तेने रोक शकत नाहीत, कोठा बंद होताच रेकॉर्डिंग रोक दिली जाईल.",
     "@cannotStopRecording": {
-        "description": "Metadata"
+        "description": "Message explaining why a user cannot stop a recording manually."
     },
     "liveChapter": "लाइव्ह अध्याय",
     "@liveChapter": {
-        "description": "Metadata"
+        "description": "Label indicating that a chapter is currently live."
     },
     "viewOrEditLyrics": "गीत पाहा किंवा संपादित करा",
     "@viewOrEditLyrics": {
-        "description": "Metadata"
+        "description": "Button text to view or edit the lyrics of a chapter."
     },
     "close": "बंद करा",
     "@close": {
-        "description": "Metadata"
+        "description": "Label for the button to close a dialog."
     },
     "verifyChapterDetails": "अध्याय तपशील सत्यापित करा",
     "@verifyChapterDetails": {
-        "description": "Metadata"
+        "description": "Title for the screen where Live chapter details are verified before publishing."
     },
     "author": "लेखक",
     "@author": {
-        "description": "Metadata"
+        "description": "Label for the author of a story or chapter."
     },
     "startLiveChapter": "लाइव्ह अध्याय सुरू करा",
     "@startLiveChapter": {
-        "description": "Metadata"
+        "description": "Title for the screen where a live chapter is initiated."
     },
     "fillAllFields": "कृपया सर्व आवश्यक फील्ड भरा",
     "@fillAllFields": {
-        "description": "Metadata"
+        "description": "Error message when required fields are not filled in a form."
     },
     "noRecordingError": "आपने अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कोठा बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा",
     "@noRecordingError": {
-        "description": "Metadata"
+        "description": "Error message when trying to exit a live chapter room without any recording."
     },
     "deleteMessageTitle": "संदेश हटवा",
     "@deleteMessageTitle": {
-        "description": "Metadata"
+        "description": "Title for the delete message confirmation dialog"
     },
     "deleteMessageContent": "आपण खरोखर हा संदेश हटवू इच्छिता का?",
     "@deleteMessageContent": {
-        "description": "Metadata"
+        "description": "Content/question for the delete message confirmation dialog"
     }
 }

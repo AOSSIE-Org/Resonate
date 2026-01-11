@@ -24,7 +24,7 @@
     "upcoming": "આગામી",
     "noAvailableRoom": "{isRoom, select, true{કોઈ રૂમ ઉપલબ્ધ નથી} false{કોઈ આગામી રૂમ ઉપલબ્ધ નથી} other{કોઈ રૂમ માહિતી ઉપલબ્ધ નથી}}\nનીચે એક ઉમેરીને શરૂઆત કરો!",
     "@noAvailableRoom": {
-        "description": "Metadata"
+        "description": "Message when no room or upcoming room is available, with a call to action."
     },
     "user1": "યુઝર 1",
     "user2": "યુઝર 2",
@@ -173,7 +173,7 @@
     "aboutSection": "વિશે",
     "noStoriesInCategory": "{categoryName} કેટેગરીમાં હાલમાં રજૂ કરવા માટે કોઈ વાર્તાઓ અસ્તિત્વમાં નથી",
     "@noStoriesInCategory": {
-        "description": "Metadata"
+        "description": "Message when no stories exist in a specific category."
     },
     "pushNewChapters": "નવા ચેપ્ટર્સ પુશ કરો",
     "helpToGrow": "વધવામાં મદદ કરો",
@@ -191,7 +191,7 @@
     "none": "કંઈ નથી",
     "checkOutGitHub": "અમારી ગિટહબ રિપોઝિટરી જુઓ: {url}",
     "@checkOutGitHub": {
-        "description": "Metadata"
+        "description": "Share message for the GitHub repository, including a placeholder for the URL."
     },
     "aossie": "AOSSIE",
     "aossieLogo": "aossie લોગો",
@@ -213,7 +213,7 @@
     "audioRoom": "ઓડિયો રૂમ",
     "toRoomAction": "રૂમને {action} કરવા માટે",
     "@toRoomAction": {
-        "description": "Metadata"
+        "description": "A dynamic message for confirming an action on a room, like deleting or leaving."
     },
     "mailSentMessage": "મેઈલ મોકલાયો",
     "disconnected": "ડિસ્કનેક્ટ થયું",
@@ -258,11 +258,11 @@
     "noSearchResults": "કોઈ શોધ પરિણામો નથી",
     "shareRoomMessage": "🚀 આ અદ્ભુત રૂમ જુઓ: {roomName}!\n\n📖 વર્ણન: {description}\n👥 હવે જ {participants} સહભાગીઓ સાથે જોડાવો!",
     "@shareRoomMessage": {
-        "description": "Metadata"
+        "description": "The default message template used when sharing a room."
     },
     "participantsCount": "{count} સહભાગીઓ",
     "@participantsCount": {
-        "description": "Metadata"
+        "description": "Displays the number of participants in a room."
     },
     "join": "જોડાવો",
     "invalidTags": "અમાન્ય ટૅગ:",
@@ -281,7 +281,7 @@
     "emailVerificationMessage": "આગળ વધવા માટે, તમારું ઈમેઈલ એડ્રેસ વેરિફાય કરો.",
     "addNewChaptersToStory": "{storyName} માં નવા ચેપ્ટર્સ ઉમેરો",
     "@addNewChaptersToStory": {
-        "description": "Metadata"
+        "description": "Title for the screen where new chapters are added to an existing story."
     },
     "currentChapters": "હાલના ચેપ્ટર્સ",
     "newChapters": "નવા ચેપ્ટર્સ",
@@ -295,11 +295,11 @@
     "createChapter": "ચેપ્ટર બનાવો",
     "audioFileSelected": "ઓડિયો ફાઈલ પસંદ થયેલ: {fileName}",
     "@audioFileSelected": {
-        "description": "Metadata"
+        "description": "Message shown after an audio file has been selected for upload."
     },
     "lyricsFileSelected": "ગીત ફાઈલ પસંદ થયેલ: {fileName}",
     "@lyricsFileSelected": {
-        "description": "Metadata"
+        "description": "Message shown after a lyrics file has been selected for upload."
     },
     "fillAllRequiredFields": "કૃપા કરીને બધા જરૂરી ફીલ્ડ્સ ભરો અને તમારી ઓડિયો ફાઈલ અને ગીત ફાઈલ અપલોડ કરો",
     "scheduled": "શેડ્યૂલ્ડ",
@@ -330,23 +330,23 @@
     "notifications": "નોટિફિકેશન્સ",
     "taggedYouInUpcomingRoom": "{username} એ તમને આગામી રૂમમાં ટૅગ કર્યા છે: {subject}",
     "@taggedYouInUpcomingRoom": {
-        "description": "Metadata"
+        "description": "Notification message when tagged in an upcoming room."
     },
     "taggedYouInRoom": "{username} એ તમને રૂમમાં ટૅગ કર્યા છે: {subject}",
     "@taggedYouInRoom": {
-        "description": "Metadata"
+        "description": "Notification message when tagged in a live room."
     },
     "likedYourStory": "{username} એ તમારી વાર્તા પસંદ કરી છે: {subject}",
     "@likedYourStory": {
-        "description": "Metadata"
+        "description": "Notification message when someone likes your story."
     },
     "subscribedToYourRoom": "{username} એ તમારા રૂમને સબ્સ્ક્રાઈબ કર્યું છે: {subject}",
     "@subscribedToYourRoom": {
-        "description": "Metadata"
+        "description": "Notification message when someone subscribes to your room."
     },
     "startedFollowingYou": "{username} એ તમને ફોલો કરવાની શરૂઆત કરી છે",
     "@startedFollowingYou": {
-        "description": "Metadata"
+        "description": "Notification message when someone starts following you."
     },
     "youHaveNewNotification": "તમારી પાસે નવું નોટિફિકેશન છે",
     "hangOnGoodThingsTakeTime": "રાહ જુઓ, સારી વસ્તુઓ માટે સમય લાગે છે 🔍",
@@ -363,37 +363,37 @@
     "remove": "દૂર કરો",
     "created": "બનાવ્યું {date}",
     "@created": {
-        "description": "Metadata"
+        "description": "Displays the creation date of a story or content."
     },
     "aboutStory": "વિશે",
     "chapters": "ચેપ્ટર્સ",
     "deleteStory": "વાર્તા ડિલીટ કરો",
     "createdBy": "{creatorName} દ્વારા બનાવેલ",
     "@createdBy": {
-        "description": "Metadata"
+        "description": "Displays the name of the content creator."
     },
     "start": "શરૂ કરો",
     "unsubscribe": "અનસબ્સ્ક્રાઈબ કરો",
     "subscribe": "સબ્સ્ક્રાઈબ કરો",
     "storyCategory": "{category, select, drama{ડ્રામા} comedy{કોમેડી} horror{હોરર} romance{રોમાન્સ} thriller{થ્રિલર} spiritual{આધ્યાત્મિક} other{અન્ય}}",
     "@storyCategory": {
-        "description": "Metadata"
+        "description": "Selects the appropriate category name for a story based on a key."
     },
     "chooseTheme": "{category, select, classicTheme{ક્લાસિક} timeTheme{સમય} vintageTheme{વિન્ટેજ} amberTheme{એમ્બર} forestTheme{ફોરેસ્ટ} creamTheme{ક્રીમ} other{અન્ય}}",
     "@chooseTheme": {
-        "description": "Metadata"
+        "description": "Selects the appropriate theme name based on a key."
     },
     "minutesAgo": "{count, plural, =1{1 મિનિટ પહેલા} other{{count} મિનિટ પહેલા}}",
     "@minutesAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for minutes."
     },
     "hoursAgo": "{count, plural, =1{1 કલાક પહેલા} other{{count} કલાક પહેલા}}",
     "@hoursAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for hours."
     },
     "daysAgo": "{count, plural, =1{1 દિવસ પહેલા} other{{count} દિવસ પહેલા}}",
     "@daysAgo": {
-        "description": "Metadata"
+        "description": "Displays time in a relative format for days."
     },
     "by": "દ્વારા",
     "likes": "લાઈક્સ",
@@ -433,12 +433,12 @@
     "friendRequestSent": "મિત્ર વિનંતી મોકલાઈ",
     "friendRequestSentTo": "{username} ને તમારી મિત્ર વિનંતી મોકલાઈ છે.",
     "@friendRequestSentTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after sending a friend request to a specific user."
     },
     "friendRequestCancelled": "મિત્ર વિનંતી રદ કરાઈ",
     "friendRequestCancelledTo": "{username} ને તમારી મિત્ર વિનંતી રદ કરાઈ છે.",
     "@friendRequestCancelledTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after cancelling a friend request to a specific user."
     },
     "requested": "વિનંતી કરેલ",
     "friends": "મિત્રો",
@@ -446,24 +446,24 @@
     "friendRequestAccepted": "મિત્ર વિનંતી સ્વીકારી",
     "friendRequestAcceptedTo": "તમે હવે {username} સાથે મિત્ર છો.",
     "@friendRequestAcceptedTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after accepting a friend request from a specific user."
     },
     "friendRequestDeclined": "મિત્ર વિનંતી નકારી",
     "friendRequestDeclinedTo": "તમે {username} ની મિત્ર વિનંતી નકારી છે.",
     "@friendRequestDeclinedTo": {
-        "description": "Metadata"
+        "description": "Confirmation message after declining a friend request from a specific user."
     },
     "accept": "સ્વીકારો",
     "callDeclined": "કૉલ નકારી",
     "callDeclinedTo": "યુઝર {username} એ કૉલ નકારી છે.",
     "@callDeclinedTo": {
-        "description": "Metadata"
+        "description": "Message indicating that a specific user declined a call."
     },
     "alert": "ચેતવણી",
     "removedFromRoom": "તમને રૂમમાંથી દૂર કરવામાં આવ્યા છે અથવા રિપોર્ટ કરવામાં આવ્યા છે.",
     "reportType": "{type, select, harassment{સતાવણી / દ્વેષપૂર્ણ ભાષણ} abuse{અપમાનજનક સામગ્રી / હિંસા} spam{સ્પામ / છેતરપિંડી / ફ્રોડ} impersonation{ઢોંગ / નકલી એકાઉન્ટ્સ} illegal{ગેરકાયદેસર પ્રવૃત્તિઓ} selfharm{સ્વ-નુકસાન / આત્મહત્યા / માનસિક સ્વાસ્થ્ય} misuse{પ્લેટફોર્મનો દુરુપયોગ} other{અન્ય}}",
     "@reportType": {
-        "description": "Metadata"
+        "description": "Selects the appropriate report type label based on a key."
     },
     "userBlockedFromResonate": "તમે અન્ય વપરાશકર્તાઓ પાસેથી અનેક રિપોર્ટ્સ પ્રાપ્ત કર્યા છે અને તમને Resonate નો ઉપયોગ કરવા માટે અવરોધિત કરવામાં આવ્યા છે. જો તમને લાગે કે આ ભૂલ છે તો કૃપા કરીને AOSSIE નો સંપર્ક કરો.",
     "reportParticipant": "ભાગીદારને રિપોર્ટ કરો",
