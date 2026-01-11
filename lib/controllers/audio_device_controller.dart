@@ -13,9 +13,9 @@ class AudioDeviceController extends GetxController {
   Timer? _deviceEnumerationTimer;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    enumerateDevices();
+    await enumerateDevices();
     _deviceEnumerationTimer = Timer.periodic(
       const Duration(seconds: 5),
       (_) async => await enumerateDevices(),
