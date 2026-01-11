@@ -174,6 +174,51 @@ class ChapterPlayer extends StatelessWidget {
                 ),
               ),
             ),
+            
+            // Playback Speed Control
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 100),
+              top: 350 - (3.3 * (progress * 100)) < 200
+                  ? 210
+                  : 360 - (3.3 * (progress * 100)),
+              left: 250,
+              curve: Curves.easeInOut,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: progress > 0.45 ? 0 : 1,
+                child: Obx(
+                  () => TextButton(
+                    onPressed: progress > 0.45 
+                      ? null 
+                      : () {
+                          // Cycle speeds: 0.5 -> 0.75 -> 1.0 -> 1.25 -> 1.5 -> 2.0 -> 0.5
+                          final current = controller.playbackSpeed.value;
+                          final speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+                          final nextIndex = (speeds.indexOf(current) + 1) % speeds.length;
+                          controller.setPlaybackSpeed(speeds[nextIndex]);
+                        },
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.black12,
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                    child: Text(
+                      "${controller.playbackSpeed.value}x",
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark ||
+                          (ThemeData.estimateBrightnessForColor(
+                                    chapter.tintColor,
+                                  ) ==
+                                  Brightness.dark)
+                          ? Colors.white
+                          : Colors.black87,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               top: 20,
               left: 320,
