@@ -70,6 +70,12 @@ void main() {
     // user's own username should return true
     final result = await editProfileController.isUsernameAvailable('testuser');
     expect(result, true);
+
+    //a different username that exists should return false
+    final resultTaken = await editProfileController.isUsernameAvailable(
+      'anotheruser',
+    );
+    expect(resultTaken, false);
   });
 
   test('check isUsernameChanged', () {
