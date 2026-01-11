@@ -999,6 +999,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get speakerLabel => 'ಮಾತನಾಡುವವರು';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'ಮುಗಿಸಿ';
 
   @override

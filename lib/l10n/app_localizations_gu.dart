@@ -994,6 +994,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get speakerLabel => 'સ્પીકર';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'સમાપ્ત';
 
   @override

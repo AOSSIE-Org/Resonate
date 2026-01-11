@@ -976,6 +976,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get speakerLabel => 'ਸਪੀਕਰ';
 
   @override
+  String get audioOptions => 'ਆਡੀਓ ਵਿਕਲਪ';
+
+  @override
   String get end => 'ਅੰਤ';
 
   @override

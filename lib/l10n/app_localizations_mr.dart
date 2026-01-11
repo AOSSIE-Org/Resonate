@@ -995,6 +995,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get speakerLabel => 'स्पीकर';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'समाप्त करा';
 
   @override

@@ -993,6 +993,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get speakerLabel => 'Speaker';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'End';
 
   @override

@@ -1936,6 +1936,12 @@ abstract class AppLocalizations {
   /// **'Speaker'**
   String get speakerLabel;
 
+  /// Label for the audio options/settings button.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Options'**
+  String get audioOptions;
+
   /// Button text to end a call or session.
   ///
   /// In en, this message translates to:

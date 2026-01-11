@@ -18,7 +18,7 @@ class AudioDeviceController extends GetxController {
     enumerateDevices();
     _deviceEnumerationTimer = Timer.periodic(
       const Duration(seconds: 5),
-      (_) => enumerateDevices(),
+      (_) async => await enumerateDevices(),
     );
   }
 
@@ -45,8 +45,8 @@ class AudioDeviceController extends GetxController {
 
   Future<void> selectAudioOutput(AudioDevice device) async {
     try {
-      selectedAudioOutput.value = device;
       await webrtc.Helper.selectAudioOutput(device.deviceId);
+      selectedAudioOutput.value = device;
       log('Selected audio output: ${device.label}');
     } catch (e) {
       log('Error selecting audio output: $e');

@@ -1,5 +1,6 @@
 {
   "bn": [
+    "audioOptions",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -37,6 +38,7 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
     "audioOutput",
@@ -62,6 +64,7 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
     "audioOutput",
@@ -89,6 +92,7 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
     "audioOutput",

@@ -1002,6 +1002,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get speakerLabel => 'স্পিকার';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'শেষ করুন';
 
   @override

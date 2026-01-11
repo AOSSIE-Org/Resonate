@@ -1324,6 +1324,10 @@
     "@speakerLabel": {
         "description": "Label for the speakerphone toggle."
     },
+    "audioOptions": "Audio Options",
+    "@audioOptions": {
+        "description": "Label for the audio options/settings button."
+    },
     "end": "End",
     "@end": {
         "description": "Button text to end a call or session."
