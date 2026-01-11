@@ -437,32 +437,35 @@
 ├── pubspec.lock
 ├── pubspec.yaml
 ├── test
-│   └── controllers
-│       ├── about_app_screen_controller_test.dart
-│       ├── about_app_screen_controller_test.mocks.dart
-│       ├── auth_state_controller_test.dart
-│       ├── auth_state_controller_test.mocks.dart
-│       ├── change_email_controller_test.dart
-│       ├── change_email_controller_test.mocks.dart
-│       ├── chapter_player_controller_test.dart
-│       ├── create_room_controller_test.dart
-│       ├── create_room_controller_test.mocks.dart
-│       ├── edit_profile_controller_test.dart
-│       ├── edit_profile_controller_test.mocks.dart
-│       ├── explore_story_controller_test.dart
-│       ├── explore_story_controller_test.mocks.dart
-│       ├── friend_calling_controller_test.dart
-│       ├── friend_calling_controller_test.mocks.dart
-│       ├── friends_controller_test.dart
-│       ├── friends_controller_test.mocks.dart
-│       ├── room_chat_controller_test.dart
-│       ├── room_chat_controller_test.mocks.dart
-│       ├── rooms_controller_test.dart
-│       ├── rooms_controller_test.mocks.dart
-│       ├── upcoming_controller_tests.dart
-│       ├── upcoming_controller_tests.mocks.dart
-│       ├── user_profile_controller_test.dart
-│       └── user_profile_controller_test.mocks.dart
+│   ├── controllers
+│   │   ├── about_app_screen_controller_test.dart
+│   │   ├── about_app_screen_controller_test.mocks.dart
+│   │   ├── auth_state_controller_test.dart
+│   │   ├── auth_state_controller_test.mocks.dart
+│   │   ├── change_email_controller_test.dart
+│   │   ├── change_email_controller_test.mocks.dart
+│   │   ├── chapter_player_controller_test.dart
+│   │   ├── create_room_controller_test.dart
+│   │   ├── create_room_controller_test.mocks.dart
+│   │   ├── edit_profile_controller_test.dart
+│   │   ├── edit_profile_controller_test.mocks.dart
+│   │   ├── explore_story_controller_test.dart
+│   │   ├── explore_story_controller_test.mocks.dart
+│   │   ├── friend_calling_controller_test.dart
+│   │   ├── friend_calling_controller_test.mocks.dart
+│   │   ├── friends_controller_test.dart
+│   │   ├── friends_controller_test.mocks.dart
+│   │   ├── room_chat_controller_test.dart
+│   │   ├── room_chat_controller_test.mocks.dart
+│   │   ├── rooms_controller_test.dart
+│   │   ├── rooms_controller_test.mocks.dart
+│   │   ├── upcoming_controller_tests.dart
+│   │   ├── upcoming_controller_tests.mocks.dart
+│   │   ├── user_profile_controller_test.dart
+│   │   └── user_profile_controller_test.mocks.dart
+│   └── services
+│       ├── api_service_test.dart
+│       └── api_service_test.mocks.dart
 └── untranslated.txt
 
-80 directories, 386 files
+81 directories, 388 files
