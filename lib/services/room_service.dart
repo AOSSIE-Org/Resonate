@@ -11,6 +11,8 @@ import 'package:resonate/utils/constants.dart';
 class RoomService {
   static ApiService apiService = ApiService();
 
+  static FlutterSecureStorage storage = const FlutterSecureStorage();
+  
   static Future<void> joinLiveKitRoom(
     String livekitUri,
     String roomToken, {
@@ -107,7 +109,6 @@ class RoomService {
         : response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
-    const storage = FlutterSecureStorage();
     await storage.write(key: "createdRoomAdminToken", value: livekitToken);
     await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
 
@@ -137,7 +138,6 @@ class RoomService {
         : response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
-    const storage = FlutterSecureStorage();
     await storage.write(key: "createdRoomAdminToken", value: livekitToken);
     await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
 
@@ -161,8 +161,6 @@ class RoomService {
   }
 
   static Future deleteLiveChapterRoom({required roomId}) async {
-    const storage = FlutterSecureStorage();
-
     // Delete room on livekit and roomdoc on appwrite
     String? livekitToken = await storage.read(key: "createdRoomAdminToken");
     await apiService.deleteLiveChapterRoom(roomId, livekitToken!);
@@ -170,8 +168,6 @@ class RoomService {
 
   static Future deleteRoom({required roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
-    const storage = FlutterSecureStorage();
-
     // Delete room on livekit and roomdoc on appwrite
     String? livekitToken = await storage.read(key: "createdRoomAdminToken");
     await apiService.deleteRoom(roomId, livekitToken!);
