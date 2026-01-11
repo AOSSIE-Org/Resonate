@@ -721,7 +721,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get usernameCharacterLimit =>
-      'Username should contain more than 5 characters.';
+      'Username should contain more than 7 characters.';
 
   @override
   String get submit => 'Submit';
@@ -1373,4 +1373,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'Failed to delete message';
+
+  @override
+  String get usernameInvalidFormat =>
+      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'This username is already taken. Try a different one.';
 }

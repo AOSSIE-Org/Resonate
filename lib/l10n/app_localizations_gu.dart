@@ -1369,8 +1369,15 @@ class AppLocalizationsGu extends AppLocalizations {
       'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
 
   @override
-  String get thisMessageWasDeleted => 'This message was deleted';
+  String get thisMessageWasDeleted => 'આ સંદેશ ડિલીટ કરવામાં આવ્યો છે';
 
   @override
-  String get failedToDeleteMessage => 'Failed to delete message';
+  String get failedToDeleteMessage => 'સંદેશ ડિલીટ કરવામાં નિષ્ફળ';
+
+  @override
+  String get usernameInvalidFormat =>
+      'યુઝરનેમમાં માત્ર અક્ષરો, નંબરો, બિંદુ, અન્ડરસ્કોર અને ડેશ હોવા જોઈએ';
+
+  @override
+  String get usernameAlreadyTaken => 'આ યુઝરનેમ પહેલેથી લેવામાં આવ્યું છે';
 }
