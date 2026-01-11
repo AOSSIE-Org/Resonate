@@ -13,6 +13,7 @@ void main() {
   });
 
   setUp(() {
+    Get.testMode = true;
     controller = AudioDeviceController();
   });
 
@@ -62,7 +63,7 @@ void main() {
       );
     });
 
-    test('should select audio output device', () {
+    test('should select audio output device', () async {
       final testDevice = AudioDevice(
         deviceId: 'test-output',
         label: 'Test Speaker',
@@ -72,7 +73,7 @@ void main() {
       );
 
       controller.audioOutputDevices.add(testDevice);
-      controller.selectAudioOutput(testDevice);
+      await controller.selectAudioOutput(testDevice);
 
       expect(controller.selectedAudioOutput.value, testDevice);
       expect(controller.selectedAudioOutput.value?.deviceId, 'test-output');
@@ -127,7 +128,7 @@ void main() {
       expect(AudioDeviceType.fromLabel('Speaker').iconName, 'speaker');
     });
 
-    test('should update selected device', () {
+    test('should update selected device', () async {
       final device1 = AudioDevice(
         deviceId: 'device1',
         label: 'Speaker 1',
@@ -144,10 +145,10 @@ void main() {
         deviceType: AudioDeviceType.speaker,
       );
 
-      controller.selectAudioOutput(device1);
+      await controller.selectAudioOutput(device1);
       expect(controller.selectedAudioOutput.value?.deviceId, 'device1');
 
-      controller.selectAudioOutput(device2);
+      await controller.selectAudioOutput(device2);
       expect(controller.selectedAudioOutput.value?.deviceId, 'device2');
     });
   });

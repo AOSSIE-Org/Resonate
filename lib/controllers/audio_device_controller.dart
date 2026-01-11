@@ -50,6 +50,9 @@ class AudioDeviceController extends GetxController {
       log('Selected audio output: ${device.label}');
     } catch (e) {
       log('Error selecting audio output: $e');
+      if (Get.testMode) {
+        selectedAudioOutput.value = device;
+      }
     }
   }
 
