@@ -1,4 +1,13 @@
 {
+  "bn": [
+    "audioOptions",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
+  ],
+
   "gu": [
     "appPreferences",
     "transcriptionModel",
@@ -29,8 +38,14 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
   ],
@@ -49,8 +64,14 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
     "deleteMessageTitle",
     "deleteMessageContent",
     "thisMessageWasDeleted",
@@ -71,8 +92,14 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
     "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
   ]

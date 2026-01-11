@@ -8,6 +8,7 @@ import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
+import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friend_call_model.dart';
@@ -186,6 +187,7 @@ class FriendCallingController extends GetxController {
     );
     friendCallModel.value = callModel;
     await Get.delete<LiveKitController>(force: true);
+    await Get.delete<AudioDeviceController>(force: true);
     if (!Get.testMode) {
       FlutterCallkitIncoming.endAllCalls();
     }
@@ -218,10 +220,12 @@ class FriendCallingController extends GetxController {
               callStatus: FriendCallStatus.ended,
             );
             await Get.delete<LiveKitController>(force: true);
+            await Get.delete<AudioDeviceController>(force: true);
             Get.offNamedUntil(AppRoutes.tabview, (route) => false);
           }
           if (data.payload['callStatus'] == FriendCallStatus.declined.name) {
             await Get.delete<LiveKitController>(force: true);
+            await Get.delete<AudioDeviceController>(force: true);
             if (!Get.testMode) {
               FlutterCallkitIncoming.endAllCalls();
             }

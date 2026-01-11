@@ -994,6 +994,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get speakerLabel => 'સ્પીકર';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'સમાપ્ત';
 
   @override
@@ -1342,6 +1345,21 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get noRecordingError =>
       'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 
   @override
   String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
