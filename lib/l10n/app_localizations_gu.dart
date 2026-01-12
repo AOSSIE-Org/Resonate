@@ -993,6 +993,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get speakerLabel => 'સ્પીકર';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'સમાપ્ત';
 
   @override
@@ -1342,6 +1345,21 @@ class AppLocalizationsGu extends AppLocalizations {
       'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
 
   @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
+
+  @override
   String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
 
   @override
@@ -1349,8 +1367,15 @@ class AppLocalizationsGu extends AppLocalizations {
       'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
 
   @override
-  String get thisMessageWasDeleted => 'This message was deleted';
+  String get thisMessageWasDeleted => 'આ સંદેશ ડિલીટ કરવામાં આવ્યો છે';
 
   @override
-  String get failedToDeleteMessage => 'Failed to delete message';
+  String get failedToDeleteMessage => 'સંદેશ ડિલીટ કરવામાં નિષ્ફળ';
+
+  @override
+  String get usernameInvalidFormat =>
+      'યુઝરનેમમાં માત્ર અક્ષરો, નંબરો, બિંદુ, અન્ડરસ્કોર અને ડેશ હોવા જોઈએ';
+
+  @override
+  String get usernameAlreadyTaken => 'આ યુઝરનેમ પહેલેથી લેવામાં આવ્યું છે';
 }

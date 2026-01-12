@@ -1,4 +1,13 @@
 {
+  "bn": [
+    "audioOptions",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done"
+  ],
+
   "gu": [
     "whisperModelTinyDescription",
     "whisperModelBaseDescription",
@@ -10,12 +19,31 @@
     "whisperModelLargeV2Description",
     "modelDownloadInfo",
     "clear",
+
+    "audioOptions",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
   ],
 
   "kn": [
     "clear",
+
+    "audioOptions",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
     "deleteMessageTitle",
     "deleteMessageContent",
     "thisMessageWasDeleted",
@@ -24,6 +52,16 @@
 
   "mr": [
     "clear",
+
+    "audioOptions",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
   ]

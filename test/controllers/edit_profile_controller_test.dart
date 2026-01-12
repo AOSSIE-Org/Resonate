@@ -57,6 +57,26 @@ void main() {
         ),
       ),
     );
+    when(
+      mockTablesDB.getRow(
+        databaseId: userDatabaseID,
+        tableId: usernameTableID,
+        rowId: 'anotheruser',
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: 'anotheruser',
+          $tableId: usernameTableID,
+          $databaseId: userDatabaseID,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0,
+          data: {"email": "another@test.com"},
+        ),
+      ),
+    );
   });
 
   test('check onInit', () {
@@ -67,8 +87,15 @@ void main() {
     expect(editProfileController.usernameController.text, 'testuser');
   });
   test('check isUsernameAvailable', () async {
+    // user's own username should return true
     final result = await editProfileController.isUsernameAvailable('testuser');
-    expect(result, false);
+    expect(result, true);
+
+    //a different username that exists should return false
+    final resultTaken = await editProfileController.isUsernameAvailable(
+      'anotheruser',
+    );
+    expect(resultTaken, false);
   });
 
   test('check isUsernameChanged', () {

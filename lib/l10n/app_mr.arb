@@ -1527,6 +1527,7 @@
         "description": "Error message when trying to exit a live chapter room without any recording."
     },
     "deleteMessageTitle": "संदेश हटवा",
+ 
     "@deleteMessageTitle": {
         "description": "Title for the delete message confirmation dialog"
     },
@@ -1534,4 +1535,29 @@
     "@deleteMessageContent": {
         "description": "Content/question for the delete message confirmation dialog"
     }
+"@deleteMessageTitle": {
+  "description": "Delete message पुष्टी संवादात शीर्षक दाखवले जाते."
+},
+"deleteMessageContent": "आपण खरोखर हा संदेश हटवू इच्छिता का?",
+"@deleteMessageContent": {
+  "description": "वापरकर्त्याला विचारले जाणारे पुष्टीकरण मजकूर की तो संदेश हटवू इच्छितो का."
+},
+"thisMessageWasDeleted": "हा संदेश डिलीट केला गेला",
+"@thisMessageWasDeleted": {
+  "description": "Status text shown when a previously sent message has been deleted."
+},
+"failedToDeleteMessage": "संदेश डिलीट करण्यात अयशस्वी",
+"@failedToDeleteMessage": {
+  "description": "Error message shown when the system is unable to delete a message."
+},
+"usernameInvalidFormat": "कृपया वैध युजरनेम प्रविष्ट करा. फक्त अक्षरे, संख्या, बिंदू, अंडरस्कोर आणि हायफनला परवानगी आहे.",
+"@usernameInvalidFormat": {
+  "description": "Validation error displayed when the user enters a username with unsupported characters."
+},
+"usernameAlreadyTaken": "हे युजरनेम आधीच घेतले गेले आहे. वेगळे युजरनेम वापरून पहा.",
+"@usernameAlreadyTaken": {
+  "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+}
+
+
 }

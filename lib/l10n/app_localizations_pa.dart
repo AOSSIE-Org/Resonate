@@ -976,6 +976,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get speakerLabel => 'ਸਪੀਕਰ';
 
   @override
+  String get audioOptions => 'ਆਡੀਓ ਵਿਕਲਪ';
+
+  @override
   String get end => 'ਅੰਤ';
 
   @override
@@ -1305,6 +1308,21 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String get noRecordingError =>
       'ਤੁਸੀਂ ਇਸ ਅਧਿਆਇ ਲਈ ਕੁਝ ਵੀ ਰਿਕਾਰਡ ਨਹੀਂ ਕੀਤਾ। ਕਿਰਪਾ ਕਰਕੇ ਰੂਮ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕਰੋ';
+
+  @override
+  String get audioOutput => 'ਆਡੀਓ ਆਊਟਪੁੱਟ';
+
+  @override
+  String get selectPreferredSpeaker => 'ਆਪਣਾ ਪਸੰਦੀਦਾ ਸਪੀਕਰ ਚੁਣੋ';
+
+  @override
+  String get noAudioOutputDevices => 'ਕੋਈ ਆਡੀਓ ਆਊਟਪੁੱਟ ਡਿਵਾਈਸ ਨਹੀਂ ਮਿਲੀ';
+
+  @override
+  String get refresh => 'ਰਿਫ੍ਰੈਸ਼ ਕਰੋ';
+
+  @override
+  String get done => 'ਹੋ ਗਿਆ';
 
   @override
   String get deleteMessageTitle => 'ਸੁਨੇਹਾ ਹਟਾਓ';

@@ -1002,6 +1002,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get speakerLabel => 'স্পিকার';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'শেষ করুন';
 
   @override
@@ -1353,6 +1356,21 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'আপনি অধ্যায়টির জন্য কিছুই রেকর্ড করোনি। রুম থেকে বের হওয়ার আগে অনুগ্রহ করে একটি অধ্যায় রেকর্ড করুন।';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
 
   @override
   String get deleteMessageTitle => 'বার্তা মুছে ফেলুন';

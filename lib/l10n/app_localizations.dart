@@ -1936,6 +1936,12 @@ abstract class AppLocalizations {
   /// **'Speaker'**
   String get speakerLabel;
 
+  /// Label for the audio options/settings button.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Options'**
+  String get audioOptions;
+
   /// Button text to end a call or session.
   ///
   /// In en, this message translates to:
@@ -2469,6 +2475,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
   String get noRecordingError;
+
+  /// Title for audio output device selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio Output'**
+  String get audioOutput;
+
+  /// Subtitle for audio device selector dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred speaker'**
+  String get selectPreferredSpeaker;
+
+  /// Message shown when no audio output devices are available.
+  ///
+  /// In en, this message translates to:
+  /// **'No audio output devices detected'**
+  String get noAudioOutputDevices;
+
+  /// Button text to refresh audio device list.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// Button text to close audio device selector.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
 
   /// Title shown in the delete message confirmation dialog.
   ///

@@ -1308,6 +1308,10 @@
     "@speakerLabel": {
         "description": "Label for the speakerphone toggle."
     },
+    "audioOptions": "ऑडियो विकल्प",
+    "@audioOptions": {
+        "description": "Label for the audio options/settings button."
+    },
     "end": "समाप्त करें",
     "@end": {
         "description": "Button text to end a call or session."
@@ -1757,6 +1761,26 @@
     "noRecordingError": "आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
+    },
+    "audioOutput": "ऑडियो आउटपुट",
+    "@audioOutput": {
+        "description": "Title for audio output device selector."
+    },
+    "selectPreferredSpeaker": "अपना पसंदीदा स्पीकर चुनें",
+    "@selectPreferredSpeaker": {
+        "description": "Subtitle for audio device selector dialog."
+    },
+    "noAudioOutputDevices": "कोई ऑडियो आउटपुट डिवाइस नहीं मिला",
+    "@noAudioOutputDevices": {
+        "description": "Message shown when no audio output devices are available."
+    },
+    "refresh": "रीफ़्रेश करें",
+    "@refresh": {
+        "description": "Button text to refresh audio device list."
+    },
+    "done": "हो गया",
+    "@done": {
+        "description": "Button text to close audio device selector."
     },
     "deleteMessageTitle": "संदेश हटाएँ",
 "@deleteMessageTitle": {

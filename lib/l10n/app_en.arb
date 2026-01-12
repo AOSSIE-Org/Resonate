@@ -928,7 +928,7 @@
     "@stable": {
         "description": "A label indicating a stable, non-beta version of the app."
     },
-    "usernameCharacterLimit": "Username should contain more than 5 characters.",
+    "usernameCharacterLimit": "Username should contain more than 7 characters.",
     "@usernameCharacterLimit": {
         "description": "Error message when a chosen username is too short."
     },
@@ -1323,6 +1323,10 @@
     "speakerLabel": "Speaker",
     "@speakerLabel": {
         "description": "Label for the speakerphone toggle."
+    },
+    "audioOptions": "Audio Options",
+    "@audioOptions": {
+        "description": "Label for the audio options/settings button."
     },
     "end": "End",
     "@end": {
@@ -1758,6 +1762,26 @@
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
     },
+    "audioOutput": "Audio Output",
+    "@audioOutput": {
+        "description": "Title for audio output device selector."
+    },
+    "selectPreferredSpeaker": "Select your preferred speaker",
+    "@selectPreferredSpeaker": {
+        "description": "Subtitle for audio device selector dialog."
+    },
+    "noAudioOutputDevices": "No audio output devices detected",
+    "@noAudioOutputDevices": {
+        "description": "Message shown when no audio output devices are available."
+    },
+    "refresh": "Refresh",
+    "@refresh": {
+        "description": "Button text to refresh audio device list."
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Button text to close audio device selector."
+    },
      "deleteMessageTitle": "Delete Message",
 "@deleteMessageTitle": {
   "description": "Title shown in the delete message confirmation dialog."
@@ -1767,7 +1791,24 @@
   "description": "Confirmation text asking the user if they want to delete a message."
 },
 "thisMessageWasDeleted": "This message was deleted",
-"failedToDeleteMessage": "Failed to delete message"
+"@thisMessageWasDeleted": {
+  "description": "Status text shown when a previously sent message has been deleted."
+},
+
+"failedToDeleteMessage": "Failed to delete message",
+"@failedToDeleteMessage": {
+  "description": "Error message shown when the system is unable to delete a message."
+},
+
+"usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
+"@usernameInvalidFormat": {
+  "description": "Validation error displayed when the user enters a username with unsupported characters."
+},
+
+"usernameAlreadyTaken": "This username is already taken. Try a different one.",
+"@usernameAlreadyTaken": {
+  "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+}
 
 
 }
