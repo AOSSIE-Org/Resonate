@@ -236,7 +236,6 @@ class CreateRoomScreen extends StatelessWidget {
                             child: TextFieldTags(
                               textfieldTagsController:
                                   controller.tagsController,
-                              initialTags: const ['sample-tag'],
                               textSeparators: const [' ', ','],
                               letterCase: LetterCase.normal,
                               validator: (tag) {
