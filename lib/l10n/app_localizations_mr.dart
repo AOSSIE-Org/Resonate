@@ -395,17 +395,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get cancel => 'रद्द करा';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'लपवा';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'रूम लपवा';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'या रूमला तुमच्या रूम यादीतून लपवा';
 
   @override
-  String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+  String get removeRoomConfirmation => 'तुम्हाला खरोखर ही रूम लपवायची आहे का?';
 
   @override
   String get completeYourProfile => 'आपल्या प्रोफाइल पूर्ण करा';
@@ -561,7 +560,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get errorLoadPackageInfo => 'पॅकेज माहिती लोड करू शकत नाही';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed => 'शोध अयशस्वी';
 
   @override
   String get updateAvailable => 'अपडेट उपलब्ध';
@@ -735,26 +734,25 @@ class AppLocalizationsMr extends AppLocalizations {
   String get noSearchResults => 'कोणतेही शोध परिणाम नाहीत';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'रूम शोधा...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'रूम शोधत आहे...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'शोध साफ करा';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'शोध त्रुटी';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError => 'रूम शोधताना त्रुटी';
 
   @override
-  String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+  String get searchUpcomingRoomsError => 'आगामी रूम शोधताना त्रुटी';
 
   @override
-  String get search => 'Search';
+  String get search => 'शोधा';
 
   @override
   String get clear => 'Clear';
@@ -1265,11 +1263,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String get updateFeaturesImprovement => 'नविन वैशिष्ट्य आणि सुधार मिळवा!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'रूम लपवण्यात अयशस्वी';
 
   @override
-  String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+  String get roomRemovedSuccessfully => 'रूम यशस्वीरित्या लपवली';
 
   @override
   String get alert => 'सतर्क';

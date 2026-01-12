@@ -317,36 +317,36 @@ class AppLocalizationsGu extends AppLocalizations {
   String get contribute => 'યોગદાન આપો';
 
   @override
-  String get appPreferences => 'App Preferences';
+  String get appPreferences => 'એપ પસંદગીઓ';
 
   @override
-  String get transcriptionModel => 'Transcription Model';
+  String get transcriptionModel => 'ટ્રાન્સક્રિપ્શન મોડેલ';
 
   @override
   String get transcriptionModelDescription =>
-      'Choose the AI model for voice transcription. Larger models are more accurate but slower and require more storage.';
+      'AI મોડેલ દ્વારા ઓડિયોને ટેક્સ્ટમાં કન્વર્ટ કરો';
 
   @override
-  String get whisperModelTiny => 'Tiny';
+  String get whisperModelTiny => 'ટાઈની';
 
   @override
   String get whisperModelTinyDescription => 'Fastest, least accurate (~39 MB)';
 
   @override
-  String get whisperModelBase => 'Base';
+  String get whisperModelBase => 'બેઝ';
 
   @override
   String get whisperModelBaseDescription =>
       'Balanced speed and accuracy (~74 MB)';
 
   @override
-  String get whisperModelSmall => 'Small';
+  String get whisperModelSmall => 'સ્મૉલ';
 
   @override
   String get whisperModelSmallDescription => 'Good accuracy, slower (~244 MB)';
 
   @override
-  String get whisperModelMedium => 'Medium';
+  String get whisperModelMedium => 'મીડિયમ';
 
   @override
   String get whisperModelMediumDescription => 'High accuracy, slower (~769 MB)';
@@ -394,17 +394,17 @@ class AppLocalizationsGu extends AppLocalizations {
   String get cancel => 'રદ કરો';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'છુપાવો';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'રૂમ છુપાવો';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'આ રૂમને તમારી રૂમ લિસ્ટમાંથી છુપાવો';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'શું તમે ખરેખર આ રૂમને છુપાવવા માંગો છો?';
 
   @override
   String get completeYourProfile => 'તમારી પ્રોફાઈલ પૂર્ણ કરો';
@@ -560,7 +560,7 @@ class AppLocalizationsGu extends AppLocalizations {
   String get errorLoadPackageInfo => 'પૅકેજ માહિતી લોડ કરી શકાઈ નથી';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed => 'શોધ નિષ્ફળ';
 
   @override
   String get updateAvailable => 'અપડેટ ઉપલબ્ધ છે';
@@ -733,26 +733,25 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noSearchResults => 'કોઈ શોધ પરિણામો નથી';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'રૂમ શોધો...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'રૂમ શોધી રહ્યા છીએ...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'શોધ સાફ કરો';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'શોધ દરમિયાન એરર';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError => 'રૂમ શોધતી વખતે એરર';
 
   @override
-  String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+  String get searchUpcomingRoomsError => 'આગામી રૂમ શોધતી વખતે એરર';
 
   @override
-  String get search => 'Search';
+  String get search => 'શોધો';
 
   @override
   String get clear => 'Clear';
@@ -1175,7 +1174,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String friendRequestAcceptedTo(String username) {
-    return 'તમે હવે \$$username સાથે મિત્ર છો.';
+    return 'તમે હવે $username સાથે મિત્ર છો.';
   }
 
   @override
@@ -1183,7 +1182,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'તમે \$$username ની મિત્ર વિનંતી નકારી છે.';
+    return 'તમે $username ની મિત્ર વિનંતી નકારી છે.';
   }
 
   @override
@@ -1194,7 +1193,7 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return 'યુઝર \$$username એ કૉલ નકારી છે.';
+    return 'યુઝર $username એ કૉલ નકારી છે.';
   }
 
   @override
@@ -1264,11 +1263,10 @@ class AppLocalizationsGu extends AppLocalizations {
   String get updateFeaturesImprovement => 'નવા ફીચર્સ અને સુધારાઓ મેળવો!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'રૂમ છુપાવવામાં નિષ્ફળ';
 
   @override
-  String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+  String get roomRemovedSuccessfully => 'રૂમ સફળતાપૂર્વક છુપાવી';
 
   @override
   String get alert => 'ચેતવણી';
