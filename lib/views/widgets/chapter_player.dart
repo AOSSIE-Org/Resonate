@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -175,6 +176,134 @@ class ChapterPlayer extends StatelessWidget {
               ),
             ),
             
+            // Sleep Timer
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 100),
+              top: 350 - (3.3 * (progress * 100)) < 200
+                  ? 210
+                  : 360 - (3.3 * (progress * 100)),
+              left: 100,
+              curve: Curves.easeInOut,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: progress > 0.45 ? 0 : 1,
+                child: Obx(
+                  () => TextButton(
+                    onPressed: progress > 0.45 
+                      ? null 
+                      : () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              double selectedMinutes = 15;
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Sleep Timer",
+                                          style: Theme.of(context).textTheme.titleLarge,
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Text(
+                                          "${selectedMinutes.toInt()} Minutes",
+                                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Slider(
+                                          value: selectedMinutes,
+                                          min: 1,
+                                          max: 480,
+                                          divisions: 479,
+                                          label: "${selectedMinutes.toInt()} min",
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedMinutes = value;
+                                            });
+                                          },
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            if (controller.sleepTimerRemaining.value != null)
+                                              OutlinedButton(
+                                                onPressed: () {
+                                                  controller.cancelSleepTimer();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text("Turn Off"),
+                                              ),
+                                            FilledButton(
+                                              onPressed: () {
+                                                controller.startSleepTimer(selectedMinutes.toInt());
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(controller.sleepTimerRemaining.value != null 
+                                                  ? "Update Timer" 
+                                                  : "Start Timer"
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextButton(
+                                          onPressed: () {
+                                             final remainingMs = controller.chapterDuration.inMilliseconds - controller.sliderProgress.value;
+                                             final remainingMinutes = (remainingMs / 1000 / 60).ceil();
+                                             controller.startSleepTimer(remainingMinutes);
+                                             Navigator.pop(context);
+                                          },
+                                          child: const Text("End of Chapter"),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                    style: TextButton.styleFrom(
+                      backgroundColor: controller.sleepTimerRemaining.value != null 
+                          ? Theme.of(context).primaryColor 
+                          : Colors.black12,
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (controller.sleepTimerRemaining.value != null) ...[
+                          Text(
+                            "${(controller.sleepTimerRemaining.value! / 60).ceil()}m",
+                             style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ] else ...[
+                          Icon(
+                            Icons.nights_stay,
+                            size: 18,
+                            color: Theme.of(context).brightness == Brightness.dark ||
+                                      (ThemeData.estimateBrightnessForColor(
+                                                chapter.tintColor,
+                                              ) ==
+                                              Brightness.dark)
+                                  ? Colors.white
+                                  : Colors.black87,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             // Playback Speed Control
             AnimatedPositioned(
               duration: const Duration(milliseconds: 100),
