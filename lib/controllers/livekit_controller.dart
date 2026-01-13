@@ -32,13 +32,15 @@ class LiveKitController extends GetxController {
 
   @override
   void onInit() async {
-    await connectToRoom(); // Initial connection with retries
-    liveKitRoom.addListener(onRoomDidUpdate);
-    setUpListeners();
-    if (isLiveChapter) {
-      listenToRecordingStateChanges();
-    }
     super.onInit();
+    await connectToRoom(); // Initial connection with retries
+    if (isConnected.value) {
+      liveKitRoom.addListener(onRoomDidUpdate);
+      setUpListeners();
+      if (isLiveChapter) {
+        listenToRecordingStateChanges();
+      }
+    }
   }
 
   void listenToRecordingStateChanges() async {
@@ -73,8 +75,7 @@ class LiveKitController extends GetxController {
   }
 
   Future<bool> connectToRoom() async {
-    // Reset attempts for a fresh connection
-    if (reconnectAttempts == 0) reconnectAttempts = 0;
+    reconnectAttempts = 0;
 
     while (reconnectAttempts < maxAttempts) {
       try {
@@ -92,6 +93,8 @@ class LiveKitController extends GetxController {
           roomToken,
           connectOptions: const ConnectOptions(autoSubscribe: true),
         );
+        // Waiting for connection to stabilize
+        await Future.delayed(const Duration(milliseconds: 1000));
 
         isConnected.value = true;
         reconnectAttempts = 0; // Reset on success
@@ -102,11 +105,19 @@ class LiveKitController extends GetxController {
         log(
           'Connection attempt $reconnectAttempts/$maxAttempts failed: $error',
         );
+        //cleaning up failed connection so multiple room  instances doesnt accumulate
+        try {
+          await liveKitRoom.disconnect();
+          await liveKitRoom.dispose();
+        } catch (e) {
+          log('Error cleaning up failed connection: $e');
+        }
 
         if (reconnectAttempts < maxAttempts) {
           await Future.delayed(retryInterval); // Wait before retrying
         } else {
           log('Failed to connect after $maxAttempts attempts');
+          isConnected.value = false; //changed the connection value to false
           Get.snackbar(
             AppLocalizations.of(Get.context!)!.connectionFailed,
             AppLocalizations.of(Get.context!)!.unableToJoinRoom,
