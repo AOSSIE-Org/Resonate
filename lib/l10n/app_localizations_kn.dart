@@ -999,6 +999,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get speakerLabel => 'ಮಾತನಾಡುವವರು';
 
   @override
+  String get audioOptions => 'Audio Options';
+
+  @override
   String get end => 'ಮುಗಿಸಿ';
 
   @override
@@ -1349,4 +1352,32 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get deleteMessageContent =>
+      'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
 }

@@ -10,6 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/participant_block.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
+import 'package:resonate/views/widgets/audio_selector_dialog.dart';
 
 class RoomScreen extends StatefulWidget {
   final AppwriteRoom room;
@@ -178,6 +179,7 @@ class RoomScreenState extends State<RoomScreen> {
             _buildLeaveButton(),
             _buildMicButton(),
             _buildRaiseHandButton(),
+            _buildAudioSettingsButton(),
             _buildChatButton(),
           ],
         ),
@@ -189,7 +191,7 @@ class RoomScreenState extends State<RoomScreen> {
     return GetBuilder<SingleRoomController>(
       init: SingleRoomController(appwriteRoom: widget.room),
       builder: (controller) {
-        return ElevatedButton.icon(
+        return ElevatedButton(
           onPressed: () async {
             await _deleteRoomDialog(
               controller.appwriteRoom.isUserAdmin
@@ -205,13 +207,13 @@ class RoomScreenState extends State<RoomScreen> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 241, 108, 98),
+            backgroundColor: Colors.redAccent,
+            foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          icon: const Icon(Icons.exit_to_app),
-          label: Text(AppLocalizations.of(context)!.leaveButton),
+          child: const Icon(Icons.call_end, size: 24),
         );
       },
     );
@@ -288,6 +290,14 @@ class RoomScreenState extends State<RoomScreen> {
           child: Icon(Icons.chat, color: Colors.black),
         );
       },
+    );
+  }
+
+  Widget _buildAudioSettingsButton() {
+    return FloatingActionButton(
+      onPressed: () async => await showAudioDeviceSelector(context),
+      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      child: const Icon(Icons.volume_up),
     );
   }
 }
