@@ -1328,6 +1328,10 @@
   "@speakerLabel": {
     "description": "Label for speaker."
   },
+  "audioOptions": "ਆਡੀਓ ਵਿਕਲਪ",
+  "@audioOptions": {
+    "description": "Label for the audio options/settings button."
+  },
   "end": "ਅੰਤ",
   "@end": {
     "description": "Label for end."
@@ -1755,5 +1759,25 @@
   "noRecordingError": "ਤੁਸੀਂ ਇਸ ਅਧਿਆਇ ਲਈ ਕੁਝ ਵੀ ਰਿਕਾਰਡ ਨਹੀਂ ਕੀਤਾ। ਕਿਰਪਾ ਕਰਕੇ ਰੂਮ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕਰੋ",
   "@noRecordingError": {
     "description": "Message when there is no recording error."
+  },
+  "audioOutput": "ਆਡੀਓ ਆਊਟਪੁੱਟ",
+  "@audioOutput": {
+    "description": "Title for audio output device selector."
+  },
+  "selectPreferredSpeaker": "ਆਪਣਾ ਪਸੰਦੀਦਾ ਸਪੀਕਰ ਚੁਣੋ",
+  "@selectPreferredSpeaker": {
+    "description": "Subtitle for audio device selector dialog."
+  },
+  "noAudioOutputDevices": "ਕੋਈ ਆਡੀਓ ਆਊਟਪੁੱਟ ਡਿਵਾਈਸ ਨਹੀਂ ਮਿਲੀ",
+  "@noAudioOutputDevices": {
+    "description": "Message shown when no audio output devices are available."
+  },
+  "refresh": "ਰਿਫ੍ਰੈਸ਼ ਕਰੋ",
+  "@refresh": {
+    "description": "Button text to refresh audio device list."
+  },
+  "done": "ਹੋ ਗਿਆ",
+  "@done": {
+    "description": "Button text to close audio device selector."
   }
 }

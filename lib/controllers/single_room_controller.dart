@@ -6,6 +6,7 @@ import 'package:flutter/material.dart' hide Row;
 
 import 'package:get/get.dart';
 
+import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
@@ -90,6 +91,7 @@ class SingleRoomController extends GetxController {
   Future<void> removeParticipantDataFromList(String uid) async {
     participants.removeWhere((p) => p.value.uid == uid);
     if (participants.isEmpty) {
+      Get.delete<AudioDeviceController>(force: true);
       Get.delete<SingleRoomController>();
     }
   }
@@ -175,6 +177,7 @@ class SingleRoomController extends GetxController {
                     AppLocalizations.of(Get.context!)!.removedFromRoom,
                     LogType.warning,
                   );
+                  Get.delete<AudioDeviceController>(force: true);
                   await Get.delete<SingleRoomController>();
                 } else {
                   removeParticipantDataFromList(data.payload["uid"]);
@@ -217,6 +220,7 @@ class SingleRoomController extends GetxController {
     loadingDialog(Get.context!);
     await subscription?.close();
     await RoomService.leaveRoom(roomId: appwriteRoom.id);
+    Get.delete<AudioDeviceController>(force: true);
     Get.delete<SingleRoomController>();
   }
 
@@ -225,6 +229,7 @@ class SingleRoomController extends GetxController {
       isLoading.value = true;
       await RoomService.deleteRoom(roomId: appwriteRoom.id);
       await roomsController.getRooms();
+      Get.delete<AudioDeviceController>(force: true);
       Get.delete<SingleRoomController>();
     } catch (e) {
       log(

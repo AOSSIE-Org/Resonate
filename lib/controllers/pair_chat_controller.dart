@@ -238,17 +238,26 @@ class PairChatController extends GetxController {
     Get.toNamed(AppRoutes.pairChat);
   }
 
-  Future<void> cancelRequest() async {
-    await tablesDB.deleteRow(
-      databaseId: masterDatabaseId,
-      tableId: pairRequestTableId,
-      rowId: requestDocId!,
-    );
-    subscription?.close();
-    userAddedSubscription?.close();
+Future<void> cancelRequest() async {
+  try {
+    if (requestDocId != null) {
+      await tablesDB.deleteRow(
+        databaseId: masterDatabaseId,
+        tableId: pairRequestTableId,
+        rowId: requestDocId!,
+      );
+    }
+
+    requestDocId = null;
+
+    await subscription?.close();
+    await userAddedSubscription?.close();
+  } catch (e) {
+    log('Cancel request failed: $e');
+  } finally {
     Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
-
+}
   void toggleMic() async {
     isMicOn.value = !isMicOn.value;
     await Get.find<LiveKitController>().liveKitRoom.localParticipant

@@ -27,7 +27,7 @@ class EditProfileController extends GetxController {
 
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
-
+  Rx<bool> usernameChecking = false.obs;
   bool removeImage = false;
   bool showSuccessSnackbar = false;
 
@@ -57,6 +57,9 @@ class EditProfileController extends GetxController {
     super.onInit();
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
+    // Initialize as true since user starts with their own username
+
+    usernameAvailable.value = true;
 
     nameController.text = authStateController.displayName!.trim();
     usernameController.text = authStateController.userName!.trim();
@@ -157,6 +160,10 @@ class EditProfileController extends GetxController {
   }
 
   Future<bool> isUsernameAvailable(String username) async {
+    // condition to check if the username is same as the current username
+    if (username.trim() == oldUsername) {
+      return true;
+    }
     try {
       await tables.getRow(
         databaseId: userDatabaseID,
@@ -259,49 +266,32 @@ class EditProfileController extends GetxController {
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail = await isUsernameAvailable(
-          usernameController.text.trim(),
-        );
-        if (!usernameAvail) {
-          usernameAvailable.value = false;
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.usernameUnavailable,
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
-            LogType.error,
-          );
-
-          SemanticsService.announce(
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
-            TextDirection.ltr,
-          );
-          return;
-        }
-
         // Create new doc of New Username
-        await tables.createRow(
-          databaseId: userDatabaseID,
-          tableId: usernameTableID,
-          rowId: usernameController.text.trim(),
-          data: {'email': authStateController.email},
-        );
-
         try {
-          // Delete Old Username doc, so Username can be re-usable
+          await tables.createRow(
+            databaseId: userDatabaseID,
+            tableId: usernameTableID,
+            rowId: usernameController.text.trim(),
+            data: {'email': authStateController.email},
+          );
+
           await tables.deleteRow(
             databaseId: userDatabaseID,
             tableId: usernameTableID,
             rowId: oldUsername,
           );
+
+          await tables.updateRow(
+            databaseId: userDatabaseID,
+            tableId: usersTableID,
+            rowId: authStateController.uid!,
+            data: {"username": usernameController.text.trim()},
+          );
         } catch (e) {
           log(e.toString());
+          showSuccessSnackbar = false;
+          rethrow;
         }
-
-        await tables.updateRow(
-          databaseId: userDatabaseID,
-          tableId: usersTableID,
-          rowId: authStateController.uid!,
-          data: {"username": usernameController.text.trim()},
-        );
       }
 
       //Update user DISPLAY-NAME
