@@ -163,8 +163,33 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             ),
                           ),
                         ),
+                        
+                        const SizedBox(height: 10),
+                        
+                        // "Share Lyric" button - Triggers the card generation and native share sheet
+                        Center(
+                          child: TextButton.icon(
+                            onPressed: () => controller.shareCurrentLyric(context, widget.chapter),
+                            icon: Icon(
+                              Icons.share_rounded, 
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            label: Text(
+                              "Share Lyric",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                            ),
+                          ),
+                        ),
 
-                        // added a second extra to cover up the error of the meta data library
+
+                        // Bottom spacer to ensure the last lyrics aren't hidden behind the navbar
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
