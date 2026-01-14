@@ -1,11 +1,30 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # Flutter/Dart dependencies
+  - package-ecosystem: "pub"
+    directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    ignore:
+      # Ignore major version updates
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Group Firebase-related packages together
+      firebase:
+        patterns:
+          - "firebase_*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group Flutter-related packages together
+      flutter-packages:
+        patterns:
+          - "flutter_*"
+        update-types:
+          - "minor"
+          - "patch"
