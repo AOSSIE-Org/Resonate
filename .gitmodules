@@ -1,0 +1,3 @@
+[submodule "android/app/src/main/cpp/dsp/juce"]
+	path = android/app/src/main/cpp/dsp/juce
+	url = https://github.com/juce-framework/JUCE.git
