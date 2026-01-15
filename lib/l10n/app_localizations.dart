@@ -1410,10 +1410,10 @@ abstract class AppLocalizations {
   /// **'Please check your mail for a new OTP.'**
   String get otpResentMessage;
 
-  /// Generic error message for network connection issues.
+  /// Title for network connection error messages.
   ///
   /// In en, this message translates to:
-  /// **'There is a connection error. Please check your internet and try again.'**
+  /// **'Connection Error'**
   String get connectionError;
 
   /// The word 'seconds', often used after a countdown number.
@@ -1467,7 +1467,7 @@ abstract class AppLocalizations {
   /// Error message when a chosen username is too short.
   ///
   /// In en, this message translates to:
-  /// **'Username should contain more than 5 characters.'**
+  /// **'Username should contain more than 7 characters.'**
   String get usernameCharacterLimit;
 
   /// Generic button text for submitting a form.
@@ -2518,17 +2518,95 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to delete this message?'**
   String get deleteMessageContent;
 
-  /// No description provided for @thisMessageWasDeleted.
+  /// Status text shown when a previously sent message has been deleted.
   ///
   /// In en, this message translates to:
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// No description provided for @failedToDeleteMessage.
+  /// Error message shown when the system is unable to delete a message.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
   String get failedToDeleteMessage;
+
+  /// Validation error displayed when the user enters a username with unsupported characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.'**
+  String get usernameInvalidFormat;
+
+  /// Error shown when the chosen username is unavailable because another user has already registered it.
+  ///
+  /// In en, this message translates to:
+  /// **'This username is already taken. Try a different one.'**
+  String get usernameAlreadyTaken;
+
+  /// Error message shown when a network-related error occurs.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your internet connection and try again.'**
+  String get networkError;
+
+  /// Generic error message for authentication failures.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please try again.'**
+  String get authenticationError;
+
+  /// Error message shown when file storage operations fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save or load data. Please try again.'**
+  String get storageError;
+
+  /// Error message shown when database operations fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to access data. Please try again.'**
+  String get databaseError;
+
+  /// Error message shown when input validation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your input and try again.'**
+  String get validationError;
+
+  /// Generic fallback error message for unexpected errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get generalError;
+
+  /// Title for authentication error messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Error'**
+  String get authError;
+
+  /// Title for validation error messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Input'**
+  String get invalidInput;
+
+  /// Error message when trying to create an account with an existing email.
+  ///
+  /// In en, this message translates to:
+  /// **'An account with this email already exists.'**
+  String get userAlreadyExists;
+
+  /// Error message when a user account cannot be found.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found.'**
+  String get userNotFound;
+
+  /// Error message when requested data does not exist.
+  ///
+  /// In en, this message translates to:
+  /// **'The requested data was not found.'**
+  String get dataNotFound;
 }
 
 class _AppLocalizationsDelegate
