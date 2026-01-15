@@ -5,13 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'app_localizations_bn.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
-import 'app_localizations_pa.dart';
 
 // ignore_for_file: type=lint
 
@@ -99,13 +97,11 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('bn'),
     Locale('en'),
     Locale('gu'),
     Locale('hi'),
     Locale('kn'),
     Locale('mr'),
-    Locale('pa'),
   ];
 
   /// The title of the application.
@@ -1936,12 +1932,6 @@ abstract class AppLocalizations {
   /// **'Speaker'**
   String get speakerLabel;
 
-  /// Label for the audio options/settings button.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Options'**
-  String get audioOptions;
-
   /// Button text to end a call or session.
   ///
   /// In en, this message translates to:
@@ -2475,60 +2465,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have not recorded anything for the chapter. Please record a chapter before exiting the room'**
   String get noRecordingError;
-
-  /// Title for audio output device selector.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Output'**
-  String get audioOutput;
-
-  /// Subtitle for audio device selector dialog.
-  ///
-  /// In en, this message translates to:
-  /// **'Select your preferred speaker'**
-  String get selectPreferredSpeaker;
-
-  /// Message shown when no audio output devices are available.
-  ///
-  /// In en, this message translates to:
-  /// **'No audio output devices detected'**
-  String get noAudioOutputDevices;
-
-  /// Button text to refresh audio device list.
-  ///
-  /// In en, this message translates to:
-  /// **'Refresh'**
-  String get refresh;
-
-  /// Button text to close audio device selector.
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get done;
-
-  /// Title shown in the delete message confirmation dialog.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Message'**
-  String get deleteMessageTitle;
-
-  /// Confirmation text asking the user if they want to delete a message.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to delete this message?'**
-  String get deleteMessageContent;
-
-  /// No description provided for @thisMessageWasDeleted.
-  ///
-  /// In en, this message translates to:
-  /// **'This message was deleted'**
-  String get thisMessageWasDeleted;
-
-  /// No description provided for @failedToDeleteMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to delete message'**
-  String get failedToDeleteMessage;
 }
 
 class _AppLocalizationsDelegate
@@ -2541,15 +2477,8 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'bn',
-    'en',
-    'gu',
-    'hi',
-    'kn',
-    'mr',
-    'pa',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'gu', 'hi', 'kn', 'mr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2558,8 +2487,6 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'bn':
-      return AppLocalizationsBn();
     case 'en':
       return AppLocalizationsEn();
     case 'gu':
@@ -2570,8 +2497,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsKn();
     case 'mr':
       return AppLocalizationsMr();
-    case 'pa':
-      return AppLocalizationsPa();
   }
 
   throw FlutterError(

@@ -10,7 +10,7 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 
 class FriendsController extends GetxController {
-  final TablesDB tables;
+  final Databases databases;
   final FirebaseMessaging firebaseMessaging;
   final Functions functions;
   final AuthStateController authStateController;
@@ -21,12 +21,12 @@ class FriendsController extends GetxController {
   final Realtime realtime;
 
   FriendsController({
-    TablesDB? tables,
+    Databases? databases,
     Functions? functions,
     Realtime? realtime,
     FirebaseMessaging? firebaseMessaging,
     AuthStateController? authStateController,
-  }) : tables = tables ?? AppwriteService.getTables(),
+  }) : databases = databases ?? AppwriteService.getDatabases(),
        functions = functions ?? AppwriteService.getFunctions(),
        realtime = realtime ?? AppwriteService.getRealtime(),
        firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
@@ -69,20 +69,20 @@ class FriendsController extends GetxController {
           authStateController.ratingTotal / authStateController.ratingCount,
       recieverRating: recieverRating,
     );
-    await tables.createRow(
+    await databases.createDocument(
       databaseId: userDatabaseID,
-      tableId: friendsTableID,
-      rowId: docId,
+      collectionId: friendsCollectionID,
+      documentId: docId,
       data: friendModel.toJson(),
     );
     friendRequestsList.add(friendModel);
   }
 
   Future<void> removeFriend(FriendsModel friendModel) async {
-    await tables.deleteRow(
+    await databases.deleteDocument(
       databaseId: userDatabaseID,
-      tableId: friendsTableID,
-      rowId: friendModel.docId,
+      collectionId: friendsCollectionID,
+      documentId: friendModel.docId,
     );
     friendsList.removeWhere((friend) => friend.docId == friendModel.docId);
     friendRequestsList.removeWhere(
@@ -95,11 +95,10 @@ class FriendsController extends GetxController {
     friendsList.clear();
     friendRequestsList.clear();
 
-    final userDoc = await tables.getRow(
+    final userDoc = await databases.getDocument(
       databaseId: userDatabaseID,
-      tableId: usersTableID,
-      rowId: authStateController.uid!,
-      queries: [Query.select(["*", "friends.*"])],
+      collectionId: usersCollectionID,
+      documentId: authStateController.uid!,
     );
     for (var friend in (userDoc.data["friends"] ?? []) as List<dynamic>) {
       final friendModel = FriendsModel.fromJson(friend);
@@ -121,10 +120,10 @@ class FriendsController extends GetxController {
       users: [friendModel.senderId, friendModel.recieverId],
     );
 
-    await tables.updateRow(
+    await databases.updateDocument(
       databaseId: userDatabaseID,
-      tableId: friendsTableID,
-      rowId: friendModel.docId,
+      collectionId: friendsCollectionID,
+      documentId: friendModel.docId,
       data: updatedFriendModel.toJson(),
     );
 
@@ -135,10 +134,10 @@ class FriendsController extends GetxController {
   }
 
   Future<void> declineFriendRequest(FriendsModel friendModel) async {
-    await tables.deleteRow(
+    await databases.deleteDocument(
       databaseId: userDatabaseID,
-      tableId: friendsTableID,
-      rowId: friendModel.docId,
+      collectionId: friendsCollectionID,
+      documentId: friendModel.docId,
     );
     friendRequestsList.removeWhere(
       (request) => request.docId == friendModel.docId,
@@ -146,7 +145,8 @@ class FriendsController extends GetxController {
   }
 
   void listenForChangesInFriends() {
-    String channel = 'databases.$userDatabaseID.tables.$friendsTableID.rows';
+    String channel =
+        'databases.$userDatabaseID.collections.$friendsCollectionID.documents';
     friendRequestsSubscription = realtime.subscribe([channel]);
     friendRequestsSubscription.stream.listen((data) async {
       if (data.payload.isNotEmpty) {

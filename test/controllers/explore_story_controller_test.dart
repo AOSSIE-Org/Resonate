@@ -15,17 +15,18 @@ import 'package:resonate/utils/enums/story_category.dart';
 import 'explore_story_controller_test.mocks.dart';
 
 @GenerateMocks([
-  TablesDB,
+  Databases,
   Storage,
+  // ThemeController,
   Account,
   Client,
   FirebaseMessaging,
   Functions,
 ])
-List<Row> mockStoryDocuments = [
-  Row(
+List<Document> mockStoryDocuments = [
+  Document(
     $id: 'doc1',
-    $tableId: storyTableId,
+    $collectionId: storyCollectionId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -48,9 +49,9 @@ List<Row> mockStoryDocuments = [
     },
     $sequence: 0,
   ),
-  Row(
+  Document(
     $id: 'doc2',
-    $tableId: storyTableId,
+    $collectionId: storyCollectionId,
     $databaseId: storyDatabaseId,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -74,10 +75,10 @@ List<Row> mockStoryDocuments = [
     $sequence: 1,
   ),
 ];
-List<Row> mockUsersDocuments = [
-  Row(
+List<Document> mockUsersDocuments = [
+  Document(
     $id: 'doc1',
-    $tableId: usersTableID,
+    $collectionId: usersCollectionID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -98,9 +99,9 @@ List<Row> mockUsersDocuments = [
     },
     $sequence: 0,
   ),
-  Row(
+  Document(
     $id: 'doc2',
-    $tableId: usersTableID,
+    $collectionId: usersCollectionID,
     $databaseId: userDatabaseID,
     $createdAt: DateTime.fromMillisecondsSinceEpoch(
       1754337186,
@@ -172,27 +173,27 @@ List<Story> mockStoriesList = [
 ];
 
 void main() {
-  late MockTablesDB tables;
+  late MockDatabases databases;
   late ExploreStoryController exploreStoryController;
   setUp(() {
-    tables = MockTablesDB();
+    databases = MockDatabases();
     exploreStoryController = ExploreStoryController(
       authStateController: AuthStateController(
         account: MockAccount(),
         client: MockClient(),
-        tables: tables,
+        databases: databases,
         messaging: MockFirebaseMessaging(),
       ),
-      tables: tables,
+      databases: databases,
       storage: MockStorage(),
       functions: MockFunctions(),
     );
     exploreStoryController.authStateController.uid = 'id2';
 
     when(
-      tables.listRows(
+      databases.listDocuments(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
+        collectionId: storyCollectionId,
         queries: [
           Query.equal(
             'creatorId',
@@ -203,31 +204,31 @@ void main() {
     ).thenAnswer(
       (_) => Future.delayed(
         Duration(seconds: 2),
-        () => RowList(total: 1, rows: [mockStoryDocuments[1]]),
+        () => DocumentList(total: 1, documents: [mockStoryDocuments[1]]),
       ),
     );
     when(
-      tables.listRows(
+      databases.listDocuments(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
+        collectionId: storyCollectionId,
         queries: [Query.equal('creatorId', 'id1')],
       ),
     ).thenAnswer(
       (_) => Future.delayed(
         Duration(seconds: 2),
-        () => RowList(total: 1, rows: [mockStoryDocuments[0]]),
+        () => DocumentList(total: 1, documents: [mockStoryDocuments[0]]),
       ),
     );
     when(
-      tables.listRows(
+      databases.listDocuments(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
+        collectionId: storyCollectionId,
         queries: [Query.limit(10)],
       ),
     ).thenAnswer(
       (_) => Future.delayed(
         Duration(seconds: 2),
-        () => RowList(total: 2, rows: mockStoryDocuments),
+        () => DocumentList(total: 2, documents: mockStoryDocuments),
       ),
     );
   });
