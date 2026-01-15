@@ -721,7 +721,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get usernameCharacterLimit =>
-      'Username should contain more than 7 characters.';
+      'Username should contain more than 5 characters.';
 
   @override
   String get submit => 'Submit';
@@ -991,9 +991,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speakerLabel => 'Speaker';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'End';
@@ -1345,65 +1342,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noRecordingError =>
       'You have not recorded anything for the chapter. Please record a chapter before exiting the room';
-
-  @override
-  String get audioOutput => 'Audio Output';
-
-  @override
-  String get selectPreferredSpeaker => 'Select your preferred speaker';
-
-  @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
-
-  @override
-  String get refresh => 'Refresh';
-
-  @override
-  String get done => 'Done';
-
-  @override
-  String get deleteMessageTitle => 'Delete Message';
-
-  @override
-  String get deleteMessageContent =>
-      'Are you sure you want to delete this message?';
-
-  @override
-  String get thisMessageWasDeleted => 'This message was deleted';
-
-  @override
-  String get failedToDeleteMessage => 'Failed to delete message';
-
-  @override
-  String get noFriendsYet => 'No Friends Yet';
-
-  @override
-  String get noFriendsDescription =>
-      'Your friends list is empty. Start connecting with people and grow your network!';
-
-  @override
-  String get findFriends => 'Find Friends';
-
-  @override
-  String get inviteFriend => 'Invite a Friend';
-
-  @override
-  String get noFriendRequestsYet => 'No Friend Requests';
-
-  @override
-  String get noFriendRequestsDescription =>
-      'You don\'t have any pending friend requests. Invite your friends to connect!';
-
-  @override
-  String inviteToResonate(String url) {
-    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
-  }
-
-  @override
-  String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
-
-  @override
-  String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
 }

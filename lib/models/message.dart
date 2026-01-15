@@ -8,7 +8,6 @@ class Message {
   String creatorName;
   String creatorImgUrl;
   bool hasValidTag;
-  bool isDeleted;
   int index;
   bool isEdited;
   String content;
@@ -26,7 +25,6 @@ class Message {
     required this.creatorImgUrl,
     required this.isEdited,
     required this.content,
-    required this.isDeleted,
     required this.creationDateTime,
     this.replyTo,
   });
@@ -43,7 +41,6 @@ class Message {
       'index': index,
       'isEdited': isEdited,
       'content': content,
-      'isDeleted': isDeleted,
       'creationDateTime': creationDateTime.toUtc().toIso8601String(),
       'replyTo': replyTo?.toJson(),
     };
@@ -61,7 +58,6 @@ class Message {
       'index': index,
       'isEdited': isEdited,
       'content': content,
-      'isDeleted': isDeleted,
       'creationDateTime': creationDateTime.toUtc().toIso8601String(),
     };
   }
@@ -78,7 +74,6 @@ class Message {
       isEdited = json['isEdited'],
       content = json['content'],
       creationDateTime = DateTime.parse(json['creationDateTime']),
-      isDeleted = json['isDeleted'] ?? false,
       replyTo = json['replyTo'] != null
           ? ReplyTo.fromJson(json['replyTo'])
           : null;
@@ -92,7 +87,6 @@ class Message {
     bool? hasValidTag,
     int? index,
     bool? isEdited,
-    bool? isDeleted,
     String? content,
     DateTime? creationDateTime,
     ReplyTo? replyTo,
@@ -108,7 +102,6 @@ class Message {
       index: index ?? this.index,
       isEdited: isEdited ?? this.isEdited,
       content: content ?? this.content,
-      isDeleted: isDeleted ?? this.isDeleted,
       creationDateTime: creationDateTime ?? this.creationDateTime,
       replyTo: replyTo ?? this.replyTo,
     );

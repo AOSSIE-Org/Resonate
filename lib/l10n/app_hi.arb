@@ -1308,10 +1308,6 @@
     "@speakerLabel": {
         "description": "Label for the speakerphone toggle."
     },
-    "audioOptions": "ऑडियो विकल्प",
-    "@audioOptions": {
-        "description": "Label for the audio options/settings button."
-    },
     "end": "समाप्त करें",
     "@end": {
         "description": "Button text to end a call or session."
@@ -1761,71 +1757,5 @@
     "noRecordingError": "आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    },
-    "audioOutput": "ऑडियो आउटपुट",
-    "@audioOutput": {
-        "description": "Title for audio output device selector."
-    },
-    "selectPreferredSpeaker": "अपना पसंदीदा स्पीकर चुनें",
-    "@selectPreferredSpeaker": {
-        "description": "Subtitle for audio device selector dialog."
-    },
-    "noAudioOutputDevices": "कोई ऑडियो आउटपुट डिवाइस नहीं मिला",
-    "@noAudioOutputDevices": {
-        "description": "Message shown when no audio output devices are available."
-    },
-    "refresh": "रीफ़्रेश करें",
-    "@refresh": {
-        "description": "Button text to refresh audio device list."
-    },
-    "done": "हो गया",
-    "@done": {
-        "description": "Button text to close audio device selector."
-    },
-    "deleteMessageTitle": "संदेश हटाएँ",
-"@deleteMessageTitle": {
-  "description": "Title shown in the delete message confirmation dialog."
-},
-"deleteMessageContent": "क्या आप वाकई इस संदेश को हटाना चाहते हैं?",
-"@deleteMessageContent": {
-  "description": "Confirmation text asking the user if they want to delete a message."
-},
-"thisMessageWasDeleted": "यह संदेश हटा दिया गया है",
-"failedToDeleteMessage": "संदेश हटाने में विफल रहा",
-
-"noFriendsYet": "अभी तक कोई दोस्त नहीं",
-"@noFriendsYet": {
-  "description": "Title shown when user has no friends."
-},
-"noFriendsDescription": "आपकी दोस्तों की सूची खाली है। लोगों से जुड़ना शुरू करें और अपना नेटवर्क बढ़ाएं!",
-"@noFriendsDescription": {
-  "description": "Description shown when user has no friends."
-},
-"findFriends": "दोस्त खोजें",
-"@findFriends": {
-  "description": "Button text to navigate to find friends screen."
-},
-"inviteFriend": "दोस्त को आमंत्रित करें",
-"@inviteFriend": {
-  "description": "Button text to invite friends to the app."
-},
-"noFriendRequestsYet": "कोई फ्रेंड रिक्वेस्ट नहीं",
-"@noFriendRequestsYet": {
-  "description": "Title shown when user has no friend requests."
-},
-"noFriendRequestsDescription": "आपके पास कोई पेंडिंग फ्रेंड रिक्वेस्ट नहीं है। जुड़ने के लिए अपने दोस्तों को आमंत्रित करें!",
-"@noFriendRequestsDescription": {
-  "description": "Description shown when user has no friend requests."
-},
-"inviteToResonate": "अरे! Resonate पर मेरे साथ जुड़ो - एक सोशल ऑडियो प्लेटफॉर्म जहां हर आवाज़ की कद्र होती है। अभी डाउनलोड करें: {url}",
-"@inviteToResonate": {
-  "description": "Text used when inviting friends to the app.",
-  "placeholders": {
-    "url": {
-      "type": "String"
     }
-  }
-}
-
-
 }
