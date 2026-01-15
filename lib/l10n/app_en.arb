@@ -1791,6 +1791,41 @@
   "description": "Confirmation text asking the user if they want to delete a message."
 },
 "thisMessageWasDeleted": "This message was deleted",
+"failedToDeleteMessage": "Failed to delete message",
+
+"noFriendsYet": "No Friends Yet",
+"@noFriendsYet": {
+  "description": "Title shown when user has no friends."
+},
+"noFriendsDescription": "Your friends list is empty. Start connecting with people and grow your network!",
+"@noFriendsDescription": {
+  "description": "Description shown when user has no friends."
+},
+"findFriends": "Find Friends",
+"@findFriends": {
+  "description": "Button text to navigate to find friends screen."
+},
+"inviteFriend": "Invite a Friend",
+"@inviteFriend": {
+  "description": "Button text to invite friends to the app."
+},
+"noFriendRequestsYet": "No Friend Requests",
+"@noFriendRequestsYet": {
+  "description": "Title shown when user has no friend requests."
+},
+"noFriendRequestsDescription": "You don't have any pending friend requests. Invite your friends to connect!",
+"@noFriendRequestsDescription": {
+  "description": "Description shown when user has no friend requests."
+},
+"inviteToResonate": "Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: {url}",
+"@inviteToResonate": {
+  "description": "Text used when inviting friends to the app.",
+  "placeholders": {
+    "url": {
+      "type": "String"
+    }
+  }
+},
 "@thisMessageWasDeleted": {
   "description": "Status text shown when a previously sent message has been deleted."
 },

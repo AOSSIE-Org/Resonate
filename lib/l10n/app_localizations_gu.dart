@@ -1375,6 +1375,31 @@ class AppLocalizationsGu extends AppLocalizations {
   String get failedToDeleteMessage => 'સંદેશ ડિલીટ કરવામાં નિષ્ફળ';
 
   @override
+  String get noFriendsYet => 'No Friends Yet';
+
+  @override
+  String get noFriendsDescription =>
+      'Your friends list is empty. Start connecting with people and grow your network!';
+
+  @override
+  String get findFriends => 'Find Friends';
+
+  @override
+  String get inviteFriend => 'Invite a Friend';
+
+  @override
+  String get noFriendRequestsYet => 'No Friend Requests';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'You don\'t have any pending friend requests. Invite your friends to connect!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
+  }
+
+  @override
   String get usernameInvalidFormat =>
       'યુઝરનેમમાં માત્ર અક્ષરો, નંબરો, બિંદુ, અન્ડરસ્કોર અને ડેશ હોવા જોઈએ';
 

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/views/widgets/friend_request_list_tile.dart';
+import 'package:resonate/views/widgets/friends_empty_state.dart';
 
 class FriendsScreen extends StatelessWidget {
   const FriendsScreen({super.key});
@@ -14,6 +15,9 @@ class FriendsScreen extends StatelessWidget {
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.friends)),
       body: Obx(() {
         final availableFriends = friendsController.friendsList;
+        if (availableFriends.isEmpty) {
+          return const FriendsEmptyState(isRequestsScreen: false);
+        }
         return ListView.builder(
           itemCount: availableFriends.length,
           shrinkWrap: true,

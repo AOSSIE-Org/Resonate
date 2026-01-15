@@ -100,6 +100,8 @@ const String verificationTableID = "64a7c0100eabfe8d3844";
 const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";
 const String discordRepoUrl = "https://discord.com/invite/6mFZ2S846n";
 const String xPageUrl = "https://x.com/aossie_org";
+const String playStoreUrl =
+    "https://play.google.com/store/apps/details?id=com.resonate.resonate";
 
 //Authentication Error types
 const String userInvalidCredentials = 'user_invalid_credentials';
