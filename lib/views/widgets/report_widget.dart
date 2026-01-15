@@ -49,10 +49,10 @@ class _ReportWidgetState extends State<ReportWidget> {
             : reportTextController.text,
         reportedUser: widget.participantId,
       );
-      await authStateController.tables.createRow(
+      await authStateController.databases.createDocument(
         databaseId: userDatabaseID,
-        tableId: userReportsTableID,
-        rowId: ID.unique(),
+        collectionId: userReportsCollectionID,
+        documentId: ID.unique(),
         data: report.toJson(),
       );
       Get.back(result: true);

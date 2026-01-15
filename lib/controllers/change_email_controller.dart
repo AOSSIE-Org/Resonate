@@ -19,11 +19,11 @@ class ChangeEmailController extends GetxController {
   final passwordController = TextEditingController();
   ChangeEmailController({
     AuthStateController? authStateController,
-    TablesDB? tables,
+    Databases? databases,
     Account? account,
   }) : authStateController =
            authStateController ?? Get.find<AuthStateController>(),
-       tables = tables ?? AppwriteService.getTables(),
+       databases = databases ?? AppwriteService.getDatabases(),
        account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
@@ -31,16 +31,14 @@ class ChangeEmailController extends GetxController {
 
   final changeEmailFormKey = GlobalKey<FormState>();
 
-  late final TablesDB tables;
+  late final Databases databases;
   late final Account account;
 
   Future<bool> isEmailAvailable(String changedEmail) async {
-    final docs = await tables.listRows(
+    final docs = await databases.listDocuments(
       databaseId: userDatabaseID,
-      tableId: usernameTableID,
-      queries: [
-        Query.equal('email', changedEmail),
-      ],
+      collectionId: usernameCollectionID,
+      queries: [Query.equal('email', changedEmail)],
     );
 
     if (docs.total > 0) {
@@ -56,18 +54,18 @@ class ChangeEmailController extends GetxController {
   ) async {
     try {
       // change in user info collection
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: authStateController.uid!,
+        collectionId: usersCollectionID,
+        documentId: authStateController.uid!,
         data: {'email': changedEmail},
       );
 
       // change in username - email collection
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: userDatabaseID,
-        tableId: usernameTableID,
-        rowId: authStateController.userName!,
+        collectionId: usernameCollectionID,
+        documentId: authStateController.userName!,
         data: {'email': changedEmail},
       );
 

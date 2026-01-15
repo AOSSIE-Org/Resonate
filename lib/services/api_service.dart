@@ -6,10 +6,7 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class ApiService {
-  final Functions functions;
-
-  ApiService({Functions? functions})
-      : functions = functions ?? Functions(AppwriteService.getClient());
+  final Functions functions = Functions(AppwriteService.getClient());
 
   Future<Map<String, dynamic>> createRoom(
     String roomName,

@@ -24,23 +24,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Show disk usage before cleanup
-        run: df -h /
-
-      - name: Free disk space on runner
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          android: false
-          dotnet: true
-          haskell: true
-          large-packages: true
-          docker-images: true
-          swap-storage: true
-
-      - name: Show disk usage after cleanup
-        run: df -h /
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -54,19 +37,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-
-      - name: Clean Flutter project
-        run: |
-          flutter clean
-          rm -rf build
-          cd android && ./gradlew clean && cd -
-          rm -rf ~/.gradle/caches
-          rm -rf ~/.gradle/daemon
-          rm -rf ~/.android/build-cache
-
-      - name: Show disk usage after cleanup
-        run: df -h /
 
       - name: Decode Android keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
@@ -107,50 +77,17 @@ jobs:
     needs: build_android
     permissions:
       contents: write
-    env:
-      APK_RELEASE_PATH: apk-release/*.apk
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Parse Build Tag & Release Notes from CHANGELOG.md
-        id: parse_changelog
-        run: |
-          echo "Parsing CHANGELOG.md"
-
-          awk '
-            BEGIN {found=0}
-            /^##[[:space:]]*\[?v?[0-9]+\.[0-9]+\.[0-9]+.*\]?/ && found==0 {
-              line=$0
-              gsub(/^##[[:space:]]*/, "", line)
-              sub(/[[:space:]]+-[[:space:]]*.*$/, "", line)
-              gsub(/^\[|\]$/, "", line)
-              tag=line
-              if (tag !~ /^v/) tag = "v" tag
-              found=1
-              next
-            }
-            found==1 {
-              if (/^##[[:space:]]+/) exit
-              notes = notes $0 "\n"
-            }
-            END {
-              printf("build_tag=%s\n", tag)
-              printf("release_notes<<EOF\n%s\nEOF\n", notes)
-            }
-          ' CHANGELOG.md >> $GITHUB_OUTPUT
-
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
           name: apk-release
-          path : apk-release
 
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
         with:
           allowUpdates: true
-          artifacts: ${{ env.APK_RELEASE_PATH }}
+          artifacts: ${{ env.APK_PATH }}
           artifactContentType: apk
-          tag: ${{ steps.parse_changelog.outputs.build_tag }}
-          body: ${{ steps.parse_changelog.outputs.release_notes }}
+          generateReleaseNotes: true
+          tag: latest_build

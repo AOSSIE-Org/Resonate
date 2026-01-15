@@ -3,7 +3,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/enums.dart' hide Theme;
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart' hide Row;
+import 'package:flutter/material.dart';
 import 'package:flutter_callkit_incoming/entities/call_event.dart';
 import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
@@ -25,19 +25,19 @@ import 'package:resonate/l10n/app_localizations.dart';
 
 class AuthStateController extends GetxController {
   Client client;
-  final TablesDB tables;
+  final Databases databases;
   var isInitializing = false.obs;
   FirebaseMessaging messaging;
   late final Account account;
 
   AuthStateController({
     Account? account,
-    TablesDB? tables,
+    Databases? databases,
     Client? client,
     FirebaseMessaging? messaging,
   }) : client = client ?? AppwriteService.getClient(),
        account = account ?? AppwriteService.getAccount(),
-       tables = tables ?? AppwriteService.getTables(),
+       databases = databases ?? AppwriteService.getDatabases(),
        messaging = messaging ?? FirebaseMessaging.instance;
   late String? uid;
   late String? profileImageID;
@@ -203,11 +203,10 @@ class AuthStateController extends GetxController {
       isUserProfileComplete =
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
-        Row userDataDoc = await tables.getRow(
+        Document userDataDoc = await databases.getDocument(
           databaseId: userDatabaseID,
-          tableId: usersTableID,
-          rowId: appwriteUser.$id,
-          queries: [Query.select(["*", "followers.*", "userReports.*"])],
+          collectionId: usersCollectionID,
+          documentId: appwriteUser.$id,
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
@@ -274,44 +273,44 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Row> subscribedUpcomingRooms = await tables
-        .listRows(
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserTableId,
+          collectionId: subscribedUserCollectionId,
           queries: [
             Query.equal("userID", [uid]),
           ],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.add(fcmToken!);
-      tables.updateRow(
+      databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserTableId,
-        rowId: subscription.$id,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
         data: {"registrationTokens": registrationTokens},
       );
     }
 
     //created Upcoming Rooms
-    List<Row> createdUpcomingRooms = await tables
-        .listRows(
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsTableId,
+          collectionId: upcomingRoomsCollectionId,
           queries: [
             Query.equal("creatorUid", [uid]),
           ],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.add(fcmToken!);
-      tables.updateRow(
+      databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsTableId,
-        rowId: upcomingRoom.$id,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
         data: {"creator_fcm_tokens": creatorFcmTokens},
       );
     }
@@ -321,44 +320,44 @@ class AuthStateController extends GetxController {
     final fcmToken = await messaging.getToken();
 
     //subscribed Upcoming Rooms
-    List<Row> subscribedUpcomingRooms = await tables
-        .listRows(
+    List<Document> subscribedUpcomingRooms = await databases
+        .listDocuments(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: subscribedUserTableId,
+          collectionId: subscribedUserCollectionId,
           queries: [
             Query.equal("userID", [uid]),
           ],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
       registrationTokens.remove(fcmToken!);
-      tables.updateRow(
+      databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserTableId,
-        rowId: subscription.$id,
+        collectionId: subscribedUserCollectionId,
+        documentId: subscription.$id,
         data: {"registrationTokens": registrationTokens},
       );
     }
 
     //created Upcoming Rooms
-    List<Row> createdUpcomingRooms = await tables
-        .listRows(
+    List<Document> createdUpcomingRooms = await databases
+        .listDocuments(
           databaseId: upcomingRoomsDatabaseId,
-          tableId: upcomingRoomsTableId,
+          collectionId: upcomingRoomsCollectionId,
           queries: [
             Query.equal("creatorUid", [uid]),
           ],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
       creatorFcmTokens.remove(fcmToken!);
-      tables.updateRow(
+      databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsTableId,
-        rowId: upcomingRoom.$id,
+        collectionId: upcomingRoomsCollectionId,
+        documentId: upcomingRoom.$id,
         data: {"creator_fcm_tokens": creatorFcmTokens},
       );
     }

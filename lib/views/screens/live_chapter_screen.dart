@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/live_chapter_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -10,7 +11,6 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/views/widgets/live_chapter_header.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
-import 'package:resonate/views/widgets/audio_selector_dialog.dart';
 
 class LiveChapterScreen extends StatefulWidget {
   const LiveChapterScreen({super.key});
@@ -174,7 +174,6 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
               _buildMicButton(),
               _buildRecordButton(),
             ],
-            _buildAudioSettingsButton(),
           ],
         ),
       ),
@@ -184,7 +183,7 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
   Widget _buildLeaveButton() {
     final controller = Get.find<LiveChapterController>();
     final LiveKitController liveKitController = Get.find<LiveKitController>();
-    return ElevatedButton(
+    return ElevatedButton.icon(
       onPressed: () async {
         await _deleteRoomDialog(
           controller.isAdmin
@@ -208,11 +207,11 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
         );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.redAccent,
-        foregroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 241, 108, 98),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
-      child: const Icon(Icons.call_end, size: 24),
+      icon: const Icon(Icons.exit_to_app),
+      label: Text(AppLocalizations.of(context)!.leaveButton),
     );
   }
 
@@ -261,13 +260,5 @@ class LiveChapterScreenState extends State<LiveChapterScreen> {
         );
       }
     });
-  }
-
-  Widget _buildAudioSettingsButton() {
-    return FloatingActionButton(
-      onPressed: () async => await showAudioDeviceSelector(context),
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      child: const Icon(Icons.settings_voice),
-    );
   }
 }

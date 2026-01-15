@@ -8,7 +8,6 @@ import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friend_call_model.dart';
@@ -23,17 +22,17 @@ import 'package:resonate/views/widgets/snackbar.dart';
 class FriendCallingController extends GetxController {
   final Rx<FriendCallModel?> friendCallModel = Rx<FriendCallModel?>(null);
 
-  final TablesDB tables;
+  final Databases databases;
   final Functions functions;
   final Realtime realtime;
   final RxBool isMicOn = false.obs;
   final RxBool isLoudSpeakerOn = true.obs;
   RealtimeSubscription? callSubscription;
   FriendCallingController({
-    TablesDB? tables,
+    Databases? databases,
     Functions? functions,
     Realtime? realtime,
-  }) : tables = tables ?? AppwriteService.getTables(),
+  }) : databases = databases ?? AppwriteService.getDatabases(),
        functions = functions ?? AppwriteService.getFunctions(),
        realtime = realtime ?? AppwriteService.getRealtime();
 
@@ -62,10 +61,10 @@ class FriendCallingController extends GetxController {
       callStatus: FriendCallStatus.waiting,
       docId: ID.unique(),
     );
-    await tables.createRow(
+    await databases.createDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: callModel.docId,
+      collectionId: friendCallsCollectionId,
+      documentId: callModel.docId,
       data: callModel.toJson(),
     );
 
@@ -122,10 +121,10 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onAnswerCall(Map<String, dynamic> extra) async {
-    final callDoc = await tables.getRow(
+    final callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: extra['call_id'],
+      collectionId: friendCallsCollectionId,
+      documentId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
     log(callDoc.data.toString());
@@ -134,10 +133,10 @@ class FriendCallingController extends GetxController {
       return;
     } else {
       callModel = callModel.copyWith(callStatus: FriendCallStatus.connected);
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: masterDatabaseId,
-        tableId: friendCallsTableId,
-        rowId: callModel.docId,
+        collectionId: friendCallsCollectionId,
+        documentId: callModel.docId,
         data: callModel.toJson(),
       );
       friendCallModel.value = callModel;
@@ -151,43 +150,42 @@ class FriendCallingController extends GetxController {
   }
 
   Future<void> onDeclinedCall(Map<String, dynamic> extra) async {
-    final callDoc = await tables.getRow(
+    final callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: extra['call_id'],
+      collectionId: friendCallsCollectionId,
+      documentId: extra['call_id'],
     );
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
     callModel = callModel.copyWith(callStatus: FriendCallStatus.declined);
 
-    await tables.updateRow(
+    await databases.updateDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: callModel.docId,
+      collectionId: friendCallsCollectionId,
+      documentId: callModel.docId,
       data: callModel.toJson(),
     );
     friendCallModel.value = callModel;
   }
 
   Future<void> onEndedCall(Map<String, dynamic> extra) async {
-    final callDoc = await tables.getRow(
+    final callDoc = await databases.getDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: extra['call_id'],
+      collectionId: friendCallsCollectionId,
+      documentId: extra['call_id'],
     );
 
     FriendCallModel callModel = FriendCallModel.fromJson(callDoc.data);
 
     callModel = callModel.copyWith(callStatus: FriendCallStatus.ended);
-    await tables.updateRow(
+    await databases.updateDocument(
       databaseId: masterDatabaseId,
-      tableId: friendCallsTableId,
-      rowId: callModel.docId,
+      collectionId: friendCallsCollectionId,
+      documentId: callModel.docId,
       data: callModel.toJson(),
     );
     friendCallModel.value = callModel;
     await Get.delete<LiveKitController>(force: true);
-    await Get.delete<AudioDeviceController>(force: true);
     if (!Get.testMode) {
       FlutterCallkitIncoming.endAllCalls();
     }
@@ -196,7 +194,7 @@ class FriendCallingController extends GetxController {
 
   void listenToCallChanges() async {
     String channel =
-        'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${friendCallModel.value!.docId}';
+        'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.${friendCallModel.value!.docId}';
     callSubscription = realtime.subscribe([channel]);
     callSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -220,12 +218,10 @@ class FriendCallingController extends GetxController {
               callStatus: FriendCallStatus.ended,
             );
             await Get.delete<LiveKitController>(force: true);
-            await Get.delete<AudioDeviceController>(force: true);
             Get.offNamedUntil(AppRoutes.tabview, (route) => false);
           }
           if (data.payload['callStatus'] == FriendCallStatus.declined.name) {
             await Get.delete<LiveKitController>(force: true);
-            await Get.delete<AudioDeviceController>(force: true);
             if (!Get.testMode) {
               FlutterCallkitIncoming.endAllCalls();
             }

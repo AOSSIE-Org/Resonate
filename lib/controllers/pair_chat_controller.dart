@@ -32,7 +32,7 @@ class PairChatController extends GetxController {
 
   Client client = AppwriteService.getClient();
   final Realtime realtime = AppwriteService.getRealtime();
-  final TablesDB tablesDB = AppwriteService.getTables();
+  final Databases databases = AppwriteService.getDatabases();
   late RealtimeSubscription? subscription;
   RealtimeSubscription? userAddedSubscription;
   AuthStateController authController = Get.find<AuthStateController>();
@@ -56,10 +56,10 @@ class PairChatController extends GetxController {
     requestData.addIf(!isAnonymous.value, "userName", userName);
 
     // Add request to pair-request collection
-    Row requestDoc = await tablesDB.createRow(
+    Document requestDoc = await databases.createDocument(
       databaseId: masterDatabaseId,
-      tableId: pairRequestTableId,
-      rowId: ID.unique(),
+      collectionId: pairRequestCollectionId,
+      documentId: ID.unique(),
       data: requestData,
     );
     requestDocId = requestDoc.$id;
@@ -84,10 +84,10 @@ class PairChatController extends GetxController {
     };
 
     // Add request to pair-request collection
-    Row requestDoc = await tablesDB.createRow(
+    Document requestDoc = await databases.createDocument(
       databaseId: masterDatabaseId,
-      tableId: pairRequestTableId,
-      rowId: ID.unique(),
+      collectionId: pairRequestCollectionId,
+      documentId: ID.unique(),
       data: requestData,
     );
     requestDocId = requestDoc.$id;
@@ -97,10 +97,10 @@ class PairChatController extends GetxController {
   Future<void> convertToRandom() async {
     userAddedSubscription?.close();
     getRealtimeStream();
-    await tablesDB.updateRow(
+    await databases.updateDocument(
       databaseId: masterDatabaseId,
-      tableId: pairRequestTableId,
-      rowId: requestDocId!,
+      collectionId: pairRequestCollectionId,
+      documentId: requestDocId!,
       data: {'isRandom': true},
     );
     Get.toNamed(AppRoutes.pairing);
@@ -109,7 +109,7 @@ class PairChatController extends GetxController {
   void getRealtimeStream() {
     String uid = authController.uid!;
     String channel =
-        'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
+        'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -129,19 +129,19 @@ class PairChatController extends GetxController {
                 if (uid1 == uid) {
                   myRoomUserId = 1;
                   pairUsername = data.payload["userName2"];
-                  Row participantDoc = await tablesDB.getRow(
+                  Document participantDoc = await databases.getDocument(
                     databaseId: userDatabaseID,
-                    tableId: usersTableID,
-                    rowId: data.payload["uid2"],
+                    collectionId: usersCollectionID,
+                    documentId: data.payload["uid2"],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 } else {
                   myRoomUserId = 2;
                   pairUsername = data.payload["userName1"];
-                  Row participantDoc = await tablesDB.getRow(
+                  Document participantDoc = await databases.getDocument(
                     databaseId: userDatabaseID,
-                    tableId: usersTableID,
-                    rowId: data.payload["uid1"],
+                    collectionId: usersCollectionID,
+                    documentId: data.payload["uid1"],
                   );
                   pairProfileImageUrl = participantDoc.data["profileImageUrl"];
                 }
@@ -161,10 +161,10 @@ class PairChatController extends GetxController {
 
   Future<void> pairWithSelectedUser(ResonateUser user) async {
     log('pairing');
-    await tablesDB.createRow(
+    await databases.createDocument(
       databaseId: masterDatabaseId,
-      tableId: activePairsTableId,
-      rowId: ID.unique(),
+      collectionId: activePairsCollectionId,
+      documentId: ID.unique(),
       data: {
         'uid1': authController.uid,
         'uid2': user.uid,
@@ -179,7 +179,7 @@ class PairChatController extends GetxController {
   void checkForNewUsers() {
     log('listening for new users');
     String channel =
-        'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
+        'databases.$masterDatabaseId.collections.$pairRequestCollectionId.documents';
     userAddedSubscription = realtime.subscribe([channel]);
     userAddedSubscription?.stream.listen((data) async {
       final event = data.events.first;
@@ -207,21 +207,21 @@ class PairChatController extends GetxController {
     isUserListLoading.value = true;
     log("Loading users");
     usersList.clear();
-    final result = await tablesDB.listRows(
+    final result = await databases.listDocuments(
       databaseId: masterDatabaseId,
-      tableId: pairRequestTableId,
+      collectionId: pairRequestCollectionId,
       queries: [
         Query.notEqual('uid', authController.uid!),
         Query.notEqual('isAnonymous', true),
         Query.limit(100),
       ],
     );
-    if (result.rows.isEmpty) {
+    if (result.documents.isEmpty) {
       isUserListLoading.value = false;
       return;
     } else {
       usersList.addAll(
-        result.rows.map((doc) {
+        result.documents.map((doc) {
           final userData = doc.data;
           userData['docId'] = doc.$id; // Add docId to the user data
           ResonateUser user = ResonateUser.fromJson(userData);
@@ -238,26 +238,17 @@ class PairChatController extends GetxController {
     Get.toNamed(AppRoutes.pairChat);
   }
 
-Future<void> cancelRequest() async {
-  try {
-    if (requestDocId != null) {
-      await tablesDB.deleteRow(
-        databaseId: masterDatabaseId,
-        tableId: pairRequestTableId,
-        rowId: requestDocId!,
-      );
-    }
-
-    requestDocId = null;
-
-    await subscription?.close();
-    await userAddedSubscription?.close();
-  } catch (e) {
-    log('Cancel request failed: $e');
-  } finally {
+  Future<void> cancelRequest() async {
+    await databases.deleteDocument(
+      databaseId: masterDatabaseId,
+      collectionId: pairRequestCollectionId,
+      documentId: requestDocId!,
+    );
+    subscription?.close();
+    userAddedSubscription?.close();
     Get.offNamedUntil(AppRoutes.tabview, (route) => false);
   }
-}
+
   void toggleMic() async {
     isMicOn.value = !isMicOn.value;
     await Get.find<LiveKitController>().liveKitRoom.localParticipant
@@ -272,10 +263,10 @@ Future<void> cancelRequest() async {
   Future<void> endChat() async {
     subscription?.close();
     try {
-      await tablesDB.deleteRow(
+      await databases.deleteDocument(
         databaseId: masterDatabaseId,
-        tableId: activePairsTableId,
-        rowId: activePairDocId!,
+        collectionId: activePairsCollectionId,
+        documentId: activePairDocId!,
       );
     } catch (e) {
       if (!(e is AppwriteException && e.type == 'document_not_found')) {

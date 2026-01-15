@@ -21,7 +21,7 @@ import 'package:resonate/views/widgets/loading_dialog.dart';
 
 class LiveChapterController extends GetxController {
   Rx<LiveChapterModel?> liveChapterModel = Rx<LiveChapterModel?>(null);
-  final TablesDB tables;
+  final Databases databases;
   final Realtime realtime;
   final Functions functions;
   final AuthStateController authStateController;
@@ -29,11 +29,11 @@ class LiveChapterController extends GetxController {
   RealtimeSubscription? liveChapterAttendeesSubscription;
 
   LiveChapterController({
-    TablesDB? tables,
+    Databases? databases,
     Realtime? realtime,
     Functions? functions,
     AuthStateController? authStateController,
-  }) : tables = tables ?? AppwriteService.getTables(),
+  }) : databases = databases ?? AppwriteService.getDatabases(),
        realtime = realtime ?? AppwriteService.getRealtime(),
        functions = functions ?? AppwriteService.getFunctions(),
        authStateController =
@@ -41,7 +41,7 @@ class LiveChapterController extends GetxController {
 
   void listenForAttendeesAdded() async {
     String channel =
-        "databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.${liveChapterModel.value!.id}";
+        "databases.$userDatabaseID.collections.$liveChapterAttendeesCollectionId.documents.${liveChapterModel.value!.id}";
     liveChapterAttendeesSubscription = realtime.subscribe([channel]);
     liveChapterAttendeesSubscription?.stream.listen((data) async {
       if (data.payload.isNotEmpty) {
@@ -94,16 +94,16 @@ class LiveChapterController extends GetxController {
         ),
         id: roomId,
       );
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: storyDatabaseId,
-        tableId: liveChaptersTableId,
-        rowId: roomId,
+        collectionId: liveChaptersCollectionId,
+        documentId: roomId,
         data: liveChapterData.toJson(),
       );
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: userDatabaseID,
-        tableId: liveChapterAttendeesTableId,
-        rowId: roomId,
+        collectionId: liveChapterAttendeesCollectionId,
+        documentId: roomId,
         data: liveChapterData.attendees!.toJson(),
       );
       await RoomService.createLiveChapterRoom(
@@ -159,10 +159,10 @@ class LiveChapterController extends GetxController {
       );
       log(newAttendeesModel.toJson().toString());
 
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: userDatabaseID,
-        tableId: liveChapterAttendeesTableId,
-        rowId: roomId,
+        collectionId: liveChapterAttendeesCollectionId,
+        documentId: roomId,
         data: newAttendeesModel.toJson(),
       );
 
@@ -225,10 +225,10 @@ class LiveChapterController extends GetxController {
               .where((element) => element != authStateController.uid!)
               .toList(),
         );
-    await tables.updateRow(
+    await databases.updateDocument(
       databaseId: userDatabaseID,
-      tableId: liveChapterAttendeesTableId,
-      rowId: liveChapterModel.value!.id,
+      collectionId: liveChapterAttendeesCollectionId,
+      documentId: liveChapterModel.value!.id,
       data: updatedAttendees.toJson(),
     );
     await Get.delete<LiveKitController>(force: true);
@@ -242,15 +242,15 @@ class LiveChapterController extends GetxController {
     try {
       Get.find<LiveKitController>().isRecording.value = false;
       try {
-        await tables.deleteRow(
+        await databases.deleteDocument(
           databaseId: storyDatabaseId,
-          tableId: liveChaptersTableId,
-          rowId: liveChapterModel.value!.id,
+          collectionId: liveChaptersCollectionId,
+          documentId: liveChapterModel.value!.id,
         );
-        await tables.deleteRow(
+        await databases.deleteDocument(
           databaseId: userDatabaseID,
-          tableId: liveChapterAttendeesTableId,
-          rowId: liveChapterModel.value!.id,
+          collectionId: liveChapterAttendeesCollectionId,
+          documentId: liveChapterModel.value!.id,
         );
       } catch (e) {
         log(e.toString());

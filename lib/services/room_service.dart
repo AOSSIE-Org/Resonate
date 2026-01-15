@@ -34,26 +34,27 @@ class RoomService {
     RoomsController roomsController = Get.find<RoomsController>();
 
     // Get all documents with participant uid and roomid and delete them before adding the participant again
-    RowList participantDocsRef = await roomsController.tablesDB.listRows(
-      databaseId: masterDatabaseId,
-      tableId: participantsTableId,
-      queries: [
-        Query.equal("uid", [uid]),
-        Query.equal('roomId', [roomId]),
-      ],
-    );
-    for (var document in participantDocsRef.rows) {
-      await roomsController.tablesDB.deleteRow(
+    DocumentList participantDocsRef = await roomsController.databases
+        .listDocuments(
+          databaseId: masterDatabaseId,
+          collectionId: participantsCollectionId,
+          queries: [
+            Query.equal("uid", [uid]),
+            Query.equal('roomId', [roomId]),
+          ],
+        );
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(
         databaseId: masterDatabaseId,
-        tableId: participantsTableId,
-        rowId: document.$id,
+        collectionId: participantsCollectionId,
+        documentId: document.$id,
       );
     }
     // Add participant to collection
-    Row participantDoc = await roomsController.tablesDB.createRow(
+    Document participantDoc = await roomsController.databases.createDocument(
       databaseId: masterDatabaseId,
-      tableId: participantsTableId,
-      rowId: ID.unique().toString(),
+      collectionId: participantsCollectionId,
+      documentId: ID.unique().toString(),
       data: {
         "roomId": roomId,
         "uid": uid,
@@ -65,21 +66,21 @@ class RoomService {
     );
     if (!isAdmin) {
       // Get present totalParticipants Attribute
-      Row roomDoc = await roomsController.tablesDB.getRow(
+      Document roomDoc = await roomsController.databases.getDocument(
         databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
+        collectionId: roomsCollectionId,
+        documentId: roomId,
       );
 
       // Increment the totalParticipants Attribute
       int newParticipantCount =
           roomDoc.data["totalParticipants"] -
-          participantDocsRef.rows.length +
+          participantDocsRef.documents.length +
           1;
-      await roomsController.tablesDB.updateRow(
+      await roomsController.databases.updateDocument(
         databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
+        collectionId: roomsCollectionId,
+        documentId: roomId,
         data: {"totalParticipants": newParticipantCount},
       );
     }
@@ -177,19 +178,20 @@ class RoomService {
     await apiService.deleteRoom(roomId, livekitToken!);
 
     // Get all participant documents and delete them
-    RowList participantDocsRef = await roomsController.tablesDB.listRows(
-      databaseId: masterDatabaseId,
-      tableId: participantsTableId,
-      queries: [
-        Query.equal('roomId', [roomId]),
-      ],
-    );
+    DocumentList participantDocsRef = await roomsController.databases
+        .listDocuments(
+          databaseId: masterDatabaseId,
+          collectionId: participantsCollectionId,
+          queries: [
+            Query.equal('roomId', [roomId]),
+          ],
+        );
 
-    for (var document in participantDocsRef.rows) {
-      await roomsController.tablesDB.deleteRow(
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(
         databaseId: masterDatabaseId,
-        tableId: participantsTableId,
-        rowId: document.$id,
+        collectionId: participantsCollectionId,
+        documentId: document.$id,
       );
     }
   }
@@ -219,48 +221,50 @@ class RoomService {
     RoomsController roomsController = Get.find<RoomsController>();
     String userId = Get.find<AuthStateController>().uid!;
 
-    Row roomDoc = await roomsController.tablesDB.getRow(
+    Document roomDoc = await roomsController.databases.getDocument(
       databaseId: masterDatabaseId,
-      tableId: roomsTableId,
-      rowId: roomId,
+      collectionId: roomsCollectionId,
+      documentId: roomId,
     );
 
     // Get all documents with participant uid and roomid and delete them
-    RowList participantDocsRef = await roomsController.tablesDB.listRows(
-      databaseId: masterDatabaseId,
-      tableId: participantsTableId,
-      queries: [
-        Query.equal("uid", [userId]),
-        Query.equal('roomId', [roomId]),
-      ],
-    );
-    for (var document in participantDocsRef.rows) {
-      await roomsController.tablesDB.deleteRow(
+    DocumentList participantDocsRef = await roomsController.databases
+        .listDocuments(
+          databaseId: masterDatabaseId,
+          collectionId: participantsCollectionId,
+          queries: [
+            Query.equal("uid", [userId]),
+            Query.equal('roomId', [roomId]),
+          ],
+        );
+    for (var document in participantDocsRef.documents) {
+      await roomsController.databases.deleteDocument(
         databaseId: masterDatabaseId,
-        tableId: participantsTableId,
-        rowId: document.$id,
+        collectionId: participantsCollectionId,
+        documentId: document.$id,
       );
     }
 
     // Get present totalParticipants Attribute
-    if (roomDoc.data["totalParticipants"] - participantDocsRef.rows.length ==
+    if (roomDoc.data["totalParticipants"] -
+            participantDocsRef.documents.length ==
         0) {
       // Delete the room since there are no participants
-      await roomsController.tablesDB.deleteRow(
+      await roomsController.databases.deleteDocument(
         databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
+        collectionId: roomsCollectionId,
+        documentId: roomId,
       );
     } else {
       // Decrease the totalParticipants Attribute
-      await roomsController.tablesDB.updateRow(
+      await roomsController.databases.updateDocument(
         databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
+        collectionId: roomsCollectionId,
+        documentId: roomId,
         data: {
           "totalParticipants":
               roomDoc.data["totalParticipants"] -
-              participantDocsRef.rows.length,
+              participantDocsRef.documents.length,
         },
       );
     }

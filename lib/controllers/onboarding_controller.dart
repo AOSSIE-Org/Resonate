@@ -24,7 +24,7 @@ class OnboardingController extends GetxController {
       Get.find<AuthenticationController>();
   final themeController = Get.find<ThemeController>();
   late final Storage storage;
-  late final TablesDB tables;
+  late final Databases databases;
 
   RxBool isLoading = false.obs;
   String? profileImagePath;
@@ -43,7 +43,7 @@ class OnboardingController extends GetxController {
   void onInit() async {
     super.onInit();
     storage = Storage(authStateController.client);
-    tables = TablesDB(authStateController.client);
+    databases = Databases(authStateController.client);
   }
 
   Future<void> chooseDate() async {
@@ -85,10 +85,10 @@ class OnboardingController extends GetxController {
       isLoading.value = true;
 
       // Update username collection
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: userDatabaseID,
-        tableId: usernameTableID,
-        rowId: usernameController.text.trim(),
+        collectionId: usernameCollectionID,
+        documentId: usernameController.text.trim(),
         data: {"email": authStateController.email},
       );
       //Update User Meta Data
@@ -116,10 +116,10 @@ class OnboardingController extends GetxController {
         name: nameController.text.trim(),
       );
       //log(authStateController.uid!);
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: authStateController.uid!,
+        collectionId: usersCollectionID,
+        documentId: authStateController.uid!,
         data: {
           "name": nameController.text.trim(),
           "username": usernameController.text.trim(),
@@ -189,10 +189,10 @@ class OnboardingController extends GetxController {
 
   Future<bool> isUsernameAvailable(String username) async {
     try {
-      await tables.getRow(
+      await databases.getDocument(
         databaseId: userDatabaseID,
-        tableId: usernameTableID,
-        rowId: username,
+        collectionId: usernameCollectionID,
+        documentId: username,
       );
       return false;
     } catch (e) {
