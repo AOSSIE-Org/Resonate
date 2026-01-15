@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/rendering.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/services/error_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -36,7 +37,7 @@ class AuthenticationController extends GetxController {
       emailController.clear();
       passwordController.clear();
     } on AppwriteException catch (e) {
-      log(e.toString());
+      // Handle specific Appwrite auth errors with custom messages
       if (e.type == userInvalidCredentials) {
         customSnackbar(
           AppLocalizations.of(context)!.tryAgain,
@@ -53,14 +54,16 @@ class AuthenticationController extends GetxController {
           AppLocalizations.of(context)!.passwordShort,
           LogType.error,
         );
-
         SemanticsService.announce(
           AppLocalizations.of(context)!.passwordShort,
           TextDirection.ltr,
         );
+      } else {
+        // Use ErrorService for other Appwrite errors
+        ErrorService.handle(e, context: 'login');
       }
     } catch (e) {
-      log(e.toString());
+      ErrorService.handle(e, context: 'login');
     } finally {
       isLoading.value = false;
     }
@@ -75,14 +78,7 @@ class AuthenticationController extends GetxController {
       );
       return true;
     } catch (e) {
-      log(e.toString());
-      customSnackbar(
-        AppLocalizations.of(context)!.oops,
-        e.toString(),
-        LogType.error,
-      );
-      SemanticsService.announce(e.toString(), TextDirection.ltr);
-
+      ErrorService.handle(e, context: 'signup');
       return false;
     } finally {
       isLoading.value = false;
@@ -93,7 +89,7 @@ class AuthenticationController extends GetxController {
     try {
       await authStateController.loginWithGoogle();
     } catch (error) {
-      log(error.toString());
+      ErrorService.handle(error, context: 'Google login');
     }
   }
 
@@ -101,7 +97,7 @@ class AuthenticationController extends GetxController {
     try {
       await authStateController.loginWithGithub();
     } catch (error) {
-      log(error.toString());
+      ErrorService.handle(error, context: 'GitHub login');
     }
   }
 
