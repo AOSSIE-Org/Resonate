@@ -129,3 +129,42 @@ Thanks a lot for spending your time helping Resonate grow. Keep rocking 🥂
   <img src="https://contrib.rocks/image?repo=AOSSIE-Org/Resonate" alt="Contributors"/>
 </a>
 <br>
+
+
+## 🚀 Local Setup for New Contributors
+### Prerequisites
+Make sure you have the following installed:
+- Git
+- Node.js (v18+ recommended)
+- npm or yarn
+
+Check versions:
+```bash
+node -v
+npm -v
+git --version
+
+
+### Clone the repository
+```bash
+git clone https://github.com/resonate-coop/resonate.git
+cd resonate
+
+
+(Everything else stays the same)
+
+---
+
+## 🔍 Final check before commit
+Ask yourself:
+- ✔ README renders properly?
+- ✔ Commands are readable?
+- ✔ No `<AOSSIE>` placeholders left?
+
+If yes → commit 🚀
+
+---
+
+### If you want
+Paste **your edited README section here** before committing.  
+I’ll double-check it **like a maintainer** so it gets merged 👍
