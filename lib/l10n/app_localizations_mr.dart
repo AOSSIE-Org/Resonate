@@ -34,16 +34,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get passwordsNotMatch => 'पासवर्ड जुळत नाहीत';
 
   @override
-  String get userCreatedStories => 'वापरकर्ता निर्मित कथा';
+  String get userCreatedStories => 'वापरकर्त्याने तयार केलेल्या कथा';
 
   @override
   String get yourStories => 'आपल्या कथा';
 
   @override
-  String get userNoStories => 'वापरकर्त्याने कोणतीही कथा निर्मित केली नाही';
+  String get userNoStories => 'वापरकर्त्याने कोणतीही कथा तयार केलेली नाही';
 
   @override
-  String get youNoStories => 'आपण कोणतीही कथा निर्मित केली नाही';
+  String get youNoStories => 'आपण कोणतीही कथा तयार केलेली नाही';
 
   @override
   String get follow => 'फॉलो करा';
@@ -61,16 +61,15 @@ class AppLocalizationsMr extends AppLocalizations {
   String get profile => 'प्रोफाइल';
 
   @override
-  String get userLikedStories => 'वापरकर्ता आवडीची कथा';
+  String get userLikedStories => 'वापरकर्त्याने आवडलेल्या कथा';
 
   @override
   String get yourLikedStories => 'आपल्या आवडीची कथा';
 
-  @override
-  String get userNoLikedStories => 'वापरकर्त्याने कोणतीही कथा आवड केली नाही';
+  String get userNoLikedStories => 'वापरकर्त्याने कोणतीही कथा आवडलेली नाही';
 
   @override
-  String get youNoLikedStories => 'आपण कोणतीही कथा आवड केली नाही';
+  String get youNoLikedStories => 'आपण कोणतीही कथा आवडलेली नाही';
 
   @override
   String get live => 'लाइव्ह';
@@ -81,10 +80,10 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String noAvailableRoom(String isRoom) {
     String _temp0 = intl.Intl.selectLogic(isRoom, {
-      'true': 'कक्ष उपलब्ध नाही',
+      'true': 'कोणताही कक्ष उपलब्ध नाही',
       'false': 'आगामी कक्ष उपलब्ध नाही',
-      'other': 'कक्ष माहिती उपलब्ध नाही',
-    });
+      'other': 'कोणतीही माहिती उपलब्ध नाही',
+  });
     return '$_temp0\nखाली एक जोडून सुरुवात करा!';
   }
 
@@ -98,7 +97,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get you => 'आपण';
 
   @override
-  String get areYouSure => 'आपण निश्चित आहात?';
+  String get areYouSure => 'आपण खात्रीने सांगता का?';
 
   @override
   String get loggingOut => 'आपण रेजोनेटमधून लॉगआउट करत आहात.';
@@ -140,16 +139,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get setNewPassword => 'नवीन पासवर्ड सेट करा';
 
   @override
-  String get emailChanged => 'ईमेल बदलली';
+  String get emailChanged => 'ईमेल बदलली आहे';
 
   @override
   String get emailChangeSuccess => 'ईमेल यशस्वीरित्या बदलली!';
 
   @override
-  String get failed => 'अपयशी';
+  String get failed => 'अयशस्वी';
 
   @override
-  String get emailChangeFailed => 'ईमेल बदलणे अपयशी';
+  String get emailChangeFailed => 'ईमेल बदलणे अयशस्वी';
 
   @override
   String get oops => 'अरे!';
@@ -179,10 +178,10 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'आपल्या ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आपण Google/GitHub किंवा आपल्याला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.';
+      'आपले ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आपणGoogle/GitHub किंवा आपला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.';
 
   @override
-  String get resonateTagline => 'असीमित संभाषणांच्या जगात प्रवेश करा.';
+  String get resonateTagline => 'अमर्याद संभाषणांच्या जगात प्रवेश करा.';
 
   @override
   String get signInWithEmail => 'ईमेलने साइन इन करा';
@@ -242,7 +241,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get makeListener => 'श्रोता बनवा';
 
   @override
-  String get pairChat => 'जोडी चॅट';
+  String get pairChat => 'जोडी संभाषण';
 
   @override
   String get chooseIdentity => 'ओळख निवडा';
@@ -251,7 +250,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get selectLanguage => 'भाषा निवडा';
 
   @override
-  String get noConnection => 'इंटरनेट कनेक्शन उपलब्ध नाही';
+  String get noConnection => 'कोणतेही कनेक्शन नाही';
 
   @override
   String get loadingDialog => 'लोडिंग संवाद';
@@ -390,7 +389,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'आपल्यासाठी यादृच्छिक सहभागी शोधला जात आहे';
 
   @override
-  String get quickFact => 'द्रुत वस्तुस्थिती';
+  String get quickFact => 'द्रुत माहिती';
 
   @override
   String get cancel => 'रद्द करा';
@@ -449,13 +448,13 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get verificationCompleteMessage =>
-      'अभिनंदन आपण आपल्या ईमेल सत्यापित केले आहे';
+      'अभिनंदन! आपण आपले ईमेल यशस्वीरित्या सत्यापित केले आहे.';
 
   @override
-  String get verificationFailed => 'सत्यापन अपयशी';
+  String get verificationFailed => 'सत्यापन अयशस्वी';
 
   @override
-  String get otpMismatch => 'ओटीपी जुळत नाही कृपया पुन्हा प्रयत्न करा';
+  String get otpMismatch => 'ओटीपी चुकीचा आहे. कृपया पुन्हा प्रयत्न करा';
 
   @override
   String get otpResent => 'ओटीपी पुन्हा पाठवली गेली';
@@ -515,7 +514,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get share => 'शेअर करा';
 
   @override
-  String get rate => 'रेट करा';
+  String get rate => 'रेटिंग द्या';
 
   @override
   String get aboutResonate => 'रेजोनेटबद्दल';
@@ -574,26 +573,26 @@ class AppLocalizationsMr extends AppLocalizations {
   String get upToDate => 'अद्ययावत';
 
   @override
-  String get latestVersion => 'आपण नवीनतम आवृत्त्ती वापरत आहात';
+  String get latestVersion => 'आपण नवीनतम आवृत्ती वापरत आहात';
 
   @override
-  String get profileCreatedSuccessfully => 'प्रोफाइल यशस्वीरित्या तयार केली';
+  String get profileCreatedSuccessfully => 'प्रोफाइल यशस्वीरित्या तयार झाले';
 
   @override
   String get invalidScheduledDateTime => 'अवैध शेड्यूल केलेली तारीख वेळ';
 
   @override
   String get scheduledDateTimePast =>
-      'शेड्यूल केलेली तारीख वेळ अतीतमध्ये असू शकत नाही';
+      'शेड्यूल केलेली तारीख वेळ भूतकाळात असू शकत नाही';
 
   @override
-  String get joinRoom => 'कक्षात सामील व्हा';
+  String get joinRoom => 'कक्षामध्ये सामील व्हा';
 
   @override
   String get unknownUser => 'अज्ञात';
 
   @override
-  String get canceled => 'रद्द';
+  String get canceled => 'रद्द केले';
 
   @override
   String get english => 'en';
@@ -609,8 +608,8 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String toRoomAction(String action) {
-    return 'कक्ष्याला $action करण्यासाठी';
-  }
+    return 'कक्ष $action करण्यासाठी';
+ }
 
   @override
   String get mailSentMessage => 'ईमेल पाठवली गेली';
@@ -677,7 +676,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get forgotPasswordMessage =>
-      'आपल्या नोंदणीकृत ईमेल पत्ता प्रविष्ट करा आपल्या पासवर्डचा रीसेट करण्यासाठी.';
+      'आपला पासवर्ड रीसेट करण्यासाठी नोंदणीकृत ईमेल पत्ता प्रविष्ट करा.';
 
   @override
   String get usernameUnavailable => 'वापरकर्तानाव उपलब्ध नाही!';
@@ -691,7 +690,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get connectionError =>
-      'कनेक्शन त्रुटी आहे. कृपया आपल्या इंटरनेट तपासा आणि पुन्हा प्रयत्न करा.';
+      'कनेक्शन त्रुटी आली आहे. कृपया आपले इंटरनेट तपासा आणि पुन्हा प्रयत्न करा.';
 
   @override
   String get seconds => 'सेकंद.';
@@ -702,32 +701,32 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get deleteAccountPermanent =>
-      'ही क्रिया आपल्या खाते कायमचा हटवेल. हा अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आपण ते पुनर्प्राप्त करू शकणार नाहीत.';
+      'ही क्रिया आपल्या खात्याला कायमचा हटवेल. ही अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आपण ते पुनर्प्राप्त करू शकणार नाहीत.';
 
   @override
-  String get giveGreatName => 'एक महान नाव द्या..';
+  String get giveGreatName => 'एक चांगले नाव द्या..';
 
   @override
   String get joinCommunityDescription =>
-      'समुदायामध्ये जोडून आपण आपल्या संशय स्पष्ट करू शकता, नवीन वैशिष्ट्यांचा प्रस्ताव द्यू शकता, आपण सामोरे आलेल्या समस्यांची रिपोर्ट करू शकता आणि बरेच काही.';
+      'समुदायामध्ये जोडून आपण आपल्या संशय स्पष्ट करू शकता, नवीन वैशिष्ट्यांचा प्रस्ताव देऊ शकता, आपण सामोरे आलेल्या समस्यांची रिपोर्ट करू शकता आणि बरेच काही.';
 
   @override
   String get resonateDescription =>
-      'रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. आपल्याला रेजोनेट करणार्या कक्षे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा. संभाषणामध्ये सामील व्हा! कक्षे अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
+      'रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. आपल्याला रेजोनेट करणार्या कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या. संभाषणामध्ये सामील व्हा! कक्ष अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
 
   @override
   String get resonateFullDescription =>
-      'रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये सामील व्हा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी सामील व्हा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कक्षे\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- समाप्त-समाप्त एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात सामील व्हा!';
+      'रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये सामील व्हा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी सामील व्हा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कक्ष\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- समाप्त-समाप्त एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात सामील व्हा!';
 
   @override
   String get stable => 'स्थिर';
 
   @override
   String get usernameCharacterLimit =>
-      'वापरकर्तानाव ५ अक्षरांपेक्षा अधिक असणे आवश्यक आहे.';
+      'वापरकर्तानाव किमान ५ अक्षरे असणे आवश्यक आहे.';
 
   @override
-  String get submit => 'सबमिट करा';
+  String get submit => 'सादर करा';
 
   @override
   String get anonymous => 'अनामिक';
@@ -781,7 +780,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get invalidTags => 'अवैध टॅग:';
 
   @override
-  String get cropImage => 'प्रतिमा काटा';
+  String get cropImage => 'प्रतिमा कापा';
 
   @override
   String get profileSavedSuccessfully => 'प्रोफाइल अद्यतनित झाले';
@@ -797,18 +796,18 @@ class AppLocalizationsMr extends AppLocalizations {
       'कोणतेही नवीन बदल केले नाहीत, सेव करण्यासाठी काहीही नाही.';
 
   @override
-  String get connectionFailed => 'कनेक्शन अपयशी';
+  String get connectionFailed => 'कनेक्शन अयशस्वी';
 
   @override
   String get unableToJoinRoom =>
-      'कक्षमध्ये जोडणे अक्षम. कृपया आपल्या नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.';
+      'कक्षामध्ये जोडणे अयशस्वी. कृपया आपल्या नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.';
 
   @override
-  String get connectionLost => 'कनेक्शन हरविली';
+  String get connectionLost => 'कनेक्शन हरवले';
 
   @override
   String get unableToReconnect =>
-      'कक्षसह पुन्हा कनेक्ट करणे अक्षम. कृपया पुन्हा जोडणे प्रयत्न करा.';
+      'कक्षाशी पुन्हा कनेक्ट करणे अयशस्वी. कृपया पुन्हा जोडणे प्रयत्न करा.';
 
   @override
   String get invalidFormat => 'अवैध स्वरूप!';
@@ -921,7 +920,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get stories => 'कथा';
 
   @override
-  String get someSuggestions => 'काही सुझाव';
+  String get someSuggestions => 'काही सूचना';
 
   @override
   String get getStarted => 'सुरुवात करा';
@@ -940,11 +939,11 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get joinConversationExploreRooms =>
-      'संभाषणामध्ये सामील व्हा! कक्षे अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
+      'संभाषणामध्ये सामील व्हा! कक्ष अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
 
   @override
   String get diveIntoDiverseDiscussions =>
-      'विविध चर्चा आणि विषयांमध्ये जाहिरीकरण करा. \nआपल्याला रेजोनेट करणार्या कक्षे शोधा आणि समुदायचा भाग बनून जाहिरीकरण करा.';
+      'विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. \nआपल्याला रेजोनेट करणार्या कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या.';
 
   @override
   String get atResonateEveryVoiceValued =>
@@ -955,13 +954,13 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
-    return '$username ने आपल्याला आगामी कक्षमध्ये टॅग केले: $subject';
-  }
+    return '$username ने आपल्याला आगामी कक्षामध्ये टॅग केले: $subject';
+}
 
   @override
   String taggedYouInRoom(String username, String subject) {
-    return '$username ने आपल्याला कक्षमध्ये टॅग केले: $subject';
-  }
+    return '$username ने आपल्याला कक्षामध्ये टॅग केले: $subject';
+}
 
   @override
   String likedYourStory(String username, String subject) {
@@ -975,7 +974,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String startedFollowingYou(String username) {
-    return '$username ने आपल्याचा अनुसरण सुरू केला';
+    return '$username ने आपले अनुसरण सुरू केले';
   }
 
   @override
@@ -987,7 +986,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get resonateOpenSourceProject =>
-      'रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा github पहा.';
+      'रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा GitHub पहा.';
 
   @override
   String get mute => 'मौन करा';
@@ -1005,7 +1004,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get saveChanges => 'बदल सेव करा';
 
   @override
-  String get discard => 'त्याग करा';
+  String get discard => 'रद्द करा';
 
   @override
   String get save => 'सेव करा';
@@ -1152,8 +1151,8 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String friendRequestSentTo(String username) {
-    return 'आपल्या मित्र विनंती $username ला पाठविली गेली आहे.';
-  }
+    return 'आपल्या मित्र विनंती $username ला पाठवली गेली आहे.';
+}
 
   @override
   String get friendRequestCancelled => 'मित्र विनंती रद्द';
@@ -1185,8 +1184,8 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String friendRequestDeclinedTo(String username) {
-    return 'आपण $username कडून आलेली मित्र विनंती नाकारली आहे.';
-  }
+    return 'आपण $username कडून मित्र विनंती नकारली आहे.';
+}
 
   @override
   String get accept => 'स्वीकारा';
@@ -1222,11 +1221,11 @@ class AppLocalizationsMr extends AppLocalizations {
   String get updateCancelledMessage => 'अपडेट वापरकर्त्याद्वारे रद्द केली गेली';
 
   @override
-  String get updateFailed => 'अपडेट अपयशी';
+  String get updateFailed => 'अपडेट अयशस्वी';
 
   @override
   String get updateFailedMessage =>
-      'अपडेट करणे अपयशी. कृपया Play Store मधून स्वतः अपडेट करा.';
+      'अपडेट करणे अयशस्वी. कृपया Play Store मधून वापरकर्तामत्तेने अपडेट करा.';
 
   @override
   String get updateError => 'अपडेट त्रुटी';
@@ -1243,7 +1242,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'अपडेट तपास फक्त Android डिव्हाइसवर उपलब्ध आहे';
 
   @override
-  String get updateCheckFailed => 'अपडेट तपास अपयशी';
+  String get updateCheckFailed => 'अपडेट तपास अयशस्वी';
 
   @override
   String get updateCheckFailedMessage =>
@@ -1253,14 +1252,14 @@ class AppLocalizationsMr extends AppLocalizations {
   String get upToDateTitle => 'आपण अद्यावधिक आहात!';
 
   @override
-  String get upToDateMessage => 'आपण रेजोनेटची नवीनतम आवृत्ती वापरत आहात';
+  String get upToDateMessage => 'आपण रेजोनेटचे नवीनतम आवृत्ती वापरत आहात';
 
   @override
   String get updateAvailableTitle => 'अपडेट उपलब्ध!';
 
   @override
   String get updateAvailableMessage =>
-      'रेजोनेटचे नवीन संस्करण Play Store वर उपलब्ध आहे';
+      'रेजोनेटचे नवीन आवृत्ती Play Store वर उपलब्ध आहे';
 
   @override
   String get updateFeaturesImprovement => 'नवीन वैशिष्ट्य आणि सुधार मिळवा!';
@@ -1277,7 +1276,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get removedFromRoom =>
-      'आपल्याला रिपोर्ट केली गेली किंवा कक्षातून काढून टाकण्यात आले';
+      'आपल्याला रिपोर्ट करण्यात आले आहे किंवा कक्षातून काढून देण्यात आले आहे';
 
   @override
   String reportType(String type) {
@@ -1285,7 +1284,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'harassment': 'उत्पीडन / द्वेष भाषण',
       'abuse': 'अपमानजनक सामग्री / हिंसा',
       'spam': 'स्पॅम / घोटाळे / धोखाधरी',
-      'impersonation': 'झूठी व्यक्तिमत्ता / खोटे खाते',
+      'impersonation': 'खोटी ओळख / खोटे खाते',
       'illegal': 'अवैध क्रियाकलाप',
       'selfharm': 'आत्महानि / आत्महत्या / मानसिक स्वास्थ्य',
       'misuse': 'मंचचा दुरुपयोग',
@@ -1296,7 +1295,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get userBlockedFromResonate =>
-      'आपल्याला वापरकर्त्यांकडून अनेक रिपोर्ट प्राप्त झाली आहे आणि आपल्याला रेजोनेट वापरणे ब्लॉक केले गेले आहे. आपण यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.';
+      'आपल्याला वापरकर्त्यांकडून अनेक रिपोर्ट प्राप्त झाले आहे आणि आपल्याला रेजोनेट वापरणे ब्लॉक करण्यात आले आहे. आपण यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.';
 
   @override
   String get reportParticipant => 'सहभागी रिपोर्ट करा';
@@ -1305,10 +1304,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String get selectReportType => 'कृपया रिपोर्ट प्रकार निवडा';
 
   @override
-  String get reportSubmitted => 'रिपोर्ट यशस्वीरित्या सबमिट केली';
+  String get reportSubmitted => 'तक्रार यशस्वीरित्या सादर केली गेली';
 
   @override
-  String get reportFailed => 'रिपोर्ट सबमिशन अपयशी';
+  String get reportFailed => 'तक्रार सादर करणे अयशस्वी';
 
   @override
   String get additionalDetailsOptional => 'अतिरिक्त विवरण (वैकल्पिक)';
@@ -1321,7 +1320,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get cannotStopRecording =>
-      'आपण रेकॉर्डिंग स्वतः थांबवू शकत नाहीत, कक्ष बंद होताच रेकॉर्डिंग थांबवू दिली जाईल.';
+      'आपण रेकॉर्डिंग स्वतःहून थांबवू शकत नाही, कक्ष बंद होताच रेकॉर्डिंग थांबवली जाईल.';
 
   @override
   String get liveChapter => 'लाइव्ह अध्याय';
@@ -1346,40 +1345,5 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get noRecordingError =>
-      'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
-
-  @override
-  String get audioOutput => 'Audio Output';
-
-  @override
-  String get selectPreferredSpeaker => 'Select your preferred speaker';
-
-  @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
-
-  @override
-  String get refresh => 'Refresh';
-
-  @override
-  String get done => 'Done';
-
-  @override
-  String get deleteMessageTitle => 'संदेश हटवा';
-
-  @override
-  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
-
-  @override
-  String get thisMessageWasDeleted => 'हा संदेश डिलीट केला गेला';
-
-  @override
-  String get failedToDeleteMessage => 'संदेश डिलीट करण्यात अयशस्वी';
-
-  @override
-  String get usernameInvalidFormat =>
-      'कृपया वैध युजरनेम प्रविष्ट करा. फक्त अक्षरे, संख्या, बिंदू, अंडरस्कोर आणि हायफनला परवानगी आहे.';
-
-  @override
-  String get usernameAlreadyTaken =>
-      'हे युजरनेम आधीच घेतले गेले आहे. वेगळे युजरनेम वापरून पहा.';
+      'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केलेले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
 }
