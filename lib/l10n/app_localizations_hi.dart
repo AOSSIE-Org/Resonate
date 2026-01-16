@@ -997,6 +997,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get speakerLabel => 'स्पीकर';
 
   @override
+  String get audioOptions => 'ऑडियो विकल्प';
+
+  @override
   String get end => 'समाप्त करें';
 
   @override
@@ -1346,4 +1349,32 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get noRecordingError =>
       'आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।';
+
+  @override
+  String get audioOutput => 'ऑडियो आउटपुट';
+
+  @override
+  String get selectPreferredSpeaker => 'अपना पसंदीदा स्पीकर चुनें';
+
+  @override
+  String get noAudioOutputDevices => 'कोई ऑडियो आउटपुट डिवाइस नहीं मिला';
+
+  @override
+  String get refresh => 'रीफ़्रेश करें';
+
+  @override
+  String get done => 'हो गया';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटाएँ';
+
+  @override
+  String get deleteMessageContent =>
+      'क्या आप वाकई इस संदेश को हटाना चाहते हैं?';
+
+  @override
+  String get thisMessageWasDeleted => 'यह संदेश हटा दिया गया है';
+
+  @override
+  String get failedToDeleteMessage => 'संदेश हटाने में विफल रहा';
 }
