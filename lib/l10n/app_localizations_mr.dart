@@ -113,7 +113,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get incorrectEmailOrPassword => 'चुकीचा ईमेल किंवा पासवर्ड';
 
   @override
-  String get passwordShort => 'पासवर्ड ८ अक्षरांपेक्षा कमी आहे';
+  String get passwordShort => 'पासवर्ड किमान ८ अक्षरांचा असावा';
 
   @override
   String get tryAgain => 'पुन्हा प्रयत्न करा!';
@@ -149,7 +149,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get failed => 'अयशस्वी';
 
   @override
-  String get emailChangeFailed => 'ईमेल बदलणे अयशस्वी';
+  String get emailChangeFailed => 'ईमेल बदल अयशस्वी झाला';
 
   @override
   String get oops => 'अरे!';
@@ -179,7 +179,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get oauthUsersEmailChangeInfo =>
-      'आपले ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आपणGoogle/GitHub किंवा आपला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.';
+      'आपले ईमेल बदलण्यासाठी, कृपया \"वर्तमान पासवर्ड\" फील्डमध्ये नवीन पासवर्ड प्रविष्ट करा. हा पासवर्ड लक्षात ठेवा, कारण भविष्यातील ईमेल बदलांसाठी आपल्याला हवा असेल. पुढे, आपण Google/GitHub किंवा आपला नवीन ईमेल आणि पासवर्ड संयोजन वापरून लॉगिन करू शकता.';
 
   @override
   String get resonateTagline => 'अमर्याद संभाषणांच्या जगात प्रवेश करा.';
@@ -267,7 +267,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get passwordRequirements =>
-      'पासवर्ड किमान ८ अक्षर लांब असणे आवश्यक आहे';
+      'पासवर्ड किमान ८ अक्षरांचा असणे आवश्यक आहे';
 
   @override
   String get includeNumericDigit => 'किमान १ संख्या अंक समाविष्ट करा';
@@ -368,7 +368,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get modelDownloadInfo =>
-      'मॉडेल्स प्रथम वापरणे सुरू असताना डाउनलोड केले जातात. आम्ही बेस, लहान किंवा मध्यम वापरण्याची शिफारस करतो. मोठे मॉडेल्स अत्यंत उच्च-अंत डिव्हाइस आवश्यक.';
+      'मॉडेल्स प्रथम वापरणे सुरू असताना डाउनलोड केले जातात. आम्ही बेस, लहान किंवा मध्यम वापरण्याची शिफारस करतो. मोठ्या मॉडेल्ससाठी अत्यंत उच्च-अंत डिव्हाइस आवश्यक आहे.';
 
   @override
   String get logOut => 'लॉगआउट करा';
@@ -441,7 +441,8 @@ class AppLocalizationsMr extends AppLocalizations {
   String get enterVerificationCode => 'आपला\nसत्यापन कोड प्रविष्ट करा';
 
   @override
-  String get verificationCodeSent => 'आम्ही एक ६-अंकीय सत्यापन कोड\n';
+  String get verificationCodeSent =>
+      'आम्ही आपल्याला एक ६-अंकीय सत्यापन कोड पाठवला आहे\n';
 
   @override
   String get verificationComplete => 'सत्यापन पूर्ण';
@@ -701,7 +702,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get deleteAccountPermanent =>
-      'ही क्रिया आपल्या खात्याला कायमचा हटवेल. ही अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आपण ते पुनर्प्राप्त करू शकणार नाहीत.';
+      'ही क्रिया आपल्या खात्याला कायमचा हटवेल. ही अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आपण ते पुनर्प्राप्त करू शकणार नाही.';
 
   @override
   String get giveGreatName => 'एक चांगले नाव द्या..';
@@ -712,11 +713,11 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get resonateDescription =>
-      'रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. आपल्याला रेजोनेट करणार्या कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या. संभाषणामध्ये सामील व्हा! कक्ष अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
+      'रेजोनेट एक सामाजिक माध्यम मंच आहे, जेथे प्रत्येक आवाज मूल्यवान आहे. आपल्या विचार, कथा, आणि अनुभव दुसऱ्यांसह सामायिक करा. आपल्या ऑडियो यात्रा आता सुरू करा. विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. आपल्याला रुचणारे रेजोनेट कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या. संभाषणामध्ये सामील व्हा! कक्ष अन्वेषण करा, मित्रांशी सामील व्हा, आणि आपल्या आवाज विश्वासह सामायिक करा.';
 
   @override
   String get resonateFullDescription =>
-      'रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये सामील व्हा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी सामील व्हा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कक्ष\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- समाप्त-समाप्त एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात सामील व्हा!';
+      'रेजोनेट एक क्रांतिकारी व्हॉयस-आधारित सामाजिक माध्यम मंच आहे जेथे प्रत्येक आवाज महत्वाचा आहे. \nरीअल-टाइम ऑडियो संभाषणामध्ये सामील व्हा, विविध चर्चायोजनांमध्ये भाग घ्या, आणि \nसमान विचारांसह व्यक्तींशी सामील व्हा. आमचे मंच देते:\n- विषय-आधारित चर्चेसह लाइव्ह ऑडियो कक्ष\n- व्हॉयसद्वारे सहज सामाजिक नेटवर्किंग\n- समुदाय-चालित सामग्री मॉडरेशन\n- क्रॉस-मंच सुसंगतता\n- एंड-टू-एंड एन्क्रिप्टेड खाजगी संभाषणे\n\nAOSSIE मुक्त स्रोत समुदायद्वारे विकसित, आम्ही वापरकर्ता गोपनीयता आणि \nसमुदाय-चालित विकासना प्राधान्य देतो. सामाजिक ऑडियोचे भविष्य आकार देण्यामध्ये आमच्यात सामील व्हा!';
 
   @override
   String get stable => 'स्थिर';
@@ -807,14 +808,14 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get unableToReconnect =>
-      'कक्षाशी पुन्हा कनेक्ट करणे अयशस्वी. कृपया पुन्हा जोडणे प्रयत्न करा.';
+      'कक्षाशी पुन्हा कनेक्ट करणे अयशस्वी. कृपया पुन्हा जोडण्याचा प्रयत्न करा.';
 
   @override
   String get invalidFormat => 'अवैध स्वरूप!';
 
   @override
   String get usernameAlphanumeric =>
-      'वापरकर्तानाव अल्फान्यूमेरिक असणे आवश्यक आहे आणि विशेष अक्षर असू शकत नाहीत.';
+      'वापरकर्तानाव अल्फान्यूमेरिक असणे आवश्यक आहे आणि विशेष अक्षरे असू शकत नाहीत.';
 
   @override
   String get userProfileCreatedSuccessfully =>
@@ -826,7 +827,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String addNewChaptersToStory(String storyName) {
-    return '$storyName मध्ये नवीन अध्याय सामील व्हा';
+    return '$storyName मध्ये नवीन अध्याय जोडा';
   }
 
   @override
@@ -892,14 +893,14 @@ class AppLocalizationsMr extends AppLocalizations {
   String get category => 'श्रेणी *';
 
   @override
-  String get addChapter => 'अध्याय सामील व्हा';
+  String get addChapter => 'अध्याय जोडा';
 
   @override
   String get createStory => 'कथा तयार करा';
 
   @override
   String get fillAllRequiredFieldsAndChapter =>
-      'कृपया सर्व आवश्यक फील्ड भरा, किमान एक अध्याय सामील व्हा, आणि कव्हर प्रतिमा निवडा.';
+      'कृपया सर्व आवश्यक फील्ड भरा, किमान एक अध्याय जोडा, आणि कव्हर प्रतिमा निवडा.';
 
   @override
   String get toConfirmType => 'पुष्टी करण्यासाठी, टाइप करा';
@@ -943,7 +944,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get diveIntoDiverseDiscussions =>
-      'विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. \nआपल्याला रेजोनेट करणार्या कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या.';
+      'विविध चर्चा आणि विषयांमध्ये सहभाग घ्या. \nआपल्याला रुचणारे रेजोनेट कक्ष शोधा आणि समुदायचा भाग बनून सहभाग घ्या.';
 
   @override
   String get atResonateEveryVoiceValued =>
@@ -1169,7 +1170,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get friends => 'मित्र';
 
   @override
-  String get addFriend => 'मित्र सामील व्हा';
+  String get addFriend => 'मित्र जोडा';
 
   @override
   String get friendRequestAccepted => 'मित्र विनंती स्वीकारली';
@@ -1191,11 +1192,11 @@ class AppLocalizationsMr extends AppLocalizations {
   String get accept => 'स्वीकारा';
 
   @override
-  String get callDeclined => 'कॉल नकारली';
+  String get callDeclined => 'कॉल नाकारला';
 
   @override
   String callDeclinedTo(String username) {
-    return 'वापरकर्ता $username ने कॉल नकारली.';
+    return 'वापरकर्ता $username ने कॉल नाकारला.';
   }
 
   @override
@@ -1276,7 +1277,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get removedFromRoom =>
-      'आपल्याला रिपोर्ट करण्यात आले आहे किंवा कक्षातून काढून देण्यात आले आहे';
+      'आपल्यावर तक्रार नोंदवण्यात आली आहे किंवा आपल्याला कक्षातून काढून देण्यात आले आहे';
 
   @override
   String reportType(String type) {
@@ -1295,7 +1296,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get userBlockedFromResonate =>
-      'आपल्याला वापरकर्त्यांकडून अनेक रिपोर्ट प्राप्त झाले आहे आणि आपल्याला रेजोनेट वापरणे ब्लॉक करण्यात आले आहे. आपण यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.';
+      'आपल्याविरुद्ध अनेक तक्रारी नोंदवण्यात आल्या आहेत आणि आपल्याला रेजोनेट वापरणे ब्लॉक करण्यात आले आहे. आपण यावर विश्वास करत नाही असल्यास कृपया AOSSIE शी संपर्क करा.';
 
   @override
   String get reportParticipant => 'सहभागी रिपोर्ट करा';
@@ -1304,10 +1305,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String get selectReportType => 'कृपया रिपोर्ट प्रकार निवडा';
 
   @override
-  String get reportSubmitted => 'तक्रार यशस्वीरित्या सादर केली गेली';
+  String get reportSubmitted => 'तक्रार यशस्वीरित्या सादर करण्यात आली';
 
   @override
-  String get reportFailed => 'तक्रार सादर करणे अयशस्वी';
+  String get reportFailed => 'तक्रार सादर करणे अयशस्वी झाले';
 
   @override
   String get additionalDetailsOptional => 'अतिरिक्त विवरण (वैकल्पिक)';
@@ -1369,16 +1370,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
 
   @override
-  String get thisMessageWasDeleted => 'हा संदेश डिलीट केला गेला';
+  String get thisMessageWasDeleted => 'This message was deleted';
 
   @override
-  String get failedToDeleteMessage => 'संदेश डिलीट करण्यात अयशस्वी';
+  String get failedToDeleteMessage => 'Failed to delete message';
 
   @override
   String get usernameInvalidFormat =>
-      'कृपया वैध युजरनेम प्रविष्ट करा. फक्त अक्षरे, संख्या, बिंदू, अंडरस्कोर आणि हायफनला परवानगी आहे.';
+      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
 
   @override
   String get usernameAlreadyTaken =>
-      'हे युजरनेम आधीच घेतले गेले आहे. वेगळे युजरनेम वापरून पहा.';
+      'This username is already taken. Try a different one.';
 }
