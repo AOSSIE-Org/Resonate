@@ -5,4 +5,5 @@ supported-locales:
   - en
   - hi
   - bn
+  - mr
 untranslated-messages-file: untranslated.txt
