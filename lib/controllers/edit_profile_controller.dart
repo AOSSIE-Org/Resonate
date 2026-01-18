@@ -23,11 +23,11 @@ class EditProfileController extends GetxController {
 
   final ThemeController themeController;
   late final Storage storage;
-  late final Databases databases;
+  late final TablesDB tables;
 
   RxBool isLoading = false.obs;
   Rx<bool> usernameAvailable = false.obs;
-
+  Rx<bool> usernameChecking = false.obs;
   bool removeImage = false;
   bool showSuccessSnackbar = false;
 
@@ -45,18 +45,21 @@ class EditProfileController extends GetxController {
     ThemeController? themeController,
     AuthStateController? authStateController,
     Storage? storage,
-    Databases? databases,
+    TablesDB? tables,
   }) : themeController = themeController ?? Get.find<ThemeController>(),
        authStateController =
            authStateController ?? Get.find<AuthStateController>(),
        storage = storage ?? AppwriteService.getStorage(),
-       databases = databases ?? AppwriteService.getDatabases();
+       tables = tables ?? AppwriteService.getTables();
 
   @override
   void onInit() {
     super.onInit();
     oldDisplayName = authStateController.displayName!.trim();
     oldUsername = authStateController.userName!.trim();
+    // Initialize as true since user starts with their own username
+
+    usernameAvailable.value = true;
 
     nameController.text = authStateController.displayName!.trim();
     usernameController.text = authStateController.userName!.trim();
@@ -157,11 +160,15 @@ class EditProfileController extends GetxController {
   }
 
   Future<bool> isUsernameAvailable(String username) async {
+    // condition to check if the username is same as the current username
+    if (username.trim() == oldUsername) {
+      return true;
+    }
     try {
-      await databases.getDocument(
+      await tables.getRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: username,
+        tableId: usernameTableID,
+        rowId: username,
       );
       return false;
     } catch (e) {
@@ -234,10 +241,10 @@ class EditProfileController extends GetxController {
             "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/${profileImage.$id}/view?project=$appwriteProjectId";
 
         // Update user profile picture URL in Database
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {
             "profileImageUrl": imageController.text,
             "profileImageID": uniqueIdForProfileImage,
@@ -249,59 +256,42 @@ class EditProfileController extends GetxController {
         imageController.text = "";
 
         // Update user profile picture URL in Database
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {"profileImageUrl": imageController.text},
         );
       }
 
       // Update USERNAME
       if (isUsernameChanged()) {
-        var usernameAvail = await isUsernameAvailable(
-          usernameController.text.trim(),
-        );
-        if (!usernameAvail) {
-          usernameAvailable.value = false;
-          customSnackbar(
-            AppLocalizations.of(Get.context!)!.usernameUnavailable,
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
-            LogType.error,
-          );
-
-          SemanticsService.announce(
-            AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
-            TextDirection.ltr,
-          );
-          return;
-        }
-
         // Create new doc of New Username
-        await databases.createDocument(
-          databaseId: userDatabaseID,
-          collectionId: usernameCollectionID,
-          documentId: usernameController.text.trim(),
-          data: {'email': authStateController.email},
-        );
-
         try {
-          // Delete Old Username doc, so Username can be re-usable
-          await databases.deleteDocument(
+          await tables.createRow(
             databaseId: userDatabaseID,
-            collectionId: usernameCollectionID,
-            documentId: oldUsername,
+            tableId: usernameTableID,
+            rowId: usernameController.text.trim(),
+            data: {'email': authStateController.email},
+          );
+
+          await tables.deleteRow(
+            databaseId: userDatabaseID,
+            tableId: usernameTableID,
+            rowId: oldUsername,
+          );
+
+          await tables.updateRow(
+            databaseId: userDatabaseID,
+            tableId: usersTableID,
+            rowId: authStateController.uid!,
+            data: {"username": usernameController.text.trim()},
           );
         } catch (e) {
           log(e.toString());
+          showSuccessSnackbar = false;
+          rethrow;
         }
-
-        await databases.updateDocument(
-          databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
-          data: {"username": usernameController.text.trim()},
-        );
       }
 
       //Update user DISPLAY-NAME
@@ -311,10 +301,10 @@ class EditProfileController extends GetxController {
           name: nameController.text.trim(),
         );
 
-        await databases.updateDocument(
+        await tables.updateRow(
           databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: authStateController.uid!,
+          tableId: usersTableID,
+          rowId: authStateController.uid!,
           data: {"name": nameController.text.trim()},
         );
       }
