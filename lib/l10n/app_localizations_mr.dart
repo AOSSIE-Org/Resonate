@@ -52,7 +52,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get editProfile => 'प्रोफाइल संपादित करा';
 
   @override
-  String get verifyEmail => 'ईमेल सत्यापन करा';
+  String get verifyEmail => 'ईमेल सत्यापित करा';
 
   @override
   String get verified => 'सत्यापित';
@@ -66,6 +66,7 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get yourLikedStories => 'आपल्या आवडीची कथा';
 
+  @override
   String get userNoLikedStories => 'वापरकर्त्याने कोणतीही कथा आवडलेली नाही';
 
   @override
@@ -83,7 +84,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'true': 'कोणताही कक्ष उपलब्ध नाही',
       'false': 'आगामी कक्ष उपलब्ध नाही',
       'other': 'कोणतीही माहिती उपलब्ध नाही',
-  });
+    });
     return '$_temp0\nखाली एक जोडून सुरुवात करा!';
   }
 
@@ -112,7 +113,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get incorrectEmailOrPassword => 'चुकीचा ईमेल किंवा पासवर्ड';
 
   @override
-  String get passwordShort => 'पासवर्ड किमान ८ अक्षरांचा असावा';
+  String get passwordShort => 'पासवर्ड ८ अक्षरांपेक्षा कमी आहे';
 
   @override
   String get tryAgain => 'पुन्हा प्रयत्न करा!';
@@ -130,7 +131,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get resetPassword => 'पासवर्ड रीसेट करा';
 
   @override
-  String get enterNewPassword => 'कृपया नवीन पासवर्ड प्रविष्ट करा';
+  String get enterNewPassword => 'आपला नवीन पासवर्ड प्रविष्ट करा';
 
   @override
   String get newPassword => 'नवीन पासवर्ड';
@@ -160,7 +161,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get changeEmail => 'ईमेल बदला';
 
   @override
-  String get enterValidEmail => 'कृपया वैध ईमेल पत्ता प्रविष्ट करा';
+  String get enterValidEmail => 'कृपया एक वैध ईमेल पत्ता प्रविष्ट करा';
 
   @override
   String get newEmail => 'नवीन ईमेल';
@@ -170,7 +171,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get emailChangeInfo =>
-      'अतिरिक्त सुरक्षेसाठी, आपल्या ईमेल पत्ता बदलताना आपण आपल्या खात्याचा वर्तमान पासवर्ड प्रदान करणे आवश्यक आहे. आपल्याला ईमेल बदल्यानंतर, भविष्यातील लॉगिनसाठी अद्यतन ईमेल वापरा.';
+      'अतिरिक्त सुरक्षेसाठी, आपले ईमेल पत्ता बदलताना आपण आपल्या खात्याचा वर्तमान पासवर्ड प्रदान करणे आवश्यक आहे. आपला ईमेल बदल्यानंतर, भविष्यातील लॉगिनसाठी अद्यतन ईमेल वापरा.';
 
   @override
   String get oauthUsersMessage =>
@@ -385,8 +386,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get leaveButton => 'सोडून द्या';
 
   @override
-  String get findingRandomPartner =>
-      'आपल्यासाठी यादृच्छिक सहभागी शोधला जात आहे';
+  String get findingRandomPartner => 'आपल्यासाठी यादृच्छिक सहभागी शोधत आहे';
 
   @override
   String get quickFact => 'द्रुत माहिती';
@@ -438,7 +438,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get noStoriesExist => 'सादर करण्यासाठी कोणतीही कथा नाही';
 
   @override
-  String get enterVerificationCode => 'आपल्याला\nसत्यापन कोड प्रविष्ट करा';
+  String get enterVerificationCode => 'आपला\nसत्यापन कोड प्रविष्ट करा';
 
   @override
   String get verificationCodeSent => 'आम्ही एक ६-अंकीय सत्यापन कोड\n';
@@ -570,7 +570,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get newVersionAvailable => 'नवीन आवृत्ती उपलब्ध आहे!';
 
   @override
-  String get upToDate => 'अद्ययावत';
+  String get upToDate => 'अद्यावधिक आहे';
 
   @override
   String get latestVersion => 'आपण नवीनतम आवृत्ती वापरत आहात';
@@ -601,7 +601,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get emailVerificationRequired => 'ईमेल सत्यापन आवश्यक';
 
   @override
-  String get verify => 'सत्यापन करा';
+  String get verify => 'सत्यापित करा';
 
   @override
   String get audioRoom => 'ऑडियो कक्ष';
@@ -609,7 +609,7 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String toRoomAction(String action) {
     return 'कक्ष $action करण्यासाठी';
- }
+  }
 
   @override
   String get mailSentMessage => 'ईमेल पाठवली गेली';
@@ -672,7 +672,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get alreadyHaveAccount => 'पहिल्यापासून खाता आहे? ';
 
   @override
-  String get checking => 'तपासणी सुरू आहे...';
+  String get checking => 'तपास करत आहे...';
 
   @override
   String get forgotPasswordMessage =>
@@ -789,7 +789,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get profileUpdatedSuccessfully => 'सर्व बदल यशस्वीरित्या सेव केले.';
 
   @override
-  String get profileUpToDate => 'प्रोफाइल अद्ययावत';
+  String get profileUpToDate => 'प्रोफाइल अद्यावधिक आहे';
 
   @override
   String get noChangesToSave =>
@@ -822,7 +822,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get emailVerificationMessage =>
-      'पुढे जाण्यासाठी, आपल्या ईमेल पत्ता सत्यापन करा.';
+      'पुढे जाण्यासाठी, आपले ईमेल पत्ता सत्यापित करा.';
 
   @override
   String addNewChaptersToStory(String storyName) {
@@ -955,12 +955,12 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String taggedYouInUpcomingRoom(String username, String subject) {
     return '$username ने आपल्याला आगामी कक्षामध्ये टॅग केले: $subject';
-}
+  }
 
   @override
   String taggedYouInRoom(String username, String subject) {
     return '$username ने आपल्याला कक्षामध्ये टॅग केले: $subject';
-}
+  }
 
   @override
   String likedYourStory(String username, String subject) {
@@ -1152,7 +1152,7 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String friendRequestSentTo(String username) {
     return 'आपल्या मित्र विनंती $username ला पाठवली गेली आहे.';
-}
+  }
 
   @override
   String get friendRequestCancelled => 'मित्र विनंती रद्द';
@@ -1185,7 +1185,7 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String friendRequestDeclinedTo(String username) {
     return 'आपण $username कडून मित्र विनंती नकारली आहे.';
-}
+  }
 
   @override
   String get accept => 'स्वीकारा';
@@ -1195,7 +1195,7 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String callDeclinedTo(String username) {
-    return '$username यांनी कॉल नाकारला.';
+    return 'वापरकर्ता $username ने कॉल नकारली.';
   }
 
   @override
@@ -1332,7 +1332,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get close => 'बंद करा';
 
   @override
-  String get verifyChapterDetails => 'अध्याय तपशील सत्यापन करा';
+  String get verifyChapterDetails => 'अध्याय तपशील सत्यापित करा';
 
   @override
   String get author => 'लेखक';
@@ -1346,4 +1346,39 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get noRecordingError =>
       'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केलेले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटवा';
+
+  @override
+  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
+
+  @override
+  String get thisMessageWasDeleted => 'हा संदेश डिलीट केला गेला';
+
+  @override
+  String get failedToDeleteMessage => 'संदेश डिलीट करण्यात अयशस्वी';
+
+  @override
+  String get usernameInvalidFormat =>
+      'कृपया वैध युजरनेम प्रविष्ट करा. फक्त अक्षरे, संख्या, बिंदू, अंडरस्कोर आणि हायफनला परवानगी आहे.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'हे युजरनेम आधीच घेतले गेले आहे. वेगळे युजरनेम वापरून पहा.';
 }
