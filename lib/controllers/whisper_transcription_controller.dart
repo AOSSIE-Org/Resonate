@@ -5,6 +5,8 @@ import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 class WhisperTranscriptionController extends GetxController {
@@ -59,7 +61,12 @@ class WhisperTranscriptionController extends GetxController {
     final StringBuffer lrcContent = StringBuffer();
     lrcContent.writeln('[re:Resonate App - AOSSIE]');
     lrcContent.writeln('[ve:v1.0.0]');
-    for (WhisperTranscribeSegment? segment in transcriptionSegments) {
+    
+    int failedSegments = 0;
+    
+    for (var entry in transcriptionSegments.asMap().entries) {
+      final index = entry.key;
+      final segment = entry.value;
       try {
         // Parse the log line
         final segmentString = _parseTranscriptionSegment(segment);
@@ -67,9 +74,23 @@ class WhisperTranscriptionController extends GetxController {
           // Convert to LRC format and add to content
           lrcContent.writeln(segmentString);
         }
-      } catch (e) {
-        print(e.toString());
+      } catch (e, stackTrace) {
+        log(
+          'Error converting transcription segment at index $index: ${e.toString()}',
+          error: e,
+          stackTrace: stackTrace,
+        );
+        failedSegments++;
       }
+    }
+    
+    // Show a single user-friendly snackbar if any segments failed
+    if (failedSegments > 0) {
+      customSnackbar(
+        'Transcription Warning',
+        'Some parts of the transcription could not be processed.',
+        LogType.warning,
+      );
     }
 
     return lrcContent.toString();
