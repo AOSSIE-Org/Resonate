@@ -62,11 +62,9 @@ class WhisperTranscriptionController extends GetxController {
     lrcContent.writeln('[re:Resonate App - AOSSIE]');
     lrcContent.writeln('[ve:v1.0.0]');
     
-    int failedSegments = 0;
-    
-    for (var entry in transcriptionSegments.asMap().entries) {
-      final index = entry.key;
-      final segment = entry.value;
+    bool hasFailedSegments = false;
+
+    for (WhisperTranscribeSegment? segment in transcriptionSegments) {
       try {
         // Parse the log line
         final segmentString = _parseTranscriptionSegment(segment);
@@ -76,16 +74,16 @@ class WhisperTranscriptionController extends GetxController {
         }
       } catch (e, stackTrace) {
         log(
-          'Error converting transcription segment at index $index: ${e.toString()}',
+          'Error converting transcription segment: ${e.toString()}',
           error: e,
           stackTrace: stackTrace,
         );
-        failedSegments++;
+        hasFailedSegments = true;
       }
     }
-    
+
     // Show a single user-friendly snackbar if any segments failed
-    if (failedSegments > 0) {
+    if (hasFailedSegments) {
       customSnackbar(
         'Transcription Warning',
         'Some parts of the transcription could not be processed.',
