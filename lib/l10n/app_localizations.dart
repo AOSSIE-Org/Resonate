@@ -11,6 +11,7 @@ import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
+import 'app_localizations_raj.dart';
 import 'app_localizations_pa.dart';
 
 // ignore_for_file: type=lint
@@ -67,8 +68,7 @@ import 'app_localizations_pa.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -91,11 +91,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -103,6 +103,7 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('gu'),
     Locale('hi'),
+    Locale('raj'),
     Locale('kn'),
     Locale('mr'),
     Locale('pa'),
@@ -2549,6 +2550,7 @@ class _AppLocalizationsDelegate
     'kn',
     'mr',
     'pa',
+    'raj'
   ].contains(locale.languageCode);
 
   @override
@@ -2566,6 +2568,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsGu();
     case 'hi':
       return AppLocalizationsHi();
+    case 'raj':
+      return AppLocalizationsRaj();
     case 'kn':
       return AppLocalizationsKn();
     case 'mr':
