@@ -1377,12 +1377,4 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'संदेश हटाने में विफल रहा';
-
-  @override
-  String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
-
-  @override
-  String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
 }

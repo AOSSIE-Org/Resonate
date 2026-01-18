@@ -1467,7 +1467,7 @@ abstract class AppLocalizations {
   /// Error message when a chosen username is too short.
   ///
   /// In en, this message translates to:
-  /// **'Username should contain more than 7 characters.'**
+  /// **'Username should contain more than 5 characters.'**
   String get usernameCharacterLimit;
 
   /// Generic button text for submitting a form.
@@ -2518,29 +2518,17 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to delete this message?'**
   String get deleteMessageContent;
 
-  /// Status text shown when a previously sent message has been deleted.
+  /// No description provided for @thisMessageWasDeleted.
   ///
   /// In en, this message translates to:
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// Error message shown when the system is unable to delete a message.
+  /// No description provided for @failedToDeleteMessage.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
   String get failedToDeleteMessage;
-
-  /// Validation error displayed when the user enters a username with unsupported characters.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.'**
-  String get usernameInvalidFormat;
-
-  /// Error shown when the chosen username is unavailable because another user has already registered it.
-  ///
-  /// In en, this message translates to:
-  /// **'This username is already taken. Try a different one.'**
-  String get usernameAlreadyTaken;
 }
 
 class _AppLocalizationsDelegate

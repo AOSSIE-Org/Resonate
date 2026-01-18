@@ -1384,12 +1384,4 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'বার্তা মুছে ফেলা ব্যর্থ হয়েছে';
-
-  @override
-  String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
-
-  @override
-  String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
 }
