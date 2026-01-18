@@ -61,9 +61,11 @@ class WhisperTranscriptionController extends GetxController {
     final StringBuffer lrcContent = StringBuffer();
     lrcContent.writeln('[re:Resonate App - AOSSIE]');
     lrcContent.writeln('[ve:v1.0.0]');
-    for (int i = 0; i < transcriptionSegments.length; i++) {
+    
+    int failedSegments = 0;
+    
+    for (WhisperTranscribeSegment? segment in transcriptionSegments) {
       try {
-        final segment = transcriptionSegments[i];
         // Parse the log line
         final segmentString = _parseTranscriptionSegment(segment);
         if (segmentString != null) {
@@ -72,16 +74,21 @@ class WhisperTranscriptionController extends GetxController {
         }
       } catch (e, stackTrace) {
         log(
-          'Error converting transcription segment at index $i: ${e.toString()}',
+          'Error converting transcription segment: ${e.toString()}',
           error: e,
           stackTrace: stackTrace,
         );
-        customSnackbar(
-          'Transcription Error',
-          'Failed to process segment ${i + 1}. Some content may be missing.',
-          LogType.error,
-        );
+        failedSegments++;
       }
+    }
+    
+    // Show a single user-friendly snackbar if any segments failed
+    if (failedSegments > 0) {
+      customSnackbar(
+        'Transcription Warning',
+        'Some parts of the transcription could not be processed.',
+        LogType.warning,
+      );
     }
 
     return lrcContent.toString();
