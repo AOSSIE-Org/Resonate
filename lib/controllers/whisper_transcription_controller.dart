@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:resonate/utils/constants.dart';
@@ -85,8 +86,8 @@ class WhisperTranscriptionController extends GetxController {
     // Show a single user-friendly snackbar if any segments failed
     if (hasFailedSegments) {
       customSnackbar(
-        'Transcription Warning',
-        'Some parts of the transcription could not be processed.',
+        AppLocalizations.of(Get.context!)!.transcriptionWarning,
+        AppLocalizations.of(Get.context!)!.transcriptionWarningMessage,
         LogType.warning,
       );
     }
