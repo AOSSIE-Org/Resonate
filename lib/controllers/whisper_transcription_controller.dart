@@ -64,7 +64,9 @@ class WhisperTranscriptionController extends GetxController {
     
     int failedSegments = 0;
     
-    for (WhisperTranscribeSegment? segment in transcriptionSegments) {
+    for (var entry in transcriptionSegments.asMap().entries) {
+      final index = entry.key;
+      final segment = entry.value;
       try {
         // Parse the log line
         final segmentString = _parseTranscriptionSegment(segment);
@@ -74,7 +76,7 @@ class WhisperTranscriptionController extends GetxController {
         }
       } catch (e, stackTrace) {
         log(
-          'Error converting transcription segment: ${e.toString()}',
+          'Error converting transcription segment at index $index: ${e.toString()}',
           error: e,
           stackTrace: stackTrace,
         );
