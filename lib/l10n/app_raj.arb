@@ -402,6 +402,70 @@
   "@contribute": {
     "description": "प्रोजेक्ट में योगदान करण खातर प्रेरणा देण वालो सेक्शन।"
   },
+  "appPreferences": "ऐप री पसंद",
+  "@appPreferences": {
+      "description": "Label for the app preferences settings page."
+  },
+  "transcriptionModel": "लिप्यंतरण मॉडल",
+  "@transcriptionModel": {
+      "description": "Section title for choosing AI transcription model."
+  },
+  "transcriptionModelDescription": "आवाज रो लिप्यंतरण करवा खातर AI मॉडल चुनो। मोटा मॉडल ज्यादा सही होवे, पण ओ धीमा होवे अने ज्यादा स्टोरेज लेवे।",
+  "@transcriptionModelDescription": {
+    "description": "Description text explaining transcription model choices."
+  },
+  "whisperModelTiny": "टाइनी",
+  "@whisperModelTiny": {
+    "description": "Name of the smallest Whisper AI model."
+  },
+  "whisperModelTinyDescription": "सब सूं तेज, पण निखार कम (~39 MB)",
+  "@whisperModelTinyDescription": {
+    "description": "Description of the Tiny Whisper model performance and size."
+  },
+  "whisperModelBase": "बेस",
+  "@whisperModelBase": {
+    "description": "Name of the base Whisper AI model."
+  },
+  "whisperModelBaseDescription": "वेग अने निखार रो सन्तुलन (~74 MB)",
+  "@whisperModelBaseDescription": {
+    "description": "Description of the Base Whisper model performance and size."
+  },
+  "whisperModelSmall": "स्मॉल",
+  "@whisperModelSmall": {
+    "description": "Name of the small Whisper AI model."
+  },
+  "whisperModelSmallDescription": "सारो निखार, थोरो धीमो (~244 MB)",
+  "@whisperModelSmallDescription": {
+    "description": "Description of the Small Whisper model performance and size."
+  },
+  "whisperModelMedium": "मीडियम",
+  "@whisperModelMedium": {
+    "description": "Name of the medium Whisper AI model."
+  },
+  "whisperModelMediumDescription": "घणो निखार, धीमो (~769 MB)",
+  "@whisperModelMediumDescription": {
+    "description": "Description of the Medium Whisper model performance and size."
+  },
+  "whisperModelLargeV1": "लार्ज V1",
+  "@whisperModelLargeV1": {
+    "description": "Name of the large V1 Whisper AI model."
+  },
+  "whisperModelLargeV1Description": "सब सूं ज्यादा निखार, सब सूं धीमो (~1.55 GB)",
+  "@whisperModelLargeV1Description": {
+    "description": "Description of the Large V1 Whisper model performance and size."
+  },
+  "whisperModelLargeV2": "लार्ज V2",
+  "@whisperModelLargeV2": {
+    "description": "Name of the large V2 Whisper AI model."
+  },
+  "whisperModelLargeV2Description": "सुधारयो मोटा मॉडल, ज्यादा निखार सूं (~1.55 GB)",
+  "@whisperModelLargeV2Description": {
+    "description": "Description of the Large V2 Whisper model performance and size."
+  },
+  "modelDownloadInfo": "मॉडल पहेली वार उपयोग करां टां डाऊनलोड होवे। हम बेस, स्मॉल या मीडियम मॉडल उपयोग करां री सलाह देवां। लार्ज मॉडल खातर बहुत तेज मोबाइल या साधन जरूरी होवे।",
+  "@modelDownloadInfo": {
+    "description": "Information message about model download."
+  },
   "logOut": "लॉगआउट करो",
   "@logOut": {
     "description": "खातां सूं बाहर आवण खातर बटन टेक्स्ट।"
@@ -641,6 +705,42 @@
   "errorLoadPackageInfo": "पैकेज जानकारी लोड नां थाई सकी",
   "@errorLoadPackageInfo": {
     "description": "जद ऐप अपनी पैकेज जानकारी (जैसे वर्जन) लोड नां करी सके तो एरर संदेश।"
+  },
+  "searchFailed": "खोज नाकाम रही",
+  "@searchFailed": {
+    "description": "Error message shown when search fails."
+  },
+  "searchRooms": "रूम खोजो",
+  "@searchRooms": {
+    "description": "Button or label to search rooms."
+  },
+  "searchingRooms": "रूम खोजां लाग्यो है",
+  "@searchingRooms": {
+    "description": "Loading text shown while searching rooms."
+  },
+  "clearSearch": "खोज साफ करो",
+  "@clearSearch": {
+    "description": "Button text to clear the search input."
+  },  
+  "searchError": "खोज मांय गलती",
+  "@searchError": {
+    "description": "Generic search error message."
+  },
+  "searchRoomsError": "रूम खोजां मांय गलती",
+  "@searchRoomsError": {
+    "description": "Error message when searching rooms fails."
+  },
+  "searchUpcomingRoomsError": "आंवण वाळा रूम खोजां मांय गलती",
+  "@searchUpcomingRoomsError": {
+    "description": "Error message when searching upcoming rooms fails."
+  },
+  "search": "खोजो",
+  "@search": {
+    "description": "Search button text."
+  },  
+  "clear": "साफ करो",
+  "@clear": {
+    "description": "Button text to clear input or selection."
   },
   "updateAvailable": "अपडेट उपलब्ध है",
   "@updateAvailable": {
@@ -1547,6 +1647,30 @@
   "updateFeaturesImprovement": "नवीन फीचर अने सुधार मिलवो!",
   "@updateFeaturesImprovement": {
     "description": "एप्लिकेशन अपडेट करणी फायदो दर्शावणो सन्देसो."
+  },
+  "hide": "छुपाओ",
+  "@hide": {
+    "description": "Button text to hide an item from view."
+  },
+  "removeRoom": "रूम छुपाओ",
+  "@removeRoom": {
+    "description": "Dialog title for hiding an upcoming room."
+  },
+  "removeRoomFromList": "सूची मांय सूं छुपाओ",
+  "@removeRoomFromList": {
+    "description": "Tooltip text for the hide room button."
+  },
+  "removeRoomConfirmation": "क्या तूं वाकई आंवण वाळो रूम अपनी सूची मांय सूं छुपावां चाहै?",
+  "@removeRoomConfirmation": {
+    "description": "Confirmation message asking if the user wants to hide an upcoming room from their list."
+  },
+  "failedToRemoveRoom": "रूम हटावां मांय नाकाम",
+  "@failedToRemoveRoom": {
+    "description": "Error message when unable to remove a room from the list"
+  },
+  "roomRemovedSuccessfully": "रूम अपनी सूची मांय सूं सफलतापूर्वक हटायो गयो",
+  "@roomRemovedSuccessfully": {
+    "description": "Success message when a room is successfully removed from the user's list"
   },
   "alert": "चेतावणी",
   "@alert": {
