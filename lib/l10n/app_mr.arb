@@ -1704,7 +1704,7 @@
     },
     "deleteMessageTitle": "संदेश हटवा",
 "@deleteMessageTitle": {
-  "description": "Delete message पुष्टी संवादात शीर्षक दाखवले जाते."
+  "description": "संदेश हटवण्यासाठी पुष्टी संवादात दाखवले जाणारे शीर्षक."
 },
 "deleteMessageContent": "आपण खरोखर हा संदेश हटवू इच्छिता का?",
 "@deleteMessageContent": {
