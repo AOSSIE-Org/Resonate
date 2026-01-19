@@ -102,5 +102,4 @@
     "done",
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
-  ]
-}
+  ],

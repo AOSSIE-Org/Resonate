@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:resonate/firebase_options.dart';
+import 'package:resonate/l10n/raj_intl.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
+          AppLocalizationsRaj.delegate,
         ],
         locale: Locale(languageLocale),
         supportedLocales: AppLocalizations.supportedLocales,
