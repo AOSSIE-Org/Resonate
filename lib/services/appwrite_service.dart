@@ -4,7 +4,7 @@ import 'package:resonate/utils/constants.dart';
 class AppwriteService {
   static Client? _client;
   static Account? _account;
-  static TablesDB? _tables;
+  static Databases? _database;
   static Storage? _storage;
   static Realtime? _realtime;
   static Functions? _functions;
@@ -26,11 +26,9 @@ class AppwriteService {
   }
 
   // Instantiates a new Databases Instance if it doesn't exist
-
-  // Instantiates a new TablesDB Instance if it doesn't exist
-  static TablesDB getTables() {
-    _tables ??= TablesDB(getClient());
-    return _tables!;
+  static Databases getDatabases() {
+    _database ??= Databases(getClient());
+    return _database!;
   }
 
   // Instantiates a new Storage Instance if it doesn't exist
