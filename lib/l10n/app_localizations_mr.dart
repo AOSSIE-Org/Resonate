@@ -395,17 +395,17 @@ class AppLocalizationsMr extends AppLocalizations {
   String get cancel => 'रद्द करा';
 
   @override
-  String get hide => 'Remove';
+  String get hide => 'काढून टाका';
 
   @override
-  String get removeRoom => 'Remove Room';
+  String get removeRoom => 'कक्ष काढून टाका';
 
   @override
-  String get removeRoomFromList => 'Remove from list';
+  String get removeRoomFromList => 'यादीतून काढून टाका';
 
   @override
   String get removeRoomConfirmation =>
-      'Are you sure you want to remove this upcoming room from your list?';
+      'आपण हा आगामी कक्ष आपल्या यादीतून काढून टाकू इच्छिता का?';
 
   @override
   String get completeYourProfile => 'आपल्या प्रोफाइल पूर्ण करा';
@@ -562,7 +562,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get errorLoadPackageInfo => 'पॅकेज माहिती लोड करू शकत नाही';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed => 'कक्ष शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.';
 
   @override
   String get updateAvailable => 'अपडेट उपलब्ध';
@@ -736,29 +736,30 @@ class AppLocalizationsMr extends AppLocalizations {
   String get noSearchResults => 'कोणतेही शोध परिणाम नाहीत';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'कक्ष शोधा...';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'कक्ष शोधले जात आहेत...';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'शोध साफ करा';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'शोध त्रुटी';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError =>
+      'कक्ष शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.';
 
   @override
   String get searchUpcomingRoomsError =>
-      'Failed to search upcoming rooms. Please try again.';
+      'आगामी कक्ष शोधण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.';
 
   @override
-  String get search => 'Search';
+  String get search => 'शोधा';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'साफ करा';
 
   @override
   String shareRoomMessage(
@@ -996,7 +997,7 @@ class AppLocalizationsMr extends AppLocalizations {
   String get speakerLabel => 'स्पीकर';
 
   @override
-  String get audioOptions => 'Audio Options';
+  String get audioOptions => 'ऑडिओ पर्याय';
 
   @override
   String get end => 'समाप्त करा';
@@ -1266,11 +1267,11 @@ class AppLocalizationsMr extends AppLocalizations {
   String get updateFeaturesImprovement => 'नवीन वैशिष्ट्य आणि सुधार मिळवा!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'कक्ष काढून टाकण्यात अयशस्वी';
 
   @override
   String get roomRemovedSuccessfully =>
-      'Room removed from your list successfully';
+      'कक्ष आपल्या यादीतून यशस्वीरित्या काढून टाकला';
 
   @override
   String get alert => 'सतर्क';
@@ -1349,19 +1350,19 @@ class AppLocalizationsMr extends AppLocalizations {
       'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केलेले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
 
   @override
-  String get audioOutput => 'Audio Output';
+  String get audioOutput => 'ऑडिओ आउटपुट';
 
   @override
-  String get selectPreferredSpeaker => 'Select your preferred speaker';
+  String get selectPreferredSpeaker => 'आपला पसंतीचा स्पीकर निवडा';
 
   @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
+  String get noAudioOutputDevices => 'कोणतेही ऑडिओ आउटपुट उपकरण आढळले नाही';
 
   @override
-  String get refresh => 'Refresh';
+  String get refresh => 'रीफ्रेश करा';
 
   @override
-  String get done => 'Done';
+  String get done => 'पूर्ण झाले';
 
   @override
   String get deleteMessageTitle => 'संदेश हटवा';
@@ -1370,16 +1371,16 @@ class AppLocalizationsMr extends AppLocalizations {
   String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
 
   @override
-  String get thisMessageWasDeleted => 'This message was deleted';
+  String get thisMessageWasDeleted => 'हा संदेश हटवण्यात आला';
 
   @override
-  String get failedToDeleteMessage => 'Failed to delete message';
+  String get failedToDeleteMessage => 'संदेश हटवण्यात अयशस्वी';
 
   @override
   String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+      'कृपया वैध वापरकर्तानाव प्रविष्ट करा. फक्त अक्षरे, अंक, बिंदू, अंडरस्कोअर आणि हायफनला परवानगी आहे.';
 
   @override
   String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
+      'हे वापरकर्तानाव आधीच घेतले गेले आहे. वेगळे वापरकर्तानाव वापरून पहा.';
 }
