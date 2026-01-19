@@ -5,9 +5,7 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done",
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "done"
   ],
 
   "gu": [
@@ -47,12 +45,9 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done"
-  ],
-
-  "hi": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "done",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage"
   ],
 
   "kn": [
@@ -80,41 +75,7 @@
     "deleteMessageTitle",
     "deleteMessageContent",
     "thisMessageWasDeleted",
-    "failedToDeleteMessage",
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "failedToDeleteMessage"
   ],
 
-  "mr": [
-    "hide",
-    "removeRoom",
-    "removeRoomFromList",
-    "removeRoomConfirmation",
-    "searchFailed",
-    "searchRooms",
-    "searchingRooms",
-    "clearSearch",
-    "searchError",
-    "searchRoomsError",
-    "searchUpcomingRoomsError",
-    "search",
-    "clear",
-    "audioOptions",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done",
-    "thisMessageWasDeleted",
-    "failedToDeleteMessage",
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
-  ],
-
-  "pa": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
-  ]
 }
