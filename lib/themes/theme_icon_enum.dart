@@ -6,10 +6,10 @@ enum ThemeIcons {
   forest('forest', Icons.forest),
   cream('cream', Icons.nights_stay),
   amber('amber', Icons.local_fire_department),
-  time('time', Icons.access_time_outlined);
+  time('time', Icons.access_time_outlined),
+  bright('bright', Icons.wb_sunny);
 
   final String theme;
   final IconData icon;
   const ThemeIcons(this.theme, this.icon);
 }
-  

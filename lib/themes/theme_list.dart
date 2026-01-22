@@ -64,6 +64,16 @@ class ThemeList {
       onSurfaceColor: Colors.white,
       themeMode: ThemeMode.dark,
     ),
+    ThemeModel(
+      name: "Bright",
+      primaryColor: Color(0xff00C853),
+      onPrimaryColor: Colors.white,
+      secondaryColor: Color(0xffE3F2FD),
+      onSecondaryColor: Color(0xff1565C0),
+      surfaceColor: Color(0xffFAFAFA),
+      onSurfaceColor: Color(0xff212121),
+      themeMode: ThemeMode.light,
+    ),
   ];
 
   static ThemeModel getThemeModel(String themeName) {
