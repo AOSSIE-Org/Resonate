@@ -9,11 +9,10 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/services/appwrite_service.dart';
+import 'package:resonate/services/error_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/room_state.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
 import 'auth_state_controller.dart';
@@ -88,7 +87,7 @@ class RoomsController extends GetxController {
       }
       update();
     } catch (e) {
-      log(e.toString());
+      ErrorService.handleSilently(e, context: 'fetching rooms');
     } finally {
       isLoading.value = false;
     }
@@ -106,7 +105,8 @@ class RoomsController extends GetxController {
       AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
       return appwriteRoom;
     } catch (e) {
-      log(e.toString());
+      ErrorService.handleSilently(e, context: 'fetching room by ID');
+      return null;
     }
   }
 
@@ -140,11 +140,11 @@ class RoomsController extends GetxController {
       // Open the Room Bottom Sheet to interact in the room
       Get.find<TabViewController>().openRoomSheet(room);
     } catch (e) {
-      log(e.toString());
-      getRooms();
-      update();
       // Close the loading dialog
       Get.back();
+      ErrorService.handle(e, context: 'joining room');
+      getRooms();
+      update();
     }
   }
 
@@ -163,12 +163,11 @@ class RoomsController extends GetxController {
             room.description.toLowerCase().contains(lowerQuery);
       }).toList();
     } catch (e) {
-      log('Error searching rooms: $e');
       filteredRooms.value = rooms;
-      customSnackbar(
-        AppLocalizations.of(Get.context!)!.error,
-        AppLocalizations.of(Get.context!)!.searchFailed,
-        LogType.error,
+      ErrorService.handle(
+        e,
+        context: 'searching rooms',
+        userMessage: AppLocalizations.of(Get.context!)?.searchFailed,
       );
     } finally {
       isSearching.value = false;

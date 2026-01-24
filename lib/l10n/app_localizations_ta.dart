@@ -1426,4 +1426,38 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get usernameAlreadyTaken =>
       'இந்த பயனர் பெயர் ஏற்கனவே பயன்படுத்தப்படுகிறது. வேறு ஒன்றை முயற்சிக்கவும்.';
+
+  @override
+  String get networkError =>
+      'Please check your internet connection and try again.';
+
+  @override
+  String get authenticationError => 'Authentication failed. Please try again.';
+
+  @override
+  String get storageError => 'Failed to save or load data. Please try again.';
+
+  @override
+  String get databaseError => 'Failed to access data. Please try again.';
+
+  @override
+  String get validationError => 'Please check your input and try again.';
+
+  @override
+  String get generalError => 'Something went wrong. Please try again.';
+
+  @override
+  String get authError => 'Authentication Error';
+
+  @override
+  String get invalidInput => 'Invalid Input';
+
+  @override
+  String get userAlreadyExists => 'An account with this email already exists.';
+
+  @override
+  String get userNotFound => 'User not found.';
+
+  @override
+  String get dataNotFound => 'The requested data was not found.';
 }

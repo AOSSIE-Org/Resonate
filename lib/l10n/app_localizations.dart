@@ -1412,10 +1412,10 @@ abstract class AppLocalizations {
   /// **'Please check your mail for a new OTP.'**
   String get otpResentMessage;
 
-  /// Generic error message for network connection issues.
+  /// Title for network connection error messages.
   ///
   /// In en, this message translates to:
-  /// **'There is a connection error. Please check your internet and try again.'**
+  /// **'Connection Error'**
   String get connectionError;
 
   /// The word 'seconds', often used after a countdown number.
@@ -2585,6 +2585,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This username is already taken. Try a different one.'**
   String get usernameAlreadyTaken;
+
+  /// Error message shown when a network-related error occurs.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your internet connection and try again.'**
+  String get networkError;
+
+  /// Generic error message for authentication failures.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please try again.'**
+  String get authenticationError;
+
+  /// Error message shown when file storage operations fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save or load data. Please try again.'**
+  String get storageError;
+
+  /// Error message shown when database operations fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to access data. Please try again.'**
+  String get databaseError;
+
+  /// Error message shown when input validation fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your input and try again.'**
+  String get validationError;
+
+  /// Generic fallback error message for unexpected errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get generalError;
+
+  /// Title for authentication error messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Error'**
+  String get authError;
+
+  /// Title for validation error messages.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Input'**
+  String get invalidInput;
+
+  /// Error message when trying to create an account with an existing email.
+  ///
+  /// In en, this message translates to:
+  /// **'An account with this email already exists.'**
+  String get userAlreadyExists;
+
+  /// Error message when a user account cannot be found.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found.'**
+  String get userNotFound;
+
+  /// Error message when requested data does not exist.
+  ///
+  /// In en, this message translates to:
+  /// **'The requested data was not found.'**
+  String get dataNotFound;
 }
 
 class _AppLocalizationsDelegate
