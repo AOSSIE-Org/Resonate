@@ -135,5 +135,15 @@
     "noFriendRequestsYet",
     "noFriendRequestsDescription",
     "inviteToResonate"
+  ],
+
+  "ta": [
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
   ]
 }

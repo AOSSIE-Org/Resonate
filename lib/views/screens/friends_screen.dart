@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/views/widgets/friend_request_list_tile.dart';
-import 'package:resonate/views/widgets/friends_empty_state.dart';
+import 'package:resonate/views/screens/friends_empty_screen.dart';
 
 class FriendsScreen extends StatelessWidget {
   const FriendsScreen({super.key});

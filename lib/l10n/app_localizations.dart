@@ -12,6 +12,7 @@ import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
 import 'app_localizations_pa.dart';
+import 'app_localizations_ta.dart';
 
 // ignore_for_file: type=lint
 
@@ -106,6 +107,7 @@ abstract class AppLocalizations {
     Locale('kn'),
     Locale('mr'),
     Locale('pa'),
+    Locale('ta'),
   ];
 
   /// The title of the application.
@@ -2603,6 +2605,7 @@ class _AppLocalizationsDelegate
     'kn',
     'mr',
     'pa',
+    'ta',
   ].contains(locale.languageCode);
 
   @override
@@ -2626,6 +2629,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsMr();
     case 'pa':
       return AppLocalizationsPa();
+    case 'ta':
+      return AppLocalizationsTa();
   }
 
   throw FlutterError(
