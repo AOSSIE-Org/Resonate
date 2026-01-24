@@ -15,7 +15,9 @@
         android:label="Resonate"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
 
         <!-- UCropActivity - For image cropper -->
         <activity
