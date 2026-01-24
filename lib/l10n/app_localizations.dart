@@ -2532,6 +2532,48 @@ abstract class AppLocalizations {
   /// **'Failed to delete message'**
   String get failedToDeleteMessage;
 
+  /// Title shown when user has no friends.
+  ///
+  /// In en, this message translates to:
+  /// **'No Friends Yet'**
+  String get noFriendsYet;
+
+  /// Description shown when user has no friends.
+  ///
+  /// In en, this message translates to:
+  /// **'Your friends list is empty. Start connecting with people and grow your network!'**
+  String get noFriendsDescription;
+
+  /// Button text to navigate to find friends screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Friends'**
+  String get findFriends;
+
+  /// Button text to invite friends to the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite a Friend'**
+  String get inviteFriend;
+
+  /// Title shown when user has no friend requests.
+  ///
+  /// In en, this message translates to:
+  /// **'No Friend Requests'**
+  String get noFriendRequestsYet;
+
+  /// Description shown when user has no friend requests.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any pending friend requests. Invite your friends to connect!'**
+  String get noFriendRequestsDescription;
+
+  /// Text used when inviting friends to the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: {url}'**
+  String inviteToResonate(String url);
+
   /// Validation error displayed when the user enters a username with unsupported characters.
   ///
   /// In en, this message translates to:

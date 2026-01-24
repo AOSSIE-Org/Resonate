@@ -1791,7 +1791,41 @@
   "description": "Confirmation text asking the user if they want to delete a message."
 },
 "thisMessageWasDeleted": "यह संदेश हटा दिया गया है",
-"failedToDeleteMessage": "संदेश हटाने में विफल रहा"
+"failedToDeleteMessage": "संदेश हटाने में विफल रहा",
+
+"noFriendsYet": "अभी तक कोई दोस्त नहीं",
+"@noFriendsYet": {
+  "description": "Title shown when user has no friends."
+},
+"noFriendsDescription": "आपकी दोस्तों की सूची खाली है। लोगों से जुड़ना शुरू करें और अपना नेटवर्क बढ़ाएं!",
+"@noFriendsDescription": {
+  "description": "Description shown when user has no friends."
+},
+"findFriends": "दोस्त खोजें",
+"@findFriends": {
+  "description": "Button text to navigate to find friends screen."
+},
+"inviteFriend": "दोस्त को आमंत्रित करें",
+"@inviteFriend": {
+  "description": "Button text to invite friends to the app."
+},
+"noFriendRequestsYet": "कोई फ्रेंड रिक्वेस्ट नहीं",
+"@noFriendRequestsYet": {
+  "description": "Title shown when user has no friend requests."
+},
+"noFriendRequestsDescription": "आपके पास कोई पेंडिंग फ्रेंड रिक्वेस्ट नहीं है। जुड़ने के लिए अपने दोस्तों को आमंत्रित करें!",
+"@noFriendRequestsDescription": {
+  "description": "Description shown when user has no friend requests."
+},
+"inviteToResonate": "अरे! Resonate पर मेरे साथ जुड़ो - एक सोशल ऑडियो प्लेटफॉर्म जहां हर आवाज़ की कद्र होती है। अभी डाउनलोड करें: {url}",
+"@inviteToResonate": {
+  "description": "Text used when inviting friends to the app.",
+  "placeholders": {
+    "url": {
+      "type": "String"
+    }
+  }
+}
 
 
 }
