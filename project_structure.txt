@@ -382,6 +382,7 @@
 │       │   ├── followers_screen.dart
 │       │   ├── forgot_password_screen.dart
 │       │   ├── friend_requests_screen.dart
+│       │   ├── friends_empty_screen.dart
 │       │   ├── friends_screen.dart
 │       │   ├── home_screen.dart
 │       │   ├── landing_screen.dart
@@ -475,4 +476,4 @@
 │       └── api_service_test.mocks.dart
 └── untranslated.txt
 
-81 directories, 395 files
+81 directories, 396 files
