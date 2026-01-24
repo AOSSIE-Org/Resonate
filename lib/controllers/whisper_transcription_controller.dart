@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
@@ -59,7 +61,11 @@ class WhisperTranscriptionController extends GetxController {
     final StringBuffer lrcContent = StringBuffer();
     lrcContent.writeln('[re:Resonate App - AOSSIE]');
     lrcContent.writeln('[ve:v1.0.0]');
-    for (WhisperTranscribeSegment? segment in transcriptionSegments) {
+    
+    final List<int> failedSegments = [];
+
+    for (int i = 0; i < transcriptionSegments.length; i++) {
+      final segment = transcriptionSegments[i];
       try {
         // Parse the log line
         final segmentString = _parseTranscriptionSegment(segment);
@@ -67,9 +73,23 @@ class WhisperTranscriptionController extends GetxController {
           // Convert to LRC format and add to content
           lrcContent.writeln(segmentString);
         }
-      } catch (e) {
-        print(e.toString());
+      } catch (e, stackTrace) {
+        log(
+          'Error processing segment index $i',
+          error: e,
+          stackTrace: stackTrace,
+          name: 'WhisperTranscriptionController',
+        );
+        failedSegments.add(i);
       }
+    }
+
+    if (failedSegments.isNotEmpty) {
+      customSnackbar(
+        'Transcription Warning',
+        'Issues detected in ${failedSegments.length} segments. Some text may be missing.',
+        LogType.warning,
+      );
     }
 
     return lrcContent.toString();
