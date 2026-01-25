@@ -1336,4 +1336,36 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'ਸੁਨੇਹਾ ਹਟਾਉਣ ਵਿੱਚ ਅਸਫਲ';
+
+  @override
+  String get noFriendsYet => 'ਅਜੇ ਕੋਈ ਦੋਸਤ ਨਹੀਂ';
+
+  @override
+  String get noFriendsDescription =>
+      'ਤੁਹਾਡੀ ਦੋਸਤਾਂ ਦੀ ਸੂਚੀ ਖਾਲੀ ਹੈ। ਲੋਕਾਂ ਨਾਲ ਜੁੜਨਾ ਸ਼ੁਰੂ ਕਰੋ ਅਤੇ ਆਪਣਾ ਨੈੱਟਵਰਕ ਵਧਾਓ!';
+
+  @override
+  String get findFriends => 'ਦੋਸਤ ਲੱਭੋ';
+
+  @override
+  String get inviteFriend => 'ਦੋਸਤ ਨੂੰ ਸੱਦਾ ਦਿਓ';
+
+  @override
+  String get noFriendRequestsYet => 'ਕੋਈ ਦੋਸਤੀ ਬੇਨਤੀ ਨਹੀਂ';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਬਕਾਇਆ ਦੋਸਤੀ ਬੇਨਤੀ ਨਹੀਂ ਹੈ। ਜੁੜਨ ਲਈ ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'ਹੈਲੋ! ਰੇਜ਼ੋਨੇਟ \'ਤੇ ਮੇਰੇ ਨਾਲ ਜੁੜੋ - ਇੱਕ ਸੋਸ਼ਲ ਆਡੀਓ ਪਲੇਟਫਾਰਮ ਜਿੱਥੇ ਹਰ ਆਵਾਜ਼ ਦੀ ਕਦਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਹੁਣੇ ਡਾਊਨਲੋਡ ਕਰੋ: $url';
+  }
+
+  @override
+  String get usernameInvalidFormat =>
+      'ਯੂਜ਼ਰਨੇਮ ਵਿੱਚ ਸਿਰਫ਼ ਅੱਖਰ, ਨੰਬਰ ਅਤੇ ਅੰਡਰਸਕੋਰ ਹੋ ਸਕਦੇ ਹਨ';
+
+  @override
+  String get usernameAlreadyTaken => 'ਇਹ ਯੂਜ਼ਰਨੇਮ ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਗਿਆ ਹੈ';
 }
