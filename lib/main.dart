@@ -58,15 +58,20 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
   Get.put(AboutAppScreenController());
-  languageLocale =
-      await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
-  final String? savedModel = await FlutterSecureStorage().read(
-    key: "whisperModel",
-  );
-  currentWhisperModel.value = WhisperModel.values.firstWhere(
-    (model) => model.modelName == (savedModel ?? "base"),
-    orElse: () => WhisperModel.base,
-  );
+  try {
+    const storage = FlutterSecureStorage(aOptions: androidOptions);
+    languageLocale = await storage.read(key: "languageLocale") ?? "en";
+    final String? savedModel = await storage.read(key: "whisperModel");
+    currentWhisperModel.value = WhisperModel.values.firstWhere(
+      (model) => model.modelName == (savedModel ?? "base"),
+      orElse: () => WhisperModel.base,
+    );
+  } catch (e) {
+    log("SecureStorage init error: $e");
+    // Fallback defaults
+    languageLocale = "en";
+    currentWhisperModel.value = WhisperModel.base;
+  }
   runApp(const MyApp());
 }
 

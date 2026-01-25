@@ -138,10 +138,13 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
               onValuePicked: (Language language) async {
                 Get.updateLocale(Locale(language.isoCode));
 
-                await FlutterSecureStorage().write(
-                  key: "languageLocale",
-                  value: language.isoCode,
-                );
+                try {
+                  await const FlutterSecureStorage(
+                    aOptions: androidOptions,
+                  ).write(key: "languageLocale", value: language.isoCode);
+                } catch (e) {
+                  // log error
+                }
               },
               languages: AppLocalizations.supportedLocales
                   .map((locale) => Language.fromIsoCode(locale.languageCode))
@@ -207,10 +210,16 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
                         onTap: () async {
                           currentWhisperModel.value = modelData['model'];
 
-                          await FlutterSecureStorage().write(
-                            key: "whisperModel",
-                            value: modelData['model'].modelName,
-                          );
+                          try {
+                            await const FlutterSecureStorage(
+                              aOptions: androidOptions,
+                            ).write(
+                              key: "whisperModel",
+                              value: modelData['model'].modelName,
+                            );
+                          } catch (e) {
+                            // log error
+                          }
                         },
                         leading: Container(
                           padding: EdgeInsets.all(UiSizes.width_10),

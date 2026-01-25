@@ -107,9 +107,16 @@ class RoomService {
         : response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "createdRoomAdminToken", value: livekitToken);
-    await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
+    try {
+      const storage = FlutterSecureStorage(aOptions: androidOptions);
+      await storage.write(key: "createdRoomAdminToken", value: livekitToken);
+      await storage.write(
+        key: "createdRoomLivekitUrl",
+        value: livekitSocketUrl,
+      );
+    } catch (e) {
+      Get.snackbar("Error", "Failed to save room token: $e");
+    }
 
     String myDocId = await addParticipantToAppwriteCollection(
       roomId: appwriteRoomDocId,
@@ -137,9 +144,16 @@ class RoomService {
         : response["livekit_socket_url"];
 
     // Store Livekit Url and Token in Secure Storage
-    const storage = FlutterSecureStorage();
-    await storage.write(key: "createdRoomAdminToken", value: livekitToken);
-    await storage.write(key: "createdRoomLivekitUrl", value: livekitSocketUrl);
+    try {
+      const storage = FlutterSecureStorage(aOptions: androidOptions);
+      await storage.write(key: "createdRoomAdminToken", value: livekitToken);
+      await storage.write(
+        key: "createdRoomLivekitUrl",
+        value: livekitSocketUrl,
+      );
+    } catch (e) {
+      Get.snackbar("Error", "Failed to save room token: $e");
+    }
 
     await joinLiveKitRoom(livekitSocketUrl, livekitToken, isLiveChapter: true);
 
@@ -161,20 +175,32 @@ class RoomService {
   }
 
   static Future deleteLiveChapterRoom({required roomId}) async {
-    const storage = FlutterSecureStorage();
+    try {
+      const storage = FlutterSecureStorage(aOptions: androidOptions);
 
-    // Delete room on livekit and roomdoc on appwrite
-    String? livekitToken = await storage.read(key: "createdRoomAdminToken");
-    await apiService.deleteLiveChapterRoom(roomId, livekitToken!);
+      // Delete room on livekit and roomdoc on appwrite
+      String? livekitToken = await storage.read(key: "createdRoomAdminToken");
+      if (livekitToken != null) {
+        await apiService.deleteLiveChapterRoom(roomId, livekitToken);
+      }
+    } catch (e) {
+      print("Error deleting live chapter room: $e");
+    }
   }
 
   static Future deleteRoom({required roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
-    const storage = FlutterSecureStorage();
+    try {
+      const storage = FlutterSecureStorage(aOptions: androidOptions);
 
-    // Delete room on livekit and roomdoc on appwrite
-    String? livekitToken = await storage.read(key: "createdRoomAdminToken");
-    await apiService.deleteRoom(roomId, livekitToken!);
+      // Delete room on livekit and roomdoc on appwrite
+      String? livekitToken = await storage.read(key: "createdRoomAdminToken");
+      if (livekitToken != null) {
+        await apiService.deleteRoom(roomId, livekitToken);
+      }
+    } catch (e) {
+      print("Error deleting room: $e");
+    }
 
     // Get all participant documents and delete them
     RowList participantDocsRef = await roomsController.tablesDB.listRows(

@@ -37,7 +37,7 @@ println("PROJECT_ID: $projectId")
         applicationId = "com.resonate.resonate"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode.toInt()
         versionName = flutter.versionName
