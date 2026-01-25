@@ -45,6 +45,9 @@ class SingleRoomController extends GetxController {
   final TablesDB tablesDB = AppwriteService.getTables();
   late final RealtimeSubscription? subscription;
   RxList<Rx<Participant>> participants = <Rx<Participant>>[].obs;
+  
+  // For UI visualization only for this PR
+  RxList<ReactionModel> reactions = <ReactionModel>[].obs;
 
   SingleRoomController({required this.appwriteRoom});
 
@@ -371,4 +374,37 @@ class SingleRoomController extends GetxController {
       isDismissible: false,
     );
   }
+
+  Future<void> sendReaction(String emoji) async {
+    final reaction = ReactionModel(
+      emoji: emoji,
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+    reactions.add(reaction);
+    
+    if (Get.isRegistered<LiveKitController>()) {
+      await Get.find<LiveKitController>().sendData("REACTION:$emoji");
+    }
+  }
+
+  void onDataReceived(String message) {
+    if (message.startsWith("REACTION:")) {
+      final emoji = message.split(":")[1];
+      final reaction = ReactionModel(
+        emoji: emoji,
+        id: DateTime.now().millisecondsSinceEpoch.toString() + emoji,
+      );
+      reactions.add(reaction);
+    }
+  }
+
+  void removeReaction(String id) {
+    reactions.removeWhere((r) => r.id == id);
+  }
+}
+
+class ReactionModel {
+  final String emoji;
+  final String id;
+  ReactionModel({required this.emoji, required this.id});
 }
