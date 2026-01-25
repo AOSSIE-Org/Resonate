@@ -10,6 +10,7 @@ import 'app_localizations_en.dart';
 import 'app_localizations_gu.dart';
 import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
+import 'app_localizations_ml.dart';
 import 'app_localizations_mr.dart';
 import 'app_localizations_pa.dart';
 
@@ -104,6 +105,7 @@ abstract class AppLocalizations {
     Locale('gu'),
     Locale('hi'),
     Locale('kn'),
+    Locale('ml'),
     Locale('mr'),
     Locale('pa'),
   ];
@@ -1467,7 +1469,7 @@ abstract class AppLocalizations {
   /// Error message when a chosen username is too short.
   ///
   /// In en, this message translates to:
-  /// **'Username should contain more than 5 characters.'**
+  /// **'Username should contain more than 7 characters.'**
   String get usernameCharacterLimit;
 
   /// Generic button text for submitting a form.
@@ -2518,17 +2520,29 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to delete this message?'**
   String get deleteMessageContent;
 
-  /// No description provided for @thisMessageWasDeleted.
+  /// Status text shown when a previously sent message has been deleted.
   ///
   /// In en, this message translates to:
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// No description provided for @failedToDeleteMessage.
+  /// Error message shown when the system is unable to delete a message.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
   String get failedToDeleteMessage;
+
+  /// Validation error displayed when the user enters a username with unsupported characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.'**
+  String get usernameInvalidFormat;
+
+  /// Error shown when the chosen username is unavailable because another user has already registered it.
+  ///
+  /// In en, this message translates to:
+  /// **'This username is already taken. Try a different one.'**
+  String get usernameAlreadyTaken;
 }
 
 class _AppLocalizationsDelegate
@@ -2547,6 +2561,7 @@ class _AppLocalizationsDelegate
     'gu',
     'hi',
     'kn',
+    'ml',
     'mr',
     'pa',
   ].contains(locale.languageCode);
@@ -2568,6 +2583,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsHi();
     case 'kn':
       return AppLocalizationsKn();
+    case 'ml':
+      return AppLocalizationsMl();
     case 'mr':
       return AppLocalizationsMr();
     case 'pa':
