@@ -146,7 +146,15 @@ class LiveKitController extends GetxController {
     }
   }
 
+  Future<void> sendData(String message) async {
+    final data = message.codeUnits;
+    await liveKitRoom.localParticipant?.publishData(
+      data,
+    );
+  }
+
   void onRoomDidUpdate() {
+
     // Callback which will be called on room update
   }
 

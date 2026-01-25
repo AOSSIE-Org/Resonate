@@ -8,6 +8,8 @@ import 'package:resonate/controllers/single_room_controller.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/participant_block.dart';
+import 'package:resonate/views/widgets/reaction_bar.dart';
+import 'package:resonate/views/widgets/reaction_floater.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
 import 'package:resonate/views/widgets/room_header.dart';
 import 'package:resonate/views/widgets/audio_selector_dialog.dart';
@@ -59,20 +61,47 @@ class RoomScreenState extends State<RoomScreen> {
     SingleRoomController controller = Get.find<SingleRoomController>();
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          const RoomAppBar(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RoomHeader(
-              roomName: widget.room.name,
-              roomDescription: widget.room.description,
-              roomTags: _getTags(),
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const RoomAppBar(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: RoomHeader(
+                  roomName: widget.room.name,
+                  roomDescription: widget.room.description,
+                  roomTags: _getTags(),
+                ),
+              ),
+              SizedBox(height: UiSizes.height_7),
+              Expanded(child: _buildParticipantsList(controller)),
+            ],
           ),
-          SizedBox(height: UiSizes.height_7),
-          Expanded(child: _buildParticipantsList(controller)),
+          
+          // Reaction Overlay
+          Obx(() {
+            return IgnorePointer(
+              child: Stack(
+                children: controller.reactions.map((reaction) {
+                  return Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 100, right: 20),
+                      child: ReactionFloater(
+                        key: ValueKey(reaction.id),
+                        emoji: reaction.emoji,
+                        onComplete: () {
+                          controller.removeReaction(reaction.id);
+                        },
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -178,12 +207,30 @@ class RoomScreenState extends State<RoomScreen> {
           children: [
             _buildLeaveButton(),
             _buildMicButton(),
+            _buildReactionButton(), // New button
             _buildRaiseHandButton(),
             _buildAudioSettingsButton(),
             _buildChatButton(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildReactionButton() {
+     return FloatingActionButton(
+      onPressed: () {
+        Get.bottomSheet(
+          ReactionBar(
+            onEmojiSelected: (emoji) {
+              controller.sendReaction(emoji);
+            },
+          ),
+          backgroundColor: Colors.transparent,
+        );
+      },
+      backgroundColor: Colors.lightBlueAccent,
+      child: const Icon(Icons.mood, color: Colors.white),
     );
   }
 
