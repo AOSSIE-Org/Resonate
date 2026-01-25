@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 class WhisperTranscriptionController extends GetxController {
@@ -59,6 +62,9 @@ class WhisperTranscriptionController extends GetxController {
     final StringBuffer lrcContent = StringBuffer();
     lrcContent.writeln('[re:Resonate App - AOSSIE]');
     lrcContent.writeln('[ve:v1.0.0]');
+    
+    bool hasFailedSegments = false;
+
     for (WhisperTranscribeSegment? segment in transcriptionSegments) {
       try {
         // Parse the log line
@@ -67,9 +73,23 @@ class WhisperTranscriptionController extends GetxController {
           // Convert to LRC format and add to content
           lrcContent.writeln(segmentString);
         }
-      } catch (e) {
-        print(e.toString());
+      } catch (e, stackTrace) {
+        log(
+          'Error converting transcription segment: ${e.toString()}',
+          error: e,
+          stackTrace: stackTrace,
+        );
+        hasFailedSegments = true;
       }
+    }
+
+    // Show a single user-friendly snackbar if any segments failed
+    if (hasFailedSegments) {
+      customSnackbar(
+        AppLocalizations.of(Get.context!)!.transcriptionWarning,
+        AppLocalizations.of(Get.context!)!.transcriptionWarningMessage,
+        LogType.warning,
+      );
     }
 
     return lrcContent.toString();
