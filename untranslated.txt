@@ -5,7 +5,9 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done"
+    "done",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "gu": [
@@ -45,9 +47,12 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done",
-    "thisMessageWasDeleted",
-    "failedToDeleteMessage"
+    "done"
+  ],
+
+  "hi": [
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "kn": [
@@ -75,6 +80,13 @@
     "deleteMessageTitle",
     "deleteMessageContent",
     "thisMessageWasDeleted",
-    "failedToDeleteMessage"
+    "failedToDeleteMessage",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
+  ],
+
+  "pa": [
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ]
 }
