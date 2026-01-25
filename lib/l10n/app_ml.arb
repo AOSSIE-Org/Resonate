@@ -1,0 +1,1809 @@
+{
+    "@@locale": "ml",
+    "title": "റെസൊണേറ്റ്",
+    "@title": {
+        "description": "The title of the application."
+    },
+    "roomDescription": "മര്യാദയുള്ളവരായിരിക്കുക, മറ്റൊരാളുടെ അഭിപ്രായത്തെ ബഹുമാനിക്കുക. പരുഷമായ അഭിപ്രായങ്ങൾ ഒഴിവാക്കുക.",
+    "@roomDescription": {
+        "description": "Guideline message for users in a chat room."
+    },
+    "hidePassword": "പാസ്‌വേഡ് മറയ്ക്കുക",
+    "@hidePassword": {
+        "description": "Button text to conceal the password field."
+    },
+    "showPassword": "പാസ്‌വേഡ് കാണിക്കുക",
+    "@showPassword": {
+        "description": "Button text to reveal the password field."
+    },
+    "passwordEmpty": "പാസ്‌വേഡ് ശൂന്യമായിരിക്കരുത്.",
+    "@passwordEmpty": {
+        "description": "Error message when the password field is left blank."
+    },
+    "password": "പാസ്‌വേഡ്",
+    "@password": {
+        "description": "Label for the password input field."
+    },
+    "confirmPassword": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക",
+    "@confirmPassword": {
+        "description": "Label for the confirm password input field."
+    },
+    "passwordsNotMatch": "പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല",
+    "@passwordsNotMatch": {
+        "description": "Error message when password and confirmation password do not match."
+    },
+    "userCreatedStories": "ഉപയോക്താവ് സൃഷ്ടിച്ച കഥകൾ",
+    "@userCreatedStories": {
+        "description": "Header for the section showing stories created by another user."
+    },
+    "yourStories": "നിങ്ങളുടെ കഥകൾ",
+    "@yourStories": {
+        "description": "Header for the section showing stories created by the current user."
+    },
+    "userNoStories": "ഉപയോക്താവ് ഒരു കഥയും സൃഷ്ടിച്ചിട്ടില്ല.",
+    "@userNoStories": {
+        "description": "Message displayed when viewing another user's profile and they have no stories."
+    },
+    "youNoStories": "നിങ്ങൾ ഒരു കഥയും സൃഷ്ടിച്ചിട്ടില്ല.",
+    "@youNoStories": {
+        "description": "Message displayed on the current user's profile when they have no stories."
+    },
+    "follow": "പിന്തുടരുക",
+    "@follow": {
+        "description": "Button text to follow a user."
+    },
+    "editProfile": "പ്രൊഫൈൽ തിരുത്തുക",
+    "@editProfile": {
+        "description": "Button text to navigate to the profile editing screen."
+    },
+    "verifyEmail": "ഇമെയിൽ സ്ഥിരീകരിക്കുക",
+    "@verifyEmail": {
+        "description": "Button or link text to start the email verification process."
+    },
+    "verified": "സ്ഥിരീകരിച്ചിരിക്കുന്നു",
+    "@verified": {
+        "description": "A status label indicating that the user's email has been verified."
+    },
+    "profile": "പ്രൊഫൈൽ",
+    "@profile": {
+        "description": "Label for the user profile section or page."
+    },
+    "userLikedStories": "ഉപയോക്താവ് ഇഷ്ടപ്പെട്ട കഥകൾ",
+    "@userLikedStories": {
+        "description": "Header for the section showing stories liked by another user."
+    },
+    "yourLikedStories": "നിങ്ങളുടെ ഇഷ്ടപ്പെട്ട കഥകൾ",
+    "@yourLikedStories": {
+        "description": "Header for the section showing stories liked by the current user."
+    },
+    "userNoLikedStories": "ഉപയോക്താവ് ഒരു കഥയും ഇഷ്ടപ്പെട്ടിട്ടില്ല.",
+    "@userNoLikedStories": {
+        "description": "Message displayed when viewing another user's profile and they have no liked stories."
+    },
+    "youNoLikedStories": "നിങ്ങൾ ഒരു കഥയും ഇഷ്ടപ്പെട്ടിട്ടില്ല.",
+    "@youNoLikedStories": {
+        "description": "Message displayed on the current user's profile when they have no liked stories."
+    },
+    "live": "ലൈവ്",
+    "@live": {
+        "description": "Tab or label for live audio rooms."
+    },
+    "upcoming": "വരാനിരിക്കുന്ന",
+    "@upcoming": {
+        "description": "Tab or label for scheduled/upcoming audio rooms."
+    },
+    "noAvailableRoom": "{isRoom, select, true{മുറി ലഭ്യമല്ല.} false{വരാനിരിക്കുന്ന മുറികളൊന്നും ലഭ്യമല്ല.} other{മുറി വിവരങ്ങൾ ലഭ്യമല്ല}}\nതാഴെ ഒരു മുറി ചേർത്ത് ആരംഭിക്കുക!",
+    "@noAvailableRoom": {
+        "description": "Message when no room or upcoming room is available, with a call to action.",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "user1": "യൂസർ 1",
+    "@user1": {
+        "description": "A generic placeholder name for a user."
+    },
+    "user2": "യൂസർ 2",
+    "@user2": {
+        "description": "A second generic placeholder name for a user."
+    },
+    "you": "നിങ്ങൾ",
+    "@you": {
+        "description": "Label to identify the current user in a list or chat."
+    },
+    "areYouSure": "നിങ്ങൾക്ക് ഉറപ്പാണോ?",
+    "@areYouSure": {
+        "description": "Confirmation prompt title."
+    },
+    "loggingOut": "നിങ്ങൾ റെസൊണേറ്റിൽ നിന്ന് ലോഗ് ഔട്ട് ചെയ്യുകയാണ്.",
+    "@loggingOut": {
+        "description": "Confirmation prompt message for logging out."
+    },
+    "yes": "അതെ",
+    "@yes": {
+        "description": "Generic confirmation button text."
+    },
+    "no": "ഇല്ല",
+    "@no": {
+        "description": "Generic cancellation button text."
+    },
+    "incorrectEmailOrPassword": "ഇമെയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ് തെറ്റാണ്",
+    "@incorrectEmailOrPassword": {
+        "description": "Error message for failed login attempt."
+    },
+    "passwordShort": "പാസ്‌വേഡ് 8 അക്ഷരങ്ങളിൽ കുറവാണ്",
+    "@passwordShort": {
+        "description": "Error message for a password that is too short."
+    },
+    "tryAgain": "വീണ്ടും ശ്രമിക്കുക!",
+    "@tryAgain": {
+        "description": "Button text to retry a failed action."
+    },
+    "success": "വിജയം",
+    "@success": {
+        "description": "Generic title for a successful operation."
+    },
+    "passwordResetSent": "പാസ്‌വേഡ് റീസെറ്റ് ഇമെയിൽ അയച്ചു!",
+    "@passwordResetSent": {
+        "description": "Success message after a password reset email has been dispatched."
+    },
+    "error": "തെറ്റ്",
+    "@error": {
+        "description": "Generic title for a failed operation."
+    },
+    "resetPassword": "പാസ്സ്‌വേർഡ് റീസെറ്റ് ചെയ്യുക",
+    "@resetPassword": {
+        "description": "Title or button text for the reset password feature."
+    },
+    "enterNewPassword": "നിങ്ങളുടെ പുതിയ പാസ്‌വേഡ് നൽകുക",
+    "@enterNewPassword": {
+        "description": "Instructional text on the reset password screen."
+    },
+    "newPassword": "പുതിയ പാസ്‌വേഡ്",
+    "@newPassword": {
+        "description": "Label for the new password input field."
+    },
+    "setNewPassword": "പുതിയ പാസ്സ്‌വേർഡ് സെറ്റ് ചെയ്യുക",
+    "@setNewPassword": {
+        "description": "Button text to confirm setting a new password."
+    },
+    "emailChanged": "ഇമെയിൽ മാറ്റി",
+    "@emailChanged": {
+        "description": "Title for the success dialog after an email change."
+    },
+    "emailChangeSuccess": "ഇമെയിൽ വിജയകരമായി മാറ്റി!",
+    "@emailChangeSuccess": {
+        "description": "Success message after changing the user's email."
+    },
+    "failed": "പരാജയപ്പെട്ടു",
+    "@failed": {
+        "description": "Generic title for a failed operation."
+    },
+    "emailChangeFailed": "ഇമെയിൽ മാറ്റാൻ പരാജയപ്പെട്ടു",
+    "@emailChangeFailed": {
+        "description": "Error message when an email change operation fails."
+    },
+    "oops": "അയ്യോ!",
+    "@oops": {
+        "description": "An informal title for an error or warning message."
+    },
+    "emailExists": "ഇമെയിൽ ഇതിനകം നിലവിലുണ്ട്",
+    "@emailExists": {
+        "description": "Error message when a user tries to register or change to an email that is already in use."
+    },
+    "changeEmail": "ഇമെയിൽ മാറ്റുക",
+    "@changeEmail": {
+        "description": "Title or button text for the change email feature."
+    },
+    "enterValidEmail": "ദയവായി സാധുവായ ഇമെയിൽ വിലാസം നൽകുക",
+    "@enterValidEmail": {
+        "description": "Error message for an invalid email format."
+    },
+    "newEmail": "പുതിയ ഇമെയിൽ",
+    "@newEmail": {
+        "description": "Label for the new email input field."
+    },
+    "currentPassword": "നിലവിലെ പാസ്‌വേഡ്",
+    "@currentPassword": {
+        "description": "Label for the current password input field, used for verification."
+    },
+    "emailChangeInfo": "അധിക സുരക്ഷയ്ക്കായി, നിങ്ങളുടെ ഇമെയിൽ വിലാസം മാറ്റുമ്പോൾ നിങ്ങളുടെ അക്കൗണ്ടിന്റെ നിലവിലുള്ള പാസ്‌വേഡ് നൽകണം. നിങ്ങളുടെ ഇമെയിൽ വിലാസം മാറ്റിയ ശേഷം, ഭാവിയിലെ ലോഗിനുകൾക്കായി അപ്ഡേറ്റ് ചെയ്ത ഇമെയിൽ ഉപയോഗിക്കുക.",
+    "@emailChangeInfo": {
+        "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
+    },
+    "oauthUsersMessage": "Google അല്ലെങ്കിൽ Github ഉപയോഗിച്ച് ലോഗിൻ ചെയ്ത ഉപയോക്താക്കൾക്ക് മാത്രം",
+    "@oauthUsersMessage": {
+        "description": "A message to specify that the following instructions are for OAuth users."
+    },
+    "oauthUsersEmailChangeInfo": "ഇമെയിൽ മാറ്റാൻ, ദയവായി \"നിലവിലെ പാസ്‌വേഡ്\" ഫീൽഡിൽ പുതിയ പാസ്‌വേഡ് നൽകുക. ഈ പാസ്‌വേഡ് ഓർക്കുക, കാരണം ഭാവിയിൽ ഇമെയിൽ മാറ്റങ്ങൾക്കായി ഇത് ആവശ്യമായിരിക്കും. ഇനി മുതൽ, Google/GitHub അല്ലെങ്കിൽ നിങ്ങളുടെ പുതിയ ഇമെയിൽ-പാസ്‌വേഡ് സംയോജനത്തിലൂടെ ലോഗിൻ ചെയ്യാം.",
+    "@oauthUsersEmailChangeInfo": {
+        "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
+    },
+    "resonateTagline": "പരിധിയില്ലാത്ത സംഭാഷണങ്ങളുടെ ഒരു\nലോകത്തേക്ക് പ്രവേശിക്കൂ.",
+    "@resonateTagline": {
+        "description": "The application's tagline, used on splash or login screens."
+    },
+    "signInWithEmail": "ഇമെയിൽ ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
+    "@signInWithEmail": {
+        "description": "Button text for signing in using email and password."
+    },
+    "or": "അഥവാ",
+    "@or": {
+        "description": "A separator text, typically used between different login options."
+    },
+    "continueWith": "ഇതോടൊപ്പം തുടരുക",
+    "@continueWith": {
+        "description": "Informational text preceding a list of third-party login providers."
+    },
+    "continueWithGoogle": "ഗൂഗിൾ ഉപയോഗിച്ച് തുടരുക",
+    "@continueWithGoogle": {
+        "description": "Button text for signing in with a Google account."
+    },
+    "continueWithGitHub": "GitHub ഉപയോഗിച്ച് തുടരുക",
+    "@continueWithGitHub": {
+        "description": "Button text for signing in with a GitHub account."
+    },
+    "resonateLogo": "റെസൊണേറ്റിന്റെ ലോഗോ",
+    "@resonateLogo": {
+        "description": "Accessibility text for the Resonate application logo image."
+    },
+    "iAlreadyHaveAnAccount": "എനിക്ക് ഇതിനകം ഒരു അക്കൗണ്ട് ഉണ്ട്",
+    "@iAlreadyHaveAnAccount": {
+        "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
+    },
+    "createNewAccount": "പുതിയ അക്കൗണ്ട് സൃഷ്ടിക്കുക",
+    "@createNewAccount": {
+        "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
+    },
+    "userProfile": "ഉപയോക്‌താവിന്റെ പ്രൊഫൈൽ",
+    "@userProfile": {
+        "description": "Accessibility text for a user's profile picture or avatar."
+    },
+    "passwordIsStrong": "പാസ്‌വേഡ് ശക്തമാണ്",
+    "@passwordIsStrong": {
+        "description": "Validation message indicating that the entered password meets all strength requirements."
+    },
+    "admin": "അഡ്മിൻ",
+    "@admin": {
+        "description": "Label for the Admin user role in a room."
+    },
+    "moderator": "മോഡറേറ്റർ",
+    "@moderator": {
+        "description": "Label for the Moderator user role in a room."
+    },
+    "speaker": "സ്പീക്കർ",
+    "@speaker": {
+        "description": "Label for the Speaker user role in a room."
+    },
+    "listener": "ശ്രോതാവ്",
+    "@listener": {
+        "description": "Label for the Listener user role in a room."
+    },
+    "removeModerator": "മോഡറേറ്റർ നീക്കം ചെയ്യുക",
+    "@removeModerator": {
+        "description": "Menu item text to revoke moderator privileges from a user."
+    },
+    "kickOut": "ഉപയോക്താവിനെ പുറത്താക്കുക",
+    "@kickOut": {
+        "description": "Menu item text to remove a user from a room."
+    },
+    "addModerator": "മോഡരേറ്ററിനെ ചേർക്കുക",
+    "@addModerator": {
+        "description": "Menu item text to grant moderator privileges to a user."
+    },
+    "addSpeaker": "സ്പീക്കറെ ചേർക്കുക",
+    "@addSpeaker": {
+        "description": "Menu item text to grant speaker privileges to a listener."
+    },
+    "makeListener": "ശ്രോതാവായി മാറ്റുക",
+    "@makeListener": {
+        "description": "Menu item text to change a speaker's role to listener."
+    },
+    "pairChat": "ചാറ്റ് ജോടിയാക്കുക",
+    "@pairChat": {
+        "description": "A feature name for one-on-one random chat."
+    },
+    "chooseIdentity": "ഐഡന്റിറ്റി തിരഞ്ഞെടുക്കുക",
+    "@chooseIdentity": {
+        "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
+    },
+    "selectLanguage": "ഭാഷ തിരഞ്ഞെടുക്കുക",
+    "@selectLanguage": {
+        "description": "Label for the language selection setting."
+    },
+    "noConnection": "ഇന്റർനെറ്റ് ബന്ധം ഇല്ല",
+    "@noConnection": {
+        "description": "Title indicating that there is no internet connection."
+    },
+    "loadingDialog": "ലോഡിംഗ് ഡയലോഗ്",
+    "@loadingDialog": {
+        "description": "Accessibility text for a loading indicator or spinner."
+    },
+    "createAccount": "അക്കൗണ്ട് സൃഷ്ടിക്കുക",
+    "@createAccount": {
+        "description": "Button text or page title for the account creation screen."
+    },
+    "enterValidEmailAddress": "സാധുവായ ഇമെയിൽ വിലാസം നൽകുക",
+    "@enterValidEmailAddress": {
+        "description": "Error message shown for an invalid email format."
+    },
+    "email": "ഇമെയിൽ",
+    "@email": {
+        "description": "Label for the email input field."
+    },
+    "passwordRequirements": "പാസ്‌വേഡ് കുറഞ്ഞത് 8 അക്ഷരങ്ങൾ നീളമുള്ളതായിരിക്കണം",
+    "@passwordRequirements": {
+        "description": "Instructional text listing the requirements for a valid password, part 1."
+    },
+    "includeNumericDigit": "കുറഞ്ഞത് ഒരു സംഖ്യാ അക്കമെങ്കിലും ഉൾപ്പെടുത്തുക",
+    "@includeNumericDigit": {
+        "description": "Instructional text listing the requirements for a valid password, part 2."
+    },
+    "includeUppercase": "കുറഞ്ഞത് ഒരു വലിയക്ഷരമെങ്കിലും ഉൾപ്പെടുത്തുക",
+    "@includeUppercase": {
+        "description": "Instructional text listing the requirements for a valid password, part 3."
+    },
+    "includeLowercase": "കുറഞ്ഞത് ഒരു ചെറിയക്ഷരമെങ്കിലും ഉൾപ്പെടുത്തുക",
+    "@includeLowercase": {
+        "description": "Instructional text listing the requirements for a valid password, part 4."
+    },
+    "includeSymbol": "കുറഞ്ഞത് ഒരു ചിഹ്നമെങ്കിലും ഉൾപ്പെടുത്തുക",
+    "@includeSymbol": {
+        "description": "Instructional text listing the requirements for a valid password, part 5."
+    },
+    "signedUpSuccessfully": "വിജയകരമായി സൈൻ അപ്പ് ചെയ്തു",
+    "@signedUpSuccessfully": {
+        "description": "Title for a success message after account creation."
+    },
+    "newAccountCreated": "നിങ്ങൾ വിജയകരമായി ഒരു പുതിയ അക്കൗണ്ട് സൃഷ്ടിച്ചു",
+    "@newAccountCreated": {
+        "description": "Success message confirming that a new account has been created."
+    },
+    "signUp": "സൈൻ അപ്പ് ചെയ്യുക",
+    "@signUp": {
+        "description": "Button text to submit the sign-up form."
+    },
+    "login": "ലോഗിൻ",
+    "@login": {
+        "description": "Button text to submit the login form."
+    },
+    "settings": "ക്രമീകരണങ്ങൾ",
+    "@settings": {
+        "description": "Title for the settings page."
+    },
+    "accountSettings": "അക്കൗണ്ട് ക്രമീകരണങ്ങൾ",
+    "@accountSettings": {
+        "description": "Sub-header for account-related settings."
+    },
+    "account": "അക്കൗണ്ട്",
+    "@account": {
+        "description": "Label for the account settings section."
+    },
+    "appSettings": "ആപ്പ് ക്രമീകരണങ്ങൾ",
+    "@appSettings": {
+        "description": "Sub-header for application-related settings."
+    },
+    "themes": "തീമുകൾ",
+    "@themes": {
+        "description": "Label for the theme selection setting."
+    },
+    "about": "അബൗട്ട്",
+    "@about": {
+        "description": "Label for the 'About' section or page of the app or a story."
+    },
+    "other": "മറ്റുള്ളവ",
+    "@other": {
+        "description": "A generic category label for miscellaneous settings or items."
+    },
+    "contribute": "സംഭാവന ചെയ്യുക",
+    "@contribute": {
+        "description": "Label for a section encouraging users to contribute to the project."
+    },
+    "appPreferences": "ആപ്പ് മുൻഗണനകൾ",
+    "@appPreferences": {
+        "description": "Label for the app preferences settings page."
+    },
+    "transcriptionModel": "ട്രാൻസ്ക്രിപ്ഷൻ മോഡൽ",
+    "@transcriptionModel": {
+        "description": "Section title for choosing AI transcription model."
+    },
+    "transcriptionModelDescription": "വോയ്‌സ് ട്രാൻസ്ക്രിപ്ഷനായി AI മോഡൽ തിരഞ്ഞെടുക്കുക. വലിയ മോഡലുകൾ കൂടുതൽ കൃത്യതയുള്ളവയാണ്, പക്ഷേ വേഗത കുറവാണ്, കൂടുതൽ സംഭരണം ആവശ്യമാണ്.",
+    "@transcriptionModelDescription": {
+        "description": "Description text explaining transcription model choices."
+    },
+    "whisperModelTiny": "ഏറ്റവും ചെറുത്",
+    "@whisperModelTiny": {
+        "description": "Name of the smallest Whisper AI model."
+    },
+    "whisperModelTinyDescription": "ഏറ്റവും വേഗതയേറിയത്, കൃത്യത കുറഞ്ഞത് (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Description of the Tiny Whisper model performance and size."
+    },
+    "whisperModelBase": "ബേസ്",
+    "@whisperModelBase": {
+        "description": "Name of the base Whisper AI model."
+    },
+    "whisperModelBaseDescription": "സന്തുലിത വേഗതയും കൃത്യതയും (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Description of the Base Whisper model performance and size."
+    },
+    "whisperModelSmall": "ചെറുത്",
+    "@whisperModelSmall": {
+        "description": "Name of the small Whisper AI model."
+    },
+    "whisperModelSmallDescription": "നല്ല കൃത്യത, വേഗത കുറവ് (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Description of the Small Whisper model performance and size."
+    },
+    "whisperModelMedium": "മധ്യം",
+    "@whisperModelMedium": {
+        "description": "Name of the medium Whisper AI model."
+    },
+    "whisperModelMediumDescription": "ഉയർന്ന കൃത്യത, വേഗത കുറവ് (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Description of the Medium Whisper model performance and size."
+    },
+    "whisperModelLargeV1": "വലുത് V1",
+    "@whisperModelLargeV1": {
+        "description": "Name of the large V1 Whisper AI model."
+    },
+    "whisperModelLargeV1Description": "ഏറ്റവും കൃത്യം, ഏറ്റവും വേഗത കുറഞ്ഞത് (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Description of the Large V1 Whisper model performance and size."
+    },
+    "whisperModelLargeV2": "വലുത് V2",
+    "@whisperModelLargeV2": {
+        "description": "Name of the large V2 Whisper AI model."
+    },
+    "whisperModelLargeV2Description": "ഉയർന്ന കൃത്യതയോടെ മെച്ചപ്പെടുത്തിയ വലിയ മോഡൽ (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Description of the Large V2 Whisper model performance and size."
+    },
+    "modelDownloadInfo": "ആദ്യം ഉപയോഗിക്കുമ്പോൾ മോഡലുകൾ ഡൗൺലോഡ് ചെയ്യപ്പെടും. ബേസ്, സ്മോൾ, അല്ലെങ്കിൽ മീഡിയം എന്നിവ ഉപയോഗിക്കാൻ ഞങ്ങൾ ശുപാർശ ചെയ്യുന്നു. വലിയ മോഡലുകൾക്ക് വളരെ ഉയർന്ന നിലവാരമുള്ള ഉപകരണങ്ങൾ ആവശ്യമാണ്.",
+    "@modelDownloadInfo": {
+        "description": "Information message about model download."
+    },
+    "logOut": "ലോഗ് ഔട്ട് ചെയ്യുക",
+    "@logOut": {
+        "description": "Button text to log the user out of their account."
+    },
+    "participants": "പങ്കാളികൾ",
+    "@participants": {
+        "description": "Label or title for the list of participants in a room."
+    },
+    "delete": "ഇല്ലാതാക്കുക",
+    "@delete": {
+        "description": "Generic button text for a delete action. Parameter for toRoomAction."
+    },
+    "leave": "വിടുക",
+    "@leave": {
+        "description": "Generic button text for a leave action. Parameter for toRoomAction."
+    },
+    "leaveButton": "വിടുക",
+    "@leaveButton": {
+        "description": "Button text to leave a room or conversation."
+    },
+    "findingRandomPartner": "നിങ്ങൾക്കായി ഒരു ക്രമരഹിത പങ്കാളിയെ കണ്ടെത്തുന്നു",
+    "@findingRandomPartner": {
+        "description": "Status message shown while the system is searching for a random chat partner."
+    },
+    "quickFact": "ചില വസ്തുതകൾ",
+    "@quickFact": {
+        "description": "Header for a quick fact or tip, often shown during loading."
+    },
+    "cancel": "റദ്ദാക്കുക",
+    "@cancel": {
+        "description": "Generic button text for a cancel action."
+    },
+    "hide": "നീക്കം ചെയ്യുക",
+    "@hide": {
+        "description": "Button text to remove an item from view."
+    },
+    "removeRoom": "റൂം നീക്കം ചെയ്യുക",
+    "@removeRoom": {
+        "description": "Dialog title for removing an upcoming room."
+    },
+    "removeRoomFromList": "പട്ടികയിൽ നിന്ന് നീക്കം ചെയ്യുക",
+    "@removeRoomFromList": {
+        "description": "Tooltip text for the remove room button."
+    },
+    "removeRoomConfirmation": "നിങ്ങളുടെ ലിസ്റ്റിൽ നിന്ന് വരാനിരിക്കുന്ന ഈ മുറി നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ?",
+    "@removeRoomConfirmation": {
+        "description": "Confirmation message asking if the user wants to remove an upcoming room from their list."
+    },
+    "completeYourProfile": "നിങ്ങളുടെ പ്രൊഫൈൽ പൂർത്തിയാക്കുക",
+    "@completeYourProfile": {
+        "description": "Page title or prompt for the user to finish setting up their profile."
+    },
+    "uploadProfilePicture": "പ്രൊഫൈൽ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
+    "@uploadProfilePicture": {
+        "description": "Instructional text or button to upload a profile picture."
+    },
+    "enterValidName": "സാധുവായ പേര് നൽകുക",
+    "@enterValidName": {
+        "description": "Error message for an invalid name format."
+    },
+    "name": "പേര്",
+    "@name": {
+        "description": "Label for the name input field."
+    },
+    "username": "ഉപയോക്തൃനാമം",
+    "@username": {
+        "description": "Label for the username input field."
+    },
+    "enterValidDOB": "സാധുവായ ജനനത്തീയതി നൽകുക",
+    "@enterValidDOB": {
+        "description": "Error message for an invalid date of birth."
+    },
+    "dateOfBirth": "ജനനത്തീയതി",
+    "@dateOfBirth": {
+        "description": "Label for the date of birth input field."
+    },
+    "forgotPassword": "പാസ്‌വേഡ് മറന്നോ?",
+    "@forgotPassword": {
+        "description": "Link text for users who have forgotten their password."
+    },
+    "next": "അടുത്തത്",
+    "@next": {
+        "description": "Button text to proceed to the next step in a process."
+    },
+    "noStoriesExist": "അവതരിപ്പിക്കാൻ കഥകളൊന്നുമില്ല.",
+    "@noStoriesExist": {
+        "description": "Message displayed when there are no stories available in a list."
+    },
+    "enterVerificationCode": "നിങ്ങളുടെ പരിശോധന\nകോഡ് നൽകുക",
+    "@enterVerificationCode": {
+        "description": "Prompt for the user to enter the verification code sent to their email."
+    },
+    "verificationCodeSent": "ഞങ്ങൾ 6-അക്കം പരിശോധന കോഡ് അയച്ചു\n",
+    "@verificationCodeSent": {
+        "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
+    },
+    "verificationComplete": "പരിശോധിച്ചുറപ്പിക്കൽ പൂർത്തിയായി",
+    "@verificationComplete": {
+        "description": "Title for a success message after email verification."
+    },
+    "verificationCompleteMessage": "നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിച്ചു",
+    "@verificationCompleteMessage": {
+        "description": "Success message confirming email verification."
+    },
+    "verificationFailed": "പരിശോധന പരാജയപ്പെട്ടു",
+    "@verificationFailed": {
+        "description": "Title for an error message when verification fails."
+    },
+    "otpMismatch": "OTP ഒറ്റപ് ശെരി അല്ല, ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "@otpMismatch": {
+        "description": "Error message when the entered OTP is incorrect."
+    },
+    "otpResent": "OTP വീണ്ടും അയച്ചു",
+    "@otpResent": {
+        "description": "Confirmation message that the OTP has been resent."
+    },
+    "requestNewCode": "പുതിയ കോഡ് അഭ്യർത്ഥിക്കുക",
+    "@requestNewCode": {
+        "description": "Button text to request a new verification code."
+    },
+    "requestNewCodeIn": "പുതിയ കോഡ് അഭ്യർത്ഥിക്കാൻ",
+    "@requestNewCodeIn": {
+        "description": "Text displayed before a countdown timer for requesting a new code."
+    },
+    "clickPictureCamera": "പുതിയ ചിത്രം എടുക്കുക",
+    "@clickPictureCamera": {
+        "description": "Option to take a new photo using the device camera."
+    },
+    "pickImageGallery": "ഗാലറിയിൽ നിന്ന് ചിത്രം തിരഞ്ഞെടുക്കുക",
+    "@pickImageGallery": {
+        "description": "Option to choose an existing image from the device gallery."
+    },
+    "deleteMyAccount": "എന്റെ അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "@deleteMyAccount": {
+        "description": "Button text for the account deletion feature."
+    },
+    "createNewRoom": "പുതിയ റൂം സൃഷ്ടിക്കുക",
+    "@createNewRoom": {
+        "description": "Button text or page title for creating a new audio room."
+    },
+    "pleaseEnterScheduledDateTime": "ദയവായി ഷെഡ്യൂൾ ചെയ്ത തീയതി-സമയം നൽകുക.",
+    "@pleaseEnterScheduledDateTime": {
+        "description": "Error message when the scheduled date and time for a room is not provided."
+    },
+    "scheduleDateTimeLabel": "തീയതി സമയം ഷെഡ്യൂൾ ചെയ്യുക",
+    "@scheduleDateTimeLabel": {
+        "description": "Label for the input field to schedule a room's date and time."
+    },
+    "enterTags": "ടാഗുകൾ നൽകുക",
+    "@enterTags": {
+        "description": "Placeholder or label for the input field for adding tags to a room or story."
+    },
+    "joinCommunity": "കമ്മ്യൂണിറ്റിയിൽ ചേരുക",
+    "@joinCommunity": {
+        "description": "Button text or header for the community section."
+    },
+    "followUsOnX": "X-ൽ ഞങ്ങളെ പിന്തുടരുക",
+    "@followUsOnX": {
+        "description": "Link text to the company's profile on X (formerly Twitter)."
+    },
+    "joinDiscordServer": "ഡിസ്‌കോർഡ് സെർവറിൽ ചേരുക",
+    "@joinDiscordServer": {
+        "description": "Link text to join the project's Discord server."
+    },
+    "noLyrics": "ലിറിക്‌സ് ഇല്ല",
+    "@noLyrics": {
+        "description": "Message displayed when lyrics for an audio file are not available."
+    },
+    "noStoriesInCategory": "{categoryName} വിഭാഗത്തിൽ അവതരിപ്പിക്കാൻ നിലവിൽ കഥകളൊന്നുമില്ല.",
+    "@noStoriesInCategory": {
+        "description": "Message when no stories exist in a specific category.",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "newChapters": "പുതിയ അധ്യായങ്ങൾ",
+    "@newChapters": {
+        "description": "Header or label for the section to add or view new chapters of a story."
+    },
+    "helpToGrow": "വളരാൻ സഹായിക്കുക",
+    "@helpToGrow": {
+        "description": "A call to action asking users to help the platform grow, often a header for sharing/rating."
+    },
+    "share": "പങ്കിടുക",
+    "@share": {
+        "description": "Button text for sharing content."
+    },
+    "rate": "റേറ്റ് ചെയ്യുക",
+    "@rate": {
+        "description": "Button text for rating the app or content."
+    },
+    "aboutResonate": "റെസൊണേറ്റിനെ കുറിച്ച്",
+    "@aboutResonate": {
+        "description": "Title for the 'About' page of the Resonate application."
+    },
+    "description": "വിവരണം",
+    "@description": {
+        "description": "Label for a description field."
+    },
+    "confirm": "സ്ഥിരീകരിക്കുക",
+    "@confirm": {
+        "description": "Generic button text for a confirm action."
+    },
+    "classic": "ക്ലാസിക്",
+    "@classic": {
+        "description": "Name of a theme option."
+    },
+    "time": "സമയം",
+    "@time": {
+        "description": "Name of a theme option."
+    },
+    "vintage": "വിൻറ്റേജ്",
+    "@vintage": {
+        "description": "Name of a theme option."
+    },
+    "amber": "ആംബർ",
+    "@amber": {
+        "description": "Name of a theme option."
+    },
+    "forest": "ഫോറസ്റ്റ്",
+    "@forest": {
+        "description": "Name of a theme option."
+    },
+    "cream": "ക്രീം",
+    "@cream": {
+        "description": "Name of a theme option."
+    },
+    "none": "ഒന്നുമില്ല",
+    "@none": {
+        "description": "Text representing no selection or absence of a value."
+    },
+    "checkOutGitHub": "ഞങ്ങളുടെ GitHub സംഭരണി പരിശോധിക്കുക: {url}",
+    "@checkOutGitHub": {
+        "description": "Share message for the GitHub repository, including a placeholder for the URL.",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
+    },
+    "aossie": "AOSSIE",
+    "@aossie": {
+        "description": "The name of the organization."
+    },
+    "aossieLogo": "AOSSIE ലോഗോ",
+    "@aossieLogo": {
+        "description": "Accessibility text for the AOSSIE organization logo."
+    },
+    "errorLoadPackageInfo": "പാക്കേജ് വിവരങ്ങൾ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല.",
+    "@errorLoadPackageInfo": {
+        "description": "Error message when the application fails to load its package information (e.g., version)."
+    },
+    "searchFailed": "റൂമുകൾ തിരയാനായില്ല. വീണ്ടും ശ്രമിക്കുക.",
+    "@searchFailed": {
+        "description": "Error message when searching for rooms fails."
+    },
+    "updateAvailable": "അപ്ഡേറ്റ് ലഭ്യമാണ്",
+    "@updateAvailable": {
+        "description": "Title indicating that a new version of the app is available."
+    },
+    "newVersionAvailable": "പുതിയ വേർഷൻ ലഭ്യമാണ്!",
+    "@newVersionAvailable": {
+        "description": "Message informing the user about an available update."
+    },
+    "upToDate": "അപ്ഡേറ്റ് ചെയ്തിരിക്കുന്നു",
+    "@upToDate": {
+        "description": "Title indicating the application is on the latest version."
+    },
+    "latestVersion": "നിങ്ങൾ ഏറ്റവും പുതിയ വേർഷൻ ഉപയോഗിക്കുന്നു",
+    "@latestVersion": {
+        "description": "Message confirming the user has the latest version of the app."
+    },
+    "profileCreatedSuccessfully": "പ്രൊഫൈൽ വിജയകരമായി സൃഷ്ടിച്ചു",
+    "@profileCreatedSuccessfully": {
+        "description": "Success message after a user's profile is created."
+    },
+    "invalidScheduledDateTime": "അസാധുവായ ഷെഡ്യൂൾ ചെയ്ത തീയതി സമയം",
+    "@invalidScheduledDateTime": {
+        "description": "Error message for an invalid date-time format."
+    },
+    "scheduledDateTimePast": "ഷെഡ്യൂൾ ചെയ്ത തീയതി സമയം കഴിഞ്ഞുപോയതായിരിക്കരുത്.",
+    "@scheduledDateTimePast": {
+        "description": "Error message when the user selects a past date-time for a scheduled event."
+    },
+    "joinRoom": "റൂമിൽ ചേരുക",
+    "@joinRoom": {
+        "description": "Button text to join an audio room."
+    },
+    "unknownUser": "അജ്ഞാതം",
+    "@unknownUser": {
+        "description": "Placeholder text for a user whose name is not available."
+    },
+    "canceled": "റദ്ദാക്കി",
+    "@canceled": {
+        "description": "A status label indicating that an action was canceled."
+    },
+    "english": "en",
+    "@english": {
+        "description": "The language code for English."
+    },
+    "emailVerificationRequired": "ഇമെയിൽ പരിശോധന ആവശ്യമാണ്",
+    "@emailVerificationRequired": {
+        "description": "A title or message indicating that email verification is needed to proceed."
+    },
+    "verify": "സ്ഥിരീകരിക്കുക",
+    "@verify": {
+        "description": "Button text to initiate a verification process."
+    },
+    "audioRoom": "ഓഡിയോ റൂം",
+    "@audioRoom": {
+        "description": "Generic title for an audio room."
+    },
+    "toRoomAction": "മുറി {action} ചെയ്യുക",
+    "@toRoomAction": {
+        "description": "A dynamic message for confirming an action on a room, like deleting or leaving.",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "delete"
+            }
+        }
+    },
+    "mailSentMessage": "ഇമെയിൽ അയച്ചു",
+    "@mailSentMessage": {
+        "description": "A confirmation message indicating an email has been sent."
+    },
+    "disconnected": "ഡിസ്കണക്റ്റഡ്",
+    "@disconnected": {
+        "description": "A status label indicating a loss of connection."
+    },
+    "micOn": "മൈക്ക് ഓൺ",
+    "@micOn": {
+        "description": "Accessibility label for the microphone button when it is on."
+    },
+    "speakerOn": "സ്പീക്കർ ഓൺ",
+    "@speakerOn": {
+        "description": "Accessibility label for the speakerphone button when it is on."
+    },
+    "endChat": "ചാറ്റ്-അവസാനിപ്പിക്കുക",
+    "@endChat": {
+        "description": "Accessibility label for the end chat/call button."
+    },
+    "monthJan": "ജനുവരി",
+    "@monthJan": {
+        "description": "Abbreviation for January."
+    },
+    "monthFeb": "ഫെബ്രുവരി",
+    "@monthFeb": {
+        "description": "Abbreviation for February."
+    },
+    "monthMar": "മാർച്ച്",
+    "@monthMar": {
+        "description": "Full name for March."
+    },
+    "monthApr": "ഏപ്രിൽ",
+    "@monthApr": {
+        "description": "Full name for April."
+    },
+    "monthMay": "മേയ്",
+    "@monthMay": {
+        "description": "Full name for May."
+    },
+    "monthJun": "ജൂൺ",
+    "@monthJun": {
+        "description": "Full name for June."
+    },
+    "monthJul": "ജൂലൈ",
+    "@monthJul": {
+        "description": "Full name for July."
+    },
+    "monthAug": "ഓഗസ്റ്റ്",
+    "@monthAug": {
+        "description": "Abbreviation for August."
+    },
+    "monthSep": "സെപ്റ്റംബർ",
+    "@monthSep": {
+        "description": "Abbreviation for September."
+    },
+    "monthOct": "ഒക്ടോബർ",
+    "@monthOct": {
+        "description": "Abbreviation for October."
+    },
+    "monthNov": "നവംബർ",
+    "@monthNov": {
+        "description": "Abbreviation for November."
+    },
+    "monthDec": "ഡിസംബർ",
+    "@monthDec": {
+        "description": "Abbreviation for December."
+    },
+    "register": "രജിസ്റ്റർ ചെയ്യുക",
+    "@register": {
+        "description": "Button text to register a new account."
+    },
+    "newToResonate": "റെസൊണേറ്റിൽ പുതിയവരാണോ? ",
+    "@newToResonate": {
+        "description": "Text preceding the 'Create new account' link on the login screen."
+    },
+    "alreadyHaveAccount": "ഇതിനകം ഒരു അക്കൗണ്ട് ഉണ്ടോ? ",
+    "@alreadyHaveAccount": {
+        "description": "Text preceding the 'Login' link on the sign-up screen."
+    },
+    "checking": "പരിശോധിക്കുന്നു...",
+    "@checking": {
+        "description": "A temporary status message indicating a check is in progress."
+    },
+    "forgotPasswordMessage": "പാസ്‌വേഡ് പുനഃസജ്ജമാക്കാൻ നിങ്ങളുടെ രജിസ്റ്റർ ചെയ്ത ഇമെയിൽ വിലാസം നൽകുക.",
+    "@forgotPasswordMessage": {
+        "description": "Instructional text on the forgot password screen."
+    },
+    "usernameUnavailable": "ഉപയോക്തൃനാമം ലഭ്യമല്ല!",
+    "@usernameUnavailable": {
+        "description": "Title for the error when a chosen username is taken."
+    },
+    "usernameInvalidOrTaken": "ഈ ഉപയോക്തൃനാമം അസാധുവാണ് അല്ലെങ്കിൽ ഇതിനകം ഉപയോഗിച്ചതാണ്.",
+    "@usernameInvalidOrTaken": {
+        "description": "Error message explaining why a username cannot be used."
+    },
+    "otpResentMessage": "ദയവായി പുതിയ OTP ലഭിക്കാൻ നിങ്ങളുടെ മെയിൽ പരിശോധിക്കുക.",
+    "@otpResentMessage": {
+        "description": "Message informing the user to check their email for a new OTP."
+    },
+    "connectionError": "ഇന്റർനെറ്റ് ബന്ധം ഇല്ല. ദയവായി നിങ്ങളുടെ ഇന്റർനെറ്റ് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+    "@connectionError": {
+        "description": "Generic error message for network connection issues."
+    },
+    "seconds": "സെക്കൻഡ്.",
+    "@seconds": {
+        "description": "The word 'seconds', often used after a countdown number."
+    },
+    "unsavedChangesWarning": "സംരക്ഷിക്കാതെ മുന്നോട്ട് പോയാൽ, സംരക്ഷിക്കാത്ത മാറ്റങ്ങൾ നഷ്ടപ്പെടും.",
+    "@unsavedChangesWarning": {
+        "description": "A warning message shown when a user tries to leave a screen with unsaved changes."
+    },
+    "deleteAccountPermanent": "ഈ പ്രവർത്തനം നിങ്ങളുടെ അക്കൗണ്ട് സ്ഥിരമായി ഇല്ലാതാക്കും. ഇത് തിരികെ വരാനാകാത്ത പ്രക്രിയയാണ്. നിങ്ങളുടെ ഉപയോക്തൃനാമം, ഇമെയിൽ വിലാസം, നിങ്ങളുടെ അക്കൗണ്ടുമായി ബന്ധപ്പെട്ട എല്ലാ മറ്റ് ഡാറ്റയും ഞങ്ങൾ ഇല്ലാതാക്കും. നിങ്ങൾ അത് പുനരുദ്ധരിക്കാൻ കഴിയില്ല.",
+    "@deleteAccountPermanent": {
+        "description": "A detailed warning message explaining the consequences of deleting an account."
+    },
+    "giveGreatName": "നല്ലൊരു പേര് പറയൂ...",
+    "@giveGreatName": {
+        "description": "Placeholder text for a name input field, encouraging a creative name."
+    },
+    "joinCommunityDescription": "കമ്മ്യൂണിറ്റിയിൽ ചേരുന്നതിലൂടെ നിങ്ങളുടെ സംശയങ്ങൾ ദൂരീകരിക്കാനും, പുതിയ സവിശേഷതകൾക്കായി നിർദ്ദേശിക്കാനും, നിങ്ങൾ നേരിട്ട പ്രശ്നങ്ങൾ റിപ്പോർട്ട് ചെയ്യാനും മറ്റും കഴിയും.",
+    "@joinCommunityDescription": {
+        "description": "A description of the benefits of joining the community."
+    },
+    "resonateDescription": "ഓരോ ശബ്ദത്തിനും വില കൽപ്പിക്കുന്ന ഒരു സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോമാണ് റെസൊണേറ്റ്. നിങ്ങളുടെ ചിന്തകളും കഥകളും അനുഭവങ്ങളും മറ്റുള്ളവരുമായി പങ്കിടുക. നിങ്ങളുടെ ഓഡിയോ യാത്ര ഇപ്പോൾ ആരംഭിക്കുക. വൈവിധ്യമാർന്ന ചർച്ചകളിലും വിഷയങ്ങളിലും മുഴുകുക. നിങ്ങളുമായി പ്രതിധ്വനിക്കുന്ന മുറികൾ കണ്ടെത്തി സമൂഹത്തിന്റെ ഭാഗമാകുക. സംഭാഷണത്തിൽ ചേരൂ! മുറികൾ പര്യവേക്ഷണം ചെയ്യുക, സുഹൃത്തുക്കളുമായി ബന്ധപ്പെടുക, ലോകവുമായി നിങ്ങളുടെ ശബ്ദം പങ്കിടുക.",
+    "@resonateDescription": {
+        "description": "A short, user-facing description of the Resonate application."
+    },
+    "resonateFullDescription": "റെസൊണേറ്റ് എല്ലാ ശബ്ദത്തിനും വിലയുള്ള ഒരു വിപ്ലവാത്മക ശബ്ദാധിഷ്ടിത സോഷ്യൽ മീഡിയ പ്ലാറ്റ്‌ഫോമാണ്\nതത്സമയ ഓഡിയോ സംഭാഷണങ്ങളിൽ പങ്കെടുക്കാനും വൈവിധ്യമാർന്ന ചർച്ചകളിൽ പങ്കാളികളാകാനും സമാന ചിന്താഗതിയുള്ള ആളുകളുമായി ബന്ധപ്പെടാനും നിങ്ങളെ സഹായിക്കുന്നു\nഞങ്ങളുടെ പ്ലാറ്റ്‌ഫോം വിഷയാധിഷ്ടിത ചർച്ചകളോടെയുള്ള ലൈവ് ഓഡിയോ റൂമുകൾ\nശബ്ദത്തിലൂടെ തടസ്സമില്ലാത്ത സോഷ്യൽ നെറ്റ്‌വർക്കിംഗ്\nസമൂഹം നയിക്കുന്ന ഉള്ളടക്ക നിയന്ത്രണം\nക്രോസ് പ്ലാറ്റ്‌ഫോം അനുയോജ്യത\nഎൻഡ് ടു എൻഡ് എൻക്രിപ്റ്റ് ചെയ്ത സ്വകാര്യ സംഭാഷണങ്ങൾ എന്നിവ നൽകുന്നു\n\nAOSSIE ഓപ്പൺ സോഴ്‌സ് കമ്മ്യൂണിറ്റി വികസിപ്പിച്ച ഈ പ്ലാറ്റ്‌ഫോമിൽ ഉപയോക്തൃ സ്വകാര്യതക്കും സമൂഹം നയിക്കുന്ന വികസനത്തിനും മുൻഗണന നൽകുകയും സാമൂഹിക ഓഡിയോയുടെ ഭാവി രൂപപ്പെടുത്തുന്നതിൽ ഞങ്ങളോടൊപ്പം ചേരാൻ നിങ്ങളെ ക്ഷണിക്കുകയും ചെയ്യുന്നു",
+    "@resonateFullDescription": {
+        "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
+    },
+    "stable": "സ്റ്റേബിൾ",
+    "@stable": {
+        "description": "A label indicating a stable, non-beta version of the app."
+    },
+    "usernameCharacterLimit": "ഉപയോക്തൃനാമത്തിൽ 7 പ്രതീകങ്ങളിൽ കൂടുതൽ ഉണ്ടായിരിക്കണം.",
+    "@usernameCharacterLimit": {
+        "description": "Error message when a chosen username is too short."
+    },
+    "submit": "സമർപ്പിക്കുക",
+    "@submit": {
+        "description": "Generic button text for submitting a form."
+    },
+    "anonymous": "അജ്ഞാത",
+    "@anonymous": {
+        "description": "Label for an anonymous user or identity."
+    },
+    "noSearchResults": "തിരയൽ ഫലങ്ങളൊന്നും നൽകുന്നില്ല.",
+    "@noSearchResults": {
+        "description": "Message displayed when a search returns no results."
+    },
+    "searchRooms": "മുറികൾ തിരയുക...",
+    "@searchRooms": {
+        "description": "Placeholder text for room search input field."
+    },
+    "searchingRooms": "മുറികൾ തിരയുന്നു...",
+    "@searchingRooms": {
+        "description": "Loading message shown while searching for rooms."
+    },
+    "clearSearch": "തിരയൽ മായ്ക്കുക",
+    "@clearSearch": {
+        "description": "Text for button to clear search results."
+    },
+    "searchError": "തിരയൽ തെറ്റി",
+    "@searchError": {
+        "description": "Title for search error messages."
+    },
+    "searchRoomsError": "മുറികൾ തിരയുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "@searchRoomsError": {
+        "description": "Error message when room search fails."
+    },
+    "searchUpcomingRoomsError": "ഭാവിയിലെ മുറികൾ തിരയുന്നതിൽ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "@searchUpcomingRoomsError": {
+        "description": "Error message when upcoming room search fails."
+    },
+    "search": "തിരയുക",
+    "@search": {
+        "description": "Tooltip text for search button."
+    },
+    "clear": "മായ്ക്കുക",
+    "@clear": {
+        "description": "Tooltip text for clear button."
+    },
+    "shareRoomMessage": "🚀 ഈ അത്ഭുതകരമായ മുറി പരിശോധിക്കൂ: {roomName}!\n\n📖 വിവരണം: {description}\n👥 ഇപ്പോൾ തന്നെ {participants} പങ്കാളികളിൽ ചേരൂ!",
+    "@shareRoomMessage": {
+        "description": "The default message template used when sharing a room.",
+        "placeholders": {
+            "roomName": {
+                "type": "String",
+                "example": "Discussion Room"
+            },
+            "description": {
+                "type": "String",
+                "example": "A great place to discuss"
+            },
+            "participants": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "participantsCount": "{count} പങ്കാളികൾ",
+    "@participantsCount": {
+        "description": "Displays the number of participants in a room.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "join": "ചേരുക",
+    "@join": {
+        "description": "Generic button text to join an activity or group."
+    },
+    "invalidTags": "അസാധുവായ ടാഗ്:",
+    "@invalidTags": {
+        "description": "Error message prefix for an invalid tag."
+    },
+    "cropImage": "ചിത്രം മുറിക്കുക",
+    "@cropImage": {
+        "description": "Title or button text for the image cropping tool."
+    },
+    "profileSavedSuccessfully": "പ്രൊഫൈൽ അപ്ഡേറ്റ് ചെയ്തു",
+    "@profileSavedSuccessfully": {
+        "description": "Short success message indicating profile changes have been saved."
+    },
+    "profileUpdatedSuccessfully": "എല്ലാ മാറ്റങ്ങളും വിജയകരമായി സേവ് ചെയ്തു.",
+    "@profileUpdatedSuccessfully": {
+        "description": "Detailed success message confirming profile update."
+    },
+    "profileUpToDate": "പ്രൊഫൈൽ കാലികമാണ്",
+    "@profileUpToDate": {
+        "description": "Title for the message when there are no changes to save on the profile."
+    },
+    "noChangesToSave": "പുതിയ മാറ്റങ്ങളൊന്നും വരുത്തിയിട്ടില്ല, സേവ് ചെയ്യാൻ ഒന്നുമില്ല.",
+    "@noChangesToSave": {
+        "description": "Message displayed when the user tries to save their profile without making any changes."
+    },
+    "connectionFailed": "കണക്ഷൻ പരാജയപ്പെട്ടു",
+    "@connectionFailed": {
+        "description": "Generic title for connection-related errors."
+    },
+    "unableToJoinRoom": "റൂമിൽ ചേരാൻ കഴിഞ്ഞില്ല. നിങ്ങളുടെ നെറ്റ്‌വർക്ക് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.",
+    "@unableToJoinRoom": {
+        "description": "Error message when a user fails to join a room due to connection issues."
+    },
+    "connectionLost": "കണക്ഷൻ നഷ്ടപ്പെട്ടു",
+    "@connectionLost": {
+        "description": "Title indicating that the connection to a service was lost."
+    },
+    "unableToReconnect": "റൂമിലേക്ക് വീണ്ടും കണക്റ്റ് ചെയ്യാൻ കഴിഞ്ഞില്ല. വീണ്ടും ചേരാൻ ശ്രമിക്കുക.",
+    "@unableToReconnect": {
+        "description": "Error message when the app fails to reconnect the user to a room."
+    },
+    "invalidFormat": "അസാധുവായ ഫോർമാറ്റ്!",
+    "@invalidFormat": {
+        "description": "Generic error message for data with an incorrect format."
+    },
+    "usernameAlphanumeric": "ഉപയോക്തൃനാമം അക്ഷരങ്ങളും അക്കങ്ങളും അടങ്ങിയതായിരിക്കണം കൂടാതെ പ്രത്യേക പ്രതീകങ്ങൾ അടങ്ങിയിരിക്കരുത്.",
+    "@usernameAlphanumeric": {
+        "description": "Error message detailing the character requirements for a valid username."
+    },
+    "userProfileCreatedSuccessfully": "നിങ്ങളുടെ യൂസർ പ്രൊഫൈൽ വിജയകരമായി സൃഷ്ടിച്ചു.",
+    "@userProfileCreatedSuccessfully": {
+        "description": "Success message after a user completes their profile setup."
+    },
+    "emailVerificationMessage": "മുന്നോട്ട് പോകാൻ, നിങ്ങളുടെ ഇമെയിൽ വെരിഫൈ ചെയ്യണം.",
+    "@emailVerificationMessage": {
+        "description": "An instructional message prompting the user to verify their email."
+    },
+    "addNewChaptersToStory": "{storyName} ലേക്ക് പുതിയ അദ്ധ്യായങ്ങൾ ചേർക്കുക",
+    "@addNewChaptersToStory": {
+        "description": "Title for the screen where new chapters are added to an existing story.",
+        "placeholders": {
+            "storyName": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "currentChapters": "നിലവിലുള്ള അദ്ധ്യായങ്ങൾ",
+    "@currentChapters": {
+        "description": "Header for the list of existing chapters in a story."
+    },
+    "sourceCodeOnGitHub": "GitHub-ൽ സോഴ്സ് കോഡ് കാണുക",
+    "@sourceCodeOnGitHub": {
+        "description": "Link text to the project's source code on GitHub."
+    },
+    "createAChapter": "ഒരു അദ്ധ്യായം സൃഷ്ടിക്കുക",
+    "@createAChapter": {
+        "description": "Title for the screen where a new chapter is created."
+    },
+    "chapterTitle": "അധ്യായത്തിന്റെ പേര് *",
+    "@chapterTitle": {
+        "description": "Label for the chapter title input field, indicating it is required."
+    },
+    "aboutRequired": "വിവരണം *",
+    "@aboutRequired": {
+        "description": "Label for the 'About' or description input field, indicating it is required."
+    },
+    "changeCoverImage": "കവർ ചിത്രം മാറ്റുക",
+    "@changeCoverImage": {
+        "description": "Button text to change the cover image of a story or chapter."
+    },
+    "uploadAudioFile": "ഓഡിയോ ഫയൽ അപ്‌ലോഡ് ചെയ്യുക",
+    "@uploadAudioFile": {
+        "description": "Button text to upload an audio file."
+    },
+    "uploadLyricsFile": "ലിറിക്‌സ് ഫയൽ അപ്‌ലോഡ് ചെയ്യുക",
+    "@uploadLyricsFile": {
+        "description": "Button text to upload a lyrics file."
+    },
+    "createChapter": "ചാപ്റ്റർ സൃഷ്ടിക്കുക",
+    "@createChapter": {
+        "description": "Button text to finalize and create a new chapter."
+    },
+    "audioFileSelected": "തിരഞ്ഞെടുത്ത ഓഡിയോ ഫയൽ: {fileName}",
+    "@audioFileSelected": {
+        "description": "Message shown after an audio file has been selected for upload.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "audio.mp3"
+            }
+        }
+    },
+    "lyricsFileSelected": "തിരഞ്ഞെടുത്ത ലിറിക്‌സ് ഫയൽ: {fileName}",
+    "@lyricsFileSelected": {
+        "description": "Message shown after a lyrics file has been selected for upload.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "lyrics.txt"
+            }
+        }
+    },
+    "fillAllRequiredFields": "ദയവായി എല്ലാ ആവശ്യമായ ഫീൽഡുകളും ഓഡിയോ ഫയലും ലിറിക്‌സ് ഫയലും അപ്‌ലോഡ് ചെയ്യുക",
+    "@fillAllRequiredFields": {
+        "description": "Error message when required fields or files are missing from a form."
+    },
+    "scheduled": "നിശ്ചിതമാക്കിയിരിക്കുന്നു",
+    "@scheduled": {
+        "description": "A status label indicating an event is scheduled for the future."
+    },
+    "ok": "ശരി",
+    "@ok": {
+        "description": "Generic confirmation button text, often for closing a dialog."
+    },
+    "roomDescriptionOptional": "മുറി വിവരണം (ഓപ്ഷണൽ)",
+    "@roomDescriptionOptional": {
+        "description": "Label for the room description input field, indicating it is not required."
+    },
+    "deleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "@deleteAccount": {
+        "description": "Button text to initiate the account deletion process."
+    },
+    "createYourStory": "നിങ്ങളുടെ കഥ സൃഷ്ടിക്കുക",
+    "@createYourStory": {
+        "description": "Title for the screen where a new story is created."
+    },
+    "titleRequired": "ശീർഷകം *",
+    "@titleRequired": {
+        "description": "Label for the title input field, indicating it is required."
+    },
+    "category": "വിഭാഗം *",
+    "@category": {
+        "description": "Label for the category selection, indicating it is required."
+    },
+    "addChapter": "അധ്യായം ചേർക്കുക",
+    "@addChapter": {
+        "description": "Button text to add a chapter to a story."
+    },
+    "createStory": "കഥ സൃഷ്ടിക്കുക",
+    "@createStory": {
+        "description": "Button text to finalize and create a new story."
+    },
+    "fillAllRequiredFieldsAndChapter": "ദയവായി എല്ലാ ആവശ്യമായ ഫീൽഡുകളും, കുറഞ്ഞത് ഒരു അധ്യായം ചേർക്കുക, ഒരു കവറിന്റെ ചിത്രം തിരഞ്ഞെടുക്കുക.",
+    "@fillAllRequiredFieldsAndChapter": {
+        "description": "Error message for the story creation form when requirements are not met."
+    },
+    "toConfirmType": "സ്ഥിരീകരിക്കാൻ, ടൈപ്പ് ചെയ്യുക",
+    "@toConfirmType": {
+        "description": "Instructional text in a confirmation dialog, preceding the text to be typed."
+    },
+    "inTheBoxBelow": "താഴെ കൊടുത്ത ബോക്സിൽ",
+    "@inTheBoxBelow": {
+        "description": "Instructional text in a confirmation dialog, following the text to be typed."
+    },
+    "iUnderstandDeleteMyAccount": "എനിക്ക് മനസ്സിലായി, എന്റെ അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "@iUnderstandDeleteMyAccount": {
+        "description": "The specific phrase a user must type to confirm account deletion."
+    },
+    "whatDoYouWantToListenTo": "നിങ്ങൾ എന്ത് കേൾക്കാൻ ആഗ്രഹിക്കുന്നു?",
+    "@whatDoYouWantToListenTo": {
+        "description": "A prompt on the main screen, encouraging user engagement."
+    },
+    "categories": "വിഭാഗങ്ങൾ",
+    "@categories": {
+        "description": "Header for the list of categories."
+    },
+    "stories": "കഥകൾ",
+    "@stories": {
+        "description": "Header for the list of stories."
+    },
+    "someSuggestions": "ചില നിർദ്ദേശങ്ങൾ",
+    "@someSuggestions": {
+        "description": "Header for a list of suggested content."
+    },
+    "getStarted": "ആരംഭിക്കുക",
+    "@getStarted": {
+        "description": "Button text on an onboarding screen to begin using the app."
+    },
+    "skip": "ഒഴിവാക്കുക",
+    "@skip": {
+        "description": "Button text to skip an optional step, like onboarding."
+    },
+    "welcomeToResonate": "റെസൊണേറ്റിലേക് സ്വാഗതം",
+    "@welcomeToResonate": {
+        "description": "Onboarding screen title."
+    },
+    "exploreDiverseConversations": "വിവിധ സംഭാഷണങ്ങൾ അന്വേഷിക്കുക",
+    "@exploreDiverseConversations": {
+        "description": "Feature highlight on an onboarding screen."
+    },
+    "yourVoiceMatters": "നിങ്ങളുടെ ശബ്ദം പ്രധാനമാണ്",
+    "@yourVoiceMatters": {
+        "description": "Feature highlight on an onboarding screen."
+    },
+    "joinConversationExploreRooms": "സംഭാഷണത്തിൽ ചേരുക! റൂമുകൾ അന്വേഷിക്കുക, സുഹൃത്തുക്കളുമായി ബന്ധപ്പെടുക, ലോകത്തോട് നിങ്ങളുടെ ശബ്ദം പങ്കിടുക.",
+    "@joinConversationExploreRooms": {
+        "description": "Descriptive text on an onboarding screen."
+    },
+    "diveIntoDiverseDiscussions": "വിവിധ ചർച്ചകളും വിഷയങ്ങളും ആഴത്തിൽ അന്വേഷിക്കുക. \nനിങ്ങളെ അനുഗ്രഹിക്കുന്ന റൂമുകൾ കണ്ടെത്തി, സമൂഹത്തിന്റെ ഭാഗമാകൂ.",
+    "@diveIntoDiverseDiscussions": {
+        "description": "Descriptive text on an onboarding screen."
+    },
+    "atResonateEveryVoiceValued": "റെസണേറ്റിൽ, ഓരോ ശബ്ദത്തിനും വിലയുണ്ട്. നിങ്ങളുടെ ചിന്തകൾ, കഥകൾ, അനുഭവങ്ങൾ എന്നിവ മറ്റുള്ളവരുമായി പങ്കിടുക. നിങ്ങളുടെ ഓഡിയോ യാത്ര ഇപ്പോൾ ആരംഭിക്കൂ.",
+    "@atResonateEveryVoiceValued": {
+        "description": "Descriptive text on an onboarding screen."
+    },
+    "notifications": "അറിയിപ്പുകൾ",
+    "@notifications": {
+        "description": "Title for the notifications screen."
+    },
+    "taggedYouInUpcomingRoom": "{username} നിങ്ങളെ വരാനിരിക്കുന്ന ഒരു റൂമിൽ ടാഗ് ചെയ്തു: {subject}",
+    "@taggedYouInUpcomingRoom": {
+        "description": "Notification message when tagged in an upcoming room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "taggedYouInRoom": "{username} നിങ്ങളെ ഒരു റൂമിൽ ടാഗ് ചെയ്തു: {subject}",
+    "@taggedYouInRoom": {
+        "description": "Notification message when tagged in a live room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "likedYourStory": "{username} നിങ്ങളുടെ കഥയെ ഇഷ്ടപ്പെട്ടു: {subject}",
+    "@likedYourStory": {
+        "description": "Notification message when someone likes your story.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "subscribedToYourRoom": "{username} നിങ്ങളുടെ റൂമിൽ സബ്സ്ക്രൈബ് ചെയ്തു: {subject}",
+    "@subscribedToYourRoom": {
+        "description": "Notification message when someone subscribes to your room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Room"
+            }
+        }
+    },
+    "startedFollowingYou": "{username} നിങ്ങളെ ഫോളോ ചെയ്യാൻ തുടങ്ങി",
+    "@startedFollowingYou": {
+        "description": "Notification message when someone starts following you.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "youHaveNewNotification": "നിങ്ങൾക്ക് ഒരു പുതിയ അറിയിപ്പ് ഉണ്ട്",
+    "@youHaveNewNotification": {
+        "description": "Generic title for a new notification."
+    },
+    "hangOnGoodThingsTakeTime": "കാത്തിരിക്കുക, നല്ല കാര്യങ്ങൾക്ക് സമയം വേണം 🔍",
+    "@hangOnGoodThingsTakeTime": {
+        "description": "A friendly message displayed during a long loading process."
+    },
+    "resonateOpenSourceProject": "AOSSIE പരിപാലിക്കുന്ന ഒരു ഓപ്പൺ സോഴ്‌സ് പ്രോജക്റ്റാണ് റെസൊണേറ്റ്. സംഭാവന ചെയ്യാൻ ഞങ്ങളുടെ ഗിത്തബ് പരിശോധിക്കുക.",
+    "@resonateOpenSourceProject": {
+        "description": "Informational text about the open-source nature of the project."
+    },
+    "mute": "മ്യൂട്ട്",
+    "@mute": {
+        "description": "Button text to mute the microphone."
+    },
+    "speakerLabel": "സ്പീക്കർ",
+    "@speakerLabel": {
+        "description": "Label for the speakerphone toggle."
+    },
+    "audioOptions": "ഓഡിയോ ഓപ്ഷനുകൾ",
+    "@audioOptions": {
+        "description": "Label for the audio options/settings button."
+    },
+    "end": "അവസാനിപ്പിക്കുക",
+    "@end": {
+        "description": "Button text to end a call or session."
+    },
+    "saveChanges": "മാറ്റങ്ങൾ സംരക്ഷിക്കുക",
+    "@saveChanges": {
+        "description": "Button text to save modified settings or profile information."
+    },
+    "discard": "മാറ്റങ്ങൾ ഉപേക്ഷിക്കുക",
+    "@discard": {
+        "description": "Button text to discard changes."
+    },
+    "save": "സേവ്",
+    "@save": {
+        "description": "Button text to save changes."
+    },
+    "changeProfilePicture": "പ്രൊഫൈൽ ചിത്രം മാറ്റുക",
+    "@changeProfilePicture": {
+        "description": "Button text to open the profile picture selection options."
+    },
+    "camera": "ക്യാമറ",
+    "@camera": {
+        "description": "Option to use the camera to take a picture."
+    },
+    "gallery": "ഗാലറി",
+    "@gallery": {
+        "description": "Option to choose a picture from the gallery."
+    },
+    "remove": "കളയുക",
+    "@remove": {
+        "description": "Button text to remove an item, like a profile picture."
+    },
+    "created": "സൃഷ്ടിച്ചത് {date}",
+    "@created": {
+        "description": "Displays the creation date of a story or content.",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "Jan 15, 2023"
+            }
+        }
+    },
+    "chapters": "അധ്യായങ്ങൾ",
+    "@chapters": {
+        "description": "Header for the list of chapters in a story."
+    },
+    "deleteStory": "കഥ ഇല്ലാതാക്കുക",
+    "@deleteStory": {
+        "description": "Button text to delete a story."
+    },
+    "createdBy": "സൃഷ്ടിച്ചത് {creatorName}",
+    "@createdBy": {
+        "description": "Displays the name of the content creator.",
+        "placeholders": {
+            "creatorName": {
+                "type": "String",
+                "example": "John Doe"
+            }
+        }
+    },
+    "start": "ആരംഭിക്കുക",
+    "@start": {
+        "description": "Button text to start an activity or session."
+    },
+    "unsubscribe": "അൺസബ്‌സ്‌ക്രൈബ്",
+    "@unsubscribe": {
+        "description": "Button text to unsubscribe from a room or notification."
+    },
+    "subscribe": "സബ്‌സ്‌ക്രൈബ്",
+    "@subscribe": {
+        "description": "Button text to subscribe to a room or notification."
+    },
+    "storyCategory": "{category, select, drama{ഡ്രാമ} comedy{കോമഡി} horror{ഹൊറർ} romance{റൊമാൻസ്} thriller{ത്രില്ലർ} spiritual{ആത്മീയ} other{മറ്റുള്ളവ}}",
+    "@storyCategory": {
+        "description": "Selects the appropriate category name for a story based on a key.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "chooseTheme": "{category, select, classicTheme{ക്ലാസിക്} timeTheme{ടൈം} vintageTheme{വിന്റേജ്} amberTheme{ആംബർ} forestTheme{ഫോറസ്റ്റ്} creamTheme{ക്രീം} other{മറ്റുള്ളവ}}",
+    "@chooseTheme": {
+        "description": "Selects the appropriate theme name based on a key.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "classic"
+            }
+        }
+    },
+    "minutesAgo": "{count, plural, =1{1 മിനിറ്റ് മുമ്പ്} other{{count} മിനിറ്റ് മുമ്പ്}}",
+    "@minutesAgo": {
+        "description": "Displays time in a relative format for minutes.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "hoursAgo": "{count, plural, =1{1 മണിക്കൂർ മുമ്പ്} other{{count} മണിക്കൂർ മുമ്പ്}}",
+    "@hoursAgo": {
+        "description": "Displays time in a relative format for hours.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
+    },
+    "daysAgo": "{count, plural, =1{1 ദിവസം മുമ്പ്} other{{count} ദിവസം മുമ്പ്}}",
+    "@daysAgo": {
+        "description": "Displays time in a relative format for days.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "by": "രചിച്ചത്:",
+    "@by": {
+        "description": "A preposition, typically used between a content title and the author's name."
+    },
+    "likes": "ലൈക്കുകൾ",
+    "@likes": {
+        "description": "Label for the number of likes."
+    },
+    "lengthMinutes": "മിനിറ്റ്",
+    "@lengthMinutes": {
+        "description": "Abbreviation for 'minutes', used to display audio length."
+    },
+    "requiredField": "ആവശ്യമായ ഫീൽഡ്",
+    "@requiredField": {
+        "description": "Error message for a mandatory field that was left empty."
+    },
+    "onlineUsers": "ഓൺലൈൻ ഉപയോക്താക്കൾ",
+    "@onlineUsers": {
+        "description": "Header for the list of users who are currently online."
+    },
+    "noOnlineUsers": "നിലവിൽ ഓൺലൈനിൽ ഉപയോക്താക്കൾ ആരുമില്ല",
+    "@noOnlineUsers": {
+        "description": "Message displayed when no users are online."
+    },
+    "chooseUser": "ചാറ്റ് ചെയ്യാൻ ഉപയോക്താവിനെ തിരഞ്ഞെടുക്കുക",
+    "@chooseUser": {
+        "description": "Instructional text to select a user to start a chat."
+    },
+    "quickMatch": "പെട്ടെന്ന് മാച്ച് ചെയ്യുക",
+    "@quickMatch": {
+        "description": "Button text for a feature that quickly matches the user with a random chat partner."
+    },
+    "story": "കഥ",
+    "@story": {
+        "description": "Label for a story."
+    },
+    "user": "ഉപയോക്താവ്",
+    "@user": {
+        "description": "Label for a user."
+    },
+    "following": "ഫോളോ ചെയ്യുന്നു",
+    "@following": {
+        "description": "Label for the list of users that the current user is following."
+    },
+    "followers": "ഫോളോവേഴ്സ്",
+    "@followers": {
+        "description": "Label for the list of users who are following the current user."
+    },
+    "friendRequests": "സുഹൃത്ത് അഭ്യർത്ഥനകൾ",
+    "@friendRequests": {
+        "description": "Header for the list of incoming friend requests."
+    },
+    "friendRequestSent": "സുഹൃത്ത് അഭ്യർത്ഥന അയച്ചു",
+    "@friendRequestSent": {
+        "description": "Title for the confirmation message after sending a friend request."
+    },
+    "friendRequestSentTo": "{username} ലേക്ക് നിങ്ങളുടെ സുഹൃത്ത് അഭ്യർത്ഥന അയച്ചു.",
+    "@friendRequestSentTo": {
+        "description": "Confirmation message after sending a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestCancelled": "സുഹൃത്ത് അഭ്യർത്ഥന റദ്ദാക്കി",
+    "@friendRequestCancelled": {
+        "description": "Title for the confirmation message after cancelling a friend request."
+    },
+    "friendRequestCancelledTo": "{username} ലേക്കുള്ള നിങ്ങളുടെ സുഹൃത്ത് അഭ്യർത്ഥന റദ്ദാക്കി.",
+    "@friendRequestCancelledTo": {
+        "description": "Confirmation message after cancelling a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "requested": "അഭ്യർത്ഥിച്ചു",
+    "@requested": {
+        "description": "A status label on a button indicating a friend request has been sent."
+    },
+    "friends": "സുഹൃത്തുക്കൾ",
+    "@friends": {
+        "description": "A status label or header for the list of friends."
+    },
+    "addFriend": "സുഹൃത്തിനെ ചേർക്കുക",
+    "@addFriend": {
+        "description": "Button text to send a friend request."
+    },
+    "friendRequestAccepted": "സുഹൃത്ത് അഭ്യർത്ഥന സ്വീകരിച്ചു",
+    "@friendRequestAccepted": {
+        "description": "Title for the confirmation message after accepting a friend request."
+    },
+    "friendRequestAcceptedTo": "നിങ്ങൾ {username} ന്റെ സുഹൃത്ത് അഭ്യർത്ഥന സ്വീകരിച്ചു.",
+    "@friendRequestAcceptedTo": {
+        "description": "Confirmation message after accepting a friend request from a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestDeclined": "സുഹൃത്ത് അഭ്യർത്ഥന നിരാകരിച്ചു",
+    "@friendRequestDeclined": {
+        "description": "Title for the confirmation message after declining a friend request."
+    },
+    "friendRequestDeclinedTo": "നിങ്ങൾ {username} ന്റെ സുഹൃത്ത് അഭ്യർത്ഥന നിരാകരിച്ചു.",
+    "@friendRequestDeclinedTo": {
+        "description": "Confirmation message after declining a friend request from a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "accept": "സ്വീകരിക്കുക",
+    "@accept": {
+        "description": "Button text to accept a request or invitation."
+    },
+    "callDeclined": "കോൾ നിരാകരിച്ചു",
+    "@callDeclined": {
+        "description": "Title for the message when a call is declined."
+    },
+    "callDeclinedTo": "{username} കോൾ നിരാകരിച്ചു.",
+    "@callDeclinedTo": {
+        "description": "Message indicating that a specific user declined a call.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "checkForUpdates": "അപ്‌ഡേറ്റ് പരിശോധിക്കുക",
+    "@checkForUpdates": {
+        "description": "Button text to manually check for application updates."
+    },
+    "updateNow": "ഇപ്പോൾ അപ്‌ഡേറ്റ് ചെയ്യുക",
+    "@updateNow": {
+        "description": "Button text to start the update process."
+    },
+    "updateLater": "പിന്നീട്",
+    "@updateLater": {
+        "description": "Button text to postpone an update."
+    },
+    "updateSuccessful": "അപ്‌ഡേറ്റ് വിജയിച്ചു",
+    "@updateSuccessful": {
+        "description": "Title for the success message after an update."
+    },
+    "updateSuccessfulMessage": "റെസൊണേറ്റ് വിജയകരമായി അപ്‌ഡേറ്റ് ചെയ്തു!",
+    "@updateSuccessfulMessage": {
+        "description": "Success message confirming the application has been updated."
+    },
+    "updateCancelled": "അപ്‌ഡേറ്റ് റദ്ദാക്കി",
+    "@updateCancelled": {
+        "description": "Title for the message when an update is cancelled."
+    },
+    "updateCancelledMessage": "ഉപയോക്താവ് അപ്‌ഡേറ്റ് റദ്ദാക്കി",
+    "@updateCancelledMessage": {
+        "description": "Message indicating the user cancelled the update process."
+    },
+    "updateFailed": "അപ്‌ഡേറ്റ് പരാജയപ്പെട്ടു",
+    "@updateFailed": {
+        "description": "Title for the message when an update fails."
+    },
+    "updateFailedMessage": "അപ്‌ഡേറ്റ് ചെയ്യാൻ പരാജയപ്പെട്ടു. Play Store-ൽ നിന്ന് സ്വമേധയാ അപ്‌ഡേറ്റ് ചെയ്യാൻ ശ്രമിക്കുക.",
+    "@updateFailedMessage": {
+        "description": "Error message when an in-app update fails, suggesting a manual update."
+    },
+    "updateError": "അപ്‌ഡേറ്റ് തെറ്റി",
+    "@updateError": {
+        "description": "Generic title for an update-related error."
+    },
+    "updateErrorMessage": "അപ്‌ഡേറ്റ് ചെയ്യുമ്പോൾ ഒരു തെറ്റ് സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക.",
+    "@updateErrorMessage": {
+        "description": "Generic error message for an update that failed due to an unknown error."
+    },
+    "platformNotSupported": "പ്ലാറ്റ്‌ഫോം പിന്തുണയ്ക്കുന്നില്ല",
+    "@platformNotSupported": {
+        "description": "Title for an error when a feature is not supported on the current platform."
+    },
+    "platformNotSupportedMessage": "അപ്‌ഡേറ്റ് പരിശോധിക്കൽ Android ഉപകരണങ്ങളിൽ മാത്രം ലഭ്യമാണ്",
+    "@platformNotSupportedMessage": {
+        "description": "Message explaining that the in-app update feature is platform-specific."
+    },
+    "updateCheckFailed": "അപ്‌ഡേറ്റ് പരിശോധന പരാജയപ്പെട്ടു",
+    "@updateCheckFailed": {
+        "description": "Title for an error when the app fails to check for updates."
+    },
+    "updateCheckFailedMessage": "അപ്‌ഡേറ്റുകൾ പരിശോധിക്കാനായില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.",
+    "@updateCheckFailedMessage": {
+        "description": "Error message when the check for updates process fails."
+    },
+    "upToDateTitle": "നിങ്ങൾ അപ്-റ്റു-ഡേറ്റ് ആണ്!",
+    "@upToDateTitle": {
+        "description": "Title for the message when the app is already up to date."
+    },
+    "upToDateMessage": "നിങ്ങൾ റെസൊണേറ്റിന്റെ ഏറ്റവും പുതിയ പതിപ്പ് ഉപയോഗിക്കുന്നു",
+    "@upToDateMessage": {
+        "description": "Message confirming that no update is needed."
+    },
+    "updateAvailableTitle": "അപ്‌ഡേറ്റ് ലഭ്യമാണ്!",
+    "@updateAvailableTitle": {
+        "description": "Title for the dialog informing the user about a new update."
+    },
+    "updateAvailableMessage": "റെസൊണേറ്റിന്റെ പുതിയ പതിപ്പ് Play Store-ൽ ലഭ്യമാണ്",
+    "@updateAvailableMessage": {
+        "description": "Message prompting the user to update the app from the Play Store."
+    },
+    "updateFeaturesImprovement": "ഏറ്റവും പുതിയ സവിശേഷതകളും മെച്ചപ്പെടുത്തലുകളും നേടുക!",
+    "@updateFeaturesImprovement": {
+        "description": "A message highlighting the benefit of updating the application."
+    },
+    "failedToRemoveRoom": "മുറി നീക്കം ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു",
+    "@failedToRemoveRoom": {
+        "description": "Error message when unable to remove a room from the list"
+    },
+    "roomRemovedSuccessfully": "മുറി നിങ്ങളുടെ ലിസ്റ്റിൽ നിന്ന് വിജയകരമായി നീക്കം ചെയ്തു",
+    "@roomRemovedSuccessfully": {
+        "description": "Success message when a room is successfully removed from the user's list"
+    },
+    "alert": "മുന്നറിയിപ്പ്",
+    "@alert": {
+        "description": "Title for an alert dialog."
+    },
+    "removedFromRoom": "നിങ്ങളെ റിപ്പോർട്ട് ചെയ്തിരിക്കുന്നു അല്ലെങ്കിൽ മുറിയിൽ നിന്ന് നീക്കം ചെയ്തു",
+    "@removedFromRoom": {
+        "description": "Message shown when a user is removed or reported from a room."
+    },
+    "reportType": "{type, select, harassment{പീഡനം / വിദ്വേഷപൂർണ്ണമായ സംസാരം} abuse{ദുരുപയോഗ ഉള്ളടക്കം / അക്രമം} spam{സ്പാം / തട്ടിപ്പ്} impersonation{വ്യാജ അക്കൗണ്ടുകൾ} illegal{നിയമവിരുദ്ധ പ്രവർത്തനങ്ങൾ} selfharm{സ്വയം-ഉപദ്രവം / ആത്മഹത്യ / മാനസികാരോഗ്യം} misuse{പ്ലാറ്റ്‌ഫോമിന്റെ ദുരുപയോഗം} other{മറ്റുള്ളവ}}",
+    "@reportType": {
+        "description": "Selects the appropriate report type label based on a key.",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
+    },
+    "userBlockedFromResonate": "നിങ്ങളെ ഒന്നിലധികം ഉപയോക്താക്കൾ റിപ്പോർട്ട് ചെയ്തിട്ടുണ്ട്, നിങ്ങളെ റെസൊണേറ്റ് ഉപയോഗിക്കുന്നതിൽ നിന്ന് തടഞ്ഞിരിക്കുന്നു. ഇത് തെറ്റാണെന്ന് നിങ്ങൾ വിശ്വസിക്കുന്നുവെങ്കിൽ ദയവായി AOSSIE-യെ ബന്ധപ്പെടുക.",
+    "@userBlockedFromResonate": {
+        "description": "Message shown when a user is blocked from using Resonate."
+    },
+    "reportParticipant": "പങ്കാളിയെ റിപ്പോർട്ട് ചെയ്യുക",
+    "@reportParticipant": {
+        "description": "Label for the button to report a participant."
+    },
+    "selectReportType": "റിപ്പോർട്ടിന്റെ തരം തിരഞ്ഞെടുക്കുക",
+    "@selectReportType": {
+        "description": "Prompt for the user to select a report type."
+    },
+    "reportSubmitted": "റിപ്പോർട്ട് വിജയകരമായി സമർപ്പിച്ചു",
+    "@reportSubmitted": {
+        "description": "Message shown when a report is submitted successfully."
+    },
+    "reportFailed": "റിപ്പോർട്ട് സമർപ്പണം പരാജയപ്പെട്ടു",
+    "@reportFailed": {
+        "description": "Message shown when a report submission fails."
+    },
+    "additionalDetailsOptional": "അധിക വിശദാംശങ്ങൾ (ഓപ്ഷണൽ)",
+    "@additionalDetailsOptional": {
+        "description": "Label for an optional input field for additional details in a report."
+    },
+    "submitReport": "റിപ്പോർട്ട് സമർപ്പിക്കുക",
+    "@submitReport": {
+        "description": "Button text to submit a report."
+    },
+    "actionBlocked": "പ്രവർത്തനം തടഞ്ഞു",
+    "@actionBlocked": {
+        "description": "Title for a message indicating that a user action is blocked."
+    },
+    "cannotStopRecording": "നിങ്ങൾക്ക് റെക്കോർഡിംഗ് സ്വമേധയാ നിർത്താൻ കഴിയില്ല, മുറി അടയ്ക്കുമ്പോൾ റെക്കോർഡിംഗ് നിർത്തപ്പെടും.",
+    "@cannotStopRecording": {
+        "description": "Message explaining why a user cannot stop a recording manually."
+    },
+    "liveChapter": "ലൈവ് അധ്യായം",
+    "@liveChapter": {
+        "description": "Label indicating that a chapter is currently live."
+    },
+    "viewOrEditLyrics": "വരികൾ കാണുക അല്ലെങ്കിൽ എഡിറ്റ് ചെയ്യുക",
+    "@viewOrEditLyrics": {
+        "description": "Button text to view or edit the lyrics of a chapter."
+    },
+    "close": "അടയ്ക്കുക",
+    "@close": {
+        "description": "Label for the button to close a dialog."
+    },
+    "verifyChapterDetails": "അധ്യായ വിശദാംശങ്ങൾ സ്ഥിരീകരിക്കുക",
+    "@verifyChapterDetails": {
+        "description": "Title for the screen where Live chapter details are verified before publishing."
+    },
+    "author": "രചയിതാവ്",
+    "@author": {
+        "description": "Label for the author of a story or chapter."
+    },
+    "startLiveChapter": "ലൈവ് അധ്യായം ആരംഭിക്കുക",
+    "@startLiveChapter": {
+        "description": "Title for the screen where a live chapter is initiated."
+    },
+    "fillAllFields": "ദയവായി എല്ലാ ആവശ്യമായ ഫീൽഡുകളും പൂരിപ്പിക്കുക",
+    "@fillAllFields": {
+        "description": "Error message when required fields are not filled in a form."
+    },
+    "noRecordingError": "നിങ്ങൾ അധ്യായത്തിന് ഒന്നും റെക്കോർഡ് ചെയ്തിട്ടില്ല. മുറി വിടുന്നതിന് മുമ്പ് ഒരു അധ്യായം റെക്കോർഡ് ചെയ്യുക",
+    "@noRecordingError": {
+        "description": "Error message when trying to exit a live chapter room without any recording."
+    },
+    "audioOutput": "ഓഡിയോ ഔട്ട്‌പുട്ട്",
+    "@audioOutput": {
+        "description": "Title for audio output device selector."
+    },
+    "selectPreferredSpeaker": "നിങ്ങളുടെ ഇഷ്ടമുള്ള സ്പീക്കർ തിരഞ്ഞെടുക്കുക",
+    "@selectPreferredSpeaker": {
+        "description": "Subtitle for audio device selector dialog."
+    },
+    "noAudioOutputDevices": "ഓഡിയോ ഔട്ട്‌പുട്ട് ഉപകരണങ്ങളൊന്നും കണ്ടെത്തിയില്ല",
+    "@noAudioOutputDevices": {
+        "description": "Message shown when no audio output devices are available."
+    },
+    "refresh": "പുതുക്കുക",
+    "@refresh": {
+        "description": "Button text to refresh audio device list."
+    },
+    "done": "പൂർത്തിയായി",
+    "@done": {
+        "description": "Button text to close audio device selector."
+    },
+    "deleteMessageTitle": "സന്ദേശം ഇല്ലാതാക്കുക",
+    "@deleteMessageTitle": {
+        "description": "Title shown in the delete message confirmation dialog."
+    },
+    "deleteMessageContent": "നിങ്ങൾക്ക് ഈ സന്ദേശം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?",
+    "@deleteMessageContent": {
+        "description": "Confirmation text asking the user if they want to delete a message."
+    },
+    "thisMessageWasDeleted": "ഈ സന്ദേശം ഇല്ലാതാക്കി",
+    "@thisMessageWasDeleted": {
+        "description": "Status text shown when a previously sent message has been deleted."
+    },
+    "failedToDeleteMessage": "സന്ദേശം ഇല്ലാതാക്കുന്നതിൽ പരാജയപ്പെട്ടു",
+    "@failedToDeleteMessage": {
+        "description": "Error message shown when the system is unable to delete a message."
+    },
+    "usernameInvalidFormat": "ദയവായി സാധുവായ ഉപയോക്തൃനാമം നൽകുക. അക്ഷരങ്ങൾ, അക്കങ്ങൾ, ഡോട്ടുകൾ, അണ്ടർസ്കോറുകൾ, ഹൈഫനുകൾ എന്നിവ മാത്രമേ അനുവദിക്കൂ.",
+    "@usernameInvalidFormat": {
+        "description": "Validation error displayed when the user enters a username with unsupported characters."
+    },
+    "usernameAlreadyTaken": "ഈ ഉപയോക്തൃനാമം ഇതിനകം എടുത്തിട്ടുണ്ട്. മറ്റൊന്ന് ശ്രമിക്കുക.",
+    "@usernameAlreadyTaken": {
+        "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+    }
+}
