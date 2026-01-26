@@ -1377,28 +1377,27 @@ class AppLocalizationsMr extends AppLocalizations {
   String get failedToDeleteMessage => 'संदेश हटवण्यात अयशस्वी';
 
   @override
-  String get noFriendsYet => 'No Friends Yet';
+  String get noFriendsYet => 'अजून कोणतेही मित्र नाहीत';
 
   @override
-  String get noFriendsDescription =>
-      'Your friends list is empty. Start connecting with people and grow your network!';
+  String get noFriendsDescription => 'मित्र शोधा आणि संभाषण सुरू करा.';
 
   @override
-  String get findFriends => 'Find Friends';
+  String get findFriends => 'मित्र शोधा';
 
   @override
-  String get inviteFriend => 'Invite a Friend';
+  String get inviteFriend => 'मित्राला आमंत्रित करा';
 
   @override
-  String get noFriendRequestsYet => 'No Friend Requests';
+  String get noFriendRequestsYet => 'अजून कोणत्याही मित्र विनंत्या नाहीत';
 
   @override
   String get noFriendRequestsDescription =>
-      'You don\'t have any pending friend requests. Invite your friends to connect!';
+      'आपल्याला नवीन मित्र विनंत्या येथे दिसतील.';
 
   @override
   String inviteToResonate(String url) {
-    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
+    return 'रेजोनेटमध्ये आमंत्रित करा';
   }
 
   @override

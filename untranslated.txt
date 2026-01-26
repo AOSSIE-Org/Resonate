@@ -105,7 +105,7 @@
     "usernameInvalidFormat",
     "usernameAlreadyTaken"
   ],
-  
+
   "ta": [
     "noFriendsYet",
     "noFriendsDescription",
