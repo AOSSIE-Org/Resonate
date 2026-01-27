@@ -12,6 +12,7 @@ import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
 import 'app_localizations_mr.dart';
 import 'app_localizations_pa.dart';
+import 'app_localizations_ta.dart';
 
 // ignore_for_file: type=lint
 
@@ -106,6 +107,7 @@ abstract class AppLocalizations {
     Locale('kn'),
     Locale('mr'),
     Locale('pa'),
+    Locale('ta'),
   ];
 
   /// The title of the application.
@@ -1467,7 +1469,7 @@ abstract class AppLocalizations {
   /// Error message when a chosen username is too short.
   ///
   /// In en, this message translates to:
-  /// **'Username should contain more than 5 characters.'**
+  /// **'Username should contain more than 7 characters.'**
   String get usernameCharacterLimit;
 
   /// Generic button text for submitting a form.
@@ -2518,17 +2520,71 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to delete this message?'**
   String get deleteMessageContent;
 
-  /// No description provided for @thisMessageWasDeleted.
+  /// Status text shown when a previously sent message has been deleted.
   ///
   /// In en, this message translates to:
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// No description provided for @failedToDeleteMessage.
+  /// Error message shown when the system is unable to delete a message.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
   String get failedToDeleteMessage;
+
+  /// Title shown when user has no friends.
+  ///
+  /// In en, this message translates to:
+  /// **'No Friends Yet'**
+  String get noFriendsYet;
+
+  /// Description shown when user has no friends.
+  ///
+  /// In en, this message translates to:
+  /// **'Your friends list is empty. Start connecting with people and grow your network!'**
+  String get noFriendsDescription;
+
+  /// Button text to navigate to find friends screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Friends'**
+  String get findFriends;
+
+  /// Button text to invite friends to the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite a Friend'**
+  String get inviteFriend;
+
+  /// Title shown when user has no friend requests.
+  ///
+  /// In en, this message translates to:
+  /// **'No Friend Requests'**
+  String get noFriendRequestsYet;
+
+  /// Description shown when user has no friend requests.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have any pending friend requests. Invite your friends to connect!'**
+  String get noFriendRequestsDescription;
+
+  /// Text used when inviting friends to the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: {url}'**
+  String inviteToResonate(String url);
+
+  /// Validation error displayed when the user enters a username with unsupported characters.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.'**
+  String get usernameInvalidFormat;
+
+  /// Error shown when the chosen username is unavailable because another user has already registered it.
+  ///
+  /// In en, this message translates to:
+  /// **'This username is already taken. Try a different one.'**
+  String get usernameAlreadyTaken;
 }
 
 class _AppLocalizationsDelegate
@@ -2549,6 +2605,7 @@ class _AppLocalizationsDelegate
     'kn',
     'mr',
     'pa',
+    'ta',
   ].contains(locale.languageCode);
 
   @override
@@ -2572,6 +2629,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsMr();
     case 'pa':
       return AppLocalizationsPa();
+    case 'ta':
+      return AppLocalizationsTa();
   }
 
   throw FlutterError(

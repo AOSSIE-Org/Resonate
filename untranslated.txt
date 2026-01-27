@@ -6,6 +6,12 @@
     "noAudioOutputDevices",
     "refresh",
     "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
     "usernameInvalidFormat",
     "usernameAlreadyTaken"
   ],
@@ -47,7 +53,14 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done"
+    "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
   ],
 
   "hi": [
@@ -81,12 +94,34 @@
     "deleteMessageContent",
     "thisMessageWasDeleted",
     "failedToDeleteMessage",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
     "usernameInvalidFormat",
     "usernameAlreadyTaken"
   ],
 
-  "pa": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+  "mr": [
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+  ],
+
+  "ta": [
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
   ]
 }
