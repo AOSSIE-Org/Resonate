@@ -499,6 +499,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noLyrics => 'No lyrics';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return 'No stories currently exist in the $categoryName category to present';
   }

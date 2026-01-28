@@ -498,6 +498,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noLyrics => 'कोई लिरिक्स उपलब्ध नहीं';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName श्रेणी में कोई कहानी नहीं है';
   }

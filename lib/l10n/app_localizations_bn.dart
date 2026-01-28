@@ -505,6 +505,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get noLyrics => 'কোনও লিরিক উপলব্ধ নেই';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return 'বর্তমানে $categoryName বিভাগে কোনও গল্প নেই।';
   }

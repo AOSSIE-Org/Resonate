@@ -509,6 +509,12 @@ class AppLocalizationsTa extends AppLocalizations {
   String get noLyrics => 'வரிகள் கிடைக்கவில்லை';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName பிரிவில் தற்போது எந்தக் கதைகளும் இல்லை';
   }
