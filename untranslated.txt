@@ -5,7 +5,16 @@
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
     "refresh",
-    "done"
+    "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "gu": [
@@ -31,6 +40,20 @@
 
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
+
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+  ],
+
+  "hi": [
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
+
   ],
 
   "kn": [
@@ -47,7 +70,16 @@
     "deleteMessageTitle",
     "deleteMessageContent",
     "thisMessageWasDeleted",
-    "failedToDeleteMessage"
+    "failedToDeleteMessage",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "mr": [
@@ -62,7 +94,27 @@
     "refresh",
     "done",
 
+
     "thisMessageWasDeleted",
     "failedToDeleteMessage"
+
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+  ],
+
+  "ta": [
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+
   ]
 }
