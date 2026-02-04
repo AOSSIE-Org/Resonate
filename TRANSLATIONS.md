@@ -20,6 +20,11 @@ Before you begin translating, make sure you have:
 3. **Basic understanding** of JSON syntax
 4. **Familiarity** with the target language and its cultural context
 
+> **Note:** If you are only improving an existing translation,
+> you do not need to modify platform-specific files.
+
+
+
 ### Repository Setup
 
 1. **Fork the repository** on GitHub
