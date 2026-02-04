@@ -1384,4 +1384,37 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'বার্তা মুছে ফেলা ব্যর্থ হয়েছে';
+
+  @override
+  String get noFriendsYet => 'No Friends Yet';
+
+  @override
+  String get noFriendsDescription =>
+      'Your friends list is empty. Start connecting with people and grow your network!';
+
+  @override
+  String get findFriends => 'Find Friends';
+
+  @override
+  String get inviteFriend => 'Invite a Friend';
+
+  @override
+  String get noFriendRequestsYet => 'No Friend Requests';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'You don\'t have any pending friend requests. Invite your friends to connect!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
+  }
+
+  @override
+  String get usernameInvalidFormat =>
+      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'This username is already taken. Try a different one.';
 }
