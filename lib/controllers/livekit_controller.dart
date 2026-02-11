@@ -31,9 +31,13 @@ class LiveKitController extends GetxController {
   });
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await connectToRoom(); // Initial connection with retries
+    _initializeConnection();
+  }
+
+  Future<void> _initializeConnection() async {
+    await connectToRoom();
     if (isConnected.value) {
       liveKitRoom.addListener(onRoomDidUpdate);
       setUpListeners();
@@ -74,9 +78,10 @@ class LiveKitController extends GetxController {
     super.onClose();
   }
 
-  Future<bool> connectToRoom() async {
-    reconnectAttempts = 0;
-
+  Future<bool> connectToRoom({bool isReconnect = false}) async {
+    if (!isReconnect) {
+      reconnectAttempts = 0;
+    }
     while (reconnectAttempts < maxAttempts) {
       try {
         liveKitRoom = Room(
