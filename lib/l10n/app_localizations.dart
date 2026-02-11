@@ -1054,6 +1054,18 @@ abstract class AppLocalizations {
   /// **'No lyrics'**
   String get noLyrics;
 
+  /// Accessibility label for the skip forward button in the audio player.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip forward 10 seconds'**
+  String get skipForward;
+
+  /// Accessibility label for the skip backward button in the audio player.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip backward 10 seconds'**
+  String get skipBackward;
+
   /// Message when no stories exist in a specific category.
   ///
   /// In en, this message translates to:

@@ -502,6 +502,12 @@ class AppLocalizationsKn extends AppLocalizations {
   String get noLyrics => 'ಯಾವುದೇ ಸಾಹಿತ್ಯ ಇಲ್ಲ';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName ವರ್ಗದಲ್ಲಿ ಪ್ರಸ್ತುತ ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ';
   }

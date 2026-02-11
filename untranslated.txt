@@ -1,5 +1,7 @@
 {
   "bn": [
+    "skipForward",
+    "skipBackward",
     "audioOptions",
     "audioOutput",
     "selectPreferredSpeaker",
@@ -38,6 +40,8 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
+    "skipForward",
+    "skipBackward",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -65,6 +69,8 @@
   ],
 
   "hi": [
+    "skipForward",
+    "skipBackward",
     "usernameInvalidFormat",
     "usernameAlreadyTaken"
   ],
@@ -74,6 +80,8 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
+    "skipForward",
+    "skipBackward",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -111,6 +119,8 @@
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
+    "skipForward",
+    "skipBackward",
     "searchFailed",
     "searchRooms",
     "searchingRooms",
@@ -137,7 +147,14 @@
     "inviteToResonate"
   ],
 
+  "pa": [
+    "skipForward",
+    "skipBackward"
+  ],
+
   "ta": [
+    "skipForward",
+    "skipBackward",
     "noFriendsYet",
     "noFriendsDescription",
     "findFriends",

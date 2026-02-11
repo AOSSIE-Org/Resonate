@@ -499,6 +499,12 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noLyrics => 'કોઈ ગીત નથી';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName કેટેગરીમાં હાલમાં રજૂ કરવા માટે કોઈ વાર્તાઓ અસ્તિત્વમાં નથી';
   }

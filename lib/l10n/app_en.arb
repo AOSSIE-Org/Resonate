@@ -634,6 +634,14 @@
     "@noLyrics": {
         "description": "Message displayed when lyrics for an audio file are not available."
     },
+    "skipForward": "Skip forward 10 seconds",
+    "@skipForward": {
+        "description": "Accessibility label for the skip forward button in the audio player."
+    },
+    "skipBackward": "Skip backward 10 seconds",
+    "@skipBackward": {
+        "description": "Accessibility label for the skip backward button in the audio player."
+    },
     "noStoriesInCategory": "No stories currently exist in the {categoryName} category to present",
     "@noStoriesInCategory": {
         "description": "Message when no stories exist in a specific category.",

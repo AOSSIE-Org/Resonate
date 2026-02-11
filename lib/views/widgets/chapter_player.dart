@@ -144,33 +144,78 @@ class ChapterPlayer extends StatelessWidget {
               top: 350 - (3.3 * (progress * 100)) < 200
                   ? 200
                   : 350 - (3.3 * (progress * 100)),
-              left: 175,
+              left: 0,
+              right: 0,
               curve: Curves.easeInOut,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
                 opacity: progress > 0.45 ? 0 : 1,
-                child: Obx(
-                  () => IconButton(
-                    iconSize: 34,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Skip Backward Button
+                    Semantics(
+                      label: AppLocalizations.of(context)!.skipBackward,
+                      button: true,
+                      child: IconButton(
+                        iconSize: 28,
+                        style: IconButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                        ),
+                        onPressed: progress > 0.45
+                            ? null
+                            : () => controller.skipBackward(),
+                        icon: const Icon(
+                          Icons.replay_10,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    onPressed: progress > 0.45
-                        ? null
-                        : () {
-                            if (controller.isPlaying.value) {
-                              controller.audioPlayer?.pause();
-                            } else {
-                              controller.audioPlayer?.resume();
-                            }
-                          },
-                    icon: Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white,
+                    const SizedBox(width: 16),
+                    // Play/Pause Button
+                    Obx(
+                      () => IconButton(
+                        iconSize: 34,
+                        style: IconButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                        ),
+                        onPressed: progress > 0.45
+                            ? null
+                            : () {
+                                if (controller.isPlaying.value) {
+                                  controller.audioPlayer?.pause();
+                                } else {
+                                  controller.audioPlayer?.resume();
+                                }
+                              },
+                        icon: Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 16),
+                    // Skip Forward Button
+                    Semantics(
+                      label: AppLocalizations.of(context)!.skipForward,
+                      button: true,
+                      child: IconButton(
+                        iconSize: 28,
+                        style: IconButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                        ),
+                        onPressed: progress > 0.45
+                            ? null
+                            : () => controller.skipForward(),
+                        icon: const Icon(
+                          Icons.forward_10,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

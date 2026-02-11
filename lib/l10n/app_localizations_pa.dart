@@ -497,6 +497,12 @@ class AppLocalizationsPa extends AppLocalizations {
   String get noLyrics => 'ਕੋਈ ਲਿਰਿਕਸ ਨਹੀਂ';
 
   @override
+  String get skipForward => 'Skip forward 10 seconds';
+
+  @override
+  String get skipBackward => 'Skip backward 10 seconds';
+
+  @override
   String noStoriesInCategory(String categoryName) {
     return '$categoryName ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਕੋਈ ਕਹਾਣੀ ਨਹੀਂ';
   }
