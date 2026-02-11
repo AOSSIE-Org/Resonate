@@ -146,7 +146,7 @@ class LiveKitController extends GetxController {
 
       reconnectTimer?.cancel();
       reconnectTimer = Timer(retryInterval, () async {
-        final success = await connectToRoom();
+        final success = await connectToRoom(isReconnect: true);
 
         if (!success && reconnectAttempts < maxAttempts) {
           await handleDisconnection();
