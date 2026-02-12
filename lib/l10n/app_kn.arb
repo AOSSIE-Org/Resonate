@@ -94,7 +94,13 @@
     },
     "noAvailableRoom": "{isRoom, select, true{ಯಾವುದೇ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ} false{ಯಾವುದೇ ಮುಂಬರುವ ರೂಮ್ ಲಭ್ಯವಿಲ್ಲ} other{ರೂಮ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ}}\nಕೆಳಗೆ ಒಂದು ರೂಮ್ಅನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ!",
     "@noAvailableRoom": {
-        "description": "Message when no room or upcoming room is available, with a call to action."
+        "description": "Message when no room or upcoming room is available, with a call to action.",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
     },
     "user1": "ಬಳಕೆದಾರ 1",
     "@user1": {
@@ -393,20 +399,6 @@
         "description": "A generic category label for miscellaneous settings or items."
     },
     "contribute": "ಕೊಡುಗೆ ನೀಡಿ",
-    "hide": "ಮರೆಮಾಡಿ",
-    "removeRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
-    "removeRoomFromList": "ನಿಮ್ಮ ಕೋಣೆಗಳ ಪಟ್ಟಿಯಿಂದ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
-    "removeRoomConfirmation": "ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ಬಯಸುವಿರಾ?",
-    "searchFailed": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ",
-    "searchRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಿ...",
-    "searchingRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
-    "clearSearch": "ಹುಡುಕಾಟ ತೆರವುಮಾಡಿ",
-    "searchError": "ಹುಡುಕಾಟ ದೋಷ",
-    "searchRoomsError": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
-    "searchUpcomingRoomsError": "ಮುಂಬರುವ ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
-    "search": "ಹುಡುಕಿ",
-    "failedToRemoveRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ವಿಫಲವಾಗಿದೆ",
-    "roomRemovedSuccessfully": "ಕೋಣೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ",
     "@contribute": {
         "description": "Label for a section encouraging users to contribute to the project."
     },
@@ -628,7 +620,13 @@
     },
     "noStoriesInCategory": "{categoryName} ವರ್ಗದಲ್ಲಿ ಪ್ರಸ್ತುತ ಯಾವುದೇ ಕಥೆಗಳು ಇಲ್ಲ",
     "@noStoriesInCategory": {
-        "description": "Message when no stories exist in a specific category."
+        "description": "Message when no stories exist in a specific category.",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
     },
     "newChapters": "ಹೊಸ ಅಧ್ಯಾಯಗಳು",
     "@newChapters": {
@@ -688,7 +686,13 @@
     },
     "checkOutGitHub": "ನಮ್ಮ GitHub ರೆಪೊಸಿಟರಿ ನೋಡಿ: {url}",
     "@checkOutGitHub": {
-        "description": "Share message for the GitHub repository, including a placeholder for the URL."
+        "description": "Share message for the GitHub repository, including a placeholder for the URL.",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
     },
     "aossie": "AOSSIE",
     "@aossie": {
@@ -760,7 +764,13 @@
     },
     "toRoomAction": "ರೂಮ್ ಅನ್ನು {action} ಮಾಡಲು",
     "@toRoomAction": {
-        "description": "A dynamic message for confirming an action on a room, like deleting or leaving."
+        "description": "A dynamic message for confirming an action on a room, like deleting or leaving.",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "delete"
+            }
+        }
     },
     "mailSentMessage": "ಮೇಲ್ ಕಳುಹಿಸಲಾಗಿದೆ",
     "@mailSentMessage": {
@@ -916,11 +926,31 @@
     },
     "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {description}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!",
     "@shareRoomMessage": {
-        "description": "The default message template used when sharing a room."
+        "description": "The default message template used when sharing a room.",
+        "placeholders": {
+            "roomName": {
+                "type": "String",
+                "example": "Discussion Room"
+            },
+            "description": {
+                "type": "String",
+                "example": "A great place to discuss"
+            },
+            "participants": {
+                "type": "int",
+                "example": "5"
+            }
+        }
     },
     "participantsCount": "{count} ಭಾಗವಹಿಸುವವರು",
     "@participantsCount": {
-        "description": "Displays the number of participants in a room."
+        "description": "Displays the number of participants in a room.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
     },
     "join": "ಸೇರಿ",
     "@join": {
@@ -984,7 +1014,13 @@
     },
     "addNewChaptersToStory": "{storyName} ಗೆ ಹೊಸ ಅಧ್ಯಾಯಗಳನ್ನು ಸೇರಿಸಿ",
     "@addNewChaptersToStory": {
-        "description": "Title for the screen where new chapters are added to an existing story."
+        "description": "Title for the screen where new chapters are added to an existing story.",
+        "placeholders": {
+            "storyName": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
     },
     "currentChapters": "ಪ್ರಸ್ತುತ ಅಧ್ಯಾಯಗಳು",
     "@currentChapters": {
@@ -1024,11 +1060,23 @@
     },
     "audioFileSelected": "ಆಡಿಯೋ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: {fileName}",
     "@audioFileSelected": {
-        "description": "Message shown after an audio file has been selected for upload."
+        "description": "Message shown after an audio file has been selected for upload.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "audio.mp3"
+            }
+        }
     },
     "lyricsFileSelected": "ಸಾಹಿತ್ಯ ಫೈಲ್ ಆಯ್ಕೆಯಾಗಿದೆ: {fileName}",
     "@lyricsFileSelected": {
-        "description": "Message shown after a lyrics file has been selected for upload."
+        "description": "Message shown after a lyrics file has been selected for upload.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "lyrics.txt"
+            }
+        }
     },
     "fillAllRequiredFields": "ದಯವಿಟ್ಟು ಎಲ್ಲಾ ಅಗತ್ಯ ಕ್ಷೇತ್ರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಆಡಿಯೋ ಫೈಲ್ ಮತ್ತು ಸಾಹಿತ್ಯ ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
     "@fillAllRequiredFields": {
@@ -1140,23 +1188,69 @@
     },
     "taggedYouInUpcomingRoom": "{username} ನಿಮ್ಮನ್ನು ಮುಂಬರುವ ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: {subject}",
     "@taggedYouInUpcomingRoom": {
-        "description": "Notification message when tagged in an upcoming room."
+        "description": "Notification message when tagged in an upcoming room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
     },
     "taggedYouInRoom": "{username} ನಿಮ್ಮನ್ನು ರೂಮ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್ ಮಾಡಿದ್ದಾರೆ: {subject}",
     "@taggedYouInRoom": {
-        "description": "Notification message when tagged in a live room."
+        "description": "Notification message when tagged in a live room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
     },
     "likedYourStory": "{username} ನಿಮ್ಮ ಕಥೆಯನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ: {subject}",
     "@likedYourStory": {
-        "description": "Notification message when someone likes your story."
+        "description": "Notification message when someone likes your story.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
     },
     "subscribedToYourRoom": "{username} ನಿಮ್ಮ ರೂಮ್‌ಗೆ ಸಬ್‌ಸ್ಕ್ರೈಬರಾಗಿದ್ದಾರೆ: {subject}",
     "@subscribedToYourRoom": {
-        "description": "Notification message when someone subscribes to your room."
+        "description": "Notification message when someone subscribes to your room.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Room"
+            }
+        }
     },
     "startedFollowingYou": "{username} ನಿಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡುತ್ತಿದ್ದಾರೆ",
     "@startedFollowingYou": {
-        "description": "Notification message when someone starts following you."
+        "description": "Notification message when someone starts following you.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "youHaveNewNotification": "ನಿಮಗೆ ಹೊಸ ಮೆಸೇಜ್ ಇದೆ",
     "@youHaveNewNotification": {
@@ -1212,7 +1306,13 @@
     },
     "created": "ರಚಿಸಲಾಗಿದೆ {date}",
     "@created": {
-        "description": "Displays the creation date of a story or content."
+        "description": "Displays the creation date of a story or content.",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "Jan 15, 2023"
+            }
+        }
     },
     "chapters": "ಅಧ್ಯಾಯಗಳು",
     "@chapters": {
@@ -1224,7 +1324,13 @@
     },
     "createdBy": "ರಚಿಸಿರುವವವರು {creatorName}",
     "@createdBy": {
-        "description": "Displays the name of the content creator."
+        "description": "Displays the name of the content creator.",
+        "placeholders": {
+            "creatorName": {
+                "type": "String",
+                "example": "John Doe"
+            }
+        }
     },
     "start": "ಪ್ರಾರಂಭಿಸಿ",
     "@start": {
@@ -1240,23 +1346,53 @@
     },
     "storyCategory": "{category, select, drama{ನಾಟಕ} comedy{ಹಾಸ್ಯ} horror{ಭಯಾನಕ} romance{ಪ್ರಣಯ} thriller{ರೋಮಾಂಚಕ} spiritual{ಆಧ್ಯಾತ್ಮಿಕ} other{ಇತರೆ}}",
     "@storyCategory": {
-        "description": "Selects the appropriate category name for a story based on a key."
+        "description": "Selects the appropriate category name for a story based on a key.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
     },
     "chooseTheme": "{category, select, classicTheme{ಕ್ಲಾಸಿಕ್} timeTheme{ಟೈಮ್} vintageTheme{ವಿಂಟೇಜ್} amberTheme{ಆಂಬರ್} forestTheme{ಫಾರೆಸ್ಟ್} creamTheme{ಕ್ರೀಮ್} other{ಇತರೆ}}",
     "@chooseTheme": {
-        "description": "Selects the appropriate theme name based on a key."
+        "description": "Selects the appropriate theme name based on a key.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "classic"
+            }
+        }
     },
     "minutesAgo": "{count, plural, =1{1 ನಿಮಿಷದ ಹಿಂದೆ} other{{count} ನಿಮಿಷಗಳ ಹಿಂದೆ}}",
     "@minutesAgo": {
-        "description": "Displays time in a relative format for minutes."
+        "description": "Displays time in a relative format for minutes.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
     },
     "hoursAgo": "{count, plural, =1{1 ಗಂಟೆ ಹಿಂದೆ} other{{count} ಗಂಟೆಗಳ ಹಿಂದೆ}}",
     "@hoursAgo": {
-        "description": "Displays time in a relative format for hours."
+        "description": "Displays time in a relative format for hours.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
     },
     "daysAgo": "{count, plural, =1{1 ದಿನದ ಹಿಂದೆ} other{{count} ದಿನಗಳ ಹಿಂದೆ}}",
     "@daysAgo": {
-        "description": "Displays time in a relative format for days."
+        "description": "Displays time in a relative format for days.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
     },
     "by": "ರಿಂದ",
     "@by": {
@@ -1316,7 +1452,13 @@
     },
     "friendRequestSentTo": "{username} ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ಕಳುಹಿಸಲಾಗಿದೆ.",
     "@friendRequestSentTo": {
-        "description": "Confirmation message after sending a friend request to a specific user."
+        "description": "Confirmation message after sending a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "friendRequestCancelled": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
     "@friendRequestCancelled": {
@@ -1324,7 +1466,13 @@
     },
     "friendRequestCancelledTo": "{username} ಗೆ ನಿಮ್ಮ ಸ್ನೇಹಿತರ ವಿನಂತಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.",
     "@friendRequestCancelledTo": {
-        "description": "Confirmation message after cancelling a friend request to a specific user."
+        "description": "Confirmation message after cancelling a friend request to a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "requested": "ವಿನಂತಿಸಲಾಗಿದೆ",
     "@requested": {
@@ -1344,7 +1492,13 @@
     },
     "friendRequestAcceptedTo": "ನೀವು ಈಗ {username} ಜೊತೆ ಸ್ನೇಹಿತರಾಗಿದ್ದೀರಿ.",
     "@friendRequestAcceptedTo": {
-        "description": "Confirmation message after accepting a friend request from a specific user."
+        "description": "Confirmation message after accepting a friend request from a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "friendRequestDeclined": "ಸ್ನೇಹಿತರ ವಿನಂತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ",
     "@friendRequestDeclined": {
@@ -1352,7 +1506,13 @@
     },
     "friendRequestDeclinedTo": "ನೀವು {username} ರಿಂದ ಸ್ನೇಹಿತರ ವಿನಂತಿಯನ್ನು ನಿರಾಕರಿಸಿದ್ದೀರಿ.",
     "@friendRequestDeclinedTo": {
-        "description": "Confirmation message after declining a friend request from a specific user."
+        "description": "Confirmation message after declining a friend request from a specific user.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "accept": "ಸ್ವೀಕರಿಸಿ",
     "@accept": {
@@ -1364,7 +1524,13 @@
     },
     "callDeclinedTo": "ಬಳಕೆದಾರ {username} ಕರೆಯನ್ನು ನಿರಾಕರಿಸಿದ್ದಾರೆ.",
     "@callDeclinedTo": {
-        "description": "Message indicating that a specific user declined a call."
+        "description": "Message indicating that a specific user declined a call.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     },
     "checkForUpdates": "ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
     "@checkForUpdates": {
@@ -1456,7 +1622,13 @@
     },
     "reportType": "{type, select, harassment{ಕಿರುಕುಳ / ದ್ವೇಷದ ಭಾಷಣ} abuse{ನಿಂದನೀಯ ವಿಷಯ / ಹಿಂಸೆ} spam{ಸ್ಪ್ಯಾಮ್ / ವಂಚನೆಗಳು / ಮೋಸ} impersonation{ವ್ಯಕ್ತಿತ್ವ ಸೋಗು / ನಕಲಿ ಖಾತೆಗಳು} illegal{ಕಾನೂನುಬಾಹಿರ ಚಟುವಟಿಕೆಗಳು} selfharm{ಆತ್ಮಹಾನಿ / ಆತ್ಮಹತ್ಯೆ / ಮಾನಸಿಕ ಆರೋಗ್ಯ} misuse{ವೇದಿಕೆಯ ದುರುಪಯೋಗ} other{ಇತರೆ}}",
     "@reportType": {
-        "description": "Selects the appropriate report type label based on a key."
+        "description": "Selects the appropriate report type label based on a key.",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
     },
     "userBlockedFromResonate": "ನೀವು ಬಳಕೆದಾರರಿಂದ ಅನೇಕ ವರದಿಗಳನ್ನು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ ಮತ್ತು ರೆಸೋನೇಟ್ ಬಳಸುವುದರಿಂದ ನಿಮ್ಮನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ. ಇದರಲ್ಲಿ ಏನೋ ತಪ್ಪಿದೆ ಎಂದು ನೀವು ನಂಬಿದರೆ ದಯವಿಟ್ಟು AOSSIE ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.",
     "@userBlockedFromResonate": {
@@ -1525,5 +1697,19 @@
     "noRecordingError": "ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    }
+    },
+    "hide": "ಮರೆಮಾಡಿ",
+    "removeRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomFromList": "ನಿಮ್ಮ ಕೋಣೆಗಳ ಪಟ್ಟಿಯಿಂದ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomConfirmation": "ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ಬಯಸುವಿರಾ?",
+    "searchFailed": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ",
+    "searchRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಿ...",
+    "searchingRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+    "clearSearch": "ಹುಡುಕಾಟ ತೆರವುಮಾಡಿ",
+    "searchError": "ಹುಡುಕಾಟ ದೋಷ",
+    "searchRoomsError": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "searchUpcomingRoomsError": "ಮುಂಬರುವ ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "search": "ಹುಡುಕಿ",
+    "failedToRemoveRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ವಿಫಲವಾಗಿದೆ",
+    "roomRemovedSuccessfully": "ಕೋಣೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ"
 }
