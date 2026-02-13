@@ -230,15 +230,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_10),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        onPressed: emailVerifyController.signUpIsAllowed.value
-                            ? () async {
+                      Obx(
+                        () => SizedBox(
+                          width: double.maxFinite,
+                          child: ElevatedButton(
+
+                            onPressed: controller.isLoading.value
+                              ? null
+                              : () async {
                                 if (controller.registrationFormKey.currentState!
                                     .validate()) {
-                                  emailVerifyController.signUpIsAllowed.value =
-                                      false;
                                   var isSignedIn = await controller.signup(
                                     context,
                                   );
