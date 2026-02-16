@@ -45,6 +45,8 @@ class CreateRoomController extends GetxController {
     List<String> tags,
     bool fromCreateScreen,
   ) async {
+    if (isLoading.value) return;
+
     if (fromCreateScreen) {
       if (!createRoomFormKey.currentState!.validate()) {
         return;
