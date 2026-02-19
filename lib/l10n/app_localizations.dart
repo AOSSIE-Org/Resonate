@@ -910,6 +910,18 @@ abstract class AppLocalizations {
   /// **'Enter Valid DOB'**
   String get enterValidDOB;
 
+  /// Error message for an invalid date of birth (too young).
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Date of Birth'**
+  String get invalidDateOfBirth;
+
+  /// Error message when user is below minimum age requirement.
+  ///
+  /// In en, this message translates to:
+  /// **'You must be at least 18 years old'**
+  String get minimumAgeRequired;
+
   /// Label for the date of birth input field.
   ///
   /// In en, this message translates to:

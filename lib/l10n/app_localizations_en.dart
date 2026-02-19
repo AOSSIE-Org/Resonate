@@ -426,6 +426,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterValidDOB => 'Enter Valid DOB';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'Date of Birth';
 
   @override

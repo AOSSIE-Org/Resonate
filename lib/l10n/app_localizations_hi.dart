@@ -424,6 +424,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get enterValidDOB => 'सही तारीख़ डालो';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'जन्म तिथि';
 
   @override

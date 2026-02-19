@@ -425,6 +425,12 @@ class AppLocalizationsGu extends AppLocalizations {
   String get enterValidDOB => 'માન્ય જન્મતારીખ દાખલ કરો';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'જન્મતારીખ';
 
   @override

@@ -535,6 +535,14 @@
         "description": "Label for the username input field."
     },
     "enterValidDOB": "বৈধ জন্ম তারিখ লিখুন",
+    "invalidDateOfBirth": "Invalid Date of Birth",
+    "@invalidDateOfBirth": {
+        "description": "Error message for an invalid date of birth (too young)."
+    },
+    "minimumAgeRequired": "You must be at least 18 years old",
+    "@minimumAgeRequired": {
+        "description": "Error message when user is below minimum age requirement."
+    },
     "@enterValidDOB": {
         "description": "Error message for an invalid date of birth."
     },

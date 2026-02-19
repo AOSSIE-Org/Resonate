@@ -426,6 +426,12 @@ class AppLocalizationsKn extends AppLocalizations {
   String get enterValidDOB => 'ಮಾನ್ಯವಾದ ಜನ್ಮ ದಿನಾಂಕ ನಮೂದಿಸಿ';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'ಜನ್ಮ ದಿನಾಂಕ';
 
   @override

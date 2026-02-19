@@ -433,6 +433,12 @@ class AppLocalizationsTa extends AppLocalizations {
   String get enterValidDOB => 'சரியான பிறந்த தேதியை உள்ளிடவும்';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'பிறந்த தேதி';
 
   @override

@@ -434,6 +434,12 @@ class AppLocalizationsMl extends AppLocalizations {
   String get enterValidDOB => 'സാധുവായ ജനനത്തീയതി നൽകുക';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'ജനനത്തീയതി';
 
   @override
@@ -1390,6 +1396,31 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get failedToDeleteMessage => 'സന്ദേശം ഇല്ലാതാക്കുന്നതിൽ പരാജയപ്പെട്ടു';
+
+  @override
+  String get noFriendsYet => 'ഇതുവരെ സുഹൃത്തുക്കളില്ല';
+
+  @override
+  String get noFriendsDescription =>
+      'സുഹൃത്തുക്കളുമായി ബന്ധപ്പെടാൻ താഴെയുള്ള ബട്ടൺ ഉപയോഗിച്ച് അവരെ കണ്ടെത്തുക അല്ലെങ്കിൽ ക്ഷണിക്കുക.';
+
+  @override
+  String get findFriends => 'സുഹൃത്തുക്കളെ കണ്ടെത്തുക';
+
+  @override
+  String get inviteFriend => 'സുഹൃത്തിനെ ക്ഷണിക്കുക';
+
+  @override
+  String get noFriendRequestsYet => 'ഇതുവരെ സുഹൃത്ത് അഭ്യർത്ഥനകളില്ല';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'നിങ്ങൾക്ക് പുതിയ സുഹൃത്ത് അഭ്യർത്ഥനകൾ ലഭിക്കുമ്പോൾ അവ ഇവിടെ പ്രത്യക്ഷപ്പെടും.';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'Resonate-ലേക്ക് ക്ഷണിക്കുക';
+  }
 
   @override
   String get usernameInvalidFormat =>

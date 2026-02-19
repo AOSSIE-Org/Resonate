@@ -423,6 +423,12 @@ class AppLocalizationsPa extends AppLocalizations {
   String get enterValidDOB => 'ਠੀक ਜਨਮ ਤਾਰੀਖ ਦਾਖਲ ਕਰੋ';
 
   @override
+  String get invalidDateOfBirth => 'Invalid Date of Birth';
+
+  @override
+  String get minimumAgeRequired => 'You must be at least 18 years old';
+
+  @override
   String get dateOfBirth => 'ਜਨਮ ਤਾਰੀਖ';
 
   @override

@@ -519,6 +519,14 @@
         "description": "वापरकर्तानाव इनपुट फील्डचा लेबल."
     },
     "enterValidDOB": "वैध जन्मतारीख प्रविष्ट करा",
+    "invalidDateOfBirth": "Invalid Date of Birth",
+    "@invalidDateOfBirth": {
+        "description": "Error message for an invalid date of birth (too young)."
+    },
+    "minimumAgeRequired": "You must be at least 18 years old",
+    "@minimumAgeRequired": {
+        "description": "Error message when user is below minimum age requirement."
+    },
     "@enterValidDOB": {
         "description": "अवैध जन्मतारीखसाठी त्रुटी संदेश."
     },
