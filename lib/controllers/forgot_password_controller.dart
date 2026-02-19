@@ -15,6 +15,7 @@ class ForgotPasswordController extends GetxController {
 
   Future<bool> sendRecoveryEmail() async {
     try {
+      emailController.text = emailController.text.trim();
       await account.createRecovery(email: emailController.text, url: "*");
       return true;
     } catch (e) {
