@@ -46,10 +46,10 @@ class OnboardingController extends GetxController {
     tables = TablesDB(authStateController.client);
   }
 
-  Future<void> chooseDate() async {
+Future<void> chooseDate() async {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
-      initialDate: DateTime.now(),
+      initialDate: DateTime.now().subtract(const Duration(days: 365 * 18)),
       firstDate: DateTime(1800),
       lastDate: DateTime.now(),
     );
@@ -60,10 +60,39 @@ class OnboardingController extends GetxController {
     }
   }
 
-  Future<void> saveProfile() async {
+  bool isValidBirthDate(DateTime date) {
+    final now = DateTime.now();
+    final minBirthDate = DateTime(now.year - 18, now.month, now.day);
+    return date.isBefore(minBirthDate) || date.isAtSameMomentAs(minBirthDate);
+  }
+
+Future<void> saveProfile() async {
     if (!userOnboardingFormKey.currentState!.validate()) {
       return;
     }
+    
+    // Validate date of birth
+    if (dobController.text.isNotEmpty) {
+      try {
+        final date = DateFormat("dd-MM-yyyy").parse(dobController.text);
+        if (!isValidBirthDate(date)) {
+          customSnackbar(
+            "Invalid Date of Birth",
+            "You must be at least 18 years old",
+            LogType.error,
+          );
+          return;
+        }
+      } catch (e) {
+        customSnackbar(
+          "Invalid Date of Birth",
+          "Enter a valid date of birth",
+          LogType.error,
+        );
+        return;
+      }
+    }
+    
     var usernameAvail = await isUsernameAvailable(
       usernameController.text.trim(),
     );

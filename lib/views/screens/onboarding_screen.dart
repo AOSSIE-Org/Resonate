@@ -8,6 +8,7 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:intl/intl.dart';
 
 import '../../controllers/onboarding_controller.dart';
 import '../../utils/ui_sizes.dart';
@@ -162,10 +163,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                     ),
                     SizedBox(height: UiSizes.height_20),
-                    TextFormField(
-                      validator: (value) => value!.isNotEmpty
-                          ? null
-                          : AppLocalizations.of(context)!.enterValidDOB,
+TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return AppLocalizations.of(context)!.enterValidDOB;
+                        }
+                        try {
+                          final date = DateFormat("dd-MM-yyyy").parse(value);
+                          final now = DateTime.now();
+                          final minBirthDate = DateTime(now.year - 18, now.month, now.day);
+                          if (!date.isBefore(minBirthDate) && !date.isAtSameMomentAs(minBirthDate)) {
+                            return "You must be at least 18 years old";
+                          }
+                          return null;
+                        } catch (e) {
+                          return AppLocalizations.of(context)!.enterValidDOB;
+                        }
+                      },
                       readOnly: true,
                       onTap: () async {
                         await controller.chooseDate();
