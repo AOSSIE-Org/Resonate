@@ -40,6 +40,20 @@ class ChapterPlayerController extends GetxController {
     isPlaying.value = !isPlaying.value;
   }
 
+  void skipForward() {
+    final currentPos = sliderProgress.value.toInt();
+    final maxDuration = chapterDuration.inMilliseconds;
+    final newPos = (currentPos + 10000).clamp(0, maxDuration);
+    audioPlayer?.seek(Duration(milliseconds: newPos));
+  }
+
+  void skipBackward() {
+    final currentPos = sliderProgress.value.toInt();
+    final maxDuration = chapterDuration.inMilliseconds;
+    final newPos = (currentPos - 10000).clamp(0, maxDuration);
+    audioPlayer?.seek(Duration(milliseconds: newPos));
+  }
+
   @override
   void onClose() {
     audioPlayer?.release();

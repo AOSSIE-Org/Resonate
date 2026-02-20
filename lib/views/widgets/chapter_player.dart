@@ -144,64 +144,124 @@ class ChapterPlayer extends StatelessWidget {
               top: 350 - (3.3 * (progress * 100)) < 200
                   ? 200
                   : 350 - (3.3 * (progress * 100)),
-              left: 175,
+              left: 0,
+              right: 0,
               curve: Curves.easeInOut,
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
                 opacity: progress > 0.45 ? 0 : 1,
                 child: Obx(
-                  () => IconButton(
-                    iconSize: 34,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    onPressed: progress > 0.45
-                        ? null
-                        : () {
-                            if (controller.isPlaying.value) {
-                              controller.audioPlayer?.pause();
-                            } else {
-                              controller.audioPlayer?.resume();
-                            }
-                          },
-                    icon: Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white,
-                    ),
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        iconSize: 30,
+                        tooltip: 'Skip back 10 seconds',
+                        onPressed: progress > 0.45
+                            ? null
+                            : () => controller.skipBackward(),
+                        icon: const Icon(
+                          Icons.replay_10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(
+                        iconSize: 34,
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                        ),
+                        onPressed: progress > 0.45
+                            ? null
+                            : () {
+                                if (controller.isPlaying.value) {
+                                  controller.audioPlayer?.pause();
+                                } else {
+                                  controller.audioPlayer?.resume();
+                                }
+                              },
+                        icon: Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton(
+                        iconSize: 30,
+                        tooltip: 'Skip forward 10 seconds',
+                        onPressed: progress > 0.45
+                            ? null
+                            : () => controller.skipForward(),
+                        icon: const Icon(
+                          Icons.forward_10,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
             Positioned(
               top: 20,
-              left: 320,
+              right: 8,
               child: AnimatedOpacity(
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 200),
                 opacity: progress > 0.45 ? 1 : 0,
                 child: Obx(
-                  () => IconButton(
-                    iconSize: 34,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    onPressed: progress > 0.45
-                        ? () {
-                            if (controller.isPlaying.value) {
-                              controller.audioPlayer?.pause();
-                            } else {
-                              controller.audioPlayer?.resume();
-                            }
-                          }
-                        : null,
-                    icon: Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white,
-                    ),
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        iconSize: 24,
+                        tooltip: 'Skip back 10 seconds',
+                        onPressed: progress > 0.45
+                            ? () => controller.skipBackward()
+                            : null,
+                        icon: const Icon(
+                          Icons.replay_10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        iconSize: 34,
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
+                        ),
+                        onPressed: progress > 0.45
+                            ? () {
+                                if (controller.isPlaying.value) {
+                                  controller.audioPlayer?.pause();
+                                } else {
+                                  controller.audioPlayer?.resume();
+                                }
+                              }
+                            : null,
+                        icon: Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        iconSize: 24,
+                        tooltip: 'Skip forward 10 seconds',
+                        onPressed: progress > 0.45
+                            ? () => controller.skipForward()
+                            : null,
+                        icon: const Icon(
+                          Icons.forward_10,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
