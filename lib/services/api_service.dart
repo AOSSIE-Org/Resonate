@@ -6,33 +6,25 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class ApiService {
-  static const _functionTimeoutDuration = Duration(seconds: 30);
-  
-  final Functions _functions = Functions(AppwriteService.getClient());
+  static const Duration _functionTimeoutDuration =
+      Duration(seconds: 30);
 
-  /// Executes an Appwrite function and safely parses the response.
+  final Functions _functions =
+      Functions(AppwriteService.getClient());
+
   Future<Map<String, dynamic>> _executeFunction({
     required String functionId,
     required Map<String, dynamic> payload,
   }) async {
+    late final Execution response;
+
     try {
-      final response = await _functions
+      response = await _functions
           .createExecution(
             functionId: functionId,
             body: jsonEncode(payload),
           )
           .timeout(_functionTimeoutDuration);
-
-      final int statusCode = response.responseStatusCode;
-      final String responseBody = response.responseBody;
-
-      if (statusCode != 200) {
-        throw Exception(
-          'Appwrite function failed (status: $statusCode): $responseBody',
-        );
-      }
-
-      return _decodeResponse(responseBody);
     } on TimeoutException {
       throw Exception(
         'Appwrite function timed out after ${_functionTimeoutDuration.inSeconds} seconds.',
@@ -41,14 +33,20 @@ class ApiService {
       throw Exception(
         'AppwriteException: ${e.message ?? 'Unknown Appwrite error'}',
       );
-    } catch (e) {
+    }
+
+    final int statusCode = response.responseStatusCode;
+    final String responseBody = response.responseBody;
+
+    if (statusCode != 200) {
       throw Exception(
-        'Unexpected error during function execution: $e',
+        'Appwrite function failed (status: $statusCode): $responseBody',
       );
     }
+
+    return _decodeResponse(responseBody);
   }
 
-  /// Safely decodes JSON and guarantees a Map<String, dynamic>.
   Map<String, dynamic> _decodeResponse(String body) {
     if (body.isEmpty) {
       throw Exception(
@@ -56,25 +54,23 @@ class ApiService {
       );
     }
 
+    final Object? decoded;
+
     try {
-      final Object? decoded = jsonDecode(body);
-
-      if (decoded is! Map) {
-        throw Exception(
-          'Unexpected response format: expected JSON object.',
-        );
-      }
-
-      return Map<String, dynamic>.from(decoded);
+      decoded = jsonDecode(body);
     } on FormatException {
       throw Exception(
         'Invalid JSON response from Appwrite function.',
       );
-    } catch (e) {
+    }
+
+    if (decoded is! Map) {
       throw Exception(
-        'Failed to parse response: $e',
+        'Unexpected response format: expected JSON object.',
       );
     }
+
+    return Map<String, dynamic>.from(decoded);
   }
 
   Future<Map<String, dynamic>> createRoom(
