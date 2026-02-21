@@ -186,6 +186,27 @@ class AuthStateController extends GetxController {
   Future<bool> get getLoginState async {
     try {
       appwriteUser = await account.get();
+      
+      // Defensive check: Verify user still exists in database
+      if (appwriteUser.prefs.data["isUserProfileComplete"] == true) {
+        try {
+          // Attempt to fetch user document to verify account still exists
+          await databases.getDocument(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id,
+          );
+        } catch (e) {
+          // User document not found - account may have been deleted
+          log('User document not found for authenticated user: ${appwriteUser.$id}');
+          // Logout the user since their account data is missing
+          try {
+            await account.deleteSession(sessionId: 'current');
+          } catch (_) {}
+          return false;
+        }
+      }
+      
       return true;
     } catch (e) {
       return false;
@@ -203,23 +224,32 @@ class AuthStateController extends GetxController {
       isUserProfileComplete =
           appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
-        Document userDataDoc = await databases.getDocument(
-          databaseId: userDatabaseID,
-          collectionId: usersCollectionID,
-          documentId: appwriteUser.$id,
-        );
-        profileImageUrl = userDataDoc.data["profileImageUrl"];
-        profileImageID = userDataDoc.data["profileImageID"];
-        userName = userDataDoc.data["username"] ?? "unavailable";
-        ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
-        ratingCount = userDataDoc.data["ratingCount"] ?? 1;
-        followerDocuments =
-            (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
-              return FollowerUserModel.fromJson(e);
-            }).toList() ??
-            [];
-        reportsCount =
-            (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
+        try {
+          Document userDataDoc = await databases.getDocument(
+            databaseId: userDatabaseID,
+            collectionId: usersCollectionID,
+            documentId: appwriteUser.$id,
+          );
+          profileImageUrl = userDataDoc.data["profileImageUrl"];
+          profileImageID = userDataDoc.data["profileImageID"];
+          userName = userDataDoc.data["username"] ?? "unavailable";
+          ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
+          ratingCount = userDataDoc.data["ratingCount"] ?? 1;
+          followerDocuments =
+              (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
+                return FollowerUserModel.fromJson(e);
+              }).toList() ??
+              [];
+          reportsCount =
+              (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
+        } catch (e) {
+          // User document not found - account may have been deleted
+          log("User document not found, logging out user: $e");
+          try {
+            await account.deleteSession(sessionId: 'current');
+          } catch (_) {}
+          throw Exception("User account data not found");
+        }
       }
 
       update();
@@ -228,6 +258,7 @@ class AuthStateController extends GetxController {
       }
     } catch (e) {
       log("Error originating from setUserProfileData$e");
+      rethrow;
     } finally {
       isInitializing.value = false;
     }
@@ -265,6 +296,19 @@ class AuthStateController extends GetxController {
 
   Future<void> login(String email, String password) async {
     await account.createEmailPasswordSession(email: email, password: password);
+    
+    // Defensive check: Verify user data exists before proceeding
+    try {
+      await setUserProfileData();
+    } catch (e) {
+      // If user data cannot be loaded, logout and throw error
+      log('Failed to load user profile data during login: $e');
+      try {
+        await account.deleteSession(sessionId: 'current');
+      } catch (_) {}
+      throw Exception('User account not found or has been deleted');
+    }
+    
     await isUserLoggedIn();
     await addRegistrationTokentoSubscribedandCreatedUpcomingRooms();
   }
