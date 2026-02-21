@@ -9,8 +9,8 @@ class ApiService {
   static const Duration _functionTimeoutDuration =
       Duration(seconds: 30);
 
-  final Functions _functions =
-      Functions(AppwriteService.getClient());
+  Functions get _functions =>
+    Functions(AppwriteService.getClient());
 
   Future<Map<String, dynamic>> _executeFunction({
     required String functionId,
