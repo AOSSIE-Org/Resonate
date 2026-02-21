@@ -492,6 +492,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get followUsOnX => 'X पर हमें फॉलो करें';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'Discord सर्वर से जुड़ें';
 
   @override

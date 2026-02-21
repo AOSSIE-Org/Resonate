@@ -626,6 +626,10 @@
     "@followUsOnX": {
         "description": "Link text to the company's profile on X (formerly Twitter)."
     },
+    "followUsOnYouTube": "Follow us on YouTube",
+    "@followUsOnYouTube": {
+        "description": "Link text to the company's profile on YouTube."
+    },
     "joinDiscordServer": "Join discord server",
     "@joinDiscordServer": {
         "description": "Link text to join the project's Discord server."

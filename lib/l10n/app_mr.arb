@@ -610,6 +610,10 @@
     "@followUsOnX": {
         "description": "कंपनीच्या X (पूर्वी ट्विटर) प्रोफाइलवर लिंक मजकूर."
     },
+    "followUsOnYouTube": "Follow us on YouTube",
+    "@followUsOnYouTube": {
+        "description": "Link text to the company's profile on YouTube."
+    },
     "joinDiscordServer": "Discord सर्व्हर जोडा",
     "@joinDiscordServer": {
         "description": "प्रकल्पच्या Discord सर्व्हरमध्ये जोडा लिंक मजकूर."

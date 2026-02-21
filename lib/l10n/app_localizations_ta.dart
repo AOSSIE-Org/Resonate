@@ -503,6 +503,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get followUsOnX => 'X-ல் எங்களை பின்தொடரவும்';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'Discord சர்வரில் சேரவும்';
 
   @override

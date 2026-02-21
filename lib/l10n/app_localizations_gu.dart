@@ -493,6 +493,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get followUsOnX => 'X પર અમને ફોલો કરો';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'ડિસ્કોર્ડ સર્વરમાં જોડાવો';
 
   @override

@@ -496,6 +496,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get followUsOnX => 'X ನಲ್ಲಿ ನಮ್ಮನ್ನು ಫಾಲೋ ಮಾಡಿ';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'Discord ಸರ್ವರ್‌ಗೆ ಸೇರಿ';
 
   @override

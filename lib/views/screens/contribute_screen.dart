@@ -107,6 +107,21 @@ class ContributeScreen extends StatelessWidget {
                           context,
                         )!.joinDiscordServer,
                       ),
+                      IconButton(
+                        onPressed: () {
+                          Uri url = Uri.parse(youtubePageUrl);
+                          try {
+                            launchUrl(url);
+                          } catch (e) {
+                            log("Error launching URL: ${e.toString()}");
+                          }
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.youtube,
+                          size: UiSizes.size_40,
+                        ),
+                        tooltip: AppLocalizations.of(context)!.followUsOnYouTube,
+                      ),
                     ],
                   ),
                   SizedBox(height: UiSizes.height_20),
