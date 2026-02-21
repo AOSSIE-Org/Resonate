@@ -83,14 +83,16 @@ class LiveKitController extends GetxController {
       reconnectAttempts = 0;
     }
     while (reconnectAttempts < maxAttempts) {
+      Room? room;
       try {
-        liveKitRoom = Room(
+        room = Room(
           roomOptions: const RoomOptions(
             dynacast: false,
             adaptiveStream: false,
             defaultVideoPublishOptions: VideoPublishOptions(simulcast: false),
           ),
         );
+        liveKitRoom = room;
         listener = liveKitRoom.createListener();
 
         await liveKitRoom.connect(
@@ -111,24 +113,26 @@ class LiveKitController extends GetxController {
           'Connection attempt $reconnectAttempts/$maxAttempts failed: $error',
         );
         //cleaning up failed connection so multiple room  instances doesnt accumulate
-        try {
-          await liveKitRoom.disconnect();
-          await liveKitRoom.dispose();
-        } catch (e) {
-          log('Error cleaning up failed connection: $e');
-        }
+        if (room != null) {
+          try {
+            await room.disconnect();
+            await room.dispose();
+          } catch (e) {
+            log('Error cleaning up failed connection: $e');
+          }
 
-        if (reconnectAttempts < maxAttempts) {
-          await Future.delayed(retryInterval); // Wait before retrying
-        } else {
-          log('Failed to connect after $maxAttempts attempts');
-          isConnected.value = false; //changed the connection value to false
-          Get.snackbar(
-            AppLocalizations.of(Get.context!)!.connectionFailed,
-            AppLocalizations.of(Get.context!)!.unableToJoinRoom,
-            duration: const Duration(seconds: 5),
-          );
-          return false;
+          if (reconnectAttempts < maxAttempts) {
+            await Future.delayed(retryInterval); // Wait before retrying
+          } else {
+            log('Failed to connect after $maxAttempts attempts');
+            isConnected.value = false; //changed the connection value to false
+            Get.snackbar(
+              AppLocalizations.of(Get.context!)!.connectionFailed,
+              AppLocalizations.of(Get.context!)!.unableToJoinRoom,
+              duration: const Duration(seconds: 5),
+            );
+            return false;
+          }
         }
       }
     }
