@@ -501,6 +501,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get followUsOnX => 'X-ൽ ഞങ്ങളെ പിന്തുടരുക';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'ഡിസ്‌കോർഡ് സെർവറിൽ ചേരുക';
 
   @override

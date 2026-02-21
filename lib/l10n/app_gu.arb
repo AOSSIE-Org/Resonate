@@ -144,6 +144,7 @@
     "enterTags": "ટૅગ્સ દાખલ કરો",
     "joinCommunity": "કોમ્યુનિટીમાં જોડાવો",
     "followUsOnX": "X પર અમને ફોલો કરો",
+    "followUsOnYouTube": "Follow us on YouTube",
     "joinDiscordServer": "ડિસ્કોર્ડ સર્વરમાં જોડાવો",
     "noLyrics": "કોઈ ગીત નથી",
     "aboutSection": "વિશે",
@@ -665,4 +666,3 @@
 "usernameInvalidFormat": "યુઝરનેમમાં માત્ર અક્ષરો, નંબરો, બિંદુ, અન્ડરસ્કોર અને ડેશ હોવા જોઈએ",
 "usernameAlreadyTaken": "આ યુઝરનેમ પહેલેથી લેવામાં આવ્યું છે"
 }
-

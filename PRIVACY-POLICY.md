@@ -214,6 +214,7 @@ If you have any questions, concerns, or requests regarding this Privacy Policy o
 - **Email**: aossie.oss@gmail.com
 - **GitHub Issues**: https://github.com/AOSSIE-Org/Resonate/issues
 - **Discord Community**: https://discord.gg/uzHp4ufc
+- **YouTube Channel**: https://www.youtube.com/@AOSSIE
 
 ### 14.1 Data Protection Officer
 For privacy-related inquiries, you can reach our data protection team at: aossie.oss@gmail.com

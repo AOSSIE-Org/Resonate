@@ -1042,6 +1042,12 @@ abstract class AppLocalizations {
   /// **'Follow us on X'**
   String get followUsOnX;
 
+  /// Link text to the company's profile on YouTube.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow us on YouTube'**
+  String get followUsOnYouTube;
+
   /// Link text to join the project's Discord server.
   ///
   /// In en, this message translates to:

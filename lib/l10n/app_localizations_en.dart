@@ -493,6 +493,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get followUsOnX => 'Follow us on X';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'Join discord server';
 
   @override

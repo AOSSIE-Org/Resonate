@@ -780,6 +780,10 @@
   "@followUsOnX": {
     "description": "Link text to the company's profile on X (formerly Twitter)."
   },
+  "followUsOnYouTube": "Follow us on YouTube",
+  "@followUsOnYouTube": {
+    "description": "Link text to the company's profile on YouTube."
+  },
 
   "joinDiscordServer": "Discord சர்வரில் சேரவும்",
   "@joinDiscordServer": {

@@ -112,6 +112,7 @@ By following these guidelines, we can maintain a productive and collaborative op
 If you have any questions, need clarifications, or want to discuss ideas, feel free to reach out through the following channels:
 
 -   [Discord Server](https://discord.gg/MMZBadkYFm)
+-   [YouTube Channel](https://www.youtube.com/@AOSSIE)
 -   [Email](mailto:aossie.oss@gmail.com)
 
 

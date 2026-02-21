@@ -626,6 +626,10 @@
     "@followUsOnX": {
         "description": "Link text to the company's profile on X (formerly Twitter)."
     },
+    "followUsOnYouTube": "Follow us on YouTube",
+    "@followUsOnYouTube": {
+        "description": "Link text to the company's profile on YouTube."
+    },
     "joinDiscordServer": "ഡിസ്‌കോർഡ് സെർവറിൽ ചേരുക",
     "@joinDiscordServer": {
         "description": "Link text to join the project's Discord server."

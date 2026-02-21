@@ -499,6 +499,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get followUsOnX => 'X এ আমাদের ফলো করুন';
 
   @override
+  String get followUsOnYouTube => 'Follow us on YouTube';
+
+  @override
   String get joinDiscordServer => 'Discord সার্ভারে যোগদান করুন';
 
   @override
