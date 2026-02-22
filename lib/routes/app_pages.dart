@@ -36,6 +36,7 @@ import 'package:resonate/views/screens/welcome_screen.dart';
 import '../bindings/tabview_binding.dart';
 import '../views/screens/about_app_screen.dart';
 import '../views/screens/contribute_screen.dart';
+import '../views/screens/voice_profile_screen.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
@@ -148,6 +149,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.appPreferencesScreen,
       page: () => const AppPreferencesScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.voiceProfileScreen,
+      page: () => VoiceProfileScreen(),
     ),
   ];
 }
