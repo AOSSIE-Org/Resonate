@@ -35,4 +35,5 @@ class AppRoutes {
   static const userBlockedScreen = "/userBlockedScreen";
   static const liveChapterScreen = "/liveChapterScreen";
   static const appPreferencesScreen = "/appPreferencesScreen";
+  static const voiceProfileScreen = "/voiceProfileScreen";
 }
