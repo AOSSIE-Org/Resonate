@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         () => ElevatedButton(
                           onPressed: () async {
                             if (!controller.isLoading.value) {
+                              controller.emailController.text = controller.emailController.text.trim();
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
                                 await controller.login(context);

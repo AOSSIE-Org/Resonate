@@ -235,6 +235,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: ElevatedButton(
                         onPressed: emailVerifyController.signUpIsAllowed.value
                             ? () async {
+                              controller.emailController.text = controller.emailController.text.trim();
                                 if (controller.registrationFormKey.currentState!
                                     .validate()) {
                                   emailVerifyController.signUpIsAllowed.value =

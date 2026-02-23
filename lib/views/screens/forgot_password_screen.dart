@@ -69,6 +69,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () {
+                    forgotPasswordController.emailController.text = 
+      forgotPasswordController.emailController.text.trim();
                     if (forgotPasswordController
                         .forgotPasswordFormKey
                         .currentState!
