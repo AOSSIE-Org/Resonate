@@ -23,10 +23,18 @@ import '../routes/app_routes.dart';
 
 import 'package:resonate/l10n/app_localizations.dart';
 
+/// Represents the three possible startup auth states.
+enum AuthStatus { checking, authenticated, unauthenticated }
+
 class AuthStateController extends GetxController {
   Client client;
   final Databases databases;
   var isInitializing = false.obs;
+
+  /// Tracks the result of the initial persisted-session check that runs in
+  /// [onInit]. Starts as [AuthStatus.checking] and transitions to
+  /// [AuthStatus.authenticated] or [AuthStatus.unauthenticated] exactly once.
+  Rx<AuthStatus> authStatus = AuthStatus.checking.obs;
   FirebaseMessaging messaging;
   late final Account account;
 
@@ -222,12 +230,14 @@ class AuthStateController extends GetxController {
             (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
       }
 
+      authStatus.value = AuthStatus.authenticated;
       update();
       if (!Get.testMode) {
         Get.put(FriendsController(), permanent: true);
       }
     } catch (e) {
       log("Error originating from setUserProfileData$e");
+      authStatus.value = AuthStatus.unauthenticated;
     } finally {
       isInitializing.value = false;
     }
@@ -257,6 +267,58 @@ class AuthStateController extends GetxController {
       bool? landingScreenShown = GetStorage().read(
         "landingScreenShown",
       ); // landingScreenShown is the boolean value that is used to check wether to show the user the onboarding screen or not on the first launch of the app.
+      landingScreenShown == null
+          ? Get.offNamed(AppRoutes.landing)
+          : Get.offNamed(AppRoutes.welcomeScreen);
+    }
+  }
+
+  /// Navigates to the correct screen based on the resolved [authStatus].
+  ///
+  /// Unlike [isUserLoggedIn], this method skips the network round-trip when the
+  /// initial auth check already settled (i.e. [authStatus] is no longer
+  /// [AuthStatus.checking]). This prevents a second [setUserProfileData] call
+  /// during startup and eliminates the visual flicker caused by the previous
+  /// pattern of fire-and-forgetting [isUserLoggedIn] then immediately calling
+  /// [Get.offNamed(AppRoutes.landing)].
+  Future<void> navigateBasedOnAuthState() async {
+    try {
+      // If the initial check is still in-flight (slow network), wait for it.
+      if (authStatus.value == AuthStatus.checking) {
+        await setUserProfileData();
+      }
+
+      if (authStatus.value == AuthStatus.unauthenticated) {
+        bool? landingScreenShown = GetStorage().read(
+          "landingScreenShown",
+        ); // landingScreenShown tracks whether the onboarding screen has been shown.
+        landingScreenShown == null
+            ? Get.offNamed(AppRoutes.landing)
+            : Get.offNamed(AppRoutes.welcomeScreen);
+        return;
+      }
+
+      if (reportsCount > 5) {
+        Get.offNamed(AppRoutes.userBlockedScreen);
+        return;
+      }
+      if (isUserProfileComplete == false) {
+        Get.offNamed(AppRoutes.onBoarding);
+      } else {
+        Get.offNamed(AppRoutes.tabview);
+        if (!Get.testMode) {
+          final activeCalls = await FlutterCallkitIncoming.activeCalls();
+          if (activeCalls.isNotEmpty) {
+            final activeCall = activeCalls.last;
+            await Get.find<FriendCallingController>().onAnswerCall(
+              Map<String, dynamic>.from(activeCall['extra']),
+            );
+          }
+        }
+      }
+    } catch (e) {
+      log("Error in navigateBasedOnAuthState: $e");
+      bool? landingScreenShown = GetStorage().read("landingScreenShown");
       landingScreenShown == null
           ? Get.offNamed(AppRoutes.landing)
           : Get.offNamed(AppRoutes.welcomeScreen);

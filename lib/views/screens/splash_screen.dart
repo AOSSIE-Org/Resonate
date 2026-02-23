@@ -7,7 +7,6 @@ import 'package:resonate/controllers/splash_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -46,37 +45,66 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _setupTimers() async {
-    // Initial delay before starting animations
-    Timer(const Duration(milliseconds: 500), () {
-      _animationController.forward();
+    // Begin the fade-in animation after a brief delay (non-blocking).
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) _animationController.forward();
     });
 
-    // Delay before navigation
-    Timer(const Duration(milliseconds: 3000), () async {
-      final result = await Get.find<AboutAppScreenController>().checkForUpdate(
-        onIgnore: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
-          return true;
-        },
-        onLater: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
-          return true;
-        },
-        onUpdate: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
-          return true;
-        },
-        isManualCheck: false,
-      );
-      if (result == UpdateCheckResult.noUpdateAvailable ||
-          result == UpdateCheckResult.checkFailed) {
-        authController.isUserLoggedIn();
-        Get.offNamed(AppRoutes.landing);
-      }
-    });
+    // Run the minimum splash display time and the auth resolution concurrently.
+    // AuthStateController.onInit() already kicked off setUserProfileData(), so
+    // we simply wait for that in-flight request to settle rather than issuing a
+    // second network call. This prevents any intermediate screen from appearing
+    // and eliminates the startup auth flicker.
+    await Future.wait<void>([
+      Future.delayed(const Duration(milliseconds: 3000)),
+      _waitForAuthResolution(),
+    ]);
+    if (!mounted) return;
+
+    // After both the minimum display time and the auth check have completed,
+    // optionally prompt for an update. Navigation is always delegated to
+    // navigateBasedOnAuthState() so the landing screen is never rendered as an
+    // unintended intermediate step.
+    final result = await Get.find<AboutAppScreenController>().checkForUpdate(
+      onIgnore: () {
+        authController.navigateBasedOnAuthState();
+        return true;
+      },
+      onLater: () {
+        authController.navigateBasedOnAuthState();
+        return true;
+      },
+      onUpdate: () {
+        authController.navigateBasedOnAuthState();
+        return true;
+      },
+      isManualCheck: false,
+    );
+    if (result == UpdateCheckResult.noUpdateAvailable ||
+        result == UpdateCheckResult.checkFailed) {
+      authController.navigateBasedOnAuthState();
+    }
+  }
+
+  /// Returns a [Future] that completes as soon as [AuthStateController.authStatus]
+  /// leaves [AuthStatus.checking].
+  ///
+  /// If the auth check is already resolved (fast local session cache), this
+  /// completes on the very next microtask so no extra delay is introduced.
+  Future<void> _waitForAuthResolution() async {
+    if (authController.authStatus.value != AuthStatus.checking) return;
+
+    final completer = Completer<void>();
+    final worker = ever<AuthStatus>(
+      authController.authStatus,
+      (AuthStatus status) {
+        if (status != AuthStatus.checking && !completer.isCompleted) {
+          completer.complete();
+        }
+      },
+    );
+    await completer.future;
+    worker.dispose();
   }
 
   @override
