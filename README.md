@@ -88,7 +88,7 @@ Please go through and strictly follow the [Onboarding Guide](https://github.com/
 
 | Explore Story (Amber)                                                                                                   | Theme Screen (Vintage)                                                                                                  | Upcoming Room Screen (Cream)                                                                                           |
 | :---------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/ba9273f2-ceef-441d-8f94-4e0bc53b3e99" width="250" height="auto" /> | <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/> |
+| <img src="https://github.com/user-attachments/assets/ba7da784-48a6-4512-a4c8-9f12b8ad13c1" width="250" height="auto" /> | <img src="docs/store_listing/images/playstore_screenshots/8.png" width="250" height="auto" />                           | <img src="https://github.com/user-attachments/assets/a46c7da4-2df4-4c62-9e4c-9c92102339e9" width="250" height="auto"/> |
 
 </div>
 
