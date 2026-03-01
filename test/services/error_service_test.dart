@@ -20,7 +20,7 @@ void main() {
 
         final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Network error.');
+        expect(message, 'Please check your internet connection and try again.');
       });
 
       test('returns authentication error message for auth errors', () {
@@ -28,7 +28,7 @@ void main() {
 
         final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Authentication error.');
+        expect(message, 'Authentication failed. Please try again.');
       });
 
       test('returns storage error message for storage errors', () {
@@ -36,7 +36,7 @@ void main() {
 
         final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Storage error.');
+        expect(message, 'Failed to save or load data. Please try again.');
       });
 
       test('returns general error message for unknown errors', () {
@@ -44,7 +44,7 @@ void main() {
 
         final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'An error occurred.');
+        expect(message, 'Something went wrong. Please try again.');
       });
     });
 
@@ -60,7 +60,7 @@ void main() {
 
           final message = ErrorService.getUserFriendlyMessage(error);
 
-          expect(message, 'Incorrect email or password.');
+          expect(message, 'Incorrect email or password');
         },
       );
 
@@ -105,7 +105,7 @@ void main() {
 
         final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Invalid input. Please check and try again.');
+        expect(message, 'Invalid Input');
       });
 
       test('returns Appwrite message for unknown Appwrite errors', () {

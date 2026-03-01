@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/l10n/app_localizations_en.dart';
 import 'package:resonate/utils/enums/error_type.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -79,7 +80,9 @@ class ErrorService {
   /// Maps common error types to localized, understandable messages.
   static String getUserFriendlyMessage(dynamic error) {
     final context = Get.context;
-    final localizations = context != null ? AppLocalizations.of(context) : null;
+    final localizations = context != null
+        ? AppLocalizations.of(context) ?? AppLocalizationsEn()
+        : AppLocalizationsEn();
 
     // Handle Appwrite-specific errors
     if (error is AppwriteException) {
@@ -176,59 +179,57 @@ class ErrorService {
     BuildContext? context,
   ) {
     final type = error.type ?? '';
-    final localizations = context != null ? AppLocalizations.of(context) : null;
+    final localizations = context != null
+        ? AppLocalizations.of(context) ?? AppLocalizationsEn()
+        : AppLocalizationsEn();
 
     // Authentication errors
     if (type == 'user_invalid_credentials') {
-      return localizations?.incorrectEmailOrPassword ??
-          'Incorrect email or password.';
+      return localizations.incorrectEmailOrPassword;
     }
 
     if (type == 'user_already_exists') {
-      return localizations?.userAlreadyExists ??
-          'An account with this email already exists.';
+      return localizations.userAlreadyExists;
     }
 
     if (type == 'user_not_found') {
-      return localizations?.userNotFound ?? 'User not found.';
+      return localizations.userNotFound;
     }
 
     if (type == 'general_argument_invalid') {
-      return localizations?.invalidInput ??
-          'Invalid input. Please check and try again.';
+      return localizations.invalidInput;
     }
 
     if (type == 'document_not_found') {
-      return localizations?.dataNotFound ??
-          'The requested data was not found.';
+      return localizations.dataNotFound;
     }
 
     // Default: return the Appwrite message or a generic message
-    return error.message ??
-        localizations?.generalError ??
-        'Something went wrong. Please try again.';
+    return error.message ?? localizations.generalError;
   }
 
   /// Returns an appropriate title for error snackbars based on error type.
   static String _getTitleForErrorType(ErrorType type) {
     final context = Get.context;
-    final localizations = context != null ? AppLocalizations.of(context) : null;
+    final localizations = context != null
+        ? AppLocalizations.of(context) ?? AppLocalizationsEn()
+        : AppLocalizationsEn();
 
     switch (type) {
       case ErrorType.network:
-        return localizations?.connectionError ?? 'Connection Error';
+        return localizations.connectionError;
 
       case ErrorType.authentication:
-        return localizations?.authError ?? 'Authentication Error';
+        return localizations.authError;
 
       case ErrorType.validation:
-        return localizations?.invalidInput ?? 'Invalid Input';
+        return localizations.invalidInput;
 
       case ErrorType.storage:
       case ErrorType.database:
       case ErrorType.general:
       default:
-        return localizations?.error ?? 'Error';
+        return localizations.error;
     }
   }
 }
