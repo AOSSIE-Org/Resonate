@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:resonate/services/error_service.dart';
-import 'package:resonate/utils/enums/error_type.dart';
+
 
 void main() {
   setUpAll(() {
@@ -17,59 +17,34 @@ void main() {
     group('getUserFriendlyMessage', () {
       test('returns network error message for network-related errors', () {
         final error = Exception('SocketException: Connection refused');
-        final errorType = ErrorType.network;
 
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
+        final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(
-          message,
-          'Please check your internet connection and try again.',
-        );
+        expect(message, 'Network error.');
       });
 
       test('returns authentication error message for auth errors', () {
-        final error = Exception('Invalid credentials');
-        final errorType = ErrorType.authentication;
+        final error = Exception('Invalid auth credentials');
 
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
+        final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Authentication failed. Please try again.');
+        expect(message, 'Authentication error.');
       });
 
       test('returns storage error message for storage errors', () {
-        final error = Exception('File upload failed');
-        final errorType = ErrorType.storage;
+        final error = Exception('File storage upload failed');
 
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
+        final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Failed to save or load data. Please try again.');
-      });
-
-      test('returns database error message for database errors', () {
-        final error = Exception('Document not found');
-        final errorType = ErrorType.database;
-
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
-
-        expect(message, 'Failed to access data. Please try again.');
-      });
-
-      test('returns validation error message for validation errors', () {
-        final error = Exception('Invalid input');
-        final errorType = ErrorType.validation;
-
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
-
-        expect(message, 'Please check your input and try again.');
+        expect(message, 'Storage error.');
       });
 
       test('returns general error message for unknown errors', () {
         final error = Exception('Unknown error');
-        final errorType = ErrorType.general;
 
-        final message = ErrorService.getUserFriendlyMessage(error, errorType);
+        final message = ErrorService.getUserFriendlyMessage(error);
 
-        expect(message, 'Something went wrong. Please try again.');
+        expect(message, 'An error occurred.');
       });
     });
 

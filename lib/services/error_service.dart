@@ -33,17 +33,14 @@ class ErrorService {
   /// [userMessage] - Optional custom message to show to the user
   /// [showSnackbar] - Whether to display a snackbar (default: true)
   /// [announce] - Whether to announce for accessibility (default: true)
-  /// [errorType] - Optional error category for specific handling
   static void handle(
     dynamic error, {
     String? context,
     String? userMessage,
     bool showSnackbar = true,
     bool announce = true,
-    ErrorType? errorType,
   }) {
-    // Determine error type if not provided
-    final type = errorType ?? _categorizeError(error);
+    final type = _categorizeError(error);
 
     // Log the error with context
     final logMessage =
@@ -51,7 +48,7 @@ class ErrorService {
     log(logMessage, name: 'ErrorService');
 
     // Get user-friendly message
-    final message = userMessage ?? getUserFriendlyMessage(error, type);
+    final message = userMessage ?? getUserFriendlyMessage(error);
 
     // Show snackbar if requested
     if (showSnackbar && Get.context != null) {
@@ -63,9 +60,6 @@ class ErrorService {
     if (announce && Get.context != null) {
       SemanticsService.announce(message, TextDirection.ltr);
     }
-
-    // Future: Add crash reporting here (e.g., Firebase Crashlytics)
-    // FirebaseCrashlytics.instance.recordError(error, stackTrace);
   }
 
   /// Handles an error silently (logging only, no user feedback).
@@ -83,9 +77,8 @@ class ErrorService {
   /// Returns a user-friendly message for the given error.
   ///
   /// Maps common error types to localized, understandable messages.
-  static String getUserFriendlyMessage(dynamic error, [ErrorType? type]) {
+  static String getUserFriendlyMessage(dynamic error) {
     final context = Get.context;
-    final errorType = type ?? _categorizeError(error);
     final localizations = context != null ? AppLocalizations.of(context) : null;
 
     // Handle Appwrite-specific errors
@@ -94,31 +87,19 @@ class ErrorService {
     }
 
     // Handle by error type
-    switch (errorType) {
+    switch (_categorizeError(error)) {
       case ErrorType.network:
-        return localizations?.networkError ??
-            'Please check your internet connection and try again.';
+        return localizations.networkError;
 
       case ErrorType.authentication:
-        return localizations?.authenticationError ??
-            'Authentication failed. Please try again.';
+        return localizations.authenticationError;
 
       case ErrorType.storage:
-        return localizations?.storageError ??
-            'Failed to save or load data. Please try again.';
-
-      case ErrorType.database:
-        return localizations?.databaseError ??
-            'Failed to access data. Please try again.';
-
-      case ErrorType.validation:
-        return localizations?.validationError ??
-            'Please check your input and try again.';
+        return localizations.storageError;
 
       case ErrorType.general:
       default:
-        return localizations?.generalError ??
-            'Something went wrong. Please try again.';
+        return localizations.generalError;
     }
   }
 
