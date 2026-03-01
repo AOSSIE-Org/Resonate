@@ -6,15 +6,19 @@
     "noAudioOutputDevices",
     "refresh",
     "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate",
     "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "usernameAlreadyTaken",
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ],
 
   "gu": [
@@ -55,18 +59,33 @@
     "noAudioOutputDevices",
     "refresh",
     "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ],
 
   "hi": [
     "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "usernameAlreadyTaken",
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ],
 
   "kn": [
@@ -95,15 +114,19 @@
     "deleteMessageContent",
     "thisMessageWasDeleted",
     "failedToDeleteMessage",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate",
     "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "usernameAlreadyTaken",
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ],
 
   "mr": [
@@ -128,22 +151,32 @@
     "noAudioOutputDevices",
     "refresh",
     "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ],
 
-  "ta": [
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
+  "pa": [
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken",
+    "networkError",
+    "authenticationError",
+    "storageError",
+    "databaseError",
+    "validationError",
+    "generalError",
+    "authError",
+    "invalidInput",
+    "userAlreadyExists",
+    "userNotFound",
+    "dataNotFound"
   ]
 }

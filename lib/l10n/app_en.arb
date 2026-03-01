@@ -1843,7 +1843,66 @@
 "usernameAlreadyTaken": "This username is already taken. Try a different one.",
 "@usernameAlreadyTaken": {
   "description": "Error shown when the chosen username is unavailable because another user has already registered it."
-}
+},
 
+"networkError": "Please check your internet connection and try again.",
+"@networkError": {
+  "description": "Error message shown when a network-related error occurs."
+},
+
+"authenticationError": "Authentication failed. Please try again.",
+"@authenticationError": {
+  "description": "Generic error message for authentication failures."
+},
+
+"storageError": "Failed to save or load data. Please try again.",
+"@storageError": {
+  "description": "Error message shown when file storage operations fail."
+},
+
+"databaseError": "Failed to access data. Please try again.",
+"@databaseError": {
+  "description": "Error message shown when database operations fail."
+},
+
+"validationError": "Please check your input and try again.",
+"@validationError": {
+  "description": "Error message shown when input validation fails."
+},
+
+"generalError": "Something went wrong. Please try again.",
+"@generalError": {
+  "description": "Generic fallback error message for unexpected errors."
+},
+
+"connectionError": "Connection Error",
+"@connectionError": {
+  "description": "Title for network connection error messages."
+},
+
+"authError": "Authentication Error",
+"@authError": {
+  "description": "Title for authentication error messages."
+},
+
+"invalidInput": "Invalid Input",
+"@invalidInput": {
+  "description": "Title for validation error messages."
+},
+
+"userAlreadyExists": "An account with this email already exists.",
+"@userAlreadyExists": {
+  "description": "Error message when trying to create an account with an existing email."
+},
+
+"userNotFound": "User not found.",
+"@userNotFound": {
+  "description": "Error message when a user account cannot be found."
+},
+
+"dataNotFound": "The requested data was not found.",
+"@dataNotFound": {
+  "description": "Error message when requested data does not exist."
+}
 
 }

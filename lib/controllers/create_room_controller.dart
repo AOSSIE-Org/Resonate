@@ -1,8 +1,10 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/services/error_service.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:textfield_tags/textfield_tags.dart';
@@ -88,10 +90,9 @@ class CreateRoomController extends GetxController {
       tagsController.clearTags();
       descriptionController.clear();
     } catch (e) {
-      log(e.toString());
-
       // Close the loading dialog
       Get.back();
+      ErrorService.handle(e, context: 'creating room');
     } finally {
       isLoading.value = false;
     }
