@@ -105,23 +105,23 @@ class UpcomingRoomsController extends GetxController {
 
   Future<void> removeUserFromSubscriberList(String upcomingRoomId) async {
     try {
-      var subscribeDocument = await databases
-          .listDocuments(
-            databaseId: upcomingRoomsDatabaseId,
-            collectionId: subscribedUserCollectionId,
-            queries: [
-              Query.and([
-                Query.equal('userID', authStateController.uid),
-                Query.equal('upcomingRoomId', upcomingRoomId),
-              ]),
-            ],
-          )
-          .then((value) {
-            if (value.documents.isEmpty) {
-              throw Exception('No documents found');
-            }
-            return value.documents.first;
-          });
+      final result = await databases.listDocuments(
+        databaseId: upcomingRoomsDatabaseId,
+        collectionId: subscribedUserCollectionId,
+        queries: [
+          Query.and([
+            Query.equal('userID', authStateController.uid),
+            Query.equal('upcomingRoomId', upcomingRoomId),
+          ]),
+        ],
+      );
+
+      if (result.documents.isEmpty) {
+        log('No subscriber document found for user/room; skipping delete');
+        return;
+      }
+
+final subscribeDocument = result.documents.first;
 
       await databases.deleteDocument(
         databaseId: upcomingRoomsDatabaseId,
