@@ -136,6 +136,7 @@ class SingleRoomController extends GetxController {
         'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       if (data.payload.isNotEmpty) {
         String roomId = data.payload["roomId"];
         if (roomId == appwriteRoom.id) {
@@ -235,7 +236,7 @@ class SingleRoomController extends GetxController {
     }
   }
 
-  Future<String> getParticipantDocId(Participant participant) async {
+  Future<String?> getParticipantDocId(Participant participant) async {
     var participantDocsRef = await databases.listDocuments(
       databaseId: masterDatabaseId,
       collectionId: participantsCollectionId,
@@ -244,6 +245,10 @@ class SingleRoomController extends GetxController {
         Query.equal('uid', participant.uid),
       ],
     );
+    if (participantDocsRef.documents.isEmpty) {
+      return null; // or handle appropriately
+    }
+
     return participantDocsRef.documents.first.$id;
   }
 
@@ -288,7 +293,8 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> makeModerator(Participant participant) async {
-    String participantDocId = await getParticipantDocId(participant);
+    final participantDocId = await getParticipantDocId(participant);
+    if (participantDocId == null) return;
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": true,
       "hasRequestedToBeSpeaker": false,
@@ -297,7 +303,8 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> removeModerator(Participant participant) async {
-    String participantDocId = await getParticipantDocId(participant);
+    final participantDocId = await getParticipantDocId(participant);
+    if (participantDocId == null) return;
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": false,
       "hasRequestedToBeSpeaker": false,
@@ -331,7 +338,8 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> makeSpeaker(Participant participant) async {
-    String participantDocId = await getParticipantDocId(participant);
+    final participantDocId = await getParticipantDocId(participant);
+    if (participantDocId == null) return;
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": true,
       "hasRequestedToBeSpeaker": false,
@@ -339,7 +347,8 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> makeListener(Participant participant) async {
-    String participantDocId = await getParticipantDocId(participant);
+    final participantDocId = await getParticipantDocId(participant);
+    if (participantDocId == null) return;
     await updateParticipantDoc(participantDocId, {
       "isSpeaker": false,
       "hasRequestedToBeSpeaker": false,
@@ -347,7 +356,8 @@ class SingleRoomController extends GetxController {
   }
 
   Future<void> kickOutParticipant(Participant participant) async {
-    String participantDocId = await getParticipantDocId(participant);
+    final participantDocId = await getParticipantDocId(participant);
+    if (participantDocId == null) return;
     await databases.deleteDocument(
       databaseId: masterDatabaseId,
       collectionId: participantsCollectionId,
