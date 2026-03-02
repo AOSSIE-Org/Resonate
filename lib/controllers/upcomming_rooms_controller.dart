@@ -116,7 +116,12 @@ class UpcomingRoomsController extends GetxController {
               ]),
             ],
           )
-          .then((value) => value.documents.first);
+          .then((value) {
+            if (value.documents.isEmpty) {
+              throw Exception('No documents found');
+            }
+            return value.documents.first;
+          });
 
       await databases.deleteDocument(
         databaseId: upcomingRoomsDatabaseId,

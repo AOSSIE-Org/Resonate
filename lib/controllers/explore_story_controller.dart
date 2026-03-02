@@ -626,14 +626,18 @@ class ExploreStoryController extends GetxController {
       log('Failed to fetch Like Document: ${e.message}');
     }
 
-    try {
-      await databases.deleteDocument(
-        databaseId: storyDatabaseId,
-        collectionId: likeCollectionId,
-        documentId: userLikeDocuments.first.$id,
-      );
-    } on AppwriteException catch (e) {
-      log('Failed to Unlike i.e delete Like Document: ${e.message}');
+    if (userLikeDocuments.isNotEmpty) {
+      try {
+        await databases.deleteDocument(
+          databaseId: storyDatabaseId,
+          collectionId: likeCollectionId,
+          documentId: userLikeDocuments.first.$id,
+        );
+      } on AppwriteException catch (e) {
+        log('Failed to Unlike i.e delete Like Document: ${e.message}');
+      }
+    } else {
+      log('No like document found to delete');
     }
 
     try {
