@@ -136,6 +136,7 @@ class SingleRoomController extends GetxController {
         'databases.$masterDatabaseId.collections.$participantsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       if (data.payload.isNotEmpty) {
         String roomId = data.payload["roomId"];
         if (roomId == appwriteRoom.id) {
@@ -244,6 +245,10 @@ class SingleRoomController extends GetxController {
         Query.equal('uid', participant.uid),
       ],
     );
+    if (participantDocsRef.documents.isEmpty) {
+      return null; // or handle appropriately
+    }
+
     return participantDocsRef.documents.first.$id;
   }
 

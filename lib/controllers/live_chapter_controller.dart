@@ -44,6 +44,7 @@ class LiveChapterController extends GetxController {
         "databases.$userDatabaseID.collections.$liveChapterAttendeesCollectionId.documents.${liveChapterModel.value!.id}";
     liveChapterAttendeesSubscription = realtime.subscribe([channel]);
     liveChapterAttendeesSubscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       if (data.payload.isNotEmpty) {
         if (data.events.first.endsWith('.update')) {
           log("update detected");

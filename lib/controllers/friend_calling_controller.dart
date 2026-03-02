@@ -197,6 +197,7 @@ class FriendCallingController extends GetxController {
         'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.${friendCallModel.value!.docId}';
     callSubscription = realtime.subscribe([channel]);
     callSubscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       if (data.payload.isNotEmpty) {
         if (data.events.first.endsWith('.update')) {
           if (data.payload['callStatus'] == FriendCallStatus.connected.name) {

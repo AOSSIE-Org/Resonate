@@ -200,6 +200,7 @@ class RoomChatController extends GetxController {
           'databases.$masterDatabaseId.collections.$chatMessagesCollectionId.documents';
       subscription = realtime.subscribe([channel]);
       subscription?.stream.listen((data) async {
+        if (data.events.isEmpty) return;
         if (data.payload.isNotEmpty) {
           String roomId = data.payload['roomId'];
           if (roomId == (appwriteRoom?.id ?? appwriteUpcommingRoom!.id)) {

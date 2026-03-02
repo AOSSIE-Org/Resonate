@@ -112,6 +112,7 @@ class PairChatController extends GetxController {
         'databases.$masterDatabaseId.collections.$activePairsCollectionId.documents';
     subscription = realtime.subscribe([channel]);
     subscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       if (data.payload.isNotEmpty) {
         String uid1 = data.payload["uid1"];
         String uid2 = data.payload["uid2"];
@@ -182,6 +183,7 @@ class PairChatController extends GetxController {
         'databases.$masterDatabaseId.collections.$pairRequestCollectionId.documents';
     userAddedSubscription = realtime.subscribe([channel]);
     userAddedSubscription?.stream.listen((data) async {
+      if (data.events.isEmpty) return;
       final event = data.events.first;
       if (data.payload.isNotEmpty) {
         if (event.endsWith('.create')) {
