@@ -110,7 +110,7 @@ class UpcomingRoomsController extends GetxController {
         collectionId: subscribedUserCollectionId,
         queries: [
           Query.and([
-            Query.equal('userId', authStateController.uid),
+            Query.equal('userID', authStateController.uid),
             Query.equal('upcomingRoomId', upcomingRoomId),
           ]),
         ],
