@@ -244,6 +244,14 @@ void main() {
     expect(loginState, true);
   });
 
+  test('test getLoginState returns false for guest user', () async {
+    when(mockAccount.get()).thenThrow(AppwriteException('Unauthorized', 401));
+    final loginState = await authStateController.getLoginState;
+    expect(loginState, false);
+    // Restore stub for subsequent tests
+    when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
+  });
+
   test(
     'test addRegistrationTokentoSubscribedandCreatedUpcomingRooms',
     () async {

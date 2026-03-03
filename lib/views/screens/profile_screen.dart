@@ -41,6 +41,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  /// Returns true if the current user is viewing their own profile (owner mode)
+  /// Returns false if viewing another user's profile (public view mode)
+  bool get isOwner => widget.isCreatorProfile == null;
+
   @override
   void initState() {
     super.initState();
@@ -74,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.profile),
-        actions: widget.isCreatorProfile == null
+        actions: isOwner
             ? [
                 IconButton(
                   onPressed: () {
@@ -143,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(width: UiSizes.width_20),
           CircleAvatar(
             backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
-            backgroundImage: widget.isCreatorProfile != null
+            backgroundImage: !isOwner
                 ? NetworkImage(widget.creator!.profileImageUrl ?? '')
                 : controller.profileImageUrl == null ||
                       controller.profileImageUrl!.isEmpty
@@ -157,8 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.isCreatorProfile == null &&
-                      controller.isEmailVerified!)
+                  if (isOwner && controller.isEmailVerified!)
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
@@ -176,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   Text(
-                    widget.isCreatorProfile != null
+                    !isOwner
                         ? widget.creator!.name ?? ''
                         : controller.displayName.toString(),
                     style: TextStyle(
@@ -187,7 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Chip(
                     label: Text(
-                      "@${widget.isCreatorProfile != null ? widget.creator!.userName : controller.userName}",
+                      "@${!isOwner ? widget.creator!.userName : controller.userName}",
                       style: TextStyle(
                         fontSize: UiSizes.size_14,
                         overflow: TextOverflow.ellipsis,
@@ -204,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
-                          widget.isCreatorProfile == null
+                          isOwner
                               ? (authController.ratingTotal /
                                         authController.ratingCount)
                                     .toStringAsFixed(1)
@@ -221,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .length ==
                                   1 &&
                               userProfileController.isFollowingUser.value) &&
-                          widget.isCreatorProfile != null) {
+                          !isOwner) {
                         //Remove current user from followers list
                         final sanitizedFollowersList = userProfileController
                             .searchedUserFollowers
@@ -239,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Icon(Icons.people),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: widget.isCreatorProfile == null
+                          child: isOwner
                               ? Text(
                                   authController.followerDocuments.length
                                       .toString(),
@@ -271,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     EmailVerifyController emailVerifyController,
     AuthStateController controller,
   ) {
-    if (widget.isCreatorProfile != null || controller.isEmailVerified!) {
+    if (!isOwner || controller.isEmailVerified!) {
       return const SizedBox.shrink();
     }
 
@@ -305,7 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Obx(() {
             return ElevatedButton(
               onPressed: () {
-                if (widget.isCreatorProfile != null) {
+                if (!isOwner) {
                   if (userProfileController.isFollowingUser.value) {
                     userProfileController.unfollowCreator();
                   } else {
@@ -331,7 +334,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    widget.isCreatorProfile != null
+                    !isOwner
                         ? userProfileController.isFollowingUser.value
                               ? Icons.done
                               : Icons.add
@@ -340,7 +343,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    widget.isCreatorProfile != null
+                    !isOwner
                         ? userProfileController.isFollowingUser.value
                               ? AppLocalizations.of(context)!.following
                               : AppLocalizations.of(context)!.follow
@@ -354,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         const SizedBox(width: 10),
 
-        widget.isCreatorProfile == null
+        isOwner
             ? SizedBox(
                 height: 50,
                 width: 50,
@@ -494,7 +497,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              widget.isCreatorProfile != null
+              !isOwner
                   ? AppLocalizations.of(context)!.userCreatedStories
                   : AppLocalizations.of(context)!.yourStories,
               style: TextStyle(
@@ -508,10 +511,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Obx(
             () => _buildStoriesList(
               context,
-              widget.isCreatorProfile != null
+              !isOwner
                   ? userProfileController.searchedUserStories
                   : exploreStoryController.userCreatedStories,
-              widget.isCreatorProfile != null
+              !isOwner
                   ? AppLocalizations.of(context)!.userNoStories
                   : AppLocalizations.of(context)!.youNoStories,
             ),
@@ -520,7 +523,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              widget.isCreatorProfile != null
+              !isOwner
                   ? AppLocalizations.of(context)!.userLikedStories
                   : AppLocalizations.of(context)!.yourLikedStories,
               style: TextStyle(
@@ -534,10 +537,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Obx(
             () => _buildStoriesList(
               context,
-              widget.isCreatorProfile != null
+              !isOwner
                   ? userProfileController.searchedUserLikedStories
                   : exploreStoryController.userLikedStories,
-              widget.isCreatorProfile != null
+              !isOwner
                   ? AppLocalizations.of(context)!.userNoLikedStories
                   : AppLocalizations.of(context)!.youNoLikedStories,
             ),
