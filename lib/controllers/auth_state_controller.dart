@@ -105,7 +105,9 @@ class AuthStateController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await setUserProfileData();
+    if (await getLoginState) {
+      await setUserProfileData();
+    }
 
     // ask for settings permissions
     await messaging.requestPermission(
