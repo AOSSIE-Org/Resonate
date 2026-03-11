@@ -90,15 +90,24 @@ class DeleteAccountScreen extends StatelessWidget {
                       disabledForegroundColor: Colors.redAccent.withAlpha(100),
                       disabledBackgroundColor: Colors.redAccent.withAlpha(50),
                     ),
-                    onPressed: (controller.isButtonActive.value)
-                        ? () {
-                            // DO NOT IMPLEMENT THIS WITHOUT PERMISSION
-                          }
+                    onPressed: (controller.isButtonActive.value &&
+                            !controller.isLoading.value)
+                        ? () => controller.deleteAccount()
                         : null,
-                    child: Text(
-                      AppLocalizations.of(context)!.iUnderstandDeleteMyAccount,
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                    child: controller.isLoading.value
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Text(
+                            AppLocalizations.of(context)!
+                                .iUnderstandDeleteMyAccount,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                   ),
                 ),
               ),
