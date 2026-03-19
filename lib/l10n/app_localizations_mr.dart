@@ -1350,6 +1350,7 @@ class AppLocalizationsMr extends AppLocalizations {
       'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केलेले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
 
   @override
+  
   String get audioOutput => 'ऑडिओ आउटपुट';
 
   @override
