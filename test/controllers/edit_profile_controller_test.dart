@@ -11,7 +11,7 @@ import 'package:resonate/utils/constants.dart';
 import 'edit_profile_controller_test.mocks.dart';
 
 @GenerateMocks([
-  Databases,
+  TablesDB,
   Storage,
   ThemeController,
   Account,
@@ -19,42 +19,61 @@ import 'edit_profile_controller_test.mocks.dart';
   FirebaseMessaging,
 ])
 void main() {
-  late MockDatabases databases;
   late EditProfileController editProfileController;
   setUp(() {
-    databases = MockDatabases();
+    final mockTablesDB = MockTablesDB();
     editProfileController = EditProfileController(
       themeController: MockThemeController(),
       authStateController: AuthStateController(
         account: MockAccount(),
         client: MockClient(),
-        databases: databases,
+        tables: MockTablesDB(),
         messaging: MockFirebaseMessaging(),
       ),
       storage: MockStorage(),
-      databases: databases,
+      tables: mockTablesDB,
     );
     editProfileController.authStateController.displayName = 'Test User';
     editProfileController.authStateController.userName = 'testuser';
     editProfileController.onInit();
 
     when(
-      databases.getDocument(
+      mockTablesDB.getRow(
         databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'testuser',
+        tableId: usernameTableID,
+        rowId: 'testuser',
       ),
     ).thenAnswer(
       (_) => Future.value(
-        Document(
-          $collectionId: usernameCollectionID,
-          $databaseId: userDatabaseID,
+        Row(
           $id: 'testuser',
+          $tableId: usernameTableID,
+          $databaseId: userDatabaseID,
           $createdAt: DateTime.now().toIso8601String(),
           $updatedAt: DateTime.now().toIso8601String(),
           $permissions: ['any'],
-          data: {"email": "test@test.com"},
           $sequence: 0,
+          data: {"email": "test@test.com"},
+        ),
+      ),
+    );
+    when(
+      mockTablesDB.getRow(
+        databaseId: userDatabaseID,
+        tableId: usernameTableID,
+        rowId: 'anotheruser',
+      ),
+    ).thenAnswer(
+      (_) => Future.value(
+        Row(
+          $id: 'anotheruser',
+          $tableId: usernameTableID,
+          $databaseId: userDatabaseID,
+          $createdAt: DateTime.now().toIso8601String(),
+          $updatedAt: DateTime.now().toIso8601String(),
+          $permissions: ['any'],
+          $sequence: 0,
+          data: {"email": "another@test.com"},
         ),
       ),
     );
@@ -68,8 +87,15 @@ void main() {
     expect(editProfileController.usernameController.text, 'testuser');
   });
   test('check isUsernameAvailable', () async {
+    // user's own username should return true
     final result = await editProfileController.isUsernameAvailable('testuser');
-    expect(result, false);
+    expect(result, true);
+
+    //a different username that exists should return false
+    final resultTaken = await editProfileController.isUsernameAvailable(
+      'anotheruser',
+    );
+    expect(resultTaken, false);
   });
 
   test('check isUsernameChanged', () {

@@ -14,7 +14,7 @@ import 'package:resonate/utils/enums/friend_call_status.dart';
 
 import 'friend_calling_controller_test.mocks.dart';
 
-@GenerateMocks([Databases])
+@GenerateMocks([TablesDB])
 @GenerateNiceMocks([
   MockSpec<Realtime>(),
   MockSpec<FlutterCallkitIncoming>(),
@@ -33,9 +33,9 @@ final FriendCallModel mockFriendCallModel = FriendCallModel(
   callStatus: FriendCallStatus.waiting,
   docId: "doc1",
 );
-final Document mockFriendCallDocument = Document(
+final Row mockFriendCallRow = Row(
   $id: 'doc1',
-  $collectionId: friendCallsCollectionId,
+  $tableId: friendCallsTableId,
   $databaseId: masterDatabaseId,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -43,9 +43,9 @@ final Document mockFriendCallDocument = Document(
   data: {...mockFriendCallModel.toJson(), '\$id': 'doc1'},
   $sequence: 0,
 );
-final Document mockFriendCallEndedDocument = Document(
+final Row mockFriendCallEndedRow = Row(
   $id: 'doc1',
-  $collectionId: friendCallsCollectionId,
+  $tableId: friendCallsTableId,
   $databaseId: masterDatabaseId,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -58,9 +58,9 @@ final Document mockFriendCallEndedDocument = Document(
   },
   $sequence: 0,
 );
-final Document mockFriendCallDeclinedDocument = Document(
+final Row mockFriendCallDeclinedRow = Row(
   $id: 'doc1',
-  $collectionId: friendCallsCollectionId,
+  $tableId: friendCallsTableId,
   $databaseId: masterDatabaseId,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -73,9 +73,9 @@ final Document mockFriendCallDeclinedDocument = Document(
   },
   $sequence: 0,
 );
-final Document mockFriendCallAcceptedDocument = Document(
+final Row mockFriendCallAcceptedRow = Row(
   $id: 'doc1',
-  $collectionId: friendCallsCollectionId,
+  $tableId: friendCallsTableId,
   $databaseId: masterDatabaseId,
   $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
   $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
@@ -93,71 +93,70 @@ StreamController<RealtimeMessage> mockRealtimeMessageStreamController =
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late MockDatabases databases;
+  late MockTablesDB tables;
   late MockRealtime realtime;
   late FriendCallingController friendCallingController;
   setUp(() {
-    databases = MockDatabases();
+    tables = MockTablesDB();
     realtime = MockRealtime();
 
     friendCallingController = FriendCallingController(
-      databases: databases,
-
+      tables: tables,
       functions: MockFunctions(),
       realtime: realtime,
     );
 
     when(
-      databases.getDocument(
+      tables.getRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: 'doc1',
+        tableId: friendCallsTableId,
+        rowId: 'doc1',
       ),
-    ).thenAnswer((_) => Future.value(mockFriendCallDocument));
+    ).thenAnswer((_) => Future.value(mockFriendCallRow));
     when(
-      databases.updateDocument(
+      tables.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: 'doc1',
+        tableId: friendCallsTableId,
+        rowId: 'doc1',
         data: mockFriendCallModel
             .copyWith(callStatus: FriendCallStatus.declined)
             .toJson(),
       ),
-    ).thenAnswer((_) => Future.value(mockFriendCallDeclinedDocument));
+    ).thenAnswer((_) => Future.value(mockFriendCallDeclinedRow));
     when(
-      databases.updateDocument(
+      tables.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: 'doc1',
+        tableId: friendCallsTableId,
+        rowId: 'doc1',
         data: mockFriendCallModel
             .copyWith(callStatus: FriendCallStatus.connected)
             .toJson(),
       ),
-    ).thenAnswer((_) => Future.value(mockFriendCallAcceptedDocument));
+    ).thenAnswer((_) => Future.value(mockFriendCallAcceptedRow));
     when(
-      databases.updateDocument(
+      tables.updateRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: 'doc1',
+        tableId: friendCallsTableId,
+        rowId: 'doc1',
         data: mockFriendCallModel
             .copyWith(callStatus: FriendCallStatus.ended)
             .toJson(),
       ),
-    ).thenAnswer((_) => Future.value(mockFriendCallEndedDocument));
+    ).thenAnswer((_) => Future.value(mockFriendCallEndedRow));
     when(
-      databases.createDocument(
+      tables.createRow(
         databaseId: masterDatabaseId,
-        collectionId: friendCallsCollectionId,
-        documentId: anyNamed('documentId'),
+        tableId: friendCallsTableId,
+        rowId: anyNamed('rowId'),
         data: mockFriendCallModel.toJson(),
       ),
-    ).thenAnswer((_) => Future.value(mockFriendCallDocument));
+    ).thenAnswer((_) => Future.value(mockFriendCallRow));
 
     when(realtime.subscribe(any)).thenAnswer(
       (_) => RealtimeSubscription(
         close: () async {},
         channels: [
-          'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.doc1',
+          'databases.$masterDatabaseId.collections.$friendCallsTableId.documents.doc1',
         ],
         controller: mockRealtimeMessageStreamController,
       ),
@@ -218,7 +217,7 @@ void main() {
     mockRealtimeMessageStreamController.add(
       RealtimeMessage(
         events: [
-          'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.${friendCallingController.friendCallModel.value!.docId}.update',
+          'databases.$masterDatabaseId.collections.$friendCallsTableId.documents.${friendCallingController.friendCallModel.value!.docId}.update',
         ],
         payload: {
           "ip": "",
@@ -226,14 +225,14 @@ void main() {
           "\$createdAt": DateTime.now().toIso8601String(),
           "\$updatedAt": DateTime.now().toIso8601String(),
           "\$permissions": [],
-          "\$collectionId": friendCallsCollectionId,
+          "\$tableId": friendCallsTableId,
           "\$databaseId": masterDatabaseId,
           ...mockFriendCallModel
               .copyWith(callStatus: FriendCallStatus.connected)
               .toJson(),
         },
         channels: [
-          'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents',
+          'databases.$masterDatabaseId.collections.$friendCallsTableId.documents',
         ],
         timestamp: DateTime.now().toIso8601String(),
       ),
@@ -260,7 +259,7 @@ void main() {
     mockRealtimeMessageStreamController.add(
       RealtimeMessage(
         events: [
-          'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents.${friendCallingController.friendCallModel.value!.docId}.update',
+          'databases.$masterDatabaseId.collections.$friendCallsTableId.documents.${friendCallingController.friendCallModel.value!.docId}.update',
         ],
         payload: {
           "ip": "",
@@ -268,14 +267,14 @@ void main() {
           "\$createdAt": DateTime.now().toIso8601String(),
           "\$updatedAt": DateTime.now().toIso8601String(),
           "\$permissions": [],
-          "\$collectionId": friendCallsCollectionId,
+          "\$tableId": friendCallsTableId,
           "\$databaseId": masterDatabaseId,
           ...mockFriendCallModel
               .copyWith(callStatus: FriendCallStatus.ended)
               .toJson(),
         },
         channels: [
-          'databases.$masterDatabaseId.collections.$friendCallsCollectionId.documents',
+          'databases.$masterDatabaseId.collections.$friendCallsTableId.documents',
         ],
         timestamp: DateTime.now().toIso8601String(),
       ),

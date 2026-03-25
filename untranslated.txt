@@ -1,4 +1,22 @@
 {
+  "bn": [
+    "audioOptions",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
+  ],
+
   "gu": [
     "appPreferences",
     "transcriptionModel",
@@ -29,8 +47,26 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+  ],
+
+  "hi": [
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "kn": [
@@ -47,8 +83,27 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+    "deleteMessageTitle",
+    "deleteMessageContent",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
   ],
 
   "mr": [
@@ -65,7 +120,30 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
+    "audioOptions",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully"
+    "roomRemovedSuccessfully",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
+  ],
+
+  "ta": [
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate"
   ]
 }

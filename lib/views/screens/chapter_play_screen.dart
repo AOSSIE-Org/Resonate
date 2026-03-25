@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:flutter_lyric/lyrics_reader.dart';
+//import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/models/chapter.dart';
@@ -17,49 +17,49 @@ class ChapterPlayScreen extends StatefulWidget {
 }
 
 class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
-  late UINetease lyricUI;
-  final ChapterPlayerController controller = Get.find();
+  // late UINetease lyricUI;
+  // final ChapterPlayerController controller = Get.find();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
-    lyricUI = UINetease(
-      highlightColor: themeIsDark ? Colors.white : Colors.black,
-      playingMainTextStyle: TextStyle(
-        fontSize: UiSizes.size_20,
-        fontWeight: FontWeight.bold,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
-      otherMainTextStyle: TextStyle(
-        fontSize: UiSizes.size_18,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
-    );
+    // lyricUI = UINetease(
+    //   highlightColor: themeIsDark ? Colors.white : Colors.black,
+    //   playingMainTextStyle: TextStyle(
+    //     fontSize: UiSizes.size_20,
+    //     fontWeight: FontWeight.bold,
+    //     color: themeIsDark
+    //         ? const Color.fromARGB(255, 223, 222, 222)
+    //         : Colors.grey[600],
+    //   ),
+    //   otherMainTextStyle: TextStyle(
+    //     fontSize: UiSizes.size_18,
+    //     color: themeIsDark
+    //         ? const Color.fromARGB(255, 223, 222, 222)
+    //         : Colors.grey[600],
+    //   ),
+    // );
   }
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   controller.initialize(
+  //     AudioPlayer()..setSourceUrl(widget.chapter.audioFileUrl),
+  //     LyricsModelBuilder.create()
+  //         .bindLyricToMain(widget.chapter.lyrics)
+  //         .getModel(),
+  //     Duration(milliseconds: widget.chapter.playDuration),
+  //   );
+  // }
 
-    controller.initialize(
-      AudioPlayer()..setSourceUrl(widget.chapter.audioFileUrl),
-      LyricsModelBuilder.create()
-          .bindLyricToMain(widget.chapter.lyrics)
-          .getModel(),
-      Duration(milliseconds: widget.chapter.playDuration),
-    );
-  }
-
-  @override
-  void dispose() {
-    Get.delete<ChapterPlayerController>();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   Get.delete<ChapterPlayerController>();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,56 +111,56 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                   : const Color.fromARGB(193, 232, 230, 230),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Obx(
-                              () => LyricsReader(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                model: controller.lyricModel,
-                                position: controller.lyricProgress.value,
-                                lyricUi: lyricUI,
-                                playing: controller.isPlaying.value,
-                                size: const Size(double.infinity, 200),
-                                emptyBuilder: () => Center(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.noLyrics,
-                                    style: UINetease().getOtherMainTextStyle(),
-                                  ),
-                                ),
-                                selectLineBuilder: (progress, confirm) {
-                                  return Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          confirm.call();
-
-                                          controller.audioPlayer?.seek(
-                                            Duration(milliseconds: progress),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.play_arrow,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                          ),
-                                          height: 1,
-                                          width: double.infinity,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
+                            // child: Obx(
+                            //   () => LyricsReader(
+                            //     padding: const EdgeInsets.symmetric(
+                            //       horizontal: 16,
+                            //     ),
+                            //     model: controller.lyricModel,
+                            //     position: controller.lyricProgress.value,
+                            //     lyricUi: lyricUI,
+                            //     playing: controller.isPlaying.value,
+                            //     size: const Size(double.infinity, 200),
+                            //     emptyBuilder: () => Center(
+                            //       child: Text(
+                            //         AppLocalizations.of(context)!.noLyrics,
+                            //         style: UINetease().getOtherMainTextStyle(),
+                            //       ),
+                            //     ),
+                            //     selectLineBuilder: (progress, confirm) {
+                            //       return Row(
+                            //         children: [
+                            //           IconButton(
+                            //             onPressed: () {
+                            //               confirm.call();
+                            //
+                            //               controller.audioPlayer?.seek(
+                            //                 Duration(milliseconds: progress),
+                            //               );
+                            //             },
+                            //             icon: Icon(
+                            //               Icons.play_arrow,
+                            //               color: Theme.of(
+                            //                 context,
+                            //               ).colorScheme.primary,
+                            //             ),
+                            //           ),
+                            //           Expanded(
+                            //             child: Container(
+                            //               decoration: BoxDecoration(
+                            //                 color: Theme.of(
+                            //                   context,
+                            //                 ).colorScheme.primary,
+                            //               ),
+                            //               height: 1,
+                            //               width: double.infinity,
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
                           ),
                         ),
 

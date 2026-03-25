@@ -11,7 +11,7 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:resonate/firebase_options.dart';
+// import 'package:resonate/firebase_options.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
@@ -55,7 +55,9 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(
+  //     options: DefaultFirebaseOptions.currentPlatform
+  // );
   await GetStorage.init();
   Get.put(AboutAppScreenController());
   languageLocale =

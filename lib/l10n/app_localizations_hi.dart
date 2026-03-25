@@ -997,6 +997,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get speakerLabel => 'स्पीकर';
 
   @override
+  String get audioOptions => 'ऑडियो विकल्प';
+
+  @override
   String get end => 'समाप्त करें';
 
   @override
@@ -1346,4 +1349,65 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get noRecordingError =>
       'आपके पास कोई रिकॉर्डिंग नहीं है। लाइव चैप्टर रूम से बाहर निकलने के लिए, कृपया पहले रिकॉर्डिंग शुरू करें।';
+
+  @override
+  String get audioOutput => 'ऑडियो आउटपुट';
+
+  @override
+  String get selectPreferredSpeaker => 'अपना पसंदीदा स्पीकर चुनें';
+
+  @override
+  String get noAudioOutputDevices => 'कोई ऑडियो आउटपुट डिवाइस नहीं मिला';
+
+  @override
+  String get refresh => 'रीफ़्रेश करें';
+
+  @override
+  String get done => 'हो गया';
+
+  @override
+  String get deleteMessageTitle => 'संदेश हटाएँ';
+
+  @override
+  String get deleteMessageContent =>
+      'क्या आप वाकई इस संदेश को हटाना चाहते हैं?';
+
+  @override
+  String get thisMessageWasDeleted => 'यह संदेश हटा दिया गया है';
+
+  @override
+  String get failedToDeleteMessage => 'संदेश हटाने में विफल रहा';
+
+  @override
+  String get noFriendsYet => 'अभी तक कोई दोस्त नहीं';
+
+  @override
+  String get noFriendsDescription =>
+      'आपकी दोस्तों की सूची खाली है। लोगों से जुड़ना शुरू करें और अपना नेटवर्क बढ़ाएं!';
+
+  @override
+  String get findFriends => 'दोस्त खोजें';
+
+  @override
+  String get inviteFriend => 'दोस्त को आमंत्रित करें';
+
+  @override
+  String get noFriendRequestsYet => 'कोई फ्रेंड रिक्वेस्ट नहीं';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'आपके पास कोई पेंडिंग फ्रेंड रिक्वेस्ट नहीं है। जुड़ने के लिए अपने दोस्तों को आमंत्रित करें!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'अरे! Resonate पर मेरे साथ जुड़ो - एक सोशल ऑडियो प्लेटफॉर्म जहां हर आवाज़ की कद्र होती है। अभी डाउनलोड करें: $url';
+  }
+
+  @override
+  String get usernameInvalidFormat =>
+      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'This username is already taken. Try a different one.';
 }
