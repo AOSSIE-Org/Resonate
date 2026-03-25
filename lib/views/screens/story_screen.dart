@@ -381,7 +381,7 @@ class _StoryScreenState extends State<StoryScreen> {
                                             : index - 1];
                                     return GestureDetector(
                                       onTap: () {
-                                        Get.put(ChapterPlayerController());
+                                      //  Get.put(ChapterPlayerController());
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

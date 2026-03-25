@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/screens/home_screen.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -114,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (!controller.isLoading.value) {
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
-                                await controller.login(context);
-                              }
+                               // await controller.login(context);
+                                Get.offAllNamed(AppRoutes.tabview);                              }
                             }
                           },
                           child: controller.isLoading.value
