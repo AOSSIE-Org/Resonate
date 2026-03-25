@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
+import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/controllers/onboarding_controller.dart';
 
 class ProfileBinding extends Bindings {
@@ -11,5 +12,6 @@ class ProfileBinding extends Bindings {
     Get.lazyPut(() => AuthenticationController());
     Get.lazyPut(() => OnboardingController());
     Get.lazyPut(() => ExploreStoryController());
+    Get.lazyPut(() => FriendsController());
   }
 }

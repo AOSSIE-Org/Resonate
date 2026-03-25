@@ -141,7 +141,7 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> followCreator(String creatorId) async {
-    final fcmToken = await authStateController.messaging.getToken();
+    final fcmToken = await authStateController.messaging?.getToken();
     final FollowerUserModel follower = FollowerUserModel(
       docId: ID.unique(),
       uid: authStateController.uid!,
@@ -151,7 +151,8 @@ class UserProfileController extends GetxController {
       fcmToken: fcmToken!,
       followingUserId: creatorId,
       followerRating:
-          authStateController.ratingTotal / authStateController.ratingCount,
+      authStateController.ratingTotal!=null && authStateController.ratingCount!=null?
+      authStateController.ratingTotal! / authStateController.ratingCount!:0,
     );
 
     await tablesDB.createRow(

@@ -11,7 +11,7 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 
 class FriendsController extends GetxController {
   final TablesDB tables;
-  final FirebaseMessaging firebaseMessaging;
+  final FirebaseMessaging? firebaseMessaging;
   final Functions functions;
   final AuthStateController authStateController;
   final RxList<FriendsModel> friendsList = <FriendsModel>[].obs;
@@ -29,7 +29,8 @@ class FriendsController extends GetxController {
   }) : tables = tables ?? AppwriteService.getTables(),
        functions = functions ?? AppwriteService.getFunctions(),
        realtime = realtime ?? AppwriteService.getRealtime(),
-       firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
+       firebaseMessaging = firebaseMessaging,
+          // ?? FirebaseMessaging.instance,
        authStateController =
            authStateController ??
            Get.put<AuthStateController>(AuthStateController());
@@ -49,7 +50,7 @@ class FriendsController extends GetxController {
     double recieverRating,
   ) async {
     final docId = ID.unique();
-    final userFCMToken = await firebaseMessaging.getToken();
+    final userFCMToken = await firebaseMessaging?.getToken();
 
     final friendModel = FriendsModel(
       senderId: authStateController.uid!,
@@ -66,7 +67,8 @@ class FriendsController extends GetxController {
       senderFCMToken: userFCMToken,
       users: [authStateController.uid!, recieverId],
       senderRating:
-          authStateController.ratingTotal / authStateController.ratingCount,
+      authStateController.ratingTotal!=null&& authStateController.ratingCount!=null?
+      authStateController.ratingTotal! / authStateController.ratingCount!:0,
       recieverRating: recieverRating,
     );
     await tables.createRow(
@@ -115,7 +117,7 @@ class FriendsController extends GetxController {
   }
 
   Future<void> acceptFriendRequest(FriendsModel friendModel) async {
-    final userFCMToken = await firebaseMessaging.getToken();
+    final userFCMToken = await firebaseMessaging?.getToken();
 
     final updatedFriendModel = friendModel.copyWith(
       requestStatus: FriendRequestStatus.accepted,

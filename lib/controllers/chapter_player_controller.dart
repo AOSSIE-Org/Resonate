@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter_lyric/lyrics_reader_model.dart';
+//import 'package:flutter_lyric/lyrics_reader_model.dart';
 
 class ChapterPlayerController extends GetxController {
   Rx<int> currentPage = 0.obs;
@@ -9,15 +9,15 @@ class ChapterPlayerController extends GetxController {
   Rx<bool> isPlaying = false.obs;
   AudioPlayer? audioPlayer;
   late Duration chapterDuration;
-  late LyricsReaderModel lyricModel;
+  //late LyricsReaderModel lyricModel;
 
   void initialize(
     AudioPlayer player,
-    LyricsReaderModel model,
+    //LyricsReaderModel model,
     Duration duration,
   ) {
     audioPlayer = player;
-    lyricModel = model;
+   // lyricModel = model;
     chapterDuration = duration;
     audioPlayer?.setReleaseMode(ReleaseMode.stop);
 

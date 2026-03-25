@@ -63,9 +63,11 @@ class RatingSheetWidget extends StatelessWidget {
                   rowId: authController.uid!,
                   data: {
                     "ratingTotal":
-                        authController.ratingTotal +
-                        controller.pairRating.value,
-                    "ratingCount": authController.ratingCount + 1,
+                    authController.ratingTotal!=null?
+                        authController.ratingTotal! +
+                        controller.pairRating.value:0,
+                    "ratingCount": authController.ratingCount!=null?
+                    authController.ratingCount! + 1:0,
                   },
                 );
                 await authController.setUserProfileData();
