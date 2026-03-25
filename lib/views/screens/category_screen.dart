@@ -19,66 +19,68 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,//back button for user experience
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         title: Text(capitalizeFirstLetter(categoryName)),
       ),
       body: Obx(
-        () => exploreStoryController.isLoadingCategoryPage.value
+            () => exploreStoryController.isLoadingCategoryPage.value
             ? Center(
-                child: SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: LoadingIndicator(
-                    indicatorType: Indicator.ballRotate,
-                    colors: [Theme.of(context).colorScheme.primary],
-                  ),
-                ),
-              )
+          child: SizedBox(
+            height: 200,
+            width: 200,
+            child: LoadingIndicator(
+              indicatorType: Indicator.ballRotate,
+              colors: [Theme.of(context).colorScheme.primary],
+            ),
+          ),
+        )
             : exploreStoryController.openedCategotyStories.isNotEmpty
             ? Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  primary: true,
-                  itemCount:
-                      exploreStoryController.openedCategotyStories.length,
-                  itemBuilder: (context, index) {
-                    final int storyIndex = index;
-                    return StoryListTile(
-                      story: exploreStoryController
-                          .openedCategotyStories[storyIndex],
-                    );
-                  },
-                ),
-              )
+          padding: const EdgeInsets.only(top: 20.0),
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            primary: true,
+            itemCount:
+            exploreStoryController.openedCategotyStories.length,
+            itemBuilder: (context, index) {
+              final int storyIndex = index;
+              return StoryListTile(
+                story: exploreStoryController
+                    .openedCategotyStories[storyIndex],
+              );
+            },
+          ),
+        )
             : Padding(
-                padding: const EdgeInsets.only(bottom: 150.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      height: 200,
-                      width: 200,
-                      AppImages.emptyBoxImage,
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.noStoriesInCategory(
-                          capitalizeFirstLetter(categoryName),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+          padding: const EdgeInsets.only(bottom: 150.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,// take the least size needed
+            children: [
+              Image.asset(
+                height: 200,
+                width: 200,
+                AppImages.emptyBoxImage,
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Text(
+                  AppLocalizations.of(context)!.noStoriesInCategory(
+                    capitalizeFirstLetter(categoryName),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
+            ],
+          ),
+        ),
       ),
     );
   }
