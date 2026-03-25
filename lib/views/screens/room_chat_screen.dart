@@ -137,13 +137,13 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
                           canEdit:
-                              auth.appwriteUser.$id ==
+                              auth.appwriteUser?.$id ==
                                   chatController.messages[index].creatorId &&
                               !chatController.messages[index].isDeleted &&
                               !chatController.messages[index].isEdited,
 
                           canDelete:
-                              auth.appwriteUser.$id ==
+                              auth.appwriteUser?.$id ==
                                   chatController.messages[index].creatorId &&
                               !chatController.messages[index].isDeleted,
                         );

@@ -41,8 +41,8 @@ class PairChatController extends GetxController {
   final RxBool isUserListLoading = true.obs;
 
   void quickMatch() async {
-    String uid = authController.uid!;
-    String userName = authController.userName!;
+    String uid = authController.uid??'';
+    String userName = authController.userName??"";
 
     // Open realtime stream to check whether the request is paired
     getRealtimeStream();
@@ -80,7 +80,8 @@ class PairChatController extends GetxController {
       "profileImageUrl": authController.profileImageUrl,
       "userName": authController.userName,
       "name": authController.displayName,
-      "userRating": authController.ratingTotal / authController.ratingCount,
+      "userRating":authController.ratingTotal!=null&&authController.ratingCount!=null?
+      authController.ratingTotal! / authController.ratingCount!:0,
     };
 
     // Add request to pair-request collection

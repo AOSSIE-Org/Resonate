@@ -428,7 +428,7 @@ class ExploreStoryController extends GetxController {
         },
       );
       //Don't send request to function if no followers
-      if (authStateController.followerDocuments.isNotEmpty) {
+      if (authStateController.followerDocuments?.isNotEmpty??false) {
         log('Sending notification for created story');
         var body = json.encode({
           'creatorId': authStateController.uid,

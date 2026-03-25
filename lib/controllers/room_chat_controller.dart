@@ -111,7 +111,7 @@ class RoomChatController extends GetxController {
       final Message message = Message(
         roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
         messageId: messageId,
-        creatorId: auth.appwriteUser.$id,
+        creatorId: auth.appwriteUser?.$id??"",
         creatorUsername: auth.userName!,
         creatorName: auth.displayName!,
         hasValidTag: false,

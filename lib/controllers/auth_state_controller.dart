@@ -27,7 +27,7 @@ class AuthStateController extends GetxController {
   Client client;
   final TablesDB tables;
   var isInitializing = false.obs;
-  FirebaseMessaging messaging;
+  FirebaseMessaging? messaging;
   late final Account account;
 
   AuthStateController({
@@ -38,20 +38,20 @@ class AuthStateController extends GetxController {
   }) : client = client ?? AppwriteService.getClient(),
        account = account ?? AppwriteService.getAccount(),
        tables = tables ?? AppwriteService.getTables(),
-       messaging = messaging ?? FirebaseMessaging.instance;
-  late String? uid;
-  late String? profileImageID;
-  late String? displayName;
-  late String? email;
-  late String? profileImageUrl;
-  late String? userName;
-  late bool? isUserProfileComplete;
-  late bool? isEmailVerified;
-  late double ratingTotal;
-  late int ratingCount;
-  late User appwriteUser;
-  late List<FollowerUserModel> followerDocuments;
-  late int reportsCount;
+       messaging = messaging ;//?? FirebaseMessaging.instance;
+   String? uid;
+   String? profileImageID;
+   String? displayName;
+   String? email;
+   String? profileImageUrl;
+   String? userName;
+   bool? isUserProfileComplete;
+   bool? isEmailVerified;
+   double? ratingTotal;
+   int? ratingCount;
+   User? appwriteUser;
+   List<FollowerUserModel>? followerDocuments;
+   int? reportsCount;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -108,7 +108,7 @@ class AuthStateController extends GetxController {
     await setUserProfileData();
 
     // ask for settings permissions
-    await messaging.requestPermission(
+    await messaging?.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -196,17 +196,17 @@ class AuthStateController extends GetxController {
     isInitializing.value = true;
     try {
       appwriteUser = await account.get();
-      displayName = appwriteUser.name;
-      email = appwriteUser.email;
-      isEmailVerified = appwriteUser.emailVerification;
-      uid = appwriteUser.$id;
+      displayName = appwriteUser?.name??"";
+      email = appwriteUser?.email??"";
+      isEmailVerified = appwriteUser?.emailVerification??false;
+      uid = appwriteUser?.$id??"";
       isUserProfileComplete =
-          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+          appwriteUser?.prefs.data["isUserProfileComplete"] ?? false;
       if (isUserProfileComplete == true) {
         Row userDataDoc = await tables.getRow(
           databaseId: userDatabaseID,
           tableId: usersTableID,
-          rowId: appwriteUser.$id,
+          rowId: appwriteUser?.$id??"",
           queries: [Query.select(["*", "followers.*", "userReports.*"])],
         );
         profileImageUrl = userDataDoc.data["profileImageUrl"];
@@ -237,7 +237,7 @@ class AuthStateController extends GetxController {
   Future<void> isUserLoggedIn() async {
     try {
       await setUserProfileData();
-      if (reportsCount > 5) {
+      if ((reportsCount!=null)&&reportsCount! > 5) {
         Get.offNamed(AppRoutes.userBlockedScreen);
         return;
       }
@@ -271,7 +271,7 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> addRegistrationTokentoSubscribedandCreatedUpcomingRooms() async {
-    final fcmToken = await messaging.getToken();
+    final fcmToken = await messaging?.getToken();
 
     //subscribed Upcoming Rooms
     List<Row> subscribedUpcomingRooms = await tables
@@ -318,7 +318,7 @@ class AuthStateController extends GetxController {
   }
 
   Future<void> removeRegistrationTokenFromSubscribedUpcomingRooms() async {
-    final fcmToken = await messaging.getToken();
+    final fcmToken = await messaging?.getToken();
 
     //subscribed Upcoming Rooms
     List<Row> subscribedUpcomingRooms = await tables

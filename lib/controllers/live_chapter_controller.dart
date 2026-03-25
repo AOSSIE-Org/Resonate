@@ -84,9 +84,9 @@ class LiveChapterController extends GetxController {
         chapterTitle: chapterTitle,
         chapterDescription: chapterDescription,
         storyId: storyId,
-        followersFCMToken: authStateController.followerDocuments
+        followersFCMToken:authStateController.followerDocuments!=null? authStateController.followerDocuments!
             .map((e) => e.fcmToken)
-            .toList(),
+            .toList():[],
         attendees: LiveChapterAttendeesModel(
           liveChapterId: roomId,
           users: List.empty(),
@@ -111,7 +111,7 @@ class LiveChapterController extends GetxController {
         adminUid: authStateController.uid!,
       );
       liveChapterModel.value = liveChapterData;
-      if (authStateController.followerDocuments.isNotEmpty) {
+      if (authStateController.followerDocuments?.isNotEmpty??false) {
         log('Sending notification for created story');
         var body = json.encode({
           'creatorId': authStateController.uid,

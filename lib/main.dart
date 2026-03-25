@@ -11,7 +11,7 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:resonate/firebase_options.dart';
+// import 'package:resonate/firebase_options.dart';
 import 'package:resonate/routes/app_pages.dart';
 import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
@@ -50,12 +50,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Get.testMode = false;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(
+  //   //  options: DefaultFirebaseOptions.currentPlatform
+  // );
   await GetStorage.init();
   Get.put(AboutAppScreenController());
   languageLocale =
@@ -64,7 +66,7 @@ Future<void> main() async {
     key: "whisperModel",
   );
   currentWhisperModel.value = WhisperModel.values.firstWhere(
-    (model) => model.modelName == (savedModel ?? "base"),
+        (model) => model.modelName == (savedModel ?? "base"),
     orElse: () => WhisperModel.base,
   );
   runApp(const MyApp());
@@ -79,7 +81,7 @@ class MyApp extends StatelessWidget {
     final themeController = Get.put(ThemeController());
 
     return Obx(
-      () => GetMaterialApp(
+          () => GetMaterialApp(
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

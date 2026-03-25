@@ -204,9 +204,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
-                          widget.isCreatorProfile == null
-                              ? (authController.ratingTotal /
-                                        authController.ratingCount)
+                          widget.isCreatorProfile == null &&
+                              authController.ratingTotal!=null&&
+                              authController.ratingCount!=null
+                              ? (authController.ratingTotal! /
+                                        authController.ratingCount!)
                                     .toStringAsFixed(1)
                               : widget.creator!.userRating!.toStringAsFixed(1),
                         ),
@@ -241,8 +243,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.only(left: 5),
                           child: widget.isCreatorProfile == null
                               ? Text(
-                                  authController.followerDocuments.length
-                                      .toString(),
+                                  authController.followerDocuments?.length.toString()??"",
                                 )
                               : Obx(
                                   () => Text(

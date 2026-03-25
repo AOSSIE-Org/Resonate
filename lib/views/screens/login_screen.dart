@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/views/screens/home_screen.dart';
 import '../../controllers/authentication_controller.dart';
 import '../../routes/app_routes.dart';
 
@@ -58,8 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) => value!.isValidEmail()
                           ? null
                           : AppLocalizations.of(
-                              context,
-                            )!.enterValidEmailAddress,
+                        context,
+                      )!.enterValidEmailAddress,
                       controller: controller.emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: UiSizes.height_10),
                     Obx(
-                      () => TextFormField(
+                          () => TextFormField(
                         controller: controller.passwordController,
                         obscureText: !controller.isPasswordFieldVisible.value,
                         validator: (value) => value! == ""
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 controller.isPasswordFieldVisible.value =
-                                    !controller.isPasswordFieldVisible.value;
+                                !controller.isPasswordFieldVisible.value;
                               },
                               child: Container(
                                 width: 56,
@@ -109,25 +110,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       width: double.maxFinite,
                       child: Obx(
-                        () => ElevatedButton(
+                            () => ElevatedButton(
                           onPressed: () async {
                             if (!controller.isLoading.value) {
                               if (controller.loginFormKey.currentState!
                                   .validate()) {
-                                await controller.login(context);
-                              }
+                                // await controller.login(context);
+                                Get.offAllNamed(AppRoutes.tabview);                              }
                             }
                           },
                           child: controller.isLoading.value
                               ? Center(
-                                  child:
-                                      LoadingAnimationWidget.horizontalRotatingDots(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.onPrimary,
-                                        size: UiSizes.size_40,
-                                      ),
-                                )
+                            child:
+                            LoadingAnimationWidget.horizontalRotatingDots(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onPrimary,
+                              size: UiSizes.size_40,
+                            ),
+                          )
                               : Text(AppLocalizations.of(context)!.login),
                         ),
                       ),
