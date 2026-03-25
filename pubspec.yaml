@@ -78,10 +78,10 @@ dependencies:
     git:
       url: https://github.com/lionelmennig/textfield_tags.git
       ref: fixes/allow-controller-re-registration
-  flutter_lyric:
-    git:
-      url: https://github.com/Aarush-Acharya/flutter_lyric.git
-      ref: master
+#  flutter_lyric:
+#    git:
+#      url: https://github.com/Aarush-Acharya/flutter_lyric.git
+#      ref: master
   url_launcher: ^6.3.2
   uuid: ^4.5.2
   audio_metadata_reader: ^1.4.2

@@ -11,7 +11,7 @@ class ChapterPlayer extends StatelessWidget {
   final double progress;
   ChapterPlayer({super.key, required this.chapter, required this.progress});
 
-  final ChapterPlayerController controller = Get.find();
+  //final ChapterPlayerController controller = Get.find();
 
   //currentPage
   @override
@@ -90,41 +90,41 @@ class ChapterPlayer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: [
-                    Obx(
-                      () => Slider(
-                        value: controller.sliderProgress.value,
-                        onChanged: (value) {
-                          controller.sliderProgress.value = value;
-                        },
-                        onChangeEnd: (double value) {
-                          controller.lyricProgress.value = value.toInt();
-
-                          controller.audioPlayer?.seek(
-                            Duration(milliseconds: value.toInt()),
-                          );
-                        },
-                        min: 0,
-                        max:
-                            controller.chapterDuration.inMilliseconds
-                                .toDouble() +
-                            1000,
-
-                        activeColor: Colors.white,
-                        // activeColor: widget.chapter.tintColor,
-                        inactiveColor: Colors.grey.shade300,
-                      ),
-                    ),
+                    // Obx(
+                    //   () => Slider(
+                    //     value: controller.sliderProgress.value,
+                    //     onChanged: (value) {
+                    //       controller.sliderProgress.value = value;
+                    //     },
+                    //     onChangeEnd: (double value) {
+                    //       controller.lyricProgress.value = value.toInt();
+                    //
+                    //       controller.audioPlayer?.seek(
+                    //         Duration(milliseconds: value.toInt()),
+                    //       );
+                    //     },
+                    //     min: 0,
+                    //     max:
+                    //         controller.chapterDuration.inMilliseconds
+                    //             .toDouble() +
+                    //         1000,
+                    //
+                    //     activeColor: Colors.white,
+                    //     // activeColor: widget.chapter.tintColor,
+                    //     inactiveColor: Colors.grey.shade300,
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
                           opacity: progress > 0.70 ? 0 : 1,
-                          child: Obx(
-                            () => Text(
-                              "${formatPlayDuration(controller.sliderProgress.value.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}",
-                            ),
-                          ),
+                          // child: Obx(
+                          //   () => Text(
+                          //     "${formatPlayDuration(controller.sliderProgress.value.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}",
+                          //   ),
+                          // ),
                         ),
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
@@ -149,29 +149,29 @@ class ChapterPlayer extends StatelessWidget {
               child: AnimatedOpacity(
                 duration: const Duration(milliseconds: 200),
                 opacity: progress > 0.45 ? 0 : 1,
-                child: Obx(
-                  () => IconButton(
-                    iconSize: 34,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    onPressed: progress > 0.45
-                        ? null
-                        : () {
-                            if (controller.isPlaying.value) {
-                              controller.audioPlayer?.pause();
-                            } else {
-                              controller.audioPlayer?.resume();
-                            }
-                          },
-                    icon: Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                // child: Obx(
+                //   () => IconButton(
+                //     iconSize: 34,
+                //     style: IconButton.styleFrom(
+                //       backgroundColor: Theme.of(context).colorScheme.primary,
+                //     ),
+                //     onPressed: progress > 0.45
+                //         ? null
+                //         : () {
+                //             if (controller.isPlaying.value) {
+                //               controller.audioPlayer?.pause();
+                //             } else {
+                //               controller.audioPlayer?.resume();
+                //             }
+                //           },
+                //     icon: Icon(
+                //       controller.isPlaying.value
+                //           ? Icons.pause
+                //           : Icons.play_arrow,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
               ),
             ),
             Positioned(
@@ -181,29 +181,29 @@ class ChapterPlayer extends StatelessWidget {
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 200),
                 opacity: progress > 0.45 ? 1 : 0,
-                child: Obx(
-                  () => IconButton(
-                    iconSize: 34,
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    onPressed: progress > 0.45
-                        ? () {
-                            if (controller.isPlaying.value) {
-                              controller.audioPlayer?.pause();
-                            } else {
-                              controller.audioPlayer?.resume();
-                            }
-                          }
-                        : null,
-                    icon: Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                // child: Obx(
+                //   () => IconButton(
+                //     iconSize: 34,
+                //     style: IconButton.styleFrom(
+                //       backgroundColor: Theme.of(context).colorScheme.primary,
+                //     ),
+                //     onPressed: progress > 0.45
+                //         ? () {
+                //             if (controller.isPlaying.value) {
+                //               controller.audioPlayer?.pause();
+                //             } else {
+                //               controller.audioPlayer?.resume();
+                //             }
+                //           }
+                //         : null,
+                //     icon: Icon(
+                //       controller.isPlaying.value
+                //           ? Icons.pause
+                //           : Icons.play_arrow,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // ),
               ),
             ),
 

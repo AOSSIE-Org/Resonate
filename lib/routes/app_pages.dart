@@ -117,7 +117,8 @@ class AppPages {
     GetPage(name: AppRoutes.welcomeScreen, page: () => WelcomeScreen()),
     // New Screens
     GetPage(name: AppRoutes.loginScreen, page: () => const LoginScreen()),
-    GetPage(name: AppRoutes.homeScreen, page: () => const HomeScreen()),
+    GetPage(name: AppRoutes.homeScreen, page: () => const HomeScreen(),
+        binding: TabViewBinding(), ),
     GetPage(name: AppRoutes.themeScreen, page: () => ThemeScreen()),
     GetPage(
       name: AppRoutes.userAccountScreen,

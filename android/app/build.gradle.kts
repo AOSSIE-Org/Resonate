@@ -3,7 +3,7 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
-    id("com.google.gms.google-services")
+    //id("com.google.gms.google-services")//fails due to missing google-services.json
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -43,14 +43,14 @@ println("PROJECT_ID: $projectId")
         versionName = flutter.versionName
         manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate", "PROJECT_ID" to projectId )
     }
-
+// cause I comment firebase so keystoreProperties may be null
     buildTypes {
         signingConfigs {
         create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String? ?: ""
+            keyPassword = keystoreProperties["keyPassword"] as String? ?: ""
             storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
+            storePassword = keystoreProperties["storePassword"] as String? ?: ""
         }
     }
         release {

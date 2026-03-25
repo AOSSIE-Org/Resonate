@@ -10,7 +10,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 
 class RatingSheetWidget extends StatelessWidget {
   RatingSheetWidget({super.key});
-  final Databases databases = AppwriteService.getDatabases();
+  final TablesDB tablesDB = AppwriteService.getTables();
   final PairChatController controller = Get.find<PairChatController>();
   final AuthStateController authController = Get.find<AuthStateController>();
 
@@ -57,10 +57,10 @@ class RatingSheetWidget extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await databases.updateDocument(
+                await tablesDB.updateRow(
                   databaseId: userDatabaseID,
-                  collectionId: usersCollectionID,
-                  documentId: authController.uid!,
+                  tableId: usersTableID,
+                  rowId: authController.uid!,
                   data: {
                     "ratingTotal":
                         authController.ratingTotal +

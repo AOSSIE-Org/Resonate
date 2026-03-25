@@ -5,6 +5,7 @@ import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_header.dart';
+import 'package:resonate/views/widgets/audio_selector_dialog.dart';
 
 import 'package:resonate/l10n/app_localizations.dart';
 
@@ -127,6 +128,15 @@ class FriendCallScreen extends StatelessWidget {
                   ? Theme.of(context).colorScheme.primary
                   : _getControlButtonBackgroundColor(currentBrightness),
               heroTag: "speaker",
+            ),
+            _buildControlButton(
+              icon: Icons.settings_voice,
+              label: AppLocalizations.of(context)!.audioOptions,
+              onPressed: () async => await showAudioDeviceSelector(context),
+              backgroundColor: _getControlButtonBackgroundColor(
+                currentBrightness,
+              ),
+              heroTag: "audio-settings",
             ),
             _buildControlButton(
               icon: Icons.cancel_outlined,
