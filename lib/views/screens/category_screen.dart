@@ -40,7 +40,7 @@ class CategoryScreen extends StatelessWidget {
               )
             : exploreStoryController.openedCategotyStories.isNotEmpty
             ? Padding(
-                padding: EdgeInsets.only(top: 20.0.h),
+                padding: EdgeInsets.only(top: 20.h),
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount:
