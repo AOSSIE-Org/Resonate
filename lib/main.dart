@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -77,31 +77,38 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     UiSizes.init(context);
     final themeController = Get.put(ThemeController());
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        // Use builder only if you need to use library outside ScreenUtilInit context
+        builder: (_ , child) {
+          return Obx(
+                () => GetMaterialApp(
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: Locale(languageLocale),
+              supportedLocales: AppLocalizations.supportedLocales,
+              debugShowCheckedModeBanner: false,
+              title: 'Resonate',
+              theme: ThemeModes.setLightTheme(
+                ThemeList.getThemeModel(themeController.currentTheme.value),
+              ),
+              darkTheme: ThemeModes.setDarkTheme(
+                ThemeList.getThemeModel(themeController.currentTheme.value),
+              ),
+              themeMode: ThemeList.getThemeModel(
+                themeController.currentTheme.value,
+              ).themeMode,
+              initialRoute: AppRoutes.splash,
+              getPages: AppPages.pages,
+            ),
+          );
+        });
 
-    return Obx(
-      () => GetMaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        locale: Locale(languageLocale),
-        supportedLocales: AppLocalizations.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        title: 'Resonate',
-        theme: ThemeModes.setLightTheme(
-          ThemeList.getThemeModel(themeController.currentTheme.value),
-        ),
-        darkTheme: ThemeModes.setDarkTheme(
-          ThemeList.getThemeModel(themeController.currentTheme.value),
-        ),
-        themeMode: ThemeList.getThemeModel(
-          themeController.currentTheme.value,
-        ).themeMode,
-        initialRoute: AppRoutes.splash,
-        getPages: AppPages.pages,
-      ),
-    );
   }
 }
