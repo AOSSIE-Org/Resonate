@@ -6,6 +6,7 @@ import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/views/widgets/category_card.dart';
 import 'package:resonate/views/widgets/story_list_tile.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({super.key, required this.categoryName});
@@ -29,8 +30,8 @@ class CategoryScreen extends StatelessWidget {
             () => exploreStoryController.isLoadingCategoryPage.value
             ? Center(
           child: SizedBox(
-            height: 200,
-            width: 200,
+            height: 200.h,
+            width: 200.w,
             child: LoadingIndicator(
               indicatorType: Indicator.ballRotate,
               colors: [Theme.of(context).colorScheme.primary],
@@ -39,13 +40,10 @@ class CategoryScreen extends StatelessWidget {
         )
             : exploreStoryController.openedCategotyStories.isNotEmpty
             ? Padding(
-          padding: const EdgeInsets.only(top: 20.0),
+          padding:  EdgeInsets.only(top: 20.0.h),
           child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            primary: true,
             itemCount:
             exploreStoryController.openedCategotyStories.length,
             itemBuilder: (context, index) {
@@ -58,19 +56,19 @@ class CategoryScreen extends StatelessWidget {
           ),
         )
             : Padding(
-          padding: const EdgeInsets.only(bottom: 150.0),
+          padding:  EdgeInsets.only(bottom: 150.0.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,// take the least size needed
             children: [
               Image.asset(
-                height: 200,
-                width: 200,
+                height: 200.h,
+                width: 200.w,
                 AppImages.emptyBoxImage,
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: 20.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0.w),
                 child: Text(
                   AppLocalizations.of(context)!.noStoriesInCategory(
                     capitalizeFirstLetter(categoryName),
