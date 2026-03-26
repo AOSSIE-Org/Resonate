@@ -30,8 +30,8 @@ class CategoryScreen extends StatelessWidget {
         () => exploreStoryController.isLoadingCategoryPage.value
             ? Center(
                 child: SizedBox(
-                  height: 200.h,
-                  width: 200.w,
+                  height: 200.r,
+                  width: 200.r,
                   child: LoadingIndicator(
                     indicatorType: Indicator.ballRotate,
                     colors: [Theme.of(context).colorScheme.primary],
@@ -62,8 +62,8 @@ class CategoryScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset(
-                        height: 200.h,
-                        width: 200.w,
+                        height: 200.r,
+                        width: 200.r,
                         AppImages.emptyBoxImage,
                       ),
                       SizedBox(height: 20.h),
