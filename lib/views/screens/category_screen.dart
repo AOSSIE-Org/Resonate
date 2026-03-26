@@ -56,7 +56,7 @@ class CategoryScreen extends StatelessWidget {
               )
             : Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0.w),
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
