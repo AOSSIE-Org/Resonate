@@ -203,13 +203,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icon(Icons.star, color: Colors.amber),
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
-                        child: Text(
+                        child:Text(
                           widget.isCreatorProfile == null
-                              ? (authController.ratingTotal /
+                              ? authController.ratingCount!=0?
+                          (authController.ratingTotal /
                                         authController.ratingCount)
                                     .toStringAsFixed(1)
-                              : widget.creator!.userRating!.toStringAsFixed(1),
-                        ),
+                              : "0.0":widget.creator!.userRating!.toStringAsFixed(1),
+                        ),),
                       ),
                     ],
                   ),
