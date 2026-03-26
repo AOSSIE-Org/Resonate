@@ -74,14 +74,8 @@ dependencies:
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
   stop_watch_timer: ^3.2.2
-  textfield_tags:
-    git:
-      url: https://github.com/lionelmennig/textfield_tags.git
-      ref: fixes/allow-controller-re-registration
-  flutter_lyric:
-    git:
-      url: https://github.com/Aarush-Acharya/flutter_lyric.git
-      ref: master
+  textfield_tags: ^3.0.1 
+  flutter_lyric: ^3.0.2
   url_launcher: ^6.3.2
   uuid: ^4.5.2
   audio_metadata_reader: ^1.4.2
