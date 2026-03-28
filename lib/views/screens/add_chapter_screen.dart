@@ -90,7 +90,7 @@ class AddNewChapterScreenState extends State<AddNewChapterScreen> {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            Expanded(
+               Flexible(
               child: ListView.builder(
                 itemCount: newChapters.length,
                 itemBuilder: (context, index) {
