@@ -56,9 +56,10 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
     );
 
     if (result != null) {
-      setState(() {
-        audioFile = File(result.files.single.path!);
-      });
+      final path = result.files.single.path;
+      if (path != null) {
+        setState(() => audioFile = File(path));
+      }
     }
   }
 
@@ -68,11 +69,15 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
       allowedExtensions: ['txt'],
     );
 
-    if (result != null) {
-      setState(() {
-        lyricsFile = File(result.files.single.path!);
-      });
-    }
+     
+  if (result != null) {
+   if(result.files.single.path!=null){
+     setState(() {
+       lyricsFile = File(result.files.single.path!);
+     });
+   }
+
+  }
   }
 
   void createChapter() async {
@@ -109,6 +114,13 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
 
     Navigator.pop(Get.context!);
   }
+
+@override
+void dispose() {
+  titleController.dispose();
+  aboutController.dispose();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
