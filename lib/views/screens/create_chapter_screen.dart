@@ -55,6 +55,8 @@ class CreateChapterScreenState extends State<CreateChapterScreen> {
       ],
     );
 
+ if (!mounted) return;
+
     if (result != null) {
       final path = result.files.single.path;
       if (path != null) {
