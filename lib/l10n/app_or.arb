@@ -1,0 +1,1762 @@
+{
+    "@@locale": "or",
+    "title": "ରେଜୋନେଟ୍",
+    "@title": {
+        "description": "ଆପ୍ଲିକେସନର ଶୀର୍ଷକ।"
+    },
+    "roomDescription": "ଦୟାକରି ଭଦ୍ର ଭାବେ କଥା ହୁଅନ୍ତୁ ଏବଂ ଅନ୍ୟମାନଙ୍କୁ ସମ୍ମାନ ଦିଅନ୍ତୁ। ଖରାପ ଭାଷା ବ୍ୟବହାର କରନ୍ତୁ ନାହିଁ।",
+    "@roomDescription": {
+        "description": "ଚାଟ ରୁମରେ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପାଇଁ ନିର୍ଦ୍ଦେଶ ବାର୍ତ୍ତା।"
+    },
+    "hidePassword": "ପାସୱାର୍ଡ ଲୁଚାନ୍ତୁ",
+    "@hidePassword": {
+        "description": "ପାସୱାର୍ଡ ଲୁଚାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "showPassword": "ପାସୱାର୍ଡ ଦେଖାନ୍ତୁ",
+    "@showPassword": {
+        "description": "ପାସୱାର୍ଡ ଦେଖାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "passwordEmpty": "ପାସୱାର୍ଡ ଖାଲି ରଖନ୍ତୁ ନାହିଁ",
+    "@passwordEmpty": {
+        "description": "ପାସୱାର୍ଡ ଖାଲି ଥିଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "password": "ପାସୱାର୍ଡ",
+    "@password": {
+        "description": "ପାସୱାର୍ଡ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "confirmPassword": "ପାସୱାର୍ଡ କନଫର୍ମ କରନ୍ତୁ",
+    "@confirmPassword": {
+        "description": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "passwordsNotMatch": "ପାସୱାର୍ଡ ମେଳ ଖାଉନାହିଁ",
+    "@passwordsNotMatch": {
+        "description": "ପାସୱାର୍ଡ ଓ ନିଶ୍ଚିତ ପାସୱାର୍ଡ ମେଳ ନ ଖାଇଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "userCreatedStories": "ୟୁଜରଙ୍କ ଦ୍ୱାରା ତିଆରି କାହାଣୀ",
+    "@userCreatedStories": {
+        "description": "ଅନ୍ୟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ତିଆରି ଗଳ୍ପ ବିଭାଗ ଶୀର୍ଷକ।"
+    },
+    "yourStories": "ଆପଣଙ୍କ କାହାଣୀ",
+    "@yourStories": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ତିଆରି ଗଳ୍ପ ବିଭାଗ ଶୀର୍ଷକ।"
+    },
+    "userNoStories": "ୟୁଜର କୌଣସି କାହାଣୀ ତିଆରି କରିନାହାନ୍ତି",
+    "@userNoStories": {
+        "description": "ଅନ୍ୟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲ ଦେଖୁଥିବା ସମୟରେ ଗଳ୍ପ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "youNoStories": "ଆପଣ କୌଣସି କାହାଣୀ ତିଆରି କରିନାହାନ୍ତି",
+    "@youNoStories": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲରେ ଗଳ୍ପ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "follow": "ଫଲୋ କରନ୍ତୁ",
+    "@follow": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଅନୁସରଣ କରିବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "editProfile": "ପ୍ରୋଫାଇଲ ଏଡିଟ୍ କରନ୍ତୁ",
+    "@editProfile": {
+        "description": "ପ୍ରୋଫାଇଲ ସଂପାଦନ ପୃଷ୍ଠାକୁ ଯିବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "verifyEmail": "ଇମେଲ୍ ଭେରିଫାଇ କରନ୍ତୁ",
+    "@verifyEmail": {
+        "description": "ଇମେଲ ଯାଞ୍ଚ ପ୍ରକ୍ରିୟା ଆରମ୍ଭ ବଟନ ବା ଲିଙ୍କ ଟେକ୍ସଟ।"
+    },
+    "verified": "ଭେରିଫାଇଡ୍",
+    "@verified": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଇମେଲ ଯାଞ୍ଚ ହୋଇଥିବା ସ୍ଥିତି ଲେବଲ।"
+    },
+    "profile": "ପ୍ରୋଫାଇଲ",
+    "@profile": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ପ୍ରୋଫାଇଲ ବିଭାଗ ବା ପୃଷ୍ଠା ଲେବଲ।"
+    },
+    "userLikedStories": "ୟୁଜର ପସନ୍ଦ କରିଥିବା କାହାଣୀ",
+    "@userLikedStories": {
+        "description": "ଅନ୍ୟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପସନ୍ଦ ଗଳ୍ପ ବିଭାଗ ଶୀର୍ଷକ।"
+    },
+    "yourLikedStories": "ଆପଣ ପସନ୍ଦ କରିଥିବା କାହାଣୀ",
+    "@yourLikedStories": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପସନ୍ଦ ଗଳ୍ପ ବିଭାଗ ଶୀର୍ଷକ।"
+    },
+    "userNoLikedStories": "ୟୁଜର କୌଣସି କାହାଣୀ ପସନ୍ଦ କରିନାହାନ୍ତି",
+    "@userNoLikedStories": {
+        "description": "ଅନ୍ୟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲ ଦେଖୁଥିବା ସମୟରେ ପସନ୍ଦ ଗଳ୍ପ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "youNoLikedStories": "ଆପଣ କୌଣସି କାହାଣୀ ପସନ୍ଦ କରିନାହାନ୍ତି",
+    "@youNoLikedStories": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲରେ ପସନ୍ଦ ଗଳ୍ପ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "live": "ଲାଇଭ",
+    "@live": {
+        "description": "ଲାଇଭ ଅଡ଼ିଓ ରୁମ ଟ୍ୟାବ ବା ଲେବଲ।"
+    },
+    "upcoming": "ଆସୁଥିବା",
+    "@upcoming": {
+        "description": "ଯୋଜିତ/ଆସନ୍ତା ଅଡ଼ିଓ ରୁମ ଟ୍ୟାବ ବା ଲେବଲ।"
+    },
+    "noAvailableRoom": "ବର୍ତ୍ତମାନ କୌଣସି ରୁମ୍ ନାହିଁ। ତଳେ ଥିବା ବଟନ୍ ଦବାଇ ନିଜେ ଆରମ୍ଭ କରନ୍ତୁ!",
+    "@noAvailableRoom": {
+        "description": "ରୁମ ବା ଆସନ୍ତା ରୁମ ଉପଲବ୍ଧ ନ ଥିଲେ କ୍ରିୟା ଆହ୍ୱାନ ସହ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "user1": "ୟୁଜର ୧",
+    "@user1": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ପାଇଁ ସାଧାରଣ ନାମ ସ୍ଥାନଧାରୀ।"
+    },
+    "user2": "ୟୁଜର ୨",
+    "@user2": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ପାଇଁ ଦ୍ୱିତୀୟ ସାଧାରଣ ନାମ ସ୍ଥାନଧାରୀ।"
+    },
+    "you": "ଆପଣ",
+    "@you": {
+        "description": "ତାଲିକା ବା ଚାଟରେ ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଚିହ୍ନଟ କରିବା ଲେବଲ।"
+    },
+    "areYouSure": "ଆପଣ ନିଶ୍ଚିତ କି?",
+    "@areYouSure": {
+        "description": "ନିଶ୍ଚିତ ଅନୁଜ୍ଞା ଶୀର୍ଷକ।"
+    },
+    "loggingOut": "ଆପଣ ରେଜୋନେଟ୍ ଆପ୍‌ରୁ ଲଗ୍ ଆଉଟ୍ ହେଉଛନ୍ତି।",
+    "@loggingOut": {
+        "description": "ଲଗ ଆଉଟ ନିଶ୍ଚିତ ଅନୁଜ୍ଞା ବାର୍ତ୍ତା।"
+    },
+    "yes": "ହଁ",
+    "@yes": {
+        "description": "ସାଧାରଣ ନିଶ୍ଚିତ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "no": "ନା",
+    "@no": {
+        "description": "ସାଧାରଣ ବାତିଲ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "incorrectEmailOrPassword": "ଇମେଲ୍ କିମ୍ବା ପାସୱାର୍ଡ ଭୁଲ୍ ଅଛି",
+    "@incorrectEmailOrPassword": {
+        "description": "ଲଗଇନ ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "passwordShort": "ପାସୱାର୍ଡ ଅତି କମରେ ୮ଟି ଅକ୍ଷର ହେବା ଦରକାର",
+    "@passwordShort": {
+        "description": "ପାସୱାର୍ଡ ବହୁ ଛୋଟ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "tryAgain": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ!",
+    "@tryAgain": {
+        "description": "ବିଫଳ କ୍ରିୟା ପୁଣି ଚେଷ୍ଟା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "success": "ସଫଳ",
+    "@success": {
+        "description": "ସଫଳ ଅପରେସନ ପାଇଁ ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "passwordResetSent": "ପାସୱାର୍ଡ ରିସେଟ୍ କରିବା ପାଇଁ ଇମେଲ୍ ପଠାଯାଇଛି!",
+    "@passwordResetSent": {
+        "description": "ପାସୱାର୍ଡ ରିସେଟ ଇମେଲ ପଠାଯିବା ପରେ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "error": "ଭୁଲ୍",
+    "@error": {
+        "description": "ବିଫଳ ଅପରେସନ ପାଇଁ ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "resetPassword": "ପାସୱାର୍ଡ ରିସେଟ କରନ୍ତୁ",
+    "@resetPassword": {
+        "description": "ପାସୱାର୍ଡ ରିସେଟ ଫିଚର ଶୀର୍ଷକ ବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "enterNewPassword": "ନୂଆ ପାସୱାର୍ଡ ଦିଅନ୍ତୁ",
+    "@enterNewPassword": {
+        "description": "ପାସୱାର୍ଡ ରିସେଟ ପୃଷ୍ଠାରେ ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ।"
+    },
+    "newPassword": "ନୂଆ ପାସୱାର୍ଡ",
+    "@newPassword": {
+        "description": "ନୂଆ ପାସୱାର୍ଡ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "setNewPassword": "ନୂଆ ପାସୱାର୍ଡ ସେଟ କରନ୍ତୁ",
+    "@setNewPassword": {
+        "description": "ନୂଆ ପାସୱାର୍ଡ ସ୍ଥାପନ ନିଶ୍ଚିତ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "emailChanged": "ଇମେଲ୍ ବଦଳାଯାଇଛି",
+    "@emailChanged": {
+        "description": "ଇମେଲ ପରିବର୍ତ୍ତନ ପରେ ସଫଳ ଡ଼ାୟଲଗ ଶୀର୍ଷକ।"
+    },
+    "emailChangeSuccess": "ଇମେଲ୍ ସଫଳତାର ସହ ବଦଳାଯାଇଛି!",
+    "@emailChangeSuccess": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଇମେଲ ପରିବର୍ତ୍ତନ ପରେ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "failed": "ହୋଇପାରିଲା ନାହିଁ",
+    "@failed": {
+        "description": "ବିଫଳ ଅପରେସନ ପାଇଁ ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "emailChangeFailed": "ଇମେଲ ପରିବର୍ତ୍ତନ ବିଫଳ ହୋଇଛି",
+    "@emailChangeFailed": {
+        "description": "ଇମେଲ ପରିବର୍ତ୍ତନ ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "oops": "ଓଃ!",
+    "@oops": {
+        "description": "ତ୍ରୁଟି ବା ସତର୍କ ବାର୍ତ୍ତା ପାଇଁ ଅନୌପଚାରିକ ଶୀର୍ଷକ।"
+    },
+    "emailExists": "ଏହି ଇମେଲ୍ ଆଗରୁ ବ୍ୟବହାର ହୋଇଛି",
+    "@emailExists": {
+        "description": "ଆଗରୁ ବ୍ୟବହୃତ ଇମେଲ ଦ୍ୱାରା ନିବନ୍ଧନ ବା ପରିବର୍ତ୍ତନ ଚେଷ୍ଟା କଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "changeEmail": "ଇମେଲ୍ ବଦଳାନ୍ତୁ",
+    "@changeEmail": {
+        "description": "ଇମେଲ ପରିବର୍ତ୍ତନ ଫିଚର ଶୀର୍ଷକ ବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "enterValidEmail": "ଦୟାକରି ସଠିକ୍ ଇମେଲ୍ ଦିଅନ୍ତୁ",
+    "@enterValidEmail": {
+        "description": "ଅବୈଧ ଇମେଲ ଫର୍ମାଟ ପାଇଁ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "newEmail": "ନୂଆ ଇମେଲ",
+    "@newEmail": {
+        "description": "ନୂଆ ଇମେଲ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "currentPassword": "ବର୍ତ୍ତମାନ ପାସୱାର୍ଡ",
+    "@currentPassword": {
+        "description": "ଯାଞ୍ଚ ପାଇଁ ବ୍ୟବହୃତ ବର୍ତ୍ତମାନ ପାସୱାର୍ଡ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "emailChangeInfo": "ସୁରକ୍ଷା ପାଇଁ, ଇମେଲ୍ ବଦଳାଇବା ସମୟରେ ପାସୱାର୍ଡ ଦେବା ଜରୁରୀ। ଏହା ପରେ ନୂଆ ଇମେଲ୍ ବ୍ୟବହାର କରି ଲଗ୍-ଇନ୍ କରିବେ।",
+    "@emailChangeInfo": {
+        "description": "ସ୍ୱାଭାବିକ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଇମେଲ ପରିବର୍ତ୍ତନ ପ୍ରକ୍ରିୟା ଓ ସୁରକ୍ଷା ଆବଶ୍ୟକତା ଜଣାଉଥିବା ଟେକ୍ସଟ।"
+    },
+    "oauthUsersMessage": "((କେବଳ Google କିମ୍ବା Github ମାଧ୍ୟମରେ ଆସିଥିବା ୟୁଜରଙ୍କ ପାଇଁ))",
+    "@oauthUsersMessage": {
+        "description": "ପରବର୍ତ୍ତୀ ନିର୍ଦ୍ଦେଶ OAuth ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପାଇଁ ବୋଲି ଦର୍ଶାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "oauthUsersEmailChangeInfo": "ଇମେଲ୍ ବଦଳାଇବା ପାଇଁ ଏକ ନୂଆ ପାସୱାର୍ଡ ଦିଅନ୍ତୁ। ଏହାକୁ ମନେ ରଖନ୍ତୁ, ପରେ ଏହା କାମରେ ଆସିବ।",
+    "@oauthUsersEmailChangeInfo": {
+        "description": "Google ବା GitHub ଦ୍ୱାରା ସାଇନ ଅପ ଉପଯୋଗକର୍ତ୍ତା ନୂଆ ପାସୱାର୍ଡ ଦ୍ୱାରା ଇମେଲ ପରିବର୍ତ୍ତନ କଳ ପ୍ରକ୍ରିୟା ବୁଝାଉଥିବା ଟେକ୍ସଟ।"
+    },
+    "resonateTagline": "କଥାବାର୍ତ୍ତାର ଏକ ନୂଆ ଦୁନିଆକୁ ଆସନ୍ତୁ।",
+    "@resonateTagline": {
+        "description": "ସ୍ପ୍ଲାସ ବା ଲଗଇନ ପୃଷ୍ଠାରେ ବ୍ୟବହୃତ ଆପ୍ଲିକେସନ ଟ୍ୟାଗଲାଇନ।"
+    },
+    "signInWithEmail": "ଇମେଲ୍ ଦ୍ୱାରା ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "@signInWithEmail": {
+        "description": "ଇମେଲ ଓ ପାସୱାର୍ଡ ଦ୍ୱାରା ସାଇନ ଇନ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "or": "କିମ୍ବା",
+    "@or": {
+        "description": "ବିଭିନ୍ନ ଲଗଇନ ବିକଳ୍ପ ମଧ୍ୟରେ ବ୍ୟବହୃତ ବିଭାଜକ ଟେକ୍ସଟ।"
+    },
+    "continueWith": "ଏହା ସହ ଆଗକୁ ବଢନ୍ତୁ",
+    "@continueWith": {
+        "description": "ତୃତୀୟ-ପକ୍ଷ ଲଗଇନ ପ୍ରଦାନକାରୀ ତାଲିକା ଆଗର ଜ୍ଞାନ ଟେକ୍ସଟ।"
+    },
+    "continueWithGoogle": "Google ସହ ଆଗକୁ ବଢନ୍ତୁ",
+    "@continueWithGoogle": {
+        "description": "Google ଖାତାରେ ସାଇନ ଇନ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "continueWithGitHub": "GitHub ସହ ଆଗକୁ ବଢନ୍ତୁ",
+    "@continueWithGitHub": {
+        "description": "GitHub ଖାତାରେ ସାଇନ ଇନ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "resonateLogo": "Resonate ଲୋଗୋ",
+    "@resonateLogo": {
+        "description": "Resonate ଆପ୍ଲିକେସନ ଲୋଗୋ ଚିତ୍ର ପାଇଁ ଅ‍ଭିଗମ୍ୟ ଟେକ୍ସଟ।"
+    },
+    "iAlreadyHaveAnAccount": "ମୋର ଆଗରୁ ଆକାଉଣ୍ଟ ଅଛି",
+    "@iAlreadyHaveAnAccount": {
+        "description": "ସାଇନ ଅପ ପୃଷ୍ଠାରୁ ଲଗଇନ ପୃଷ୍ଠାକୁ ଯିବା ଲିଙ୍କ ବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createNewAccount": "ନୂଆ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ",
+    "@createNewAccount": {
+        "description": "ଲଗଇନ ପୃଷ୍ଠାରୁ ସାଇନ ଅପ ପୃଷ୍ଠାକୁ ଯିବା ଲିଙ୍କ ବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "userProfile": "ୟୁଜର ପ୍ରୋଫାଇଲ",
+    "@userProfile": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲ ଚିତ୍ର ବା ଆଭାଟାର ପାଇଁ ଅ‍ଭିଗମ୍ୟ ଟେକ୍ସଟ।"
+    },
+    "passwordIsStrong": "ପାସୱାର୍ଡ ଶକ୍ତିଶାଳୀ ଅଛି",
+    "@passwordIsStrong": {
+        "description": "ପ୍ରବେଶ ହୋଇଥିବା ପାସୱାର୍ଡ ସମସ୍ତ ଶକ୍ତି ଆବଶ୍ୟକତା ପୂରଣ କଳ ଯାଞ୍ଚ ବାର୍ତ୍ତା।"
+    },
+    "admin": "ଆଡ୍‌ମିନ",
+    "@admin": {
+        "description": "ରୁମରେ ଆଡ୍‌ମିନ ଉପଯୋଗକର୍ତ୍ତା ଭୂମିକା ଲେବଲ।"
+    },
+    "moderator": "ମଡ଼େରାଟର",
+    "@moderator": {
+        "description": "ରୁମରେ ମଡ଼େରାଟର ଉପଯୋଗକର୍ତ୍ତା ଭୂମିକା ଲେବଲ।"
+    },
+    "speaker": "ସ୍ପିକର (ବକ୍ତା)",
+    "@speaker": {
+        "description": "ରୁମରେ ବକ୍ତା ଉପଯୋଗକର୍ତ୍ତା ଭୂମିକା ଲେବଲ।"
+    },
+    "listener": "ଲିସନର (ଶ୍ରୋତା)",
+    "@listener": {
+        "description": "ରୁମରେ ଶ୍ରୋତା ଉପଯୋଗକର୍ତ୍ତା ଭୂମିକା ଲେବଲ।"
+    },
+    "removeModerator": "ମଡ଼େରାଟର ସରାନ୍ତୁ",
+    "@removeModerator": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କଠୁ ମଡ଼େରାଟର ଅଧିକାର ବାତିଲ ମେନୁ ଟେକ୍ସଟ।"
+    },
+    "kickOut": "ବାହାର କରନ୍ତୁ",
+    "@kickOut": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ରୁମରୁ ବାହାର କରିବା ମେନୁ ଟେକ୍ସଟ।"
+    },
+    "addModerator": "ମଡ଼େରାଟର ଯୋଗ କରନ୍ତୁ",
+    "@addModerator": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ମଡ଼େରାଟର ଅଧିକାର ଦେବା ମେନୁ ଟେକ୍ସଟ।"
+    },
+    "addSpeaker": "ବକ୍ତା ଯୋଗ କରନ୍ତୁ",
+    "@addSpeaker": {
+        "description": "ଶ୍ରୋତାଙ୍କୁ ବକ୍ତା ଅଧିକାର ଦେବା ମେନୁ ଟେକ୍ସଟ।"
+    },
+    "makeListener": "ଶ୍ରୋତା କରନ୍ତୁ",
+    "@makeListener": {
+        "description": "ବକ୍ତାଙ୍କ ଭୂମିକା ଶ୍ରୋତାରେ ପରିବର୍ତ୍ତନ ମେନୁ ଟେକ୍ସଟ।"
+    },
+    "pairChat": "ଯୋଡ଼ି ଚାଟ",
+    "@pairChat": {
+        "description": "ଏକ-ଏକ ଯଦୃଚ୍ଛ ଚାଟ ଫିଚର ନାମ।"
+    },
+    "chooseIdentity": "ପରିଚୟ ବାଛନ୍ତୁ",
+    "@chooseIdentity": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଗୁପ୍ତ ବା ସର୍ବସାଧାରଣ ପରିଚୟ ବାଛିବା ଅନୁଜ୍ଞା।"
+    },
+    "selectLanguage": "ଭାଷା ବାଛନ୍ତୁ",
+    "@selectLanguage": {
+        "description": "ଭାଷା ଚୟନ ସେଟିଂ ଲେବଲ।"
+    },
+    "noConnection": "ସଂଯୋଗ ନାହିଁ",
+    "@noConnection": {
+        "description": "ଇଣ୍ଟର୍ନେଟ ସଂଯୋଗ ନ ଥିବା ଦର୍ଶାଉଥିବା ଶୀର୍ଷକ।"
+    },
+    "loadingDialog": "ଲୋଡ଼ିଂ ଡ଼ାୟଲଗ",
+    "@loadingDialog": {
+        "description": "ଲୋଡ଼ିଂ ସୂଚକ ବା ସ୍ପିନର ପାଇଁ ଅ‍ଭିଗମ୍ୟ ଟେକ୍ସଟ।"
+    },
+    "createAccount": "ଖାତା ତିଆରି କରନ୍ତୁ",
+    "@createAccount": {
+        "description": "ଖାତା ତିଆରି ପୃଷ୍ଠା ବଟନ ଟେକ୍ସଟ ବା ଶୀର୍ଷକ।"
+    },
+    "enterValidEmailAddress": "ବୈଧ ଇମେଲ ଠିକଣା ପ୍ରବେଶ କରନ୍ତୁ",
+    "@enterValidEmailAddress": {
+        "description": "ଅବୈଧ ଇମେଲ ଫର୍ମାଟ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "email": "ଇମେଲ",
+    "@email": {
+        "description": "ଇମେଲ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "passwordRequirements": "ପାସୱାର୍ଡ ଅନ୍ତତଃ ୮ ଅକ୍ଷରର ହେବା ଉଚିତ",
+    "@passwordRequirements": {
+        "description": "ବୈଧ ପାସୱାର୍ଡ ଆବଶ୍ୟକତା ତାଲିକା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ, ଭାଗ ୧।"
+    },
+    "includeNumericDigit": "ଅନ୍ତତଃ ୧ ଟି ସଂଖ୍ୟା ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
+    "@includeNumericDigit": {
+        "description": "ବୈଧ ପାସୱାର୍ଡ ଆବଶ୍ୟକତା ତାଲିକା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ, ଭାଗ ୨।"
+    },
+    "includeUppercase": "ଅନ୍ତତଃ ୧ ଟି ବଡ଼ ଅକ୍ଷର ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
+    "@includeUppercase": {
+        "description": "ବୈଧ ପାସୱାର୍ଡ ଆବଶ୍ୟକତା ତାଲିକା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ, ଭାଗ ୩।"
+    },
+    "includeLowercase": "ଅନ୍ତତଃ ୧ ଟି ଛୋଟ ଅକ୍ଷର ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
+    "@includeLowercase": {
+        "description": "ବୈଧ ପାସୱାର୍ଡ ଆବଶ୍ୟକତା ତାଲିକା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ, ଭାଗ ୪।"
+    },
+    "includeSymbol": "ଅନ୍ତତଃ ୧ ଟି ଚିହ୍ନ ଅନ୍ତର୍ଭୁକ୍ତ କରନ୍ତୁ",
+    "@includeSymbol": {
+        "description": "ବୈଧ ପାସୱାର୍ଡ ଆବଶ୍ୟକତା ତାଲିକା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ, ଭାଗ ୫।"
+    },
+    "signedUpSuccessfully": "ସଫଳଭାବରେ ସାଇନ ଅପ ହୋଇଛି",
+    "@signedUpSuccessfully": {
+        "description": "ଖାତା ତିଆରି ପରେ ସଫଳ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "newAccountCreated": "ଆପଣ ସଫଳଭାବରେ ଏକ ନୂଆ ଖାତା ତିଆରି କରିଛନ୍ତି",
+    "@newAccountCreated": {
+        "description": "ନୂଆ ଖାତା ତିଆରି ନିଶ୍ଚିତ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "signUp": "ସାଇନ ଅପ",
+    "@signUp": {
+        "description": "ସାଇନ ଅପ ଫର୍ମ ଜମା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "login": "ଲଗଇନ",
+    "@login": {
+        "description": "ଲଗଇନ ଫର୍ମ ଜମା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "settings": "ସେଟିଂ",
+    "@settings": {
+        "description": "ସେଟିଂ ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "accountSettings": "ଖାତା ସେଟିଂ",
+    "@accountSettings": {
+        "description": "ଖାତା ସଂକ୍ରାନ୍ତ ସେଟିଂ ଉପ-ଶୀର୍ଷକ।"
+    },
+    "account": "ଖାତା",
+    "@account": {
+        "description": "ଖାତା ସେଟିଂ ବିଭାଗ ଲେବଲ।"
+    },
+    "appSettings": "ଆପ ସେଟିଂ",
+    "@appSettings": {
+        "description": "ଆପ ସଂକ୍ରାନ୍ତ ସେଟିଂ ଉପ-ଶୀର୍ଷକ।"
+    },
+    "themes": "ଥିମ",
+    "@themes": {
+        "description": "ଥିମ ଚୟନ ସେଟିଂ ଲେବଲ।"
+    },
+    "about": "ବିଷୟରେ",
+    "@about": {
+        "description": "ଆପ ବା ଗଳ୍ପର 'ବିଷୟରେ' ବିଭାଗ ବା ପୃଷ୍ଠା ଲେବଲ।"
+    },
+    "other": "ଅନ୍ୟ",
+    "@other": {
+        "description": "ବିବିଧ ସେଟିଂ ବା ଆଇଟମ ପାଇଁ ସାଧାରଣ ବର୍ଗ ଲେବଲ।"
+    },
+    "contribute": "ଯୋଗଦାନ କରନ୍ତୁ",
+    "@contribute": {
+        "description": "ପ୍ରକଳ୍ପରେ ଯୋଗଦାନ ପ୍ରୋତ୍ସାହିତ ବିଭାଗ ଲେବଲ।"
+    },
+    "appPreferences": "ଆପ ପସନ୍ଦ",
+    "@appPreferences": {
+        "description": "ଆପ ପସନ୍ଦ ସେଟିଂ ପୃଷ୍ଠା ଲେବଲ।"
+    },
+    "transcriptionModel": "ଟ୍ରାନ୍ସକ୍ରିପ୍ସନ ମଡ଼େଲ",
+    "@transcriptionModel": {
+        "description": "AI ଟ୍ରାନ୍ସକ୍ରିପ୍ସନ ମଡ଼େଲ ବାଛିବା ବିଭାଗ ଶୀର୍ଷକ।"
+    },
+    "transcriptionModelDescription": "ଭଏସ ଟ୍ରାନ୍ସକ୍ରିପ୍ସନ ପାଇଁ AI ମଡ଼େଲ ବାଛନ୍ତୁ। ବଡ଼ ମଡ଼େଲ ଅଧିକ ସଠିକ ଅଟେ କିନ୍ତୁ ଧୀର ଏବଂ ଅଧିକ ଷ୍ଟୋରେଜ ଦରକାର କରେ।",
+    "@transcriptionModelDescription": {
+        "description": "ଟ୍ରାନ୍ସକ୍ରିପ୍ସନ ମଡ଼େଲ ବିକଳ୍ପ ବୁଝାଉଥିବା ବିବରଣ ଟେକ୍ସଟ।"
+    },
+    "whisperModelTiny": "ଛୋଟ",
+    "@whisperModelTiny": {
+        "description": "ସବୁଠୁ ଛୋଟ Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelTinyDescription": "ସବୁଠାରୁ ଦ୍ରୁତ, କମ ସଠିକ (~୩୯ MB)",
+    "@whisperModelTinyDescription": {
+        "description": "ଛୋଟ Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "whisperModelBase": "ଆଧାର",
+    "@whisperModelBase": {
+        "description": "ଆଧାର Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelBaseDescription": "ଗତି ଓ ସଠିକତାର ସନ୍ତୁଳନ (~୭୪ MB)",
+    "@whisperModelBaseDescription": {
+        "description": "ଆଧାର Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "whisperModelSmall": "ଲଘୁ",
+    "@whisperModelSmall": {
+        "description": "ଲଘୁ Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelSmallDescription": "ଭଲ ସଠିକତା, ଧୀର (~୨୪୪ MB)",
+    "@whisperModelSmallDescription": {
+        "description": "ଲଘୁ Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "whisperModelMedium": "ମଧ୍ୟମ",
+    "@whisperModelMedium": {
+        "description": "ମଧ୍ୟମ Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelMediumDescription": "ଉଚ୍ଚ ସଠିକତା, ଧୀର (~୭୬୯ MB)",
+    "@whisperModelMediumDescription": {
+        "description": "ମଧ୍ୟମ Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "whisperModelLargeV1": "ବଡ଼ V1",
+    "@whisperModelLargeV1": {
+        "description": "ବଡ଼ V1 Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelLargeV1Description": "ସର୍ବାଧିକ ସଠିକ, ସବୁଠୁ ଧୀର (~୧.୫୫ GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "ବଡ଼ V1 Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "whisperModelLargeV2": "ବଡ଼ V2",
+    "@whisperModelLargeV2": {
+        "description": "ବଡ଼ V2 Whisper AI ମଡ଼େଲ ନାମ।"
+    },
+    "whisperModelLargeV2Description": "ଉନ୍ନତ ବଡ଼ ମଡ଼େଲ ଅଧିକ ସଠିକତା ସହ (~୧.୫୫ GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "ବଡ଼ V2 Whisper ମଡ଼େଲ କାର୍ଯ୍ୟ ଦକ୍ଷତା ଓ ଆକାର ବିବରଣ।"
+    },
+    "modelDownloadInfo": "ପ୍ରଥମ ବ୍ୟବହାର ସମୟରେ ମଡ଼େଲ ଡ଼ାଉନଲୋଡ ହୁଏ। ଆମେ Base, Small, ବା Medium ବ୍ୟବହାର ପରାମର୍ଶ ଦେଉ। ବଡ଼ ମଡ଼େଲ ପାଇଁ ଅତ୍ୟଧିକ ଶକ୍ତିଶାଳୀ ଡ଼ିଭାଇସ ଦରକାର।",
+    "@modelDownloadInfo": {
+        "description": "ମଡ଼େଲ ଡ଼ାଉନଲୋଡ ସଂକ୍ରାନ୍ତ ଜ୍ଞାନ ବାର୍ତ୍ତା।"
+    },
+    "logOut": "ଲଗ ଆଉଟ",
+    "@logOut": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଖାତାରୁ ଲଗ ଆଉଟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "participants": "ଅଂଶଗ୍ରହଣକାରୀ",
+    "@participants": {
+        "description": "ରୁମ ଅଂଶଗ୍ରହଣକାରୀ ତାଲିକା ଲେବଲ ବା ଶୀର୍ଷକ।"
+    },
+    "delete": "ଡ଼ିଲିଟ",
+    "@delete": {
+        "description": "ଡ଼ିଲିଟ କ୍ରିୟା ସାଧାରଣ ବଟନ ଟେକ୍ସଟ। toRoomAction ପ୍ୟାରାମିଟର।"
+    },
+    "leave": "ଛାଡ଼ନ୍ତୁ",
+    "@leave": {
+        "description": "ଛାଡ଼ ଦେବା କ୍ରିୟା ସାଧାରଣ ବଟନ ଟେକ୍ସଟ। toRoomAction ପ୍ୟାରାମିଟର।"
+    },
+    "leaveButton": "ଛାଡ଼ନ୍ତୁ",
+    "@leaveButton": {
+        "description": "ରୁମ ବା ବାର୍ତ୍ତାଳାପ ଛାଡ଼ ଦେବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "findingRandomPartner": "ଆପଣଙ୍କ ପାଇଁ ଏକ ଯଦୃଚ୍ଛ ସଂଗୀ ଖୋଜାଯାଉଛି",
+    "@findingRandomPartner": {
+        "description": "ଯଦୃଚ୍ଛ ଚାଟ ସଂଗୀ ଖୋଜୁଥିବା ସମୟରେ ସ୍ଥିତି ବାର୍ତ୍ତା।"
+    },
+    "quickFact": "ଦ୍ରୁତ ତଥ୍ୟ",
+    "@quickFact": {
+        "description": "ଲୋଡ଼ିଂ ସମୟରେ ଦ୍ରୁତ ତଥ୍ୟ ବା ଟିପ ଶୀର୍ଷକ।"
+    },
+    "cancel": "ବାତିଲ",
+    "@cancel": {
+        "description": "ବାତିଲ କ୍ରିୟା ସାଧାରଣ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "hide": "ହଟାନ୍ତୁ",
+    "@hide": {
+        "description": "ଦୃଶ୍ୟରୁ ଆଇଟମ ହଟାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "removeRoom": "ରୁମ ହଟାନ୍ତୁ",
+    "@removeRoom": {
+        "description": "ଆସନ୍ତା ରୁମ ହଟାଇବା ଡ଼ାୟଲଗ ଶୀର୍ଷକ।"
+    },
+    "removeRoomFromList": "ତାଲିକାରୁ ହଟାନ୍ତୁ",
+    "@removeRoomFromList": {
+        "description": "ରୁମ ହଟାଇବା ବଟନ ଟୁଲଟିପ ଟେକ୍ସଟ।"
+    },
+    "removeRoomConfirmation": "ଆପଣ ଏହି ଆସନ୍ତା ରୁମକୁ ତାଲିକାରୁ ହଟାଇବାକୁ ନିଶ୍ଚିତ?",
+    "@removeRoomConfirmation": {
+        "description": "ଆସନ୍ତା ରୁମ ତାଲିକାରୁ ହଟାଇବାକୁ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ନିଶ୍ଚିତ ଅନୁଜ୍ଞା ବାର୍ତ୍ତା।"
+    },
+    "completeYourProfile": "ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ ସମ୍ପୂର୍ଣ କରନ୍ତୁ",
+    "@completeYourProfile": {
+        "description": "ପ୍ରୋଫାଇଲ ସ୍ଥାପନ ଶେଷ କରିବା ପୃଷ୍ଠା ଶୀର୍ଷକ ବା ଅନୁଜ୍ଞା।"
+    },
+    "uploadProfilePicture": "ପ୍ରୋଫାଇଲ ଚିତ୍ର ଅପଲୋଡ କରନ୍ତୁ",
+    "@uploadProfilePicture": {
+        "description": "ପ୍ରୋଫାଇଲ ଚିତ୍ର ଅପଲୋଡ ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ ବା ବଟନ।"
+    },
+    "enterValidName": "ବୈଧ ନାମ ପ୍ରବେଶ କରନ୍ତୁ",
+    "@enterValidName": {
+        "description": "ଅବୈଧ ନାମ ଫର୍ମାଟ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "name": "ନାମ",
+    "@name": {
+        "description": "ନାମ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "username": "ଉପଯୋଗକର୍ତ୍ତା ନାମ",
+    "@username": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ନାମ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "enterValidDOB": "ବୈଧ ଜନ୍ମ ତାରିଖ ପ୍ରବେଶ କରନ୍ତୁ",
+    "@enterValidDOB": {
+        "description": "ଅବୈଧ ଜନ୍ମ ତାରିଖ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "dateOfBirth": "ଜନ୍ମ ତାରିଖ",
+    "@dateOfBirth": {
+        "description": "ଜନ୍ମ ତାରିଖ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "forgotPassword": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ?",
+    "@forgotPassword": {
+        "description": "ପାସୱାର୍ଡ ଭୁଲି ଯାଇଥିବା ଉପଯୋଗକର୍ତ୍ତା ପାଇଁ ଲିଙ୍କ ଟେକ୍ସଟ।"
+    },
+    "next": "ପରବର୍ତ୍ତୀ",
+    "@next": {
+        "description": "ପ୍ରକ୍ରିୟାର ପରବର୍ତ୍ତୀ ଧାପକୁ ଯିବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "noStoriesExist": "ଦେଖାଇବା ପାଇଁ କୌଣସି ଗଳ୍ପ ନାହିଁ",
+    "@noStoriesExist": {
+        "description": "ତାଲିକାରେ ଗଳ୍ପ ଉପଲବ୍ଧ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "enterVerificationCode": "ଆପଣଙ୍କ\nଯାଞ୍ଚ କୋଡ ପ୍ରବେଶ କରନ୍ତୁ",
+    "@enterVerificationCode": {
+        "description": "ଇମେଲକୁ ପଠାଯାଇଥିବା ଯାଞ୍ଚ କୋଡ ଦାଖଲ ଅନୁଜ୍ଞା।"
+    },
+    "verificationCodeSent": "ଆମେ ଏକ ୬-ଅଙ୍କ ଯାଞ୍ଚ କୋଡ ପଠାଇଛୁ\n",
+    "@verificationCodeSent": {
+        "description": "ଯାଞ୍ଚ କୋଡ ପଠାଯାଇଛି ବୋଲି ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଜଣାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "verificationComplete": "ଯାଞ୍ଚ ସମ୍ପୂର୍ଣ",
+    "@verificationComplete": {
+        "description": "ଇମେଲ ଯାଞ୍ଚ ପରେ ସଫଳ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "verificationCompleteMessage": "ଅଭିନନ୍ଦନ, ଆପଣ ଆପଣଙ୍କ ଇମେଲ ଯାଞ୍ଚ କରିଛନ୍ତି",
+    "@verificationCompleteMessage": {
+        "description": "ଇମେଲ ଯାଞ୍ଚ ନିଶ୍ଚିତ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "verificationFailed": "ଯାଞ୍ଚ ବିଫଳ",
+    "@verificationFailed": {
+        "description": "ଯାଞ୍ଚ ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "otpMismatch": "OTP ମେଳ ଖାଉ ନାହିଁ, ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ",
+    "@otpMismatch": {
+        "description": "ଭୁଲ OTP ଦାଖଲ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "otpResent": "OTP ପୁଣି ପଠାଯାଇଛି",
+    "@otpResent": {
+        "description": "OTP ପୁଣି ପଠାଯାଇଛି ନିଶ୍ଚିତ ବାର୍ତ୍ତା।"
+    },
+    "requestNewCode": "ନୂଆ କୋଡ ଅନୁରୋଧ କରନ୍ତୁ",
+    "@requestNewCode": {
+        "description": "ନୂଆ ଯାଞ୍ଚ କୋଡ ଅନୁରୋଧ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "requestNewCodeIn": "ଏଥିରେ ନୂଆ କୋଡ ଅନୁରୋଧ କରନ୍ତୁ",
+    "@requestNewCodeIn": {
+        "description": "ନୂଆ କୋଡ ଅନୁରୋଧ ଗଣନା ଟାଇମର ଆଗର ଟେକ୍ସଟ।"
+    },
+    "clickPictureCamera": "କ୍ୟାମେରା ଦ୍ୱାରା ଫଟୋ ଉଠାନ୍ତୁ",
+    "@clickPictureCamera": {
+        "description": "ଡ଼ିଭାଇସ କ୍ୟାମେରା ଦ୍ୱାରା ନୂଆ ଫଟୋ ଉଠାଇବା ବିକଳ୍ପ।"
+    },
+    "pickImageGallery": "ଗ୍ୟାଲେରିରୁ ଚିତ୍ର ବାଛନ୍ତୁ",
+    "@pickImageGallery": {
+        "description": "ଡ଼ିଭାଇସ ଗ୍ୟାଲେରିରୁ ବିଦ୍ୟମାନ ଚିତ୍ର ବାଛିବା ବିକଳ୍ପ।"
+    },
+    "deleteMyAccount": "ମୋ ଖାତା ଡ଼ିଲିଟ କରନ୍ତୁ",
+    "@deleteMyAccount": {
+        "description": "ଖାତା ଡ଼ିଲିଟ ଫିଚର ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createNewRoom": "ନୂଆ ରୁମ ତିଆରି କରନ୍ତୁ",
+    "@createNewRoom": {
+        "description": "ନୂଆ ଅଡ଼ିଓ ରୁମ ତିଆରି ବଟନ ଟେକ୍ସଟ ବା ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "pleaseEnterScheduledDateTime": "ଦୟାକରି ଯୋଜିତ ତାରିଖ-ସମୟ ପ୍ରବେଶ କରନ୍ତୁ",
+    "@pleaseEnterScheduledDateTime": {
+        "description": "ରୁମ ପାଇଁ ଯୋଜିତ ତାରିଖ ଓ ସମୟ ଦିଆ ନ ଯାଇଥିଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "scheduleDateTimeLabel": "ତାରିଖ ଓ ସମୟ ଯୋଜନା",
+    "@scheduleDateTimeLabel": {
+        "description": "ରୁମ ତାରିଖ ଓ ସମୟ ଯୋଜନା ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "enterTags": "ଟ୍ୟାଗ ପ୍ରବେଶ କରନ୍ତୁ",
+    "@enterTags": {
+        "description": "ରୁମ ବା ଗଳ୍ପରେ ଟ୍ୟାଗ ଯୋଗ ଇନପୁଟ ଫିଲ୍ଡ ସ୍ଥାନଧାରୀ ବା ଲେବଲ।"
+    },
+    "joinCommunity": "ସମୁଦାୟରେ ଯୋଗ ଦିଅନ୍ତୁ",
+    "@joinCommunity": {
+        "description": "ସମୁଦାୟ ବିଭାଗ ବଟନ ଟେକ୍ସଟ ବା ଶୀର୍ଷକ।"
+    },
+    "followUsOnX": "X ରେ ଆମକୁ ଅନୁସରଣ କରନ୍ତୁ",
+    "@followUsOnX": {
+        "description": "X (ପୂର୍ବ Twitter) ରେ କମ୍ପାନୀ ପ୍ରୋଫାଇଲ ଲିଙ୍କ ଟେକ୍ସଟ।"
+    },
+    "joinDiscordServer": "Discord ସର୍ଭରରେ ଯୋଗ ଦିଅନ୍ତୁ",
+    "@joinDiscordServer": {
+        "description": "ପ୍ରକଳ୍ପ Discord ସର୍ଭରରେ ଯୋଗ ଲିଙ୍କ ଟେକ୍ସଟ।"
+    },
+    "noLyrics": "ଗୀତ ଶବ୍ଦ ନାହିଁ",
+    "@noLyrics": {
+        "description": "ଅଡ଼ିଓ ଫାଇଲ ଗୀତ ଶବ୍ଦ ଉପଲବ୍ଧ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "noStoriesInCategory": "{categoryName} ବର୍ଗରେ ବର୍ତ୍ତମାନ କୌଣସି ଗଳ୍ପ ନାହିଁ",
+    "@noStoriesInCategory": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ବର୍ଗରେ ଗଳ୍ପ ନ ଥିଲେ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "newChapters": "ନୂଆ ଅଧ୍ୟାୟ",
+    "@newChapters": {
+        "description": "ଗଳ୍ପର ନୂଆ ଅଧ୍ୟାୟ ଯୋଗ ବା ଦେଖିବା ବିଭାଗ ଶୀର୍ଷକ ବା ଲେବଲ।"
+    },
+    "helpToGrow": "ବଢ଼ିବାରେ ସାହାଯ୍ୟ କରନ୍ତୁ",
+    "@helpToGrow": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ପ୍ଲାଟଫର୍ମ ବଢ଼ାଇବାରେ ସାହାଯ୍ୟ ଚାହୁଁଥିବା କ୍ରିୟା ଆହ୍ୱାନ।"
+    },
+    "share": "ଭାଗ କରନ୍ତୁ",
+    "@share": {
+        "description": "ବିଷୟ ଭାଗ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "rate": "ରେଟ କରନ୍ତୁ",
+    "@rate": {
+        "description": "ଆପ ବା ବିଷୟ ରେଟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "aboutResonate": "Resonate ବିଷୟରେ",
+    "@aboutResonate": {
+        "description": "Resonate ଆପ୍ଲିକେସନ 'ବିଷୟରେ' ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "description": "ବିବରଣୀ",
+    "@description": {
+        "description": "ବିବରଣ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "confirm": "ନିଶ୍ଚିତ କରନ୍ତୁ",
+    "@confirm": {
+        "description": "ନିଶ୍ଚିତ କ୍ରିୟା ସାଧାରଣ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "classic": "ଶ୍ରେଣୀ",
+    "@classic": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "time": "ସମୟ",
+    "@time": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "vintage": "ପ୍ରାଚୀନ",
+    "@vintage": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "amber": "ଆମ୍ବର",
+    "@amber": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "forest": "ଜଙ୍ଗଲ",
+    "@forest": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "cream": "ক্রিম",
+    "@cream": {
+        "description": "ଥିମ ବିକଳ୍ପ ନାମ।"
+    },
+    "none": "କିଛି ନାହିଁ",
+    "@none": {
+        "description": "କୌଣସି ଚୟନ ନ ଥିବା ବା ମୂଲ୍ୟ ଅନୁପସ୍ଥିତ ଦର୍ଶାଉଥିବା ଟେକ୍ସଟ।"
+    },
+    "checkOutGitHub": "ଆମର GitHub ରିପୋଜିଟୋରୀ ଦେଖନ୍ତୁ: {url}",
+    "@checkOutGitHub": {
+        "description": "URL ସ୍ଥାନଧାରୀ ସହ GitHub ରିପୋଜିଟୋରୀ ଭାଗ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
+    },
+    "aossie": "AOSSIE",
+    "@aossie": {
+        "description": "ସଂସ୍ଥାର ନାମ।"
+    },
+    "aossieLogo": "AOSSIE ଲୋଗୋ",
+    "@aossieLogo": {
+        "description": "AOSSIE ସଂସ୍ଥା ଲୋଗୋ ପାଇଁ ଅ‍ଭିଗମ୍ୟ ଟେକ୍ସଟ।"
+    },
+    "errorLoadPackageInfo": "ପ୍ୟାକେଜ ତଥ୍ୟ ଲୋଡ ହୋଇ ପାରିଲା ନାହିଁ",
+    "@errorLoadPackageInfo": {
+        "description": "ଆପ୍ଲିକେସନ ପ୍ୟାକେଜ ତଥ୍ୟ ଲୋଡ ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "searchFailed": "ରୁମ ଖୋଜିବା ବିଫଳ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@searchFailed": {
+        "description": "ରୁମ ଖୋଜିବା ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "updateAvailable": "ଅଦ୍ୟତନ ଉପଲବ୍ଧ",
+    "@updateAvailable": {
+        "description": "ନୂଆ ଆପ ସଂସ୍କରଣ ଉପଲବ୍ଧ ଦର୍ଶାଉଥିବା ଶୀର୍ଷକ।"
+    },
+    "newVersionAvailable": "ଏକ ନୂଆ ସଂସ୍କରଣ ଉପଲବ୍ଧ!",
+    "@newVersionAvailable": {
+        "description": "ଉପଲବ୍ଧ ଅଦ୍ୟତନ ସଂକ୍ରାନ୍ତ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଜଣାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "upToDate": "ଅଦ୍ୟତନ",
+    "@upToDate": {
+        "description": "ଆପ୍ଲିକେସନ ସର୍ବଶେଷ ସଂସ୍କରଣରେ ଥିବା ଦର୍ଶାଉଥିବା ଶୀର୍ଷକ।"
+    },
+    "latestVersion": "ଆପଣ ସର୍ବଶେଷ ସଂସ୍କରଣ ବ୍ୟବହାର କରୁଛନ୍ତି",
+    "@latestVersion": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପାଖରେ ସର୍ବଶେଷ ସଂସ୍କରଣ ଥିବା ନିଶ୍ଚିତ ବାର୍ତ୍ତା।"
+    },
+    "profileCreatedSuccessfully": "ପ୍ରୋଫାଇଲ ସଫଳଭାବରେ ତିଆରି ହୋଇଛି",
+    "@profileCreatedSuccessfully": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ପ୍ରୋଫାଇଲ ତିଆରି ପରେ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "invalidScheduledDateTime": "ଅବୈଧ ଯୋଜିତ ତାରିଖ ଓ ସମୟ",
+    "@invalidScheduledDateTime": {
+        "description": "ଅବୈଧ ତାରିଖ-ସମୟ ଫର୍ମାଟ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "scheduledDateTimePast": "ଯୋଜିତ ତାରିଖ ଓ ସମୟ ଅତୀତରେ ହୋଇ ପାରିବ ନାହିଁ",
+    "@scheduledDateTimePast": {
+        "description": "ଅତୀତ ତାରିଖ-ସମୟ ବାଛিଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "joinRoom": "ରୁମରେ ଯୋଗ ଦିଅନ୍ତୁ",
+    "@joinRoom": {
+        "description": "ଅଡ଼ିଓ ରୁମରେ ଯୋଗ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "unknownUser": "ଅଜ୍ଞାତ",
+    "@unknownUser": {
+        "description": "ନାମ ଅଜ୍ଞାତ ଉପଯୋଗକର୍ତ୍ତା ପାଇଁ ସ୍ଥାନଧାରୀ ଟେକ୍ସଟ।"
+    },
+    "canceled": "ବାତିଲ ହୋଇଛି",
+    "@canceled": {
+        "description": "କ୍ରିୟା ବାତିଲ ଦର୍ଶାଉଥିବା ସ୍ଥିତି ଲେବଲ।"
+    },
+    "english": "en",
+    "@english": {
+        "description": "ଇଂରାଜୀ ଭାଷା କୋଡ।"
+    },
+    "emailVerificationRequired": "ଇମେଲ ଯାଞ୍ଚ ଆବଶ୍ୟକ",
+    "@emailVerificationRequired": {
+        "description": "ଆଗକୁ ଯିବାପାଇଁ ଇମେଲ ଯାଞ୍ଚ ଦରକାର ଦର୍ଶାଉଥିବା ଶୀର୍ଷକ ବା ବାର୍ତ୍ତା।"
+    },
+    "verify": "ଯାଞ୍ଚ କରନ୍ତୁ",
+    "@verify": {
+        "description": "ଯାଞ୍ଚ ପ୍ରକ୍ରିୟା ଆରମ୍ଭ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "audioRoom": "ଅଡ଼ିଓ ରୁମ",
+    "@audioRoom": {
+        "description": "ଅଡ଼ିଓ ରୁମ ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "toRoomAction": "ରୁମକୁ {action} କରିବାକୁ",
+    "@toRoomAction": {
+        "description": "ରୁମ ଉପରେ ଡ଼ିଲିଟ ବା ଛାଡ଼ ଦେବା ଭଳି କ୍ରିୟା ନିଶ୍ଚିତ ଗତ୍ୟାତ୍ମକ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "delete"
+            }
+        }
+    },
+    "mailSentMessage": "ଇମେଲ ପଠାଯାଇଛି",
+    "@mailSentMessage": {
+        "description": "ଇମେଲ ପଠାଯାଇଛି ନିଶ୍ଚିତ ବାର୍ତ୍ତା।"
+    },
+    "disconnected": "ବିଚ୍ଛିନ୍ନ",
+    "@disconnected": {
+        "description": "ସଂଯୋଗ ହଜିଯିବା ଦର୍ଶାଉଥିବା ସ୍ଥିତି ଲେବଲ।"
+    },
+    "micOn": "ମାଇକ",
+    "@micOn": {
+        "description": "ମାଇକ ଚାଲୁ ଥିଲ ସ୍ଥିତିରେ ଅ‍ଭିଗମ୍ୟ ଲେବଲ।"
+    },
+    "speakerOn": "ସ୍ପୀକର",
+    "@speakerOn": {
+        "description": "ସ୍ପୀକରଫୋନ ଚାଲୁ ଥିଲ ସ୍ଥିତିରେ ଅ‍ଭିଗମ୍ୟ ଲେବଲ।"
+    },
+    "endChat": "ଚାଟ ସମାପ୍ତ",
+    "@endChat": {
+        "description": "ଚାଟ/କଲ ସମାପ୍ତ ବଟନ ଅ‍ଭିଗମ୍ୟ ଲେବଲ।"
+    },
+    "monthJan": "ଜାନୁ",
+    "@monthJan": {
+        "description": "ଜାନୁଆରୀ ସଂକ୍ଷେପ।"
+    },
+    "monthFeb": "ଫେବ୍ରୁ",
+    "@monthFeb": {
+        "description": "ଫେବ୍ରୁଆରୀ ସଂକ୍ଷେପ।"
+    },
+    "monthMar": "ମାର୍ଚ",
+    "@monthMar": {
+        "description": "ମାର୍ଚ ପୂର୍ଣ ନାମ।"
+    },
+    "monthApr": "ଏପ୍ରିଲ",
+    "@monthApr": {
+        "description": "ଏପ୍ରିଲ ପୂର୍ଣ ନାମ।"
+    },
+    "monthMay": "ମଇ",
+    "@monthMay": {
+        "description": "ମଇ ପୂର୍ଣ ନାମ।"
+    },
+    "monthJun": "ଜୁନ",
+    "@monthJun": {
+        "description": "ଜୁନ ପୂର୍ଣ ନାମ।"
+    },
+    "monthJul": "ଜୁଲାଇ",
+    "@monthJul": {
+        "description": "ଜୁଲାଇ ପୂର୍ଣ ନାମ।"
+    },
+    "monthAug": "ଅଗ",
+    "@monthAug": {
+        "description": "ଅଗଷ୍ଟ ସଂକ୍ଷେପ।"
+    },
+    "monthSep": "ସେପ୍ଟ",
+    "@monthSep": {
+        "description": "ସେପ୍ଟେମ୍ବର ସଂକ୍ଷେପ।"
+    },
+    "monthOct": "ଅକ୍ଟୋ",
+    "@monthOct": {
+        "description": "ଅକ୍ଟୋବର ସଂକ୍ଷେପ।"
+    },
+    "monthNov": "ନଭ",
+    "@monthNov": {
+        "description": "ନଭେମ୍ବର ସଂକ୍ଷେପ।"
+    },
+    "monthDec": "ଡ଼ିସ",
+    "@monthDec": {
+        "description": "ଡ଼ିସେମ୍ବର ସଂକ୍ଷେପ।"
+    },
+    "register": "ନିବନ୍ଧନ",
+    "@register": {
+        "description": "ନୂଆ ଖାତା ନିବନ୍ଧନ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "newToResonate": "Resonate ରେ ନୂଆ? ",
+    "@newToResonate": {
+        "description": "ଲଗଇନ ପୃଷ୍ଠାରେ 'ନୂଆ ଖାତା ତିଆରି' ଲିଙ୍କ ଆଗର ଟେକ୍ସଟ।"
+    },
+    "alreadyHaveAccount": "ଆଗରୁ ଖାତା ଅଛି? ",
+    "@alreadyHaveAccount": {
+        "description": "ସାଇନ ଅପ ପୃଷ୍ଠାରେ 'ଲଗଇନ' ଲିଙ୍କ ଆଗର ଟେକ୍ସଟ।"
+    },
+    "checking": "ଯାଞ୍ଚ ହେଉଛି...",
+    "@checking": {
+        "description": "ଯାଞ୍ଚ ଚାଲୁ ଥିବା ଦର୍ଶାଉଥିବା ଅସ୍ଥାୟୀ ସ୍ଥିତି ବାର୍ତ୍ତା।"
+    },
+    "forgotPasswordMessage": "ଆପଣଙ୍କ ପାସୱାର୍ଡ ରିସେଟ କରିବାକୁ ନିବନ୍ଧିତ ଇମେଲ ଠିକଣା ଦିଅନ୍ତୁ।",
+    "@forgotPasswordMessage": {
+        "description": "ପାସୱାର୍ଡ ଭୁଲ ପୃଷ୍ଠାରେ ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ।"
+    },
+    "usernameUnavailable": "ଉପଯୋଗକର୍ତ୍ତା ନାମ ଅନୁପଲବ୍ଧ!",
+    "@usernameUnavailable": {
+        "description": "ଚୟନ ଉପଯୋଗକର୍ତ୍ତା ନାମ ଆଗରୁ ନିଆ ଥିଲେ ତ୍ରୁଟି ଶୀର୍ଷକ।"
+    },
+    "usernameInvalidOrTaken": "ଏହି ଉପଯୋଗକର୍ତ୍ତା ନାମ ଅବୈଧ ଅଥବା ଆଗରୁ ନିଆ ହୋଇଛି।",
+    "@usernameInvalidOrTaken": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ନାମ ବ୍ୟବହାର ଅସ୍ୱୀକୃତ ହୋଇଛି ବୁଝାଉଥିବା ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "otpResentMessage": "ନୂଆ OTP ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ ଇମେଲ ଯାଞ୍ଚ କରନ୍ତୁ।",
+    "@otpResentMessage": {
+        "description": "ନୂଆ OTP ପାଇଁ ଇମେଲ ଯାଞ୍ଚ କରିବାକୁ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଜଣାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "connectionError": "ସଂଯୋଗ ତ୍ରୁଟି ଅଛି। ଦୟାକରି ଇଣ୍ଟର୍ନେଟ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@connectionError": {
+        "description": "ନେଟୱର୍କ ସଂଯୋଗ ସମସ୍ୟা ସାଧାରଣ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "seconds": "ସେକେଣ୍ଡ।",
+    "@seconds": {
+        "description": "ଗଣନା ସଂଖ୍ୟା ପରେ ବ୍ୟବହୃତ 'ସେକେଣ୍ଡ' ଶବ୍ଦ।"
+    },
+    "unsavedChangesWarning": "ଯଦି ଆପଣ ସଞ୍ଚୟ ନ କରି ଚାଲି ଯାଆନ୍ତି, ଅସଞ୍ଚୟ ପରିବର୍ତ୍ତନ ହଜିଯିବ।",
+    "@unsavedChangesWarning": {
+        "description": "ଅସଞ୍ଚୟ ପରିବର୍ତ୍ତନ ସହ ପୃଷ୍ଠା ଛାଡ଼ ଦେବା ଚେଷ୍ଟା ସମୟରେ ସତର୍କ ବାର୍ତ୍ତା।"
+    },
+    "deleteAccountPermanent": "ଏହି କ୍ରିୟା ଆପଣଙ୍କ ଖାତା ସ୍ଥାୟୀ ଭାବରେ ଡ଼ିଲିଟ କରିବ। ଏହା ଅପ୍ରତ୍ୟାବର୍ତ୍ତନୀୟ ପ୍ରକ୍ରିୟା। ଆମେ ଆପଣଙ୍କ ଉପଯୋଗକର୍ତ୍ତା ନାମ, ଇମେଲ ଠିକଣା ଏବଂ ଖାତା ସଙ୍ଗେ ଜଡ଼ିତ ସମସ୍ତ ତଥ୍ୟ ଡ଼ିଲିଟ କରିବୁ। ଆପଣ ଏହାକୁ ଫେରାଇ ଆଣିପାରିବେ ନାହିଁ।",
+    "@deleteAccountPermanent": {
+        "description": "ଖାତା ଡ଼ିଲିଟ ପରିଣାମ ବୁଝାଉଥିବା ବିସ୍ତୃତ ସତର୍କ ବାର୍ତ୍ତା।"
+    },
+    "giveGreatName": "ଏକ ସୁନ୍ଦର ନାମ ଦିଅନ୍ତୁ..",
+    "@giveGreatName": {
+        "description": "ସୃଜନଶୀଳ ନାମ ପ୍ରୋତ୍ସାହିତ ନାମ ଇନପୁଟ ଫିଲ୍ଡ ସ୍ଥାନଧାରୀ ଟେକ୍ସଟ।"
+    },
+    "joinCommunityDescription": "ସମୁଦାୟରେ ଯୋଗ ଦେଇ ଆପଣ ସନ୍ଦେହ ଦୂର କରିପାରିବେ, ନୂଆ ଫିଚର ପ୍ରସ୍ତାବ ଦେଇ ପାରିବେ, ସମସ୍ୟା ଜଣାଇ ପାରିବେ ଏବଂ ଆହୁରି ଅଧିକ କରିପାରିବେ।",
+    "@joinCommunityDescription": {
+        "description": "ସମୁଦାୟରେ ଯୋଗ ଦେବାର ଲାଭ ବିବରଣ।"
+    },
+    "resonateDescription": "Resonate ଏକ ସୋସିଆଲ ମିଡ଼ିଆ ପ୍ଲାଟଫର୍ମ ଯେଉଁଠି ପ୍ରତ୍ୟେକ ସ୍ୱର ମୂଲ୍ୟବାନ। ଆପଣଙ୍କ ଭାବ, ଗଳ୍ପ ଓ ଅଭିଜ୍ଞତା ଅନ୍ୟଙ୍କ ସାଥୀ ବାଣ୍ଟନ୍ତୁ। ଏବେ ଆପଣଙ୍କ ଅଡ଼ିଓ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ। ବିଭିନ୍ନ ଆଲୋଚନା ଓ ବିଷୟରେ ଅଂଶ ନିଅନ୍ତୁ। ଆପଣଙ୍କ ସଙ୍ଗ ମିଳୁଥିବା ରୁମ ଖୋଜନ୍ତୁ ଏବଂ ସମୁଦାୟର ଭାଗ ହୁଅନ୍ତୁ। ବାର୍ତ୍ତାଳାପରେ ଯୋଗ ଦିଅନ୍ତୁ!",
+    "@resonateDescription": {
+        "description": "Resonate ଆପ୍ଲିକେସନ ସଂକ୍ଷିପ୍ତ ଉପଯୋଗକର୍ତ୍ତା-ସମ୍ମୁଖ ବିବରଣ।"
+    },
+    "resonateFullDescription": "Resonate ହେଉଛି ଏକ ବ୍ୟବଳ ଭଏସ-ଆଧାରିତ ସୋସିଆଲ ମିଡ଼ିଆ ପ୍ଲାଟଫର୍ମ ଯେଉଁଠି ପ୍ରତ୍ୟେକ ସ୍ୱର ଗୁରୁତ୍ୱ ରଖେ। \nରିଅଲ-ଟାଇମ ଅଡ଼ିଓ ବାର୍ତ୍ତାଳାପରେ ଯୋଗ ଦିଅନ୍ତୁ, ବିଭିନ୍ନ ଆଲୋଚନାରେ ଭାଗ ନିଅନ୍ତୁ ଓ ସମ ଭାବାପ୍ରବଣ ଲୋକଙ୍କ ସଙ୍ଗ ଯୋଡ଼ିହୁଅନ୍ତୁ। ଆମ ପ୍ଲାଟଫର୍ମ ଦ୍ୱାରା:\n- ବିଷୟ-ଆଧାରିତ ଆଲୋଚନା ସହ ଲାଇଭ ଅଡ଼ିଓ ରୁମ\n- ଭଏସ ଦ୍ୱାରା ସୁନ୍ଦର ସୋସିଆଲ ନେଟୱର୍କ\n- ସମୁଦାୟ-ଚାଳିତ ବିଷୟ ପ୍ରଶାସନ\n- ଏକାଧିକ ପ୍ଲାଟଫର୍ମ ଅନୁକୂଳ\n- ଏଣ୍ଡ-ଟୁ-ଏଣ୍ଡ ଏନ୍‌କ୍ରିପ୍ଟ ବ୍ୟକ୍ତିଗତ ବାର୍ତ୍ତାଳାପ\n\nAOSSIE ଓପନ ସୋର୍ସ ସମୁଦାୟ ଦ୍ୱାରା ପ୍ରସ୍ତୁତ, ଆମେ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଗୋପନୀୟତା ଓ ସମୁଦାୟ-ଚାଳିତ ବିକାଶକୁ ଅଗ୍ରାଧିକାର ଦେଉ। ସୋସିଆଲ ଅଡ଼ିଓର ଭବିଷ୍ୟତ ଗଢ଼ିବାରେ ଆମ ସହ ଯୋଗ ଦିଅନ୍ତୁ!",
+    "@resonateFullDescription": {
+        "description": "Resonate ଆପ୍ଲିକେସନ, ଏହାର ଫିଚର ଓ ଲକ୍ଷ୍ୟର ବ୍ୟାପକ ବିସ୍ତୃତ ବିବରଣ।"
+    },
+    "stable": "ସ୍ଥାୟୀ",
+    "@stable": {
+        "description": "ସ୍ଥାୟୀ ଅ-ବିଟା ଆପ ସଂସ୍କରଣ ଦର୍ଶାଉଥିବା ଲେବଲ।"
+    },
+    "usernameCharacterLimit": "ଉପଯୋଗକର୍ତ୍ତା ନାମ ୫ ଅକ୍ଷରରୁ ଅଧିକ ହେବା ଉଚିତ।",
+    "@usernameCharacterLimit": {
+        "description": "ଚୟନ ଉପଯୋଗକର୍ତ୍ତା ନାମ ବହୁ ଛୋଟ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "submit": "ଜମା ଦିଅନ୍ତୁ",
+    "@submit": {
+        "description": "ଫର୍ମ ଜମା ସାଧାରଣ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "anonymous": "ଗୁପ୍ତ",
+    "@anonymous": {
+        "description": "ଗୁପ୍ତ ଉପଯୋଗକର୍ତ୍ତା ବା ପରିଚୟ ଲେବଲ।"
+    },
+    "noSearchResults": "କୌଣସି ଖୋଜ ଫଳ ନାହିଁ",
+    "@noSearchResults": {
+        "description": "ଖୋଜ ଫଳ ଶୂନ୍ୟ ହେଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "searchRooms": "ରୁମ ଖୋଜନ୍ତୁ...",
+    "@searchRooms": {
+        "description": "ରୁମ ଖୋଜ ଇନପୁଟ ଫିଲ୍ଡ ସ୍ଥାନଧାରୀ ଟେକ୍ସଟ।"
+    },
+    "searchingRooms": "ରୁମ ଖୋଜାଯାଉଛି...",
+    "@searchingRooms": {
+        "description": "ରୁମ ଖୋଜୁଥିବା ସମୟ ଲୋଡ଼ିଂ ବାର୍ତ୍ତା।"
+    },
+    "clearSearch": "ଖୋଜ ସଫା କରନ୍ତୁ",
+    "@clearSearch": {
+        "description": "ଖୋଜ ଫଳ ସଫା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "searchError": "ଖୋଜ ତ୍ରୁଟି",
+    "@searchError": {
+        "description": "ଖୋଜ ତ୍ରୁଟି ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "searchRoomsError": "ରୁମ ଖୋଜିବା ବିଫଳ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@searchRoomsError": {
+        "description": "ରୁମ ଖୋଜ ବିଫଳ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "searchUpcomingRoomsError": "ଆସନ୍ତା ରୁମ ଖୋଜିବା ବିଫଳ। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@searchUpcomingRoomsError": {
+        "description": "ଆସନ୍ତା ରୁମ ଖୋଜ ବିଫଳ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "search": "ଖୋଜ",
+    "@search": {
+        "description": "ଖୋଜ ବଟନ ଟୁଲଟିପ ଟେକ୍ସଟ।"
+    },
+    "clear": "ସଫା",
+    "@clear": {
+        "description": "ସଫା ବଟନ ଟୁଲଟିପ ଟେକ୍ସଟ।"
+    },
+    "shareRoomMessage": "🚀 ଏହି ଅସାଧାରଣ ରୁମ ଦେଖନ୍ତୁ: {roomName}!\n\n📖 ବିବରଣୀ: {description}\n👥 ଏବେ {participants} ଅଂଶଗ୍ରହଣକାରୀଙ୍କ ସହ ଯୋଗ ଦିଅନ୍ତୁ!",
+    "@shareRoomMessage": {
+        "description": "ରୁମ ଭାଗ ସମୟ ବ୍ୟବହୃତ ଡ଼ିଫଲ୍ଟ ବାର୍ତ୍ତା ଟେମ୍ପ୍ଲେଟ।",
+        "placeholders": {
+            "roomName": {
+                "type": "String",
+                "example": "Discussion Room"
+            },
+            "description": {
+                "type": "String",
+                "example": "A great place to discuss"
+            },
+            "participants": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "participantsCount": "{count} ଅଂଶଗ୍ରହଣକାରୀ",
+    "@participantsCount": {
+        "description": "ରୁମ ଅଂଶଗ୍ରହଣକାରୀ ସଂଖ୍ୟା ଦର୍ଶାଏ।",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "join": "ଯୋଗ ଦିଅନ୍ତୁ",
+    "@join": {
+        "description": "ଗୋଟିଏ ଗତିବିଧି ବା ଗ୍ରୁପରେ ଯୋଗ ସାଧାରଣ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "invalidTags": "ଅବୈଧ ଟ୍ୟାଗ:",
+    "@invalidTags": {
+        "description": "ଅବୈଧ ଟ୍ୟାଗ ପାଇଁ ତ୍ରୁଟି ବାର୍ତ୍ତା ପ୍ରିଫିକ୍ସ।"
+    },
+    "cropImage": "ଚିତ୍ର ଛାଣନ୍ତୁ",
+    "@cropImage": {
+        "description": "ଚିତ୍ର ଛାଣ ଉପକରଣ ଶୀର୍ଷକ ବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "profileSavedSuccessfully": "ପ୍ରୋଫାଇଲ ଅଦ୍ୟତନ ହୋଇଛି",
+    "@profileSavedSuccessfully": {
+        "description": "ପ୍ରୋଫାଇଲ ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ ଦର୍ଶାଉଥିବା ସଂକ୍ଷିପ୍ତ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "profileUpdatedSuccessfully": "ସମସ୍ତ ପରିବର୍ତ୍ତନ ସଫଳଭାବରେ ସଞ୍ଚୟ ହୋଇଛି।",
+    "@profileUpdatedSuccessfully": {
+        "description": "ପ୍ରୋଫାଇଲ ଅଦ୍ୟତନ ନିଶ୍ଚିତ ବିସ୍ତୃତ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "profileUpToDate": "ପ୍ରୋଫାଇଲ ଅଦ୍ୟତନ ଅଛି",
+    "@profileUpToDate": {
+        "description": "ପ୍ରୋଫାଇଲରେ ସଞ୍ଚୟ ଯୋଗ୍ୟ ପରିବର୍ତ୍ତନ ନ ଥିଲେ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "noChangesToSave": "କୌଣସି ନୂଆ ପରିବର୍ତ୍ତନ ହୋଇନାହିଁ, ସଞ୍ଚୟ କରିବାର କିଛି ନାହିଁ।",
+    "@noChangesToSave": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ପରିବର୍ତ୍ତନ ବିନା ପ୍ରୋଫାଇଲ ସଞ୍ଚୟ ଚେଷ୍ଟା କଲେ ବାର୍ତ୍ତା।"
+    },
+    "connectionFailed": "ସଂଯୋଗ ବିଫଳ",
+    "@connectionFailed": {
+        "description": "ସଂଯୋଗ ସଂକ୍ରାନ୍ତ ତ୍ରୁଟି ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "unableToJoinRoom": "ରୁମରେ ଯୋଗ ଦେଇ ହେଉ ନାହିଁ। ଦୟାକରି ନେଟୱର୍କ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@unableToJoinRoom": {
+        "description": "ସଂଯୋଗ ସମସ୍ୟା ଯୋଗୁ ରୁମ ଯୋଗ ବିଫଳ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "connectionLost": "ସଂଯୋଗ ହଜିଗଲା",
+    "@connectionLost": {
+        "description": "ସେବା ସଂଯୋଗ ହଜିଯିବା ଦର୍ଶାଉଥିବା ଶୀର୍ଷକ।"
+    },
+    "unableToReconnect": "ରୁମ ସହ ପୁଣି ସଂଯୁକ୍ତ ହୋଇ ପାରୁ ନାହିଁ। ଦୟାକରି ପୁଣି ଯୋଗ ଦେବାର ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@unableToReconnect": {
+        "description": "ଆପ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ରୁମ ସହ ପୁଣି ସଂଯୁକ୍ତ କରିବାରେ ବିଫଳ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "invalidFormat": "ଅବୈଧ ଫର୍ମାଟ!",
+    "@invalidFormat": {
+        "description": "ଅଶୁଦ୍ଧ ଫର୍ମାଟ ତଥ୍ୟ ପାଇଁ ସାଧାରଣ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "usernameAlphanumeric": "ଉପଯୋଗକର୍ତ୍ତା ନାମ ଅଲ୍‌ଫାନ୍ୟୁମେରିକ ହେବ ଏବଂ ବିଶେଷ ଅକ୍ଷର ଧାରଣ କରିବ ନାହିଁ।",
+    "@usernameAlphanumeric": {
+        "description": "ବୈଧ ଉପଯୋଗକର୍ତ୍ତା ନାମ ଅକ୍ଷର ଆବଶ୍ୟକତା ବିସ୍ତୃତ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "userProfileCreatedSuccessfully": "ଆପଣଙ୍କ ଉପଯୋଗକର୍ତ୍ତା ପ୍ରୋଫାଇଲ ସଫଳଭାବରେ ତିଆରି ହୋଇଛି।",
+    "@userProfileCreatedSuccessfully": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ପ୍ରୋଫାଇଲ ସ୍ଥାପନ ସମ୍ପୂର୍ଣ ପରେ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "emailVerificationMessage": "ଆଗକୁ ଯାଇବା ପାଇଁ, ଆପଣଙ୍କ ଇମେଲ ଠିକଣା ଯାଞ୍ଚ କରନ୍ତୁ।",
+    "@emailVerificationMessage": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଇମେଲ ଯାଞ୍ଚ ଅନୁଜ୍ଞା ନିର୍ଦ୍ଦେଶ ବାର୍ତ୍ତା।"
+    },
+    "addNewChaptersToStory": "{storyName} ରେ ନୂଆ ଅଧ୍ୟାୟ ଯୋଗ କରନ୍ତୁ",
+    "@addNewChaptersToStory": {
+        "description": "ବିଦ୍ୟମାନ ଗଳ୍ପରେ ନୂଆ ଅଧ୍ୟାୟ ଯୋଗ ପୃଷ୍ଠା ଶୀର୍ଷକ।",
+        "placeholders": {
+            "storyName": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "currentChapters": "ବର୍ତ୍ତମାନ ଅଧ୍ୟାୟ",
+    "@currentChapters": {
+        "description": "ଗଳ୍ପ ବିଦ୍ୟମାନ ଅଧ୍ୟାୟ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "sourceCodeOnGitHub": "GitHub ରେ ସୋର୍ସ କୋଡ",
+    "@sourceCodeOnGitHub": {
+        "description": "GitHub ରେ ପ୍ରକଳ୍ପ ସୋର୍ସ କୋଡ ଲିଙ୍କ ଟେକ୍ସଟ।"
+    },
+    "createAChapter": "ଏକ ଅଧ୍ୟାୟ ତିଆରି କରନ୍ତୁ",
+    "@createAChapter": {
+        "description": "ନୂଆ ଅଧ୍ୟାୟ ତିଆରି ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "chapterTitle": "ଅଧ୍ୟାୟ ଶୀର୍ଷକ *",
+    "@chapterTitle": {
+        "description": "ଆବଶ୍ୟକ ଅଧ୍ୟାୟ ଶୀର୍ଷକ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "aboutRequired": "ବିଷୟରେ *",
+    "@aboutRequired": {
+        "description": "ଆବଶ୍ୟକ 'ବିଷୟରେ' ବା ବିବରଣ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "changeCoverImage": "ଆବରଣ ଚିତ୍ର ବଦଳାନ୍ତୁ",
+    "@changeCoverImage": {
+        "description": "ଗଳ୍ପ ବା ଅଧ୍ୟାୟ ଆବରଣ ଚିତ୍ର ବଦଳାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "uploadAudioFile": "ଅଡ଼ିଓ ଫାଇଲ ଅପଲୋଡ କରନ୍ତୁ",
+    "@uploadAudioFile": {
+        "description": "ଅଡ଼ିଓ ଫାଇଲ ଅପଲୋଡ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "uploadLyricsFile": "ଗୀତ ଶବ୍ଦ ଫାଇଲ ଅପଲୋଡ କରନ୍ତୁ",
+    "@uploadLyricsFile": {
+        "description": "ଗୀତ ଶବ୍ଦ ଫାଇଲ ଅପଲୋଡ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createChapter": "ଅଧ୍ୟାୟ ତିଆରି କରନ୍ତୁ",
+    "@createChapter": {
+        "description": "ନୂଆ ଅଧ୍ୟାୟ ଚୂଡ଼ାନ୍ତ ଓ ତିଆରି ବଟନ ଟେକ୍ସଟ।"
+    },
+    "audioFileSelected": "ଅଡ଼ିଓ ଫାଇଲ ବାଛ ହୋଇଛି: {fileName}",
+    "@audioFileSelected": {
+        "description": "ଅଡ଼ିଓ ଫାଇଲ ଅପଲୋଡ ପାଇଁ ବାଛ ହୋଇଛି ବୋଲି ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "audio.mp3"
+            }
+        }
+    },
+    "lyricsFileSelected": "ଗୀତ ଶବ୍ଦ ଫାଇଲ ବାଛ ହୋଇଛି: {fileName}",
+    "@lyricsFileSelected": {
+        "description": "ଗୀତ ଶବ୍ଦ ଫାଇଲ ଅପଲୋଡ ପାଇଁ ବାଛ ହୋଇଛି ବୋଲି ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "lyrics.txt"
+            }
+        }
+    },
+    "fillAllRequiredFields": "ଦୟାକରି ସମସ୍ତ ଆବଶ୍ୟକ କ୍ଷେତ୍ର ପୂରଣ କରନ୍ତୁ ଏବଂ ଅଡ଼ିଓ ଫାଇଲ ଓ ଗୀତ ଶବ୍ଦ ଫାଇଲ ଅପଲୋଡ କରନ୍ତୁ",
+    "@fillAllRequiredFields": {
+        "description": "ଫର୍ମରେ ଆବଶ୍ୟକ ଫିଲ୍ଡ ବା ଫାଇଲ ନ ଥିଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "scheduled": "ଯୋଜିତ",
+    "@scheduled": {
+        "description": "ଭବିଷ୍ୟତ ପାଇଁ ଯୋଜିତ ଘଟଣା ଦର୍ଶାଉଥିବା ସ୍ଥିତି ଲେବଲ।"
+    },
+    "ok": "ଠିକ ଅଛି",
+    "@ok": {
+        "description": "ଡ଼ାୟଲଗ ବନ୍ଦ ସାଧାରଣ ନିଶ୍ଚିତ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "roomDescriptionOptional": "ରୁମ ବିବରଣୀ (ଐଚ୍ଛିକ)",
+    "@roomDescriptionOptional": {
+        "description": "ଐଚ୍ଛିକ ରୁମ ବିବରଣ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "deleteAccount": "ଖାତା ଡ଼ିଲିଟ",
+    "@deleteAccount": {
+        "description": "ଖାତା ଡ଼ିଲିଟ ପ୍ରକ୍ରିୟା ଆରମ୍ଭ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createYourStory": "ଆପଣଙ୍କ ଗଳ୍ପ ତିଆରି କରନ୍ତୁ",
+    "@createYourStory": {
+        "description": "ନୂଆ ଗଳ୍ପ ତିଆରି ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "titleRequired": "ଶୀର୍ଷକ *",
+    "@titleRequired": {
+        "description": "ଆବଶ୍ୟକ ଶୀର୍ଷକ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "category": "ବର୍ଗ *",
+    "@category": {
+        "description": "ଆବଶ୍ୟକ ବର୍ଗ ଚୟନ ଲେବଲ।"
+    },
+    "addChapter": "ଅଧ୍ୟାୟ ଯୋଗ କରନ୍ତୁ",
+    "@addChapter": {
+        "description": "ଗଳ୍ପରେ ଅଧ୍ୟାୟ ଯୋଗ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createStory": "ଗଳ୍ପ ତିଆରି କରନ୍ତୁ",
+    "@createStory": {
+        "description": "ନୂଆ ଗଳ୍ପ ଚୂଡ଼ାନ୍ତ ଓ ତିଆରି ବଟନ ଟେକ୍ସଟ।"
+    },
+    "fillAllRequiredFieldsAndChapter": "ଦୟାକରି ସମସ୍ତ ଆବଶ୍ୟକ କ୍ଷେତ୍ର ପୂରଣ କରନ୍ତୁ, ଅନ୍ତତଃ ଗୋଟିଏ ଅଧ୍ୟାୟ ଯୋଗ କରନ୍ତୁ, ଏବଂ ଆବରଣ ଚିତ୍ର ବାଛନ୍ତୁ।",
+    "@fillAllRequiredFieldsAndChapter": {
+        "description": "ଗଳ୍ପ ତିଆରି ଫର୍ମ ଆବଶ୍ୟକତା ପୂରଣ ନ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "toConfirmType": "ନିଶ୍ଚିତ କରିବାକୁ, ଟାଇପ କରନ୍ତୁ",
+    "@toConfirmType": {
+        "description": "ଟାଇପ ହେବାଯୋଗ୍ୟ ଟେକ୍ସଟ ଆଗରେ ନିଶ୍ଚିତ ଡ଼ାୟଲଗ ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ।"
+    },
+    "inTheBoxBelow": "ନିଚ ବାକ୍ସରେ",
+    "@inTheBoxBelow": {
+        "description": "ଟାଇପ ହେବାଯୋଗ୍ୟ ଟେକ୍ସଟ ପରେ ନିଶ୍ଚିତ ଡ଼ାୟଲଗ ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ।"
+    },
+    "iUnderstandDeleteMyAccount": "ମୁଁ ବୁଝୁଛି, ମୋ ଖାତା ଡ଼ିଲିଟ କରନ୍ତୁ",
+    "@iUnderstandDeleteMyAccount": {
+        "description": "ଖାତା ଡ଼ିଲିଟ ନିଶ୍ଚିତ ପାଇଁ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ଟାଇପ କରିବାଯୋଗ୍ୟ ନିର୍ଦ୍ଦିଷ୍ଟ ବାକ୍ୟ।"
+    },
+    "whatDoYouWantToListenTo": "ଆପଣ କ'ଣ ଶୁଣିବାକୁ ଚାହୁଁଛନ୍ତି?",
+    "@whatDoYouWantToListenTo": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ସଂଶ୍ଳିଷ୍ଟ ଉସ୍କାଉଥିବା ମୁଖ୍ୟ ପୃଷ୍ଠା ଅନୁଜ୍ଞା।"
+    },
+    "categories": "ବର୍ଗ",
+    "@categories": {
+        "description": "ବର୍ଗ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "stories": "ଗଳ୍ପ",
+    "@stories": {
+        "description": "ଗଳ୍ପ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "someSuggestions": "କିଛି ପ୍ରସ୍ତାବ",
+    "@someSuggestions": {
+        "description": "ପ୍ରସ୍ତାବିତ ବିଷୟ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "getStarted": "ଆରମ୍ଭ କରନ୍ତୁ",
+    "@getStarted": {
+        "description": "ଆପ ବ୍ୟବହାର ଆରମ୍ଭ ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "skip": "ଛାଡ଼ ଦିଅନ୍ତୁ",
+    "@skip": {
+        "description": "ଅଣ-ଆବଶ୍ୟକ ଧାପ ଛାଡ଼ ଦେବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "welcomeToResonate": "Resonate ରେ ସ୍ୱାଗତ",
+    "@welcomeToResonate": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "exploreDiverseConversations": "ବିଭିନ୍ନ ବାର୍ତ୍ତାଳାପ ଅନ୍ୱେଷଣ କରନ୍ତୁ",
+    "@exploreDiverseConversations": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠାରେ ଫିଚର ହାଇଲାଇଟ।"
+    },
+    "yourVoiceMatters": "ଆପଣଙ୍କ ସ୍ୱର ଗୁରୁତ୍ୱ ରଖେ",
+    "@yourVoiceMatters": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠାରେ ଫିଚର ହାଇଲାଇଟ।"
+    },
+    "joinConversationExploreRooms": "ବାର୍ତ୍ତାଳାପରେ ଯୋଗ ଦିଅନ୍ତୁ! ରୁମ ଅନ୍ୱେଷଣ କରନ୍ତୁ, ବନ୍ଧୁଙ୍କ ସହ ଯୁକ୍ତ ହୁଅନ୍ତୁ, ଏବଂ ଦୁନିଆ ସହ ଆପଣଙ୍କ ସ୍ୱର ଭାଗ କରନ୍ତୁ।",
+    "@joinConversationExploreRooms": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠାରେ ବର୍ଣ୍ଣନାମୂଳକ ଟେକ୍ସଟ।"
+    },
+    "diveIntoDiverseDiscussions": "ବିଭିନ୍ନ ଆଲୋଚନା ଓ ବିଷୟରେ ଅଂଶ ନିଅନ୍ତୁ। \nଆପଣଙ୍କ ସଙ୍ଗ ମିଳୁଥିବା ରୁମ ଖୋଜନ୍ତୁ ଓ ସମୁଦାୟର ଅଂଶ ହୁଅନ୍ତୁ।",
+    "@diveIntoDiverseDiscussions": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠାରେ ବର୍ଣ୍ଣନାମୂଳକ ଟେକ୍ସଟ।"
+    },
+    "atResonateEveryVoiceValued": "Resonate ରେ, ପ୍ରତ୍ୟେକ ସ୍ୱର ମୂଲ୍ୟବାନ। ଆପଣଙ୍କ ଭାବ, ଗଳ୍ପ ଓ ଅଭିଜ୍ଞତା ଅନ୍ୟଙ୍କ ସଙ୍ଗ ବାଣ୍ଟନ୍ତୁ। ଏବେ ଆପଣଙ୍କ ଅଡ଼ିଓ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ।",
+    "@atResonateEveryVoiceValued": {
+        "description": "ଅନ୍‌ବୋର୍ଡ଼ିଂ ପୃଷ୍ଠାରେ ବର୍ଣ୍ଣନାମୂଳକ ଟେକ୍ସଟ।"
+    },
+    "notifications": "ବିଜ୍ଞପ୍ତି",
+    "@notifications": {
+        "description": "ବିଜ୍ଞପ୍ତି ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "taggedYouInUpcomingRoom": "{username} ଆସନ୍ତା ରୁମରେ ଆପଣଙ୍କୁ ଟ୍ୟାଗ କରିଛନ୍ତି: {subject}",
+    "@taggedYouInUpcomingRoom": {
+        "description": "ଆସନ୍ତା ରୁମରେ ଟ୍ୟାଗ ହେଲେ ବିଜ୍ଞପ୍ତି ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "taggedYouInRoom": "{username} ରୁମରେ ଆପଣଙ୍କୁ ଟ୍ୟାଗ କରିଛନ୍ତି: {subject}",
+    "@taggedYouInRoom": {
+        "description": "ଲାଇଭ ରୁମରେ ଟ୍ୟାଗ ହେଲେ ବିଜ୍ଞପ୍ତି ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Discussion Room"
+            }
+        }
+    },
+    "likedYourStory": "{username} ଆପଣଙ୍କ ଗଳ୍ପ ପସନ୍ଦ କରିଛନ୍ତି: {subject}",
+    "@likedYourStory": {
+        "description": "କେହି ଆପଣଙ୍କ ଗଳ୍ପ ପସନ୍ଦ କଲେ ବିଜ୍ଞପ୍ତି ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Story"
+            }
+        }
+    },
+    "subscribedToYourRoom": "{username} ଆପଣଙ୍କ ରୁମ ସଦସ୍ୟ ହୋଇଛନ୍ତି: {subject}",
+    "@subscribedToYourRoom": {
+        "description": "କେହି ଆପଣଙ୍କ ରୁମ ସଦସ୍ୟ ହେଲେ ବିଜ୍ଞପ୍ତି ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "My Room"
+            }
+        }
+    },
+    "startedFollowingYou": "{username} ଆପଣଙ୍କୁ ଅନୁସରଣ ଆରମ୍ଭ କରିଛନ୍ତି",
+    "@startedFollowingYou": {
+        "description": "କେହି ଆପଣଙ୍କୁ ଅନୁସରଣ ଆରମ୍ଭ କଲେ ବିଜ୍ଞପ୍ତି ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "youHaveNewNotification": "ଆପଣଙ୍କ ପାଇଁ ଏକ ନୂଆ ବିଜ୍ଞପ୍ତି ଅଛି",
+    "@youHaveNewNotification": {
+        "description": "ନୂଆ ବିଜ୍ଞପ୍ତି ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "hangOnGoodThingsTakeTime": "ଟିକ ଅପେକ୍ଷା କରନ୍ତୁ, ଭଲ ଜିନିଷ ସମୟ ନେଇଥାଏ 🔍",
+    "@hangOnGoodThingsTakeTime": {
+        "description": "ଦୀର୍ଘ ଲୋଡ଼ିଂ ସମୟ ଦେଖାଯାଉଥିବା ବନ୍ଧୁତ୍ୱପୂର୍ଣ ବାର୍ତ୍ତା।"
+    },
+    "resonateOpenSourceProject": "Resonate ହେଉଛି AOSSIE ଦ୍ୱାରା ରକ୍ଷଣାବେକ୍ଷଣ କରାଯାଉଥିବା ଏକ ଓପନ ସୋର୍ସ ପ୍ରକଳ୍ପ। ଯୋଗଦାନ ପାଇଁ ଆମ github ଦେଖନ୍ତୁ।",
+    "@resonateOpenSourceProject": {
+        "description": "ପ୍ରକଳ୍ପ ଓପନ ସୋର୍ସ ସ୍ୱଭାବ ସଂକ୍ରାନ୍ତ ଜ୍ଞାନ ଟେକ୍ସଟ।"
+    },
+    "mute": "ମ୍ୟୁଟ",
+    "@mute": {
+        "description": "ମାଇକ ମ୍ୟୁଟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "speakerLabel": "ସ୍ପୀକର",
+    "@speakerLabel": {
+        "description": "ସ୍ପୀକରଫୋନ ଟଗଲ ଲେବଲ।"
+    },
+    "end": "ସମାପ୍ତ",
+    "@end": {
+        "description": "କଲ ବା ସେସନ ସମାପ୍ତ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "saveChanges": "ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ କରନ୍ତୁ",
+    "@saveChanges": {
+        "description": "ପରିବର୍ତ୍ତିତ ସେଟିଂ ବା ପ୍ରୋଫାଇଲ ଜ୍ଞାନ ସଞ୍ଚୟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "discard": "ବାତିଲ",
+    "@discard": {
+        "description": "ପରିବର୍ତ୍ତନ ବାତିଲ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "save": "ସଞ୍ଚୟ",
+    "@save": {
+        "description": "ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "changeProfilePicture": "ପ୍ରୋଫାଇଲ ଚିତ୍ର ବଦଳାନ୍ତୁ",
+    "@changeProfilePicture": {
+        "description": "ପ୍ରୋଫାଇଲ ଚିତ୍ର ଚୟନ ବିକଳ୍ପ ଖୋଲିବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "camera": "କ୍ୟାମେରା",
+    "@camera": {
+        "description": "ଫଟୋ ଉଠାଇବା କ୍ୟାମେରା ବ୍ୟବହାର ବିକଳ୍ପ।"
+    },
+    "gallery": "ଗ୍ୟାଲେରି",
+    "@gallery": {
+        "description": "ଗ୍ୟାଲେରିରୁ ଚିତ୍ର ବାଛିବା ବିକଳ୍ପ।"
+    },
+    "remove": "ହଟାନ୍ତୁ",
+    "@remove": {
+        "description": "ପ୍ରୋଫାଇଲ ଚିତ୍ର ଭଳି ଆଇଟମ ହଟାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "created": "{date} ରେ ତିଆରି",
+    "@created": {
+        "description": "ଗଳ୍ପ ବା ବିଷୟ ତିଆରି ତାରିଖ ଦର୍ଶାଏ।",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "Jan 15, 2023"
+            }
+        }
+    },
+    "chapters": "ଅଧ୍ୟାୟ",
+    "@chapters": {
+        "description": "ଗଳ୍ପ ଅଧ୍ୟାୟ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "deleteStory": "ଗଳ୍ପ ଡ଼ିଲିଟ",
+    "@deleteStory": {
+        "description": "ଗଳ୍ପ ଡ଼ିଲିଟ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "createdBy": "{creatorName} ଦ୍ୱାରା ତିଆରି",
+    "@createdBy": {
+        "description": "ବିଷୟ ସ୍ରଷ୍ଟାଙ୍କ ନାମ ଦର୍ଶାଏ।",
+        "placeholders": {
+            "creatorName": {
+                "type": "String",
+                "example": "John Doe"
+            }
+        }
+    },
+    "start": "ଆରମ୍ଭ",
+    "@start": {
+        "description": "ଗତିବିଧି ବା ସେସନ ଆରମ୍ଭ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "unsubscribe": "ସଦସ୍ୟ ବାତିଲ",
+    "@unsubscribe": {
+        "description": "ରୁମ ବା ବିଜ୍ଞପ୍ତି ସଦସ୍ୟ ବାତିଲ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "subscribe": "ସଦସ୍ୟ ହୁଅନ୍ତୁ",
+    "@subscribe": {
+        "description": "ରୁମ ବା ବିଜ୍ଞପ୍ତି ସଦସ୍ୟ ହେବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "storyCategory": "{category, select, drama{ନାଟ୍ୟ} comedy{ହାସ୍ୟ} horror{ଭୟାନକ} romance{ରୋମାନ୍ସ} thriller{ରୋମାଞ୍ଚ} spiritual{ଆଧ୍ୟାତ୍ମିକ} other{ଅନ୍ୟ}}",
+    "@storyCategory": {
+        "description": "ଚାବି ଆଧାରରେ ଗଳ୍ପ ଉପଯୁକ୍ତ ବର୍ଗ ନାମ ବାଛେ।",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "chooseTheme": "{category, select, classicTheme{ଶ୍ରେଣୀ} timeTheme{ସମୟ} vintageTheme{ପ୍ରାଚୀନ} amberTheme{ଆମ୍ବର} forestTheme{ଜଙ୍ଗଲ} creamTheme{କ୍ରିମ} other{ଅନ୍ୟ}}",
+    "@chooseTheme": {
+        "description": "ଚାବି ଆଧାରରେ ଉପଯୁକ୍ତ ଥିମ ନାମ ବାଛେ।",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "classic"
+            }
+        }
+    },
+    "minutesAgo": "{count, plural, =1{୧ ମିନଟ ଆଗରୁ} other{{count} ମିନଟ ଆଗରୁ}}",
+    "@minutesAgo": {
+        "description": "ମିନଟ ପାଇଁ ସାପେକ୍ଷ ଫର୍ମାଟରେ ସମୟ ଦର୍ଶାଏ।",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "hoursAgo": "{count, plural, =1{୧ ଘଣ୍ଟା ଆଗରୁ} other{{count} ଘଣ୍ଟା ଆଗରୁ}}",
+    "@hoursAgo": {
+        "description": "ଘଣ୍ଟା ପାଇଁ ସାପେକ୍ଷ ଫର୍ମାଟରେ ସମୟ ଦର୍ଶାଏ।",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
+    },
+    "daysAgo": "{count, plural, =1{୧ ଦିନ ଆଗରୁ} other{{count} ଦିନ ଆଗରୁ}}",
+    "@daysAgo": {
+        "description": "ଦିନ ପାଇଁ ସାପେକ୍ଷ ଫର୍ମାଟରେ ସମୟ ଦର୍ଶାଏ।",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "by": "ଦ୍ୱାରା",
+    "@by": {
+        "description": "ବିଷୟ ଶୀର୍ଷକ ଓ ଲେଖକ ନାମ ମଧ୍ୟରେ ବ୍ୟବହୃତ ଅନ୍ୱୟ।"
+    },
+    "likes": "ପସନ୍ଦ",
+    "@likes": {
+        "description": "ପସନ୍ଦ ସଂଖ୍ୟା ଲେବଲ।"
+    },
+    "lengthMinutes": "ମି",
+    "@lengthMinutes": {
+        "description": "ଅଡ଼ିଓ ଦୀର୍ଘ ଦର୍ଶାଇବା ପାଇଁ 'ମିନଟ' ସଂକ୍ଷେପ।"
+    },
+    "requiredField": "ଆବଶ୍ୟକ କ୍ଷେତ୍ର",
+    "@requiredField": {
+        "description": "ଖାଲି ଛାଡ଼ ହୋଇଥିବା ଆବଶ୍ୟକ ଫିଲ୍ଡ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "onlineUsers": "ଅନଲାଇନ ଉପଯୋଗକର୍ତ୍ତା",
+    "@onlineUsers": {
+        "description": "ବର୍ତ୍ତମାନ ଅନଲାଇନ ଉପଯୋଗକର୍ତ୍ତା ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "noOnlineUsers": "ବର୍ତ୍ତମାନ କୌଣସି ଉପଯୋଗକର୍ତ୍ତା ଅନଲାଇନ ନାହାନ୍ତି",
+    "@noOnlineUsers": {
+        "description": "କୌଣସି ଉପଯୋଗକର୍ତ୍ତା ଅନଲାଇନ ନ ଥିଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "chooseUser": "ଚାଟ ପାଇଁ ଉପଯୋଗକର୍ତ୍ତା ବାଛନ୍ତୁ",
+    "@chooseUser": {
+        "description": "ଚାଟ ଆରମ୍ଭ ପାଇଁ ଉପଯୋଗକର୍ତ୍ତା ବାଛିବା ନିର୍ଦ୍ଦେଶ ଟେକ୍ସଟ।"
+    },
+    "quickMatch": "ଦ୍ରୁତ ମ୍ୟାଚ",
+    "@quickMatch": {
+        "description": "ଯଦୃଚ୍ଛ ଚାଟ ସଂଗୀ ସହ ଦ୍ରୁତ ମ୍ୟାଚ ଫିଚର ବଟନ ଟେକ୍ସଟ।"
+    },
+    "story": "ଗଳ୍ପ",
+    "@story": {
+        "description": "ଗଳ୍ପ ଲେବଲ।"
+    },
+    "user": "ଉପଯୋଗକର୍ତ୍ତା",
+    "@user": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ଲେବଲ।"
+    },
+    "following": "ଅନୁସରଣ",
+    "@following": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତା ଅନୁସରଣ ତାଲିକା ଲେବଲ।"
+    },
+    "followers": "ଅନୁଗାମୀ",
+    "@followers": {
+        "description": "ବର୍ତ୍ତମାନ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଅନୁଗାମୀ ତାଲିକା ଲେବଲ।"
+    },
+    "friendRequests": "ବନ୍ଧୁ ଅନୁରୋଧ",
+    "@friendRequests": {
+        "description": "ଆସୁଥିବା ବନ୍ଧୁ ଅନୁରୋଧ ତାଲିକା ଶୀର୍ଷକ।"
+    },
+    "friendRequestSent": "ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଯାଇଛି",
+    "@friendRequestSent": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଇବା ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "friendRequestSentTo": "{username} ଙ୍କ ପାଖକୁ ଆପଣଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଯାଇଛି।",
+    "@friendRequestSentTo": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଇବା ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestCancelled": "ବନ୍ଧୁ ଅନୁରୋଧ ବାତିଲ",
+    "@friendRequestCancelled": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ବାତିଲ ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "friendRequestCancelledTo": "{username} ଙ୍କ ପାଖକୁ ଆପଣଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ବାତିଲ ହୋଇଛି।",
+    "@friendRequestCancelledTo": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ବାତିଲ ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "requested": "ଅନୁରୋଧ ହୋଇଛି",
+    "@requested": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଯାଇଛି ଦର୍ଶାଉଥିବା ବଟନ ସ୍ଥିତି ଲେବଲ।"
+    },
+    "friends": "ବନ୍ଧୁ",
+    "@friends": {
+        "description": "ବନ୍ଧୁ ତାଲିକା ସ୍ଥିତି ଲେବଲ ବା ଶୀର୍ଷକ।"
+    },
+    "addFriend": "ବନ୍ଧୁ ଯୋଗ କରନ୍ତୁ",
+    "@addFriend": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ପଠାଇବା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "friendRequestAccepted": "ବନ୍ଧୁ ଅନୁରୋଧ ଗ୍ରହଣ",
+    "@friendRequestAccepted": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ଗ୍ରହଣ ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "friendRequestAcceptedTo": "ଆପଣ ଏବେ {username} ଙ୍କ ସହ ବନ୍ଧୁ ଅଛନ୍ତି।",
+    "@friendRequestAcceptedTo": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ଗ୍ରହଣ ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestDeclined": "ବନ୍ଧୁ ଅନୁରୋଧ ଅସ୍ୱୀକାର",
+    "@friendRequestDeclined": {
+        "description": "ବନ୍ଧୁ ଅନୁରୋଧ ଅସ୍ୱୀକାର ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "friendRequestDeclinedTo": "ଆପଣ {username} ଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ଅସ୍ୱୀକାର କରିଛନ୍ତି।",
+    "@friendRequestDeclinedTo": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ବନ୍ଧୁ ଅନୁରୋଧ ଅସ୍ୱୀକାର ପରେ ନିଶ୍ଚିତ ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "accept": "ଗ୍ରହଣ",
+    "@accept": {
+        "description": "ଅନୁରୋଧ ବା ଆମନ୍ତ୍ରଣ ଗ୍ରହଣ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "callDeclined": "କଲ ଅସ୍ୱୀକାର",
+    "@callDeclined": {
+        "description": "କଲ ଅସ୍ୱୀକାର ହେଲେ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "callDeclinedTo": "ଉପଯୋଗକର୍ତ୍ତା {username} କଲ ଅସ୍ୱୀକାର କରିଛନ୍ତି।",
+    "@callDeclinedTo": {
+        "description": "ନିର୍ଦ୍ଦିଷ୍ଟ ଉପଯୋଗକର୍ତ୍ତା କଲ ଅସ୍ୱୀକାର କଳ ଦର୍ଶାଉଥିବା ବାର୍ତ୍ତା।",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "checkForUpdates": "ଅଦ୍ୟତନ ଯାଞ୍ଚ",
+    "@checkForUpdates": {
+        "description": "ଆପ୍ଲିକେସନ ଅଦ୍ୟତନ ହାତୀ ଯାଞ୍ଚ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "updateNow": "ଏବେ ଅଦ୍ୟତନ",
+    "@updateNow": {
+        "description": "ଅଦ୍ୟତନ ପ୍ରକ୍ରିୟା ଆରମ୍ଭ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "updateLater": "ପରେ",
+    "@updateLater": {
+        "description": "ଅଦ୍ୟତନ ସ୍ଥଗିତ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "updateSuccessful": "ଅଦ୍ୟତନ ସଫଳ",
+    "@updateSuccessful": {
+        "description": "ଅଦ୍ୟତନ ପରେ ସଫଳ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "updateSuccessfulMessage": "Resonate ସଫଳଭାବରେ ଅଦ୍ୟତନ ହୋଇଛି!",
+    "@updateSuccessfulMessage": {
+        "description": "ଆପ୍ଲିକେସନ ଅଦ୍ୟତନ ନିଶ୍ଚିତ ସଫଳ ବାର୍ତ୍ତା।"
+    },
+    "updateCancelled": "ଅଦ୍ୟତନ ବାତିଲ",
+    "@updateCancelled": {
+        "description": "ଅଦ୍ୟତନ ବାତିଲ ହେଲେ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "updateCancelledMessage": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଦ୍ୱାରା ଅଦ୍ୟତନ ବାତିଲ ହୋଇଛି",
+    "@updateCancelledMessage": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ଅଦ୍ୟତନ ପ୍ରକ୍ରିୟା ବାତିଲ ଦର୍ଶାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "updateFailed": "ଅଦ୍ୟତନ ବିଫଳ",
+    "@updateFailed": {
+        "description": "ଅଦ୍ୟତନ ବିଫଳ ହେଲେ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "updateFailedMessage": "ଅଦ୍ୟତନ ବିଫଳ। ଦୟାକରି Play Store ରୁ ହାତୀ ଅଦ୍ୟତନ ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@updateFailedMessage": {
+        "description": "ଆପ ଭିତରର ଅଦ୍ୟତନ ବିଫଳ ହେଲେ ହାତୀ ଅଦ୍ୟତନ ପ୍ରସ୍ତାବ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "updateError": "ଅଦ୍ୟତନ ତ୍ରୁଟି",
+    "@updateError": {
+        "description": "ଅଦ୍ୟତନ ସଂକ୍ରାନ୍ତ ତ୍ରୁଟି ସାଧାରଣ ଶୀର୍ଷକ।"
+    },
+    "updateErrorMessage": "ଅଦ୍ୟତନ ସମୟରେ ଏକ ତ୍ରୁଟି ଘଟିଛି। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@updateErrorMessage": {
+        "description": "ଅଜ୍ଞାତ ତ୍ରୁଟି ଯୋଗୁ ଅଦ୍ୟତନ ବିଫଳ ସାଧାରଣ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "platformNotSupported": "ପ୍ଲାଟଫର୍ମ ସମର୍ଥିତ ନୁହେଁ",
+    "@platformNotSupported": {
+        "description": "ବର୍ତ୍ତମାନ ପ୍ଲାଟଫର୍ମରେ ଫିଚର ସମର୍ଥିତ ନ ହେଲେ ତ୍ରୁଟି ଶୀର୍ଷକ।"
+    },
+    "platformNotSupportedMessage": "ଅଦ୍ୟତନ ଯାଞ୍ଚ କେବଳ Android ଡ଼ିଭାଇସରେ ଉପଲବ୍ଧ",
+    "@platformNotSupportedMessage": {
+        "description": "ଆପ ଅଦ୍ୟତନ ଫିଚର ପ୍ଲାଟଫର୍ମ-ନିର୍ଦ୍ଦିଷ୍ଟ ବୋଲି ବୁଝାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "updateCheckFailed": "ଅଦ୍ୟତନ ଯାଞ୍ଚ ବିଫଳ",
+    "@updateCheckFailed": {
+        "description": "ଅଦ୍ୟତନ ଯାଞ୍ଚ ବିଫଳ ହେଲେ ତ୍ରୁଟି ଶୀର୍ଷକ।"
+    },
+    "updateCheckFailedMessage": "ଅଦ୍ୟତନ ଯାଞ୍ଚ ସମ୍ଭବ ହୋଇ ପାରିଲା ନାହିଁ। ଦୟାକରି ପରେ ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "@updateCheckFailedMessage": {
+        "description": "ଅଦ୍ୟତନ ଯାଞ୍ଚ ପ୍ରକ୍ରିୟା ବିଫଳ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "upToDateTitle": "ଆପଣ ଅଦ୍ୟତନ ଅଛନ୍ତି!",
+    "@upToDateTitle": {
+        "description": "ଆପ ଆଗରୁ ଅଦ୍ୟତନ ଥିଲ ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "upToDateMessage": "ଆପଣ Resonate ର ସର୍ବଶେଷ ସଂସ୍କରଣ ବ୍ୟବହାର କରୁଛନ୍ତି",
+    "@upToDateMessage": {
+        "description": "ଅଦ୍ୟତନ ଦରକାର ନ ଥିବା ନିଶ୍ଚିତ ବାର୍ତ୍ତା।"
+    },
+    "updateAvailableTitle": "ଅଦ୍ୟତନ ଉପଲବ୍ଧ!",
+    "@updateAvailableTitle": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ନୂଆ ଅଦ୍ୟତନ ଜଣାଉଥିବା ଡ଼ାୟଲଗ ଶୀର୍ଷକ।"
+    },
+    "updateAvailableMessage": "Play Store ରେ Resonate ର ଏକ ନୂଆ ସଂସ୍କରଣ ଉପଲବ୍ଧ",
+    "@updateAvailableMessage": {
+        "description": "Play Store ରୁ ଆପ ଅଦ୍ୟତନ ଅନୁଜ୍ଞା ବାର୍ତ୍ତା।"
+    },
+    "updateFeaturesImprovement": "ସର୍ବଶେଷ ଫିଚର ଓ ଉନ୍ନତି ପ୍ରାପ୍ତ କରନ୍ତୁ!",
+    "@updateFeaturesImprovement": {
+        "description": "ଆପ୍ଲିକେସନ ଅଦ୍ୟତନ ଲାଭ ଦର୍ଶାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "failedToRemoveRoom": "ରୁମ ହଟାଇ ହୋଇ ପାରିଲା ନାହିଁ",
+    "@failedToRemoveRoom": {
+        "description": "ତାଲିକାରୁ ରୁମ ହଟାଇ ଅସ୍ୱୀକୃତ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "roomRemovedSuccessfully": "ରୁମ ଆପଣଙ୍କ ତାଲିକାରୁ ସଫଳଭାବରେ ହଟାଯାଇଛି",
+    "@roomRemovedSuccessfully": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ତାଲିକାରୁ ରୁମ ସଫଳଭାବରେ ହଟାଯିବା ବାର୍ତ୍ତା।"
+    },
+    "alert": "ସତର୍କ",
+    "@alert": {
+        "description": "ସତର୍କ ଡ଼ାୟଲଗ ଶୀର୍ଷକ।"
+    },
+    "removedFromRoom": "ଆପଣଙ୍କୁ ରୁମରୁ ରିପୋର୍ଟ ବା ବାହାର କରାଯାଇଛି",
+    "@removedFromRoom": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ରୁମରୁ ବାହାର ବା ରିପୋର୍ଟ ହେଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "reportType": "{type, select, harassment{ହଇରାଣ / ଘୃଣ୍ୟ ଭାଷଣ} abuse{ଅପ ବ୍ୟବହାର / ହିଂସା} spam{ସ୍ପ୍ୟାମ / ଠକାମି / ଜାଲିଆତି} impersonation{ପ୍ରତିରୂପଣ / ନକଲ ଖାତା} illegal{ଅବୈଧ କାର୍ଯ୍ୟ} selfharm{ଆତ୍ମ-କ୍ଷତି / ଆତ୍ମହତ୍ୟା / ମାନସିକ ସ୍ୱାସ୍ଥ୍ୟ} misuse{ପ୍ଲାଟଫର୍ମ ଅପ ବ୍ୟବହାର} other{ଅନ୍ୟ}}",
+    "@reportType": {
+        "description": "ଚାବି ଆଧାରରେ ଉପଯୁକ୍ତ ରିପୋର୍ଟ ପ୍ରକାର ଲେବଲ ବାଛେ।",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
+    },
+    "userBlockedFromResonate": "ଆପଣ ଅନେକ ଉପଯୋଗକର୍ତ୍ତାଙ୍କ ଦ୍ୱାରା ରିପୋର୍ଟ ହୋଇଛନ୍ତି ଏବଂ Resonate ବ୍ୟବହାରରୁ ବ୍ଲକ ହୋଇଛନ୍ତି। ଯଦି ଏହା ଭୁଲ ବୋଲି ଭାବୁଛନ୍ତି, ଦୟାକରି AOSSIE ଙ୍କ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ।",
+    "@userBlockedFromResonate": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା Resonate ବ୍ୟବହାରରୁ ବ୍ଲକ ହେଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "reportParticipant": "ଅଂଶଗ୍ରହଣକାରୀ ରିପୋର୍ଟ",
+    "@reportParticipant": {
+        "description": "ଅଂଶଗ୍ରହଣକାରୀ ରିପୋର୍ଟ ବଟନ ଲେବଲ।"
+    },
+    "selectReportType": "ଦୟାକରି ଏକ ରିପୋର୍ଟ ପ୍ରକାର ବାଛନ୍ତୁ",
+    "@selectReportType": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତାଙ୍କୁ ରିପୋର୍ଟ ପ୍ରକାର ବାଛିବା ଅନୁଜ୍ଞା।"
+    },
+    "reportSubmitted": "ରିପୋର୍ଟ ସଫଳଭାବରେ ଜମା ହୋଇଛି",
+    "@reportSubmitted": {
+        "description": "ରିପୋର୍ଟ ସଫଳଭାବରେ ଜମା ହେଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "reportFailed": "ରିପୋର୍ଟ ଜମା ବିଫଳ",
+    "@reportFailed": {
+        "description": "ରିପୋର୍ଟ ଜମା ବିଫଳ ହେଲେ ଦେଖାଯାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "additionalDetailsOptional": "ଅତିରିକ୍ତ ବିବରଣୀ (ଐଚ୍ଛିକ)",
+    "@additionalDetailsOptional": {
+        "description": "ରିପୋର୍ଟରେ ଅତିରିକ୍ତ ବିବରଣ ପାଇଁ ଐଚ୍ଛିକ ଇନପୁଟ ଫିଲ୍ଡ ଲେବଲ।"
+    },
+    "submitReport": "ରିପୋର୍ଟ ଜମା ଦିଅନ୍ତୁ",
+    "@submitReport": {
+        "description": "ରିପୋର୍ଟ ଜମା ବଟନ ଟେକ୍ସଟ।"
+    },
+    "actionBlocked": "କ୍ରିୟା ଅବରୁଦ୍ଧ",
+    "@actionBlocked": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା କ୍ରିୟା ଅବରୁଦ୍ଧ ଦର୍ଶାଉଥିବା ବାର୍ତ୍ତା ଶୀର୍ଷକ।"
+    },
+    "cannotStopRecording": "ଆପଣ ରେକର୍ଡ଼ିଂ ହାତୀ ବନ୍ଦ କରିପାରିବେ ନାହିଁ, ରୁମ ବନ୍ଦ ହେଲେ ରେକର୍ଡ଼ିଂ ସ୍ୱୟଂଚାଳିତ ଭାବେ ବନ୍ଦ ହେବ।",
+    "@cannotStopRecording": {
+        "description": "ଉପଯୋଗକର୍ତ୍ତା ରେକର୍ଡ଼ିଂ ହାତୀ ବନ୍ଦ ପାରୁ ନ ଥିବା ବୁଝାଉଥିବା ବାର୍ତ୍ତା।"
+    },
+    "liveChapter": "ଲାଇଭ ଅଧ୍ୟାୟ",
+    "@liveChapter": {
+        "description": "ଅଧ୍ୟାୟ ବର୍ତ୍ତମାନ ଲାଇଭ ଦର୍ଶାଉଥିବା ଲେବଲ।"
+    },
+    "viewOrEditLyrics": "ଗୀତ ଶବ୍ଦ ଦେଖନ୍ତୁ ବା ସଂପାଦନ କରନ୍ତୁ",
+    "@viewOrEditLyrics": {
+        "description": "ଅଧ୍ୟାୟ ଗୀତ ଶବ୍ଦ ଦେଖିବା ବା ସଂପାଦନ ବଟନ ଟେକ୍ସଟ।"
+    },
+    "close": "ବନ୍ଦ",
+    "@close": {
+        "description": "ଡ଼ାୟଲଗ ବନ୍ଦ ବଟନ ଲେବଲ।"
+    },
+    "verifyChapterDetails": "ଅଧ୍ୟାୟ ବିବରଣୀ ଯାଞ୍ଚ କରନ୍ତୁ",
+    "@verifyChapterDetails": {
+        "description": "ପ୍ରକାଶ ଆଗ ଲାଇଭ ଅଧ୍ୟାୟ ବିବରଣ ଯାଞ୍ଚ ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "author": "ଲେଖକ",
+    "@author": {
+        "description": "ଗଳ୍ପ ବା ଅଧ୍ୟାୟ ଲେଖକ ଲେବଲ।"
+    },
+    "startLiveChapter": "ଏକ ଲାଇଭ ଅଧ୍ୟାୟ ଆରମ୍ଭ କରନ୍ତୁ",
+    "@startLiveChapter": {
+        "description": "ଲାଇଭ ଅଧ୍ୟାୟ ଆରମ୍ଭ ପୃଷ୍ଠା ଶୀର୍ଷକ।"
+    },
+    "fillAllFields": "ଦୟାକରି ସମସ୍ତ ଆବଶ୍ୟକ କ୍ଷେତ୍ର ପୂରଣ କରନ୍ତୁ",
+    "@fillAllFields": {
+        "description": "ଫର୍ମ ଆବଶ୍ୟକ ଫିଲ୍ଡ ପୂରଣ ନ ହେଲେ ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    },
+    "noRecordingError": "ଆପଣ ଅଧ୍ୟାୟ ପାଇଁ କିଛି ରେକର୍ଡ଼ କରିନାହାନ୍ତି। ରୁମ ଛାଡ଼ିବା ପୂର୍ବରୁ ଦୟାକରି ଏକ ଅଧ୍ୟାୟ ରେକର୍ଡ଼ କରନ୍ତୁ",
+    "@noRecordingError": {
+        "description": "ରେକର୍ଡ଼ ବିନା ଲାଇଭ ଅଧ୍ୟାୟ ରୁମ ଛାଡ଼ ଦେବା ଚେଷ୍ଟା ତ୍ରୁଟି ବାର୍ତ୍ତା।"
+    }
+}
+
