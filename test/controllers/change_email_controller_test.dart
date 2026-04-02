@@ -192,8 +192,6 @@ void main() {
 
   await tester.pumpAndSettle();
 
-  // ❌ REMOVE overlay hack completely
-
   changeEmailController.passwordController.text = 'anyPassword';
   changeEmailController.emailController.text = 'test2@test.com';
 
