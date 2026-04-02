@@ -14,9 +14,8 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
-
 android {
-    namespace ="com.resonate.resonate"
+    namespace = "com.resonate.resonate"
     compileSdk = 36
     ndkVersion = "28.0.12433566"
 
@@ -30,35 +29,41 @@ android {
         jvmTarget = "21"
     }
 
-val projectId: String = System.getenv("APPWRITE_PROJECT_ID") ?: "resonate"
-println("PROJECT_ID: $projectId")
+    val projectId: String = System.getenv("APPWRITE_PROJECT_ID") ?: "resonate"
+    println("PROJECT_ID: $projectId")
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.resonate.resonate"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode.toInt()
         versionName = flutter.versionName
-        manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate", "PROJECT_ID" to projectId )
+        manifestPlaceholders += mapOf(
+            "auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com",
+            "auth0Scheme" to "resonate",
+            "PROJECT_ID" to projectId
+        )
+    }
+
+    // Move signingConfigs to the top level (inside android)
+    signingConfigs {
+        create("release") {
+            // Safely read properties, providing fallbacks or throwing clear errors
+            keyAlias = keystoreProperties["keyAlias"] as? String
+                ?: throw GradleException("Missing keyAlias in key.properties")
+            keyPassword = keystoreProperties["keyPassword"] as? String
+                ?: throw GradleException("Missing keyPassword in key.properties")
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+                ?: throw GradleException("Missing storeFile in key.properties")
+            storePassword = keystoreProperties["storePassword"] as? String
+                ?: throw GradleException("Missing storePassword in key.properties")
+        }
     }
 
     buildTypes {
-        signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
-        }
-    }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             isMinifyEnabled = false
             isShrinkResources = false
-            signingConfig = signingConfigs.getByName("debug")
             signingConfig = signingConfigs.getByName("release")
         }
     }
@@ -69,7 +74,7 @@ flutter {
 }
 
 dependencies {
-     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
-     implementation("androidx.window:window:1.0.0")
-     implementation("androidx.window:window-java:1.0.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation("androidx.window:window:1.0.0")
+    implementation("androidx.window:window-java:1.0.0")
 }
