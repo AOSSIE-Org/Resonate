@@ -23,23 +23,8 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
-    lyricUI = UINetease(
-      highlightColor: themeIsDark ? Colors.white : Colors.black,
-      playingMainTextStyle: TextStyle(
-        fontSize: UiSizes.size_20,
-        fontWeight: FontWeight.bold,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
-      otherMainTextStyle: TextStyle(
-        fontSize: UiSizes.size_18,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
-    );
+    // FIXED: Remove unsupported parameters playingMainTextStyle and otherMainTextStyle
+    lyricUI = UINetease();
   }
 
   @override
@@ -133,7 +118,6 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                       IconButton(
                                         onPressed: () {
                                           confirm.call();
-
                                           controller.audioPlayer?.seek(
                                             Duration(milliseconds: progress),
                                           );
@@ -163,8 +147,6 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                             ),
                           ),
                         ),
-
-                        // added a second extra to cover up the error of the meta data library
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -20,6 +21,7 @@ void main() {
   MockAccount mockAccount = MockAccount();
   MockClient mockClient = MockClient();
   MockFirebaseMessaging mockMessaging = MockFirebaseMessaging();
+
   AuthStateController authStateController = AuthStateController(
     account: mockAccount,
     databases: mockDatabases,
@@ -32,6 +34,7 @@ void main() {
     databases: mockDatabases,
     authStateController: authStateController,
   );
+
   final User mockUser = User(
     $id: '123',
     name: 'Test User',
@@ -53,6 +56,7 @@ void main() {
     targets: [],
     hashOptions: {},
   );
+
   final Document mockUserDocument = Document(
     $collectionId: usersCollectionID,
     $createdAt: DateTime.now().toIso8601String(),
@@ -102,9 +106,7 @@ void main() {
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: ['any'],
-        data: Map<String, dynamic>.from(
-          invocation.namedArguments[#data] as Map,
-        ),
+        data: Map<String, dynamic>.from(invocation.namedArguments[#data] as Map),
         $sequence: 0,
       );
     });
@@ -112,10 +114,9 @@ void main() {
       mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
     ).thenAnswer((_) => Future.value(mockUser));
   });
+
   test('test isEmailAvailable', () async {
-    final result = await changeEmailController.isEmailAvailable(
-      'test2@test.com',
-    );
+    final result = await changeEmailController.isEmailAvailable('test2@test.com');
     expect(result, true);
   });
 
@@ -162,48 +163,59 @@ void main() {
   });
 
   testWidgets('test changeEmail', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      GetMaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [Locale('en'), Locale('hi')],
-        home: Form(
+  Get.testMode = true;
+
+  await tester.pumpWidget(
+    GetMaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('hi')],
+      home: Scaffold(
+        body: Form(
           key: changeEmailController.changeEmailFormKey,
           child: Builder(
             builder: (context) => ElevatedButton(
               onPressed: () async {
                 await changeEmailController.changeEmail(context);
               },
-              child: Text("Test"),
+              child: const Text("Test"),
             ),
           ),
         ),
       ),
-    );
+    ),
+  );
 
-    changeEmailController.passwordController.text = 'anyPassword';
-    changeEmailController.emailController.text = 'test2@test.com';
-    await tester.tap(find.text('Test'));
-    await tester.pumpAndSettle();
-    verify(
-      mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
-    ).called(1);
+  await tester.pumpAndSettle();
 
-    await tester.pumpAndSettle(const Duration(seconds: 4));
+  // ❌ REMOVE overlay hack completely
 
-    verify(
-      mockDatabases.updateDocument(
-        databaseId: userDatabaseID,
-        collectionId: usernameCollectionID,
-        documentId: 'TestUser',
-        data: {'email': 'test2@test.com'},
-      ),
-    ).called(1);
-    expect(authStateController.email, 'test2@test.com');
-    expect(changeEmailController.isLoading.value, false);
-  });
+  changeEmailController.passwordController.text = 'anyPassword';
+  changeEmailController.emailController.text = 'test2@test.com';
+
+  await tester.tap(find.text('Test'));
+  await tester.pumpAndSettle();
+
+  verify(
+    mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
+  ).called(1);
+
+  await tester.pumpAndSettle(const Duration(seconds: 4));
+
+  verify(
+    mockDatabases.updateDocument(
+      databaseId: userDatabaseID,
+      collectionId: usernameCollectionID,
+      documentId: 'TestUser',
+      data: {'email': 'test2@test.com'},
+    ),
+  ).called(1);
+
+  expect(authStateController.email, 'test2@test.com');
+  expect(changeEmailController.isLoading.value, false);
+});
 }

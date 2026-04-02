@@ -8,6 +8,10 @@ SnackbarController customSnackbar(
   LogType messageType, {
   int snackbarDuration = 3,
 }) {
+  if (Get.testMode) {
+    return SnackbarController(GetSnackBar()); 
+  }
+
   Color messageTypeColor() {
     switch (messageType) {
       case LogType.success:
@@ -21,10 +25,14 @@ SnackbarController customSnackbar(
     }
   }
 
+  final context = Get.context;
+
   return Get.snackbar(
     title,
     message,
-    backgroundColor: Theme.of(Get.context!).colorScheme.surface,
+    backgroundColor: context != null
+        ? Theme.of(context).colorScheme.surface
+        : Colors.grey.shade900,
     titleText: Text(
       title,
       style: TextStyle(
