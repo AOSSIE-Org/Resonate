@@ -1,0 +1,1761 @@
+{
+    "@@locale": "es",
+    "title": "Resonate",
+    "@title": {
+        "description": "El título de la aplicación."
+    },
+    "roomDescription": "Sé educado y respeta la opinión de los demás. Evita comentarios groseros.",
+    "@roomDescription": {
+        "description": "Mensaje de guía para los usuarios en una sala de chat."
+    },
+    "hidePassword": "Ocultar contraseña",
+    "@hidePassword": {
+        "description": "Texto del botón para ocultar el campo de contraseña."
+    },
+    "showPassword": "Mostrar contraseña",
+    "@showPassword": {
+        "description": "Texto del botón para revelar el campo de contraseña."
+    },
+    "passwordEmpty": "La contraseña no puede estar vacía",
+    "@passwordEmpty": {
+        "description": "Mensaje de error cuando el campo de contraseña está vacío."
+    },
+    "password": "Contraseña",
+    "@password": {
+        "description": "Etiqueta para el campo de entrada de contraseña."
+    },
+    "confirmPassword": "Confirmar contraseña",
+    "@confirmPassword": {
+        "description": "Etiqueta para el campo de confirmación de contraseña."
+    },
+    "passwordsNotMatch": "Las contraseñas no coinciden",
+    "@passwordsNotMatch": {
+        "description": "Mensaje de error cuando la contraseña y su confirmación no coinciden."
+    },
+    "userCreatedStories": "Historias creadas por el usuario",
+    "@userCreatedStories": {
+        "description": "Encabezado para la sección que muestra las historias creadas por otro usuario."
+    },
+    "yourStories": "Tus historias",
+    "@yourStories": {
+        "description": "Encabezado para la sección que muestra las historias creadas por el usuario actual."
+    },
+    "userNoStories": "El usuario no ha creado ninguna historia",
+    "@userNoStories": {
+        "description": "Mensaje mostrado al ver el perfil de otro usuario y no tiene historias."
+    },
+    "youNoStories": "No has creado ninguna historia",
+    "@youNoStories": {
+        "description": "Mensaje mostrado en el perfil del usuario actual cuando no tiene historias."
+    },
+    "follow": "Seguir",
+    "@follow": {
+        "description": "Texto del botón para seguir a un usuario."
+    },
+    "editProfile": "Editar perfil",
+    "@editProfile": {
+        "description": "Texto del botón para navegar a la pantalla de edición de perfil."
+    },
+    "verifyEmail": "Verificar correo",
+    "@verifyEmail": {
+        "description": "Texto del botón o enlace para iniciar el proceso de verificación de correo electrónico."
+    },
+    "verified": "Verificado",
+    "@verified": {
+        "description": "Etiqueta de estado que indica que el correo del usuario ha sido verificado."
+    },
+    "profile": "Perfil",
+    "@profile": {
+        "description": "Etiqueta para la sección o página de perfil del usuario."
+    },
+    "userLikedStories": "Historias que le gustan al usuario",
+    "@userLikedStories": {
+        "description": "Encabezado para la sección que muestra las historias que le gustan a otro usuario."
+    },
+    "yourLikedStories": "Historias que te gustan",
+    "@yourLikedStories": {
+        "description": "Encabezado para la sección que muestra las historias que le gustan al usuario actual."
+    },
+    "userNoLikedStories": "Al usuario no le ha gustado ninguna historia",
+    "@userNoLikedStories": {
+        "description": "Mensaje mostrado al ver el perfil de otro usuario y no tiene historias que le gusten."
+    },
+    "youNoLikedStories": "No te ha gustado ninguna historia",
+    "@youNoLikedStories": {
+        "description": "Mensaje mostrado en el perfil del usuario actual cuando no tiene historias que le gusten."
+    },
+    "live": "En vivo",
+    "@live": {
+        "description": "Pestaña o etiqueta para salas de audio en vivo."
+    },
+    "upcoming": "Próximas",
+    "@upcoming": {
+        "description": "Pestaña o etiqueta para salas de audio programadas/próximas."
+    },
+    "noAvailableRoom": "{isRoom, select, true{No hay sala disponible} false{No hay salas próximas disponibles} other{No hay información de sala disponible}}\n¡Empieza añadiendo una abajo!",
+    "@noAvailableRoom": {
+        "description": "Mensaje cuando no hay sala o sala próxima disponible, con una llamada a la acción.",
+        "placeholders": {
+            "isRoom": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "user1": "Usuario 1",
+    "@user1": {
+        "description": "Nombre genérico de marcador de posición para un usuario."
+    },
+    "user2": "Usuario 2",
+    "@user2": {
+        "description": "Segundo nombre genérico de marcador de posición para un usuario."
+    },
+    "you": "Tú",
+    "@you": {
+        "description": "Etiqueta para identificar al usuario actual en una lista o chat."
+    },
+    "areYouSure": "¿Estás seguro?",
+    "@areYouSure": {
+        "description": "Título de la ventana de confirmación."
+    },
+    "loggingOut": "Estás cerrando sesión en Resonate.",
+    "@loggingOut": {
+        "description": "Mensaje de confirmación para cerrar sesión."
+    },
+    "yes": "Sí",
+    "@yes": {
+        "description": "Texto genérico del botón de confirmación."
+    },
+    "no": "No",
+    "@no": {
+        "description": "Texto genérico del botón de cancelación."
+    },
+    "incorrectEmailOrPassword": "Correo o contraseña incorrectos",
+    "@incorrectEmailOrPassword": {
+        "description": "Mensaje de error para intento de inicio de sesión fallido."
+    },
+    "passwordShort": "La contraseña tiene menos de 8 caracteres",
+    "@passwordShort": {
+        "description": "Mensaje de error para una contraseña demasiado corta."
+    },
+    "tryAgain": "¡Inténtalo de nuevo!",
+    "@tryAgain": {
+        "description": "Texto del botón para reintentar una acción fallida."
+    },
+    "success": "Éxito",
+    "@success": {
+        "description": "Título genérico para una operación exitosa."
+    },
+    "passwordResetSent": "¡Correo de restablecimiento de contraseña enviado!",
+    "@passwordResetSent": {
+        "description": "Mensaje de éxito después de enviar un correo para restablecer la contraseña."
+    },
+    "error": "Error",
+    "@error": {
+        "description": "Título genérico para una operación fallida."
+    },
+    "resetPassword": "Restablecer contraseña",
+    "@resetPassword": {
+        "description": "Título o texto del botón para la función de restablecer contraseña."
+    },
+    "enterNewPassword": "Ingresa tu nueva contraseña",
+    "@enterNewPassword": {
+        "description": "Texto instructivo en la pantalla de restablecimiento de contraseña."
+    },
+    "newPassword": "Nueva contraseña",
+    "@newPassword": {
+        "description": "Etiqueta para el campo de entrada de nueva contraseña."
+    },
+    "setNewPassword": "Establecer nueva contraseña",
+    "@setNewPassword": {
+        "description": "Texto del botón para confirmar el establecimiento de una nueva contraseña."
+    },
+    "emailChanged": "Correo cambiado",
+    "@emailChanged": {
+        "description": "Título del diálogo de éxito después de un cambio de correo."
+    },
+    "emailChangeSuccess": "¡Correo cambiado exitosamente!",
+    "@emailChangeSuccess": {
+        "description": "Mensaje de éxito después de cambiar el correo del usuario."
+    },
+    "failed": "Fallido",
+    "@failed": {
+        "description": "Título genérico para una operación fallida."
+    },
+    "emailChangeFailed": "No se pudo cambiar el correo",
+    "@emailChangeFailed": {
+        "description": "Mensaje de error cuando falla la operación de cambio de correo."
+    },
+    "oops": "¡Ups!",
+    "@oops": {
+        "description": "Título informal para un mensaje de error o advertencia."
+    },
+    "emailExists": "El correo ya existe",
+    "@emailExists": {
+        "description": "Mensaje de error cuando un usuario intenta registrarse o cambiar a un correo que ya está en uso."
+    },
+    "changeEmail": "Cambiar correo",
+    "@changeEmail": {
+        "description": "Título o texto del botón para la función de cambiar correo."
+    },
+    "enterValidEmail": "Por favor ingresa una dirección de correo válida",
+    "@enterValidEmail": {
+        "description": "Mensaje de error para un formato de correo inválido."
+    },
+    "newEmail": "Nuevo correo",
+    "@newEmail": {
+        "description": "Etiqueta para el campo de entrada de nuevo correo."
+    },
+    "currentPassword": "Contraseña actual",
+    "@currentPassword": {
+        "description": "Etiqueta para el campo de entrada de contraseña actual, usado para verificación."
+    },
+    "emailChangeInfo": "Por seguridad adicional, debes proporcionar la contraseña actual de tu cuenta al cambiar tu dirección de correo. Después de cambiar el correo, usa el correo actualizado para futuros inicios de sesión.",
+    "@emailChangeInfo": {
+        "description": "Texto informativo que explica el proceso y los requisitos de seguridad para cambiar una dirección de correo para usuarios estándar."
+    },
+    "oauthUsersMessage": "(Solo para usuarios que iniciaron sesión con Google o Github)",
+    "@oauthUsersMessage": {
+        "description": "Mensaje para especificar que las siguientes instrucciones son para usuarios OAuth."
+    },
+    "oauthUsersEmailChangeInfo": "Para cambiar tu correo, ingresa una nueva contraseña en el campo \"Contraseña actual\". Asegúrate de recordar esta contraseña, ya que la necesitarás para futuros cambios de correo. En adelante, puedes iniciar sesión usando Google/GitHub o tu nueva combinación de correo y contraseña.",
+    "@oauthUsersEmailChangeInfo": {
+        "description": "Texto informativo que explica cómo los usuarios que se registraron con Google o GitHub pueden cambiar su correo estableciendo una nueva contraseña."
+    },
+    "resonateTagline": "Entra en un mundo de conversaciones\nsin límites.",
+    "@resonateTagline": {
+        "description": "El lema de la aplicación, usado en pantallas de inicio o inicio de sesión."
+    },
+    "signInWithEmail": "Iniciar sesión con correo",
+    "@signInWithEmail": {
+        "description": "Texto del botón para iniciar sesión usando correo y contraseña."
+    },
+    "or": "O",
+    "@or": {
+        "description": "Texto separador, típicamente usado entre diferentes opciones de inicio de sesión."
+    },
+    "continueWith": "Continuar con",
+    "@continueWith": {
+        "description": "Texto informativo que precede a una lista de proveedores de inicio de sesión de terceros."
+    },
+    "continueWithGoogle": "Continuar con Google",
+    "@continueWithGoogle": {
+        "description": "Texto del botón para iniciar sesión con una cuenta de Google."
+    },
+    "continueWithGitHub": "Continuar con GitHub",
+    "@continueWithGitHub": {
+        "description": "Texto del botón para iniciar sesión con una cuenta de GitHub."
+    },
+    "resonateLogo": "Logo de Resonate",
+    "@resonateLogo": {
+        "description": "Texto de accesibilidad para el logo de la aplicación Resonate."
+    },
+    "iAlreadyHaveAnAccount": "Ya tengo una cuenta",
+    "@iAlreadyHaveAnAccount": {
+        "description": "Texto para un enlace o botón que navega a la pantalla de inicio de sesión desde la pantalla de registro."
+    },
+    "createNewAccount": "Crear nueva cuenta",
+    "@createNewAccount": {
+        "description": "Texto para un enlace o botón que navega a la pantalla de registro desde la pantalla de inicio de sesión."
+    },
+    "userProfile": "Perfil de usuario",
+    "@userProfile": {
+        "description": "Texto de accesibilidad para la foto de perfil o avatar de un usuario."
+    },
+    "passwordIsStrong": "La contraseña es segura",
+    "@passwordIsStrong": {
+        "description": "Mensaje de validación que indica que la contraseña ingresada cumple con todos los requisitos de seguridad."
+    },
+    "admin": "Administrador",
+    "@admin": {
+        "description": "Etiqueta para el rol de Administrador en una sala."
+    },
+    "moderator": "Moderador",
+    "@moderator": {
+        "description": "Etiqueta para el rol de Moderador en una sala."
+    },
+    "speaker": "Orador",
+    "@speaker": {
+        "description": "Etiqueta para el rol de Orador en una sala."
+    },
+    "listener": "Oyente",
+    "@listener": {
+        "description": "Etiqueta para el rol de Oyente en una sala."
+    },
+    "removeModerator": "Quitar moderador",
+    "@removeModerator": {
+        "description": "Texto del elemento de menú para revocar privilegios de moderador a un usuario."
+    },
+    "kickOut": "Expulsar",
+    "@kickOut": {
+        "description": "Texto del elemento de menú para eliminar a un usuario de una sala."
+    },
+    "addModerator": "Agregar moderador",
+    "@addModerator": {
+        "description": "Texto del elemento de menú para otorgar privilegios de moderador a un usuario."
+    },
+    "addSpeaker": "Agregar orador",
+    "@addSpeaker": {
+        "description": "Texto del elemento de menú para otorgar privilegios de orador a un oyente."
+    },
+    "makeListener": "Hacer oyente",
+    "@makeListener": {
+        "description": "Texto del elemento de menú para cambiar el rol de un orador a oyente."
+    },
+    "pairChat": "Chat por parejas",
+    "@pairChat": {
+        "description": "Nombre de una función de chat aleatorio uno a uno."
+    },
+    "chooseIdentity": "Elegir identidad",
+    "@chooseIdentity": {
+        "description": "Solicitud para que el usuario elija su identidad, por ejemplo, anónimo o público."
+    },
+    "selectLanguage": "Seleccionar idioma",
+    "@selectLanguage": {
+        "description": "Etiqueta para la configuración de selección de idioma."
+    },
+    "noConnection": "Sin conexión",
+    "@noConnection": {
+        "description": "Título que indica que no hay conexión a internet."
+    },
+    "loadingDialog": "Diálogo de carga",
+    "@loadingDialog": {
+        "description": "Texto de accesibilidad para un indicador de carga o spinner."
+    },
+    "createAccount": "Crear cuenta",
+    "@createAccount": {
+        "description": "Texto del botón o título de la pantalla para la creación de cuenta."
+    },
+    "enterValidEmailAddress": "Ingresa una dirección de correo válida",
+    "@enterValidEmailAddress": {
+        "description": "Mensaje de error mostrado para un formato de correo inválido."
+    },
+    "email": "Correo",
+    "@email": {
+        "description": "Etiqueta para el campo de entrada de correo."
+    },
+    "passwordRequirements": "La contraseña debe tener al menos 8 caracteres",
+    "@passwordRequirements": {
+        "description": "Texto instructivo que enumera los requisitos para una contraseña válida, parte 1."
+    },
+    "includeNumericDigit": "Incluir al menos un dígito numérico",
+    "@includeNumericDigit": {
+        "description": "Texto instructivo que enumera los requisitos para una contraseña válida, parte 2."
+    },
+    "includeUppercase": "Incluir al menos una letra mayúscula",
+    "@includeUppercase": {
+        "description": "Texto instructivo que enumera los requisitos para una contraseña válida, parte 3."
+    },
+    "includeLowercase": "Incluir al menos una letra minúscula",
+    "@includeLowercase": {
+        "description": "Texto instructivo que enumera los requisitos para una contraseña válida, parte 4."
+    },
+    "includeSymbol": "Incluir al menos un símbolo",
+    "@includeSymbol": {
+        "description": "Texto instructivo que enumera los requisitos para una contraseña válida, parte 5."
+    },
+    "signedUpSuccessfully": "Registro exitoso",
+    "@signedUpSuccessfully": {
+        "description": "Título para un mensaje de éxito después de la creación de cuenta."
+    },
+    "newAccountCreated": "Has creado una nueva cuenta exitosamente",
+    "@newAccountCreated": {
+        "description": "Mensaje de éxito que confirma que se ha creado una nueva cuenta."
+    },
+    "signUp": "Registrarse",
+    "@signUp": {
+        "description": "Texto del botón para enviar el formulario de registro."
+    },
+    "login": "Iniciar sesión",
+    "@login": {
+        "description": "Texto del botón para enviar el formulario de inicio de sesión."
+    },
+    "settings": "Configuración",
+    "@settings": {
+        "description": "Título para la página de configuración."
+    },
+    "accountSettings": "Configuración de la cuenta",
+    "@accountSettings": {
+        "description": "Subencabezado para configuraciones relacionadas con la cuenta."
+    },
+    "account": "Cuenta",
+    "@account": {
+        "description": "Etiqueta para la sección de configuración de la cuenta."
+    },
+    "appSettings": "Configuración de la app",
+    "@appSettings": {
+        "description": "Subencabezado para configuraciones relacionadas con la aplicación."
+    },
+    "themes": "Temas",
+    "@themes": {
+        "description": "Etiqueta para la configuración de selección de tema."
+    },
+    "about": "Acerca de",
+    "@about": {
+        "description": "Etiqueta para la sección o página 'Acerca de' de la app o una historia."
+    },
+    "other": "Otro",
+    "@other": {
+        "description": "Etiqueta de categoría genérica para configuraciones o elementos varios."
+    },
+    "contribute": "Contribuir",
+    "@contribute": {
+        "description": "Etiqueta para una sección que anima a los usuarios a contribuir al proyecto."
+    },
+    "appPreferences": "Preferencias de la app",
+    "@appPreferences": {
+        "description": "Etiqueta para la página de configuración de preferencias de la aplicación."
+    },
+    "transcriptionModel": "Modelo de transcripción",
+    "@transcriptionModel": {
+        "description": "Título de sección para elegir el modelo de IA de transcripción."
+    },
+    "transcriptionModelDescription": "Elige el modelo de IA para la transcripción de voz. Los modelos más grandes son más precisos pero más lentos y requieren más almacenamiento.",
+    "@transcriptionModelDescription": {
+        "description": "Texto descriptivo que explica las opciones del modelo de transcripción."
+    },
+    "whisperModelTiny": "Diminuto",
+    "@whisperModelTiny": {
+        "description": "Nombre del modelo Whisper AI más pequeño."
+    },
+    "whisperModelTinyDescription": "Más rápido, menos preciso (~39 MB)",
+    "@whisperModelTinyDescription": {
+        "description": "Descripción del rendimiento y tamaño del modelo Tiny Whisper."
+    },
+    "whisperModelBase": "Base",
+    "@whisperModelBase": {
+        "description": "Nombre del modelo base de Whisper AI."
+    },
+    "whisperModelBaseDescription": "Velocidad y precisión equilibradas (~74 MB)",
+    "@whisperModelBaseDescription": {
+        "description": "Descripción del rendimiento y tamaño del modelo Base Whisper."
+    },
+    "whisperModelSmall": "Pequeño",
+    "@whisperModelSmall": {
+        "description": "Nombre del modelo pequeño de Whisper AI."
+    },
+    "whisperModelSmallDescription": "Buena precisión, más lento (~244 MB)",
+    "@whisperModelSmallDescription": {
+        "description": "Descripción del rendimiento y tamaño del modelo Small Whisper."
+    },
+    "whisperModelMedium": "Mediano",
+    "@whisperModelMedium": {
+        "description": "Nombre del modelo mediano de Whisper AI."
+    },
+    "whisperModelMediumDescription": "Alta precisión, más lento (~769 MB)",
+    "@whisperModelMediumDescription": {
+        "description": "Descripción del rendimiento y tamaño del modelo Medium Whisper."
+    },
+    "whisperModelLargeV1": "Grande V1",
+    "@whisperModelLargeV1": {
+        "description": "Nombre del modelo grande V1 de Whisper AI."
+    },
+    "whisperModelLargeV1Description": "Más preciso, más lento (~1.55 GB)",
+    "@whisperModelLargeV1Description": {
+        "description": "Descripción del rendimiento y tamaño del modelo Large V1 Whisper."
+    },
+    "whisperModelLargeV2": "Grande V2",
+    "@whisperModelLargeV2": {
+        "description": "Nombre del modelo grande V2 de Whisper AI."
+    },
+    "whisperModelLargeV2Description": "Modelo grande mejorado con mayor precisión (~1.55 GB)",
+    "@whisperModelLargeV2Description": {
+        "description": "Descripción del rendimiento y tamaño del modelo Large V2 Whisper."
+    },
+    "modelDownloadInfo": "Los modelos se descargan la primera vez que se usan. Recomendamos usar Base, Pequeño o Mediano. Los modelos grandes requieren dispositivos de gama muy alta.",
+    "@modelDownloadInfo": {
+        "description": "Mensaje informativo sobre la descarga del modelo."
+    },
+    "logOut": "Cerrar sesión",
+    "@logOut": {
+        "description": "Texto del botón para cerrar la sesión del usuario."
+    },
+    "participants": "Participantes",
+    "@participants": {
+        "description": "Etiqueta o título para la lista de participantes en una sala."
+    },
+    "delete": "eliminar",
+    "@delete": {
+        "description": "Texto genérico del botón para una acción de eliminar. Parámetro para toRoomAction."
+    },
+    "leave": "salir",
+    "@leave": {
+        "description": "Texto genérico del botón para una acción de salir. Parámetro para toRoomAction."
+    },
+    "leaveButton": "Salir",
+    "@leaveButton": {
+        "description": "Texto del botón para salir de una sala o conversación."
+    },
+    "findingRandomPartner": "Buscando un compañero aleatorio para ti",
+    "@findingRandomPartner": {
+        "description": "Mensaje de estado que se muestra mientras se busca un compañero de chat aleatorio."
+    },
+    "quickFact": "Dato rápido",
+    "@quickFact": {
+        "description": "Encabezado para un dato rápido o consejo, a menudo mostrado durante la carga."
+    },
+    "cancel": "Cancelar",
+    "@cancel": {
+        "description": "Texto genérico del botón para una acción de cancelar."
+    },
+    "hide": "Eliminar",
+    "@hide": {
+        "description": "Texto del botón para eliminar un elemento de la vista."
+    },
+    "removeRoom": "Eliminar sala",
+    "@removeRoom": {
+        "description": "Título del diálogo para eliminar una sala próxima."
+    },
+    "removeRoomFromList": "Eliminar de la lista",
+    "@removeRoomFromList": {
+        "description": "Texto de información sobre herramientas para el botón de eliminar sala."
+    },
+    "removeRoomConfirmation": "¿Estás seguro de que quieres eliminar esta sala próxima de tu lista?",
+    "@removeRoomConfirmation": {
+        "description": "Mensaje de confirmación que pregunta si el usuario quiere eliminar una sala próxima de su lista."
+    },
+    "completeYourProfile": "Completa tu perfil",
+    "@completeYourProfile": {
+        "description": "Título de página o indicación para que el usuario termine de configurar su perfil."
+    },
+    "uploadProfilePicture": "Subir foto de perfil",
+    "@uploadProfilePicture": {
+        "description": "Texto instructivo o botón para subir una foto de perfil."
+    },
+    "enterValidName": "Ingresa un nombre válido",
+    "@enterValidName": {
+        "description": "Mensaje de error para un formato de nombre inválido."
+    },
+    "name": "Nombre",
+    "@name": {
+        "description": "Etiqueta para el campo de entrada de nombre."
+    },
+    "username": "Nombre de usuario",
+    "@username": {
+        "description": "Etiqueta para el campo de entrada de nombre de usuario."
+    },
+    "enterValidDOB": "Ingresa una fecha de nacimiento válida",
+    "@enterValidDOB": {
+        "description": "Mensaje de error para una fecha de nacimiento inválida."
+    },
+    "dateOfBirth": "Fecha de nacimiento",
+    "@dateOfBirth": {
+        "description": "Etiqueta para el campo de entrada de fecha de nacimiento."
+    },
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "@forgotPassword": {
+        "description": "Texto de enlace para usuarios que olvidaron su contraseña."
+    },
+    "next": "Siguiente",
+    "@next": {
+        "description": "Texto del botón para continuar al siguiente paso en un proceso."
+    },
+    "noStoriesExist": "No existen historias para presentar",
+    "@noStoriesExist": {
+        "description": "Mensaje mostrado cuando no hay historias disponibles en una lista."
+    },
+    "enterVerificationCode": "Ingresa tu\ncódigo de verificación",
+    "@enterVerificationCode": {
+        "description": "Solicitud para que el usuario ingrese el código de verificación enviado a su correo."
+    },
+    "verificationCodeSent": "Enviamos un código de verificación de 6 dígitos a\n",
+    "@verificationCodeSent": {
+        "description": "Mensaje informando que se ha enviado un código de verificación. La dirección de correo se añade en el código."
+    },
+    "verificationComplete": "Verificación completa",
+    "@verificationComplete": {
+        "description": "Título para un mensaje de éxito después de la verificación de correo."
+    },
+    "verificationCompleteMessage": "Felicidades, has verificado tu correo",
+    "@verificationCompleteMessage": {
+        "description": "Mensaje de éxito que confirma la verificación de correo."
+    },
+    "verificationFailed": "Verificación fallida",
+    "@verificationFailed": {
+        "description": "Título para un mensaje de error cuando falla la verificación."
+    },
+    "otpMismatch": "El OTP no coincide, por favor intenta de nuevo",
+    "@otpMismatch": {
+        "description": "Mensaje de error cuando el OTP ingresado es incorrecto."
+    },
+    "otpResent": "OTP reenviado",
+    "@otpResent": {
+        "description": "Mensaje de confirmación de que el OTP ha sido reenviado."
+    },
+    "requestNewCode": "Solicitar un nuevo código",
+    "@requestNewCode": {
+        "description": "Texto del botón para solicitar un nuevo código de verificación."
+    },
+    "requestNewCodeIn": "Solicitar un nuevo código en",
+    "@requestNewCodeIn": {
+        "description": "Texto mostrado antes de un contador regresivo para solicitar un nuevo código."
+    },
+    "clickPictureCamera": "Tomar foto con la cámara",
+    "@clickPictureCamera": {
+        "description": "Opción para tomar una nueva foto usando la cámara del dispositivo."
+    },
+    "pickImageGallery": "Elegir imagen de la galería",
+    "@pickImageGallery": {
+        "description": "Opción para elegir una imagen existente de la galería del dispositivo."
+    },
+    "deleteMyAccount": "Eliminar mi cuenta",
+    "@deleteMyAccount": {
+        "description": "Texto del botón para la función de eliminación de cuenta."
+    },
+    "createNewRoom": "Crear nueva sala",
+    "@createNewRoom": {
+        "description": "Texto del botón o título de página para crear una nueva sala de audio."
+    },
+    "pleaseEnterScheduledDateTime": "Por favor ingresa la fecha y hora programadas",
+    "@pleaseEnterScheduledDateTime": {
+        "description": "Mensaje de error cuando no se proporciona la fecha y hora programada para una sala."
+    },
+    "scheduleDateTimeLabel": "Fecha y hora programadas",
+    "@scheduleDateTimeLabel": {
+        "description": "Etiqueta para el campo de entrada para programar la fecha y hora de una sala."
+    },
+    "enterTags": "Ingresa etiquetas",
+    "@enterTags": {
+        "description": "Marcador de posición o etiqueta para el campo de entrada para agregar etiquetas a una sala o historia."
+    },
+    "joinCommunity": "Unirse a la comunidad",
+    "@joinCommunity": {
+        "description": "Texto del botón o encabezado para la sección de la comunidad."
+    },
+    "followUsOnX": "Síguenos en X",
+    "@followUsOnX": {
+        "description": "Texto del enlace al perfil de la empresa en X (anteriormente Twitter)."
+    },
+    "joinDiscordServer": "Unirse al servidor de Discord",
+    "@joinDiscordServer": {
+        "description": "Texto del enlace para unirse al servidor de Discord del proyecto."
+    },
+    "noLyrics": "Sin letra",
+    "@noLyrics": {
+        "description": "Mensaje mostrado cuando no hay letra disponible para un archivo de audio."
+    },
+    "noStoriesInCategory": "Actualmente no existen historias en la categoría {categoryName} para presentar",
+    "@noStoriesInCategory": {
+        "description": "Mensaje cuando no hay historias en una categoría específica.",
+        "placeholders": {
+            "categoryName": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "newChapters": "Nuevos capítulos",
+    "@newChapters": {
+        "description": "Encabezado o etiqueta para la sección para agregar o ver nuevos capítulos de una historia."
+    },
+    "helpToGrow": "Ayuda a crecer",
+    "@helpToGrow": {
+        "description": "Una llamada a la acción pidiendo a los usuarios que ayuden a crecer a la plataforma, a menudo un encabezado para compartir/calificar."
+    },
+    "share": "Compartir",
+    "@share": {
+        "description": "Texto del botón para compartir contenido."
+    },
+    "rate": "Calificar",
+    "@rate": {
+        "description": "Texto del botón para calificar la aplicación o el contenido."
+    },
+    "aboutResonate": "Acerca de Resonate",
+    "@aboutResonate": {
+        "description": "Título para la página 'Acerca de' de la aplicación Resonate."
+    },
+    "description": "Descripción",
+    "@description": {
+        "description": "Etiqueta para un campo de descripción."
+    },
+    "confirm": "Confirmar",
+    "@confirm": {
+        "description": "Texto genérico del botón para una acción de confirmar."
+    },
+    "classic": "Clásico",
+    "@classic": {
+        "description": "Nombre de una opción de tema."
+    },
+    "time": "Tiempo",
+    "@time": {
+        "description": "Nombre de una opción de tema."
+    },
+    "vintage": "Vintage",
+    "@vintage": {
+        "description": "Nombre de una opción de tema."
+    },
+    "amber": "Ámbar",
+    "@amber": {
+        "description": "Nombre de una opción de tema."
+    },
+    "forest": "Bosque",
+    "@forest": {
+        "description": "Nombre de una opción de tema."
+    },
+    "cream": "Crema",
+    "@cream": {
+        "description": "Nombre de una opción de tema."
+    },
+    "none": "ninguno",
+    "@none": {
+        "description": "Texto que representa ninguna selección o ausencia de un valor."
+    },
+    "checkOutGitHub": "Echa un vistazo a nuestro repositorio de GitHub: {url}",
+    "@checkOutGitHub": {
+        "description": "Mensaje para compartir el repositorio de GitHub, incluyendo un marcador de posición para la URL.",
+        "placeholders": {
+            "url": {
+                "type": "String",
+                "example": "https://github.com/AOSSIE-Org/Resonate"
+            }
+        }
+    },
+    "aossie": "AOSSIE",
+    "@aossie": {
+        "description": "El nombre de la organización."
+    },
+    "aossieLogo": "logo de aossie",
+    "@aossieLogo": {
+        "description": "Texto de accesibilidad para el logo de la organización AOSSIE."
+    },
+    "errorLoadPackageInfo": "No se pudo cargar la información del paquete",
+    "@errorLoadPackageInfo": {
+        "description": "Mensaje de error cuando la aplicación no puede cargar su información de paquete (por ejemplo, versión)."
+    },
+    "searchFailed": "No se pudieron buscar salas. Por favor intenta de nuevo.",
+    "@searchFailed": {
+        "description": "Mensaje de error cuando falla la búsqueda de salas."
+    },
+    "updateAvailable": "Actualización disponible",
+    "@updateAvailable": {
+        "description": "Título que indica que hay una nueva versión de la aplicación disponible."
+    },
+    "newVersionAvailable": "¡Una nueva versión está disponible!",
+    "@newVersionAvailable": {
+        "description": "Mensaje informando al usuario sobre una actualización disponible."
+    },
+    "upToDate": "Actualizado",
+    "@upToDate": {
+        "description": "Título que indica que la aplicación está en la última versión."
+    },
+    "latestVersion": "Estás usando la versión más reciente",
+    "@latestVersion": {
+        "description": "Mensaje que confirma que el usuario tiene la última versión de la aplicación."
+    },
+    "profileCreatedSuccessfully": "Perfil creado exitosamente",
+    "@profileCreatedSuccessfully": {
+        "description": "Mensaje de éxito después de que se crea el perfil de un usuario."
+    },
+    "invalidScheduledDateTime": "Fecha y hora programadas inválidas",
+    "@invalidScheduledDateTime": {
+        "description": "Mensaje de error para un formato de fecha y hora inválido."
+    },
+    "scheduledDateTimePast": "La fecha y hora programadas no pueden estar en el pasado",
+    "@scheduledDateTimePast": {
+        "description": "Mensaje de error cuando el usuario selecciona una fecha y hora pasada para un evento programado."
+    },
+    "joinRoom": "Unirse a la sala",
+    "@joinRoom": {
+        "description": "Texto del botón para unirse a una sala de audio."
+    },
+    "unknownUser": "Desconocido",
+    "@unknownUser": {
+        "description": "Texto de marcador de posición para un usuario cuyo nombre no está disponible."
+    },
+    "canceled": "cancelado",
+    "@canceled": {
+        "description": "Etiqueta de estado que indica que una acción fue cancelada."
+    },
+    "english": "en",
+    "@english": {
+        "description": "El código de idioma para inglés."
+    },
+    "emailVerificationRequired": "Verificación de correo requerida",
+    "@emailVerificationRequired": {
+        "description": "Título o mensaje que indica que se necesita verificación de correo para continuar."
+    },
+    "verify": "Verificar",
+    "@verify": {
+        "description": "Texto del botón para iniciar un proceso de verificación."
+    },
+    "audioRoom": "Sala de audio",
+    "@audioRoom": {
+        "description": "Título genérico para una sala de audio."
+    },
+    "toRoomAction": "Para {action} la sala",
+    "@toRoomAction": {
+        "description": "Mensaje dinámico para confirmar una acción en una sala, como eliminar o salir.",
+        "placeholders": {
+            "action": {
+                "type": "String",
+                "example": "eliminar"
+            }
+        }
+    },
+    "mailSentMessage": "correo enviado",
+    "@mailSentMessage": {
+        "description": "Mensaje de confirmación que indica que se ha enviado un correo."
+    },
+    "disconnected": "desconectado",
+    "@disconnected": {
+        "description": "Etiqueta de estado que indica una pérdida de conexión."
+    },
+    "micOn": "micrófono",
+    "@micOn": {
+        "description": "Etiqueta de accesibilidad para el botón del micrófono cuando está encendido."
+    },
+    "speakerOn": "altavoz",
+    "@speakerOn": {
+        "description": "Etiqueta de accesibilidad para el botón del altavoz cuando está encendido."
+    },
+    "endChat": "finalizar-chat",
+    "@endChat": {
+        "description": "Etiqueta de accesibilidad para el botón de finalizar chat/llamada."
+    },
+    "monthJan": "Ene",
+    "@monthJan": {
+        "description": "Abreviatura de enero."
+    },
+    "monthFeb": "Feb",
+    "@monthFeb": {
+        "description": "Abreviatura de febrero."
+    },
+    "monthMar": "Mar",
+    "@monthMar": {
+        "description": "Abreviatura de marzo."
+    },
+    "monthApr": "Abr",
+    "@monthApr": {
+        "description": "Abreviatura de abril."
+    },
+    "monthMay": "May",
+    "@monthMay": {
+        "description": "Abreviatura de mayo."
+    },
+    "monthJun": "Jun",
+    "@monthJun": {
+        "description": "Abreviatura de junio."
+    },
+    "monthJul": "Jul",
+    "@monthJul": {
+        "description": "Abreviatura de julio."
+    },
+    "monthAug": "Ago",
+    "@monthAug": {
+        "description": "Abreviatura de agosto."
+    },
+    "monthSep": "Sep",
+    "@monthSep": {
+        "description": "Abreviatura de septiembre."
+    },
+    "monthOct": "Oct",
+    "@monthOct": {
+        "description": "Abreviatura de octubre."
+    },
+    "monthNov": "Nov",
+    "@monthNov": {
+        "description": "Abreviatura de noviembre."
+    },
+    "monthDec": "Dic",
+    "@monthDec": {
+        "description": "Abreviatura de diciembre."
+    },
+    "register": "Registrarse",
+    "@register": {
+        "description": "Texto del botón para registrar una nueva cuenta."
+    },
+    "newToResonate": "¿Nuevo en Resonate? ",
+    "@newToResonate": {
+        "description": "Texto que precede al enlace 'Crear nueva cuenta' en la pantalla de inicio de sesión."
+    },
+    "alreadyHaveAccount": "¿Ya tienes una cuenta? ",
+    "@alreadyHaveAccount": {
+        "description": "Texto que precede al enlace 'Iniciar sesión' en la pantalla de registro."
+    },
+    "checking": "Verificando...",
+    "@checking": {
+        "description": "Mensaje de estado temporal que indica que una verificación está en progreso."
+    },
+    "forgotPasswordMessage": "Ingresa tu dirección de correo registrada para restablecer tu contraseña.",
+    "@forgotPasswordMessage": {
+        "description": "Texto instructivo en la pantalla de olvido de contraseña."
+    },
+    "usernameUnavailable": "¡Nombre de usuario no disponible!",
+    "@usernameUnavailable": {
+        "description": "Título para el error cuando un nombre de usuario elegido está ocupado."
+    },
+    "usernameInvalidOrTaken": "Este nombre de usuario es inválido o ya está tomado.",
+    "@usernameInvalidOrTaken": {
+        "description": "Mensaje de error que explica por qué no se puede usar un nombre de usuario."
+    },
+    "otpResentMessage": "Por favor revisa tu correo para obtener un nuevo OTP.",
+    "@otpResentMessage": {
+        "description": "Mensaje informando al usuario que revise su correo para obtener un nuevo OTP."
+    },
+    "connectionError": "Hay un error de conexión. Por favor verifica tu internet e intenta de nuevo.",
+    "@connectionError": {
+        "description": "Mensaje de error genérico para problemas de conexión de red."
+    },
+    "seconds": "segundos.",
+    "@seconds": {
+        "description": "La palabra 'segundos', a menudo usada después de un número de cuenta regresiva."
+    },
+    "unsavedChangesWarning": "Si continúas sin guardar, los cambios no guardados se perderán.",
+    "@unsavedChangesWarning": {
+        "description": "Mensaje de advertencia que se muestra cuando un usuario intenta salir de una pantalla con cambios sin guardar."
+    },
+    "deleteAccountPermanent": "Esta acción eliminará tu cuenta permanentemente. Es un proceso irreversible. Eliminaremos tu nombre de usuario, dirección de correo y todos los demás datos asociados a tu cuenta. No podrás recuperarla.",
+    "@deleteAccountPermanent": {
+        "description": "Mensaje de advertencia detallado que explica las consecuencias de eliminar una cuenta."
+    },
+    "giveGreatName": "Dale un gran nombre...",
+    "@giveGreatName": {
+        "description": "Texto de marcador de posición para un campo de entrada de nombre, animando a un nombre creativo."
+    },
+    "joinCommunityDescription": "Al unirte a la comunidad puedes aclarar tus dudas, sugerir nuevas funciones, reportar problemas que hayas enfrentado y más.",
+    "@joinCommunityDescription": {
+        "description": "Descripción de los beneficios de unirse a la comunidad."
+    },
+    "resonateDescription": "Resonate es una plataforma de redes sociales donde cada voz es valorada. Comparte tus pensamientos, historias y experiencias con otros. Comienza tu viaje de audio ahora. Sumérgete en diversas discusiones y temas. Encuentra salas que resuenen contigo y conviértete en parte de la comunidad. ¡Únete a la conversación! Explora salas, conecta con amigos y comparte tu voz con el mundo.",
+    "@resonateDescription": {
+        "description": "Una descripción breve, orientada al usuario, de la aplicación Resonate."
+    },
+    "resonateFullDescription": "Resonate es una plataforma de redes sociales revolucionaria basada en voz donde cada voz importa. \nÚnete a conversaciones de audio en tiempo real, participa en discusiones diversas y conéctate con personas afines. Nuestra plataforma ofrece:\n- Salas de audio en vivo con discusiones basadas en temas\n- Redes sociales fluidas a través de la voz\n- Moderación de contenido impulsada por la comunidad\n- Compatibilidad multiplataforma\n- Conversaciones privadas cifradas de extremo a extremo\n\nDesarrollado por la comunidad de código abierto AOSSIE, priorizamos la privacidad del usuario y el desarrollo impulsado por la comunidad. ¡Únete a nosotros para dar forma al futuro del audio social!",
+    "@resonateFullDescription": {
+        "description": "Descripción completa y detallada de la aplicación Resonate, sus características y su misión."
+    },
+    "stable": "Estable",
+    "@stable": {
+        "description": "Etiqueta que indica una versión estable, no beta, de la aplicación."
+    },
+    "usernameCharacterLimit": "El nombre de usuario debe contener más de 5 caracteres.",
+    "@usernameCharacterLimit": {
+        "description": "Mensaje de error cuando un nombre de usuario elegido es demasiado corto."
+    },
+    "submit": "Enviar",
+    "@submit": {
+        "description": "Texto genérico del botón para enviar un formulario."
+    },
+    "anonymous": "Anónimo",
+    "@anonymous": {
+        "description": "Etiqueta para un usuario o identidad anónima."
+    },
+    "noSearchResults": "Sin resultados de búsqueda",
+    "@noSearchResults": {
+        "description": "Mensaje mostrado cuando una búsqueda no arroja resultados."
+    },
+    "searchRooms": "Buscar salas...",
+    "@searchRooms": {
+        "description": "Texto de marcador de posición para el campo de entrada de búsqueda de salas."
+    },
+    "searchingRooms": "Buscando salas...",
+    "@searchingRooms": {
+        "description": "Mensaje de carga que se muestra mientras se buscan salas."
+    },
+    "clearSearch": "Limpiar búsqueda",
+    "@clearSearch": {
+        "description": "Texto para el botón de limpiar resultados de búsqueda."
+    },
+    "searchError": "Error de búsqueda",
+    "@searchError": {
+        "description": "Título para mensajes de error de búsqueda."
+    },
+    "searchRoomsError": "No se pudieron buscar las salas. Por favor intenta de nuevo.",
+    "@searchRoomsError": {
+        "description": "Mensaje de error cuando falla la búsqueda de salas."
+    },
+    "searchUpcomingRoomsError": "No se pudieron buscar las salas próximas. Por favor intenta de nuevo.",
+    "@searchUpcomingRoomsError": {
+        "description": "Mensaje de error cuando falla la búsqueda de salas próximas."
+    },
+    "search": "Buscar",
+    "@search": {
+        "description": "Texto de información sobre herramientas para el botón de búsqueda."
+    },
+    "clear": "Limpiar",
+    "@clear": {
+        "description": "Texto de información sobre herramientas para el botón de limpiar."
+    },
+    "shareRoomMessage": "🚀 ¡Echa un vistazo a esta increíble sala: {roomName}!\n\n📖 Descripción: {description}\n👥 ¡Únete a {participants} participantes ahora!",
+    "@shareRoomMessage": {
+        "description": "La plantilla de mensaje predeterminada utilizada al compartir una sala.",
+        "placeholders": {
+            "roomName": {
+                "type": "String",
+                "example": "Sala de discusión"
+            },
+            "description": {
+                "type": "String",
+                "example": "Un gran lugar para discutir"
+            },
+            "participants": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "participantsCount": "{count} Participantes",
+    "@participantsCount": {
+        "description": "Muestra el número de participantes en una sala.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "join": "Unirse",
+    "@join": {
+        "description": "Texto genérico del botón para unirse a una actividad o grupo."
+    },
+    "invalidTags": "Etiqueta inválida:",
+    "@invalidTags": {
+        "description": "Prefijo de mensaje de error para una etiqueta inválida."
+    },
+    "cropImage": "Recortar imagen",
+    "@cropImage": {
+        "description": "Título o texto del botón para la herramienta de recorte de imagen."
+    },
+    "profileSavedSuccessfully": "Perfil actualizado",
+    "@profileSavedSuccessfully": {
+        "description": "Mensaje corto de éxito que indica que los cambios del perfil se han guardado."
+    },
+    "profileUpdatedSuccessfully": "Todos los cambios se guardaron exitosamente.",
+    "@profileUpdatedSuccessfully": {
+        "description": "Mensaje de éxito detallado que confirma la actualización del perfil."
+    },
+    "profileUpToDate": "Perfil actualizado",
+    "@profileUpToDate": {
+        "description": "Título para el mensaje cuando no hay cambios que guardar en el perfil."
+    },
+    "noChangesToSave": "No se hicieron nuevos cambios, nada que guardar.",
+    "@noChangesToSave": {
+        "description": "Mensaje mostrado cuando el usuario intenta guardar su perfil sin realizar cambios."
+    },
+    "connectionFailed": "Conexión fallida",
+    "@connectionFailed": {
+        "description": "Título genérico para errores relacionados con la conexión."
+    },
+    "unableToJoinRoom": "No se pudo unir a la sala. Por favor verifica tu red e intenta de nuevo.",
+    "@unableToJoinRoom": {
+        "description": "Mensaje de error cuando un usuario no puede unirse a una sala debido a problemas de conexión."
+    },
+    "connectionLost": "Conexión perdida",
+    "@connectionLost": {
+        "description": "Título que indica que se perdió la conexión con un servicio."
+    },
+    "unableToReconnect": "No se pudo reconectar a la sala. Por favor intenta volver a unirte.",
+    "@unableToReconnect": {
+        "description": "Mensaje de error cuando la aplicación no puede reconectar al usuario a una sala."
+    },
+    "invalidFormat": "¡Formato inválido!",
+    "@invalidFormat": {
+        "description": "Mensaje de error genérico para datos con un formato incorrecto."
+    },
+    "usernameAlphanumeric": "El nombre de usuario debe ser alfanumérico y no debe contener caracteres especiales.",
+    "@usernameAlphanumeric": {
+        "description": "Mensaje de error que detalla los requisitos de caracteres para un nombre de usuario válido."
+    },
+    "userProfileCreatedSuccessfully": "Tu perfil de usuario se ha creado exitosamente.",
+    "@userProfileCreatedSuccessfully": {
+        "description": "Mensaje de éxito después de que un usuario completa la configuración de su perfil."
+    },
+    "emailVerificationMessage": "Para continuar, verifica tu dirección de correo.",
+    "@emailVerificationMessage": {
+        "description": "Mensaje instructivo que solicita al usuario que verifique su correo."
+    },
+    "addNewChaptersToStory": "Agregar nuevos capítulos a {storyName}",
+    "@addNewChaptersToStory": {
+        "description": "Título para la pantalla donde se agregan nuevos capítulos a una historia existente.",
+        "placeholders": {
+            "storyName": {
+                "type": "String",
+                "example": "Mi historia"
+            }
+        }
+    },
+    "currentChapters": "Capítulos actuales",
+    "@currentChapters": {
+        "description": "Encabezado para la lista de capítulos existentes en una historia."
+    },
+    "sourceCodeOnGitHub": "Código fuente en GitHub",
+    "@sourceCodeOnGitHub": {
+        "description": "Texto del enlace al código fuente del proyecto en GitHub."
+    },
+    "createAChapter": "Crear un capítulo",
+    "@createAChapter": {
+        "description": "Título para la pantalla donde se crea un nuevo capítulo."
+    },
+    "chapterTitle": "Título del capítulo *",
+    "@chapterTitle": {
+        "description": "Etiqueta para el campo de entrada del título del capítulo, indicando que es obligatorio."
+    },
+    "aboutRequired": "Acerca de *",
+    "@aboutRequired": {
+        "description": "Etiqueta para el campo 'Acerca de' o descripción, indicando que es obligatorio."
+    },
+    "changeCoverImage": "Cambiar imagen de portada",
+    "@changeCoverImage": {
+        "description": "Texto del botón para cambiar la imagen de portada de una historia o capítulo."
+    },
+    "uploadAudioFile": "Subir archivo de audio",
+    "@uploadAudioFile": {
+        "description": "Texto del botón para subir un archivo de audio."
+    },
+    "uploadLyricsFile": "Subir archivo de letra",
+    "@uploadLyricsFile": {
+        "description": "Texto del botón para subir un archivo de letra."
+    },
+    "createChapter": "Crear capítulo",
+    "@createChapter": {
+        "description": "Texto del botón para finalizar y crear un nuevo capítulo."
+    },
+    "audioFileSelected": "Archivo de audio seleccionado: {fileName}",
+    "@audioFileSelected": {
+        "description": "Mensaje mostrado después de que se ha seleccionado un archivo de audio para subir.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "audio.mp3"
+            }
+        }
+    },
+    "lyricsFileSelected": "Archivo de letra seleccionado: {fileName}",
+    "@lyricsFileSelected": {
+        "description": "Mensaje mostrado después de que se ha seleccionado un archivo de letra para subir.",
+        "placeholders": {
+            "fileName": {
+                "type": "String",
+                "example": "lyrics.txt"
+            }
+        }
+    },
+    "fillAllRequiredFields": "Por favor completa todos los campos obligatorios y sube tu archivo de audio y archivo de letra",
+    "@fillAllRequiredFields": {
+        "description": "Mensaje de error cuando faltan campos o archivos obligatorios en un formulario."
+    },
+    "scheduled": "Programada",
+    "@scheduled": {
+        "description": "Etiqueta de estado que indica que un evento está programado para el futuro."
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "Texto genérico del botón de confirmación, a menudo para cerrar un diálogo."
+    },
+    "roomDescriptionOptional": "Descripción de la sala (opcional)",
+    "@roomDescriptionOptional": {
+        "description": "Etiqueta para el campo de entrada de descripción de la sala, indicando que no es obligatorio."
+    },
+    "deleteAccount": "Eliminar cuenta",
+    "@deleteAccount": {
+        "description": "Texto del botón para iniciar el proceso de eliminación de cuenta."
+    },
+    "createYourStory": "Crea tu historia",
+    "@createYourStory": {
+        "description": "Título para la pantalla donde se crea una nueva historia."
+    },
+    "titleRequired": "Título *",
+    "@titleRequired": {
+        "description": "Etiqueta para el campo de entrada del título, indicando que es obligatorio."
+    },
+    "category": "Categoría *",
+    "@category": {
+        "description": "Etiqueta para la selección de categoría, indicando que es obligatorio."
+    },
+    "addChapter": "Agregar capítulo",
+    "@addChapter": {
+        "description": "Texto del botón para agregar un capítulo a una historia."
+    },
+    "createStory": "Crear historia",
+    "@createStory": {
+        "description": "Texto del botón para finalizar y crear una nueva historia."
+    },
+    "fillAllRequiredFieldsAndChapter": "Por favor completa todos los campos obligatorios, agrega al menos un capítulo y selecciona una imagen de portada.",
+    "@fillAllRequiredFieldsAndChapter": {
+        "description": "Mensaje de error para el formulario de creación de historia cuando no se cumplen los requisitos."
+    },
+    "toConfirmType": "Para confirmar, escribe",
+    "@toConfirmType": {
+        "description": "Texto instructivo en un diálogo de confirmación, que precede al texto a escribir."
+    },
+    "inTheBoxBelow": "en el cuadro de abajo",
+    "@inTheBoxBelow": {
+        "description": "Texto instructivo en un diálogo de confirmación, que sigue al texto a escribir."
+    },
+    "iUnderstandDeleteMyAccount": "Entiendo, eliminar mi cuenta",
+    "@iUnderstandDeleteMyAccount": {
+        "description": "La frase específica que el usuario debe escribir para confirmar la eliminación de la cuenta."
+    },
+    "whatDoYouWantToListenTo": "¿Qué quieres escuchar?",
+    "@whatDoYouWantToListenTo": {
+        "description": "Un mensaje en la pantalla principal, que anima a la participación del usuario."
+    },
+    "categories": "Categorías",
+    "@categories": {
+        "description": "Encabezado para la lista de categorías."
+    },
+    "stories": "Historias",
+    "@stories": {
+        "description": "Encabezado para la lista de historias."
+    },
+    "someSuggestions": "Algunas sugerencias",
+    "@someSuggestions": {
+        "description": "Encabezado para una lista de contenido sugerido."
+    },
+    "getStarted": "Comenzar",
+    "@getStarted": {
+        "description": "Texto del botón en una pantalla de bienvenida para comenzar a usar la aplicación."
+    },
+    "skip": "Omitir",
+    "@skip": {
+        "description": "Texto del botón para omitir un paso opcional, como la bienvenida."
+    },
+    "welcomeToResonate": "Bienvenido a Resonate",
+    "@welcomeToResonate": {
+        "description": "Título de la pantalla de bienvenida."
+    },
+    "exploreDiverseConversations": "Explora conversaciones diversas",
+    "@exploreDiverseConversations": {
+        "description": "Destacado de función en una pantalla de bienvenida."
+    },
+    "yourVoiceMatters": "Tu voz importa",
+    "@yourVoiceMatters": {
+        "description": "Destacado de función en una pantalla de bienvenida."
+    },
+    "joinConversationExploreRooms": "¡Únete a la conversación! Explora salas, conecta con amigos y comparte tu voz con el mundo.",
+    "@joinConversationExploreRooms": {
+        "description": "Texto descriptivo en una pantalla de bienvenida."
+    },
+    "diveIntoDiverseDiscussions": "Sumérgete en diversas discusiones y temas. \nEncuentra salas que resuenen contigo y conviértete en parte de la comunidad.",
+    "@diveIntoDiverseDiscussions": {
+        "description": "Texto descriptivo en una pantalla de bienvenida."
+    },
+    "atResonateEveryVoiceValued": "En Resonate, cada voz es valorada. Comparte tus pensamientos, historias y experiencias con otros. Comienza tu viaje de audio ahora.",
+    "@atResonateEveryVoiceValued": {
+        "description": "Texto descriptivo en una pantalla de bienvenida."
+    },
+    "notifications": "Notificaciones",
+    "@notifications": {
+        "description": "Título para la pantalla de notificaciones."
+    },
+    "taggedYouInUpcomingRoom": "{username} te mencionó en una sala próxima: {subject}",
+    "@taggedYouInUpcomingRoom": {
+        "description": "Mensaje de notificación cuando te mencionan en una sala próxima.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Sala de discusión"
+            }
+        }
+    },
+    "taggedYouInRoom": "{username} te mencionó en la sala: {subject}",
+    "@taggedYouInRoom": {
+        "description": "Mensaje de notificación cuando te mencionan en una sala en vivo.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Sala de discusión"
+            }
+        }
+    },
+    "likedYourStory": "A {username} le gustó tu historia: {subject}",
+    "@likedYourStory": {
+        "description": "Mensaje de notificación cuando a alguien le gusta tu historia.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Mi historia"
+            }
+        }
+    },
+    "subscribedToYourRoom": "{username} se suscribió a tu sala: {subject}",
+    "@subscribedToYourRoom": {
+        "description": "Mensaje de notificación cuando alguien se suscribe a tu sala.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            },
+            "subject": {
+                "type": "String",
+                "example": "Mi sala"
+            }
+        }
+    },
+    "startedFollowingYou": "{username} comenzó a seguirte",
+    "@startedFollowingYou": {
+        "description": "Mensaje de notificación cuando alguien comienza a seguirte.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "youHaveNewNotification": "Tienes una nueva notificación",
+    "@youHaveNewNotification": {
+        "description": "Título genérico para una nueva notificación."
+    },
+    "hangOnGoodThingsTakeTime": "Espera, las cosas buenas toman tiempo 🔍",
+    "@hangOnGoodThingsTakeTime": {
+        "description": "Mensaje amigable mostrado durante un proceso de carga largo."
+    },
+    "resonateOpenSourceProject": "Resonate es un proyecto de código abierto mantenido por AOSSIE. Visita nuestro github para contribuir.",
+    "@resonateOpenSourceProject": {
+        "description": "Texto informativo sobre la naturaleza de código abierto del proyecto."
+    },
+    "mute": "Silenciar",
+    "@mute": {
+        "description": "Texto del botón para silenciar el micrófono."
+    },
+    "speakerLabel": "Altavoz",
+    "@speakerLabel": {
+        "description": "Etiqueta para el interruptor del altavoz."
+    },
+    "end": "Terminar",
+    "@end": {
+        "description": "Texto del botón para finalizar una llamada o sesión."
+    },
+    "saveChanges": "Guardar cambios",
+    "@saveChanges": {
+        "description": "Texto del botón para guardar configuraciones o información de perfil modificadas."
+    },
+    "discard": "DESCARTAR",
+    "@discard": {
+        "description": "Texto del botón para descartar cambios."
+    },
+    "save": "GUARDAR",
+    "@save": {
+        "description": "Texto del botón para guardar cambios."
+    },
+    "changeProfilePicture": "Cambiar foto de perfil",
+    "@changeProfilePicture": {
+        "description": "Texto del botón para abrir las opciones de selección de foto de perfil."
+    },
+    "camera": "Cámara",
+    "@camera": {
+        "description": "Opción para usar la cámara y tomar una foto."
+    },
+    "gallery": "Galería",
+    "@gallery": {
+        "description": "Opción para elegir una foto de la galería."
+    },
+    "remove": "Eliminar",
+    "@remove": {
+        "description": "Texto del botón para eliminar un elemento, como una foto de perfil."
+    },
+    "created": "Creado {date}",
+    "@created": {
+        "description": "Muestra la fecha de creación de una historia o contenido.",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "15 ene 2023"
+            }
+        }
+    },
+    "chapters": "Capítulos",
+    "@chapters": {
+        "description": "Encabezado para la lista de capítulos en una historia."
+    },
+    "deleteStory": "Eliminar historia",
+    "@deleteStory": {
+        "description": "Texto del botón para eliminar una historia."
+    },
+    "createdBy": "Creado por {creatorName}",
+    "@createdBy": {
+        "description": "Muestra el nombre del creador del contenido.",
+        "placeholders": {
+            "creatorName": {
+                "type": "String",
+                "example": "Juan Pérez"
+            }
+        }
+    },
+    "start": "Comenzar",
+    "@start": {
+        "description": "Texto del botón para comenzar una actividad o sesión."
+    },
+    "unsubscribe": "Cancelar suscripción",
+    "@unsubscribe": {
+        "description": "Texto del botón para cancelar la suscripción a una sala o notificación."
+    },
+    "subscribe": "Suscribirse",
+    "@subscribe": {
+        "description": "Texto del botón para suscribirse a una sala o notificación."
+    },
+    "storyCategory": "{category, select, drama{Drama} comedy{Comedia} horror{Terror} romance{Romance} thriller{Suspenso} spiritual{Espiritual} other{Otro}}",
+    "@storyCategory": {
+        "description": "Selecciona el nombre de categoría apropiado para una historia basado en una clave.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "drama"
+            }
+        }
+    },
+    "chooseTheme": "{category, select, classicTheme{Clásico} timeTheme{Tiempo} vintageTheme{Vintage} amberTheme{Ámbar} forestTheme{Bosque} creamTheme{Crema} other{Otro}}",
+    "@chooseTheme": {
+        "description": "Selecciona el nombre de tema apropiado basado en una clave.",
+        "placeholders": {
+            "category": {
+                "type": "String",
+                "example": "classic"
+            }
+        }
+    },
+    "minutesAgo": "{count, plural, =1{hace 1 minuto} other{hace {count} minutos}}",
+    "@minutesAgo": {
+        "description": "Muestra el tiempo en formato relativo para minutos.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "hoursAgo": "{count, plural, =1{hace 1 hora} other{hace {count} horas}}",
+    "@hoursAgo": {
+        "description": "Muestra el tiempo en formato relativo para horas.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
+    },
+    "daysAgo": "{count, plural, =1{hace 1 día} other{hace {count} días}}",
+    "@daysAgo": {
+        "description": "Muestra el tiempo en formato relativo para días.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "by": "por",
+    "@by": {
+        "description": "Una preposición, típicamente usada entre el título de un contenido y el nombre del autor."
+    },
+    "likes": "Me gusta",
+    "@likes": {
+        "description": "Etiqueta para el número de me gusta."
+    },
+    "lengthMinutes": "min",
+    "@lengthMinutes": {
+        "description": "Abreviatura de 'minutos', usada para mostrar la duración del audio."
+    },
+    "requiredField": "Campo obligatorio",
+    "@requiredField": {
+        "description": "Mensaje de error para un campo obligatorio que se dejó vacío."
+    },
+    "onlineUsers": "Usuarios en línea",
+    "@onlineUsers": {
+        "description": "Encabezado para la lista de usuarios que están actualmente en línea."
+    },
+    "noOnlineUsers": "No hay usuarios en línea actualmente",
+    "@noOnlineUsers": {
+        "description": "Mensaje mostrado cuando no hay usuarios en línea."
+    },
+    "chooseUser": "Elige un usuario para chatear",
+    "@chooseUser": {
+        "description": "Texto instructivo para seleccionar un usuario para iniciar un chat."
+    },
+    "quickMatch": "Emparejamiento rápido",
+    "@quickMatch": {
+        "description": "Texto del botón para una función que empareja rápidamente al usuario con un compañero de chat aleatorio."
+    },
+    "story": "Historia",
+    "@story": {
+        "description": "Etiqueta para una historia."
+    },
+    "user": "Usuario",
+    "@user": {
+        "description": "Etiqueta para un usuario."
+    },
+    "following": "Siguiendo",
+    "@following": {
+        "description": "Etiqueta para la lista de usuarios a los que sigue el usuario actual."
+    },
+    "followers": "Seguidores",
+    "@followers": {
+        "description": "Etiqueta para la lista de usuarios que siguen al usuario actual."
+    },
+    "friendRequests": "Solicitudes de amistad",
+    "@friendRequests": {
+        "description": "Encabezado para la lista de solicitudes de amistad entrantes."
+    },
+    "friendRequestSent": "Solicitud de amistad enviada",
+    "@friendRequestSent": {
+        "description": "Título para el mensaje de confirmación después de enviar una solicitud de amistad."
+    },
+    "friendRequestSentTo": "Tu solicitud de amistad a {username} ha sido enviada.",
+    "@friendRequestSentTo": {
+        "description": "Mensaje de confirmación después de enviar una solicitud de amistad a un usuario específico.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestCancelled": "Solicitud de amistad cancelada",
+    "@friendRequestCancelled": {
+        "description": "Título para el mensaje de confirmación después de cancelar una solicitud de amistad."
+    },
+    "friendRequestCancelledTo": "Tu solicitud de amistad a {username} ha sido cancelada.",
+    "@friendRequestCancelledTo": {
+        "description": "Mensaje de confirmación después de cancelar una solicitud de amistad a un usuario específico.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "requested": "Solicitada",
+    "@requested": {
+        "description": "Etiqueta de estado en un botón que indica que se ha enviado una solicitud de amistad."
+    },
+    "friends": "Amigos",
+    "@friends": {
+        "description": "Etiqueta de estado o encabezado para la lista de amigos."
+    },
+    "addFriend": "Agregar amigo",
+    "@addFriend": {
+        "description": "Texto del botón para enviar una solicitud de amistad."
+    },
+    "friendRequestAccepted": "Solicitud de amistad aceptada",
+    "@friendRequestAccepted": {
+        "description": "Título para el mensaje de confirmación después de aceptar una solicitud de amistad."
+    },
+    "friendRequestAcceptedTo": "Ahora eres amigo de {username}.",
+    "@friendRequestAcceptedTo": {
+        "description": "Mensaje de confirmación después de aceptar una solicitud de amistad de un usuario específico.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "friendRequestDeclined": "Solicitud de amistad rechazada",
+    "@friendRequestDeclined": {
+        "description": "Título para el mensaje de confirmación después de rechazar una solicitud de amistad."
+    },
+    "friendRequestDeclinedTo": "Has rechazado la solicitud de amistad de {username}.",
+    "@friendRequestDeclinedTo": {
+        "description": "Mensaje de confirmación después de rechazar una solicitud de amistad de un usuario específico.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "accept": "Aceptar",
+    "@accept": {
+        "description": "Texto del botón para aceptar una solicitud o invitación."
+    },
+    "callDeclined": "Llamada rechazada",
+    "@callDeclined": {
+        "description": "Título para el mensaje cuando se rechaza una llamada."
+    },
+    "callDeclinedTo": "El usuario {username} rechazó la llamada.",
+    "@callDeclinedTo": {
+        "description": "Mensaje que indica que un usuario específico rechazó una llamada.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "checkForUpdates": "Buscar actualizaciones",
+    "@checkForUpdates": {
+        "description": "Texto del botón para buscar manualmente actualizaciones de la aplicación."
+    },
+    "updateNow": "Actualizar ahora",
+    "@updateNow": {
+        "description": "Texto del botón para iniciar el proceso de actualización."
+    },
+    "updateLater": "Más tarde",
+    "@updateLater": {
+        "description": "Texto del botón para posponer una actualización."
+    },
+    "updateSuccessful": "Actualización exitosa",
+    "@updateSuccessful": {
+        "description": "Título para el mensaje de éxito después de una actualización."
+    },
+    "updateSuccessfulMessage": "¡Resonate se ha actualizado exitosamente!",
+    "@updateSuccessfulMessage": {
+        "description": "Mensaje de éxito que confirma que la aplicación se ha actualizado."
+    },
+    "updateCancelled": "Actualización cancelada",
+    "@updateCancelled": {
+        "description": "Título para el mensaje cuando se cancela una actualización."
+    },
+    "updateCancelledMessage": "El usuario canceló la actualización",
+    "@updateCancelledMessage": {
+        "description": "Mensaje que indica que el usuario canceló el proceso de actualización."
+    },
+    "updateFailed": "Actualización fallida",
+    "@updateFailed": {
+        "description": "Título para el mensaje cuando falla una actualización."
+    },
+    "updateFailedMessage": "Error al actualizar. Por favor intenta actualizar manualmente desde Play Store.",
+    "@updateFailedMessage": {
+        "description": "Mensaje de error cuando falla una actualización dentro de la aplicación, sugiriendo una actualización manual."
+    },
+    "updateError": "Error de actualización",
+    "@updateError": {
+        "description": "Título genérico para un error relacionado con la actualización."
+    },
+    "updateErrorMessage": "Ocurrió un error durante la actualización. Por favor intenta de nuevo.",
+    "@updateErrorMessage": {
+        "description": "Mensaje de error genérico para una actualización que falló debido a un error desconocido."
+    },
+    "platformNotSupported": "Plataforma no soportada",
+    "@platformNotSupported": {
+        "description": "Título para un error cuando una función no es compatible con la plataforma actual."
+    },
+    "platformNotSupportedMessage": "La verificación de actualizaciones solo está disponible en dispositivos Android",
+    "@platformNotSupportedMessage": {
+        "description": "Mensaje que explica que la función de actualización dentro de la aplicación es específica de la plataforma."
+    },
+    "updateCheckFailed": "Error al verificar actualización",
+    "@updateCheckFailed": {
+        "description": "Título para un error cuando la aplicación no puede verificar actualizaciones."
+    },
+    "updateCheckFailedMessage": "No se pudo verificar si hay actualizaciones. Por favor intenta de nuevo más tarde.",
+    "@updateCheckFailedMessage": {
+        "description": "Mensaje de error cuando falla el proceso de verificación de actualizaciones."
+    },
+    "upToDateTitle": "¡Estás actualizado!",
+    "@upToDateTitle": {
+        "description": "Título para el mensaje cuando la aplicación ya está actualizada."
+    },
+    "upToDateMessage": "Estás usando la versión más reciente de Resonate",
+    "@upToDateMessage": {
+        "description": "Mensaje que confirma que no se necesita actualización."
+    },
+    "updateAvailableTitle": "¡Actualización disponible!",
+    "@updateAvailableTitle": {
+        "description": "Título para el diálogo que informa al usuario sobre una nueva actualización."
+    },
+    "updateAvailableMessage": "Una nueva versión de Resonate está disponible en Play Store",
+    "@updateAvailableMessage": {
+        "description": "Mensaje que solicita al usuario actualizar la aplicación desde Play Store."
+    },
+    "updateFeaturesImprovement": "¡Obtén las últimas funciones y mejoras!",
+    "@updateFeaturesImprovement": {
+        "description": "Mensaje que destaca el beneficio de actualizar la aplicación."
+    },
+    "failedToRemoveRoom": "Error al eliminar la sala",
+    "@failedToRemoveRoom": {
+        "description": "Mensaje de error cuando no se puede eliminar una sala de la lista"
+    },
+    "roomRemovedSuccessfully": "Sala eliminada de tu lista exitosamente",
+    "@roomRemovedSuccessfully": {
+        "description": "Mensaje de éxito cuando una sala se elimina correctamente de la lista del usuario"
+    },
+    "alert": "Alerta",
+    "@alert": {
+        "description": "Título para un diálogo de alerta."
+    },
+    "removedFromRoom": "Has sido reportado o eliminado de la sala",
+    "@removedFromRoom": {
+        "description": "Mensaje mostrado cuando un usuario es eliminado o reportado de una sala."
+    },
+    "reportType": "{type, select, harassment{Acoso / Discurso de odio} abuse{Contenido abusivo / Violencia} spam{Spam / Estafas / Fraude} impersonation{Suplantación de identidad / Cuentas falsas} illegal{Actividades ilegales} selfharm{Autolesión / Suicidio / Salud mental} misuse{Uso indebido de la plataforma} other{Otro}}",
+    "@reportType": {
+        "description": "Selecciona la etiqueta de tipo de reporte apropiada basada en una clave.",
+        "placeholders": {
+            "type": {
+                "type": "String",
+                "example": "harassment"
+            }
+        }
+    },
+    "userBlockedFromResonate": "Has recibido múltiples reportes de usuarios y has sido bloqueado de usar Resonate. Por favor contacta a AOSSIE si crees que esto es un error.",
+    "@userBlockedFromResonate": {
+        "description": "Mensaje mostrado cuando un usuario es bloqueado de usar Resonate."
+    },
+    "reportParticipant": "Reportar participante",
+    "@reportParticipant": {
+        "description": "Etiqueta para el botón de reportar a un participante."
+    },
+    "selectReportType": "Por favor selecciona un tipo de reporte",
+    "@selectReportType": {
+        "description": "Solicitud para que el usuario seleccione un tipo de reporte."
+    },
+    "reportSubmitted": "Reporte enviado exitosamente",
+    "@reportSubmitted": {
+        "description": "Mensaje mostrado cuando un reporte se envía exitosamente."
+    },
+    "reportFailed": "Error al enviar el reporte",
+    "@reportFailed": {
+        "description": "Mensaje mostrado cuando falla el envío de un reporte."
+    },
+    "additionalDetailsOptional": "Detalles adicionales (opcional)",
+    "@additionalDetailsOptional": {
+        "description": "Etiqueta para un campo de entrada opcional para detalles adicionales en un reporte."
+    },
+    "submitReport": "Enviar reporte",
+    "@submitReport": {
+        "description": "Texto del botón para enviar un reporte."
+    },
+    "actionBlocked": "Acción bloqueada",
+    "@actionBlocked": {
+        "description": "Título para un mensaje que indica que una acción de usuario está bloqueada."
+    },
+    "cannotStopRecording": "No puedes detener la grabación manualmente, la grabación se detendrá cuando se cierre la sala.",
+    "@cannotStopRecording": {
+        "description": "Mensaje que explica por qué un usuario no puede detener una grabación manualmente."
+    },
+    "liveChapter": "Capítulo en vivo",
+    "@liveChapter": {
+        "description": "Etiqueta que indica que un capítulo está actualmente en vivo."
+    },
+    "viewOrEditLyrics": "Ver o editar letra",
+    "@viewOrEditLyrics": {
+        "description": "Texto del botón para ver o editar la letra de un capítulo."
+    },
+    "close": "Cerrar",
+    "@close": {
+        "description": "Etiqueta para el botón de cerrar un diálogo."
+    },
+    "verifyChapterDetails": "Verificar detalles del capítulo",
+    "@verifyChapterDetails": {
+        "description": "Título para la pantalla donde se verifican los detalles del capítulo en vivo antes de publicar."
+    },
+    "author": "Autor",
+    "@author": {
+        "description": "Etiqueta para el autor de una historia o capítulo."
+    },
+    "startLiveChapter": "Iniciar un capítulo en vivo",
+    "@startLiveChapter": {
+        "description": "Título para la pantalla donde se inicia un capítulo en vivo."
+    },
+    "fillAllFields": "Por favor completa todos los campos obligatorios",
+    "@fillAllFields": {
+        "description": "Mensaje de error cuando no se completan todos los campos obligatorios en un formulario."
+    },
+    "noRecordingError": "No has grabado nada para el capítulo. Por favor graba un capítulo antes de salir de la sala",
+    "@noRecordingError": {
+        "description": "Mensaje de error cuando se intenta salir de una sala de capítulo en vivo sin ninguna grabación."
+    }
+}
