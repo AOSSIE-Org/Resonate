@@ -39,19 +39,19 @@ class AuthStateController extends GetxController {
        account = account ?? AppwriteService.getAccount(),
        databases = databases ?? AppwriteService.getDatabases(),
        messaging = messaging ?? FirebaseMessaging.instance;
-  late String? uid;
-  late String? profileImageID;
-  late String? displayName;
-  late String? email;
-  late String? profileImageUrl;
-  late String? userName;
-  late bool? isUserProfileComplete;
-  late bool? isEmailVerified;
-  late double ratingTotal;
-  late int ratingCount;
+  String? uid;
+  String? profileImageID;
+  String? displayName;
+  String? email;
+  String? profileImageUrl;
+  String? userName;
+  bool? isUserProfileComplete;
+  bool? isEmailVerified;
+  double ratingTotal = 5.0;
+  int ratingCount = 1;
   late User appwriteUser;
-  late List<FollowerUserModel> followerDocuments;
-  late int reportsCount;
+  List<FollowerUserModel> followerDocuments = [];
+  int reportsCount = 0;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
