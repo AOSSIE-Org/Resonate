@@ -55,26 +55,20 @@ class _SplashScreenState extends State<SplashScreen>
     Timer(const Duration(milliseconds: 3000), () async {
       final result = await Get.find<AboutAppScreenController>().checkForUpdate(
         onIgnore: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
           return true;
         },
         onLater: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
           return true;
         },
         onUpdate: () {
-          authController.isUserLoggedIn();
-          Get.offNamed(AppRoutes.landing);
           return true;
         },
         isManualCheck: false,
       );
+      await authController.isUserLoggedIn();
       if (result == UpdateCheckResult.noUpdateAvailable ||
           result == UpdateCheckResult.checkFailed) {
-        authController.isUserLoggedIn();
-        Get.offNamed(AppRoutes.landing);
+        return;
       }
     });
   }

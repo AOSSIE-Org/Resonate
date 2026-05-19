@@ -201,23 +201,25 @@ class AuthStateController extends GetxController {
       isEmailVerified = appwriteUser.emailVerification;
       uid = appwriteUser.$id;
       isUserProfileComplete =
-          appwriteUser.prefs.data["isUserProfileComplete"] ?? false;
+          appwriteUser.prefs?.data?['isUserProfileComplete'] ?? false;
       if (isUserProfileComplete == true) {
         Document userDataDoc = await databases.getDocument(
           databaseId: userDatabaseID,
           collectionId: usersCollectionID,
           documentId: appwriteUser.$id,
         );
-        profileImageUrl = userDataDoc.data["profileImageUrl"];
-        profileImageID = userDataDoc.data["profileImageID"];
-        userName = userDataDoc.data["username"] ?? "unavailable";
-        ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
-        ratingCount = userDataDoc.data["ratingCount"] ?? 1;
+        profileImageUrl = userDataDoc.data['profileImageUrl'];
+        profileImageID = userDataDoc.data['profileImageID'];
+        userName = userDataDoc.data['username'] ?? 'unavailable';
+        ratingTotal = userDataDoc.data['ratingTotal'] is num
+            ? (userDataDoc.data['ratingTotal'] as num).toDouble()
+            : 5.0;
+        ratingCount = userDataDoc.data['ratingCount'] ?? 1;
         followerDocuments =
-            (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {
-              return FollowerUserModel.fromJson(e);
-            }).toList() ??
-            [];
+            (userDataDoc.data['followers'] as List<dynamic>?)?.map((e) {
+                  return FollowerUserModel.fromJson(e);
+                }).toList() ??
+                [];
         reportsCount =
             (userDataDoc.data['userReports'] as List<dynamic>?)?.length ?? 0;
       }
@@ -266,11 +268,19 @@ class AuthStateController extends GetxController {
   Future<void> login(String email, String password) async {
     await account.createEmailPasswordSession(email: email, password: password);
     await isUserLoggedIn();
-    await addRegistrationTokentoSubscribedandCreatedUpcomingRooms();
+    try {
+      await addRegistrationTokentoSubscribedandCreatedUpcomingRooms();
+    } catch (e, stack) {
+      log('Failed to update FCM tokens after login: $e\n$stack');
+    }
   }
 
   Future<void> addRegistrationTokentoSubscribedandCreatedUpcomingRooms() async {
     final fcmToken = await messaging.getToken();
+    if (fcmToken == null || fcmToken.isEmpty) {
+      log('FCM token unavailable. Skipping token registration updates.');
+      return;
+    }
 
     //subscribed Upcoming Rooms
     List<Document> subscribedUpcomingRooms = await databases
@@ -285,7 +295,7 @@ class AuthStateController extends GetxController {
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
-      registrationTokens.add(fcmToken!);
+      registrationTokens.add(fcmToken);
       databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
@@ -306,7 +316,7 @@ class AuthStateController extends GetxController {
         .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
-      creatorFcmTokens.add(fcmToken!);
+      creatorFcmTokens.add(fcmToken);
       databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: upcomingRoomsCollectionId,
@@ -318,6 +328,10 @@ class AuthStateController extends GetxController {
 
   Future<void> removeRegistrationTokenFromSubscribedUpcomingRooms() async {
     final fcmToken = await messaging.getToken();
+    if (fcmToken == null || fcmToken.isEmpty) {
+      log('FCM token unavailable. Skipping token removal updates.');
+      return;
+    }
 
     //subscribed Upcoming Rooms
     List<Document> subscribedUpcomingRooms = await databases
@@ -332,7 +346,7 @@ class AuthStateController extends GetxController {
     for (var subscription in subscribedUpcomingRooms) {
       List<dynamic> registrationTokens =
           subscription.data['registrationTokens'];
-      registrationTokens.remove(fcmToken!);
+      registrationTokens.remove(fcmToken);
       databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: subscribedUserCollectionId,
@@ -353,7 +367,7 @@ class AuthStateController extends GetxController {
         .then((value) => value.documents);
     for (var upcomingRoom in createdUpcomingRooms) {
       List<dynamic> creatorFcmTokens = upcomingRoom.data['creator_fcm_tokens'];
-      creatorFcmTokens.remove(fcmToken!);
+      creatorFcmTokens.remove(fcmToken);
       databases.updateDocument(
         databaseId: upcomingRoomsDatabaseId,
         collectionId: upcomingRoomsCollectionId,

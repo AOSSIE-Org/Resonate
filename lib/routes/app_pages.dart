@@ -85,11 +85,6 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: AppRoutes.resetPassword,
-      page: () => const ResetPasswordScreen(),
-      binding: ProfileBinding(),
-    ),
-    GetPage(
       name: AppRoutes.tabview,
       page: () => TabViewScreen(),
       binding: TabViewBinding(),
@@ -116,7 +111,6 @@ class AppPages {
     GetPage(name: AppRoutes.changeEmail, page: () => ChangeEmailScreen()),
     GetPage(name: AppRoutes.welcomeScreen, page: () => WelcomeScreen()),
     // New Screens
-    GetPage(name: AppRoutes.loginScreen, page: () => const LoginScreen()),
     GetPage(name: AppRoutes.homeScreen, page: () => const HomeScreen()),
     GetPage(name: AppRoutes.themeScreen, page: () => ThemeScreen()),
     GetPage(

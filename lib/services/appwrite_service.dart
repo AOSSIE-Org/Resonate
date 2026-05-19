@@ -21,6 +21,7 @@ class AppwriteService {
   }
 
   static Account getAccount() {
+    _client ??= getClient();
     _account ??= Account(_client!);
     return _account!;
   }
