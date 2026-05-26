@@ -106,37 +106,6 @@
     "usernameAlreadyTaken"
   ],
 
-  "mr": [
-    "hide",
-    "removeRoom",
-    "removeRoomFromList",
-    "removeRoomConfirmation",
-    "searchFailed",
-    "searchRooms",
-    "searchingRooms",
-    "clearSearch",
-    "searchError",
-    "searchRoomsError",
-    "searchUpcomingRoomsError",
-    "search",
-    "clear",
-    "audioOptions",
-    "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
-  ],
-
   "ta": [
     "noFriendsYet",
     "noFriendsDescription",
