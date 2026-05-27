@@ -1,37 +1,26 @@
 import 'package:appwrite/appwrite.dart' hide Locale;
 import 'package:appwrite/models.dart' hide Locale;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
 
+import '../helpers/test_root_container.dart';
 import 'change_email_controller_test.mocks.dart';
 
-@GenerateMocks([TablesDB, Account, Client, FirebaseMessaging])
+@GenerateMocks([TablesDB, Account])
 void main() {
-  MockTablesDB mockTablesDB = MockTablesDB();
-  MockAccount mockAccount = MockAccount();
-  MockClient mockClient = MockClient();
-  MockFirebaseMessaging mockMessaging = MockFirebaseMessaging();
-  AuthStateController authStateController = AuthStateController(
-    account: mockAccount,
-    tables: mockTablesDB,
-    client: mockClient,
-    messaging: mockMessaging,
-  );
+  late MockTablesDB mockTablesDB;
+  late MockAccount mockAccount;
+  late FakeAuthRepository fakeRepo;
+  late ChangeEmailController controller;
 
-  ChangeEmailController changeEmailController = ChangeEmailController(
-    account: mockAccount,
-    tables: mockTablesDB,
-    authStateController: authStateController,
-  );
   final User mockUser = User(
     $id: '123',
     name: 'Test User',
@@ -53,48 +42,29 @@ void main() {
     targets: [],
     hashOptions: {},
   );
-  final RowList mockUserDocument = RowList(
-    total: 1,
-    rows: [
-      Row(
-        $id: '123',
-        $tableId: usersTableID,
-        $databaseId: userDatabaseID,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: ['any'],
-        $sequence: 0,
-        data: {
-          'profileImageUrl': 'https://example.com/image.jpg',
-          'username': 'TestUser',
-          'profileImageID': 'image123',
-          'ratingTotal': 5,
-          'ratingCount': 1,
-        },
-      ),
-    ],
-  );
 
-  setUp(() {
+  setUp(() async {
+    mockTablesDB = MockTablesDB();
+    mockAccount = MockAccount();
+    fakeRepo = FakeAuthRepository(
+      AuthState.authenticated(fakeAuthUser()),
+    );
+
+    await installTestRootContainer(authRepository: fakeRepo);
+
+    controller = ChangeEmailController(
+      tables: mockTablesDB,
+      account: mockAccount,
+    );
+
     when(
       mockTablesDB.listRows(
         databaseId: userDatabaseID,
         tableId: usernameTableID,
-        queries: [
-          Query.equal('email', 'test2@test.com'),
-        ],
+        queries: [Query.equal('email', 'test2@test.com')],
       ),
-    ).thenAnswer((_) => Future.value(RowList(total: 0, rows: [])));
-    when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
+    ).thenAnswer((_) async => RowList(total: 0, rows: []));
 
-    when(
-      mockTablesDB.getRow(
-        databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: '123',
-        queries: [Query.select(["*", "followers.*", "userReports.*"])],
-      ),
-    ).thenAnswer((_) => Future.value(mockUserDocument.rows.first));
     when(
       mockTablesDB.updateRow(
         databaseId: anyNamed('databaseId'),
@@ -116,63 +86,73 @@ void main() {
         ),
       );
     });
+
     when(
-      mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
-    ).thenAnswer((_) => Future.value(mockUser));
+      mockAccount.updateEmail(
+        email: 'test2@test.com',
+        password: 'anyPassword',
+      ),
+    ).thenAnswer((_) async => mockUser);
   });
-  test('test isEmailAvailable', () async {
-    final result = await changeEmailController.isEmailAvailable(
-      'test2@test.com',
-    );
+
+  test('isEmailAvailable returns true when no matching row exists', () async {
+    final result = await controller.isEmailAvailable('test2@test.com');
     expect(result, true);
   });
 
-  testWidgets('test changeEmailInDatabases', (WidgetTester tester) async {
-    await tester.pumpWidget(GetMaterialApp(home: Container()));
-    await tester.pumpAndSettle();
-    await authStateController.setUserProfileData();
-    final result = await changeEmailController.changeEmailInDatabases(
-      'test2@test.com',
-      tester.element(find.byType(Container)),
-    );
-    verify(
-      mockTablesDB.updateRow(
-        databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: '123',
-        data: {'email': 'test2@test.com'},
-      ),
-    ).called(1);
-    verify(
-      mockTablesDB.updateRow(
-        databaseId: userDatabaseID,
-        tableId: usernameTableID,
-        rowId: 'TestUser',
-        data: {'email': 'test2@test.com'},
-      ),
-    ).called(1);
-    expect(authStateController.email, 'test2@test.com');
-    expect(result, true);
-  });
+  testWidgets(
+    'changeEmailInDatabases updates both rows and refreshes auth',
+    (tester) async {
+      await tester.pumpWidget(GetMaterialApp(home: Container()));
+      await tester.pumpAndSettle();
 
-  testWidgets('test changeEmailInAuth', (WidgetTester tester) async {
+      final loadCountBefore = fakeRepo.loadCount;
+      final result = await controller.changeEmailInDatabases(
+        'test2@test.com',
+        tester.element(find.byType(Container)),
+      );
+
+      verify(
+        mockTablesDB.updateRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: '123',
+          data: {'email': 'test2@test.com'},
+        ),
+      ).called(1);
+      verify(
+        mockTablesDB.updateRow(
+          databaseId: userDatabaseID,
+          tableId: usernameTableID,
+          rowId: 'TestUser',
+          data: {'email': 'test2@test.com'},
+        ),
+      ).called(1);
+      expect(result, true);
+      // refresh() should have called loadCurrentUser exactly once more than
+      // the initial container-build call.
+      expect(fakeRepo.loadCount, loadCountBefore + 1);
+    },
+  );
+
+  testWidgets('changeEmailInAuth calls account.updateEmail', (tester) async {
     await tester.pumpWidget(GetMaterialApp(home: Container()));
     await tester.pumpAndSettle();
-    final result = await changeEmailController.changeEmailInAuth(
+    final result = await controller.changeEmailInAuth(
       'test2@test.com',
       'anyPassword',
       tester.element(find.byType(Container)),
     );
     expect(result, true);
     verify(
-      mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
+      mockAccount.updateEmail(email: 'test2@test.com', password: 'anyPassword'),
     ).called(1);
   });
 
-  testWidgets('test changeEmail', (WidgetTester tester) async {
+  testWidgets('changeEmail runs the full happy path', (tester) async {
     await tester.pumpWidget(
       GetMaterialApp(
-        localizationsDelegates: [
+        localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -181,25 +161,25 @@ void main() {
         supportedLocales: const [Locale('en'), Locale('hi')],
         home: Scaffold(
           body: Form(
-            key: changeEmailController.changeEmailFormKey,
+            key: controller.changeEmailFormKey,
             child: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () async {
-                  await changeEmailController.changeEmail(context);
+                  await controller.changeEmail(context);
                 },
-                child: const Text("Test"),
+                child: const Text('Test'),
               ),
             ),
           ),
         ),
       ),
     );
-    changeEmailController.passwordController.text = 'anyPassword';
-    changeEmailController.emailController.text = 'test2@test.com';
+    controller.passwordController.text = 'anyPassword';
+    controller.emailController.text = 'test2@test.com';
     await tester.tap(find.text('Test'));
     await tester.pumpAndSettle();
     verify(
-      mockAccount.updateEmail(email: 'test2@test.com', password: "anyPassword"),
+      mockAccount.updateEmail(email: 'test2@test.com', password: 'anyPassword'),
     ).called(1);
     await tester.pumpAndSettle(const Duration(seconds: 4));
     verify(
@@ -210,7 +190,6 @@ void main() {
         data: {'email': 'test2@test.com'},
       ),
     ).called(1);
-    expect(authStateController.email, 'test2@test.com');
-    expect(changeEmailController.isLoading.value, false);
+    expect(controller.isLoading.value, false);
   });
 }

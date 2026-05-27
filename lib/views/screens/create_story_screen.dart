@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -64,7 +65,7 @@ class CreateStoryPageState extends State<CreateStoryPage> {
       chapters,
     );
 
-    Navigator.pushNamed(Get.context!, AppRoutes.tabview);
+    appRouter.go(RoutePaths.tabview);
 
     log('Story Created');
   }

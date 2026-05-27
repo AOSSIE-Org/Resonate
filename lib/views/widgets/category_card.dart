@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -28,7 +27,11 @@ class CategoryCard extends StatelessWidget {
         exploreStoryController.fetchStoryByCategory(
           StoryCategory.values.byName(name),
         );
-        Get.to(() => CategoryScreen(categoryName: name));
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => CategoryScreen(categoryName: name),
+          ),
+        );
       },
       child: Stack(
         children: [

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/delete_account_controller.dart';
-import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   const DeleteAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AuthStateController authStateController = Get.put(AuthStateController());
-
     return Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.deleteAccount)),
       body: GetBuilder<DeleteAccountController>(
@@ -43,7 +41,7 @@ class DeleteAccountScreen extends StatelessWidget {
                   children: [
                     TextSpan(text: AppLocalizations.of(context)!.toConfirmType),
                     TextSpan(
-                      text: ' "${authStateController.userName}" ',
+                      text: ' "${requireCurrentAuthUser.userName}" ',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(text: AppLocalizations.of(context)!.inTheBoxBelow),
@@ -53,7 +51,7 @@ class DeleteAccountScreen extends StatelessWidget {
               SizedBox(height: UiSizes.height_10),
               TextField(
                 onChanged: (value) {
-                  if (value == authStateController.userName) {
+                  if (value == requireCurrentAuthUser.userName) {
                     controller.isButtonActive.value = true;
                   } else {
                     controller.isButtonActive.value = false;

@@ -46,6 +46,7 @@ dependencies:
     sdk: flutter
   flutter_local_notifications: ^19.5.0
   flutter_native_splash: ^2.4.7
+  flutter_riverpod: ^3.1.0
   flutter_onboarding_slider: ^1.0.11
   flutter_otp_text_field: ^1.5.1+1
   flutter_secure_storage: ^9.2.4
@@ -55,6 +56,7 @@ dependencies:
   font_awesome_flutter: ^10.12.0
   get: ^4.7.2
   get_storage: ^2.1.1
+  go_router: ^14.6.2
   google_fonts: ^6.3.2
   http: ^1.6.0
   image_cropper: ^11.0.0
@@ -70,6 +72,7 @@ dependencies:
   page_transition: ^2.2.1
   persistent_bottom_nav_bar: ^6.2.1
   random_string: ^2.3.1
+  riverpod_annotation: ^4.0.0
   share_plus: ^12.0.1
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
@@ -107,6 +110,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   build_runner: ^2.10.2
+  custom_lint: ^0.8.1
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
@@ -114,6 +118,8 @@ dev_dependencies:
   freezed: ^3.2.3
   json_serializable: ^6.11.1
   mockito: ^5.5.1
+  riverpod_generator: ^4.0.0
+  riverpod_lint: ^3.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

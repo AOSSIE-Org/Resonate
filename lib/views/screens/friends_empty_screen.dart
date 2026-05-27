@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
@@ -64,9 +65,7 @@ class FriendsEmptyState extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () {
                         Get.find<TabViewController>().setIndex(1);
-                        Get.until(
-                          (route) => route.settings.name == AppRoutes.tabview,
-                        );
+                        appRouter.go(RoutePaths.tabview);
                       },
                       icon: const Icon(Icons.search),
                       label: Text(localizations.findFriends),

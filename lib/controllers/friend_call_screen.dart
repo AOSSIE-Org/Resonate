@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -10,8 +9,6 @@ import 'package:resonate/views/widgets/audio_selector_dialog.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class FriendCallScreen extends StatelessWidget {
-  final AuthStateController authStateController =
-      Get.find<AuthStateController>();
   final FriendCallingController controller =
       Get.find<FriendCallingController>();
   final ThemeController themeController = Get.find<ThemeController>();

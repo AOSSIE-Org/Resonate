@@ -2,14 +2,15 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 class DeleteAccountController extends GetxController {
   RxBool isButtonActive = false.obs;
 
-  AuthStateController authStateController = Get.put(AuthStateController());
+  AuthUser get authStateController => requireCurrentAuthUser;
 
   late final Storage storage;
   late final TablesDB tables;

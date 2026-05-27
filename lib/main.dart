@@ -9,21 +9,23 @@ import 'package:flutter_callkit_incoming/entities/android_params.dart';
 import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:resonate/firebase_options.dart';
-import 'package:resonate/l10n/raj_intl.dart';
-import 'package:resonate/routes/app_pages.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/l10n/raj_intl.dart';
+import 'package:resonate/controllers/about_app_screen_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/core/legacy_dependencies.dart';
+import 'package:resonate/firebase_options.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/themes/theme.dart';
+import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
-import 'themes/theme_controller.dart';
-import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/controllers/about_app_screen_controller.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -59,6 +61,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
   Get.put(AboutAppScreenController());
+  setupLegacyGetXDependencies();
   languageLocale =
       await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
   final String? savedModel = await FlutterSecureStorage().read(
@@ -68,19 +71,29 @@ Future<void> main() async {
     (model) => model.modelName == (savedModel ?? "base"),
     orElse: () => WhisperModel.base,
   );
-  runApp(const MyApp());
+  runApp(
+    UncontrolledProviderScope(
+      container: rootContainer,
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     UiSizes.init(context);
     final themeController = Get.put(ThemeController());
+    final router = ref.watch(routerProvider);
 
     return Obx(
-      () => GetMaterialApp(
+      () => GetMaterialApp.router(
+        routerDelegate: router.routerDelegate,
+        routeInformationParser: router.routeInformationParser,
+        routeInformationProvider: router.routeInformationProvider,
+        backButtonDispatcher: router.backButtonDispatcher,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -101,8 +114,6 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeList.getThemeModel(
           themeController.currentTheme.value,
         ).themeMode,
-        initialRoute: AppRoutes.splash,
-        getPages: AppPages.pages,
       ),
     );
   }

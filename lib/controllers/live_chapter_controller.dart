@@ -6,17 +6,18 @@ import 'package:appwrite/appwrite.dart';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/whisper_transcription_controller.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/models/live_chapter_attendees_model.dart';
 import 'package:resonate/models/live_chapter_model.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/views/screens/verify_chapter_details_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 
 class LiveChapterController extends GetxController {
@@ -24,7 +25,7 @@ class LiveChapterController extends GetxController {
   final TablesDB tables;
   final Realtime realtime;
   final Functions functions;
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
   RxBool isMicOn = false.obs;
   RealtimeSubscription? liveChapterAttendeesSubscription;
 
@@ -32,12 +33,9 @@ class LiveChapterController extends GetxController {
     TablesDB? tables,
     Realtime? realtime,
     Functions? functions,
-    AuthStateController? authStateController,
   }) : tables = tables ?? AppwriteService.getTables(),
        realtime = realtime ?? AppwriteService.getRealtime(),
-       functions = functions ?? AppwriteService.getFunctions(),
-       authStateController =
-           authStateController ?? Get.find<AuthStateController>();
+       functions = functions ?? AppwriteService.getFunctions();
 
   void listenForAttendeesAdded() async {
     String channel =
@@ -60,7 +58,7 @@ class LiveChapterController extends GetxController {
             await liveChapterAttendeesSubscription?.close();
             await Get.delete<LiveKitController>(force: true);
 
-            Get.offAllNamed(AppRoutes.tabview);
+            appRouter.go(RoutePaths.tabview);
             Get.delete<LiveChapterController>();
           }
         }
@@ -84,7 +82,7 @@ class LiveChapterController extends GetxController {
         chapterTitle: chapterTitle,
         chapterDescription: chapterDescription,
         storyId: storyId,
-        followersFCMToken: authStateController.followerDocuments
+        followersFCMToken: authStateController.followers
             .map((e) => e.fcmToken)
             .toList(),
         attendees: LiveChapterAttendeesModel(
@@ -111,7 +109,7 @@ class LiveChapterController extends GetxController {
         adminUid: authStateController.uid!,
       );
       liveChapterModel.value = liveChapterData;
-      if (authStateController.followerDocuments.isNotEmpty) {
+      if (authStateController.followers.isNotEmpty) {
         log('Sending notification for created story');
         var body = json.encode({
           'creatorId': authStateController.uid,
@@ -128,7 +126,7 @@ class LiveChapterController extends GetxController {
         log(results.status.name);
       }
       listenForAttendeesAdded();
-      Get.toNamed(AppRoutes.liveChapterScreen);
+      appRouter.push(RoutePaths.liveChapterScreen);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -174,7 +172,7 @@ class LiveChapterController extends GetxController {
         userId: authStateController.uid!,
       );
       listenForAttendeesAdded();
-      Get.toNamed(AppRoutes.liveChapterScreen);
+      appRouter.push(RoutePaths.liveChapterScreen);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -233,7 +231,7 @@ class LiveChapterController extends GetxController {
     );
     await Get.delete<LiveKitController>(force: true);
     Get.delete<LiveChapterController>();
-    Get.offAllNamed(AppRoutes.tabview);
+    appRouter.go(RoutePaths.tabview);
   }
 
   Future<void> endLiveChapter() async {
@@ -267,7 +265,7 @@ class LiveChapterController extends GetxController {
       await Get.delete<LiveKitController>(force: true);
       Get.back();
       await Future.delayed(const Duration(milliseconds: 500));
-      Get.to(() => VerifyChapterDetailsScreen(lyricsString: lyrics));
+      appRouter.push(RoutePaths.verifyChapterDetails, extra: lyrics);
     } catch (e) {
       log(
         "Error in Delete Room Function (SingleRoomController): ${e.toString()}",

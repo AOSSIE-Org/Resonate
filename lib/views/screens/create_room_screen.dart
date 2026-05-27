@@ -384,7 +384,7 @@ class CreateRoomScreen extends StatelessWidget {
                       child: Center(
                         child: LoadingAnimationWidget.fourRotatingDots(
                           color: Theme.of(context).colorScheme.primary,
-                          size: Get.pixelRatio * 50,
+                          size: MediaQuery.of(context).devicePixelRatio * 50,
                         ),
                       ),
                     )

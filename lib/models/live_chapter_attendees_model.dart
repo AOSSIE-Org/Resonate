@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'live_chapter_attendees_model.freezed.dart';
-part 'live_chapter_attendees_model.g.dart';
+part 'generated/live_chapter_attendees_model.freezed.dart';
+part 'generated/live_chapter_attendees_model.g.dart';
 
 @freezed
 abstract class LiveChapterAttendeesModel with _$LiveChapterAttendeesModel {

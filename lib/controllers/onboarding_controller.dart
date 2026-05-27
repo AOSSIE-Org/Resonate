@@ -8,20 +8,20 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/core/providers/appwrite_providers.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
-import 'auth_state_controller.dart';
-
 class OnboardingController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
-  AuthStateController authStateController = Get.find<AuthStateController>();
-  AuthenticationController authController =
-      Get.find<AuthenticationController>();
+  AuthUser get authStateController => requireCurrentAuthUser;
   final themeController = Get.find<ThemeController>();
   late final Storage storage;
   late final TablesDB tables;
@@ -42,13 +42,13 @@ class OnboardingController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    storage = Storage(authStateController.client);
-    tables = TablesDB(authStateController.client);
+    storage = Storage(rootContainer.read(appwriteClientProvider));
+    tables = TablesDB(rootContainer.read(appwriteClientProvider));
   }
 
-  Future<void> chooseDate() async {
+  Future<void> chooseDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
-      context: Get.context!,
+      context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1800),
       lastDate: DateTime.now(),
@@ -70,13 +70,13 @@ class OnboardingController extends GetxController {
     if (!usernameAvail) {
       usernameAvailable.value = false;
       customSnackbar(
-        AppLocalizations.of(Get.context!)!.usernameUnavailable,
-        AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.usernameUnavailable,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.usernameInvalidOrTaken,
         LogType.error,
       );
 
       SemanticsService.announce(
-        AppLocalizations.of(Get.context!)!.usernameInvalidOrTaken,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.usernameInvalidOrTaken,
         ui.TextDirection.ltr,
       );
       return;
@@ -112,7 +112,7 @@ class OnboardingController extends GetxController {
       }
 
       // Update User meta data
-      await authStateController.account.updateName(
+      await rootContainer.read(appwriteAccountProvider).updateName(
         name: nameController.text.trim(),
       );
       //log(authStateController.uid!);
@@ -129,39 +129,39 @@ class OnboardingController extends GetxController {
           "profileImageID": uniqueIdForProfileImage,
         },
       );
-      await authStateController.account.updatePrefs(
+      await rootContainer.read(appwriteAccountProvider).updatePrefs(
         prefs: {"isUserProfileComplete": true},
       );
       // Set user profile in authStateController
-      await authStateController.setUserProfileData();
+      await rootContainer.read(authProvider.notifier).refresh();
       customSnackbar(
-        AppLocalizations.of(Get.context!)!.profileCreatedSuccessfully,
-        AppLocalizations.of(Get.context!)!.userProfileCreatedSuccessfully,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.profileCreatedSuccessfully,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.userProfileCreatedSuccessfully,
         LogType.success,
       );
 
       SemanticsService.announce(
-        AppLocalizations.of(Get.context!)!.userProfileCreatedSuccessfully,
+        AppLocalizations.of(rootNavigatorKey.currentContext!)!.userProfileCreatedSuccessfully,
         ui.TextDirection.ltr,
       );
-      Get.toNamed(AppRoutes.tabview);
+      appRouter.go(RoutePaths.tabview);
     } catch (e) {
       if (e.toString().contains('Invalid `documentId` param')) {
         log(e.toString());
         customSnackbar(
-          AppLocalizations.of(Get.context!)!.invalidFormat,
-          AppLocalizations.of(Get.context!)!.usernameAlphanumeric,
+          AppLocalizations.of(rootNavigatorKey.currentContext!)!.invalidFormat,
+          AppLocalizations.of(rootNavigatorKey.currentContext!)!.usernameAlphanumeric,
           LogType.error,
         );
         SemanticsService.announce(
-          AppLocalizations.of(Get.context!)!.usernameAlphanumeric,
+          AppLocalizations.of(rootNavigatorKey.currentContext!)!.usernameAlphanumeric,
           ui.TextDirection.ltr,
         );
       } else {
         // if (e.)
         log(e.toString());
         customSnackbar(
-          AppLocalizations.of(Get.context!)!.error,
+          AppLocalizations.of(rootNavigatorKey.currentContext!)!.error,
           e.toString(),
           LogType.error,
         );

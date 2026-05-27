@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/core/providers/firebase_providers.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/services/appwrite_service.dart';
@@ -14,7 +16,7 @@ import 'package:resonate/utils/enums/story_category.dart';
 class UserProfileController extends GetxController {
   final TablesDB tablesDB;
 
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
   RxList<FollowerUserModel> searchedUserFollowers = <FollowerUserModel>[].obs;
   RxList<Story> searchedUserStories = <Story>[].obs;
   RxList<Story> searchedUserLikedStories = <Story>[].obs;
@@ -22,13 +24,8 @@ class UserProfileController extends GetxController {
   Rx<bool> isFollowingUser = false.obs;
   String? followerDocumentId;
 
-  UserProfileController({
-    TablesDB? tablesDB,
-    AuthStateController? authStateController,
-  }) : tablesDB = tablesDB ?? AppwriteService.getTables(),
-       authStateController =
-           authStateController ??
-           Get.put<AuthStateController>(AuthStateController());
+  UserProfileController({TablesDB? tablesDB})
+      : tablesDB = tablesDB ?? AppwriteService.getTables();
   Future<void> initializeProfile(String creatorId) async {
     isLoadingProfilePage.value = true;
     try {
@@ -141,7 +138,8 @@ class UserProfileController extends GetxController {
   }
 
   Future<void> followCreator(String creatorId) async {
-    final fcmToken = await authStateController.messaging.getToken();
+    final fcmToken =
+        await rootContainer.read(firebaseMessagingProvider).getToken();
     final FollowerUserModel follower = FollowerUserModel(
       docId: ID.unique(),
       uid: authStateController.uid!,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 import 'package:resonate/models/message.dart';
@@ -20,7 +20,6 @@ class RoomChatScreen extends StatefulWidget {
 class _RoomChatScreenState extends State<RoomChatScreen> {
   final ScrollController _scrollController = ScrollController();
   final RoomChatController chatController = Get.find<RoomChatController>();
-  AuthStateController auth = Get.find<AuthStateController>();
   final double itemHight = 80;
   late Future<void> loadMessagesFuture;
 
@@ -137,13 +136,13 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
                           canEdit:
-                              auth.appwriteUser.$id ==
+                              requireCurrentAuthUser.uid ==
                                   chatController.messages[index].creatorId &&
                               !chatController.messages[index].isDeleted &&
                               !chatController.messages[index].isEdited,
 
                           canDelete:
-                              auth.appwriteUser.$id ==
+                              requireCurrentAuthUser.uid ==
                                   chatController.messages[index].creatorId &&
                               !chatController.messages[index].isDeleted,
                         );

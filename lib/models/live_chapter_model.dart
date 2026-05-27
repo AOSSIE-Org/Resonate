@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:resonate/models/live_chapter_attendees_model.dart';
 
-part 'live_chapter_model.freezed.dart';
-part 'live_chapter_model.g.dart';
+part 'generated/live_chapter_model.freezed.dart';
+part 'generated/live_chapter_model.g.dart';
 
 @freezed
 abstract class LiveChapterModel with _$LiveChapterModel {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/controllers/authentication_controller.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
+import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 import '../../utils/ui_sizes.dart';

@@ -168,7 +168,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           : AppLocalizations.of(context)!.enterValidDOB,
                       readOnly: true,
                       onTap: () async {
-                        await controller.chooseDate();
+                        await controller.chooseDate(context);
                       },
                       canRequestFocus: false,
                       controller: controller.dobController,

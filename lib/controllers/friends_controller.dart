@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -13,7 +14,7 @@ class FriendsController extends GetxController {
   final TablesDB tables;
   final FirebaseMessaging firebaseMessaging;
   final Functions functions;
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
   final RxList<FriendsModel> friendsList = <FriendsModel>[].obs;
   final RxList<FriendsModel> friendRequestsList = <FriendsModel>[].obs;
   final RxBool isLoadingFriends = false.obs;
@@ -25,14 +26,10 @@ class FriendsController extends GetxController {
     Functions? functions,
     Realtime? realtime,
     FirebaseMessaging? firebaseMessaging,
-    AuthStateController? authStateController,
   }) : tables = tables ?? AppwriteService.getTables(),
        functions = functions ?? AppwriteService.getFunctions(),
        realtime = realtime ?? AppwriteService.getRealtime(),
-       firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
-       authStateController =
-           authStateController ??
-           Get.put<AuthStateController>(AuthStateController());
+       firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
 
   @override
   void onInit() async {

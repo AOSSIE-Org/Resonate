@@ -5,15 +5,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/friends_controller.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 
+import '../helpers/test_root_container.dart';
 import 'friends_controller_test.mocks.dart';
 
-@GenerateMocks([TablesDB, Functions, FirebaseMessaging, Account, Client])
+@GenerateMocks([TablesDB, Functions, FirebaseMessaging])
 @GenerateNiceMocks([MockSpec<Realtime>()])
 final List<FriendsModel> mockFriendModelList = [
   FriendsModel(
@@ -74,12 +75,8 @@ final List<Row> mockFriendRows = [
     $id: 'doc1',
     $tableId: friendsTableID,
     $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
+    $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+    $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[0].toJson(),
     $sequence: 0,
@@ -88,12 +85,8 @@ final List<Row> mockFriendRows = [
     $id: 'doc2',
     $tableId: friendsTableID,
     $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
+    $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+    $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[1].toJson(),
     $sequence: 1,
@@ -102,12 +95,8 @@ final List<Row> mockFriendRows = [
     $id: 'doc4',
     $tableId: friendsTableID,
     $databaseId: userDatabaseID,
-    $createdAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
-    $updatedAt: DateTime.fromMillisecondsSinceEpoch(
-      1754337186,
-    ).toIso8601String(),
+    $createdAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
+    $updatedAt: DateTime.fromMillisecondsSinceEpoch(1754337186).toIso8601String(),
     $permissions: ['any'],
     data: mockFriendModelList[2].toJson(),
     $sequence: 2,
@@ -137,27 +126,6 @@ final Row mockUserRow = Row(
     ],
   },
   $sequence: 0,
-);
-final User mockUser = User(
-  $id: 'id2',
-  name: 'Test User 2',
-  email: 'test2@test.com',
-  emailVerification: true,
-  prefs: Preferences(data: {'isUserProfileComplete': true}),
-  $createdAt: DateTime.now().toIso8601String(),
-  $updatedAt: DateTime.now().toIso8601String(),
-  accessedAt: DateTime.now().toIso8601String(),
-  registration: DateTime.now().toIso8601String(),
-  phone: '1234567890',
-  phoneVerification: false,
-  mfa: false,
-  passwordUpdate: DateTime.now().toIso8601String(),
-  status: true,
-  password: 'password',
-  labels: [],
-  hash: 'Argon2',
-  targets: [],
-  hashOptions: {},
 );
 final FriendsModel mockSentFriendRequest = FriendsModel(
   senderId: 'id2',
@@ -193,34 +161,34 @@ final FriendsModel mockAcceptedRequestModel = mockFriendModelList[2].copyWith(
 
 void main() {
   late MockTablesDB tables;
-  late MockAccount mockAccount;
   late MockFirebaseMessaging mockFirebaseMessaging;
   late FriendsController friendsController;
 
-  setUp(() {
+  setUp(() async {
     Get.testMode = true;
+    // Install auth state that mirrors what the original AuthStateController
+    // mutations used to set up.
+    await installTestRootContainer(
+      authState: AuthState.authenticated(
+        fakeAuthUser(
+          uid: 'id2',
+          userName: 'testu2',
+          profileImageUrl: 'https://example.com/profile2.jpg',
+          displayName: 'Test User 2',
+          ratingTotal: 25.0,
+          ratingCount: 5,
+        ),
+      ),
+    );
+
     tables = MockTablesDB();
-    mockAccount = MockAccount();
     mockFirebaseMessaging = MockFirebaseMessaging();
     friendsController = FriendsController(
-      authStateController: AuthStateController(
-        account: mockAccount,
-        client: MockClient(),
-        tables: tables,
-        messaging: mockFirebaseMessaging,
-      ),
       tables: tables,
       firebaseMessaging: mockFirebaseMessaging,
       functions: MockFunctions(),
       realtime: MockRealtime(),
     );
-
-    friendsController.authStateController.uid = 'id2';
-    friendsController.authStateController.userName = 'testu2';
-    friendsController.authStateController.profileImageUrl = 'https://example.com/profile2.jpg';
-    friendsController.authStateController.displayName = 'Test User 2';
-    friendsController.authStateController.ratingTotal = 25.0;
-    friendsController.authStateController.ratingCount = 5;
 
     when(
       tables.getRow(
@@ -230,7 +198,7 @@ void main() {
         queries: [Query.select(["*", "friends.*"])],
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockUserRow),
+      (_) => Future.delayed(const Duration(seconds: 2), () => mockUserRow),
     );
     when(
       tables.createRow(
@@ -240,20 +208,20 @@ void main() {
         data: mockSentFriendRequest.toJson(),
       ),
     ).thenAnswer(
-      (_) =>
-          Future.delayed(Duration(seconds: 2), () => mockSentFriendRequestRow),
+      (_) => Future.delayed(
+        const Duration(seconds: 2),
+        () => mockSentFriendRequestRow,
+      ),
     );
-    when(mockAccount.get()).thenAnswer((_) => Future.value(mockUser));
-    when(
-      mockFirebaseMessaging.getToken(),
-    ).thenAnswer((_) => Future.value('testToken2'));
+    when(mockFirebaseMessaging.getToken())
+        .thenAnswer((_) async => 'testToken2');
     when(
       tables.deleteRow(
         databaseId: userDatabaseID,
         tableId: friendsTableID,
         rowId: anyNamed('rowId'),
       ),
-    ).thenAnswer((_) => Future.delayed(Duration(seconds: 0)));
+    ).thenAnswer((_) => Future.delayed(const Duration(seconds: 0)));
     when(
       tables.updateRow(
         databaseId: userDatabaseID,
@@ -262,17 +230,23 @@ void main() {
         data: mockAcceptedRequestModel.toJson(),
       ),
     ).thenAnswer(
-      (_) => Future.delayed(Duration(seconds: 2), () => mockFriendRows[2]),
+      (_) => Future.delayed(
+        const Duration(seconds: 2),
+        () => mockFriendRows[2],
+      ),
     );
   });
 
-  test('test getFriendsList', () async {
+  test('getFriendsList loads accepted + pending into separate lists',
+      () async {
     expect(friendsController.isLoadingFriends.value, false);
     friendsController.getFriendsList();
     expect(friendsController.isLoadingFriends.value, true);
     expect(friendsController.friendsList, isEmpty);
     expect(friendsController.friendRequestsList, isEmpty);
-    await Future.delayed(Duration(seconds: 2));
+
+    await Future.delayed(const Duration(seconds: 2));
+
     expect(friendsController.isLoadingFriends.value, false);
     expect(friendsController.friendsList.length, 1);
     expect(friendsController.friendsList[0].senderName, 'Test User 2');
@@ -280,16 +254,22 @@ void main() {
     expect(friendsController.friendsList[0].senderFCMToken, 'testToken2');
     expect(friendsController.friendsList[0].recieverFCMToken, 'testToken3');
     expect(friendsController.friendRequestsList.length, 2);
-    expect(friendsController.friendRequestsList[0].senderName, 'Test User 2');
-    expect(friendsController.friendRequestsList[0].recieverName, 'Test User 1');
+    expect(
+      friendsController.friendRequestsList[0].senderName,
+      'Test User 2',
+    );
+    expect(
+      friendsController.friendRequestsList[0].recieverName,
+      'Test User 1',
+    );
     expect(
       friendsController.friendRequestsList[0].senderFCMToken,
       'testToken2',
     );
     expect(friendsController.friendRequestsList[0].recieverFCMToken, null);
   });
-  test('test sendFriendRequest', () async {
-    await friendsController.authStateController.setUserProfileData();
+
+  test('sendFriendRequest creates a new outgoing request', () async {
     await friendsController.sendFriendRequest(
       'id4',
       'example.com/4',
@@ -299,16 +279,22 @@ void main() {
     );
 
     expect(friendsController.friendRequestsList.length, 1);
-    expect(friendsController.friendRequestsList[0].recieverName, 'Test User 4');
+    expect(
+      friendsController.friendRequestsList[0].recieverName,
+      'Test User 4',
+    );
     expect(friendsController.friendRequestsList[0].senderName, 'Test User 2');
-    expect(friendsController.friendRequestsList[0].recieverUsername, 'testu4');
+    expect(
+      friendsController.friendRequestsList[0].recieverUsername,
+      'testu4',
+    );
     expect(
       friendsController.friendRequestsList[0].senderFCMToken,
       'testToken2',
     );
   });
-  test('test removeFriend', () async {
-    await friendsController.authStateController.setUserProfileData();
+
+  test('removeFriend deletes from friendsList', () async {
     await friendsController.getFriendsList();
 
     expect(friendsController.friendsList.length, 1);
@@ -319,8 +305,8 @@ void main() {
     expect(friendsController.friendsList.length, 0);
     expect(friendsController.friendRequestsList.length, 2);
   });
-  test('test acceptFriendRequest', () async {
-    await friendsController.authStateController.setUserProfileData();
+
+  test('acceptFriendRequest moves request to friendsList', () async {
     await friendsController.getFriendsList();
 
     expect(friendsController.friendsList.length, 1);
@@ -333,8 +319,8 @@ void main() {
     expect(friendsController.friendsList[1].recieverName, 'Test User 2');
     expect(friendsController.friendsList[1].recieverFCMToken, 'testToken2');
   });
-  test('test declineFriendRequest', () async {
-    await friendsController.authStateController.setUserProfileData();
+
+  test('declineFriendRequest removes from requests only', () async {
     await friendsController.getFriendsList();
 
     expect(friendsController.friendsList.length, 1);

@@ -6,7 +6,7 @@ import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import '../../controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 
 Future<dynamic> buildPairChatDialog(BuildContext context) {
   final PairChatController controller = Get.find<PairChatController>();
@@ -102,7 +102,7 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
                         ),
                       ),
                       child: Text(
-                        Get.find<AuthStateController>().displayName!,
+                        requireCurrentAuthUser.displayName,
                         // "asjdwwwwwassdawdhausduuawhdaub",
                         style: TextStyle(
                           color: !controller.isAnonymous.value

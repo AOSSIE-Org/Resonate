@@ -44,7 +44,7 @@ class RingingScreen extends StatelessWidget {
   Widget _buildTitle(Color primaryColor, BuildContext context) {
     return Text(
       "Calling ${controller.friendCallModel.value!.recieverName}...",
-      style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
+      style: TextStyle(color: primaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 6.5),
     );
   }
 
@@ -112,7 +112,7 @@ class RingingScreen extends StatelessWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.quickFact,
-          style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
+          style: TextStyle(color: primaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 6.5),
         ),
         Text(
           AppLocalizations.of(context)!.resonateOpenSourceProject,
@@ -141,7 +141,7 @@ class RingingScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
       child: Text(
         AppLocalizations.of(context)!.cancel,
-        style: TextStyle(color: onPrimaryColor, fontSize: Get.pixelRatio * 8),
+        style: TextStyle(color: onPrimaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 8),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/room_app_bar.dart';
@@ -10,8 +10,6 @@ import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/pair_chat_controller.dart';
 
 class PairChatScreen extends StatelessWidget {
-  final AuthStateController authStateController =
-      Get.find<AuthStateController>();
   final PairChatController controller = Get.find<PairChatController>();
   final ThemeController themeController = Get.find<ThemeController>();
 
@@ -48,10 +46,10 @@ class PairChatScreen extends StatelessWidget {
                         _buildUserInfoRow(
                           controller.isAnonymous.value
                               ? themeController.userProfileImagePlaceholderUrl
-                              : authStateController.profileImageUrl!,
+                              : requireCurrentAuthUser.profileImageUrl ?? '',
                           controller.isAnonymous.value
                               ? AppLocalizations.of(context)!.user1
-                              : authStateController.userName!,
+                              : requireCurrentAuthUser.userName ?? '',
                         ),
                         SizedBox(height: UiSizes.height_20),
                         _buildUserInfoRow(

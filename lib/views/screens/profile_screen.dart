@@ -18,9 +18,13 @@ import 'package:resonate/views/screens/friends_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
-import '../../controllers/auth_state_controller.dart';
-import '../../controllers/email_verify_controller.dart';
-import '../../routes/app_routes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/routes/route_paths.dart';
 import '../../utils/app_images.dart';
 import '../../utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -57,13 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Get.delete<UserProfileController>();
   }
 
-  final emailVerifyController = Get.put<EmailVerifyController>(
-    EmailVerifyController(),
-  );
-
   final themeController = Get.find<ThemeController>();
 
-  final authController = Get.find<AuthStateController>();
+  AuthUser get authController => requireCurrentAuthUser;
 
   final userProfileController = Get.put(UserProfileController());
   final exploreStoryController = Get.find<ExploreStoryController>();
@@ -78,13 +78,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ? [
                 IconButton(
                   onPressed: () {
-                    Get.to(() => FriendRequestsScreen());
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => FriendRequestsScreen(),
+                      ),
+                    );
                   },
                   icon: Icon(Icons.notifications),
                 ),
                 IconButton(
                   onPressed: () {
-                    Get.to(() => FriendsScreen());
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => FriendsScreen(),
+                      ),
+                    );
                   },
                   icon: Icon(Icons.groups),
                 ),
@@ -117,11 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         children: [
                           _buildProfileHeader(context),
-                          _buildEmailVerificationButton(
-                            context,
-                            emailVerifyController,
-                            authController,
-                          ),
+                          _buildEmailVerificationButton(context, authController),
                           SizedBox(height: UiSizes.height_10),
                           _buildProfileButtons(context),
                         ],
@@ -137,12 +141,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildProfileHeader(BuildContext context) {
-    return GetBuilder<AuthStateController>(
-      builder: (controller) => Row(
+    return Consumer(
+      builder: (context, ref, _) {
+        final controller = ref.watch(authProvider).value?.userOrNull ??
+            requireCurrentAuthUser;
+        return Row(
         children: [
           SizedBox(width: UiSizes.width_20),
           CircleAvatar(
-            backgroundColor: Theme.of(Get.context!).colorScheme.secondary,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             backgroundImage: widget.isCreatorProfile != null
                 ? NetworkImage(widget.creator!.profileImageUrl ?? '')
                 : controller.profileImageUrl == null ||
@@ -158,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.isCreatorProfile == null &&
-                      controller.isEmailVerified!)
+                      controller.isEmailVerified)
                     Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Row(
@@ -229,8 +236,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               return follower.uid != authController.uid;
                             })
                             .toList();
-                        Get.to(
-                          FollowersScreen(followers: sanitizedFollowersList),
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => FollowersScreen(
+                              followers: sanitizedFollowersList,
+                            ),
+                          ),
                         );
                       }
                     },
@@ -241,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.only(left: 5),
                           child: widget.isCreatorProfile == null
                               ? Text(
-                                  authController.followerDocuments.length
+                                  authController.followers.length
                                       .toString(),
                                 )
                               : Obx(
@@ -262,16 +273,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(width: UiSizes.width_20),
         ],
-      ),
+        );
+      },
     );
   }
 
   Widget _buildEmailVerificationButton(
     BuildContext context,
-    EmailVerifyController emailVerifyController,
-    AuthStateController controller,
+    AuthUser controller,
   ) {
-    if (widget.isCreatorProfile != null || controller.isEmailVerified!) {
+    if (widget.isCreatorProfile != null || controller.isEmailVerified) {
       return const SizedBox.shrink();
     }
 
@@ -281,8 +292,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: OutlinedButton(
         onPressed: () {
           loadingDialog(context);
-          emailVerifyController.isSending.value = true;
-          emailVerifyController.sendOTP();
+          rootContainer
+              .read(emailVerifyProvider.notifier)
+              .sendOtp(email: controller.email);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -312,7 +324,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     userProfileController.followCreator(widget.creator!.uid!);
                   }
                 } else {
-                  Get.toNamed(AppRoutes.editProfile);
+                  context.push(RoutePaths.editProfile);
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -360,7 +372,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(AppRoutes.settings);
+                    context.push(RoutePaths.settings);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: colorScheme.primary,

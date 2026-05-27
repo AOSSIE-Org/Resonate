@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
-part 'friend_call_model.freezed.dart';
-part 'friend_call_model.g.dart';
+part 'generated/friend_call_model.freezed.dart';
+part 'generated/friend_call_model.g.dart';
 
 @freezed
 abstract class FriendCallModel with _$FriendCallModel {

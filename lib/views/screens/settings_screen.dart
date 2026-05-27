@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/l10n/app_localizations.dart';
-import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-
-import '../../controllers/auth_state_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
-
-  final authStateController = Get.put<AuthStateController>(
-    AuthStateController(),
-  );
 
   final double padding = UiSizes.width_20;
 
@@ -64,7 +60,7 @@ class SettingsScreen extends StatelessWidget {
           customTile(
             str: AppLocalizations.of(context)!.account,
             func: () {
-              Get.toNamed(AppRoutes.userAccountScreen);
+              appRouter.push(RoutePaths.userAccountScreen);
             },
           ),
           customDivider(),
@@ -72,19 +68,19 @@ class SettingsScreen extends StatelessWidget {
           customTile(
             str: AppLocalizations.of(context)!.themes,
             func: () {
-              Get.toNamed(AppRoutes.themeScreen);
+              appRouter.push(RoutePaths.themeScreen);
             },
           ),
           customTile(
             str: AppLocalizations.of(context)!.about,
             func: () {
-              Get.toNamed(AppRoutes.aboutApp);
+              appRouter.push(RoutePaths.aboutApp);
             },
           ),
           customTile(
             str: AppLocalizations.of(context)!.appPreferences,
             func: () {
-              Get.toNamed(AppRoutes.appPreferencesScreen);
+              appRouter.push(RoutePaths.appPreferencesScreen);
             },
           ),
           customDivider(),
@@ -92,7 +88,7 @@ class SettingsScreen extends StatelessWidget {
           customTile(
             str: AppLocalizations.of(context)!.contribute,
             func: () {
-              Get.toNamed(AppRoutes.contributeScreen);
+              appRouter.push(RoutePaths.contributeScreen);
             },
           ),
           customDivider(),
@@ -105,8 +101,41 @@ class SettingsScreen extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             trailing: const Icon(Icons.logout_rounded),
-            onTap: () async {
-              await authStateController.logout(context);
+            onTap: () {
+              final l10n = AppLocalizations.of(context)!;
+              final scheme = Theme.of(context).colorScheme;
+              showDialog<void>(
+                context: context,
+                useRootNavigator: true,
+                builder: (dialogContext) => AlertDialog(
+                  backgroundColor: scheme.surface,
+                  title: Text(l10n.areYouSure),
+                  content: Text(l10n.loggingOut),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(dialogContext).pop(),
+                      child: Text(
+                        l10n.no,
+                        style: TextStyle(color: scheme.primary),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: scheme.primary,
+                        foregroundColor: scheme.onPrimary,
+                      ),
+                      onPressed: () async {
+                        Navigator.of(dialogContext).pop();
+                        await rootContainer
+                            .read(authProvider.notifier)
+                            .logout();
+                        appRouter.go(RoutePaths.welcome);
+                      },
+                      child: Text(l10n.yes),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],

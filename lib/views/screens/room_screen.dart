@@ -84,7 +84,7 @@ class RoomScreenState extends State<RoomScreen> {
         return Center(
           child: LoadingAnimationWidget.threeRotatingDots(
             color: Theme.of(context).colorScheme.primary,
-            size: Get.pixelRatio * 20,
+            size: MediaQuery.of(context).devicePixelRatio * 20,
           ),
         );
       } else {
