@@ -6,16 +6,13 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>bn</string>
-		<string>en</string>
 		<string>hi</string>
+		<string>en</string>
 		<string>gu</string>
 		<string>raj</string>
 		<string>kn</string>
 		<string>ml</string>
 		<string>mr</string>
-		<string>pa</string>
-		<string>ta</string>
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Resonate</string>

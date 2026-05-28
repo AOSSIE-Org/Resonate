@@ -20,7 +20,7 @@ class EmailVerifyController extends GetxController {
   late Execution responseSetVerified;
   late String updateStatus;
   late final Functions functions;
-  late final TablesDB tables;
+  late final Databases databases;
   var resendIsAllowed = false.obs;
   var isSending = false.obs;
   var isExpanded = true.obs;
@@ -41,7 +41,7 @@ class EmailVerifyController extends GetxController {
   void onInit() async {
     super.onInit();
     functions = Functions(authStateController.client);
-    tables = TablesDB(authStateController.client);
+    databases = Databases(authStateController.client);
   }
 
   Future<bool> sendOTP() async {
@@ -113,10 +113,10 @@ class EmailVerifyController extends GetxController {
   }
 
   Future<String> checkVerificationStatus() async {
-    final document = await tables.getRow(
+    final document = await databases.getDocument(
       databaseId: emailVerificationDatabaseID,
-      tableId: verificationTableID,
-      rowId: verificationID,
+      collectionId: verificationCollectionID,
+      documentId: verificationID,
     );
     var isVerified = document.data['status'];
     return isVerified;

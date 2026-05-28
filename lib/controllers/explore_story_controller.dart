@@ -5,7 +5,7 @@ import 'dart:io' as io;
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:audio_metadata_reader/audio_metadata_reader.dart';
-import 'package:flutter/material.dart' hide Row;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
@@ -19,7 +19,7 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class ExploreStoryController extends GetxController {
-  final TablesDB tables;
+  final Databases databases;
   final Storage storage;
   final AuthStateController authStateController;
   final Functions functions;
@@ -44,11 +44,11 @@ class ExploreStoryController extends GetxController {
   Rx<bool> searchBarIsEmpty = true.obs;
 
   ExploreStoryController({
-    TablesDB? tables,
+    Databases? databases,
     Storage? storage,
     AuthStateController? authStateController,
     Functions? functions,
-  }) : tables = tables ?? AppwriteService.getTables(),
+  }) : databases = databases ?? AppwriteService.getDatabases(),
        storage = storage ?? AppwriteService.getStorage(),
        authStateController =
            authStateController ??
@@ -85,10 +85,10 @@ class ExploreStoryController extends GetxController {
         "failed to check if user liked story for selected search result query ${e.message}",
       );
     }
-    Row doc = await tables.getRow(
+    Document doc = await databases.getDocument(
       databaseId: storyDatabaseId,
-      tableId: storyTableId,
-      rowId: story.storyId,
+      collectionId: storyCollectionId,
+      documentId: story.storyId,
       queries: [
         Query.select(["likes"]),
       ],
@@ -106,10 +106,10 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> updateLikesCountAndUserLikeStatus(Story story) async {
-    Row doc = await tables.getRow(
+    Document doc = await databases.getDocument(
       databaseId: storyDatabaseId,
-      tableId: storyTableId,
-      rowId: story.storyId,
+      collectionId: storyCollectionId,
+      documentId: story.storyId,
       queries: [
         Query.select(["likes"]),
       ],
@@ -135,10 +135,10 @@ class ExploreStoryController extends GetxController {
         meilisearchResult.hits,
       );
     } else {
-      List<Row> storyDocuments = await tables
-          .listRows(
+      List<Document> storyDocuments = await databases
+          .listDocuments(
             databaseId: storyDatabaseId,
-            tableId: storyTableId,
+            collectionId: storyCollectionId,
             queries: [
               Query.or([
                 Query.search('title', query),
@@ -148,7 +148,7 @@ class ExploreStoryController extends GetxController {
               Query.limit(16),
             ],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
 
       searchResponseStories.value = await convertAppwriteDocListToStoryList(
         storyDocuments,
@@ -166,10 +166,10 @@ class ExploreStoryController extends GetxController {
         meilisearchResult.hits,
       );
     } else {
-      List<Row> userDocuments = await tables
-          .listRows(
+      List<Document> userDocuments = await databases
+          .listDocuments(
             databaseId: userDatabaseID,
-            tableId: usersTableID,
+            collectionId: usersCollectionID,
             queries: [
               Query.or([
                 Query.search('name', query),
@@ -179,7 +179,7 @@ class ExploreStoryController extends GetxController {
               Query.limit(16),
             ],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
 
       searchResponseUsers.value = convertAppwriteDocListToUserList(
         userDocuments,
@@ -189,7 +189,9 @@ class ExploreStoryController extends GetxController {
     log(searchResponseUsers.toString());
   }
 
-  List<ResonateUser> convertAppwriteDocListToUserList(List<Row> userDocuments) {
+  List<ResonateUser> convertAppwriteDocListToUserList(
+    List<Document> userDocuments,
+  ) {
     return userDocuments.map((doc) {
       // log(doc.data.toString());
       final userData = doc.data;
@@ -234,10 +236,10 @@ class ExploreStoryController extends GetxController {
     });
 
     try {
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: storyId,
+        collectionId: storyCollectionId,
+        documentId: storyId,
         data: {"playDuration": totalStoryDuration},
       );
     } on AppwriteException catch (e) {
@@ -271,10 +273,10 @@ class ExploreStoryController extends GetxController {
         chapter.audioFileUrl,
         "audio file",
       );
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: storyDatabaseId,
-        tableId: chapterTableId,
-        rowId: chapter.chapterId,
+        collectionId: chapterCollectionId,
+        documentId: chapter.chapterId,
         data: {
           'title': chapter.title,
           'description': chapter.description,
@@ -291,15 +293,15 @@ class ExploreStoryController extends GetxController {
 
   Future<void> fetchStoryByCategory(StoryCategory category) async {
     isLoadingCategoryPage.value = true;
-    List<Row> storyDocuments = [];
+    List<Document> storyDocuments = [];
     try {
-      storyDocuments = await tables
-          .listRows(
+      storyDocuments = await databases
+          .listDocuments(
             databaseId: storyDatabaseId,
-            tableId: storyTableId,
+            collectionId: storyCollectionId,
             queries: [Query.limit(15), Query.equal('category', category.name)],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch stories for categories: ${e.message}');
     }
@@ -410,10 +412,10 @@ class ExploreStoryController extends GetxController {
     String colorString = primaryColor.toHex(leadingHashSign: false);
 
     try {
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: storyId,
+        collectionId: storyCollectionId,
+        documentId: storyId,
         data: {
           'title': title,
           'description': desciption,
@@ -453,20 +455,20 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> fetchUserLikedStories() async {
-    List<Row> userLikedDocuments = await tables
-        .listRows(
+    List<Document> userLikedDocuments = await databases
+        .listDocuments(
           databaseId: storyDatabaseId,
-          tableId: likeTableId,
+          collectionId: likeCollectionId,
           queries: [Query.equal('uId', authStateController.uid)],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
 
-    List<Row> userLikedStoriesDocuments = await Future.wait(
+    List<Document> userLikedStoriesDocuments = await Future.wait(
       userLikedDocuments.map((value) async {
-        return await tables.getRow(
+        return await databases.getDocument(
           databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: value.data['storyId'],
+          collectionId: storyCollectionId,
+          documentId: value.data['storyId'],
         );
       }).toList(),
     );
@@ -496,10 +498,10 @@ class ExploreStoryController extends GetxController {
     }
 
     try {
-      await tables.deleteRow(
+      await databases.deleteDocument(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: story.storyId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
       );
     } on AppwriteException catch (e) {
       log("failed to delete a document: ${e.message}");
@@ -509,19 +511,19 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> deleteAllStoryLikes(String storyId) async {
-    List<Row> storyLikeDocuments = await tables
-        .listRows(
+    List<Document> storyLikeDocuments = await databases
+        .listDocuments(
           databaseId: storyDatabaseId,
-          tableId: likeTableId,
+          collectionId: likeCollectionId,
           queries: [Query.equal('storyId', storyId)],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
 
-    for (Row like in storyLikeDocuments) {
-      await tables.deleteRow(
+    for (Document like in storyLikeDocuments) {
+      await databases.deleteDocument(
         databaseId: storyDatabaseId,
-        tableId: likeTableId,
-        rowId: like.$id,
+        collectionId: likeCollectionId,
+        documentId: like.$id,
       );
     }
   }
@@ -544,10 +546,10 @@ class ExploreStoryController extends GetxController {
       log("failed to delete chapter audio file ${e.message}");
     }
     try {
-      await tables.deleteRow(
+      await databases.deleteDocument(
         databaseId: storyDatabaseId,
-        tableId: chapterTableId,
-        rowId: chapter.chapterId,
+        collectionId: chapterCollectionId,
+        documentId: chapter.chapterId,
       );
     } on AppwriteException catch (e) {
       log("failed to delete chapter document ${e.message}");
@@ -561,15 +563,15 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> fetchUserCreatedStories() async {
-    List<Row> storyDocuments = [];
+    List<Document> storyDocuments = [];
     try {
-      storyDocuments = await tables
-          .listRows(
+      storyDocuments = await databases
+          .listDocuments(
             databaseId: storyDatabaseId,
-            tableId: storyTableId,
+            collectionId: storyCollectionId,
             queries: [Query.equal('creatorId', authStateController.uid)],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
@@ -581,10 +583,10 @@ class ExploreStoryController extends GetxController {
 
   Future<void> likeStoryFromUserAccount(Story story) async {
     try {
-      await tables.createRow(
+      await databases.createDocument(
         databaseId: storyDatabaseId,
-        tableId: likeTableId,
-        rowId: ID.unique(),
+        collectionId: likeCollectionId,
+        documentId: ID.unique(),
         data: {'uId': authStateController.uid, 'storyId': story.storyId},
       );
     } on AppwriteException catch (e) {
@@ -592,10 +594,10 @@ class ExploreStoryController extends GetxController {
     }
 
     try {
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: story.storyId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
         data: {"likes": story.likesCount.value + 1},
       );
     } on AppwriteException catch (e) {
@@ -606,12 +608,12 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<void> unlikeStoryFromUserAccount(Story story) async {
-    List<Row> userLikeDocuments = [];
+    List<Document> userLikeDocuments = [];
     try {
-      userLikeDocuments = await tables
-          .listRows(
+      userLikeDocuments = await databases
+          .listDocuments(
             databaseId: storyDatabaseId,
-            tableId: likeTableId,
+            collectionId: likeCollectionId,
             queries: [
               Query.and([
                 Query.equal('uId', authStateController.uid),
@@ -619,26 +621,26 @@ class ExploreStoryController extends GetxController {
               ]),
             ],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch Like Document: ${e.message}');
     }
 
     try {
-      await tables.deleteRow(
+      await databases.deleteDocument(
         databaseId: storyDatabaseId,
-        tableId: likeTableId,
-        rowId: userLikeDocuments.first.$id,
+        collectionId: likeCollectionId,
+        documentId: userLikeDocuments.first.$id,
       );
     } on AppwriteException catch (e) {
       log('Failed to Unlike i.e delete Like Document: ${e.message}');
     }
 
     try {
-      await tables.updateRow(
+      await databases.updateDocument(
         databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: story.storyId,
+        collectionId: storyCollectionId,
+        documentId: story.storyId,
         data: {"likes": story.likesCount.value - 1},
       );
     } on AppwriteException catch (e) {
@@ -649,13 +651,13 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
-    List<Row> chapterDocuments = await tables
-        .listRows(
+    List<Document> chapterDocuments = await databases
+        .listDocuments(
           databaseId: storyDatabaseId,
-          tableId: chapterTableId,
+          collectionId: chapterCollectionId,
           queries: [Query.equal('storyId', storyId)],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
 
     List<Chapter> currentStoryChapters = chapterDocuments.map((value) {
       Color tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
@@ -675,22 +677,21 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<LiveChapterModel?> fetchLiveChapterForStory(String storyId) async {
-    List<Row> liveStoryDocuments = await tables
-        .listRows(
+    List<Document> liveStoryDocuments = await databases
+        .listDocuments(
           databaseId: storyDatabaseId,
-          tableId: liveChaptersTableId,
+          collectionId: liveChaptersCollectionId,
           queries: [Query.equal('storyId', storyId)],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
     if (liveStoryDocuments.isEmpty) {
       return null;
     }
 
-    final attendeesDocument = await tables.getRow(
+    final attendeesDocument = await databases.getDocument(
       databaseId: userDatabaseID,
-      tableId: liveChapterAttendeesTableId,
-      rowId: liveStoryDocuments.first.$id,
-      queries: [Query.select(["*", "users.*"])],
+      collectionId: liveChapterAttendeesCollectionId,
+      documentId: liveStoryDocuments.first.data['\$id'],
     );
 
     final attendeesModel = LiveChapterAttendeesModel.fromJson(
@@ -704,10 +705,10 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<bool> checkIfStoryLikedByUser(String storyId) async {
-    List<Row> userLikeDocuments = await tables
-        .listRows(
+    List<Document> userLikeDocuments = await databases
+        .listDocuments(
           databaseId: storyDatabaseId,
-          tableId: likeTableId,
+          collectionId: likeCollectionId,
           queries: [
             Query.and([
               Query.equal('uId', authStateController.uid),
@@ -715,22 +716,22 @@ class ExploreStoryController extends GetxController {
             ]),
           ],
         )
-        .then((value) => value.rows);
+        .then((value) => value.documents);
 
     return userLikeDocuments.isNotEmpty;
   }
 
   Future<void> fetchStoryRecommendation() async {
     isLoadingRecommendedStories.value = true;
-    List<Row> storyDocuments = [];
+    List<Document> storyDocuments = [];
     try {
-      storyDocuments = await tables
-          .listRows(
+      storyDocuments = await databases
+          .listDocuments(
             databaseId: storyDatabaseId,
-            tableId: storyTableId,
+            collectionId: storyCollectionId,
             queries: [Query.limit(10)],
           )
-          .then((value) => value.rows);
+          .then((value) => value.documents);
     } on AppwriteException catch (e) {
       log('Failed to fetch stories: ${e.message}');
     }
@@ -742,7 +743,7 @@ class ExploreStoryController extends GetxController {
   }
 
   Future<List<Story>> convertAppwriteDocListToStoryList(
-    List<Row> storyDocuments,
+    List<Document> storyDocuments,
   ) async {
     return await Future.wait(
       storyDocuments.map((value) async {

@@ -13,12 +13,6 @@ Please delete options that are not relevant.
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Refactor (does not change functionality, e.g. code style improvements, linting)
 - [ ] Documentation update
-- [ ] New release (version bump, release preparation)
-- [ ] UI/UX update (design changes, interface improvements)
-- [ ] Translation (i18n/l10n additions or fixes)
-- [ ] Testing (test additions or improvements)
-- [ ] CI/CD & Tooling (workflow, build, or dev tool changes)
-- [ ] Dependency update (package upgrades or deprecation fixes)
 
 ## How Has This Been Tested?
 

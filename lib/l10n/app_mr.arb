@@ -1846,13 +1846,13 @@
         "description": "जेव्हा वापरकर्ता कोणतेही रेकॉर्डिंग न करता लाइव्ह अध्याय कक्ष बंद करण्याचा प्रयत्न करतो तेव्हा त्रुटी संदेश."
     },
     "deleteMessageTitle": "संदेश हटवा",
-    "@deleteMessageTitle": {
-        "description": "संदेश हटवण्यासाठी पुष्टी संवादात दाखवले जाणारे शीर्षक."
-    },
-    "deleteMessageContent": "आपण खरोखर हा संदेश हटवू इच्छिता का?",
-    "@deleteMessageContent": {
-        "description": "वापरकर्त्याला विचारले जाणारे पुष्टीकरण मजकूर की तो संदेश हटवू इच्छितो का."
-    },
+"@deleteMessageTitle": {
+  "description": "Delete message पुष्टी संवादात शीर्षक दाखवले जाते."
+},
+"deleteMessageContent": "आपण खरोखर हा संदेश हटवू इच्छिता का?",
+"@deleteMessageContent": {
+  "description": "वापरकर्त्याला विचारले जाणारे पुष्टीकरण मजकूर की तो संदेश हटवू इच्छितो का."
+}
 
     "thisMessageWasDeleted": "हा संदेश हटवण्यात आला",
     "@thisMessageWasDeleted": {

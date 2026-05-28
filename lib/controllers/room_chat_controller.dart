@@ -16,14 +16,13 @@ import 'package:resonate/utils/constants.dart';
 
 class RoomChatController extends GetxController {
   RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
-
   AuthStateController auth = Get.find<AuthStateController>();
   RxList<Message> messages = <Message>[].obs;
   final AppwriteRoom? appwriteRoom;
   final Functions functions = AppwriteService.getFunctions();
   final AppwriteUpcommingRoom? appwriteUpcommingRoom;
   final Realtime realtime = AppwriteService.getRealtime();
-  final TablesDB tablesDB = AppwriteService.getTables();
+  final Databases databases = AppwriteService.getDatabases();
   late final RealtimeSubscription? subscription;
   Rx<ReplyTo?> replyingTo = Rxn<ReplyTo>();
   final NotificationDetails notificationDetails = NotificationDetails(
@@ -45,27 +44,6 @@ class RoomChatController extends GetxController {
     log(appwriteUpcommingRoom.toString());
   }
 
-  // delete method
-  Future<void> deleteMessage(String messageId) async {
-    try {
-      Message messageToDelete = messages.firstWhere(
-        (msg) => msg.messageId == messageId,
-      );
-      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
-
-      await tablesDB.updateRow(
-        databaseId: masterDatabaseId,
-        tableId: chatMessagesTableId,
-        rowId: messageId,
-        data: messageToDelete.toJsonForUpload(),
-      );
-      log('Message deleted successfully');
-    } catch (e) {
-      log('Error deleting message: $e');
-      rethrow;
-    }
-  }
-
   Future<void> loadMessages() async {
     messages.clear();
     var queries = [
@@ -74,17 +52,17 @@ class RoomChatController extends GetxController {
       Query.limit(100),
     ];
     ReplyTo? replyTo;
-    RowList messagesList = await tablesDB.listRows(
+    DocumentList messagesList = await databases.listDocuments(
       databaseId: masterDatabaseId,
-      tableId: chatMessagesTableId,
+      collectionId: chatMessagesCollectionId,
       queries: queries,
     );
-    for (Row message in messagesList.rows) {
+    for (Document message in messagesList.documents) {
       try {
-        Row replyToDoc = await tablesDB.getRow(
+        Document replyToDoc = await databases.getDocument(
           databaseId: masterDatabaseId,
-          tableId: chatMessageReplyTableId,
-          rowId: message.$id,
+          collectionId: chatMessageReplyCollectionId,
+          documentId: message.$id,
         );
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
@@ -120,21 +98,20 @@ class RoomChatController extends GetxController {
         isEdited: false,
         content: content,
         creationDateTime: DateTime.now(),
-        isDeleted: false,
       );
 
-      await tablesDB.createRow(
+      await databases.createDocument(
         databaseId: masterDatabaseId,
-        tableId: chatMessagesTableId,
-        rowId: messageId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
         data: message.toJsonForUpload(),
       );
 
       if (replyingTo.value != null) {
-        await tablesDB.createRow(
+        await databases.createDocument(
           databaseId: masterDatabaseId,
-          tableId: chatMessageReplyTableId,
-          rowId: messageId,
+          collectionId: chatMessageReplyCollectionId,
+          documentId: messageId,
           data: replyingTo.value!.toJson(),
         );
       }
@@ -171,14 +148,13 @@ class RoomChatController extends GetxController {
     updatedMessage = updatedMessage.copyWith(
       content: newContent,
       isEdited: true,
-      isDeleted: false,
     );
 
     try {
-      await tablesDB.updateRow(
+      await databases.updateDocument(
         databaseId: masterDatabaseId,
-        tableId: chatMessagesTableId,
-        rowId: messageId,
+        collectionId: chatMessagesCollectionId,
+        documentId: messageId,
         data: updatedMessage.toJsonForUpload(),
       );
       if (appwriteUpcommingRoom != null) {
@@ -221,7 +197,7 @@ class RoomChatController extends GetxController {
   void subscribeToMessages() {
     try {
       String channel =
-          'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+          'databases.$masterDatabaseId.collections.$chatMessagesCollectionId.documents';
       subscription = realtime.subscribe([channel]);
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {
@@ -236,10 +212,10 @@ class RoomChatController extends GetxController {
               Message newMessage = Message.fromJson(data.payload);
               ReplyTo? replyTo;
               try {
-                Row replyToDoc = await tablesDB.getRow(
+                Document replyToDoc = await databases.getDocument(
                   databaseId: masterDatabaseId,
-                  tableId: chatMessageReplyTableId,
-                  rowId: newMessage.messageId,
+                  collectionId: chatMessageReplyCollectionId,
+                  documentId: newMessage.messageId,
                 );
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
@@ -271,7 +247,6 @@ class RoomChatController extends GetxController {
               messages[index] = messages[index].copyWith(
                 content: updatedMessage.content,
                 isEdited: updatedMessage.isEdited,
-                isDeleted: updatedMessage.isDeleted,
               );
               if (appwriteRoom != null) {
                 auth.flutterLocalNotificationsPlugin.show(

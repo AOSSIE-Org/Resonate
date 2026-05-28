@@ -997,9 +997,6 @@ class AppLocalizationsMr extends AppLocalizations {
   String get speakerLabel => 'स्पीकर';
 
   @override
-  String get audioOptions => 'ऑडिओ पर्याय';
-
-  @override
   String get end => 'समाप्त करा';
 
   @override
@@ -1347,65 +1344,5 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get noRecordingError =>
-      'आपण अध्यायसाठी कोणतेही रेकॉर्डिंग केलेले नाही. कक्ष बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
-
-  @override
-  
-  String get audioOutput => 'ऑडिओ आउटपुट';
-
-  @override
-  String get selectPreferredSpeaker => 'आपला पसंतीचा स्पीकर निवडा';
-
-  @override
-  String get noAudioOutputDevices => 'कोणतेही ऑडिओ आउटपुट उपकरण आढळले नाही';
-
-  @override
-  String get refresh => 'रीफ्रेश करा';
-
-  @override
-  String get done => 'पूर्ण झाले';
-
-  @override
-  String get deleteMessageTitle => 'संदेश हटवा';
-
-  @override
-  String get deleteMessageContent => 'आपण खरोखर हा संदेश हटवू इच्छिता का?';
-
-  @override
-  String get thisMessageWasDeleted => 'हा संदेश हटवण्यात आला';
-
-  @override
-  String get failedToDeleteMessage => 'संदेश हटवण्यात अयशस्वी';
-
-  @override
-  String get noFriendsYet => 'अजून कोणतेही मित्र नाहीत';
-
-  @override
-  String get noFriendsDescription => 'मित्र शोधा आणि संभाषण सुरू करा.';
-
-  @override
-  String get findFriends => 'मित्र शोधा';
-
-  @override
-  String get inviteFriend => 'मित्राला आमंत्रित करा';
-
-  @override
-  String get noFriendRequestsYet => 'अजून कोणत्याही मित्र विनंत्या नाहीत';
-
-  @override
-  String get noFriendRequestsDescription =>
-      'आपल्याला नवीन मित्र विनंत्या येथे दिसतील.';
-
-  @override
-  String inviteToResonate(String url) {
-    return 'रेजोनेटमध्ये आमंत्रित करा';
-  }
-
-  @override
-  String get usernameInvalidFormat =>
-      'कृपया वैध वापरकर्तानाव प्रविष्ट करा. फक्त अक्षरे, अंक, बिंदू, अंडरस्कोअर आणि हायफनला परवानगी आहे.';
-
-  @override
-  String get usernameAlreadyTaken =>
-      'हे वापरकर्तानाव आधीच घेतले गेले आहे. वेगळे वापरकर्तानाव वापरून पहा.';
+      'आपने अध्यायसाठी कोणतेही रेकॉर्डिंग केले नाही. कोठा बंद करण्यापूर्वी कृपया अध्याय रेकॉर्ड करा';
 }

@@ -1,22 +1,4 @@
 {
-  "bn": [
-    "audioOptions",
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate",
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
-  ],
-
   "gu": [
     "appPreferences",
     "transcriptionModel",
@@ -47,26 +29,8 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
-    "audioOptions",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
-  ],
-
-  "hi": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "roomRemovedSuccessfully"
   ],
 
   "kn": [
@@ -83,36 +47,25 @@
     "searchUpcomingRoomsError",
     "search",
     "clear",
-    "audioOptions",
     "failedToRemoveRoom",
-    "roomRemovedSuccessfully",
-    "audioOutput",
-    "selectPreferredSpeaker",
-    "noAudioOutputDevices",
-    "refresh",
-    "done",
-    "deleteMessageTitle",
-    "deleteMessageContent",
-    "thisMessageWasDeleted",
-    "failedToDeleteMessage",
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate",
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
+    "roomRemovedSuccessfully"
   ],
 
-  "ta": [
-    "noFriendsYet",
-    "noFriendsDescription",
-    "findFriends",
-    "inviteFriend",
-    "noFriendRequestsYet",
-    "noFriendRequestsDescription",
-    "inviteToResonate"
+  "mr": [
+    "hide",
+    "removeRoom",
+    "removeRoomFromList",
+    "removeRoomConfirmation",
+    "searchFailed",
+    "searchRooms",
+    "searchingRooms",
+    "clearSearch",
+    "searchError",
+    "searchRoomsError",
+    "searchUpcomingRoomsError",
+    "search",
+    "clear",
+    "failedToRemoveRoom",
+    "roomRemovedSuccessfully"
   ]
 }
