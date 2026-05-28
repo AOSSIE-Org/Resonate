@@ -12,7 +12,8 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get title => 'रेज़ोनेट';
 
   @override
-  String get roomDescription => 'दूसरा बंदो री राय ने आदर देणो। गलत बात मत बोलो।';
+  String get roomDescription =>
+      'दूसरा बंदो री राय ने आदर देणो। गलत बात मत बोलो।';
 
   @override
   String get hidePassword => 'पासवर्ड छुपाओ';
@@ -79,14 +80,11 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String noAvailableRoom(String isRoom) {
-    String _temp0 = intl.Intl.selectLogic(
-      isRoom,
-      {
-        'true': 'कोई रूम उपलब्ध नी है',
-        'false': 'कोई आवण वालो रूम नी है',
-        'other': 'रूम री जानकारी नी है',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(isRoom, {
+      'true': 'कोई रूम उपलब्ध नी है',
+      'false': 'कोई आवण वालो रूम नी है',
+      'other': 'रूम री जानकारी नी है',
+    });
     return '$_temp0\nनीचे एक जोड़ण सूं शुरू करो!';
   }
 
@@ -172,13 +170,16 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get currentPassword => 'हाल को पासवर्ड';
 
   @override
-  String get emailChangeInfo => 'सुरक्षा खातर थाने थारो हाल को पासवर्ड दालनो पड़ेगो जद थूं ईमेल बदलै। ईमेल बदल पच्छी थारे नये ईमेल सूं लॉगिन करजो।';
+  String get emailChangeInfo =>
+      'सुरक्षा खातर थाने थारो हाल को पासवर्ड दालनो पड़ेगो जद थूं ईमेल बदलै। ईमेल बदल पच्छी थारे नये ईमेल सूं लॉगिन करजो।';
 
   @override
-  String get oauthUsersMessage => '(सिरफ ओ लोकां खातर जिक्यां Google या Github सूं लॉगिन कर्यो है)';
+  String get oauthUsersMessage =>
+      '(सिरफ ओ लोकां खातर जिक्यां Google या Github सूं लॉगिन कर्यो है)';
 
   @override
-  String get oauthUsersEmailChangeInfo => 'ईमेल बदलवा खातर, \"हाल को पासवर्ड\" फील्ड में नयो पासवर्ड भरो। याद राखजो, फेर थां Google/GitHub या नये ईमेल औ पासवर्ड सूं लॉगिन कर सको।';
+  String get oauthUsersEmailChangeInfo =>
+      'ईमेल बदलवा खातर, \"हाल को पासवर्ड\" फील्ड में नयो पासवर्ड भरो। याद राखजो, फेर थां Google/GitHub या नये ईमेल औ पासवर्ड सूं लॉगिन कर सको।';
 
   @override
   String get resonateTagline => 'बातचीत रो असीम संसार में पग भरो।';
@@ -316,52 +317,56 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get contribute => 'योगदान करो';
 
   @override
-  String get appPreferences => 'ऐप पसंद';
+  String get appPreferences => 'ऐप री पसंद';
 
   @override
-  String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
+  String get transcriptionModel => 'लिप्यंतरण मॉडल';
 
   @override
-  String get transcriptionModelDescription => 'आवाज ट्रांसक्रिप्शन खातिर AI मॉडल चुनो। बड़ा मॉडल ज्यादा सही होवे, पर धीमा चले अने ज्यादा स्टोरेज लेवे।';
+  String get transcriptionModelDescription =>
+      'आवाज रो लिप्यंतरण करवा खातर AI मॉडल चुनो। मोटा मॉडल ज्यादा सही होवे, पण ओ धीमा होवे अने ज्यादा स्टोरेज लेवे।';
 
   @override
-  String get whisperModelTiny => 'टिनी';
+  String get whisperModelTiny => 'टाइनी';
 
   @override
-  String get whisperModelTinyDescription => 'सबतैं तेज, पर सबसे कम सही (~39 MB)';
+  String get whisperModelTinyDescription => 'सब सूं तेज, पण निखार कम (~39 MB)';
 
   @override
   String get whisperModelBase => 'बेस';
 
   @override
-  String get whisperModelBaseDescription => 'गति अने सटीकता में संतुलित (~74 MB)';
+  String get whisperModelBaseDescription => 'वेग अने निखार रो सन्तुलन (~74 MB)';
 
   @override
   String get whisperModelSmall => 'स्मॉल';
 
   @override
-  String get whisperModelSmallDescription => 'सही परिणाम, थोड़ो धीमो (~244 MB)';
+  String get whisperModelSmallDescription => 'सारो निखार, थोरो धीमो (~244 MB)';
 
   @override
   String get whisperModelMedium => 'मीडियम';
 
   @override
-  String get whisperModelMediumDescription => 'ऊँची सटीकता, पर धीमो (~769 MB';
+  String get whisperModelMediumDescription => 'घणो निखार, धीमो (~769 MB)';
 
   @override
   String get whisperModelLargeV1 => 'लार्ज V1';
 
   @override
-  String get whisperModelLargeV1Description => 'सबतैं सही, पर सबसे धीमो (~1.55 GB)';
+  String get whisperModelLargeV1Description =>
+      'सब सूं ज्यादा निखार, सब सूं धीमो (~1.55 GB)';
 
   @override
   String get whisperModelLargeV2 => 'लार्ज V2';
 
   @override
-  String get whisperModelLargeV2Description => 'सुधारेलो लार्ज मॉडल, और सही (~1.55 GB)';
+  String get whisperModelLargeV2Description =>
+      'सुधारयो मोटा मॉडल, ज्यादा निखार सूं (~1.55 GB)';
 
   @override
-  String get modelDownloadInfo => 'मॉडल पहली बार उपयोग करते वखत डाउनलोड होवे। बेस, स्मॉल, अर मीडियम मॉडल उपयोग करणो सुझाव। लार्ज मॉडल खातिर बहुत शक्तिशाली डिवाइस चाहिए।';
+  String get modelDownloadInfo =>
+      'मॉडल पहेली वार उपयोग करां टां डाऊनलोड होवे। हम बेस, स्मॉल या मीडियम मॉडल उपयोग करां री सलाह देवां। लार्ज मॉडल खातर बहुत तेज मोबाइल या साधन जरूरी होवे।';
 
   @override
   String get logOut => 'लॉगआउट करो';
@@ -388,15 +393,17 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get cancel => 'रद्द करो';
 
   @override
-  String get hide => 'हटाओ';
+  String get hide => 'छुपाओ';
 
   @override
-  String get removeRoom => 'रूम हटाओ';
-  @override
-  String get removeRoomFromList => 'लिस्ट में सूं हटाओ';
+  String get removeRoom => 'रूम छुपाओ';
 
   @override
-  String get removeRoomConfirmation => 'के थाने पक्को है के थूं इस आने वालो रूम ने अपनी लिस्ट में सूं हटाणा चाह्यो है?';
+  String get removeRoomFromList => 'सूची मांय सूं छुपाओ';
+
+  @override
+  String get removeRoomConfirmation =>
+      'क्या तूं वाकई आंवण वाळो रूम अपनी सूची मांय सूं छुपावां चाहै?';
 
   @override
   String get completeYourProfile => 'थारो प्रोफाइल पूरा करो';
@@ -550,7 +557,7 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get errorLoadPackageInfo => 'पैकेज जानकारी लोड नां थाई सकी';
 
   @override
-  String get searchFailed => 'Failed to search rooms. Please try again.';
+  String get searchFailed => 'खोज नाकाम रही';
 
   @override
   String get updateAvailable => 'अपडेट उपलब्ध है';
@@ -663,46 +670,55 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get checking => 'चैक कर रिया...';
 
   @override
-  String get forgotPasswordMessage => 'पासवर्ड रीसेट करवा खातर आपरो रजिस्टरड ईमेल डालो।';
+  String get forgotPasswordMessage =>
+      'पासवर्ड रीसेट करवा खातर आपरो रजिस्टरड ईमेल डालो।';
 
   @override
   String get usernameUnavailable => 'यूजरनेम उपलब्ध नाहीं!';
 
   @override
-  String get usernameInvalidOrTaken => 'ई यूजरनेम अमान्य है या पहले सूं लीधो ग्यो है।';
+  String get usernameInvalidOrTaken =>
+      'ई यूजरनेम अमान्य है या पहले सूं लीधो ग्यो है।';
 
   @override
   String get otpResentMessage => 'नवो OTP खातर आपरो मेल चैक करजो।';
 
   @override
-  String get connectionError => 'कनेक्शन में गलती है। आपरो इंटरनेट चैक करजो और फेर कोशिश करजो।';
+  String get connectionError =>
+      'कनेक्शन में गलती है। आपरो इंटरनेट चैक करजो और फेर कोशिश करजो।';
 
   @override
   String get seconds => 'सेकंड।';
 
   @override
-  String get unsavedChangesWarning => 'जो सेव बिना आगे वयो तो किएला बदलाव गुम हो जासे।';
+  String get unsavedChangesWarning =>
+      'जो सेव बिना आगे वयो तो किएला बदलाव गुम हो जासे।';
 
   @override
-  String get deleteAccountPermanent => 'ई क्रिया आपरो अकाउंट हमेशा खातर डिलीट कर देसी। ई उलट नहीं सकै। हम आपरो यूजरनेम, ईमेल पता और बाकी डेटा सब डिलीट कर देसू। फेर ओ वापस नहीं मिल सकै।';
+  String get deleteAccountPermanent =>
+      'ई क्रिया आपरो अकाउंट हमेशा खातर डिलीट कर देसी। ई उलट नहीं सकै। हम आपरो यूजरनेम, ईमेल पता और बाकी डेटा सब डिलीट कर देसू। फेर ओ वापस नहीं मिल सकै।';
 
   @override
   String get giveGreatName => 'एक बढ़िया नाम डालो..';
 
   @override
-  String get joinCommunityDescription => 'कम्युनिटी में जूड़के आप संदेह दूर कर सकै, नवीं फीचर सुझा सकै, समस्या बतासकै और घणो कुछ।';
+  String get joinCommunityDescription =>
+      'कम्युनिटी में जूड़के आप संदेह दूर कर सकै, नवीं फीचर सुझा सकै, समस्या बतासकै और घणो कुछ।';
 
   @override
-  String get resonateDescription => 'रेज़ोनेट एक सोशल मीडिया प्लेटफॉर्म है, जिथे हर आवाज़ री कद्र है। आपरी बात, कहानी और अनुभव सांझा करजो। आपरो ऑडियो सफर शुरू करजो। अलग-अलग चर्चा और विषय में भाग ल्यो। ओ रूम खोजो ज्या आपरो मन रेजोनेट करै और कम्युनिटी को हिस्सा बनजो। बात में जूड़जो!';
+  String get resonateDescription =>
+      'रेज़ोनेट एक सोशल मीडिया प्लेटफॉर्म है, जिथे हर आवाज़ री कद्र है। आपरी बात, कहानी और अनुभव सांझा करजो। आपरो ऑडियो सफर शुरू करजो। अलग-अलग चर्चा और विषय में भाग ल्यो। ओ रूम खोजो ज्या आपरो मन रेजोनेट करै और कम्युनिटी को हिस्सा बनजो। बात में जूड़जो!';
 
   @override
-  String get resonateFullDescription => 'रेज़ोनेट एक क्रांतिकारी आवाज़-आधारित सोशल मीडिया प्लेटफॉर्म है, जिथे हर आवाज़ मायने रखै। \nरीयल-टाइम ऑडियो बातचीत में जूड़जो, अलग-अलग चर्चा में भाग ल्यो, और मिलते-जुलते सोचवालां सूं जुड़जो।\nहमारो प्लेटफॉर्म ऑफर करै:\n- लाइव ऑडियो रूम विषय आधारित चर्चा खातर\n- आवाज़ सूं सहज सोशल नेटवर्किंग\n- कम्युनिटी द्वारा चलावेली कंटेंट मॉडरेशन\n- सभी प्लेटफॉर्म पर चलै\n- एंड-टू-एंड एन्क्रिप्टेड प्राइवेट बातचीत\n\nAOSSIE ओपन सोर्स कम्युनिटी द्वारा विकसित, हम यूजर प्राइवेसी और कम्युनिटी-ड्रिवन विकास ने प्राथमिकता देसू। आवाज़ री दुनिया को भविष्य आकार देण में सागी बनजो!';
+  String get resonateFullDescription =>
+      'रेज़ोनेट एक क्रांतिकारी आवाज़-आधारित सोशल मीडिया प्लेटफॉर्म है, जिथे हर आवाज़ मायने रखै। \nरीयल-टाइम ऑडियो बातचीत में जूड़जो, अलग-अलग चर्चा में भाग ल्यो, और मिलते-जुलते सोचवालां सूं जुड़जो।\nहमारो प्लेटफॉर्म ऑफर करै:\n- लाइव ऑडियो रूम विषय आधारित चर्चा खातर\n- आवाज़ सूं सहज सोशल नेटवर्किंग\n- कम्युनिटी द्वारा चलावेली कंटेंट मॉडरेशन\n- सभी प्लेटफॉर्म पर चलै\n- एंड-टू-एंड एन्क्रिप्टेड प्राइवेट बातचीत\n\nAOSSIE ओपन सोर्स कम्युनिटी द्वारा विकसित, हम यूजर प्राइवेसी और कम्युनिटी-ड्रिवन विकास ने प्राथमिकता देसू। आवाज़ री दुनिया को भविष्य आकार देण में सागी बनजो!';
 
   @override
   String get stable => 'स्थिर';
 
   @override
-  String get usernameCharacterLimit => 'यूजरनेम में 5 सूं ज्यादा अक्षर होवा चाहिए।';
+  String get usernameCharacterLimit =>
+      'यूजरनेम में 5 सूं ज्यादा अक्षर होवा चाहिए।';
 
   @override
   String get submit => 'भेजो';
@@ -714,31 +730,35 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get noSearchResults => 'कोई खोज परिणाम नहीं';
 
   @override
-  String get searchRooms => 'Search rooms...';
+  String get searchRooms => 'रूम खोजो';
 
   @override
-  String get searchingRooms => 'Searching rooms...';
+  String get searchingRooms => 'रूम खोजां लाग्यो है';
 
   @override
-  String get clearSearch => 'Clear search';
+  String get clearSearch => 'खोज साफ करो';
 
   @override
-  String get searchError => 'Search Error';
+  String get searchError => 'खोज मांय गलती';
 
   @override
-  String get searchRoomsError => 'Failed to search rooms. Please try again.';
+  String get searchRoomsError => 'रूम खोजां मांय गलती';
 
   @override
-  String get searchUpcomingRoomsError => 'Failed to search upcoming rooms. Please try again.';
+  String get searchUpcomingRoomsError => 'आंवण वाळा रूम खोजां मांय गलती';
 
   @override
-  String get search => 'Search';
+  String get search => 'खोजो';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'साफ करो';
 
   @override
-  String shareRoomMessage(String roomName, String description, int participants) {
+  String shareRoomMessage(
+    String roomName,
+    String description,
+    int participants,
+  ) {
     return '🚀 ई बढ़िया रूम देखो: $roomName!\n\n📖 विवरण: $description\n👥 हाले $participants भागीदारां सूं जूड़जो!';
   }
 
@@ -772,25 +792,30 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get connectionFailed => 'कनेक्शन फेल ग्यो';
 
   @override
-  String get unableToJoinRoom => 'रूम में जूड़ नहीं सकै। नेटवर्क चैक करजो और फेर कोशिश करजो।';
+  String get unableToJoinRoom =>
+      'रूम में जूड़ नहीं सकै। नेटवर्क चैक करजो और फेर कोशिश करजो।';
 
   @override
   String get connectionLost => 'कनेक्शन टूट ग्यो';
 
   @override
-  String get unableToReconnect => 'रूम सूं फेर कनेक्ट नहीं हो सकै। फेर कोशिश करजो।';
+  String get unableToReconnect =>
+      'रूम सूं फेर कनेक्ट नहीं हो सकै। फेर कोशिश करजो।';
 
   @override
   String get invalidFormat => 'अमान्य फॉर्मेट!';
 
   @override
-  String get usernameAlphanumeric => 'यूजरनेम में केवल अक्षर और नंबर होवा चाहिए, खास चिन्ह नहीं।';
+  String get usernameAlphanumeric =>
+      'यूजरनेम में केवल अक्षर और नंबर होवा चाहिए, खास चिन्ह नहीं।';
 
   @override
-  String get userProfileCreatedSuccessfully => 'आपरो यूजर प्रोफाइल सफलता सूं बन ग्यो।';
+  String get userProfileCreatedSuccessfully =>
+      'आपरो यूजर प्रोफाइल सफलता सूं बन ग्यो।';
 
   @override
-  String get emailVerificationMessage => 'आगै बढ़वा खातर आपरी ईमेल वेरिफाय करजो।';
+  String get emailVerificationMessage =>
+      'आगै बढ़वा खातर आपरी ईमेल वेरिफाय करजो।';
 
   @override
   String addNewChaptersToStory(String storyName) {
@@ -835,7 +860,8 @@ class AppLocalizationsRaj extends AppLocalizations {
   }
 
   @override
-  String get fillAllRequiredFields => 'कृपा करीन सब जरूरी फील्ड भरो अर ऑडियो फाइल अर गीत री फाइल अपलोड करो';
+  String get fillAllRequiredFields =>
+      'कृपा करीन सब जरूरी फील्ड भरो अर ऑडियो फाइल अर गीत री फाइल अपलोड करो';
 
   @override
   String get scheduled => 'नियत कियो गयो';
@@ -865,7 +891,8 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get createStory => 'कहानी बनाओ';
 
   @override
-  String get fillAllRequiredFieldsAndChapter => 'कृपा करीन सब जरूरी फील्ड भरो, कम से कम एक अध्याय जोड़ो अर कवर इमेज चुनो।';
+  String get fillAllRequiredFieldsAndChapter =>
+      'कृपा करीन सब जरूरी फील्ड भरो, कम से कम एक अध्याय जोड़ो अर कवर इमेज चुनो।';
 
   @override
   String get toConfirmType => 'पुष्टि करवा खातर लिखो';
@@ -904,13 +931,16 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get yourVoiceMatters => 'आपरी आवाज मायने रखै है';
 
   @override
-  String get joinConversationExploreRooms => 'बातचीत में शामिल होवो! रूम खोजो, मित्रां सूं जुड़ो अर आपरी आवाज दुनियाने सुनावो।';
+  String get joinConversationExploreRooms =>
+      'बातचीत में शामिल होवो! रूम खोजो, मित्रां सूं जुड़ो अर आपरी आवाज दुनियाने सुनावो।';
 
   @override
-  String get diveIntoDiverseDiscussions => 'विभिन्न चर्चाओं अर विषयां में डुबकी लगाओ।\nज्या रूम तमने पसंद आवै, ओथ शामिल होवो अर समुदाय रो हिस्सा बनो।';
+  String get diveIntoDiverseDiscussions =>
+      'विभिन्न चर्चाओं अर विषयां में डुबकी लगाओ।\nज्या रूम तमने पसंद आवै, ओथ शामिल होवो अर समुदाय रो हिस्सा बनो।';
 
   @override
-  String get atResonateEveryVoiceValued => 'Resonate पर हर आवाज रो सम्मान है। आपरा विचार, कहानी अर अनुभव बांटो। आजे आपरी ऑडियो यात्रा शुरू करो।';
+  String get atResonateEveryVoiceValued =>
+      'Resonate पर हर आवाज रो सम्मान है। आपरा विचार, कहानी अर अनुभव बांटो। आजे आपरी ऑडियो यात्रा शुरू करो।';
 
   @override
   String get notifications => 'सूचनाएँ';
@@ -944,16 +974,21 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get youHaveNewNotification => 'तमने एक नई सूचना मिली है';
 
   @override
-  String get hangOnGoodThingsTakeTime => 'थोड़ो थामो, बढ़िया चीज़ां ने समय लागै 🔍';
+  String get hangOnGoodThingsTakeTime =>
+      'थोड़ो थामो, बढ़िया चीज़ां ने समय लागै 🔍';
 
   @override
-  String get resonateOpenSourceProject => 'Resonate एक ओपन सोर्स प्रोजेक्ट है जे AOSSIE नै बनाए राख्यो है। योगदान करवा खातर अमारो GitHub देखो।';
+  String get resonateOpenSourceProject =>
+      'Resonate एक ओपन सोर्स प्रोजेक्ट है जे AOSSIE नै बनाए राख्यो है। योगदान करवा खातर अमारो GitHub देखो।';
 
   @override
   String get mute => 'म्यूट करो';
 
   @override
   String get speakerLabel => 'स्पीकर';
+
+  @override
+  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'समाप्त करो';
@@ -1006,35 +1041,29 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String storyCategory(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'drama': 'ड्रामा',
-        'comedy': 'कॉमेडी',
-        'horror': 'हॉरर',
-        'romance': 'रोमांस',
-        'thriller': 'थ्रिलर',
-        'spiritual': 'आध्यात्मिक',
-        'other': 'अन्य',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'drama': 'ड्रामा',
+      'comedy': 'कॉमेडी',
+      'horror': 'हॉरर',
+      'romance': 'रोमांस',
+      'thriller': 'थ्रिलर',
+      'spiritual': 'आध्यात्मिक',
+      'other': 'अन्य',
+    });
     return '$_temp0';
   }
 
   @override
   String chooseTheme(String category) {
-    String _temp0 = intl.Intl.selectLogic(
-      category,
-      {
-        'classicTheme': 'क्लासिक',
-        'timeTheme': 'टाइम',
-        'vintageTheme': 'विंटेज',
-        'amberTheme': 'ऐम्बर',
-        'forestTheme': 'फॉरेस्ट',
-        'creamTheme': 'क्रीम',
-        'other': 'अन्य',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(category, {
+      'classicTheme': 'क्लासिक',
+      'timeTheme': 'टाइम',
+      'vintageTheme': 'विंटेज',
+      'amberTheme': 'ऐम्बर',
+      'forestTheme': 'फॉरेस्ट',
+      'creamTheme': 'क्रीम',
+      'other': 'अन्य',
+    });
     return '$_temp0';
   }
 
@@ -1187,7 +1216,8 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get updateFailed => 'अपडेट फेल थ्यो';
 
   @override
-  String get updateFailedMessage => 'अपडेट ना थ्यो. कृपा करके Play Store स्यूं मैन्युअली अपडेट करो.';
+  String get updateFailedMessage =>
+      'अपडेट ना थ्यो. कृपा करके Play Store स्यूं मैन्युअली अपडेट करो.';
 
   @override
   String get updateError => 'अपडेट गलती';
@@ -1199,13 +1229,15 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get platformNotSupported => 'प्लेटफॉर्म सपोर्टेड ना है';
 
   @override
-  String get platformNotSupportedMessage => 'अपडेट जांच केवल Android डिवाइसां पै उपलब्ध है';
+  String get platformNotSupportedMessage =>
+      'अपडेट जांच केवल Android डिवाइसां पै उपलब्ध है';
 
   @override
   String get updateCheckFailed => 'अपडेट जांच फेल थई';
 
   @override
-  String get updateCheckFailedMessage => 'अपडेट जांच ना थई सकी. पाछो कोसिस करो.';
+  String get updateCheckFailedMessage =>
+      'अपडेट जांच ना थई सकी. पाछो कोसिस करो.';
 
   @override
   String get upToDateTitle => 'थूं ताजा संस्करण चालाओ!';
@@ -1217,16 +1249,18 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get updateAvailableTitle => 'नवो अपडेट उपलब्ध!';
 
   @override
-  String get updateAvailableMessage => 'Resonate को नवो संस्करण Play Store पै उपलब्ध है';
+  String get updateAvailableMessage =>
+      'Resonate को नवो संस्करण Play Store पै उपलब्ध है';
 
   @override
   String get updateFeaturesImprovement => 'नवीन फीचर अने सुधार मिलवो!';
 
   @override
-  String get failedToRemoveRoom => 'Failed to remove room';
+  String get failedToRemoveRoom => 'रूम हटावां मांय नाकाम';
 
   @override
-  String get roomRemovedSuccessfully => 'Room removed from your list successfully';
+  String get roomRemovedSuccessfully =>
+      'रूम अपनी सूची मांय सूं सफलतापूर्वक हटायो गयो';
 
   @override
   String get alert => 'चेतावणी';
@@ -1236,24 +1270,22 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String reportType(String type) {
-    String _temp0 = intl.Intl.selectLogic(
-      type,
-      {
-        'harassment': 'उत्पीड़न / घृणा भाषण',
-        'abuse': 'अपमानजनक सामग्री / हिंसा',
-        'spam': 'स्पैम / धोखाधड़ी / ठगी',
-        'impersonation': 'नकली अकाउंट / भेस बदलो',
-        'illegal': 'गैरकानूनी गतिविधियां',
-        'selfharm': 'स्वयं-हानि / आत्महत्या / मानसिक स्थिति',
-        'misuse': 'प्लेटफॉर्म नो गलत उपयोग',
-        'other': 'बाकी',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'harassment': 'उत्पीड़न / घृणा भाषण',
+      'abuse': 'अपमानजनक सामग्री / हिंसा',
+      'spam': 'स्पैम / धोखाधड़ी / ठगी',
+      'impersonation': 'नकली अकाउंट / भेस बदलो',
+      'illegal': 'गैरकानूनी गतिविधियां',
+      'selfharm': 'स्वयं-हानि / आत्महत्या / मानसिक स्थिति',
+      'misuse': 'प्लेटफॉर्म नो गलत उपयोग',
+      'other': 'बाकी',
+    });
     return '$_temp0';
   }
 
   @override
-  String get userBlockedFromResonate => 'थूं यूजरां स्यूं कई रिपोर्ट पाई है अने थूं Resonate उपयोग करणी रोको ग्यो है. जो गलती लागे तो AOSSIE स्यूं संपर्क करो.';
+  String get userBlockedFromResonate =>
+      'थूं यूजरां स्यूं कई रिपोर्ट पाई है अने थूं Resonate उपयोग करणी रोको ग्यो है. जो गलती लागे तो AOSSIE स्यूं संपर्क करो.';
 
   @override
   String get reportParticipant => 'प्रतिभागी रिपोर्ट करो';
@@ -1277,7 +1309,8 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get actionBlocked => 'क्रिया रोकी गी';
 
   @override
-  String get cannotStopRecording => 'थूं रिकॉर्डिंग नै अपने हाथ स्यूं रोक ना सकै, रिकॉर्डिंग तो कमरो बंद होवे जण रुक जासी.';
+  String get cannotStopRecording =>
+      'थूं रिकॉर्डिंग नै अपने हाथ स्यूं रोक ना सकै, रिकॉर्डिंग तो कमरो बंद होवे जण रुक जासी.';
 
   @override
   String get liveChapter => 'लाइव अध्याय';
@@ -1301,5 +1334,67 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get fillAllFields => 'कृपा करी सगळा जरूरी फील्ड भरो';
 
   @override
-  String get noRecordingError => 'थूं अध्याय खातिर काई रिकॉर्डिंग ना करी. कृपा करी कमरो छोड़णी पेला अध्याय रिकॉर्ड करो';
+  String get noRecordingError =>
+      'थूं अध्याय खातिर काई रिकॉर्डिंग ना करी. कृपा करी कमरो छोड़णी पेला अध्याय रिकॉर्ड करो';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'Delete Message';
+
+  @override
+  String get deleteMessageContent =>
+      'Are you sure you want to delete this message?';
+
+  @override
+  String get thisMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get failedToDeleteMessage => 'Failed to delete message';
+
+  @override
+  String get noFriendsYet => 'No Friends Yet';
+
+  @override
+  String get noFriendsDescription =>
+      'Your friends list is empty. Start connecting with people and grow your network!';
+
+  @override
+  String get findFriends => 'Find Friends';
+
+  @override
+  String get inviteFriend => 'Invite a Friend';
+
+  @override
+  String get noFriendRequestsYet => 'No Friend Requests';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'You don\'t have any pending friend requests. Invite your friends to connect!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
+  }
+
+  @override
+  String get usernameInvalidFormat =>
+      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+
+  @override
+  String get usernameAlreadyTaken =>
+      'This username is already taken. Try a different one.';
 }
