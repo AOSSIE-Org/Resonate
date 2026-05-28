@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/room_app_bar.dart';
-import 'package:resonate/views/widgets/room_header.dart';
+import 'package:resonate/features/rooms/view/widgets/room_app_bar.dart';
+import 'package:resonate/features/rooms/view/widgets/room_header.dart';
 
 import 'package:resonate/l10n/app_localizations.dart';
 import '../../controllers/pair_chat_controller.dart';

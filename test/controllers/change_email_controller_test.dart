@@ -4,21 +4,19 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/change_email_controller.dart';
-import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../helpers/test_root_container.dart';
-import 'change_email_controller_test.mocks.dart';
+import '../helpers/test_root_container.mocks.dart';
 
-@GenerateMocks([TablesDB, Account])
 void main() {
   late MockTablesDB mockTablesDB;
   late MockAccount mockAccount;
-  late FakeAuthRepository fakeRepo;
+  late MockFunctions mockFunctions;
+  late MockFirebaseMessaging mockMessaging;
   late ChangeEmailController controller;
 
   final User mockUser = User(
@@ -46,11 +44,36 @@ void main() {
   setUp(() async {
     mockTablesDB = MockTablesDB();
     mockAccount = MockAccount();
-    fakeRepo = FakeAuthRepository(
-      AuthState.authenticated(fakeAuthUser()),
-    );
+    mockFunctions = MockFunctions();
+    mockMessaging = MockFirebaseMessaging();
+    when(mockMessaging.getToken()).thenAnswer((_) async => null);
+    when(mockAccount.get()).thenAnswer((_) async => mockUser);
+    when(mockTablesDB.getRow(
+      databaseId: userDatabaseID,
+      tableId: usersTableID,
+      rowId: anyNamed('rowId'),
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => buildRow(
+          id: '123',
+          tableId: usersTableID,
+          databaseId: userDatabaseID,
+          data: {
+            'username': 'TestUser',
+            'profileImageUrl': 'https://example.com/p.jpg',
+            'profileImageID': 'p1',
+            'ratingTotal': 5,
+            'ratingCount': 1,
+            'followers': const [],
+            'userReports': const [],
+          },
+        ));
 
-    await installTestRootContainer(authRepository: fakeRepo);
+    await installTestRootContainer(
+      account: mockAccount,
+      tables: mockTablesDB,
+      functions: mockFunctions,
+      messaging: mockMessaging,
+    );
 
     controller = ChangeEmailController(
       tables: mockTablesDB,
@@ -105,8 +128,7 @@ void main() {
     (tester) async {
       await tester.pumpWidget(GetMaterialApp(home: Container()));
       await tester.pumpAndSettle();
-
-      final loadCountBefore = fakeRepo.loadCount;
+      clearInteractions(mockAccount);
       final result = await controller.changeEmailInDatabases(
         'test2@test.com',
         tester.element(find.byType(Container)),
@@ -129,9 +151,8 @@ void main() {
         ),
       ).called(1);
       expect(result, true);
-      // refresh() should have called loadCurrentUser exactly once more than
-      // the initial container-build call.
-      expect(fakeRepo.loadCount, loadCountBefore + 1);
+      // refresh() should call loadCurrentUser → account.get() exactly once.
+      verify(mockAccount.get()).called(1);
     },
   );
 

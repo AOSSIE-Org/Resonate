@@ -3,17 +3,14 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
-import 'package:flutter/material.dart' hide Row;
 import 'package:get/get.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
-import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/callkit_service.dart';
 import 'package:resonate/features/auth/data/notification_service.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/app_bootstrap_notifier.g.dart';
@@ -84,11 +81,6 @@ class AppBootstrap extends _$AppBootstrap {
   }
 
   void _openUpcomingRoom(String roomName) {
-    final upcoming = Get.find<UpcomingRoomsController>();
-    final index = upcoming.upcomingRooms.indexWhere((r) => r.name == roomName);
-    upcoming.upcomingRoomScrollController.value = ScrollController(
-      initialScrollOffset: UiSizes.height_170 * index,
-    );
     Get.find<TabViewController>().setIndex(1);
     appRouter.go(RoutePaths.tabview);
   }

@@ -6,13 +6,13 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/rooms/rooms_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/views/screens/about_app_screen.dart';
 import 'package:resonate/views/screens/app_preferences_screen.dart';
 import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/contribute_screen.dart';
-import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
 import 'package:resonate/views/screens/delete_account_screen.dart';
 import 'package:resonate/views/screens/edit_profile_screen.dart';
@@ -58,16 +58,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Main app shell
       GoRoute(
         path: RoutePaths.tabview,
-        builder: (_, _) => TabViewScreen(),
+        builder: (_, _) => const TabViewScreen(),
       ),
       GoRoute(
         path: RoutePaths.homeScreen,
         builder: (_, _) => const HomeScreen(),
       ),
-      GoRoute(
-        path: RoutePaths.createRoom,
-        builder: (_, _) => CreateRoomScreen(),
-      ),
+      ...roomsRoutes,
 
       // Profile & account
       GoRoute(
@@ -167,10 +164,6 @@ String? _redirect(Ref ref, GoRouterState state) {
   return authRedirect(auth, state.uri.path);
 }
 
-/// Pure redirect decision: given the current [AuthState] (or `null` if
-/// still loading) and the requested [path], return the path to redirect to
-/// or `null` to allow the navigation as-is. Extracted as a standalone
-/// function so it can be unit-tested without spinning up a [GoRouter].
 String? authRedirect(AuthState? auth, String path) {
   if (path == RoutePaths.splash) return null;
   if (auth == null) return null;

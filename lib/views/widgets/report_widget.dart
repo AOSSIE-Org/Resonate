@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -38,6 +37,7 @@ class _ReportWidgetState extends State<ReportWidget> {
       return;
     }
 
+    final l10n = AppLocalizations.of(context)!;
     try {
       final UserReportModel report = UserReportModel(
         reporterUid: requireCurrentAuthUser.uid,
@@ -54,23 +54,14 @@ class _ReportWidgetState extends State<ReportWidget> {
         rowId: ID.unique(),
         data: report.toJson(),
       );
-      Get.back(result: true);
-      await Future.delayed(Duration(milliseconds: 500));
-      customSnackbar(
-        AppLocalizations.of(Get.context!)!.success,
-        AppLocalizations.of(Get.context!)!.reportSubmitted,
-        LogType.success,
-      );
-
+      if (!mounted) return;
+      Navigator.of(context).pop(true);
+      await Future.delayed(const Duration(milliseconds: 500));
+      customSnackbar(l10n.success, l10n.reportSubmitted, LogType.success);
       return;
     } catch (e) {
       log(e.toString());
-      customSnackbar(
-        AppLocalizations.of(Get.context!)!.error,
-        '${AppLocalizations.of(Get.context!)!.reportFailed}: $e',
-        LogType.error,
-      );
-
+      customSnackbar(l10n.error, '${l10n.reportFailed}: $e', LogType.error);
       return;
     }
   }

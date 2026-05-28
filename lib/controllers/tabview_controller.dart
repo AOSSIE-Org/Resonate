@@ -3,16 +3,14 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/features/rooms/data/rooms_repository.dart';
+import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/colors.dart';
-import 'package:resonate/views/widgets/live_room_tile.dart';
-
-import '../views/screens/room_screen.dart';
 
 class TabViewController extends GetxController {
   final RxInt _selectedIndex = 0.obs;
@@ -36,14 +34,12 @@ class TabViewController extends GetxController {
   Future<void> initAppLinks() async {
     _appLinks = AppLinks();
 
-    // Check initial link if app was in cold state (terminated)
     final appLink = await _appLinks.getInitialLink();
     if (appLink != null) {
       log('getInitialAppLink: $appLink');
       openAppLink(appLink);
     }
 
-    // Handle link when app is in warm state (front or background)
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       log('onAppLink: $uri');
       openAppLink(uri);
@@ -52,39 +48,34 @@ class TabViewController extends GetxController {
 
   void openAppLink(Uri uri) async {
     try {
-      String roomId = uri.pathSegments.last;
+      final roomId = uri.pathSegments.last;
       final authState = await rootContainer.read(authProvider.future);
-      bool isUserLoggedIn = authState.hasSession;
-      if (isUserLoggedIn) {
-        AppwriteRoom appwriteRoom = await Get.find<RoomsController>()
-            .getRoomById(roomId);
-        Get.defaultDialog(
-          title: AppLocalizations.of(Get.context!)!.joinRoom,
-          titleStyle: const TextStyle(color: Colors.amber, fontSize: 25),
-          content: Column(
-            children: [CustomLiveRoomTile(appwriteRoom: appwriteRoom)],
-          ),
-          backgroundColor: AppColor.bgBlackColor,
-        );
-      }
-    } catch (e) {
-      log("Open App Link ERROR : ${e.toString()}");
-    }
-  }
+      if (!authState.hasSession) return;
+      final userUid = authState.userOrNull?.uid;
+      if (userUid == null) return;
 
-  void openRoomSheet(AppwriteRoom room) {
-    showModalBottomSheet(
-      context: Get.context!,
-      builder: (ctx) {
-        return RoomScreen(room: room);
-      },
-      useSafeArea: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-      ),
-      isScrollControlled: true,
-      enableDrag: true,
-      isDismissible: false,
-    );
+      final room = await rootContainer
+          .read(roomsRepositoryProvider)
+          .getRoomById(roomId, userUid);
+      if (room == null) return;
+
+      final ctx = rootNavigatorKey.currentContext;
+      if (ctx == null) return;
+      await showDialog<void>(
+        context: ctx,
+        builder: (dialogCtx) => AlertDialog(
+          backgroundColor: AppColor.bgBlackColor,
+          title: Text(
+            AppLocalizations.of(dialogCtx)!.joinRoom,
+            style: const TextStyle(color: Colors.amber, fontSize: 25),
+          ),
+          content: SingleChildScrollView(
+            child: CustomLiveRoomTile(appwriteRoom: room),
+          ),
+        ),
+      );
+    } catch (e) {
+      log('Open App Link ERROR : ${e.toString()}');
+    }
   }
 }
