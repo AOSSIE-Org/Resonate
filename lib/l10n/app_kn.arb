@@ -1398,7 +1398,7 @@
     "@by": {
         "description": "A preposition, typically used between a content title and the author's name."
     },
-    "likes": "ಲೈಕ್\u200Cಗಳು",
+    "likes": "ಲೈಕ್‌ಗಳು",
     "@likes": {
         "description": "Label for the number of likes."
     },
@@ -1531,8 +1531,8 @@
                 "example": "john_doe"
             }
         }
-    }, 
-    "checkForUpdates": "ಅಪ್ಡೇಟ್ಸ್\u200Cಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
+    },
+    "checkForUpdates": "ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",
     "@checkForUpdates": {
         "description": "Button text to manually check for application updates."
     },
@@ -1584,11 +1584,11 @@
     "@platformNotSupportedMessage": {
         "description": "Message explaining that the in-app update feature is platform-specific."
     },
-        "updateCheckFailed": "ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
+    "updateCheckFailed": "ಅಪ್ಡೇಟ್ಸ್ ಪರಿಶೀಲನೆ ವಿಫಲವಾಗಿದೆ",
     "@updateCheckFailed": {
         "description": "Title for an error when the app fails to check for updates."
     },
-    "updateCheckFailedMessage": "ಅಪ್ಡೇಟ್ಸ್\u200Cಗಳನ್ನ ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.",
+    "updateCheckFailedMessage": "ಅಪ್ಡೇಟ್ಸ್‌ಗಳನ್ನ ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಪ್ರಯತ್ನಿಸಿ.",
     "@updateCheckFailedMessage": {
         "description": "Error message when the check for updates process fails."
     },
@@ -1697,5 +1697,19 @@
     "noRecordingError": "ನೀವು ಅಧ್ಯಾಯಕ್ಕಾಗಿ ಏನನ್ನೂ ರೆಕಾರ್ಡ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ರೂಮ್‌ನಿಂದ ನಿರ್ಗಮಿಸುವ ಮೊದಲು ಅಧ್ಯಾಯವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ",
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
-    }
+    },
+    "hide": "ಮರೆಮಾಡಿ",
+    "removeRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomFromList": "ನಿಮ್ಮ ಕೋಣೆಗಳ ಪಟ್ಟಿಯಿಂದ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಿ",
+    "removeRoomConfirmation": "ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ಬಯಸುವಿರಾ?",
+    "searchFailed": "ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ",
+    "searchRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಿ...",
+    "searchingRooms": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+    "clearSearch": "ಹುಡುಕಾಟ ತೆರವುಮಾಡಿ",
+    "searchError": "ಹುಡುಕಾಟ ದೋಷ",
+    "searchRoomsError": "ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "searchUpcomingRoomsError": "ಮುಂಬರುವ ಕೋಣೆಗಳನ್ನು ಹುಡುಕುವಲ್ಲಿ ದೋಷ",
+    "search": "ಹುಡುಕಿ",
+    "failedToRemoveRoom": "ಕೋಣೆಯನ್ನು ಮರೆಮಾಡಲು ವಿಫಲವಾಗಿದೆ",
+    "roomRemovedSuccessfully": "ಕೋಣೆಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಮರೆಮಾಡಲಾಗಿದೆ"
 }
