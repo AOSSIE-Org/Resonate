@@ -177,10 +177,7 @@ class AuthRepository {
   }) async {
     var otpId = randomNumeric(10) + email;
     otpId = otpId.split('@')[0];
-
-    await _account.updatePrefs(
-      prefs: {'otp_ID': otpId, 'isUserProfileComplete': true},
-    );
+    await _account.updatePrefs(prefs: {'otp_ID': otpId});
 
     final response = await _functions.createExecution(
       functionId: sendOtpFunctionID,

@@ -57,6 +57,7 @@ class RoutePaths {
     deleteAccount,
     changeEmail,
     updateEmail,
+    emailVerification,
     settings,
     themeScreen,
     userAccountScreen,

@@ -162,15 +162,16 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 GoRouter get appRouter => rootContainer.read(routerProvider);
 
-String? _redirect(Ref ref, GoRouterState state) {
-  final auth = ref.read(authProvider).value;
-  return authRedirect(auth, state.uri.path);
+String? _redirect(Ref ref, GoRouterState state) =>
+    redirectForAsyncAuth(ref.read(authProvider), state.uri.path);
+
+String? redirectForAsyncAuth(AsyncValue<AuthState> asyncAuth, String path) {
+  final auth = asyncAuth.hasError
+      ? const AuthState.unauthenticated()
+      : asyncAuth.value;
+  return authRedirect(auth, path);
 }
 
-/// Pure redirect decision: given the current [AuthState] (or `null` if
-/// still loading) and the requested [path], return the path to redirect to
-/// or `null` to allow the navigation as-is. Extracted as a standalone
-/// function so it can be unit-tested without spinning up a [GoRouter].
 String? authRedirect(AuthState? auth, String path) {
   if (path == RoutePaths.splash) return null;
   if (auth == null) return null;

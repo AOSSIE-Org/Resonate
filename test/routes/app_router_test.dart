@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
@@ -105,6 +106,63 @@ void main() {
       const s = AuthState.unknown();
       expect(authRedirect(s, RoutePaths.tabview), isNull);
       expect(authRedirect(s, RoutePaths.login), isNull);
+    });
+  });
+
+  group('authRedirect — emailVerification is protected', () {
+    test('unauthenticated visitors bounce to welcome', () {
+      const s = AuthState.unauthenticated();
+      expect(
+        authRedirect(s, RoutePaths.emailVerification),
+        RoutePaths.welcome,
+      );
+    });
+
+    test('authenticated users can access (no-op for already-verified)', () {
+      final s = AuthState.authenticated(_user());
+      expect(authRedirect(s, RoutePaths.emailVerification), isNull);
+    });
+  });
+
+  group('redirectForAsyncAuth — AsyncError handling', () {
+    test('error on a protected route falls back to unauthenticated → welcome',
+        () {
+      final asyncErr = AsyncValue<AuthState>.error(
+        Exception('network down'),
+        StackTrace.empty,
+      );
+      expect(
+        redirectForAsyncAuth(asyncErr, RoutePaths.tabview),
+        RoutePaths.welcome,
+      );
+    });
+
+    test('error on a public route is a no-op (already unauthenticated)', () {
+      final asyncErr = AsyncValue<AuthState>.error(
+        Exception('boom'),
+        StackTrace.empty,
+      );
+      expect(redirectForAsyncAuth(asyncErr, RoutePaths.login), isNull);
+      expect(redirectForAsyncAuth(asyncErr, RoutePaths.welcome), isNull);
+    });
+
+    test('loading (no error, no value) does not redirect', () {
+      const asyncLoading = AsyncValue<AuthState>.loading();
+      expect(
+        redirectForAsyncAuth(asyncLoading, RoutePaths.tabview),
+        isNull,
+      );
+    });
+
+    test('data branch delegates to authRedirect', () {
+      final asyncOk = AsyncValue<AuthState>.data(
+        AuthState.authenticated(_user()),
+      );
+      expect(
+        redirectForAsyncAuth(asyncOk, RoutePaths.login),
+        RoutePaths.tabview,
+      );
+      expect(redirectForAsyncAuth(asyncOk, RoutePaths.tabview), isNull);
     });
   });
 }
