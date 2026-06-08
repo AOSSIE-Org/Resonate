@@ -185,7 +185,6 @@ String? authRedirect(AuthState? auth, String path) {
       RoutePaths.authOnly.contains(path) ? RoutePaths.tabview : null,
     AuthStateUnauthenticated() =>
       RoutePaths.protected.contains(path) ? RoutePaths.welcome : null,
-    AuthStateUnknown() => null,
   };
 }
 

@@ -17,7 +17,6 @@ void main() {
   group('authRedirect — splash is always permitted', () {
     test('splash returns null regardless of auth state', () {
       for (final state in <AuthState>[
-        const AuthState.unknown(),
         const AuthState.unauthenticated(),
         AuthState.needsOnboarding(_user()),
         AuthState.blocked(_user()),
@@ -98,14 +97,6 @@ void main() {
       expect(authRedirect(s, RoutePaths.signup), isNull);
       expect(authRedirect(s, RoutePaths.welcome), isNull);
       expect(authRedirect(s, RoutePaths.landing), isNull);
-    });
-  });
-
-  group('authRedirect — unknown auth state', () {
-    test('never redirects', () {
-      const s = AuthState.unknown();
-      expect(authRedirect(s, RoutePaths.tabview), isNull);
-      expect(authRedirect(s, RoutePaths.login), isNull);
     });
   });
 

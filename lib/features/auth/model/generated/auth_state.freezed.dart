@@ -55,11 +55,10 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthStateUnknown value)?  unknown,TResult Function( AuthStateUnauthenticated value)?  unauthenticated,TResult Function( AuthStateNeedsOnboarding value)?  needsOnboarding,TResult Function( AuthStateBlocked value)?  blocked,TResult Function( AuthStateAuthenticated value)?  authenticated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthStateUnauthenticated value)?  unauthenticated,TResult Function( AuthStateNeedsOnboarding value)?  needsOnboarding,TResult Function( AuthStateBlocked value)?  blocked,TResult Function( AuthStateAuthenticated value)?  authenticated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case AuthStateUnknown() when unknown != null:
-return unknown(_that);case AuthStateUnauthenticated() when unauthenticated != null:
+case AuthStateUnauthenticated() when unauthenticated != null:
 return unauthenticated(_that);case AuthStateNeedsOnboarding() when needsOnboarding != null:
 return needsOnboarding(_that);case AuthStateBlocked() when blocked != null:
 return blocked(_that);case AuthStateAuthenticated() when authenticated != null:
@@ -81,11 +80,10 @@ return authenticated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthStateUnknown value)  unknown,required TResult Function( AuthStateUnauthenticated value)  unauthenticated,required TResult Function( AuthStateNeedsOnboarding value)  needsOnboarding,required TResult Function( AuthStateBlocked value)  blocked,required TResult Function( AuthStateAuthenticated value)  authenticated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthStateUnauthenticated value)  unauthenticated,required TResult Function( AuthStateNeedsOnboarding value)  needsOnboarding,required TResult Function( AuthStateBlocked value)  blocked,required TResult Function( AuthStateAuthenticated value)  authenticated,}){
 final _that = this;
 switch (_that) {
-case AuthStateUnknown():
-return unknown(_that);case AuthStateUnauthenticated():
+case AuthStateUnauthenticated():
 return unauthenticated(_that);case AuthStateNeedsOnboarding():
 return needsOnboarding(_that);case AuthStateBlocked():
 return blocked(_that);case AuthStateAuthenticated():
@@ -103,11 +101,10 @@ return authenticated(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthStateUnknown value)?  unknown,TResult? Function( AuthStateUnauthenticated value)?  unauthenticated,TResult? Function( AuthStateNeedsOnboarding value)?  needsOnboarding,TResult? Function( AuthStateBlocked value)?  blocked,TResult? Function( AuthStateAuthenticated value)?  authenticated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthStateUnauthenticated value)?  unauthenticated,TResult? Function( AuthStateNeedsOnboarding value)?  needsOnboarding,TResult? Function( AuthStateBlocked value)?  blocked,TResult? Function( AuthStateAuthenticated value)?  authenticated,}){
 final _that = this;
 switch (_that) {
-case AuthStateUnknown() when unknown != null:
-return unknown(_that);case AuthStateUnauthenticated() when unauthenticated != null:
+case AuthStateUnauthenticated() when unauthenticated != null:
 return unauthenticated(_that);case AuthStateNeedsOnboarding() when needsOnboarding != null:
 return needsOnboarding(_that);case AuthStateBlocked() when blocked != null:
 return blocked(_that);case AuthStateAuthenticated() when authenticated != null:
@@ -128,10 +125,9 @@ return authenticated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  unknown,TResult Function()?  unauthenticated,TResult Function( AuthUser user)?  needsOnboarding,TResult Function( AuthUser user)?  blocked,TResult Function( AuthUser user)?  authenticated,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  unauthenticated,TResult Function( AuthUser user)?  needsOnboarding,TResult Function( AuthUser user)?  blocked,TResult Function( AuthUser user)?  authenticated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case AuthStateUnknown() when unknown != null:
-return unknown();case AuthStateUnauthenticated() when unauthenticated != null:
+case AuthStateUnauthenticated() when unauthenticated != null:
 return unauthenticated();case AuthStateNeedsOnboarding() when needsOnboarding != null:
 return needsOnboarding(_that.user);case AuthStateBlocked() when blocked != null:
 return blocked(_that.user);case AuthStateAuthenticated() when authenticated != null:
@@ -153,10 +149,9 @@ return authenticated(_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  unknown,required TResult Function()  unauthenticated,required TResult Function( AuthUser user)  needsOnboarding,required TResult Function( AuthUser user)  blocked,required TResult Function( AuthUser user)  authenticated,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  unauthenticated,required TResult Function( AuthUser user)  needsOnboarding,required TResult Function( AuthUser user)  blocked,required TResult Function( AuthUser user)  authenticated,}) {final _that = this;
 switch (_that) {
-case AuthStateUnknown():
-return unknown();case AuthStateUnauthenticated():
+case AuthStateUnauthenticated():
 return unauthenticated();case AuthStateNeedsOnboarding():
 return needsOnboarding(_that.user);case AuthStateBlocked():
 return blocked(_that.user);case AuthStateAuthenticated():
@@ -174,10 +169,9 @@ return authenticated(_that.user);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  unknown,TResult? Function()?  unauthenticated,TResult? Function( AuthUser user)?  needsOnboarding,TResult? Function( AuthUser user)?  blocked,TResult? Function( AuthUser user)?  authenticated,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  unauthenticated,TResult? Function( AuthUser user)?  needsOnboarding,TResult? Function( AuthUser user)?  blocked,TResult? Function( AuthUser user)?  authenticated,}) {final _that = this;
 switch (_that) {
-case AuthStateUnknown() when unknown != null:
-return unknown();case AuthStateUnauthenticated() when unauthenticated != null:
+case AuthStateUnauthenticated() when unauthenticated != null:
 return unauthenticated();case AuthStateNeedsOnboarding() when needsOnboarding != null:
 return needsOnboarding(_that.user);case AuthStateBlocked() when blocked != null:
 return blocked(_that.user);case AuthStateAuthenticated() when authenticated != null:
@@ -188,38 +182,6 @@ return authenticated(_that.user);case _:
 }
 
 }
-
-/// @nodoc
-
-
-class AuthStateUnknown extends AuthState {
-  const AuthStateUnknown(): super._();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthStateUnknown);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'AuthState.unknown()';
-}
-
-
-}
-
-
-
 
 /// @nodoc
 

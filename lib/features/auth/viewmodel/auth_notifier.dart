@@ -1,5 +1,8 @@
+import 'dart:developer' as developer;
+
 import 'package:resonate/features/auth/data/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/auth_notifier.g.dart';
@@ -18,10 +21,7 @@ class AuthNotifier extends _$AuthNotifier {
       final repo = ref.read(authRepositoryProvider);
       await repo.login(email: email, password: password);
       final next = await repo.loadCurrentUser();
-      final user = next.userOrNull;
-      if (user != null) {
-        await repo.addRegistrationToken(uid: user.uid);
-      }
+      await _tryRegisterToken(next.userOrNull);
       return next;
     });
   }
@@ -31,7 +31,9 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(authRepositoryProvider);
       await repo.signup(email: email, password: password);
-      return repo.loadCurrentUser();
+      final next = await repo.loadCurrentUser();
+      await _tryRegisterToken(next.userOrNull);
+      return next;
     });
   }
 
@@ -40,7 +42,9 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(authRepositoryProvider);
       await repo.loginWithGoogle();
-      return repo.loadCurrentUser();
+      final next = await repo.loadCurrentUser();
+      await _tryRegisterToken(next.userOrNull);
+      return next;
     });
   }
 
@@ -49,7 +53,9 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(authRepositoryProvider);
       await repo.loginWithGithub();
-      return repo.loadCurrentUser();
+      final next = await repo.loadCurrentUser();
+      await _tryRegisterToken(next.userOrNull);
+      return next;
     });
   }
 
@@ -59,7 +65,15 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(authRepositoryProvider);
       if (user != null) {
-        await repo.removeRegistrationToken(uid: user.uid);
+        try {
+          await repo.removeRegistrationToken(uid: user.uid);
+        } catch (e, st) {
+          developer.log(
+            'removeRegistrationToken failed during logout (non-fatal)',
+            error: e,
+            stackTrace: st,
+          );
+        }
       }
       await repo.logout();
       return const AuthState.unauthenticated();
@@ -71,5 +85,18 @@ class AuthNotifier extends _$AuthNotifier {
     state = await AsyncValue.guard(
       () => ref.read(authRepositoryProvider).loadCurrentUser(),
     );
+  }
+
+  Future<void> _tryRegisterToken(AuthUser? user) async {
+    if (user == null) return;
+    try {
+      await ref.read(authRepositoryProvider).addRegistrationToken(uid: user.uid);
+    } catch (e, st) {
+      developer.log(
+        'addRegistrationToken failed after login (non-fatal)',
+        error: e,
+        stackTrace: st,
+      );
+    }
   }
 }
