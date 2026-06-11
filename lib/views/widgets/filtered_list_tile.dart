@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
+import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 
 class FilteredListTile extends StatelessWidget {
@@ -37,7 +37,7 @@ class FilteredListTile extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  ProfileScreen(creator: user, isCreatorProfile: true),
+                  ProfilePage(creator: user, isCreatorProfile: true),
             ),
           );
         }

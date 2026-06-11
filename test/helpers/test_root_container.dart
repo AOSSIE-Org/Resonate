@@ -10,7 +10,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 
-/// Reusable AuthUser for tests.
+// Reusable AuthUser for tests.
 AuthUser fakeAuthUser({
   String uid = '123',
   String email = 'test@test.com',

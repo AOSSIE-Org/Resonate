@@ -13,7 +13,7 @@ Widget profileAvatar(BuildContext context) {
   return Semantics(
     label: AppLocalizations.of(context)!.userProfile,
     child: GestureDetector(
-      onTap: () => context.go(RoutePaths.profile),
+      onTap: () => context.push(RoutePaths.profile),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_10,

@@ -49,19 +49,19 @@ class FriendsController extends GetxController {
     final userFCMToken = await firebaseMessaging.getToken();
 
     final friendModel = FriendsModel(
-      senderId: authStateController.uid!,
+      senderId: authStateController.uid,
       recieverId: recieverId,
       senderProfileImgUrl: authStateController.profileImageUrl!,
       recieverProfileImgUrl: recieverProfileImageUrl,
       senderUsername: authStateController.userName!,
       recieverUsername: recieverUsername,
-      senderName: authStateController.displayName!,
+      senderName: authStateController.displayName,
       recieverName: recieverName,
       requestStatus: FriendRequestStatus.sent,
-      requestSentByUserId: authStateController.uid!,
+      requestSentByUserId: authStateController.uid,
       docId: docId,
       senderFCMToken: userFCMToken,
-      users: [authStateController.uid!, recieverId],
+      users: [authStateController.uid, recieverId],
       senderRating:
           authStateController.ratingTotal / authStateController.ratingCount,
       recieverRating: recieverRating,
@@ -95,7 +95,7 @@ class FriendsController extends GetxController {
     final userDoc = await tables.getRow(
       databaseId: userDatabaseID,
       tableId: usersTableID,
-      rowId: authStateController.uid!,
+      rowId: authStateController.uid,
       queries: [
         Query.select(["*", "friends.*"]),
       ],
