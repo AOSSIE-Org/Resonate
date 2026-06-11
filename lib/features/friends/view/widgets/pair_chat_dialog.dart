@@ -1,18 +1,53 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:resonate/l10n/app_localizations.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
-import 'package:resonate/controllers/pair_chat_controller.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/core/container.dart';
+import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
-Future<dynamic> buildPairChatDialog(BuildContext context) {
-  final PairChatController controller = Get.find<PairChatController>();
+Future<void> showPairChatDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    useRootNavigator: true,
+    builder: (_) => const PairChatDialog(),
+  );
+}
 
-  return Get.dialog(
-    Dialog(
+class PairChatDialog extends ConsumerWidget {
+  const PairChatDialog({super.key});
+
+  Future<void> _startFlow(
+    BuildContext context, {
+    required Future<void> Function() request,
+    required String destination,
+  }) async {
+    final router = GoRouter.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    Navigator.of(context, rootNavigator: true).pop();
+    try {
+      await request();
+      router.push(destination);
+    } catch (e) {
+      log('Pair chat request failed: $e');
+      customSnackbar(l10n.error, e.toString(), LogType.error);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isAnonymous =
+        ref.watch(pairChatProvider.select((s) => s.isAnonymous));
+    final notifier = ref.read(pairChatProvider.notifier);
+
+    return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 12,
@@ -51,72 +86,69 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
             const SizedBox(height: 16),
 
             // Anonymous and Authenticated Buttons
-            Obx(
-              () => Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => controller.isAnonymous.value = true,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: controller.isAnonymous.value
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(
-                                context,
-                              ).colorScheme.surfaceContainerHighest,
-                        elevation: controller.isAnonymous.value ? 6 : 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => notifier.setAnonymous(true),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isAnonymous
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(
+                              context,
+                            ).colorScheme.surfaceContainerHighest,
+                      elevation: isAnonymous ? 6 : 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Text(
-                        AppLocalizations.of(context)!.anonymous,
-                        style: TextStyle(
-                          color: controller.isAnonymous.value
-                              ? Theme.of(context).colorScheme.onPrimary
-                              : Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: UiSizes.size_12,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.fade,
-                        ),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    child: Text(
+                      AppLocalizations.of(context)!.anonymous,
+                      style: TextStyle(
+                        color: isAnonymous
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: UiSizes.size_12,
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.fade,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => controller.isAnonymous.value = false,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: !controller.isAnonymous.value
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(
-                                context,
-                              ).colorScheme.surfaceContainerHigh,
-                        elevation: !controller.isAnonymous.value ? 6 : 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 14,
-                          horizontal: 5,
-                        ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => notifier.setAnonymous(false),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: !isAnonymous
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(
+                              context,
+                            ).colorScheme.surfaceContainerHigh,
+                      elevation: !isAnonymous ? 6 : 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Text(
-                        requireCurrentAuthUser.displayName,
-                        // "asjdwwwwwassdawdhausduuawhdaub",
-                        style: TextStyle(
-                          color: !controller.isAnonymous.value
-                              ? Theme.of(context).colorScheme.onPrimary
-                              : Theme.of(context).colorScheme.onSurfaceVariant,
-                          fontSize: UiSizes.size_12,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 14,
+                        horizontal: 5,
+                      ),
+                    ),
+                    child: Text(
+                      requireCurrentAuthUser.displayName,
+                      style: TextStyle(
+                        color: !isAnonymous
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: UiSizes.size_12,
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(height: 24),
 
@@ -142,14 +174,17 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
               ),
               onValuePicked: (Language language) {
                 log(language.isoCode);
-                controller.languageIso = language.isoCode;
+                notifier.setLanguage(language.isoCode);
               },
             ),
             const SizedBox(height: 28),
 
-            // Resonate Button styled like Anonymous button
             ElevatedButton(
-              onPressed: controller.quickMatch,
+              onPressed: () => _startFlow(
+                context,
+                request: notifier.quickMatch,
+                destination: RoutePaths.pairing,
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 6,
@@ -177,7 +212,11 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
             ),
 
             ElevatedButton(
-              onPressed: controller.choosePartner,
+              onPressed: () => _startFlow(
+                context,
+                request: notifier.choosePartner,
+                destination: RoutePaths.pairChatUsers,
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 6,
@@ -201,6 +240,6 @@ Future<dynamic> buildPairChatDialog(BuildContext context) {
           ],
         ),
       ),
-    ),
-  );
+    );
+  }
 }

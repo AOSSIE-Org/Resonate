@@ -6,14 +6,16 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
-import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
+import 'package:resonate/features/friends/view/pages/friends_page.dart';
+import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/models/story.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -23,8 +25,6 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/followers_screen.dart';
-import 'package:resonate/views/screens/friend_requests_screen.dart';
-import 'package:resonate/views/screens/friends_screen.dart';
 import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -46,7 +46,6 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   final themeController = Get.find<ThemeController>();
   final exploreStoryController = Get.find<ExploreStoryController>();
-  final friendsController = Get.find<FriendsController>();
 
   bool get _isCreator => widget.isCreatorProfile == true;
   String get _creatorId => widget.creator!.uid!;
@@ -68,7 +67,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        builder: (_) => FriendRequestsScreen(),
+                        builder: (_) => const FriendRequestsPage(),
                       ),
                     );
                   },
@@ -77,7 +76,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute<void>(builder: (_) => FriendsScreen()),
+                      MaterialPageRoute<void>(
+                        builder: (_) => const FriendsPage(),
+                      ),
                     );
                   },
                   icon: const Icon(Icons.groups),
@@ -85,9 +86,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               ]
             : null,
       ),
-      body: Obx(() {
+      body: Builder(builder: (context) {
         final loading = (profileAsync?.isLoading ?? false) ||
-            friendsController.isLoadingFriends.value;
+            ref.watch(friendsProvider).isLoading;
         if (loading || authUser == null) {
           return Center(
             child: SizedBox(
@@ -357,94 +358,86 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
   Widget _buildFriendButton(BuildContext context, ColorScheme colorScheme) {
     final l10n = AppLocalizations.of(context)!;
-    return Obx(() {
-      final FriendsModel? friendModel = friendsController.friendsList
-              .firstWhereOrNull(
-            (friend) =>
-                friend.senderId == widget.creator!.uid ||
-                friend.recieverId == widget.creator!.uid,
-          ) ??
-          friendsController.friendRequestsList.firstWhereOrNull(
-            (friend) =>
-                friend.senderId == widget.creator!.uid ||
-                friend.recieverId == widget.creator!.uid,
+    final friendsState = ref.watch(friendsProvider).value;
+    final FriendsModel? friendModel =
+        friendsState?.relationWith(widget.creator!.uid!);
+    final friendsNotifier = ref.read(friendsProvider.notifier);
+
+    return ElevatedButton(
+      onPressed: () async {
+        if (friendModel == null) {
+          await friendsNotifier.sendFriendRequest(
+            recieverId: widget.creator!.uid!,
+            recieverProfileImageUrl: widget.creator!.profileImageUrl!,
+            recieverUsername: widget.creator!.userName!,
+            recieverName: widget.creator!.name!,
+            recieverRating: widget.creator!.userRating!,
           );
-      return ElevatedButton(
-        onPressed: () async {
-          if (friendModel == null) {
-            await friendsController.sendFriendRequest(
-              widget.creator!.uid!,
-              widget.creator!.profileImageUrl!,
-              widget.creator!.userName!,
-              widget.creator!.name!,
-              widget.creator!.userRating!,
-            );
+          customSnackbar(
+            l10n.friendRequestSent,
+            l10n.friendRequestSentTo(widget.creator!.name!),
+            LogType.success,
+          );
+        } else {
+          if (friendModel.requestStatus == FriendRequestStatus.sent &&
+              friendModel.senderId == widget.creator!.uid) {
+            await friendsNotifier.acceptFriendRequest(friendModel);
             customSnackbar(
-              l10n.friendRequestSent,
-              l10n.friendRequestSentTo(widget.creator!.name!),
+              l10n.friendRequestAccepted,
+              l10n.friendRequestAcceptedTo(widget.creator!.name!),
               LogType.success,
             );
           } else {
-            if (friendModel.requestStatus == FriendRequestStatus.sent &&
-                friendModel.senderId == widget.creator!.uid) {
-              await friendsController.acceptFriendRequest(friendModel);
-              customSnackbar(
-                l10n.friendRequestAccepted,
-                l10n.friendRequestAcceptedTo(widget.creator!.name!),
-                LogType.success,
-              );
-            } else {
-              try {
-                await friendsController.removeFriend(friendModel);
-              } catch (e) {
-                log(e.toString());
-              }
-              customSnackbar(
-                l10n.friendRequestCancelled,
-                l10n.friendRequestCancelledTo(widget.creator!.name!),
-                LogType.info,
-              );
+            try {
+              await friendsNotifier.removeFriend(friendModel);
+            } catch (e) {
+              log(e.toString());
             }
+            customSnackbar(
+              l10n.friendRequestCancelled,
+              l10n.friendRequestCancelledTo(widget.creator!.name!),
+              LogType.info,
+            );
           }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: friendModel != null
-              ? (friendModel.requestStatus == FriendRequestStatus.sent
-                  ? colorScheme.primary
-                  : colorScheme.secondary)
-              : colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: colorScheme.primary),
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: friendModel != null
+            ? (friendModel.requestStatus == FriendRequestStatus.sent
+                ? colorScheme.primary
+                : colorScheme.secondary)
+            : colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+          side: BorderSide(color: colorScheme.primary),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            friendModel != null
+                ? (friendModel.requestStatus == FriendRequestStatus.sent
+                    ? Icons.check
+                    : Icons.people)
+                : Icons.add,
+            color: colorScheme.onPrimary,
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              friendModel != null
-                  ? (friendModel.requestStatus == FriendRequestStatus.sent
-                      ? Icons.check
-                      : Icons.people)
-                  : Icons.add,
-              color: colorScheme.onPrimary,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              friendModel != null
-                  ? (friendModel.requestStatus == FriendRequestStatus.sent
-                      ? friendModel.senderId == widget.creator!.uid
-                          ? l10n.accept
-                          : l10n.requested
-                      : l10n.friends)
-                  : l10n.addFriend,
-              style: TextStyle(color: colorScheme.onPrimary),
-            ),
-          ],
-        ),
-      );
-    });
+          const SizedBox(width: 8),
+          Text(
+            friendModel != null
+                ? (friendModel.requestStatus == FriendRequestStatus.sent
+                    ? friendModel.senderId == widget.creator!.uid
+                        ? l10n.accept
+                        : l10n.requested
+                    : l10n.friends)
+                : l10n.addFriend,
+            style: TextStyle(color: colorScheme.onPrimary),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildStoriesSection(

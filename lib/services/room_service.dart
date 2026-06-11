@@ -67,18 +67,4 @@ class RoomService {
     String? livekitToken = await storage.read(key: "createdRoomAdminToken");
     await apiService.deleteLiveChapterRoom(roomId, livekitToken!);
   }
-
-  static Future<void> joinLivekitPairChat({
-    required roomId,
-    required String userId,
-  }) async {
-    var response = await apiService.joinRoom(roomId, userId);
-    String livekitToken = response["access_token"];
-    String livekitSocketUrl =
-        response["livekit_socket_url"] == "wss://host.docker.internal:7880"
-        ? localhostLivekitEndpoint
-        : response["livekit_socket_url"];
-
-    await joinLiveKitRoom(livekitSocketUrl, livekitToken);
-  }
 }

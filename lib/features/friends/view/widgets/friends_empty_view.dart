@@ -8,10 +8,10 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
-class FriendsEmptyState extends StatelessWidget {
+class FriendsEmptyView extends StatelessWidget {
   final bool isRequestsScreen;
 
-  const FriendsEmptyState({super.key, required this.isRequestsScreen});
+  const FriendsEmptyView({super.key, required this.isRequestsScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,8 @@ class FriendsEmptyState extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () {
+                        // TabViewController is still GetX; bridge until the
+                        // tab shell migrates.
                         Get.find<TabViewController>().setIndex(1);
                         appRouter.go(RoutePaths.tabview);
                       },

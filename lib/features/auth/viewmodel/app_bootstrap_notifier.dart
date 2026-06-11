@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/friend_calling_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/callkit_service.dart';
 import 'package:resonate/features/auth/data/notification_service.dart';
+import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,7 +46,9 @@ class AppBootstrap extends _$AppBootstrap {
       log('Got a message whilst in the foreground!');
       if (message.data['type'] == 'incoming_call') {
         log('saw incoming call');
-        await FriendCallingController.onCallRecieved(message);
+        if (!Get.testMode) {
+          await ref.read(callKitServiceProvider).showIncomingCall(message);
+        }
         return;
       }
       final notification = message.notification;
@@ -67,14 +69,12 @@ class AppBootstrap extends _$AppBootstrap {
     ref.onDispose(fcmSub.cancel);
 
     if (!Get.testMode) {
-      final friendCalling = Get.put(
-        FriendCallingController(),
-        permanent: true,
-      );
-      final callKit = CallKitService()
+      final callKit = ref.read(callKitServiceProvider)
         ..start(
-          onAccept: friendCalling.onAnswerCall,
-          onDecline: friendCalling.onDeclinedCall,
+          onAccept: (extra) =>
+              ref.read(friendCallProvider.notifier).onAnswerCall(extra),
+          onDecline: (extra) =>
+              ref.read(friendCallProvider.notifier).onDeclinedCall(extra),
         );
       ref.onDispose(callKit.stop);
     }

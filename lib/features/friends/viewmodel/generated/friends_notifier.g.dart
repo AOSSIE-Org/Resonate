@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../app_bootstrap_notifier.dart';
+part of '../friends_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,43 @@ part of '../app_bootstrap_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(AppBootstrap)
-final appBootstrapProvider = AppBootstrapProvider._();
+@ProviderFor(FriendsNotifier)
+final friendsProvider = FriendsNotifierProvider._();
 
-final class AppBootstrapProvider
-    extends $AsyncNotifierProvider<AppBootstrap, void> {
-  AppBootstrapProvider._()
+final class FriendsNotifierProvider
+    extends $AsyncNotifierProvider<FriendsNotifier, FriendsState> {
+  FriendsNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'appBootstrapProvider',
+        name: r'friendsProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$appBootstrapHash();
+  String debugGetCreateSourceHash() => _$friendsNotifierHash();
 
   @$internal
   @override
-  AppBootstrap create() => AppBootstrap();
+  FriendsNotifier create() => FriendsNotifier();
 }
 
-String _$appBootstrapHash() => r'8afd1f515606f71be4768a187983a2a018104d8e';
+String _$friendsNotifierHash() => r'd733b9710d32f97d4ef58eff07f3a6b8d8c1ddd0';
 
-abstract class _$AppBootstrap extends $AsyncNotifier<void> {
-  FutureOr<void> build();
+abstract class _$FriendsNotifier extends $AsyncNotifier<FriendsState> {
+  FutureOr<FriendsState> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final ref = this.ref as $Ref<AsyncValue<FriendsState>, FriendsState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<void>, void>,
-              AsyncValue<void>,
+              AnyNotifier<AsyncValue<FriendsState>, FriendsState>,
+              AsyncValue<FriendsState>,
               Object?,
               Object?
             >;

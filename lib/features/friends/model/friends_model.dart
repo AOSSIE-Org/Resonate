@@ -40,7 +40,7 @@ abstract class FriendsModel with _$FriendsModel {
 
       userRating: recieverRating!,
       // Note: email, dateOfBirth are not available in FollowerUserModel
-      // so they will be null in the converted ResonateUser
+      // so they will be null in the converted ResonateUser (Legacy Structure)
       email: null,
       dateOfBirth: null,
     );
@@ -56,7 +56,7 @@ abstract class FriendsModel with _$FriendsModel {
 
       userRating: senderRating!,
       // Note: email, dateOfBirth are not available in FollowerUserModel
-      // so they will be null in the converted ResonateUser
+      // so they will be null in the converted ResonateUser (Legacy Structure)
       email: null,
       dateOfBirth: null,
     );

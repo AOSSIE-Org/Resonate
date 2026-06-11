@@ -57,6 +57,9 @@ class LiveKitNotifier extends _$LiveKitNotifier {
   Future<void> setMicrophoneEnabled(bool enabled) =>
       _session?.setMicrophoneEnabled(enabled) ?? Future.value();
 
+  Future<void> setSpeakerphoneOn(bool enabled) =>
+      Hardware.instance.setSpeakerphoneOn(enabled);
+
   Future<void> setRecording(bool recording) async {
     await _session?.setRecording(recording);
     state = state.copyWith(isRecording: recording);
