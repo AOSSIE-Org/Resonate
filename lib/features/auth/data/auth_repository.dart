@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/enums.dart';
@@ -41,7 +42,7 @@ class AuthRepository {
   final Functions _functions;
   final FirebaseMessaging _messaging;
 
-  // Session 
+  // Session
   Future<AuthState> loadCurrentUser() async {
     final appwrite_models.User user;
     try {
@@ -65,38 +66,56 @@ class AuthRepository {
       );
     }
 
-    final row = await _tables.getRow(
-      databaseId: userDatabaseID,
-      tableId: usersTableID,
-      rowId: user.$id,
-      queries: [
-        Query.select(['*', 'followers.*', 'userReports.*']),
-      ],
-    );
+    try {
+      final row = await _tables.getRow(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        rowId: user.$id,
+        queries: [
+          Query.select(['*', 'followers.*', 'userReports.*']),
+        ],
+      );
 
-    final followers = (row.data['followers'] as List<dynamic>? ?? const [])
-        .map((e) => FollowerUserModel.fromJson(e as Map<String, dynamic>))
-        .toList();
-    final reportsCount =
-        (row.data['userReports'] as List<dynamic>? ?? const []).length;
+      final followers = (row.data['followers'] as List<dynamic>? ?? const [])
+          .map((e) => FollowerUserModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      final reportsCount =
+          (row.data['userReports'] as List<dynamic>? ?? const []).length;
 
-    final authUser = AuthUser(
-      uid: user.$id,
-      email: user.email,
-      displayName: user.name,
-      isEmailVerified: user.emailVerification,
-      isProfileComplete: true,
-      profileImageUrl: row.data['profileImageUrl'] as String?,
-      profileImageID: row.data['profileImageID'] as String?,
-      userName: (row.data['username'] as String?) ?? 'unavailable',
-      ratingTotal: (row.data['ratingTotal'] as num?)?.toDouble() ?? 5,
-      ratingCount: (row.data['ratingCount'] as int?) ?? 1,
-      followers: followers,
-      reportsCount: reportsCount,
-    );
+      final authUser = AuthUser(
+        uid: user.$id,
+        email: user.email,
+        displayName: user.name,
+        isEmailVerified: user.emailVerification,
+        isProfileComplete: true,
+        profileImageUrl: row.data['profileImageUrl'] as String?,
+        profileImageID: row.data['profileImageID'] as String?,
+        userName: (row.data['username'] as String?) ?? 'unavailable',
+        ratingTotal: (row.data['ratingTotal'] as num?)?.toDouble() ?? 5,
+        ratingCount: (row.data['ratingCount'] as int?) ?? 1,
+        followers: followers,
+        reportsCount: reportsCount,
+      );
 
-    if (reportsCount > 5) return AuthState.blocked(authUser);
-    return AuthState.authenticated(authUser);
+      if (reportsCount > 5) return AuthState.blocked(authUser);
+      return AuthState.authenticated(authUser);
+    } catch (e, st) {
+      developer.log(
+        'loadCurrentUser: account ok but profile-row fetch failed; '
+        'keeping session alive with minimal user data',
+        error: e,
+        stackTrace: st,
+      );
+      return AuthState.authenticated(
+        AuthUser(
+          uid: user.$id,
+          email: user.email,
+          displayName: user.name,
+          isEmailVerified: user.emailVerification,
+          isProfileComplete: true,
+        ),
+      );
+    }
   }
 
   Future<void> login({required String email, required String password}) async {
@@ -177,10 +196,7 @@ class AuthRepository {
   }) async {
     var otpId = randomNumeric(10) + email;
     otpId = otpId.split('@')[0];
-
-    await _account.updatePrefs(
-      prefs: {'otp_ID': otpId, 'isUserProfileComplete': true},
-    );
+    await _account.updatePrefs(prefs: {'otp_ID': otpId});
 
     final response = await _functions.createExecution(
       functionId: sendOtpFunctionID,
@@ -243,97 +259,77 @@ class AuthRepository {
   Future<void> addRegistrationToken({required String uid}) async {
     final fcmToken = await _messaging.getToken();
     if (fcmToken == null) return;
-
-    final subscribed = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
-      tableId: subscribedUserTableId,
-      queries: [
-        Query.equal('userID', [uid]),
-      ],
-    );
-    for (final subscription in subscribed.rows) {
-      final tokens =
-          List<dynamic>.from(subscription.data['registrationTokens'] as List)
-            ..add(fcmToken);
-      await _tables.updateRow(
-        databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserTableId,
-        rowId: subscription.$id,
-        data: {'registrationTokens': tokens},
-      );
-    }
-
-    final created = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
-      tableId: upcomingRoomsTableId,
-      queries: [
-        Query.equal('creatorUid', [uid]),
-      ],
-    );
-    for (final room in created.rows) {
-      final tokens =
-          List<dynamic>.from(room.data['creator_fcm_tokens'] as List)
-            ..add(fcmToken);
-      await _tables.updateRow(
-        databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsTableId,
-        rowId: room.$id,
-        data: {'creator_fcm_tokens': tokens},
-      );
-    }
+    await _mutateFcmTokens(uid: uid, fcmToken: fcmToken, add: true);
   }
 
   Future<void> removeRegistrationToken({required String uid}) async {
     final fcmToken = await _messaging.getToken();
     if (fcmToken == null) return;
+    await _mutateFcmTokens(uid: uid, fcmToken: fcmToken, add: false);
+  }
 
-    final subscribed = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+  Future<void> _mutateFcmTokens({
+    required String uid,
+    required String fcmToken,
+    required bool add,
+  }) async {
+    Future<void> mutate({
+      required String tableId,
+      required String fieldName,
+      required String queryField,
+    }) async {
+      final rows = await _tables.listRows(
+        databaseId: upcomingRoomsDatabaseId,
+        tableId: tableId,
+        queries: [
+          Query.equal(queryField, [uid]),
+        ],
+      );
+      for (final row in rows.rows) {
+        final existing = List<dynamic>.from(
+          (row.data[fieldName] as List?) ?? const [],
+        );
+        if (add) {
+          if (existing.contains(fcmToken)) continue; // already there
+          existing.add(fcmToken);
+        } else {
+          if (!existing.contains(fcmToken)) continue; // nothing to remove
+          existing.remove(fcmToken);
+        }
+        await _tables.updateRow(
+          databaseId: upcomingRoomsDatabaseId,
+          tableId: tableId,
+          rowId: row.$id,
+          data: {fieldName: existing},
+        );
+      }
+    }
+
+    await mutate(
       tableId: subscribedUserTableId,
-      queries: [
-        Query.equal('userID', [uid]),
-      ],
+      fieldName: 'registrationTokens',
+      queryField: 'userID',
     );
-    for (final subscription in subscribed.rows) {
-      final tokens =
-          List<dynamic>.from(subscription.data['registrationTokens'] as List)
-            ..remove(fcmToken);
-      await _tables.updateRow(
-        databaseId: upcomingRoomsDatabaseId,
-        tableId: subscribedUserTableId,
-        rowId: subscription.$id,
-        data: {'registrationTokens': tokens},
-      );
-    }
-
-    final created = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+    await mutate(
       tableId: upcomingRoomsTableId,
-      queries: [
-        Query.equal('creatorUid', [uid]),
-      ],
+      fieldName: 'creator_fcm_tokens',
+      queryField: 'creatorUid',
     );
-    for (final room in created.rows) {
-      final tokens =
-          List<dynamic>.from(room.data['creator_fcm_tokens'] as List)
-            ..remove(fcmToken);
-      await _tables.updateRow(
-        databaseId: upcomingRoomsDatabaseId,
-        tableId: upcomingRoomsTableId,
-        rowId: room.$id,
-        data: {'creator_fcm_tokens': tokens},
-      );
-    }
   }
 
   // Error mapping
 
   AuthFailure _mapException(AppwriteException e) {
-    return switch (e.type) {
-      userInvalidCredentials => const AuthFailure.invalidCredentials(),
-      generalArgumentInvalid => const AuthFailure.passwordTooShort(),
-      'user_already_exists' => const AuthFailure.userAlreadyExists(),
-      _ => AuthFailure.unknown(e.message ?? e.toString()),
-    };
+    if (e.type == userInvalidCredentials) {
+      return const AuthFailure.invalidCredentials();
+    }
+    if (e.type == 'user_already_exists') {
+      return const AuthFailure.userAlreadyExists();
+    }
+    if (e.type == generalArgumentInvalid &&
+        (e.message?.toLowerCase().contains('password') ?? false)) {
+      return const AuthFailure.passwordTooShort();
+    }
+    return AuthFailure.unknown(e.message ?? e.toString());
   }
 }

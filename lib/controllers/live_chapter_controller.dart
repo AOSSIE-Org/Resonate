@@ -76,9 +76,9 @@ class LiveChapterController extends GetxController {
     try {
       final liveChapterData = LiveChapterModel(
         livekitRoomId: roomId,
-        authorUid: authStateController.uid!,
+        authorUid: authStateController.uid,
         authorProfileImageUrl: authStateController.profileImageUrl!,
-        authorName: authStateController.displayName!,
+        authorName: authStateController.displayName,
         chapterTitle: chapterTitle,
         chapterDescription: chapterDescription,
         storyId: storyId,
@@ -106,7 +106,7 @@ class LiveChapterController extends GetxController {
       );
       await RoomService.createLiveChapterRoom(
         appwriteRoomId: liveChapterData.livekitRoomId,
-        adminUid: authStateController.uid!,
+        adminUid: authStateController.uid,
       );
       liveChapterModel.value = liveChapterData;
       if (authStateController.followers.isNotEmpty) {
@@ -144,12 +144,12 @@ class LiveChapterController extends GetxController {
           ...liveChapterData.attendees!.users.map(
             (element) => element["\$id"] as String,
           ),
-          authStateController.uid!,
+          authStateController.uid,
         ],
         users: [
           ...liveChapterData.attendees!.users,
           {
-            "\$id": authStateController.uid!,
+            "\$id": authStateController.uid,
             "name": authStateController.displayName,
             "profileImageUrl": authStateController.profileImageUrl,
           },
@@ -169,7 +169,7 @@ class LiveChapterController extends GetxController {
       );
       await RoomService.joinLiveChapterRoom(
         roomId: roomId,
-        userId: authStateController.uid!,
+        userId: authStateController.uid,
       );
       listenForAttendeesAdded();
       appRouter.push(RoutePaths.liveChapterScreen);
@@ -186,7 +186,7 @@ class LiveChapterController extends GetxController {
 
   bool get isAdmin {
     if (liveChapterModel.value == null) return false;
-    return liveChapterModel.value!.authorUid == authStateController.uid!;
+    return liveChapterModel.value!.authorUid == authStateController.uid;
   }
 
   Future<void> turnOnMic() async {
@@ -217,10 +217,10 @@ class LiveChapterController extends GetxController {
         .attendees!
         .copyWith(
           users: liveChapterModel.value!.attendees!.users
-              .where((element) => element["\$id"] != authStateController.uid!)
+              .where((element) => element["\$id"] != authStateController.uid)
               .toList(),
           userIds: liveChapterModel.value!.attendees!.userIds!
-              .where((element) => element != authStateController.uid!)
+              .where((element) => element != authStateController.uid)
               .toList(),
         );
     await tables.updateRow(

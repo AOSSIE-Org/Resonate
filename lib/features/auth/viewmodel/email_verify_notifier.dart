@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:resonate/features/auth/data/auth_repository.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,11 +39,21 @@ class EmailVerify extends _$EmailVerify {
     required String email,
   }) async {
     final result = await ref.read(authRepositoryProvider).sendOtp(email: email);
-    final sent = result.responseBody == '{"message":"mail sent"}';
+    final sent = _otpResponseLooksSuccessful(result.responseBody);
     if (sent) {
       state = state.copyWith(canResend: false);
     }
     return (sent: sent, responseBody: result.responseBody);
+  }
+  
+  bool _otpResponseLooksSuccessful(String body) {
+    try {
+      final decoded = jsonDecode(body);
+      return decoded is Map &&
+          decoded['message']?.toString().toLowerCase() == 'mail sent';
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<void> verifyOtp({

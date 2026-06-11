@@ -7,7 +7,7 @@ import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friends_model.dart';
 import 'package:resonate/utils/enums/log_type.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class FriendsListTile extends StatelessWidget {
@@ -31,7 +31,7 @@ class FriendsListTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfileScreen(
+            builder: (context) => ProfilePage(
               creator: userIsSender
                   ? friendModel.recieverToResonateUserForRequestsPage()
                   : friendModel.senderToResonateUserForRequestsPage(),

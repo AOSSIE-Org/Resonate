@@ -154,19 +154,53 @@ void main() {
       );
     });
 
-    test('generalArgumentInvalid → AuthFailure.passwordTooShort', () async {
-      when(
-        account.createEmailPasswordSession(
-          email: 'a@b.c',
-          password: 'short',
-        ),
-      ).thenThrow(AppwriteException('short', 400, generalArgumentInvalid));
+    test(
+      'generalArgumentInvalid w/ password-related message → '
+      'AuthFailure.passwordTooShort',
+      () async {
+        when(
+          account.createEmailPasswordSession(
+            email: 'a@b.c',
+            password: 'short',
+          ),
+        ).thenThrow(
+          AppwriteException(
+            'Password must be at least 8 characters',
+            400,
+            generalArgumentInvalid,
+          ),
+        );
 
-      expect(
-        () => repo.login(email: 'a@b.c', password: 'short'),
-        throwsA(isA<AuthFailurePasswordTooShort>()),
-      );
-    });
+        expect(
+          () => repo.login(email: 'a@b.c', password: 'short'),
+          throwsA(isA<AuthFailurePasswordTooShort>()),
+        );
+      },
+    );
+
+    test(
+      'generalArgumentInvalid w/ unrelated message → AuthFailure.unknown '
+      '(no longer mis-mapped to passwordTooShort)',
+      () async {
+        when(
+          account.createEmailPasswordSession(
+            email: 'bad-email',
+            password: 'pw',
+          ),
+        ).thenThrow(
+          AppwriteException(
+            'Invalid `email` param',
+            400,
+            generalArgumentInvalid,
+          ),
+        );
+
+        expect(
+          () => repo.login(email: 'bad-email', password: 'pw'),
+          throwsA(isA<AuthFailureUnknown>()),
+        );
+      },
+    );
 
     test('user_already_exists → AuthFailure.userAlreadyExists', () async {
       when(

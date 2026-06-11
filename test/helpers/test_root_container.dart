@@ -10,6 +10,7 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/auth/data/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
@@ -20,7 +21,8 @@ import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 
-// Mocks shared by every notifier/repo test in the suite.
+// Mocks shared across every notifier/repo test in the suite. Generated to
+// `test_root_container.mocks.dart` by `dart run build_runner build`.
 @GenerateMocks([
   Account,
   TablesDB,
@@ -30,7 +32,9 @@ import 'package:resonate/utils/enums/room_state.dart';
   FirebaseMessaging,
   Execution,
 ])
-// Data builders
+//
+// ─── Data builders ──────────────────────────────────────────────────────────
+//
 
 AuthUser fakeAuthUser({
   String uid = '123',
@@ -129,6 +133,9 @@ Participant fakeParticipant({
       hasRequestedToBeSpeaker: hasRequestedToBeSpeaker,
     );
 
+/// Stubs the `flutter_secure_storage` method channel so writes/reads succeed
+/// in unit tests (the plugin normally calls into native code). Call from a
+/// `setUp()` in any test where the code path touches secure storage.
 void stubFlutterSecureStorageChannel() {
   TestWidgetsFlutterBinding.ensureInitialized();
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
@@ -138,6 +145,7 @@ void stubFlutterSecureStorageChannel() {
   );
 }
 
+/// Convenience builder for fake Appwrite [Row]s in tests.
 Row buildRow({
   required String id,
   required Map<String, dynamic> data,
@@ -155,6 +163,12 @@ Row buildRow({
       data: data,
     );
 
+//
+// ─── In-memory SDK stand-ins ────────────────────────────────────────────────
+//
+
+/// In-memory implementation of [GetStorage] used by `UpcomingRoomsNotifier`
+/// to track which upcoming rooms the user has hidden.
 class FakeGetStorage implements GetStorage {
   final Map<String, dynamic> _data = {};
 
@@ -185,6 +199,7 @@ class FakeGetStorage implements GetStorage {
       );
 }
 
+/// Stub LiveKit notifier that never touches the network.
 class FakeLiveKitNotifier extends LiveKitNotifier {
   @override
   LiveKitState build() => const LiveKitState();
@@ -213,6 +228,9 @@ class FakeLiveKitNotifier extends LiveKitNotifier {
   }
 }
 
+/// Stub auth notifier — used by tests that just need an auth context but
+/// don't want to wire up the full Appwrite SDK to make `loadCurrentUser()`
+/// return what they want.
 class _StubAuthNotifier extends AuthNotifier {
   _StubAuthNotifier(this._initial);
   final AuthState _initial;
@@ -221,6 +239,77 @@ class _StubAuthNotifier extends AuthNotifier {
   Future<AuthState> build() async => _initial;
 }
 
+/// Reusable fake [AuthRepository] with counters. Used by the auth view and
+/// profile tests where the goal is to drive auth state without spinning up
+/// the full Appwrite SDK. Newer tests prefer the real `AuthRepository` with
+/// mocked SDK — both patterns are supported.
+class FakeAuthRepository implements AuthRepository {
+  FakeAuthRepository(this.state);
+
+  AuthState state;
+  int loadCount = 0;
+  int loginCount = 0;
+  int signupCount = 0;
+  int logoutCount = 0;
+  int addTokenCount = 0;
+  int removeTokenCount = 0;
+
+  @override
+  Future<AuthState> loadCurrentUser() async {
+    loadCount++;
+    return state;
+  }
+
+  @override
+  Future<void> login({required String email, required String password}) async {
+    loginCount++;
+  }
+
+  @override
+  Future<void> signup({required String email, required String password}) async {
+    signupCount++;
+  }
+
+  @override
+  Future<void> logout() async {
+    logoutCount++;
+  }
+
+  @override
+  Future<void> loginWithGoogle() async {}
+
+  @override
+  Future<void> loginWithGithub() async {}
+
+  @override
+  Future<void> addRegistrationToken({required String uid}) async {
+    addTokenCount++;
+  }
+
+  @override
+  Future<void> removeRegistrationToken({required String uid}) async {
+    removeTokenCount++;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
+        '${invocation.memberName} not stubbed in FakeAuthRepository',
+      );
+}
+
+//
+// ─── installTestRootContainer ───────────────────────────────────────────────
+//
+
+/// Installs the global `rootContainer` for tests. Pass mocked Appwrite SDK
+/// objects via the named params; they back the *real* repositories.
+///
+/// Three ways to provide auth context:
+///  - [authRepository]: explicit fake repo (legacy auth/profile tests).
+///  - [authState]: overrides `authProvider` directly via [_StubAuthNotifier].
+///  - [account]: real `AuthRepository` runs against your mocked `Account`/
+///    `TablesDB`, suitable for tests that want to verify `loadCurrentUser`
+///    was called.
 Future<ProviderContainer> installTestRootContainer({
   AuthState? authState,
   Account? account,
@@ -230,11 +319,14 @@ Future<ProviderContainer> installTestRootContainer({
   Functions? functions,
   Realtime? realtime,
   FirebaseMessaging? messaging,
+  FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
 }) async {
   final container = ProviderContainer(
     overrides: [
-      if (authState != null)
+      if (authRepository != null)
+        authRepositoryProvider.overrideWithValue(authRepository),
+      if (authRepository == null && authState != null)
         authProvider.overrideWith(() => _StubAuthNotifier(authState)),
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
@@ -252,7 +344,8 @@ Future<ProviderContainer> installTestRootContainer({
     ],
   );
   setRootContainerForTesting(container);
-  if (authState != null || account != null) {
+  // Warm authProvider when any of the auth-providing inputs is supplied.
+  if (authRepository != null || authState != null || account != null) {
     await container.read(authProvider.future);
   }
   addTearDown(container.dispose);

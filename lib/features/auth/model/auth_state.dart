@@ -7,13 +7,10 @@ part 'generated/auth_state.freezed.dart';
 sealed class AuthState with _$AuthState {
   const AuthState._();
 
-  // Initial state before the first session check completes.
-  const factory AuthState.unknown() = AuthStateUnknown;
-  
   // No active Appwrite session.
   const factory AuthState.unauthenticated() = AuthStateUnauthenticated;
-  
-  // Session exists but the user has not finished onboarding  
+
+  // Session exists but the user has not finished onboarding.
   const factory AuthState.needsOnboarding(AuthUser user) =
       AuthStateNeedsOnboarding;
 
@@ -26,7 +23,7 @@ sealed class AuthState with _$AuthState {
 
   // True for any state that carries an [AuthUser].
   bool get hasSession => switch (this) {
-    AuthStateUnknown() || AuthStateUnauthenticated() => false,
+    AuthStateUnauthenticated() => false,
     _ => true,
   };
 

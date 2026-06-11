@@ -97,30 +97,40 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
                     label: AppLocalizations.of(context)!.audioRoom,
                     labelStyle: TextStyle(fontSize: UiSizes.size_14),
                     onTap: () async {
-                      if (requireCurrentAuthUser.isEmailVerified) {
+                      final user = currentAuthUser;
+                      if (user == null) return;
+                      if (user.isEmailVerified) {
                         _tabController.setIndex(2);
-                      } else {
-                        AppUtils.showDialog(
-                          context: context,
-                          title: AppLocalizations.of(
-                            context,
-                          )!.emailVerificationRequired,
-                          middleText: AppLocalizations.of(
-                            context,
-                          )!.emailVerificationMessage,
-                          onFirstBtnPressed: () {
-                            Navigator.of(context).pop();
-                            rootContainer
-                                .read(emailVerifyProvider.notifier)
-                                .sendOtp(
-                                  email: requireCurrentAuthUser.email,
-                                );
-                            AppUtils.showBlurredLoaderDialog(context);
-                          },
-                          onSecondBtnPressed: () => Navigator.of(context).pop(),
-                          firstBtnText: AppLocalizations.of(context)!.verify,
-                        );
+                        return;
                       }
+                      AppUtils.showDialog(
+                        context: context,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationRequired,
+                        middleText: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationMessage,
+                        onFirstBtnPressed: () async {
+                          final navigator = Navigator.of(
+                            context,
+                            rootNavigator: true,
+                          );
+                          final router = GoRouter.of(context);
+                          Navigator.of(context).pop();
+                          AppUtils.showBlurredLoaderDialog(context);
+                          final result = await rootContainer
+                              .read(emailVerifyProvider.notifier)
+                              .sendOtp(email: user.email);
+                          navigator.pop();
+
+                          if (result.sent) {
+                            router.push(RoutePaths.emailVerification);
+                          }
+                        },
+                        onSecondBtnPressed: () => Navigator.of(context).pop(),
+                        firstBtnText: AppLocalizations.of(context)!.verify,
+                      );
                     },
                   ),
                   SpeedDialChild(

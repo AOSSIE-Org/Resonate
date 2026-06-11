@@ -6,26 +6,22 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/views/screens/about_app_screen.dart';
 import 'package:resonate/views/screens/app_preferences_screen.dart';
-import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/contribute_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
-import 'package:resonate/views/screens/delete_account_screen.dart';
-import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/live_chapter_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/verify_chapter_details_screen.dart';
-import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
 import 'package:resonate/views/screens/pair_chat_users_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/ringing_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
@@ -48,12 +44,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) => _redirect(ref, state),
     routes: [
       ...authRoutes,
-
-      // Onboarding (still GetX-backed until profile feature migrates)
-      GoRoute(
-        path: RoutePaths.onboarding,
-        builder: (_, _) => const OnBoardingScreen(),
-      ),
+      ...profileRoutes,
 
       // Main app shell
       GoRoute(
@@ -66,23 +57,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       ...roomsRoutes,
 
-      // Profile & account
-      GoRoute(
-        path: RoutePaths.profile,
-        builder: (_, _) => ProfileScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.editProfile,
-        builder: (_, _) => EditProfileScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.deleteAccount,
-        builder: (_, _) => const DeleteAccountScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.changeEmail,
-        builder: (_, _) => ChangeEmailScreen(),
-      ),
+      // Account (settings remains GetX-backed)
       GoRoute(
         path: RoutePaths.settings,
         builder: (_, _) => SettingsScreen(),
@@ -112,7 +87,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const AppPreferencesScreen(),
       ),
 
-      // Rooms / pair chat / friend calls
+      // Pair chat / friend calls
       GoRoute(
         path: RoutePaths.pairing,
         builder: (_, _) => PairingScreen(),
@@ -159,9 +134,14 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 GoRouter get appRouter => rootContainer.read(routerProvider);
 
-String? _redirect(Ref ref, GoRouterState state) {
-  final auth = ref.read(authProvider).value;
-  return authRedirect(auth, state.uri.path);
+String? _redirect(Ref ref, GoRouterState state) =>
+    redirectForAsyncAuth(ref.read(authProvider), state.uri.path);
+
+String? redirectForAsyncAuth(AsyncValue<AuthState> asyncAuth, String path) {
+  final auth = asyncAuth.hasError
+      ? const AuthState.unauthenticated()
+      : asyncAuth.value;
+  return authRedirect(auth, path);
 }
 
 String? authRedirect(AuthState? auth, String path) {
@@ -177,7 +157,6 @@ String? authRedirect(AuthState? auth, String path) {
       RoutePaths.authOnly.contains(path) ? RoutePaths.tabview : null,
     AuthStateUnauthenticated() =>
       RoutePaths.protected.contains(path) ? RoutePaths.welcome : null,
-    AuthStateUnknown() => null,
   };
 }
 

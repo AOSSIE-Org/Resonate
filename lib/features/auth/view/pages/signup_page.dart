@@ -96,8 +96,15 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: _passwordController,
-                      validator: (value) =>
-                          value!.isEmpty ? l10n.passwordEmpty : null,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return l10n.passwordEmpty;
+                        }
+                        if (!value.isValidPassword()) {
+                          return l10n.passwordRequirements;
+                        }
+                        return null;
+                      },
                       obscureText: !formState.passwordVisible,
                       onChanged: (v) => ref
                           .read(passwordStrengthCheckerProvider.notifier)
