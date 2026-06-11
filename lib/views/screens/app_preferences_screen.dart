@@ -74,6 +74,13 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
     super.initState();
   }
 
+  static const Map<String, Language> _customLanguages = {
+    'raj': Language('raj', 'Rajasthani', 'राजस्थानी'),
+  };
+
+  Language _languageForCode(String code) =>
+      _customLanguages[code] ?? Language.fromIsoCode(code);
+
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: EdgeInsets.only(
@@ -132,9 +139,7 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
               ),
             ),
             child: LanguagePickerDropdown(
-              initialValue: Language.fromIsoCode(
-                Get.locale?.languageCode ?? "en",
-              ),
+              initialValue: _languageForCode(Get.locale?.languageCode ?? "en"),
               onValuePicked: (Language language) async {
                 Get.updateLocale(Locale(language.isoCode));
 
@@ -144,7 +149,7 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
                 );
               },
               languages: AppLocalizations.supportedLocales
-                  .map((locale) => Language.fromIsoCode(locale.languageCode))
+                  .map((locale) => _languageForCode(locale.languageCode))
                   .toList(),
             ),
           ),
