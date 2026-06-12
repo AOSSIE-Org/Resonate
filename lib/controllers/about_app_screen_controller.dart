@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:upgrader/upgrader.dart';
@@ -72,15 +74,21 @@ class AboutAppScreenController extends GetxController {
       final needsUpdate = upgrader.shouldDisplayUpgrade();
       updateAvailable.value = needsUpdate;
       if (needsUpdate && showDialog) {
-        await Get.to(
-          UpgradeAlert(
-            upgrader: upgrader,
-            onIgnore: onIgnore,
-            onLater: onLater,
-            onUpdate: onUpdate,
-            barrierDismissible: false,
-          ),
-        );
+        final ctx = rootNavigatorKey.currentContext;
+        if (ctx != null) {
+          await Navigator.of(ctx, rootNavigator: true).push(
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (_) => UpgradeAlert(
+                upgrader: upgrader,
+                onIgnore: onIgnore,
+                onLater: onLater,
+                onUpdate: onUpdate,
+                barrierDismissible: false,
+              ),
+            ),
+          );
+        }
       }
 
       return needsUpdate

@@ -4,7 +4,9 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/semantics.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/services/appwrite_service.dart';
 
 import '../utils/constants.dart';
@@ -13,18 +15,13 @@ import '../views/widgets/snackbar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class ChangeEmailController extends GetxController {
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  ChangeEmailController({
-    AuthStateController? authStateController,
-    TablesDB? tables,
-    Account? account,
-  }) : authStateController =
-           authStateController ?? Get.find<AuthStateController>(),
-       tables = tables ?? AppwriteService.getTables(),
-       account = account ?? AppwriteService.getAccount();
+  ChangeEmailController({TablesDB? tables, Account? account})
+      : tables = tables ?? AppwriteService.getTables(),
+        account = account ?? AppwriteService.getAccount();
 
   RxBool isPasswordFieldVisible = false.obs;
   RxBool isLoading = false.obs;
@@ -72,7 +69,7 @@ class ChangeEmailController extends GetxController {
       );
 
       // Set user profile in authStateController
-      await authStateController.setUserProfileData();
+      await rootContainer.read(authProvider.notifier).refresh();
 
       return true;
     } on AppwriteException catch (e) {

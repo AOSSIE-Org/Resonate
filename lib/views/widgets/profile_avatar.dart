@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:go_router/go_router.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -11,7 +13,7 @@ Widget profileAvatar(BuildContext context) {
   return Semantics(
     label: AppLocalizations.of(context)!.userProfile,
     child: GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.profile),
+      onTap: () => context.go(RoutePaths.profile),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: UiSizes.width_10,
@@ -33,22 +35,24 @@ Widget profileAvatar(BuildContext context) {
               right: 0,
               top: 0,
               bottom: 0,
-              child: GetBuilder<AuthStateController>(
-                builder: (authStateController) => Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: UiSizes.size_20,
-                    onBackgroundImageError: (exception, stackTrace) =>
-                        const Icon(Icons.person_outline),
-                    backgroundImage:
-                        authStateController.profileImageUrl == null ||
-                            authStateController.profileImageUrl!.isEmpty
-                        ? NetworkImage(
-                            themeController.userProfileImagePlaceholderUrl,
-                          )
-                        : NetworkImage(authStateController.profileImageUrl!),
-                  ),
-                ),
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final user = ref.watch(authProvider).value?.userOrNull;
+                  final url = user?.profileImageUrl;
+                  return Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: UiSizes.size_20,
+                      onBackgroundImageError: (exception, stackTrace) =>
+                          const Icon(Icons.person_outline),
+                      backgroundImage: (url == null || url.isEmpty)
+                          ? NetworkImage(
+                              themeController.userProfileImagePlaceholderUrl,
+                            )
+                          : NetworkImage(url),
+                    ),
+                  );
+                },
               ),
             ),
           ],

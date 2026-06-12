@@ -8,7 +8,8 @@ import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter/material.dart' hide Row;
 import 'package:get/get.dart';
 import 'package:meilisearch/meilisearch.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/models/chapter.dart';
 import 'package:resonate/models/live_chapter_attendees_model.dart';
 import 'package:resonate/models/live_chapter_model.dart';
@@ -21,7 +22,7 @@ import 'package:resonate/utils/enums/story_category.dart';
 class ExploreStoryController extends GetxController {
   final TablesDB tables;
   final Storage storage;
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
   final Functions functions;
   RxList<Story> recommendedStories = <Story>[].obs;
   RxList<Story> userCreatedStories = <Story>[].obs;
@@ -46,13 +47,9 @@ class ExploreStoryController extends GetxController {
   ExploreStoryController({
     TablesDB? tables,
     Storage? storage,
-    AuthStateController? authStateController,
     Functions? functions,
   }) : tables = tables ?? AppwriteService.getTables(),
        storage = storage ?? AppwriteService.getStorage(),
-       authStateController =
-           authStateController ??
-           Get.put<AuthStateController>(AuthStateController()),
        functions = functions ?? AppwriteService.getFunctions();
 
   @override
@@ -428,7 +425,7 @@ class ExploreStoryController extends GetxController {
         },
       );
       //Don't send request to function if no followers
-      if (authStateController.followerDocuments.isNotEmpty) {
+      if (authStateController.followers.isNotEmpty) {
         log('Sending notification for created story');
         var body = json.encode({
           'creatorId': authStateController.uid,

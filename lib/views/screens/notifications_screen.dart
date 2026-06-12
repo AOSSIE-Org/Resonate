@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:resonate/models/notification.dart';
-import 'package:resonate/utils/enums/notification_type.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/models/notification.dart';
+import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import '../../utils/app_images.dart';
 
 class NotificationsScreen extends StatelessWidget {
@@ -33,7 +33,7 @@ class NotificationsScreen extends StatelessWidget {
                 backgroundImage: AssetImage(AppImages.userImage),
               ),
               onTap: () {
-                Get.to(ProfileScreen());
+                context.push(RoutePaths.profile);
               },
             ),
           ),

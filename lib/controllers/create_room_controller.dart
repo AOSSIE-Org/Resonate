@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:textfield_tags/textfield_tags.dart';
@@ -55,12 +55,11 @@ class CreateRoomController extends GetxController {
       isLoading.value = true;
 
       // Create a new room and add current user to participant list as admin and join livekit room
-      AuthStateController authStateController = Get.find<AuthStateController>();
       List<String> newRoomInfo = await RoomService.createRoom(
         roomName: name,
         roomDescription: description,
         roomTags: tags,
-        adminUid: authStateController.uid!,
+        adminUid: requireCurrentAuthUser.uid,
       );
       String newRoomId = newRoomInfo[0];
       String myDocId = newRoomInfo[1];

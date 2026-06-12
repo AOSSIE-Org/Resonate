@@ -5,9 +5,11 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/models/resonate_user.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -35,7 +37,7 @@ class PairChatController extends GetxController {
   final TablesDB tablesDB = AppwriteService.getTables();
   late RealtimeSubscription? subscription;
   RealtimeSubscription? userAddedSubscription;
-  AuthStateController authController = Get.find<AuthStateController>();
+  AuthUser get authController => requireCurrentAuthUser;
 
   RxList<ResonateUser> usersList = <ResonateUser>[].obs;
   final RxBool isUserListLoading = true.obs;
@@ -65,7 +67,7 @@ class PairChatController extends GetxController {
     requestDocId = requestDoc.$id;
 
     // Go to pairing screen
-    Get.toNamed(AppRoutes.pairing);
+    appRouter.push(RoutePaths.pairing);
   }
 
   void choosePartner() async {
@@ -91,7 +93,7 @@ class PairChatController extends GetxController {
       data: requestData,
     );
     requestDocId = requestDoc.$id;
-    Get.toNamed(AppRoutes.pairChatUsers);
+    appRouter.push(RoutePaths.pairChatUsers);
   }
 
   Future<void> convertToRandom() async {
@@ -103,7 +105,7 @@ class PairChatController extends GetxController {
       rowId: requestDocId!,
       data: {'isRandom': true},
     );
-    Get.toNamed(AppRoutes.pairing);
+    appRouter.push(RoutePaths.pairing);
   }
 
   void getRealtimeStream() {
@@ -235,7 +237,7 @@ class PairChatController extends GetxController {
 
   Future<void> joinPairChat(roomId, userId) async {
     await RoomService.joinLivekitPairChat(roomId: roomId, userId: userId);
-    Get.toNamed(AppRoutes.pairChat);
+    appRouter.push(RoutePaths.pairChat);
   }
 
 Future<void> cancelRequest() async {
@@ -255,7 +257,7 @@ Future<void> cancelRequest() async {
   } catch (e) {
     log('Cancel request failed: $e');
   } finally {
-    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+    appRouter.go(RoutePaths.tabview);
   }
 }
   void toggleMic() async {
@@ -285,6 +287,6 @@ Future<void> cancelRequest() async {
     await Get.delete<LiveKitController>(force: true);
 
     await Get.bottomSheet(RatingSheetWidget());
-    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+    appRouter.go(RoutePaths.tabview);
   }
 }

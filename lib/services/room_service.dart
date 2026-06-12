@@ -2,7 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/services/api_service.dart';
@@ -217,7 +217,7 @@ class RoomService {
 
   static Future<bool> leaveRoom({required String roomId}) async {
     RoomsController roomsController = Get.find<RoomsController>();
-    String userId = Get.find<AuthStateController>().uid!;
+    String userId = requireCurrentAuthUser.uid;
 
     Row roomDoc = await roomsController.tablesDB.getRow(
       databaseId: masterDatabaseId,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/controllers/friends_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friends_model.dart';
@@ -23,10 +23,9 @@ class FriendsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final friendsController = Get.find<FriendsController>();
-    final authStateController = Get.find<AuthStateController>();
     final friendCallingController = Get.put(FriendCallingController());
     final RxBool isProcessing = false.obs;
-    final bool userIsSender = friendModel.senderId == authStateController.uid;
+    final bool userIsSender = friendModel.senderId == requireCurrentAuthUser.uid;
     return GestureDetector(
       onTap: () {
         Navigator.push(

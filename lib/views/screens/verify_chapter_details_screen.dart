@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/models/chapter.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -141,7 +142,7 @@ class VerifyChapterDetailsScreenState
     ], liveChapterController.liveChapterModel.value!.storyId);
     await exploreStoryController.fetchUserCreatedStories();
 
-    Get.offAllNamed(AppRoutes.tabview);
+    appRouter.go(RoutePaths.tabview);
     Get.delete<LiveChapterController>();
   }
 

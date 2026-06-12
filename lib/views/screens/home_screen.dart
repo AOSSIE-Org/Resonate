@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: Theme.of(
                                               context,
                                             ).colorScheme.primary,
-                                            size: Get.pixelRatio * 20,
+                                            size: MediaQuery.of(context).devicePixelRatio * 20,
                                           ),
                                     )
                                   : LiveRoomListView()
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? Center(
                                 child: LoadingAnimationWidget.fourRotatingDots(
                                   color: Theme.of(context).colorScheme.primary,
-                                  size: Get.pixelRatio * 20,
+                                  size: MediaQuery.of(context).devicePixelRatio * 20,
                                 ),
                               )
                             : UpcomingRoomsListView()),

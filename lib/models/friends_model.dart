@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 
-part 'friends_model.freezed.dart';
-part 'friends_model.g.dart';
+part 'generated/friends_model.freezed.dart';
+part 'generated/friends_model.g.dart';
 
 @freezed
 abstract class FriendsModel with _$FriendsModel {

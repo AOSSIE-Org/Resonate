@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/create_room_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 import 'package:resonate/controllers/upcomming_rooms_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:go_router/go_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
@@ -19,7 +21,6 @@ import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
-import '../../controllers/email_verify_controller.dart';
 import '../../utils/utils.dart';
 import '../widgets/pair_chat_dialog.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -28,12 +29,6 @@ class TabViewScreen extends StatelessWidget {
   final CreateRoomController createRoomController =
       Get.find<CreateRoomController>();
   final TabViewController controller = Get.find<TabViewController>();
-  final AuthStateController authStateController = Get.put<AuthStateController>(
-    AuthStateController(),
-  );
-  final emailVerifyController = Get.put<EmailVerifyController>(
-    EmailVerifyController(),
-  );
   final RoomsController roomsController = Get.find<RoomsController>();
   final upcomingRoomsController = Get.put<UpcomingRoomsController>(
     UpcomingRoomsController(),
@@ -91,27 +86,40 @@ class TabViewScreen extends StatelessWidget {
                     label: AppLocalizations.of(context)!.audioRoom,
                     labelStyle: TextStyle(fontSize: UiSizes.size_14),
                     onTap: () async {
-                      if (authStateController.isEmailVerified!) {
+                      final user = currentAuthUser;
+                      if (user == null) return;
+                      if (user.isEmailVerified) {
                         controller.setIndex(2);
-                      } else {
-                        AppUtils.showDialog(
-                          context: context,
-                          title: AppLocalizations.of(
-                            context,
-                          )!.emailVerificationRequired,
-                          middleText: AppLocalizations.of(
-                            context,
-                          )!.emailVerificationMessage,
-                          onFirstBtnPressed: () {
-                            Get.back();
-                            emailVerifyController.isSending.value = true;
-                            emailVerifyController.sendOTP();
-                            AppUtils.showBlurredLoaderDialog(context);
-                          },
-                          onSecondBtnPressed: () => Get.back(),
-                          firstBtnText: AppLocalizations.of(context)!.verify,
-                        );
+                        return;
                       }
+                      AppUtils.showDialog(
+                        context: context,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationRequired,
+                        middleText: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationMessage,
+                        onFirstBtnPressed: () async {
+                          final navigator = Navigator.of(
+                            context,
+                            rootNavigator: true,
+                          );
+                          final router = GoRouter.of(context);
+                          Get.back();
+                          AppUtils.showBlurredLoaderDialog(context);
+                          final result = await rootContainer
+                              .read(emailVerifyProvider.notifier)
+                              .sendOtp(email: user.email);
+                          navigator.pop();
+
+                          if (result.sent) {
+                            router.push(RoutePaths.emailVerification);
+                          }
+                        },
+                        onSecondBtnPressed: () => Get.back(),
+                        firstBtnText: AppLocalizations.of(context)!.verify,
+                      );
                     },
                   ),
                   SpeedDialChild(
@@ -185,10 +193,7 @@ class TabViewScreen extends StatelessWidget {
                             isRoomCreating.value = false;
                           }
                         } else {
-                          Navigator.pushNamed(
-                            context,
-                            AppRoutes.createStoryScreen,
-                          );
+                          context.push(RoutePaths.createStoryScreen);
                         }
                       },
                 // Change the button's appearance when creating a room

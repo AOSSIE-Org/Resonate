@@ -2,8 +2,10 @@ import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -12,7 +14,7 @@ class RatingSheetWidget extends StatelessWidget {
   RatingSheetWidget({super.key});
   final TablesDB tablesDB = AppwriteService.getTables();
   final PairChatController controller = Get.find<PairChatController>();
-  final AuthStateController authController = Get.find<AuthStateController>();
+  AuthUser get authController => requireCurrentAuthUser;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class RatingSheetWidget extends StatelessWidget {
                 await tablesDB.updateRow(
                   databaseId: userDatabaseID,
                   tableId: usersTableID,
-                  rowId: authController.uid!,
+                  rowId: authController.uid,
                   data: {
                     "ratingTotal":
                         authController.ratingTotal +
@@ -68,7 +70,7 @@ class RatingSheetWidget extends StatelessWidget {
                     "ratingCount": authController.ratingCount + 1,
                   },
                 );
-                await authController.setUserProfileData();
+                await rootContainer.read(authProvider.notifier).refresh();
                 Get.back();
               },
               child: const Text('Submit'),

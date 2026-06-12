@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/user_report_model.dart';
 import 'package:resonate/utils/constants.dart';
@@ -27,8 +28,6 @@ class ReportWidget extends StatefulWidget {
 class _ReportWidgetState extends State<ReportWidget> {
   ReportTypeEnum? _selectedReportType;
   TextEditingController reportTextController = TextEditingController();
-  final AuthStateController authStateController =
-      Get.find<AuthStateController>();
   Future<void> _handleReportSubmission() async {
     if (_selectedReportType == null) {
       customSnackbar(
@@ -41,7 +40,7 @@ class _ReportWidgetState extends State<ReportWidget> {
 
     try {
       final UserReportModel report = UserReportModel(
-        reporterUid: authStateController.uid!,
+        reporterUid: requireCurrentAuthUser.uid,
         reportedUid: widget.participantId,
         reportType: _selectedReportType!,
         reportText: reportTextController.text.isEmpty
@@ -49,7 +48,7 @@ class _ReportWidgetState extends State<ReportWidget> {
             : reportTextController.text,
         reportedUser: widget.participantId,
       );
-      await authStateController.tables.createRow(
+      await rootContainer.read(appwriteTablesProvider).createRow(
         databaseId: userDatabaseID,
         tableId: userReportsTableID,
         rowId: ID.unique(),

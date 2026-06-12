@@ -106,6 +106,28 @@
     "usernameAlreadyTaken"
   ],
 
+  "raj": [
+    "audioOptions",
+    "audioOutput",
+    "selectPreferredSpeaker",
+    "noAudioOutputDevices",
+    "refresh",
+    "done",
+    "deleteMessageTitle",
+    "deleteMessageContent",
+    "thisMessageWasDeleted",
+    "failedToDeleteMessage",
+    "noFriendsYet",
+    "noFriendsDescription",
+    "findFriends",
+    "inviteFriend",
+    "noFriendRequestsYet",
+    "noFriendRequestsDescription",
+    "inviteToResonate",
+    "usernameInvalidFormat",
+    "usernameAlreadyTaken"
+  ],
+
   "ta": [
     "noFriendsYet",
     "noFriendsDescription",

@@ -10,9 +10,11 @@ import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
-import '../../controllers/auth_state_controller.dart';
+import 'package:go_router/go_router.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/routes/route_paths.dart';
 import '../../controllers/edit_profile_controller.dart';
-import '../../routes/app_routes.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
@@ -21,9 +23,7 @@ class EditProfileScreen extends StatelessWidget {
   final EditProfileController editProfileController = Get.put(
     EditProfileController(),
   );
-  final AuthStateController authStateController = Get.put(
-    AuthStateController(),
-  );
+  AuthUser get authStateController => requireCurrentAuthUser;
   final debouncer = Debouncer(milliseconds: 800);
 
   @override
@@ -216,7 +216,7 @@ class EditProfileScreen extends StatelessWidget {
                       width: double.maxFinite,
                       child: OutlinedButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.changeEmail);
+                          context.push(RoutePaths.changeEmail);
                         },
                         style: OutlinedButton.styleFrom(
                           fixedSize: Size.fromHeight(UiSizes.height_60),

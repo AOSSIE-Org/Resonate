@@ -8,10 +8,12 @@ import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/controllers/friend_calling_controller.dart';
+import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/models/friend_call_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
+import '../helpers/test_root_container.dart';
 import 'friend_calling_controller_test.mocks.dart';
 
 @GenerateMocks([TablesDB])
@@ -96,7 +98,14 @@ void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
   late FriendCallingController friendCallingController;
-  setUp(() {
+  setUp(() async {
+    // FriendCallingController.startCall / onDeclinedCall navigate via
+    // `appRouter`, which reads the routerProvider off the root container.
+    // Install a test container so those reads have valid providers.
+    await installTestRootContainer(
+      authState: AuthState.authenticated(fakeAuthUser()),
+    );
+
     tables = MockTablesDB();
     realtime = MockRealtime();
 

@@ -7,14 +7,15 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:get/get.dart';
 
 import 'package:resonate/controllers/audio_device_controller.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/appwrite_room.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/models/participant.dart';
-import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -26,20 +27,22 @@ import 'package:resonate/views/widgets/snackbar.dart';
 import '../utils/constants.dart';
 
 class SingleRoomController extends GetxController {
-  AuthStateController auth = Get.find<AuthStateController>();
   final RoomsController roomsController = Get.put(RoomsController());
   RxBool isLoading = false.obs;
-  late Rx<Participant> me = Participant(
-    uid: auth.uid!,
-    email: auth.email!,
-    name: auth.userName!,
-    dpUrl: auth.profileImageUrl!,
-    isAdmin: appwriteRoom.isUserAdmin,
-    isMicOn: false,
-    isModerator: appwriteRoom.isUserAdmin,
-    isSpeaker: appwriteRoom.isUserAdmin,
-    hasRequestedToBeSpeaker: false,
-  ).obs;
+  late Rx<Participant> me = () {
+    final user = requireCurrentAuthUser;
+    return Participant(
+      uid: user.uid,
+      email: user.email,
+      name: user.userName ?? '',
+      dpUrl: user.profileImageUrl ?? '',
+      isAdmin: appwriteRoom.isUserAdmin,
+      isMicOn: false,
+      isModerator: appwriteRoom.isUserAdmin,
+      isSpeaker: appwriteRoom.isUserAdmin,
+      hasRequestedToBeSpeaker: false,
+    ).obs;
+  }();
   Client client = AppwriteService.getClient();
   final AppwriteRoom appwriteRoom;
   final Realtime realtime = AppwriteService.getRealtime();
@@ -61,7 +64,7 @@ class SingleRoomController extends GetxController {
   void onClose() async {
     await subscription?.close();
     await Get.delete<LiveKitController>(force: true);
-    Get.offAllNamed(AppRoutes.tabview);
+    appRouter.go(RoutePaths.tabview);
     super.onClose();
   }
 
@@ -105,7 +108,7 @@ class SingleRoomController extends GetxController {
         payload["hasRequestedToBeSpeaker"] ?? false;
     participants[toBeUpdatedIndex].value.isMicOn = payload["isMicOn"];
     participants[toBeUpdatedIndex].value.isSpeaker = payload["isSpeaker"];
-    if (payload["uid"] == auth.uid &&
+    if (payload["uid"] == requireCurrentAuthUser.uid &&
         !payload["isSpeaker"] &&
         me.value.isMicOn) {
       turnOffMic();

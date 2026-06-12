@@ -5,8 +5,9 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/utils/colors.dart';
 import 'package:resonate/views/widgets/live_room_tile.dart';
@@ -52,7 +53,8 @@ class TabViewController extends GetxController {
   void openAppLink(Uri uri) async {
     try {
       String roomId = uri.pathSegments.last;
-      bool isUserLoggedIn = await Get.find<AuthStateController>().getLoginState;
+      final authState = await rootContainer.read(authProvider.future);
+      bool isUserLoggedIn = authState.hasSession;
       if (isUserLoggedIn) {
         AppwriteRoom appwriteRoom = await Get.find<RoomsController>()
             .getRoomById(roomId);

@@ -16,7 +16,7 @@ import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 import '../utils/constants.dart';
-import 'auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 
 class RoomsController extends GetxController {
   RxBool isLoading = false.obs;
@@ -71,7 +71,7 @@ class RoomsController extends GetxController {
   Future<void> getRooms() async {
     try {
       isLoading.value = true;
-      String userUid = Get.find<AuthStateController>().uid!;
+      String userUid = requireCurrentAuthUser.uid;
 
       // Get active rooms and add it to rooms list
       rooms.value = [];
@@ -101,7 +101,7 @@ class RoomsController extends GetxController {
         tableId: roomsTableId,
         rowId: roomId,
       );
-      String userUid = Get.find<AuthStateController>().uid!;
+      String userUid = requireCurrentAuthUser.uid;
 
       AppwriteRoom appwriteRoom = await createRoomObject(room, userUid);
       return appwriteRoom;
@@ -119,7 +119,7 @@ class RoomsController extends GetxController {
         Center(
           child: LoadingAnimationWidget.threeRotatingDots(
             color: Theme.of(context).primaryColor,
-            size: Get.pixelRatio * 20,
+            size: MediaQuery.of(context).devicePixelRatio * 20,
           ),
         ),
         barrierDismissible: false,
@@ -127,10 +127,9 @@ class RoomsController extends GetxController {
       );
 
       // Get the token and livekit url and join livekit room
-      AuthStateController authStateController = Get.find<AuthStateController>();
       String myDocId = await RoomService.joinRoom(
         roomId: room.id,
-        userId: authStateController.uid!,
+        userId: requireCurrentAuthUser.uid,
         isAdmin: room.isUserAdmin,
       );
       room.myDocId = myDocId;

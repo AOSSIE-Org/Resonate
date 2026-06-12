@@ -11,15 +11,18 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
+import 'package:resonate/core/container.dart';
+import 'package:resonate/core/providers/appwrite_providers.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import '../utils/constants.dart';
-import 'auth_state_controller.dart';
 
 class EditProfileController extends GetxController {
   String? profileImagePath;
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
 
   final ThemeController themeController;
   late final Storage storage;
@@ -43,12 +46,9 @@ class EditProfileController extends GetxController {
 
   EditProfileController({
     ThemeController? themeController,
-    AuthStateController? authStateController,
     Storage? storage,
     TablesDB? tables,
   }) : themeController = themeController ?? Get.find<ThemeController>(),
-       authStateController =
-           authStateController ?? Get.find<AuthStateController>(),
        storage = storage ?? AppwriteService.getStorage(),
        tables = tables ?? AppwriteService.getTables();
 
@@ -297,7 +297,7 @@ class EditProfileController extends GetxController {
       //Update user DISPLAY-NAME
       if (isDisplayNameChanged()) {
         // Update user DISPLAY-NAME and USERNAME
-        await authStateController.account.updateName(
+        await rootContainer.read(appwriteAccountProvider).updateName(
           name: nameController.text.trim(),
         );
 
@@ -310,7 +310,7 @@ class EditProfileController extends GetxController {
       }
 
       // Set user profile in authStateController
-      await authStateController.setUserProfileData();
+      await rootContainer.read(authProvider.notifier).refresh();
 
       // Change all old values with new values
       oldDisplayName = authStateController.displayName!;

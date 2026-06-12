@@ -6,7 +6,8 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/controllers/room_chat_controller.dart';
 import 'package:resonate/controllers/rooms_controller.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
@@ -21,7 +22,7 @@ import 'package:resonate/views/screens/room_chat_screen.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class UpcomingRoomsController extends GetxController {
-  final AuthStateController authStateController;
+  AuthUser get authStateController => requireCurrentAuthUser;
   final CreateRoomController createRoomController;
   final TabViewController controller;
   final ThemeController themeController;
@@ -36,7 +37,6 @@ class UpcomingRoomsController extends GetxController {
   static const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
   List<String> _removedRoomsList = [];
   UpcomingRoomsController({
-    AuthStateController? authStateController,
     CreateRoomController? createRoomController,
     TabViewController? tabViewController,
     ThemeController? themeController,
@@ -44,9 +44,7 @@ class UpcomingRoomsController extends GetxController {
     TablesDB? tablesDB,
     FirebaseMessaging? messaging,
     GetStorage? storage,
-  }) : authStateController =
-           authStateController ?? Get.find<AuthStateController>(),
-       createRoomController =
+  }) : createRoomController =
            createRoomController ?? Get.find<CreateRoomController>(),
        controller = tabViewController ?? Get.find<TabViewController>(),
        themeController = themeController ?? Get.find<ThemeController>(),

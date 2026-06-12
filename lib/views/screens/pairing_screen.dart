@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -20,7 +20,7 @@ class PairingScreen extends StatelessWidget {
     final onPrimaryColor = theme.colorScheme.onPrimary;
     final profileImageUrl = controller.isAnonymous.value
         ? themeController.userProfileImagePlaceholderUrl
-        : Get.find<AuthStateController>().profileImageUrl!;
+        : requireCurrentAuthUser.profileImageUrl ?? '';
 
     return Scaffold(
       body: SafeArea(
@@ -45,7 +45,7 @@ class PairingScreen extends StatelessWidget {
   Widget _buildTitle(Color primaryColor, BuildContext context) {
     return Text(
       AppLocalizations.of(context)!.findingRandomPartner,
-      style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
+      style: TextStyle(color: primaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 6.5),
     );
   }
 
@@ -113,7 +113,7 @@ class PairingScreen extends StatelessWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.quickFact,
-          style: TextStyle(color: primaryColor, fontSize: Get.pixelRatio * 6.5),
+          style: TextStyle(color: primaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 6.5),
         ),
         Text(
           AppLocalizations.of(context)!.resonateOpenSourceProject,
@@ -139,7 +139,7 @@ class PairingScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
       child: Text(
         AppLocalizations.of(context)!.cancel,
-        style: TextStyle(color: onPrimaryColor, fontSize: Get.pixelRatio * 8),
+        style: TextStyle(color: onPrimaryColor, fontSize: MediaQuery.of(context).devicePixelRatio * 8),
       ),
     );
   }

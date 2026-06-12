@@ -6,7 +6,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
 import 'package:get/get.dart';
-import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/core/container.dart';
 import 'package:resonate/models/appwrite_room.dart';
 import 'package:resonate/models/appwrite_upcomming_room.dart';
 import 'package:resonate/models/message.dart';
@@ -17,7 +17,8 @@ import 'package:resonate/utils/constants.dart';
 class RoomChatController extends GetxController {
   RoomChatController({this.appwriteRoom, this.appwriteUpcommingRoom});
 
-  AuthStateController auth = Get.find<AuthStateController>();
+  final FlutterLocalNotificationsPlugin _notifications =
+      FlutterLocalNotificationsPlugin();
   RxList<Message> messages = <Message>[].obs;
   final AppwriteRoom? appwriteRoom;
   final Functions functions = AppwriteService.getFunctions();
@@ -108,15 +109,16 @@ class RoomChatController extends GetxController {
       final String messageId = ID.unique();
 
       final int newIndex = messages.isNotEmpty ? messages.last.index + 1 : 0;
+      final user = requireCurrentAuthUser;
       final Message message = Message(
         roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
         messageId: messageId,
-        creatorId: auth.appwriteUser.$id,
-        creatorUsername: auth.userName!,
-        creatorName: auth.displayName!,
+        creatorId: user.uid,
+        creatorUsername: user.userName ?? '',
+        creatorName: user.displayName,
         hasValidTag: false,
         index: newIndex,
-        creatorImgUrl: auth.profileImageUrl!,
+        creatorImgUrl: user.profileImageUrl ?? '',
         isEdited: false,
         content: content,
         creationDateTime: DateTime.now(),
@@ -255,7 +257,7 @@ class RoomChatController extends GetxController {
 
               messages.add(newMessage);
               if (appwriteRoom != null) {
-                auth.flutterLocalNotificationsPlugin.show(
+                _notifications.show(
                   0,
                   'Message received in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
                   '${newMessage.creatorName} said: ${newMessage.content}',
@@ -274,7 +276,7 @@ class RoomChatController extends GetxController {
                 isDeleted: updatedMessage.isDeleted,
               );
               if (appwriteRoom != null) {
-                auth.flutterLocalNotificationsPlugin.show(
+                _notifications.show(
                   0,
                   'Message Edited in ${appwriteRoom?.name ?? appwriteUpcommingRoom!.name}',
                   '${updatedMessage.creatorName} updated his message: ${updatedMessage.content}',

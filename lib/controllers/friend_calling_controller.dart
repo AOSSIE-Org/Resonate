@@ -12,7 +12,8 @@ import 'package:resonate/controllers/audio_device_controller.dart';
 import 'package:resonate/controllers/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/friend_call_model.dart';
-import 'package:resonate/routes/app_routes.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/services/appwrite_service.dart';
 import 'package:resonate/services/room_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -90,13 +91,13 @@ class FriendCallingController extends GetxController {
     friendCallModel.value = callModel;
     listenToCallChanges();
 
-    Get.toNamed(AppRoutes.ringingScreen);
+    appRouter.push(RoutePaths.ringingScreen);
   }
 
   Future<void> joinCall(dynamic roomId, String userId) async {
     await RoomService.joinLivekitPairChat(roomId: roomId, userId: userId);
 
-    Get.toNamed(AppRoutes.friendCallScreen);
+    appRouter.push(RoutePaths.friendCallScreen);
   }
 
   static Future<void> onCallRecieved(RemoteMessage message) async {
@@ -191,7 +192,7 @@ class FriendCallingController extends GetxController {
     if (!Get.testMode) {
       FlutterCallkitIncoming.endAllCalls();
     }
-    Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+    appRouter.go(RoutePaths.tabview);
   }
 
   void listenToCallChanges() async {
@@ -221,7 +222,7 @@ class FriendCallingController extends GetxController {
             );
             await Get.delete<LiveKitController>(force: true);
             await Get.delete<AudioDeviceController>(force: true);
-            Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+            appRouter.go(RoutePaths.tabview);
           }
           if (data.payload['callStatus'] == FriendCallStatus.declined.name) {
             await Get.delete<LiveKitController>(force: true);
@@ -239,7 +240,7 @@ class FriendCallingController extends GetxController {
               )!.callDeclinedTo(friendCallModel.value!.recieverName),
               LogType.info,
             );
-            Get.offNamedUntil(AppRoutes.tabview, (route) => false);
+            appRouter.go(RoutePaths.tabview);
           }
         }
       }
