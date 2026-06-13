@@ -326,6 +326,13 @@ class ExploreStoryController extends GetxController {
       log(
         "failed to upload $fileIdentificationForError to appwrite: ${e.message}",
       );
+      Get.snackbar(
+        "Upload failed",
+        "Could not upload $fileIdentificationForError: ${e.message}",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 6),
+      );
+      rethrow;
     }
 
     return "$appwriteEndpoint/storage/buckets/$bucketId/files/$fileId/view?project=$appwriteProjectId";
@@ -401,11 +408,7 @@ class ExploreStoryController extends GetxController {
       primaryColor = const Color(0xffcbc6c6);
     }
 
-    try {
-      await pushChaptersToStory(chapters, storyId);
-    } on AppwriteException catch (e) {
-      log("failed to push chapters to appwrite: ${e.message}");
-    }
+    await pushChaptersToStory(chapters, storyId);
 
     String colorString = primaryColor.toHex(leadingHashSign: false);
 

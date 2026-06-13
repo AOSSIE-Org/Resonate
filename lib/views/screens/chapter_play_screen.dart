@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:flutter_lyric/lyrics_reader.dart';
+import 'package:flutter_lyric/flutter_lyric.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
 import 'package:resonate/models/chapter.dart';
@@ -17,28 +17,30 @@ class ChapterPlayScreen extends StatefulWidget {
 }
 
 class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
-  late UINetease lyricUI;
+  late LyricStyle lyricStyle;
   final ChapterPlayerController controller = Get.find();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
-    lyricUI = UINetease(
-      highlightColor: themeIsDark ? Colors.white : Colors.black,
-      playingMainTextStyle: TextStyle(
+    final Color mainTextColor = themeIsDark
+        ? const Color.fromARGB(255, 223, 222, 222)
+        : Colors.grey[600]!;
+    lyricStyle = LyricStyles.default1.copyWith(
+      textStyle: TextStyle(
+        fontSize: UiSizes.size_18,
+        color: mainTextColor,
+      ),
+      activeStyle: TextStyle(
         fontSize: UiSizes.size_20,
         fontWeight: FontWeight.bold,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
+        color: mainTextColor,
       ),
-      otherMainTextStyle: TextStyle(
-        fontSize: UiSizes.size_18,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
+      activeHighlightColor: themeIsDark ? Colors.white : Colors.black,
+      selectedColor: themeIsDark ? Colors.white : Colors.black,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+      anchorPosition: 0.5,
     );
   }
 
@@ -48,9 +50,7 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
 
     controller.initialize(
       AudioPlayer()..setSourceUrl(widget.chapter.audioFileUrl),
-      LyricsModelBuilder.create()
-          .bindLyricToMain(widget.chapter.lyrics)
-          .getModel(),
+      widget.chapter.lyrics,
       Duration(milliseconds: widget.chapter.playDuration),
     );
   }
@@ -111,56 +111,31 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                   : const Color.fromARGB(193, 232, 230, 230),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Obx(
-                              () => LyricsReader(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                model: controller.lyricModel,
-                                position: controller.lyricProgress.value,
-                                lyricUi: lyricUI,
-                                playing: controller.isPlaying.value,
-                                size: const Size(double.infinity, 200),
-                                emptyBuilder: () => Center(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.noLyrics,
-                                    style: UINetease().getOtherMainTextStyle(),
-                                  ),
-                                ),
-                                selectLineBuilder: (progress, confirm) {
-                                  return Row(
+                            child: widget.chapter.lyrics.trim().isEmpty
+                                ? Center(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.noLyrics,
+                                      style: lyricStyle.textStyle,
+                                    ),
+                                  )
+                                : Stack(
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          confirm.call();
-
+                                      LyricView(
+                                        controller: controller.lyricController,
+                                        style: lyricStyle,
+                                        height: 200,
+                                      ),
+                                      LyricSelectionProgress(
+                                        controller: controller.lyricController,
+                                        style: lyricStyle,
+                                        onPlay: (state) {
                                           controller.audioPlayer?.seek(
-                                            Duration(milliseconds: progress),
+                                            state.duration,
                                           );
                                         },
-                                        icon: Icon(
-                                          Icons.play_arrow,
-                                          color: Theme.of(
-                                            context,
-                                          ).colorScheme.primary,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(
-                                              context,
-                                            ).colorScheme.primary,
-                                          ),
-                                          height: 1,
-                                          width: double.infinity,
-                                        ),
                                       ),
                                     ],
-                                  );
-                                },
-                              ),
-                            ),
+                                  ),
                           ),
                         ),
 
