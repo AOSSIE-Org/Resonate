@@ -5,7 +5,7 @@ import 'package:appwrite/appwrite.dart' show ID;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
 import 'package:resonate/core/container.dart';
-import 'package:resonate/features/rooms/data/room_chat_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/room_chat_repository.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_chat_state.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
@@ -235,9 +235,9 @@ class RoomChatNotifier extends _$RoomChatNotifier {
     final current = state.value;
     if (current == null) return;
 
-    final original = current.messages.firstWhere(
-      (m) => m.messageId == messageId,
-    );
+    final idx = current.messages.indexWhere((m) => m.messageId == messageId);
+    if (idx < 0) return; // message no longer in the list
+    final original = current.messages[idx];
     final updated = original.copyWith(
       content: newContent,
       isEdited: true,
@@ -262,9 +262,9 @@ class RoomChatNotifier extends _$RoomChatNotifier {
     final current = state.value;
     if (current == null) return;
 
-    final original = current.messages.firstWhere(
-      (m) => m.messageId == messageId,
-    );
+    final idx = current.messages.indexWhere((m) => m.messageId == messageId);
+    if (idx < 0) return; // message no longer in the list
+    final original = current.messages[idx];
     final softDeleted = original.copyWith(content: '', isDeleted: true);
 
     try {

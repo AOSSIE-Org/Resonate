@@ -1,6 +1,7 @@
 import 'package:resonate/core/container.dart';
-import 'package:resonate/features/rooms/data/rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/room_failure.dart';
 import 'package:resonate/features/rooms/model/rooms_state.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -27,15 +28,22 @@ class RoomsNotifier extends _$RoomsNotifier {
 
   Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
     final repo = ref.read(roomsRepositoryProvider);
+    final userId = requireCurrentAuthUser.uid;
     final result = await repo.joinRoom(
       roomId: room.id,
-      userId: requireCurrentAuthUser.uid,
+      userId: userId,
       isAdmin: room.isUserAdmin,
     );
-    await ref.read(liveKitProvider.notifier).connect(
+    final connected = await ref.read(liveKitProvider.notifier).connect(
       liveKitUri: result.liveKitUri,
       roomToken: result.roomToken,
     );
+    if (!connected) {
+      try {
+        await repo.leaveRoom(roomId: room.id, userId: userId);
+      } catch (_) {}
+      throw const RoomFailure.liveKit('Could not connect to the audio session.');
+    }
     return room.copyWith(myDocId: result.myDocId);
   }
 

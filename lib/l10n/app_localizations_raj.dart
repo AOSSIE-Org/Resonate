@@ -1259,6 +1259,31 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get failedToRemoveRoom => 'रूम हटावां मांय नाकाम';
 
   @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String get roomRemovedSuccessfully =>
       'रूम अपनी सूची मांय सूं सफलतापूर्वक हटायो गयो';
 

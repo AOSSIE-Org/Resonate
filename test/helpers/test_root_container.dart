@@ -10,7 +10,7 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
-import 'package:resonate/features/auth/data/auth_repository.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';

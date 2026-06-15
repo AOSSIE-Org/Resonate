@@ -1271,6 +1271,31 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToRemoveRoom => 'रूम हटाने में विफल';
 
   @override
+  String get failedToCreateRoom => 'रूम बनाने में विफल';
+
+  @override
+  String get roomChat => 'रूम चैट';
+
+  @override
+  String get failedToResend => 'पुनः भेजने में विफल';
+
+  @override
+  String get edited => ' (संपादित)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'भेजने में विफल। पुनः प्रयास के लिए संदेश पर टैप करें।';
+
+  @override
+  String get saySomething => 'कुछ कहें';
+
+  @override
+  String get tapToRetry => 'पुनः प्रयास के लिए टैप करें';
+
+  @override
+  String get retry => 'पुनः प्रयास करें';
+
+  @override
   String get roomRemovedSuccessfully =>
       'रूम आपकी सूची से सफलतापूर्वक हटा दिया गया';
 

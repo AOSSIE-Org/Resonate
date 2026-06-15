@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/data/auth_repository.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/features/profile/data/profile_repository.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/edit_profile_state.dart';
 import 'package:resonate/features/profile/viewmodel/edit_profile_notifier.dart';
 

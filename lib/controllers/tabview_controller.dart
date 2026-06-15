@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/features/rooms/data/rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';

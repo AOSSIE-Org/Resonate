@@ -48,6 +48,17 @@ class RoomPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // If an admin kicks
+    ref.listen(singleRoomProvider(room), (_, next) {
+      if (next.value?.wasKicked ?? false) {
+        final navigator = Navigator.of(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.removedFromRoom)),
+        );
+        if (navigator.canPop()) navigator.pop();
+      }
+    });
+
     final asyncState = ref.watch(singleRoomProvider(room));
 
     return Scaffold(

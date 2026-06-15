@@ -1,5 +1,5 @@
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/features/profile/data/profile_repository.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
