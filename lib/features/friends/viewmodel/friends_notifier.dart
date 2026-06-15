@@ -115,8 +115,7 @@ class FriendsNotifier extends _$FriendsNotifier {
     }
   }
 
-  // Nulls the field BEFORE the async cancel so concurrent callers (rebuild
-  // racing an un-awaited dispose) never see a half-cancelled subscription.
+  // Nulls the field BEFORE the async cancel
   Future<void> _cancelSub() async {
     final sub = _friendsSub;
     _friendsSub = null;

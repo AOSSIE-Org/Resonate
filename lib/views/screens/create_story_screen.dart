@@ -54,16 +54,19 @@ class CreateStoryPageState extends State<CreateStoryPage> {
     int totalPlayDuration = chapters.fold(0, (sum, chapter) {
       return sum + chapter.playDuration;
     });
-
-    // Create a new story instance
-    await exploreStoryController.createStory(
-      titleController.text,
-      aboutController.text,
-      selectedCategory,
-      coverImage?.path ?? storyCoverImagePlaceholderUrl,
-      totalPlayDuration,
-      chapters,
-    );
+    try {
+      await exploreStoryController.createStory(
+        titleController.text,
+        aboutController.text,
+        selectedCategory,
+        coverImage?.path ?? storyCoverImagePlaceholderUrl,
+        totalPlayDuration,
+        chapters,
+      );
+    } catch (e) {
+      log('Story not posted: $e');
+      return;
+    }
 
     appRouter.go(RoutePaths.tabview);
 

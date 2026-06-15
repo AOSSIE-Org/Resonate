@@ -31,21 +31,6 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
   bool _isScheduled = false;
   String? _scheduledDateTimeIso;
 
-  static const _monthMap = {
-    '1': 'Jan',
-    '2': 'Feb',
-    '3': 'March',
-    '4': 'April',
-    '5': 'May',
-    '6': 'June',
-    '7': 'July',
-    '8': 'Aug',
-    '9': 'Sep',
-    '10': 'Oct',
-    '11': 'Nov',
-    '12': 'Dec',
-  };
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -83,9 +68,7 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     if (!mounted) return;
     final pickedTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.fromDateTime(
-        now.add(const Duration(minutes: 5)),
-      ),
+      initialTime: TimeOfDay.fromDateTime(now.add(const Duration(minutes: 5))),
     );
     if (!mounted || pickedDate == null || pickedTime == null) return;
 
@@ -100,9 +83,7 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     if (!pickedDateTime.isAfter(now)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.scheduledDateTimePast,
-          ),
+          content: Text(AppLocalizations.of(context)!.scheduledDateTimePast),
         ),
       );
       return;
@@ -111,16 +92,9 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     setState(() {
       _scheduledDateTimeIso =
           '${DateFormat('yyyy-MM-dd').format(pickedDate)}T${pickedTime.hour}:${pickedTime.minute}:00${isNeg ? '-' : '+'}$formattedOffset';
-      final hour = pickedTime.hour > 12
-          ? (pickedTime.hour - 12).toString()
-          : pickedTime.hour == 0
-              ? '00'
-              : pickedTime.hour.toString();
-      final minute = pickedTime.minute.toString().length < 2
-          ? '0${pickedTime.minute}'
-          : pickedTime.minute.toString();
-      _dateTimeController.text =
-          '${pickedDate.day}  ${_monthMap[pickedDate.month.toString()]}  ${pickedDate.year}  $hour:$minute  ${pickedTime.period.name.toUpperCase()}';
+      _dateTimeController.text = DateFormat(
+        'd  MMM  yyyy  h:mm  a',
+      ).format(pickedDateTime);
     });
   }
 
@@ -134,7 +108,6 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     });
   }
 
-  
   Future<AppwriteRoom?> submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return null;
 
@@ -147,20 +120,20 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     try {
       if (_isScheduled) {
         if (_scheduledDateTimeIso == null) return null;
-        await ref.read(createRoomProvider.notifier).createScheduledRoom(
-          name: name,
-          description: description,
-          tags: tags,
-          scheduledDateTime: _scheduledDateTimeIso!,
-        );
+        await ref
+            .read(createRoomProvider.notifier)
+            .createScheduledRoom(
+              name: name,
+              description: description,
+              tags: tags,
+              scheduledDateTime: _scheduledDateTimeIso!,
+            );
         _clearForm();
         return null;
       } else {
-        final room = await ref.read(createRoomProvider.notifier).createLiveRoom(
-          name: name,
-          description: description,
-          tags: tags,
-        );
+        final room = await ref
+            .read(createRoomProvider.notifier)
+            .createLiveRoom(name: name, description: description, tags: tags);
         _clearForm();
         return room;
       }
@@ -168,7 +141,9 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
       log('createRoom failed: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to create room: $e')),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.failedToCreateRoom),
+          ),
         );
       }
       return null;
@@ -233,14 +208,12 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
                         _ModeChip(
                           label: AppLocalizations.of(context)!.live,
                           active: !_isScheduled,
-                          onTap: () =>
-                              setState(() => _isScheduled = false),
+                          onTap: () => setState(() => _isScheduled = false),
                         ),
                         _ModeChip(
                           label: AppLocalizations.of(context)!.scheduled,
                           active: _isScheduled,
-                          onTap: () =>
-                              setState(() => _isScheduled = true),
+                          onTap: () => setState(() => _isScheduled = true),
                         ),
                       ],
                     ),

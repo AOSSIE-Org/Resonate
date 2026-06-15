@@ -97,11 +97,13 @@ class ChapterPlayer extends StatelessWidget {
                           controller.sliderProgress.value = value;
                         },
                         onChangeEnd: (double value) {
-                          final position = Duration(
-                            milliseconds: value.toInt(),
+                          controller.lyricController.setProgress(
+                            Duration(milliseconds: value.toInt()),
                           );
-                          controller.lyricController.setProgress(position);
-                          controller.audioPlayer?.seek(position);
+
+                          controller.audioPlayer?.seek(
+                            Duration(milliseconds: value.toInt()),
+                          );
                         },
                         min: 0,
                         max:

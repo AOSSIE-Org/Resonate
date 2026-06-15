@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:livekit_client/livekit_client.dart';
-import 'package:resonate/features/rooms/data/livekit_session.dart';
+import 'package:resonate/features/rooms/data/services/livekit_session.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

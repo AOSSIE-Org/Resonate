@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-// Bottom control bar shared by the friend call and pair chat pages.
 class CallControlPanel extends StatelessWidget {
-  const CallControlPanel({super.key, required this.buttons});
+  const CallControlPanel({
+    super.key,
+    required this.isMicOn,
+    required this.isLoudSpeakerOn,
+    required this.onToggleMic,
+    required this.onToggleLoudSpeaker,
+    required this.onAudioSettings,
+    required this.onEnd,
+  });
 
-  final List<CallControlButton> buttons;
+  final bool isMicOn;
+  final bool isLoudSpeakerOn;
+  final VoidCallback onToggleMic;
+  final VoidCallback onToggleLoudSpeaker;
+  final VoidCallback onAudioSettings;
+  final VoidCallback onEnd;
 
-  // Background for buttons that are toggled off / neutral: they sit on the
-  // primary panel in light mode and on the dark container in dark mode.
-  static Color inactiveButtonColor(BuildContext context) {
+  static Color _inactiveButtonColor(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return scheme.brightness == Brightness.light
         ? scheme.onPrimary.withValues(alpha: 0.5)
@@ -19,6 +30,9 @@ class CallControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
+    final inactive = _inactiveButtonColor(context);
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
       color: scheme.brightness == Brightness.light
@@ -27,15 +41,43 @@ class CallControlPanel extends StatelessWidget {
       height: UiSizes.height_131,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: buttons,
+        children: [
+          _CallControlButton(
+            icon: isMicOn ? Icons.mic : Icons.mic_off,
+            label: l10n.mute,
+            onPressed: onToggleMic,
+            backgroundColor: isMicOn ? inactive : scheme.primary,
+            heroTag: 'mic',
+          ),
+          _CallControlButton(
+            icon: Icons.volume_up,
+            label: l10n.speakerLabel,
+            onPressed: onToggleLoudSpeaker,
+            backgroundColor: isLoudSpeakerOn ? scheme.primary : inactive,
+            heroTag: 'speaker',
+          ),
+          _CallControlButton(
+            icon: Icons.settings_voice,
+            label: l10n.audioOptions,
+            onPressed: onAudioSettings,
+            backgroundColor: inactive,
+            heroTag: 'audio-settings',
+          ),
+          _CallControlButton(
+            icon: Icons.cancel_outlined,
+            label: l10n.end,
+            onPressed: onEnd,
+            backgroundColor: scheme.error,
+            heroTag: 'end-chat',
+          ),
+        ],
       ),
     );
   }
 }
 
-class CallControlButton extends StatelessWidget {
-  const CallControlButton({
-    super.key,
+class _CallControlButton extends StatelessWidget {
+  const _CallControlButton({
     required this.icon,
     required this.label,
     required this.onPressed,

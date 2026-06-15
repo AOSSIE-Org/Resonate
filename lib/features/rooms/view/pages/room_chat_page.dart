@@ -79,7 +79,7 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Room Chat'),
+        title: Text(AppLocalizations.of(context)!.roomChat),
         centerTitle: true,
         actions: [
           IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
@@ -90,7 +90,8 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
           Expanded(
             child: asyncState.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error: $e')),
+              error: (e, _) =>
+                  Center(child: Text(AppLocalizations.of(context)!.error)),
               data: (state) => ListView.builder(
                 controller: _scrollController,
                 padding: const EdgeInsets.all(16.0),
@@ -145,7 +146,11 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                       );
                       if (!ok && context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Failed to resend')),
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context)!.failedToResend,
+                            ),
+                          ),
                         );
                       }
                     },
@@ -440,9 +445,9 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                       ),
                                     ),
                                     if (widget.message.isEdited)
-                                      const Text(
-                                        ' (edited)',
-                                        style: TextStyle(
+                                      Text(
+                                        AppLocalizations.of(context)!.edited,
+                                        style: const TextStyle(
                                           fontSize: 12,
                                           fontStyle: FontStyle.italic,
                                           color: Colors.grey,
@@ -541,8 +546,8 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
     );
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Failed to send. Tap the message to retry.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.failedToSendTapRetry),
         ),
       );
     }
@@ -607,7 +612,7 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
                       controller: _messageController,
                       onSubmitted: (_) => _send(),
                       decoration: InputDecoration(
-                        hintText: 'Say Something',
+                        hintText: AppLocalizations.of(context)!.saySomething,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide.none,
@@ -694,15 +699,15 @@ class _StatusIndicator extends StatelessWidget {
         return GestureDetector(
           onTap: onRetry,
           child: Tooltip(
-            message: 'Tap to retry',
+            message: AppLocalizations.of(context)!.tapToRetry,
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Icon(Icons.error_outline, size: 14, color: Colors.red),
-                SizedBox(width: 4),
+              children: [
+                const Icon(Icons.error_outline, size: 14, color: Colors.red),
+                const SizedBox(width: 4),
                 Text(
-                  'Retry',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.retry,
+                  style: const TextStyle(
                     color: Colors.red,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,

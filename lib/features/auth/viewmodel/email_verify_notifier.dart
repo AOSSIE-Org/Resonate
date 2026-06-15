@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:resonate/features/auth/data/auth_repository.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

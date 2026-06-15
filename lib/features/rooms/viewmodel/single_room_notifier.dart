@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:resonate/core/container.dart';
-import 'package:resonate/features/rooms/data/rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
@@ -12,6 +12,8 @@ import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/single_room_notifier.g.dart';
+
+enum ParticipantRole { moderator, speaker, listener }
 
 @riverpod
 class SingleRoomNotifier extends _$SingleRoomNotifier {
@@ -50,7 +52,9 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     final repo = ref.read(roomsRepositoryProvider);
     final channel = RoomsRepository.participantChannel();
 
-    _participantSub = repo.participantStream(appwriteRoom.id).listen((event) async {
+    _participantSub = repo.participantStream(appwriteRoom.id).listen((
+      event,
+    ) async {
       final docId = event.payload['\$id'] as String;
       final action = event.events.first.substring(
         channel.length + 1 + docId.length + 1,
@@ -76,7 +80,8 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
               nextMe = current.me.copyWith(
                 isModerator: event.payload['isModerator'] as bool,
                 hasRequestedToBeSpeaker:
-                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ?? false,
+                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                    false,
                 isMicOn: event.payload['isMicOn'] as bool,
                 isSpeaker: event.payload['isSpeaker'] as bool,
               );
@@ -86,7 +91,8 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
               return p.copyWith(
                 isModerator: event.payload['isModerator'] as bool,
                 hasRequestedToBeSpeaker:
-                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ?? false,
+                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                    false,
                 isMicOn: event.payload['isMicOn'] as bool,
                 isSpeaker: event.payload['isSpeaker'] as bool,
               );
@@ -95,7 +101,6 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
             state = AsyncData(
               current.copyWith(me: nextMe, participants: _sort(updated)),
             );
-
             // If we got demoted from speaker while mic was on, mute.
             if (updatedUid == current.me.uid &&
                 !(event.payload['isSpeaker'] as bool) &&
@@ -108,8 +113,13 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
           {
             final removedUid = event.payload['uid'] as String;
             if (removedUid == current.me.uid) {
-              // We were kicked. Notifier disposal handled by view layer
-              // observing the participant list / failure.
+              // kicked
+              await _disposeStream();
+              await ref.read(liveKitProvider.notifier).disconnect();
+              final latest = state.value;
+              if (latest != null) {
+                state = AsyncData(latest.copyWith(wasKicked: true));
+              }
               break;
             }
             final filtered = current.participants
@@ -143,97 +153,83 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     return sorted;
   }
 
-  Future<void> turnOnMic(AppwriteRoom appwriteRoom) => _setMic(appwriteRoom, true);
-  Future<void> turnOffMic(AppwriteRoom appwriteRoom) => _setMic(appwriteRoom, false);
+  Future<void> turnOnMic(AppwriteRoom appwriteRoom) =>
+      _setMic(appwriteRoom, true);
+  Future<void> turnOffMic(AppwriteRoom appwriteRoom) =>
+      _setMic(appwriteRoom, false);
 
   Future<void> _setMic(AppwriteRoom appwriteRoom, bool enabled) async {
-    // Optimistic UI update so the button reacts even if LiveKit/Appwrite are
-    // slow or fail. The Realtime stream will overwrite this with the
-    // authoritative value once the update propagates.
     final current = state.value;
     if (current != null) {
       state = AsyncData(
         current.copyWith(me: current.me.copyWith(isMicOn: enabled)),
       );
     }
-
     try {
       await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(enabled);
     } catch (_) {}
-
     final docId = appwriteRoom.myDocId;
     if (docId == null) return;
     try {
-      await ref.read(roomsRepositoryProvider).updateParticipantDoc(
-        docId: docId,
-        data: {'isMicOn': enabled},
-      );
+      await ref
+          .read(roomsRepositoryProvider)
+          .updateParticipantDoc(docId: docId, data: {'isMicOn': enabled});
     } catch (_) {}
   }
 
   Future<void> raiseHand(AppwriteRoom appwriteRoom) async {
-    await ref.read(roomsRepositoryProvider).updateParticipantDoc(
-      docId: appwriteRoom.myDocId!,
-      data: {'hasRequestedToBeSpeaker': true},
-    );
+    await ref
+        .read(roomsRepositoryProvider)
+        .updateParticipantDoc(
+          docId: appwriteRoom.myDocId!,
+          data: {'hasRequestedToBeSpeaker': true},
+        );
     final current = state.value;
     if (current != null) {
       state = AsyncData(
-        current.copyWith(me: current.me.copyWith(hasRequestedToBeSpeaker: true)),
+        current.copyWith(
+          me: current.me.copyWith(hasRequestedToBeSpeaker: true),
+        ),
       );
     }
   }
 
   Future<void> unRaiseHand(AppwriteRoom appwriteRoom) async {
-    await ref.read(roomsRepositoryProvider).updateParticipantDoc(
-      docId: appwriteRoom.myDocId!,
-      data: {'hasRequestedToBeSpeaker': false},
-    );
+    await ref
+        .read(roomsRepositoryProvider)
+        .updateParticipantDoc(
+          docId: appwriteRoom.myDocId!,
+          data: {'hasRequestedToBeSpeaker': false},
+        );
     final current = state.value;
     if (current != null) {
       state = AsyncData(
-        current.copyWith(me: current.me.copyWith(hasRequestedToBeSpeaker: false)),
+        current.copyWith(
+          me: current.me.copyWith(hasRequestedToBeSpeaker: false),
+        ),
       );
     }
   }
 
-  Future<void> makeModerator(AppwriteRoom appwriteRoom, Participant participant) =>
-      _participantMutation(appwriteRoom, participant, {
-        'isSpeaker': true,
-        'hasRequestedToBeSpeaker': false,
-        'isModerator': true,
-      });
-
-  Future<void> removeModerator(AppwriteRoom appwriteRoom, Participant participant) =>
-      _participantMutation(appwriteRoom, participant, {
-        'isSpeaker': false,
-        'hasRequestedToBeSpeaker': false,
-        'isModerator': false,
-      });
-
-  Future<void> makeSpeaker(AppwriteRoom appwriteRoom, Participant participant) =>
-      _participantMutation(appwriteRoom, participant, {
-        'isSpeaker': true,
-        'hasRequestedToBeSpeaker': false,
-      });
-
-  Future<void> makeListener(AppwriteRoom appwriteRoom, Participant participant) =>
-      _participantMutation(appwriteRoom, participant, {
-        'isSpeaker': false,
-        'hasRequestedToBeSpeaker': false,
-      });
-
-  Future<void> _participantMutation(
+  Future<void> setRole(
     AppwriteRoom appwriteRoom,
     Participant participant,
-    Map<String, dynamic> data,
+    ParticipantRole role,
   ) async {
     final repo = ref.read(roomsRepositoryProvider);
     final docId = await repo.getParticipantDocId(
       roomId: appwriteRoom.id,
       participantUid: participant.uid,
     );
-    await repo.updateParticipantDoc(docId: docId, data: data);
+    if (docId == null) return; // participant already left
+    await repo.updateParticipantDoc(
+      docId: docId,
+      data: {
+        'isModerator': role == ParticipantRole.moderator,
+        'isSpeaker': role != ParticipantRole.listener,
+        'hasRequestedToBeSpeaker': false,
+      },
+    );
   }
 
   Future<void> kickOutParticipant(
@@ -245,6 +241,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       roomId: appwriteRoom.id,
       participantUid: participant.uid,
     );
+    if (docId == null) return; // participant already left
     await repo.kickParticipant(docId);
   }
 
@@ -267,11 +264,11 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       state = AsyncData(current.copyWith(isLoading: true));
     }
     await _disposeStream();
-    await ref.read(roomsRepositoryProvider).leaveRoom(
-      roomId: appwriteRoom.id,
-      userId: requireCurrentAuthUser.uid,
-    );
+    await ref
+        .read(roomsRepositoryProvider)
+        .leaveRoom(roomId: appwriteRoom.id, userId: requireCurrentAuthUser.uid);
     await ref.read(liveKitProvider.notifier).disconnect();
+    ref.invalidate(roomsProvider);
   }
 
   Future<void> deleteRoom(AppwriteRoom appwriteRoom) async {
@@ -279,6 +276,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     if (current != null) {
       state = AsyncData(current.copyWith(isLoading: true));
     }
+    await _disposeStream();
     await ref.read(roomsRepositoryProvider).deleteRoom(roomId: appwriteRoom.id);
     await ref.read(liveKitProvider.notifier).disconnect();
     ref.invalidate(roomsProvider);

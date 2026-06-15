@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
-import 'package:resonate/features/rooms/data/upcoming_rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';

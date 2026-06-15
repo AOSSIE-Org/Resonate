@@ -1,7 +1,8 @@
 import 'package:resonate/core/container.dart';
-import 'package:resonate/features/rooms/data/rooms_repository.dart';
-import 'package:resonate/features/rooms/data/upcoming_rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
+import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
+import 'package:resonate/features/rooms/model/room_failure.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
@@ -29,10 +30,21 @@ class CreateRoomNotifier extends _$CreateRoomNotifier {
         tags: tags,
         adminUid: requireCurrentAuthUser.uid,
       );
-      await ref.read(liveKitProvider.notifier).connect(
+      final connected = await ref.read(liveKitProvider.notifier).connect(
         liveKitUri: result.liveKitUri,
         roomToken: result.roomToken,
       );
+      if (!connected) {
+        // Audio session failed to come up — tear down the room we just
+        // created so it isn't orphaned, then surface the failure.
+        try {
+          await repo.deleteRoom(roomId: result.roomId);
+        } catch (_) {/* best-effort cleanup */}
+        ref.invalidate(roomsProvider);
+        throw const RoomFailure.liveKit(
+          'Could not connect to the audio session.',
+        );
+      }
 
       // Refresh global rooms list.
       ref.invalidate(roomsProvider);

@@ -10,10 +10,14 @@ class ChapterPlayerController extends GetxController {
   late Duration chapterDuration;
   final LyricController lyricController = LyricController();
 
-  void initialize(AudioPlayer player, String lyrics, Duration duration) {
+  void initialize(
+    AudioPlayer player,
+    String lyrics,
+    Duration duration,
+  ) {
     audioPlayer = player;
-    lyricController.loadLyric(lyrics);
     chapterDuration = duration;
+    lyricController.loadLyric(lyrics);
     audioPlayer?.setReleaseMode(ReleaseMode.stop);
 
     audioPlayer?.onPositionChanged.listen((Duration event) {

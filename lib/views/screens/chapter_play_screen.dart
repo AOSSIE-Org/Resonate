@@ -24,24 +24,23 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     bool themeIsDark = Theme.of(context).brightness == Brightness.dark;
-    // Mirrors the old UINetease setup: the playing line is bold and
-    // theme-contrasted, other lines stay grey.
+    final Color mainTextColor = themeIsDark
+        ? const Color.fromARGB(255, 223, 222, 222)
+        : Colors.grey[600]!;
     lyricStyle = LyricStyles.default1.copyWith(
+      textStyle: TextStyle(
+        fontSize: UiSizes.size_18,
+        color: mainTextColor,
+      ),
       activeStyle: TextStyle(
         fontSize: UiSizes.size_20,
         fontWeight: FontWeight.bold,
-        color: themeIsDark ? Colors.white : Colors.black,
+        color: mainTextColor,
       ),
-      textStyle: TextStyle(
-        fontSize: UiSizes.size_18,
-        color: themeIsDark
-            ? const Color.fromARGB(255, 223, 222, 222)
-            : Colors.grey[600],
-      ),
-      selectedColor: themeIsDark ? Colors.white : Colors.black,
       activeHighlightColor: themeIsDark ? Colors.white : Colors.black,
+      selectedColor: themeIsDark ? Colors.white : Colors.black,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      fadeRange: FadeRange(top: 0, bottom: 0),
+      anchorPosition: 0.5,
     );
   }
 
@@ -123,11 +122,23 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
                                       style: lyricStyle.textStyle,
                                     ),
                                   )
-                                : LyricView(
-                                    controller: controller.lyricController,
-                                    style: lyricStyle,
-                                    width: double.infinity,
-                                    height: 200,
+                                : Stack(
+                                    children: [
+                                      LyricView(
+                                        controller: controller.lyricController,
+                                        style: lyricStyle,
+                                        height: 200,
+                                      ),
+                                      LyricSelectionProgress(
+                                        controller: controller.lyricController,
+                                        style: lyricStyle,
+                                        onPlay: (state) {
+                                          controller.audioPlayer?.seek(
+                                            state.duration,
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                           ),
                         ),

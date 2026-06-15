@@ -1,6 +1,6 @@
 import 'dart:developer' as developer;
 
-import 'package:resonate/features/auth/data/auth_repository.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -58,41 +58,12 @@ class FriendCallPage extends ConsumerWidget {
               ),
               const Spacer(),
               CallControlPanel(
-                buttons: [
-                  CallControlButton(
-                    icon: callState.isMicOn ? Icons.mic : Icons.mic_off,
-                    label: AppLocalizations.of(context)!.mute,
-                    onPressed: notifier.toggleMic,
-                    backgroundColor: callState.isMicOn
-                        ? CallControlPanel.inactiveButtonColor(context)
-                        : Theme.of(context).colorScheme.primary,
-                    heroTag: "mic",
-                  ),
-                  CallControlButton(
-                    icon: Icons.volume_up,
-                    label: AppLocalizations.of(context)!.speakerLabel,
-                    onPressed: notifier.toggleLoudSpeaker,
-                    backgroundColor: callState.isLoudSpeakerOn
-                        ? Theme.of(context).colorScheme.primary
-                        : CallControlPanel.inactiveButtonColor(context),
-                    heroTag: "speaker",
-                  ),
-                  CallControlButton(
-                    icon: Icons.settings_voice,
-                    label: AppLocalizations.of(context)!.audioOptions,
-                    onPressed: () => showAudioDeviceSelector(context),
-                    backgroundColor:
-                        CallControlPanel.inactiveButtonColor(context),
-                    heroTag: "audio-settings",
-                  ),
-                  CallControlButton(
-                    icon: Icons.cancel_outlined,
-                    label: AppLocalizations.of(context)!.end,
-                    onPressed: () => notifier.endCall(),
-                    backgroundColor: Theme.of(context).colorScheme.error,
-                    heroTag: "end-chat",
-                  ),
-                ],
+                isMicOn: callState.isMicOn,
+                isLoudSpeakerOn: callState.isLoudSpeakerOn,
+                onToggleMic: notifier.toggleMic,
+                onToggleLoudSpeaker: notifier.toggleLoudSpeaker,
+                onAudioSettings: () => showAudioDeviceSelector(context),
+                onEnd: () => notifier.endCall(),
               ),
             ],
           ),

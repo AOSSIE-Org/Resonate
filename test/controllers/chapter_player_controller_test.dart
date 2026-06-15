@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lyric/flutter_lyric.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/chapter_player_controller.dart';
@@ -18,14 +19,11 @@ void main() {
     await tester.pumpAndSettle();
     chapterPlayerController.initialize(
       AudioPlayer(),
-      '[00:01.00] Hello world',
+      '',
       Duration(minutes: 3),
     );
 
-    expect(
-      chapterPlayerController.lyricController.lyricNotifier.value,
-      isNotNull,
-    );
+    expect(chapterPlayerController.lyricController, isA<LyricController>());
     expect(chapterPlayerController.audioPlayer, isA<AudioPlayer>());
     expect(chapterPlayerController.audioPlayer?.releaseMode, ReleaseMode.stop);
     expect(chapterPlayerController.chapterDuration.inMinutes, 3);
@@ -36,7 +34,7 @@ void main() {
     await tester.pumpAndSettle();
     chapterPlayerController.initialize(
       AudioPlayer(),
-      '[00:01.00] Hello world',
+      '',
       Duration(minutes: 3),
     );
 

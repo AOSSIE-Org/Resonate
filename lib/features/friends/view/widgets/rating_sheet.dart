@@ -2,6 +2,7 @@ import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class RatingSheet extends ConsumerWidget {
@@ -11,13 +12,16 @@ class RatingSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pairRating =
         ref.watch(pairChatProvider.select((s) => s.pairRating));
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       width: double.infinity,
       height: UiSizes.height_246,
 
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(UiSizes.size_20),
+        ),
         color: Theme.of(context).colorScheme.surface,
       ),
       child: Center(
@@ -25,7 +29,7 @@ class RatingSheet extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Rate your experience',
+              l10n.rateYourExperience,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text('Rating: ${pairRating.toStringAsFixed(1)}/5.0'),
@@ -51,7 +55,7 @@ class RatingSheet extends ConsumerWidget {
                 await ref.read(pairChatProvider.notifier).submitRating();
                 navigator.pop();
               },
-              child: const Text('Submit'),
+              child: Text(l10n.submit),
             ),
           ],
         ),

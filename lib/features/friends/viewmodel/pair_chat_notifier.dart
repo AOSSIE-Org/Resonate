@@ -122,8 +122,6 @@ class PairChatNotifier extends _$PairChatNotifier {
     // Both sides join through their own active-pair Realtime listener.
   }
 
-  // Claims the request synchronously so a dispose-time call can never delete
-  // a newer flow's request.
   Future<void> cancelRequest() async {
     final requestDocId = state.requestDocId;
     state = state.copyWith(requestDocId: null);
@@ -225,9 +223,6 @@ class PairChatNotifier extends _$PairChatNotifier {
     final pairUsername =
         (amUser1 ? payload['userName2'] : payload['userName1']) as String?;
     final pairProfileImageUrl = await repo.getUserProfileImageUrl(partnerUid);
-    // endChat() always cancels the subs synchronously, so a null sub after
-    // any await means the partner already ended this pair — bail out before
-    // joining (otherwise the user lands on a dead PairChatPage).
     if (_activePairSub == null) return;
 
     final activePairDocId = payload['\$id'] as String;
@@ -311,9 +306,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     });
   }
 
-  // Nulls the fields BEFORE the async cancels so the _listenFor* guards and
-  // _onPaired's bail-out checks stay correct even when a cancel is racing an
-  // un-awaited reset()/cancelRequest().
+  // Nulls the fields BEFORE the async cancels
   Future<void> _cancelSubs() async {
     final activePairSub = _activePairSub;
     final newUsersSub = _newUsersSub;

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class PairChatUsersPage extends ConsumerStatefulWidget {
   const PairChatUsersPage({super.key});
@@ -45,7 +46,7 @@ class _PairChatUsersPageState extends ConsumerState<PairChatUsersPage> {
             icon: Icon(Icons.casino_outlined),
           ),
         ],
-        actionsPadding: EdgeInsets.only(right: 16.0),
+        actionsPadding: EdgeInsets.only(right: UiSizes.width_16),
       ),
       body: chatState.isUserListLoading
           ? Center(child: CircularProgressIndicator())

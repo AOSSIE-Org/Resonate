@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/container.dart';
-import 'package:resonate/features/auth/data/callkit_service.dart';
+import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/friends/data/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
@@ -159,7 +159,6 @@ class FriendCallNotifier extends _$FriendCallNotifier {
       if (!event.events.first.endsWith('.update')) return;
       final call = state.activeCall;
       if (call == null) return;
-
       final status = event.payload['callStatus'];
       if (status == FriendCallStatus.connected.name &&
           call.callStatus != FriendCallStatus.connected) {

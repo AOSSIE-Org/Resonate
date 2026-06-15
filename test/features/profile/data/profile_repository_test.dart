@@ -6,7 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/features/profile/data/profile_repository.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';

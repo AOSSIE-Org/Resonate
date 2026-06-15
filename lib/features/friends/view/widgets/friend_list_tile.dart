@@ -8,6 +8,7 @@ import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
 import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
 class FriendListTile extends ConsumerStatefulWidget {
@@ -58,20 +59,23 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(UiSizes.width_10),
           color: Theme.of(context).colorScheme.secondary,
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        margin: EdgeInsets.symmetric(
+          horizontal: UiSizes.width_16,
+          vertical: UiSizes.height_8,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
         child: ListTile(
-          contentPadding: const EdgeInsets.all(0),
+          contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(
             backgroundImage: NetworkImage(
               userIsSender
                   ? friendModel.recieverProfileImgUrl
                   : friendModel.senderProfileImgUrl,
             ),
-            radius: 25,
+            radius: UiSizes.size_25,
           ),
           trailing: _isProcessing
               ? LoadingIndicator(
@@ -132,7 +136,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w500,
-              fontSize: 17,
+              fontSize: UiSizes.size_17,
               fontStyle: FontStyle.normal,
               fontFamily: 'Inter',
             ),
@@ -148,7 +152,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 12,
+                  fontSize: UiSizes.size_12,
                   fontStyle: FontStyle.normal,
                   fontFamily: 'Inter',
                 ),

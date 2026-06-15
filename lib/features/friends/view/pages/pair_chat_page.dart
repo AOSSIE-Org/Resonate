@@ -7,6 +7,7 @@ import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/view/widgets/room_app_bar.dart';
 import 'package:resonate/features/rooms/view/widgets/room_header.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
@@ -119,33 +120,12 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
               ),
               const Spacer(),
               CallControlPanel(
-                buttons: [
-                  CallControlButton(
-                    icon: chatState.isMicOn ? Icons.mic : Icons.mic_off,
-                    label: AppLocalizations.of(context)!.mute,
-                    onPressed: _notifier.toggleMic,
-                    backgroundColor: chatState.isMicOn
-                        ? CallControlPanel.inactiveButtonColor(context)
-                        : Theme.of(context).colorScheme.primary,
-                    heroTag: "mic",
-                  ),
-                  CallControlButton(
-                    icon: Icons.volume_up,
-                    label: AppLocalizations.of(context)!.speakerLabel,
-                    onPressed: _notifier.toggleLoudSpeaker,
-                    backgroundColor: chatState.isLoudSpeakerOn
-                        ? Theme.of(context).colorScheme.primary
-                        : CallControlPanel.inactiveButtonColor(context),
-                    heroTag: "speaker",
-                  ),
-                  CallControlButton(
-                    icon: Icons.cancel_outlined,
-                    label: AppLocalizations.of(context)!.end,
-                    onPressed: () => _notifier.endChat(),
-                    backgroundColor: Theme.of(context).colorScheme.error,
-                    heroTag: "end-chat",
-                  ),
-                ],
+                isMicOn: chatState.isMicOn,
+                isLoudSpeakerOn: chatState.isLoudSpeakerOn,
+                onToggleMic: _notifier.toggleMic,
+                onToggleLoudSpeaker: _notifier.toggleLoudSpeaker,
+                onAudioSettings: () => showAudioDeviceSelector(context),
+                onEnd: () => _notifier.endChat(),
               ),
             ],
           ),

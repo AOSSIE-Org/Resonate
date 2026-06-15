@@ -48,11 +48,13 @@ class PairChatDialog extends ConsumerWidget {
     final notifier = ref.read(pairChatProvider.notifier);
 
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(UiSizes.size_24),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 12,
       child: Padding(
-        padding: const EdgeInsets.all(28),
+        padding: EdgeInsets.all(UiSizes.size_28),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,16 +68,14 @@ class PairChatDialog extends ConsumerWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
-
-            // Divider with slight padding
+            SizedBox(height: UiSizes.height_20),
             Divider(
               color: Theme.of(
                 context,
               ).colorScheme.onSurface.withValues(alpha: 0.3),
-              thickness: 1,
+              thickness: UiSizes.height_1,
             ),
-            const SizedBox(height: 16), // Identity Selection Section
+            SizedBox(height: UiSizes.height_16), // Identity Selection Section
             Text(
               AppLocalizations.of(context)!.chooseIdentity,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -83,8 +83,7 @@ class PairChatDialog extends ConsumerWidget {
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
-            const SizedBox(height: 16),
-
+            SizedBox(height: UiSizes.height_16),
             // Anonymous and Authenticated Buttons
             Row(
               children: [
@@ -99,9 +98,11 @@ class PairChatDialog extends ConsumerWidget {
                             ).colorScheme.surfaceContainerHighest,
                       elevation: isAnonymous ? 6 : 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(UiSizes.size_12),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: EdgeInsets.symmetric(
+                        vertical: UiSizes.height_14,
+                      ),
                     ),
                     child: Text(
                       AppLocalizations.of(context)!.anonymous,
@@ -116,7 +117,7 @@ class PairChatDialog extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: UiSizes.width_10),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => notifier.setAnonymous(false),
@@ -128,11 +129,11 @@ class PairChatDialog extends ConsumerWidget {
                             ).colorScheme.surfaceContainerHigh,
                       elevation: !isAnonymous ? 6 : 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(UiSizes.size_12),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 14,
-                        horizontal: 5,
+                      padding: EdgeInsets.symmetric(
+                        vertical: UiSizes.height_14,
+                        horizontal: UiSizes.width_5,
                       ),
                     ),
                     child: Text(
@@ -150,16 +151,14 @@ class PairChatDialog extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-
-            // Divider with slight padding
+            SizedBox(height: UiSizes.height_24_6),
             Divider(
               color: Theme.of(
                 context,
               ).colorScheme.onSurface.withValues(alpha: 0.3),
-              thickness: 1,
+              thickness: UiSizes.height_1,
             ),
-            const SizedBox(height: 16), // Language Selection Section
+            SizedBox(height: UiSizes.height_16), // Language Selection Section
             Text(
               AppLocalizations.of(context)!.selectLanguage,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -167,7 +166,7 @@ class PairChatDialog extends ConsumerWidget {
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: UiSizes.height_16),
             LanguagePickerDropdown(
               initialValue: Language.fromIsoCode(
                 Localizations.localeOf(context).languageCode,
@@ -177,7 +176,7 @@ class PairChatDialog extends ConsumerWidget {
                 notifier.setLanguage(language.isoCode);
               },
             ),
-            const SizedBox(height: 28),
+            SizedBox(height: UiSizes.height_30),
 
             ElevatedButton(
               onPressed: () => _startFlow(
@@ -189,9 +188,9 @@ class PairChatDialog extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 6,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(UiSizes.size_12),
                 ),
-                padding: const EdgeInsets.all(14),
+                padding: EdgeInsets.all(UiSizes.size_14),
               ),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
@@ -205,12 +204,10 @@ class PairChatDialog extends ConsumerWidget {
                 ),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(UiSizes.size_8),
               child: Text(AppLocalizations.of(context)!.or),
             ),
-
             ElevatedButton(
               onPressed: () => _startFlow(
                 context,
@@ -221,9 +218,9 @@ class PairChatDialog extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 6,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(UiSizes.size_12),
                 ),
-                padding: const EdgeInsets.all(14),
+                padding: EdgeInsets.all(UiSizes.size_14),
               ),
               child: FittedBox(
                 fit: BoxFit.fitWidth,

@@ -19,7 +19,6 @@ class FriendRequestsPage extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => const FriendsEmptyView(isRequestsScreen: true),
         data: (state) {
-          // Only requests addressed to us
           final incomingRequests = state.friendRequests
               .where(
                 (friend) =>

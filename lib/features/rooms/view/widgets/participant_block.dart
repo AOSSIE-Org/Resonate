@@ -89,7 +89,7 @@ class ParticipantBlock extends ConsumerWidget {
         return _makeItems([
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.removeModerator,
-            () => notifier.removeModerator(room, participant),
+            () => notifier.setRole(room, participant, ParticipantRole.listener),
           ),
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.kickOut,
@@ -104,17 +104,17 @@ class ParticipantBlock extends ConsumerWidget {
         return _makeItems([
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.addModerator,
-            () => notifier.makeModerator(room, participant),
+            () => notifier.setRole(room, participant, ParticipantRole.moderator),
           ),
           if (participant.hasRequestedToBeSpeaker)
             _FocusedMenuItemData(
               AppLocalizations.of(context)!.addSpeaker,
-              () => notifier.makeSpeaker(room, participant),
+              () => notifier.setRole(room, participant, ParticipantRole.speaker),
             ),
           if (participant.isSpeaker)
             _FocusedMenuItemData(
               AppLocalizations.of(context)!.makeListener,
-              () => notifier.makeListener(room, participant),
+              () => notifier.setRole(room, participant, ParticipantRole.listener),
             ),
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.kickOut,
@@ -134,12 +134,12 @@ class ParticipantBlock extends ConsumerWidget {
         if (participant.hasRequestedToBeSpeaker)
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.addSpeaker,
-            () => notifier.makeSpeaker(room, participant),
+            () => notifier.setRole(room, participant, ParticipantRole.speaker),
           ),
         if (participant.isSpeaker)
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.makeListener,
-            () => notifier.makeListener(room, participant),
+            () => notifier.setRole(room, participant, ParticipantRole.listener),
           ),
         _FocusedMenuItemData(
           AppLocalizations.of(context)!.kickOut,
