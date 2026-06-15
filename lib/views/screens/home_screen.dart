@@ -34,9 +34,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final roomsAsync = ref.watch(roomsProvider);
     final upcomingAsync = ref.watch(upcomingRoomsProvider);
-    final isSearchingRooms = roomsAsync.value is RoomsStateReady
-        ? (roomsAsync.value as RoomsStateReady).isSearching
-        : false;
 
     return Scaffold(
       body: SafeArea(
@@ -96,7 +93,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 });
                 ref.read(roomsProvider.notifier).clearLiveSearch();
               },
-              isSearching: isLiveSelected ? isSearchingRooms : false,
+              isSearching: false,
             ),
           ],
         ),
@@ -188,29 +185,6 @@ class _LiveRoomsListView extends StatelessWidget {
     }
     final ready = state as RoomsStateReady;
     final roomsToShow = ready.searchBarIsEmpty ? ready.rooms : ready.filteredRooms;
-
-    if (ready.isSearching) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LoadingAnimationWidget.fourRotatingDots(
-              color: Theme.of(context).colorScheme.primary,
-              size: UiSizes.size_20,
-            ),
-            SizedBox(height: UiSizes.height_16),
-            Text(
-              AppLocalizations.of(context)!.searchingRooms,
-              style: TextStyle(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
 
     if (roomsToShow.isNotEmpty) {
       return ListView.builder(

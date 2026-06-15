@@ -2578,7 +2578,7 @@ abstract class AppLocalizations {
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// Error message shown when the system is unable to delete a message.
+  /// No description provided for @failedToDeleteMessage.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**

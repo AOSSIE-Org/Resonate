@@ -276,6 +276,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     if (current != null) {
       state = AsyncData(current.copyWith(isLoading: true));
     }
+    await _disposeStream();
     await ref.read(roomsRepositoryProvider).deleteRoom(roomId: appwriteRoom.id);
     await ref.read(liveKitProvider.notifier).disconnect();
     ref.invalidate(roomsProvider);

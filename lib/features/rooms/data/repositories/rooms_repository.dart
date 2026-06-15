@@ -105,8 +105,9 @@ class RoomsRepository {
       memberAvatarUrls: memberAvatarUrls,
       state: RoomState.live,
       isUserAdmin: data['adminUid'] == userUid,
-      reportedUsers:
-          List<String>.from(data['reportedUsers'] as List? ?? const []),
+      reportedUsers: List<String>.from(
+        data['reportedUsers'] as List? ?? const [],
+      ),
     );
   }
 
@@ -126,8 +127,14 @@ class RoomsRepository {
           ? localhostLivekitEndpoint
           : socketUrl;
 
-      await _secureStorage.write(key: 'createdRoomAdminToken', value: roomToken);
-      await _secureStorage.write(key: 'createdRoomLivekitUrl', value: liveKitUri);
+      await _secureStorage.write(
+        key: 'createdRoomAdminToken',
+        value: roomToken,
+      );
+      await _secureStorage.write(
+        key: 'createdRoomLivekitUrl',
+        value: liveKitUri,
+      );
 
       final myDocId = await _addParticipant(
         roomId: roomId,
@@ -214,8 +221,8 @@ class RoomsRepository {
       );
       final newCount =
           ((roomDoc.data['totalParticipants'] as num?)?.toInt() ?? 0) -
-              existing.rows.length +
-              1;
+          existing.rows.length +
+          1;
       await _tables.updateRow(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
@@ -227,7 +234,10 @@ class RoomsRepository {
     return participantDoc.$id;
   }
 
-  Future<bool> leaveRoom({required String roomId, required String userId}) async {
+  Future<bool> leaveRoom({
+    required String roomId,
+    required String userId,
+  }) async {
     try {
       final roomDoc = await _tables.getRow(
         databaseId: masterDatabaseId,
@@ -253,7 +263,7 @@ class RoomsRepository {
 
       final remaining =
           ((roomDoc.data['totalParticipants'] as num?)?.toInt() ?? 0) -
-              participantDocs.rows.length;
+          participantDocs.rows.length;
       if (remaining == 0) {
         await _tables.deleteRow(
           databaseId: masterDatabaseId,
@@ -277,10 +287,11 @@ class RoomsRepository {
   Future<void> deleteRoom({required String roomId}) async {
     try {
       final token = await _secureStorage.read(key: 'createdRoomAdminToken');
-      if (token == null) {
-        throw const RoomFailure.permissionDenied();
+      if (token != null) {
+        try {
+          await _api.deleteRoom(roomId, token);
+        } catch (_) {}
       }
-      await _api.deleteRoom(roomId, token);
 
       final participantDocs = await _tables.listRows(
         databaseId: masterDatabaseId,
@@ -295,6 +306,18 @@ class RoomsRepository {
           tableId: participantsTableId,
           rowId: doc.$id,
         );
+      }
+
+      // Ensure the room doc is deleted even when the server call above failed
+      // (it normally does this). Tolerate it already being gone.
+      try {
+        await _tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          rowId: roomId,
+        );
+      } on AppwriteException catch (e) {
+        if (e.code != 404) rethrow;
       }
     } on AppwriteException catch (e) {
       throw _mapException(e);
@@ -345,8 +368,7 @@ class RoomsRepository {
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {
-      if (event.payload.isNotEmpty &&
-          event.payload['roomId'] == roomId) {
+      if (event.payload.isNotEmpty && event.payload['roomId'] == roomId) {
         controller.add(event);
       }
     });

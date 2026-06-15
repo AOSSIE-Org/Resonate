@@ -1271,13 +1271,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get failedToRemoveRoom => 'रूम हटाने में विफल';
 
   @override
-  String get failedToCreateRoom => 'रूम बनाने में विफल';
+  String get failedToCreateRoom => 'रूम बनाने में असफल';
 
   @override
   String get roomChat => 'रूम चैट';
 
   @override
-  String get failedToResend => 'पुनः भेजने में विफल';
+  String get failedToResend => 'पुनः भेजने में असफल';
 
   @override
   String get edited => ' (संपादित)';
@@ -1430,9 +1430,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get usernameInvalidFormat =>
-      'Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.';
+      'उपयोगकर्ता नाम अमान्य है। कृपया केवल अक्षर, अंक और अंडरस्कोर का उपयोग करें।';
 
   @override
   String get usernameAlreadyTaken =>
-      'This username is already taken. Try a different one.';
+      'यह उपयोगकर्ता नाम पहले से लिया जा चुका है। कृपया कोई और चुनें।';
 }

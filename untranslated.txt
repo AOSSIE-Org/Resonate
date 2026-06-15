@@ -80,11 +80,6 @@
     "inviteToResonate"
   ],
 
-  "hi": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
-  ],
-
   "kn": [
     "hide",
     "removeRoom",
