@@ -64,8 +64,7 @@ class FriendsEmptyView extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        // TabViewController is still GetX; bridge until the
-                        // tab shell migrates.
+                        // TabViewController is still GetX
                         Get.find<TabViewController>().setIndex(1);
                         appRouter.go(RoutePaths.tabview);
                       },

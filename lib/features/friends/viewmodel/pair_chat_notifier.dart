@@ -306,7 +306,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     });
   }
 
-  // Nulls the fields BEFORE the async cancels
+  // Nulls the fields before the async cancels
   Future<void> _cancelSubs() async {
     final activePairSub = _activePairSub;
     final newUsersSub = _newUsersSub;

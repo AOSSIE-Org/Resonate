@@ -115,7 +115,7 @@ class FriendsNotifier extends _$FriendsNotifier {
     }
   }
 
-  // Nulls the field BEFORE the async cancel
+  // Nulls the field before the async cancel
   Future<void> _cancelSub() async {
     final sub = _friendsSub;
     _friendsSub = null;
