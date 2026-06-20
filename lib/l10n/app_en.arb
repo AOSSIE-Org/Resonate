@@ -1762,6 +1762,14 @@
     "@noRecordingError": {
         "description": "Error message when trying to exit a live chapter room without any recording."
     },
+    "transcriptionWarning": "Transcription Warning",
+    "@transcriptionWarning": {
+        "description": "Title for snackbar when some transcription segments fail to process."
+    },
+    "transcriptionWarningMessage": "Some parts of the transcription could not be processed.",
+    "@transcriptionWarningMessage": {
+        "description": "Message for snackbar when some transcription segments fail to process."
+    },
     "audioOutput": "Audio Output",
     "@audioOutput": {
         "description": "Title for audio output device selector."
