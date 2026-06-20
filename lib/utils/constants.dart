@@ -2,8 +2,15 @@
 
 // Appwrite Project Constants
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
+
+const androidOptions = AndroidOptions(
+  encryptedSharedPreferences: true,
+  migrateOnAlgorithmChange: true,
+  resetOnError: true,
+);
 
 const String baseDomain = String.fromEnvironment(
   'APPWRITE_BASE_DOMAIN',
