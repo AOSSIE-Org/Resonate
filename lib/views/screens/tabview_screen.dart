@@ -17,7 +17,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/utils/utils.dart';
-import 'package:resonate/views/screens/explore_screen.dart';
+import 'package:resonate/features/stories/view/pages/explore_page.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
@@ -192,7 +192,7 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
             ? const HomeScreen()
             : (_tabController.getIndex() == 2)
                 ? CreateRoomPage()
-                : const ExploreScreen(),
+                : const ExplorePage(),
       ),
     );
   }

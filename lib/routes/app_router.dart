@@ -9,17 +9,14 @@ import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/friends_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
+import 'package:resonate/features/stories/stories_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/views/screens/about_app_screen.dart';
 import 'package:resonate/views/screens/app_preferences_screen.dart';
 import 'package:resonate/views/screens/contribute_screen.dart';
-import 'package:resonate/views/screens/create_story_screen.dart';
-import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
-import 'package:resonate/views/screens/live_chapter_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
-import 'package:resonate/views/screens/verify_chapter_details_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/user_account_screen.dart';
@@ -86,25 +83,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Pair chat / friend calls
       ...friendsRoutes,
 
-      // Stories
-      GoRoute(
-        path: RoutePaths.exploreScreen,
-        builder: (_, _) => const ExploreScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.createStoryScreen,
-        builder: (_, _) => const CreateStoryPage(),
-      ),
-      GoRoute(
-        path: RoutePaths.liveChapterScreen,
-        builder: (_, _) => LiveChapterScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.verifyChapterDetails,
-        builder: (_, state) => VerifyChapterDetailsScreen(
-          lyricsString: state.extra as String? ?? '',
-        ),
-      ),
+      // Stories / live chapters
+      ...storiesRoutes,
     ],
   );
 });

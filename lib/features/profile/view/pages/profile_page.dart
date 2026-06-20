@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/controllers/explore_story_controller.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
@@ -16,8 +15,9 @@ import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/features/stories/model/story.dart';
+import 'package:resonate/features/stories/view/pages/story_page.dart';
 import 'package:resonate/models/resonate_user.dart';
-import 'package:resonate/models/story.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
@@ -25,7 +25,6 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/views/screens/followers_screen.dart';
-import 'package:resonate/views/screens/story_screen.dart';
 import 'package:resonate/views/widgets/loading_dialog.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
 
@@ -45,7 +44,6 @@ class ProfilePage extends ConsumerStatefulWidget {
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   final themeController = Get.find<ThemeController>();
-  final exploreStoryController = Get.find<ExploreStoryController>();
 
   bool get _isCreator => widget.isCreatorProfile == true;
   String get _creatorId => widget.creator!.uid!;
@@ -54,8 +52,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final authUser = ref.watch(authProvider).value?.userOrNull;
-    final profileAsync =
-        _isCreator ? ref.watch(profileViewProvider(_creatorId)) : null;
+    // Both self and creator profiles now source their stories from
+    // profileViewProvider; self profile previously read the GetX
+    // ExploreStoryController, which is gone after the stories migration.
+    final profileUserId = _isCreator ? _creatorId : authUser?.uid;
+    final profileAsync = profileUserId != null
+        ? ref.watch(profileViewProvider(profileUserId))
+        : null;
     final profileData = profileAsync?.value;
 
     return Scaffold(
@@ -464,19 +467,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _isCreator
-              ? _buildStoriesList(
-                  context,
-                  profileData?.createdStories ?? const [],
-                  l10n.userNoStories,
-                )
-              : Obx(
-                  () => _buildStoriesList(
-                    context,
-                    exploreStoryController.userCreatedStories,
-                    l10n.youNoStories,
-                  ),
-                ),
+          _buildStoriesList(
+            context,
+            profileData?.createdStories ?? const [],
+            _isCreator ? l10n.userNoStories : l10n.youNoStories,
+          ),
           SizedBox(height: UiSizes.height_10),
           Align(
             alignment: Alignment.centerLeft,
@@ -490,19 +485,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
           ),
           SizedBox(height: UiSizes.height_5),
-          _isCreator
-              ? _buildStoriesList(
-                  context,
-                  profileData?.likedStories ?? const [],
-                  l10n.userNoLikedStories,
-                )
-              : Obx(
-                  () => _buildStoriesList(
-                    context,
-                    exploreStoryController.userLikedStories,
-                    l10n.youNoLikedStories,
-                  ),
-                ),
+          _buildStoriesList(
+            context,
+            profileData?.likedStories ?? const [],
+            _isCreator ? l10n.userNoLikedStories : l10n.youNoLikedStories,
+          ),
         ],
       ),
     );
@@ -553,7 +540,7 @@ class StoryItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StoryScreen(story: story)),
+          MaterialPageRoute(builder: (_) => StoryPage(story: story)),
         );
       },
       child: Container(

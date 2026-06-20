@@ -1,0 +1,215 @@
+import 'dart:async';
+
+import 'package:appwrite/appwrite.dart';
+import 'package:resonate/core/container.dart';
+import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
+import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
+import 'package:resonate/features/stories/model/live_chapter_model.dart';
+import 'package:resonate/features/stories/model/live_chapter_state.dart';
+import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'generated/live_chapter_notifier.g.dart';
+
+
+@Riverpod(keepAlive: true)
+class LiveChapter extends _$LiveChapter {
+  StreamSubscription<RealtimeMessage>? _attendeesSub;
+
+  @override
+  LiveChapterState build() {
+    ref.onDispose(() => _attendeesSub?.cancel());
+    return const LiveChapterState();
+  }
+
+  bool get isAdmin {
+    final model = state.model;
+    if (model == null) return false;
+    return model.authorUid == requireCurrentAuthUser.uid;
+  }
+
+  bool checkUserIsAdmin(String uid) => state.model?.authorUid == uid;
+
+  Future<void> startLiveChapter({
+    required String roomId,
+    required String chapterTitle,
+    required String chapterDescription,
+    required String storyId,
+    required String storyName,
+  }) async {
+    final user = requireCurrentAuthUser;
+    final model = LiveChapterModel(
+      livekitRoomId: roomId,
+      authorUid: user.uid,
+      authorProfileImageUrl: user.profileImageUrl ?? '',
+      authorName: user.displayName,
+      chapterTitle: chapterTitle,
+      chapterDescription: chapterDescription,
+      storyId: storyId,
+      followersFCMToken: user.followers.map((e) => e.fcmToken).toList(),
+      attendees: LiveChapterAttendeesModel(
+        liveChapterId: roomId,
+        users: const [],
+        userIds: const [],
+      ),
+      id: roomId,
+    );
+
+    final repo = ref.read(liveChapterRepositoryProvider);
+    await repo.createLiveChapterDocs(model);
+    final join = await repo.createLiveChapterRoom(
+      appwriteRoomId: roomId,
+      adminUid: user.uid,
+    );
+    final connected = await ref
+        .read(liveKitProvider.notifier)
+        .connect(
+          liveKitUri: join.liveKitUri,
+          roomToken: join.roomToken,
+          isLiveChapter: true,
+        );
+    if (!connected) {
+      await repo.deleteLiveChapterDocs(roomId);
+      await repo.deleteLiveChapterRoom(roomId);
+      throw StateError('Unable to connect to the live chapter room');
+    }
+
+    state = state.copyWith(model: model);
+
+    if (user.followers.isNotEmpty) {
+      await repo.sendLiveChapterNotification(
+        creatorId: user.uid,
+        title: 'Live Chapter Starting!',
+        body:
+            "${user.displayName} is starting a Live Chapter in $storyName: $chapterTitle. Tune In!",
+      );
+    }
+
+    _listenForAttendees(roomId);
+  }
+
+  Future<void> joinLiveChapter(String roomId, LiveChapterModel data) async {
+    final user = requireCurrentAuthUser;
+    final attendees = data.attendees!;
+    final newAttendees = attendees.copyWith(
+      userIds: [
+        ...attendees.users.map((e) => e["\$id"] as String),
+        user.uid,
+      ],
+      users: [
+        ...attendees.users,
+        {
+          "\$id": user.uid,
+          "name": user.displayName,
+          "profileImageUrl": user.profileImageUrl,
+        },
+      ],
+    );
+
+    final repo = ref.read(liveChapterRepositoryProvider);
+    await repo.updateAttendees(roomId, newAttendees);
+    state = state.copyWith(model: data.copyWith(attendees: newAttendees));
+
+    final join = await repo.joinLiveChapterRoom(roomId: roomId, userId: user.uid);
+    final connected = await ref
+        .read(liveKitProvider.notifier)
+        .connect(
+          liveKitUri: join.liveKitUri,
+          roomToken: join.roomToken,
+          isLiveChapter: true,
+        );
+    if (!connected) {
+      throw StateError('Unable to connect to the live chapter room');
+    }
+
+    _listenForAttendees(roomId);
+  }
+
+  void _listenForAttendees(String roomId) {
+    final repo = ref.read(liveChapterRepositoryProvider);
+    _attendeesSub?.cancel();
+    _attendeesSub = repo.attendeesStream(roomId).listen((event) async {
+      final eventName = event.events.first;
+      if (eventName.endsWith('.update')) {
+        final model = state.model;
+        if (model == null || !ref.mounted) return;
+        final newAttendees = LiveChapterAttendeesModel.fromJson(event.payload);
+        state = state.copyWith(model: model.copyWith(attendees: newAttendees));
+      } else if (eventName.endsWith('.delete')) {
+        if (!isAdmin) {
+          await _attendeesSub?.cancel();
+          await ref.read(liveKitProvider.notifier).disconnect();
+          appRouter.go(RoutePaths.tabview);
+          if (ref.mounted) state = const LiveChapterState();
+        }
+      }
+    });
+  }
+
+  Future<void> turnOnMic() async {
+    await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(true);
+    state = state.copyWith(isMicOn: true);
+  }
+
+  Future<void> turnOffMic() async {
+    await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(false);
+    state = state.copyWith(isMicOn: false);
+  }
+
+  Future<void> setRecording(bool recording) =>
+      ref.read(liveKitProvider.notifier).setRecording(recording);
+
+  Future<void> leaveRoom() async {
+    final model = state.model;
+    if (model == null) return;
+    final user = requireCurrentAuthUser;
+    await _attendeesSub?.cancel();
+
+    final attendees = model.attendees!;
+    final updated = attendees.copyWith(
+      users: attendees.users
+          .where((element) => element["\$id"] != user.uid)
+          .toList(),
+      userIds: (attendees.userIds ?? [])
+          .where((element) => element != user.uid)
+          .toList(),
+    );
+    await ref.read(liveChapterRepositoryProvider).updateAttendees(
+      model.id,
+      updated,
+    );
+    await ref.read(liveKitProvider.notifier).disconnect();
+    state = const LiveChapterState();
+    appRouter.go(RoutePaths.tabview);
+  }
+
+  // Ends the chapter 
+  Future<String> endLiveChapter() async {
+    final model = state.model;
+    if (model == null) return '';
+    final repo = ref.read(liveChapterRepositoryProvider);
+
+    await ref.read(liveKitProvider.notifier).setRecording(false);
+    await repo.deleteLiveChapterDocs(model.id);
+
+    final whisperModel = await ref.read(whisperModelSettingProvider.future);
+    final lyrics = await WhisperTranscriptionService(
+      model: whisperModel,
+    ).transcribeChapter(model.livekitRoomId);
+
+    await repo.deleteLiveChapterRoom(model.livekitRoomId);
+    await _attendeesSub?.cancel();
+    await ref.read(liveKitProvider.notifier).disconnect();
+    return lyrics;
+  }
+
+  void reset() {
+    _attendeesSub?.cancel();
+    _attendeesSub = null;
+    state = const LiveChapterState();
+  }
+}

@@ -304,9 +304,7 @@ class RoomsRepository {
           rowId: doc.$id,
         );
       }
-
       // Ensure the room doc is deleted even when the server call above failed
-      // (it normally does this). Tolerate it already being gone.
       try {
         await _tables.deleteRow(
           databaseId: masterDatabaseId,

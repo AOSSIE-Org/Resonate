@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
+import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
-class AppPreferencesScreen extends StatefulWidget {
+class AppPreferencesScreen extends ConsumerStatefulWidget {
   const AppPreferencesScreen({super.key});
 
   @override
-  State<AppPreferencesScreen> createState() => _AppPreferencesScreenState();
+  ConsumerState<AppPreferencesScreen> createState() =>
+      _AppPreferencesScreenState();
 }
 
-class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
+class _AppPreferencesScreenState extends ConsumerState<AppPreferencesScreen> {
   List<Map<String, dynamic>> _getWhisperModels(BuildContext context) {
     return [
       {
@@ -179,6 +181,9 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
           Builder(
             builder: (context) {
               final whisperModels = _getWhisperModels(context);
+              final selectedModel = ref
+                  .watch(whisperModelSettingProvider)
+                  .value;
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -188,15 +193,12 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
                 ),
                 itemCount: whisperModels.length,
                 itemBuilder: (context, index) {
-                  return Obx(() {
-                    final modelData = whisperModels[index];
-                    final bool isSelected =
-                        currentWhisperModel.value == modelData['model'];
+                  final modelData = whisperModels[index];
+                  final bool isSelected = selectedModel == modelData['model'];
+                  return Container(
+                    margin: EdgeInsets.only(bottom: UiSizes.height_12),
 
-                    return Container(
-                      margin: EdgeInsets.only(bottom: UiSizes.height_12),
-
-                      child: ListTile(
+                    child: ListTile(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: UiSizes.height_8,
                           horizontal: UiSizes.width_16,
@@ -209,14 +211,9 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
                             : Theme.of(
                                 context,
                               ).colorScheme.surfaceContainerHighest,
-                        onTap: () async {
-                          currentWhisperModel.value = modelData['model'];
-
-                          await FlutterSecureStorage().write(
-                            key: "whisperModel",
-                            value: modelData['model'].modelName,
-                          );
-                        },
+                        onTap: () => ref
+                            .read(whisperModelSettingProvider.notifier)
+                            .setModel(modelData['model'] as WhisperModel),
                         leading: Container(
                           padding: EdgeInsets.all(UiSizes.width_10),
                           decoration: BoxDecoration(
@@ -276,7 +273,6 @@ class _AppPreferencesScreenState extends State<AppPreferencesScreen> {
                               ),
                       ),
                     );
-                  });
                 },
               );
             },
