@@ -10,6 +10,8 @@ class ChapterPlayerController extends GetxController {
   late Duration chapterDuration;
   final LyricController lyricController = LyricController();
 
+  RxDouble playbackSpeed = 1.0.obs;
+
   void initialize(
     AudioPlayer player,
     String lyrics,
@@ -19,6 +21,9 @@ class ChapterPlayerController extends GetxController {
     chapterDuration = duration;
     lyricController.loadLyric(lyrics);
     audioPlayer?.setReleaseMode(ReleaseMode.stop);
+    
+    // Set default playback speed
+    audioPlayer?.setPlaybackRate(playbackSpeed.value);
 
     audioPlayer?.onPositionChanged.listen((Duration event) {
       sliderProgress.value = event.inMilliseconds.toDouble();
@@ -37,6 +42,11 @@ class ChapterPlayerController extends GetxController {
       audioPlayer?.resume();
     }
     isPlaying.value = !isPlaying.value;
+  }
+
+  void setPlaybackSpeed(double speed) {
+    playbackSpeed.value = speed;
+    audioPlayer?.setPlaybackRate(speed);
   }
 
   @override
