@@ -50,7 +50,7 @@ final class StoryDetailProvider
   }
 }
 
-String _$storyDetailHash() => r'cc34f136856e95bf25bcc782aa332c6737f80025';
+String _$storyDetailHash() => r'7d20b85644dd1fa675a32140422086200adf3cc4';
 
 final class StoryDetailFamily extends $Family
     with

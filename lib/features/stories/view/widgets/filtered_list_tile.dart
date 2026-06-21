@@ -6,6 +6,7 @@ import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/features/stories/view/widgets/secondary_list_card.dart';
 
 class FilteredListTile extends StatelessWidget {
   final Story? story;
@@ -21,7 +22,6 @@ class FilteredListTile extends StatelessWidget {
          isStory
              ? (story != null && user == null)
              : (user != null && story == null),
-         'Provide only story when isStory=true, or only user when isStory=false.',
        );
 
   @override
@@ -38,21 +38,13 @@ class FilteredListTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => ProfilePage(creator: user, isCreatorProfile: true),
+              builder: (_) =>
+                  ProfilePage(creator: user, isCreatorProfile: true),
             ),
           );
         }
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(UiSizes.width_10),
-          color: colorScheme.secondary,
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: UiSizes.width_16,
-          vertical: UiSizes.height_8,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
+      child: SecondaryListCard(
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(

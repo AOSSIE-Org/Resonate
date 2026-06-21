@@ -29,7 +29,6 @@ Story _story(String id) => Story(
       isLikedByCurrentUser: false,
       playDuration: 60,
       tintColor: const Color(0xff0000FF),
-      chapters: const [],
     );
 
 FollowerUserModel _follower({required String uid, required String docId}) =>

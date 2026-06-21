@@ -50,7 +50,7 @@ class StoriesRepository {
   MeiliSearchIndex get _storyIndex => _meili.index('stories');
   MeiliSearchIndex get _userIndex => _meili.index('users');
 
-  // Loaders 
+  // Loaders
 
   Future<List<Story>> fetchRecommendedStories(String currentUid) async {
     try {
@@ -78,7 +78,9 @@ class StoriesRepository {
       );
       return _rowsToStories(result.rows, currentUid);
     } on AppwriteException catch (e) {
-      log('Failed to fetch stories for category ${category.name}: ${e.message}');
+      log(
+        'Failed to fetch stories for category ${category.name}: ${e.message}',
+      );
       return [];
     }
   }
@@ -177,14 +179,14 @@ class StoriesRepository {
     return result.rows.map((value) {
       final tintColor = Color(int.parse("0xff${value.data['tintColor']}"));
       return Chapter(
-        value.$id,
-        value.data['title'],
-        value.data['coverImgUrl'],
-        value.data['description'],
-        value.data['lyrics'],
-        value.data['audioFileUrl'],
-        value.data['playDuration'],
-        tintColor,
+        chapterId: value.$id,
+        title: value.data['title'],
+        coverImageUrl: value.data['coverImgUrl'],
+        description: value.data['description'],
+        lyrics: value.data['lyrics'],
+        audioFileUrl: value.data['audioFileUrl'],
+        playDuration: value.data['playDuration'],
+        tintColor: tintColor,
       );
     }).toList();
   }
@@ -206,10 +208,7 @@ class StoriesRepository {
       databaseId: storyDatabaseId,
       tableId: likeTableId,
       queries: [
-        Query.and([
-          Query.equal('uId', uid),
-          Query.equal('storyId', storyId),
-        ]),
+        Query.and([Query.equal('uId', uid), Query.equal('storyId', storyId)]),
       ],
     );
     return result.rows.isNotEmpty;
@@ -247,56 +246,66 @@ class StoriesRepository {
   }
 
   Future<List<Story>> _searchStories(String query, String currentUid) async {
-    if (isUsingMeilisearch) {
-      final result = await _storyIndex.search(
-        query,
-        SearchQuery(
-          attributesToHighlight: ['title', 'creatorName', 'description'],
-        ),
-      );
-      return _meiliHitsToStories(result.hits, currentUid);
-    }
+    try {
+      if (isUsingMeilisearch) {
+        final result = await _storyIndex.search(
+          query,
+          SearchQuery(
+            attributesToHighlight: ['title', 'creatorName', 'description'],
+          ),
+        );
+        return _meiliHitsToStories(result.hits, currentUid);
+      }
 
-    final result = await _tables.listRows(
-      databaseId: storyDatabaseId,
-      tableId: storyTableId,
-      queries: [
-        Query.or([
-          Query.search('title', query),
-          Query.search('creatorName', query),
-          Query.search('description', query),
-        ]),
-        Query.limit(16),
-      ],
-    );
-    return _rowsToStories(result.rows, currentUid);
+      final result = await _tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: [
+          Query.or([
+            Query.search('title', query),
+            Query.search('creatorName', query),
+            Query.search('description', query),
+          ]),
+          Query.limit(16),
+        ],
+      );
+      return _rowsToStories(result.rows, currentUid);
+    } catch (e) {
+      log('Story search failed: $e');
+      return [];
+    }
   }
 
   Future<List<ResonateUser>> _searchUsers(
     String query,
     String currentUid,
   ) async {
-    if (isUsingMeilisearch) {
-      final result = await _userIndex.search(
-        query,
-        SearchQuery(attributesToHighlight: ['name', 'username']),
-      );
-      return result.hits.map(_meiliHitToUser).toList();
-    }
+    try {
+      if (isUsingMeilisearch) {
+        final result = await _userIndex.search(
+          query,
+          SearchQuery(attributesToHighlight: ['name', 'username']),
+        );
+        return result.hits.map(_meiliHitToUser).toList();
+      }
 
-    final result = await _tables.listRows(
-      databaseId: userDatabaseID,
-      tableId: usersTableID,
-      queries: [
-        Query.or([
-          Query.search('name', query),
-          Query.search('username', query),
-        ]),
-        Query.notEqual('\$id', currentUid),
-        Query.limit(16),
-      ],
-    );
-    return result.rows.map((doc) => _rowToUser(doc.data, doc.$id)).toList();
+      final result = await _tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: [
+          Query.or([
+            Query.search('name', query),
+            Query.search('username', query),
+          ]),
+          Query.notEqual('\$id', currentUid),
+          Query.limit(16),
+        ],
+      );
+      return result.rows.map((doc) => _rowToUser(doc.data, doc.$id)).toList();
+    } catch (e) {
+      log('User search failed: $e');
+      return [];
+    }
   }
 
   // Actions
@@ -362,7 +371,7 @@ class StoriesRepository {
     if (lyricsFilePath.isNotEmpty) {
       lyrics = await io.File(lyricsFilePath).readAsString();
     }
-    return _buildChapter(
+    return buildRecordedChapter(
       chapterId: ID.unique(),
       title: title,
       description: description,
@@ -379,35 +388,19 @@ class StoriesRepository {
     required String coverImgPath,
     required String audioFilePath,
     required String lyrics,
-  }) => _buildChapter(
-    chapterId: chapterId,
-    title: title,
-    description: description,
-    coverImgPath: coverImgPath,
-    audioFilePath: audioFilePath,
-    lyrics: lyrics,
-  );
-
-  Future<Chapter> _buildChapter({
-    required String chapterId,
-    required String title,
-    required String description,
-    required String coverImgPath,
-    required String audioFilePath,
-    required String lyrics,
   }) async {
     final metadata = readMetadata(io.File(audioFilePath));
     final playDuration = metadata.duration?.inMilliseconds ?? 0;
     final primaryColor = await _tintForCover(coverImgPath);
     return Chapter(
-      chapterId,
-      title,
-      coverImgPath,
-      description,
-      lyrics,
-      audioFilePath,
-      playDuration,
-      primaryColor,
+      chapterId: chapterId,
+      title: title,
+      coverImageUrl: coverImgPath,
+      description: description,
+      lyrics: lyrics,
+      audioFileUrl: audioFilePath,
+      playDuration: playDuration,
+      tintColor: primaryColor,
     );
   }
 
@@ -667,7 +660,9 @@ class StoriesRepository {
     final stories = <Story>[];
     for (final row in rows) {
       try {
-        stories.add(_storyFromMap(row.data, row.$id, row.$createdAt, currentUid));
+        stories.add(
+          _storyFromMap(row.data, row.$id, row.$createdAt, currentUid),
+        );
       } catch (e) {
         // Skiping malformed story rows
         log('Skipping malformed story row ${row.$id}: $e');
@@ -714,7 +709,6 @@ class StoriesRepository {
       isLikedByCurrentUser: false,
       playDuration: data['playDuration'],
       tintColor: Color(int.parse("0xff${data['tintColor']}")),
-      chapters: const [],
     );
   }
 
@@ -724,8 +718,9 @@ class StoriesRepository {
     userData['uid'] = id;
     userData['userName'] = userData['username'];
     final ratingCount = (userData['ratingCount'] ?? 0) as num;
-    userData['userRating'] =
-        ratingCount == 0 ? 0 : userData['ratingTotal'] / ratingCount;
+    userData['userRating'] = ratingCount == 0
+        ? 0
+        : userData['ratingTotal'] / ratingCount;
     return ResonateUser.fromJson(userData);
   }
 

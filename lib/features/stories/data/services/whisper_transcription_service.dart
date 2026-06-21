@@ -25,7 +25,7 @@ class WhisperTranscriptionService {
       transcribeRequest: TranscribeRequest(
         audio: '${storagePath.path}/recordings/$chapterId.wav',
         isTranslate: true, // Translate result from audio lang to english text
-        isNoTimestamps: false, 
+        isNoTimestamps: false,
       ),
     );
 

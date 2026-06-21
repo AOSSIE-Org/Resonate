@@ -206,14 +206,11 @@ class _MicButton extends ConsumerWidget {
     final isMicOn = ref.watch(liveChapterProvider).isMicOn;
     final notifier = ref.read(liveChapterProvider.notifier);
     return FloatingActionButton(
-      heroTag: null, 
+      heroTag: null,
       onPressed: () => isMicOn ? notifier.turnOffMic() : notifier.turnOnMic(),
       // Mic on/off is a semantic green/red control.
       backgroundColor: isMicOn ? Colors.lightGreen : Colors.redAccent,
-      child: Icon(
-        isMicOn ? Icons.mic : Icons.mic_off,
-        color: Colors.black,
-      ),
+      child: Icon(isMicOn ? Icons.mic : Icons.mic_off, color: Colors.black),
     );
   }
 }
@@ -226,7 +223,7 @@ class _RecordButton extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final isRecording = ref.watch(liveKitProvider).isRecording;
     return FloatingActionButton(
-      heroTag: null, 
+      heroTag: null,
       onPressed: () {
         if (isRecording) {
           customSnackbar(

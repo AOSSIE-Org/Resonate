@@ -64,13 +64,12 @@ class StoryListTile extends StatelessWidget {
           ),
         ],
       ),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(UiSizes.width_10),
-        child: Image.network(
-          story.coverImageUrl,
-          fit: BoxFit.cover,
-          height: UiSizes.width_56,
-          width: UiSizes.width_56,
+      leading: SizedBox(
+        width: UiSizes.width_56,
+        height: UiSizes.width_56,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(UiSizes.width_10),
+          child: Image.network(story.coverImageUrl, fit: BoxFit.cover),
         ),
       ),
       trailing: Icon(

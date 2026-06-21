@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-
 class LikeButton extends StatefulWidget {
   final Color tintColor;
   final bool isLikedByUser;
@@ -43,10 +42,7 @@ class _LikeButtonState extends State<LikeButton>
 
     _colorAnimation = ColorTween(begin: Colors.grey, end: widget.tintColor)
         .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.0, 0.5),
-          ),
+          CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5)),
         );
 
     if (_isFavorite) {

@@ -137,7 +137,6 @@ void main() {
       expect(stories[0].likesCount, 10);
       expect(stories[0].tintColor, const Color(0xff0000FF));
       expect(stories[0].userIsCreator, false);
-      expect(stories[0].chapters, isEmpty);
     });
   });
 

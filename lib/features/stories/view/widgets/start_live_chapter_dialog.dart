@@ -61,7 +61,9 @@ class _StartLiveChapterDialogState
     } catch (e) {
       if (mounted) setState(() => _isStarting = false);
       log('startLiveChapter failed: $e');
-      final message = e is AppwriteException ? (e.message ?? e.toString()) : e.toString();
+      final message = e is AppwriteException
+          ? (e.message ?? e.toString())
+          : e.toString();
       customSnackbar(l10n.error, message, LogType.error);
       return;
     }

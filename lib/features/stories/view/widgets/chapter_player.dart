@@ -19,7 +19,9 @@ class ChapterPlayerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final playerState = ref.watch(chapterPlayerProvider(chapter.chapterId));
-    final notifier = ref.read(chapterPlayerProvider(chapter.chapterId).notifier);
+    final notifier = ref.read(
+      chapterPlayerProvider(chapter.chapterId).notifier,
+    );
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
@@ -28,8 +30,8 @@ class ChapterPlayerView extends ConsumerWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              chapter.tintColor.withAlpha((progress < 0.75 ? 0.8 : 1) * 255 ~/ 1),
-              chapter.tintColor.withAlpha((progress < 0.75 ? 0.3 : 1) * 255 ~/ 1),
+              chapter.tintColor.withValues(alpha: progress < 0.75 ? 0.8 : 1),
+              chapter.tintColor.withValues(alpha: progress < 0.75 ? 0.3 : 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -72,10 +74,10 @@ class ChapterPlayerView extends ConsumerWidget {
                   color:
                       isDark ||
                           (ThemeData.estimateBrightnessForColor(
-                                chapter.tintColor,
-                              ) ==
-                              Brightness.dark &&
-                          progress > 0.75)
+                                    chapter.tintColor,
+                                  ) ==
+                                  Brightness.dark &&
+                              progress > 0.75)
                       ? Colors.white
                       : Colors.black87,
                 ),
@@ -96,7 +98,8 @@ class ChapterPlayerView extends ConsumerWidget {
                       onChanged: notifier.onSliderChanged,
                       onChangeEnd: notifier.onSliderChangeEnd,
                       min: 0,
-                      max: notifier.chapterDuration.inMilliseconds.toDouble() +
+                      max:
+                          notifier.chapterDuration.inMilliseconds.toDouble() +
                           1000,
                       activeColor: Colors.white,
                       inactiveColor: Colors.grey.shade300,

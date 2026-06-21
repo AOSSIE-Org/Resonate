@@ -2,6 +2,7 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
+import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -52,5 +53,6 @@ class StoryDetail extends _$StoryDetail {
   Future<void> deleteStory(Story story) async {
     await ref.read(storiesRepositoryProvider).deleteStory(story);
     ref.invalidate(exploreStoriesProvider);
+    ref.invalidate(categoryStoriesProvider(story.category));
   }
 }

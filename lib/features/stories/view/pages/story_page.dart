@@ -59,9 +59,8 @@ class _StoryPageState extends ConsumerState<StoryPage> {
               ),
             ),
           ),
-          error: (e, _) => Center(
-            child: Text(AppLocalizations.of(context)!.error),
-          ),
+          error: (e, _) =>
+              Center(child: Text(AppLocalizations.of(context)!.error)),
           data: (detail) => _content(context, story, detail),
         ),
       ),
@@ -180,13 +179,15 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                         right: UiSizes.width_10,
                         bottom: UiSizes.height_15,
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(UiSizes.width_10),
-                        child: Image.network(
-                          story.coverImageUrl,
-                          width: UiSizes.width_111,
-                          height: UiSizes.width_111,
-                          fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: UiSizes.width_111,
+                        height: UiSizes.width_111,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(UiSizes.width_10),
+                          child: Image.network(
+                            story.coverImageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -217,22 +218,31 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '${detail.likesCount} ${l10n.likes}',
-                            style: Theme.of(context).textTheme.bodyLarge!
-                                .copyWith(
-                                  fontSize: UiSizes.size_16,
-                                  fontFamily: 'Inter',
-                                ),
+                          Flexible(
+                            child: Text(
+                              '${detail.likesCount} ${l10n.likes}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodyLarge!
+                                  .copyWith(
+                                    fontSize: UiSizes.size_16,
+                                    fontFamily: 'Inter',
+                                  ),
+                            ),
                           ),
                           SizedBox(width: UiSizes.width_16),
-                          Text(
-                            '${formatPlayDuration(story.playDuration)} ${l10n.lengthMinutes}',
-                            style: Theme.of(context).textTheme.bodyLarge!
-                                .copyWith(
-                                  fontSize: UiSizes.size_16,
-                                  fontFamily: 'Inter',
-                                ),
+                          Flexible(
+                            child: Text(
+                              '${formatPlayDuration(story.playDuration)} ${l10n.lengthMinutes}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                              style: Theme.of(context).textTheme.bodyLarge!
+                                  .copyWith(
+                                    fontSize: UiSizes.size_16,
+                                    fontFamily: 'Inter',
+                                  ),
+                            ),
                           ),
                         ],
                       ),
@@ -255,7 +265,9 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                           SizedBox(width: UiSizes.width_8),
                           Expanded(
                             child: Text(
-                              story.userIsCreator ? l10n.you : story.creatorName,
+                              story.userIsCreator
+                                  ? l10n.you
+                                  : story.creatorName,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: Theme.of(context).textTheme.bodyLarge!
@@ -318,7 +330,9 @@ class _StoryPageState extends ConsumerState<StoryPage> {
         return GestureDetector(
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => ChapterPlayPage(chapter: chapter)),
+            MaterialPageRoute(
+              builder: (_) => ChapterPlayPage(chapter: chapter),
+            ),
           ),
           child: ChapterListTile(chapter: chapter),
         );

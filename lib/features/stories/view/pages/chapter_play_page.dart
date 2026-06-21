@@ -139,7 +139,9 @@ class _ChapterPlayPageState extends ConsumerState<ChapterPlayPage> {
                           padding: EdgeInsets.all(UiSizes.width_10),
                           decoration: BoxDecoration(
                             color: cardColor,
-                            borderRadius: BorderRadius.circular(UiSizes.width_10),
+                            borderRadius: BorderRadius.circular(
+                              UiSizes.width_10,
+                            ),
                           ),
                           width: double.infinity,
                           child: Column(

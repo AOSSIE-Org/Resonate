@@ -129,7 +129,7 @@ class LiveChapterRepository {
   static String attendeesChannel(String roomId) =>
       "databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.$roomId";
 
-  // Stream of attendee-table events for a live chapter. 
+  // Stream of attendee-table events for a live chapter.
   Stream<RealtimeMessage> attendeesStream(String roomId) {
     final subscription = _realtime.subscribe([attendeesChannel(roomId)]);
     final controller = StreamController<RealtimeMessage>();

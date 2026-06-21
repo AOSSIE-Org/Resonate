@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/view/pages/create_chapter_page.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
+import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -52,7 +53,11 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
     if (titleController.text.isEmpty ||
         aboutController.text.isEmpty ||
         chapters.isEmpty) {
-      _showError(l10n.fillAllRequiredFieldsAndChapter);
+      customSnackbar(
+        l10n.error,
+        l10n.fillAllRequiredFieldsAndChapter,
+        LogType.error,
+      );
       return;
     }
 
@@ -82,23 +87,6 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
     router.go(RoutePaths.tabview);
   }
 
-  void _showError(String message) {
-    final l10n = AppLocalizations.of(context)!;
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.error),
-        content: Text(message),
-        actions: [
-          TextButton(
-            child: Text(l10n.ok),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -106,12 +94,7 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
     final labelStyle = TextStyle(color: colorScheme.onSurfaceVariant);
 
     return GestureDetector(
-      onTap: () {
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: colorScheme.surface,
@@ -173,7 +156,11 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
                   ),
                 ),
                 SizedBox(height: UiSizes.height_20),
-                _coverPicker(context),
+                CoverImagePicker(
+                  image: coverImage,
+                  placeholderUrl: storyCoverImagePlaceholderUrl,
+                  onTap: _pickCoverImage,
+                ),
                 SizedBox(height: UiSizes.height_30),
                 ListView.builder(
                   shrinkWrap: true,
@@ -250,62 +237,4 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
     borderRadius: const BorderRadius.all(Radius.circular(12)),
     borderSide: BorderSide(color: color),
   );
-
-  Widget _coverPicker(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(UiSizes.width_8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(UiSizes.width_20),
-              child: coverImage != null
-                  ? Image.file(
-                      coverImage!,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    )
-                  : Image.network(
-                      storyCoverImagePlaceholderUrl,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    ),
-            ),
-          ),
-        ),
-        SizedBox(width: UiSizes.width_10),
-        Expanded(
-          child: GestureDetector(
-            onTap: _pickCoverImage,
-            child: Container(
-              margin: EdgeInsets.all(UiSizes.width_8),
-              height: UiSizes.height_140,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: colorScheme.outline.withValues(alpha: 0.5),
-                ),
-                borderRadius: BorderRadius.circular(UiSizes.width_20),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.change_circle,
-                    size: UiSizes.size_40,
-                    color: colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
-                  Text(l10n.changeCoverImage, textAlign: TextAlign.center),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }

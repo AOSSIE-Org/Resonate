@@ -10,14 +10,14 @@ class Chapter {
   final int playDuration;
   final Color tintColor;
 
-  const Chapter(
-    this.chapterId,
-    this.title,
-    this.coverImageUrl,
-    this.description,
-    this.lyrics,
-    this.audioFileUrl,
-    this.playDuration,
-    this.tintColor,
-  );
+  const Chapter({
+    required this.chapterId,
+    required this.title,
+    required this.coverImageUrl,
+    required this.description,
+    required this.lyrics,
+    required this.audioFileUrl,
+    required this.playDuration,
+    required this.tintColor,
+  });
 }

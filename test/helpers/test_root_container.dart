@@ -182,7 +182,6 @@ Story fakeStory({
   int likesCount = 0,
   bool isLikedByCurrentUser = false,
   int playDuration = 1000,
-  List<Chapter> chapters = const [],
 }) => Story(
   storyId: storyId,
   title: title,
@@ -198,7 +197,6 @@ Story fakeStory({
   isLikedByCurrentUser: isLikedByCurrentUser,
   playDuration: playDuration,
   tintColor: const Color(0xffcbc6c6),
-  chapters: chapters,
 );
 
 Chapter fakeChapter({
@@ -210,14 +208,14 @@ Chapter fakeChapter({
   String audioFileUrl = 'https://example.com/audio.mp3',
   int playDuration = 500,
 }) => Chapter(
-  chapterId,
-  title,
-  coverImageUrl,
-  description,
-  lyrics,
-  audioFileUrl,
-  playDuration,
-  const Color(0xffcbc6c6),
+  chapterId: chapterId,
+  title: title,
+  coverImageUrl: coverImageUrl,
+  description: description,
+  lyrics: lyrics,
+  audioFileUrl: audioFileUrl,
+  playDuration: playDuration,
+  tintColor: const Color(0xffcbc6c6),
 );
 
 LiveChapterAttendeesModel fakeLiveChapterAttendees({

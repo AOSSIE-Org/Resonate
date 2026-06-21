@@ -98,10 +98,7 @@ class _AddChapterPageState extends ConsumerState<AddChapterPage> {
               child: const Icon(Icons.add),
             ),
             SizedBox(height: UiSizes.height_20),
-            ElevatedButton(
-              onPressed: _submit,
-              child: Text(l10n.newChapters),
-            ),
+            ElevatedButton(onPressed: _submit, child: Text(l10n.newChapters)),
           ],
         ),
       ),

@@ -18,18 +18,4 @@ void main() {
       expect(formatPlayDuration(600000), '10:00');
     });
   });
-
-  group('capitalizeFirstLetter', () {
-    test('capitalizes the first character', () {
-      expect(capitalizeFirstLetter('drama'), 'Drama');
-    });
-
-    test('leaves an already-capitalized string unchanged', () {
-      expect(capitalizeFirstLetter('Horror'), 'Horror');
-    });
-
-    test('returns an empty string unchanged', () {
-      expect(capitalizeFirstLetter(''), '');
-    });
-  });
 }

@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:resonate/features/stories/model/chapter.dart';
-import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class Story {
@@ -19,8 +17,6 @@ class Story {
   final bool isLikedByCurrentUser;
   final int playDuration;
   final Color tintColor;
-  final List<Chapter> chapters;
-  final LiveChapterModel? liveChapter;
 
   const Story({
     required this.title,
@@ -37,16 +33,12 @@ class Story {
     required this.isLikedByCurrentUser,
     required this.playDuration,
     required this.tintColor,
-    required this.chapters,
-    this.liveChapter,
   });
 
   Story copyWith({
     int? likesCount,
     bool? isLikedByCurrentUser,
     int? playDuration,
-    List<Chapter>? chapters,
-    LiveChapterModel? liveChapter,
   }) => Story(
     title: title,
     storyId: storyId,
@@ -62,7 +54,5 @@ class Story {
     isLikedByCurrentUser: isLikedByCurrentUser ?? this.isLikedByCurrentUser,
     playDuration: playDuration ?? this.playDuration,
     tintColor: tintColor,
-    chapters: chapters ?? this.chapters,
-    liveChapter: liveChapter ?? this.liveChapter,
   );
 }

@@ -49,12 +49,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
     final l10n = AppLocalizations.of(context)!;
 
     return GestureDetector(
-      onTap: () {
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: colorScheme.surface,
         body: SingleChildScrollView(
@@ -136,7 +131,10 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
         itemCount: results.stories.length + results.users.length,
         itemBuilder: (context, index) {
           if (index < results.stories.length) {
-            return FilteredListTile(story: results.stories[index], isStory: true);
+            return FilteredListTile(
+              story: results.stories[index],
+              isStory: true,
+            );
           }
           final user = results.users[index - results.stories.length];
           return FilteredListTile(user: user, isStory: false);
@@ -220,35 +218,26 @@ class _ExploreContent extends ConsumerWidget {
             ),
           ),
         ),
-        SizedBox(height: UiSizes.height_35),
-        Text(
-          l10n.someSuggestions,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontWeight: FontWeight.w900,
-            fontSize: UiSizes.size_20,
-            fontFamily: 'Inter',
+        if (rest.isNotEmpty) ...[
+          SizedBox(height: UiSizes.height_35),
+          Text(
+            l10n.someSuggestions,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontWeight: FontWeight.w900,
+              fontSize: UiSizes.size_20,
+              fontFamily: 'Inter',
+            ),
           ),
-        ),
-        SizedBox(height: UiSizes.height_10),
-        if (rest.isNotEmpty)
+          SizedBox(height: UiSizes.height_10),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             itemCount: rest.length,
-            itemBuilder: (context, index) =>
-                StoryListTile(story: rest[index]),
-          )
-        else
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: topCount,
-            itemBuilder: (context, index) =>
-                StoryListTile(story: stories[index]),
+            itemBuilder: (context, index) => StoryListTile(story: rest[index]),
           ),
+        ],
         SizedBox(height: UiSizes.height_20),
       ],
     );

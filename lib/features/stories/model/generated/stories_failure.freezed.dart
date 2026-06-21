@@ -55,12 +55,11 @@ extension StoriesFailurePatterns on StoriesFailure {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureNetwork value)?  network,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that);case StoriesFailureNetwork() when network != null:
-return network(_that);case StoriesFailureUnknown() when unknown != null:
+return upload(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return orElse();
 
@@ -79,12 +78,11 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureNetwork value)  network,required TResult Function( StoriesFailureUnknown value)  unknown,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureUnknown value)  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
-return upload(_that);case StoriesFailureNetwork():
-return network(_that);case StoriesFailureUnknown():
+return upload(_that);case StoriesFailureUnknown():
 return unknown(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -99,12 +97,11 @@ return unknown(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureNetwork value)?  network,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that);case StoriesFailureNetwork() when network != null:
-return network(_that);case StoriesFailureUnknown() when unknown != null:
+return upload(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return null;
 
@@ -122,11 +119,10 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function()?  network,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that.what);case StoriesFailureNetwork() when network != null:
-return network();case StoriesFailureUnknown() when unknown != null:
+return upload(_that.what);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return orElse();
 
@@ -145,11 +141,10 @@ return unknown(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function()  network,required TResult Function( String message)  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function( String message)  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
-return upload(_that.what);case StoriesFailureNetwork():
-return network();case StoriesFailureUnknown():
+return upload(_that.what);case StoriesFailureUnknown():
 return unknown(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -164,11 +159,10 @@ return unknown(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function()?  network,TResult? Function( String message)?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function( String message)?  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that.what);case StoriesFailureNetwork() when network != null:
-return network();case StoriesFailureUnknown() when unknown != null:
+return upload(_that.what);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return null;
 
@@ -242,38 +236,6 @@ as String,
 
 
 }
-
-/// @nodoc
-
-
-class StoriesFailureNetwork implements StoriesFailure {
-  const StoriesFailureNetwork();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureNetwork);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'StoriesFailure.network()';
-}
-
-
-}
-
-
-
 
 /// @nodoc
 

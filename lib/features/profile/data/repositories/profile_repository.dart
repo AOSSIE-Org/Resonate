@@ -17,11 +17,11 @@ part 'generated/profile_repository.g.dart';
 
 @Riverpod(keepAlive: true)
 ProfileRepository profileRepository(Ref ref) => ProfileRepository(
-      tables: ref.watch(appwriteTablesProvider),
-      storage: ref.watch(appwriteStorageProvider),
-      account: ref.watch(appwriteAccountProvider),
-      messaging: ref.watch(firebaseMessagingProvider),
-    );
+  tables: ref.watch(appwriteTablesProvider),
+  storage: ref.watch(appwriteStorageProvider),
+  account: ref.watch(appwriteAccountProvider),
+  messaging: ref.watch(firebaseMessagingProvider),
+);
 
 class ProfileRepository {
   ProfileRepository({
@@ -29,17 +29,17 @@ class ProfileRepository {
     required Storage storage,
     required Account account,
     required FirebaseMessaging messaging,
-  })  : _tables = tables,
-        _storage = storage,
-        _account = account,
-        _messaging = messaging;
+  }) : _tables = tables,
+       _storage = storage,
+       _account = account,
+       _messaging = messaging;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
   final FirebaseMessaging _messaging;
 
-// Profile viewing
+  // Profile viewing
   Future<List<Story>> fetchCreatedStories(String creatorId) async {
     List<Row> rows = [];
     try {
@@ -94,7 +94,7 @@ class ProfileRepository {
         tableId: usersTableID,
         rowId: userId,
         queries: [
-          Query.select(['*', 'followers.*'])
+          Query.select(['*', 'followers.*']),
         ],
       );
 
@@ -146,7 +146,6 @@ class ProfileRepository {
         isLikedByCurrentUser: false,
         playDuration: value.data['playDuration'],
         tintColor: tintColor,
-        chapters: [],
       );
     }).toList();
   }
@@ -155,8 +154,7 @@ class ProfileRepository {
     String username, {
     String? currentUsername,
   }) async {
-    if (currentUsername != null &&
-        username.trim() == currentUsername.trim()) {
+    if (currentUsername != null && username.trim() == currentUsername.trim()) {
       return true;
     }
     try {
@@ -225,7 +223,7 @@ class ProfileRepository {
     );
   }
 
-// Profile picture
+  // Profile picture
   Future<({String url, String id})> uploadProfileImage({
     required String uid,
     required String email,
@@ -275,7 +273,7 @@ class ProfileRepository {
     );
   }
 
-// Onboarding
+  // Onboarding
   Future<void> createUserRow({
     required String uid,
     required String name,
@@ -304,7 +302,7 @@ class ProfileRepository {
     await _account.updatePrefs(prefs: {'isUserProfileComplete': true});
   }
 
-// Change email
+  // Change email
   Future<bool> isEmailAvailable(String email) async {
     final docs = await _tables.listRows(
       databaseId: userDatabaseID,
@@ -346,7 +344,7 @@ class ProfileRepository {
     );
   }
 
-// Delete account
+  // Delete account
   Future<void> deleteProfilePicture(String profileImageID) async {
     try {
       await _storage.deleteFile(

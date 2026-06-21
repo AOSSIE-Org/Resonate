@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
+import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
@@ -89,19 +90,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
     if (titleController.text.isEmpty ||
         aboutController.text.isEmpty ||
         audioFile == null) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(l10n.error),
-          content: Text(l10n.fillAllRequiredFields),
-          actions: [
-            TextButton(
-              child: Text(l10n.ok),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
-      );
+      customSnackbar(l10n.error, l10n.fillAllRequiredFields, LogType.error);
       return;
     }
 
@@ -111,7 +100,8 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
         .buildChapter(
           title: titleController.text,
           description: aboutController.text,
-          coverImgPath: chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
+          coverImgPath:
+              chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
           audioFilePath: audioFile!.path,
           lyricsFilePath: lyricsFile?.path ?? '',
         );
@@ -126,12 +116,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return GestureDetector(
-      onTap: () {
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: colorScheme.surface,
@@ -160,7 +145,11 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
                 ),
               ),
               SizedBox(height: UiSizes.height_20),
-              _coverPicker(context),
+              CoverImagePicker(
+                image: chapterCoverImage,
+                placeholderUrl: chapterCoverImagePlaceholderUrl,
+                onTap: _pickCoverImage,
+              ),
               SizedBox(height: UiSizes.height_30),
               _filePicker(
                 context,
@@ -189,66 +178,6 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
     );
   }
 
-  Widget _coverPicker(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(UiSizes.width_8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(UiSizes.width_20),
-              child: chapterCoverImage != null
-                  ? Image.file(
-                      chapterCoverImage!,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    )
-                  : Image.network(
-                      chapterCoverImagePlaceholderUrl,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    ),
-            ),
-          ),
-        ),
-        SizedBox(width: UiSizes.width_10),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(UiSizes.width_8),
-            child: GestureDetector(
-              onTap: _pickCoverImage,
-              child: Container(
-                height: UiSizes.height_140,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: colorScheme.outline.withValues(alpha: 0.5),
-                  ),
-                  borderRadius: BorderRadius.circular(UiSizes.width_20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.change_circle,
-                      size: UiSizes.size_40,
-                      color: colorScheme.onSurface.withValues(alpha: 0.5),
-                    ),
-                    Text(l10n.changeCoverImage, textAlign: TextAlign.center),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _filePicker(
     BuildContext context, {
     required VoidCallback onTap,
@@ -261,9 +190,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
         width: double.infinity,
         height: UiSizes.height_50,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: colorScheme.outline.withValues(alpha: 0.6),
-          ),
+          border: Border.all(color: colorScheme.outline.withValues(alpha: 0.6)),
           borderRadius: BorderRadius.circular(UiSizes.width_8),
         ),
         child: Center(

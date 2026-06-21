@@ -13,7 +13,9 @@ class StorySearch extends _$StorySearch {
 
   Future<void> search(String query) async {
     final uid = requireCurrentAuthUser.uid;
-    final results = await ref.read(storiesRepositoryProvider).search(query, uid);
+    final results = await ref
+        .read(storiesRepositoryProvider)
+        .search(query, uid);
     if (ref.mounted) state = results;
   }
 

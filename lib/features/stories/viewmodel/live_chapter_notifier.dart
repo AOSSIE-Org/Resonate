@@ -15,7 +15,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/live_chapter_notifier.g.dart';
 
-
 @Riverpod(keepAlive: true)
 class LiveChapter extends _$LiveChapter {
   StreamSubscription<RealtimeMessage>? _attendeesSub;
@@ -96,10 +95,7 @@ class LiveChapter extends _$LiveChapter {
     final user = requireCurrentAuthUser;
     final attendees = data.attendees!;
     final newAttendees = attendees.copyWith(
-      userIds: [
-        ...attendees.users.map((e) => e["\$id"] as String),
-        user.uid,
-      ],
+      userIds: [...attendees.users.map((e) => e["\$id"] as String), user.uid],
       users: [
         ...attendees.users,
         {
@@ -114,7 +110,10 @@ class LiveChapter extends _$LiveChapter {
     await repo.updateAttendees(roomId, newAttendees);
     state = state.copyWith(model: data.copyWith(attendees: newAttendees));
 
-    final join = await repo.joinLiveChapterRoom(roomId: roomId, userId: user.uid);
+    final join = await repo.joinLiveChapterRoom(
+      roomId: roomId,
+      userId: user.uid,
+    );
     final connected = await ref
         .read(liveKitProvider.notifier)
         .connect(
@@ -170,24 +169,22 @@ class LiveChapter extends _$LiveChapter {
     await _attendeesSub?.cancel();
 
     final attendees = model.attendees!;
+    final remainingUsers = attendees.users
+        .where((element) => element["\$id"] != user.uid)
+        .toList();
     final updated = attendees.copyWith(
-      users: attendees.users
-          .where((element) => element["\$id"] != user.uid)
-          .toList(),
-      userIds: (attendees.userIds ?? [])
-          .where((element) => element != user.uid)
-          .toList(),
+      users: remainingUsers,
+      userIds: remainingUsers.map((e) => e["\$id"] as String).toList(),
     );
-    await ref.read(liveChapterRepositoryProvider).updateAttendees(
-      model.id,
-      updated,
-    );
+    await ref
+        .read(liveChapterRepositoryProvider)
+        .updateAttendees(model.id, updated);
     await ref.read(liveKitProvider.notifier).disconnect();
     state = const LiveChapterState();
     appRouter.go(RoutePaths.tabview);
   }
 
-  // Ends the chapter 
+  // Ends the chapter
   Future<String> endLiveChapter() async {
     final model = state.model;
     if (model == null) return '';

@@ -5,13 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
+import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/views/widgets/snackbar.dart';
 
 class VerifyChapterDetailsPage extends ConsumerStatefulWidget {
   const VerifyChapterDetailsPage({super.key, required this.lyricsString});
@@ -92,25 +94,13 @@ class _VerifyChapterDetailsPageState
         aboutController.text.isEmpty ||
         audioFile == null ||
         model == null) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(l10n.error),
-          content: Text(l10n.fillAllRequiredFields),
-          actions: [
-            TextButton(
-              child: Text(l10n.ok),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
-      );
+      customSnackbar(l10n.error, l10n.fillAllRequiredFields, LogType.error);
       return;
     }
 
     final router = GoRouter.of(context);
     final chapter = await ref
-        .read(storiesRepositoryProvider)
+        .read(createStoryProvider.notifier)
         .buildRecordedChapter(
           chapterId: model.id,
           title: titleController.text,
@@ -120,9 +110,9 @@ class _VerifyChapterDetailsPageState
           audioFilePath: audioFile!.path,
           lyrics: lyricsController.text,
         );
-    await ref
-        .read(createStoryProvider.notifier)
-        .addChaptersToStory([chapter], model.storyId);
+    await ref.read(createStoryProvider.notifier).addChaptersToStory([
+      chapter,
+    ], model.storyId);
 
     ref.read(liveChapterProvider.notifier).reset();
     router.go(RoutePaths.tabview);
@@ -134,12 +124,7 @@ class _VerifyChapterDetailsPageState
     final colorScheme = Theme.of(context).colorScheme;
 
     return GestureDetector(
-      onTap: () {
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: colorScheme.surface,
@@ -168,7 +153,11 @@ class _VerifyChapterDetailsPageState
                 ),
               ),
               SizedBox(height: UiSizes.height_20),
-              _coverPicker(context),
+              CoverImagePicker(
+                image: chapterCoverImage,
+                placeholderUrl: chapterCoverImagePlaceholderUrl,
+                onTap: _pickCoverImage,
+              ),
               SizedBox(height: UiSizes.height_30),
               _infoTile(
                 context,
@@ -195,66 +184,6 @@ class _VerifyChapterDetailsPageState
     );
   }
 
-  Widget _coverPicker(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(UiSizes.width_8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(UiSizes.width_20),
-              child: chapterCoverImage != null
-                  ? Image.file(
-                      chapterCoverImage!,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    )
-                  : Image.network(
-                      chapterCoverImagePlaceholderUrl,
-                      fit: BoxFit.cover,
-                      height: UiSizes.height_140,
-                      width: UiSizes.height_140,
-                    ),
-            ),
-          ),
-        ),
-        SizedBox(width: UiSizes.width_10),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(UiSizes.width_8),
-            child: GestureDetector(
-              onTap: _pickCoverImage,
-              child: Container(
-                height: UiSizes.height_140,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: colorScheme.outline.withValues(alpha: 0.5),
-                  ),
-                  borderRadius: BorderRadius.circular(UiSizes.width_20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.change_circle,
-                      size: UiSizes.size_40,
-                      color: colorScheme.onSurface.withValues(alpha: 0.5),
-                    ),
-                    Text(l10n.changeCoverImage, textAlign: TextAlign.center),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _infoTile(
     BuildContext context, {
     required VoidCallback? onTap,
@@ -267,9 +196,7 @@ class _VerifyChapterDetailsPageState
         width: double.infinity,
         height: UiSizes.height_50,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: colorScheme.outline.withValues(alpha: 0.6),
-          ),
+          border: Border.all(color: colorScheme.outline.withValues(alpha: 0.6)),
           borderRadius: BorderRadius.circular(UiSizes.width_8),
         ),
         child: Center(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
 import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -17,7 +16,7 @@ class CategoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final storiesAsync = ref.watch(categoryStoriesProvider(category));
-    final label = capitalizeFirstLetter(category.name);
+    final label = AppLocalizations.of(context)!.storyCategory(category.name);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
