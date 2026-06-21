@@ -4,20 +4,23 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
+import 'dart:typed_data' as _i12;
 
 import 'package:appwrite/appwrite.dart' as _i8;
 import 'package:appwrite/enums.dart' as _i9;
 import 'package:appwrite/models.dart' as _i3;
 import 'package:appwrite/src/client.dart' as _i2;
-import 'package:appwrite/src/realtime.dart' as _i10;
-import 'package:appwrite/src/realtime_message.dart' as _i11;
+import 'package:appwrite/src/input_file.dart' as _i10;
+import 'package:appwrite/src/realtime.dart' as _i13;
+import 'package:appwrite/src/realtime_message.dart' as _i14;
 import 'package:appwrite/src/realtime_subscription.dart' as _i4;
+import 'package:appwrite/src/upload_progress.dart' as _i11;
 import 'package:firebase_core/firebase_core.dart' as _i6;
-import 'package:firebase_messaging/firebase_messaging.dart' as _i12;
+import 'package:firebase_messaging/firebase_messaging.dart' as _i15;
 import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart'
     as _i7;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i13;
+import 'package:mockito/src/dummies.dart' as _i16;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -126,36 +129,46 @@ class _FakeRow_17 extends _i1.SmartFake implements _i3.Row {
     : super(parent, parentInvocation);
 }
 
-class _FakeRealtimeSubscription_18 extends _i1.SmartFake
+class _FakeFileList_18 extends _i1.SmartFake implements _i3.FileList {
+  _FakeFileList_18(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeFile_19 extends _i1.SmartFake implements _i3.File {
+  _FakeFile_19(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeRealtimeSubscription_20 extends _i1.SmartFake
     implements _i4.RealtimeSubscription {
-  _FakeRealtimeSubscription_18(Object parent, Invocation parentInvocation)
+  _FakeRealtimeSubscription_20(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeExecutionList_19 extends _i1.SmartFake implements _i3.ExecutionList {
-  _FakeExecutionList_19(Object parent, Invocation parentInvocation)
+class _FakeExecutionList_21 extends _i1.SmartFake implements _i3.ExecutionList {
+  _FakeExecutionList_21(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeExecution_20 extends _i1.SmartFake implements _i3.Execution {
-  _FakeExecution_20(Object parent, Invocation parentInvocation)
+class _FakeExecution_22 extends _i1.SmartFake implements _i3.Execution {
+  _FakeExecution_22(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeStreamController_21<T> extends _i1.SmartFake
+class _FakeStreamController_23<T> extends _i1.SmartFake
     implements _i5.StreamController<T> {
-  _FakeStreamController_21(Object parent, Invocation parentInvocation)
+  _FakeStreamController_23(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeFirebaseApp_22 extends _i1.SmartFake implements _i6.FirebaseApp {
-  _FakeFirebaseApp_22(Object parent, Invocation parentInvocation)
+class _FakeFirebaseApp_24 extends _i1.SmartFake implements _i6.FirebaseApp {
+  _FakeFirebaseApp_24(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeNotificationSettings_23 extends _i1.SmartFake
+class _FakeNotificationSettings_25 extends _i1.SmartFake
     implements _i7.NotificationSettings {
-  _FakeNotificationSettings_23(Object parent, Invocation parentInvocation)
+  _FakeNotificationSettings_25(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -1504,10 +1517,220 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
           as _i5.Future<_i3.Row>);
 }
 
+/// A class which mocks [Storage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStorage extends _i1.Mock implements _i8.Storage {
+  MockStorage() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
+
+  @override
+  _i5.Future<_i3.FileList> listFiles({
+    required String? bucketId,
+    List<String>? queries,
+    String? search,
+    bool? total,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#listFiles, [], {
+              #bucketId: bucketId,
+              #queries: queries,
+              #search: search,
+              #total: total,
+            }),
+            returnValue: _i5.Future<_i3.FileList>.value(
+              _FakeFileList_18(
+                this,
+                Invocation.method(#listFiles, [], {
+                  #bucketId: bucketId,
+                  #queries: queries,
+                  #search: search,
+                  #total: total,
+                }),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.FileList>);
+
+  @override
+  _i5.Future<_i3.File> createFile({
+    required String? bucketId,
+    required String? fileId,
+    required _i10.InputFile? file,
+    List<String>? permissions,
+    dynamic Function(_i11.UploadProgress)? onProgress,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#createFile, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #file: file,
+              #permissions: permissions,
+              #onProgress: onProgress,
+            }),
+            returnValue: _i5.Future<_i3.File>.value(
+              _FakeFile_19(
+                this,
+                Invocation.method(#createFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                  #file: file,
+                  #permissions: permissions,
+                  #onProgress: onProgress,
+                }),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.File>);
+
+  @override
+  _i5.Future<_i3.File> getFile({
+    required String? bucketId,
+    required String? fileId,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getFile, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+            }),
+            returnValue: _i5.Future<_i3.File>.value(
+              _FakeFile_19(
+                this,
+                Invocation.method(#getFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                }),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.File>);
+
+  @override
+  _i5.Future<_i3.File> updateFile({
+    required String? bucketId,
+    required String? fileId,
+    String? name,
+    List<String>? permissions,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#updateFile, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #name: name,
+              #permissions: permissions,
+            }),
+            returnValue: _i5.Future<_i3.File>.value(
+              _FakeFile_19(
+                this,
+                Invocation.method(#updateFile, [], {
+                  #bucketId: bucketId,
+                  #fileId: fileId,
+                  #name: name,
+                  #permissions: permissions,
+                }),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.File>);
+
+  @override
+  _i5.Future<dynamic> deleteFile({
+    required String? bucketId,
+    required String? fileId,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#deleteFile, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+            }),
+            returnValue: _i5.Future<dynamic>.value(),
+          )
+          as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<_i12.Uint8List> getFileDownload({
+    required String? bucketId,
+    required String? fileId,
+    String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getFileDownload, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #token: token,
+            }),
+            returnValue: _i5.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
+          )
+          as _i5.Future<_i12.Uint8List>);
+
+  @override
+  _i5.Future<_i12.Uint8List> getFilePreview({
+    required String? bucketId,
+    required String? fileId,
+    int? width,
+    int? height,
+    _i9.ImageGravity? gravity,
+    int? quality,
+    int? borderWidth,
+    String? borderColor,
+    int? borderRadius,
+    double? opacity,
+    int? rotation,
+    String? background,
+    _i9.ImageFormat? output,
+    String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getFilePreview, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #width: width,
+              #height: height,
+              #gravity: gravity,
+              #quality: quality,
+              #borderWidth: borderWidth,
+              #borderColor: borderColor,
+              #borderRadius: borderRadius,
+              #opacity: opacity,
+              #rotation: rotation,
+              #background: background,
+              #output: output,
+              #token: token,
+            }),
+            returnValue: _i5.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
+          )
+          as _i5.Future<_i12.Uint8List>);
+
+  @override
+  _i5.Future<_i12.Uint8List> getFileView({
+    required String? bucketId,
+    required String? fileId,
+    String? token,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getFileView, [], {
+              #bucketId: bucketId,
+              #fileId: fileId,
+              #token: token,
+            }),
+            returnValue: _i5.Future<_i12.Uint8List>.value(_i12.Uint8List(0)),
+          )
+          as _i5.Future<_i12.Uint8List>);
+}
+
 /// A class which mocks [Realtime].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRealtime extends _i1.Mock implements _i10.Realtime {
+class MockRealtime extends _i1.Mock implements _i13.Realtime {
   MockRealtime() {
     _i1.throwOnMissingStub(this);
   }
@@ -1524,7 +1747,7 @@ class MockRealtime extends _i1.Mock implements _i10.Realtime {
   _i4.RealtimeSubscription subscribe(List<String>? channels) =>
       (super.noSuchMethod(
             Invocation.method(#subscribe, [channels]),
-            returnValue: _FakeRealtimeSubscription_18(
+            returnValue: _FakeRealtimeSubscription_20(
               this,
               Invocation.method(#subscribe, [channels]),
             ),
@@ -1561,7 +1784,7 @@ class MockFunctions extends _i1.Mock implements _i8.Functions {
               #total: total,
             }),
             returnValue: _i5.Future<_i3.ExecutionList>.value(
-              _FakeExecutionList_19(
+              _FakeExecutionList_21(
                 this,
                 Invocation.method(#listExecutions, [], {
                   #functionId: functionId,
@@ -1594,7 +1817,7 @@ class MockFunctions extends _i1.Mock implements _i8.Functions {
               #scheduledAt: scheduledAt,
             }),
             returnValue: _i5.Future<_i3.Execution>.value(
-              _FakeExecution_20(
+              _FakeExecution_22(
                 this,
                 Invocation.method(#createExecution, [], {
                   #functionId: functionId,
@@ -1621,7 +1844,7 @@ class MockFunctions extends _i1.Mock implements _i8.Functions {
               #executionId: executionId,
             }),
             returnValue: _i5.Future<_i3.Execution>.value(
-              _FakeExecution_20(
+              _FakeExecution_22(
                 this,
                 Invocation.method(#getExecution, [], {
                   #functionId: functionId,
@@ -1643,23 +1866,23 @@ class MockRealtimeSubscription extends _i1.Mock
   }
 
   @override
-  _i5.Stream<_i11.RealtimeMessage> get stream =>
+  _i5.Stream<_i14.RealtimeMessage> get stream =>
       (super.noSuchMethod(
             Invocation.getter(#stream),
-            returnValue: _i5.Stream<_i11.RealtimeMessage>.empty(),
+            returnValue: _i5.Stream<_i14.RealtimeMessage>.empty(),
           )
-          as _i5.Stream<_i11.RealtimeMessage>);
+          as _i5.Stream<_i14.RealtimeMessage>);
 
   @override
-  _i5.StreamController<_i11.RealtimeMessage> get controller =>
+  _i5.StreamController<_i14.RealtimeMessage> get controller =>
       (super.noSuchMethod(
             Invocation.getter(#controller),
-            returnValue: _FakeStreamController_21<_i11.RealtimeMessage>(
+            returnValue: _FakeStreamController_23<_i14.RealtimeMessage>(
               this,
               Invocation.getter(#controller),
             ),
           )
-          as _i5.StreamController<_i11.RealtimeMessage>);
+          as _i5.StreamController<_i14.RealtimeMessage>);
 
   @override
   List<String> get channels =>
@@ -1684,7 +1907,7 @@ class MockRealtimeSubscription extends _i1.Mock
 /// A class which mocks [FirebaseMessaging].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirebaseMessaging extends _i1.Mock implements _i12.FirebaseMessaging {
+class MockFirebaseMessaging extends _i1.Mock implements _i15.FirebaseMessaging {
   MockFirebaseMessaging() {
     _i1.throwOnMissingStub(this);
   }
@@ -1693,7 +1916,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i12.FirebaseMessaging {
   _i6.FirebaseApp get app =>
       (super.noSuchMethod(
             Invocation.getter(#app),
-            returnValue: _FakeFirebaseApp_22(this, Invocation.getter(#app)),
+            returnValue: _FakeFirebaseApp_24(this, Invocation.getter(#app)),
           )
           as _i6.FirebaseApp);
 
@@ -1773,7 +1996,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i12.FirebaseMessaging {
       (super.noSuchMethod(
             Invocation.method(#getNotificationSettings, []),
             returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_23(
+              _FakeNotificationSettings_25(
                 this,
                 Invocation.method(#getNotificationSettings, []),
               ),
@@ -1804,7 +2027,7 @@ class MockFirebaseMessaging extends _i1.Mock implements _i12.FirebaseMessaging {
               #providesAppNotificationSettings: providesAppNotificationSettings,
             }),
             returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_23(
+              _FakeNotificationSettings_25(
                 this,
                 Invocation.method(#requestPermission, [], {
                   #alert: alert,
@@ -1888,7 +2111,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $id =>
       (super.noSuchMethod(
             Invocation.getter(#$id),
-            returnValue: _i13.dummyValue<String>(this, Invocation.getter(#$id)),
+            returnValue: _i16.dummyValue<String>(this, Invocation.getter(#$id)),
           )
           as String);
 
@@ -1896,7 +2119,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $createdAt =>
       (super.noSuchMethod(
             Invocation.getter(#$createdAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#$createdAt),
             ),
@@ -1907,7 +2130,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $updatedAt =>
       (super.noSuchMethod(
             Invocation.getter(#$updatedAt),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#$updatedAt),
             ),
@@ -1926,7 +2149,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get functionId =>
       (super.noSuchMethod(
             Invocation.getter(#functionId),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#functionId),
             ),
@@ -1937,7 +2160,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get deploymentId =>
       (super.noSuchMethod(
             Invocation.getter(#deploymentId),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#deploymentId),
             ),
@@ -1964,7 +2187,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get requestMethod =>
       (super.noSuchMethod(
             Invocation.getter(#requestMethod),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#requestMethod),
             ),
@@ -1975,7 +2198,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get requestPath =>
       (super.noSuchMethod(
             Invocation.getter(#requestPath),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#requestPath),
             ),
@@ -2002,7 +2225,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get responseBody =>
       (super.noSuchMethod(
             Invocation.getter(#responseBody),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#responseBody),
             ),
@@ -2021,7 +2244,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get logs =>
       (super.noSuchMethod(
             Invocation.getter(#logs),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#logs),
             ),
@@ -2032,7 +2255,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get errors =>
       (super.noSuchMethod(
             Invocation.getter(#errors),
-            returnValue: _i13.dummyValue<String>(
+            returnValue: _i16.dummyValue<String>(
               this,
               Invocation.getter(#errors),
             ),

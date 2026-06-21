@@ -22,23 +22,25 @@ import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/stories/model/chapter.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
+import 'package:resonate/features/stories/model/live_chapter_model.dart';
+import 'package:resonate/features/stories/model/story.dart';
+import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/utils/enums/room_state.dart';
+import 'package:resonate/utils/enums/story_category.dart';
 
-// Mocks shared across every notifier/repo test in the suite. Generated to
-// `test_root_container.mocks.dart` by `dart run build_runner build`.
 @GenerateMocks([
   Account,
   TablesDB,
+  Storage,
   Realtime,
   Functions,
   RealtimeSubscription,
   FirebaseMessaging,
   Execution,
 ])
-//
-// ─── Data builders ──────────────────────────────────────────────────────────
-//
-
+// Data builders
 AuthUser fakeAuthUser({
   String uid = '123',
   String email = 'test@test.com',
@@ -50,19 +52,18 @@ AuthUser fakeAuthUser({
   bool isEmailVerified = true,
   double ratingTotal = 5,
   int ratingCount = 1,
-}) =>
-    AuthUser(
-      uid: uid,
-      email: email,
-      displayName: displayName,
-      userName: userName,
-      profileImageUrl: profileImageUrl,
-      profileImageID: profileImageID,
-      isProfileComplete: isProfileComplete,
-      isEmailVerified: isEmailVerified,
-      ratingTotal: ratingTotal,
-      ratingCount: ratingCount,
-    );
+}) => AuthUser(
+  uid: uid,
+  email: email,
+  displayName: displayName,
+  userName: userName,
+  profileImageUrl: profileImageUrl,
+  profileImageID: profileImageID,
+  isProfileComplete: isProfileComplete,
+  isEmailVerified: isEmailVerified,
+  ratingTotal: ratingTotal,
+  ratingCount: ratingCount,
+);
 
 AppwriteRoom fakeAppwriteRoom({
   String id = 'room-1',
@@ -74,19 +75,18 @@ AppwriteRoom fakeAppwriteRoom({
   bool isUserAdmin = true,
   List<String> reportedUsers = const [],
   String? myDocId,
-}) =>
-    AppwriteRoom(
-      id: id,
-      name: name,
-      description: description,
-      totalParticipants: totalParticipants,
-      tags: tags,
-      memberAvatarUrls: memberAvatarUrls,
-      state: RoomState.live,
-      isUserAdmin: isUserAdmin,
-      reportedUsers: reportedUsers,
-      myDocId: myDocId,
-    );
+}) => AppwriteRoom(
+  id: id,
+  name: name,
+  description: description,
+  totalParticipants: totalParticipants,
+  tags: tags,
+  memberAvatarUrls: memberAvatarUrls,
+  state: RoomState.live,
+  isUserAdmin: isUserAdmin,
+  reportedUsers: reportedUsers,
+  myDocId: myDocId,
+);
 
 AppwriteUpcomingRoom fakeUpcomingRoom({
   String id = 'upcoming-1',
@@ -99,19 +99,18 @@ AppwriteUpcomingRoom fakeUpcomingRoom({
   List<String> subscribersAvatarUrls = const [],
   bool userIsCreator = true,
   bool hasUserSubscribed = false,
-}) =>
-    AppwriteUpcomingRoom(
-      id: id,
-      name: name,
-      isTime: isTime,
-      scheduledDateTime: scheduledDateTime ?? DateTime.now(),
-      description: description,
-      totalSubscriberCount: totalSubscriberCount,
-      tags: tags,
-      subscribersAvatarUrls: subscribersAvatarUrls,
-      userIsCreator: userIsCreator,
-      hasUserSubscribed: hasUserSubscribed,
-    );
+}) => AppwriteUpcomingRoom(
+  id: id,
+  name: name,
+  isTime: isTime,
+  scheduledDateTime: scheduledDateTime ?? DateTime.now(),
+  description: description,
+  totalSubscriberCount: totalSubscriberCount,
+  tags: tags,
+  subscribersAvatarUrls: subscribersAvatarUrls,
+  userIsCreator: userIsCreator,
+  hasUserSubscribed: hasUserSubscribed,
+);
 
 Participant fakeParticipant({
   String uid = 'p-1',
@@ -123,18 +122,17 @@ Participant fakeParticipant({
   bool isModerator = false,
   bool isSpeaker = false,
   bool hasRequestedToBeSpeaker = false,
-}) =>
-    Participant(
-      uid: uid,
-      email: email,
-      name: name,
-      dpUrl: dpUrl,
-      isAdmin: isAdmin,
-      isMicOn: isMicOn,
-      isModerator: isModerator,
-      isSpeaker: isSpeaker,
-      hasRequestedToBeSpeaker: hasRequestedToBeSpeaker,
-    );
+}) => Participant(
+  uid: uid,
+  email: email,
+  name: name,
+  dpUrl: dpUrl,
+  isAdmin: isAdmin,
+  isMicOn: isMicOn,
+  isModerator: isModerator,
+  isSpeaker: isSpeaker,
+  hasRequestedToBeSpeaker: hasRequestedToBeSpeaker,
+);
 
 FriendsModel fakeFriendsModel({
   String senderId = 'sender-1',
@@ -152,61 +150,151 @@ FriendsModel fakeFriendsModel({
   double? senderRating = 4.0,
   double? recieverRating = 3.5,
   String docId = 'friend-doc-1',
-}) =>
-    FriendsModel(
-      senderId: senderId,
-      recieverId: recieverId,
-      senderName: senderName,
-      recieverName: recieverName,
-      senderUsername: senderUsername,
-      recieverUsername: recieverUsername,
-      senderProfileImgUrl: senderProfileImgUrl,
-      recieverProfileImgUrl: recieverProfileImgUrl,
-      senderFCMToken: senderFCMToken,
-      recieverFCMToken: recieverFCMToken,
-      requestStatus: requestStatus,
-      requestSentByUserId: requestSentByUserId ?? senderId,
-      senderRating: senderRating,
-      recieverRating: recieverRating,
-      docId: docId,
-    );
+}) => FriendsModel(
+  senderId: senderId,
+  recieverId: recieverId,
+  senderName: senderName,
+  recieverName: recieverName,
+  senderUsername: senderUsername,
+  recieverUsername: recieverUsername,
+  senderProfileImgUrl: senderProfileImgUrl,
+  recieverProfileImgUrl: recieverProfileImgUrl,
+  senderFCMToken: senderFCMToken,
+  recieverFCMToken: recieverFCMToken,
+  requestStatus: requestStatus,
+  requestSentByUserId: requestSentByUserId ?? senderId,
+  senderRating: senderRating,
+  recieverRating: recieverRating,
+  docId: docId,
+);
 
-/// Stubs the `flutter_secure_storage` method channel so writes/reads succeed
-/// in unit tests (the plugin normally calls into native code). Call from a
-/// `setUp()` in any test where the code path touches secure storage.
+Story fakeStory({
+  String storyId = 'story-1',
+  String title = 'Test Story',
+  String description = 'A story for testing',
+  bool userIsCreator = false,
+  StoryCategory category = StoryCategory.drama,
+  String coverImageUrl = 'https://example.com/cover.jpg',
+  String creatorId = 'creator-1',
+  String creatorName = 'Creator',
+  String creatorImgUrl = 'https://example.com/avatar.jpg',
+  DateTime? creationDate,
+  int likesCount = 0,
+  bool isLikedByCurrentUser = false,
+  int playDuration = 1000,
+  List<Chapter> chapters = const [],
+}) => Story(
+  storyId: storyId,
+  title: title,
+  description: description,
+  userIsCreator: userIsCreator,
+  category: category,
+  coverImageUrl: coverImageUrl,
+  creatorId: creatorId,
+  creatorName: creatorName,
+  creatorImgUrl: creatorImgUrl,
+  creationDate: creationDate ?? DateTime(2024, 1, 1),
+  likesCount: likesCount,
+  isLikedByCurrentUser: isLikedByCurrentUser,
+  playDuration: playDuration,
+  tintColor: const Color(0xffcbc6c6),
+  chapters: chapters,
+);
+
+Chapter fakeChapter({
+  String chapterId = 'chapter-1',
+  String title = 'Chapter One',
+  String coverImageUrl = 'https://example.com/chapter.jpg',
+  String description = 'A chapter for testing',
+  String lyrics = '',
+  String audioFileUrl = 'https://example.com/audio.mp3',
+  int playDuration = 500,
+}) => Chapter(
+  chapterId,
+  title,
+  coverImageUrl,
+  description,
+  lyrics,
+  audioFileUrl,
+  playDuration,
+  const Color(0xffcbc6c6),
+);
+
+LiveChapterAttendeesModel fakeLiveChapterAttendees({
+  String liveChapterId = 'room-1',
+  List<Map<String, dynamic>> users = const [],
+  List<String>? userIds = const [],
+}) => LiveChapterAttendeesModel(
+  liveChapterId: liveChapterId,
+  users: users,
+  userIds: userIds,
+);
+
+LiveChapterModel fakeLiveChapterModel({
+  String id = 'room-1',
+  String? livekitRoomId,
+  String authorUid = 'author-1',
+  String authorProfileImageUrl = 'https://example.com/a.jpg',
+  String authorName = 'Author',
+  String chapterTitle = 'Live Chapter',
+  String chapterDescription = 'Live description',
+  String storyId = 'story-1',
+  List<String> followersFCMToken = const [],
+  LiveChapterAttendeesModel? attendees,
+}) => LiveChapterModel(
+  livekitRoomId: livekitRoomId ?? id,
+  authorUid: authorUid,
+  authorProfileImageUrl: authorProfileImageUrl,
+  authorName: authorName,
+  chapterTitle: chapterTitle,
+  chapterDescription: chapterDescription,
+  storyId: storyId,
+  followersFCMToken: followersFCMToken,
+  attendees: attendees,
+  id: id,
+);
+
+ResonateUser fakeResonateUser({
+  String uid = 'user-1',
+  String userName = 'testuser',
+  String name = 'Test User',
+  String profileImageUrl = 'https://example.com/u.jpg',
+  String? email,
+  double userRating = 4.5,
+}) => ResonateUser(
+  uid: uid,
+  userName: userName,
+  name: name,
+  profileImageUrl: profileImageUrl,
+  email: email,
+  userRating: userRating,
+);
+
 void stubFlutterSecureStorageChannel() {
   TestWidgetsFlutterBinding.ensureInitialized();
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(
-    const MethodChannel('plugins.it_nomads.com/flutter_secure_storage'),
-    (call) async => null,
-  );
+        const MethodChannel('plugins.it_nomads.com/flutter_secure_storage'),
+        (call) async => null,
+      );
 }
 
-/// Convenience builder for fake Appwrite [Row]s in tests.
 Row buildRow({
   required String id,
   required Map<String, dynamic> data,
   String tableId = 'test-table',
   String databaseId = 'test-db',
-}) =>
-    Row(
-      $id: id,
-      $sequence: 0,
-      $tableId: tableId,
-      $databaseId: databaseId,
-      $createdAt: DateTime.now().toIso8601String(),
-      $updatedAt: DateTime.now().toIso8601String(),
-      $permissions: const [],
-      data: data,
-    );
+}) => Row(
+  $id: id,
+  $sequence: 0,
+  $tableId: tableId,
+  $databaseId: databaseId,
+  $createdAt: DateTime.now().toIso8601String(),
+  $updatedAt: DateTime.now().toIso8601String(),
+  $permissions: const [],
+  data: data,
+);
 
-//
-// ─── In-memory SDK stand-ins ────────────────────────────────────────────────
-//
-
-/// In-memory implementation of [GetStorage] used by `UpcomingRoomsNotifier`
-/// to track which upcoming rooms the user has hidden.
 class FakeGetStorage implements GetStorage {
   final Map<String, dynamic> _data = {};
 
@@ -233,11 +321,10 @@ class FakeGetStorage implements GetStorage {
 
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
-        '${invocation.memberName} not stubbed in FakeGetStorage',
-      );
+    '${invocation.memberName} not stubbed in FakeGetStorage',
+  );
 }
 
-/// Stub LiveKit notifier that never touches the network.
 class FakeLiveKitNotifier extends LiveKitNotifier {
   @override
   LiveKitState build() => const LiveKitState();
@@ -269,7 +356,6 @@ class FakeLiveKitNotifier extends LiveKitNotifier {
   }
 }
 
-/// Stub [CallKitService] that never touches the CallKit plugin channels.
 class FakeCallKitService extends CallKitService {
   int showIncomingCallCount = 0;
   int endAllCallsCount = 0;
@@ -294,9 +380,6 @@ class FakeCallKitService extends CallKitService {
   }
 }
 
-/// Stub auth notifier — used by tests that just need an auth context but
-/// don't want to wire up the full Appwrite SDK to make `loadCurrentUser()`
-/// return what they want.
 class _StubAuthNotifier extends AuthNotifier {
   _StubAuthNotifier(this._initial);
   final AuthState _initial;
@@ -305,10 +388,6 @@ class _StubAuthNotifier extends AuthNotifier {
   Future<AuthState> build() async => _initial;
 }
 
-/// Reusable fake [AuthRepository] with counters. Used by the auth view and
-/// profile tests where the goal is to drive auth state without spinning up
-/// the full Appwrite SDK. Newer tests prefer the real `AuthRepository` with
-/// mocked SDK — both patterns are supported.
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
@@ -359,23 +438,10 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
-        '${invocation.memberName} not stubbed in FakeAuthRepository',
-      );
+    '${invocation.memberName} not stubbed in FakeAuthRepository',
+  );
 }
 
-//
-// ─── installTestRootContainer ───────────────────────────────────────────────
-//
-
-/// Installs the global `rootContainer` for tests. Pass mocked Appwrite SDK
-/// objects via the named params; they back the *real* repositories.
-///
-/// Three ways to provide auth context:
-///  - [authRepository]: explicit fake repo (legacy auth/profile tests).
-///  - [authState]: overrides `authProvider` directly via [_StubAuthNotifier].
-///  - [account]: real `AuthRepository` runs against your mocked `Account`/
-///    `TablesDB`, suitable for tests that want to verify `loadCurrentUser`
-///    was called.
 Future<ProviderContainer> installTestRootContainer({
   AuthState? authState,
   Account? account,
@@ -412,7 +478,6 @@ Future<ProviderContainer> installTestRootContainer({
     ],
   );
   setRootContainerForTesting(container);
-  // Warm authProvider when any of the auth-providing inputs is supplied.
   if (authRepository != null || authState != null || account != null) {
     await container.read(authProvider.future);
   }
