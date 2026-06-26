@@ -198,8 +198,10 @@ class ExploreStoryController extends GetxController {
       userData['docId'] = doc.$id;
       userData['uid'] = doc.$id;
       userData['userName'] = userData['username'];
+      final ratingTotal = userData['ratingTotal'] ?? 5;
+      final ratingCount = userData['ratingCount'] ?? 1;
       userData['userRating'] =
-          userData['ratingTotal'] / userData['ratingCount'];
+          ratingCount > 0 ? ratingTotal / ratingCount : 5.0;
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);
@@ -217,8 +219,10 @@ class ExploreStoryController extends GetxController {
       userData['docId'] = doc['\$id'];
       userData['uid'] = doc['\$id'];
       userData['userName'] = userData['username'];
+      final ratingTotal = userData['ratingTotal'] ?? 5;
+      final ratingCount = userData['ratingCount'] ?? 1;
       userData['userRating'] =
-          userData['ratingTotal'] / userData['ratingCount'];
+          ratingCount > 0 ? ratingTotal / ratingCount : 5.0;
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);

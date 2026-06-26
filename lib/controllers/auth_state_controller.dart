@@ -49,6 +49,9 @@ class AuthStateController extends GetxController {
   late bool? isEmailVerified;
   late double ratingTotal;
   late int ratingCount;
+
+  double get averageRating =>
+      ratingCount > 0 ? ratingTotal / ratingCount : 5.0;
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
   late int reportsCount;
@@ -211,7 +214,7 @@ class AuthStateController extends GetxController {
         profileImageUrl = userDataDoc.data["profileImageUrl"];
         profileImageID = userDataDoc.data["profileImageID"];
         userName = userDataDoc.data["username"] ?? "unavailable";
-        ratingTotal = userDataDoc.data["ratingTotal"].toDouble() ?? 5;
+        ratingTotal = (userDataDoc.data["ratingTotal"] ?? 5).toDouble();
         ratingCount = userDataDoc.data["ratingCount"] ?? 1;
         followerDocuments =
             (userDataDoc.data["followers"] as List<dynamic>?)?.map((e) {

@@ -65,8 +65,7 @@ class FriendsController extends GetxController {
       docId: docId,
       senderFCMToken: userFCMToken,
       users: [authStateController.uid!, recieverId],
-      senderRating:
-          authStateController.ratingTotal / authStateController.ratingCount,
+      senderRating: authStateController.averageRating,
       recieverRating: recieverRating,
     );
     await databases.createDocument(
