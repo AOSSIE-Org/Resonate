@@ -14,7 +14,7 @@ import 'package:resonate/utils/colors.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/no_match_view.dart';
+import 'package:resonate/shared/widgets/no_match_view.dart';
 
 class ExplorePage extends ConsumerStatefulWidget {
   const ExplorePage({super.key});

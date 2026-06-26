@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/data/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
@@ -38,7 +38,7 @@ class FriendsNotifier extends _$FriendsNotifier {
     required double recieverRating,
   }) async {
     final model = await ref.read(friendsRepositoryProvider).sendFriendRequest(
-      sender: requireCurrentAuthUser,
+      sender: ref.read(requireUserProvider),
       recieverId: recieverId,
       recieverProfileImageUrl: recieverProfileImageUrl,
       recieverUsername: recieverUsername,
@@ -104,7 +104,7 @@ class FriendsNotifier extends _$FriendsNotifier {
   // Realtime sync
   Future<void> _refreshQuietly() async {
     try {
-      final uid = requireCurrentAuthUser.uid;
+      final uid = ref.read(requireUserProvider).uid;
       final lists = await ref.read(friendsRepositoryProvider).loadFriends(uid);
       if (!ref.mounted) return;
       state = AsyncData(

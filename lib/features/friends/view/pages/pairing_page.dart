@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart' show Get, Inst;
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class PairingPage extends ConsumerWidget {
@@ -20,10 +19,9 @@ class PairingPage extends ConsumerWidget {
     final onPrimaryColor = theme.colorScheme.onPrimary;
     final isAnonymous =
         ref.watch(pairChatProvider.select((s) => s.isAnonymous));
-    // ThemeController is still GetX; bridge until the theme migrates.
     final profileImageUrl = isAnonymous
-        ? Get.find<ThemeController>().userProfileImagePlaceholderUrl
-        : requireCurrentAuthUser.profileImageUrl ?? '';
+        ? ref.watch(userProfileImagePlaceholderUrlProvider)
+        : ref.read(requireUserProvider).profileImageUrl ?? '';
 
     return Scaffold(
       body: SafeArea(

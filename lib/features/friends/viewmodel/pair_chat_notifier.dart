@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/data/pair_chat_repository.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
@@ -12,7 +12,7 @@ import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/pair_chat_notifier.g.dart';
@@ -46,7 +46,7 @@ class PairChatNotifier extends _$PairChatNotifier {
   }
 
   Future<void> quickMatch() async {
-    final me = requireCurrentAuthUser;
+    final me = ref.read(requireUserProvider);
     _listenForActivePair();
 
     final requestDocId =
@@ -63,7 +63,7 @@ class PairChatNotifier extends _$PairChatNotifier {
   }
 
   Future<void> choosePartner() async {
-    final me = requireCurrentAuthUser;
+    final me = ref.read(requireUserProvider);
     state = state.copyWith(isAnonymous: false);
     _listenForNewUsers();
     _listenForActivePair();
@@ -99,7 +99,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     try {
       final users = await ref
           .read(pairChatRepositoryProvider)
-          .listOnlineUsers(excludeUid: requireCurrentAuthUser.uid);
+          .listOnlineUsers(excludeUid: ref.read(requireUserProvider).uid);
       if (!ref.mounted) return;
       state = state.copyWith(onlineUsers: users, isUserListLoading: false);
     } catch (e) {
@@ -110,7 +110,7 @@ class PairChatNotifier extends _$PairChatNotifier {
   }
 
   Future<void> pairWithSelectedUser(ResonateUser user) async {
-    final me = requireCurrentAuthUser;
+    final me = ref.read(requireUserProvider);
     await ref.read(pairChatRepositoryProvider).createActivePair(
       uid1: me.uid,
       uid2: user.uid!,
@@ -176,7 +176,7 @@ class PairChatNotifier extends _$PairChatNotifier {
   }
 
   Future<void> submitRating() async {
-    final me = requireCurrentAuthUser;
+    final me = ref.read(requireUserProvider);
     await ref.read(pairChatRepositoryProvider).updateUserRating(
       uid: me.uid,
       ratingTotal: me.ratingTotal + state.pairRating,
@@ -187,7 +187,7 @@ class PairChatNotifier extends _$PairChatNotifier {
 
   void _listenForActivePair() {
     if (_activePairSub != null) return;
-    final uid = requireCurrentAuthUser.uid;
+    final uid = ref.read(requireUserProvider).uid;
     final channel = PairChatRepository.activePairsChannel();
 
     _activePairSub = ref
@@ -238,7 +238,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     try {
       final joinInfo = await repo.pairJoinInfo(
         roomId: activePairDocId,
-        userId: requireCurrentAuthUser.uid,
+        userId: ref.read(requireUserProvider).uid,
       );
       if (_activePairSub == null || state.ended) return;
 
@@ -252,12 +252,12 @@ class PairChatNotifier extends _$PairChatNotifier {
       }
       if (!connected) throw Exception('LiveKit connection failed');
 
-      appRouter.push(RoutePaths.pairChat);
+      ref.read(routerProvider).push(RoutePaths.pairChat);
     } catch (e) {
       log('Joining pair chat failed: $e');
       _notifyConnectionFailed();
       await endChat();
-      appRouter.go(RoutePaths.tabview);
+      ref.read(routerProvider).go(RoutePaths.tabview);
     }
   }
 
@@ -273,7 +273,7 @@ class PairChatNotifier extends _$PairChatNotifier {
 
   void _listenForNewUsers() {
     if (_newUsersSub != null) return;
-    final uid = requireCurrentAuthUser.uid;
+    final uid = ref.read(requireUserProvider).uid;
 
     _newUsersSub = ref
         .read(pairChatRepositoryProvider)

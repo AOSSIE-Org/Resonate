@@ -1,4 +1,4 @@
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
@@ -12,7 +12,7 @@ part 'generated/rooms_notifier.g.dart';
 class RoomsNotifier extends _$RoomsNotifier {
   @override
   Future<RoomsState> build() async {
-    final userUid = requireCurrentAuthUser.uid;
+    final userUid = ref.read(requireUserProvider).uid;
     final rooms = await ref.watch(roomsRepositoryProvider).loadRooms(userUid);
     return RoomsState.ready(rooms: rooms);
   }
@@ -20,7 +20,7 @@ class RoomsNotifier extends _$RoomsNotifier {
   Future<void> refresh() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final userUid = requireCurrentAuthUser.uid;
+      final userUid = ref.read(requireUserProvider).uid;
       final rooms = await ref.read(roomsRepositoryProvider).loadRooms(userUid);
       return RoomsState.ready(rooms: rooms);
     });
@@ -28,7 +28,7 @@ class RoomsNotifier extends _$RoomsNotifier {
 
   Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
     final repo = ref.read(roomsRepositoryProvider);
-    final userId = requireCurrentAuthUser.uid;
+    final userId = ref.read(requireUserProvider).uid;
     final result = await repo.joinRoom(
       roomId: room.id,
       userId: userId,

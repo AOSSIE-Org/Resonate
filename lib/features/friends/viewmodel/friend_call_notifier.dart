@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/friends/data/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
@@ -14,7 +14,7 @@ import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/friend_call_notifier.g.dart';
@@ -32,7 +32,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
 
   // Starts a call to the other side and rings them over FCM.
   Future<void> startCall(FriendsModel friend) async {
-    final me = requireCurrentAuthUser;
+    final me = ref.read(requireUserProvider);
     final amSender = friend.senderId == me.uid;
     final recieverFCMToken =
         amSender ? friend.recieverFCMToken : friend.senderFCMToken;
@@ -62,7 +62,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     state = FriendCallState(activeCall: call);
     _listenToCall(call.docId);
 
-    appRouter.push(RoutePaths.ringingScreen);
+    ref.read(routerProvider).push(RoutePaths.ringingScreen);
   }
 
   // CallKit accept callback receiver side.
@@ -103,7 +103,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     state = state.copyWith(activeCall: updated);
 
     await _teardownCall();
-    appRouter.go(RoutePaths.tabview);
+    ref.read(routerProvider).go(RoutePaths.tabview);
   }
 
   Future<void> toggleMic() async {
@@ -141,12 +141,12 @@ class FriendCallNotifier extends _$FriendCallNotifier {
       }
       if (!connected) throw Exception('LiveKit connection failed');
 
-      appRouter.push(RoutePaths.friendCallScreen);
+      ref.read(routerProvider).push(RoutePaths.friendCallScreen);
     } catch (e) {
       log('Joining call failed: $e');
       _notifyConnectionFailed();
       await _teardownCall();
-      appRouter.go(RoutePaths.tabview);
+      ref.read(routerProvider).go(RoutePaths.tabview);
     }
   }
 
@@ -172,7 +172,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
           activeCall: call.copyWith(callStatus: FriendCallStatus.ended),
         );
         await _teardownCall();
-        appRouter.go(RoutePaths.tabview);
+        ref.read(routerProvider).go(RoutePaths.tabview);
       } else if (status == FriendCallStatus.declined.name &&
           call.callStatus != FriendCallStatus.declined) {
         state = state.copyWith(
@@ -180,7 +180,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
         );
         _notifyDeclined(call.recieverName);
         await _teardownCall();
-        appRouter.go(RoutePaths.tabview);
+        ref.read(routerProvider).go(RoutePaths.tabview);
       }
     });
   }

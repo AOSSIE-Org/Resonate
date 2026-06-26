@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
 
 class UiSizes {
   // Height expressions
@@ -50,6 +49,7 @@ class UiSizes {
   static late double height_780;
 
   // Width expressions
+  static late double width_0_5;
   static late double width_1;
   static late double width_1_5;
   static late double width_2;
@@ -162,6 +162,7 @@ class UiSizes {
     height_780 = screenHeight * 0.95;
 
     // Width expressions
+    width_0_5 = 0.0012 * screenWidth;
     width_1 = 0.0024 * screenWidth;
     width_1_5 = 0.00364 * screenWidth;
     width_2 = 0.00486 * screenWidth;

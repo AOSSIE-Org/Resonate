@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
@@ -28,7 +28,7 @@ class LiveChapter extends _$LiveChapter {
   bool get isAdmin {
     final model = state.model;
     if (model == null) return false;
-    return model.authorUid == requireCurrentAuthUser.uid;
+    return model.authorUid == ref.read(requireUserProvider).uid;
   }
 
   bool checkUserIsAdmin(String uid) => state.model?.authorUid == uid;
@@ -40,7 +40,7 @@ class LiveChapter extends _$LiveChapter {
     required String storyId,
     required String storyName,
   }) async {
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     final model = LiveChapterModel(
       livekitRoomId: roomId,
       authorUid: user.uid,
@@ -92,7 +92,7 @@ class LiveChapter extends _$LiveChapter {
   }
 
   Future<void> joinLiveChapter(String roomId, LiveChapterModel data) async {
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     final attendees = data.attendees!;
     final newAttendees = attendees.copyWith(
       userIds: [...attendees.users.map((e) => e["\$id"] as String), user.uid],
@@ -142,7 +142,7 @@ class LiveChapter extends _$LiveChapter {
         if (!isAdmin) {
           await _attendeesSub?.cancel();
           await ref.read(liveKitProvider.notifier).disconnect();
-          appRouter.go(RoutePaths.tabview);
+          ref.read(routerProvider).go(RoutePaths.tabview);
           if (ref.mounted) state = const LiveChapterState();
         }
       }
@@ -165,7 +165,7 @@ class LiveChapter extends _$LiveChapter {
   Future<void> leaveRoom() async {
     final model = state.model;
     if (model == null) return;
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     await _attendeesSub?.cancel();
 
     final attendees = model.attendees!;
@@ -181,7 +181,7 @@ class LiveChapter extends _$LiveChapter {
         .updateAttendees(model.id, updated);
     await ref.read(liveKitProvider.notifier).disconnect();
     state = const LiveChapterState();
-    appRouter.go(RoutePaths.tabview);
+    ref.read(routerProvider).go(RoutePaths.tabview);
   }
 
   // Ends the chapter

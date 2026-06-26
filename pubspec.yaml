@@ -54,7 +54,6 @@ dependencies:
   flutter_svg: ^2.2.2
   focused_menu: ^1.0.5
   font_awesome_flutter: ^10.12.0
-  get: ^4.7.2
   get_storage: ^2.1.1
   go_router: ^14.6.2
   google_fonts: ^6.3.2

@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -13,12 +12,12 @@ import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
 import 'package:resonate/features/profile/viewmodel/onboarding_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({super.key});
@@ -34,7 +33,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final _dobController = TextEditingController();
   final _debouncer = Debouncer(milliseconds: 800);
   final _imagePicker = ImagePicker();
-  final _themeController = Get.find<ThemeController>();
 
   @override
   void dispose() {
@@ -68,7 +66,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    Get.closeCurrentSnackbar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     final notifier = ref.read(onboardingProvider.notifier);
     if (value.isValidUsername()) {
       notifier.setUsernameChecking(true);
@@ -98,7 +96,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
           name: _nameController.text,
           username: _usernameController.text,
           dob: _dobController.text,
-          fallbackImageUrl: _themeController.userProfileImagePlaceholderUrl,
+          fallbackImageUrl: ref.read(userProfileImagePlaceholderUrlProvider),
         );
     if (!mounted) return;
 
@@ -179,7 +177,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                       backgroundImage: (state.profileImagePath == null)
                           ? NetworkImage(
-                              _themeController.userProfileImagePlaceholderUrl,
+                              ref.watch(userProfileImagePlaceholderUrlProvider),
                             )
                           : FileImage(File(state.profileImagePath!))
                               as ImageProvider,

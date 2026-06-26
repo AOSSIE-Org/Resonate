@@ -8,7 +8,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
-import 'package:resonate/services/api_service.dart';
+import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -21,7 +21,7 @@ LiveChapterRepository liveChapterRepository(Ref ref) => LiveChapterRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
   functions: ref.watch(appwriteFunctionsProvider),
-  apiService: ApiService(functions: ref.watch(appwriteFunctionsProvider)),
+  apiService: ref.watch(apiServiceProvider),
 );
 
 // Appwrite docs, realtime feed, cloud-function room ops and follower notification

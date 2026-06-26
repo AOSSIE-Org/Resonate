@@ -33,7 +33,7 @@ final class RoomsNotifierProvider
   RoomsNotifier create() => RoomsNotifier();
 }
 
-String _$roomsNotifierHash() => r'9192fd2b341f40ffea0a1738f6c1ecd5aa05eccf';
+String _$roomsNotifierHash() => r'02510587aa770f134ba0779926f2269641c51ff8';
 
 abstract class _$RoomsNotifier extends $AsyncNotifier<RoomsState> {
   FutureOr<RoomsState> build();

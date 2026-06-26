@@ -50,7 +50,7 @@ final class CategoryStoriesProvider
   }
 }
 
-String _$categoryStoriesHash() => r'cffdfc6bc8af5d45313415334e25519e48b8aac1';
+String _$categoryStoriesHash() => r'2bf3c8fc6341c1d4cabc1a2ed82ef0b81546da95';
 
 final class CategoryStoriesFamily extends $Family
     with

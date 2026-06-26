@@ -1,4 +1,4 @@
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -28,24 +28,21 @@ class CreateRoomNotifier extends _$CreateRoomNotifier {
         name: name,
         description: description,
         tags: tags,
-        adminUid: requireCurrentAuthUser.uid,
+        adminUid: ref.read(requireUserProvider).uid,
       );
       final connected = await ref.read(liveKitProvider.notifier).connect(
         liveKitUri: result.liveKitUri,
         roomToken: result.roomToken,
       );
       if (!connected) {
-        // Audio session failed to come up — tear down the room we just
-        // created so it isn't orphaned, then surface the failure.
         try {
           await repo.deleteRoom(roomId: result.roomId);
-        } catch (_) {/* best-effort cleanup */}
+        } catch (_) {}
         ref.invalidate(roomsProvider);
         throw const RoomFailure.liveKit(
           'Could not connect to the audio session.',
         );
       }
-
       // Refresh global rooms list.
       ref.invalidate(roomsProvider);
 
@@ -81,7 +78,7 @@ class CreateRoomNotifier extends _$CreateRoomNotifier {
         description: description,
         tags: tags,
         scheduledDateTime: scheduledDateTime,
-        creatorUid: requireCurrentAuthUser.uid,
+        creatorUid: ref.read(requireUserProvider).uid,
       );
       ref.invalidate(upcomingRoomsProvider);
       return true;

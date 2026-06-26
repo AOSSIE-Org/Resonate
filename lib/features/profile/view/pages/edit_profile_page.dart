@@ -5,7 +5,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,13 +14,13 @@ import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/profile/model/edit_profile_state.dart';
 import 'package:resonate/features/profile/viewmodel/edit_profile_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/loading_dialog.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/loading_dialog.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class EditProfilePage extends ConsumerStatefulWidget {
   const EditProfilePage({super.key});
@@ -36,7 +35,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   final _usernameController = TextEditingController();
   final _debouncer = Debouncer(milliseconds: 800);
   final _imagePicker = ImagePicker();
-  final _themeController = Get.find<ThemeController>();
 
   @override
   void initState() {
@@ -62,7 +60,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    Get.closeCurrentSnackbar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     final notifier = ref.read(editProfileProvider.notifier);
     final trimmed = value.trim();
 
@@ -297,7 +295,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     if (state.removeImage ||
         profileImageUrl == null ||
         profileImageUrl.isEmpty) {
-      return NetworkImage(_themeController.userProfileImagePlaceholderUrl);
+      return NetworkImage(ref.watch(userProfileImagePlaceholderUrlProvider));
     }
     return NetworkImage(profileImageUrl);
   }

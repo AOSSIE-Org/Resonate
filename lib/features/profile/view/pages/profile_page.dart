@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
@@ -18,15 +17,15 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
 import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/screens/followers_screen.dart';
-import 'package:resonate/views/widgets/loading_dialog.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/features/profile/view/pages/followers_screen.dart';
+import 'package:resonate/shared/widgets/loading_dialog.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   final ResonateUser? creator;
@@ -43,8 +42,6 @@ class ProfilePage extends ConsumerStatefulWidget {
 }
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
-  final themeController = Get.find<ThemeController>();
-
   bool get _isCreator => widget.isCreatorProfile == true;
   String get _creatorId => widget.creator!.uid!;
 
@@ -52,9 +49,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final authUser = ref.watch(authProvider).value?.userOrNull;
-    // Both self and creator profiles now source their stories from
-    // profileViewProvider; self profile previously read the GetX
-    // ExploreStoryController, which is gone after the stories migration.
     final profileUserId = _isCreator ? _creatorId : authUser?.uid;
     final profileAsync = profileUserId != null
         ? ref.watch(profileViewProvider(profileUserId))
@@ -148,7 +142,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               ? NetworkImage(widget.creator!.profileImageUrl ?? '')
               : authUser.profileImageUrl == null ||
                       authUser.profileImageUrl!.isEmpty
-                  ? NetworkImage(themeController.userProfileImagePlaceholderUrl)
+                  ? NetworkImage(ref.watch(userProfileImagePlaceholderUrlProvider))
                   : NetworkImage(authUser.profileImageUrl!),
           radius: UiSizes.width_66,
         ),

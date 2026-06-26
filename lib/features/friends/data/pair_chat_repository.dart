@@ -6,7 +6,7 @@ import 'package:resonate/features/friends/data/friends_repository.dart'
     show mapAppwriteFriendsException;
 import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/models/resonate_user.dart';
-import 'package:resonate/services/api_service.dart';
+import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,7 @@ part 'generated/pair_chat_repository.g.dart';
 PairChatRepository pairChatRepository(Ref ref) => PairChatRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
-  apiService: ApiService(functions: ref.watch(appwriteFunctionsProvider)),
+  apiService: ref.watch(apiServiceProvider),
 );
 
 class PairChatRepository {

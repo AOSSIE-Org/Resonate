@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
@@ -11,7 +11,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class LiveChapterPage extends ConsumerWidget {
   const LiveChapterPage({super.key});
@@ -25,7 +25,7 @@ class LiveChapterPage extends ConsumerWidget {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    final isAdmin = model.authorUid == currentAuthUser?.uid;
+    final isAdmin = model.authorUid == ref.read(currentUserProvider)?.uid;
 
     return Scaffold(
       body: Padding(

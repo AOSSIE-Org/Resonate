@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
@@ -9,7 +9,7 @@ import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class RoomChatPage extends ConsumerStatefulWidget {
   const RoomChatPage({
@@ -98,10 +98,10 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                 itemCount: state.messages.length,
                 itemBuilder: (context, index) {
                   final message = state.messages[index];
-                  final canEdit = requireCurrentAuthUser.uid == message.creatorId &&
+                  final canEdit = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted &&
                       !message.isEdited;
-                  final canDelete = requireCurrentAuthUser.uid == message.creatorId &&
+                  final canDelete = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted;
                   return ChatMessageItem(
                     message: message,

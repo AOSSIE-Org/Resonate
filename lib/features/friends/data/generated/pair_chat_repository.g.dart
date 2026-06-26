@@ -55,4 +55,4 @@ final class PairChatRepositoryProvider
 }
 
 String _$pairChatRepositoryHash() =>
-    r'66fc68a061765b8ea2eebbb1ff849dd60216fb45';
+    r'44cb32c7387e34da38c2093352f2ca745271d0f1';

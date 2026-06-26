@@ -2,24 +2,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/friends_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
+import 'package:resonate/features/settings/settings_routes.dart';
+import 'package:resonate/features/shell/shell_routes.dart';
 import 'package:resonate/features/stories/stories_routes.dart';
+import 'package:resonate/features/theme/theme_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_screen.dart';
-import 'package:resonate/views/screens/about_app_screen.dart';
-import 'package:resonate/views/screens/app_preferences_screen.dart';
-import 'package:resonate/views/screens/contribute_screen.dart';
-import 'package:resonate/views/screens/home_screen.dart';
-import 'package:resonate/views/screens/notifications_screen.dart';
-import 'package:resonate/views/screens/settings_screen.dart';
-import 'package:resonate/views/screens/tabview_screen.dart';
-import 'package:resonate/views/screens/user_account_screen.dart';
 
 // Global navigator key
 final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -39,46 +32,13 @@ final routerProvider = Provider<GoRouter>((ref) {
       ...authRoutes,
       ...profileRoutes,
 
-      // Main app shell
-      GoRoute(
-        path: RoutePaths.tabview,
-        builder: (_, _) => const TabViewScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.homeScreen,
-        builder: (_, _) => const HomeScreen(),
-      ),
+      // Main app shell (tabview, home, notifications)
+      ...shellRoutes,
       ...roomsRoutes,
 
-      // Account (settings remains GetX-backed)
-      GoRoute(
-        path: RoutePaths.settings,
-        builder: (_, _) => SettingsScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.themeScreen,
-        builder: (_, _) => ThemeScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.userAccountScreen,
-        builder: (_, _) => const UserAccountScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.notificationsScreen,
-        builder: (_, _) => NotificationsScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.aboutApp,
-        builder: (_, _) => AboutAppScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.contributeScreen,
-        builder: (_, _) => const ContributeScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.appPreferencesScreen,
-        builder: (_, _) => const AppPreferencesScreen(),
-      ),
+      // Account / settings (settings, account, about, contribute, preferences)
+      ...settingsRoutes,
+      ...themeRoutes,
 
       // Pair chat / friend calls
       ...friendsRoutes,
@@ -88,8 +48,6 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-
-GoRouter get appRouter => rootContainer.read(routerProvider);
 
 String? _redirect(Ref ref, GoRouterState state) =>
     redirectForAsyncAuth(ref.read(authProvider), state.uri.path);

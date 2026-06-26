@@ -1,4 +1,4 @@
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -11,7 +11,7 @@ part 'generated/category_stories_notifier.g.dart';
 class CategoryStories extends _$CategoryStories {
   @override
   Future<List<Story>> build(StoryCategory category) async {
-    final uid = requireCurrentAuthUser.uid;
+    final uid = ref.read(requireUserProvider).uid;
     return ref
         .watch(storiesRepositoryProvider)
         .fetchStoriesByCategory(category, uid);

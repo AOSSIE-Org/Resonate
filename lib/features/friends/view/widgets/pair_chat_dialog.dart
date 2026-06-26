@@ -5,13 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 Future<void> showPairChatDialog(BuildContext context) {
   return showDialog(
@@ -137,7 +137,7 @@ class PairChatDialog extends ConsumerWidget {
                       ),
                     ),
                     child: Text(
-                      requireCurrentAuthUser.displayName,
+                      ref.read(requireUserProvider).displayName,
                       style: TextStyle(
                         color: !isAnonymous
                             ? Theme.of(context).colorScheme.onPrimary
