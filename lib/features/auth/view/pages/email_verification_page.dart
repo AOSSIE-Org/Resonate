@@ -139,8 +139,8 @@ class EmailVerificationPage extends ConsumerWidget {
                           onComplete: () => ref
                               .read(emailVerifyProvider.notifier)
                               .allowResend(),
-                          width: 30,
-                          height: 30,
+                          width: UiSizes.size_30,
+                          height: UiSizes.size_30,
                           duration: 30,
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,

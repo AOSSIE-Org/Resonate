@@ -6,6 +6,7 @@ import 'package:resonate/features/auth/viewmodel/reset_password_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
 class ResetPasswordPage extends ConsumerStatefulWidget {
@@ -63,28 +64,28 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(UiSizes.width_25),
               child: Text(
                 l10n.enterNewPassword,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: UiSizes.size_20),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: UiSizes.height_10),
             Container(
-              width: 300,
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              width: UiSizes.width_300,
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_10),
               child: TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: UiSizes.size_14),
                 decoration: InputDecoration(
-                  icon: const Icon(Icons.lock, size: 23),
+                  icon: Icon(Icons.lock, size: UiSizes.size_23),
                   labelText: l10n.newPassword,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: UiSizes.height_10),
             MaterialButton(
               onPressed: resetState.isLoading
                   ? null

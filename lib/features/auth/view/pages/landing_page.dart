@@ -19,10 +19,10 @@ class LandingPage extends ConsumerWidget {
       appBar: AppBar(toolbarHeight: 0),
       body: OnBoardingSlider(
         leading: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: UiSizes.width_10),
           child: SvgPicture.asset(
             'assets/svg/resonate_logo_white.svg',
-            height: 30,
+            height: UiSizes.height_30,
             fit: BoxFit.contain,
             colorFilter: ColorFilter.mode(
               Theme.of(context).colorScheme.primary,

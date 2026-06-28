@@ -118,8 +118,8 @@ class _StartLiveChapterDialogState
                           ? SizedBox(
                               height: UiSizes.size_18,
                               width: UiSizes.size_18,
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 2,
+                              child: CircularProgressIndicator(
+                                strokeWidth: UiSizes.width_2,
                               ),
                             )
                           : Text(l10n.start),

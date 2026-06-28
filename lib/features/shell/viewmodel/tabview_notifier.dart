@@ -10,6 +10,7 @@ import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/colors.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/tabview_notifier.g.dart';
@@ -71,7 +72,7 @@ class TabView extends _$TabView {
         backgroundColor: AppColor.bgBlackColor,
         title: Text(
           AppLocalizations.of(dialogCtx)!.joinRoom,
-          style: const TextStyle(color: Colors.amber, fontSize: 25),
+          style: TextStyle(color: Colors.amber, fontSize: UiSizes.size_25),
         ),
         content: SingleChildScrollView(
           child: CustomLiveRoomTile(appwriteRoom: room),

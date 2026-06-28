@@ -387,13 +387,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                       labelText: l10n.username,
                       prefixIcon: const Icon(Icons.person),
                       suffixIcon: state.usernameChecking
-                          ? const Padding(
-                              padding: EdgeInsets.all(12),
+                          ? Padding(
+                              padding: EdgeInsets.all(UiSizes.width_10),
                               child: SizedBox(
-                                width: 20,
-                                height: 20,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2),
+                                width: UiSizes.size_20,
+                                height: UiSizes.size_20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: UiSizes.width_2,
+                                ),
                               ),
                             )
                           : state.usernameAvailable

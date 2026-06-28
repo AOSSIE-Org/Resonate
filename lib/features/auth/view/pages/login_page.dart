@@ -103,7 +103,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 .read(loginFormProvider.notifier)
                                 .togglePasswordVisible(),
                             child: Container(
-                              width: 56,
+                              width: UiSizes.width_56,
                               color: Colors.transparent,
                               child: Icon(
                                 formState.passwordVisible

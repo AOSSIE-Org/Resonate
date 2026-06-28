@@ -178,7 +178,13 @@ class _LeaveButton extends ConsumerWidget {
         if (isAdmin) {
           if (ref.read(liveKitProvider).isRecording) {
             final lyrics = await notifier.endLiveChapter();
-            router.push(RoutePaths.verifyChapterDetails, extra: lyrics);
+            // Replace (not push): the live chapter is ended/disconnected, so it
+            // must leave the back stack — otherwise backing out of verify (via
+            // the button OR hardware back) returns to the dead live screen.
+            router.pushReplacement(
+              RoutePaths.verifyChapterDetails,
+              extra: lyrics,
+            );
           } else {
             customSnackbar(l10n.error, l10n.noRecordingError, LogType.error);
           }

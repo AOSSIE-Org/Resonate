@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
@@ -115,6 +116,11 @@ class _VerifyChapterDetailsPageState
     ], model.storyId);
 
     ref.read(liveChapterProvider.notifier).reset();
+    // Land on the explore tab (categories + global search). A deterministic
+    // go() rather than pop(): the story page was pushed imperatively (not a
+    // GoRoute), so there's no reliable route under the live/verify GoRoutes to
+    // pop back to.
+    ref.read(tabViewProvider.notifier).setIndex(1);
     router.go(RoutePaths.tabview);
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
@@ -184,23 +185,38 @@ class LiveChapter extends _$LiveChapter {
     ref.read(routerProvider).go(RoutePaths.tabview);
   }
 
-  // Ends the chapter
   Future<String> endLiveChapter() async {
     final model = state.model;
     if (model == null) return '';
     final repo = ref.read(liveChapterRepositoryProvider);
 
     await ref.read(liveKitProvider.notifier).setRecording(false);
-    await repo.deleteLiveChapterDocs(model.id);
-
-    final whisperModel = await ref.read(whisperModelSettingProvider.future);
-    final lyrics = await WhisperTranscriptionService(
-      model: whisperModel,
-    ).transcribeChapter(model.livekitRoomId);
-
-    await repo.deleteLiveChapterRoom(model.livekitRoomId);
+    
+    try {
+      await repo.deleteLiveChapterDocs(model.id);
+    } catch (e) {
+      log('endLiveChapter: deleteLiveChapterDocs failed: $e');
+    }
+    String lyrics = '';
+    try {
+      final whisperModel = await ref.read(whisperModelSettingProvider.future);
+      lyrics = await WhisperTranscriptionService(
+        model: whisperModel,
+      ).transcribeChapter(model.livekitRoomId);
+    } catch (e) {
+      log('endLiveChapter: transcription failed: $e');
+    }
+    try {
+      await repo.deleteLiveChapterRoom(model.livekitRoomId);
+    } catch (e) {
+      log('endLiveChapter: deleteLiveChapterRoom failed: $e');
+    }
     await _attendeesSub?.cancel();
-    await ref.read(liveKitProvider.notifier).disconnect();
+    try {
+      await ref.read(liveKitProvider.notifier).disconnect();
+    } catch (e) {
+      log('endLiveChapter: disconnect failed: $e');
+    }
     return lyrics;
   }
 

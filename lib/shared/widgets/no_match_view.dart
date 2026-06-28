@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class NoMatchView extends StatelessWidget {
   const NoMatchView({super.key});
@@ -11,7 +12,7 @@ class NoMatchView extends StatelessWidget {
         AppLocalizations.of(context)!.noSearchResults,
         style: TextStyle(
           color: Theme.of(context).colorScheme.onSecondary,
-          fontSize: 20,
+          fontSize: UiSizes.size_20,
         ),
       ),
     );

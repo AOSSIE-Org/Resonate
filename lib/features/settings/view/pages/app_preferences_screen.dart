@@ -137,7 +137,7 @@ class _AppPreferencesScreenState extends ConsumerState<AppPreferencesScreen> {
                 color: Theme.of(
                   context,
                 ).colorScheme.outline.withValues(alpha: 0.3),
-                width: 1,
+                width: UiSizes.width_1,
               ),
             ),
             child: LanguagePickerDropdown(

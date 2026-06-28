@@ -11,6 +11,7 @@ import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/enums/report_type_enum.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class ReportWidget extends ConsumerStatefulWidget {
   const ReportWidget({
@@ -76,7 +77,7 @@ class _ReportWidgetState extends ConsumerState<ReportWidget> {
         ),
         child: Card(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(UiSizes.width_8),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

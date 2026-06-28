@@ -51,7 +51,10 @@ class AppUtils {
             onPressed: onFirstBtnPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20,
+                vertical: UiSizes.height_10,
+              ),
             ),
             child: Text(
               firstBtnText ?? localizations.confirm,
@@ -66,7 +69,10 @@ class AppUtils {
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.primary,
               textStyle: secondBtnTextStyle,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20,
+                vertical: UiSizes.height_10,
+              ),
             ),
             child: Text(
               secondBtnText ?? localizations.cancel,

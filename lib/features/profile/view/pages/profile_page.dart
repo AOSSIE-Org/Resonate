@@ -89,8 +89,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         if (loading || authUser == null) {
           return Center(
             child: SizedBox(
-              height: 200,
-              width: 200,
+              height: UiSizes.height_200,
+              width: UiSizes.width_200,
               child: LoadingIndicator(
                 indicatorType: Indicator.ballRotate,
                 colors: [Theme.of(context).colorScheme.primary],
@@ -154,14 +154,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               children: [
                 if (!_isCreator && authUser.isEmailVerified)
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: UiSizes.height_10),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.verified_user_outlined,
                           color: Colors.green,
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: UiSizes.width_5),
                         Text(
                           l10n.verified,
                           style: const TextStyle(color: Colors.green),
@@ -196,7 +196,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   children: [
                     const Icon(Icons.star, color: Colors.amber),
                     Padding(
-                      padding: const EdgeInsets.only(left: 5),
+                      padding: EdgeInsets.only(left: UiSizes.width_5),
                       child: Text(
                         _isCreator
                             ? widget.creator!.userRating!.toStringAsFixed(1)
@@ -230,7 +230,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     children: [
                       const Icon(Icons.people),
                       Padding(
-                        padding: const EdgeInsets.only(left: 5),
+                        padding: EdgeInsets.only(left: UiSizes.width_5),
                         child: Text(
                           _isCreator
                               ? followers.length.toString()
@@ -267,7 +267,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.verified_user_outlined),
-            const SizedBox(width: 10),
+            SizedBox(width: UiSizes.width_10),
             Text(l10n.verifyEmail),
           ],
         ),
@@ -320,7 +320,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       : Icons.edit,
                   color: colorScheme.onPrimary,
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: UiSizes.width_8),
                 Text(
                   _isCreator
                       ? (isFollowing ? l10n.following : l10n.follow)
@@ -331,8 +331,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
           ),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: UiSizes.width_10),
         if (!_isCreator)
+          // Square button kept literal: UiSizes width/height scale on different
+          // axes, so a width_/height_ pair wouldn't stay square at runtime.
           SizedBox(
             height: 50,
             width: 50,
@@ -342,7 +344,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 backgroundColor: colorScheme.primary,
                 foregroundColor: colorScheme.onPrimary,
                 shape: const CircleBorder(),
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(UiSizes.width_10),
               ),
               child: Icon(Icons.settings, color: colorScheme.onPrimary),
             ),
@@ -421,7 +423,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 : Icons.add,
             color: colorScheme.onPrimary,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: UiSizes.width_8),
           Text(
             friendModel != null
                 ? (friendModel.requestStatus == FriendRequestStatus.sent
@@ -509,8 +511,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(height: 150, width: 150, AppImages.emptyBoxImage),
-                const SizedBox(height: 5),
+                // Square image kept literal so it isn't distorted: UiSizes
+                // width/height scale on different axes (won't stay 1:1).
+                Image.asset(
+                  height: 150,
+                  width: 150,
+                  AppImages.emptyBoxImage,
+                ),
+                SizedBox(height: UiSizes.height_5),
                 Text(
                   noStoryTextToShow,
                   style: TextStyle(color: colorScheme.onSurface),

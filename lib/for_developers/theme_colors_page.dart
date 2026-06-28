@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/for_developers/theme_color_model.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class ThemeColorsPage extends StatelessWidget {
   const ThemeColorsPage({super.key});
@@ -41,13 +42,13 @@ class ThemeColorsPage extends StatelessWidget {
           return Container(
             alignment: Alignment.center,
             width: double.maxFinite,
-            height: 100,
+            height: UiSizes.height_110,
             color: list[index].color,
             child: Text(
               list[index].name,
               style: TextStyle(
                 color: list[index].onColor,
-                fontSize: 24,
+                fontSize: UiSizes.size_24,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -67,7 +67,7 @@ class UpcomingListTile extends ConsumerWidget {
         : appwriteUpcomingRoom.subscribersAvatarUrls;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(UiSizes.width_10),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(15),
@@ -85,18 +85,18 @@ class UpcomingListTile extends ConsumerWidget {
                 ),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 15,
+                  fontSize: UiSizes.size_15,
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: UiSizes.height_5),
           Text(
             appwriteUpcomingRoom.name,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: UiSizes.size_15),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: UiSizes.height_8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +105,7 @@ class UpcomingListTile extends ConsumerWidget {
                 .toList()
                 .withSpacing(7),
           ),
-          if (appwriteUpcomingRoom.tags.isNotEmpty) const SizedBox(height: 8),
+          if (appwriteUpcomingRoom.tags.isNotEmpty) SizedBox(height: UiSizes.height_8),
           Wrap(
             spacing: 8.0,
             runSpacing: 4.0,
@@ -115,13 +115,13 @@ class UpcomingListTile extends ConsumerWidget {
                     '#$tag',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
-                      fontSize: 14,
+                      fontSize: UiSizes.size_14,
                     ),
                   ),
                 )
                 .toList(),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: UiSizes.height_8),
           Text(
             appwriteUpcomingRoom.description,
             maxLines: 2,
@@ -129,10 +129,10 @@ class UpcomingListTile extends ConsumerWidget {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurface,
-              fontSize: 15,
+              fontSize: UiSizes.size_15,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: UiSizes.height_10),
           if (appwriteUpcomingRoom.userIsCreator)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -171,7 +171,7 @@ class UpcomingListTile extends ConsumerWidget {
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: UiSizes.width_10),
                 ElevatedButton(
                   onPressed: appwriteUpcomingRoom.isTime
                       ? () {
@@ -227,7 +227,7 @@ class UpcomingListTile extends ConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: EdgeInsets.only(left: UiSizes.width_8),
                   child: ElevatedButton(
                     onPressed: () {
                       final notifier = ref.read(
@@ -269,8 +269,8 @@ class _UpcomingAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 36,
-      height: 36,
+      width: UiSizes.size_35,
+      height: UiSizes.size_35,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: CachedNetworkImageProvider(userImage),

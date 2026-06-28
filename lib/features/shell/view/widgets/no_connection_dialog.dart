@@ -29,8 +29,8 @@ class NoConnectionDialog extends ConsumerWidget {
                 children: [
                   SvgPicture.asset(
                     AppImages.noConnectionImage,
-                    height: 200,
-                    width: 200,
+                    height: UiSizes.height_200,
+                    width: UiSizes.width_200,
                     colorFilter: ColorFilter.mode(
                       Theme.of(context).colorScheme.primary,
                       BlendMode.modulate,

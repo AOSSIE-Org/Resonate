@@ -123,7 +123,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                                 .read(signupFormProvider.notifier)
                                 .togglePasswordVisible(),
                             child: Container(
-                              width: 56,
+                              width: UiSizes.width_56,
                               color: Colors.transparent,
                               child: Icon(
                                 formState.passwordVisible
@@ -158,7 +158,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                                 .read(signupFormProvider.notifier)
                                 .toggleConfirmPasswordVisible(),
                             child: Container(
-                              width: 56,
+                              width: UiSizes.width_56,
                               color: Colors.transparent,
                               child: Icon(
                                 formState.confirmPasswordVisible

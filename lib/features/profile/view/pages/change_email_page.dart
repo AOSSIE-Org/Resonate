@@ -120,7 +120,7 @@ class _ChangeEmailPageState extends ConsumerState<ChangeEmailPage> {
                             .read(changeEmailProvider.notifier)
                             .togglePasswordVisible(),
                         child: Container(
-                          width: 56,
+                          width: UiSizes.width_56,
                           color: Colors.transparent,
                           child: Icon(
                             state.passwordVisible

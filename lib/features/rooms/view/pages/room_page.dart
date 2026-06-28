@@ -67,7 +67,7 @@ class RoomPage extends ConsumerWidget {
         children: [
           const RoomAppBar(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
             child: RoomHeader(
               roomName: room.name,
               roomDescription: room.description,
@@ -127,7 +127,7 @@ class _RoomBody extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(UiSizes.width_16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -138,7 +138,7 @@ class _RoomBody extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: UiSizes.height_10),
               Expanded(
                 child: participants.isEmpty
                     ? _NoParticipantsView()
@@ -246,7 +246,7 @@ class _Footer extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: const Icon(Icons.call_end, size: 24),
+              child: Icon(Icons.call_end, size: UiSizes.size_24),
             ),
             // Mic
             FloatingActionButton(

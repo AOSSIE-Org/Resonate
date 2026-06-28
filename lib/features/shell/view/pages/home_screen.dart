@@ -42,7 +42,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(UiSizes.width_20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

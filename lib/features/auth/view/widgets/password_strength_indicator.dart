@@ -28,7 +28,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     final score = strength.score;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_3, vertical: UiSizes.height_1),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -84,7 +84,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       width: UiSizes.size_56,
-      height: 5,
+      height: UiSizes.height_5,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(5),

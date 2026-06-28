@@ -150,11 +150,11 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
               onPressed: _isRoomCreating ? null : () => _onDonePressed(context),
               child: _isRoomCreating
                   ? SizedBox(
-                      width: 24,
-                      height: 24,
+                      width: UiSizes.width_25,
+                      height: UiSizes.height_24_6,
                       child: CircularProgressIndicator(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        strokeWidth: 2,
+                        strokeWidth: UiSizes.width_2,
                       ),
                     )
                   : Icon(

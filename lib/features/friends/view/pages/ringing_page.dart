@@ -71,7 +71,7 @@ class RingingPage extends ConsumerWidget {
               primaryColor,
               primaryColor.withValues(alpha: 0.6),
             ],
-            strokeWidth: 2,
+            strokeWidth: UiSizes.width_2,
           ),
         ),
         Positioned.fill(

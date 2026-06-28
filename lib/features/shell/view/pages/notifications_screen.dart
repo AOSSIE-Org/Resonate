@@ -5,6 +5,7 @@ import 'package:resonate/models/notification.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/enums/notification_type.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class NotificationsScreen extends StatelessWidget {
   final List<NotificationModel> notifications = getMockNotifications();
@@ -18,16 +19,16 @@ class NotificationsScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.keyboard_arrow_down, size: 36),
+          icon: Icon(Icons.keyboard_arrow_down, size: UiSizes.size_35),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           AppLocalizations.of(context)!.notifications,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: UiSizes.size_24, fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0, left: 16),
+            padding: EdgeInsets.only(right: UiSizes.width_16, left: UiSizes.width_16),
             child: InkWell(
               child: const CircleAvatar(
                 backgroundImage: AssetImage(AppImages.userImage),
@@ -40,7 +41,7 @@ class NotificationsScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(UiSizes.width_16),
         child: ListView.builder(
           itemCount: notifications.length,
           itemBuilder: (context, index) {
@@ -98,8 +99,8 @@ class NotificationTile extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(12),
+      margin: EdgeInsets.symmetric(vertical: UiSizes.height_8),
+      padding: EdgeInsets.all(UiSizes.width_10),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
@@ -116,18 +117,18 @@ class NotificationTile extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(notification.initiatorProfileImgUrl),
-            radius: 24,
+            radius: UiSizes.size_24,
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: UiSizes.width_16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   message,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 16,
+                    fontSize: UiSizes.size_16,
                   ),
                 ),
               ],

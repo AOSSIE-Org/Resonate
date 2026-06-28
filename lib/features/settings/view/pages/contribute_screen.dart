@@ -67,8 +67,8 @@ class ContributeScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       AppLocalizations.of(context)!.joinCommunity,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
