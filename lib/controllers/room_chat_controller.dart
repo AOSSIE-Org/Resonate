@@ -27,6 +27,7 @@ class RoomChatController extends GetxController {
   final TablesDB tablesDB = AppwriteService.getTables();
   late final RealtimeSubscription? subscription;
   Rx<ReplyTo?> replyingTo = Rxn<ReplyTo>();
+  RxBool isMuted = false.obs;
   final NotificationDetails notificationDetails = NotificationDetails(
     android: AndroidNotificationDetails(
       'your channel id',
@@ -38,28 +39,67 @@ class RoomChatController extends GetxController {
     ),
   );
 
+  bool get isAdmin => appwriteRoom?.isUserAdmin ?? false;
+  String get _roomId => appwriteRoom?.id ?? appwriteUpcommingRoom!.id;
+
   @override
   void onInit() async {
     super.onInit();
     subscribeToMessages();
+    await checkMuteStatus();
     log(appwriteRoom.toString());
     log(appwriteUpcommingRoom.toString());
   }
 
-  // delete method
+  Future<void> checkMuteStatus() async {
+    try {
+      if (chatFunctionId.isNotEmpty) {
+        var response = await functions.createExecution(
+          functionId: chatFunctionId,
+          body: json.encode({
+            'action': 'checkMute',
+            'roomId': _roomId,
+            'uid': requireCurrentAuthUser.uid,
+          }),
+        );
+        if (response.responseStatusCode == 200) {
+          var result = jsonDecode(response.responseBody);
+          isMuted.value = result['isMuted'] ?? false;
+        }
+      }
+    } catch (e) {
+      log('Error checking mute status: $e');
+    }
+  }
+
   Future<void> deleteMessage(String messageId) async {
     try {
-      Message messageToDelete = messages.firstWhere(
-        (msg) => msg.messageId == messageId,
-      );
-      messageToDelete = messageToDelete.copyWith(content: '', isDeleted: true);
+      if (chatFunctionId.isNotEmpty) {
+        var response = await functions.createExecution(
+          functionId: chatFunctionId,
+          body: json.encode({
+            'action': 'delete',
+            'messageId': messageId,
+            'uid': requireCurrentAuthUser.uid,
+          }),
+        );
+        if (response.responseStatusCode != 200) {
+          throw Exception('Failed to delete message via cloud function');
+        }
+      } else {
+        Message messageToDelete = messages.firstWhere(
+          (msg) => msg.messageId == messageId,
+        );
+        messageToDelete =
+            messageToDelete.copyWith(content: '', isDeleted: true);
 
-      await tablesDB.updateRow(
-        databaseId: masterDatabaseId,
-        tableId: chatMessagesTableId,
-        rowId: messageId,
-        data: messageToDelete.toJsonForUpload(),
-      );
+        await tablesDB.updateRow(
+          databaseId: masterDatabaseId,
+          tableId: chatMessagesTableId,
+          rowId: messageId,
+          data: messageToDelete.toJsonForUpload(),
+        );
+      }
       log('Message deleted successfully');
     } catch (e) {
       log('Error deleting message: $e');
@@ -70,7 +110,7 @@ class RoomChatController extends GetxController {
   Future<void> loadMessages() async {
     messages.clear();
     var queries = [
-      Query.equal('roomId', appwriteRoom?.id ?? appwriteUpcommingRoom!.id),
+      Query.equal('roomId', _roomId),
       Query.orderAsc('index'),
       Query.limit(100),
     ];
@@ -90,10 +130,9 @@ class RoomChatController extends GetxController {
         replyTo = ReplyTo.fromJson(replyToDoc.data);
       } catch (e) {
         if (e is AppwriteException && e.code == 404) {
-          // If replyTo document not found, set it to null
           replyTo = null;
         } else {
-          rethrow; // Rethrow if it's a different error
+          rethrow;
         }
       }
       messages.add(
@@ -106,47 +145,78 @@ class RoomChatController extends GetxController {
 
   Future<void> sendMessage(String content) async {
     try {
-      final String messageId = ID.unique();
-
-      final int newIndex = messages.isNotEmpty ? messages.last.index + 1 : 0;
       final user = requireCurrentAuthUser;
-      final Message message = Message(
-        roomId: appwriteRoom?.id ?? appwriteUpcommingRoom!.id,
-        messageId: messageId,
-        creatorId: user.uid,
-        creatorUsername: user.userName ?? '',
-        creatorName: user.displayName,
-        hasValidTag: false,
-        index: newIndex,
-        creatorImgUrl: user.profileImageUrl ?? '',
-        isEdited: false,
-        content: content,
-        creationDateTime: DateTime.now(),
-        isDeleted: false,
-      );
 
-      await tablesDB.createRow(
-        databaseId: masterDatabaseId,
-        tableId: chatMessagesTableId,
-        rowId: messageId,
-        data: message.toJsonForUpload(),
-      );
+      if (chatFunctionId.isNotEmpty) {
+        final String messageId = ID.unique();
+        var response = await functions.createExecution(
+          functionId: chatFunctionId,
+          body: json.encode({
+            'action': 'send',
+            'messageId': messageId,
+            'roomId': _roomId,
+            'creatorId': user.uid,
+            'creatorUsername': user.userName ?? '',
+            'creatorName': user.displayName,
+            'creatorImgUrl': user.profileImageUrl ?? '',
+            'content': content,
+          }),
+        );
+        if (response.responseStatusCode != 200) {
+          throw Exception('Failed to send message');
+        }
+        if (replyingTo.value != null) {
+          await tablesDB.createRow(
+            databaseId: masterDatabaseId,
+            tableId: chatMessageReplyTableId,
+            rowId: messageId,
+            data: replyingTo.value!.toJson(),
+          );
+        }
+      } else {
+        final String messageId = ID.unique();
+        final int newIndex =
+            messages.isNotEmpty ? messages.last.index + 1 : 0;
+        final Message message = Message(
+          roomId: _roomId,
+          messageId: messageId,
+          creatorId: user.uid,
+          creatorUsername: user.userName ?? '',
+          creatorName: user.displayName,
+          hasValidTag: false,
+          index: newIndex,
+          creatorImgUrl: user.profileImageUrl ?? '',
+          isEdited: false,
+          content: content,
+          creationDateTime: DateTime.now(),
+          isDeleted: false,
+        );
 
-      if (replyingTo.value != null) {
         await tablesDB.createRow(
           databaseId: masterDatabaseId,
-          tableId: chatMessageReplyTableId,
+          tableId: chatMessagesTableId,
           rowId: messageId,
-          data: replyingTo.value!.toJson(),
+          data: message.toJsonForUpload(),
         );
+
+        if (replyingTo.value != null) {
+          await tablesDB.createRow(
+            databaseId: masterDatabaseId,
+            tableId: chatMessageReplyTableId,
+            rowId: messageId,
+            data: replyingTo.value!.toJson(),
+          );
+        }
       }
+
       if (appwriteUpcommingRoom != null) {
         log('Sending notification for sent message');
         var body = json.encode({
           'roomId': appwriteUpcommingRoom?.id,
           'payload': {
             'title': 'Message received in ${appwriteUpcommingRoom?.name}',
-            'body': '${message.creatorName} said: ${message.content}',
+            'body':
+                '${user.displayName} said: ${content}',
           },
         });
         var results = await functions.createExecution(
@@ -155,15 +225,13 @@ class RoomChatController extends GetxController {
         );
         log(results.status.name);
       }
-      message.replyTo = replyingTo.value;
 
-      // messages.add(message);
       replyingTo.value = null;
     } catch (e) {
       log('Error sending message: $e');
       return;
     }
-    log('Message sed\nt');
+    log('Message sent\n');
   }
 
   Future<void> editMessage(String messageId, String newContent) async {
@@ -206,6 +274,44 @@ class RoomChatController extends GetxController {
     }
   }
 
+  Future<void> muteUser(String targetUid) async {
+    if (!isAdmin || chatFunctionId.isEmpty) return;
+    try {
+      await functions.createExecution(
+        functionId: chatFunctionId,
+        body: json.encode({
+          'action': 'mute',
+          'roomId': _roomId,
+          'targetUid': targetUid,
+          'moderatorId': requireCurrentAuthUser.uid,
+          'isMuted': true,
+        }),
+      );
+    } catch (e) {
+      log('Error muting user: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> unmuteUser(String targetUid) async {
+    if (!isAdmin || chatFunctionId.isEmpty) return;
+    try {
+      await functions.createExecution(
+        functionId: chatFunctionId,
+        body: json.encode({
+          'action': 'mute',
+          'roomId': _roomId,
+          'targetUid': targetUid,
+          'moderatorId': requireCurrentAuthUser.uid,
+          'isMuted': false,
+        }),
+      );
+    } catch (e) {
+      log('Error unmuting user: $e');
+      rethrow;
+    }
+  }
+
   void setReplyingTo(Message message) {
     replyingTo.value = ReplyTo(
       messageId: message.messageId,
@@ -228,7 +334,7 @@ class RoomChatController extends GetxController {
       subscription?.stream.listen((data) async {
         if (data.payload.isNotEmpty) {
           String roomId = data.payload['roomId'];
-          if (roomId == (appwriteRoom?.id ?? appwriteUpcommingRoom!.id)) {
+          if (roomId == _roomId) {
             String docId = data.payload['\$id'];
             String action = data.events.first.substring(
               channel.length + 1 + docId.length + 1,
@@ -246,11 +352,10 @@ class RoomChatController extends GetxController {
                 replyTo = ReplyTo.fromJson(replyToDoc.data);
               } catch (e) {
                 if (e is AppwriteException && e.code == 404) {
-                  // If replyTo document not found, set it to null
                   replyTo = null;
                 } else {
                   log("Error fetching replyTo document: ${e.toString()}");
-                  rethrow; // Rethrow if it's a different error
+                  rethrow;
                 }
               }
               newMessage.replyTo = replyTo;
