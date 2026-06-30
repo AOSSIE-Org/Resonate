@@ -93,6 +93,10 @@ const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
 const String startFriendCallFunctionID = "68b76fe00027c243610e";
 
+// Chat cloud function - set after deploying functions/chat/ from Resonate-Backend
+const String chatFunctionId = "";
+const String chatMutesTableId = ""; // TODO: Set after creating chatMutes collection
+
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationTableID = "64a7c0100eabfe8d3844";
 

@@ -56,7 +56,6 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
 
     loadMessagesFuture = chatController.loadMessages();
 
-    // Listen to changes in messages and scroll to bottom when new messages are added
     ever(chatController.messages, (messages) {
       if (messages.isNotEmpty) {
         scrollToBottom();
@@ -82,12 +81,26 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
         ),
         title: const Text('Room Chat'),
         centerTitle: true,
-        actions: [
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-        ],
       ),
       body: Column(
         children: [
+          Obx(() {
+            if (chatController.isMuted.value) {
+              return MaterialBanner(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                content: const Text('You are muted in this room'),
+                leading: const Icon(Icons.volume_off, color: Colors.red),
+                backgroundColor: Colors.red.shade50,
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('DISMISS'),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox.shrink();
+          }),
           Expanded(
             child: FutureBuilder(
               future: loadMessagesFuture,
@@ -97,7 +110,6 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                 } else if (asyncSnapshot.hasError) {
                   return Center(child: Text('Error: ${asyncSnapshot.error}'));
                 } else {
-                  // Scroll to bottom after messages are loaded
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     scrollToBottom();
                   });
@@ -133,18 +145,35 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                               );
                             }
                           },
+                          onMuteUser: chatController.isAdmin
+                              ? (String targetUid) async {
+                                  try {
+                                    await chatController.muteUser(targetUid);
+                                    customSnackbar(
+                                      AppLocalizations.of(context)!.success,
+                                      'User muted',
+                                      LogType.success,
+                                    );
+                                  } catch (e) {
+                                    customSnackbar(
+                                      AppLocalizations.of(context)!.error,
+                                      'Failed to mute user',
+                                      LogType.error,
+                                    );
+                                  }
+                                }
+                              : null,
                           replytoMessage: (Message message) =>
                               chatController.setReplyingTo(message),
                           canEdit:
                               requireCurrentAuthUser.uid ==
-                                  chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isDeleted &&
-                              !chatController.messages[index].isEdited,
-
+                                      chatController.messages[index].creatorId &&
+                                  !chatController.messages[index].isDeleted &&
+                                  !chatController.messages[index].isEdited,
                           canDelete:
                               requireCurrentAuthUser.uid ==
-                                  chatController.messages[index].creatorId &&
-                              !chatController.messages[index].isDeleted,
+                                      chatController.messages[index].creatorId &&
+                                  !chatController.messages[index].isDeleted,
                         );
                       },
                     ),
@@ -166,6 +195,7 @@ class ChatMessageItem extends StatefulWidget {
   final void Function(String) onEditMessage;
   final void Function(Message) replytoMessage;
   final void Function(String) onDeleteMessage;
+  final void Function(String)? onMuteUser;
   final bool canDelete;
   final bool canEdit;
 
@@ -177,6 +207,7 @@ class ChatMessageItem extends StatefulWidget {
     required this.replytoMessage,
     required this.canEdit,
     required this.onDeleteMessage,
+    this.onMuteUser,
     required this.canDelete,
   });
 
@@ -240,21 +271,28 @@ class ChatMessageItemState extends State<ChatMessageItem> {
           child: Wrap(
             children: [
               if (widget.canDelete)
-                ///delete option
                 ListTile(
                   leading: Icon(
                     Icons.delete,
                     color: Theme.of(context).colorScheme.error,
                   ),
                   title: Text(AppLocalizations.of(context)!.delete),
-
                   onTap: () {
                     Navigator.pop(context);
                     _confirmDelete(context);
                   },
                 ),
-
-              ///cancel option
+              if (widget.onMuteUser != null &&
+                  widget.message.creatorId !=
+                      requireCurrentAuthUser.uid)
+                ListTile(
+                  leading: const Icon(Icons.volume_off),
+                  title: const Text('Mute user'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    widget.onMuteUser!(widget.message.creatorId);
+                  },
+                ),
               ListTile(
                 leading: const Icon(Icons.close),
                 title: Text(AppLocalizations.of(context)!.cancel),
@@ -305,17 +343,16 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                 } else if (_dragOffset + details.delta.dx > 100) {
                   _dragOffset = 100;
                 } else if (_dragOffset + details.delta.dx < 0) {
-                  _dragOffset = 0.0; // Reset if dragging left
+                  _dragOffset = 0.0;
                 }
                 setState(() {});
               },
               onHorizontalDragEnd: (details) {
                 if (_dragOffset > 70) {
-                  // Detected swipe from left to right
                   widget.replytoMessage(widget.message);
                 }
                 setState(() {
-                  _dragOffset = 0.0; // Reset offset after swipe
+                  _dragOffset = 0.0;
                 });
               },
               onDoubleTap: widget.canEdit ? startEditing : null,
@@ -406,7 +443,6 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                       ),
                                     ),
                                   if (isEditing)
-                                    ///the message to edit it AND the message is not deleted
                                     Focus(
                                       onKeyEvent: (node, event) {
                                         if (event.logicalKey ==
@@ -436,7 +472,6 @@ class ChatMessageItemState extends State<ChatMessageItem> {
                                       ),
                                     )
                                   else if (widget.message.isDeleted)
-                                    ///The message has been deleted (`isDeleted = true`)
                                     Text(
                                       AppLocalizations.of(
                                         context,
@@ -579,18 +614,21 @@ class ChatInputField extends StatelessWidget {
                     Expanded(
                       child: TextField(
                         controller: _messageController,
+                        enabled: !chatController.isMuted.value,
                         onSubmitted: (value) async {
-                          if (_messageController.text.isNotEmpty) {
+                          if (_messageController.text.isNotEmpty &&
+                              !chatController.isMuted.value) {
                             await chatController.sendMessage(
                               _messageController.text,
                             );
                             _messageController.clear();
-                            // Clear reply if user sends a message
                             chatController.clearReplyingTo();
                           }
                         },
                         decoration: InputDecoration(
-                          hintText: 'Say Something',
+                          hintText: chatController.isMuted.value
+                              ? 'You are muted'
+                              : 'Say Something',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
                             borderSide: BorderSide.none,
@@ -606,16 +644,17 @@ class ChatInputField extends StatelessWidget {
                     const SizedBox(width: 10),
                     IconButton(
                       icon: const Icon(Icons.send),
-                      onPressed: () async {
-                        if (_messageController.text.isNotEmpty) {
-                          await chatController.sendMessage(
-                            _messageController.text,
-                          );
-                          _messageController.clear();
-                          // Clear reply if user sends a message
-                          chatController.clearReplyingTo();
-                        }
-                      },
+                      onPressed: chatController.isMuted.value
+                          ? null
+                          : () async {
+                              if (_messageController.text.isNotEmpty) {
+                                await chatController.sendMessage(
+                                  _messageController.text,
+                                );
+                                _messageController.clear();
+                                chatController.clearReplyingTo();
+                              }
+                            },
                     ),
                   ],
                 ),
