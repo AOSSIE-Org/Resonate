@@ -211,17 +211,13 @@ void main() {
         title: 'My Chapter',
         coverImageUrl: 'http://example.com/cover.png',
       );
-      final container = ProviderContainer(
-        overrides: [
-          chapterPlayerProvider(
-            chapter.chapterId,
-          ).overrideWith(() => FakeChapterPlayer(const ChapterPlayerState())),
-        ],
-      );
-      addTearDown(container.dispose);
       await tester.pumpWidget(
-        UncontrolledProviderScope(
-          container: container,
+        ProviderScope(
+          overrides: [
+            chapterPlayerProvider(
+              chapter.chapterId,
+            ).overrideWith(() => FakeChapterPlayer(const ChapterPlayerState())),
+          ],
           child: storiesTestApp(
             // Bounded so the absolutely-positioned transport lays out.
             SizedBox(

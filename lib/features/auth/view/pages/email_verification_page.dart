@@ -94,17 +94,21 @@ class EmailVerificationPage extends ConsumerWidget {
                 GestureDetector(
                   onTap: () async {
                     final view = View.of(context);
-                    final result = await ref
-                        .read(emailVerifyProvider.notifier)
-                        .sendOtp(email: email);
-                    if (result.sent) {
-                      customSnackbar(l10n.otpResent, l10n.otpResentMessage,
-                          LogType.info);
-                      SemanticsService.sendAnnouncement(view,
-                          l10n.otpResentMessage, TextDirection.ltr);
-                    } else {
-                      customSnackbar(
-                          l10n.oops, result.responseBody, LogType.error);
+                    try {
+                      final result = await ref
+                          .read(emailVerifyProvider.notifier)
+                          .sendOtp(email: email);
+                      if (result.sent) {
+                        customSnackbar(l10n.otpResent, l10n.otpResentMessage,
+                            LogType.info);
+                        SemanticsService.sendAnnouncement(view,
+                            l10n.otpResentMessage, TextDirection.ltr);
+                      } else {
+                        customSnackbar(
+                            l10n.oops, result.responseBody, LogType.error);
+                      }
+                    } catch (e) {
+                      customSnackbar(l10n.oops, e.toString(), LogType.error);
                     }
                   },
                   child: Text(

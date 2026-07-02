@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/signup_page.dart';
 import 'package:resonate/features/auth/viewmodel/password_strength_notifier.dart';
 
-import 'auth_test_helpers.dart';
+import '../auth_test_helpers.dart';
 
 void main() {
   testWidgets('renders email, password, confirm fields and a sign-up button',
@@ -46,7 +47,9 @@ void main() {
 
   testWidgets('typing in the password field updates the strength provider',
       (tester) async {
-    final container = await pumpAuthPage(tester, const SignupPage());
+    await pumpAuthPage(tester, const SignupPage());
+    final container =
+        ProviderScope.containerOf(tester.element(find.byType(SignupPage)));
 
     expect(container.read(passwordStrengthCheckerProvider).score, 0);
 

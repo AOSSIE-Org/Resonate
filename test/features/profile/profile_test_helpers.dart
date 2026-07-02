@@ -9,11 +9,11 @@ import 'package:resonate/features/profile/data/repositories/profile_repository.d
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-import '../../../helpers/test_root_container.dart';
-import '../fake_profile_repository.dart';
+import '../../helpers/test_root_container.dart';
+import 'fake_profile_repository.dart';
 
-export '../../../helpers/test_root_container.dart' show fakeAuthUser;
-export '../fake_profile_repository.dart';
+export '../../helpers/test_root_container.dart' show fakeAuthUser;
+export 'fake_profile_repository.dart';
 
 
 Widget profileTestApp(Widget child) {
@@ -35,38 +35,26 @@ Widget profileTestApp(Widget child) {
   );
 }
 
-Future<ProviderContainer> buildProfileContainer({
-  required AuthState authState,
-  FakeProfileRepository? profileRepo,
-}) async {
-  final container = ProviderContainer(
-    overrides: [
-      authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
-      profileRepositoryProvider
-          .overrideWithValue(profileRepo ?? FakeProfileRepository()),
-    ],
-  );
-  addTearDown(container.dispose);
-  await container.read(authProvider.future);
-  return container;
-}
-
-Future<ProviderContainer> pumpProfilePage(
+Future<void> pumpProfilePage(
   WidgetTester tester,
   Widget child, {
   required AuthState authState,
   FakeProfileRepository? profileRepo,
 }) async {
-  final container = await buildProfileContainer(
-    authState: authState,
-    profileRepo: profileRepo,
-  );
   await tester.pumpWidget(
-    UncontrolledProviderScope(
-      container: container,
+    ProviderScope(
+      overrides: [
+        authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
+        profileRepositoryProvider
+            .overrideWithValue(profileRepo ?? FakeProfileRepository()),
+      ],
       child: profileTestApp(child),
     ),
   );
+  // Warm authProvider so synchronous ref.read(authProvider).value is ready.
+  final container = ProviderScope.containerOf(
+    tester.element(find.byType(MaterialApp)),
+  );
+  await container.read(authProvider.future);
   await tester.pumpAndSettle();
-  return container;
 }

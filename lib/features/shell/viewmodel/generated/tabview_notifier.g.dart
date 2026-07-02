@@ -40,7 +40,7 @@ final class TabViewProvider extends $NotifierProvider<TabView, int> {
   }
 }
 
-String _$tabViewHash() => r'aec23dda1daf1cd99514c0a2cc2d07c20a398e8d';
+String _$tabViewHash() => r'be06fa825c35b85454bbe7abc544f7816ac14968';
 
 abstract class _$TabView extends $Notifier<int> {
   int build();

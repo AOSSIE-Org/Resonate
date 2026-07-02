@@ -7,7 +7,9 @@ import 'package:resonate/features/stories/view/pages/create_chapter_page.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class AddChapterPage extends ConsumerStatefulWidget {
   final String storyName;
@@ -34,12 +36,17 @@ class _AddChapterPageState extends ConsumerState<AddChapterPage> {
   Future<void> _submit() async {
     if (newChapters.isEmpty) return;
     final navigator = Navigator.of(context);
-    await ref
-        .read(createStoryProvider.notifier)
-        .addChaptersToStory(newChapters, widget.storyId);
-    // Pop back past the add-chapter screen and the story screen
-    navigator.pop();
-    navigator.pop();
+    final l10n = AppLocalizations.of(context)!;
+    try {
+      await ref
+          .read(createStoryProvider.notifier)
+          .addChaptersToStory(newChapters, widget.storyId);
+      // Pop back past the add-chapter screen and the story screen
+      navigator.pop();
+      navigator.pop();
+    } catch (e) {
+      customSnackbar(l10n.error, e.toString(), LogType.error);
+    }
   }
 
   @override

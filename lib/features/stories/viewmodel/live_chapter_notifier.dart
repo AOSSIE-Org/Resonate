@@ -133,19 +133,28 @@ class LiveChapter extends _$LiveChapter {
     final repo = ref.read(liveChapterRepositoryProvider);
     _attendeesSub?.cancel();
     _attendeesSub = repo.attendeesStream(roomId).listen((event) async {
-      final eventName = event.events.first;
-      if (eventName.endsWith('.update')) {
-        final model = state.model;
-        if (model == null || !ref.mounted) return;
-        final newAttendees = LiveChapterAttendeesModel.fromJson(event.payload);
-        state = state.copyWith(model: model.copyWith(attendees: newAttendees));
-      } else if (eventName.endsWith('.delete')) {
-        if (!isAdmin) {
-          await _attendeesSub?.cancel();
-          await ref.read(liveKitProvider.notifier).disconnect();
-          ref.read(routerProvider).go(RoutePaths.tabview);
-          if (ref.mounted) state = const LiveChapterState();
+      try {
+        final eventName = event.events.first;
+        if (eventName.endsWith('.update')) {
+          final model = state.model;
+          if (model == null || !ref.mounted) return;
+          final newAttendees = LiveChapterAttendeesModel.fromJson(
+            event.payload,
+          );
+          state = state.copyWith(
+            model: model.copyWith(attendees: newAttendees),
+          );
+        } else if (eventName.endsWith('.delete')) {
+          if (!isAdmin) {
+            await _attendeesSub?.cancel();
+            await ref.read(liveKitProvider.notifier).disconnect();
+            if (!ref.mounted) return;
+            ref.read(routerProvider).go(RoutePaths.tabview);
+            state = const LiveChapterState();
+          }
         }
+      } catch (e) {
+        log('live chapter attendees listener error: $e');
       }
     });
   }

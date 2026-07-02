@@ -82,7 +82,7 @@ final class AudioDeviceNotifierProvider
 }
 
 String _$audioDeviceNotifierHash() =>
-    r'f9bc76f602d0fe4eeb034d8de56ec8377a1f1263';
+    r'be9a7941554f0c4e2627448c61212d5bf1e53bcc';
 
 abstract class _$AudioDeviceNotifier extends $AsyncNotifier<AudioDeviceState> {
   FutureOr<AudioDeviceState> build();

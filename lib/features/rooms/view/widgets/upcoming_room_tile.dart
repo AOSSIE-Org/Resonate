@@ -156,9 +156,14 @@ class UpcomingListTile extends ConsumerWidget {
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () async {
-                    await ref
-                        .read(upcomingRoomsProvider.notifier)
-                        .deleteUpcoming(appwriteUpcomingRoom.id);
+                    final l10n = AppLocalizations.of(context)!;
+                    try {
+                      await ref
+                          .read(upcomingRoomsProvider.notifier)
+                          .deleteUpcoming(appwriteUpcomingRoom.id);
+                    } catch (e) {
+                      customSnackbar(l10n.error, e.toString(), LogType.error);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 234, 93, 83),
@@ -174,15 +179,24 @@ class UpcomingListTile extends ConsumerWidget {
                 SizedBox(width: UiSizes.width_10),
                 ElevatedButton(
                   onPressed: appwriteUpcomingRoom.isTime
-                      ? () {
-                          ref
-                              .read(upcomingRoomsProvider.notifier)
-                              .convertToLive(
-                                upcomingRoomId: appwriteUpcomingRoom.id,
-                                name: appwriteUpcomingRoom.name,
-                                description: appwriteUpcomingRoom.description,
-                                tags: appwriteUpcomingRoom.tags,
-                              );
+                      ? () async {
+                          final l10n = AppLocalizations.of(context)!;
+                          try {
+                            await ref
+                                .read(upcomingRoomsProvider.notifier)
+                                .convertToLive(
+                                  upcomingRoomId: appwriteUpcomingRoom.id,
+                                  name: appwriteUpcomingRoom.name,
+                                  description: appwriteUpcomingRoom.description,
+                                  tags: appwriteUpcomingRoom.tags,
+                                );
+                          } catch (e) {
+                            customSnackbar(
+                              l10n.error,
+                              e.toString(),
+                              LogType.error,
+                            );
+                          }
                         }
                       : null,
                   style: ElevatedButton.styleFrom(

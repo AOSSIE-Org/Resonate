@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class RatingSheet extends ConsumerWidget {
   const RatingSheet({super.key});
@@ -52,8 +54,13 @@ class RatingSheet extends ConsumerWidget {
             ElevatedButton(
               onPressed: () async {
                 final navigator = Navigator.of(context);
-                await ref.read(pairChatProvider.notifier).submitRating();
-                navigator.pop();
+                try {
+                  await ref.read(pairChatProvider.notifier).submitRating();
+                } catch (e) {
+                  customSnackbar(l10n.error, e.toString(), LogType.error);
+                } finally {
+                  navigator.pop();
+                }
               },
               child: Text(l10n.submit),
             ),

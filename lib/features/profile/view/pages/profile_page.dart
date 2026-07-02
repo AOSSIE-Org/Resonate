@@ -199,7 +199,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       padding: EdgeInsets.only(left: UiSizes.width_5),
                       child: Text(
                         _isCreator
-                            ? widget.creator!.userRating!.toStringAsFixed(1)
+                            ? (widget.creator!.userRating ?? 0.0)
+                                .toStringAsFixed(1)
                             : (authUser.ratingCount == 0
                                     ? 0.0
                                     : authUser.ratingTotal /
@@ -365,13 +366,19 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     return ElevatedButton(
       onPressed: () async {
         if (friendModel == null) {
-          await friendsNotifier.sendFriendRequest(
-            recieverId: widget.creator!.uid!,
-            recieverProfileImageUrl: widget.creator!.profileImageUrl!,
-            recieverUsername: widget.creator!.userName!,
-            recieverName: widget.creator!.name!,
-            recieverRating: widget.creator!.userRating!,
-          );
+          try {
+            await friendsNotifier.sendFriendRequest(
+              recieverId: widget.creator!.uid!,
+              recieverProfileImageUrl: widget.creator!.profileImageUrl!,
+              recieverUsername: widget.creator!.userName!,
+              recieverName: widget.creator!.name!,
+              recieverRating: widget.creator!.userRating ?? 0.0,
+            );
+          } catch (e) {
+            log(e.toString());
+            customSnackbar(l10n.error, e.toString(), LogType.error);
+            return;
+          }
           customSnackbar(
             l10n.friendRequestSent,
             l10n.friendRequestSentTo(widget.creator!.name!),
@@ -380,7 +387,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         } else {
           if (friendModel.requestStatus == FriendRequestStatus.sent &&
               friendModel.senderId == widget.creator!.uid) {
-            await friendsNotifier.acceptFriendRequest(friendModel);
+            try {
+              await friendsNotifier.acceptFriendRequest(friendModel);
+            } catch (e) {
+              log(e.toString());
+              customSnackbar(l10n.error, e.toString(), LogType.error);
+              return;
+            }
             customSnackbar(
               l10n.friendRequestAccepted,
               l10n.friendRequestAcceptedTo(widget.creator!.name!),

@@ -377,10 +377,14 @@ class _StoryPageState extends ConsumerState<StoryPage> {
         ElevatedButton(
           onPressed: () async {
             final navigator = Navigator.of(context);
-            await ref
-                .read(storyDetailProvider(story.storyId).notifier)
-                .deleteStory(story);
-            navigator.pop();
+            try {
+              await ref
+                  .read(storyDetailProvider(story.storyId).notifier)
+                  .deleteStory(story);
+              navigator.pop();
+            } catch (e) {
+              customSnackbar(l10n.error, e.toString(), LogType.error);
+            }
           },
           child: Text(l10n.deleteStory),
         ),

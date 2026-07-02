@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/reset_password_page.dart';
 
-import 'auth_test_helpers.dart';
+import '../auth_test_helpers.dart';
 
 class _RecordingResetRepo extends FakeAuthRepository {
   _RecordingResetRepo() : super(const AuthState.unauthenticated());
