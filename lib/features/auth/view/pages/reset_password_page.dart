@@ -94,10 +94,10 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
                         secret: widget.secret!,
                         newPassword: _passwordController.text,
                       ),
-              color: Colors.amber,
+              color: Theme.of(context).colorScheme.primary,
               child: Text(
                 l10n.setNewPassword,
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
             ),
           ],

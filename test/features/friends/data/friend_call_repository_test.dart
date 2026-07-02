@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/services/api_service.dart';
-import 'package:resonate/features/friends/data/friend_call_repository.dart';
+import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/utils/constants.dart';

@@ -8,7 +8,7 @@ import 'package:resonate/features/stories/view/widgets/chapter_player.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/like_button.dart';
-import 'package:resonate/features/stories/view/widgets/secondary_list_card.dart';
+import 'package:resonate/shared/widgets/secondary_list_card.dart';
 import 'package:resonate/features/stories/view/widgets/story_card.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
 import 'package:resonate/features/stories/viewmodel/chapter_player_notifier.dart';

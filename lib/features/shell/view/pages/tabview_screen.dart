@@ -50,8 +50,10 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to create room: $e'),
-              backgroundColor: Colors.red,
+              content: Text(
+                '${AppLocalizations.of(context)!.failedToCreateRoom}: $e',
+              ),
+              backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
         }
@@ -169,9 +171,7 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
         height: UiSizes.size_56,
         activeColor: Theme.of(context).colorScheme.primary,
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        inactiveColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.black.withAlpha(30)
-            : Colors.white.withAlpha(30),
+        inactiveColor: Theme.of(context).colorScheme.onSurface.withAlpha(30),
         splashRadius: 0,
         shadow: const Shadow(color: Colors.transparent),
         iconSize: UiSizes.size_30,

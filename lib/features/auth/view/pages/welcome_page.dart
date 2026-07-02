@@ -145,6 +145,8 @@ class _OAuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      // Literal on purpose: 50×50 square with no close UiSizes.size_ token
+      // (width_/height_ tokens scale differently per axis and would distort it).
       height: 50,
       width: 50,
       child: IconButton(

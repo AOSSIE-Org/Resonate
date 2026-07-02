@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/friends/data/friends_repository.dart'
+import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
     show mapAppwriteFriendsException;
 import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/models/resonate_user.dart';

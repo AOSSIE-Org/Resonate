@@ -9,6 +9,7 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/stories/data/story_row_mapper.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
@@ -59,7 +60,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.limit(10)],
       );
-      return _rowsToStories(result.rows, currentUid);
+      return rowsToStories(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
       log('Failed to fetch recommended stories: ${e.message}');
       return [];
@@ -76,7 +77,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.limit(15), Query.equal('category', category.name)],
       );
-      return _rowsToStories(result.rows, currentUid);
+      return rowsToStories(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
       log(
         'Failed to fetch stories for category ${category.name}: ${e.message}',
@@ -92,7 +93,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.equal('creatorId', creatorId)],
       );
-      return _rowsToStories(result.rows, creatorId);
+      return rowsToStories(result.rows, currentUid: creatorId);
     } on AppwriteException catch (e) {
       log('Failed to fetch created stories: ${e.message}');
       return [];
@@ -121,7 +122,7 @@ class StoriesRepository {
           log('Liked story row missing, skipping: ${e.message}');
         }
       }
-      return _rowsToStories(storyRows, uid);
+      return rowsToStories(storyRows, currentUid: uid);
     } on AppwriteException catch (e) {
       log('Failed to fetch liked stories: ${e.message}');
       return [];
@@ -269,7 +270,7 @@ class StoriesRepository {
           Query.limit(16),
         ],
       );
-      return _rowsToStories(result.rows, currentUid);
+      return rowsToStories(result.rows, currentUid: currentUid);
     } catch (e) {
       log('Story search failed: $e');
       return [];
@@ -656,21 +657,6 @@ class StoriesRepository {
     return scheme.primary;
   }
 
-  List<Story> _rowsToStories(List<Row> rows, String currentUid) {
-    final stories = <Story>[];
-    for (final row in rows) {
-      try {
-        stories.add(
-          _storyFromMap(row.data, row.$id, row.$createdAt, currentUid),
-        );
-      } catch (e) {
-        // Skiping malformed story rows
-        log('Skipping malformed story row ${row.$id}: $e');
-      }
-    }
-    return stories;
-  }
-
   List<Story> _meiliHitsToStories(
     List<Map<String, dynamic>> hits,
     String currentUid,
@@ -679,37 +665,18 @@ class StoriesRepository {
     for (final hit in hits) {
       try {
         stories.add(
-          _storyFromMap(hit, hit['\$id'], hit['\$createdAt'], currentUid),
+          storyFromMap(
+            hit,
+            id: hit['\$id'],
+            createdAt: hit['\$createdAt'],
+            currentUid: currentUid,
+          ),
         );
       } catch (e) {
         log('Skipping malformed meilisearch story hit: $e');
       }
     }
     return stories;
-  }
-
-  Story _storyFromMap(
-    Map<String, dynamic> data,
-    String id,
-    String createdAt,
-    String currentUid,
-  ) {
-    return Story(
-      title: data['title'],
-      storyId: id,
-      description: data['description'],
-      userIsCreator: data['creatorId'] == currentUid,
-      category: StoryCategory.values.byName(data['category']),
-      coverImageUrl: data['coverImgUrl'],
-      creatorId: data['creatorId'],
-      creatorName: data['creatorName'],
-      creatorImgUrl: data['creatorImgUrl'],
-      creationDate: DateTime.parse(createdAt),
-      likesCount: data['likes'],
-      isLikedByCurrentUser: false,
-      playDuration: data['playDuration'],
-      tintColor: Color(int.parse("0xff${data['tintColor']}")),
-    );
   }
 
   ResonateUser _rowToUser(Map<String, dynamic> data, String id) {

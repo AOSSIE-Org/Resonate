@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/rooms/data/services/audio_device_service.dart';
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/enums/audio_device_enum.dart';
 
 // Helper to build an AudioDevice with the fields displayNameFor uses.

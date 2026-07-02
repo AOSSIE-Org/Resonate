@@ -31,7 +31,7 @@ class DeleteAccountPage extends ConsumerWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: UiSizes.size_16,
-                  color: Colors.redAccent,
+                  color: Theme.of(context).colorScheme.error,
                 ),
               ),
             ),
@@ -40,7 +40,7 @@ class DeleteAccountPage extends ConsumerWidget {
             RichText(
               text: TextSpan(
                 style: TextStyle(
-                  color: Colors.redAccent,
+                  color: Theme.of(context).colorScheme.error,
                   fontSize: UiSizes.size_16,
                 ),
                 children: [
@@ -60,7 +60,7 @@ class DeleteAccountPage extends ConsumerWidget {
                   .setButtonActive(value == username),
               keyboardType: TextInputType.text,
               autocorrect: false,
-              cursorColor: Colors.redAccent,
+              cursorColor: Theme.of(context).colorScheme.error,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -68,13 +68,15 @@ class DeleteAccountPage extends ConsumerWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                    color: Colors.redAccent,
+                    color: Theme.of(context).colorScheme.error,
                     width: UiSizes.width_2,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.grey),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ),
             ),
@@ -83,10 +85,14 @@ class DeleteAccountPage extends ConsumerWidget {
               width: double.maxFinite,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  foregroundColor: Colors.white,
-                  disabledForegroundColor: Colors.redAccent.withAlpha(100),
-                  disabledBackgroundColor: Colors.redAccent.withAlpha(50),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  foregroundColor: Theme.of(context).colorScheme.onError,
+                  disabledForegroundColor: Theme.of(
+                    context,
+                  ).colorScheme.error.withAlpha(100),
+                  disabledBackgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.error.withAlpha(50),
                 ),
                 onPressed: isButtonActive
                     ? () {

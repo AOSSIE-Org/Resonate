@@ -7,8 +7,8 @@ import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
-import 'package:resonate/features/rooms/view/widgets/room_app_bar.dart';
-import 'package:resonate/features/rooms/view/widgets/room_header.dart';
+import 'package:resonate/shared/widgets/session_app_bar.dart';
+import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
@@ -74,7 +74,7 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
         body: SafeArea(
           child: Column(
             children: [
-              const RoomAppBar(),
+              const SessionAppBar(),
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: UiSizes.height_10,
@@ -82,9 +82,9 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
                 ),
                 child: Column(
                   children: [
-                    RoomHeader(
-                      roomName: AppLocalizations.of(context)!.title,
-                      roomDescription: AppLocalizations.of(
+                    SessionHeader(
+                      title: AppLocalizations.of(context)!.title,
+                      description: AppLocalizations.of(
                         context,
                       )!.roomDescription,
                     ),

@@ -26,9 +26,7 @@ class SettingsScreen extends ConsumerWidget {
       return Divider(
         height: UiSizes.height_30,
         thickness: 5,
-        color: Theme.of(context).brightness == Brightness.light
-            ? Colors.black.withValues(alpha: 0.04)
-            : Colors.white.withValues(alpha: 0.04),
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.04),
       );
     }
 
@@ -42,9 +40,9 @@ class SettingsScreen extends ConsumerWidget {
         child: Text(
           str,
           style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Colors.black54
-                : Colors.white54,
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.54),
             fontWeight: FontWeight.bold,
           ),
         ),

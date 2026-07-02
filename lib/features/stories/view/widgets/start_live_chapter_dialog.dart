@@ -52,7 +52,6 @@ class _StartLiveChapterDialogState
       await ref
           .read(liveChapterProvider.notifier)
           .startLiveChapter(
-            roomId: ID.unique(),
             chapterTitle: chapterName,
             chapterDescription: chapterDescription,
             storyId: widget.story.storyId,

@@ -53,9 +53,7 @@ class EmailVerificationPage extends ConsumerWidget {
                         text: TextSpan(
                           style: TextStyle(
                             fontFamily: GoogleFonts.poppins().fontFamily,
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Colors.black
-                                : Colors.white,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           children: [
                             TextSpan(text: l10n.verificationCodeSent),

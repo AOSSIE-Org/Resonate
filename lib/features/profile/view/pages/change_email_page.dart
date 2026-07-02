@@ -141,9 +141,9 @@ class _ChangeEmailPageState extends ConsumerState<ChangeEmailPage> {
                     children: [
                       Text(
                         l10n.oauthUsersMessage,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.redAccent,
+                          color: Theme.of(context).colorScheme.error,
                         ),
                       ),
                       Text(l10n.oauthUsersEmailChangeInfo),

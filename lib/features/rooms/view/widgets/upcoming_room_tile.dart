@@ -103,12 +103,12 @@ class UpcomingListTile extends ConsumerWidget {
             children: subscriberAvatars
                 .map((avatarUrl) => _UpcomingAvatar(userImage: avatarUrl))
                 .toList()
-                .withSpacing(7),
+                .withSpacing(UiSizes.width_8),
           ),
           if (appwriteUpcomingRoom.tags.isNotEmpty) SizedBox(height: UiSizes.height_8),
           Wrap(
-            spacing: 8.0,
-            runSpacing: 4.0,
+            spacing: UiSizes.width_8,
+            runSpacing: UiSizes.height_4,
             children: appwriteUpcomingRoom.tags
                 .map(
                   (tag) => Text(
@@ -202,7 +202,9 @@ class UpcomingListTile extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: appwriteUpcomingRoom.isTime
                         ? Theme.of(context).colorScheme.primary
-                        : Colors.grey,
+                        : Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.38),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -255,7 +257,7 @@ class UpcomingListTile extends ConsumerWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: appwriteUpcomingRoom.hasUserSubscribed
-                          ? Colors.red
+                          ? Theme.of(context).colorScheme.error
                           : Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),

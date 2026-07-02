@@ -76,9 +76,9 @@ class FriendsRepository {
       final friendModel = FriendsModel(
         senderId: sender.uid,
         recieverId: recieverId,
-        senderProfileImgUrl: sender.profileImageUrl!,
+        senderProfileImgUrl: sender.profileImageUrl ?? '',
         recieverProfileImgUrl: recieverProfileImageUrl,
-        senderUsername: sender.userName!,
+        senderUsername: sender.userName ?? '',
         recieverUsername: recieverUsername,
         senderName: sender.displayName,
         recieverName: recieverName,

@@ -9,6 +9,7 @@ import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/secondary_list_card.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
 class FriendListTile extends ConsumerStatefulWidget {
@@ -57,16 +58,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(UiSizes.width_10),
-          color: Theme.of(context).colorScheme.secondary,
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: UiSizes.width_16,
-          vertical: UiSizes.height_8,
-        ),
-        padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
+      child: SecondaryListCard(
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(

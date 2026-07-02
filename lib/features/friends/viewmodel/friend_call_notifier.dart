@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
-import 'package:resonate/features/friends/data/friend_call_repository.dart';
+import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';

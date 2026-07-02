@@ -6,7 +6,7 @@ import 'package:resonate/features/rooms/data/services/audio_device_service.dart'
 import 'package:resonate/features/rooms/model/audio_device_state.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/viewmodel/audio_device_notifier.dart';
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/enums/audio_device_enum.dart';
 
 import '../rooms_test_helpers.dart';

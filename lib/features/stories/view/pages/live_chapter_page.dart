@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_header.dart';
 import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
@@ -88,11 +89,11 @@ class LiveChapterPage extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return LiveChapterAttendeeBlock(
                       user: index == 0
-                          ? {
-                              'profileImageUrl': model.authorProfileImageUrl,
-                              'name': model.authorName,
-                              '\$id': model.authorUid,
-                            }
+                          ? LiveChapterAttendee(
+                              id: model.authorUid,
+                              name: model.authorName,
+                              profileImageUrl: model.authorProfileImageUrl,
+                            )
                           : attendees[index - 1],
                     );
                   },
@@ -193,8 +194,8 @@ class _LeaveButton extends ConsumerWidget {
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.redAccent,
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        foregroundColor: Theme.of(context).colorScheme.onError,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(UiSizes.width_20),
         ),

@@ -50,7 +50,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
               style: TextStyle(
                 color: _label == verifiedLabel
                     ? AppColor.greenColor
-                    : Colors.grey,
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

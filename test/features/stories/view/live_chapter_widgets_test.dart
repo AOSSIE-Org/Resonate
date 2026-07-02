@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_header.dart';
@@ -44,7 +45,7 @@ void main() {
     Future<void> pumpBlock(
       WidgetTester tester, {
       required String authorUid,
-      required Map<String, dynamic> user,
+      required LiveChapterAttendee user,
     }) async {
       await tester.pumpWidget(
         ProviderScope(
@@ -69,11 +70,11 @@ void main() {
       await pumpBlock(
         tester,
         authorUid: 'u1',
-        user: {
-          '\$id': 'u1',
-          'name': 'Alice Smith',
-          'profileImageUrl': 'http://example.com/a.png',
-        },
+        user: LiveChapterAttendee(
+          id: 'u1',
+          name: 'Alice Smith',
+          profileImageUrl: 'http://example.com/a.png',
+        ),
       );
       expect(find.text('Alice'), findsOneWidget); // first word of the name
       expect(find.text('Author'), findsOneWidget);
@@ -84,11 +85,11 @@ void main() {
       await pumpBlock(
         tester,
         authorUid: 'someone-else',
-        user: {
-          '\$id': 'u2',
-          'name': 'Bob Jones',
-          'profileImageUrl': 'http://example.com/b.png',
-        },
+        user: LiveChapterAttendee(
+          id: 'u2',
+          name: 'Bob Jones',
+          profileImageUrl: 'http://example.com/b.png',
+        ),
       );
       expect(find.text('Listener'), findsOneWidget);
       expect(find.text('Author'), findsNothing);

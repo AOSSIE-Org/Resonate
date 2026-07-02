@@ -2,8 +2,18 @@ import 'dart:developer';
 
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
+
+/// Hand-written (not @riverpod) for the same reason as
+/// whisperModelSettingProvider: riverpod_generator throws InvalidTypeException
+/// on WhisperModel (its canonical type is a private src/ file of
+/// whisper_flutter_new). Family-keyed by model so tests can override it.
+final whisperTranscriptionServiceProvider =
+    Provider.family<WhisperTranscriptionService, WhisperModel>(
+      (ref, model) => WhisperTranscriptionService(model: model),
+    );
 
 class WhisperTranscriptionService {
   WhisperTranscriptionService({WhisperModel model = WhisperModel.base})
