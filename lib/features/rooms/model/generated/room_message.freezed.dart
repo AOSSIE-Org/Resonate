@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RoomMessage {
 
- String get roomId; String get messageId; String get creatorId; String get creatorUsername; String get creatorName; String get creatorImgUrl; bool get hasValidTag; int get index; bool get isEdited; String get content; DateTime get creationDateTime; bool get isDeleted; ReplyTo? get replyTo;@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus get status;
+ String get roomId; String get messageId; String get creatorId; String get creatorUsername; String get creatorName; String get creatorImgUrl; bool get hasValidTag; int get index; bool get isEdited; String get content; DateTime get creationDateTime; bool get isDeleted;// Set when this message announces a poll; the chat list renders a
+// PollCard for it instead of a regular bubble.
+ String? get pollId; ReplyTo? get replyTo;@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus get status;
 /// Create a copy of RoomMessage
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +30,16 @@ $RoomMessageCopyWith<RoomMessage> get copyWith => _$RoomMessageCopyWithImpl<Room
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RoomMessage&&(identical(other.roomId, roomId) || other.roomId == roomId)&&(identical(other.messageId, messageId) || other.messageId == messageId)&&(identical(other.creatorId, creatorId) || other.creatorId == creatorId)&&(identical(other.creatorUsername, creatorUsername) || other.creatorUsername == creatorUsername)&&(identical(other.creatorName, creatorName) || other.creatorName == creatorName)&&(identical(other.creatorImgUrl, creatorImgUrl) || other.creatorImgUrl == creatorImgUrl)&&(identical(other.hasValidTag, hasValidTag) || other.hasValidTag == hasValidTag)&&(identical(other.index, index) || other.index == index)&&(identical(other.isEdited, isEdited) || other.isEdited == isEdited)&&(identical(other.content, content) || other.content == content)&&(identical(other.creationDateTime, creationDateTime) || other.creationDateTime == creationDateTime)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.replyTo, replyTo) || other.replyTo == replyTo)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RoomMessage&&(identical(other.roomId, roomId) || other.roomId == roomId)&&(identical(other.messageId, messageId) || other.messageId == messageId)&&(identical(other.creatorId, creatorId) || other.creatorId == creatorId)&&(identical(other.creatorUsername, creatorUsername) || other.creatorUsername == creatorUsername)&&(identical(other.creatorName, creatorName) || other.creatorName == creatorName)&&(identical(other.creatorImgUrl, creatorImgUrl) || other.creatorImgUrl == creatorImgUrl)&&(identical(other.hasValidTag, hasValidTag) || other.hasValidTag == hasValidTag)&&(identical(other.index, index) || other.index == index)&&(identical(other.isEdited, isEdited) || other.isEdited == isEdited)&&(identical(other.content, content) || other.content == content)&&(identical(other.creationDateTime, creationDateTime) || other.creationDateTime == creationDateTime)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.pollId, pollId) || other.pollId == pollId)&&(identical(other.replyTo, replyTo) || other.replyTo == replyTo)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,roomId,messageId,creatorId,creatorUsername,creatorName,creatorImgUrl,hasValidTag,index,isEdited,content,creationDateTime,isDeleted,replyTo,status);
+int get hashCode => Object.hash(runtimeType,roomId,messageId,creatorId,creatorUsername,creatorName,creatorImgUrl,hasValidTag,index,isEdited,content,creationDateTime,isDeleted,pollId,replyTo,status);
 
 @override
 String toString() {
-  return 'RoomMessage(roomId: $roomId, messageId: $messageId, creatorId: $creatorId, creatorUsername: $creatorUsername, creatorName: $creatorName, creatorImgUrl: $creatorImgUrl, hasValidTag: $hasValidTag, index: $index, isEdited: $isEdited, content: $content, creationDateTime: $creationDateTime, isDeleted: $isDeleted, replyTo: $replyTo, status: $status)';
+  return 'RoomMessage(roomId: $roomId, messageId: $messageId, creatorId: $creatorId, creatorUsername: $creatorUsername, creatorName: $creatorName, creatorImgUrl: $creatorImgUrl, hasValidTag: $hasValidTag, index: $index, isEdited: $isEdited, content: $content, creationDateTime: $creationDateTime, isDeleted: $isDeleted, pollId: $pollId, replyTo: $replyTo, status: $status)';
 }
 
 
@@ -48,7 +50,7 @@ abstract mixin class $RoomMessageCopyWith<$Res>  {
   factory $RoomMessageCopyWith(RoomMessage value, $Res Function(RoomMessage) _then) = _$RoomMessageCopyWithImpl;
 @useResult
 $Res call({
- String roomId, String messageId, String creatorId, String creatorUsername, String creatorName, String creatorImgUrl, bool hasValidTag, int index, bool isEdited, String content, DateTime creationDateTime, bool isDeleted, ReplyTo? replyTo,@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus status
+ String roomId, String messageId, String creatorId, String creatorUsername, String creatorName, String creatorImgUrl, bool hasValidTag, int index, bool isEdited, String content, DateTime creationDateTime, bool isDeleted, String? pollId, ReplyTo? replyTo,@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus status
 });
 
 
@@ -65,7 +67,7 @@ class _$RoomMessageCopyWithImpl<$Res>
 
 /// Create a copy of RoomMessage
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? roomId = null,Object? messageId = null,Object? creatorId = null,Object? creatorUsername = null,Object? creatorName = null,Object? creatorImgUrl = null,Object? hasValidTag = null,Object? index = null,Object? isEdited = null,Object? content = null,Object? creationDateTime = null,Object? isDeleted = null,Object? replyTo = freezed,Object? status = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? roomId = null,Object? messageId = null,Object? creatorId = null,Object? creatorUsername = null,Object? creatorName = null,Object? creatorImgUrl = null,Object? hasValidTag = null,Object? index = null,Object? isEdited = null,Object? content = null,Object? creationDateTime = null,Object? isDeleted = null,Object? pollId = freezed,Object? replyTo = freezed,Object? status = null,}) {
   return _then(_self.copyWith(
 roomId: null == roomId ? _self.roomId : roomId // ignore: cast_nullable_to_non_nullable
 as String,messageId: null == messageId ? _self.messageId : messageId // ignore: cast_nullable_to_non_nullable
@@ -79,7 +81,8 @@ as int,isEdited: null == isEdited ? _self.isEdited : isEdited // ignore: cast_nu
 as bool,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,creationDateTime: null == creationDateTime ? _self.creationDateTime : creationDateTime // ignore: cast_nullable_to_non_nullable
 as DateTime,isDeleted: null == isDeleted ? _self.isDeleted : isDeleted // ignore: cast_nullable_to_non_nullable
-as bool,replyTo: freezed == replyTo ? _self.replyTo : replyTo // ignore: cast_nullable_to_non_nullable
+as bool,pollId: freezed == pollId ? _self.pollId : pollId // ignore: cast_nullable_to_non_nullable
+as String?,replyTo: freezed == replyTo ? _self.replyTo : replyTo // ignore: cast_nullable_to_non_nullable
 as ReplyTo?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as RoomMessageStatus,
   ));
@@ -178,10 +181,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  String? pollId,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RoomMessage() when $default != null:
-return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.replyTo,_that.status);case _:
+return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.pollId,_that.replyTo,_that.status);case _:
   return orElse();
 
 }
@@ -199,10 +202,10 @@ return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUserna
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  String? pollId,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)  $default,) {final _that = this;
 switch (_that) {
 case _RoomMessage():
-return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.replyTo,_that.status);case _:
+return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.pollId,_that.replyTo,_that.status);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -219,10 +222,10 @@ return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUserna
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String roomId,  String messageId,  String creatorId,  String creatorUsername,  String creatorName,  String creatorImgUrl,  bool hasValidTag,  int index,  bool isEdited,  String content,  DateTime creationDateTime,  bool isDeleted,  String? pollId,  ReplyTo? replyTo, @JsonKey(includeFromJson: false, includeToJson: false)  RoomMessageStatus status)?  $default,) {final _that = this;
 switch (_that) {
 case _RoomMessage() when $default != null:
-return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.replyTo,_that.status);case _:
+return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUsername,_that.creatorName,_that.creatorImgUrl,_that.hasValidTag,_that.index,_that.isEdited,_that.content,_that.creationDateTime,_that.isDeleted,_that.pollId,_that.replyTo,_that.status);case _:
   return null;
 
 }
@@ -234,7 +237,7 @@ return $default(_that.roomId,_that.messageId,_that.creatorId,_that.creatorUserna
 @JsonSerializable()
 
 class _RoomMessage extends RoomMessage {
-  const _RoomMessage({required this.roomId, required this.messageId, required this.creatorId, required this.creatorUsername, required this.creatorName, required this.creatorImgUrl, required this.hasValidTag, required this.index, required this.isEdited, required this.content, required this.creationDateTime, this.isDeleted = false, this.replyTo, @JsonKey(includeFromJson: false, includeToJson: false) this.status = RoomMessageStatus.sent}): super._();
+  const _RoomMessage({required this.roomId, required this.messageId, required this.creatorId, required this.creatorUsername, required this.creatorName, required this.creatorImgUrl, required this.hasValidTag, required this.index, required this.isEdited, required this.content, required this.creationDateTime, this.isDeleted = false, this.pollId, this.replyTo, @JsonKey(includeFromJson: false, includeToJson: false) this.status = RoomMessageStatus.sent}): super._();
   factory _RoomMessage.fromJson(Map<String, dynamic> json) => _$RoomMessageFromJson(json);
 
 @override final  String roomId;
@@ -249,6 +252,9 @@ class _RoomMessage extends RoomMessage {
 @override final  String content;
 @override final  DateTime creationDateTime;
 @override@JsonKey() final  bool isDeleted;
+// Set when this message announces a poll; the chat list renders a
+// PollCard for it instead of a regular bubble.
+@override final  String? pollId;
 @override final  ReplyTo? replyTo;
 @override@JsonKey(includeFromJson: false, includeToJson: false) final  RoomMessageStatus status;
 
@@ -265,16 +271,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoomMessage&&(identical(other.roomId, roomId) || other.roomId == roomId)&&(identical(other.messageId, messageId) || other.messageId == messageId)&&(identical(other.creatorId, creatorId) || other.creatorId == creatorId)&&(identical(other.creatorUsername, creatorUsername) || other.creatorUsername == creatorUsername)&&(identical(other.creatorName, creatorName) || other.creatorName == creatorName)&&(identical(other.creatorImgUrl, creatorImgUrl) || other.creatorImgUrl == creatorImgUrl)&&(identical(other.hasValidTag, hasValidTag) || other.hasValidTag == hasValidTag)&&(identical(other.index, index) || other.index == index)&&(identical(other.isEdited, isEdited) || other.isEdited == isEdited)&&(identical(other.content, content) || other.content == content)&&(identical(other.creationDateTime, creationDateTime) || other.creationDateTime == creationDateTime)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.replyTo, replyTo) || other.replyTo == replyTo)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RoomMessage&&(identical(other.roomId, roomId) || other.roomId == roomId)&&(identical(other.messageId, messageId) || other.messageId == messageId)&&(identical(other.creatorId, creatorId) || other.creatorId == creatorId)&&(identical(other.creatorUsername, creatorUsername) || other.creatorUsername == creatorUsername)&&(identical(other.creatorName, creatorName) || other.creatorName == creatorName)&&(identical(other.creatorImgUrl, creatorImgUrl) || other.creatorImgUrl == creatorImgUrl)&&(identical(other.hasValidTag, hasValidTag) || other.hasValidTag == hasValidTag)&&(identical(other.index, index) || other.index == index)&&(identical(other.isEdited, isEdited) || other.isEdited == isEdited)&&(identical(other.content, content) || other.content == content)&&(identical(other.creationDateTime, creationDateTime) || other.creationDateTime == creationDateTime)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted)&&(identical(other.pollId, pollId) || other.pollId == pollId)&&(identical(other.replyTo, replyTo) || other.replyTo == replyTo)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,roomId,messageId,creatorId,creatorUsername,creatorName,creatorImgUrl,hasValidTag,index,isEdited,content,creationDateTime,isDeleted,replyTo,status);
+int get hashCode => Object.hash(runtimeType,roomId,messageId,creatorId,creatorUsername,creatorName,creatorImgUrl,hasValidTag,index,isEdited,content,creationDateTime,isDeleted,pollId,replyTo,status);
 
 @override
 String toString() {
-  return 'RoomMessage(roomId: $roomId, messageId: $messageId, creatorId: $creatorId, creatorUsername: $creatorUsername, creatorName: $creatorName, creatorImgUrl: $creatorImgUrl, hasValidTag: $hasValidTag, index: $index, isEdited: $isEdited, content: $content, creationDateTime: $creationDateTime, isDeleted: $isDeleted, replyTo: $replyTo, status: $status)';
+  return 'RoomMessage(roomId: $roomId, messageId: $messageId, creatorId: $creatorId, creatorUsername: $creatorUsername, creatorName: $creatorName, creatorImgUrl: $creatorImgUrl, hasValidTag: $hasValidTag, index: $index, isEdited: $isEdited, content: $content, creationDateTime: $creationDateTime, isDeleted: $isDeleted, pollId: $pollId, replyTo: $replyTo, status: $status)';
 }
 
 
@@ -285,7 +291,7 @@ abstract mixin class _$RoomMessageCopyWith<$Res> implements $RoomMessageCopyWith
   factory _$RoomMessageCopyWith(_RoomMessage value, $Res Function(_RoomMessage) _then) = __$RoomMessageCopyWithImpl;
 @override @useResult
 $Res call({
- String roomId, String messageId, String creatorId, String creatorUsername, String creatorName, String creatorImgUrl, bool hasValidTag, int index, bool isEdited, String content, DateTime creationDateTime, bool isDeleted, ReplyTo? replyTo,@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus status
+ String roomId, String messageId, String creatorId, String creatorUsername, String creatorName, String creatorImgUrl, bool hasValidTag, int index, bool isEdited, String content, DateTime creationDateTime, bool isDeleted, String? pollId, ReplyTo? replyTo,@JsonKey(includeFromJson: false, includeToJson: false) RoomMessageStatus status
 });
 
 
@@ -302,7 +308,7 @@ class __$RoomMessageCopyWithImpl<$Res>
 
 /// Create a copy of RoomMessage
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? roomId = null,Object? messageId = null,Object? creatorId = null,Object? creatorUsername = null,Object? creatorName = null,Object? creatorImgUrl = null,Object? hasValidTag = null,Object? index = null,Object? isEdited = null,Object? content = null,Object? creationDateTime = null,Object? isDeleted = null,Object? replyTo = freezed,Object? status = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? roomId = null,Object? messageId = null,Object? creatorId = null,Object? creatorUsername = null,Object? creatorName = null,Object? creatorImgUrl = null,Object? hasValidTag = null,Object? index = null,Object? isEdited = null,Object? content = null,Object? creationDateTime = null,Object? isDeleted = null,Object? pollId = freezed,Object? replyTo = freezed,Object? status = null,}) {
   return _then(_RoomMessage(
 roomId: null == roomId ? _self.roomId : roomId // ignore: cast_nullable_to_non_nullable
 as String,messageId: null == messageId ? _self.messageId : messageId // ignore: cast_nullable_to_non_nullable
@@ -316,7 +322,8 @@ as int,isEdited: null == isEdited ? _self.isEdited : isEdited // ignore: cast_nu
 as bool,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,creationDateTime: null == creationDateTime ? _self.creationDateTime : creationDateTime // ignore: cast_nullable_to_non_nullable
 as DateTime,isDeleted: null == isDeleted ? _self.isDeleted : isDeleted // ignore: cast_nullable_to_non_nullable
-as bool,replyTo: freezed == replyTo ? _self.replyTo : replyTo // ignore: cast_nullable_to_non_nullable
+as bool,pollId: freezed == pollId ? _self.pollId : pollId // ignore: cast_nullable_to_non_nullable
+as String?,replyTo: freezed == replyTo ? _self.replyTo : replyTo // ignore: cast_nullable_to_non_nullable
 as ReplyTo?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as RoomMessageStatus,
   ));

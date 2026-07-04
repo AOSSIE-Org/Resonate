@@ -273,6 +273,7 @@ class FakeRoomChat extends RoomChatNotifier {
     required String roomName,
     required bool isUpcoming,
     required String content,
+    String? pollId,
   }) async {
     sendCount++;
     lastSentContent = content;

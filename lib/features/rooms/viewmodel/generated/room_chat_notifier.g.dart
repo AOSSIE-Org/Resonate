@@ -50,7 +50,7 @@ final class RoomChatNotifierProvider
   }
 }
 
-String _$roomChatNotifierHash() => r'198640e659f7334678b0d219922c483c764c534c';
+String _$roomChatNotifierHash() => r'1b70ffb57371cb1ee9c044af7a4ae63b5a5d6fed';
 
 final class RoomChatNotifierFamily extends $Family
     with

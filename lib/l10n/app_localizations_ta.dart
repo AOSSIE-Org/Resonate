@@ -1454,4 +1454,70 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get usernameAlreadyTaken =>
       'இந்த பயனர் பெயர் ஏற்கனவே பயன்படுத்தப்படுகிறது. வேறு ஒன்றை முயற்சிக்கவும்.';
+
+  @override
+  String get poll => 'Poll';
+
+  @override
+  String get createPoll => 'Create poll';
+
+  @override
+  String get pollQuestionLabel => 'Question';
+
+  @override
+  String get pollQuestionHint => 'Ask a question…';
+
+  @override
+  String pollOptionHint(int number) {
+    return 'Option $number';
+  }
+
+  @override
+  String get addPollOption => 'Add option';
+
+  @override
+  String get removePollOption => 'Remove option';
+
+  @override
+  String pollVotesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count votes',
+      one: '1 vote',
+      zero: 'No votes yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get endPoll => 'End poll';
+
+  @override
+  String get endPollConfirmTitle => 'End this poll?';
+
+  @override
+  String get endPollConfirmContent =>
+      'Voting will be closed for everyone. This cannot be undone.';
+
+  @override
+  String get pollFinalResults => 'Final results';
+
+  @override
+  String get pollEnterQuestion => 'Please enter a question';
+
+  @override
+  String get pollNeedTwoOptions => 'Please provide at least 2 options';
+
+  @override
+  String get pollUnavailable => 'This poll is no longer available';
+
+  @override
+  String get failedToCreatePoll => 'Failed to create poll';
+
+  @override
+  String get failedToVote => 'Failed to record your vote';
+
+  @override
+  String get failedToEndPoll => 'Failed to end the poll';
 }
