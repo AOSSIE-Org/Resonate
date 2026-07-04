@@ -6,8 +6,10 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_chat_state.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
+import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
+import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
 
 import '../rooms_test_helpers.dart';
 
@@ -42,6 +44,13 @@ RoomMessage fakeMessage({
   status: status,
 );
 
+// RoomChatPage keeps the polls provider alive for live rooms; stub it so
+// widget tests don't build the real notifier (and its realtime plumbing).
+class _FakeRoomPolls extends RoomPollsNotifier {
+  @override
+  Future<RoomPollsState> build(String roomId) async => const RoomPollsState();
+}
+
 // Builds the overrides with the fake chat + a current user of the given uid.
 List<Override> buildOverrides(
   FakeRoomChat fake, {
@@ -50,6 +59,7 @@ List<Override> buildOverrides(
 }) {
   return [
     roomChatProvider(_roomId, _roomName, isUpcoming).overrideWith(() => fake),
+    roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
   ];
@@ -72,6 +82,7 @@ void main() {
         page(),
         overrides: [
           roomChatProvider(_roomId, _roomName, false).overrideWith(() => fake),
+          roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
           requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
           currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
         ],

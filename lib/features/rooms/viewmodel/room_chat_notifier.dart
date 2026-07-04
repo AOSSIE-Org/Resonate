@@ -107,6 +107,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
     required String roomName,
     required bool isUpcoming,
     required String content,
+    String? pollId,
   }) async {
     final current = state.value;
     if (current == null) return false;
@@ -130,6 +131,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
       content: content,
       creationDateTime: DateTime.now(),
       isDeleted: false,
+      pollId: pollId,
       replyTo: replyTo,
       status: RoomMessageStatus.pending,
     );

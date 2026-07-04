@@ -36,7 +36,9 @@ class RoomChatRepository {
       tableId: chatMessagesTableId,
       queries: [
         Query.equal('roomId', roomId),
-        Query.orderAsc('index'),
+        // Latest window, not the oldest: late joiners must see recent
+        // messages (and poll cards). The sort below restores ascending order.
+        Query.orderDesc('index'),
         Query.limit(100),
       ],
     );
