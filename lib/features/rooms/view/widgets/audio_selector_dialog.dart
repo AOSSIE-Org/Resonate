@@ -80,10 +80,10 @@ class AudioDeviceSelectorDialog extends ConsumerWidget {
           Flexible(
             child: SingleChildScrollView(
               child: asyncState.when(
-                loading: () => const Center(
+                loading: () => Center(
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: CircularProgressIndicator(),
+                    padding: EdgeInsets.all(UiSizes.width_16),
+                    child: const CircularProgressIndicator(),
                   ),
                 ),
                 error: (e, _) => Text('$e'),

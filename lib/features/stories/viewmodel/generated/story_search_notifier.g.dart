@@ -41,7 +41,7 @@ final class StorySearchProvider
   }
 }
 
-String _$storySearchHash() => r'f1343467233ed06ee17ec8753087e76678e3f3f5';
+String _$storySearchHash() => r'95627b26b5c41684477416354cb7c5e000ec846d';
 
 abstract class _$StorySearch extends $Notifier<StorySearchState> {
   StorySearchState build();

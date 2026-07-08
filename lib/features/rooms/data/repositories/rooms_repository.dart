@@ -8,7 +8,7 @@ import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
-import 'package:resonate/services/api_service.dart';
+import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +19,7 @@ part 'generated/rooms_repository.g.dart';
 RoomsRepository roomsRepository(Ref ref) => RoomsRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
-  apiService: ApiService(functions: ref.watch(appwriteFunctionsProvider)),
+  apiService: ref.watch(apiServiceProvider),
 );
 
 class RoomsRepository {

@@ -11,18 +11,16 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/l10n/raj_intl.dart';
-import 'package:resonate/controllers/about_app_screen_controller.dart';
-import 'package:resonate/core/container.dart';
-import 'package:resonate/core/legacy_dependencies.dart';
+import 'package:resonate/features/shell/viewmodel/network_notifier.dart';
+import 'package:resonate/features/theme/model/theme_list.dart';
+import 'package:resonate/features/theme/model/theme_modes.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
+import 'package:resonate/features/settings/viewmodel/locale_notifier.dart';
 import 'package:resonate/firebase_options.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/l10n/raj_intl.dart';
 import 'package:resonate/routes/app_router.dart';
-import 'package:resonate/themes/theme.dart';
-import 'package:resonate/themes/theme_controller.dart';
-import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -53,22 +51,15 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  Get.testMode = false;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
-  Get.put(AboutAppScreenController());
-  setupLegacyGetXDependencies();
   languageLocale =
       await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
-  runApp(
-    UncontrolledProviderScope(
-      container: rootContainer,
-      child: const MyApp(),
-    ),
-  );
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -77,36 +68,25 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     UiSizes.init(context);
-    final themeController = Get.put(ThemeController());
-    final router = ref.watch(routerProvider);
+    ref.watch(networkProvider);
+    final themeModel = ThemeList.getThemeModel(ref.watch(appThemeProvider));
 
-    return Obx(
-      () => GetMaterialApp.router(
-        routerDelegate: router.routerDelegate,
-        routeInformationParser: router.routeInformationParser,
-        routeInformationProvider: router.routeInformationProvider,
-        backButtonDispatcher: router.backButtonDispatcher,
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          AppLocalizationsRaj.delegate,
-        ],
-        locale: Locale(languageLocale),
-        supportedLocales: AppLocalizations.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        title: 'Resonate',
-        theme: ThemeModes.setLightTheme(
-          ThemeList.getThemeModel(themeController.currentTheme.value),
-        ),
-        darkTheme: ThemeModes.setDarkTheme(
-          ThemeList.getThemeModel(themeController.currentTheme.value),
-        ),
-        themeMode: ThemeList.getThemeModel(
-          themeController.currentTheme.value,
-        ).themeMode,
-      ),
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        AppLocalizationsRaj.delegate,
+      ],
+      locale: ref.watch(appLocaleProvider),
+      supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      title: 'Resonate',
+      theme: ThemeModes.setLightTheme(themeModel),
+      darkTheme: ThemeModes.setDarkTheme(themeModel),
+      themeMode: themeModel.themeMode,
     );
   }
 }

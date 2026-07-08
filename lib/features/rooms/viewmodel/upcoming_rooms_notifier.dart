@@ -1,5 +1,5 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
@@ -26,7 +26,7 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
     final repo = ref.watch(upcomingRoomsRepositoryProvider);
     final hidden = _readHidden();
     final rooms = await repo.loadUpcoming(
-      userUid: requireCurrentAuthUser.uid,
+      userUid: ref.read(requireUserProvider).uid,
       hiddenRoomIds: hidden.toSet(),
     );
 
@@ -43,14 +43,14 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(upcomingRoomsRepositoryProvider);
       return repo.loadUpcoming(
-        userUid: requireCurrentAuthUser.uid,
+        userUid: ref.read(requireUserProvider).uid,
         hiddenRoomIds: _readHidden().toSet(),
       );
     });
   }
 
   Future<void> subscribe(String upcomingRoomId) async {
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     await ref.read(upcomingRoomsRepositoryProvider).addSubscriber(
       upcomingRoomId: upcomingRoomId,
       userUid: user.uid,
@@ -62,7 +62,7 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
   Future<void> unsubscribe(String upcomingRoomId) async {
     await ref.read(upcomingRoomsRepositoryProvider).removeSubscriber(
       upcomingRoomId: upcomingRoomId,
-      userUid: requireCurrentAuthUser.uid,
+      userUid: ref.read(requireUserProvider).uid,
     );
     await refresh();
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
 import 'package:resonate/features/friends/view/widgets/friends_empty_view.dart';
 import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
@@ -22,7 +22,7 @@ class FriendRequestsPage extends ConsumerWidget {
           final incomingRequests = state.friendRequests
               .where(
                 (friend) =>
-                    friend.requestSentByUserId != requireCurrentAuthUser.uid,
+                    friend.requestSentByUserId != ref.read(requireUserProvider).uid,
               )
               .toList();
           if (incomingRequests.isEmpty) {

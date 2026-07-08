@@ -5,6 +5,7 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CustomLiveRoomTile extends ConsumerWidget {
@@ -62,7 +63,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(UiSizes.width_16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -78,7 +79,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 16,
+                      fontSize: UiSizes.size_16,
                     ),
                   ),
                 ),
@@ -110,13 +111,13 @@ class CustomLiveRoomTile extends ConsumerWidget {
                       '#$tag',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
-                        fontSize: 14,
+                        fontSize: UiSizes.size_14,
                       ),
                     ),
                   )
                   .toList(),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: UiSizes.height_8),
             Text(
               appwriteRoom.description,
               maxLines: 3,
@@ -125,18 +126,18 @@ class CustomLiveRoomTile extends ConsumerWidget {
                 color: Theme.of(
                   context,
                 ).colorScheme.onSurface.withValues(alpha: 0.7),
-                fontSize: 14,
+                fontSize: UiSizes.size_14,
               ),
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: UiSizes.height_5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
                     SizedBox(
-                      width: 120,
-                      height: 50,
+                      width: UiSizes.width_123_4,
+                      height: UiSizes.height_50,
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: memberAvatars
@@ -146,8 +147,8 @@ class CustomLiveRoomTile extends ConsumerWidget {
                               (entry) => Positioned(
                                 left: 28.0 * entry.key,
                                 child: CustomCircleAvatar(
-                                  height: 40,
-                                  width: 40,
+                                  height: UiSizes.size_40,
+                                  width: UiSizes.size_40,
                                   userImage: entry.value,
                                 ),
                               ),
@@ -160,16 +161,16 @@ class CustomLiveRoomTile extends ConsumerWidget {
                         Icon(
                           Icons.people_outline,
                           color: Theme.of(context).colorScheme.primary,
-                          size: 20,
+                          size: UiSizes.size_20,
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: UiSizes.width_4),
                         Text(
                           AppLocalizations.of(
                             context,
                           )!.participantsCount(appwriteRoom.totalParticipants),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
-                            fontSize: 14,
+                            fontSize: UiSizes.size_14,
                           ),
                         ),
                       ],

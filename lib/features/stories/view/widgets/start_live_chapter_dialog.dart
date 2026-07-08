@@ -10,7 +10,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class StartLiveChapterDialog extends ConsumerStatefulWidget {
   const StartLiveChapterDialog({super.key, required this.story});
@@ -118,8 +118,8 @@ class _StartLiveChapterDialogState
                           ? SizedBox(
                               height: UiSizes.size_18,
                               width: UiSizes.size_18,
-                              child: const CircularProgressIndicator(
-                                strokeWidth: 2,
+                              child: CircularProgressIndicator(
+                                strokeWidth: UiSizes.width_2,
                               ),
                             )
                           : Text(l10n.start),

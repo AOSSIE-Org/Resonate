@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart' show Get, Inst;
 import 'package:go_router/go_router.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
@@ -12,8 +11,8 @@ import 'package:resonate/features/rooms/view/widgets/room_app_bar.dart';
 import 'package:resonate/features/rooms/view/widgets/room_header.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
-import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class PairChatPage extends ConsumerStatefulWidget {
@@ -56,9 +55,7 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
   @override
   Widget build(BuildContext context) {
     final chatState = ref.watch(pairChatProvider);
-    // ThemeController is still GetX; bridge until the theme migrates.
-    final placeholderUrl =
-        Get.find<ThemeController>().userProfileImagePlaceholderUrl;
+    final placeholderUrl = ref.watch(userProfileImagePlaceholderUrlProvider);
 
     ref.listen(pairChatProvider.select((s) => s.ended), (prev, ended) {
       if (ended && prev != true) _onChatEnded();
@@ -98,10 +95,10 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
                         CallUserInfoRow(
                           imageUrl: chatState.isAnonymous
                               ? placeholderUrl
-                              : requireCurrentAuthUser.profileImageUrl ?? '',
+                              : ref.read(requireUserProvider).profileImageUrl ?? '',
                           userName: chatState.isAnonymous
                               ? AppLocalizations.of(context)!.user1
-                              : requireCurrentAuthUser.userName ?? '',
+                              : ref.read(requireUserProvider).userName ?? '',
                         ),
                         SizedBox(height: UiSizes.height_20),
                         CallUserInfoRow(

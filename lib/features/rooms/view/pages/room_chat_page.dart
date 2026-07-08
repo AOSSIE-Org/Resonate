@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
@@ -9,7 +9,8 @@ import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 
 class RoomChatPage extends ConsumerStatefulWidget {
   const RoomChatPage({
@@ -94,14 +95,14 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                   Center(child: Text(AppLocalizations.of(context)!.error)),
               data: (state) => ListView.builder(
                 controller: _scrollController,
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(UiSizes.width_16),
                 itemCount: state.messages.length,
                 itemBuilder: (context, index) {
                   final message = state.messages[index];
-                  final canEdit = requireCurrentAuthUser.uid == message.creatorId &&
+                  final canEdit = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted &&
                       !message.isEdited;
-                  final canDelete = requireCurrentAuthUser.uid == message.creatorId &&
+                  final canDelete = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted;
                   return ChatMessageItem(
                     message: message,
@@ -319,10 +320,10 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
               child: Transform.translate(
                 offset: Offset(_dragOffset, 0),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                  padding: EdgeInsets.symmetric(vertical: UiSizes.height_2),
                   child: Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(UiSizes.width_8),
                     decoration: BoxDecoration(
                       color: widget.message.isDeleted
                           ? Theme.of(context).colorScheme.secondaryContainer
@@ -333,12 +334,12 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
-                          radius: 20,
+                          radius: UiSizes.size_20,
                           backgroundImage: NetworkImage(
                             widget.message.creatorImgUrl,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        SizedBox(width: UiSizes.width_10),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,15 +355,15 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                       : Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
-                              const SizedBox(height: 5),
+                              SizedBox(height: UiSizes.height_5),
                               if (widget.message.replyTo != null)
                                 GestureDetector(
                                   onTap: () => widget.onTapReply(
                                     widget.message.replyTo!.index,
                                   ),
                                   child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    margin: const EdgeInsets.only(bottom: 5),
+                                    padding: EdgeInsets.all(UiSizes.width_8),
+                                    margin: EdgeInsets.only(bottom: UiSizes.height_5),
                                     decoration: BoxDecoration(
                                       color: Theme.of(
                                         context,
@@ -412,9 +413,9 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       contentPadding:
-                                          const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 5,
+                                          EdgeInsets.symmetric(
+                                            horizontal: UiSizes.width_10,
+                                            vertical: UiSizes.height_5,
                                           ),
                                     ),
                                   ),
@@ -447,27 +448,27 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                     if (widget.message.isEdited)
                                       Text(
                                         AppLocalizations.of(context)!.edited,
-                                        style: const TextStyle(
-                                          fontSize: 12,
+                                        style: TextStyle(
+                                          fontSize: UiSizes.size_12,
                                           fontStyle: FontStyle.italic,
                                           color: Colors.grey,
                                         ),
                                       ),
                                   ],
                                 ),
-                              const SizedBox(height: 5),
+                              SizedBox(height: UiSizes.height_5),
                               Row(
                                 children: [
                                   Text(
                                     widget.message.creationDateTime
                                         .formatDateTime(context)
                                         .toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 12,
+                                      fontSize: UiSizes.size_12,
                                     ),
                                   ),
-                                  const SizedBox(width: 6),
+                                  SizedBox(width: UiSizes.width_6),
                                   _StatusIndicator(
                                     status: widget.message.status,
                                     onRetry: widget.onRetry,
@@ -562,7 +563,7 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(UiSizes.width_16),
           child: Column(
             children: [
               if (replyingTo != null)
@@ -571,8 +572,8 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
                     Expanded(
                       child: Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.only(bottom: 5),
+                        padding: EdgeInsets.all(UiSizes.width_8),
+                        margin: EdgeInsets.only(bottom: UiSizes.height_5),
                         decoration: BoxDecoration(
                           color: Theme.of(
                             context,
@@ -618,14 +619,14 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 5,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: UiSizes.width_20,
+                          vertical: UiSizes.height_5,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: UiSizes.width_10),
                   IconButton(
                     icon: const Icon(Icons.send),
                     onPressed: _send,
@@ -694,7 +695,7 @@ class _StatusIndicator extends StatelessWidget {
       case RoomMessageStatus.sent:
         return const SizedBox.shrink();
       case RoomMessageStatus.pending:
-        return const Icon(Icons.access_time, size: 12, color: Colors.grey);
+        return Icon(Icons.access_time, size: UiSizes.size_12, color: Colors.grey);
       case RoomMessageStatus.failed:
         return GestureDetector(
           onTap: onRetry,
@@ -703,13 +704,13 @@ class _StatusIndicator extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.error_outline, size: 14, color: Colors.red),
-                const SizedBox(width: 4),
+                Icon(Icons.error_outline, size: UiSizes.size_14, color: Colors.red),
+                SizedBox(width: UiSizes.width_4),
                 Text(
                   AppLocalizations.of(context)!.retry,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.red,
-                    fontSize: 12,
+                    fontSize: UiSizes.size_12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

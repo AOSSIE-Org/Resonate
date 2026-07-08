@@ -33,7 +33,7 @@ final class ExploreStoriesProvider
   ExploreStories create() => ExploreStories();
 }
 
-String _$exploreStoriesHash() => r'6548bf8fa54beba32389992b8b13bca6de6abf7e';
+String _$exploreStoriesHash() => r'52a18b51a00c1aac80c5d3c334966f95e2f8226d';
 
 abstract class _$ExploreStories extends $AsyncNotifier<List<Story>> {
   FutureOr<List<Story>> build();

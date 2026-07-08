@@ -1,4 +1,4 @@
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
@@ -13,14 +13,14 @@ part 'generated/story_detail_notifier.g.dart';
 class StoryDetail extends _$StoryDetail {
   @override
   Future<StoryDetailState> build(String storyId) async {
-    final uid = requireCurrentAuthUser.uid;
+    final uid = ref.read(requireUserProvider).uid;
     return ref.watch(storiesRepositoryProvider).loadStoryDetail(storyId, uid);
   }
 
   Future<void> toggleLike(Story story) async {
     final current = state.value;
     if (current == null) return;
-    final uid = requireCurrentAuthUser.uid;
+    final uid = ref.read(requireUserProvider).uid;
     final repo = ref.read(storiesRepositoryProvider);
     final liveStory = story.copyWith(likesCount: current.likesCount);
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/app_images.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
 class UserBlockedPage extends StatelessWidget {
   const UserBlockedPage({super.key});
@@ -15,18 +16,18 @@ class UserBlockedPage extends StatelessWidget {
         children: [
           SvgPicture.asset(
             AppImages.noConnectionImage,
-            height: 200,
-            width: 200,
+            height: UiSizes.size_200,
+            width: UiSizes.size_200,
             colorFilter: ColorFilter.mode(
               Theme.of(context).colorScheme.primary,
               BlendMode.srcIn,
             ),
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: UiSizes.height_30),
           Text(
             AppLocalizations.of(context)!.userBlockedFromResonate,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+            style: TextStyle(fontSize: UiSizes.size_15, fontWeight: FontWeight.w900),
           ),
         ],
       ),

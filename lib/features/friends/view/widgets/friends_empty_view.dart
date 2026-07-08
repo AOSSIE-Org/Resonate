@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:resonate/controllers/tabview_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -8,13 +8,13 @@ import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
-class FriendsEmptyView extends StatelessWidget {
+class FriendsEmptyView extends ConsumerWidget {
   final bool isRequestsScreen;
 
   const FriendsEmptyView({super.key, required this.isRequestsScreen});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final localizations = AppLocalizations.of(context)!;
 
     return LayoutBuilder(
@@ -64,9 +64,8 @@ class FriendsEmptyView extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        // TabViewController is still GetX
-                        Get.find<TabViewController>().setIndex(1);
-                        appRouter.go(RoutePaths.tabview);
+                        ref.read(tabViewProvider.notifier).setIndex(1);
+                        ref.read(routerProvider).go(RoutePaths.tabview);
                       },
                       icon: const Icon(Icons.search),
                       label: Text(localizations.findFriends),

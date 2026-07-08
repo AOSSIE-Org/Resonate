@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
@@ -34,7 +34,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
   }
 
   Participant _meFor(AppwriteRoom room) {
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     return Participant(
       uid: user.uid,
       email: user.email,
@@ -266,7 +266,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     await _disposeStream();
     await ref
         .read(roomsRepositoryProvider)
-        .leaveRoom(roomId: appwriteRoom.id, userId: requireCurrentAuthUser.uid);
+        .leaveRoom(roomId: appwriteRoom.id, userId: ref.read(requireUserProvider).uid);
     await ref.read(liveKitProvider.notifier).disconnect();
     ref.invalidate(roomsProvider);
   }

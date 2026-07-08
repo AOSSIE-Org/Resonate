@@ -39,7 +39,10 @@ class DeleteAccountPage extends ConsumerWidget {
             SizedBox(height: UiSizes.height_40),
             RichText(
               text: TextSpan(
-                style: const TextStyle(color: Colors.redAccent, fontSize: 16),
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: UiSizes.size_16,
+                ),
                 children: [
                   TextSpan(text: l10n.toConfirmType),
                   TextSpan(
@@ -92,7 +95,7 @@ class DeleteAccountPage extends ConsumerWidget {
                     : null,
                 child: Text(
                   l10n.iUnderstandDeleteMyAccount,
-                  style: const TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: UiSizes.size_16),
                 ),
               ),
             ),

@@ -7,7 +7,7 @@ import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/data/friends_repository.dart'
     show mapAppwriteFriendsException;
-import 'package:resonate/services/api_service.dart';
+import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +19,7 @@ FriendCallRepository friendCallRepository(Ref ref) => FriendCallRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
   functions: ref.watch(appwriteFunctionsProvider),
-  apiService: ApiService(functions: ref.watch(appwriteFunctionsProvider)),
+  apiService: ref.watch(apiServiceProvider),
 );
 
 class FriendCallRepository {

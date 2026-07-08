@@ -40,7 +40,7 @@ final class CreateStoryProvider extends $NotifierProvider<CreateStory, void> {
   }
 }
 
-String _$createStoryHash() => r'3b09a2e3bdf7f511aea551a63321649ac63a7556';
+String _$createStoryHash() => r'e94acbcd8d4e84b803b027a195b61442eb71ecf7';
 
 abstract class _$CreateStory extends $Notifier<void> {
   void build();

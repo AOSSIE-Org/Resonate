@@ -3,17 +3,19 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
-import 'package:get/get.dart';
-import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
 import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
+import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/app_bootstrap_notifier.g.dart';
+
+
+bool isTestMode = false;
 
 // Boots app-wide services that need to be initialized after auth state is known.
 @Riverpod(keepAlive: true)
@@ -32,7 +34,7 @@ class AppBootstrap extends _$AppBootstrap {
       sound: true,
     );
 
-    if (!Get.testMode) {
+    if (!isTestMode) {
       await FlutterCallkitIncoming.canUseFullScreenIntent();
       await FlutterCallkitIncoming.requestFullIntentPermission();
     }
@@ -46,7 +48,7 @@ class AppBootstrap extends _$AppBootstrap {
       log('Got a message whilst in the foreground!');
       if (message.data['type'] == 'incoming_call') {
         log('saw incoming call');
-        if (!Get.testMode) {
+        if (!isTestMode) {
           await ref.read(callKitServiceProvider).showIncomingCall(message);
         }
         return;
@@ -68,7 +70,7 @@ class AppBootstrap extends _$AppBootstrap {
     });
     ref.onDispose(fcmSub.cancel);
 
-    if (!Get.testMode) {
+    if (!isTestMode) {
       final callKit = ref.read(callKitServiceProvider)
         ..start(
           onAccept: (extra) =>
@@ -81,7 +83,7 @@ class AppBootstrap extends _$AppBootstrap {
   }
 
   void _openUpcomingRoom(String roomName) {
-    Get.find<TabViewController>().setIndex(1);
-    appRouter.go(RoutePaths.tabview);
+    ref.read(tabViewProvider.notifier).setIndex(1);
+    ref.read(routerProvider).go(RoutePaths.tabview);
   }
 }

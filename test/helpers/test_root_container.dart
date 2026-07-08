@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
-import 'package:resonate/core/container.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
@@ -384,6 +383,17 @@ class _StubAuthNotifier extends AuthNotifier {
 
   @override
   Future<AuthState> build() async => _initial;
+
+  // Keep auth fully stubbed on the `authState:` path. The real refresh() reads
+  // the live AuthRepository (real Account → real network), so any test that
+  // triggers refresh() (e.g. pair-chat submitRating) would fire a real socket
+  // call with non-deterministic timing — a flaky-test source. Re-yield the
+  // stub state instead. Tests that want the real refresh() use the `account:`
+  // path (real AuthNotifier against mocks), not this stub.
+  @override
+  Future<void> refresh() async {
+    state = AsyncData(_initial);
+  }
 }
 
 class FakeAuthRepository implements AuthRepository {
@@ -475,7 +485,6 @@ Future<ProviderContainer> installTestRootContainer({
         firebaseMessagingProvider.overrideWithValue(messaging),
     ],
   );
-  setRootContainerForTesting(container);
   if (authRepository != null || authState != null || account != null) {
     await container.read(authProvider.future);
   }

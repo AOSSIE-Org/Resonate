@@ -5,7 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
-import 'package:resonate/services/api_service.dart';
+import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 import 'rooms_repository_test.mocks.dart';

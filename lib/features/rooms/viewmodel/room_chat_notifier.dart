@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart' show ID;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
-import 'package:resonate/core/container.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_chat_repository.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_chat_state.dart';
@@ -68,7 +68,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
 
         // Only notify on incoming messages from others, not echoes of ours.
         final fromSelf =
-            event.message.creatorId == requireCurrentAuthUser.uid;
+            event.message.creatorId == ref.read(requireUserProvider).uid;
         if (!isUpcoming && !fromSelf) {
           _notifications.show(
             0,
@@ -89,7 +89,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
         state = AsyncData(current.copyWith(messages: updated));
 
         final fromSelf =
-            event.message.creatorId == requireCurrentAuthUser.uid;
+            event.message.creatorId == ref.read(requireUserProvider).uid;
         if (!isUpcoming && !fromSelf) {
           _notifications.show(
             0,
@@ -115,7 +115,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
     final messageId = ID.unique();
     final newIndex =
         current.messages.isNotEmpty ? current.messages.last.index + 1 : 0;
-    final user = requireCurrentAuthUser;
+    final user = ref.read(requireUserProvider);
     final replyTo = current.replyingTo;
 
     final message = RoomMessage(

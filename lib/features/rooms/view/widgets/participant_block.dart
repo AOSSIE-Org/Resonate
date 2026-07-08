@@ -7,7 +7,7 @@ import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/report_widget.dart';
+import 'package:resonate/shared/widgets/report_widget.dart';
 
 class _FocusedMenuItemData {
   _FocusedMenuItemData(this.text, this.action);

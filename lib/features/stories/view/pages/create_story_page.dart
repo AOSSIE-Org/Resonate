@@ -15,7 +15,7 @@ import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/views/widgets/snackbar.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 
 class CreateStoryPage extends ConsumerStatefulWidget {
@@ -218,8 +218,8 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
                         ? SizedBox(
                             height: UiSizes.size_18,
                             width: UiSizes.size_18,
-                            child: const CircularProgressIndicator(
-                              strokeWidth: 2,
+                            child: CircularProgressIndicator(
+                              strokeWidth: UiSizes.width_2,
                             ),
                           )
                         : Text(l10n.createStory),
