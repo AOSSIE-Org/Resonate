@@ -40,35 +40,43 @@ class CallControlPanel extends StatelessWidget {
           : scheme.surfaceContainerHighest,
       height: UiSizes.height_131,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _CallControlButton(
-            icon: isMicOn ? Icons.mic : Icons.mic_off,
-            label: l10n.mute,
-            onPressed: onToggleMic,
-            backgroundColor: isMicOn ? inactive : scheme.primary,
-            heroTag: 'mic',
+          // Equal-width cells so long labels ellipsize instead of overflowing.
+          Expanded(
+            child: _CallControlButton(
+              icon: isMicOn ? Icons.mic : Icons.mic_off,
+              label: l10n.mute,
+              onPressed: onToggleMic,
+              backgroundColor: isMicOn ? inactive : scheme.primary,
+              heroTag: 'mic',
+            ),
           ),
-          _CallControlButton(
-            icon: Icons.volume_up,
-            label: l10n.speakerLabel,
-            onPressed: onToggleLoudSpeaker,
-            backgroundColor: isLoudSpeakerOn ? scheme.primary : inactive,
-            heroTag: 'speaker',
+          Expanded(
+            child: _CallControlButton(
+              icon: Icons.volume_up,
+              label: l10n.speakerLabel,
+              onPressed: onToggleLoudSpeaker,
+              backgroundColor: isLoudSpeakerOn ? scheme.primary : inactive,
+              heroTag: 'speaker',
+            ),
           ),
-          _CallControlButton(
-            icon: Icons.settings_voice,
-            label: l10n.audioOptions,
-            onPressed: onAudioSettings,
-            backgroundColor: inactive,
-            heroTag: 'audio-settings',
+          Expanded(
+            child: _CallControlButton(
+              icon: Icons.settings_voice,
+              label: l10n.audioOptions,
+              onPressed: onAudioSettings,
+              backgroundColor: inactive,
+              heroTag: 'audio-settings',
+            ),
           ),
-          _CallControlButton(
-            icon: Icons.cancel_outlined,
-            label: l10n.end,
-            onPressed: onEnd,
-            backgroundColor: scheme.error,
-            heroTag: 'end-chat',
+          Expanded(
+            child: _CallControlButton(
+              icon: Icons.cancel_outlined,
+              label: l10n.end,
+              onPressed: onEnd,
+              backgroundColor: scheme.error,
+              heroTag: 'end-chat',
+            ),
           ),
         ],
       ),
@@ -107,7 +115,13 @@ class _CallControlButton extends StatelessWidget {
           ),
         ),
         SizedBox(height: UiSizes.height_4),
-        Text(label, style: TextStyle(fontSize: UiSizes.height_14)),
+        Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: UiSizes.height_14),
+        ),
       ],
     );
   }

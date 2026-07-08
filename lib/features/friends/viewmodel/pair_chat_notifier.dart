@@ -219,7 +219,12 @@ class PairChatNotifier extends _$PairChatNotifier {
   }) async {
     final repo = ref.read(pairChatRepositoryProvider);
     final partnerUid =
-        (amUser1 ? payload['uid2'] : payload['uid1']) as String;
+        (amUser1 ? payload['uid2'] : payload['uid1']) as String?;
+    if (partnerUid == null) {
+      log('_onPaired: missing partner uid in payload');
+      _notifyConnectionFailed();
+      return;
+    }
     final pairUsername =
         (amUser1 ? payload['userName2'] : payload['userName1']) as String?;
     final pairProfileImageUrl = await repo.getUserProfileImageUrl(partnerUid);

@@ -8,9 +8,9 @@ import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-import '../../../helpers/test_root_container.dart';
+import '../../helpers/test_root_container.dart';
 
-export '../../../helpers/test_root_container.dart'
+export '../../helpers/test_root_container.dart'
     show fakeAuthUser, FakeAuthRepository;
 
 Widget authTestApp(Widget child) {
@@ -46,27 +46,26 @@ Future<ProviderContainer> buildAuthContainer({
   return container;
 }
 
-Future<ProviderContainer> pumpAuthPage(
+Future<void> pumpAuthPage(
   WidgetTester tester,
   Widget child, {
   AuthState authState = const AuthState.unauthenticated(),
   AuthRepository? authRepository,
   bool settle = true,
 }) async {
-  final container = await buildAuthContainer(
-    authState: authState,
-    authRepository: authRepository,
-  );
   await tester.pumpWidget(
-    UncontrolledProviderScope(
-      container: container,
+    ProviderScope(
+      overrides: [
+        authRepositoryProvider
+            .overrideWithValue(authRepository ?? FakeAuthRepository(authState)),
+      ],
       child: authTestApp(child),
     ),
   );
+  // pumpAndSettle resolves async auth since FakeAuthRepository is immediate.
   if (settle) {
     await tester.pumpAndSettle();
   } else {
     await tester.pump();
   }
-  return container;
 }

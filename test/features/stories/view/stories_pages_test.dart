@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/stories/model/story.dart';
@@ -25,13 +24,11 @@ void main() {
       await pumpStoriesPage(
         tester,
         const ExplorePage(),
-        container: ProviderContainer(
-          overrides: [
-            exploreStoriesProvider.overrideWith(
-              () => FakeExploreStories(completer.future),
-            ),
-          ],
-        ),
+        overrides: [
+          exploreStoriesProvider.overrideWith(
+            () => FakeExploreStories(completer.future),
+          ),
+        ],
       );
       await tester.pump();
       expect(find.byType(LoadingIndicator), findsOneWidget);
@@ -44,14 +41,11 @@ void main() {
       await pumpStoriesPage(
         tester,
         const ExplorePage(),
-        container: ProviderContainer(
-          overrides: [
-            exploreStoriesProvider.overrideWith(
-              () =>
-                  FakeExploreStories(Future.value([fakeStory(title: 'Story A')])),
-            ),
-          ],
-        ),
+        overrides: [
+          exploreStoriesProvider.overrideWith(
+            () => FakeExploreStories(Future.value([fakeStory(title: 'Story A')])),
+          ),
+        ],
       );
       await tester.pumpAndSettle();
       expect(find.textContaining('Story A'), findsWidgets);
@@ -63,14 +57,12 @@ void main() {
       await pumpStoriesPage(
         tester,
         const CategoryPage(category: StoryCategory.drama),
-        container: ProviderContainer(
-          overrides: [
-            categoryStoriesProvider(StoryCategory.drama).overrideWith(
-              () =>
-                  FakeCategoryStories(Future.value([fakeStory(title: 'Story A')])),
-            ),
-          ],
-        ),
+        overrides: [
+          categoryStoriesProvider(StoryCategory.drama).overrideWith(
+            () =>
+                FakeCategoryStories(Future.value([fakeStory(title: 'Story A')])),
+          ),
+        ],
       );
       await tester.pumpAndSettle();
       expect(find.text('Story A'), findsOneWidget);
@@ -82,13 +74,11 @@ void main() {
       await pumpStoriesPage(
         tester,
         const CategoryPage(category: StoryCategory.drama),
-        container: ProviderContainer(
-          overrides: [
-            categoryStoriesProvider(
-              StoryCategory.drama,
-            ).overrideWith(() => FakeCategoryStories(Future.value(const []))),
-          ],
-        ),
+        overrides: [
+          categoryStoriesProvider(
+            StoryCategory.drama,
+          ).overrideWith(() => FakeCategoryStories(Future.value(const []))),
+        ],
       );
       await tester.pumpAndSettle();
       expect(find.byType(StoryListTile), findsNothing);
@@ -104,19 +94,17 @@ void main() {
       await pumpStoriesPage(
         tester,
         StoryPage(story: story),
-        container: ProviderContainer(
-          overrides: [
-            storyDetailProvider(story.storyId).overrideWith(
-              () => FakeStoryDetail(
-                StoryDetailState(
-                  chapters: [fakeChapter(title: 'My Chapter')],
-                  likesCount: 5,
-                  isLikedByCurrentUser: false,
-                ),
+        overrides: [
+          storyDetailProvider(story.storyId).overrideWith(
+            () => FakeStoryDetail(
+              StoryDetailState(
+                chapters: [fakeChapter(title: 'My Chapter')],
+                likesCount: 5,
+                isLikedByCurrentUser: false,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       );
       await tester.pumpAndSettle();
       expect(find.text('Story A'), findsOneWidget); // header

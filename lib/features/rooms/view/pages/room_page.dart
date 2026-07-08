@@ -232,12 +232,16 @@ class _Footer extends ConsumerWidget {
 
                 final notifier =
                     ref.read(singleRoomProvider(room).notifier);
-                if (room.isUserAdmin) {
-                  await notifier.deleteRoom(room);
-                } else {
-                  await notifier.leaveRoom(room);
+                try {
+                  if (room.isUserAdmin) {
+                    await notifier.deleteRoom(room);
+                  } else {
+                    await notifier.leaveRoom(room);
+                  }
+                } finally {
+                  // Always close the sheet, even if teardown throws.
+                  if (navigator.canPop()) navigator.pop();
                 }
-                if (navigator.canPop()) navigator.pop();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.redAccent,

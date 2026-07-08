@@ -34,6 +34,7 @@ class AudioDeviceNotifier extends _$AudioDeviceNotifier {
     try {
       final service = ref.read(audioDeviceServiceProvider);
       final devices = await service.enumerateOutputDevices();
+      if (!ref.mounted) return;
       final current = state.value;
       state = AsyncData(
         AudioDeviceState(

@@ -46,21 +46,17 @@ void main() {
       required String authorUid,
       required Map<String, dynamic> user,
     }) async {
-      final container = ProviderContainer(
-        overrides: [
-          liveChapterProvider.overrideWith(
-            () => FakeLiveChapter(
-              LiveChapterState(
-                model: fakeLiveChapterModel(authorUid: authorUid),
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            liveChapterProvider.overrideWith(
+              () => FakeLiveChapter(
+                LiveChapterState(
+                  model: fakeLiveChapterModel(authorUid: authorUid),
+                ),
               ),
             ),
-          ),
-        ],
-      );
-      addTearDown(container.dispose);
-      await tester.pumpWidget(
-        UncontrolledProviderScope(
-          container: container,
+          ],
           child: storiesTestApp(LiveChapterAttendeeBlock(user: user)),
         ),
       );
@@ -103,11 +99,8 @@ void main() {
     testStoryWidget('renders the title, two fields and the actions', (
       tester,
     ) async {
-      final container = ProviderContainer();
-      addTearDown(container.dispose);
       await tester.pumpWidget(
-        UncontrolledProviderScope(
-          container: container,
+        ProviderScope(
           child: storiesTestApp(StartLiveChapterDialog(story: fakeStory())),
         ),
       );
@@ -120,11 +113,8 @@ void main() {
     testStoryWidget('Start with empty fields does not begin loading', (
       tester,
     ) async {
-      final container = ProviderContainer();
-      addTearDown(container.dispose);
       await tester.pumpWidget(
-        UncontrolledProviderScope(
-          container: container,
+        ProviderScope(
           child: storiesTestApp(StartLiveChapterDialog(story: fakeStory())),
         ),
       );

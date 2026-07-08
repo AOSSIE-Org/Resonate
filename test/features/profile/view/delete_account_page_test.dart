@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/view/pages/delete_account_page.dart';
 
-import 'profile_test_helpers.dart';
+import '../profile_test_helpers.dart';
 
 void main() {
   ElevatedButton deleteButton(WidgetTester tester) =>

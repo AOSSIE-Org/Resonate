@@ -32,6 +32,7 @@ class _VerifyChapterDetailsPageState
   final lyricsController = TextEditingController();
   File? chapterCoverImage;
   File? audioFile;
+  bool _isCreating = false;
 
   @override
   void initState() {
@@ -89,6 +90,7 @@ class _VerifyChapterDetailsPageState
   }
 
   Future<void> _createChapter() async {
+    if (_isCreating) return;
     final l10n = AppLocalizations.of(context)!;
     final model = ref.read(liveChapterProvider).model;
     if (titleController.text.isEmpty ||
@@ -100,28 +102,34 @@ class _VerifyChapterDetailsPageState
     }
 
     final router = GoRouter.of(context);
-    final chapter = await ref
-        .read(createStoryProvider.notifier)
-        .buildRecordedChapter(
-          chapterId: model.id,
-          title: titleController.text,
-          description: aboutController.text,
-          coverImgPath:
-              chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
-          audioFilePath: audioFile!.path,
-          lyrics: lyricsController.text,
-        );
-    await ref.read(createStoryProvider.notifier).addChaptersToStory([
-      chapter,
-    ], model.storyId);
+    setState(() => _isCreating = true);
+    try {
+      final chapter = await ref
+          .read(createStoryProvider.notifier)
+          .buildRecordedChapter(
+            chapterId: model.id,
+            title: titleController.text,
+            description: aboutController.text,
+            coverImgPath:
+                chapterCoverImage?.path ?? chapterCoverImagePlaceholderUrl,
+            audioFilePath: audioFile!.path,
+            lyrics: lyricsController.text,
+          );
+      await ref.read(createStoryProvider.notifier).addChaptersToStory([
+        chapter,
+      ], model.storyId);
 
-    ref.read(liveChapterProvider.notifier).reset();
-    // Land on the explore tab (categories + global search). A deterministic
-    // go() rather than pop(): the story page was pushed imperatively (not a
-    // GoRoute), so there's no reliable route under the live/verify GoRoutes to
-    // pop back to.
-    ref.read(tabViewProvider.notifier).setIndex(1);
-    router.go(RoutePaths.tabview);
+      ref.read(liveChapterProvider.notifier).reset();
+      // Land on the explore tab (categories + global search). A deterministic
+      // go() rather than pop(): the story page was pushed imperatively (not a
+      // GoRoute), so there's no reliable route under the live/verify GoRoutes to
+      // pop back to.
+      ref.read(tabViewProvider.notifier).setIndex(1);
+      router.go(RoutePaths.tabview);
+    } catch (e) {
+      if (mounted) setState(() => _isCreating = false);
+      customSnackbar(l10n.error, e.toString(), LogType.error);
+    }
   }
 
   @override
@@ -180,8 +188,16 @@ class _VerifyChapterDetailsPageState
               ),
               SizedBox(height: UiSizes.height_40),
               ElevatedButton(
-                onPressed: _createChapter,
-                child: Text(l10n.createChapter),
+                onPressed: _isCreating ? null : _createChapter,
+                child: _isCreating
+                    ? SizedBox(
+                        height: UiSizes.size_18,
+                        width: UiSizes.size_18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: UiSizes.width_2,
+                        ),
+                      )
+                    : Text(l10n.createChapter),
               ),
             ],
           ),

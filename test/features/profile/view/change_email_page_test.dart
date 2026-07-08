@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/view/pages/change_email_page.dart';
 
-import 'profile_test_helpers.dart';
+import '../profile_test_helpers.dart';
 
 void main() {
   testWidgets('renders the email + password fields and a submit button',

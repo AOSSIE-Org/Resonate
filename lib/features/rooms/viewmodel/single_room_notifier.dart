@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
@@ -55,79 +56,95 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
     _participantSub = repo.participantStream(appwriteRoom.id).listen((
       event,
     ) async {
-      final docId = event.payload['\$id'] as String;
-      final action = event.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
-      final current = state.value;
-      if (current == null) return;
+      try {
+        final docId = event.payload['\$id'] as String;
+        final action = event.events.first.substring(
+          channel.length + 1 + docId.length + 1,
+        );
+        final current = state.value;
+        if (current == null) return;
 
-      switch (action) {
-        case 'create':
-          {
-            final newParticipant = await repo.buildParticipantFromRow(
-              Row.fromMap(event.payload),
-            );
-            final list = [...current.participants, newParticipant];
-            state = AsyncData(current.copyWith(participants: _sort(list)));
-            break;
-          }
-        case 'update':
-          {
-            final updatedUid = event.payload['uid'] as String;
-            var nextMe = current.me;
-            if (updatedUid == current.me.uid) {
-              nextMe = current.me.copyWith(
-                isModerator: event.payload['isModerator'] as bool,
-                hasRequestedToBeSpeaker:
-                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
-                    false,
-                isMicOn: event.payload['isMicOn'] as bool,
-                isSpeaker: event.payload['isSpeaker'] as bool,
+        switch (action) {
+          case 'create':
+            {
+              final newParticipant = await repo.buildParticipantFromRow(
+                Row.fromMap(event.payload),
               );
-            }
-            final updated = current.participants.map((p) {
-              if (p.uid != updatedUid) return p;
-              return p.copyWith(
-                isModerator: event.payload['isModerator'] as bool,
-                hasRequestedToBeSpeaker:
-                    (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
-                    false,
-                isMicOn: event.payload['isMicOn'] as bool,
-                isSpeaker: event.payload['isSpeaker'] as bool,
-              );
-            }).toList();
-
-            state = AsyncData(
-              current.copyWith(me: nextMe, participants: _sort(updated)),
-            );
-            // If we got demoted from speaker while mic was on, mute.
-            if (updatedUid == current.me.uid &&
-                !(event.payload['isSpeaker'] as bool) &&
-                current.me.isMicOn) {
-              await turnOffMic(appwriteRoom);
-            }
-            break;
-          }
-        case 'delete':
-          {
-            final removedUid = event.payload['uid'] as String;
-            if (removedUid == current.me.uid) {
-              // kicked
-              await _disposeStream();
-              await ref.read(liveKitProvider.notifier).disconnect();
+              if (!ref.mounted) return;
               final latest = state.value;
-              if (latest != null) {
-                state = AsyncData(latest.copyWith(wasKicked: true));
+              if (latest == null) return;
+              final list = [...latest.participants, newParticipant];
+              state = AsyncData(latest.copyWith(participants: _sort(list)));
+              break;
+            }
+          case 'update':
+            {
+              final updatedUid = event.payload['uid'] as String;
+              var nextMe = current.me;
+              if (updatedUid == current.me.uid) {
+                nextMe = current.me.copyWith(
+                  isModerator:
+                      event.payload['isModerator'] as bool? ??
+                      current.me.isModerator,
+                  hasRequestedToBeSpeaker:
+                      (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                      false,
+                  isMicOn:
+                      event.payload['isMicOn'] as bool? ?? current.me.isMicOn,
+                  isSpeaker:
+                      event.payload['isSpeaker'] as bool? ??
+                      current.me.isSpeaker,
+                );
+              }
+              final updated = current.participants.map((p) {
+                if (p.uid != updatedUid) return p;
+                return p.copyWith(
+                  isModerator:
+                      event.payload['isModerator'] as bool? ?? p.isModerator,
+                  hasRequestedToBeSpeaker:
+                      (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
+                      false,
+                  isMicOn: event.payload['isMicOn'] as bool? ?? p.isMicOn,
+                  isSpeaker:
+                      event.payload['isSpeaker'] as bool? ?? p.isSpeaker,
+                );
+              }).toList();
+
+              state = AsyncData(
+                current.copyWith(me: nextMe, participants: _sort(updated)),
+              );
+              // If we got demoted from speaker while mic was on, mute.
+              if (updatedUid == current.me.uid &&
+                  !((event.payload['isSpeaker'] as bool?) ??
+                      current.me.isSpeaker) &&
+                  current.me.isMicOn) {
+                await turnOffMic(appwriteRoom);
               }
               break;
             }
-            final filtered = current.participants
-                .where((p) => p.uid != removedUid)
-                .toList();
-            state = AsyncData(current.copyWith(participants: filtered));
-            break;
-          }
+          case 'delete':
+            {
+              final removedUid = event.payload['uid'] as String;
+              if (removedUid == current.me.uid) {
+                // kicked
+                await _disposeStream();
+                await ref.read(liveKitProvider.notifier).disconnect();
+                if (!ref.mounted) return;
+                final latest = state.value;
+                if (latest != null) {
+                  state = AsyncData(latest.copyWith(wasKicked: true));
+                }
+                break;
+              }
+              final filtered = current.participants
+                  .where((p) => p.uid != removedUid)
+                  .toList();
+              state = AsyncData(current.copyWith(participants: filtered));
+              break;
+            }
+        }
+      } catch (e) {
+        log('single room participant listener error: $e');
       }
     });
   }
@@ -264,10 +281,21 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       state = AsyncData(current.copyWith(isLoading: true));
     }
     await _disposeStream();
-    await ref
-        .read(roomsRepositoryProvider)
-        .leaveRoom(roomId: appwriteRoom.id, userId: ref.read(requireUserProvider).uid);
-    await ref.read(liveKitProvider.notifier).disconnect();
+    try {
+      await ref
+          .read(roomsRepositoryProvider)
+          .leaveRoom(
+            roomId: appwriteRoom.id,
+            userId: ref.read(requireUserProvider).uid,
+          );
+    } catch (e) {
+      log('leaveRoom: repo.leaveRoom failed: $e');
+    }
+    try {
+      await ref.read(liveKitProvider.notifier).disconnect();
+    } catch (e) {
+      log('leaveRoom: disconnect failed: $e');
+    }
     ref.invalidate(roomsProvider);
   }
 
@@ -277,8 +305,19 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       state = AsyncData(current.copyWith(isLoading: true));
     }
     await _disposeStream();
-    await ref.read(roomsRepositoryProvider).deleteRoom(roomId: appwriteRoom.id);
-    await ref.read(liveKitProvider.notifier).disconnect();
+    // never strand the admin on delete.
+    try {
+      await ref
+          .read(roomsRepositoryProvider)
+          .deleteRoom(roomId: appwriteRoom.id);
+    } catch (e) {
+      log('deleteRoom: repo.deleteRoom failed: $e');
+    }
+    try {
+      await ref.read(liveKitProvider.notifier).disconnect();
+    } catch (e) {
+      log('deleteRoom: disconnect failed: $e');
+    }
     ref.invalidate(roomsProvider);
   }
 }

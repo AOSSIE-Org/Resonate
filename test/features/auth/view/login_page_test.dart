@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/login_page.dart';
 
-import 'auth_test_helpers.dart';
+import '../auth_test_helpers.dart';
 
 void main() {
   testWidgets('renders the email + password fields and a login button',

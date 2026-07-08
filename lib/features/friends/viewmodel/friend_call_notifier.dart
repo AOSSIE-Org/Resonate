@@ -59,6 +59,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
       recieverFCMToken: recieverFCMToken,
     );
 
+    if (!ref.mounted) return;
     state = FriendCallState(activeCall: call);
     _listenToCall(call.docId);
 
@@ -97,10 +98,14 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     final call = state.activeCall;
     if (call == null) return;
 
-    final updated = await ref
-        .read(friendCallRepositoryProvider)
-        .setCallStatus(call, FriendCallStatus.ended);
-    state = state.copyWith(activeCall: updated);
+    try {
+      final updated = await ref
+          .read(friendCallRepositoryProvider)
+          .setCallStatus(call, FriendCallStatus.ended);
+      state = state.copyWith(activeCall: updated);
+    } catch (e) {
+      log('endCall: setCallStatus failed: $e');
+    }
 
     await _teardownCall();
     ref.read(routerProvider).go(RoutePaths.tabview);
@@ -207,7 +212,11 @@ class FriendCallNotifier extends _$FriendCallNotifier {
 
   Future<void> _teardownCall() async {
     await _cancelSub();
-    await ref.read(liveKitProvider.notifier).disconnect();
+    try {
+      await ref.read(liveKitProvider.notifier).disconnect();
+    } catch (e) {
+      log('teardownCall: disconnect failed: $e');
+    }
     try {
       await ref.read(callKitServiceProvider).endAllCalls();
     } catch (e) {

@@ -37,8 +37,8 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
 
   @override
   void dispose() {
-    // Leaving the page ends the chat so it can't keep running headless.
-    if (!ref.read(pairChatProvider).ended) _notifier.endChat();
+    // Leaving ends the chat; endChat() self-guards, so don't read ref in dispose.
+    _notifier.endChat();
     super.dispose();
   }
 
@@ -61,7 +61,7 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
       if (ended && prev != true) _onChatEnded();
     });
 
-    // The old GetX LiveKitController ended the chat when the room dropped
+    // End the chat when the LiveKit room drops.
     ref.listen(liveKitProvider.select((s) => s.isConnected), (prev, connected) {
       if (prev == true && !connected) {
         ref.read(pairChatProvider.notifier).endChat();

@@ -63,6 +63,7 @@ class ProfileView extends _$ProfileView {
     );
 
     await repo.followCreator(follower);
+    if (!ref.mounted) return;
 
     state = AsyncData(
       data.copyWith(
@@ -79,6 +80,7 @@ class ProfileView extends _$ProfileView {
     if (data == null || docId == null) return;
 
     await ref.read(profileRepositoryProvider).unfollowCreator(docId);
+    if (!ref.mounted) return;
 
     state = AsyncData(
       data.copyWith(

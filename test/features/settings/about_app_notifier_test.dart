@@ -16,8 +16,6 @@ void main() {
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    // Avoid the MissingPluginException path in _loadPackageInfo; keep the
-    // values equal to the defaults so timing of the async load is irrelevant.
     PackageInfo.setMockInitialValues(
       appName: 'resonate',
       packageName: 'com.resonate.resonate',
