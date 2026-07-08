@@ -4,7 +4,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 
-/// Single root ProviderContainer for the app.
+// Single root ProviderContainer for the app.
 ProviderContainer _rootContainer = ProviderContainer();
 ProviderContainer get rootContainer => _rootContainer;
 

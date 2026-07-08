@@ -43,7 +43,7 @@ class PairChatController extends GetxController {
   final RxBool isUserListLoading = true.obs;
 
   void quickMatch() async {
-    String uid = authController.uid!;
+    String uid = authController.uid;
     String userName = authController.userName!;
 
     // Open realtime stream to check whether the request is paired
@@ -109,7 +109,7 @@ class PairChatController extends GetxController {
   }
 
   void getRealtimeStream() {
-    String uid = authController.uid!;
+    String uid = authController.uid;
     String channel =
         'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
     subscription = realtime.subscribe([channel]);
@@ -213,7 +213,7 @@ class PairChatController extends GetxController {
       databaseId: masterDatabaseId,
       tableId: pairRequestTableId,
       queries: [
-        Query.notEqual('uid', authController.uid!),
+        Query.notEqual('uid', authController.uid),
         Query.notEqual('isAnonymous', true),
         Query.limit(100),
       ],

@@ -6,26 +6,22 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/themes/theme_screen.dart';
 import 'package:resonate/views/screens/about_app_screen.dart';
 import 'package:resonate/views/screens/app_preferences_screen.dart';
-import 'package:resonate/views/screens/change_email_screen.dart';
 import 'package:resonate/views/screens/contribute_screen.dart';
 import 'package:resonate/views/screens/create_room_screen.dart';
 import 'package:resonate/views/screens/create_story_screen.dart';
-import 'package:resonate/views/screens/delete_account_screen.dart';
-import 'package:resonate/views/screens/edit_profile_screen.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/live_chapter_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/verify_chapter_details_screen.dart';
-import 'package:resonate/views/screens/onboarding_screen.dart';
 import 'package:resonate/views/screens/pair_chat_screen.dart';
 import 'package:resonate/views/screens/pair_chat_users_screen.dart';
 import 'package:resonate/views/screens/pairing_screen.dart';
-import 'package:resonate/views/screens/profile_screen.dart';
 import 'package:resonate/views/screens/ringing_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
@@ -48,12 +44,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) => _redirect(ref, state),
     routes: [
       ...authRoutes,
-
-      // Onboarding (still GetX-backed until profile feature migrates)
-      GoRoute(
-        path: RoutePaths.onboarding,
-        builder: (_, _) => const OnBoardingScreen(),
-      ),
+      ...profileRoutes,
 
       // Main app shell
       GoRoute(
@@ -69,23 +60,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => CreateRoomScreen(),
       ),
 
-      // Profile & account
-      GoRoute(
-        path: RoutePaths.profile,
-        builder: (_, _) => ProfileScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.editProfile,
-        builder: (_, _) => EditProfileScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.deleteAccount,
-        builder: (_, _) => const DeleteAccountScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.changeEmail,
-        builder: (_, _) => ChangeEmailScreen(),
-      ),
+      // Account (settings remains GetX-backed)
       GoRoute(
         path: RoutePaths.settings,
         builder: (_, _) => SettingsScreen(),
