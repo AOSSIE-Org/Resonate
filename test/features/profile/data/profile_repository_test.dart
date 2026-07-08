@@ -134,10 +134,9 @@ void main() {
       expect(stories[0].storyId, 'doc1');
       expect(stories[0].category, StoryCategory.comedy);
       expect(stories[1].category, StoryCategory.thriller);
-      expect(stories[0].likesCount.value, 10);
+      expect(stories[0].likesCount, 10);
       expect(stories[0].tintColor, const Color(0xff0000FF));
       expect(stories[0].userIsCreator, false);
-      expect(stories[0].chapters, isEmpty);
     });
   });
 

@@ -1,5 +1,5 @@
 import 'package:resonate/models/follower_user_model.dart';
-import 'package:resonate/models/story.dart';
+import 'package:resonate/features/stories/model/story.dart';
 
 class ProfileViewData {
   const ProfileViewData({

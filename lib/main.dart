@@ -25,7 +25,6 @@ import 'package:resonate/themes/theme_controller.dart';
 import 'package:resonate/themes/theme_list.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -64,13 +63,6 @@ Future<void> main() async {
   setupLegacyGetXDependencies();
   languageLocale =
       await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
-  final String? savedModel = await FlutterSecureStorage().read(
-    key: "whisperModel",
-  );
-  currentWhisperModel.value = WhisperModel.values.firstWhere(
-    (model) => model.modelName == (savedModel ?? "base"),
-    orElse: () => WhisperModel.base,
-  );
   runApp(
     UncontrolledProviderScope(
       container: rootContainer,

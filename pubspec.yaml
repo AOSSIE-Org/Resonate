@@ -115,6 +115,7 @@ dev_dependencies:
   freezed: ^3.2.3
   json_serializable: ^6.11.1
   mockito: ^5.5.1
+  network_image_mock: ^2.1.1
   riverpod_generator: ^4.0.0
   riverpod_lint: ^3.1.0
 
