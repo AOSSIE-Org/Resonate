@@ -1276,6 +1276,31 @@ class AppLocalizationsBn extends AppLocalizations {
   String get failedToRemoveRoom => 'রুম সরানো যায়নি';
 
   @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String get roomRemovedSuccessfully =>
       'আপনার তালিকা থেকে রুমটি সফলভাবে সরানো হয়েছে';
 

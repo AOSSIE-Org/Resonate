@@ -790,12 +790,11 @@ packages:
   flutter_lyric:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: "2cf076d0ae4a2d6c00d6a521e35b97782ab24887"
-      url: "https://github.com/Aarush-Acharya/flutter_lyric.git"
-    source: git
-    version: "2.0.4+6"
+      name: flutter_lyric
+      sha256: b48b07d47136406e95180f3b3d97c596682164817df967933c3d4a3bfe46a9bd
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.6"
   flutter_native_splash:
     dependency: "direct main"
     description:

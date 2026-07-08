@@ -1285,6 +1285,31 @@ class AppLocalizationsTa extends AppLocalizations {
   String get failedToRemoveRoom => 'அறையை நீக்க முடியவில்லை';
 
   @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String get roomRemovedSuccessfully =>
       'அறை உங்கள் பட்டியலிலிருந்து வெற்றிகரமாக நீக்கப்பட்டது';
 

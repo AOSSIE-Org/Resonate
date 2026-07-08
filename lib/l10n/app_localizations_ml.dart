@@ -1282,6 +1282,31 @@ class AppLocalizationsMl extends AppLocalizations {
   String get failedToRemoveRoom => 'മുറി നീക്കം ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു';
 
   @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String get roomRemovedSuccessfully =>
       'മുറി നിങ്ങളുടെ ലിസ്റ്റിൽ നിന്ന് വിജയകരമായി നീക്കം ചെയ്തു';
 

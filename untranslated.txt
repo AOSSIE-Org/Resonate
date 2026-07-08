@@ -1,6 +1,14 @@
 {
   "bn": [
     "audioOptions",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -49,6 +57,14 @@
     "clear",
     "audioOptions",
     "failedToRemoveRoom",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "roomRemovedSuccessfully",
     "audioOutput",
     "selectPreferredSpeaker",
@@ -62,11 +78,6 @@
     "noFriendRequestsYet",
     "noFriendRequestsDescription",
     "inviteToResonate"
-  ],
-
-  "hi": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
   ],
 
   "kn": [
@@ -85,6 +96,14 @@
     "clear",
     "audioOptions",
     "failedToRemoveRoom",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "roomRemovedSuccessfully",
     "audioOutput",
     "selectPreferredSpeaker",
@@ -106,8 +125,38 @@
     "usernameAlreadyTaken"
   ],
 
+  "ml": [
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry"
+  ],
+
+  "mr": [
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry"
+  ],
+
   "raj": [
     "audioOptions",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -129,6 +178,14 @@
   ],
 
   "ta": [
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "noFriendsYet",
     "noFriendsDescription",
     "findFriends",

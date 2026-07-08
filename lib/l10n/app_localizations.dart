@@ -2356,6 +2356,54 @@ abstract class AppLocalizations {
   /// **'Failed to remove room'**
   String get failedToRemoveRoom;
 
+  /// Error message when unable to create a room
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create room'**
+  String get failedToCreateRoom;
+
+  /// Title of the in-room chat screen
+  ///
+  /// In en, this message translates to:
+  /// **'Room Chat'**
+  String get roomChat;
+
+  /// Snackbar shown when retrying a failed chat message fails again
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to resend'**
+  String get failedToResend;
+
+  /// Inline suffix appended to an edited chat message
+  ///
+  /// In en, this message translates to:
+  /// **' (edited)'**
+  String get edited;
+
+  /// Snackbar shown when a chat message fails to send
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send. Tap the message to retry.'**
+  String get failedToSendTapRetry;
+
+  /// Hint text in the chat message input field
+  ///
+  /// In en, this message translates to:
+  /// **'Say Something'**
+  String get saySomething;
+
+  /// Tooltip on the retry affordance of a failed chat message
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry'**
+  String get tapToRetry;
+
+  /// Label of the retry action on a failed chat message
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
   /// Success message when a room is successfully removed from the user's list
   ///
   /// In en, this message translates to:
@@ -2530,7 +2578,7 @@ abstract class AppLocalizations {
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// Error message shown when the system is unable to delete a message.
+  /// No description provided for @failedToDeleteMessage.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**

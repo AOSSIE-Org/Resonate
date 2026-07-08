@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_session.dart';
+import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 
 // Single root ProviderContainer for the app.
 ProviderContainer _rootContainer = ProviderContainer();
@@ -34,3 +36,7 @@ ProviderSubscription<AsyncValue<AuthState>> listenAuthState(
     fireImmediately: true,
   );
 }
+
+// LiveKit bridge for legacy GetX controllers
+LiveKitSession? get currentLiveKitSession =>
+    rootContainer.read(liveKitProvider.notifier).session;

@@ -6,7 +6,6 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:resonate/controllers/pair_chat_controller.dart';
-import 'package:resonate/controllers/single_room_controller.dart';
 
 class LiveKitController extends GetxController {
   late final Room liveKitRoom;
@@ -177,9 +176,7 @@ class LiveKitController extends GetxController {
         await handleDisconnection();
 
         WidgetsBindingCompatible.instance?.addPostFrameCallback((timeStamp) {
-          if (Get.isRegistered<SingleRoomController>()) {
-            Get.find<SingleRoomController>().leaveRoom();
-          } else if (Get.isRegistered<PairChatController>()) {
+          if (Get.isRegistered<PairChatController>()) {
             Get.find<PairChatController>().endChat();
           }
         });
