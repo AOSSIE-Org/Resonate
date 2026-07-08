@@ -4,7 +4,7 @@ import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
-import 'package:resonate/features/rooms/view/widgets/room_header.dart';
+import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -31,9 +31,9 @@ class FriendCallPage extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    RoomHeader(
-                      roomName: AppLocalizations.of(context)!.title,
-                      roomDescription: AppLocalizations.of(
+                    SessionHeader(
+                      title: AppLocalizations.of(context)!.title,
+                      description: AppLocalizations.of(
                         context,
                       )!.roomDescription,
                     ),

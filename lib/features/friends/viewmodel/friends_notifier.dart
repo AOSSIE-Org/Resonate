@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/features/friends/data/friends_repository.dart';
+import 'package:resonate/features/friends/data/repositories/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

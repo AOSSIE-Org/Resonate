@@ -219,7 +219,7 @@ Chapter fakeChapter({
 
 LiveChapterAttendeesModel fakeLiveChapterAttendees({
   String liveChapterId = 'room-1',
-  List<Map<String, dynamic>> users = const [],
+  List<LiveChapterAttendee> users = const [],
   List<String>? userIds = const [],
 }) => LiveChapterAttendeesModel(
   liveChapterId: liveChapterId,

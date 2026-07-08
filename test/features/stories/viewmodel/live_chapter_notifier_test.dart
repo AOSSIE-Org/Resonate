@@ -126,6 +126,6 @@ void main() {
     final state = container.read(liveChapterProvider);
     expect(state.model, isNotNull);
     expect(state.model!.attendees!.users, hasLength(1));
-    expect(state.model!.attendees!.users.first['\$id'], 'me');
+    expect(state.model!.attendees!.users.first.id, 'me');
   });
 }

@@ -101,7 +101,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
                   child: VerticalDivider(
                     width: UiSizes.width_20,
                     thickness: 1,
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
                 SizedBox(width: UiSizes.width_10),

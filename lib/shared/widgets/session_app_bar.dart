@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class RoomAppBar extends StatelessWidget {
-  const RoomAppBar({super.key});
+/// Collapse-style app bar shared by the live-room sheet and pair chat.
+class SessionAppBar extends StatelessWidget {
+  const SessionAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {

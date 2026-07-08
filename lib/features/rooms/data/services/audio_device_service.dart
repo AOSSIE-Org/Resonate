@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webrtc;
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/enums/audio_device_enum.dart';
 
 class AudioDeviceService {

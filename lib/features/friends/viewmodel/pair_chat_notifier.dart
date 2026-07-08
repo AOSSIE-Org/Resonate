@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
-import 'package:resonate/features/friends/data/pair_chat_repository.dart';
+import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';

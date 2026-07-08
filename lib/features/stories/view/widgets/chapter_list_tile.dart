@@ -3,7 +3,7 @@ import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/features/stories/view/widgets/secondary_list_card.dart';
+import 'package:resonate/shared/widgets/secondary_list_card.dart';
 
 class ChapterListTile extends StatelessWidget {
   const ChapterListTile({super.key, required this.chapter});

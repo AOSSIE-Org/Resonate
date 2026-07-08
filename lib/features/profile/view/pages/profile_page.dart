@@ -189,12 +189,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(color: Colors.grey.shade300),
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
                   ),
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.star, color: Colors.amber),
+                    Icon(
+                      Icons.star,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: UiSizes.width_5),
                       child: Text(

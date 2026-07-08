@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -7,13 +8,13 @@ import 'package:resonate/utils/ui_sizes.dart';
 class LiveChapterAttendeeBlock extends ConsumerWidget {
   const LiveChapterAttendeeBlock({super.key, required this.user});
 
-  final Map<String, dynamic> user;
+  final LiveChapterAttendee user;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final model = ref.watch(liveChapterProvider).model;
-    final isAuthorBlock = model?.authorUid == user['\$id'];
+    final isAuthorBlock = model?.authorUid == user.id;
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: UiSizes.height_2,
@@ -26,7 +27,7 @@ class LiveChapterAttendeeBlock extends ConsumerWidget {
             radius: UiSizes.size_32,
             backgroundColor: colorScheme.primary,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(user['profileImageUrl'] ?? ''),
+              backgroundImage: NetworkImage(user.profileImageUrl ?? ''),
               radius: UiSizes.size_30,
             ),
           ),
@@ -36,7 +37,7 @@ class LiveChapterAttendeeBlock extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  (user["name"] ?? '').toString().split(' ').first,
+                  (user.name ?? '').split(' ').first,
                   style: TextStyle(fontSize: UiSizes.size_16),
                 ),
               ],

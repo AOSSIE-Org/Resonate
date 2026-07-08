@@ -175,9 +175,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                 },
                 child: Text(
                   l10n.discard,
-                  style: const TextStyle(
+                  style: TextStyle(
                     letterSpacing: 2,
-                    color: Colors.redAccent,
+                    color: Theme.of(context).colorScheme.error,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -402,7 +402,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                                   Icons.verified_outlined,
                                   color: Colors.green,
                                 )
-                              : const Icon(Icons.close, color: Colors.red),
+                              : Icon(
+                                  Icons.close,
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
                     ),
                   ),
                   SizedBox(height: UiSizes.height_20),

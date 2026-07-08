@@ -183,7 +183,7 @@ void main() {
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      // Subscribed -> red background.
+      // Subscribed -> error (destructive) background.
       await pumpRoomsPage(
         tester,
         UpcomingListTile(
@@ -203,7 +203,10 @@ void main() {
         ),
       );
       final bg = subBtn.style!.backgroundColor!.resolve({});
-      expect(bg, Colors.red);
+      final expectedError = Theme.of(
+        tester.element(find.text('Unsubscribe')),
+      ).colorScheme.error;
+      expect(bg, expectedError);
     });
 
     testRoomsWidget('tapping Subscribe calls subscribe with the id', (

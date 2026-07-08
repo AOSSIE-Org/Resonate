@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/notification.dart';
+import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/enums/notification_type.dart';

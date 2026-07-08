@@ -5,7 +5,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/features/friends/data/pair_chat_repository.dart';
+import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';

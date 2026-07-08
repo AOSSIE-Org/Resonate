@@ -35,12 +35,13 @@ class LiveChapter extends _$LiveChapter {
   bool checkUserIsAdmin(String uid) => state.model?.authorUid == uid;
 
   Future<void> startLiveChapter({
-    required String roomId,
     required String chapterTitle,
     required String chapterDescription,
     required String storyId,
     required String storyName,
+    String? roomId, // injectable for tests; minted here so views never touch the SDK
   }) async {
+    roomId ??= ID.unique();
     final user = ref.read(requireUserProvider);
     final model = LiveChapterModel(
       livekitRoomId: roomId,
@@ -94,16 +95,22 @@ class LiveChapter extends _$LiveChapter {
 
   Future<void> joinLiveChapter(String roomId, LiveChapterModel data) async {
     final user = ref.read(requireUserProvider);
-    final attendees = data.attendees!;
+    final attendees =
+        data.attendees ??
+        LiveChapterAttendeesModel(
+          liveChapterId: roomId,
+          users: const [],
+          userIds: const [],
+        );
     final newAttendees = attendees.copyWith(
-      userIds: [...attendees.users.map((e) => e["\$id"] as String), user.uid],
+      userIds: [...attendees.users.map((e) => e.id), user.uid],
       users: [
         ...attendees.users,
-        {
-          "\$id": user.uid,
-          "name": user.displayName,
-          "profileImageUrl": user.profileImageUrl,
-        },
+        LiveChapterAttendee(
+          id: user.uid,
+          name: user.displayName,
+          profileImageUrl: user.profileImageUrl,
+        ),
       ],
     );
 
@@ -178,17 +185,19 @@ class LiveChapter extends _$LiveChapter {
     final user = ref.read(requireUserProvider);
     await _attendeesSub?.cancel();
 
-    final attendees = model.attendees!;
-    final remainingUsers = attendees.users
-        .where((element) => element["\$id"] != user.uid)
-        .toList();
-    final updated = attendees.copyWith(
-      users: remainingUsers,
-      userIds: remainingUsers.map((e) => e["\$id"] as String).toList(),
-    );
-    await ref
-        .read(liveChapterRepositoryProvider)
-        .updateAttendees(model.id, updated);
+    final attendees = model.attendees;
+    if (attendees != null) {
+      final remainingUsers = attendees.users
+          .where((element) => element.id != user.uid)
+          .toList();
+      final updated = attendees.copyWith(
+        users: remainingUsers,
+        userIds: remainingUsers.map((e) => e.id).toList(),
+      );
+      await ref
+          .read(liveChapterRepositoryProvider)
+          .updateAttendees(model.id, updated);
+    }
     await ref.read(liveKitProvider.notifier).disconnect();
     state = const LiveChapterState();
     ref.read(routerProvider).go(RoutePaths.tabview);
@@ -209,9 +218,9 @@ class LiveChapter extends _$LiveChapter {
     String lyrics = '';
     try {
       final whisperModel = await ref.read(whisperModelSettingProvider.future);
-      lyrics = await WhisperTranscriptionService(
-        model: whisperModel,
-      ).transcribeChapter(model.livekitRoomId);
+      lyrics = await ref
+          .read(whisperTranscriptionServiceProvider(whisperModel))
+          .transcribeChapter(model.livekitRoomId);
     } catch (e) {
       log('endLiveChapter: transcription failed: $e');
     }

@@ -6,7 +6,7 @@ import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/features/stories/view/widgets/secondary_list_card.dart';
+import 'package:resonate/shared/widgets/secondary_list_card.dart';
 
 class FilteredListTile extends StatelessWidget {
   final Story? story;
@@ -64,7 +64,10 @@ class FilteredListTile extends StatelessWidget {
               : Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.star, color: Colors.amber),
+                    Icon(
+                      Icons.star,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     Text(user!.userRating!.toStringAsFixed(1)),
                   ],
                 ),

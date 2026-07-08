@@ -103,8 +103,8 @@ class CustomLiveRoomTile extends ConsumerWidget {
               ],
             ),
             Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
+              spacing: UiSizes.width_8,
+              runSpacing: UiSizes.height_4,
               children: appwriteRoom.tags
                   .map(
                     (tag) => Text(

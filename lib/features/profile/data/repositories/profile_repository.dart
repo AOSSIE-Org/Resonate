@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
@@ -7,10 +6,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
+import 'package:resonate/features/stories/data/story_row_mapper.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/story_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/profile_repository.g.dart';
@@ -124,30 +123,6 @@ class ProfileRepository {
       tableId: followersTableID,
       rowId: followerDocumentId,
     );
-  }
-
-  List<Story> rowsToStories(List<Row> storyRows) {
-    return storyRows.map((value) {
-      final category = StoryCategory.values.byName(value.data['category']);
-      final tintColor = Color(int.parse('0xff${value.data['tintColor']}'));
-
-      return Story(
-        title: value.data['title'],
-        storyId: value.$id,
-        description: value.data['description'],
-        userIsCreator: false,
-        category: category,
-        coverImageUrl: value.data['coverImgUrl'],
-        creatorId: value.data['creatorId'],
-        creatorName: value.data['creatorName'],
-        creatorImgUrl: value.data['creatorImgUrl'],
-        creationDate: DateTime.parse(value.$createdAt),
-        likesCount: value.data['likes'],
-        isLikedByCurrentUser: false,
-        playDuration: value.data['playDuration'],
-        tintColor: tintColor,
-      );
-    }).toList();
   }
 
   Future<bool> isUsernameAvailable(

@@ -21,7 +21,6 @@ class RoutePaths {
   static const editProfile = '/editProfile';
   static const deleteAccount = '/deleteAccount';
   static const changeEmail = '/changeEmail';
-  static const updateEmail = '/updateEmail';
   static const settings = '/settings';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
@@ -29,11 +28,6 @@ class RoutePaths {
   static const aboutApp = '/aboutApp';
   static const contributeScreen = '/contributeScreen';
   static const appPreferencesScreen = '/appPreferencesScreen';
-
-  // Rooms / discussion
-  static const discuss = '/discuss';
-  static const roomScreen = '/roomScreen';
-  static const bottomNavBar = '/bottomNavBar';
 
   // Pair chat / friend calls
   static const pairing = '/pairing';
@@ -56,16 +50,14 @@ class RoutePaths {
     editProfile,
     deleteAccount,
     changeEmail,
-    updateEmail,
     emailVerification,
     settings,
     themeScreen,
     userAccountScreen,
     notificationsScreen,
+    aboutApp,
+    contributeScreen,
     appPreferencesScreen,
-    discuss,
-    roomScreen,
-    bottomNavBar,
     pairing,
     pairChat,
     pairChatUsers,
@@ -74,6 +66,7 @@ class RoutePaths {
     exploreScreen,
     createStoryScreen,
     liveChapterScreen,
+    verifyChapterDetails,
   };
 
   static const Set<String> authOnly = {

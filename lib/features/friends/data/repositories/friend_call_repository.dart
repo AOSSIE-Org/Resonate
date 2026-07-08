@@ -5,7 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/data/friends_repository.dart'
+import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
     show mapAppwriteFriendsException;
 import 'package:resonate/core/services/api_service.dart';
 import 'package:resonate/utils/constants.dart';

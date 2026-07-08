@@ -13,9 +13,278 @@ part of '../live_chapter_attendees_model.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
+mixin _$LiveChapterAttendee {
+
+@JsonKey(name: '\$id') String get id; String? get name; String? get profileImageUrl;
+/// Create a copy of LiveChapterAttendee
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LiveChapterAttendeeCopyWith<LiveChapterAttendee> get copyWith => _$LiveChapterAttendeeCopyWithImpl<LiveChapterAttendee>(this as LiveChapterAttendee, _$identity);
+
+  /// Serializes this LiveChapterAttendee to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LiveChapterAttendee&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,profileImageUrl);
+
+@override
+String toString() {
+  return 'LiveChapterAttendee(id: $id, name: $name, profileImageUrl: $profileImageUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LiveChapterAttendeeCopyWith<$Res>  {
+  factory $LiveChapterAttendeeCopyWith(LiveChapterAttendee value, $Res Function(LiveChapterAttendee) _then) = _$LiveChapterAttendeeCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: '\$id') String id, String? name, String? profileImageUrl
+});
+
+
+
+
+}
+/// @nodoc
+class _$LiveChapterAttendeeCopyWithImpl<$Res>
+    implements $LiveChapterAttendeeCopyWith<$Res> {
+  _$LiveChapterAttendeeCopyWithImpl(this._self, this._then);
+
+  final LiveChapterAttendee _self;
+  final $Res Function(LiveChapterAttendee) _then;
+
+/// Create a copy of LiveChapterAttendee
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? profileImageUrl = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,profileImageUrl: freezed == profileImageUrl ? _self.profileImageUrl : profileImageUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [LiveChapterAttendee].
+extension LiveChapterAttendeePatterns on LiveChapterAttendee {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LiveChapterAttendee value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _LiveChapterAttendee() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LiveChapterAttendee value)  $default,){
+final _that = this;
+switch (_that) {
+case _LiveChapterAttendee():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LiveChapterAttendee value)?  $default,){
+final _that = this;
+switch (_that) {
+case _LiveChapterAttendee() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '\$id')  String id,  String? name,  String? profileImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _LiveChapterAttendee() when $default != null:
+return $default(_that.id,_that.name,_that.profileImageUrl);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '\$id')  String id,  String? name,  String? profileImageUrl)  $default,) {final _that = this;
+switch (_that) {
+case _LiveChapterAttendee():
+return $default(_that.id,_that.name,_that.profileImageUrl);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '\$id')  String id,  String? name,  String? profileImageUrl)?  $default,) {final _that = this;
+switch (_that) {
+case _LiveChapterAttendee() when $default != null:
+return $default(_that.id,_that.name,_that.profileImageUrl);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _LiveChapterAttendee implements LiveChapterAttendee {
+   _LiveChapterAttendee({@JsonKey(name: '\$id') required this.id, this.name, this.profileImageUrl});
+  factory _LiveChapterAttendee.fromJson(Map<String, dynamic> json) => _$LiveChapterAttendeeFromJson(json);
+
+@override@JsonKey(name: '\$id') final  String id;
+@override final  String? name;
+@override final  String? profileImageUrl;
+
+/// Create a copy of LiveChapterAttendee
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LiveChapterAttendeeCopyWith<_LiveChapterAttendee> get copyWith => __$LiveChapterAttendeeCopyWithImpl<_LiveChapterAttendee>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LiveChapterAttendeeToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LiveChapterAttendee&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,name,profileImageUrl);
+
+@override
+String toString() {
+  return 'LiveChapterAttendee(id: $id, name: $name, profileImageUrl: $profileImageUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LiveChapterAttendeeCopyWith<$Res> implements $LiveChapterAttendeeCopyWith<$Res> {
+  factory _$LiveChapterAttendeeCopyWith(_LiveChapterAttendee value, $Res Function(_LiveChapterAttendee) _then) = __$LiveChapterAttendeeCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: '\$id') String id, String? name, String? profileImageUrl
+});
+
+
+
+
+}
+/// @nodoc
+class __$LiveChapterAttendeeCopyWithImpl<$Res>
+    implements _$LiveChapterAttendeeCopyWith<$Res> {
+  __$LiveChapterAttendeeCopyWithImpl(this._self, this._then);
+
+  final _LiveChapterAttendee _self;
+  final $Res Function(_LiveChapterAttendee) _then;
+
+/// Create a copy of LiveChapterAttendee
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? profileImageUrl = freezed,}) {
+  return _then(_LiveChapterAttendee(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,profileImageUrl: freezed == profileImageUrl ? _self.profileImageUrl : profileImageUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$LiveChapterAttendeesModel {
 
- String get liveChapterId;@JsonKey(includeToJson: false) List<Map<String, dynamic>> get users;@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? get userIds;
+ String get liveChapterId;@JsonKey(includeToJson: false) List<LiveChapterAttendee> get users;@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? get userIds;
 /// Create a copy of LiveChapterAttendeesModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +317,7 @@ abstract mixin class $LiveChapterAttendeesModelCopyWith<$Res>  {
   factory $LiveChapterAttendeesModelCopyWith(LiveChapterAttendeesModel value, $Res Function(LiveChapterAttendeesModel) _then) = _$LiveChapterAttendeesModelCopyWithImpl;
 @useResult
 $Res call({
- String liveChapterId,@JsonKey(includeToJson: false) List<Map<String, dynamic>> users,@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? userIds
+ String liveChapterId,@JsonKey(includeToJson: false) List<LiveChapterAttendee> users,@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? userIds
 });
 
 
@@ -69,7 +338,7 @@ class _$LiveChapterAttendeesModelCopyWithImpl<$Res>
   return _then(_self.copyWith(
 liveChapterId: null == liveChapterId ? _self.liveChapterId : liveChapterId // ignore: cast_nullable_to_non_nullable
 as String,users: null == users ? _self.users : users // ignore: cast_nullable_to_non_nullable
-as List<Map<String, dynamic>>,userIds: freezed == userIds ? _self.userIds : userIds // ignore: cast_nullable_to_non_nullable
+as List<LiveChapterAttendee>,userIds: freezed == userIds ? _self.userIds : userIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,
   ));
 }
@@ -155,7 +424,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String liveChapterId, @JsonKey(includeToJson: false)  List<Map<String, dynamic>> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String liveChapterId, @JsonKey(includeToJson: false)  List<LiveChapterAttendee> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LiveChapterAttendeesModel() when $default != null:
 return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
@@ -176,7 +445,7 @@ return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String liveChapterId, @JsonKey(includeToJson: false)  List<Map<String, dynamic>> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String liveChapterId, @JsonKey(includeToJson: false)  List<LiveChapterAttendee> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)  $default,) {final _that = this;
 switch (_that) {
 case _LiveChapterAttendeesModel():
 return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
@@ -196,7 +465,7 @@ return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String liveChapterId, @JsonKey(includeToJson: false)  List<Map<String, dynamic>> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String liveChapterId, @JsonKey(includeToJson: false)  List<LiveChapterAttendee> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true)  List<String>? userIds)?  $default,) {final _that = this;
 switch (_that) {
 case _LiveChapterAttendeesModel() when $default != null:
 return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
@@ -211,12 +480,12 @@ return $default(_that.liveChapterId,_that.users,_that.userIds);case _:
 @JsonSerializable()
 
 class _LiveChapterAttendeesModel implements LiveChapterAttendeesModel {
-   _LiveChapterAttendeesModel({required this.liveChapterId, @JsonKey(includeToJson: false) required final  List<Map<String, dynamic>> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true) final  List<String>? userIds}): _users = users,_userIds = userIds;
+   _LiveChapterAttendeesModel({required this.liveChapterId, @JsonKey(includeToJson: false) required final  List<LiveChapterAttendee> users, @JsonKey(includeFromJson: false, name: "users", includeToJson: true) final  List<String>? userIds}): _users = users,_userIds = userIds;
   factory _LiveChapterAttendeesModel.fromJson(Map<String, dynamic> json) => _$LiveChapterAttendeesModelFromJson(json);
 
 @override final  String liveChapterId;
- final  List<Map<String, dynamic>> _users;
-@override@JsonKey(includeToJson: false) List<Map<String, dynamic>> get users {
+ final  List<LiveChapterAttendee> _users;
+@override@JsonKey(includeToJson: false) List<LiveChapterAttendee> get users {
   if (_users is EqualUnmodifiableListView) return _users;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_users);
@@ -265,7 +534,7 @@ abstract mixin class _$LiveChapterAttendeesModelCopyWith<$Res> implements $LiveC
   factory _$LiveChapterAttendeesModelCopyWith(_LiveChapterAttendeesModel value, $Res Function(_LiveChapterAttendeesModel) _then) = __$LiveChapterAttendeesModelCopyWithImpl;
 @override @useResult
 $Res call({
- String liveChapterId,@JsonKey(includeToJson: false) List<Map<String, dynamic>> users,@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? userIds
+ String liveChapterId,@JsonKey(includeToJson: false) List<LiveChapterAttendee> users,@JsonKey(includeFromJson: false, name: "users", includeToJson: true) List<String>? userIds
 });
 
 
@@ -286,7 +555,7 @@ class __$LiveChapterAttendeesModelCopyWithImpl<$Res>
   return _then(_LiveChapterAttendeesModel(
 liveChapterId: null == liveChapterId ? _self.liveChapterId : liveChapterId // ignore: cast_nullable_to_non_nullable
 as String,users: null == users ? _self._users : users // ignore: cast_nullable_to_non_nullable
-as List<Map<String, dynamic>>,userIds: freezed == userIds ? _self._userIds : userIds // ignore: cast_nullable_to_non_nullable
+as List<LiveChapterAttendee>,userIds: freezed == userIds ? _self._userIds : userIds // ignore: cast_nullable_to_non_nullable
 as List<String>?,
   ));
 }

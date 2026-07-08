@@ -6,8 +6,8 @@ import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
-import 'package:resonate/features/rooms/view/widgets/room_app_bar.dart';
-import 'package:resonate/features/rooms/view/widgets/room_header.dart';
+import 'package:resonate/shared/widgets/session_app_bar.dart';
+import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -65,13 +65,13 @@ class RoomPage extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const RoomAppBar(),
+          const SessionAppBar(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
-            child: RoomHeader(
-              roomName: room.name,
-              roomDescription: room.description,
-              roomTags: _formatTags(),
+            child: SessionHeader(
+              title: room.name,
+              description: room.description,
+              tags: _formatTags(),
             ),
           ),
           SizedBox(height: UiSizes.height_7),
@@ -244,8 +244,8 @@ class _Footer extends ConsumerWidget {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                foregroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.error,
+                foregroundColor: Theme.of(context).colorScheme.onError,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),

@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:resonate/features/rooms/data/services/audio_device_service.dart';
 import 'package:resonate/features/rooms/model/audio_device_state.dart';
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/audio_device_notifier.g.dart';

@@ -33,9 +33,10 @@ class ParticipantBlock extends ConsumerWidget {
   }
 
   List<FocusedMenuItem> _makeItems(
+    BuildContext context,
     List<_FocusedMenuItemData> items,
-    Brightness brightness,
   ) {
+    final colorScheme = Theme.of(context).colorScheme;
     return items
         .map(
           (item) => FocusedMenuItem(
@@ -45,13 +46,11 @@ class ParticipantBlock extends ConsumerWidget {
             ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
-              color: Colors.red,
+              color: colorScheme.error,
               size: UiSizes.size_18,
             ),
             onPressed: item.action,
-            backgroundColor: brightness == Brightness.light
-                ? Colors.white
-                : Colors.black,
+            backgroundColor: colorScheme.surface,
           ),
         )
         .toList();
@@ -79,14 +78,13 @@ class ParticipantBlock extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     Participant me,
-    Brightness brightness,
   ) {
     if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) return [];
     final notifier = ref.read(singleRoomProvider(room).notifier);
 
     if (me.isAdmin) {
       if (participant.isModerator) {
-        return _makeItems([
+        return _makeItems(context, [
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.removeModerator,
             () => notifier.setRole(room, participant, ParticipantRole.listener),
@@ -99,9 +97,9 @@ class ParticipantBlock extends ConsumerWidget {
             AppLocalizations.of(context)!.reportParticipant,
             () => _reportAndMaybeKick(context, ref),
           ),
-        ], brightness);
+        ]);
       } else {
-        return _makeItems([
+        return _makeItems(context, [
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.addModerator,
             () => notifier.setRole(room, participant, ParticipantRole.moderator),
@@ -124,13 +122,13 @@ class ParticipantBlock extends ConsumerWidget {
             AppLocalizations.of(context)!.reportParticipant,
             () => _reportAndMaybeKick(context, ref),
           ),
-        ], brightness);
+        ]);
       }
     }
 
     if (me.isModerator) {
       if (participant.isModerator) return [];
-      return _makeItems([
+      return _makeItems(context, [
         if (participant.hasRequestedToBeSpeaker)
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.addSpeaker,
@@ -149,7 +147,7 @@ class ParticipantBlock extends ConsumerWidget {
           AppLocalizations.of(context)!.reportParticipant,
           () => _reportAndMaybeKick(context, ref),
         ),
-      ], brightness);
+      ]);
     }
 
     return [];
@@ -157,7 +155,6 @@ class ParticipantBlock extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final brightness = Theme.of(context).brightness;
     final me = ref.watch(singleRoomProvider(room)).value?.me;
     if (me == null) return const SizedBox.shrink();
 
@@ -179,10 +176,10 @@ class ParticipantBlock extends ConsumerWidget {
       ),
       duration: const Duration(milliseconds: 100),
       animateMenuItems: true,
-      blurBackgroundColor: brightness == Brightness.light
-          ? Colors.white54
-          : Colors.black54,
-      menuItems: _menuItems(context, ref, me, brightness),
+      blurBackgroundColor: Theme.of(
+        context,
+      ).colorScheme.surface.withValues(alpha: 0.54),
+      menuItems: _menuItems(context, ref, me),
       openWithTap: canOpenMenu,
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -236,7 +233,10 @@ class ParticipantBlock extends ConsumerWidget {
             ),
             Text(
               _userRole(context),
-              style: TextStyle(color: Colors.grey, fontSize: UiSizes.size_14),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                fontSize: UiSizes.size_14,
+              ),
             ),
           ],
         ),

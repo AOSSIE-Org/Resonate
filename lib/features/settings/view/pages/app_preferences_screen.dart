@@ -92,9 +92,7 @@ class _AppPreferencesScreenState extends ConsumerState<AppPreferencesScreen> {
       child: Text(
         title,
         style: TextStyle(
-          color: Theme.of(context).brightness == Brightness.light
-              ? Colors.black54
-              : Colors.white54,
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.54),
           fontWeight: FontWeight.bold,
           fontSize: UiSizes.size_14,
         ),
@@ -106,9 +104,7 @@ class _AppPreferencesScreenState extends ConsumerState<AppPreferencesScreen> {
     return Divider(
       height: UiSizes.height_30,
       thickness: 10,
-      color: Theme.of(context).brightness == Brightness.light
-          ? Colors.black.withValues(alpha: 0.04)
-          : Colors.white.withValues(alpha: 0.04),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.04),
     );
   }
 
@@ -165,9 +161,9 @@ class _AppPreferencesScreenState extends ConsumerState<AppPreferencesScreen> {
             child: Text(
               AppLocalizations.of(context)!.transcriptionModelDescription,
               style: TextStyle(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.black54
-                    : Colors.white54,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.54),
                 fontSize: UiSizes.size_12,
               ),
               textAlign: TextAlign.center,

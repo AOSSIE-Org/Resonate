@@ -337,7 +337,9 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
                                                   child: Icon(
                                                     Icons.cancel,
                                                     size: UiSizes.size_18,
-                                                    color: Colors.red
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .error
                                                         .withValues(alpha: 0.7),
                                                   ),
                                                   onTap: () =>

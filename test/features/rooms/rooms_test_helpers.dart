@@ -19,7 +19,7 @@ import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../helpers/test_root_container.dart';

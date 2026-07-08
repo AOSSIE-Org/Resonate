@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/rooms/viewmodel/audio_device_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/audio_device.dart';
+import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class AudioDeviceSelectorDialog extends ConsumerWidget {

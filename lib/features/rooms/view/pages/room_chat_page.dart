@@ -376,16 +376,20 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                       children: [
                                         Text(
                                           '@${widget.message.replyTo!.creatorUsername}',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.blue,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary,
                                           ),
                                         ),
                                         Text(
                                           widget.message.replyTo!.content,
                                           maxLines: 1,
-                                          style: const TextStyle(
-                                            color: Colors.black,
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
                                           ),
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -451,7 +455,9 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                         style: TextStyle(
                                           fontSize: UiSizes.size_12,
                                           fontStyle: FontStyle.italic,
-                                          color: Colors.grey,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
                                         ),
                                       ),
                                   ],
@@ -464,7 +470,9 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                         .formatDateTime(context)
                                         .toString(),
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurfaceVariant,
                                       fontSize: UiSizes.size_12,
                                     ),
                                   ),
@@ -585,9 +593,9 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
                           children: [
                             Text(
                               '@${replyingTo.creatorUsername}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.blue,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                             Text(
@@ -695,7 +703,11 @@ class _StatusIndicator extends StatelessWidget {
       case RoomMessageStatus.sent:
         return const SizedBox.shrink();
       case RoomMessageStatus.pending:
-        return Icon(Icons.access_time, size: UiSizes.size_12, color: Colors.grey);
+        return Icon(
+          Icons.access_time,
+          size: UiSizes.size_12,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        );
       case RoomMessageStatus.failed:
         return GestureDetector(
           onTap: onRetry,
@@ -704,12 +716,16 @@ class _StatusIndicator extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.error_outline, size: UiSizes.size_14, color: Colors.red),
+                Icon(
+                  Icons.error_outline,
+                  size: UiSizes.size_14,
+                  color: Theme.of(context).colorScheme.error,
+                ),
                 SizedBox(width: UiSizes.width_4),
                 Text(
                   AppLocalizations.of(context)!.retry,
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Theme.of(context).colorScheme.error,
                     fontSize: UiSizes.size_12,
                     fontWeight: FontWeight.w500,
                   ),
