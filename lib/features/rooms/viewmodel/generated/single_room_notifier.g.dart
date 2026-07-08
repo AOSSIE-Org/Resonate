@@ -51,7 +51,7 @@ final class SingleRoomNotifierProvider
 }
 
 String _$singleRoomNotifierHash() =>
-    r'1145b0f960ca2af5ec4b15bebcd1534037b5e3dd';
+    r'1c432c41111b39fc6baad2683a5dc408950128a6';
 
 final class SingleRoomNotifierFamily extends $Family
     with

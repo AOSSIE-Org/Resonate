@@ -11,9 +11,12 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
@@ -133,6 +136,41 @@ Participant fakeParticipant({
       hasRequestedToBeSpeaker: hasRequestedToBeSpeaker,
     );
 
+FriendsModel fakeFriendsModel({
+  String senderId = 'sender-1',
+  String recieverId = 'reciever-1',
+  String senderName = 'Sender',
+  String recieverName = 'Reciever',
+  String senderUsername = 'sender',
+  String recieverUsername = 'reciever',
+  String senderProfileImgUrl = 'https://example.com/s.jpg',
+  String recieverProfileImgUrl = 'https://example.com/r.jpg',
+  String? senderFCMToken = 'sender-token',
+  String? recieverFCMToken = 'reciever-token',
+  FriendRequestStatus requestStatus = FriendRequestStatus.sent,
+  String? requestSentByUserId,
+  double? senderRating = 4.0,
+  double? recieverRating = 3.5,
+  String docId = 'friend-doc-1',
+}) =>
+    FriendsModel(
+      senderId: senderId,
+      recieverId: recieverId,
+      senderName: senderName,
+      recieverName: recieverName,
+      senderUsername: senderUsername,
+      recieverUsername: recieverUsername,
+      senderProfileImgUrl: senderProfileImgUrl,
+      recieverProfileImgUrl: recieverProfileImgUrl,
+      senderFCMToken: senderFCMToken,
+      recieverFCMToken: recieverFCMToken,
+      requestStatus: requestStatus,
+      requestSentByUserId: requestSentByUserId ?? senderId,
+      senderRating: senderRating,
+      recieverRating: recieverRating,
+      docId: docId,
+    );
+
 /// Stubs the `flutter_secure_storage` method channel so writes/reads succeed
 /// in unit tests (the plugin normally calls into native code). Call from a
 /// `setUp()` in any test where the code path touches secure storage.
@@ -223,8 +261,36 @@ class FakeLiveKitNotifier extends LiveKitNotifier {
   Future<void> setMicrophoneEnabled(bool enabled) async {}
 
   @override
+  Future<void> setSpeakerphoneOn(bool enabled) async {}
+
+  @override
   Future<void> setRecording(bool recording) async {
     state = state.copyWith(isRecording: recording);
+  }
+}
+
+/// Stub [CallKitService] that never touches the CallKit plugin channels.
+class FakeCallKitService extends CallKitService {
+  int showIncomingCallCount = 0;
+  int endAllCallsCount = 0;
+
+  @override
+  void start({
+    required Future<void> Function(Map<String, dynamic> extra) onAccept,
+    required Future<void> Function(Map<String, dynamic> extra) onDecline,
+  }) {}
+
+  @override
+  Future<void> stop() async {}
+
+  @override
+  Future<void> showIncomingCall(RemoteMessage message) async {
+    showIncomingCallCount++;
+  }
+
+  @override
+  Future<void> endAllCalls() async {
+    endAllCallsCount++;
   }
 }
 
@@ -321,6 +387,7 @@ Future<ProviderContainer> installTestRootContainer({
   FirebaseMessaging? messaging,
   FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
+  CallKitService? callKit,
 }) async {
   final container = ProviderContainer(
     overrides: [
@@ -331,6 +398,7 @@ Future<ProviderContainer> installTestRootContainer({
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
       liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+      callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
       if (account != null) appwriteAccountProvider.overrideWithValue(account),
       if (tables != null) appwriteTablesProvider.overrideWithValue(tables),
       if (client != null) appwriteClientProvider.overrideWithValue(client),

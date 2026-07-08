@@ -53,6 +53,10 @@ class _ChapterPlayScreenState extends State<ChapterPlayScreen> {
       widget.chapter.lyrics,
       Duration(milliseconds: widget.chapter.playDuration),
     );
+    // Tapping a lyric line seeks to it (replaces the old select-line flow).
+    controller.lyricController.setOnTapLineCallback((start) {
+      controller.audioPlayer?.seek(start);
+    });
   }
 
   @override

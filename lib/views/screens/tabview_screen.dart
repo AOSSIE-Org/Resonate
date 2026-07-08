@@ -6,10 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/controllers/pair_chat_controller.dart';
 import 'package:resonate/controllers/tabview_controller.dart';
 import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
+import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/features/rooms/view/pages/create_room_page.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -18,7 +19,6 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/utils/utils.dart';
 import 'package:resonate/views/screens/explore_screen.dart';
 import 'package:resonate/views/screens/home_screen.dart';
-import 'package:resonate/views/widgets/pair_chat_dialog.dart';
 import 'package:resonate/views/widgets/profile_avatar.dart';
 
 class TabViewScreen extends ConsumerStatefulWidget {
@@ -140,9 +140,9 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
                     ),
                     label: AppLocalizations.of(context)!.pairChat,
                     labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                    onTap: () {
-                      Get.put<PairChatController>(PairChatController());
-                      buildPairChatDialog(context);
+                    onTap: () async {
+                      await ref.read(pairChatProvider.notifier).reset();
+                      if (context.mounted) showPairChatDialog(context);
                     },
                   ),
                 ],

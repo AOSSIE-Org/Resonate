@@ -936,6 +936,10 @@
     "@submit": {
         "description": "Generic button text for submitting a form."
     },
+    "rateYourExperience": "Rate your experience",
+    "@rateYourExperience": {
+        "description": "Title prompting the user to rate their pair chat experience."
+    },
     "anonymous": "Anonymous",
     "@anonymous": {
         "description": "Label for an anonymous user or identity."

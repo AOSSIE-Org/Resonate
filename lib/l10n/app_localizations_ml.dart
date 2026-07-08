@@ -738,6 +738,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get submit => 'സമർപ്പിക്കുക';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'അജ്ഞാത';
 
   @override

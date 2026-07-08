@@ -920,6 +920,10 @@
     "@submit": {
         "description": "Generic button text for submitting a form."
     },
+    "rateYourExperience": "अपने अनुभव को रेट करें",
+    "@rateYourExperience": {
+        "description": "Title prompting the user to rate their pair chat experience."
+    },
     "anonymous": "गुमनाम",
     "@anonymous": {
         "description": "Label for an anonymous user or identity."

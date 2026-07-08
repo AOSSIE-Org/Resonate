@@ -6,6 +6,7 @@ import 'package:resonate/core/container.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/friends/friends_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -19,14 +20,9 @@ import 'package:resonate/views/screens/home_screen.dart';
 import 'package:resonate/views/screens/live_chapter_screen.dart';
 import 'package:resonate/views/screens/notifications_screen.dart';
 import 'package:resonate/views/screens/verify_chapter_details_screen.dart';
-import 'package:resonate/views/screens/pair_chat_screen.dart';
-import 'package:resonate/views/screens/pair_chat_users_screen.dart';
-import 'package:resonate/views/screens/pairing_screen.dart';
-import 'package:resonate/views/screens/ringing_screen.dart';
 import 'package:resonate/views/screens/settings_screen.dart';
 import 'package:resonate/views/screens/tabview_screen.dart';
 import 'package:resonate/views/screens/user_account_screen.dart';
-import 'package:resonate/controllers/friend_call_screen.dart';
 
 // Global navigator key
 final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -88,26 +84,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       // Pair chat / friend calls
-      GoRoute(
-        path: RoutePaths.pairing,
-        builder: (_, _) => PairingScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.pairChatUsers,
-        builder: (_, _) => PairChatUsersScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.pairChat,
-        builder: (_, _) => PairChatScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.ringingScreen,
-        builder: (_, _) => RingingScreen(),
-      ),
-      GoRoute(
-        path: RoutePaths.friendCallScreen,
-        builder: (_, _) => FriendCallScreen(),
-      ),
+      ...friendsRoutes,
 
       // Stories
       GoRoute(

@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
+import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
@@ -121,19 +122,15 @@ class RoomsRepository {
     try {
       final response = await _api.createRoom(name, description, adminUid, tags);
       final roomId = response['livekit_room']['name'] as String;
-      final roomToken = response['access_token'] as String;
-      final socketUrl = response['livekit_socket_url'] as String;
-      final liveKitUri = socketUrl == 'wss://host.docker.internal:7880'
-          ? localhostLivekitEndpoint
-          : socketUrl;
+      final join = liveKitJoinFromResponse(response);
 
       await _secureStorage.write(
         key: 'createdRoomAdminToken',
-        value: roomToken,
+        value: join.roomToken,
       );
       await _secureStorage.write(
         key: 'createdRoomLivekitUrl',
-        value: liveKitUri,
+        value: join.liveKitUri,
       );
 
       final myDocId = await _addParticipant(
@@ -145,8 +142,8 @@ class RoomsRepository {
       return (
         roomId: roomId,
         myDocId: myDocId,
-        liveKitUri: liveKitUri,
-        roomToken: roomToken,
+        liveKitUri: join.liveKitUri,
+        roomToken: join.roomToken,
       );
     } on AppwriteException catch (e) {
       throw _mapException(e);
@@ -160,11 +157,7 @@ class RoomsRepository {
   }) async {
     try {
       final response = await _api.joinRoom(roomId, userId);
-      final roomToken = response['access_token'] as String;
-      final socketUrl = response['livekit_socket_url'] as String;
-      final liveKitUri = socketUrl == 'wss://host.docker.internal:7880'
-          ? localhostLivekitEndpoint
-          : socketUrl;
+      final join = liveKitJoinFromResponse(response);
 
       final myDocId = await _addParticipant(
         roomId: roomId,
@@ -172,7 +165,11 @@ class RoomsRepository {
         isAdmin: isAdmin,
       );
 
-      return (myDocId: myDocId, liveKitUri: liveKitUri, roomToken: roomToken);
+      return (
+        myDocId: myDocId,
+        liveKitUri: join.liveKitUri,
+        roomToken: join.roomToken,
+      );
     } on AppwriteException catch (e) {
       throw _mapException(e);
     }

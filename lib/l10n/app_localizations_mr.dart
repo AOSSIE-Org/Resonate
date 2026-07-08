@@ -730,6 +730,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get submit => 'सादर करा';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'अनामिक';
 
   @override

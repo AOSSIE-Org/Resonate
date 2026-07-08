@@ -11,6 +11,7 @@ void main() {
     expect(chapterPlayerController.currentPage.value, 0.0);
     expect(chapterPlayerController.sliderProgress.value, 0.0);
     expect(chapterPlayerController.isPlaying.value, false);
+    expect(chapterPlayerController.lyricController.lyricNotifier.value, null);
   });
 
   testWidgets('check initialize', (WidgetTester tester) async {

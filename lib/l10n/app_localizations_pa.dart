@@ -719,6 +719,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get submit => 'ਸਬਮਿਟ ਕਰੋ';
 
   @override
+  String get rateYourExperience => 'ਆਪਣੇ ਅਨੁਭਵ ਨੂੰ ਰੇਟ ਕਰੋ';
+
+  @override
   String get anonymous => 'ਅਗਿਆਤ';
 
   @override

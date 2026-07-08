@@ -1,5 +1,6 @@
 {
   "bn": [
+    "rateYourExperience",
     "audioOptions",
     "failedToCreateRoom",
     "roomChat",
@@ -47,6 +48,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "rateYourExperience",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -86,6 +88,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "rateYourExperience",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -126,6 +129,7 @@
   ],
 
   "ml": [
+    "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",
     "failedToResend",
@@ -137,6 +141,7 @@
   ],
 
   "mr": [
+    "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",
     "failedToResend",
@@ -148,6 +153,7 @@
   ],
 
   "raj": [
+    "rateYourExperience",
     "audioOptions",
     "failedToCreateRoom",
     "roomChat",
@@ -178,6 +184,7 @@
   ],
 
   "ta": [
+    "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",
     "failedToResend",

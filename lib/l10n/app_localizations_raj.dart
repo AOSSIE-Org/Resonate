@@ -724,6 +724,9 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get submit => 'भेजो';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'अनजान';
 
   @override

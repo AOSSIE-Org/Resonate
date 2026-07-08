@@ -728,6 +728,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get submit => 'सबमिट करें';
 
   @override
+  String get rateYourExperience => 'अपने अनुभव को रेट करें';
+
+  @override
   String get anonymous => 'गुमनाम';
 
   @override

@@ -731,6 +731,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get submit => 'ಸಲ್ಲಿಸಿ';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'ಅನಾಮಧೇಯ';
 
   @override

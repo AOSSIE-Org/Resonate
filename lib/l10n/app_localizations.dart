@@ -1482,6 +1482,12 @@ abstract class AppLocalizations {
   /// **'Submit'**
   String get submit;
 
+  /// Title prompting the user to rate their pair chat experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
+
   /// Label for an anonymous user or identity.
   ///
   /// In en, this message translates to:

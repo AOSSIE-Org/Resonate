@@ -727,6 +727,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get submit => 'સબમિટ કરો';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'અજ્ઞાત';
 
   @override

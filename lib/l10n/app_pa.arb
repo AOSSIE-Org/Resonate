@@ -952,6 +952,10 @@
   "@submit": {
     "description": "Button text to submit."
   },
+  "rateYourExperience": "ਆਪਣੇ ਅਨੁਭਵ ਨੂੰ ਰੇਟ ਕਰੋ",
+  "@rateYourExperience": {
+    "description": "Title prompting the user to rate their pair chat experience."
+  },
   "anonymous": "ਅਗਿਆਤ",
   "@anonymous": {
     "description": "Label for anonymous user."

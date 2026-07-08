@@ -740,6 +740,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get submit => 'சமர்ப்பிக்கவும்';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'அடையாளமற்ற';
 
   @override

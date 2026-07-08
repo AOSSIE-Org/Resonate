@@ -733,6 +733,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get submit => 'জমা দিন';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'অজানা';
 
   @override
