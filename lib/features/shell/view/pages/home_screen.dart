@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -11,7 +10,6 @@ import 'package:resonate/features/rooms/view/widgets/search_rooms.dart';
 import 'package:resonate/features/rooms/view/widgets/upcoming_room_tile.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 bool isLiveSelected = true;
@@ -151,15 +149,6 @@ class CustomAppBarLiveRoom extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        IconButton(
-          onPressed: () => context.push(RoutePaths.notificationsScreen),
-          icon: Icon(
-            Icons.notifications_none_rounded,
-            color: Theme.of(context).colorScheme.primary,
-            size: UiSizes.size_24,
-          ),
-          tooltip: AppLocalizations.of(context)!.notifications,
-        ),
         IconButton(
           onPressed: onSearchTapped,
           icon: Icon(

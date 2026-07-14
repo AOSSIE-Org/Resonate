@@ -96,7 +96,7 @@ class AppUtils {
         child: Center(
           child: LoadingAnimationWidget.threeRotatingDots(
             color: Theme.of(dialogCtx).colorScheme.primary,
-            size: MediaQuery.of(dialogCtx).devicePixelRatio * 20,
+            size: UiSizes.size_40,
           ),
         ),
       ),

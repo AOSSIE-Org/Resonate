@@ -21,7 +21,7 @@ class _FakeRepo extends FakeAuthRepository {
   String statusResult = 'true';
 
   @override
-  Future<({String otpId, String responseBody})> sendOtp({
+  Future<({String otpId, String responseBody})> sendEmailOTP({
     required String email,
   }) async {
     sendOtpCount++;

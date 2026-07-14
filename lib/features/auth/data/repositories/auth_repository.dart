@@ -149,24 +149,15 @@ class AuthRepository {
       return AuthState.authenticated(authUser);
     } catch (e, st) {
       developer.log(
-        'loadCurrentUser: account ok but profile-row fetch failed; '
-        'keeping session alive with minimal user data',
+        'loadCurrentUser: account ok but profile-row fetch failed',
         error: e,
         stackTrace: st,
       );
-      return AuthState.authenticated(
-        AuthUser(
-          uid: user.$id,
-          email: user.email,
-          displayName: user.name,
-          isEmailVerified: user.emailVerification,
-          isProfileComplete: true,
-        ),
-      );
+      rethrow;
     }
   }
 
-  Future<void> login({required String email, required String password}) =>
+  Future<void> loginWithEmail({required String email, required String password}) =>
       _mutateSession(() async {
         try {
           await _account.createEmailPasswordSession(
@@ -178,7 +169,7 @@ class AuthRepository {
         }
       });
 
-  Future<void> signup({
+  Future<void> signupWithEmail({
     required String email,
     required String password,
   }) =>
@@ -280,7 +271,7 @@ class AuthRepository {
 
   // OTP / email verification
 
-  Future<({String otpId, String responseBody})> sendOtp({
+  Future<({String otpId, String responseBody})> sendEmailOTP({
     required String email,
   }) async {
     var otpId = randomNumeric(10) + email;

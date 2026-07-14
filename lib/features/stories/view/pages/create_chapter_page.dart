@@ -9,11 +9,14 @@ import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
-import 'package:resonate/utils/enums/audio_format.dart';
 import 'package:resonate/utils/enums/log_type.dart';
-import 'package:resonate/utils/enums/lyrics_format.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
+
+const _audioExtensions = [
+  'wav', 'aiff', 'alac', 'flac', 'mp3', 'aac', 'wma', 'ogg',
+];
+const _lyricsExtensions = ['lrc', 'txt'];
 
 class CreateChapterPage extends ConsumerStatefulWidget {
   const CreateChapterPage({super.key, required this.onChapterCreated});
@@ -48,13 +51,13 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
   Future<void> _pickAudioFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: AudioFormat.extensions,
+      allowedExtensions: _audioExtensions,
     );
     if (!mounted) return;
     final file = result?.files.single;
     if (file == null) return;
-    if (!_hasAllowedExtension(file, AudioFormat.extensions)) {
-      _showFormatError(AudioFormat.extensions);
+    if (!_hasAllowedExtension(file, _audioExtensions)) {
+      _showFormatError(_audioExtensions);
       return;
     }
     setState(() => audioFile = File(file.path!));
@@ -65,8 +68,8 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
     if (!mounted) return;
     final file = result?.files.single;
     if (file == null) return;
-    if (!_hasAllowedExtension(file, LyricsFormat.extensions)) {
-      _showFormatError(LyricsFormat.extensions);
+    if (!_hasAllowedExtension(file, _lyricsExtensions)) {
+      _showFormatError(_lyricsExtensions);
       return;
     }
     setState(() => lyricsFile = File(file.path!));

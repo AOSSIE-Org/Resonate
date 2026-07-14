@@ -33,7 +33,7 @@ class EmailVerify extends _$EmailVerify {
   Future<({bool sent, String responseBody})> sendOtp({
     required String email,
   }) async {
-    final result = await ref.read(authRepositoryProvider).sendOtp(email: email);
+    final result = await ref.read(authRepositoryProvider).sendEmailOTP(email: email);
     final sent = _otpResponseLooksSuccessful(result.responseBody);
     if (sent) {
       state = state.copyWith(canResend: false);

@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
-import 'package:resonate/features/stories/data/story_row_mapper.dart';
+import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -126,7 +126,7 @@ void main() {
 
   group('rowsToStories', () {
     test('maps row fields onto the Story model', () {
-      final stories = rowsToStories([
+      final stories = Story.fromRows([
         _storyRow('doc1', 'Story 1', 'comedy', 'id1'),
         _storyRow('doc2', 'Story 2', 'thriller', 'id2'),
       ]);

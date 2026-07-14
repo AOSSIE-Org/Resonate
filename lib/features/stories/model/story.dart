@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'dart:ui';
 
+import 'package:appwrite/models.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 class Story {
@@ -34,6 +36,50 @@ class Story {
     required this.playDuration,
     required this.tintColor,
   });
+
+  factory Story.fromMap(
+    Map<String, dynamic> data, {
+    required String id,
+    required String createdAt,
+    String? currentUid,
+  }) {
+    return Story(
+      title: data['title'],
+      storyId: id,
+      description: data['description'],
+      userIsCreator: currentUid != null && data['creatorId'] == currentUid,
+      category: StoryCategory.values.byName(data['category']),
+      coverImageUrl: data['coverImgUrl'],
+      creatorId: data['creatorId'],
+      creatorName: data['creatorName'],
+      creatorImgUrl: data['creatorImgUrl'],
+      creationDate: DateTime.parse(createdAt),
+      likesCount: data['likes'],
+      isLikedByCurrentUser: false,
+      playDuration: data['playDuration'],
+      tintColor: Color(int.parse("0xff${data['tintColor']}")),
+    );
+  }
+
+  // Maps rows onto Story, skipping malformed rows
+  static List<Story> fromRows(List<Row> rows, {String? currentUid}) {
+    final stories = <Story>[];
+    for (final row in rows) {
+      try {
+        stories.add(
+          Story.fromMap(
+            row.data,
+            id: row.$id,
+            createdAt: row.$createdAt,
+            currentUid: currentUid,
+          ),
+        );
+      } catch (e) {
+        log('Skipping malformed story row ${row.$id}: $e');
+      }
+    }
+    return stories;
+  }
 
   Story copyWith({
     int? likesCount,

@@ -437,13 +437,13 @@ class FakeAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> login({required String email, required String password}) async {
+  Future<void> loginWithEmail({required String email, required String password}) async {
     loginCount++;
     _setSessionState(AsyncData(state));
   }
 
   @override
-  Future<void> signup({required String email, required String password}) async {
+  Future<void> signupWithEmail({required String email, required String password}) async {
     signupCount++;
     _setSessionState(AsyncData(state));
   }
@@ -502,9 +502,6 @@ Future<ProviderContainer> installTestRootContainer({
     overrides: [
       if (authRepository != null)
         authRepositoryProvider.overrideWithValue(authRepository),
-      // Session state is stubbed at its source of truth — the repository — so
-      // authSessionProvider, currentUserProvider, the router, and refresh()
-      // all observe the same deterministic fake with no network involved.
       if (authRepository == null && authState != null)
         authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
       if (getStorageBox != null)

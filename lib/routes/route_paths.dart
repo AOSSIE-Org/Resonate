@@ -24,7 +24,6 @@ class RoutePaths {
   static const settings = '/settings';
   static const themeScreen = '/themeScreen';
   static const userAccountScreen = '/userAccountScreen';
-  static const notificationsScreen = '/notificationsScreen';
   static const aboutApp = '/aboutApp';
   static const contributeScreen = '/contributeScreen';
   static const appPreferencesScreen = '/appPreferencesScreen';
@@ -54,7 +53,6 @@ class RoutePaths {
     settings,
     themeScreen,
     userAccountScreen,
-    notificationsScreen,
     aboutApp,
     contributeScreen,
     appPreferencesScreen,

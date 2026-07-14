@@ -27,5 +27,5 @@ class LoginForm extends _$LoginForm {
   }
 
   Future<void> login({required String email, required String password}) =>
-      ref.read(authRepositoryProvider).login(email: email, password: password);
+      ref.read(authRepositoryProvider).loginWithEmail(email: email, password: password);
 }

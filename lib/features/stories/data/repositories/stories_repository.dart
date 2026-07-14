@@ -9,12 +9,11 @@ import 'package:flutter/material.dart' hide Row;
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/features/stories/data/story_row_mapper.dart';
+import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
-import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
 import 'package:resonate/models/resonate_user.dart';
@@ -60,7 +59,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.limit(10)],
       );
-      return rowsToStories(result.rows, currentUid: currentUid);
+      return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
       log('Failed to fetch recommended stories: ${e.message}');
       return [];
@@ -77,7 +76,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.limit(15), Query.equal('category', category.name)],
       );
-      return rowsToStories(result.rows, currentUid: currentUid);
+      return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
       log(
         'Failed to fetch stories for category ${category.name}: ${e.message}',
@@ -93,7 +92,7 @@ class StoriesRepository {
         tableId: storyTableId,
         queries: [Query.equal('creatorId', creatorId)],
       );
-      return rowsToStories(result.rows, currentUid: creatorId);
+      return Story.fromRows(result.rows, currentUid: creatorId);
     } on AppwriteException catch (e) {
       log('Failed to fetch created stories: ${e.message}');
       return [];
@@ -122,7 +121,7 @@ class StoriesRepository {
           log('Liked story row missing, skipping: ${e.message}');
         }
       }
-      return rowsToStories(storyRows, currentUid: uid);
+      return Story.fromRows(storyRows, currentUid: uid);
     } on AppwriteException catch (e) {
       log('Failed to fetch liked stories: ${e.message}');
       return [];
@@ -270,7 +269,7 @@ class StoriesRepository {
           Query.limit(16),
         ],
       );
-      return rowsToStories(result.rows, currentUid: currentUid);
+      return Story.fromRows(result.rows, currentUid: currentUid);
     } catch (e) {
       log('Story search failed: $e');
       return [];
@@ -665,7 +664,7 @@ class StoriesRepository {
     for (final hit in hits) {
       try {
         stories.add(
-          storyFromMap(
+          Story.fromMap(
             hit,
             id: hit['\$id'],
             createdAt: hit['\$createdAt'],

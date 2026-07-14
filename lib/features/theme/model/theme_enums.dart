@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
-enum Themes { classic, vintage, forest, cream, amber, time }
+enum Themes {
+  classic,
+  vintage,
+  forest,
+  cream,
+  amber,
+  time;
+
+  static Themes fromName(String? name) =>
+      values.firstWhere((t) => t.name == name, orElse: () => classic);
+}
 
 enum ThemeIcons {
   classic('classic', Icons.diamond),

@@ -151,7 +151,7 @@ void main() {
         ),
       ).thenThrow(AppwriteException('bad', 401, userInvalidCredentials));
 
-      await repo.login(email: 'a@b.c', password: 'pw');
+      await repo.loginWithEmail(email: 'a@b.c', password: 'pw');
 
       expect(repo.sessionState.error, isA<AuthFailureInvalidCredentials>());
     });
@@ -173,7 +173,7 @@ void main() {
           ),
         );
 
-        await repo.login(email: 'a@b.c', password: 'short');
+        await repo.loginWithEmail(email: 'a@b.c', password: 'short');
 
         expect(repo.sessionState.error, isA<AuthFailurePasswordTooShort>());
       },
@@ -196,7 +196,7 @@ void main() {
           ),
         );
 
-        await repo.login(email: 'bad-email', password: 'pw');
+        await repo.loginWithEmail(email: 'bad-email', password: 'pw');
 
         expect(repo.sessionState.error, isA<AuthFailureUnknown>());
       },
@@ -210,7 +210,7 @@ void main() {
         ),
       ).thenThrow(AppwriteException('exists', 409, 'user_already_exists'));
 
-      await repo.login(email: 'a@b.c', password: 'pw');
+      await repo.loginWithEmail(email: 'a@b.c', password: 'pw');
 
       expect(repo.sessionState.error, isA<AuthFailureUserAlreadyExists>());
     });
@@ -223,7 +223,7 @@ void main() {
         ),
       ).thenThrow(AppwriteException('weird', 500, 'something_else'));
 
-      await repo.login(email: 'a@b.c', password: 'pw');
+      await repo.loginWithEmail(email: 'a@b.c', password: 'pw');
 
       expect(repo.sessionState.error, isA<AuthFailureUnknown>());
     });
@@ -309,7 +309,7 @@ void main() {
       final sub = repo.sessionStateChanges.listen(emitted.add);
       addTearDown(sub.cancel);
 
-      await repo.login(email: 'a@b.c', password: 'pw');
+      await repo.loginWithEmail(email: 'a@b.c', password: 'pw');
 
       expect(repo.sessionState.value, isA<AuthStateAuthenticated>());
       expect(emitted.first.isLoading, true);

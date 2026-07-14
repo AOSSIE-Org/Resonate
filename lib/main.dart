@@ -69,7 +69,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     UiSizes.init(context);
     ref.watch(networkProvider);
-    final themeModel = ThemeList.getThemeModel(ref.watch(appThemeProvider));
+    final themeModel = ThemeList.getThemeModel(ref.watch(appThemeProvider).name);
 
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),

@@ -10,12 +10,11 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   static const _androidChannel = AndroidNotificationDetails(
-    'your channel id',
-    'your channel name',
-    channelDescription: 'your channel description',
+    'resonate_default_channel',
+    'Resonate Notifications',
+    channelDescription: 'General notifications from Resonate',
     importance: Importance.max,
     priority: Priority.high,
-    ticker: 'ticker',
   );
 
   static const _details = NotificationDetails(android: _androidChannel);

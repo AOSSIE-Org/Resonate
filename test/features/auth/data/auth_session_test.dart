@@ -159,7 +159,7 @@ void main() {
 
       await container
           .read(authRepositoryProvider)
-          .login(email: 'a@b.c', password: 'pw');
+          .loginWithEmail(email: 'a@b.c', password: 'pw');
 
       expect(container.read(authSessionProvider).requireValue,
           isA<AuthStateAuthenticated>());

@@ -21,7 +21,7 @@ final class GetStorageBoxProvider
         argument: null,
         retry: null,
         name: r'getStorageBoxProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -48,4 +48,4 @@ final class GetStorageBoxProvider
   }
 }
 
-String _$getStorageBoxHash() => r'a10290a1ab90ce86206db60cd0752c39fc494f32';
+String _$getStorageBoxHash() => r'df78dedbe3bca91f692e32f31a1c3357f8741934';

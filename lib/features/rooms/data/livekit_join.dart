@@ -1,7 +1,7 @@
 import 'package:resonate/utils/constants.dart';
 
-// Converts the response from the createPairChat API into the parameters needed to join a LiveKit room.
-// Temporary, when the full livekit cluster is migrated, it'll be added to core
+// Converts the response from the createPairChat API into the parameters needed
+// to join a LiveKit room.
 ({String liveKitUri, String roomToken}) liveKitJoinFromResponse(
   Map<String, dynamic> response,
 ) {

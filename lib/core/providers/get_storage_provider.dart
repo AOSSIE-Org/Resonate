@@ -3,5 +3,5 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/get_storage_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 GetStorage getStorageBox(Ref ref) => GetStorage();

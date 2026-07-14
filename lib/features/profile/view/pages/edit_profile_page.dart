@@ -19,7 +19,7 @@ import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/debouncer.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/shared/widgets/loading_dialog.dart';
+import 'package:resonate/utils/utils.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
 class EditProfilePage extends ConsumerStatefulWidget {
@@ -99,7 +99,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   Future<void> _pickAndSet(ImageSource source, AppLocalizations l10n) async {
-    loadingDialog(context);
+    AppUtils.showBlurredLoaderDialog(context);
     try {
       final file = await _imagePicker.pickImage(source: source);
       if (file == null) return;

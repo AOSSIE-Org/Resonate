@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
-import 'package:resonate/features/stories/data/story_row_mapper.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/models/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
@@ -52,7 +51,7 @@ class ProfileRepository {
     } on AppwriteException catch (e) {
       log('Failed to fetch user created stories: ${e.message}');
     }
-    return rowsToStories(rows);
+    return Story.fromRows(rows);
   }
 
   Future<List<Story>> fetchLikedStories(String creatorId) async {
@@ -79,7 +78,7 @@ class ProfileRepository {
           log('Skipping liked story ${like.data['storyId']}: ${e.message}');
         }
       }
-      return rowsToStories(storyRows);
+      return Story.fromRows(storyRows);
     } on AppwriteException catch (e) {
       log('Failed to fetch liked stories: ${e.message}');
       return [];

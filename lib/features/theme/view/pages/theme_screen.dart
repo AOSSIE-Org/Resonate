@@ -28,7 +28,7 @@ class ThemeScreen extends ConsumerWidget {
           itemCount: list.length,
           itemBuilder: (context, index) {
             final bool isSelected =
-                currentTheme == list[index].name.toLowerCase();
+                currentTheme == Themes.fromName(list[index].name.toLowerCase());
             final String title = AppLocalizations.of(
               context,
             )!.chooseTheme("${list[index].name.toLowerCase()}Theme");
@@ -60,7 +60,7 @@ class ThemeScreen extends ConsumerWidget {
                 onTap: () {
                   ref
                       .read(appThemeProvider.notifier)
-                      .setTheme(theme.name.toLowerCase());
+                      .setTheme(Themes.fromName(theme.name.toLowerCase()));
                 },
                 leading: Container(
                   padding: EdgeInsets.all(UiSizes.width_10),

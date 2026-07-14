@@ -5,7 +5,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/utils/utils.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
@@ -208,55 +208,39 @@ class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
     AppLocalizations l10n,
   ) async {
     final view = View.of(context);
-    final navigator = Navigator.of(context, rootNavigator: true);
     final router = GoRouter.of(context);
 
-    _showLoadingDialog(context);
+    AppUtils.showBlurredLoaderDialog(context);
     final notifier = ref.read(emailVerifyProvider.notifier);
     final uid = ref.read(currentUserProvider)?.uid;
-
-    void announce(String message) {
-      SemanticsService.sendAnnouncement(view, message, TextDirection.ltr);
-    }
 
     try {
       await notifier.verifyOtp(email: email, userOtp: code);
       final status = await notifier.checkVerificationStatus();
       if (status != 'true') {
-        navigator.pop();
+        router.pop();
         customSnackbar(l10n.verificationFailed, l10n.otpMismatch, LogType.error);
-        announce(l10n.otpMismatch);
+        SemanticsService.sendAnnouncement(
+            view, l10n.otpMismatch, TextDirection.ltr);
         return;
       }
 
       if (uid != null) {
         await notifier.markVerified(uid: uid);
       }
-      navigator.pop();
+      router.pop();
       customSnackbar(
         l10n.verificationComplete,
         l10n.verificationCompleteMessage,
         LogType.success,
       );
-      announce(l10n.verificationCompleteMessage);
+      SemanticsService.sendAnnouncement(
+          view, l10n.verificationCompleteMessage, TextDirection.ltr);
       router.go(RoutePaths.tabview);
     } catch (e) {
-      navigator.pop();
+      router.pop();
       customSnackbar(l10n.oops, e.toString(), LogType.error);
-      announce(e.toString());
+      SemanticsService.sendAnnouncement(view, e.toString(), TextDirection.ltr);
     }
-  }
-
-  void _showLoadingDialog(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => Center(
-        child: LoadingAnimationWidget.threeRotatingDots(
-          color: Theme.of(context).colorScheme.primary,
-          size: UiSizes.width_40,
-        ),
-      ),
-    );
   }
 }

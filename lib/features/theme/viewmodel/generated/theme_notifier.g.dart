@@ -12,7 +12,7 @@ part of '../theme_notifier.dart';
 @ProviderFor(AppTheme)
 final appThemeProvider = AppThemeProvider._();
 
-final class AppThemeProvider extends $NotifierProvider<AppTheme, String> {
+final class AppThemeProvider extends $NotifierProvider<AppTheme, Themes> {
   AppThemeProvider._()
     : super(
         from: null,
@@ -32,27 +32,27 @@ final class AppThemeProvider extends $NotifierProvider<AppTheme, String> {
   AppTheme create() => AppTheme();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String value) {
+  Override overrideWithValue(Themes value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<String>(value),
+      providerOverride: $SyncValueProvider<Themes>(value),
     );
   }
 }
 
-String _$appThemeHash() => r'12739590458e85b90567dbb55c818558d5b9abf5';
+String _$appThemeHash() => r'073797184596b9098b1e2c2c8e2524a7c72f268d';
 
-abstract class _$AppTheme extends $Notifier<String> {
-  String build();
+abstract class _$AppTheme extends $Notifier<Themes> {
+  Themes build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<String, String>;
+    final ref = this.ref as $Ref<Themes, Themes>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<String, String>,
-              String,
+              AnyNotifier<Themes, Themes>,
+              Themes,
               Object?,
               Object?
             >;
@@ -101,4 +101,4 @@ final class UserProfileImagePlaceholderUrlProvider
 }
 
 String _$userProfileImagePlaceholderUrlHash() =>
-    r'226b2ec8d3cfcbd22a2a7374b998af17aada93b5';
+    r'b838baa88309d28dc61d146d8c90221c78295d59';

@@ -7,22 +7,19 @@ part 'generated/theme_notifier.g.dart';
 
 const _themeStorageKey = 'theme';
 
-
-String _placeholderIdFor(String themeName) {
-  switch (themeName) {
-    case 'amber':
+String _placeholderIdFor(Themes theme) {
+  switch (theme) {
+    case Themes.amber:
       return amberUserProfileImagePlaceholderID;
-    case 'vintage':
+    case Themes.vintage:
       return vintageUserProfileImagePlaceholderID;
-    case 'time':
+    case Themes.time:
       return timeUserProfileImagePlaceholderID;
-    case 'classic':
+    case Themes.classic:
       return classicUserProfileImagePlaceholderID;
-    case 'forest':
+    case Themes.forest:
       return forestUserProfileImagePlaceholderID;
-    case 'cream':
-      return creamUserProfileImagePlaceholderID;
-    default:
+    case Themes.cream:
       return creamUserProfileImagePlaceholderID;
   }
 }
@@ -30,20 +27,20 @@ String _placeholderIdFor(String themeName) {
 @Riverpod(keepAlive: true)
 class AppTheme extends _$AppTheme {
   @override
-  String build() {
+  Themes build() {
     final box = ref.watch(getStorageBoxProvider);
-    return box.read<String>(_themeStorageKey) ?? Themes.classic.name;
+    return Themes.fromName(box.read<String>(_themeStorageKey));
   }
 
-  void setTheme(String themeName) {
-    ref.read(getStorageBoxProvider).write(_themeStorageKey, themeName);
-    state = themeName;
+  void setTheme(Themes theme) {
+    ref.read(getStorageBoxProvider).write(_themeStorageKey, theme.name);
+    state = theme;
   }
 }
 
 @Riverpod(keepAlive: true)
 String userProfileImagePlaceholderUrl(Ref ref) {
-  final themeName = ref.watch(appThemeProvider);
-  final placeholderId = _placeholderIdFor(themeName);
+  final theme = ref.watch(appThemeProvider);
+  final placeholderId = _placeholderIdFor(theme);
   return "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$placeholderId/view?project=resonate&mode=admin";
 }

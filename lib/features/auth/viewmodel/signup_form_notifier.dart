@@ -62,5 +62,5 @@ class SignupForm extends _$SignupForm {
   Future<void> signup({required String email, required String password}) =>
       ref
           .read(authRepositoryProvider)
-          .signup(email: email, password: password);
+          .signupWithEmail(email: email, password: password);
 }
