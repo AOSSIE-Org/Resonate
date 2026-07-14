@@ -2,8 +2,8 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/rooms/model/rooms_state.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -49,7 +49,9 @@ void main() {
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
-  group('RoomsNotifier', () {
+  // The live-rooms cache now lives in the data layer as a plain list (search is
+  // per-view UI state handled by the browser, not the cache).
+  group('LiveRooms (data-layer cache)', () {
     test('build loads rooms from the repository', () async {
       when(tables.listRows(
         databaseId: masterDatabaseId,
@@ -66,18 +68,36 @@ void main() {
         functions: functions,
       );
 
-      final state = await container.read(roomsProvider.future);
-
-      expect(state, isA<RoomsStateReady>());
-      expect((state as RoomsStateReady).rooms, hasLength(2));
+      final rooms = await container.read(liveRoomsProvider.future);
+      expect(rooms, hasLength(2));
     });
 
-    test('joinRoom returns room with myDocId populated', () async {
+    test('refresh re-invokes repository load', () async {
+      var callCount = 0;
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
-      )).thenAnswer((_) async => RowList(total: 0, rows: []));
-      // joinRoom internally calls the cloud function + addParticipant.
+      )).thenAnswer((_) async {
+        callCount++;
+        return RowList(total: 0, rows: []);
+      });
+
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
+      await container.read(liveRoomsProvider.future);
+      expect(callCount, 1);
+
+      await container.read(liveRoomsProvider.notifier).refresh();
+      expect(callCount, 2);
+    });
+  });
+
+  group('RoomLauncher.joinRoom', () {
+    test('returns room with myDocId populated', () async {
       when(tables.deleteRow(
         databaseId: anyNamed('databaseId'),
         tableId: anyNamed('tableId'),
@@ -105,7 +125,6 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _roomRow());
-      // The cloud-function call from ApiService.joinRoom.
       when(functions.createExecution(
         functionId: joinRoomServiceId,
         body: anyNamed('body'),
@@ -120,43 +139,15 @@ void main() {
         realtime: realtime,
         functions: functions,
       );
-      await container.read(roomsProvider.future);
 
       final joined = await container
-          .read(roomsProvider.notifier)
+          .read(roomLauncherProvider)
           .joinRoom(fakeAppwriteRoom(id: 'r1', isUserAdmin: false));
 
       expect(joined.myDocId, 'doc-mine');
     });
 
-    test('refresh re-invokes repository load', () async {
-      var callCount = 0;
-      when(tables.listRows(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-      )).thenAnswer((_) async {
-        callCount++;
-        return RowList(total: 0, rows: []);
-      });
-
-      final container = await installTestRootContainer(
-        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
-        tables: tables,
-        realtime: realtime,
-        functions: functions,
-      );
-      await container.read(roomsProvider.future);
-      expect(callCount, 1);
-
-      await container.read(roomsProvider.notifier).refresh();
-      expect(callCount, 2);
-    });
-
-    test('joinRoom rethrows when the cloud function fails', () async {
-      when(tables.listRows(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+    test('rethrows when the cloud function fails', () async {
       when(functions.createExecution(
         functionId: joinRoomServiceId,
         body: anyNamed('body'),
@@ -168,65 +159,13 @@ void main() {
         realtime: realtime,
         functions: functions,
       );
-      await container.read(roomsProvider.future);
 
       expect(
         () => container
-            .read(roomsProvider.notifier)
+            .read(roomLauncherProvider)
             .joinRoom(fakeAppwriteRoom(id: 'r1')),
         throwsA(isA<Exception>()),
       );
-    });
-
-    test('searchLiveRooms filters loaded rooms by name', () async {
-      when(tables.listRows(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-      )).thenAnswer((_) async => RowList(
-            total: 2,
-            rows: [
-              _roomRow(id: 'r1', name: 'Flutter Devs'),
-              _roomRow(id: 'r2', name: 'Backend Talk'),
-            ],
-          ));
-
-      final container = await installTestRootContainer(
-        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
-        tables: tables,
-        realtime: realtime,
-        functions: functions,
-      );
-      await container.read(roomsProvider.future);
-
-      container.read(roomsProvider.notifier).searchLiveRooms('flutter');
-
-      final ready = container.read(roomsProvider).value! as RoomsStateReady;
-      expect(ready.isSearching, isTrue);
-      expect(ready.filteredRooms, hasLength(1));
-      expect(ready.filteredRooms.first.name, 'Flutter Devs');
-    });
-
-    test('clearLiveSearch resets filter state', () async {
-      when(tables.listRows(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-      )).thenAnswer((_) async => RowList(total: 0, rows: []));
-
-      final container = await installTestRootContainer(
-        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
-        tables: tables,
-        realtime: realtime,
-        functions: functions,
-      );
-      await container.read(roomsProvider.future);
-
-      container.read(roomsProvider.notifier).searchLiveRooms('hello');
-      container.read(roomsProvider.notifier).clearLiveSearch();
-
-      final ready = container.read(roomsProvider).value! as RoomsStateReady;
-      expect(ready.isSearching, isFalse);
-      expect(ready.searchBarIsEmpty, isTrue);
-      expect(ready.filteredRooms, isEmpty);
     });
   });
 }

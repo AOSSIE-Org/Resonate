@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/current_user.g.dart';
 
-
+// Data-layer provider for the current authenticated user
 @Riverpod(keepAlive: true)
 AuthUser? currentUser(Ref ref) =>
     ref.watch(authSessionProvider).value?.userOrNull;

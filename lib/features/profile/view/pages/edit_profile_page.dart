@@ -10,7 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/model/edit_profile_state.dart';
 import 'package:resonate/features/profile/viewmodel/edit_profile_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';

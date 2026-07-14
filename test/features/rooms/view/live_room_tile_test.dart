@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
 
 import '../rooms_test_helpers.dart';
 
-List<Override> buildOverrides({FakeRooms? rooms}) {
+List<Override> buildOverrides({
+  FakeRoomLauncher? launcher,
+  FakeLiveRooms? liveRooms,
+}) {
   final me = fakeParticipant(uid: 'me');
   return [
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
-    roomsProvider.overrideWith(() => rooms ?? FakeRooms()),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+    roomLauncherProvider.overrideWithValue(launcher ?? FakeRoomLauncher()),
+    liveRoomsProvider.overrideWith(() => liveRooms ?? FakeLiveRooms()),
     // Any room the sheet opens resolves to this deterministic state.
     singleRoomProvider.overrideWith(() => FakeSingleRoom(SingleRoomState(me: me))),
   ];
@@ -77,43 +82,44 @@ void main() {
   });
 
   group('CustomLiveRoomTile interactions', () {
-    testRoomsWidget('tapping Join calls roomsProvider.notifier.joinRoom', (
+    testRoomsWidget('tapping Join calls RoomLauncher.joinRoom', (
       tester,
     ) async {
-      final rooms = FakeRooms();
+      final launcher = FakeRoomLauncher();
       final room = fakeAppwriteRoom(id: 'r1', isUserAdmin: false);
       await pumpRoomsPage(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
-        overrides: buildOverrides(rooms: rooms),
+        overrides: buildOverrides(launcher: launcher),
       );
       await tester.pump();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Join'));
       await tester.pump();
 
-      expect(rooms.joinCount, 1);
-      expect(rooms.lastJoined?.id, 'r1');
+      expect(launcher.joinCount, 1);
+      expect(launcher.lastJoined?.id, 'r1');
 
       // Let the modal sheet finish opening so pending timers/frames drain.
       await tester.pumpAndSettle();
     });
 
     testRoomsWidget('a failed join refreshes the rooms list', (tester) async {
-      final rooms = FakeRooms(joinThrows: true);
+      final launcher = FakeRoomLauncher(joinThrows: true);
+      final liveRooms = FakeLiveRooms();
       final room = fakeAppwriteRoom(id: 'r1');
       await pumpRoomsPage(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
-        overrides: buildOverrides(rooms: rooms),
+        overrides: buildOverrides(launcher: launcher, liveRooms: liveRooms),
       );
       await tester.pump();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Join'));
       await tester.pumpAndSettle();
 
-      expect(rooms.joinCount, 1);
-      expect(rooms.refreshCount, 1);
+      expect(launcher.joinCount, 1);
+      expect(liveRooms.refreshCount, 1);
     });
 
     testRoomsWidget('tapping the share button does not throw', (tester) async {

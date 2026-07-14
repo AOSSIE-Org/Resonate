@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../rooms_notifier.dart';
+part of '../friends.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,43 @@ part of '../rooms_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RoomsNotifier)
-final roomsProvider = RoomsNotifierProvider._();
+@ProviderFor(FriendsNotifier)
+final friendsProvider = FriendsNotifierProvider._();
 
-final class RoomsNotifierProvider
-    extends $AsyncNotifierProvider<RoomsNotifier, RoomsState> {
-  RoomsNotifierProvider._()
+final class FriendsNotifierProvider
+    extends $AsyncNotifierProvider<FriendsNotifier, FriendsState> {
+  FriendsNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'roomsProvider',
+        name: r'friendsProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$roomsNotifierHash();
+  String debugGetCreateSourceHash() => _$friendsNotifierHash();
 
   @$internal
   @override
-  RoomsNotifier create() => RoomsNotifier();
+  FriendsNotifier create() => FriendsNotifier();
 }
 
-String _$roomsNotifierHash() => r'02510587aa770f134ba0779926f2269641c51ff8';
+String _$friendsNotifierHash() => r'c9543f6e01ebabdb6d564ed03ed5d72298e06d60';
 
-abstract class _$RoomsNotifier extends $AsyncNotifier<RoomsState> {
-  FutureOr<RoomsState> build();
+abstract class _$FriendsNotifier extends $AsyncNotifier<FriendsState> {
+  FutureOr<FriendsState> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<RoomsState>, RoomsState>;
+    final ref = this.ref as $Ref<AsyncValue<FriendsState>, FriendsState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<RoomsState>, RoomsState>,
-              AsyncValue<RoomsState>,
+              AnyNotifier<AsyncValue<FriendsState>, FriendsState>,
+              AsyncValue<FriendsState>,
               Object?,
               Object?
             >;

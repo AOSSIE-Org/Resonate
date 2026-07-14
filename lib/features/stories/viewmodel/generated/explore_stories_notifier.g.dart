@@ -13,7 +13,7 @@ part of '../explore_stories_notifier.dart';
 final exploreStoriesProvider = ExploreStoriesProvider._();
 
 final class ExploreStoriesProvider
-    extends $AsyncNotifierProvider<ExploreStories, List<Story>> {
+    extends $NotifierProvider<ExploreStories, ExploreState> {
   ExploreStoriesProvider._()
     : super(
         from: null,
@@ -31,21 +31,29 @@ final class ExploreStoriesProvider
   @$internal
   @override
   ExploreStories create() => ExploreStories();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ExploreState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ExploreState>(value),
+    );
+  }
 }
 
-String _$exploreStoriesHash() => r'52a18b51a00c1aac80c5d3c334966f95e2f8226d';
+String _$exploreStoriesHash() => r'0dd7cf87068b382c5fba3879c7a1a774f4bfcc03';
 
-abstract class _$ExploreStories extends $AsyncNotifier<List<Story>> {
-  FutureOr<List<Story>> build();
+abstract class _$ExploreStories extends $Notifier<ExploreState> {
+  ExploreState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<Story>>, List<Story>>;
+    final ref = this.ref as $Ref<ExploreState, ExploreState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Story>>, List<Story>>,
-              AsyncValue<List<Story>>,
+              AnyNotifier<ExploreState, ExploreState>,
+              ExploreState,
               Object?,
               Object?
             >;

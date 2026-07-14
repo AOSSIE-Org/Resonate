@@ -7,8 +7,6 @@ import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/view/widgets/password_strength_indicator.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
-import 'package:resonate/features/auth/viewmodel/password_strength_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/signup_form_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -42,7 +40,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     _passwordController.clear();
     _confirmPasswordController.clear();
     ref.read(signupFormProvider.notifier).reset();
-    ref.read(passwordStrengthCheckerProvider.notifier).reset();
   }
 
   @override
@@ -50,8 +47,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     final l10n = AppLocalizations.of(context)!;
     final formState = ref.watch(signupFormProvider);
     final authValue = ref.watch(authSessionProvider);
-    final strength = ref.watch(passwordStrengthCheckerProvider);
-    final emailVerifyState = ref.watch(emailVerifyProvider);
+    final strength = formState.strength;
 
     ref.listen<AsyncValue>(authSessionProvider, (prev, next) {
       next.whenOrNull(
@@ -106,9 +102,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         return null;
                       },
                       obscureText: !formState.passwordVisible,
-                      onChanged: (v) => ref
-                          .read(passwordStrengthCheckerProvider.notifier)
-                          .check(v),
+                      onChanged: (v) =>
+                          ref.read(signupFormProvider.notifier).checkPassword(v),
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: InputDecoration(
@@ -201,14 +196,14 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     SizedBox(
                       width: double.maxFinite,
                       child: ElevatedButton(
-                        onPressed: emailVerifyState.signupAllowed &&
+                        onPressed: formState.signupAllowed &&
                                 !authValue.isLoading
                             ? () async {
                                 if (!_formKey.currentState!.validate()) return;
                                 final view = View.of(context);
                                 final router = GoRouter.of(context);
                                 ref
-                                    .read(emailVerifyProvider.notifier)
+                                    .read(signupFormProvider.notifier)
                                     .blockSignup();
                                 await ref.read(signupFormProvider.notifier).signup(
                                       email: _emailController.text,
@@ -228,7 +223,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                                   );
                                 }
                                 ref
-                                    .read(emailVerifyProvider.notifier)
+                                    .read(signupFormProvider.notifier)
                                     .allowSignup();
                               }
                             : null,

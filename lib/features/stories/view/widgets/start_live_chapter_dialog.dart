@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';

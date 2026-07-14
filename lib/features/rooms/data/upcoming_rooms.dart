@@ -1,16 +1,17 @@
 import 'package:get_storage/get_storage.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/upcoming_rooms_notifier.g.dart';
+part 'generated/upcoming_rooms.g.dart';
 
 const String _removedUpcomingRoomsKey = 'removed_upcoming_rooms';
 
+// Data-layer cache + CRUD for the upcoming rooms list
 @Riverpod(keepAlive: true)
 class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
   GetStorage get _storage => ref.read(getStorageBoxProvider);
@@ -89,20 +90,19 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
     }
   }
 
-  // Promotes an upcoming room into a live room via CreateRoomNotifier
+  // Promotes an upcoming room into a live room via the shared data-layer coordinator
   Future<void> convertToLive({
     required String upcomingRoomId,
     required String name,
     required String description,
     required List<String> tags,
   }) async {
-    final created = await ref.read(createRoomProvider.notifier).createLiveRoom(
-      name: name,
-      description: description,
-      tags: tags,
-    );
-    if (created == null) return;
+    await ref.read(roomLauncherProvider).createAndJoinLiveRoom(
+          name: name,
+          description: description,
+          tags: tags,
+        );
     await deleteUpcoming(upcomingRoomId);
-    ref.invalidate(roomsProvider);
+    ref.invalidate(liveRoomsProvider);
   }
 }

@@ -8,8 +8,8 @@ import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -48,10 +48,7 @@ Future<void> pumpFriendsPage(
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   await tester.pumpWidget(
-    ProviderScope(
-      overrides: overrides,
-      child: friendsTestApp(child),
-    ),
+    ProviderScope(overrides: overrides, child: friendsTestApp(child)),
   );
 }
 
@@ -60,7 +57,10 @@ void testFriendsWidget(
   String description,
   Future<void> Function(WidgetTester tester) body,
 ) {
-  testWidgets(description, (tester) => mockNetworkImagesFor(() => body(tester)));
+  testWidgets(
+    description,
+    (tester) => mockNetworkImagesFor(() => body(tester)),
+  );
 }
 
 // Records setIndex calls and skips the real app-links init in build().
@@ -134,8 +134,8 @@ class FakeFriendsNotifier extends FriendsNotifier {
 }
 
 // Records call control invocations; optionally throws or stays pending on start.
-class FakeFriendCallNotifier extends FriendCallNotifier {
-  FakeFriendCallNotifier({
+class FakeFriendCallCoordinator extends FriendCallCoordinator {
+  FakeFriendCallCoordinator({
     this.initial = const FriendCallState(),
     this.startFuture,
     this.throwError = false,

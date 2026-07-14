@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../friend_call_notifier.dart';
+part of '../friend_call_coordinator.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of '../friend_call_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(FriendCallNotifier)
-final friendCallProvider = FriendCallNotifierProvider._();
+@ProviderFor(FriendCallCoordinator)
+final friendCallCoordinatorProvider = FriendCallCoordinatorProvider._();
 
-final class FriendCallNotifierProvider
-    extends $NotifierProvider<FriendCallNotifier, FriendCallState> {
-  FriendCallNotifierProvider._()
+final class FriendCallCoordinatorProvider
+    extends $NotifierProvider<FriendCallCoordinator, FriendCallState> {
+  FriendCallCoordinatorProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'friendCallProvider',
+        name: r'friendCallCoordinatorProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$friendCallNotifierHash();
+  String debugGetCreateSourceHash() => _$friendCallCoordinatorHash();
 
   @$internal
   @override
-  FriendCallNotifier create() => FriendCallNotifier();
+  FriendCallCoordinator create() => FriendCallCoordinator();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(FriendCallState value) {
@@ -41,10 +41,10 @@ final class FriendCallNotifierProvider
   }
 }
 
-String _$friendCallNotifierHash() =>
-    r'e5cf46fe3f4d307d64e32732f82e100cc8b5ed57';
+String _$friendCallCoordinatorHash() =>
+    r'e4730d6574cd27a84e46df146c5178909f0db4e4';
 
-abstract class _$FriendCallNotifier extends $Notifier<FriendCallState> {
+abstract class _$FriendCallCoordinator extends $Notifier<FriendCallState> {
   FriendCallState build();
   @$mustCallSuper
   @override

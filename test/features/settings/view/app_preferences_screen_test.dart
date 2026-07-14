@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:resonate/features/settings/view/pages/app_preferences_screen.dart';
 import 'package:resonate/features/settings/viewmodel/locale_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
+import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 import '../settings_test_helpers.dart';

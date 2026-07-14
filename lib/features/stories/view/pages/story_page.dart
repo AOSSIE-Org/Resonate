@@ -13,7 +13,7 @@ import 'package:resonate/features/stories/view/widgets/chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/like_button.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/start_live_chapter_dialog.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';

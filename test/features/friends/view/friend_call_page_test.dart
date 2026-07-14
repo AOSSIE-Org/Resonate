@@ -5,8 +5,8 @@ import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/view/pages/friend_call_page.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
 import '../friends_test_helpers.dart';
@@ -31,12 +31,12 @@ FriendCallModel _fakeCall({
 
 List<Override> _overrides(
   FriendCallState state, {
-  FakeFriendCallNotifier? notifier,
+  FakeFriendCallCoordinator? notifier,
 }) {
   return [
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
-    friendCallProvider.overrideWith(
-      () => notifier ?? FakeFriendCallNotifier(initial: state),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+    friendCallCoordinatorProvider.overrideWith(
+      () => notifier ?? FakeFriendCallCoordinator(initial: state),
     ),
   ];
 }
@@ -67,7 +67,7 @@ void main() {
     });
 
     testFriendsWidget('mic toggle routes through the notifier', (tester) async {
-      final fake = FakeFriendCallNotifier(
+      final fake = FakeFriendCallCoordinator(
         initial: FriendCallState(activeCall: _fakeCall()),
       );
       await _pump(
@@ -84,7 +84,7 @@ void main() {
     testFriendsWidget('speaker toggle routes through the notifier', (
       tester,
     ) async {
-      final fake = FakeFriendCallNotifier(
+      final fake = FakeFriendCallCoordinator(
         initial: FriendCallState(activeCall: _fakeCall()),
       );
       await _pump(
@@ -99,7 +99,7 @@ void main() {
     });
 
     testFriendsWidget('end button routes through the notifier', (tester) async {
-      final fake = FakeFriendCallNotifier(
+      final fake = FakeFriendCallCoordinator(
         initial: FriendCallState(activeCall: _fakeCall()),
       );
       await _pump(

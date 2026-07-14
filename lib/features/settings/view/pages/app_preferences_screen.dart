@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/features/settings/viewmodel/locale_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
+import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';

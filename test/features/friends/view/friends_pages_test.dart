@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
 import 'package:resonate/features/friends/view/pages/friends_page.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
 import 'package:resonate/features/friends/view/widgets/friends_empty_view.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
+import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 
 import '../friends_test_helpers.dart';

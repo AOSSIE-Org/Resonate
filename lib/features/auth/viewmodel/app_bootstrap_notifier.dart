@@ -6,7 +6,7 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -74,9 +74,9 @@ class AppBootstrap extends _$AppBootstrap {
       final callKit = ref.read(callKitServiceProvider)
         ..start(
           onAccept: (extra) =>
-              ref.read(friendCallProvider.notifier).onAnswerCall(extra),
+              ref.read(friendCallCoordinatorProvider.notifier).onAnswerCall(extra),
           onDecline: (extra) =>
-              ref.read(friendCallProvider.notifier).onDeclinedCall(extra),
+              ref.read(friendCallCoordinatorProvider.notifier).onDeclinedCall(extra),
         );
       ref.onDispose(callKit.stop);
     }

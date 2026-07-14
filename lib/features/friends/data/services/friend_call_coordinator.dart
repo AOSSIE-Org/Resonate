@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -17,11 +17,12 @@ import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/friend_call_notifier.g.dart';
+part 'generated/friend_call_coordinator.g.dart';
 
-// Call transitions arrive from CallKit callbacks and Realtime events 
+// The friend-call and ringing screens observe its FriendCallState;
+// the app bootstrap wires CallKit to it.
 @Riverpod(keepAlive: true)
-class FriendCallNotifier extends _$FriendCallNotifier {
+class FriendCallCoordinator extends _$FriendCallCoordinator {
   StreamSubscription<RealtimeMessage>? _callSub;
 
   @override
@@ -34,8 +35,9 @@ class FriendCallNotifier extends _$FriendCallNotifier {
   Future<void> startCall(FriendsModel friend) async {
     final me = ref.read(requireUserProvider);
     final amSender = friend.senderId == me.uid;
-    final recieverFCMToken =
-        amSender ? friend.recieverFCMToken : friend.senderFCMToken;
+    final recieverFCMToken = amSender
+        ? friend.recieverFCMToken
+        : friend.senderFCMToken;
     if (recieverFCMToken == null) {
       throw const FriendsFailure.unknown('Friend has no notification token');
     }
@@ -44,14 +46,20 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     final call = await repo.createCall(
       callerName: amSender ? friend.senderName : friend.recieverName,
       recieverName: amSender ? friend.recieverName : friend.senderName,
-      callerUsername: amSender ? friend.senderUsername : friend.recieverUsername,
-      recieverUsername: amSender ? friend.recieverUsername : friend.senderUsername,
+      callerUsername: amSender
+          ? friend.senderUsername
+          : friend.recieverUsername,
+      recieverUsername: amSender
+          ? friend.recieverUsername
+          : friend.senderUsername,
       callerUid: amSender ? friend.senderId : friend.recieverId,
       recieverUid: amSender ? friend.recieverId : friend.senderId,
-      callerProfileImageUrl:
-          amSender ? friend.senderProfileImgUrl : friend.recieverProfileImgUrl,
-      recieverProfileImageUrl:
-          amSender ? friend.recieverProfileImgUrl : friend.senderProfileImgUrl,
+      callerProfileImageUrl: amSender
+          ? friend.senderProfileImgUrl
+          : friend.recieverProfileImgUrl,
+      recieverProfileImageUrl: amSender
+          ? friend.recieverProfileImgUrl
+          : friend.senderProfileImgUrl,
       livekitRoomId: friend.docId,
     );
     await repo.sendCallNotification(
@@ -82,7 +90,9 @@ class FriendCallNotifier extends _$FriendCallNotifier {
       isMicOn: false,
       isLoudSpeakerOn: true,
     );
-    _listenToCall(call.docId); // A leftover subscription could watch a previous call.
+    _listenToCall(
+      call.docId,
+    ); // A leftover subscription could watch a previous call.
 
     await _joinCall(roomId: call.livekitRoomId, userId: call.recieverUid);
   }
@@ -115,7 +125,9 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     final next = !state.isMicOn;
     state = state.copyWith(isMicOn: next);
     try {
-      await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(next);
+      await ref
+          .read(liveKitControllerProvider.notifier)
+          .setMicrophoneEnabled(next);
     } catch (e) {
       log('Mic toggle failed: $e');
     }
@@ -125,23 +137,30 @@ class FriendCallNotifier extends _$FriendCallNotifier {
     final next = !state.isLoudSpeakerOn;
     state = state.copyWith(isLoudSpeakerOn: next);
     try {
-      await ref.read(liveKitProvider.notifier).setSpeakerphoneOn(next);
+      await ref
+          .read(liveKitControllerProvider.notifier)
+          .setSpeakerphoneOn(next);
     } catch (e) {
       log('Speaker toggle failed: $e');
     }
   }
 
-  Future<void> _joinCall({required String roomId, required String userId}) async {
+  Future<void> _joinCall({
+    required String roomId,
+    required String userId,
+  }) async {
     try {
       final joinInfo = await ref
           .read(friendCallRepositoryProvider)
           .callJoinInfo(roomId: roomId, userId: userId);
-      final connected = await ref.read(liveKitProvider.notifier).connect(
-        liveKitUri: joinInfo.liveKitUri,
-        roomToken: joinInfo.roomToken,
-      );
+      final connected = await ref
+          .read(liveKitControllerProvider.notifier)
+          .connect(
+            liveKitUri: joinInfo.liveKitUri,
+            roomToken: joinInfo.roomToken,
+          );
       if (state.activeCall?.callStatus != FriendCallStatus.connected) {
-        await ref.read(liveKitProvider.notifier).disconnect();
+        await ref.read(liveKitControllerProvider.notifier).disconnect();
         return;
       }
       if (!connected) throw Exception('LiveKit connection failed');
@@ -161,33 +180,33 @@ class FriendCallNotifier extends _$FriendCallNotifier {
         .read(friendCallRepositoryProvider)
         .callStream(callDocId)
         .listen((event) async {
-      if (!event.events.first.endsWith('.update')) return;
-      final call = state.activeCall;
-      if (call == null) return;
-      final status = event.payload['callStatus'];
-      if (status == FriendCallStatus.connected.name &&
-          call.callStatus != FriendCallStatus.connected) {
-        state = state.copyWith(
-          activeCall: call.copyWith(callStatus: FriendCallStatus.connected),
-        );
-        await _joinCall(roomId: call.livekitRoomId, userId: call.callerUid);
-      } else if (status == FriendCallStatus.ended.name &&
-          call.callStatus != FriendCallStatus.ended) {
-        state = state.copyWith(
-          activeCall: call.copyWith(callStatus: FriendCallStatus.ended),
-        );
-        await _teardownCall();
-        ref.read(routerProvider).go(RoutePaths.tabview);
-      } else if (status == FriendCallStatus.declined.name &&
-          call.callStatus != FriendCallStatus.declined) {
-        state = state.copyWith(
-          activeCall: call.copyWith(callStatus: FriendCallStatus.declined),
-        );
-        _notifyDeclined(call.recieverName);
-        await _teardownCall();
-        ref.read(routerProvider).go(RoutePaths.tabview);
-      }
-    });
+          if (!event.events.first.endsWith('.update')) return;
+          final call = state.activeCall;
+          if (call == null) return;
+          final status = event.payload['callStatus'];
+          if (status == FriendCallStatus.connected.name &&
+              call.callStatus != FriendCallStatus.connected) {
+            state = state.copyWith(
+              activeCall: call.copyWith(callStatus: FriendCallStatus.connected),
+            );
+            await _joinCall(roomId: call.livekitRoomId, userId: call.callerUid);
+          } else if (status == FriendCallStatus.ended.name &&
+              call.callStatus != FriendCallStatus.ended) {
+            state = state.copyWith(
+              activeCall: call.copyWith(callStatus: FriendCallStatus.ended),
+            );
+            await _teardownCall();
+            ref.read(routerProvider).go(RoutePaths.tabview);
+          } else if (status == FriendCallStatus.declined.name &&
+              call.callStatus != FriendCallStatus.declined) {
+            state = state.copyWith(
+              activeCall: call.copyWith(callStatus: FriendCallStatus.declined),
+            );
+            _notifyDeclined(call.recieverName);
+            await _teardownCall();
+            ref.read(routerProvider).go(RoutePaths.tabview);
+          }
+        });
   }
 
   void _notifyDeclined(String recieverName) {
@@ -213,7 +232,7 @@ class FriendCallNotifier extends _$FriendCallNotifier {
   Future<void> _teardownCall() async {
     await _cancelSub();
     try {
-      await ref.read(liveKitProvider.notifier).disconnect();
+      await ref.read(liveKitControllerProvider.notifier).disconnect();
     } catch (e) {
       log('teardownCall: disconnect failed: $e');
     }

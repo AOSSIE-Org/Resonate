@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/user_report_model.dart';

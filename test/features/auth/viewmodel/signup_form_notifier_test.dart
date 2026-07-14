@@ -46,5 +46,18 @@ void main() {
       expect(state.passwordVisible, false);
       expect(state.confirmPasswordVisible, false);
     });
+
+    // Submit guard, folded in from emailVerify so signup watches only this VM.
+    test('blockSignup / allowSignup toggle signupAllowed', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      final notifier = container.read(signupFormProvider.notifier);
+
+      expect(container.read(signupFormProvider).signupAllowed, true);
+      notifier.blockSignup();
+      expect(container.read(signupFormProvider).signupAllowed, false);
+      notifier.allowSignup();
+      expect(container.read(signupFormProvider).signupAllowed, true);
+    });
   });
 }

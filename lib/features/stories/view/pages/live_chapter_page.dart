@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_header.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -177,7 +177,7 @@ class _LeaveButton extends ConsumerWidget {
         if (!confirmed) return;
 
         if (isAdmin) {
-          if (ref.read(liveKitProvider).isRecording) {
+          if (ref.read(liveKitControllerProvider).isRecording) {
             final lyrics = await notifier.endLiveChapter();
             // Replace (not push): the live chapter is ended/disconnected, so it
             // must leave the back stack — otherwise backing out of verify (via
@@ -228,7 +228,7 @@ class _RecordButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final isRecording = ref.watch(liveKitProvider).isRecording;
+    final isRecording = ref.watch(liveKitControllerProvider).isRecording;
     return FloatingActionButton(
       heroTag: null,
       onPressed: () {

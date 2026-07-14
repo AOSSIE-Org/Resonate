@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -15,11 +15,45 @@ import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
-class EmailVerificationPage extends ConsumerWidget {
+class EmailVerificationPage extends ConsumerStatefulWidget {
   const EmailVerificationPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EmailVerificationPage> createState() =>
+      _EmailVerificationPageState();
+}
+
+class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _sendInitialOtp());
+  }
+
+  Future<void> _sendInitialOtp() async {
+    if (!mounted) return;
+    final email = ref.read(currentUserProvider)?.email ?? '';
+    if (email.isEmpty) return;
+    final l10n = AppLocalizations.of(context)!;
+    final view = View.of(context);
+    try {
+      final result =
+          await ref.read(emailVerifyProvider.notifier).sendOtp(email: email);
+      if (!result.sent && mounted) {
+        ref.read(emailVerifyProvider.notifier).allowResend();
+        customSnackbar(l10n.oops, result.responseBody, LogType.error);
+        SemanticsService.sendAnnouncement(
+            view, result.responseBody, TextDirection.ltr);
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ref.read(emailVerifyProvider.notifier).allowResend();
+      customSnackbar(l10n.oops, e.toString(), LogType.error);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final auth = ref.watch(authSessionProvider);
     final verifyState = ref.watch(emailVerifyProvider);
@@ -86,7 +120,7 @@ class EmailVerificationPage extends ConsumerWidget {
                 enabledBorderColor: Colors.transparent,
                 focusedBorderColor: Theme.of(context).colorScheme.primary,
                 onSubmit: (code) =>
-                    _handleSubmit(context, ref, code, email, l10n),
+                    _handleSubmit(context, code, email, l10n),
               ),
               SizedBox(height: UiSizes.height_60),
               if (verifyState.canResend)
@@ -169,7 +203,6 @@ class EmailVerificationPage extends ConsumerWidget {
 
   Future<void> _handleSubmit(
     BuildContext context,
-    WidgetRef ref,
     String code,
     String email,
     AppLocalizations l10n,

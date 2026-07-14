@@ -42,7 +42,7 @@ final class CreateRoomNotifierProvider
 }
 
 String _$createRoomNotifierHash() =>
-    r'ad1609ec9d98485b0762fb23936ec7315553c2e3';
+    r'7111745f5b5d4e4858c636c4b479136f0f7a7ab9';
 
 abstract class _$CreateRoomNotifier extends $Notifier<bool> {
   bool build();

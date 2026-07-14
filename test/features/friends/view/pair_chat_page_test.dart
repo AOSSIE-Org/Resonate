@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pair_chat_page.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 
 import '../friends_test_helpers.dart';
@@ -35,7 +35,7 @@ List<Override> buildOverrides({
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     userProfileImagePlaceholderUrlProvider.overrideWithValue(_placeholder),
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
     pairChatProvider.overrideWith(() => chat),
   ];
 }

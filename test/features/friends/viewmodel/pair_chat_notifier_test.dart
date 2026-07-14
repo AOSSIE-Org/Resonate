@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -174,7 +174,7 @@ void main() {
       expect(state.activePairDocId, 'pair-doc-1');
       expect(state.pairUsername, 'PartnerUser');
       expect(state.pairProfileImageUrl, 'https://example.com/p.jpg');
-      expect(container.read(liveKitProvider).isConnected, isTrue);
+      expect(container.read(liveKitControllerProvider).isConnected, isTrue);
     });
 
     test('an active pair for other users is ignored', () async {
@@ -187,7 +187,7 @@ void main() {
       await pumpEventQueue();
 
       expect(container.read(pairChatProvider).activePairDocId, isNull);
-      expect(container.read(liveKitProvider).isConnected, isFalse);
+      expect(container.read(liveKitControllerProvider).isConnected, isFalse);
     });
 
     test('a partner profile fetch failure still joins the chat', () async {
@@ -205,7 +205,7 @@ void main() {
       final state = container.read(pairChatProvider);
       expect(state.activePairDocId, 'pair-doc-1');
       expect(state.pairProfileImageUrl, isNull);
-      expect(container.read(liveKitProvider).isConnected, isTrue);
+      expect(container.read(liveKitControllerProvider).isConnected, isTrue);
     });
 
     test('remote deletion of the active pair ends the chat', () async {
@@ -238,7 +238,7 @@ void main() {
 
       final state = container.read(pairChatProvider);
       expect(state.ended, isTrue);
-      expect(container.read(liveKitProvider).isConnected, isFalse);
+      expect(container.read(liveKitControllerProvider).isConnected, isFalse);
     });
 
     test('loadUsers populates the online list and skips malformed rows',

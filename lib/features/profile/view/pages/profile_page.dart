@@ -5,12 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
-import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
 import 'package:resonate/features/friends/view/pages/friends_page.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
+import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -24,7 +23,6 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/features/profile/view/pages/followers_screen.dart';
-import 'package:resonate/shared/widgets/loading_dialog.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
@@ -265,10 +263,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       margin: EdgeInsets.only(top: UiSizes.height_10),
       width: double.maxFinite,
       child: OutlinedButton(
-        onPressed: () {
-          loadingDialog(context);
-          ref.read(emailVerifyProvider.notifier).sendOtp(email: authUser.email);
-        },
+        onPressed: () => context.push(RoutePaths.emailVerification),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

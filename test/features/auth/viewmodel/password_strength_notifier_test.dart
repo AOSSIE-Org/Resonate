@@ -1,30 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/password_strength.dart';
-import 'package:resonate/features/auth/viewmodel/password_strength_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/signup_form_notifier.dart';
 
 void main() {
-  group('PasswordStrengthChecker (notifier)', () {
+  // Password strength is folded into SignupForm (it was a standalone provider
+  // so the signup view had to watch two view models — the mentor's
+  // one-view-one-view-model rule). These exercise it through SignupForm now.
+  group('SignupForm password strength', () {
     test('initial state is empty', () {
       final container = ProviderContainer();
       addTearDown(container.dispose);
-      expect(container.read(passwordStrengthCheckerProvider).score, 0);
+      expect(container.read(signupFormProvider).strength.score, 0);
     });
 
-    test('check("") returns empty strength', () {
+    test('checkPassword("") returns empty strength', () {
       final container = ProviderContainer();
       addTearDown(container.dispose);
-      container.read(passwordStrengthCheckerProvider.notifier).check('');
-      expect(container.read(passwordStrengthCheckerProvider).score, 0);
+      container.read(signupFormProvider.notifier).checkPassword('');
+      expect(container.read(signupFormProvider).strength.score, 0);
     });
 
-    test('check("Abcd1234!") scores 5 (all criteria met)', () {
+    test('checkPassword("Abcd1234!") scores 5 (all criteria met)', () {
       final container = ProviderContainer();
       addTearDown(container.dispose);
-      container
-          .read(passwordStrengthCheckerProvider.notifier)
-          .check('Abcd1234!');
-      final s = container.read(passwordStrengthCheckerProvider);
+      container.read(signupFormProvider.notifier).checkPassword('Abcd1234!');
+      final s = container.read(signupFormProvider).strength;
       expect(s.hasMinLength, true);
       expect(s.hasUppercase, true);
       expect(s.hasLowercase, true);
@@ -33,14 +34,14 @@ void main() {
       expect(s.score, 5);
     });
 
-    test('reset returns to empty', () {
+    test('reset returns strength to empty', () {
       final container = ProviderContainer();
       addTearDown(container.dispose);
-      final n = container.read(passwordStrengthCheckerProvider.notifier);
-      n.check('Abcd1234!');
-      expect(container.read(passwordStrengthCheckerProvider).score, 5);
+      final n = container.read(signupFormProvider.notifier);
+      n.checkPassword('Abcd1234!');
+      expect(container.read(signupFormProvider).strength.score, 5);
       n.reset();
-      expect(container.read(passwordStrengthCheckerProvider).score, 0);
+      expect(container.read(signupFormProvider).strength.score, 0);
     });
   });
 

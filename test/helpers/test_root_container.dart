@@ -21,7 +21,7 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
@@ -323,7 +323,7 @@ class FakeGetStorage implements GetStorage {
   );
 }
 
-class FakeLiveKitNotifier extends LiveKitNotifier {
+class FakeLiveKitController extends LiveKitController {
   @override
   LiveKitState build() => const LiveKitState();
 
@@ -509,7 +509,7 @@ Future<ProviderContainer> installTestRootContainer({
         authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
-      liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+      liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
       callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
       if (account != null) appwriteAccountProvider.overrideWithValue(account),
       if (tables != null) appwriteTablesProvider.overrideWithValue(tables),

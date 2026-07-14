@@ -2,20 +2,21 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
-import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
+import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/live_chapter_notifier.g.dart';
+part 'generated/live_chapter_coordinator.g.dart';
 
+// Data-layer coordinator for a live audio-chapter session
 @Riverpod(keepAlive: true)
 class LiveChapter extends _$LiveChapter {
   StreamSubscription<RealtimeMessage>? _attendeesSub;
@@ -39,7 +40,7 @@ class LiveChapter extends _$LiveChapter {
     required String chapterDescription,
     required String storyId,
     required String storyName,
-    String? roomId, // injectable for tests; minted here so views never touch the SDK
+    String? roomId, // injectable for tests, minted here so views never touch the SDK
   }) async {
     roomId ??= ID.unique();
     final user = ref.read(requireUserProvider);
@@ -67,7 +68,7 @@ class LiveChapter extends _$LiveChapter {
       adminUid: user.uid,
     );
     final connected = await ref
-        .read(liveKitProvider.notifier)
+        .read(liveKitControllerProvider.notifier)
         .connect(
           liveKitUri: join.liveKitUri,
           roomToken: join.roomToken,
@@ -123,7 +124,7 @@ class LiveChapter extends _$LiveChapter {
       userId: user.uid,
     );
     final connected = await ref
-        .read(liveKitProvider.notifier)
+        .read(liveKitControllerProvider.notifier)
         .connect(
           liveKitUri: join.liveKitUri,
           roomToken: join.roomToken,
@@ -154,7 +155,7 @@ class LiveChapter extends _$LiveChapter {
         } else if (eventName.endsWith('.delete')) {
           if (!isAdmin) {
             await _attendeesSub?.cancel();
-            await ref.read(liveKitProvider.notifier).disconnect();
+            await ref.read(liveKitControllerProvider.notifier).disconnect();
             if (!ref.mounted) return;
             ref.read(routerProvider).go(RoutePaths.tabview);
             state = const LiveChapterState();
@@ -167,17 +168,17 @@ class LiveChapter extends _$LiveChapter {
   }
 
   Future<void> turnOnMic() async {
-    await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(true);
+    await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(true);
     state = state.copyWith(isMicOn: true);
   }
 
   Future<void> turnOffMic() async {
-    await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(false);
+    await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(false);
     state = state.copyWith(isMicOn: false);
   }
 
   Future<void> setRecording(bool recording) =>
-      ref.read(liveKitProvider.notifier).setRecording(recording);
+      ref.read(liveKitControllerProvider.notifier).setRecording(recording);
 
   Future<void> leaveRoom() async {
     final model = state.model;
@@ -198,7 +199,7 @@ class LiveChapter extends _$LiveChapter {
           .read(liveChapterRepositoryProvider)
           .updateAttendees(model.id, updated);
     }
-    await ref.read(liveKitProvider.notifier).disconnect();
+    await ref.read(liveKitControllerProvider.notifier).disconnect();
     state = const LiveChapterState();
     ref.read(routerProvider).go(RoutePaths.tabview);
   }
@@ -208,7 +209,7 @@ class LiveChapter extends _$LiveChapter {
     if (model == null) return '';
     final repo = ref.read(liveChapterRepositoryProvider);
 
-    await ref.read(liveKitProvider.notifier).setRecording(false);
+    await ref.read(liveKitControllerProvider.notifier).setRecording(false);
     
     try {
       await repo.deleteLiveChapterDocs(model.id);
@@ -231,7 +232,7 @@ class LiveChapter extends _$LiveChapter {
     }
     await _attendeesSub?.cancel();
     try {
-      await ref.read(liveKitProvider.notifier).disconnect();
+      await ref.read(liveKitControllerProvider.notifier).disconnect();
     } catch (e) {
       log('endLiveChapter: disconnect failed: $e');
     }

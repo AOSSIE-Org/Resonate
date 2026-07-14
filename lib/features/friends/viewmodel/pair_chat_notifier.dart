@@ -3,10 +3,10 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/models/resonate_user.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -141,7 +141,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     final next = !state.isMicOn;
     state = state.copyWith(isMicOn: next);
     try {
-      await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(next);
+      await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(next);
     } catch (e) {
       log('Mic toggle failed: $e');
     }
@@ -151,7 +151,7 @@ class PairChatNotifier extends _$PairChatNotifier {
     final next = !state.isLoudSpeakerOn;
     state = state.copyWith(isLoudSpeakerOn: next);
     try {
-      await ref.read(liveKitProvider.notifier).setSpeakerphoneOn(next);
+      await ref.read(liveKitControllerProvider.notifier).setSpeakerphoneOn(next);
     } catch (e) {
       log('Speaker toggle failed: $e');
     }
@@ -172,7 +172,7 @@ class PairChatNotifier extends _$PairChatNotifier {
         log('Deleting active pair failed: $e');
       }
     }
-    await ref.read(liveKitProvider.notifier).disconnect();
+    await ref.read(liveKitControllerProvider.notifier).disconnect();
   }
 
   Future<void> submitRating() async {
@@ -247,12 +247,12 @@ class PairChatNotifier extends _$PairChatNotifier {
       );
       if (_activePairSub == null || state.ended) return;
 
-      final connected = await ref.read(liveKitProvider.notifier).connect(
+      final connected = await ref.read(liveKitControllerProvider.notifier).connect(
         liveKitUri: joinInfo.liveKitUri,
         roomToken: joinInfo.roomToken,
       );
       if (_activePairSub == null || state.ended) {
-        await ref.read(liveKitProvider.notifier).disconnect();
+        await ref.read(liveKitControllerProvider.notifier).disconnect();
         return;
       }
       if (!connected) throw Exception('LiveKit connection failed');

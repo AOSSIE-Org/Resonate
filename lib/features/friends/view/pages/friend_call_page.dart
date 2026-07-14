@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/rooms/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -13,8 +13,8 @@ class FriendCallPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final callState = ref.watch(friendCallProvider);
-    final notifier = ref.read(friendCallProvider.notifier);
+    final callState = ref.watch(friendCallCoordinatorProvider);
+    final notifier = ref.read(friendCallCoordinatorProvider.notifier);
     final call = callState.activeCall;
     if (call == null) return const Scaffold(body: SizedBox.shrink());
 

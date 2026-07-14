@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../friends_notifier.dart';
+part of '../live_rooms.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,43 +9,44 @@ part of '../friends_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(FriendsNotifier)
-final friendsProvider = FriendsNotifierProvider._();
+@ProviderFor(LiveRooms)
+final liveRoomsProvider = LiveRoomsProvider._();
 
-final class FriendsNotifierProvider
-    extends $AsyncNotifierProvider<FriendsNotifier, FriendsState> {
-  FriendsNotifierProvider._()
+final class LiveRoomsProvider
+    extends $AsyncNotifierProvider<LiveRooms, List<AppwriteRoom>> {
+  LiveRoomsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'friendsProvider',
+        name: r'liveRoomsProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$friendsNotifierHash();
+  String debugGetCreateSourceHash() => _$liveRoomsHash();
 
   @$internal
   @override
-  FriendsNotifier create() => FriendsNotifier();
+  LiveRooms create() => LiveRooms();
 }
 
-String _$friendsNotifierHash() => r'c9543f6e01ebabdb6d564ed03ed5d72298e06d60';
+String _$liveRoomsHash() => r'8a4dacfaa8ab74cb5d99c4901cde4f4154cbb528';
 
-abstract class _$FriendsNotifier extends $AsyncNotifier<FriendsState> {
-  FutureOr<FriendsState> build();
+abstract class _$LiveRooms extends $AsyncNotifier<List<AppwriteRoom>> {
+  FutureOr<List<AppwriteRoom>> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<FriendsState>, FriendsState>;
+    final ref =
+        this.ref as $Ref<AsyncValue<List<AppwriteRoom>>, List<AppwriteRoom>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<FriendsState>, FriendsState>,
-              AsyncValue<FriendsState>,
+              AnyNotifier<AsyncValue<List<AppwriteRoom>>, List<AppwriteRoom>>,
+              AsyncValue<List<AppwriteRoom>>,
               Object?,
               Object?
             >;

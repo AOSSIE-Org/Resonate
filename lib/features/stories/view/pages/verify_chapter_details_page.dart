@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';

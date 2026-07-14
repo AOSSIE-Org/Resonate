@@ -2,14 +2,15 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/friends_notifier.g.dart';
+part 'generated/friends.g.dart';
 
+// Data-layer cache of the user's friends + incoming requests
 @Riverpod(keepAlive: true)
 class FriendsNotifier extends _$FriendsNotifier {
   StreamSubscription<RealtimeMessage>? _friendsSub;

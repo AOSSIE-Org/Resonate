@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/model/rooms_state.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/features/rooms/view/widgets/no_room_view.dart';
 import 'package:resonate/features/rooms/view/widgets/search_rooms.dart';
 import 'package:resonate/features/rooms/view/widgets/upcoming_room_tile.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -25,16 +25,17 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool _showSearchOverlay = false;
+  String _liveQuery = '';
   String _upcomingQuery = '';
 
   Future<void> _pullToRefresh() async {
     await ref.read(upcomingRoomsProvider.notifier).refresh();
-    await ref.read(roomsProvider.notifier).refresh();
+    await ref.read(liveRoomsProvider.notifier).refresh();
   }
 
   @override
   Widget build(BuildContext context) {
-    final roomsAsync = ref.watch(roomsProvider);
+    final roomsAsync = ref.watch(liveRoomsProvider);
     final upcomingAsync = ref.watch(upcomingRoomsProvider);
 
     return Scaffold(
@@ -52,9 +53,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       setState(() {
                         isLiveSelected = selectedTab;
                         _showSearchOverlay = false;
+                        _liveQuery = '';
                         _upcomingQuery = '';
                       });
-                      ref.read(roomsProvider.notifier).clearLiveSearch();
                     },
                     onSearchTapped: () =>
                         setState(() => _showSearchOverlay = true),
@@ -66,8 +67,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: isLiveSelected
                           ? _LiveRoomsListView(
                               loading: roomsAsync.isLoading,
-                              state: roomsAsync.value,
-                              error: roomsAsync.hasError ? roomsAsync.error : null,
+                              rooms: roomsAsync.value,
+                              error:
+                                  roomsAsync.hasError ? roomsAsync.error : null,
+                              query: _liveQuery,
                             )
                           : _UpcomingRoomsListView(
                               loading: upcomingAsync.isLoading,
@@ -82,18 +85,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SearchOverlay(
               isVisible: _showSearchOverlay,
               onSearchChanged: (query) {
-                if (isLiveSelected) {
-                  ref.read(roomsProvider.notifier).searchLiveRooms(query);
-                } else {
-                  setState(() => _upcomingQuery = query);
-                }
+                setState(() {
+                  if (isLiveSelected) {
+                    _liveQuery = query;
+                  } else {
+                    _upcomingQuery = query;
+                  }
+                });
               },
               onClose: () {
                 setState(() {
                   _showSearchOverlay = false;
+                  _liveQuery = '';
                   _upcomingQuery = '';
                 });
-                ref.read(roomsProvider.notifier).clearLiveSearch();
               },
               isSearching: false,
             ),
@@ -172,16 +177,27 @@ class CustomAppBarLiveRoom extends StatelessWidget {
 class _LiveRoomsListView extends StatelessWidget {
   const _LiveRoomsListView({
     required this.loading,
-    required this.state,
+    required this.rooms,
     required this.error,
+    required this.query,
   });
   final bool loading;
-  final RoomsState? state;
+  final List<AppwriteRoom>? rooms;
   final Object? error;
+  final String query;
+
+  List<AppwriteRoom> _filtered(List<AppwriteRoom> source) {
+    if (query.isEmpty) return source;
+    final lower = query.toLowerCase();
+    return source.where((r) {
+      return r.name.toLowerCase().contains(lower) ||
+          r.description.toLowerCase().contains(lower);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (loading && state == null) {
+    if (loading && rooms == null) {
       return Center(
         child: LoadingAnimationWidget.fourRotatingDots(
           color: Theme.of(context).colorScheme.primary,
@@ -189,11 +205,10 @@ class _LiveRoomsListView extends StatelessWidget {
         ),
       );
     }
-    if (state is! RoomsStateReady) {
+    if (rooms == null || error != null) {
       return const NoRoomView(isRoom: true);
     }
-    final ready = state as RoomsStateReady;
-    final roomsToShow = ready.searchBarIsEmpty ? ready.rooms : ready.filteredRooms;
+    final roomsToShow = _filtered(rooms!);
 
     if (roomsToShow.isNotEmpty) {
       return ListView.builder(
@@ -207,7 +222,7 @@ class _LiveRoomsListView extends StatelessWidget {
         },
       );
     }
-    return ready.searchBarIsEmpty
+    return query.isEmpty
         ? const NoRoomView(isRoom: true)
         : _NoSearchResults();
   }

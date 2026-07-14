@@ -7,7 +7,7 @@ import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_blo
 import 'package:resonate/features/stories/view/widgets/live_chapter_header.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/start_live_chapter_dialog.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 
 import 'stories_test_helpers.dart';
 

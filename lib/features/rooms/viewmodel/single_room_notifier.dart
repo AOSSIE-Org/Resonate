@@ -3,13 +3,13 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/single_room_notifier.g.dart';
@@ -128,7 +128,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
               if (removedUid == current.me.uid) {
                 // kicked
                 await _disposeStream();
-                await ref.read(liveKitProvider.notifier).disconnect();
+                await ref.read(liveKitControllerProvider.notifier).disconnect();
                 if (!ref.mounted) return;
                 final latest = state.value;
                 if (latest != null) {
@@ -183,7 +183,7 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       );
     }
     try {
-      await ref.read(liveKitProvider.notifier).setMicrophoneEnabled(enabled);
+      await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(enabled);
     } catch (_) {}
     final docId = appwriteRoom.myDocId;
     if (docId == null) return;
@@ -292,11 +292,11 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       log('leaveRoom: repo.leaveRoom failed: $e');
     }
     try {
-      await ref.read(liveKitProvider.notifier).disconnect();
+      await ref.read(liveKitControllerProvider.notifier).disconnect();
     } catch (e) {
       log('leaveRoom: disconnect failed: $e');
     }
-    ref.invalidate(roomsProvider);
+    ref.invalidate(liveRoomsProvider);
   }
 
   Future<void> deleteRoom(AppwriteRoom appwriteRoom) async {
@@ -314,10 +314,10 @@ class SingleRoomNotifier extends _$SingleRoomNotifier {
       log('deleteRoom: repo.deleteRoom failed: $e');
     }
     try {
-      await ref.read(liveKitProvider.notifier).disconnect();
+      await ref.read(liveKitControllerProvider.notifier).disconnect();
     } catch (e) {
       log('deleteRoom: disconnect failed: $e');
     }
-    ref.invalidate(roomsProvider);
+    ref.invalidate(liveRoomsProvider);
   }
 }

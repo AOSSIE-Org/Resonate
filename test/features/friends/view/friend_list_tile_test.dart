@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friends.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 
 import '../friends_test_helpers.dart';
 
@@ -15,14 +15,14 @@ import '../friends_test_helpers.dart';
 List<Override> buildOverrides({
   required String uid,
   FakeFriendsNotifier? friends,
-  FakeFriendCallNotifier? calls,
+  FakeFriendCallCoordinator? calls,
 }) {
   return [
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
     friendsProvider.overrideWith(() => friends ?? FakeFriendsNotifier()),
-    friendCallProvider.overrideWith(() => calls ?? FakeFriendCallNotifier()),
+    friendCallCoordinatorProvider.overrideWith(() => calls ?? FakeFriendCallCoordinator()),
   ];
 }
 
@@ -148,7 +148,7 @@ void main() {
 
     testFriendsWidget('tapping call calls startCall', (tester) async {
       final model = fakeFriendsModel(senderId: 'other', docId: 'call-1');
-      final calls = FakeFriendCallNotifier();
+      final calls = FakeFriendCallCoordinator();
       await pumpFriendsPage(
         tester,
         FriendListTile(friendModel: model, isRequest: false),
@@ -167,7 +167,7 @@ void main() {
       tester,
     ) async {
       final model = fakeFriendsModel(senderId: 'other');
-      final calls = FakeFriendCallNotifier(throwError: true);
+      final calls = FakeFriendCallCoordinator(throwError: true);
       await pumpFriendsPage(
         tester,
         FriendListTile(friendModel: model, isRequest: false),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../upcoming_rooms_notifier.dart';
+part of '../upcoming_rooms.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -38,7 +38,7 @@ final class UpcomingRoomsNotifierProvider
 }
 
 String _$upcomingRoomsNotifierHash() =>
-    r'a23bc76dd70315b4ac7cc788ad96179f5d1ee30c';
+    r'3878025a8bfaa63d6af6bff5e41a61457597925b';
 
 abstract class _$UpcomingRoomsNotifier
     extends $AsyncNotifier<List<AppwriteUpcomingRoom>> {

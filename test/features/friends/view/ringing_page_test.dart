@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/view/pages/ringing_page.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
 import '../friends_test_helpers.dart';
@@ -26,13 +26,13 @@ FriendCallModel fakeCall({
   docId: 'call-1',
 );
 
-List<Override> overridesWith(FriendCallState state, FakeFriendCallNotifier fake) {
-  return [friendCallProvider.overrideWith(() => fake)];
+List<Override> overridesWith(FriendCallState state, FakeFriendCallCoordinator fake) {
+  return [friendCallCoordinatorProvider.overrideWith(() => fake)];
 }
 
 void main() {
   testFriendsWidget('activeCall null renders SizedBox.shrink', (tester) async {
-    final fake = FakeFriendCallNotifier();
+    final fake = FakeFriendCallCoordinator();
     await pumpFriendsPage(
       tester,
       const RingingPage(),
@@ -50,7 +50,7 @@ void main() {
     tester,
   ) async {
     final state = FriendCallState(activeCall: fakeCall());
-    final fake = FakeFriendCallNotifier(initial: state);
+    final fake = FakeFriendCallCoordinator(initial: state);
     await pumpFriendsPage(
       tester,
       const RingingPage(),

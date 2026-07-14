@@ -26,6 +26,19 @@ Row _storyRow({String id = 's1', String creatorId = 'creator-1'}) => buildRow(
       },
     );
 
+Row _userRow({String id = 'u1'}) => buildRow(
+      id: id,
+      tableId: usersTableID,
+      databaseId: userDatabaseID,
+      data: {
+        'name': 'Alice',
+        'username': 'alice',
+        'profileImageUrl': 'https://example.com/u.jpg',
+        'ratingCount': 1,
+        'ratingTotal': 4,
+      },
+    );
+
 void main() {
   late MockTablesDB tables;
   late MockStorage storage;
@@ -44,37 +57,71 @@ void main() {
         functions: functions,
       );
 
-  test('build returns recommended stories from the repository', () async {
-    when(tables.listRows(
-      databaseId: storyDatabaseId,
-      tableId: storyTableId,
-      queries: anyNamed('queries'),
-    )).thenAnswer((_) async =>
-        RowList(total: 2, rows: [_storyRow(id: 's1'), _storyRow(id: 's2')]));
+  // Search was folded into ExploreStories (mentor's request), so this one VM
+  // owns both the recommended list and the search results.
+  group('ExploreStories', () {
+    test('recommended loads stories from the repository', () async {
+      when(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async =>
+          RowList(total: 2, rows: [_storyRow(id: 's1'), _storyRow(id: 's2')]));
 
-    final container = await install();
-    final stories = await container.read(exploreStoriesProvider.future);
+      final container = await install();
+      // build() kicks off the load; refresh awaits it deterministically.
+      await container.read(exploreStoriesProvider.notifier).refresh();
 
-    expect(stories, hasLength(2));
-    expect(stories.first.storyId, 's1');
-  });
-
-  test('refresh re-invokes the repository load', () async {
-    var count = 0;
-    when(tables.listRows(
-      databaseId: storyDatabaseId,
-      tableId: storyTableId,
-      queries: anyNamed('queries'),
-    )).thenAnswer((_) async {
-      count++;
-      return RowList(total: 0, rows: []);
+      final recommended = container.read(exploreStoriesProvider).recommended;
+      expect(recommended.value, hasLength(2));
+      expect(recommended.value!.first.storyId, 's1');
     });
 
-    final container = await install();
-    await container.read(exploreStoriesProvider.future);
-    expect(count, 1);
+    test('search populates the search results with stories and users',
+        () async {
+      when(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 1, rows: [_storyRow()]));
+      when(tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 1, rows: [_userRow()]));
 
-    await container.read(exploreStoriesProvider.notifier).refresh();
-    expect(count, 2);
+      final container = await install();
+      await container.read(exploreStoriesProvider.notifier).search('adv');
+
+      final results = container.read(exploreStoriesProvider).searchResults;
+      expect(results.stories, hasLength(1));
+      expect(results.users, hasLength(1));
+      expect(results.users.first.userName, 'alice');
+    });
+
+    test('clearSearch resets the search results', () async {
+      when(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 1, rows: [_storyRow()]));
+      when(tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+
+      final container = await install();
+      await container.read(exploreStoriesProvider.notifier).search('adv');
+      expect(
+        container.read(exploreStoriesProvider).searchResults.stories,
+        isNotEmpty,
+      );
+
+      container.read(exploreStoriesProvider.notifier).clearSearch();
+      final results = container.read(exploreStoriesProvider).searchResults;
+      expect(results.stories, isEmpty);
+      expect(results.users, isEmpty);
+    });
   });
 }

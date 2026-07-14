@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../livekit_notifier.dart';
+part of '../livekit_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of '../livekit_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(LiveKitNotifier)
-final liveKitProvider = LiveKitNotifierProvider._();
+@ProviderFor(LiveKitController)
+final liveKitControllerProvider = LiveKitControllerProvider._();
 
-final class LiveKitNotifierProvider
-    extends $NotifierProvider<LiveKitNotifier, LiveKitState> {
-  LiveKitNotifierProvider._()
+final class LiveKitControllerProvider
+    extends $NotifierProvider<LiveKitController, LiveKitState> {
+  LiveKitControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'liveKitProvider',
+        name: r'liveKitControllerProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$liveKitNotifierHash();
+  String debugGetCreateSourceHash() => _$liveKitControllerHash();
 
   @$internal
   @override
-  LiveKitNotifier create() => LiveKitNotifier();
+  LiveKitController create() => LiveKitController();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(LiveKitState value) {
@@ -41,9 +41,9 @@ final class LiveKitNotifierProvider
   }
 }
 
-String _$liveKitNotifierHash() => r'0c8b830088adc5d0ff525844c58276eac300f897';
+String _$liveKitControllerHash() => r'f4664d2a1cbdc334c8f04726e3fa73e92669d10c';
 
-abstract class _$LiveKitNotifier extends $Notifier<LiveKitState> {
+abstract class _$LiveKitController extends $Notifier<LiveKitState> {
   LiveKitState build();
   @$mustCallSuper
   @override

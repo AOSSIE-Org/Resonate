@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/rooms/view/widgets/upcoming_room_tile.dart';
-import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 
 import '../rooms_test_helpers.dart';

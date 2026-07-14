@@ -5,10 +5,11 @@ import 'package:resonate/features/rooms/data/services/livekit_session.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/livekit_notifier.g.dart';
+part 'generated/livekit_controller.g.dart';
 
+// Data-layer controller for the app's single live audio session.
 @Riverpod(keepAlive: true)
-class LiveKitNotifier extends _$LiveKitNotifier {
+class LiveKitController extends _$LiveKitController {
   LiveKitSession? _session;
   StreamSubscription<bool>? _connectionSub;
   StreamSubscription<RoomEvent>? _eventsSub;

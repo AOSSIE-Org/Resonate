@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -21,8 +21,22 @@ Future<void> showPairChatDialog(BuildContext context) {
   );
 }
 
-class PairChatDialog extends ConsumerWidget {
+class PairChatDialog extends ConsumerStatefulWidget {
   const PairChatDialog({super.key});
+
+  @override
+  ConsumerState<PairChatDialog> createState() => _PairChatDialogState();
+}
+
+class _PairChatDialogState extends ConsumerState<PairChatDialog> {
+  @override
+  void initState() {
+    super.initState();
+    // Reset any stale pairing state when the dialog opens.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.read(pairChatProvider.notifier).reset();
+    });
+  }
 
   Future<void> _startFlow(
     BuildContext context, {
@@ -42,7 +56,7 @@ class PairChatDialog extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final isAnonymous =
         ref.watch(pairChatProvider.select((s) => s.isAnonymous));
     final notifier = ref.read(pairChatProvider.notifier);

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/view/pages/signup_page.dart';
-import 'package:resonate/features/auth/viewmodel/password_strength_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/signup_form_notifier.dart';
 
 import '../auth_test_helpers.dart';
 
@@ -45,18 +45,18 @@ void main() {
     expect(repo.signupCount, 0);
   });
 
-  testWidgets('typing in the password field updates the strength provider',
+  testWidgets('typing in the password field updates the signup strength state',
       (tester) async {
     await pumpAuthPage(tester, const SignupPage());
     final container =
         ProviderScope.containerOf(tester.element(find.byType(SignupPage)));
 
-    expect(container.read(passwordStrengthCheckerProvider).score, 0);
+    expect(container.read(signupFormProvider).strength.score, 0);
 
     await tester.enterText(find.byType(TextFormField).at(1), 'Abcdef1!');
     await tester.pumpAndSettle();
 
-    final strength = container.read(passwordStrengthCheckerProvider);
+    final strength = container.read(signupFormProvider).strength;
     expect(strength.score, 5);
     expect(strength.meetsFormRequirements, true);
   });

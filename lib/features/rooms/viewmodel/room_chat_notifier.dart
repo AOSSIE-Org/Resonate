@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart' show ID;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_chat_repository.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_chat_state.dart';
@@ -52,8 +52,7 @@ class RoomChatNotifier extends _$RoomChatNotifier {
       if (current == null) return;
 
       if (event.action == 'create') {
-        // Dedupe: if this messageId was optimistically inserted by us,
-        // replace it in place rather than appending a duplicate.
+        // if this messageId was optimistically inserted, replace it rather than appending a duplicate.
         final existingIndex = current.messages.indexWhere(
           (m) => m.messageId == event.message.messageId,
         );

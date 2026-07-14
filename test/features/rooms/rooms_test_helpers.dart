@@ -10,14 +10,14 @@ import 'package:resonate/features/rooms/model/audio_device_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/room_chat_state.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
-import 'package:resonate/features/rooms/model/rooms_state.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/viewmodel/audio_device_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/rooms/model/audio_device.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -139,17 +139,26 @@ class FakeSingleRoom extends SingleRoomNotifier {
   Future<void> deleteRoom(AppwriteRoom room) async => deleteRoomCount++;
 }
 
-// Fake RoomsNotifier: records joinRoom/refresh and can make joinRoom throw.
-class FakeRooms extends RoomsNotifier {
-  FakeRooms({this.joinThrows = false});
+// Fake data-layer live-rooms cache: serves an optional list, records refreshes.
+class FakeLiveRooms extends LiveRooms {
+  FakeLiveRooms({this.rooms = const []});
+  final List<AppwriteRoom> rooms;
+  int refreshCount = 0;
+
+  @override
+  Future<List<AppwriteRoom>> build() async => rooms;
+
+  @override
+  Future<void> refresh() async => refreshCount++;
+}
+
+// Fake RoomLauncher: records joinRoom and can make it throw.
+class FakeRoomLauncher implements RoomLauncher {
+  FakeRoomLauncher({this.joinThrows = false});
   final bool joinThrows;
 
   int joinCount = 0;
-  int refreshCount = 0;
   AppwriteRoom? lastJoined;
-
-  @override
-  Future<RoomsState> build() async => const RoomsState.ready();
 
   @override
   Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
@@ -160,7 +169,12 @@ class FakeRooms extends RoomsNotifier {
   }
 
   @override
-  Future<void> refresh() async => refreshCount++;
+  Future<AppwriteRoom> createAndJoinLiveRoom({
+    required String name,
+    required String description,
+    required List<String> tags,
+  }) =>
+      throw UnimplementedError();
 }
 
 // Fake UpcomingRoomsNotifier: build() returns empty, records every action.

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/stories/viewmodel/whisper_model_notifier.dart';
+import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 import '../../../helpers/test_root_container.dart';

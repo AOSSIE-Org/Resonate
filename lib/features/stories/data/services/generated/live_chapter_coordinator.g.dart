@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../live_chapter_notifier.dart';
+part of '../live_chapter_coordinator.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -41,7 +41,7 @@ final class LiveChapterProvider
   }
 }
 
-String _$liveChapterHash() => r'd4b27d1e8667accefe0e88c5517e00b9d1782c53';
+String _$liveChapterHash() => r'b276ce2cf3a23556fc93ab4bcf33989397318b1e';
 
 abstract class _$LiveChapter extends $Notifier<LiveChapterState> {
   LiveChapterState build();

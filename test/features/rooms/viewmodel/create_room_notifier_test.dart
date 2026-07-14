@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/upcoming_rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';

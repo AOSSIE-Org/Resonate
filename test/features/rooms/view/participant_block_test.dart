@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
 
 import '../rooms_test_helpers.dart';
@@ -18,7 +18,7 @@ List<Override> _overrides(
   return [
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
     if (!errorState)
       singleRoomProvider(room).overrideWith(() => FakeSingleRoom(state))
     else

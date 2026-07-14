@@ -194,7 +194,7 @@ void main() {
       expect(repo.loadCount, loadsBefore + 1);
     });
 
-    test('allowResend / blockSignup / allowSignup mutate flags', () {
+    test('allowResend flips canResend', () {
       final container = ProviderContainer(
         overrides: [authRepositoryProvider.overrideWithValue(_FakeRepo())],
       );
@@ -204,12 +204,6 @@ void main() {
       expect(container.read(emailVerifyProvider).canResend, false);
       notifier.allowResend();
       expect(container.read(emailVerifyProvider).canResend, true);
-
-      expect(container.read(emailVerifyProvider).signupAllowed, true);
-      notifier.blockSignup();
-      expect(container.read(emailVerifyProvider).signupAllowed, false);
-      notifier.allowSignup();
-      expect(container.read(emailVerifyProvider).signupAllowed, true);
     });
   });
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -13,7 +13,7 @@ class RingingPage extends ConsumerWidget {
     final theme = Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
     final onPrimaryColor = theme.colorScheme.onPrimary;
-    final call = ref.watch(friendCallProvider).activeCall;
+    final call = ref.watch(friendCallCoordinatorProvider).activeCall;
     if (call == null) return const Scaffold(body: SizedBox.shrink());
 
     return Scaffold(
@@ -114,7 +114,7 @@ class RingingPage extends ConsumerWidget {
           ),
           SizedBox(height: UiSizes.height_15),
           ElevatedButton(
-            onPressed: () => ref.read(friendCallProvider.notifier).endCall(),
+            onPressed: () => ref.read(friendCallCoordinatorProvider.notifier).endCall(),
             style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
             child: Text(
               AppLocalizations.of(context)!.cancel,

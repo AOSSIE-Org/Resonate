@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
-import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
 import 'package:resonate/features/rooms/view/pages/create_room_page.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/shell/view/pages/home_screen.dart';
@@ -111,22 +109,10 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
                       middleText: AppLocalizations.of(
                         context,
                       )!.emailVerificationMessage,
-                      onFirstBtnPressed: () async {
-                        final navigator = Navigator.of(
-                          context,
-                          rootNavigator: true,
-                        );
+                      onFirstBtnPressed: () {
                         final router = GoRouter.of(context);
                         Navigator.of(context).pop();
-                        AppUtils.showBlurredLoaderDialog(context);
-                        final result = await ref
-                            .read(emailVerifyProvider.notifier)
-                            .sendOtp(email: user.email);
-                        navigator.pop();
-
-                        if (result.sent) {
-                          router.push(RoutePaths.emailVerification);
-                        }
+                        router.push(RoutePaths.emailVerification);
                       },
                       onSecondBtnPressed: () => Navigator.of(context).pop(),
                       firstBtnText: AppLocalizations.of(context)!.verify,
@@ -140,10 +126,7 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
                   ),
                   label: AppLocalizations.of(context)!.pairChat,
                   labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                  onTap: () async {
-                    await ref.read(pairChatProvider.notifier).reset();
-                    if (context.mounted) showPairChatDialog(context);
-                  },
+                  onTap: () => showPairChatDialog(context),
                 ),
               ],
             )

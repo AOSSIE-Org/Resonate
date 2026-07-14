@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
-import 'package:resonate/features/rooms/viewmodel/rooms_notifier.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
@@ -33,14 +34,14 @@ class CustomLiveRoomTile extends ConsumerWidget {
 
     try {
       final joined =
-          await ref.read(roomsProvider.notifier).joinRoom(appwriteRoom);
+          await ref.read(roomLauncherProvider).joinRoom(appwriteRoom);
       closeDialog();
       if (context.mounted) {
         await openRoomSheet(context, joined);
       }
     } catch (_) {
       closeDialog();
-      await ref.read(roomsProvider.notifier).refresh();
+      await ref.read(liveRoomsProvider.notifier).refresh();
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocalizations.of(context)!.error)),

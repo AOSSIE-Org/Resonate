@@ -5,13 +5,14 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/stories/model/chapter_player_state.dart';
+import 'package:resonate/features/stories/model/explore_state.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/chapter_player_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/live_chapter_notifier.dart';
+import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -68,7 +69,15 @@ class FakeExploreStories extends ExploreStories {
   FakeExploreStories(this._future);
   final Future<List<Story>> _future;
   @override
-  Future<List<Story>> build() => _future;
+  ExploreState build() {
+    // Mirror the real build: load the recommended list into state.recommended.
+    _future.then((stories) {
+      if (ref.mounted) {
+        state = state.copyWith(recommended: AsyncData(stories));
+      }
+    });
+    return const ExploreState();
+  }
 }
 
 class FakeCategoryStories extends CategoryStories {

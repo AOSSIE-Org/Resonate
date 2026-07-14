@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/viewmodel/friend_call_notifier.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
+import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -115,7 +115,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
                     final l10n = AppLocalizations.of(context)!;
                     try {
                       await ref
-                          .read(friendCallProvider.notifier)
+                          .read(friendCallCoordinatorProvider.notifier)
                           .startCall(friendModel);
                     } catch (e) {
                       customSnackbar(l10n.error, e.toString(), LogType.error);

@@ -7,7 +7,6 @@ import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/story_card.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
 import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/story_search_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
@@ -34,11 +33,11 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
       if (value.isNotEmpty) _isSearching = true;
     });
     if (value.isEmpty) {
-      ref.read(storySearchProvider.notifier).clear();
+      ref.read(exploreStoriesProvider.notifier).clearSearch();
       return;
     }
     _debouncer.run(() async {
-      await ref.read(storySearchProvider.notifier).search(value);
+      await ref.read(exploreStoriesProvider.notifier).search(value);
       if (mounted) setState(() => _isSearching = false);
     });
   }
@@ -119,7 +118,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
       );
     }
 
-    final results = ref.watch(storySearchProvider);
+    final results = ref.watch(exploreStoriesProvider).searchResults;
     if (results.stories.isEmpty && results.users.isEmpty) {
       return const NoMatchView();
     }
@@ -149,7 +148,7 @@ class _ExploreContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final storiesAsync = ref.watch(exploreStoriesProvider);
+    final storiesAsync = ref.watch(exploreStoriesProvider).recommended;
 
     final sectionHeader = Theme.of(context).textTheme.bodyLarge!.copyWith(
       color: colorScheme.onSurface,

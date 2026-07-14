@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
 import 'package:resonate/features/friends/view/widgets/friends_empty_view.dart';
-import 'package:resonate/features/friends/viewmodel/friends_notifier.dart';
+import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 class FriendsPage extends ConsumerWidget {

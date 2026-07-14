@@ -41,7 +41,7 @@ final class EmailVerifyProvider
   }
 }
 
-String _$emailVerifyHash() => r'4dd59fd6f142eb7935acce3a3331912de6bd09fb';
+String _$emailVerifyHash() => r'3605d9fe43f08789a5931d41e50483fe724be5e3';
 
 abstract class _$EmailVerify extends $Notifier<EmailVerifyState> {
   EmailVerifyState build();

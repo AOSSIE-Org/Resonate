@@ -41,7 +41,7 @@ final class SignupFormProvider
   }
 }
 
-String _$signupFormHash() => r'a1eb5c2ba66ab5a2cc9bbeab6f9b63fdd1f3ab71';
+String _$signupFormHash() => r'25bb0304e03610100fb38ad2efc353f64c336df7';
 
 abstract class _$SignupForm extends $Notifier<SignupFormState> {
   SignupFormState build();

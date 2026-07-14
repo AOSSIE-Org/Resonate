@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/models/follower_user_model.dart';

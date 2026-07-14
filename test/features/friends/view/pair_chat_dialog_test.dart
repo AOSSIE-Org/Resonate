@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:language_picker/languages.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
 import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
+import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -65,7 +65,7 @@ List<Override> _overrides(
       fakeAuthUser(uid: 'me', displayName: displayName),
     ),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-    liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
+    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
     pairChatProvider.overrideWith(() => fake),
   ];
 }
