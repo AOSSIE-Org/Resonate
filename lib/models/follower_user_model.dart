@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:resonate/models/resonate_user.dart';
 
-part 'follower_user_model.freezed.dart';
-part 'follower_user_model.g.dart';
+part 'generated/follower_user_model.freezed.dart';
+part 'generated/follower_user_model.g.dart';
 
 @freezed
 abstract class FollowerUserModel with _$FollowerUserModel {

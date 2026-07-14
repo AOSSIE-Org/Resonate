@@ -2,9 +2,6 @@
 
 // Appwrite Project Constants
 
-import 'package:get/get.dart';
-import 'package:whisper_flutter_new/whisper_flutter_new.dart';
-
 const String baseDomain = String.fromEnvironment(
   'APPWRITE_BASE_DOMAIN',
   defaultValue: '10.12.78.30',
@@ -107,4 +104,3 @@ const String playStoreUrl =
 const String userInvalidCredentials = 'user_invalid_credentials';
 const String generalArgumentInvalid = 'general_argument_invalid';
 String languageLocale = "en";
-final Rx<WhisperModel> currentWhisperModel = WhisperModel.base.obs;

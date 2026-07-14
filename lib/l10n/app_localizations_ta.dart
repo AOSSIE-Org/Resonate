@@ -740,6 +740,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get submit => 'சமர்ப்பிக்கவும்';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'அடையாளமற்ற';
 
   @override
@@ -1283,6 +1286,31 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get failedToRemoveRoom => 'அறையை நீக்க முடியவில்லை';
+
+  @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
 
   @override
   String get roomRemovedSuccessfully =>

@@ -730,6 +730,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get submit => 'सादर करा';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'अनामिक';
 
   @override
@@ -1268,6 +1271,31 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get failedToRemoveRoom => 'कक्ष काढून टाकण्यात अयशस्वी';
+
+  @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
 
   @override
   String get roomRemovedSuccessfully =>

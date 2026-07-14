@@ -1,0 +1,249 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:resonate/utils/utils.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/enums/log_type.dart';
+import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+
+class EmailVerificationPage extends ConsumerStatefulWidget {
+  const EmailVerificationPage({super.key});
+
+  @override
+  ConsumerState<EmailVerificationPage> createState() =>
+      _EmailVerificationPageState();
+}
+
+class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _sendInitialOtp());
+  }
+
+  Future<void> _sendInitialOtp() async {
+    if (!mounted) return;
+    final email = ref.read(currentUserProvider)?.email ?? '';
+    if (email.isEmpty) return;
+    final l10n = AppLocalizations.of(context)!;
+    final view = View.of(context);
+    try {
+      final result =
+          await ref.read(emailVerifyProvider.notifier).sendOtp(email: email);
+      if (!result.sent && mounted) {
+        ref.read(emailVerifyProvider.notifier).allowResend();
+        final message =
+            result.responseBody.isEmpty ? l10n.tryAgain : result.responseBody;
+        customSnackbar(l10n.oops, message, LogType.error);
+        SemanticsService.sendAnnouncement(view, message, TextDirection.ltr);
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ref.read(emailVerifyProvider.notifier).allowResend();
+      customSnackbar(l10n.oops, e.toString(), LogType.error);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final auth = ref.watch(authSessionProvider);
+    final verifyState = ref.watch(emailVerifyProvider);
+    final email = auth.value?.userOrNull?.email ?? '';
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: UiSizes.width_20,
+          vertical: UiSizes.height_20,
+        ),
+        width: double.maxFinite,
+        child: Form(
+          child: Column(
+            children: [
+              SizedBox(height: UiSizes.height_10),
+              MergeSemantics(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        l10n.enterVerificationCode,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    SizedBox(height: UiSizes.height_20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                          children: [
+                            TextSpan(text: l10n.verificationCodeSent),
+                            TextSpan(
+                              text: email,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: UiSizes.height_60),
+              OtpTextField(
+                autoFocus: true,
+                numberOfFields: 6,
+                showFieldAsBox: true,
+                keyboardType: TextInputType.number,
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.secondary,
+                borderWidth: 1,
+                contentPadding: EdgeInsets.zero,
+                borderColor: Colors.transparent,
+                enabledBorderColor: Colors.transparent,
+                focusedBorderColor: Theme.of(context).colorScheme.primary,
+                onSubmit: (code) =>
+                    _handleSubmit(context, code, email, l10n),
+              ),
+              SizedBox(height: UiSizes.height_60),
+              if (verifyState.canResend)
+                GestureDetector(
+                  onTap: () async {
+                    final view = View.of(context);
+                    try {
+                      final result = await ref
+                          .read(emailVerifyProvider.notifier)
+                          .sendOtp(email: email);
+                      if (result.sent) {
+                        customSnackbar(l10n.otpResent, l10n.otpResentMessage,
+                            LogType.info);
+                        SemanticsService.sendAnnouncement(view,
+                            l10n.otpResentMessage, TextDirection.ltr);
+                      } else {
+                        final message = result.responseBody.isEmpty
+                            ? l10n.tryAgain
+                            : result.responseBody;
+                        customSnackbar(l10n.oops, message, LogType.error);
+                      }
+                    } catch (e) {
+                      customSnackbar(l10n.oops, e.toString(), LogType.error);
+                    }
+                  },
+                  child: Text(
+                    l10n.requestNewCode,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              else
+                MergeSemantics(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        l10n.requestNewCodeIn,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: UiSizes.width_10,
+                        ),
+                        child: CircularCountDownTimer(
+                          textStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
+                          isTimerTextShown: true,
+                          isReverse: true,
+                          onComplete: () => ref
+                              .read(emailVerifyProvider.notifier)
+                              .allowResend(),
+                          width: UiSizes.size_30,
+                          height: UiSizes.size_30,
+                          duration: 30,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          fillColor: Theme.of(context).colorScheme.primary,
+                          ringColor: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      ),
+                      Text(
+                        l10n.seconds,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _handleSubmit(
+    BuildContext context,
+    String code,
+    String email,
+    AppLocalizations l10n,
+  ) async {
+    final view = View.of(context);
+    final router = GoRouter.of(context);
+
+    AppUtils.showBlurredLoaderDialog(context);
+    final notifier = ref.read(emailVerifyProvider.notifier);
+    final uid = ref.read(currentUserProvider)?.uid;
+
+    try {
+      await notifier.verifyOtp(email: email, userOtp: code);
+      final status = await notifier.checkVerificationStatus();
+      if (status != 'true') {
+        router.pop();
+        customSnackbar(l10n.verificationFailed, l10n.otpMismatch, LogType.error);
+        SemanticsService.sendAnnouncement(
+            view, l10n.otpMismatch, TextDirection.ltr);
+        return;
+      }
+
+      if (uid != null) {
+        await notifier.markVerified(uid: uid);
+      }
+      router.pop();
+      customSnackbar(
+        l10n.verificationComplete,
+        l10n.verificationCompleteMessage,
+        LogType.success,
+      );
+      SemanticsService.sendAnnouncement(
+          view, l10n.verificationCompleteMessage, TextDirection.ltr);
+      router.go(RoutePaths.tabview);
+    } catch (e) {
+      router.pop();
+      customSnackbar(l10n.oops, e.toString(), LogType.error);
+      SemanticsService.sendAnnouncement(view, e.toString(), TextDirection.ltr);
+    }
+  }
+}

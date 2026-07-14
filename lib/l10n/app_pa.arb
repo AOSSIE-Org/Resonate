@@ -952,6 +952,10 @@
   "@submit": {
     "description": "Button text to submit."
   },
+  "rateYourExperience": "ਆਪਣੇ ਅਨੁਭਵ ਨੂੰ ਰੇਟ ਕਰੋ",
+  "@rateYourExperience": {
+    "description": "Title prompting the user to rate their pair chat experience."
+  },
   "anonymous": "ਅਗਿਆਤ",
   "@anonymous": {
     "description": "Label for anonymous user."
@@ -1670,6 +1674,38 @@
   "@failedToRemoveRoom": {
     "description": "Message when failed to remove room."
   },
+  "failedToCreateRoom": "ਰੂਮ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ",
+  "@failedToCreateRoom": {
+    "description": "Message when failed to create room."
+  },
+  "roomChat": "ਰੂਮ ਚੈਟ",
+  "@roomChat": {
+    "description": "Title of the in-room chat screen"
+  },
+  "failedToResend": "ਮੁੜ ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ",
+  "@failedToResend": {
+    "description": "Snackbar shown when retrying a failed chat message fails again"
+  },
+  "edited": " (ਸੰਪਾਦਿਤ)",
+  "@edited": {
+    "description": "Inline suffix appended to an edited chat message"
+  },
+  "failedToSendTapRetry": "ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਲਈ ਸੁਨੇਹੇ ਉੱਤੇ ਟੈਪ ਕਰੋ।",
+  "@failedToSendTapRetry": {
+    "description": "Snackbar shown when a chat message fails to send"
+  },
+  "saySomething": "ਕੁਝ ਕਹੋ",
+  "@saySomething": {
+    "description": "Hint text in the chat message input field"
+  },
+  "tapToRetry": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਲਈ ਟੈਪ ਕਰੋ",
+  "@tapToRetry": {
+    "description": "Tooltip on the retry affordance of a failed chat message"
+  },
+  "retry": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+  "@retry": {
+    "description": "Label of the retry action on a failed chat message"
+  },
   "roomRemovedSuccessfully": "ਰੂਮ ਸਫਲਤਾਪੂਰਵਕ ਹਟਾਇਆ ਗਿਆ",
   "@roomRemovedSuccessfully": {
     "description": "Message when room is removed successfully."
@@ -1821,4 +1857,4 @@
   "@usernameAlreadyTaken": {
     "description": "Error message when username is already taken."
   }
-}
+}
