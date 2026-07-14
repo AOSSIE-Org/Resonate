@@ -2,7 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
   NotificationService({required void Function(String payload) onTapPayload})
-      : _onTapPayload = onTapPayload;
+    : _onTapPayload = onTapPayload;
 
   final void Function(String payload) _onTapPayload;
 
@@ -10,9 +10,9 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   static const _androidChannel = AndroidNotificationDetails(
-    'resonate_default_channel',
-    'Resonate Notifications',
-    channelDescription: 'General notifications from Resonate',
+    'Channel_ID',
+    'Main Channel',
+    channelDescription: 'Local notifications for Resonate',
     importance: Importance.max,
     priority: Priority.high,
   );

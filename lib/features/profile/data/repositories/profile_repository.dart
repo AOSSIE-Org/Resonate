@@ -273,7 +273,10 @@ class ProfileRepository {
   }
 
   Future<void> markProfileComplete() async {
-    await _account.updatePrefs(prefs: {'isUserProfileComplete': true});
+    final existing = await _account.getPrefs();
+    await _account.updatePrefs(
+      prefs: {...existing.data, 'isUserProfileComplete': true},
+    );
   }
 
   // Change email
