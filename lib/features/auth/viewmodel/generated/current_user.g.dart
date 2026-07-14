@@ -48,7 +48,7 @@ final class CurrentUserProvider
   }
 }
 
-String _$currentUserHash() => r'c6c9da8f2296ec9bc3a477f5fcc553a052c2504a';
+String _$currentUserHash() => r'7541611ec610281a8619a4ddafbe766b47d28b87';
 
 @ProviderFor(requireUser)
 final requireUserProvider = RequireUserProvider._();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -35,7 +35,7 @@ Widget profileAvatar(BuildContext context) {
               bottom: 0,
               child: Consumer(
                 builder: (context, ref, _) {
-                  final user = ref.watch(authProvider).value?.userOrNull;
+                  final user = ref.watch(currentUserProvider);
                   final url = user?.profileImageUrl;
                   final placeholderUrl =
                       ref.watch(userProfileImagePlaceholderUrlProvider);

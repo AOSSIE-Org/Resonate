@@ -1,6 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -139,6 +140,8 @@ void main() {
     });
   });
 
+  // login() never throws: failures are mapped to typed AuthFailures and land
+  // in repo.sessionState as the error of an AsyncError.
   group('login error mapping', () {
     test('userInvalidCredentials → AuthFailure.invalidCredentials', () async {
       when(
@@ -148,10 +151,9 @@ void main() {
         ),
       ).thenThrow(AppwriteException('bad', 401, userInvalidCredentials));
 
-      expect(
-        () => repo.login(email: 'a@b.c', password: 'pw'),
-        throwsA(isA<AuthFailureInvalidCredentials>()),
-      );
+      await repo.login(email: 'a@b.c', password: 'pw');
+
+      expect(repo.sessionState.error, isA<AuthFailureInvalidCredentials>());
     });
 
     test(
@@ -171,10 +173,9 @@ void main() {
           ),
         );
 
-        expect(
-          () => repo.login(email: 'a@b.c', password: 'short'),
-          throwsA(isA<AuthFailurePasswordTooShort>()),
-        );
+        await repo.login(email: 'a@b.c', password: 'short');
+
+        expect(repo.sessionState.error, isA<AuthFailurePasswordTooShort>());
       },
     );
 
@@ -195,10 +196,9 @@ void main() {
           ),
         );
 
-        expect(
-          () => repo.login(email: 'bad-email', password: 'pw'),
-          throwsA(isA<AuthFailureUnknown>()),
-        );
+        await repo.login(email: 'bad-email', password: 'pw');
+
+        expect(repo.sessionState.error, isA<AuthFailureUnknown>());
       },
     );
 
@@ -210,10 +210,9 @@ void main() {
         ),
       ).thenThrow(AppwriteException('exists', 409, 'user_already_exists'));
 
-      expect(
-        () => repo.login(email: 'a@b.c', password: 'pw'),
-        throwsA(isA<AuthFailureUserAlreadyExists>()),
-      );
+      await repo.login(email: 'a@b.c', password: 'pw');
+
+      expect(repo.sessionState.error, isA<AuthFailureUserAlreadyExists>());
     });
 
     test('unknown Appwrite type → AuthFailure.unknown', () async {
@@ -224,21 +223,106 @@ void main() {
         ),
       ).thenThrow(AppwriteException('weird', 500, 'something_else'));
 
-      expect(
-        () => repo.login(email: 'a@b.c', password: 'pw'),
-        throwsA(isA<AuthFailureUnknown>()),
-      );
+      await repo.login(email: 'a@b.c', password: 'pw');
+
+      expect(repo.sessionState.error, isA<AuthFailureUnknown>());
     });
   });
 
   group('logout', () {
-    test('calls deleteSession on current session', () async {
+    test('calls deleteSession and flips the session to unauthenticated',
+        () async {
       when(account.deleteSession(sessionId: 'current'))
           .thenAnswer((_) async {});
 
       await repo.logout();
 
       verify(account.deleteSession(sessionId: 'current')).called(1);
+      expect(repo.sessionState.value, isA<AuthStateUnauthenticated>());
+    });
+  });
+
+  group('session state', () {
+    test('starts loading; ensureSessionLoaded loads once and is idempotent',
+        () async {
+      when(account.get()).thenThrow(Exception('no session'));
+
+      expect(repo.sessionState.isLoading, true);
+
+      final first = await repo.ensureSessionLoaded();
+      final second = await repo.ensureSessionLoaded();
+
+      expect(first, isA<AuthStateUnauthenticated>());
+      expect(second, isA<AuthStateUnauthenticated>());
+      expect(repo.sessionState.value, isA<AuthStateUnauthenticated>());
+      verify(account.get()).called(1);
+    });
+
+    test('login success reloads the user into sessionState and emits '
+        'loading → data on the stream', () async {
+      when(messaging.getToken()).thenAnswer((_) async => null);
+      when(account.createEmailPasswordSession(email: 'a@b.c', password: 'pw'))
+          .thenAnswer((_) async => Session(
+                $id: 'sess',
+                $createdAt: DateTime.now().toIso8601String(),
+                $updatedAt: DateTime.now().toIso8601String(),
+                userId: '123',
+                expire: DateTime.now()
+                    .add(const Duration(days: 30))
+                    .toIso8601String(),
+                provider: 'email',
+                providerUid: 'a@b.c',
+                providerAccessToken: '',
+                providerAccessTokenExpiry: '',
+                providerRefreshToken: '',
+                ip: '',
+                osCode: '',
+                osName: '',
+                osVersion: '',
+                clientType: '',
+                clientCode: '',
+                clientName: '',
+                clientVersion: '',
+                clientEngine: '',
+                clientEngineVersion: '',
+                deviceName: '',
+                deviceBrand: '',
+                deviceModel: '',
+                countryCode: '',
+                countryName: '',
+                current: true,
+                factors: const [],
+                secret: '',
+                mfaUpdatedAt: '',
+              ));
+      when(account.get()).thenAnswer((_) async => buildUser());
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: '123',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => buildUserRow());
+
+      final emitted = <AsyncValue<AuthState>>[];
+      final sub = repo.sessionStateChanges.listen(emitted.add);
+      addTearDown(sub.cancel);
+
+      await repo.login(email: 'a@b.c', password: 'pw');
+
+      expect(repo.sessionState.value, isA<AuthStateAuthenticated>());
+      expect(emitted.first.isLoading, true);
+      expect(emitted.last.value, isA<AuthStateAuthenticated>());
+    });
+
+    test('refresh reloads the current user into sessionState', () async {
+      when(account.get()).thenThrow(Exception('no session'));
+
+      await repo.refresh();
+
+      expect(repo.sessionState.value, isA<AuthStateUnauthenticated>());
+      verify(account.get()).called(1);
     });
   });
 

@@ -48,4 +48,48 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'5c19ac618e51000750f29fecb7ee2340d8133681';
+String _$authRepositoryHash() => r'808a0339953ced6d61e663e4598b1d4226a116b0';
+
+@ProviderFor(AuthSession)
+final authSessionProvider = AuthSessionProvider._();
+
+final class AuthSessionProvider
+    extends $AsyncNotifierProvider<AuthSession, AuthState> {
+  AuthSessionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authSessionProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$authSessionHash();
+
+  @$internal
+  @override
+  AuthSession create() => AuthSession();
+}
+
+String _$authSessionHash() => r'b12437135940036e49387280a36809e5d30911d1';
+
+abstract class _$AuthSession extends $AsyncNotifier<AuthState> {
+  FutureOr<AuthState> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<AuthState>, AuthState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<AuthState>, AuthState>,
+              AsyncValue<AuthState>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

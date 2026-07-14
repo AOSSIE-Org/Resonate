@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/viewmodel/app_bootstrap_notifier.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
@@ -50,7 +50,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
 
     AuthState authState;
     try {
-      authState = await ref.read(authProvider.future);
+      authState = await ref.read(authSessionProvider.future);
     } catch (_) {
       authState = const AuthState.unauthenticated();
     }

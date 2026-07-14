@@ -1,4 +1,5 @@
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -28,7 +29,7 @@ class Onboarding extends _$Onboarding {
     required String dob,
     required String fallbackImageUrl,
   }) async {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     if (user == null) return const OnboardingResult(OnboardingStatus.error);
 
     final repo = ref.read(profileRepositoryProvider);
@@ -67,7 +68,7 @@ class Onboarding extends _$Onboarding {
         profileImageID: imageId,
       );
       await repo.markProfileComplete();
-      await ref.read(authProvider.notifier).refresh();
+      await ref.read(authRepositoryProvider).refresh();
       return OnboardingResult.success;
     } catch (e) {
       if (e.toString().contains('Invalid `documentId` param')) {

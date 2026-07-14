@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/viewmodel/delete_account_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -11,7 +11,7 @@ class DeleteAccountPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final username = ref.watch(authProvider).value?.userOrNull?.userName ?? '';
+    final username = ref.watch(currentUserProvider)?.userName ?? '';
     final isButtonActive = ref.watch(deleteAccountProvider);
 
     return Scaffold(

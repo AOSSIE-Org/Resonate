@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
@@ -18,7 +17,7 @@ class FriendsNotifier extends _$FriendsNotifier {
   @override
   Future<FriendsState> build() async {
     ref.onDispose(_cancelSub);
-    final uid = ref.watch(authProvider).value?.userOrNull?.uid;
+    final uid = ref.watch(currentUserProvider)?.uid;
     if (uid == null) return const FriendsState();
 
     final repo = ref.watch(friendsRepositoryProvider);

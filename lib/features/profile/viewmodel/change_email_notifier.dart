@@ -1,4 +1,5 @@
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,7 +18,7 @@ class ChangeEmail extends _$ChangeEmail {
     required String email,
     required String password,
   }) async {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     if (user == null) return ChangeEmailStatus.failed;
 
     final repo = ref.read(profileRepositoryProvider);
@@ -44,7 +45,7 @@ class ChangeEmail extends _$ChangeEmail {
         username: user.userName ?? '',
         email: email,
       );
-      await ref.read(authProvider.notifier).refresh();
+      await ref.read(authRepositoryProvider).refresh();
 
       return ChangeEmailStatus.success;
     } catch (_) {

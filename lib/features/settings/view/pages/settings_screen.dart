@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/settings/viewmodel/settings_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -123,7 +123,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       onPressed: () async {
                         Navigator.of(dialogContext).pop();
-                        await ref.read(authProvider.notifier).logout();
+                        await ref.read(settingsProvider.notifier).logout();
                         ref.read(routerProvider).go(RoutePaths.welcome);
                       },
                       child: Text(l10n.yes),

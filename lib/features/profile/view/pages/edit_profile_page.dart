@@ -10,7 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/model/edit_profile_state.dart';
 import 'package:resonate/features/profile/viewmodel/edit_profile_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -39,7 +39,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   @override
   void initState() {
     super.initState();
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     _nameController.text = (user?.displayName ?? '').trim();
     _usernameController.text = (user?.userName ?? '').trim();
   }
@@ -304,7 +304,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(editProfileProvider);
-    final user = ref.watch(authProvider).value?.userOrNull;
+    final user = ref.watch(currentUserProvider);
 
     return PopScope(
       canPop: !(state.isLoading || _hasUnsavedChanges()),

@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
@@ -48,7 +48,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final authUser = ref.watch(authProvider).value?.userOrNull;
+    final authUser = ref.watch(currentUserProvider);
     final profileUserId = _isCreator ? _creatorId : authUser?.uid;
     final profileAsync = profileUserId != null
         ? ref.watch(profileViewProvider(profileUserId))

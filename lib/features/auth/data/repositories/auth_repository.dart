@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as developer;
 
@@ -18,13 +19,27 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'generated/auth_repository.g.dart';
 
 @Riverpod(keepAlive: true)
-AuthRepository authRepository(Ref ref) => AuthRepository(
-      account: ref.watch(appwriteAccountProvider),
-      tables: ref.watch(appwriteTablesProvider),
-      functions: ref.watch(appwriteFunctionsProvider),
-      messaging: ref.watch(firebaseMessagingProvider),
-    );
+AuthRepository authRepository(Ref ref) {
+  final repo = AuthRepository(
+    account: ref.watch(appwriteAccountProvider),
+    tables: ref.watch(appwriteTablesProvider),
+    functions: ref.watch(appwriteFunctionsProvider),
+    messaging: ref.watch(firebaseMessagingProvider),
+  );
+  ref.onDispose(repo.dispose);
+  return repo;
+}
 
+@Riverpod(keepAlive: true)
+class AuthSession extends _$AuthSession {
+  @override
+  Future<AuthState> build() {
+    final repo = ref.watch(authRepositoryProvider);
+    final sub = repo.sessionStateChanges.listen((next) => state = next);
+    ref.onDispose(sub.cancel);
+    return repo.ensureSessionLoaded();
+  }
+}
 
 class AuthRepository {
   AuthRepository({
@@ -42,7 +57,40 @@ class AuthRepository {
   final Functions _functions;
   final FirebaseMessaging _messaging;
 
-  // Session
+  final StreamController<AsyncValue<AuthState>> _sessionStateController =
+      StreamController<AsyncValue<AuthState>>.broadcast(sync: true);
+  AsyncValue<AuthState> _sessionState = const AsyncValue.loading();
+  Future<AuthState>? _initialLoad;
+
+  AsyncValue<AuthState> get sessionState => _sessionState;
+  Stream<AsyncValue<AuthState>> get sessionStateChanges =>
+      _sessionStateController.stream;
+
+  void _setSessionState(AsyncValue<AuthState> next) {
+    _sessionState = next;
+    _sessionStateController.add(next);
+  }
+
+  Future<AuthState> ensureSessionLoaded() {
+    if (_sessionState case AsyncData(:final value)) {
+      return Future.value(value);
+    }
+    return _initialLoad ??= () async {
+      final next = await loadCurrentUser();
+      _setSessionState(AsyncData(next));
+      return next;
+    }();
+  }
+
+  Future<void> refresh() async {
+    _setSessionState(const AsyncValue.loading());
+    _setSessionState(await AsyncValue.guard(loadCurrentUser));
+  }
+
+  void dispose() {
+    _sessionStateController.close();
+  }
+
   Future<AuthState> loadCurrentUser() async {
     final appwrite_models.User user;
     try {
@@ -118,46 +166,87 @@ class AuthRepository {
     }
   }
 
-  Future<void> login({required String email, required String password}) async {
-    try {
-      await _account.createEmailPasswordSession(
-        email: email,
-        password: password,
-      );
-    } on AppwriteException catch (e) {
-      throw _mapException(e);
-    }
-  }
+  Future<void> login({required String email, required String password}) =>
+      _mutateSession(() async {
+        try {
+          await _account.createEmailPasswordSession(
+            email: email,
+            password: password,
+          );
+        } on AppwriteException catch (e) {
+          throw _mapException(e);
+        }
+      });
 
   Future<void> signup({
     required String email,
     required String password,
-  }) async {
-    try {
-      await _account.create(
-        userId: ID.unique(),
-        email: email,
-        password: password,
+  }) =>
+      _mutateSession(() async {
+        try {
+          await _account.create(
+            userId: ID.unique(),
+            email: email,
+            password: password,
+          );
+          await _account.createEmailPasswordSession(
+            email: email,
+            password: password,
+          );
+        } on AppwriteException catch (e) {
+          throw _mapException(e);
+        }
+      });
+
+  Future<void> loginWithGoogle() => _mutateSession(
+        () => _account.createOAuth2Session(provider: OAuthProvider.google),
       );
-      await _account.createEmailPasswordSession(
-        email: email,
-        password: password,
+
+  Future<void> loginWithGithub() => _mutateSession(
+        () => _account.createOAuth2Session(provider: OAuthProvider.github),
       );
-    } on AppwriteException catch (e) {
-      throw _mapException(e);
-    }
-  }
 
   Future<void> logout() async {
-    await _account.deleteSession(sessionId: 'current');
+    final user = _sessionState.value?.userOrNull;
+    _setSessionState(const AsyncValue.loading());
+    _setSessionState(await AsyncValue.guard(() async {
+      if (user != null) {
+        try {
+          await removeRegistrationToken(uid: user.uid);
+        } catch (e, st) {
+          developer.log(
+            'removeRegistrationToken failed during logout (non-fatal)',
+            error: e,
+            stackTrace: st,
+          );
+        }
+      }
+      await _account.deleteSession(sessionId: 'current');
+      return const AuthState.unauthenticated();
+    }));
   }
 
-  Future<void> loginWithGoogle() async {
-    await _account.createOAuth2Session(provider: OAuthProvider.google);
+  Future<void> _mutateSession(Future<void> Function() mutate) async {
+    _setSessionState(const AsyncValue.loading());
+    _setSessionState(await AsyncValue.guard(() async {
+      await mutate();
+      final next = await loadCurrentUser();
+      await _tryRegisterToken(next.userOrNull);
+      return next;
+    }));
   }
 
-  Future<void> loginWithGithub() async {
-    await _account.createOAuth2Session(provider: OAuthProvider.github);
+  Future<void> _tryRegisterToken(AuthUser? user) async {
+    if (user == null) return;
+    try {
+      await addRegistrationToken(uid: user.uid);
+    } catch (e, st) {
+      developer.log(
+        'addRegistrationToken failed after login (non-fatal)',
+        error: e,
+        stackTrace: st,
+      );
+    }
   }
 
   // Password recovery

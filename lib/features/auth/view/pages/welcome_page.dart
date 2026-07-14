@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resonate/features/auth/view/widgets/welcome_dialog.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/welcome_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -110,7 +110,7 @@ class WelcomePage extends ConsumerWidget {
                           AppLocalizations.of(context)!.continueWithGoogle,
                       icon: FontAwesomeIcons.google,
                       onPressed: () =>
-                          ref.read(authProvider.notifier).loginWithGoogle(),
+                          ref.read(welcomeProvider.notifier).continueWithGoogle(),
                     ),
                     SizedBox(width: UiSizes.width_20),
                     _OAuthButton(
@@ -118,7 +118,7 @@ class WelcomePage extends ConsumerWidget {
                           AppLocalizations.of(context)!.continueWithGitHub,
                       icon: FontAwesomeIcons.github,
                       onPressed: () =>
-                          ref.read(authProvider.notifier).loginWithGithub(),
+                          ref.read(welcomeProvider.notifier).continueWithGithub(),
                     ),
                   ],
                 ),

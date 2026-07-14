@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,7 +15,6 @@ import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -377,25 +378,12 @@ class FakeCallKitService extends CallKitService {
   }
 }
 
-class _StubAuthNotifier extends AuthNotifier {
-  _StubAuthNotifier(this._initial);
-  final AuthState _initial;
-
-  @override
-  Future<AuthState> build() async => _initial;
-
-  // Keep auth fully stubbed on the `authState:` path. The real refresh() reads
-  // the live AuthRepository (real Account → real network), so any test that
-  // triggers refresh() (e.g. pair-chat submitRating) would fire a real socket
-  // call with non-deterministic timing — a flaky-test source. Re-yield the
-  // stub state instead. Tests that want the real refresh() use the `account:`
-  // path (real AuthNotifier against mocks), not this stub.
-  @override
-  Future<void> refresh() async {
-    state = AsyncData(_initial);
-  }
-}
-
+// Stateful, like the real AuthRepository: the seeded [state] is what every
+// load/mutation resolves the session to, and [sessionStateChanges] mirrors it
+// so authSessionProvider / currentUserProvider / the router all observe it.
+// Deterministic by construction — refresh() re-yields the seeded state with no
+// network, so tests that trigger refresh() (e.g. pair-chat submitRating) can't
+// go flaky the way the old half-stubbed auth path could.
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
@@ -407,6 +395,41 @@ class FakeAuthRepository implements AuthRepository {
   int addTokenCount = 0;
   int removeTokenCount = 0;
 
+  final StreamController<AsyncValue<AuthState>> _sessionStateController =
+      StreamController<AsyncValue<AuthState>>.broadcast(sync: true);
+  AsyncValue<AuthState> _sessionState = const AsyncValue.loading();
+  Future<AuthState>? _initialLoad;
+
+  @override
+  AsyncValue<AuthState> get sessionState => _sessionState;
+
+  @override
+  Stream<AsyncValue<AuthState>> get sessionStateChanges =>
+      _sessionStateController.stream;
+
+  void _setSessionState(AsyncValue<AuthState> next) {
+    _sessionState = next;
+    _sessionStateController.add(next);
+  }
+
+  @override
+  Future<AuthState> ensureSessionLoaded() {
+    if (_sessionState case AsyncData(:final value)) {
+      return Future.value(value);
+    }
+    return _initialLoad ??= () async {
+      final next = await loadCurrentUser();
+      _setSessionState(AsyncData(next));
+      return next;
+    }();
+  }
+
+  @override
+  Future<void> refresh() async {
+    _setSessionState(const AsyncValue.loading());
+    _setSessionState(AsyncData(await loadCurrentUser()));
+  }
+
   @override
   Future<AuthState> loadCurrentUser() async {
     loadCount++;
@@ -416,23 +439,30 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> login({required String email, required String password}) async {
     loginCount++;
+    _setSessionState(AsyncData(state));
   }
 
   @override
   Future<void> signup({required String email, required String password}) async {
     signupCount++;
+    _setSessionState(AsyncData(state));
   }
 
   @override
   Future<void> logout() async {
     logoutCount++;
+    _setSessionState(const AsyncData(AuthState.unauthenticated()));
   }
 
   @override
-  Future<void> loginWithGoogle() async {}
+  Future<void> loginWithGoogle() async {
+    _setSessionState(AsyncData(state));
+  }
 
   @override
-  Future<void> loginWithGithub() async {}
+  Future<void> loginWithGithub() async {
+    _setSessionState(AsyncData(state));
+  }
 
   @override
   Future<void> addRegistrationToken({required String uid}) async {
@@ -442,6 +472,11 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> removeRegistrationToken({required String uid}) async {
     removeTokenCount++;
+  }
+
+  @override
+  void dispose() {
+    _sessionStateController.close();
   }
 
   @override
@@ -467,8 +502,11 @@ Future<ProviderContainer> installTestRootContainer({
     overrides: [
       if (authRepository != null)
         authRepositoryProvider.overrideWithValue(authRepository),
+      // Session state is stubbed at its source of truth — the repository — so
+      // authSessionProvider, currentUserProvider, the router, and refresh()
+      // all observe the same deterministic fake with no network involved.
       if (authRepository == null && authState != null)
-        authProvider.overrideWith(() => _StubAuthNotifier(authState)),
+        authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
       liveKitProvider.overrideWith(FakeLiveKitNotifier.new),
@@ -486,7 +524,8 @@ Future<ProviderContainer> installTestRootContainer({
     ],
   );
   if (authRepository != null || authState != null || account != null) {
-    await container.read(authProvider.future);
+    // Warm the session so synchronous ref.read(...) sees loaded state.
+    await container.read(authSessionProvider.future);
   }
   addTearDown(container.dispose);
   return container;

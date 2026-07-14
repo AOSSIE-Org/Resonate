@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -51,10 +50,10 @@ Future<void> pumpProfilePage(
       child: profileTestApp(child),
     ),
   );
-  // Warm authProvider so synchronous ref.read(authProvider).value is ready.
+  // Warm the session so synchronous ref.read(currentUserProvider) is ready.
   final container = ProviderScope.containerOf(
     tester.element(find.byType(MaterialApp)),
   );
-  await container.read(authProvider.future);
+  await container.read(authSessionProvider.future);
   await tester.pumpAndSettle();
 }

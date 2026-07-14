@@ -4,27 +4,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 
-class _FakeRepo implements AuthRepository {
-  AuthState state = const AuthState.unauthenticated();
+import '../../../helpers/test_root_container.dart';
+
+class _FakeRepo extends FakeAuthRepository {
+  _FakeRepo() : super(const AuthState.unauthenticated());
 
   int sendOtpCount = 0;
   int verifyOtpCount = 0;
   int statusCheckCount = 0;
   int markVerifiedCount = 0;
   int updateEmailCount = 0;
-  int loadCount = 0;
 
   String sendOtpBody = '{"message":"mail sent"}';
   String statusResult = 'true';
-
-  @override
-  Future<AuthState> loadCurrentUser() async {
-    loadCount++;
-    return state;
-  }
 
   @override
   Future<({String otpId, String responseBody})> sendOtp({
@@ -86,10 +80,6 @@ class _FakeRepo implements AuthRepository {
     updateEmailCount++;
     return 'completed';
   }
-
-  @override
-  dynamic noSuchMethod(Invocation invocation) =>
-      throw UnimplementedError('${invocation.memberName} not stubbed');
 }
 
 void main() {
@@ -192,7 +182,7 @@ void main() {
       );
       addTearDown(container.dispose);
 
-      await container.read(authProvider.future);
+      await container.read(authSessionProvider.future);
       final loadsBefore = repo.loadCount;
 
       await container

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/viewmodel/current_user.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/rooms/viewmodel/livekit_notifier.dart';
@@ -182,7 +182,7 @@ class PairChatNotifier extends _$PairChatNotifier {
       ratingTotal: me.ratingTotal + state.pairRating,
       ratingCount: me.ratingCount + 1,
     );
-    await ref.read(authProvider.notifier).refresh();
+    await ref.read(authRepositoryProvider).refresh();
   }
 
   void _listenForActivePair() {

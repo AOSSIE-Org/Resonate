@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/features/stories/model/story.dart';
@@ -66,7 +65,7 @@ Future<ProviderContainer> _buildContainer(
     ],
   );
   addTearDown(container.dispose);
-  await container.read(authProvider.future);
+  await container.read(authSessionProvider.future);
   return container;
 }
 

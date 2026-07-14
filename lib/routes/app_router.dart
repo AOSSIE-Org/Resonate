@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/auth_routes.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/friends/friends_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
@@ -50,7 +50,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 });
 
 String? _redirect(Ref ref, GoRouterState state) =>
-    redirectForAsyncAuth(ref.read(authProvider), state.uri.path);
+    redirectForAsyncAuth(ref.read(authSessionProvider), state.uri.path);
 
 String? redirectForAsyncAuth(AsyncValue<AuthState> asyncAuth, String path) {
   final auth = asyncAuth.hasError
@@ -78,7 +78,7 @@ String? authRedirect(AuthState? auth, String path) {
 class _AuthRouterRefresh extends ChangeNotifier {
   _AuthRouterRefresh(Ref ref) {
     _sub = ref.listen<AsyncValue<AuthState>>(
-      authProvider,
+      authSessionProvider,
       (_, _) => notifyListeners(),
       fireImmediately: false,
     );

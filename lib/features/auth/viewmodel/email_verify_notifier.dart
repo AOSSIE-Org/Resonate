@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/email_verify_notifier.g.dart';
@@ -76,7 +75,7 @@ class EmailVerify extends _$EmailVerify {
 
   Future<void> markVerified({required String uid}) async {
     await ref.read(authRepositoryProvider).markUserVerified(uid: uid);
-    await ref.read(authProvider.notifier).refresh();
+    await ref.read(authRepositoryProvider).refresh();
   }
 
   Future<String> updateEmail({
@@ -86,7 +85,7 @@ class EmailVerify extends _$EmailVerify {
     final status = await ref
         .read(authRepositoryProvider)
         .updateEmail(uid: uid, newEmail: newEmail);
-    await ref.read(authProvider.notifier).refresh();
+    await ref.read(authRepositoryProvider).refresh();
     return status;
   }
 

@@ -4,12 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
+
 
 User _buildUser({
   String id = 'u1',
@@ -81,8 +82,8 @@ void main() {
     return c;
   }
 
-  group('AuthNotifier', () {
-    test('build() resolves to whatever the repository returns', () async {
+  group('authSessionProvider', () {
+    test('resolves to whatever the repository loads', () async {
       when(account.get()).thenAnswer((_) async => _buildUser());
       when(tables.getRow(
         databaseId: userDatabaseID,
@@ -92,13 +93,13 @@ void main() {
       )).thenAnswer((_) async => _buildUserRow());
 
       final container = makeContainer();
-      final state = await container.read(authProvider.future);
+      final state = await container.read(authSessionProvider.future);
 
       expect(state, isA<AuthStateAuthenticated>());
       expect((state as AuthStateAuthenticated).user.uid, 'u1');
     });
 
-    test('login() reloads the user and adds an FCM token', () async {
+    test('mirrors login: session flips to authenticated', () async {
       // First load: unauthenticated.
       var hasSession = false;
       when(account.get()).thenAnswer((_) async {
@@ -152,15 +153,15 @@ void main() {
       )).thenAnswer((_) async => _buildUserRow());
 
       final container = makeContainer();
-      await container.read(authProvider.future);
-      expect(container.read(authProvider).value,
+      await container.read(authSessionProvider.future);
+      expect(container.read(authSessionProvider).value,
           isA<AuthStateUnauthenticated>());
 
       await container
-          .read(authProvider.notifier)
+          .read(authRepositoryProvider)
           .login(email: 'a@b.c', password: 'pw');
 
-      expect(container.read(authProvider).requireValue,
+      expect(container.read(authSessionProvider).requireValue,
           isA<AuthStateAuthenticated>());
       verify(account.createEmailPasswordSession(
         email: 'a@b.c',
@@ -168,7 +169,7 @@ void main() {
       )).called(1);
     });
 
-    test('logout() flips state to unauthenticated', () async {
+    test('mirrors logout: session flips to unauthenticated', () async {
       var hasSession = true;
       when(account.get()).thenAnswer((_) async {
         if (!hasSession) throw Exception('no session');
@@ -185,13 +186,13 @@ void main() {
       });
 
       final container = makeContainer();
-      await container.read(authProvider.future);
-      expect(container.read(authProvider).requireValue,
+      await container.read(authSessionProvider.future);
+      expect(container.read(authSessionProvider).requireValue,
           isA<AuthStateAuthenticated>());
 
-      await container.read(authProvider.notifier).logout();
+      await container.read(authRepositoryProvider).logout();
 
-      expect(container.read(authProvider).requireValue,
+      expect(container.read(authSessionProvider).requireValue,
           isA<AuthStateUnauthenticated>());
       verify(account.deleteSession(sessionId: 'current')).called(1);
     });

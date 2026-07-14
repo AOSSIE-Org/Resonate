@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/models/follower_user_model.dart';
@@ -24,7 +24,7 @@ class ProfileView extends _$ProfileView {
     final liked = results[1] as List<Story>;
     final followers = results[2] as List<FollowerUserModel>;
 
-    final currentUid = ref.read(authProvider).value?.userOrNull?.uid;
+    final currentUid = ref.read(currentUserProvider)?.uid;
     FollowerUserModel? mine;
     for (final follower in followers) {
       if (follower.uid == currentUid) {
@@ -44,7 +44,7 @@ class ProfileView extends _$ProfileView {
 
   Future<void> followCreator(String creatorId) async {
     final data = state.value;
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     if (data == null || user == null) return;
 
     final repo = ref.read(profileRepositoryProvider);

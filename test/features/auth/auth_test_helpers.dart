@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -42,7 +41,7 @@ Future<ProviderContainer> buildAuthContainer({
     ],
   );
   addTearDown(container.dispose);
-  await container.read(authProvider.future);
+  await container.read(authSessionProvider.future);
   return container;
 }
 

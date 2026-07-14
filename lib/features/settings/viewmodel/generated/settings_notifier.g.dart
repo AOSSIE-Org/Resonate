@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../email_verify_notifier.dart';
+part of '../settings_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,50 @@ part of '../email_verify_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(EmailVerify)
-final emailVerifyProvider = EmailVerifyProvider._();
+@ProviderFor(Settings)
+final settingsProvider = SettingsProvider._();
 
-final class EmailVerifyProvider
-    extends $NotifierProvider<EmailVerify, EmailVerifyState> {
-  EmailVerifyProvider._()
+final class SettingsProvider extends $NotifierProvider<Settings, void> {
+  SettingsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'emailVerifyProvider',
+        name: r'settingsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$emailVerifyHash();
+  String debugGetCreateSourceHash() => _$settingsHash();
 
   @$internal
   @override
-  EmailVerify create() => EmailVerify();
+  Settings create() => Settings();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(EmailVerifyState value) {
+  Override overrideWithValue(void value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<EmailVerifyState>(value),
+      providerOverride: $SyncValueProvider<void>(value),
     );
   }
 }
 
-String _$emailVerifyHash() => r'4dd59fd6f142eb7935acce3a3331912de6bd09fb';
+String _$settingsHash() => r'c7f5629b7ef02b4f4618cbca97104a902fc15978';
 
-abstract class _$EmailVerify extends $Notifier<EmailVerifyState> {
-  EmailVerifyState build();
+abstract class _$Settings extends $Notifier<void> {
+  void build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<EmailVerifyState, EmailVerifyState>;
+    final ref = this.ref as $Ref<void, void>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<EmailVerifyState, EmailVerifyState>,
-              EmailVerifyState,
+              AnyNotifier<void, void>,
+              void,
               Object?,
               Object?
             >;

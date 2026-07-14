@@ -6,7 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/view/widgets/password_strength_indicator.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/password_strength_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/signup_form_notifier.dart';
@@ -49,11 +49,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final formState = ref.watch(signupFormProvider);
-    final authValue = ref.watch(authProvider);
+    final authValue = ref.watch(authSessionProvider);
     final strength = ref.watch(passwordStrengthCheckerProvider);
     final emailVerifyState = ref.watch(emailVerifyProvider);
 
-    ref.listen<AsyncValue>(authProvider, (prev, next) {
+    ref.listen<AsyncValue>(authSessionProvider, (prev, next) {
       next.whenOrNull(
         error: (e, _) => _showError(context, e, l10n),
       );
@@ -210,11 +210,11 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                                 ref
                                     .read(emailVerifyProvider.notifier)
                                     .blockSignup();
-                                await ref.read(authProvider.notifier).signup(
+                                await ref.read(signupFormProvider.notifier).signup(
                                       email: _emailController.text,
                                       password: _passwordController.text,
                                     );
-                                if (!ref.read(authProvider).hasError) {
+                                if (!ref.read(authSessionProvider).hasError) {
                                   router.go(RoutePaths.onboarding);
                                   customSnackbar(
                                     l10n.signedUpSuccessfully,

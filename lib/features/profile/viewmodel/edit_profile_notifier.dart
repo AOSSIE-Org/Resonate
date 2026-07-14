@@ -1,4 +1,5 @@
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/edit_profile_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +21,7 @@ class EditProfile extends _$EditProfile {
       state = state.copyWith(profileImagePath: path, removeImage: false);
 
   void removeProfilePicture() {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     state = state.copyWith(
       removeImage: user?.profileImageUrl != null,
       clearProfileImagePath: true,
@@ -28,7 +29,7 @@ class EditProfile extends _$EditProfile {
   }
 
   Future<bool> isUsernameAvailable(String username) {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     return ref.read(profileRepositoryProvider).isUsernameAvailable(
           username,
           currentUsername: user?.userName,
@@ -36,12 +37,12 @@ class EditProfile extends _$EditProfile {
   }
 
   bool isDisplayNameChanged(String name) {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     return name.trim() != (user?.displayName ?? '').trim();
   }
 
   bool isUsernameChanged(String username) {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     return username.trim() != (user?.userName ?? '').trim();
   }
 
@@ -52,7 +53,7 @@ class EditProfile extends _$EditProfile {
     required String name,
     required String username,
   }) async {
-    final user = ref.read(authProvider).value?.userOrNull;
+    final user = ref.read(currentUserProvider);
     if (user == null) return EditProfileSaveResult.noChange;
 
     final repo = ref.read(profileRepositoryProvider);
@@ -102,7 +103,7 @@ class EditProfile extends _$EditProfile {
         await repo.updateDisplayName(uid: user.uid, name: trimmedName);
       }
       if (changed) {
-        await ref.read(authProvider.notifier).refresh();
+        await ref.read(authRepositoryProvider).refresh();
       }
 
       state = state.copyWith(

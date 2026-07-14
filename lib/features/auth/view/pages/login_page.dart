@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/model/auth_failure.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
 import 'package:resonate/features/auth/viewmodel/login_form_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -42,10 +42,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final formState = ref.watch(loginFormProvider);
-    final authValue = ref.watch(authProvider);
+    final authValue = ref.watch(authSessionProvider);
 
     // Surface AuthFailure errors as snackbars.
-    ref.listen<AsyncValue>(authProvider, (prev, next) {
+    ref.listen<AsyncValue>(authSessionProvider, (prev, next) {
       next.whenOrNull(
         error: (e, _) => _showAuthError(context, e, l10n),
       );
@@ -125,11 +125,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             ? null
                             : () async {
                                 if (_formKey.currentState!.validate()) {
-                                  await ref.read(authProvider.notifier).login(
+                                  await ref.read(loginFormProvider.notifier).login(
                                         email: _emailController.text,
                                         password: _passwordController.text,
                                       );
-                                  if (!ref.read(authProvider).hasError) {
+                                  if (!ref.read(authSessionProvider).hasError) {
                                     _emailController.clear();
                                     _passwordController.clear();
                                   }

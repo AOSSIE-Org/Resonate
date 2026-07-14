@@ -1,3 +1,4 @@
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/signup_form_notifier.g.dart';
@@ -40,4 +41,9 @@ class SignupForm extends _$SignupForm {
   void reset() {
     state = const SignupFormState();
   }
+
+  Future<void> signup({required String email, required String password}) =>
+      ref
+          .read(authRepositoryProvider)
+          .signup(email: email, password: password);
 }

@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resonate/features/auth/viewmodel/auth_notifier.dart';
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
+import 'package:resonate/features/auth/viewmodel/current_user.dart';
 import 'package:resonate/features/auth/viewmodel/email_verify_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -20,7 +21,7 @@ class EmailVerificationPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final auth = ref.watch(authProvider);
+    final auth = ref.watch(authSessionProvider);
     final verifyState = ref.watch(emailVerifyProvider);
     final email = auth.value?.userOrNull?.email ?? '';
 
@@ -179,7 +180,7 @@ class EmailVerificationPage extends ConsumerWidget {
 
     _showLoadingDialog(context);
     final notifier = ref.read(emailVerifyProvider.notifier);
-    final uid = ref.read(authProvider).value?.userOrNull?.uid;
+    final uid = ref.read(currentUserProvider)?.uid;
 
     void announce(String message) {
       SemanticsService.sendAnnouncement(view, message, TextDirection.ltr);

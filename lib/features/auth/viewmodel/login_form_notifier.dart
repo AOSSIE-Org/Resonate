@@ -1,3 +1,4 @@
+import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/login_form_notifier.g.dart';
@@ -24,4 +25,7 @@ class LoginForm extends _$LoginForm {
   void reset() {
     state = const LoginFormState();
   }
+
+  Future<void> login({required String email, required String password}) =>
+      ref.read(authRepositoryProvider).login(email: email, password: password);
 }

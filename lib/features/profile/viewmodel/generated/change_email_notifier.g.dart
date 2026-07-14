@@ -41,7 +41,7 @@ final class ChangeEmailProvider
   }
 }
 
-String _$changeEmailHash() => r'a98535b66fb6f4551f2f7ff64c51c54478d49d37';
+String _$changeEmailHash() => r'f65c3c3f3e370eef35c6a90231eaeb93cf415f33';
 
 abstract class _$ChangeEmail extends $Notifier<ChangeEmailState> {
   ChangeEmailState build();
