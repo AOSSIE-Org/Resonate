@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/widgets/create_poll_sheet.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 
 import '../rooms_test_helpers.dart';
 
 const _roomId = 'room-1';
 const _roomName = 'Test Room';
 
-// Fake RoomPollsNotifier: createPoll records its arguments and returns a
-// configurable result; no repository or chat notifier is touched.
+
 class FakeRoomPolls extends RoomPollsNotifier {
   FakeRoomPolls({this.createResult = true});
 
@@ -45,8 +44,7 @@ List<Override> sheetOverrides(RoomPollsNotifier Function() fake) => [
   roomPollsProvider(_roomId).overrideWith(fake),
 ];
 
-// Opens the sheet through openCreatePollSheet (real showModalBottomSheet
-// route) so Navigator.pop on success can be observed.
+
 Future<void> pumpSheet(
   WidgetTester tester, {
   required List<Override> overrides,
@@ -135,8 +133,6 @@ void main() {
     testRoomsWidget('empty question -> createPoll not called, sheet stays', (
       tester,
     ) async {
-      // Created eagerly: the provider (and thus the factory) is only built on
-      // submit, and this path must return before ever reaching it.
       final fake = FakeRoomPolls();
       await pumpSheet(tester, overrides: sheetOverrides(() => fake));
 
@@ -186,7 +182,6 @@ void main() {
       expect(fake.createCount, 1);
       expect(fake.lastQuestion, 'Favorite color?');
       expect(fake.lastOptions, ['Red', 'Blue']);
-      expect(fake.lastRoomName, _roomName);
       // Success pops the sheet.
       expect(find.byType(CreatePollSheet), findsNothing);
     });

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
-import 'package:resonate/features/rooms/model/room_chat_state.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 
 import '../rooms_test_helpers.dart';
 
@@ -44,21 +44,28 @@ RoomMessage fakeMessage({
   status: status,
 );
 
-// RoomChatPage keeps the polls provider alive for live rooms; stub it so
-// widget tests don't build the real notifier (and its realtime plumbing).
+
 class _FakeRoomPolls extends RoomPollsNotifier {
   @override
   Future<RoomPollsState> build(String roomId) async => const RoomPollsState();
 }
 
-// Builds the overrides with the fake chat + a current user of the given uid.
 List<Override> buildOverrides(
   FakeRoomChat fake, {
   String uid = 'me',
   bool isUpcoming = false,
 }) {
   return [
-    roomChatProvider(_roomId, _roomName, isUpcoming).overrideWith(() => fake),
+    roomChatMessagesProvider(
+      _roomId,
+      _roomName,
+      isUpcoming,
+    ).overrideWith(() => FakeChatMessages(fake)),
+    roomChatComposerProvider(
+      _roomId,
+      _roomName,
+      isUpcoming,
+    ).overrideWith(() => FakeChatComposer(fake)),
     roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
@@ -74,14 +81,23 @@ Widget page({bool isUpcoming = false}) => RoomChatPage(
 void main() {
   group('RoomChatPage state rendering', () {
     testRoomsWidget('loading shows a CircularProgressIndicator', (tester) async {
-      final completer = Completer<RoomChatState>();
+      final completer = Completer<List<RoomMessage>>();
       // A fake whose build never completes until we complete it.
       final fake = _PendingRoomChat(completer.future);
       await pumpRoomsPage(
         tester,
         page(),
         overrides: [
-          roomChatProvider(_roomId, _roomName, false).overrideWith(() => fake),
+          roomChatMessagesProvider(
+            _roomId,
+            _roomName,
+            false,
+          ).overrideWith(() => fake),
+          roomChatComposerProvider(
+            _roomId,
+            _roomName,
+            false,
+          ).overrideWith(() => FakeChatComposer(FakeRoomChat(const RoomChatState()))),
           roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
           requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
           currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
@@ -89,7 +105,7 @@ void main() {
       );
       await tester.pump();
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      completer.complete(const RoomChatState());
+      completer.complete(const []);
       await tester.pumpAndSettle();
     });
 
@@ -316,11 +332,14 @@ void main() {
 }
 
 // A fake whose build stays pending until the supplied future completes.
-class _PendingRoomChat extends RoomChatNotifier {
+class _PendingRoomChat extends RoomChatMessages {
   _PendingRoomChat(this._future);
-  final Future<RoomChatState> _future;
+  final Future<List<RoomMessage>> _future;
 
   @override
-  Future<RoomChatState> build(String roomId, String roomName, bool isUpcoming) =>
-      _future;
+  Future<List<RoomMessage>> build(
+    String roomId,
+    String roomName,
+    bool isUpcoming,
+  ) => _future;
 }

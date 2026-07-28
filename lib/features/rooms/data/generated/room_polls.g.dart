@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../room_polls_notifier.dart';
+part of '../room_polls.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -50,7 +50,7 @@ final class RoomPollsNotifierProvider
   }
 }
 
-String _$roomPollsNotifierHash() => r'9f606e6c7a542e8c687899f6511c216ab13ca910';
+String _$roomPollsNotifierHash() => r'7bb818560ffe695e02c839c66a3af45047dee10f';
 
 final class RoomPollsNotifierFamily extends $Family
     with

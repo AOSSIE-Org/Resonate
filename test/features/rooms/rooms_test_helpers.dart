@@ -8,7 +8,8 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/audio_device_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/model/room_chat_state.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
+import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/viewmodel/audio_device_notifier.dart';
@@ -243,9 +244,16 @@ class FakeAudioDevice extends AudioDeviceNotifier {
 }
 
 // Fake RoomChatNotifier
-class FakeRoomChat extends RoomChatNotifier {
-  FakeRoomChat(this._state, {this.error = false});
-  final RoomChatState _state;
+class RoomChatState {
+  const RoomChatState({this.messages = const [], this.replyingTo});
+  final List<RoomMessage> messages;
+  final ReplyTo? replyingTo;
+}
+
+
+class FakeRoomChat {
+  FakeRoomChat(this.state, {this.error = false});
+  final RoomChatState state;
   final bool error;
 
   int sendCount = 0;
@@ -256,60 +264,93 @@ class FakeRoomChat extends RoomChatNotifier {
   int clearReplyingCount = 0;
   String? lastSentContent;
   String? lastDeletedId;
+}
+
+class FakeChatMessages extends RoomChatMessages {
+  FakeChatMessages(this.fake);
+  final FakeRoomChat fake;
 
   @override
-  Future<RoomChatState> build(
+  Future<List<RoomMessage>> build(
     String roomId,
     String roomName,
     bool isUpcoming,
   ) async {
-    if (error) throw Exception('boom');
-    return _state;
+    if (fake.error) throw Exception('boom');
+    return fake.state.messages;
   }
 
   @override
   Future<bool> sendMessage({
-    required String roomId,
-    required String roomName,
-    required bool isUpcoming,
     required String content,
+    ReplyTo? replyTo,
     String? pollId,
   }) async {
-    sendCount++;
-    lastSentContent = content;
+    fake.sendCount++;
+    fake.lastSentContent = content;
+    return true;
+  }
+
+  @override
+  Future<bool> retrySend({required String messageId}) async {
+    fake.retryCount++;
     return true;
   }
 
   @override
   Future<void> editMessage({
     required String messageId,
-    required String roomName,
-    required bool isUpcoming,
     required String newContent,
   }) async {
-    editCount++;
+    fake.editCount++;
   }
 
   @override
   Future<void> deleteMessage(String messageId) async {
-    deleteCount++;
-    lastDeletedId = messageId;
+    fake.deleteCount++;
+    fake.lastDeletedId = messageId;
   }
+}
+
+class FakeChatComposer extends RoomChatComposer {
+  FakeChatComposer(this.fake);
+  final FakeRoomChat fake;
 
   @override
-  Future<bool> retrySend({
-    required String messageId,
-    required String roomName,
-    required bool isUpcoming,
-  }) async {
-    retryCount++;
+  ReplyTo? build(String roomId, String roomName, bool isUpcoming) =>
+      fake.state.replyingTo;
+
+  @override
+  Future<bool> sendMessage({required String content, String? pollId}) async {
+    fake.sendCount++;
+    fake.lastSentContent = content;
     return true;
   }
 
   @override
-  void setReplyingTo(RoomMessage message) => setReplyingCount++;
+  Future<bool> retrySend({required String messageId}) async {
+    fake.retryCount++;
+    return true;
+  }
+
   @override
-  void clearReplyingTo() => clearReplyingCount++;
+  Future<void> editMessage({
+    required String messageId,
+    required String newContent,
+  }) async {
+    fake.editCount++;
+  }
+
+  @override
+  Future<void> deleteMessage(String messageId) async {
+    fake.deleteCount++;
+    fake.lastDeletedId = messageId;
+  }
+
+  @override
+  void setReplyingTo(RoomMessage message) => fake.setReplyingCount++;
+  @override
+  void clearReplyingTo() => fake.clearReplyingCount++;
 }
 
 // Fake CreateRoomNotifier: build() serves the loading bool, records creates.

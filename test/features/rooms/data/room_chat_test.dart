@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
-import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -86,10 +86,10 @@ void main() {
 
       final container = await install();
       final state = await container
-          .read(roomChatProvider('room-1', 'Room 1', false).future);
+          .read(roomChatMessagesProvider('room-1', 'Room 1', false).future);
 
-      expect(state.messages, hasLength(1));
-      expect(state.messages.first.messageId, 'm1');
+      expect(state, hasLength(1));
+      expect(state.first.messageId, 'm1');
     });
 
     test(
@@ -108,19 +108,16 @@ void main() {
             ));
 
         final container = await install();
-        final providerKey = roomChatProvider('room-1', 'Room 1', false);
+        final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
         container.listen(providerKey, (_, _) {});
         await container.read(providerKey.future);
 
         final ok = await container.read(providerKey.notifier).sendMessage(
-          roomId: 'room-1',
-          roomName: 'Room 1',
-          isUpcoming: false,
-          content: 'hi',
+          content:'hi',
         );
 
         expect(ok, isTrue);
-        final messages = container.read(providerKey).value!.messages;
+        final messages = container.read(providerKey).value!;
         expect(messages, hasLength(1));
         expect(messages.first.content, 'hi');
         expect(messages.first.status, RoomMessageStatus.sent);
@@ -136,19 +133,16 @@ void main() {
       )).thenThrow(Exception('network down'));
 
       final container = await install();
-      final providerKey = roomChatProvider('room-1', 'Room 1', false);
+      final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
       container.listen(providerKey, (_, _) {});
       await container.read(providerKey.future);
 
       final ok = await container.read(providerKey.notifier).sendMessage(
-        roomId: 'room-1',
-        roomName: 'Room 1',
-        isUpcoming: false,
-        content: 'oops',
+        content:'oops',
       );
 
       expect(ok, isFalse);
-      final messages = container.read(providerKey).value!.messages;
+      final messages = container.read(providerKey).value!;
       expect(messages, hasLength(1));
       expect(messages.first.status, RoomMessageStatus.failed);
     });
@@ -171,31 +165,25 @@ void main() {
       });
 
       final container = await install();
-      final providerKey = roomChatProvider('room-1', 'Room 1', false);
+      final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
       container.listen(providerKey, (_, _) {});
       await container.read(providerKey.future);
 
       await container.read(providerKey.notifier).sendMessage(
-        roomId: 'room-1',
-        roomName: 'Room 1',
-        isUpcoming: false,
-        content: 'oops',
+        content:'oops',
       );
       final failedId =
-          container.read(providerKey).value!.messages.first.messageId;
+          container.read(providerKey).value!.first.messageId;
 
       shouldFail = false;
       final ok = await container.read(providerKey.notifier).retrySend(
         messageId: failedId,
-        roomName: 'Room 1',
-        isUpcoming: false,
       );
 
       expect(ok, isTrue);
       final retried = container
           .read(providerKey)
           .value!
-          .messages
           .firstWhere((m) => m.messageId == failedId);
       expect(retried.status, RoomMessageStatus.sent);
     });
@@ -216,18 +204,15 @@ void main() {
             ));
 
         final container = await install();
-        final providerKey = roomChatProvider('room-1', 'Room 1', false);
+        final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
         container.listen(providerKey, (_, _) {});
         await container.read(providerKey.future);
 
         await container.read(providerKey.notifier).sendMessage(
-          roomId: 'room-1',
-          roomName: 'Room 1',
-          isUpcoming: false,
-          content: 'hi',
+          content:'hi',
         );
         final sentId =
-            container.read(providerKey).value!.messages.first.messageId;
+            container.read(providerKey).value!.first.messageId;
 
         // Server echoes the same message back via realtime.
         final channel =
@@ -254,7 +239,7 @@ void main() {
         ));
         await Future<void>.delayed(Duration.zero);
 
-        final messages = container.read(providerKey).value!.messages;
+        final messages = container.read(providerKey).value!;
         expect(messages, hasLength(1));
         expect(messages.first.messageId, sentId);
       },
