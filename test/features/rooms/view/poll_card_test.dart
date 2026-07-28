@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
 import 'package:resonate/features/rooms/model/poll_vote.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/widgets/poll_card.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -18,8 +18,7 @@ import '../rooms_test_helpers.dart';
 const _roomId = 'room-1';
 const _pollId = 'poll-1';
 
-// Fake RoomPollsNotifier: build() serves a canned state, vote/closePoll only
-// record their arguments and return configurable results (no repository).
+
 class FakeRoomPolls extends RoomPollsNotifier {
   FakeRoomPolls(
     this._state, {
@@ -100,10 +99,7 @@ List<Override> pollOverrides(RoomPollsNotifier Function() fake) => [
   roomPollsProvider(_roomId).overrideWith(fake),
 ];
 
-// customSnackbar draws on rootNavigatorKey's overlay, which roomsTestApp does
-// not wire up (so the toast silently no-ops there). This local variant of
-// pumpRoomsPage attaches the key so the toast is actually rendered; kept here
-// instead of the shared helpers on purpose.
+
 Future<void> pumpWithRootOverlay(
   WidgetTester tester,
   Widget child, {

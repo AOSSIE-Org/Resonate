@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/widgets/message_status_indicator.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-/// Inline chat card for a poll message (a [RoomMessage] whose `pollId` is
-/// set). Renders the question, selectable options with live animated result
-/// bars, and a host-only "end poll" action.
+
 class PollCard extends ConsumerWidget {
   const PollCard({
     super.key,
@@ -69,7 +67,9 @@ class PollCard extends ConsumerWidget {
                       Icon(
                         Icons.poll_outlined,
                         size: UiSizes.size_14,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        // On the primary-coloured card, use onPrimary for
+                        // contrast (onSurfaceVariant is a low-contrast grey here).
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       SizedBox(width: UiSizes.width_4),
                       Text(
@@ -77,7 +77,7 @@ class PollCard extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: UiSizes.size_12,
                           fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                     ],
@@ -98,7 +98,9 @@ class PollCard extends ConsumerWidget {
                     Text(
                       AppLocalizations.of(context)!.error,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary.withValues(alpha: 0.7),
                         fontStyle: FontStyle.italic,
                       ),
                     )
@@ -106,7 +108,9 @@ class PollCard extends ConsumerWidget {
                     Text(
                       AppLocalizations.of(context)!.pollUnavailable,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary.withValues(alpha: 0.7),
                         fontStyle: FontStyle.italic,
                       ),
                     )
@@ -124,7 +128,9 @@ class PollCard extends ConsumerWidget {
                             .formatDateTime(context)
                             .toString(),
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimary.withValues(alpha: 0.7),
                           fontSize: UiSizes.size_12,
                         ),
                       ),
@@ -190,7 +196,9 @@ class _PollBody extends ConsumerWidget {
             Text(
               AppLocalizations.of(context)!.pollVotesCount(totalVotes),
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onPrimary.withValues(alpha: 0.7),
                 fontSize: UiSizes.size_12,
               ),
             ),
@@ -201,7 +209,9 @@ class _PollBody extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: UiSizes.size_12,
                   fontStyle: FontStyle.italic,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onPrimary.withValues(alpha: 0.7),
                 ),
               )
             else if (isUserAdmin)
@@ -314,8 +324,13 @@ class _PollOption extends ConsumerWidget {
                     builder: (context, value, _) => FractionallySizedBox(
                       widthFactor: value.clamp(0.0, 1.0),
                       heightFactor: 1,
+                      // Neutral share bar derived from the option's own
+                      // container colour — deliberately NOT primary, so it
+                      // doesn't blend into the primary-coloured card.
                       child: ColoredBox(
-                        color: colorScheme.primary.withValues(alpha: 0.25),
+                        color: colorScheme.onSecondaryContainer.withValues(
+                          alpha: 0.15,
+                        ),
                       ),
                     ),
                   ),

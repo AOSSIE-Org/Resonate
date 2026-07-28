@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -22,7 +22,6 @@ Future<void> openCreatePollSheet(
   );
 }
 
-/// Host-only bottom sheet to create a poll: one question and 2-5 options.
 class CreatePollSheet extends ConsumerStatefulWidget {
   const CreatePollSheet({
     super.key,
@@ -63,8 +62,6 @@ class _CreatePollSheetState extends ConsumerState<CreatePollSheet> {
     if (_optionControllers.length <= _minOptions) return;
     final controller = _optionControllers.removeAt(index);
     setState(() {});
-    // Dispose after the frame: the outgoing TextField still holds the
-    // controller until the rebuild completes.
     WidgetsBinding.instance.addPostFrameCallback((_) => controller.dispose());
   }
 
@@ -85,7 +82,7 @@ class _CreatePollSheetState extends ConsumerState<CreatePollSheet> {
       return;
     }
 
-    setState(() => _submitting = true);
+    setState(() => _submitting = true);  
     final ok = await ref
         .read(roomPollsProvider(widget.roomId).notifier)
         .createPoll(
@@ -106,9 +103,7 @@ class _CreatePollSheetState extends ConsumerState<CreatePollSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    // Keep the polls provider alive (and building) while the sheet is open;
-    // a bare read in _submit on a cold autoDispose provider would race its
-    // own async build and could be disposed mid-flight.
+    // Keep the polls provider alive while the sheet is open
     ref.watch(roomPollsProvider(widget.roomId));
 
     return Padding(

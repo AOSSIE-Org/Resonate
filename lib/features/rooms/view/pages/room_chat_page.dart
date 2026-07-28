@@ -8,8 +8,9 @@ import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/view/widgets/create_poll_sheet.dart';
 import 'package:resonate/features/rooms/view/widgets/message_status_indicator.dart';
 import 'package:resonate/features/rooms/view/widgets/poll_card.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
@@ -68,19 +69,21 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final providerKey = roomChatProvider(
+    final messagesKey = roomChatMessagesProvider(
       widget.roomId,
       widget.roomName,
       widget.isUpcoming,
     );
-    final asyncState = ref.watch(providerKey);
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
+    );
+    final asyncState = ref.watch(messagesKey);
     if (!widget.isUpcoming) {
-      // Keep the polls provider (and its realtime subscription) alive for
-      // the whole chat session, not just while a PollCard is visible in the
-      // lazy list.
       ref.watch(roomPollsProvider(widget.roomId));
     }
-    final messages = asyncState.value?.messages ?? const <RoomMessage>[];
+    final messages = asyncState.value ?? const <RoomMessage>[];
     if (messages.length != _previousCount) {
       _previousCount = messages.length;
       _scrollToBottom();
@@ -105,12 +108,12 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) =>
                   Center(child: Text(AppLocalizations.of(context)!.error)),
-              data: (state) => ListView.builder(
+              data: (loaded) => ListView.builder(
                 controller: _scrollController,
                 padding: EdgeInsets.all(UiSizes.width_16),
-                itemCount: state.messages.length,
+                itemCount: loaded.length,
                 itemBuilder: (context, index) {
-                  final message = state.messages[index];
+                  final message = loaded[index];
                   if (message.pollId != null) {
                     return PollCard(
                       message: message,
@@ -118,8 +121,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                       onRetry: () async {
                         final ok = await ref.read(providerKey.notifier).retrySend(
                           messageId: message.messageId,
-                          roomName: widget.roomName,
-                          isUpcoming: widget.isUpcoming,
                         );
                         if (!ok && context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -146,8 +147,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                           .read(providerKey.notifier)
                           .editMessage(
                             messageId: message.messageId,
-                            roomName: widget.roomName,
-                            isUpcoming: widget.isUpcoming,
                             newContent: newContent,
                           );
                     },
@@ -176,8 +175,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                     onRetry: () async {
                       final ok = await ref.read(providerKey.notifier).retrySend(
                         messageId: message.messageId,
-                        roomName: widget.roomName,
-                        isUpcoming: widget.isUpcoming,
                       );
                       if (!ok && context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -582,14 +579,14 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
     if (_messageController.text.isEmpty) return;
     final content = _messageController.text;
     _messageController.clear();
-    final providerKey =
-        roomChatProvider(widget.roomId, widget.roomName, widget.isUpcoming);
-    final ok = await ref.read(providerKey.notifier).sendMessage(
-      roomId: widget.roomId,
-      roomName: widget.roomName,
-      isUpcoming: widget.isUpcoming,
-      content: content,
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
     );
+    final ok = await ref
+        .read(providerKey.notifier)
+        .sendMessage(content: content);
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -601,9 +598,12 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final providerKey =
-        roomChatProvider(widget.roomId, widget.roomName, widget.isUpcoming);
-    final replyingTo = ref.watch(providerKey).value?.replyingTo;
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
+    );
+    final replyingTo = ref.watch(providerKey);
 
     return Column(
       children: [

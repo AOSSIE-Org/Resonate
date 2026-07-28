@@ -6,9 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
-import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
-import 'package:resonate/features/rooms/viewmodel/room_polls_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -604,11 +604,9 @@ void main() {
   });
 
   group('RoomPollsNotifier createPoll', () {
-    // createPoll cross-calls roomChatProvider(roomId, roomName, false); the
-    // chat provider must already be built or sendMessage no-ops on null state.
     Future<ProviderContainer> installWithChat() async {
       final container = await installAndBuild();
-      final chatKey = roomChatProvider(_roomId, 'Room 1', false);
+      final chatKey = roomChatMessagesProvider(_roomId, 'Room 1', false);
       container.listen(chatKey, (_, _) {});
       await container.read(chatKey.future);
       return container;
@@ -662,11 +660,11 @@ void main() {
       expect((captured[1] as Map)['question'], 'Which one?');
       expect((captured[1] as Map)['roomId'], _roomId);
 
-      // The chat announcement carries the pollId and the question as content.
+      // The announcement goes through the chat message store, so it lands in
+      // chat state with the pollId attached and the usual sent status.
       final messages = container
-          .read(roomChatProvider(_roomId, 'Room 1', false))
-          .value!
-          .messages;
+          .read(roomChatMessagesProvider(_roomId, 'Room 1', false))
+          .value!;
       expect(messages, hasLength(1));
       expect(messages.single.content, 'Which one?');
       expect(messages.single.pollId, polls.single.pollId);
@@ -697,8 +695,6 @@ void main() {
             roomName: 'Room 1',
           );
 
-      // Poll row succeeded, so createPoll reports success; the failed
-      // announcement stays in chat with the usual tap-to-retry.
       expect(ok, isTrue);
       expect(
         container.read(roomPollsProvider(_roomId)).value!.polls,
@@ -706,9 +702,8 @@ void main() {
       );
 
       final messages = container
-          .read(roomChatProvider(_roomId, 'Room 1', false))
-          .value!
-          .messages;
+          .read(roomChatMessagesProvider(_roomId, 'Room 1', false))
+          .value!;
       expect(messages, hasLength(1));
       expect(messages.single.status, RoomMessageStatus.failed);
       expect(messages.single.pollId, isNotNull);
@@ -742,9 +737,8 @@ void main() {
       ));
       expect(
         container
-            .read(roomChatProvider(_roomId, 'Room 1', false))
-            .value!
-            .messages,
+            .read(roomChatMessagesProvider(_roomId, 'Room 1', false))
+            .value!,
         isEmpty,
       );
     });
@@ -771,13 +765,10 @@ void main() {
           ));
 
       final container = await install();
-      final chatKey = roomChatProvider(_roomId, 'Room 1', false);
+      final chatKey = roomChatMessagesProvider(_roomId, 'Room 1', false);
       container.listen(chatKey, (_, _) {});
       await container.read(chatKey.future);
 
-      // Mirror the fixed CreatePollSheet: the sheet watches the provider but
-      // the host can submit before the first build completes — no awaited
-      // future here.
       container.listen(roomPollsProvider(_roomId), (_, _) {});
       final ok = await container
           .read(roomPollsProvider(_roomId).notifier)
@@ -794,9 +785,10 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).called(1);
-      final messages = container.read(chatKey).value!.messages;
+      final messages = container.read(chatKey).value!;
       expect(messages, hasLength(1));
       expect(messages.single.pollId, isNotNull);
+      expect(messages.single.content, 'Cold start?');
     });
   });
 
@@ -854,8 +846,6 @@ void main() {
           .vote(pollId: 'p1', optionIndex: 1);
       await flushStreams();
 
-      // Newer truth arrives (e.g. this user changed the vote on another
-      // device) while our write is still in flight.
       voteEvents.add(
         _voteEvent(action: 'update', id: 'v1', uid: 'me', optionIndex: 2),
       );

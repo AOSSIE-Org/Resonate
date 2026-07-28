@@ -2,29 +2,24 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart' show AppwriteException, ID;
-import 'package:resonate/features/auth/viewmodel/current_user.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_polls_repository.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
 import 'package:resonate/features/rooms/model/poll_vote.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
-import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/room_polls_notifier.g.dart';
+part 'generated/room_polls.g.dart';
 
 @riverpod
 class RoomPollsNotifier extends _$RoomPollsNotifier {
   StreamSubscription? _pollSub;
   StreamSubscription? _voteSub;
 
-  // Events that arrive while the initial load is still running are buffered
-  // and replayed over the snapshot, so nothing lands in the gap between
-  // fetching and subscribing.
+
   final List<({Poll poll, String action})> _pollBuffer = [];
   final List<({PollVote vote, String action})> _voteBuffer = [];
-
-  // Poll ids with a vote write in flight, to ignore rapid re-taps that would
-  // otherwise race the pending create/update.
   final Set<String> _votesInFlight = {};
 
   @override
@@ -129,16 +124,11 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     return current;
   }
 
-  /// Creates the poll row, then announces it through the regular chat
-  /// pipeline so it renders inline in chat order with the usual
-  /// retry-on-failure UX. Returns false only if the poll row itself failed.
   Future<bool> createPoll({
     required String question,
     required List<String> options,
     required String roomName,
   }) async {
-    // Wait for the initial load so the optimistic insert and realtime
-    // upserts operate on real state; a load failure doesn't block creation.
     try {
       await future;
     } catch (e) {
@@ -162,42 +152,20 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
       return false;
     }
     if (!ref.mounted) return false;
-
-    // Show it immediately; the realtime echo will upsert over this.
     final after = state.value;
     if (after != null && after.pollById(poll.pollId) == null) {
       state = AsyncData(after.copyWith(polls: [...after.polls, poll]));
     }
-
-    // Make sure the chat state is built before sending, otherwise the
-    // announcement would be dropped without even a retryable message.
-    final chatKey = roomChatProvider(roomId, roomName, false);
-    try {
-      await ref.read(chatKey.future);
-    } catch (e) {
-      log('chat state unavailable for poll announcement: $e');
-    }
-    if (!ref.mounted) return true;
-
     final sent = await ref
-        .read(chatKey.notifier)
-        .sendMessage(
-          roomId: roomId,
-          roomName: roomName,
-          isUpcoming: false,
-          content: question,
-          pollId: poll.pollId,
-        );
+        .read(roomChatMessagesProvider(roomId, roomName, false).notifier)
+        .sendMessage(content: question, pollId: poll.pollId);
     if (!sent) {
-      // The poll row exists; the announcement sits in chat as a failed
-      // message with the usual tap-to-retry, so don't report failure here.
       log('poll announcement message failed for ${poll.pollId}');
     }
     return true;
   }
 
-  /// Casts or changes this user's vote. Returns false if the vote could not
-  /// be recorded.
+
   Future<bool> vote({required String pollId, required int optionIndex}) async {
     final current = state.value;
     if (current == null) return false;
@@ -209,9 +177,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     final user = ref.read(requireUserProvider);
     final existing = current.voteByUser(pollId, user.uid);
     if (existing != null && existing.optionIndex == optionIndex) return true;
-
-    // A write for this poll is still pending; racing it (e.g. updating a row
-    // whose create hasn't landed) would 404, so drop the tap quietly.
     if (_votesInFlight.contains(pollId)) return true;
     _votesInFlight.add(pollId);
     try {
@@ -235,7 +200,7 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
       uid: uid,
       optionIndex: optionIndex,
     );
-    // Optimistic: count the vote immediately, roll back if the write fails.
+    // count the vote immediately, roll back if the write fails.
     state = AsyncData(current.copyWith(votes: [...current.votes, vote]));
     try {
       await ref.read(roomPollsRepositoryProvider).castVote(vote);
@@ -243,10 +208,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     } on AppwriteException catch (e) {
       if (!ref.mounted) return false;
       if (e.code == 409) {
-        // The unique (pollId, uid) index rejected a duplicate — this user
-        // already voted from another device/session. Drop the rejected
-        // optimistic vote, then re-sync the truth (so it doesn't linger if
-        // the reload fails too).
         _removeVote(vote.voteId);
         await _reconcileVotes(pollId);
         return false;
@@ -276,7 +237,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     }
   }
 
-  /// Host-only in the UI: closes voting and freezes the results.
   Future<bool> closePoll(String pollId) async {
     final current = state.value;
     if (current == null) return false;
@@ -297,8 +257,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     } catch (e) {
       log('closePoll failed: $e');
       if (!ref.mounted) return false;
-      // Undo only our own optimistic object; if a realtime event replaced
-      // it meanwhile, that data is newer than our snapshot.
       final rolled = state.value;
       if (rolled == null) return false;
       final i = rolled.polls.indexWhere((p) => p.pollId == pollId);
@@ -355,9 +313,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     );
   }
 
-  /// Undoes an optimistic vote update, but only if our exact optimistic
-  /// object is still in state — a realtime event that replaced it is newer
-  /// than the [previous] snapshot and must not be clobbered.
   void _rollbackVote({required PollVote optimistic, required PollVote previous}) {
     final current = state.value;
     if (current == null) return;
