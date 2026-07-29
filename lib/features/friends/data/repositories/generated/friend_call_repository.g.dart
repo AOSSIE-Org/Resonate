@@ -55,4 +55,4 @@ final class FriendCallRepositoryProvider
 }
 
 String _$friendCallRepositoryHash() =>
-    r'bd4642d294c1216a2c8b83c2ba9c7c3fd326f7f9';
+    r'4fa69cfee4e93a89e3679b771d67c5f4c7e83193';

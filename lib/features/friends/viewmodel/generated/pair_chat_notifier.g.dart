@@ -41,7 +41,7 @@ final class PairChatNotifierProvider
   }
 }
 
-String _$pairChatNotifierHash() => r'c64d2ce296c544a640311cc5ddada919e3b5ce4b';
+String _$pairChatNotifierHash() => r'8c850588d03b5395021326e6453ea8658fa5b2f0';
 
 abstract class _$PairChatNotifier extends $Notifier<PairChatState> {
   PairChatState build();

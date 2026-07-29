@@ -7,7 +7,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
@@ -108,7 +108,7 @@ void main() {
       tables: tables,
       realtime: realtime,
       functions: functions,
-      apiService: ApiService(functions: functions),
+      roomJoin: RoomJoinService(functions: functions),
     );
   });
 
@@ -349,7 +349,7 @@ void main() {
   });
 
   group('callJoinInfo', () {
-    test('delegates to ApiService.joinRoom and maps the response', () async {
+    test('delegates to RoomJoinService.joinRoom and maps the response', () async {
       when(
         functions.createExecution(
           functionId: joinRoomServiceId,

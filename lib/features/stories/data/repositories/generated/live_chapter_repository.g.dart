@@ -55,4 +55,4 @@ final class LiveChapterRepositoryProvider
 }
 
 String _$liveChapterRepositoryHash() =>
-    r'26879cf6496f86bfc13e7fe2cf8d3b41a28af414';
+    r'bafcab8148f6c4b1a9bf6b1856a45103f9577e9f';

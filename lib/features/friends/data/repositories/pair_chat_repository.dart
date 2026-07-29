@@ -6,7 +6,7 @@ import 'package:resonate/features/friends/data/repositories/friends_repository.d
     show mapAppwriteFriendsException;
 import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/models/resonate_user.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,21 +16,21 @@ part 'generated/pair_chat_repository.g.dart';
 PairChatRepository pairChatRepository(Ref ref) => PairChatRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
-  apiService: ref.watch(apiServiceProvider),
+  roomJoin: ref.watch(roomJoinServiceProvider),
 );
 
 class PairChatRepository {
   PairChatRepository({
     required TablesDB tables,
     required Realtime realtime,
-    required ApiService apiService,
+    required RoomJoinService roomJoin,
   }) : _tables = tables,
        _realtime = realtime,
-       _api = apiService;
+       _roomJoin = roomJoin;
 
   final TablesDB _tables;
   final Realtime _realtime;
-  final ApiService _api;
+  final RoomJoinService _roomJoin;
 
   static String activePairsChannel() =>
       'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
@@ -204,7 +204,7 @@ class PairChatRepository {
     required String roomId,
     required String userId,
   }) async {
-    final response = await _api.joinRoom(roomId, userId);
+    final response = await _roomJoin.joinRoom(roomId, userId);
     return liveKitJoinFromResponse(response);
   }
 }
