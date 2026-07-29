@@ -8,21 +8,12 @@ part of '../voter_profiles.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Maps voter uid -> display profile for a room, so poll options can show who
-/// voted. Watches the room's votes and fetches any newly-seen voter's profile
-/// exactly once (avatars resolved by reference, never denormalized onto votes).
 
 @ProviderFor(VoterProfiles)
 final voterProfilesProvider = VoterProfilesFamily._();
 
-/// Maps voter uid -> display profile for a room, so poll options can show who
-/// voted. Watches the room's votes and fetches any newly-seen voter's profile
-/// exactly once (avatars resolved by reference, never denormalized onto votes).
 final class VoterProfilesProvider
     extends $NotifierProvider<VoterProfiles, Map<String, VoterProfile>> {
-  /// Maps voter uid -> display profile for a room, so poll options can show who
-  /// voted. Watches the room's votes and fetches any newly-seen voter's profile
-  /// exactly once (avatars resolved by reference, never denormalized onto votes).
   VoterProfilesProvider._({
     required VoterProfilesFamily super.from,
     required String super.argument,
@@ -67,11 +58,7 @@ final class VoterProfilesProvider
   }
 }
 
-String _$voterProfilesHash() => r'8e4ff98fa1bb2dac252aa8d204cd246c8a2c919e';
-
-/// Maps voter uid -> display profile for a room, so poll options can show who
-/// voted. Watches the room's votes and fetches any newly-seen voter's profile
-/// exactly once (avatars resolved by reference, never denormalized onto votes).
+String _$voterProfilesHash() => r'00bcd25f20665ac24ada91edb5f9bffea2c15185';
 
 final class VoterProfilesFamily extends $Family
     with
@@ -91,20 +78,12 @@ final class VoterProfilesFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// Maps voter uid -> display profile for a room, so poll options can show who
-  /// voted. Watches the room's votes and fetches any newly-seen voter's profile
-  /// exactly once (avatars resolved by reference, never denormalized onto votes).
-
   VoterProfilesProvider call(String roomId) =>
       VoterProfilesProvider._(argument: roomId, from: this);
 
   @override
   String toString() => r'voterProfilesProvider';
 }
-
-/// Maps voter uid -> display profile for a room, so poll options can show who
-/// voted. Watches the room's votes and fetches any newly-seen voter's profile
-/// exactly once (avatars resolved by reference, never denormalized onto votes).
 
 abstract class _$VoterProfiles extends $Notifier<Map<String, VoterProfile>> {
   late final _$args = ref.$arg as String;
