@@ -13,6 +13,7 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -180,7 +181,7 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
         .read(friendCallRepositoryProvider)
         .callStream(callDocId)
         .listen((event) async {
-          if (!event.events.first.endsWith('.update')) return;
+          if (realtimeAction(event.events) != 'update') return;
           final call = state.activeCall;
           if (call == null) return;
           final status = event.payload['callStatus'];

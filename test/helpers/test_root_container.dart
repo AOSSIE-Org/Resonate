@@ -378,12 +378,6 @@ class FakeCallKitService extends CallKitService {
   }
 }
 
-// Stateful, like the real AuthRepository: the seeded [state] is what every
-// load/mutation resolves the session to, and [sessionStateChanges] mirrors it
-// so authSessionProvider / currentUserProvider / the router all observe it.
-// Deterministic by construction — refresh() re-yields the seeded state with no
-// network, so tests that trigger refresh() (e.g. pair-chat submitRating) can't
-// go flaky the way the old half-stubbed auth path could.
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
