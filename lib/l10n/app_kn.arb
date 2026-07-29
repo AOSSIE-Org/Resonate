@@ -924,7 +924,7 @@
     "@noSearchResults": {
         "description": "Message displayed when a search returns no results."
     },
-    "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {description}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!",
+    "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {roomDescription}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
@@ -932,7 +932,7 @@
                 "type": "String",
                 "example": "Discussion Room"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "A great place to discuss"
             },

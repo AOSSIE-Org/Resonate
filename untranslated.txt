@@ -41,7 +41,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "gu": [
@@ -115,7 +131,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "hi": [
@@ -136,7 +168,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "kn": [
@@ -200,7 +248,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "ml": [
@@ -230,7 +294,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "mr": [
@@ -260,7 +340,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "pa": [
@@ -281,7 +377,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "raj": [
@@ -330,7 +442,23 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ],
 
   "ta": [
@@ -367,6 +495,22 @@
     "pollUnavailable",
     "failedToCreatePoll",
     "failedToVote",
-    "failedToEndPoll"
+    "failedToEndPoll",
+    "activityStatus",
+    "activityStatusSubtitle",
+    "activityOnline",
+    "activityOnlineDescription",
+    "activityDnd",
+    "activityDndDescription",
+    "activityInRoom",
+    "activityInRoomDescription",
+    "activityInvisible",
+    "activityInvisibleDescription",
+    "activityOffline",
+    "activityOfflineDescription",
+    "activityStatusUpdateFailed",
+    "callBlocked",
+    "callBlockedDnd",
+    "callBlockedInRoom"
   ]
 }

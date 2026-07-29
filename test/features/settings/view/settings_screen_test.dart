@@ -60,6 +60,9 @@ Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        // The activity status tile watches it, which would otherwise build
+        // the real Appwrite clients.
+        ...activityStatusOverrides(),
         authRepositoryProvider.overrideWithValue(repo),
         routerProvider.overrideWithValue(router),
       ],

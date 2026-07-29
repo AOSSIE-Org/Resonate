@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/shell/viewmodel/network_notifier.dart';
 import 'package:resonate/features/theme/model/theme_list.dart';
 import 'package:resonate/features/theme/model/theme_modes.dart';
@@ -69,6 +70,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     UiSizes.init(context);
     ref.watch(networkProvider);
+    ref.watch(myActivityStatusProvider);
     final themeModel = ThemeList.getThemeModel(ref.watch(appThemeProvider).name);
 
     return MaterialApp.router(

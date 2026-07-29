@@ -1035,7 +1035,7 @@
     "@noSearchResults": {
         "description": "शोध कोणतेही परिणाम परत न आल्यास संदेश."
     },
-    "shareRoomMessage": "🚀 या अद्भुत कक्ष पहा: {roomName}!\n\n📖 वर्णन: {description}\n👥 आता {participants} सहभागींशी सामील व्हा!",
+    "shareRoomMessage": "🚀 या अद्भुत कक्ष पहा: {roomName}!\n\n📖 वर्णन: {roomDescription}\n👥 आता {participants} सहभागींशी सामील व्हा!",
     "@shareRoomMessage": {
         "description": "कक्ष शेअर करताना वापरला जाणारा डिफॉल्ट संदेश टेम्पलेट.",
         "placeholders": {
@@ -1043,7 +1043,7 @@
                 "type": "String",
                 "example": "चर्चा कक्ष"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "चर्चा करण्यासाठी एक चांगली जागा"
             },
