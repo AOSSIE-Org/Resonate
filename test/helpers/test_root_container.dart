@@ -5,6 +5,7 @@ import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
@@ -16,7 +17,10 @@ import 'package:resonate/features/auth/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/livekit_state.dart';
@@ -479,6 +483,49 @@ class FakeAuthRepository implements AuthRepository {
   );
 }
 
+class FakeMyActivityStatus extends MyActivityStatus {
+  FakeMyActivityStatus([this.initial = ActivityStatus.online]);
+
+  final ActivityStatus initial;
+  final List<ActivityStatus> setStatusCalls = [];
+  int goOfflineCount = 0;
+
+  @override
+  ActivityStatus build() => initial;
+
+  @override
+  ActivityStatus get chosen => state;
+
+  @override
+  Future<void> setStatus(ActivityStatus status) async {
+    setStatusCalls.add(status);
+    state = status;
+  }
+
+  @override
+  Future<void> goOffline() async => goOfflineCount++;
+}
+
+class FakeUserActivityStatus extends UserActivityStatus {
+  FakeUserActivityStatus([this.statuses = const {}]);
+
+  final Map<String, ActivityStatus> statuses;
+
+  @override
+  Map<String, ActivityStatus> build() => statuses;
+
+  @override
+  ActivityStatus? statusOf(String uid) => statuses[uid];
+}
+
+List<Override> activityStatusOverrides({
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> others = const {},
+}) => [
+  myActivityStatusProvider.overrideWith(() => FakeMyActivityStatus(myStatus)),
+  userActivityStatusProvider.overrideWith(() => FakeUserActivityStatus(others)),
+];
+
 Future<ProviderContainer> installTestRootContainer({
   AuthState? authState,
   Account? account,
@@ -491,6 +538,8 @@ Future<ProviderContainer> installTestRootContainer({
   FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
   CallKitService? callKit,
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> activityStatuses = const {},
 }) async {
   final container = ProviderContainer(
     overrides: [
@@ -501,6 +550,7 @@ Future<ProviderContainer> installTestRootContainer({
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
       liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+      ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
       callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
       if (account != null) appwriteAccountProvider.overrideWithValue(account),
       if (tables != null) appwriteTablesProvider.overrideWithValue(tables),

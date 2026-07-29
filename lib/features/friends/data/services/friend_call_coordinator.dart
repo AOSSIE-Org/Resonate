@@ -8,6 +8,8 @@ import 'package:resonate/features/friends/data/repositories/friend_call_reposito
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -20,8 +22,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/friend_call_coordinator.g.dart';
 
-// The friend-call and ringing screens observe its FriendCallState;
-// the app bootstrap wires CallKit to it.
+
 @Riverpod(keepAlive: true)
 class FriendCallCoordinator extends _$FriendCallCoordinator {
   StreamSubscription<RealtimeMessage>? _callSub;
@@ -41,6 +42,12 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
         : friend.senderFCMToken;
     if (recieverFCMToken == null) {
       throw const FriendsFailure.unknown('Friend has no notification token');
+    }
+
+    final recieverUid = amSender ? friend.recieverId : friend.senderId;
+    final cachedStatus = ref.read(userActivityStatusProvider)[recieverUid];
+    if (cachedStatus != null && cachedStatus.blocksCalls) {
+      throw CallBlockedByActivityStatus(cachedStatus);
     }
 
     final repo = ref.read(friendCallRepositoryProvider);
@@ -63,10 +70,18 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
           : friend.senderProfileImgUrl,
       livekitRoomId: friend.docId,
     );
-    await repo.sendCallNotification(
+    final blockedBy = await repo.sendCallNotification(
       call: call,
       recieverFCMToken: recieverFCMToken,
     );
+    if (blockedBy != null) {
+      try {
+        await repo.setCallStatus(call, FriendCallStatus.declined);
+      } catch (e) {
+        log('startCall: could not close the blocked call row: $e');
+      }
+      throw CallBlockedByActivityStatus(blockedBy);
+    }
 
     if (!ref.mounted) return;
     state = FriendCallState(activeCall: call);

@@ -1551,10 +1551,10 @@ abstract class AppLocalizations {
   /// The default message template used when sharing a room.
   ///
   /// In en, this message translates to:
-  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!'**
+  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!'**
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
   );
 
@@ -2584,7 +2584,7 @@ abstract class AppLocalizations {
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// No description provided for @failedToDeleteMessage.
+  /// Error snackbar shown when deleting a message fails.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
@@ -2751,6 +2751,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to end the poll'**
   String get failedToEndPoll;
+
+  /// Settings entry and title of the sheet where the user picks their activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity status'**
+  String get activityStatus;
+
+  /// Supporting line under the activity status picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose who can reach you'**
+  String get activityStatusSubtitle;
+
+  /// Activity status: fully available for calls.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get activityOnline;
+
+  /// Explanation of the Online activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for calls'**
+  String get activityOnlineDescription;
+
+  /// Activity status: incoming calls are refused.
+  ///
+  /// In en, this message translates to:
+  /// **'Do Not Disturb'**
+  String get activityDnd;
+
+  /// Explanation of the Do Not Disturb activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming calls are blocked'**
+  String get activityDndDescription;
+
+  /// Activity status: the user is in a live audio session. Set automatically.
+  ///
+  /// In en, this message translates to:
+  /// **'In a session'**
+  String get activityInRoom;
+
+  /// Explanation of the In a session activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'In a live session, calls are blocked'**
+  String get activityInRoomDescription;
+
+  /// Activity status: the user appears offline to others.
+  ///
+  /// In en, this message translates to:
+  /// **'Invisible'**
+  String get activityInvisible;
+
+  /// Explanation of the Invisible activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'You appear offline, calls still reach you'**
+  String get activityInvisibleDescription;
+
+  /// Activity status shown for a user who is signed out or has the app in the background.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get activityOffline;
+
+  /// Explanation of the Offline activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the app right now'**
+  String get activityOfflineDescription;
+
+  /// Error snackbar when writing the new activity status fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your availability'**
+  String get activityStatusUpdateFailed;
+
+  /// Title of the snackbar shown when a call is refused by the recipient's activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t call right now'**
+  String get callBlocked;
+
+  /// Snackbar body when the callee has Do Not Disturb enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} has Do Not Disturb turned on.'**
+  String callBlockedDnd(String username);
+
+  /// Snackbar body when the callee is already in a live audio session.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} is in a live session.'**
+  String callBlockedInRoom(String username);
 }
 
 class _AppLocalizationsDelegate

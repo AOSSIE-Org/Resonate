@@ -7,9 +7,11 @@ import 'package:resonate/features/rooms/data/livekit_join.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
     show mapAppwriteFriendsException;
+import 'package:resonate/core/services/execute_function.dart';
 import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/friend_call_repository.g.dart';
@@ -76,12 +78,14 @@ class FriendCallRepository {
   }
 
   // Triggers the cloud function that delivers the incoming-call FCM push.
-  Future<void> sendCallNotification({
+  Future<ActivityStatus?> sendCallNotification({
     required FriendCallModel call,
     required String recieverFCMToken,
   }) async {
     final notificationData = {
       "recieverFCMToken": recieverFCMToken,
+      // Top-level so the function can check activity status
+      "recieverUid": call.recieverUid,
       "data": {
         "caller_name": call.callerName,
         "caller_username": call.callerUsername,
@@ -94,10 +98,16 @@ class FriendCallRepository {
         "livekit_room_id": call.livekitRoomId,
       },
     };
-    await _functions.createExecution(
+    final response = await _functions.execute(
       functionId: startFriendCallFunctionID,
-      body: jsonEncode(notificationData),
+      body: notificationData,
     );
+
+    if (response['blocked'] == true) {
+      return ActivityStatus.fromWire(response['reason'] as String?) ??
+          ActivityStatus.dnd;
+    }
+    return null;
   }
 
   Future<FriendCallModel> getCall(String callId) async {

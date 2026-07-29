@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -39,15 +41,29 @@ Widget profileAvatar(BuildContext context) {
                   final url = user?.profileImageUrl;
                   final placeholderUrl =
                       ref.watch(userProfileImagePlaceholderUrlProvider);
+                  final status = ref.watch(myActivityStatusProvider);
                   return Center(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: UiSizes.size_20,
-                      onBackgroundImageError: (exception, stackTrace) =>
-                          const Icon(Icons.person_outline),
-                      backgroundImage: (url == null || url.isEmpty)
-                          ? NetworkImage(placeholderUrl)
-                          : NetworkImage(url),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: UiSizes.size_20,
+                          onBackgroundImageError: (exception, stackTrace) =>
+                              const Icon(Icons.person_outline),
+                          backgroundImage: (url == null || url.isEmpty)
+                              ? NetworkImage(placeholderUrl)
+                              : NetworkImage(url),
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: ActivityDot(
+                            status: status,
+                            size: UiSizes.size_12,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
