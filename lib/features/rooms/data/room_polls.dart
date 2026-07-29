@@ -165,7 +165,6 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     return true;
   }
 
-
   Future<bool> vote({required String pollId, required int optionIndex}) async {
     final current = state.value;
     if (current == null) return false;

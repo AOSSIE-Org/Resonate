@@ -8,24 +8,12 @@ part of '../room_chat.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The room's message list: long-lived, realtime-backed state, so it lives in
-/// the data layer rather than in a view model. Owning the optimistic outbox
-/// here is what lets another feature (polls) announce itself with the same
-/// pending/failed/retry behaviour without reaching into a view model.
 
 @ProviderFor(RoomChatMessages)
 final roomChatMessagesProvider = RoomChatMessagesFamily._();
 
-/// The room's message list: long-lived, realtime-backed state, so it lives in
-/// the data layer rather than in a view model. Owning the optimistic outbox
-/// here is what lets another feature (polls) announce itself with the same
-/// pending/failed/retry behaviour without reaching into a view model.
 final class RoomChatMessagesProvider
     extends $AsyncNotifierProvider<RoomChatMessages, List<RoomMessage>> {
-  /// The room's message list: long-lived, realtime-backed state, so it lives in
-  /// the data layer rather than in a view model. Owning the optimistic outbox
-  /// here is what lets another feature (polls) announce itself with the same
-  /// pending/failed/retry behaviour without reaching into a view model.
   RoomChatMessagesProvider._({
     required RoomChatMessagesFamily super.from,
     required (String, String, bool) super.argument,
@@ -64,11 +52,6 @@ final class RoomChatMessagesProvider
 
 String _$roomChatMessagesHash() => r'2941d24be6c0d75060de5b13ad4c26a8adcb37be';
 
-/// The room's message list: long-lived, realtime-backed state, so it lives in
-/// the data layer rather than in a view model. Owning the optimistic outbox
-/// here is what lets another feature (polls) announce itself with the same
-/// pending/failed/retry behaviour without reaching into a view model.
-
 final class RoomChatMessagesFamily extends $Family
     with
         $ClassFamilyOverride<
@@ -87,11 +70,6 @@ final class RoomChatMessagesFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// The room's message list: long-lived, realtime-backed state, so it lives in
-  /// the data layer rather than in a view model. Owning the optimistic outbox
-  /// here is what lets another feature (polls) announce itself with the same
-  /// pending/failed/retry behaviour without reaching into a view model.
-
   RoomChatMessagesProvider call(
     String roomId,
     String roomName,
@@ -104,11 +82,6 @@ final class RoomChatMessagesFamily extends $Family
   @override
   String toString() => r'roomChatMessagesProvider';
 }
-
-/// The room's message list: long-lived, realtime-backed state, so it lives in
-/// the data layer rather than in a view model. Owning the optimistic outbox
-/// here is what lets another feature (polls) announce itself with the same
-/// pending/failed/retry behaviour without reaching into a view model.
 
 abstract class _$RoomChatMessages extends $AsyncNotifier<List<RoomMessage>> {
   late final _$args = ref.$arg as (String, String, bool);

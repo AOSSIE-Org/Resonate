@@ -8,33 +8,12 @@ part of '../room_chat_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// View state for the chat screen. The message list itself is long-lived,
-/// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-/// the only thing the view owns is which message the composer is replying to.
-///
-/// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-/// watch would rebuild this notifier on every incoming message and silently
-/// clear the composer's reply.
 
 @ProviderFor(RoomChatComposer)
 final roomChatComposerProvider = RoomChatComposerFamily._();
 
-/// View state for the chat screen. The message list itself is long-lived,
-/// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-/// the only thing the view owns is which message the composer is replying to.
-///
-/// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-/// watch would rebuild this notifier on every incoming message and silently
-/// clear the composer's reply.
 final class RoomChatComposerProvider
     extends $NotifierProvider<RoomChatComposer, ReplyTo?> {
-  /// View state for the chat screen. The message list itself is long-lived,
-  /// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-  /// the only thing the view owns is which message the composer is replying to.
-  ///
-  /// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-  /// watch would rebuild this notifier on every incoming message and silently
-  /// clear the composer's reply.
   RoomChatComposerProvider._({
     required RoomChatComposerFamily super.from,
     required (String, String, bool) super.argument,
@@ -81,14 +60,6 @@ final class RoomChatComposerProvider
 
 String _$roomChatComposerHash() => r'ce356b40ea37f9d3f94fefe7ce642376bc66ed8e';
 
-/// View state for the chat screen. The message list itself is long-lived,
-/// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-/// the only thing the view owns is which message the composer is replying to.
-///
-/// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-/// watch would rebuild this notifier on every incoming message and silently
-/// clear the composer's reply.
-
 final class RoomChatComposerFamily extends $Family
     with
         $ClassFamilyOverride<
@@ -107,14 +78,6 @@ final class RoomChatComposerFamily extends $Family
         isAutoDispose: true,
       );
 
-  /// View state for the chat screen. The message list itself is long-lived,
-  /// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-  /// the only thing the view owns is which message the composer is replying to.
-  ///
-  /// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-  /// watch would rebuild this notifier on every incoming message and silently
-  /// clear the composer's reply.
-
   RoomChatComposerProvider call(
     String roomId,
     String roomName,
@@ -127,14 +90,6 @@ final class RoomChatComposerFamily extends $Family
   @override
   String toString() => r'roomChatComposerProvider';
 }
-
-/// View state for the chat screen. The message list itself is long-lived,
-/// realtime-backed state and lives in the data layer ([roomChatMessagesProvider]);
-/// the only thing the view owns is which message the composer is replying to.
-///
-/// Actions are delegated with `ref.read` rather than `ref.watch` on purpose: a
-/// watch would rebuild this notifier on every incoming message and silently
-/// clear the composer's reply.
 
 abstract class _$RoomChatComposer extends $Notifier<ReplyTo?> {
   late final _$args = ref.$arg as (String, String, bool);

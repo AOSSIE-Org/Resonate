@@ -4,8 +4,10 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
+import 'package:resonate/features/rooms/model/voter_profile.dart';
 import 'package:resonate/features/rooms/view/widgets/message_status_indicator.dart';
 import 'package:resonate/features/rooms/data/room_polls.dart';
+import 'package:resonate/features/rooms/data/voter_profiles.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -67,8 +69,6 @@ class PollCard extends ConsumerWidget {
                       Icon(
                         Icons.poll_outlined,
                         size: UiSizes.size_14,
-                        // On the primary-coloured card, use onPrimary for
-                        // contrast (onSurfaceVariant is a low-contrast grey here).
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       SizedBox(width: UiSizes.width_4),
@@ -190,6 +190,10 @@ class _PollBody extends ConsumerWidget {
             count: counts[i],
             totalVotes: totalVotes,
             isMyVote: myVote?.optionIndex == i,
+            voterUids: [
+              for (final v in pollsState.votes)
+                if (v.pollId == poll.pollId && v.optionIndex == i) v.uid,
+            ],
           ),
         Row(
           children: [
@@ -272,6 +276,7 @@ class _PollOption extends ConsumerWidget {
     required this.count,
     required this.totalVotes,
     required this.isMyVote,
+    required this.voterUids,
   });
 
   final Poll poll;
@@ -279,6 +284,7 @@ class _PollOption extends ConsumerWidget {
   final int count;
   final int totalVotes;
   final bool isMyVote;
+  final List<String> voterUids;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -324,9 +330,6 @@ class _PollOption extends ConsumerWidget {
                     builder: (context, value, _) => FractionallySizedBox(
                       widthFactor: value.clamp(0.0, 1.0),
                       heightFactor: 1,
-                      // Neutral share bar derived from the option's own
-                      // container colour — deliberately NOT primary, so it
-                      // doesn't blend into the primary-coloured card.
                       child: ColoredBox(
                         color: colorScheme.onSecondaryContainer.withValues(
                           alpha: 0.15,
@@ -338,40 +341,127 @@ class _PollOption extends ConsumerWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(UiSizes.width_8),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text(
-                        poll.options[optionIndex],
-                        style: TextStyle(
-                          color: colorScheme.onSecondaryContainer,
-                          fontWeight:
-                              isMyVote ? FontWeight.bold : FontWeight.normal,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            poll.options[optionIndex],
+                            style: TextStyle(
+                              color: colorScheme.onSecondaryContainer,
+                              fontWeight: isMyVote
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                          ),
                         ),
-                      ),
+                        if (isMyVote) ...[
+                          Icon(
+                            Icons.check_circle,
+                            size: UiSizes.size_14,
+                            color: colorScheme.primary,
+                          ),
+                          SizedBox(width: UiSizes.width_4),
+                        ],
+                        if (totalVotes > 0)
+                          Text(
+                            '${(share * 100).round()}%',
+                            style: TextStyle(
+                              fontSize: UiSizes.size_12,
+                              color: colorScheme.onSecondaryContainer,
+                            ),
+                          ),
+                      ],
                     ),
-                    if (isMyVote) ...[
-                      Icon(
-                        Icons.check_circle,
-                        size: UiSizes.size_14,
-                        color: colorScheme.primary,
+                    if (voterUids.isNotEmpty) ...[
+                      SizedBox(height: UiSizes.height_5),
+                      _VoterAvatars(
+                        roomId: poll.roomId,
+                        voterUids: voterUids,
                       ),
-                      SizedBox(width: UiSizes.width_4),
                     ],
-                    if (totalVotes > 0)
-                      Text(
-                        '${(share * 100).round()}%',
-                        style: TextStyle(
-                          fontSize: UiSizes.size_12,
-                          color: colorScheme.onSecondaryContainer,
-                        ),
-                      ),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _VoterAvatars extends ConsumerWidget {
+  const _VoterAvatars({required this.roomId, required this.voterUids});
+
+  final String roomId;
+  final List<String> voterUids;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final profiles = ref.watch(voterProfilesProvider(roomId));
+
+    final shown = voterUids.take(kPollOptionAvatarCap).toList();
+    final overflow = voterUids.length - shown.length;
+    final avatarSize = UiSizes.size_20;
+    // Overlap each avatar over the previous one.
+    final step = avatarSize * 0.65;
+
+    return SizedBox(
+      height: avatarSize,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          for (var i = 0; i < shown.length; i++)
+            Positioned(
+              left: i * step,
+              child: _avatar(colorScheme, profiles[shown[i]], avatarSize),
+            ),
+          if (overflow > 0)
+            Positioned(
+              left: shown.length * step,
+              child: Container(
+                width: avatarSize,
+                height: avatarSize,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colorScheme.primary,
+                  border: Border.all(color: colorScheme.secondaryContainer),
+                ),
+                child: Text(
+                  '+$overflow',
+                  style: TextStyle(
+                    fontSize: UiSizes.size_12,
+                    color: colorScheme.onPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _avatar(ColorScheme colorScheme, VoterProfile? profile, double size) {
+    final url = profile?.avatarUrl;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: colorScheme.secondaryContainer, width: 1.5),
+      ),
+      child: CircleAvatar(
+        radius: size / 2,
+        backgroundColor: colorScheme.primary,
+        backgroundImage: (url != null && url.isNotEmpty)
+            ? NetworkImage(url)
+            : null,
       ),
     );
   }

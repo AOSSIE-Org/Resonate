@@ -4,7 +4,9 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
 import 'package:resonate/features/rooms/model/poll_vote.dart';
+import 'package:resonate/features/rooms/model/voter_profile.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/room_polls_repository.g.dart';
@@ -73,6 +75,38 @@ class RoomPollsRepository {
     return votes;
   }
 
+  Future<List<VoterProfile>> loadVoterProfiles(Set<String> uids) async {
+    if (uids.isEmpty) return const [];
+    final ids = uids.toList();
+    final profiles = <VoterProfile>[];
+    for (var i = 0; i < ids.length; i += _pageSize) {
+      final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
+      final chunk = ids.sublist(i, end);
+      final result = await _tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: [
+          Query.equal(r'$id', chunk),
+          Query.select([r'$id', 'username', 'name', 'profileImageUrl']),
+          Query.limit(chunk.length),
+        ],
+      );
+      profiles.addAll(
+        result.rows.map(
+          (row) => VoterProfile(
+            uid: row.$id,
+            name:
+                (row.data['name'] as String?) ??
+                (row.data['username'] as String?) ??
+                '',
+            avatarUrl: row.data['profileImageUrl'] as String?,
+          ),
+        ),
+      );
+    }
+    return profiles;
+  }
+
   Future<void> createPoll(Poll poll) async {
     await _tables.createRow(
       databaseId: masterDatabaseId,
@@ -117,10 +151,7 @@ class RoomPollsRepository {
     final sub = subscription.stream.listen((data) {
       if (data.payload.isEmpty || data.payload['roomId'] != roomId) return;
 
-      final docId = data.payload['\$id'] as String;
-      final action = data.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
+      final action = realtimeAction(data.events);
 
       try {
         controller.add((poll: Poll.fromJson(data.payload), action: action));
@@ -142,10 +173,7 @@ class RoomPollsRepository {
     final sub = subscription.stream.listen((data) {
       if (data.payload.isEmpty || data.payload['roomId'] != roomId) return;
 
-      final docId = data.payload['\$id'] as String;
-      final action = data.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
+      final action = realtimeAction(data.events);
 
       try {
         controller.add(
