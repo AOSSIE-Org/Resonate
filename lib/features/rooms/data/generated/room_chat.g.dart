@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../room_chat_notifier.dart';
+part of '../room_chat.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,47 +9,39 @@ part of '../room_chat_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RoomChatComposer)
-final roomChatComposerProvider = RoomChatComposerFamily._();
+@ProviderFor(RoomChatMessages)
+final roomChatMessagesProvider = RoomChatMessagesFamily._();
 
-final class RoomChatComposerProvider
-    extends $NotifierProvider<RoomChatComposer, ReplyTo?> {
-  RoomChatComposerProvider._({
-    required RoomChatComposerFamily super.from,
+final class RoomChatMessagesProvider
+    extends $AsyncNotifierProvider<RoomChatMessages, List<RoomMessage>> {
+  RoomChatMessagesProvider._({
+    required RoomChatMessagesFamily super.from,
     required (String, String, bool) super.argument,
   }) : super(
          retry: null,
-         name: r'roomChatComposerProvider',
+         name: r'roomChatMessagesProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$roomChatComposerHash();
+  String debugGetCreateSourceHash() => _$roomChatMessagesHash();
 
   @override
   String toString() {
-    return r'roomChatComposerProvider'
+    return r'roomChatMessagesProvider'
         ''
         '$argument';
   }
 
   @$internal
   @override
-  RoomChatComposer create() => RoomChatComposer();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ReplyTo? value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ReplyTo?>(value),
-    );
-  }
+  RoomChatMessages create() => RoomChatMessages();
 
   @override
   bool operator ==(Object other) {
-    return other is RoomChatComposerProvider && other.argument == argument;
+    return other is RoomChatMessagesProvider && other.argument == argument;
   }
 
   @override
@@ -58,55 +50,60 @@ final class RoomChatComposerProvider
   }
 }
 
-String _$roomChatComposerHash() => r'ce356b40ea37f9d3f94fefe7ce642376bc66ed8e';
+String _$roomChatMessagesHash() => r'2941d24be6c0d75060de5b13ad4c26a8adcb37be';
 
-final class RoomChatComposerFamily extends $Family
+final class RoomChatMessagesFamily extends $Family
     with
         $ClassFamilyOverride<
-          RoomChatComposer,
-          ReplyTo?,
-          ReplyTo?,
-          ReplyTo?,
+          RoomChatMessages,
+          AsyncValue<List<RoomMessage>>,
+          List<RoomMessage>,
+          FutureOr<List<RoomMessage>>,
           (String, String, bool)
         > {
-  RoomChatComposerFamily._()
+  RoomChatMessagesFamily._()
     : super(
         retry: null,
-        name: r'roomChatComposerProvider',
+        name: r'roomChatMessagesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  RoomChatComposerProvider call(
+  RoomChatMessagesProvider call(
     String roomId,
     String roomName,
     bool isUpcoming,
-  ) => RoomChatComposerProvider._(
+  ) => RoomChatMessagesProvider._(
     argument: (roomId, roomName, isUpcoming),
     from: this,
   );
 
   @override
-  String toString() => r'roomChatComposerProvider';
+  String toString() => r'roomChatMessagesProvider';
 }
 
-abstract class _$RoomChatComposer extends $Notifier<ReplyTo?> {
+abstract class _$RoomChatMessages extends $AsyncNotifier<List<RoomMessage>> {
   late final _$args = ref.$arg as (String, String, bool);
   String get roomId => _$args.$1;
   String get roomName => _$args.$2;
   bool get isUpcoming => _$args.$3;
 
-  ReplyTo? build(String roomId, String roomName, bool isUpcoming);
+  FutureOr<List<RoomMessage>> build(
+    String roomId,
+    String roomName,
+    bool isUpcoming,
+  );
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<ReplyTo?, ReplyTo?>;
+    final ref =
+        this.ref as $Ref<AsyncValue<List<RoomMessage>>, List<RoomMessage>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ReplyTo?, ReplyTo?>,
-              ReplyTo?,
+              AnyNotifier<AsyncValue<List<RoomMessage>>, List<RoomMessage>>,
+              AsyncValue<List<RoomMessage>>,
               Object?,
               Object?
             >;

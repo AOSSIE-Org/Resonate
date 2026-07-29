@@ -12,6 +12,7 @@ import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/live_chapter_coordinator.g.dart';
@@ -142,8 +143,8 @@ class LiveChapter extends _$LiveChapter {
     _attendeesSub?.cancel();
     _attendeesSub = repo.attendeesStream(roomId).listen((event) async {
       try {
-        final eventName = event.events.first;
-        if (eventName.endsWith('.update')) {
+        final action = realtimeAction(event.events);
+        if (action == 'update') {
           final model = state.model;
           if (model == null || !ref.mounted) return;
           final newAttendees = LiveChapterAttendeesModel.fromJson(
@@ -152,7 +153,7 @@ class LiveChapter extends _$LiveChapter {
           state = state.copyWith(
             model: model.copyWith(attendees: newAttendees),
           );
-        } else if (eventName.endsWith('.delete')) {
+        } else if (action == 'delete') {
           if (!isAdmin) {
             await _attendeesSub?.cancel();
             await ref.read(liveKitControllerProvider.notifier).disconnect();
