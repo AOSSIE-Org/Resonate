@@ -66,11 +66,9 @@ class RoomChatMessages extends _$RoomChatMessages {
         final fromSelf =
             event.message.creatorId == ref.read(requireUserProvider).uid;
         if (!isUpcoming && !fromSelf) {
-          _notifications.show(
-            0,
+          _notify(
             'Message received in $roomName',
             '${event.message.creatorName} said: ${event.message.content}',
-            _notificationDetails,
           );
         }
       } else if (event.action == 'update') {
@@ -87,15 +85,23 @@ class RoomChatMessages extends _$RoomChatMessages {
         final fromSelf =
             event.message.creatorId == ref.read(requireUserProvider).uid;
         if (!isUpcoming && !fromSelf) {
-          _notifications.show(
-            0,
+          _notify(
             'Message Edited in $roomName',
             '${event.message.creatorName} updated his message: ${event.message.content}',
-            _notificationDetails,
           );
         }
       }
     });
+  }
+
+  void _notify(String title, String body) {
+    try {
+      _notifications
+          .show(0, title, body, _notificationDetails)
+          .catchError((Object e) => log('local notification failed: $e'));
+    } catch (e) {
+      log('local notification failed: $e');
+    }
   }
 
   // Optimistically appends the message then posts it

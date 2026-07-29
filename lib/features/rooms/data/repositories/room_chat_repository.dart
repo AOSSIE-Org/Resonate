@@ -6,6 +6,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/room_chat_repository.g.dart';
@@ -137,9 +138,7 @@ class RoomChatRepository {
       if (data.payload.isEmpty || data.payload['roomId'] != roomId) return;
 
       final docId = data.payload['\$id'] as String;
-      final action = data.events.first.substring(
-        channel.length + 1 + docId.length + 1,
-      );
+      final action = realtimeAction(data.events);
 
       if (action == 'create' || action == 'update') {
         try {

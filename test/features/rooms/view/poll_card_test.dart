@@ -9,6 +9,8 @@ import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/widgets/poll_card.dart';
 import 'package:resonate/features/rooms/data/room_polls.dart';
+import 'package:resonate/features/rooms/data/voter_profiles.dart';
+import 'package:resonate/features/rooms/model/voter_profile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -93,11 +95,26 @@ RoomMessage pollMessage({String pollId = _pollId}) => RoomMessage(
   pollId: pollId,
 );
 
-List<Override> pollOverrides(RoomPollsNotifier Function() fake) => [
+List<Override> pollOverrides(
+  RoomPollsNotifier Function() fake, {
+  Map<String, VoterProfile> voterProfiles = const {},
+}) => [
   requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   roomPollsProvider(_roomId).overrideWith(fake),
+  // Keep the avatar lookup off the network in widget tests.
+  voterProfilesProvider(
+    _roomId,
+  ).overrideWith(() => FakeVoterProfiles(voterProfiles)),
 ];
+
+class FakeVoterProfiles extends VoterProfiles {
+  FakeVoterProfiles(this._profiles);
+  final Map<String, VoterProfile> _profiles;
+
+  @override
+  Map<String, VoterProfile> build(String roomId) => _profiles;
+}
 
 
 Future<void> pumpWithRootOverlay(
@@ -178,6 +195,29 @@ void main() {
       expect(find.text('50%'), findsOneWidget);
       expect(find.text('25%'), findsNWidgets(2));
       expect(find.text('4 votes'), findsOneWidget);
+    });
+
+    testRoomsWidget('voter avatars cap at 5 with a +N overflow badge', (
+      tester,
+    ) async {
+      final voters = [for (var i = 0; i < 7; i++) 'u$i'];
+      final state = RoomPollsState(
+        polls: [fakePoll()],
+        votes: [for (final u in voters) fakeVote(u, 0)],
+      );
+      await pumpRoomsPage(
+        tester,
+        PollCard(message: pollMessage(), isUserAdmin: false),
+        overrides: pollOverrides(
+          () => FakeRoomPolls(state),
+          voterProfiles: {
+            for (final u in voters) u: VoterProfile(uid: u, name: u),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('+2'), findsOneWidget);
     });
 
     testRoomsWidget('zero votes show No votes yet and no percentages', (

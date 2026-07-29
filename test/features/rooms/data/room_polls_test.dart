@@ -9,6 +9,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/data/room_polls.dart';
+import 'package:resonate/features/rooms/data/voter_profiles.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';
@@ -898,6 +899,68 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       ));
+    });
+  });
+
+  group('voterProfilesProvider', () {
+    test('resolves each voter\'s avatar/name by uid from the users table',
+        () async {
+      voteRows = [
+        _voteRow(id: 'va', pollId: 'p1', uid: 'alice', optionIndex: 0),
+        _voteRow(id: 'vb', pollId: 'p1', uid: 'bob', optionIndex: 1),
+      ];
+      when(tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 2, rows: [
+            buildRow(
+              id: 'alice',
+              databaseId: userDatabaseID,
+              tableId: usersTableID,
+              data: {
+                'name': 'Alice',
+                'username': 'alice',
+                'profileImageUrl': 'https://cdn/a.jpg',
+              },
+            ),
+            buildRow(
+              id: 'bob',
+              databaseId: userDatabaseID,
+              tableId: usersTableID,
+              data: {
+                'name': 'Bob',
+                'username': 'bob',
+                'profileImageUrl': 'https://cdn/b.jpg',
+              },
+            ),
+          ]));
+
+      final container = await installAndBuild();
+      container.listen(voterProfilesProvider(_roomId), (_, _) {});
+      // Let the provider observe the votes and complete its async fetch.
+      await flushStreams();
+      await flushStreams();
+
+      final profiles = container.read(voterProfilesProvider(_roomId));
+      expect(profiles['alice']?.avatarUrl, 'https://cdn/a.jpg');
+      expect(profiles['bob']?.name, 'Bob');
+    });
+
+    test('a failed lookup is non-fatal and leaves the map empty', () async {
+      voteRows = [_voteRow(id: 'va', pollId: 'p1', uid: 'alice', optionIndex: 0)];
+      when(tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: anyNamed('queries'),
+      )).thenThrow(AppwriteException('denied', 401));
+
+      final container = await installAndBuild();
+      container.listen(voterProfilesProvider(_roomId), (_, _) {});
+      await flushStreams();
+      await flushStreams();
+
+      expect(container.read(voterProfilesProvider(_roomId)), isEmpty);
     });
   });
 }

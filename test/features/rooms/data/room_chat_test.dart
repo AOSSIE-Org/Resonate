@@ -244,5 +244,49 @@ void main() {
         expect(messages.first.messageId, sentId);
       },
     );
+
+    test(
+      'realtime create from another user is delivered even when the event '
+      'list leads with the collections/documents variant (dual-format server)',
+      () async {
+        final container = await install();
+        final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
+        container.listen(providerKey, (_, _) {});
+        await container.read(providerKey.future);
+        final rowsChannel =
+            'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+        final colsChannel =
+            'databases.$masterDatabaseId.collections.$chatMessagesTableId.documents';
+        chatEvents.add(RealtimeMessage(
+          events: [
+            '$colsChannel.other-msg.create',
+            '$rowsChannel.other-msg.create',
+          ],
+          payload: {
+            '\$id': 'other-msg',
+            'roomId': 'room-1',
+            'messageId': 'other-msg',
+            'creatorId': 'someone-else',
+            'creatorUsername': 'bob',
+            'creatorName': 'Bob',
+            'creatorImgUrl': '',
+            'hasValidTag': false,
+            'index': 5,
+            'isEdited': false,
+            'content': 'hello from bob',
+            'creationDateTime': DateTime.now().toUtc().toIso8601String(),
+            'isDeleted': false,
+          },
+          channels: [rowsChannel],
+          timestamp: DateTime.now().toIso8601String(),
+        ));
+        await Future<void>.delayed(Duration.zero);
+
+        final messages = container.read(providerKey).value!;
+        expect(messages, hasLength(1));
+        expect(messages.first.messageId, 'other-msg');
+        expect(messages.first.content, 'hello from bob');
+      },
+    );
   });
 }
