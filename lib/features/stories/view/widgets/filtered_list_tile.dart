@@ -4,7 +4,7 @@ import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/secondary_list_card.dart';
 

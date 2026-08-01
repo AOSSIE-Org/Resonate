@@ -4,8 +4,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
     show mapAppwriteFriendsException;
-import 'package:resonate/features/rooms/data/livekit_join.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

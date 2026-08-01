@@ -151,10 +151,10 @@ Future<void> pumpWithRootOverlay(
 
 void main() {
   group('PollCard rendering', () {
-    testRoomsWidget('renders question, options, creator name and Poll label', (
+    testAppWidget('renders question, options, creator name and Poll label', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(
@@ -173,7 +173,7 @@ void main() {
       expect(find.byIcon(Icons.poll_outlined), findsOneWidget);
     });
 
-    testRoomsWidget('votes 2/1/1 show 50%/25%/25% and total votes text', (
+    testAppWidget('votes 2/1/1 show 50%/25%/25% and total votes text', (
       tester,
     ) async {
       final state = RoomPollsState(
@@ -185,7 +185,7 @@ void main() {
           fakeVote('u4', 2),
         ],
       );
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(() => FakeRoomPolls(state)),
@@ -197,7 +197,7 @@ void main() {
       expect(find.text('4 votes'), findsOneWidget);
     });
 
-    testRoomsWidget('voter avatars cap at 5 with a +N overflow badge', (
+    testAppWidget('voter avatars cap at 5 with a +N overflow badge', (
       tester,
     ) async {
       final voters = [for (var i = 0; i < 7; i++) 'u$i'];
@@ -205,7 +205,7 @@ void main() {
         polls: [fakePoll()],
         votes: [for (final u in voters) fakeVote(u, 0)],
       );
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(
@@ -220,10 +220,10 @@ void main() {
       expect(find.text('+2'), findsOneWidget);
     });
 
-    testRoomsWidget('zero votes show No votes yet and no percentages', (
+    testAppWidget('zero votes show No votes yet and no percentages', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(
@@ -236,14 +236,14 @@ void main() {
       expect(find.textContaining('%'), findsNothing);
     });
 
-    testRoomsWidget('my vote shows the check_circle on my option row', (
+    testAppWidget('my vote shows the check_circle on my option row', (
       tester,
     ) async {
       final state = RoomPollsState(
         polls: [fakePoll()],
         votes: [fakeVote('me', 1)],
       );
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(() => FakeRoomPolls(state)),
@@ -262,10 +262,10 @@ void main() {
       );
     });
 
-    testRoomsWidget('message pointing to an unknown poll shows unavailable', (
+    testAppWidget('message pointing to an unknown poll shows unavailable', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(pollId: 'nope'), isUserAdmin: false),
         overrides: pollOverrides(
@@ -281,11 +281,11 @@ void main() {
   });
 
   group('Voting', () {
-    testRoomsWidget('tapping an option calls vote with pollId and index', (
+    testAppWidget('tapping an option calls vote with pollId and index', (
       tester,
     ) async {
       late FakeRoomPolls fake;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(
@@ -302,7 +302,7 @@ void main() {
       expect(fake.lastVotedOptionIndex, 2);
     });
 
-    testRoomsWidget('vote failure shows the error toast', (tester) async {
+    testAppWidget('vote failure shows the error toast', (tester) async {
       late FakeRoomPolls fake;
       await pumpWithRootOverlay(
         tester,
@@ -328,11 +328,11 @@ void main() {
       expect(find.text('Failed to record your vote'), findsNothing);
     });
 
-    testRoomsWidget('closed poll: tap is a no-op, Final results, no End poll', (
+    testAppWidget('closed poll: tap is a no-op, Final results, no End poll', (
       tester,
     ) async {
       late FakeRoomPolls fake;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: true),
         overrides: pollOverrides(
@@ -354,11 +354,11 @@ void main() {
   });
 
   group('End poll', () {
-    testRoomsWidget('host confirms End poll -> closePoll called', (
+    testAppWidget('host confirms End poll -> closePoll called', (
       tester,
     ) async {
       late FakeRoomPolls fake;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: true),
         overrides: pollOverrides(
@@ -382,11 +382,11 @@ void main() {
       expect(find.text('End this poll?'), findsNothing);
     });
 
-    testRoomsWidget('host cancels the confirm dialog -> no closePoll', (
+    testAppWidget('host cancels the confirm dialog -> no closePoll', (
       tester,
     ) async {
       late FakeRoomPolls fake;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: true),
         overrides: pollOverrides(
@@ -405,10 +405,10 @@ void main() {
       expect(find.text('End poll'), findsOneWidget);
     });
 
-    testRoomsWidget('non-admin does not see the End poll button', (
+    testAppWidget('non-admin does not see the End poll button', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         PollCard(message: pollMessage(), isUserAdmin: false),
         overrides: pollOverrides(

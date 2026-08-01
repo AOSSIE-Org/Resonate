@@ -7,8 +7,8 @@ import 'package:language_picker/languages.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -57,7 +57,7 @@ class RecordingRouter {
 }
 
 List<Override> _overrides(
-  FakePairChatNotifier fake, {
+  FakePairChat fake, {
   String displayName = 'Test User',
 }) {
   return [
@@ -107,7 +107,7 @@ void main() {
     testFriendsWidget('anonymous button calls setAnonymous(true)', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await pumpFriendsPage(
         tester,
         const PairChatDialog(),
@@ -125,7 +125,7 @@ void main() {
     testFriendsWidget('authenticated button calls setAnonymous(false)', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await pumpFriendsPage(
         tester,
         const PairChatDialog(),
@@ -144,7 +144,7 @@ void main() {
     testFriendsWidget('authenticated button shows requireUser displayName', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await pumpFriendsPage(
         tester,
         const PairChatDialog(),
@@ -159,7 +159,7 @@ void main() {
 
   group('PairChatDialog language', () {
     testFriendsWidget('renders the language dropdown', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await pumpFriendsPage(
         tester,
         const PairChatDialog(),
@@ -176,7 +176,7 @@ void main() {
     testFriendsWidget('Quick Match pops the dialog and calls quickMatch', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       final recording = await _pumpDialogViaRouter(tester, _overrides(fake));
       expect(find.byType(PairChatDialog), findsOneWidget);
 
@@ -192,7 +192,7 @@ void main() {
     testFriendsWidget('Choose User pops the dialog and calls choosePartner', (
       tester,
     ) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       final recording = await _pumpDialogViaRouter(tester, _overrides(fake));
       expect(find.byType(PairChatDialog), findsOneWidget);
 

@@ -41,7 +41,7 @@ final class LiveChapterProvider
   }
 }
 
-String _$liveChapterHash() => r'bf29f5a4149139b2e535e66aa3e634e360976894';
+String _$liveChapterHash() => r'24f557c97b92119971af02179bbb6a928796fae3';
 
 abstract class _$LiveChapter extends $Notifier<LiveChapterState> {
   LiveChapterState build();

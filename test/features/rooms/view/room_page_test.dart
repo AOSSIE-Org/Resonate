@@ -9,12 +9,12 @@ import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/services/room_session.dart';
 
 import '../rooms_test_helpers.dart';
 
 // Loading fake: never completes build().
-class LoadingSingleRoom extends SingleRoomNotifier {
+class LoadingSingleRoom extends RoomSession {
   final Completer<SingleRoomState> _c = Completer();
   @override
   Future<SingleRoomState> build(AppwriteRoom appwriteRoom) => _c.future;
@@ -27,18 +27,18 @@ SingleRoomState stateWith(Participant me, {List<Participant> participants = cons
 // Builds the overrides with the current user + a fake room notifier.
 List<Override> roomOverrides({
   required AppwriteRoom room,
-  required SingleRoomNotifier Function() fake,
+  required RoomSession Function() fake,
 }) => [
       requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
       currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-      singleRoomProvider(room).overrideWith(fake),
+      roomSessionProvider(room).overrideWith(fake),
     ];
 
 void main() {
   group('RoomPage state rendering', () {
-    testRoomsWidget('loading -> spinner, no body/footer', (tester) async {
+    testAppWidget('loading -> spinner, no body/footer', (tester) async {
       final room = fakeAppwriteRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(room: room, fake: LoadingSingleRoom.new),
@@ -51,16 +51,16 @@ void main() {
       expect(find.text('Test Room'), findsOneWidget);
     });
 
-    testRoomsWidget('error -> body renders with no participants view', (
+    testAppWidget('error -> body renders with no participants view', (
       tester,
     ) async {
       final room = fakeAppwriteRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => FakeSingleRoom(
+          fake: () => FakeRoomSession(
             stateWith(fakeParticipant(uid: 'me')),
             throwOnError: true,
           ),
@@ -71,14 +71,14 @@ void main() {
       expect(find.text('No participants yet'), findsOneWidget);
     });
 
-    testRoomsWidget('data empty -> _NoParticipantsView', (tester) async {
+    testAppWidget('data empty -> _NoParticipantsView', (tester) async {
       final room = fakeAppwriteRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => FakeSingleRoom(stateWith(fakeParticipant(uid: 'me'))),
+          fake: () => FakeRoomSession(stateWith(fakeParticipant(uid: 'me'))),
         ),
       );
       await tester.pumpAndSettle();
@@ -86,7 +86,7 @@ void main() {
       expect(find.byType(ParticipantBlock), findsNothing);
     });
 
-    testRoomsWidget('data with participants -> GridView of ParticipantBlock', (
+    testAppWidget('data with participants -> GridView of ParticipantBlock', (
       tester,
     ) async {
       final room = fakeAppwriteRoom();
@@ -94,12 +94,12 @@ void main() {
         fakeParticipant(uid: 'me', name: 'Me', isAdmin: true, isSpeaker: true),
         fakeParticipant(uid: 'p2', name: 'Bob'),
       ];
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => FakeSingleRoom(
+          fake: () => FakeRoomSession(
             stateWith(participants.first, participants: participants),
           ),
         ),
@@ -115,12 +115,12 @@ void main() {
 
   group('Leave / delete button', () {
     // Push RoomPage as a route so Navigator.canPop() is true.
-    Future<FakeSingleRoom> pumpRouted(
+    Future<FakeRoomSession> pumpRouted(
       WidgetTester tester,
       AppwriteRoom room,
       SingleRoomState state,
     ) async {
-      late FakeSingleRoom fake;
+      late FakeRoomSession fake;
       tester.view.physicalSize = const Size(1080, 2340);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
@@ -130,11 +130,11 @@ void main() {
           overrides: roomOverrides(
             room: room,
             fake: () {
-              fake = FakeSingleRoom(state);
+              fake = FakeRoomSession(state);
               return fake;
             },
           ),
-          child: roomsTestApp(
+          child: testApp(
             Navigator(
               onGenerateRoute: (_) => MaterialPageRoute<void>(
                 builder: (context) => ElevatedButton(
@@ -155,7 +155,7 @@ void main() {
       return fake;
     }
 
-    testRoomsWidget('admin confirm=true -> deleteRoom + pops', (tester) async {
+    testAppWidget('admin confirm=true -> deleteRoom + pops', (tester) async {
       final room = fakeAppwriteRoom(isUserAdmin: true);
       final me = fakeParticipant(uid: 'me', isAdmin: true, isSpeaker: true);
       final fake = await pumpRouted(tester, room, stateWith(me));
@@ -174,7 +174,7 @@ void main() {
       expect(find.text('open'), findsOneWidget);
     });
 
-    testRoomsWidget('non-admin confirm=true -> leaveRoom + pops', (tester) async {
+    testAppWidget('non-admin confirm=true -> leaveRoom + pops', (tester) async {
       final room = fakeAppwriteRoom(isUserAdmin: false);
       final me = fakeParticipant(uid: 'me', isSpeaker: true);
       final fake = await pumpRouted(tester, room, stateWith(me));
@@ -189,7 +189,7 @@ void main() {
       expect(find.byIcon(Icons.call_end), findsNothing);
     });
 
-    testRoomsWidget('cancel -> no action, still in room', (tester) async {
+    testAppWidget('cancel -> no action, still in room', (tester) async {
       final room = fakeAppwriteRoom(isUserAdmin: true);
       final me = fakeParticipant(uid: 'me', isAdmin: true, isSpeaker: true);
       final fake = await pumpRouted(tester, room, stateWith(me));
@@ -207,16 +207,16 @@ void main() {
   });
 
   group('Mic FAB', () {
-    testRoomsWidget('disabled when not speaker', (tester) async {
+    testAppWidget('disabled when not speaker', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me', isSpeaker: false);
-      late FakeSingleRoom fake;
-      await pumpRoomsPage(
+      late FakeRoomSession fake;
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => fake = FakeSingleRoom(stateWith(me)),
+          fake: () => fake = FakeRoomSession(stateWith(me)),
         ),
       );
       await tester.pumpAndSettle();
@@ -228,16 +228,16 @@ void main() {
       expect(fake.turnOffMicCount, 0);
     });
 
-    testRoomsWidget('speaker mic off -> turnOnMic', (tester) async {
+    testAppWidget('speaker mic off -> turnOnMic', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me', isSpeaker: true, isMicOn: false);
-      late FakeSingleRoom fake;
-      await pumpRoomsPage(
+      late FakeRoomSession fake;
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => fake = FakeSingleRoom(stateWith(me)),
+          fake: () => fake = FakeRoomSession(stateWith(me)),
         ),
       );
       await tester.pumpAndSettle();
@@ -248,16 +248,16 @@ void main() {
       expect(fake.turnOffMicCount, 0);
     });
 
-    testRoomsWidget('speaker mic on -> turnOffMic', (tester) async {
+    testAppWidget('speaker mic on -> turnOffMic', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me', isSpeaker: true, isMicOn: true);
-      late FakeSingleRoom fake;
-      await pumpRoomsPage(
+      late FakeRoomSession fake;
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => fake = FakeSingleRoom(stateWith(me)),
+          fake: () => fake = FakeRoomSession(stateWith(me)),
         ),
       );
       await tester.pumpAndSettle();
@@ -270,16 +270,16 @@ void main() {
   });
 
   group('Raise hand FAB', () {
-    testRoomsWidget('not raised -> raiseHand', (tester) async {
+    testAppWidget('not raised -> raiseHand', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me', hasRequestedToBeSpeaker: false);
-      late FakeSingleRoom fake;
-      await pumpRoomsPage(
+      late FakeRoomSession fake;
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => fake = FakeSingleRoom(stateWith(me)),
+          fake: () => fake = FakeRoomSession(stateWith(me)),
         ),
       );
       await tester.pumpAndSettle();
@@ -290,16 +290,16 @@ void main() {
       expect(fake.unRaiseHandCount, 0);
     });
 
-    testRoomsWidget('already raised -> unRaiseHand', (tester) async {
+    testAppWidget('already raised -> unRaiseHand', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me', hasRequestedToBeSpeaker: true);
-      late FakeSingleRoom fake;
-      await pumpRoomsPage(
+      late FakeRoomSession fake;
+      await pumpTestApp(
         tester,
         RoomPage(room: room),
         overrides: roomOverrides(
           room: room,
-          fake: () => fake = FakeSingleRoom(stateWith(me)),
+          fake: () => fake = FakeRoomSession(stateWith(me)),
         ),
       );
       await tester.pumpAndSettle();
@@ -312,7 +312,7 @@ void main() {
   });
 
   group('wasKicked listener', () {
-    testRoomsWidget('shows removed snackbar and pops', (tester) async {
+    testAppWidget('shows removed snackbar and pops', (tester) async {
       final room = fakeAppwriteRoom();
       final me = fakeParticipant(uid: 'me');
       // Controllable notifier so we can flip wasKicked after first frame.
@@ -324,9 +324,9 @@ void main() {
         ProviderScope(
           overrides: roomOverrides(
             room: room,
-            fake: () => FakeSingleRoom(stateWith(me)),
+            fake: () => FakeRoomSession(stateWith(me)),
           ),
-          child: roomsTestApp(
+          child: testApp(
             Navigator(
               onGenerateRoute: (_) => MaterialPageRoute<void>(
                 builder: (context) => ElevatedButton(
@@ -350,7 +350,7 @@ void main() {
       final container = ProviderScope.containerOf(
         tester.element(find.byType(RoomPage)),
       );
-      final notifier = container.read(singleRoomProvider(room).notifier);
+      final notifier = container.read(roomSessionProvider(room).notifier);
       notifier.state = AsyncData(stateWith(me).copyWith(wasKicked: true));
       await tester.pump();
 

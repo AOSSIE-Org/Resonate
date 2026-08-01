@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
 
 class FollowersScreen extends StatelessWidget {

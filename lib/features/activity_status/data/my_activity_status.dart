@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:resonate/core/providers/app_lifecycle_provider.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/activity_status/data/repositories/activity_status_repository.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

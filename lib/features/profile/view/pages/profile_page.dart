@@ -18,7 +18,7 @@ import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';

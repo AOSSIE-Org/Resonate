@@ -6,7 +6,7 @@ import 'package:resonate/features/stories/view/widgets/category_card.dart';
 import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/story_card.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
-import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
+import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';

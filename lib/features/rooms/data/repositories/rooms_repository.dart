@@ -4,10 +4,11 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/rooms/data/livekit_join.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/core/services/execute_function.dart';
 import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -430,6 +431,17 @@ class RoomsRepository {
       data: {
         'reportedUsers': [...currentReported, participantUid],
       },
+    );
+  }
+
+  /// Files a user report. Was previously written straight from the report
+  /// dialog, which put an SDK call in a widget.
+  Future<void> submitUserReport(UserReportModel report) async {
+    await _tables.createRow(
+      databaseId: userDatabaseID,
+      tableId: userReportsTableID,
+      rowId: ID.unique(),
+      data: report.toJson(),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
 import 'package:resonate/utils/enums/room_state.dart';
@@ -55,6 +55,17 @@ class RoomLauncher {
       myDocId: result.myDocId,
       reportedUsers: const [],
     );
+  }
+
+  /// Resolves a room id — a deep link, say — into a room the current user can
+  /// join, or null if there's no signed-in user or no such room.
+  ///
+  /// Exists so callers outside this feature don't have to reach into the rooms
+  /// repository, or know that resolving a room needs the user's uid.
+  Future<AppwriteRoom?> findRoomById(String roomId) async {
+    final uid = _ref.read(currentUserProvider)?.uid;
+    if (uid == null) return null;
+    return _ref.read(roomsRepositoryProvider).getRoomById(roomId, uid);
   }
 
   Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {

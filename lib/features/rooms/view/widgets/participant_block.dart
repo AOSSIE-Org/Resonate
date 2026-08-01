@@ -4,10 +4,14 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/shared/widgets/speaking_avatar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/shared/widgets/report_widget.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/features/rooms/view/widgets/report_widget.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 
 class _FocusedMenuItemData {
   _FocusedMenuItemData(this.text, this.action);
@@ -60,18 +64,24 @@ class ParticipantBlock extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) async {
-    final didSubmit = await showDialog<bool>(
+    final l10n = AppLocalizations.of(context)!;
+    final draft = await showDialog<ReportDraft>(
       context: context,
       builder: (_) => ReportWidget(
         participantName: participant.name,
         participantId: participant.uid,
       ),
     );
-    if (didSubmit == true) {
-      await ref
-          .read(singleRoomProvider(room).notifier)
-          .reportAndKick(room, participant);
-    }
+    if (draft == null) return;
+
+    final filed = await ref
+        .read(roomSessionProvider(room).notifier)
+        .reportAndKick(room, participant, report: draft);
+    customSnackbar(
+      filed ? l10n.success : l10n.error,
+      filed ? l10n.reportSubmitted : l10n.reportFailed,
+      filed ? LogType.success : LogType.error,
+    );
   }
 
   List<FocusedMenuItem> _menuItems(
@@ -80,7 +90,7 @@ class ParticipantBlock extends ConsumerWidget {
     Participant me,
   ) {
     if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) return [];
-    final notifier = ref.read(singleRoomProvider(room).notifier);
+    final notifier = ref.read(roomSessionProvider(room).notifier);
 
     if (me.isAdmin) {
       if (participant.isModerator) {
@@ -155,7 +165,7 @@ class ParticipantBlock extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(singleRoomProvider(room)).value?.me;
+    final me = ref.watch(roomSessionProvider(room)).value?.me;
     if (me == null) return const SizedBox.shrink();
 
     final canOpenMenu = (me.isAdmin ||
@@ -189,26 +199,30 @@ class ParticipantBlock extends ConsumerWidget {
         alignment: Alignment.center,
         child: Column(
           children: [
-            CircleAvatar(
+            SpeakingAvatar(
+              uid: participant.uid,
               radius: UiSizes.size_32,
-              backgroundColor: Theme.of(context).colorScheme.primary,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(participant.dpUrl),
-                radius: UiSizes.size_30,
-                child: participant.hasRequestedToBeSpeaker
-                    ? Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Icon(
-                              Icons.waving_hand_rounded,
-                              color: Theme.of(context).colorScheme.primary,
-                              size: UiSizes.size_20,
+                radius: UiSizes.size_32,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(participant.dpUrl),
+                  radius: UiSizes.size_30,
+                  child: participant.hasRequestedToBeSpeaker
+                      ? Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Icon(
+                                Icons.waving_hand_rounded,
+                                color: Theme.of(context).colorScheme.primary,
+                                size: UiSizes.size_20,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    : null,
+                          ],
+                        )
+                      : null,
+                ),
               ),
             ),
             SingleChildScrollView(

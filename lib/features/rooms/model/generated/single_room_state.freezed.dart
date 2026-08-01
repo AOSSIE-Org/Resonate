@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SingleRoomState {
 
- Participant get me; List<Participant> get participants; bool get isLoading; bool get wasKicked;
+ Participant get me; List<Participant> get participants; bool get wasKicked;
 /// Create a copy of SingleRoomState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SingleRoomStateCopyWith<SingleRoomState> get copyWith => _$SingleRoomStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SingleRoomState&&(identical(other.me, me) || other.me == me)&&const DeepCollectionEquality().equals(other.participants, participants)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.wasKicked, wasKicked) || other.wasKicked == wasKicked));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SingleRoomState&&(identical(other.me, me) || other.me == me)&&const DeepCollectionEquality().equals(other.participants, participants)&&(identical(other.wasKicked, wasKicked) || other.wasKicked == wasKicked));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,me,const DeepCollectionEquality().hash(participants),isLoading,wasKicked);
+int get hashCode => Object.hash(runtimeType,me,const DeepCollectionEquality().hash(participants),wasKicked);
 
 @override
 String toString() {
-  return 'SingleRoomState(me: $me, participants: $participants, isLoading: $isLoading, wasKicked: $wasKicked)';
+  return 'SingleRoomState(me: $me, participants: $participants, wasKicked: $wasKicked)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SingleRoomStateCopyWith<$Res>  {
   factory $SingleRoomStateCopyWith(SingleRoomState value, $Res Function(SingleRoomState) _then) = _$SingleRoomStateCopyWithImpl;
 @useResult
 $Res call({
- Participant me, List<Participant> participants, bool isLoading, bool wasKicked
+ Participant me, List<Participant> participants, bool wasKicked
 });
 
 
@@ -62,12 +62,11 @@ class _$SingleRoomStateCopyWithImpl<$Res>
 
 /// Create a copy of SingleRoomState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? me = null,Object? participants = null,Object? isLoading = null,Object? wasKicked = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? me = null,Object? participants = null,Object? wasKicked = null,}) {
   return _then(_self.copyWith(
 me: null == me ? _self.me : me // ignore: cast_nullable_to_non_nullable
 as Participant,participants: null == participants ? _self.participants : participants // ignore: cast_nullable_to_non_nullable
-as List<Participant>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,wasKicked: null == wasKicked ? _self.wasKicked : wasKicked // ignore: cast_nullable_to_non_nullable
+as List<Participant>,wasKicked: null == wasKicked ? _self.wasKicked : wasKicked // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -162,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Participant me,  List<Participant> participants,  bool isLoading,  bool wasKicked)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Participant me,  List<Participant> participants,  bool wasKicked)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SingleRoomState() when $default != null:
-return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);case _:
+return $default(_that.me,_that.participants,_that.wasKicked);case _:
   return orElse();
 
 }
@@ -183,10 +182,10 @@ return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Participant me,  List<Participant> participants,  bool isLoading,  bool wasKicked)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Participant me,  List<Participant> participants,  bool wasKicked)  $default,) {final _that = this;
 switch (_that) {
 case _SingleRoomState():
-return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);case _:
+return $default(_that.me,_that.participants,_that.wasKicked);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +202,10 @@ return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Participant me,  List<Participant> participants,  bool isLoading,  bool wasKicked)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Participant me,  List<Participant> participants,  bool wasKicked)?  $default,) {final _that = this;
 switch (_that) {
 case _SingleRoomState() when $default != null:
-return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);case _:
+return $default(_that.me,_that.participants,_that.wasKicked);case _:
   return null;
 
 }
@@ -218,7 +217,7 @@ return $default(_that.me,_that.participants,_that.isLoading,_that.wasKicked);cas
 
 
 class _SingleRoomState implements SingleRoomState {
-  const _SingleRoomState({required this.me, final  List<Participant> participants = const <Participant>[], this.isLoading = false, this.wasKicked = false}): _participants = participants;
+  const _SingleRoomState({required this.me, final  List<Participant> participants = const <Participant>[], this.wasKicked = false}): _participants = participants;
   
 
 @override final  Participant me;
@@ -229,7 +228,6 @@ class _SingleRoomState implements SingleRoomState {
   return EqualUnmodifiableListView(_participants);
 }
 
-@override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool wasKicked;
 
 /// Create a copy of SingleRoomState
@@ -242,16 +240,16 @@ _$SingleRoomStateCopyWith<_SingleRoomState> get copyWith => __$SingleRoomStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SingleRoomState&&(identical(other.me, me) || other.me == me)&&const DeepCollectionEquality().equals(other._participants, _participants)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.wasKicked, wasKicked) || other.wasKicked == wasKicked));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SingleRoomState&&(identical(other.me, me) || other.me == me)&&const DeepCollectionEquality().equals(other._participants, _participants)&&(identical(other.wasKicked, wasKicked) || other.wasKicked == wasKicked));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,me,const DeepCollectionEquality().hash(_participants),isLoading,wasKicked);
+int get hashCode => Object.hash(runtimeType,me,const DeepCollectionEquality().hash(_participants),wasKicked);
 
 @override
 String toString() {
-  return 'SingleRoomState(me: $me, participants: $participants, isLoading: $isLoading, wasKicked: $wasKicked)';
+  return 'SingleRoomState(me: $me, participants: $participants, wasKicked: $wasKicked)';
 }
 
 
@@ -262,7 +260,7 @@ abstract mixin class _$SingleRoomStateCopyWith<$Res> implements $SingleRoomState
   factory _$SingleRoomStateCopyWith(_SingleRoomState value, $Res Function(_SingleRoomState) _then) = __$SingleRoomStateCopyWithImpl;
 @override @useResult
 $Res call({
- Participant me, List<Participant> participants, bool isLoading, bool wasKicked
+ Participant me, List<Participant> participants, bool wasKicked
 });
 
 
@@ -279,12 +277,11 @@ class __$SingleRoomStateCopyWithImpl<$Res>
 
 /// Create a copy of SingleRoomState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? me = null,Object? participants = null,Object? isLoading = null,Object? wasKicked = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? me = null,Object? participants = null,Object? wasKicked = null,}) {
   return _then(_SingleRoomState(
 me: null == me ? _self.me : me // ignore: cast_nullable_to_non_nullable
 as Participant,participants: null == participants ? _self._participants : participants // ignore: cast_nullable_to_non_nullable
-as List<Participant>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,wasKicked: null == wasKicked ? _self.wasKicked : wasKicked // ignore: cast_nullable_to_non_nullable
+as List<Participant>,wasKicked: null == wasKicked ? _self.wasKicked : wasKicked // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -13,7 +13,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/data/services/callkit_service.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
@@ -23,14 +23,15 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/model/livekit_state.dart';
+import 'package:resonate/features/live_audio/model/livekit_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/audio_band_tracker.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
@@ -328,8 +329,29 @@ class FakeGetStorage implements GetStorage {
 }
 
 class FakeLiveKitController extends LiveKitController {
+  final _speakerLevels = StreamController<Map<String, double>>.broadcast();
+  final _speakerBands = StreamController<SpeakerBands>.broadcast();
+
   @override
-  LiveKitState build() => const LiveKitState();
+  Stream<Map<String, double>> get speakerLevels => _speakerLevels.stream;
+
+  @override
+  Stream<SpeakerBands> get speakerBands => _speakerBands.stream;
+
+  void emitSpeakerLevels(Map<String, double> levels) {
+    if (!_speakerLevels.isClosed) _speakerLevels.add(levels);
+  }
+
+  void emitSpeakerBands(String uid, List<double> bands) {
+    if (!_speakerBands.isClosed) _speakerBands.add((uid: uid, bands: bands));
+  }
+
+  @override
+  LiveKitState build() {
+    ref.onDispose(_speakerLevels.close);
+    ref.onDispose(_speakerBands.close);
+    return const LiveKitState();
+  }
 
   @override
   Future<bool> connect({

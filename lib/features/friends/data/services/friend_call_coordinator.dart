@@ -3,14 +3,14 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/auth/data/services/callkit_service.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/activity_status/data/user_activity_status.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';

@@ -1,80 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/misc.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/model/audio_device_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
-import 'package:resonate/features/rooms/viewmodel/audio_device_notifier.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
-import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/features/rooms/model/audio_device.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 
 import '../../helpers/test_root_container.dart';
 
+export '../../helpers/pump_widget.dart';
 export '../../helpers/test_root_container.dart';
-export 'package:flutter_riverpod/misc.dart' show Override;
 
-Widget roomsTestApp(Widget child) {
-  return MaterialApp(
-    localizationsDelegates: const [
-      AppLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    supportedLocales: const [Locale('en')],
-    home: Builder(
-      builder: (context) {
-        UiSizes.init(context);
-        return Scaffold(body: child);
-      },
-    ),
-  );
-}
-
-Future<void> pumpRoomsPage(
-  WidgetTester tester,
-  Widget child, {
-  List<Override> overrides = const [],
-}) async {
-  tester.view.physicalSize = const Size(1080, 2340);
-  tester.view.devicePixelRatio = 3.0;
-  addTearDown(tester.view.resetPhysicalSize);
-  addTearDown(tester.view.resetDevicePixelRatio);
-  await tester.pumpWidget(
-    ProviderScope(
-      overrides: overrides,
-      child: roomsTestApp(child),
-    ),
-  );
-}
-
-// Wraps the body in mockNetworkImagesFor so avatar NetworkImages don't fetch.
-void testRoomsWidget(
-  String description,
-  Future<void> Function(WidgetTester tester) body,
-) {
-  testWidgets(description, (tester) => mockNetworkImagesFor(() => body(tester)));
-}
-
-class FakeSingleRoom extends SingleRoomNotifier {
-  FakeSingleRoom(this._state, {this.throwOnError = false});
+class FakeRoomSession extends RoomSession {
+  FakeRoomSession(
+    this._state, {
+    this.throwOnError = false,
+    this.reportFails = false,
+  });
   final SingleRoomState? _state;
   final bool throwOnError;
+  final bool reportFails;
+  ReportDraft? lastReportDraft;
 
   int turnOnMicCount = 0;
   int turnOffMicCount = 0;
@@ -126,12 +79,15 @@ class FakeSingleRoom extends SingleRoomNotifier {
   }
 
   @override
-  Future<void> reportAndKick(
+  Future<bool> reportAndKick(
     AppwriteRoom room,
-    Participant participant,
-  ) async {
+    Participant participant, {
+    required ReportDraft report,
+  }) async {
     reportAndKickCount++;
     lastReported = participant;
+    lastReportDraft = report;
+    return !reportFails;
   }
 
   @override
@@ -160,6 +116,15 @@ class FakeRoomLauncher implements RoomLauncher {
 
   int joinCount = 0;
   AppwriteRoom? lastJoined;
+
+  AppwriteRoom? roomById;
+  String? lastFoundId;
+
+  @override
+  Future<AppwriteRoom?> findRoomById(String roomId) async {
+    lastFoundId = roomId;
+    return roomById;
+  }
 
   @override
   Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
@@ -228,19 +193,6 @@ class FakeUpcomingRooms extends UpcomingRoomsNotifier {
     hideLocallyCount++;
     hiddenId = upcomingRoomId;
   }
-}
-
-// Fake AudioDeviceNotifier: build() serves an injected future, records selects.
-class FakeAudioDevice extends AudioDeviceNotifier {
-  FakeAudioDevice(this._future);
-  final Future<AudioDeviceState> _future;
-  final List<AudioDevice> selected = [];
-
-  @override
-  Future<AudioDeviceState> build() => _future;
-
-  @override
-  Future<void> selectOutput(AudioDevice device) async => selected.add(device);
 }
 
 // Fake RoomChatNotifier

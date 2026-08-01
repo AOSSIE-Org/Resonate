@@ -9,7 +9,7 @@ import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
