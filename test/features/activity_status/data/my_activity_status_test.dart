@@ -10,7 +10,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/activity_status/data/my_activity_status.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 

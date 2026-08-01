@@ -3,8 +3,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
+import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
@@ -63,11 +64,17 @@ class LiveChapter extends _$LiveChapter {
     );
 
     final repo = ref.read(liveChapterRepositoryProvider);
-    await repo.createLiveChapterDocs(model);
-    final join = await repo.createLiveChapterRoom(
-      appwriteRoomId: roomId,
-      adminUid: user.uid,
-    );
+    final ({String liveKitUri, String roomToken}) join;
+    try {
+      await repo.createLiveChapterDocs(model);
+      join = await repo.createLiveChapterRoom(
+        appwriteRoomId: roomId,
+        adminUid: user.uid,
+      );
+      // Mapped here so the view never has to know what an AppwriteException is.
+    } on AppwriteException catch (e) {
+      throw StoriesFailure.unknown(e.message ?? 'Failed to start live chapter');
+    }
     final connected = await ref
         .read(liveKitControllerProvider.notifier)
         .connect(

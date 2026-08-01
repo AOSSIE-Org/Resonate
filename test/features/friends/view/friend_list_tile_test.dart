@@ -8,7 +8,7 @@ import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 
 import '../friends_test_helpers.dart';
 

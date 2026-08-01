@@ -16,7 +16,7 @@ import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

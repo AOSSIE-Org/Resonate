@@ -7,7 +7,7 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
 import '../../../helpers/test_root_container.dart';

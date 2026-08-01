@@ -8,45 +8,12 @@ part of '../my_activity_status.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The signed-in user's own activity status, and the single writer of their `status`
-/// attribute.
-///
-/// State is derived, not stored: [_chosen] is what the user picked, and the
-/// live audio session and app lifecycle layer on top of it. That keeps the
-/// transitions event-driven — a status is written only when the derived value
-/// actually changes, never on a timer.
-///
-///   chosen=dnd + joins a room  -> inroom, and back to dnd on leaving
-///   chosen=online + backgrounded -> idle, and back to online on resume
-///   chosen=dnd + backgrounded  -> stays dnd
 
 @ProviderFor(MyActivityStatus)
 final myActivityStatusProvider = MyActivityStatusProvider._();
 
-/// The signed-in user's own activity status, and the single writer of their `status`
-/// attribute.
-///
-/// State is derived, not stored: [_chosen] is what the user picked, and the
-/// live audio session and app lifecycle layer on top of it. That keeps the
-/// transitions event-driven — a status is written only when the derived value
-/// actually changes, never on a timer.
-///
-///   chosen=dnd + joins a room  -> inroom, and back to dnd on leaving
-///   chosen=online + backgrounded -> idle, and back to online on resume
-///   chosen=dnd + backgrounded  -> stays dnd
 final class MyActivityStatusProvider
     extends $NotifierProvider<MyActivityStatus, ActivityStatus> {
-  /// The signed-in user's own activity status, and the single writer of their `status`
-  /// attribute.
-  ///
-  /// State is derived, not stored: [_chosen] is what the user picked, and the
-  /// live audio session and app lifecycle layer on top of it. That keeps the
-  /// transitions event-driven — a status is written only when the derived value
-  /// actually changes, never on a timer.
-  ///
-  ///   chosen=dnd + joins a room  -> inroom, and back to dnd on leaving
-  ///   chosen=online + backgrounded -> idle, and back to online on resume
-  ///   chosen=dnd + backgrounded  -> stays dnd
   MyActivityStatusProvider._()
     : super(
         from: null,
@@ -74,19 +41,7 @@ final class MyActivityStatusProvider
   }
 }
 
-String _$myActivityStatusHash() => r'21e415cec68a7c018c7332586c39bca39123a383';
-
-/// The signed-in user's own activity status, and the single writer of their `status`
-/// attribute.
-///
-/// State is derived, not stored: [_chosen] is what the user picked, and the
-/// live audio session and app lifecycle layer on top of it. That keeps the
-/// transitions event-driven — a status is written only when the derived value
-/// actually changes, never on a timer.
-///
-///   chosen=dnd + joins a room  -> inroom, and back to dnd on leaving
-///   chosen=online + backgrounded -> idle, and back to online on resume
-///   chosen=dnd + backgrounded  -> stays dnd
+String _$myActivityStatusHash() => r'd21a3558b95bdfd255161f4804fb24c06e421e18';
 
 abstract class _$MyActivityStatus extends $Notifier<ActivityStatus> {
   ActivityStatus build();

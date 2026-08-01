@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/rooms/data/livekit_join.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/core/services/execute_function.dart';

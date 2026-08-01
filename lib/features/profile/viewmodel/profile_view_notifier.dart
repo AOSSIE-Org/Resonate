@@ -2,7 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

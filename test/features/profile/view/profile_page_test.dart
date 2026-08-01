@@ -7,7 +7,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/profile/view/pages/profile_page.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 
 import '../../friends/friends_test_helpers.dart' show FakeFriendsNotifier;
