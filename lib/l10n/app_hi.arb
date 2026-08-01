@@ -964,7 +964,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀 इस शानदार रूम को देखें: {roomName}!\n\n📖 विवरण: {description}\n👥 अभी {participants} लोग जुड़ चुके हैं!",
+    "shareRoomMessage": "🚀 इस शानदार रूम को देखें: {roomName}!\n\n📖 विवरण: {roomDescription}\n👥 अभी {participants} लोग जुड़ चुके हैं!",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
@@ -972,7 +972,7 @@
                 "type": "String",
                 "example": "Discussion Room"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "A great place to discuss"
             },
