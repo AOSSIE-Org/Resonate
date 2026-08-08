@@ -3,6 +3,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
+import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,10 +14,12 @@ class ProfileView extends _$ProfileView {
   @override
   Future<ProfileViewData> build(String creatorId) async {
     final repo = ref.watch(profileRepositoryProvider);
+    final stories = ref.watch(storiesRepositoryProvider);
+    final currentUid = ref.read(currentUserProvider)?.uid;
 
     final results = await Future.wait([
-      repo.fetchCreatedStories(creatorId),
-      repo.fetchLikedStories(creatorId),
+      stories.fetchCreatedStories(creatorId, viewerUid: currentUid),
+      stories.fetchLikedStories(creatorId, viewerUid: currentUid),
       repo.fetchFollowers(creatorId),
     ]);
 
@@ -24,7 +27,6 @@ class ProfileView extends _$ProfileView {
     final liked = results[1] as List<Story>;
     final followers = results[2] as List<FollowerUserModel>;
 
-    final currentUid = ref.read(currentUserProvider)?.uid;
     FollowerUserModel? mine;
     for (final follower in followers) {
       if (follower.uid == currentUid) {

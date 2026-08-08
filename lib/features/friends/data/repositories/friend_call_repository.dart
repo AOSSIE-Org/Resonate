@@ -5,8 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
-    show mapAppwriteFriendsException;
+import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/core/services/execute_function.dart';
 import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
@@ -73,7 +72,7 @@ class FriendCallRepository {
       );
       return callModel;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -119,7 +118,7 @@ class FriendCallRepository {
       );
       return FriendCallModel.fromJson(callDoc.data);
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -137,7 +136,7 @@ class FriendCallRepository {
       );
       return updated;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 

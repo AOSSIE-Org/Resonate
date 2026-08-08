@@ -76,7 +76,7 @@ class RoomsRepository {
       return _buildAppwriteRoom(row, userUid);
     } on AppwriteException catch (e) {
       if (e.code == 404) return null;
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -160,7 +160,7 @@ class RoomsRepository {
         roomToken: join.roomToken,
       );
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -185,7 +185,7 @@ class RoomsRepository {
         roomToken: join.roomToken,
       );
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -291,7 +291,7 @@ class RoomsRepository {
       }
       return true;
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -332,7 +332,7 @@ class RoomsRepository {
         if (e.code != 404) rethrow;
       }
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -456,11 +456,4 @@ class RoomsRepository {
   static String participantChannel() =>
       'databases.$masterDatabaseId.tables.$participantsTableId.rows';
 
-  RoomFailure _mapException(AppwriteException e) {
-    return switch (e.code) {
-      404 => const RoomFailure.notFound(),
-      401 || 403 => const RoomFailure.permissionDenied(),
-      _ => RoomFailure.unknown(e.message ?? e.toString()),
-    };
-  }
 }

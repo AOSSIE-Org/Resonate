@@ -1,12 +1,10 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
-import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -38,53 +36,6 @@ class ProfileRepository {
   final FirebaseMessaging _messaging;
 
   // Profile viewing
-  Future<List<Story>> fetchCreatedStories(String creatorId) async {
-    List<Row> rows = [];
-    try {
-      rows = await _tables
-          .listRows(
-            databaseId: storyDatabaseId,
-            tableId: storyTableId,
-            queries: [Query.equal('creatorId', creatorId)],
-          )
-          .then((value) => value.rows);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch user created stories: ${e.message}');
-    }
-    return Story.fromRows(rows);
-  }
-
-  Future<List<Story>> fetchLikedStories(String creatorId) async {
-    try {
-      final likeRows = await _tables
-          .listRows(
-            databaseId: storyDatabaseId,
-            tableId: likeTableId,
-            queries: [Query.equal('uId', creatorId)],
-          )
-          .then((value) => value.rows);
-
-      final storyRows = <Row>[];
-      for (final like in likeRows) {
-        try {
-          storyRows.add(
-            await _tables.getRow(
-              databaseId: storyDatabaseId,
-              tableId: storyTableId,
-              rowId: like.data['storyId'],
-            ),
-          );
-        } on AppwriteException catch (e) {
-          log('Skipping liked story ${like.data['storyId']}: ${e.message}');
-        }
-      }
-      return Story.fromRows(storyRows);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch liked stories: ${e.message}');
-      return [];
-    }
-  }
-
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {
     try {
       final userRow = await _tables.getRow(

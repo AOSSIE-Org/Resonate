@@ -165,12 +165,36 @@ void main() {
   });
 
   group('fetchCreatedStories', () {
-    test('marks all returned stories as owned by the creator', () async {
+    // userIsCreator is about who is *looking*, not whose stories these are —
+    // so it depends on viewerUid, not on creatorId.
+    test('marks stories as owned when the viewer is the creator', () async {
+      stubStoryList([storyRow(creatorId: 'creator-9')]);
+
+      final stories = await repo.fetchCreatedStories(
+        'creator-9',
+        viewerUid: 'creator-9',
+      );
+
+      expect(stories.single.userIsCreator, isTrue);
+    });
+
+    test('does not mark them owned when someone else is viewing', () async {
+      stubStoryList([storyRow(creatorId: 'creator-9')]);
+
+      final stories = await repo.fetchCreatedStories(
+        'creator-9',
+        viewerUid: 'someone-else',
+      );
+
+      expect(stories.single.userIsCreator, isFalse);
+    });
+
+    test('does not mark them owned for a signed-out viewer', () async {
       stubStoryList([storyRow(creatorId: 'creator-9')]);
 
       final stories = await repo.fetchCreatedStories('creator-9');
 
-      expect(stories.single.userIsCreator, isTrue);
+      expect(stories.single.userIsCreator, isFalse);
     });
   });
 
