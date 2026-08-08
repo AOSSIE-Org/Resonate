@@ -6,7 +6,7 @@ import 'package:resonate/features/friends/view/pages/friend_call_page.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
 import '../friends_test_helpers.dart';

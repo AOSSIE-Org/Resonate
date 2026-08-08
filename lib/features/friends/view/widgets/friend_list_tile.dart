@@ -5,6 +5,10 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -44,6 +48,13 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
   Widget build(BuildContext context) {
     final bool userIsSender =
         friendModel.senderId == ref.read(requireUserProvider).uid;
+    final otherUid = userIsSender
+        ? friendModel.recieverId
+        : friendModel.senderId;
+    final otherName = userIsSender
+        ? friendModel.recieverName
+        : friendModel.senderName;
+    final status = ref.watch(userActivityStatusProvider)[otherUid];
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -61,12 +72,11 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
       child: SecondaryListCard(
         child: ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(
-              userIsSender
-                  ? friendModel.recieverProfileImgUrl
-                  : friendModel.senderProfileImgUrl,
-            ),
+          leading: ActivityAvatar(
+            imageUrl: userIsSender
+                ? friendModel.recieverProfileImgUrl
+                : friendModel.senderProfileImgUrl,
+            status: status,
             radius: UiSizes.size_25,
           ),
           trailing: _isProcessing
@@ -117,11 +127,24 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
                       await ref
                           .read(friendCallCoordinatorProvider.notifier)
                           .startCall(friendModel);
+                    } on CallBlockedByActivityStatus catch (e) {
+                      customSnackbar(
+                        l10n.callBlocked,
+                        e.status.callBlockedMessage(l10n, otherName),
+                        LogType.info,
+                      );
                     } catch (e) {
                       customSnackbar(l10n.error, e.toString(), LogType.error);
                     }
                   }),
-                  icon: Icon(Icons.call),
+                  color: (status?.blocksCalls ?? false)
+                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      : null,
+                  icon: Icon(
+                    (status?.blocksCalls ?? false)
+                        ? Icons.phone_disabled
+                        : Icons.call,
+                  ),
                 ),
           title: Text(
             userIsSender ? friendModel.recieverName : friendModel.senderName,

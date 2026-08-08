@@ -12,7 +12,7 @@ import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

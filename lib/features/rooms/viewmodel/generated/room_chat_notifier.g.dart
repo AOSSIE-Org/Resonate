@@ -9,39 +9,47 @@ part of '../room_chat_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RoomChatNotifier)
-final roomChatProvider = RoomChatNotifierFamily._();
+@ProviderFor(RoomChatComposer)
+final roomChatComposerProvider = RoomChatComposerFamily._();
 
-final class RoomChatNotifierProvider
-    extends $AsyncNotifierProvider<RoomChatNotifier, RoomChatState> {
-  RoomChatNotifierProvider._({
-    required RoomChatNotifierFamily super.from,
+final class RoomChatComposerProvider
+    extends $NotifierProvider<RoomChatComposer, ReplyTo?> {
+  RoomChatComposerProvider._({
+    required RoomChatComposerFamily super.from,
     required (String, String, bool) super.argument,
   }) : super(
          retry: null,
-         name: r'roomChatProvider',
+         name: r'roomChatComposerProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$roomChatNotifierHash();
+  String debugGetCreateSourceHash() => _$roomChatComposerHash();
 
   @override
   String toString() {
-    return r'roomChatProvider'
+    return r'roomChatComposerProvider'
         ''
         '$argument';
   }
 
   @$internal
   @override
-  RoomChatNotifier create() => RoomChatNotifier();
+  RoomChatComposer create() => RoomChatComposer();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ReplyTo? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ReplyTo?>(value),
+    );
+  }
 
   @override
   bool operator ==(Object other) {
-    return other is RoomChatNotifierProvider && other.argument == argument;
+    return other is RoomChatComposerProvider && other.argument == argument;
   }
 
   @override
@@ -50,59 +58,55 @@ final class RoomChatNotifierProvider
   }
 }
 
-String _$roomChatNotifierHash() => r'198640e659f7334678b0d219922c483c764c534c';
+String _$roomChatComposerHash() => r'ce356b40ea37f9d3f94fefe7ce642376bc66ed8e';
 
-final class RoomChatNotifierFamily extends $Family
+final class RoomChatComposerFamily extends $Family
     with
         $ClassFamilyOverride<
-          RoomChatNotifier,
-          AsyncValue<RoomChatState>,
-          RoomChatState,
-          FutureOr<RoomChatState>,
+          RoomChatComposer,
+          ReplyTo?,
+          ReplyTo?,
+          ReplyTo?,
           (String, String, bool)
         > {
-  RoomChatNotifierFamily._()
+  RoomChatComposerFamily._()
     : super(
         retry: null,
-        name: r'roomChatProvider',
+        name: r'roomChatComposerProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  RoomChatNotifierProvider call(
+  RoomChatComposerProvider call(
     String roomId,
     String roomName,
     bool isUpcoming,
-  ) => RoomChatNotifierProvider._(
+  ) => RoomChatComposerProvider._(
     argument: (roomId, roomName, isUpcoming),
     from: this,
   );
 
   @override
-  String toString() => r'roomChatProvider';
+  String toString() => r'roomChatComposerProvider';
 }
 
-abstract class _$RoomChatNotifier extends $AsyncNotifier<RoomChatState> {
+abstract class _$RoomChatComposer extends $Notifier<ReplyTo?> {
   late final _$args = ref.$arg as (String, String, bool);
   String get roomId => _$args.$1;
   String get roomName => _$args.$2;
   bool get isUpcoming => _$args.$3;
 
-  FutureOr<RoomChatState> build(
-    String roomId,
-    String roomName,
-    bool isUpcoming,
-  );
+  ReplyTo? build(String roomId, String roomName, bool isUpcoming);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<RoomChatState>, RoomChatState>;
+    final ref = this.ref as $Ref<ReplyTo?, ReplyTo?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<RoomChatState>, RoomChatState>,
-              AsyncValue<RoomChatState>,
+              AnyNotifier<ReplyTo?, ReplyTo?>,
+              ReplyTo?,
               Object?,
               Object?
             >;

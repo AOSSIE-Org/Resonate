@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
@@ -15,7 +18,7 @@ import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';
@@ -131,18 +134,29 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final l10n = AppLocalizations.of(context)!;
     final followers = profileData?.followers ?? const [];
 
+    final String? imageUrl;
+    if (_isCreator) {
+      imageUrl = widget.creator!.profileImageUrl;
+    } else {
+      final ownImageUrl = authUser.profileImageUrl;
+      imageUrl = (ownImageUrl == null || ownImageUrl.isEmpty)
+          ? ref.watch(userProfileImagePlaceholderUrlProvider)
+          : ownImageUrl;
+    }
+
+    final status = _isCreator
+        ? ref.watch(userActivityStatusProvider)[_creatorId]
+        : ref.watch(myActivityStatusProvider);
+
     return Row(
       children: [
         SizedBox(width: UiSizes.width_20),
-        CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          backgroundImage: _isCreator
-              ? NetworkImage(widget.creator!.profileImageUrl ?? '')
-              : authUser.profileImageUrl == null ||
-                      authUser.profileImageUrl!.isEmpty
-                  ? NetworkImage(ref.watch(userProfileImagePlaceholderUrlProvider))
-                  : NetworkImage(authUser.profileImageUrl!),
+        ActivityAvatar(
+          imageUrl: imageUrl,
+          status: status,
           radius: UiSizes.width_66,
+          dotSize: UiSizes.size_24,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         SizedBox(width: UiSizes.width_20),
         Expanded(

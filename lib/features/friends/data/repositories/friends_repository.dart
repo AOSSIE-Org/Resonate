@@ -6,7 +6,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -100,7 +100,7 @@ class FriendsRepository {
       );
       return friendModel;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -121,7 +121,7 @@ class FriendsRepository {
       );
       return updated;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -134,7 +134,7 @@ class FriendsRepository {
         rowId: docId,
       );
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -156,12 +156,4 @@ class FriendsRepository {
     };
     return controller.stream;
   }
-}
-
-FriendsFailure mapAppwriteFriendsException(AppwriteException e) {
-  return switch (e.code) {
-    404 => const FriendsFailure.notFound(),
-    401 || 403 => const FriendsFailure.permissionDenied(),
-    _ => FriendsFailure.unknown(e.message ?? e.toString()),
-  };
 }

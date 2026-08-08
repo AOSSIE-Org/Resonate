@@ -8,8 +8,8 @@ import 'package:resonate/features/stories/view/pages/category_page.dart';
 import 'package:resonate/features/stories/view/pages/explore_page.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
-import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
+import 'package:resonate/features/stories/data/category_stories.dart';
+import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 

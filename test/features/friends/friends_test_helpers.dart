@@ -10,15 +10,21 @@ import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+
+import '../../helpers/test_root_container.dart';
 
 export '../../helpers/test_root_container.dart';
 
 export 'package:flutter_riverpod/misc.dart' show Override;
+
+export 'package:resonate/utils/enums/activity_status.dart';
 
 Widget friendsTestApp(Widget child) {
   return MaterialApp(
@@ -42,13 +48,21 @@ Future<void> pumpFriendsPage(
   WidgetTester tester,
   Widget child, {
   List<Override> overrides = const [],
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> activityStatuses = const {},
 }) async {
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
   await tester.pumpWidget(
-    ProviderScope(overrides: overrides, child: friendsTestApp(child)),
+    ProviderScope(
+      overrides: [
+        ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
+        ...overrides,
+      ],
+      child: friendsTestApp(child),
+    ),
   );
 }
 
@@ -139,11 +153,14 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
     this.initial = const FriendCallState(),
     this.startFuture,
     this.throwError = false,
+    this.blockedBy,
   });
 
   final FriendCallState initial;
   final Future<void> Function()? startFuture;
   final bool throwError;
+
+  final ActivityStatus? blockedBy;
 
   final List<FriendsModel> started = [];
   int startCallCount = 0;
@@ -159,6 +176,7 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
     startCallCount++;
     started.add(friend);
     if (startFuture != null) await startFuture!();
+    if (blockedBy != null) throw CallBlockedByActivityStatus(blockedBy!);
     if (throwError) throw Exception('call failed');
   }
 
@@ -172,8 +190,8 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
   Future<void> toggleLoudSpeaker() async => toggleLoudSpeakerCount++;
 }
 
-class FakePairChatNotifier extends PairChatNotifier {
-  FakePairChatNotifier(this.initial, {this.throwOnSubmit = false});
+class FakePairChat extends PairChat {
+  FakePairChat(this.initial, {this.throwOnSubmit = false});
 
   final PairChatState initial;
   final bool throwOnSubmit;
