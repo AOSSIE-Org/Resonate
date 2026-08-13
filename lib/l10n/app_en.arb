@@ -406,6 +406,18 @@
     "@appPreferences": {
         "description": "Label for the app preferences settings page."
     },
+    "features": "Features",
+    "@features": {
+        "description": "Label for the settings page where the user turns app features on or off."
+    },
+    "featuresDescription": "Turn off the features you don't use. They stay hidden on this device until you turn them back on.",
+    "@featuresDescription": {
+        "description": "Explanation shown at the top of the features settings page."
+    },
+    "pairChatFeatureDescription": "One-on-one voice chats with a random or a chosen user.",
+    "@pairChatFeatureDescription": {
+        "description": "Description of the pair chat feature on the features settings page."
+    },
     "transcriptionModel": "Transcription Model",
     "@transcriptionModel": {
         "description": "Section title for choosing AI transcription model."

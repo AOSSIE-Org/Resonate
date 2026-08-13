@@ -322,6 +322,17 @@ class AppLocalizationsBn extends AppLocalizations {
   String get appPreferences => 'অ্যাপ পছন্দসমূহ';
 
   @override
+  String get features => 'Features';
+
+  @override
+  String get featuresDescription =>
+      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'One-on-one voice chats with a random or a chosen user.';
+
+  @override
   String get transcriptionModel => 'ট্রান্সক্রিপশন মডেল';
 
   @override

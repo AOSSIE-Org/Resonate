@@ -1,5 +1,8 @@
 {
   "bn": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "rateYourExperience",
     "audioOptions",
     "failedToCreateRoom",
@@ -62,6 +65,9 @@
 
   "gu": [
     "appPreferences",
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "transcriptionModel",
     "transcriptionModelDescription",
     "whisperModelTiny",
@@ -151,6 +157,9 @@
   ],
 
   "hi": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "poll",
     "createPoll",
     "pollQuestionLabel",
@@ -188,6 +197,9 @@
   ],
 
   "kn": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "hide",
     "removeRoom",
     "removeRoomFromList",
@@ -268,6 +280,9 @@
   ],
 
   "ml": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",
@@ -314,6 +329,9 @@
   ],
 
   "mr": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",
@@ -360,6 +378,9 @@
   ],
 
   "pa": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "poll",
     "createPoll",
     "pollQuestionLabel",
@@ -397,6 +418,9 @@
   ],
 
   "raj": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "rateYourExperience",
     "audioOptions",
     "failedToCreateRoom",
@@ -462,6 +486,9 @@
   ],
 
   "ta": [
+    "features",
+    "featuresDescription",
+    "pairChatFeatureDescription",
     "rateYourExperience",
     "failedToCreateRoom",
     "roomChat",

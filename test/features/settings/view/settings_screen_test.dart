@@ -36,6 +36,7 @@ GoRouter recordingRouter(List<String> log) {
       rec(RoutePaths.themeScreen),
       rec(RoutePaths.aboutApp),
       rec(RoutePaths.appPreferencesScreen),
+      rec(RoutePaths.featuresScreen),
       rec(RoutePaths.contributeScreen),
       rec(RoutePaths.welcome),
     ],
@@ -101,6 +102,7 @@ void main() {
     expect(find.text('Themes'), findsOneWidget);
     expect(find.text('About'), findsOneWidget);
     expect(find.text('App Preferences'), findsOneWidget);
+    expect(find.text('Features'), findsOneWidget);
     expect(find.text('Contribute'), findsOneWidget);
 
     // log out tile
@@ -136,6 +138,13 @@ void main() {
     await tester.tap(find.text('App Preferences'));
     await tester.pumpAndSettle();
     expect(log, [RoutePaths.appPreferencesScreen]);
+  });
+
+  testWidgets('Features tile pushes featuresScreen', (tester) async {
+    final (_, _, log) = await pumpSettings(tester);
+    await tester.tap(find.text('Features'));
+    await tester.pumpAndSettle();
+    expect(log, [RoutePaths.featuresScreen]);
   });
 
   testWidgets('Contribute tile pushes contributeScreen', (tester) async {

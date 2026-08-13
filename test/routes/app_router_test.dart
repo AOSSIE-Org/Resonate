@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 
@@ -154,6 +155,32 @@ void main() {
         RoutePaths.tabview,
       );
       expect(redirectForAsyncAuth(asyncOk, RoutePaths.tabview), isNull);
+    });
+  });
+
+  group('disabledFeatureRedirect', () {
+    test('lets every route through while all features are on', () {
+      final all = AppFeature.values.toSet();
+      for (final path in RoutePaths.protected) {
+        expect(disabledFeatureRedirect(all, path), isNull, reason: path);
+      }
+    });
+
+    test('sends every route of a disabled feature to tabview', () {
+      const enabled = <AppFeature>{};
+      for (final path in AppFeature.pairChat.routes) {
+        expect(disabledFeatureRedirect(enabled, path), RoutePaths.tabview);
+      }
+    });
+
+    test('leaves routes of other features alone', () {
+      const enabled = <AppFeature>{};
+      expect(disabledFeatureRedirect(enabled, RoutePaths.tabview), isNull);
+      expect(disabledFeatureRedirect(enabled, RoutePaths.settings), isNull);
+      expect(
+        disabledFeatureRedirect(enabled, RoutePaths.friendCallScreen),
+        isNull,
+      );
     });
   });
 }
