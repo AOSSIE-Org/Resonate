@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/pair_chat_dialog.dart';
 import 'package:resonate/features/rooms/view/pages/create_room_page.dart';
+import 'package:resonate/features/settings/data/feature_flags.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/shell/view/pages/home_screen.dart';
 import 'package:resonate/features/shell/view/widgets/profile_avatar.dart';
@@ -119,15 +121,16 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
                     );
                   },
                 ),
-                SpeedDialChild(
-                  child: Icon(
-                    Icons.people_alt_rounded,
-                    size: UiSizes.size_24,
+                if (ref.watch(featureEnabledProvider(AppFeature.pairChat)))
+                  SpeedDialChild(
+                    child: Icon(
+                      Icons.people_alt_rounded,
+                      size: UiSizes.size_24,
+                    ),
+                    label: AppLocalizations.of(context)!.pairChat,
+                    labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                    onTap: () => showPairChatDialog(context),
                   ),
-                  label: AppLocalizations.of(context)!.pairChat,
-                  labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                  onTap: () => showPairChatDialog(context),
-                ),
               ],
             )
           : FloatingActionButton(

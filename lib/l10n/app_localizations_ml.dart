@@ -325,6 +325,17 @@ class AppLocalizationsMl extends AppLocalizations {
   String get appPreferences => 'ആപ്പ് മുൻഗണനകൾ';
 
   @override
+  String get features => 'Features';
+
+  @override
+  String get featuresDescription =>
+      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'One-on-one voice chats with a random or a chosen user.';
+
+  @override
   String get transcriptionModel => 'ട്രാൻസ്ക്രിപ്ഷൻ മോഡൽ';
 
   @override

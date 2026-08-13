@@ -8,6 +8,8 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/friends_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
+import 'package:resonate/features/settings/data/feature_flags.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/settings/settings_routes.dart';
 import 'package:resonate/features/shell/shell_routes.dart';
 import 'package:resonate/features/stories/stories_routes.dart';
@@ -49,8 +51,21 @@ final routerProvider = Provider<GoRouter>((ref) {
   );
 });
 
-String? _redirect(Ref ref, GoRouterState state) =>
-    redirectForAsyncAuth(ref.read(authSessionProvider), state.uri.path);
+String? _redirect(Ref ref, GoRouterState state) {
+  final path = state.uri.path;
+  return redirectForAsyncAuth(ref.read(authSessionProvider), path) ??
+      disabledFeatureRedirect(ref.read(featureFlagsProvider), path);
+}
+
+// Keeps the routes of a feature the user turned off unreachable
+String? disabledFeatureRedirect(Set<AppFeature> enabled, String path) {
+  for (final feature in AppFeature.values) {
+    if (!enabled.contains(feature) && feature.routes.contains(path)) {
+      return RoutePaths.tabview;
+    }
+  }
+  return null;
+}
 
 String? redirectForAsyncAuth(AsyncValue<AuthState> asyncAuth, String path) {
   final auth = asyncAuth.hasError

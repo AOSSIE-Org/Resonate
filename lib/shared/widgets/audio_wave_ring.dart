@@ -25,6 +25,7 @@ class AudioWaveRing extends StatefulWidget {
 class _AudioWaveRingState extends State<AudioWaveRing>
     with TickerProviderStateMixin {
   late final AnimationController _phase = AnimationController(
+    
     vsync: this,
     duration: const Duration(milliseconds: 14000),
   );

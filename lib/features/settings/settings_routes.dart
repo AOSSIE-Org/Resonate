@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/settings/view/pages/about_app_screen.dart';
 import 'package:resonate/features/settings/view/pages/app_preferences_screen.dart';
 import 'package:resonate/features/settings/view/pages/contribute_screen.dart';
+import 'package:resonate/features/settings/view/pages/features_screen.dart';
 import 'package:resonate/features/settings/view/pages/settings_screen.dart';
 import 'package:resonate/features/settings/view/pages/user_account_screen.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -26,5 +27,9 @@ final List<GoRoute> settingsRoutes = [
   GoRoute(
     path: RoutePaths.appPreferencesScreen,
     builder: (_, _) => const AppPreferencesScreen(),
+  ),
+  GoRoute(
+    path: RoutePaths.featuresScreen,
+    builder: (_, _) => const FeaturesScreen(),
   ),
 ];
