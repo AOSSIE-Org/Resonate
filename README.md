@@ -42,23 +42,45 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 
 ## :rocket: Features
 
-1. Real-time Audio Communication by joining rooms and talking to people.
-2. Ability to create rooms and moderate speakers and events.
-3. Create Scheduled Rooms and notify subscribers as reminders to join
-4. Listen to and create Stories as chapters with synced lyrics, browse through entire catalog of stories following your favorite  creators and waiting for their latest chapter/story releases. Post your own stories having chapters. 
-5. Pair chatting to enable users to find random partners to talk to in the app.
-6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them (coming soon)
+1. **Live audio rooms** — join real-time conversations, or create your own and moderate speakers.
+2. **Scheduled rooms** — publish a room ahead of time and notify subscribers when it goes live.
+3. **In-room chat and polls** — text alongside the audio, plus live polls with voter avatars.
+4. **Stories** — listen to and publish multi-chapter audio stories with synced lyrics, browse the
+   catalogue, and follow creators for their next release.
+5. **Pair chat** — get matched with a random partner for a spontaneous one-to-one conversation.
+6. **Friends and voice calls** — add friends, see who's around, and call them directly.
+7. **Activity status** — online, do-not-disturb, in-room or invisible, so people know when you're
+   reachable.
+8. **Speaking indicators** — live waveform rings around the avatar of whoever is talking.
+9. **Six themes and ten languages** — light and dark palettes, with the UI localised into English,
+   Hindi, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Rajasthani and Tamil.
 
 ## :computer: Technologies Used
 
-1.  **Flutter** - Mobile application
-2.  **Appwrite** - Authentication, Database, Storage and Cloud functions.
-3.  **LiveKit** - Web Real-Time Communication
+1.  **Flutter** — mobile application (Android and iOS)
+2.  **Appwrite** — authentication, database, storage and cloud functions
+3.  **LiveKit** — WebRTC real-time audio
+4.  **Riverpod** — state management, in an MVVM feature-first architecture
+5.  **Firebase Cloud Messaging** — push notifications
+6.  **Meilisearch** — search (optional)
 
 ## :link: Repository Links
 
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
 2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
+
+## :books: Documentation
+
+| Document | What it covers |
+| --- | --- |
+| [ONBOARDING.md](ONBOARDING.md) | Full development setup, including the backend |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to report issues, open PRs, and structure commits |
+| [MAINTAINERS.md](MAINTAINERS.md) | Who reviews and merges changes |
+| [AGENTS.md](AGENTS.md) | Repository conventions for AI coding agents |
+| [TRANSLATIONS.md](TRANSLATIONS.md) | Adding or improving a translation |
+| [brands/Brand.md](brands/Brand.md) | Logo, icons, colour palette and typography |
+| [SECURITY.md](SECURITY.md) | Reporting a vulnerability |
+| [BestPracticesChecklist.md](BestPracticesChecklist.md) | OpenSSF best-practices self-assessment |
 
 ## :four_leaf_clover: Getting Started
 
@@ -66,6 +88,22 @@ Resonate is a broad project that makes use of other software solutions like Appw
 
 We offer a guide for walking you through setting up the entire project, including a script that automates the set up of the backend environment for you.
 Please go through and strictly follow the [Onboarding Guide](https://github.com/AOSSIE-Org/Resonate/blob/master/ONBOARDING.md) for setting up the project for development and further contributions.
+
+Once the backend is up, the client side is standard Flutter:
+
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs   # generated code
+flutter run --dart-define=APPWRITE_BASE_DOMAIN=<your-host>
+```
+
+Before opening a pull request:
+
+```bash
+flutter analyze          # lints
+dart run custom_lint     # Riverpod lints — `flutter analyze` does not run these
+flutter test             # full test suite
+```
 
 ## ▶️ Play Store Feature Graphic
 
@@ -104,8 +142,11 @@ By following these guidelines, we can maintain a productive and collaborative op
 
 ## :v: Maintainers
 
-- [Jaideep Prasad](https://github.com/jddeep)
 - [Chandan S Gowda](https://github.com/chandansgowda)
+- [Madhav Gupta](https://github.com/M4dhav)
+- [Mayank](https://github.com/Mayank4352)
+
+See [MAINTAINERS.md](MAINTAINERS.md) for what maintainers do and how to get a review.
 
 ## :mailbox: Communication Channels
 
