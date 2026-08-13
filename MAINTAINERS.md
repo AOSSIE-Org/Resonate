@@ -8,7 +8,7 @@ This file lists the people responsible for reviewing and merging changes to Reso
 | --- | --- | --- |
 | Chandan S Gowda | [@chandansgowda](https://github.com/chandansgowda) | Project direction, releases, backend |
 | Madhav Gupta | [@M4dhav](https://github.com/M4dhav) | Flutter app, CI — default code owner |
-| Mayank | [@Mayank4352](https://github.com/Mayank4352) | Flutter app, features, tooling, Arhitecture |
+| Mayank | [@Mayank4352](https://github.com/Mayank4352) | Flutter app, features, tooling, Architecture |
 
 [@M4dhav](https://github.com/M4dhav) is the default owner for the whole repository in
 [.github/CODEOWNERS](.github/CODEOWNERS), so review is requested automatically on every pull
