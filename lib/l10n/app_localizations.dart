@@ -732,6 +732,12 @@ abstract class AppLocalizations {
   /// **'One-on-one voice chats with a random or a chosen user.'**
   String get pairChatFeatureDescription;
 
+  /// Description of the live chapter feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a story chapter live with an audience, and join the ones others host.'**
+  String get liveChapterFeatureDescription;
+
   /// Section title for choosing AI transcription model.
   ///
   /// In en, this message translates to:

@@ -11,15 +11,18 @@ class FeaturesScreen extends ConsumerWidget {
   static String titleOf(AppFeature feature, AppLocalizations l10n) =>
       switch (feature) {
         AppFeature.pairChat => l10n.pairChat,
+        AppFeature.liveChapter => l10n.liveChapter,
       };
 
   static String descriptionOf(AppFeature feature, AppLocalizations l10n) =>
       switch (feature) {
         AppFeature.pairChat => l10n.pairChatFeatureDescription,
+        AppFeature.liveChapter => l10n.liveChapterFeatureDescription,
       };
 
   static IconData iconOf(AppFeature feature) => switch (feature) {
     AppFeature.pairChat => Icons.people_alt_rounded,
+    AppFeature.liveChapter => Icons.podcasts_rounded,
   };
 
   @override

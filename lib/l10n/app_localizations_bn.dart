@@ -333,6 +333,10 @@ class AppLocalizationsBn extends AppLocalizations {
       'One-on-one voice chats with a random or a chosen user.';
 
   @override
+  String get liveChapterFeatureDescription =>
+      'Record a story chapter live with an audience, and join the ones others host.';
+
+  @override
   String get transcriptionModel => 'ট্রান্সক্রিপশন মডেল';
 
   @override
