@@ -80,4 +80,31 @@ void main() {
       {'/pairing', '/pairChat', '/pairChatUsers'},
     );
   });
+
+  test('live chapter owns its two routes', () {
+    expect(
+      AppFeature.liveChapter.routes,
+      {'/liveChapterScreen', '/verifyChapterDetails'},
+    );
+  });
+
+  test('no two features claim the same route', () {
+    final claimed = AppFeature.values.expand((f) => f.routes).toList();
+
+    expect(claimed.toSet(), hasLength(claimed.length));
+  });
+
+  test('toggling one feature leaves the others alone', () async {
+    final container = containerWith(FakeGetStorage());
+
+    await container
+        .read(featureFlagsProvider.notifier)
+        .setEnabled(AppFeature.liveChapter, false);
+
+    expect(container.read(featureFlagsProvider), contains(AppFeature.pairChat));
+    expect(
+      container.read(featureEnabledProvider(AppFeature.liveChapter)),
+      isFalse,
+    );
+  });
 }

@@ -9,6 +9,13 @@ enum AppFeature {
       RoutePaths.pairChat,
       RoutePaths.pairChatUsers,
     },
+  ),
+  liveChapter(
+    storageKey: 'featureEnabled_liveChapter',
+    routes: {
+      RoutePaths.liveChapterScreen,
+      RoutePaths.verifyChapterDetails,
+    },
   );
 
   const AppFeature({required this.storageKey, required this.routes});

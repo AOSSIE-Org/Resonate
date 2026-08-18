@@ -418,6 +418,10 @@
     "@pairChatFeatureDescription": {
         "description": "Description of the pair chat feature on the features settings page."
     },
+    "liveChapterFeatureDescription": "Record a story chapter live with an audience, and join the ones others host.",
+    "@liveChapterFeatureDescription": {
+        "description": "Description of the live chapter feature on the features settings page."
+    },
     "transcriptionModel": "Transcription Model",
     "@transcriptionModel": {
         "description": "Section title for choosing AI transcription model."

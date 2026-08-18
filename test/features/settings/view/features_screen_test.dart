@@ -21,6 +21,15 @@ void main() {
     return box;
   }
 
+  // Each feature owns one switch, found by the title it renders.
+  Finder switchFor(String title) => find.ancestor(
+    of: find.text(title),
+    matching: find.byType(SwitchListTile),
+  );
+
+  bool isOn(WidgetTester tester, String title) =>
+      tester.widget<SwitchListTile>(switchFor(title)).value;
+
   testWidgets('renders a switch for every feature, on by default', (
     tester,
   ) async {
@@ -33,6 +42,14 @@ void main() {
       find.text('One-on-one voice chats with a random or a chosen user.'),
       findsOneWidget,
     );
+    expect(find.text('Live Chapter'), findsOneWidget);
+    expect(
+      find.text(
+        'Record a story chapter live with an audience, and join the ones '
+        'others host.',
+      ),
+      findsOneWidget,
+    );
     for (final tile in tester.widgetList<SwitchListTile>(
       find.byType(SwitchListTile),
     )) {
@@ -40,27 +57,27 @@ void main() {
     }
   });
 
-  testWidgets('a stored false renders the switch off', (tester) async {
+  testWidgets('a stored false renders that feature switch off', (tester) async {
     final storage = FakeGetStorage();
     storage.write(AppFeature.pairChat.storageKey, false);
 
     await pumpFeatures(tester, storage: storage);
 
-    final tile = tester.widget<SwitchListTile>(find.byType(SwitchListTile));
-    expect(tile.value, isFalse);
+    expect(isOn(tester, 'Pair Chat'), isFalse);
+    expect(isOn(tester, 'Live Chapter'), isTrue);
   });
 
-  testWidgets('toggling the switch off persists and flips the tile', (
+  testWidgets('toggling a switch off persists and flips only that tile', (
     tester,
   ) async {
     final storage = await pumpFeatures(tester);
 
-    await tester.tap(find.byType(SwitchListTile));
+    await tester.tap(switchFor('Live Chapter'));
     await tester.pumpAndSettle();
 
-    expect(storage.read<bool>(AppFeature.pairChat.storageKey), isFalse);
-    final tile = tester.widget<SwitchListTile>(find.byType(SwitchListTile));
-    expect(tile.value, isFalse);
+    expect(storage.read<bool>(AppFeature.liveChapter.storageKey), isFalse);
+    expect(isOn(tester, 'Live Chapter'), isFalse);
+    expect(isOn(tester, 'Pair Chat'), isTrue);
   });
 
   testWidgets('toggling it back on persists and flips the tile', (
@@ -70,11 +87,10 @@ void main() {
     storage.write(AppFeature.pairChat.storageKey, false);
     await pumpFeatures(tester, storage: storage);
 
-    await tester.tap(find.byType(SwitchListTile));
+    await tester.tap(switchFor('Pair Chat'));
     await tester.pumpAndSettle();
 
     expect(storage.read<bool>(AppFeature.pairChat.storageKey), isTrue);
-    final tile = tester.widget<SwitchListTile>(find.byType(SwitchListTile));
-    expect(tile.value, isTrue);
+    expect(isOn(tester, 'Pair Chat'), isTrue);
   });
 }
