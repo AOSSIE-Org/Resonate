@@ -4,11 +4,13 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/rooms/data/livekit_join.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/room_failure.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/core/services/execute_function.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,23 +21,27 @@ part 'generated/rooms_repository.g.dart';
 RoomsRepository roomsRepository(Ref ref) => RoomsRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
-  apiService: ref.watch(apiServiceProvider),
+  functions: ref.watch(appwriteFunctionsProvider),
+  roomJoin: ref.watch(roomJoinServiceProvider),
 );
 
 class RoomsRepository {
   RoomsRepository({
     required TablesDB tables,
     required Realtime realtime,
-    required ApiService apiService,
+    required Functions functions,
+    required RoomJoinService roomJoin,
     FlutterSecureStorage? secureStorage,
   }) : _tables = tables,
        _realtime = realtime,
-       _api = apiService,
+       _functions = functions,
+       _roomJoin = roomJoin,
        _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   final TablesDB _tables;
   final Realtime _realtime;
-  final ApiService _api;
+  final Functions _functions;
+  final RoomJoinService _roomJoin;
   final FlutterSecureStorage _secureStorage;
 
   TablesDB get tables => _tables;
@@ -70,7 +76,7 @@ class RoomsRepository {
       return _buildAppwriteRoom(row, userUid);
     } on AppwriteException catch (e) {
       if (e.code == 404) return null;
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -120,7 +126,15 @@ class RoomsRepository {
     required String adminUid,
   }) async {
     try {
-      final response = await _api.createRoom(name, description, adminUid, tags);
+      final response = await _functions.execute(
+        functionId: createRoomServiceId,
+        body: {
+          'name': name,
+          'description': description,
+          'adminUid': adminUid,
+          'tags': tags,
+        },
+      );
       final roomId = response['livekit_room']['name'] as String;
       final join = liveKitJoinFromResponse(response);
 
@@ -146,7 +160,7 @@ class RoomsRepository {
         roomToken: join.roomToken,
       );
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -156,7 +170,7 @@ class RoomsRepository {
     required bool isAdmin,
   }) async {
     try {
-      final response = await _api.joinRoom(roomId, userId);
+      final response = await _roomJoin.joinRoom(roomId, userId);
       final join = liveKitJoinFromResponse(response);
 
       final myDocId = await _addParticipant(
@@ -171,7 +185,7 @@ class RoomsRepository {
         roomToken: join.roomToken,
       );
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -277,7 +291,7 @@ class RoomsRepository {
       }
       return true;
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -286,7 +300,10 @@ class RoomsRepository {
       final token = await _secureStorage.read(key: 'createdRoomAdminToken');
       if (token != null) {
         try {
-          await _api.deleteRoom(roomId, token);
+          await _functions.execute(
+            functionId: deleteRoomServiceId,
+            body: {'appwriteRoomDocId': roomId, 'token': token},
+          );
         } catch (_) {}
       }
 
@@ -315,7 +332,7 @@ class RoomsRepository {
         if (e.code != 404) rethrow;
       }
     } on AppwriteException catch (e) {
-      throw _mapException(e);
+      throw RoomFailure.fromAppwrite(e);
     }
   }
 
@@ -417,6 +434,17 @@ class RoomsRepository {
     );
   }
 
+  /// Files a user report. Was previously written straight from the report
+  /// dialog, which put an SDK call in a widget.
+  Future<void> submitUserReport(UserReportModel report) async {
+    await _tables.createRow(
+      databaseId: userDatabaseID,
+      tableId: userReportsTableID,
+      rowId: ID.unique(),
+      data: report.toJson(),
+    );
+  }
+
   Future<void> kickParticipant(String docId) async {
     await _tables.deleteRow(
       databaseId: masterDatabaseId,
@@ -428,11 +456,4 @@ class RoomsRepository {
   static String participantChannel() =>
       'databases.$masterDatabaseId.tables.$participantsTableId.rows';
 
-  RoomFailure _mapException(AppwriteException e) {
-    return switch (e.code) {
-      404 => const RoomFailure.notFound(),
-      401 || 403 => const RoomFailure.permissionDenied(),
-      _ => RoomFailure.unknown(e.message ?? e.toString()),
-    };
-  }
 }

@@ -996,7 +996,7 @@
   "@clear": {
     "description": "Button text to clear something."
   },
-  "shareRoomMessage": "ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: {roomName}!\n\n📖 ਵੇਰਵਾ: {description}\n👥 ਹੁਣੇ {participants} ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!",
+  "shareRoomMessage": "ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: {roomName}!\n\n📖 ਵੇਰਵਾ: {roomDescription}\n👥 ਹੁਣੇ {participants} ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!",
   "@shareRoomMessage": {
     "description": "Message to share a room.",
     "placeholders": {
@@ -1004,7 +1004,7 @@
         "type": "String",
         "example": "Discussion Room"
       },
-      "description": {
+      "roomDescription": {
         "type": "String",
         "example": "A great place to discuss"
       },

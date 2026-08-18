@@ -320,6 +320,21 @@ class AppLocalizationsPa extends AppLocalizations {
   String get appPreferences => 'ਐਪ ਪਸੰਦ';
 
   @override
+  String get features => 'Features';
+
+  @override
+  String get featuresDescription =>
+      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'One-on-one voice chats with a random or a chosen user.';
+
+  @override
+  String get liveChapterFeatureDescription =>
+      'Record a story chapter live with an audience, and join the ones others host.';
+
+  @override
   String get transcriptionModel => 'ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਮਾਡਲ';
 
   @override
@@ -754,10 +769,10 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
   ) {
-    return 'ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: $roomName!\n\n📖 ਵੇਰਵਾ: $description\n👥 ਹੁਣੇ $participants ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!';
+    return 'ਇਸ ਸ਼ਾਨਦਾਰ ਰੂਮ ਨੂੰ ਦੇਖੋ: $roomName!\n\n📖 ਵੇਰਵਾ: $roomDescription\n👥 ਹੁਣੇ $participants ਲੋਕ ਜੁੜ ਚੁੱਕੇ ਹਨ!';
   }
 
   @override
@@ -1396,4 +1411,124 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get usernameAlreadyTaken => 'ਇਹ ਯੂਜ਼ਰਨੇਮ ਪਹਿਲਾਂ ਹੀ ਲਿਆ ਗਿਆ ਹੈ';
+
+  @override
+  String get poll => 'Poll';
+
+  @override
+  String get createPoll => 'Create poll';
+
+  @override
+  String get pollQuestionLabel => 'Question';
+
+  @override
+  String get pollQuestionHint => 'Ask a question…';
+
+  @override
+  String pollOptionHint(int number) {
+    return 'Option $number';
+  }
+
+  @override
+  String get addPollOption => 'Add option';
+
+  @override
+  String get removePollOption => 'Remove option';
+
+  @override
+  String pollVotesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count votes',
+      one: '1 vote',
+      zero: 'No votes yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get endPoll => 'End poll';
+
+  @override
+  String get endPollConfirmTitle => 'End this poll?';
+
+  @override
+  String get endPollConfirmContent =>
+      'Voting will be closed for everyone. This cannot be undone.';
+
+  @override
+  String get pollFinalResults => 'Final results';
+
+  @override
+  String get pollEnterQuestion => 'Please enter a question';
+
+  @override
+  String get pollNeedTwoOptions => 'Please provide at least 2 options';
+
+  @override
+  String get pollUnavailable => 'This poll is no longer available';
+
+  @override
+  String get failedToCreatePoll => 'Failed to create poll';
+
+  @override
+  String get failedToVote => 'Failed to record your vote';
+
+  @override
+  String get failedToEndPoll => 'Failed to end the poll';
+
+  @override
+  String get activityStatus => 'Activity status';
+
+  @override
+  String get activityStatusSubtitle => 'Choose who can reach you';
+
+  @override
+  String get activityOnline => 'Online';
+
+  @override
+  String get activityOnlineDescription => 'Available for calls';
+
+  @override
+  String get activityDnd => 'Do Not Disturb';
+
+  @override
+  String get activityDndDescription => 'Incoming calls are blocked';
+
+  @override
+  String get activityInRoom => 'In a session';
+
+  @override
+  String get activityInRoomDescription =>
+      'In a live session, calls are blocked';
+
+  @override
+  String get activityInvisible => 'Invisible';
+
+  @override
+  String get activityInvisibleDescription =>
+      'You appear offline, calls still reach you';
+
+  @override
+  String get activityOffline => 'Offline';
+
+  @override
+  String get activityOfflineDescription => 'Not in the app right now';
+
+  @override
+  String get activityStatusUpdateFailed => 'Could not update your availability';
+
+  @override
+  String get callBlocked => 'Can\'t call right now';
+
+  @override
+  String callBlockedDnd(String username) {
+    return '$username has Do Not Disturb turned on.';
+  }
+
+  @override
+  String callBlockedInRoom(String username) {
+    return '$username is in a live session.';
+  }
 }

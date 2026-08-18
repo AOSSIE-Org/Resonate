@@ -16,9 +16,9 @@ List<Override> buildOverrides(FakeCreateRoom fake) {
 
 void main() {
   group('CreateRoomPage render', () {
-    testRoomsWidget('renders Live and Scheduled mode chips', (tester) async {
+    testAppWidget('renders Live and Scheduled mode chips', (tester) async {
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
         overrides: buildOverrides(fake),
@@ -30,11 +30,11 @@ void main() {
       expect(find.text('Create New Room'), findsOneWidget);
     });
 
-    testRoomsWidget('tapping Scheduled toggles isScheduled and reveals the '
+    testAppWidget('tapping Scheduled toggles isScheduled and reveals the '
         'date/time field', (tester) async {
       final key = GlobalKey<CreateRoomPageState>();
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),
@@ -53,11 +53,11 @@ void main() {
       expect(find.byIcon(Icons.calendar_month), findsOneWidget);
     });
 
-    testRoomsWidget('loading overlay shows when createRoomProvider is true', (
+    testAppWidget('loading overlay shows when createRoomProvider is true', (
       tester,
     ) async {
       final fake = FakeCreateRoom(loading: true);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
         overrides: buildOverrides(fake),
@@ -67,11 +67,11 @@ void main() {
       expect(find.byType(BackdropFilter), findsOneWidget);
     });
 
-    testRoomsWidget('no loading overlay when createRoomProvider is false', (
+    testAppWidget('no loading overlay when createRoomProvider is false', (
       tester,
     ) async {
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: GlobalKey<CreateRoomPageState>()),
         overrides: buildOverrides(fake),
@@ -83,12 +83,12 @@ void main() {
   });
 
   group('CreateRoomPage submit', () {
-    testRoomsWidget('invalid form returns without calling the notifier', (
+    testAppWidget('invalid form returns without calling the notifier', (
       tester,
     ) async {
       final key = GlobalKey<CreateRoomPageState>();
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),
@@ -107,12 +107,12 @@ void main() {
       expect(fake.scheduledCount, 0);
     });
 
-    testRoomsWidget('live mode submit calls createLiveRoom and clears', (
+    testAppWidget('live mode submit calls createLiveRoom and clears', (
       tester,
     ) async {
       final key = GlobalKey<CreateRoomPageState>();
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),
@@ -134,11 +134,11 @@ void main() {
       expect(find.text('My Room'), findsNothing);
     });
 
-    testRoomsWidget('scheduled submit with null iso returns null without '
+    testAppWidget('scheduled submit with null iso returns null without '
         'calling notifier', (tester) async {
       final key = GlobalKey<CreateRoomPageState>();
       final fake = FakeCreateRoom();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),
@@ -160,12 +160,12 @@ void main() {
       expect(fake.liveCount, 0);
     });
 
-    testRoomsWidget('submit failure shows failedToCreateRoom snackbar', (
+    testAppWidget('submit failure shows failedToCreateRoom snackbar', (
       tester,
     ) async {
       final key = GlobalKey<CreateRoomPageState>();
       final fake = FakeCreateRoom(throwOnCreate: true);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),

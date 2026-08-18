@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_status_sheet.dart';
 import 'package:resonate/features/settings/viewmodel/settings_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -60,6 +63,23 @@ class SettingsScreen extends ConsumerWidget {
               ref.read(routerProvider).push(RoutePaths.userAccountScreen);
             },
           ),
+          Builder(
+            builder: (context) {
+              final status = ref.watch(myActivityStatusProvider);
+              return ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: padding),
+                title: Text(AppLocalizations.of(context)!.activityStatus),
+                subtitle: Text(
+                  status.label(AppLocalizations.of(context)!),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                trailing: ActivityDot(status: status, size: UiSizes.size_14),
+                onTap: () => showActivityStatusSheet(context),
+              );
+            },
+          ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.appSettings),
           customTile(
@@ -78,6 +98,12 @@ class SettingsScreen extends ConsumerWidget {
             str: AppLocalizations.of(context)!.appPreferences,
             func: () {
               ref.read(routerProvider).push(RoutePaths.appPreferencesScreen);
+            },
+          ),
+          customTile(
+            str: AppLocalizations.of(context)!.features,
+            func: () {
+              ref.read(routerProvider).push(RoutePaths.featuresScreen);
             },
           ),
           customDivider(),

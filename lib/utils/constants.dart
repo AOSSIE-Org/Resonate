@@ -69,6 +69,8 @@ const String roomsTableId = "64a5217e695bf2c4ec9c";
 const String participantsTableId = "64a63e508145d1084abf";
 const String chatMessagesTableId = "670d812c0002c33c09a8";
 const String chatMessageReplyTableId = "672759820027801f121f";
+const String pollsTableId = "room_polls";
+const String pollVotesTableId = "room_poll_votes";
 
 // Pair chat database constants
 const String pairRequestTableId = "64d980211f1395263ebe";

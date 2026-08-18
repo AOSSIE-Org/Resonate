@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/speaking_avatar.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class LiveChapterAttendeeBlock extends ConsumerWidget {
@@ -23,12 +24,16 @@ class LiveChapterAttendeeBlock extends ConsumerWidget {
       alignment: Alignment.center,
       child: Column(
         children: [
-          CircleAvatar(
+          SpeakingAvatar(
+            uid: user.id,
             radius: UiSizes.size_32,
-            backgroundColor: colorScheme.primary,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(user.profileImageUrl ?? ''),
-              radius: UiSizes.size_30,
+              radius: UiSizes.size_32,
+              backgroundColor: colorScheme.primary,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(user.profileImageUrl ?? ''),
+                radius: UiSizes.size_30,
+              ),
             ),
           ),
           SingleChildScrollView(

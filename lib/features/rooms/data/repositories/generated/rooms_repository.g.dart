@@ -49,4 +49,4 @@ final class RoomsRepositoryProvider
   }
 }
 
-String _$roomsRepositoryHash() => r'efd73f4145cfe0833a43bdaf2f1e54cc67b2aeee';
+String _$roomsRepositoryHash() => r'0ef4bc13935244acf4a03cb905d371154f2708b2';
