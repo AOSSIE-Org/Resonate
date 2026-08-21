@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
-    show mapAppwriteFriendsException;
-import 'package:resonate/features/rooms/data/livekit_join.dart';
-import 'package:resonate/models/resonate_user.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,21 +15,21 @@ part 'generated/pair_chat_repository.g.dart';
 PairChatRepository pairChatRepository(Ref ref) => PairChatRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
-  apiService: ref.watch(apiServiceProvider),
+  roomJoin: ref.watch(roomJoinServiceProvider),
 );
 
 class PairChatRepository {
   PairChatRepository({
     required TablesDB tables,
     required Realtime realtime,
-    required ApiService apiService,
+    required RoomJoinService roomJoin,
   }) : _tables = tables,
        _realtime = realtime,
-       _api = apiService;
+       _roomJoin = roomJoin;
 
   final TablesDB _tables;
   final Realtime _realtime;
-  final ApiService _api;
+  final RoomJoinService _roomJoin;
 
   static String activePairsChannel() =>
       'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
@@ -47,7 +46,7 @@ class PairChatRepository {
       );
       return requestDoc.$id;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -60,7 +59,7 @@ class PairChatRepository {
         data: <String, dynamic>{'isRandom': true},
       );
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -72,7 +71,7 @@ class PairChatRepository {
         rowId: requestDocId,
       );
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -121,7 +120,7 @@ class PairChatRepository {
         },
       );
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -135,7 +134,7 @@ class PairChatRepository {
       );
     } on AppwriteException catch (e) {
       if (e.code == 404 || e.type == 'document_not_found') return;
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -169,7 +168,7 @@ class PairChatRepository {
         },
       );
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -204,7 +203,7 @@ class PairChatRepository {
     required String roomId,
     required String userId,
   }) async {
-    final response = await _api.joinRoom(roomId, userId);
+    final response = await _roomJoin.joinRoom(roomId, userId);
     return liveKitJoinFromResponse(response);
   }
 }

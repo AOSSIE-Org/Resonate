@@ -1214,7 +1214,7 @@
     "description": "Tooltip text for clear button."
   },
 
-  "shareRoomMessage": "🚀 இந்த அற்புதமான அறையைப் பாருங்கள்: {roomName}!\n\n📖 விளக்கம்: {description}\n👥 இப்போது {participants} பேர் கலந்து கொள்ளுங்கள்!",
+  "shareRoomMessage": "🚀 இந்த அற்புதமான அறையைப் பாருங்கள்: {roomName}!\n\n📖 விளக்கம்: {roomDescription}\n👥 இப்போது {participants} பேர் கலந்து கொள்ளுங்கள்!",
   "@shareRoomMessage": {
     "description": "The default message template used when sharing a room.",
     "placeholders": {
@@ -1222,7 +1222,7 @@
         "type": "String",
         "example": "Discussion Room"
       },
-      "description": {
+      "roomDescription": {
         "type": "String",
         "example": "A great place to discuss"
       },

@@ -406,6 +406,22 @@
     "@appPreferences": {
         "description": "Label for the app preferences settings page."
     },
+    "features": "Features",
+    "@features": {
+        "description": "Label for the settings page where the user turns app features on or off."
+    },
+    "featuresDescription": "Turn off the features you don't use. They stay hidden on this device until you turn them back on.",
+    "@featuresDescription": {
+        "description": "Explanation shown at the top of the features settings page."
+    },
+    "pairChatFeatureDescription": "One-on-one voice chats with a random or a chosen user.",
+    "@pairChatFeatureDescription": {
+        "description": "Description of the pair chat feature on the features settings page."
+    },
+    "liveChapterFeatureDescription": "Record a story chapter live with an audience, and join the ones others host.",
+    "@liveChapterFeatureDescription": {
+        "description": "Description of the live chapter feature on the features settings page."
+    },
     "transcriptionModel": "Transcription Model",
     "@transcriptionModel": {
         "description": "Section title for choosing AI transcription model."
@@ -980,7 +996,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!",
+    "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
@@ -988,7 +1004,7 @@
                 "type": "String",
                 "example": "Discussion Room"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "A great place to discuss"
             },
@@ -1818,63 +1834,225 @@
     "@done": {
         "description": "Button text to close audio device selector."
     },
-     "deleteMessageTitle": "Delete Message",
-"@deleteMessageTitle": {
-  "description": "Title shown in the delete message confirmation dialog."
-},
-"deleteMessageContent": "Are you sure you want to delete this message?",
-"@deleteMessageContent": {
-  "description": "Confirmation text asking the user if they want to delete a message."
-},
-"thisMessageWasDeleted": "This message was deleted",
-"failedToDeleteMessage": "Failed to delete message",
+    "deleteMessageTitle": "Delete Message",
+    "@deleteMessageTitle": {
+        "description": "Title shown in the delete message confirmation dialog."
+    },
+    "deleteMessageContent": "Are you sure you want to delete this message?",
+    "@deleteMessageContent": {
+        "description": "Confirmation text asking the user if they want to delete a message."
+    },
+    "thisMessageWasDeleted": "This message was deleted",
+    "@thisMessageWasDeleted": {
+        "description": "Status text shown when a previously sent message has been deleted."
+    },
+    "failedToDeleteMessage": "Failed to delete message",
+    "@failedToDeleteMessage": {
+        "description": "Error snackbar shown when deleting a message fails."
+    },
 
-"noFriendsYet": "No Friends Yet",
-"@noFriendsYet": {
-  "description": "Title shown when user has no friends."
-},
-"noFriendsDescription": "Your friends list is empty. Start connecting with people and grow your network!",
-"@noFriendsDescription": {
-  "description": "Description shown when user has no friends."
-},
-"findFriends": "Find Friends",
-"@findFriends": {
-  "description": "Button text to navigate to find friends screen."
-},
-"inviteFriend": "Invite a Friend",
-"@inviteFriend": {
-  "description": "Button text to invite friends to the app."
-},
-"noFriendRequestsYet": "No Friend Requests",
-"@noFriendRequestsYet": {
-  "description": "Title shown when user has no friend requests."
-},
-"noFriendRequestsDescription": "You don't have any pending friend requests. Invite your friends to connect!",
-"@noFriendRequestsDescription": {
-  "description": "Description shown when user has no friend requests."
-},
-"inviteToResonate": "Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: {url}",
-"@inviteToResonate": {
-  "description": "Text used when inviting friends to the app.",
-  "placeholders": {
-    "url": {
-      "type": "String"
+    "noFriendsYet": "No Friends Yet",
+    "@noFriendsYet": {
+        "description": "Title shown when user has no friends."
+    },
+    "noFriendsDescription": "Your friends list is empty. Start connecting with people and grow your network!",
+    "@noFriendsDescription": {
+        "description": "Description shown when user has no friends."
+    },
+    "findFriends": "Find Friends",
+    "@findFriends": {
+        "description": "Button text to navigate to find friends screen."
+    },
+    "inviteFriend": "Invite a Friend",
+    "@inviteFriend": {
+        "description": "Button text to invite friends to the app."
+    },
+    "noFriendRequestsYet": "No Friend Requests",
+    "@noFriendRequestsYet": {
+        "description": "Title shown when user has no friend requests."
+    },
+    "noFriendRequestsDescription": "You don't have any pending friend requests. Invite your friends to connect!",
+    "@noFriendRequestsDescription": {
+        "description": "Description shown when user has no friend requests."
+    },
+    "inviteToResonate": "Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: {url}",
+    "@inviteToResonate": {
+        "description": "Text used when inviting friends to the app.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+
+    "usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
+    "@usernameInvalidFormat": {
+        "description": "Validation error displayed when the user enters a username with unsupported characters."
+    },
+
+    "usernameAlreadyTaken": "This username is already taken. Try a different one.",
+    "@usernameAlreadyTaken": {
+        "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+    },
+
+    "poll": "Poll",
+    "@poll": {
+        "description": "Label identifying a poll card in the room chat."
+    },
+    "createPoll": "Create poll",
+    "@createPoll": {
+        "description": "Title of the poll creation sheet and its submit button; also the tooltip of the poll button in the chat input."
+    },
+    "pollQuestionLabel": "Question",
+    "@pollQuestionLabel": {
+        "description": "Label for the poll question input field."
+    },
+    "pollQuestionHint": "Ask a question…",
+    "@pollQuestionHint": {
+        "description": "Hint text inside the poll question input field."
+    },
+    "pollOptionHint": "Option {number}",
+    "@pollOptionHint": {
+        "description": "Hint text for a poll option input field, numbered from 1.",
+        "placeholders": {
+            "number": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "addPollOption": "Add option",
+    "@addPollOption": {
+        "description": "Button text to add another option field when creating a poll."
+    },
+    "removePollOption": "Remove option",
+    "@removePollOption": {
+        "description": "Tooltip of the button that removes an option field when creating a poll."
+    },
+    "pollVotesCount": "{count, plural, =0{No votes yet} =1{1 vote} other{{count} votes}}",
+    "@pollVotesCount": {
+        "description": "Total number of votes cast on a poll.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "endPoll": "End poll",
+    "@endPoll": {
+        "description": "Host-only button that closes voting on a poll."
+    },
+    "endPollConfirmTitle": "End this poll?",
+    "@endPollConfirmTitle": {
+        "description": "Title of the confirmation dialog before closing a poll."
+    },
+    "endPollConfirmContent": "Voting will be closed for everyone. This cannot be undone.",
+    "@endPollConfirmContent": {
+        "description": "Body of the confirmation dialog before closing a poll."
+    },
+    "pollFinalResults": "Final results",
+    "@pollFinalResults": {
+        "description": "Tag shown on a poll card once voting has been closed."
+    },
+    "pollEnterQuestion": "Please enter a question",
+    "@pollEnterQuestion": {
+        "description": "Validation message when the poll question is empty."
+    },
+    "pollNeedTwoOptions": "Please provide at least 2 options",
+    "@pollNeedTwoOptions": {
+        "description": "Validation message when a poll has fewer than two non-empty options."
+    },
+    "pollUnavailable": "This poll is no longer available",
+    "@pollUnavailable": {
+        "description": "Placeholder shown when a poll referenced by a chat message has been deleted."
+    },
+    "failedToCreatePoll": "Failed to create poll",
+    "@failedToCreatePoll": {
+        "description": "Error snackbar when creating a poll fails."
+    },
+    "failedToVote": "Failed to record your vote",
+    "@failedToVote": {
+        "description": "Error snackbar when casting or changing a vote fails."
+    },
+    "failedToEndPoll": "Failed to end the poll",
+    "@failedToEndPoll": {
+        "description": "Error snackbar when closing a poll fails."
+    },
+    "activityStatus": "Activity status",
+    "@activityStatus": {
+        "description": "Settings entry and title of the sheet where the user picks their activity status."
+    },
+    "activityStatusSubtitle": "Choose who can reach you",
+    "@activityStatusSubtitle": {
+        "description": "Supporting line under the activity status picker title."
+    },
+    "activityOnline": "Online",
+    "@activityOnline": {
+        "description": "Activity status: fully available for calls."
+    },
+    "activityOnlineDescription": "Available for calls",
+    "@activityOnlineDescription": {
+        "description": "Explanation of the Online activity status."
+    },
+    "activityDnd": "Do Not Disturb",
+    "@activityDnd": {
+        "description": "Activity status: incoming calls are refused."
+    },
+    "activityDndDescription": "Incoming calls are blocked",
+    "@activityDndDescription": {
+        "description": "Explanation of the Do Not Disturb activity status."
+    },
+    "activityInRoom": "In a session",
+    "@activityInRoom": {
+        "description": "Activity status: the user is in a live audio session. Set automatically."
+    },
+    "activityInRoomDescription": "In a live session, calls are blocked",
+    "@activityInRoomDescription": {
+        "description": "Explanation of the In a session activity status."
+    },
+    "activityInvisible": "Invisible",
+    "@activityInvisible": {
+        "description": "Activity status: the user appears offline to others."
+    },
+    "activityInvisibleDescription": "You appear offline, calls still reach you",
+    "@activityInvisibleDescription": {
+        "description": "Explanation of the Invisible activity status."
+    },
+    "activityOffline": "Offline",
+    "@activityOffline": {
+        "description": "Activity status shown for a user who is signed out or has the app in the background."
+    },
+    "activityOfflineDescription": "Not in the app right now",
+    "@activityOfflineDescription": {
+        "description": "Explanation of the Offline activity status."
+    },
+    "activityStatusUpdateFailed": "Could not update your availability",
+    "@activityStatusUpdateFailed": {
+        "description": "Error snackbar when writing the new activity status fails."
+    },
+    "callBlocked": "Can't call right now",
+    "@callBlocked": {
+        "description": "Title of the snackbar shown when a call is refused by the recipient's activity status."
+    },
+    "callBlockedDnd": "{username} has Do Not Disturb turned on.",
+    "@callBlockedDnd": {
+        "description": "Snackbar body when the callee has Do Not Disturb enabled.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "callBlockedInRoom": "{username} is in a live session.",
+    "@callBlockedInRoom": {
+        "description": "Snackbar body when the callee is already in a live audio session.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
     }
-  }
-},
-"@thisMessageWasDeleted": {
-  "description": "Status text shown when a previously sent message has been deleted."
-},
-
-"usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
-"@usernameInvalidFormat": {
-  "description": "Validation error displayed when the user enters a username with unsupported characters."
-},
-
-"usernameAlreadyTaken": "This username is already taken. Try a different one.",
-"@usernameAlreadyTaken": {
-  "description": "Error shown when the chosen username is unavailable because another user has already registered it."
-}
-
-
 }

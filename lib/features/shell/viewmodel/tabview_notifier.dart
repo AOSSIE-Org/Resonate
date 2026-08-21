@@ -3,8 +3,7 @@ import 'dart:developer';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -47,14 +46,8 @@ class TabView extends _$TabView {
   Future<void> _openAppLink(Uri uri) async {
     try {
       final roomId = uri.pathSegments.last;
-      final authState = await ref.read(authSessionProvider.future);
-      if (!authState.hasSession) return;
-      final userUid = authState.userOrNull?.uid;
-      if (userUid == null) return;
-
-      final room = await ref
-          .read(roomsRepositoryProvider)
-          .getRoomById(roomId, userUid);
+      // Rooms owns resolving this, including the signed-out case.
+      final room = await ref.read(roomLauncherProvider).findRoomById(roomId);
       if (room == null) return;
 
       _showJoinRoomDialog(room);

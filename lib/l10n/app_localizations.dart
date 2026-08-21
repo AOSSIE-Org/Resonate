@@ -714,6 +714,30 @@ abstract class AppLocalizations {
   /// **'App Preferences'**
   String get appPreferences;
 
+  /// Label for the settings page where the user turns app features on or off.
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get features;
+
+  /// Explanation shown at the top of the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.'**
+  String get featuresDescription;
+
+  /// Description of the pair chat feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'One-on-one voice chats with a random or a chosen user.'**
+  String get pairChatFeatureDescription;
+
+  /// Description of the live chapter feature on the features settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a story chapter live with an audience, and join the ones others host.'**
+  String get liveChapterFeatureDescription;
+
   /// Section title for choosing AI transcription model.
   ///
   /// In en, this message translates to:
@@ -1551,10 +1575,10 @@ abstract class AppLocalizations {
   /// The default message template used when sharing a room.
   ///
   /// In en, this message translates to:
-  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {description}\n👥 Join {participants} participants now!'**
+  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!'**
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
   );
 
@@ -2584,7 +2608,7 @@ abstract class AppLocalizations {
   /// **'This message was deleted'**
   String get thisMessageWasDeleted;
 
-  /// No description provided for @failedToDeleteMessage.
+  /// Error snackbar shown when deleting a message fails.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete message'**
@@ -2643,6 +2667,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This username is already taken. Try a different one.'**
   String get usernameAlreadyTaken;
+
+  /// Label identifying a poll card in the room chat.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll'**
+  String get poll;
+
+  /// Title of the poll creation sheet and its submit button; also the tooltip of the poll button in the chat input.
+  ///
+  /// In en, this message translates to:
+  /// **'Create poll'**
+  String get createPoll;
+
+  /// Label for the poll question input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get pollQuestionLabel;
+
+  /// Hint text inside the poll question input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a question…'**
+  String get pollQuestionHint;
+
+  /// Hint text for a poll option input field, numbered from 1.
+  ///
+  /// In en, this message translates to:
+  /// **'Option {number}'**
+  String pollOptionHint(int number);
+
+  /// Button text to add another option field when creating a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Add option'**
+  String get addPollOption;
+
+  /// Tooltip of the button that removes an option field when creating a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove option'**
+  String get removePollOption;
+
+  /// Total number of votes cast on a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No votes yet} =1{1 vote} other{{count} votes}}'**
+  String pollVotesCount(int count);
+
+  /// Host-only button that closes voting on a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'End poll'**
+  String get endPoll;
+
+  /// Title of the confirmation dialog before closing a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'End this poll?'**
+  String get endPollConfirmTitle;
+
+  /// Body of the confirmation dialog before closing a poll.
+  ///
+  /// In en, this message translates to:
+  /// **'Voting will be closed for everyone. This cannot be undone.'**
+  String get endPollConfirmContent;
+
+  /// Tag shown on a poll card once voting has been closed.
+  ///
+  /// In en, this message translates to:
+  /// **'Final results'**
+  String get pollFinalResults;
+
+  /// Validation message when the poll question is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a question'**
+  String get pollEnterQuestion;
+
+  /// Validation message when a poll has fewer than two non-empty options.
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide at least 2 options'**
+  String get pollNeedTwoOptions;
+
+  /// Placeholder shown when a poll referenced by a chat message has been deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This poll is no longer available'**
+  String get pollUnavailable;
+
+  /// Error snackbar when creating a poll fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create poll'**
+  String get failedToCreatePoll;
+
+  /// Error snackbar when casting or changing a vote fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to record your vote'**
+  String get failedToVote;
+
+  /// Error snackbar when closing a poll fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to end the poll'**
+  String get failedToEndPoll;
+
+  /// Settings entry and title of the sheet where the user picks their activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity status'**
+  String get activityStatus;
+
+  /// Supporting line under the activity status picker title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose who can reach you'**
+  String get activityStatusSubtitle;
+
+  /// Activity status: fully available for calls.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get activityOnline;
+
+  /// Explanation of the Online activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for calls'**
+  String get activityOnlineDescription;
+
+  /// Activity status: incoming calls are refused.
+  ///
+  /// In en, this message translates to:
+  /// **'Do Not Disturb'**
+  String get activityDnd;
+
+  /// Explanation of the Do Not Disturb activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming calls are blocked'**
+  String get activityDndDescription;
+
+  /// Activity status: the user is in a live audio session. Set automatically.
+  ///
+  /// In en, this message translates to:
+  /// **'In a session'**
+  String get activityInRoom;
+
+  /// Explanation of the In a session activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'In a live session, calls are blocked'**
+  String get activityInRoomDescription;
+
+  /// Activity status: the user appears offline to others.
+  ///
+  /// In en, this message translates to:
+  /// **'Invisible'**
+  String get activityInvisible;
+
+  /// Explanation of the Invisible activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'You appear offline, calls still reach you'**
+  String get activityInvisibleDescription;
+
+  /// Activity status shown for a user who is signed out or has the app in the background.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get activityOffline;
+
+  /// Explanation of the Offline activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the app right now'**
+  String get activityOfflineDescription;
+
+  /// Error snackbar when writing the new activity status fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your availability'**
+  String get activityStatusUpdateFailed;
+
+  /// Title of the snackbar shown when a call is refused by the recipient's activity status.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t call right now'**
+  String get callBlocked;
+
+  /// Snackbar body when the callee has Do Not Disturb enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} has Do Not Disturb turned on.'**
+  String callBlockedDnd(String username);
+
+  /// Snackbar body when the callee is already in a live audio session.
+  ///
+  /// In en, this message translates to:
+  /// **'{username} is in a live session.'**
+  String callBlockedInRoom(String username);
 }
 
 class _AppLocalizationsDelegate

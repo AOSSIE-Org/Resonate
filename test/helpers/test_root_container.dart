@@ -5,6 +5,7 @@ import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
@@ -12,21 +13,25 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/data/services/callkit_service.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/model/livekit_state.dart';
+import 'package:resonate/features/live_audio/model/livekit_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/audio_band_tracker.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
@@ -324,8 +329,29 @@ class FakeGetStorage implements GetStorage {
 }
 
 class FakeLiveKitController extends LiveKitController {
+  final _speakerLevels = StreamController<Map<String, double>>.broadcast();
+  final _speakerBands = StreamController<SpeakerBands>.broadcast();
+
   @override
-  LiveKitState build() => const LiveKitState();
+  Stream<Map<String, double>> get speakerLevels => _speakerLevels.stream;
+
+  @override
+  Stream<SpeakerBands> get speakerBands => _speakerBands.stream;
+
+  void emitSpeakerLevels(Map<String, double> levels) {
+    if (!_speakerLevels.isClosed) _speakerLevels.add(levels);
+  }
+
+  void emitSpeakerBands(String uid, List<double> bands) {
+    if (!_speakerBands.isClosed) _speakerBands.add((uid: uid, bands: bands));
+  }
+
+  @override
+  LiveKitState build() {
+    ref.onDispose(_speakerLevels.close);
+    ref.onDispose(_speakerBands.close);
+    return const LiveKitState();
+  }
 
   @override
   Future<bool> connect({
@@ -378,12 +404,6 @@ class FakeCallKitService extends CallKitService {
   }
 }
 
-// Stateful, like the real AuthRepository: the seeded [state] is what every
-// load/mutation resolves the session to, and [sessionStateChanges] mirrors it
-// so authSessionProvider / currentUserProvider / the router all observe it.
-// Deterministic by construction — refresh() re-yields the seeded state with no
-// network, so tests that trigger refresh() (e.g. pair-chat submitRating) can't
-// go flaky the way the old half-stubbed auth path could.
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
@@ -485,6 +505,49 @@ class FakeAuthRepository implements AuthRepository {
   );
 }
 
+class FakeMyActivityStatus extends MyActivityStatus {
+  FakeMyActivityStatus([this.initial = ActivityStatus.online]);
+
+  final ActivityStatus initial;
+  final List<ActivityStatus> setStatusCalls = [];
+  int goOfflineCount = 0;
+
+  @override
+  ActivityStatus build() => initial;
+
+  @override
+  ActivityStatus get chosen => state;
+
+  @override
+  Future<void> setStatus(ActivityStatus status) async {
+    setStatusCalls.add(status);
+    state = status;
+  }
+
+  @override
+  Future<void> goOffline() async => goOfflineCount++;
+}
+
+class FakeUserActivityStatus extends UserActivityStatus {
+  FakeUserActivityStatus([this.statuses = const {}]);
+
+  final Map<String, ActivityStatus> statuses;
+
+  @override
+  Map<String, ActivityStatus> build() => statuses;
+
+  @override
+  ActivityStatus? statusOf(String uid) => statuses[uid];
+}
+
+List<Override> activityStatusOverrides({
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> others = const {},
+}) => [
+  myActivityStatusProvider.overrideWith(() => FakeMyActivityStatus(myStatus)),
+  userActivityStatusProvider.overrideWith(() => FakeUserActivityStatus(others)),
+];
+
 Future<ProviderContainer> installTestRootContainer({
   AuthState? authState,
   Account? account,
@@ -497,6 +560,8 @@ Future<ProviderContainer> installTestRootContainer({
   FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
   CallKitService? callKit,
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> activityStatuses = const {},
 }) async {
   final container = ProviderContainer(
     overrides: [
@@ -507,6 +572,7 @@ Future<ProviderContainer> installTestRootContainer({
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
       liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+      ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
       callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
       if (account != null) appwriteAccountProvider.overrideWithValue(account),
       if (tables != null) appwriteTablesProvider.overrideWithValue(tables),

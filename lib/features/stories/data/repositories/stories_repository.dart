@@ -16,7 +16,7 @@ import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -85,21 +85,24 @@ class StoriesRepository {
     }
   }
 
-  Future<List<Story>> fetchCreatedStories(String creatorId) async {
+  Future<List<Story>> fetchCreatedStories(
+    String creatorId, {
+    String? viewerUid,
+  }) async {
     try {
       final result = await _tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
         queries: [Query.equal('creatorId', creatorId)],
       );
-      return Story.fromRows(result.rows, currentUid: creatorId);
+      return Story.fromRows(result.rows, currentUid: viewerUid);
     } on AppwriteException catch (e) {
       log('Failed to fetch created stories: ${e.message}');
       return [];
     }
   }
 
-  Future<List<Story>> fetchLikedStories(String uid) async {
+  Future<List<Story>> fetchLikedStories(String uid, {String? viewerUid}) async {
     try {
       final likeDocs = await _tables.listRows(
         databaseId: storyDatabaseId,
@@ -121,7 +124,7 @@ class StoriesRepository {
           log('Liked story row missing, skipping: ${e.message}');
         }
       }
-      return Story.fromRows(storyRows, currentUid: uid);
+      return Story.fromRows(storyRows, currentUid: viewerUid);
     } on AppwriteException catch (e) {
       log('Failed to fetch liked stories: ${e.message}');
       return [];
