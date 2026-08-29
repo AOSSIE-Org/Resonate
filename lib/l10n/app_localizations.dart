@@ -2866,6 +2866,240 @@ abstract class AppLocalizations {
   /// **'{username} has Do Not Disturb turned on.'**
   String callBlockedDnd(String username);
 
+  /// Title for the achievements sheet and the profile section listing a user's badges.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// Subtitle under the achievements sheet title.
+  ///
+  /// In en, this message translates to:
+  /// **'What you have earned, and what is next.'**
+  String get achievementsSubtitle;
+
+  /// Subtitle shown when viewing another user's achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'How active this user has been on Resonate.'**
+  String get creatorAchievementsSubtitle;
+
+  /// Empty state shown when the signed-in user has not earned any badge.
+  ///
+  /// In en, this message translates to:
+  /// **'No badges yet. Host rooms, moderate, and join in to earn some.'**
+  String get noBadgesYet;
+
+  /// Label on a badge the user has not earned yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get badgeLocked;
+
+  /// Progress towards the next badge, e.g. 12 of 25.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {target}'**
+  String badgeProgress(int current, int target);
+
+  /// Snackbar title shown when the user earns a new badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Badge unlocked'**
+  String get badgeUnlocked;
+
+  /// Snackbar body naming the badge the user just earned.
+  ///
+  /// In en, this message translates to:
+  /// **'You earned {badge}.'**
+  String badgeUnlockedMessage(String badge);
+
+  /// Achievement category covering rooms the user has hosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosting'**
+  String get badgeCategoryHosting;
+
+  /// Achievement category covering rooms the user has moderated.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderation'**
+  String get badgeCategoryModeration;
+
+  /// Achievement category covering chat, polls and other in-room interaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Participation'**
+  String get badgeCategoryEcho;
+
+  /// Achievement category covering how consistently the user shows up.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get badgeCategoryRhythm;
+
+  /// Achievement category covering how long the user has been active.
+  ///
+  /// In en, this message translates to:
+  /// **'Longevity'**
+  String get badgeCategoryCore;
+
+  /// Name of the first hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcomer'**
+  String get badgeWelcomer;
+
+  /// Name of the second hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get badgeIcon;
+
+  /// Name of the third hosting badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Maestro'**
+  String get badgeMaestro;
+
+  /// Name of the first moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Guard'**
+  String get badgeGuard;
+
+  /// Name of the second moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentinel'**
+  String get badgeSentinel;
+
+  /// Name of the third moderation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Warden'**
+  String get badgeWarden;
+
+  /// Name of the participation badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Echo'**
+  String get badgeEcho;
+
+  /// Name of the consistency badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Rhythm'**
+  String get badgeRhythm;
+
+  /// Name of the longevity badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get badgeCore;
+
+  /// What a hosting badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosted {count} rooms with more than five people.'**
+  String badgeHostingDescription(int count);
+
+  /// What a moderation badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderated {count} rooms with more than five people.'**
+  String badgeModerationDescription(int count);
+
+  /// What the participation badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Took part {count} times through chat, polls and votes.'**
+  String badgeEchoDescription(int count);
+
+  /// What the consistency badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Showed up {count} days in a row.'**
+  String badgeRhythmDescription(int count);
+
+  /// What the longevity badge is awarded for.
+  ///
+  /// In en, this message translates to:
+  /// **'Active on {count} different days.'**
+  String badgeCoreDescription(int count);
+
+  /// Label for the number of rooms a user has hosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooms hosted'**
+  String get statRoomsHosted;
+
+  /// Label for the number of rooms a user has moderated.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooms moderated'**
+  String get statRoomsModerated;
+
+  /// Label for the number of chat messages, polls and votes a user has contributed.
+  ///
+  /// In en, this message translates to:
+  /// **'Interactions'**
+  String get statInteractions;
+
+  /// Label for the number of days a user has been active on the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Active days'**
+  String get statActiveDays;
+
+  /// Label for the user's current run of consecutive active days.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get statStreak;
+
+  /// The user's longest ever streak, shown beside the current one.
+  ///
+  /// In en, this message translates to:
+  /// **'Best {count}'**
+  String statStreakBest(int count);
+
+  /// Heading for the controls that pick which badges are displayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Show on your profile'**
+  String get showOnProfile;
+
+  /// Explains the badge display limits.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up to two badges to sit next to your name, and one to wear on your avatar.'**
+  String get showOnProfileHint;
+
+  /// Toggle label for showing a badge as a pill beside the user's name.
+  ///
+  /// In en, this message translates to:
+  /// **'Next to your name'**
+  String get badgeShownAsPill;
+
+  /// Toggle label for wearing a badge over the user's avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'On your avatar'**
+  String get badgeShownOnAvatar;
+
+  /// Shown when the user tries to display a third pill badge.
+  ///
+  /// In en, this message translates to:
+  /// **'You can show two badges next to your name.'**
+  String get badgePillLimitReached;
+
+  /// Snackbar body when saving the badge display choice fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your badges.'**
+  String get badgeShowcaseFailed;
+
   /// Snackbar body when the callee is already in a live audio session.
   ///
   /// In en, this message translates to:

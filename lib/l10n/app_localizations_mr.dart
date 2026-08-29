@@ -1567,6 +1567,143 @@ class AppLocalizationsMr extends AppLocalizations {
   }
 
   @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get achievementsSubtitle => 'What you have earned, and what is next.';
+
+  @override
+  String get creatorAchievementsSubtitle =>
+      'How active this user has been on Resonate.';
+
+  @override
+  String get noBadgesYet =>
+      'No badges yet. Host rooms, moderate, and join in to earn some.';
+
+  @override
+  String get badgeLocked => 'Locked';
+
+  @override
+  String badgeProgress(int current, int target) {
+    return '$current of $target';
+  }
+
+  @override
+  String get badgeUnlocked => 'Badge unlocked';
+
+  @override
+  String badgeUnlockedMessage(String badge) {
+    return 'You earned $badge.';
+  }
+
+  @override
+  String get badgeCategoryHosting => 'Hosting';
+
+  @override
+  String get badgeCategoryModeration => 'Moderation';
+
+  @override
+  String get badgeCategoryEcho => 'Participation';
+
+  @override
+  String get badgeCategoryRhythm => 'Consistency';
+
+  @override
+  String get badgeCategoryCore => 'Longevity';
+
+  @override
+  String get badgeWelcomer => 'Welcomer';
+
+  @override
+  String get badgeIcon => 'Icon';
+
+  @override
+  String get badgeMaestro => 'Maestro';
+
+  @override
+  String get badgeGuard => 'Guard';
+
+  @override
+  String get badgeSentinel => 'Sentinel';
+
+  @override
+  String get badgeWarden => 'Warden';
+
+  @override
+  String get badgeEcho => 'Echo';
+
+  @override
+  String get badgeRhythm => 'Rhythm';
+
+  @override
+  String get badgeCore => 'Core';
+
+  @override
+  String badgeHostingDescription(int count) {
+    return 'Hosted $count rooms with more than five people.';
+  }
+
+  @override
+  String badgeModerationDescription(int count) {
+    return 'Moderated $count rooms with more than five people.';
+  }
+
+  @override
+  String badgeEchoDescription(int count) {
+    return 'Took part $count times through chat, polls and votes.';
+  }
+
+  @override
+  String badgeRhythmDescription(int count) {
+    return 'Showed up $count days in a row.';
+  }
+
+  @override
+  String badgeCoreDescription(int count) {
+    return 'Active on $count different days.';
+  }
+
+  @override
+  String get statRoomsHosted => 'Rooms hosted';
+
+  @override
+  String get statRoomsModerated => 'Rooms moderated';
+
+  @override
+  String get statInteractions => 'Interactions';
+
+  @override
+  String get statActiveDays => 'Active days';
+
+  @override
+  String get statStreak => 'Day streak';
+
+  @override
+  String statStreakBest(int count) {
+    return 'Best $count';
+  }
+
+  @override
+  String get showOnProfile => 'Show on your profile';
+
+  @override
+  String get showOnProfileHint =>
+      'Pick up to two badges to sit next to your name, and one to wear on your avatar.';
+
+  @override
+  String get badgeShownAsPill => 'Next to your name';
+
+  @override
+  String get badgeShownOnAvatar => 'On your avatar';
+
+  @override
+  String get badgePillLimitReached =>
+      'You can show two badges next to your name.';
+
+  @override
+  String get badgeShowcaseFailed => 'Could not update your badges.';
+
+  @override
   String callBlockedInRoom(String username) {
     return '$username is in a live session.';
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -33,7 +34,18 @@ class RoomSession extends _$RoomSession {
 
     _subscribe(appwriteRoom);
 
-    return SingleRoomState(me: me, participants: sorted);
+    final room = SingleRoomState(me: me, participants: sorted);
+    _maybeCreditRoom(appwriteRoom.id, room);
+    return room;
+  }
+
+  // Only decides when to ask; the function re-verifies the role and head count.
+  void _maybeCreditRoom(String roomId, SingleRoomState room) {
+    if (room.participants.length < kCreditWorthyParticipants) return;
+    if (!room.me.isAdmin && !room.me.isModerator) return;
+    unawaited(
+      ref.read(activityRecorderProvider.notifier).recordRoomCredit(roomId),
+    );
   }
 
   Participant _meFor(AppwriteRoom room) {
@@ -72,7 +84,9 @@ class RoomSession extends _$RoomSession {
               final latest = state.value;
               if (latest == null) return;
               final list = [...latest.participants, newParticipant];
-              state = AsyncData(latest.copyWith(participants: _sort(list)));
+              final next = latest.copyWith(participants: _sort(list));
+              state = AsyncData(next);
+              _maybeCreditRoom(appwriteRoom.id, next);
               break;
             }
           case 'update':
@@ -103,14 +117,17 @@ class RoomSession extends _$RoomSession {
                       (event.payload['hasRequestedToBeSpeaker'] as bool?) ??
                       false,
                   isMicOn: event.payload['isMicOn'] as bool? ?? p.isMicOn,
-                  isSpeaker:
-                      event.payload['isSpeaker'] as bool? ?? p.isSpeaker,
+                  isSpeaker: event.payload['isSpeaker'] as bool? ?? p.isSpeaker,
                 );
               }).toList();
 
-              state = AsyncData(
-                current.copyWith(me: nextMe, participants: _sort(updated)),
+              final next = current.copyWith(
+                me: nextMe,
+                participants: _sort(updated),
               );
+              state = AsyncData(next);
+              // A promotion in a big room is the other way a credit becomes due.
+              _maybeCreditRoom(appwriteRoom.id, next);
               // If we got demoted from speaker while mic was on, mute.
               if (updatedUid == current.me.uid &&
                   !((event.payload['isSpeaker'] as bool?) ??
@@ -181,7 +198,9 @@ class RoomSession extends _$RoomSession {
       );
     }
     try {
-      await ref.read(liveKitControllerProvider.notifier).setMicrophoneEnabled(enabled);
+      await ref
+          .read(liveKitControllerProvider.notifier)
+          .setMicrophoneEnabled(enabled);
     } catch (_) {}
     final docId = appwriteRoom.myDocId;
     if (docId == null) return;
@@ -260,8 +279,6 @@ class RoomSession extends _$RoomSession {
     await repo.kickParticipant(docId);
   }
 
-  /// Files [report] against [participant], then removes them from the room.
-  /// Returns false if filing failed, so the view can say so.
   Future<bool> reportAndKick(
     AppwriteRoom appwriteRoom,
     Participant participant, {

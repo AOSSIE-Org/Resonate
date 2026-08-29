@@ -289,4 +289,77 @@ void main() {
       },
     );
   });
+
+  group('interaction recording', () {
+    Future<dynamic> installWith(FakeActivityRecorder recorder) =>
+        installTestRootContainer(
+          authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+          tables: tables,
+          realtime: realtime,
+          functions: functions,
+          activityRecorder: recorder,
+        );
+
+    void stubPost() {
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: chatMessagesTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => buildRow(
+            id: 'mid',
+            tableId: chatMessagesTableId,
+            databaseId: masterDatabaseId,
+            data: const {},
+          ));
+    }
+
+    test('a sent message counts once', () async {
+      stubPost();
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+      final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
+      container.listen(providerKey, (_, _) {});
+      await container.read(providerKey.future);
+
+      await container.read(providerKey.notifier).sendMessage(content: 'hi');
+
+      expect(recorder.interactions, [1]);
+    });
+
+    // createPoll already counted it; the announcement must not count again.
+    test('a poll announcement does not count', () async {
+      stubPost();
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+      final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
+      container.listen(providerKey, (_, _) {});
+      await container.read(providerKey.future);
+
+      await container
+          .read(providerKey.notifier)
+          .sendMessage(content: 'Q?', pollId: 'p1');
+
+      expect(recorder.interactions, isEmpty);
+    });
+
+    test('a message that failed to post does not count', () async {
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: chatMessagesTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenThrow(Exception('network down'));
+      final recorder = FakeActivityRecorder();
+      final container = await installWith(recorder);
+      final providerKey = roomChatMessagesProvider('room-1', 'Room 1', false);
+      container.listen(providerKey, (_, _) {});
+      await container.read(providerKey.future);
+
+      await container.read(providerKey.notifier).sendMessage(content: 'oops');
+
+      expect(recorder.interactions, isEmpty);
+    });
+  });
+
 }

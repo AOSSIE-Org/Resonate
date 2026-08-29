@@ -41,6 +41,7 @@ void main() {
         inRoom: Color(0xFFFAA81A),
         invisible: Color(0xFF80848E),
         offline: Color(0xFF80848E),
+        onStatus: Color(0xFFFFFFFF),
       );
       await pumpActivityStatusWidget(
         tester,
