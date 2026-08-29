@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
@@ -18,7 +19,6 @@ import 'fake_profile_repository.dart';
 export '../../helpers/test_root_container.dart' show fakeAuthUser;
 export '../stories/fake_stories_repository.dart';
 export 'fake_profile_repository.dart';
-
 
 Widget profileTestApp(Widget child) {
   return MaterialApp(
@@ -47,6 +47,8 @@ Future<void> pumpProfilePage(
   FakeStoriesRepository? storiesRepo,
   ActivityStatus myStatus = ActivityStatus.online,
   Map<String, ActivityStatus> activityStatuses = const {},
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
   List<Override> overrides = const [],
 }) async {
   await tester.pumpWidget(
@@ -54,15 +56,18 @@ Future<void> pumpProfilePage(
       overrides: [
         ...overrides,
         authRepositoryProvider.overrideWithValue(FakeAuthRepository(authState)),
-        profileRepositoryProvider
-            .overrideWithValue(profileRepo ?? FakeProfileRepository()),
+        profileRepositoryProvider.overrideWithValue(
+          profileRepo ?? FakeProfileRepository(),
+        ),
         // The profile view reads its stories from the stories feature now.
-        storiesRepositoryProvider
-            .overrideWithValue(storiesRepo ?? FakeStoriesRepository()),
+        storiesRepositoryProvider.overrideWithValue(
+          storiesRepo ?? FakeStoriesRepository(),
+        ),
         ...activityStatusOverrides(
           myStatus: myStatus,
           others: activityStatuses,
         ),
+        ...achievementOverrides(myStats: myStats, otherStats: otherStats),
       ],
       child: profileTestApp(child),
     ),

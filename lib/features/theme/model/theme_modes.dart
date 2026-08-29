@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:resonate/features/theme/model/achievement_colors.dart';
 import 'package:resonate/features/theme/model/activity_status_colors.dart';
 import 'package:resonate/features/theme/model/theme_model.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -9,7 +10,7 @@ class ThemeModes {
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
       scaffoldBackgroundColor: theme.surfaceColor,
-      extensions: const [ActivityStatusColors.light],
+      extensions: const [ActivityStatusColors.light, AchievementColors.light],
       colorScheme: ColorScheme.light(
         brightness: Brightness.light,
         primary: theme.primaryColor,
@@ -29,9 +30,7 @@ class ThemeModes {
         backgroundColor: theme.surfaceColor,
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(
-          color: Colors.black,
-        ),
+        bodyLarge: TextStyle(color: Colors.black),
         titleMedium: TextStyle(color: Colors.black54),
       ),
       dividerTheme: const DividerThemeData(color: Colors.black54),
@@ -85,7 +84,7 @@ class ThemeModes {
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
       scaffoldBackgroundColor: theme.surfaceColor,
-      extensions: const [ActivityStatusColors.dark],
+      extensions: const [ActivityStatusColors.dark, AchievementColors.dark],
       colorScheme: ColorScheme.dark(
         brightness: Brightness.dark,
         primary: theme.primaryColor,
@@ -106,9 +105,7 @@ class ThemeModes {
         backgroundColor: theme.surfaceColor,
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(
-          color: Colors.white,
-        ),
+        bodyLarge: TextStyle(color: Colors.white),
         titleMedium: TextStyle(color: Colors.white54),
       ),
       dividerTheme: const DividerThemeData(color: Colors.white54),

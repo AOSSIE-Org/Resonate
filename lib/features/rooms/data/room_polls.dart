@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart' show AppwriteException, ID;
+import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_polls_repository.dart';
 import 'package:resonate/features/rooms/model/poll.dart';
@@ -16,7 +17,6 @@ part 'generated/room_polls.g.dart';
 class RoomPollsNotifier extends _$RoomPollsNotifier {
   StreamSubscription? _pollSub;
   StreamSubscription? _voteSub;
-
 
   final List<({Poll poll, String action})> _pollBuffer = [];
   final List<({PollVote vote, String action})> _voteBuffer = [];
@@ -152,6 +152,7 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
       return false;
     }
     if (!ref.mounted) return false;
+    ref.read(activityRecorderProvider.notifier).recordInteraction();
     final after = state.value;
     if (after != null && after.pollById(poll.pollId) == null) {
       state = AsyncData(after.copyWith(polls: [...after.polls, poll]));
@@ -203,6 +204,8 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     state = AsyncData(current.copyWith(votes: [...current.votes, vote]));
     try {
       await ref.read(roomPollsRepositoryProvider).castVote(vote);
+      // Only the first vote counts; _changeVote deliberately records nothing.
+      ref.read(activityRecorderProvider.notifier).recordInteraction();
       return true;
     } on AppwriteException catch (e) {
       if (!ref.mounted) return false;
@@ -278,10 +281,7 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
       if (current == null) return;
       state = AsyncData(
         current.copyWith(
-          votes: [
-            ...current.votes.where((v) => v.pollId != pollId),
-            ...fresh,
-          ],
+          votes: [...current.votes.where((v) => v.pollId != pollId), ...fresh],
         ),
       );
     } catch (e) {
@@ -305,14 +305,16 @@ class RoomPollsNotifier extends _$RoomPollsNotifier {
     state = AsyncData(
       current.copyWith(
         votes: [
-          for (final v in current.votes)
-            v.voteId == vote.voteId ? vote : v,
+          for (final v in current.votes) v.voteId == vote.voteId ? vote : v,
         ],
       ),
     );
   }
 
-  void _rollbackVote({required PollVote optimistic, required PollVote previous}) {
+  void _rollbackVote({
+    required PollVote optimistic,
+    required PollVote previous,
+  }) {
     final current = state.value;
     if (current == null) return;
     final idx = current.votes.indexWhere((v) => v.voteId == optimistic.voteId);

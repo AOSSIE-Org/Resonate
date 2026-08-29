@@ -50,7 +50,7 @@ final class RoomPollsNotifierProvider
   }
 }
 
-String _$roomPollsNotifierHash() => r'7bb818560ffe695e02c839c66a3af45047dee10f';
+String _$roomPollsNotifierHash() => r'1c934dd270213bbc8472595380dd483aef520010';
 
 final class RoomPollsNotifierFamily extends $Family
     with

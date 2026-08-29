@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart' show ID;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
+import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_chat_repository.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
@@ -20,7 +21,6 @@ const _androidChannel = AndroidNotificationDetails(
   priority: Priority.high,
 );
 const _notificationDetails = NotificationDetails(android: _androidChannel);
-
 
 @riverpod
 class RoomChatMessages extends _$RoomChatMessages {
@@ -177,6 +177,10 @@ class RoomChatMessages extends _$RoomChatMessages {
         state = AsyncData(
           _replaceStatus(after, message.messageId, RoomMessageStatus.sent),
         );
+      }
+      // createPoll already counted the poll; its announcement must not count too.
+      if (message.pollId == null) {
+        ref.read(activityRecorderProvider.notifier).recordInteraction();
       }
       if (isUpcoming) {
         await ref

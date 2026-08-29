@@ -3,7 +3,6 @@ import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-
 class ActivityAvatar extends StatelessWidget {
   const ActivityAvatar({
     required this.imageUrl,
@@ -11,6 +10,8 @@ class ActivityAvatar extends StatelessWidget {
     required this.radius,
     this.dotSize,
     this.backgroundColor,
+    this.badgeGlyph,
+    this.badgeLabel,
     super.key,
   });
 
@@ -19,11 +20,17 @@ class ActivityAvatar extends StatelessWidget {
   final double radius;
   final double? dotSize;
   final Color? backgroundColor;
+  final IconData? badgeGlyph;
+  final String? badgeLabel;
+
+  // A glyph needs more room than a plain dot to stay recognisable.
+  static const double _badgedDotScale = 1.45;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final url = imageUrl;
+    final baseDotSize = dotSize ?? UiSizes.size_14;
 
     return Stack(
       clipBehavior: Clip.none,
@@ -44,8 +51,12 @@ class ActivityAvatar extends StatelessWidget {
             bottom: 0,
             child: ActivityDot(
               status: status!,
-              size: dotSize ?? UiSizes.size_14,
+              size: badgeGlyph == null
+                  ? baseDotSize
+                  : baseDotSize * _badgedDotScale,
               borderColor: scheme.surface,
+              glyph: badgeGlyph,
+              glyphLabel: badgeLabel,
             ),
           ),
       ],

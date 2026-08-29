@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/achievements/data/badge_showcase.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_pill.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/activity_status/data/user_activity_status.dart';
@@ -33,10 +36,10 @@ class ProfilePage extends ConsumerStatefulWidget {
   final bool? isCreatorProfile;
 
   ProfilePage({super.key, this.creator, this.isCreatorProfile})
-      : assert(
-          isCreatorProfile != true || (creator != null && creator.uid != null),
-          'creator and creator.uid are required when isCreatorProfile is true',
-        );
+    : assert(
+        isCreatorProfile != true || (creator != null && creator.uid != null),
+        'creator and creator.uid are required when isCreatorProfile is true',
+      );
 
   @override
   ConsumerState<ProfilePage> createState() => _ProfilePageState();
@@ -84,45 +87,48 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               ]
             : null,
       ),
-      body: Builder(builder: (context) {
-        final loading = (profileAsync?.isLoading ?? false) ||
-            ref.watch(friendsProvider).isLoading;
-        if (loading || authUser == null) {
-          return Center(
-            child: SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_200,
-              child: LoadingIndicator(
-                indicatorType: Indicator.ballRotate,
-                colors: [Theme.of(context).colorScheme.primary],
+      body: Builder(
+        builder: (context) {
+          final loading =
+              (profileAsync?.isLoading ?? false) ||
+              ref.watch(friendsProvider).isLoading;
+          if (loading || authUser == null) {
+            return Center(
+              child: SizedBox(
+                height: UiSizes.height_200,
+                width: UiSizes.width_200,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballRotate,
+                  colors: [Theme.of(context).colorScheme.primary],
+                ),
               ),
+            );
+          }
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: UiSizes.height_10,
+                    horizontal: UiSizes.width_20,
+                  ),
+                  width: double.maxFinite,
+                  child: Column(
+                    children: [
+                      _buildProfileHeader(context, authUser, profileData),
+                      _buildEmailVerificationButton(context, authUser),
+                      SizedBox(height: UiSizes.height_10),
+                      _buildProfileButtons(context, authUser, profileData),
+                    ],
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_20),
+                _buildStoriesSection(context, profileData),
+              ],
             ),
           );
-        }
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: UiSizes.height_10,
-                  horizontal: UiSizes.width_20,
-                ),
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    _buildProfileHeader(context, authUser, profileData),
-                    _buildEmailVerificationButton(context, authUser),
-                    SizedBox(height: UiSizes.height_10),
-                    _buildProfileButtons(context, authUser, profileData),
-                  ],
-                ),
-              ),
-              SizedBox(height: UiSizes.height_20),
-              _buildStoriesSection(context, profileData),
-            ],
-          ),
-        );
-      }),
+        },
+      ),
     );
   }
 
@@ -148,6 +154,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         ? ref.watch(userActivityStatusProvider)[_creatorId]
         : ref.watch(myActivityStatusProvider);
 
+    final profileUid = _isCreator ? _creatorId : authUser.uid;
+    final worn = ref.watch(avatarBadgeProvider(profileUid));
+
     return Row(
       children: [
         SizedBox(width: UiSizes.width_20),
@@ -157,6 +166,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           radius: UiSizes.width_66,
           dotSize: UiSizes.size_24,
           backgroundColor: Theme.of(context).colorScheme.secondary,
+          badgeGlyph: worn?.icon,
+          badgeLabel: worn?.label(l10n),
         ),
         SizedBox(width: UiSizes.width_20),
         Expanded(
@@ -191,6 +202,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                BadgePillRow(uid: profileUid),
                 Chip(
                   label: Text(
                     "@${_isCreator ? widget.creator!.userName : authUser.userName}",
@@ -217,12 +229,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       child: Text(
                         _isCreator
                             ? (widget.creator!.userRating ?? 0.0)
-                                .toStringAsFixed(1)
+                                  .toStringAsFixed(1)
                             : (authUser.ratingCount == 0
-                                    ? 0.0
-                                    : authUser.ratingTotal /
-                                        authUser.ratingCount)
-                                .toStringAsFixed(1),
+                                      ? 0.0
+                                      : authUser.ratingTotal /
+                                            authUser.ratingCount)
+                                  .toStringAsFixed(1),
                       ),
                     ),
                   ],
@@ -267,7 +279,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
-  Widget _buildEmailVerificationButton(BuildContext context, AuthUser authUser) {
+  Widget _buildEmailVerificationButton(
+    BuildContext context,
+    AuthUser authUser,
+  ) {
     final l10n = AppLocalizations.of(context)!;
     if (_isCreator || authUser.isEmailVerified) {
       return const SizedBox.shrink();
@@ -312,8 +327,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           child: ElevatedButton(
             onPressed: () {
               if (_isCreator) {
-                final notifier =
-                    ref.read(profileViewProvider(_creatorId).notifier);
+                final notifier = ref.read(
+                  profileViewProvider(_creatorId).notifier,
+                );
                 if (isFollowing) {
                   notifier.unfollowCreator();
                 } else {
@@ -324,10 +340,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  isFollowing ? colorScheme.secondary : colorScheme.primary,
-              foregroundColor:
-                  isFollowing ? colorScheme.onSecondary : colorScheme.onPrimary,
+              backgroundColor: isFollowing
+                  ? colorScheme.secondary
+                  : colorScheme.primary,
+              foregroundColor: isFollowing
+                  ? colorScheme.onSecondary
+                  : colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
                 side: BorderSide(color: colorScheme.primary),
@@ -383,8 +401,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget _buildFriendButton(BuildContext context, ColorScheme colorScheme) {
     final l10n = AppLocalizations.of(context)!;
     final friendsState = ref.watch(friendsProvider).value;
-    final FriendsModel? friendModel =
-        friendsState?.relationWith(widget.creator!.uid!);
+    final FriendsModel? friendModel = friendsState?.relationWith(
+      widget.creator!.uid!,
+    );
     final friendsNotifier = ref.read(friendsProvider.notifier);
 
     return ElevatedButton(
@@ -440,8 +459,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       style: ElevatedButton.styleFrom(
         backgroundColor: friendModel != null
             ? (friendModel.requestStatus == FriendRequestStatus.sent
-                ? colorScheme.primary
-                : colorScheme.secondary)
+                  ? colorScheme.primary
+                  : colorScheme.secondary)
             : colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         shape: RoundedRectangleBorder(
@@ -456,8 +475,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           Icon(
             friendModel != null
                 ? (friendModel.requestStatus == FriendRequestStatus.sent
-                    ? Icons.check
-                    : Icons.people)
+                      ? Icons.check
+                      : Icons.people)
                 : Icons.add,
             color: colorScheme.onPrimary,
           ),
@@ -466,10 +485,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             child: Text(
               friendModel != null
                   ? (friendModel.requestStatus == FriendRequestStatus.sent
-                      ? friendModel.senderId == widget.creator!.uid
-                          ? l10n.accept
-                          : l10n.requested
-                      : l10n.friends)
+                        ? friendModel.senderId == widget.creator!.uid
+                              ? l10n.accept
+                              : l10n.requested
+                        : l10n.friends)
                   : l10n.addFriend,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

@@ -12,6 +12,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_celebration.dart';
 import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/shell/viewmodel/network_notifier.dart';
 import 'package:resonate/features/theme/model/theme_list.dart';
@@ -71,10 +73,16 @@ class MyApp extends ConsumerWidget {
     UiSizes.init(context);
     ref.watch(networkProvider);
     ref.watch(myActivityStatusProvider);
-    final themeModel = ThemeList.getThemeModel(ref.watch(appThemeProvider).name);
+    // Alive for the session so the day is marked active on launch.
+    ref.watch(activityRecorderProvider);
+    final themeModel = ThemeList.getThemeModel(
+      ref.watch(appThemeProvider).name,
+    );
 
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
+      builder: (context, child) =>
+          BadgeCelebration(child: child ?? const SizedBox.shrink()),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

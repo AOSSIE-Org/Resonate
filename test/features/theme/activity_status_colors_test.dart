@@ -11,14 +11,21 @@ void main() {
         'lib/features/theme/model/theme_modes.dart',
       ).readAsStringSync();
 
+      // Matches each list's contents, so adding another extension is fine.
+      final registered = RegExp(r'extensions: const \[([^\]]*)\]')
+          .allMatches(source)
+          .map((match) => match.group(1)!)
+          .toList();
+
+      expect(registered, hasLength(2), reason: 'one list per theme');
       expect(
-        source,
-        contains('extensions: const [ActivityStatusColors.light]'),
+        registered.first,
+        contains('ActivityStatusColors.light'),
         reason: 'the light theme must carry ActivityStatusColors',
       );
       expect(
-        source,
-        contains('extensions: const [ActivityStatusColors.dark]'),
+        registered.last,
+        contains('ActivityStatusColors.dark'),
         reason: 'the dark theme must carry ActivityStatusColors',
       );
     });
@@ -75,6 +82,7 @@ void main() {
         inRoom: Color(0xFF040404),
         invisible: Color(0xFF050505),
         offline: Color(0xFF060606),
+        onStatus: Color(0xFF070707),
       );
       late ActivityStatusColors resolved;
 

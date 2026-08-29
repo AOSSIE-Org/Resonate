@@ -2045,6 +2045,214 @@
             }
         }
     },
+    "achievements": "Achievements",
+    "@achievements": {
+        "description": "Title for the achievements sheet and the profile section listing a user's badges."
+    },
+    "achievementsSubtitle": "What you have earned, and what is next.",
+    "@achievementsSubtitle": {
+        "description": "Subtitle under the achievements sheet title."
+    },
+    "creatorAchievementsSubtitle": "How active this user has been on Resonate.",
+    "@creatorAchievementsSubtitle": {
+        "description": "Subtitle shown when viewing another user's achievements."
+    },
+    "noBadgesYet": "No badges yet. Host rooms, moderate, and join in to earn some.",
+    "@noBadgesYet": {
+        "description": "Empty state shown when the signed-in user has not earned any badge."
+    },
+    "badgeLocked": "Locked",
+    "@badgeLocked": {
+        "description": "Label on a badge the user has not earned yet."
+    },
+    "badgeProgress": "{current} of {target}",
+    "@badgeProgress": {
+        "description": "Progress towards the next badge, e.g. 12 of 25.",
+        "placeholders": {
+            "current": {
+                "type": "int",
+                "example": "12"
+            },
+            "target": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeUnlocked": "Badge unlocked",
+    "@badgeUnlocked": {
+        "description": "Snackbar title shown when the user earns a new badge."
+    },
+    "badgeUnlockedMessage": "You earned {badge}.",
+    "@badgeUnlockedMessage": {
+        "description": "Snackbar body naming the badge the user just earned.",
+        "placeholders": {
+            "badge": {
+                "type": "String",
+                "example": "Maestro"
+            }
+        }
+    },
+    "badgeCategoryHosting": "Hosting",
+    "@badgeCategoryHosting": {
+        "description": "Achievement category covering rooms the user has hosted."
+    },
+    "badgeCategoryModeration": "Moderation",
+    "@badgeCategoryModeration": {
+        "description": "Achievement category covering rooms the user has moderated."
+    },
+    "badgeCategoryEcho": "Participation",
+    "@badgeCategoryEcho": {
+        "description": "Achievement category covering chat, polls and other in-room interaction."
+    },
+    "badgeCategoryRhythm": "Consistency",
+    "@badgeCategoryRhythm": {
+        "description": "Achievement category covering how consistently the user shows up."
+    },
+    "badgeCategoryCore": "Longevity",
+    "@badgeCategoryCore": {
+        "description": "Achievement category covering how long the user has been active."
+    },
+    "badgeWelcomer": "Welcomer",
+    "@badgeWelcomer": {
+        "description": "Name of the first hosting badge."
+    },
+    "badgeIcon": "Icon",
+    "@badgeIcon": {
+        "description": "Name of the second hosting badge."
+    },
+    "badgeMaestro": "Maestro",
+    "@badgeMaestro": {
+        "description": "Name of the third hosting badge."
+    },
+    "badgeGuard": "Guard",
+    "@badgeGuard": {
+        "description": "Name of the first moderation badge."
+    },
+    "badgeSentinel": "Sentinel",
+    "@badgeSentinel": {
+        "description": "Name of the second moderation badge."
+    },
+    "badgeWarden": "Warden",
+    "@badgeWarden": {
+        "description": "Name of the third moderation badge."
+    },
+    "badgeEcho": "Echo",
+    "@badgeEcho": {
+        "description": "Name of the participation badge."
+    },
+    "badgeRhythm": "Rhythm",
+    "@badgeRhythm": {
+        "description": "Name of the consistency badge."
+    },
+    "badgeCore": "Core",
+    "@badgeCore": {
+        "description": "Name of the longevity badge."
+    },
+    "badgeHostingDescription": "Hosted {count} rooms with more than five people.",
+    "@badgeHostingDescription": {
+        "description": "What a hosting badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeModerationDescription": "Moderated {count} rooms with more than five people.",
+    "@badgeModerationDescription": {
+        "description": "What a moderation badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeEchoDescription": "Took part {count} times through chat, polls and votes.",
+    "@badgeEchoDescription": {
+        "description": "What the participation badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "50"
+            }
+        }
+    },
+    "badgeRhythmDescription": "Showed up {count} days in a row.",
+    "@badgeRhythmDescription": {
+        "description": "What the consistency badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "7"
+            }
+        }
+    },
+    "badgeCoreDescription": "Active on {count} different days.",
+    "@badgeCoreDescription": {
+        "description": "What the longevity badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "statRoomsHosted": "Rooms hosted",
+    "@statRoomsHosted": {
+        "description": "Label for the number of rooms a user has hosted."
+    },
+    "statRoomsModerated": "Rooms moderated",
+    "@statRoomsModerated": {
+        "description": "Label for the number of rooms a user has moderated."
+    },
+    "statInteractions": "Interactions",
+    "@statInteractions": {
+        "description": "Label for the number of chat messages, polls and votes a user has contributed."
+    },
+    "statActiveDays": "Active days",
+    "@statActiveDays": {
+        "description": "Label for the number of days a user has been active on the app."
+    },
+    "statStreak": "Day streak",
+    "@statStreak": {
+        "description": "Label for the user's current run of consecutive active days."
+    },
+    "statStreakBest": "Best {count}",
+    "@statStreakBest": {
+        "description": "The user's longest ever streak, shown beside the current one.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "14"
+            }
+        }
+    },
+    "showOnProfile": "Show on your profile",
+    "@showOnProfile": {
+        "description": "Heading for the controls that pick which badges are displayed."
+    },
+    "showOnProfileHint": "Pick up to two badges to sit next to your name, and one to wear on your avatar.",
+    "@showOnProfileHint": {
+        "description": "Explains the badge display limits."
+    },
+    "badgeShownAsPill": "Next to your name",
+    "@badgeShownAsPill": {
+        "description": "Toggle label for showing a badge as a pill beside the user's name."
+    },
+    "badgeShownOnAvatar": "On your avatar",
+    "@badgeShownOnAvatar": {
+        "description": "Toggle label for wearing a badge over the user's avatar."
+    },
+    "badgePillLimitReached": "You can show two badges next to your name.",
+    "@badgePillLimitReached": {
+        "description": "Shown when the user tries to display a third pill badge."
+    },
+    "badgeShowcaseFailed": "Could not update your badges.",
+    "@badgeShowcaseFailed": {
+        "description": "Snackbar body when saving the badge display choice fails."
+    },
     "callBlockedInRoom": "{username} is in a live session.",
     "@callBlockedInRoom": {
         "description": "Snackbar body when the callee is already in a live audio session.",

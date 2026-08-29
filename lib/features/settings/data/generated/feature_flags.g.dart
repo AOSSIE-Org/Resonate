@@ -8,33 +8,12 @@ part of '../feature_flags.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The features the user currently wants to see, read from and written to
-/// local storage.
-///
-/// A feature is enabled unless it was explicitly turned off, so shipping a new
-/// flag never hides anything by surprise. Storage is synchronous (`GetStorage`
-/// is initialised in `main`), which keeps the first frame and the router
-/// redirect free of an async gap.
 
 @ProviderFor(FeatureFlags)
 final featureFlagsProvider = FeatureFlagsProvider._();
 
-/// The features the user currently wants to see, read from and written to
-/// local storage.
-///
-/// A feature is enabled unless it was explicitly turned off, so shipping a new
-/// flag never hides anything by surprise. Storage is synchronous (`GetStorage`
-/// is initialised in `main`), which keeps the first frame and the router
-/// redirect free of an async gap.
 final class FeatureFlagsProvider
     extends $NotifierProvider<FeatureFlags, Set<AppFeature>> {
-  /// The features the user currently wants to see, read from and written to
-  /// local storage.
-  ///
-  /// A feature is enabled unless it was explicitly turned off, so shipping a new
-  /// flag never hides anything by surprise. Storage is synchronous (`GetStorage`
-  /// is initialised in `main`), which keeps the first frame and the router
-  /// redirect free of an async gap.
   FeatureFlagsProvider._()
     : super(
         from: null,
@@ -64,14 +43,6 @@ final class FeatureFlagsProvider
 
 String _$featureFlagsHash() => r'7db6b7495fdfe85eca2a883382dd0e21a466f2ae';
 
-/// The features the user currently wants to see, read from and written to
-/// local storage.
-///
-/// A feature is enabled unless it was explicitly turned off, so shipping a new
-/// flag never hides anything by surprise. Storage is synchronous (`GetStorage`
-/// is initialised in `main`), which keeps the first frame and the router
-/// redirect free of an async gap.
-
 abstract class _$FeatureFlags extends $Notifier<Set<AppFeature>> {
   Set<AppFeature> build();
   @$mustCallSuper
@@ -90,19 +61,11 @@ abstract class _$FeatureFlags extends $Notifier<Set<AppFeature>> {
   }
 }
 
-/// Whether a single feature is on — the read side call sites should watch, so
-/// toggling one flag only rebuilds the widgets that care about that flag.
-
 @ProviderFor(featureEnabled)
 final featureEnabledProvider = FeatureEnabledFamily._();
 
-/// Whether a single feature is on — the read side call sites should watch, so
-/// toggling one flag only rebuilds the widgets that care about that flag.
-
 final class FeatureEnabledProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  /// Whether a single feature is on — the read side call sites should watch, so
-  /// toggling one flag only rebuilds the widgets that care about that flag.
   FeatureEnabledProvider._({
     required FeatureEnabledFamily super.from,
     required AppFeature super.argument,
@@ -156,9 +119,6 @@ final class FeatureEnabledProvider extends $FunctionalProvider<bool, bool, bool>
 
 String _$featureEnabledHash() => r'3e15f079ba36f1036aa0357025175464f73bee84';
 
-/// Whether a single feature is on — the read side call sites should watch, so
-/// toggling one flag only rebuilds the widgets that care about that flag.
-
 final class FeatureEnabledFamily extends $Family
     with $FunctionalFamilyOverride<bool, AppFeature> {
   FeatureEnabledFamily._()
@@ -169,9 +129,6 @@ final class FeatureEnabledFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: false,
       );
-
-  /// Whether a single feature is on — the read side call sites should watch, so
-  /// toggling one flag only rebuilds the widgets that care about that flag.
 
   FeatureEnabledProvider call(AppFeature feature) =>
       FeatureEnabledProvider._(argument: feature, from: this);

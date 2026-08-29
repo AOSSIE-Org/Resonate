@@ -3,8 +3,7 @@ import 'package:resonate/features/rooms/model/room_message.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-/// Pending/failed send indicator for a chat message, with tap-to-retry on
-/// failure. Shared by regular chat bubbles and poll cards.
+
 class MessageStatusIndicator extends StatelessWidget {
   const MessageStatusIndicator({
     super.key,

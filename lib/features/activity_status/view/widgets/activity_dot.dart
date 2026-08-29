@@ -4,7 +4,6 @@ import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-
 extension ActivityStatusPresentation on ActivityStatus {
   Color color(ActivityStatusColors colors) => switch (this) {
     ActivityStatus.online => colors.online,
@@ -54,6 +53,8 @@ class ActivityDot extends StatelessWidget {
     required this.status,
     this.size,
     this.borderColor,
+    this.glyph,
+    this.glyphLabel,
     super.key,
   });
 
@@ -61,34 +62,62 @@ class ActivityDot extends StatelessWidget {
   final double? size;
   final Color? borderColor;
 
+  // A badge worn on top of the dot; IconData keeps this presentation-only.
+  final IconData? glyph;
+  final String? glyphLabel;
+
   @override
   Widget build(BuildContext context) {
     final dotSize = size ?? UiSizes.size_12;
-    final color = status.color(ActivityStatusColors.of(context));
+    final statusColors = ActivityStatusColors.of(context);
+    final color = status.color(statusColors);
     final border = borderColor ?? Theme.of(context).colorScheme.surface;
+    final label = status.label(AppLocalizations.of(context)!);
+    final badgeGlyph = glyph;
+
+    // A hollow ring with an icon in it reads as neither, so a badge fills the dot.
+    final isHollow = status.isHollow && badgeGlyph == null;
 
     return Semantics(
-      label: status.label(AppLocalizations.of(context)!),
+      label: glyphLabel == null ? label : '$label, $glyphLabel',
       child: Container(
         width: dotSize,
         height: dotSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: status.isHollow ? border : color,
+          color: isHollow ? border : color,
           border: Border.all(color: border, width: UiSizes.width_2),
         ),
-        child: status.isHollow
-            ? Center(
-                child: Container(
-                  width: dotSize / 2,
-                  height: dotSize / 2,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: color, width: UiSizes.width_2),
-                  ),
-                ),
-              )
-            : null,
+        child: _inner(dotSize, color, statusColors, isHollow, badgeGlyph),
+      ),
+    );
+  }
+
+  Widget? _inner(
+    double dotSize,
+    Color color,
+    ActivityStatusColors statusColors,
+    bool isHollow,
+    IconData? badgeGlyph,
+  ) {
+    if (isHollow) {
+      return Center(
+        child: Container(
+          width: dotSize / 2,
+          height: dotSize / 2,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: color, width: UiSizes.width_2),
+          ),
+        ),
+      );
+    }
+    if (badgeGlyph == null) return null;
+    return Center(
+      child: Icon(
+        badgeGlyph,
+        size: dotSize * 0.62,
+        color: statusColors.onStatus,
       ),
     );
   }
