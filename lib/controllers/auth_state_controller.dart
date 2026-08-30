@@ -49,6 +49,11 @@ class AuthStateController extends GetxController {
   late bool? isEmailVerified;
   late double ratingTotal;
   late int ratingCount;
+
+  /// Safe average; returns 0 when there are no ratings yet.
+  double get averageRating =>
+      ratingCount == 0 ? 0 : ratingTotal / ratingCount;
+
   late User appwriteUser;
   late List<FollowerUserModel> followerDocuments;
   late int reportsCount;

@@ -80,7 +80,7 @@ class PairChatController extends GetxController {
       "profileImageUrl": authController.profileImageUrl,
       "userName": authController.userName,
       "name": authController.displayName,
-      "userRating": authController.ratingTotal / authController.ratingCount,
+      "userRating": authController.averageRating,
     };
 
     // Add request to pair-request collection
