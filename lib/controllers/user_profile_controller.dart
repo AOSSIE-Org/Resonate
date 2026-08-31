@@ -150,8 +150,7 @@ class UserProfileController extends GetxController {
       name: authStateController.displayName!,
       fcmToken: fcmToken!,
       followingUserId: creatorId,
-      followerRating:
-          authStateController.ratingTotal / authStateController.ratingCount,
+      followerRating: authStateController.averageRating,
     );
 
     await tablesDB.createRow(

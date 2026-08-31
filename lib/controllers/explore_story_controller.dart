@@ -196,8 +196,10 @@ class ExploreStoryController extends GetxController {
       userData['docId'] = doc.$id;
       userData['uid'] = doc.$id;
       userData['userName'] = userData['username'];
-      userData['userRating'] =
-          userData['ratingTotal'] / userData['ratingCount'];
+      userData['userRating'] = _averageRating(
+        userData['ratingTotal'],
+        userData['ratingCount'],
+      );
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);
@@ -215,14 +217,26 @@ class ExploreStoryController extends GetxController {
       userData['docId'] = doc['\$id'];
       userData['uid'] = doc['\$id'];
       userData['userName'] = userData['username'];
-      userData['userRating'] =
-          userData['ratingTotal'] / userData['ratingCount'];
+      userData['userRating'] = _averageRating(
+        userData['ratingTotal'],
+        userData['ratingCount'],
+      );
       log(userData['userRating'].toString());
       Future.delayed(Duration(seconds: 1));
       ResonateUser user = ResonateUser.fromJson(userData);
 
       return user;
     }).toList();
+  }
+
+  /// Returns 0 when there are no ratings to avoid Infinity/NaN.
+  double _averageRating(dynamic ratingTotal, dynamic ratingCount) {
+    final total = (ratingTotal is num) ? ratingTotal.toDouble() : 0.0;
+    final count = (ratingCount is num) ? ratingCount.toDouble() : 0.0;
+    if (count == 0) {
+      return 0;
+    }
+    return total / count;
   }
 
   Future<void> updateStoriesPlayDurationLength(

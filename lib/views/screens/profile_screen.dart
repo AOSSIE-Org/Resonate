@@ -205,9 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           widget.isCreatorProfile == null
-                              ? (authController.ratingTotal /
-                                        authController.ratingCount)
-                                    .toStringAsFixed(1)
+                              ? authController.averageRating.toStringAsFixed(1)
                               : widget.creator!.userRating!.toStringAsFixed(1),
                         ),
                       ),
