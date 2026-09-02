@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
-import 'package:resonate/features/auth/data/services/callkit_service.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';

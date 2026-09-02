@@ -55,6 +55,12 @@ const String userProfileImageBucketId = "64a13095a4c87fd78bc6";
 const String liveChapterAttendeesTableId = "68e6427f0014f8b0e580";
 const String liveChaptersTableId = "68e5227e001b2f868c05";
 
+// User stats & gamification constants. user_stats is read-only to clients: the
+// Record Activity function holds the only write key, which is what makes a
+// badge evidence rather than a claim.
+const String userStatsTableID = "user_stats";
+const String achievementThresholdsTableID = "achievement_thresholds";
+
 // userProfileImagePlaceholder on theme constant IDs
 const String amberUserProfileImagePlaceholderID = "67012e19003d00f39e10";
 const String classicUserProfileImagePlaceholderID = "67012e19003d00f39e11";
@@ -69,6 +75,8 @@ const String roomsTableId = "64a5217e695bf2c4ec9c";
 const String participantsTableId = "64a63e508145d1084abf";
 const String chatMessagesTableId = "670d812c0002c33c09a8";
 const String chatMessageReplyTableId = "672759820027801f121f";
+const String pollsTableId = "room_polls";
+const String pollVotesTableId = "room_poll_votes";
 
 // Pair chat database constants
 const String pairRequestTableId = "64d980211f1395263ebe";
@@ -89,6 +97,7 @@ const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
 const String startFriendCallFunctionID = "68b76fe00027c243610e";
+const String recordActivityFunctionID = "record-activity";
 
 const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationTableID = "64a7c0100eabfe8d3844";

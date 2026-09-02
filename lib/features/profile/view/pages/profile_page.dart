@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/achievements/data/badge_showcase.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_pill.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/friends/view/pages/friend_requests_page.dart';
@@ -15,7 +21,7 @@ import 'package:resonate/features/profile/viewmodel/profile_view_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/pages/story_page.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/app_images.dart';
@@ -30,10 +36,10 @@ class ProfilePage extends ConsumerStatefulWidget {
   final bool? isCreatorProfile;
 
   ProfilePage({super.key, this.creator, this.isCreatorProfile})
-      : assert(
-          isCreatorProfile != true || (creator != null && creator.uid != null),
-          'creator and creator.uid are required when isCreatorProfile is true',
-        );
+    : assert(
+        isCreatorProfile != true || (creator != null && creator.uid != null),
+        'creator and creator.uid are required when isCreatorProfile is true',
+      );
 
   @override
   ConsumerState<ProfilePage> createState() => _ProfilePageState();
@@ -81,45 +87,48 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               ]
             : null,
       ),
-      body: Builder(builder: (context) {
-        final loading = (profileAsync?.isLoading ?? false) ||
-            ref.watch(friendsProvider).isLoading;
-        if (loading || authUser == null) {
-          return Center(
-            child: SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_200,
-              child: LoadingIndicator(
-                indicatorType: Indicator.ballRotate,
-                colors: [Theme.of(context).colorScheme.primary],
+      body: Builder(
+        builder: (context) {
+          final loading =
+              (profileAsync?.isLoading ?? false) ||
+              ref.watch(friendsProvider).isLoading;
+          if (loading || authUser == null) {
+            return Center(
+              child: SizedBox(
+                height: UiSizes.height_200,
+                width: UiSizes.width_200,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballRotate,
+                  colors: [Theme.of(context).colorScheme.primary],
+                ),
               ),
+            );
+          }
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: UiSizes.height_10,
+                    horizontal: UiSizes.width_20,
+                  ),
+                  width: double.maxFinite,
+                  child: Column(
+                    children: [
+                      _buildProfileHeader(context, authUser, profileData),
+                      _buildEmailVerificationButton(context, authUser),
+                      SizedBox(height: UiSizes.height_10),
+                      _buildProfileButtons(context, authUser, profileData),
+                    ],
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_20),
+                _buildStoriesSection(context, profileData),
+              ],
             ),
           );
-        }
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: UiSizes.height_10,
-                  horizontal: UiSizes.width_20,
-                ),
-                width: double.maxFinite,
-                child: Column(
-                  children: [
-                    _buildProfileHeader(context, authUser, profileData),
-                    _buildEmailVerificationButton(context, authUser),
-                    SizedBox(height: UiSizes.height_10),
-                    _buildProfileButtons(context, authUser, profileData),
-                  ],
-                ),
-              ),
-              SizedBox(height: UiSizes.height_20),
-              _buildStoriesSection(context, profileData),
-            ],
-          ),
-        );
-      }),
+        },
+      ),
     );
   }
 
@@ -131,18 +140,34 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final l10n = AppLocalizations.of(context)!;
     final followers = profileData?.followers ?? const [];
 
+    final String? imageUrl;
+    if (_isCreator) {
+      imageUrl = widget.creator!.profileImageUrl;
+    } else {
+      final ownImageUrl = authUser.profileImageUrl;
+      imageUrl = (ownImageUrl == null || ownImageUrl.isEmpty)
+          ? ref.watch(userProfileImagePlaceholderUrlProvider)
+          : ownImageUrl;
+    }
+
+    final status = _isCreator
+        ? ref.watch(userActivityStatusProvider)[_creatorId]
+        : ref.watch(myActivityStatusProvider);
+
+    final profileUid = _isCreator ? _creatorId : authUser.uid;
+    final worn = ref.watch(avatarBadgeProvider(profileUid));
+
     return Row(
       children: [
         SizedBox(width: UiSizes.width_20),
-        CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          backgroundImage: _isCreator
-              ? NetworkImage(widget.creator!.profileImageUrl ?? '')
-              : authUser.profileImageUrl == null ||
-                      authUser.profileImageUrl!.isEmpty
-                  ? NetworkImage(ref.watch(userProfileImagePlaceholderUrlProvider))
-                  : NetworkImage(authUser.profileImageUrl!),
+        ActivityAvatar(
+          imageUrl: imageUrl,
+          status: status,
           radius: UiSizes.width_66,
+          dotSize: UiSizes.size_24,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          badgeGlyph: worn?.icon,
+          badgeLabel: worn?.label(l10n),
         ),
         SizedBox(width: UiSizes.width_20),
         Expanded(
@@ -177,6 +202,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                BadgePillRow(uid: profileUid),
                 Chip(
                   label: Text(
                     "@${_isCreator ? widget.creator!.userName : authUser.userName}",
@@ -203,12 +229,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       child: Text(
                         _isCreator
                             ? (widget.creator!.userRating ?? 0.0)
-                                .toStringAsFixed(1)
+                                  .toStringAsFixed(1)
                             : (authUser.ratingCount == 0
-                                    ? 0.0
-                                    : authUser.ratingTotal /
-                                        authUser.ratingCount)
-                                .toStringAsFixed(1),
+                                      ? 0.0
+                                      : authUser.ratingTotal /
+                                            authUser.ratingCount)
+                                  .toStringAsFixed(1),
                       ),
                     ),
                   ],
@@ -253,7 +279,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
-  Widget _buildEmailVerificationButton(BuildContext context, AuthUser authUser) {
+  Widget _buildEmailVerificationButton(
+    BuildContext context,
+    AuthUser authUser,
+  ) {
     final l10n = AppLocalizations.of(context)!;
     if (_isCreator || authUser.isEmailVerified) {
       return const SizedBox.shrink();
@@ -266,10 +295,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         onPressed: () => context.push(RoutePaths.emailVerification),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(Icons.verified_user_outlined),
             SizedBox(width: UiSizes.width_10),
-            Text(l10n.verifyEmail),
+            Flexible(
+              child: Text(
+                l10n.verifyEmail,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),
@@ -291,8 +327,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           child: ElevatedButton(
             onPressed: () {
               if (_isCreator) {
-                final notifier =
-                    ref.read(profileViewProvider(_creatorId).notifier);
+                final notifier = ref.read(
+                  profileViewProvider(_creatorId).notifier,
+                );
                 if (isFollowing) {
                   notifier.unfollowCreator();
                 } else {
@@ -303,10 +340,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  isFollowing ? colorScheme.secondary : colorScheme.primary,
-              foregroundColor:
-                  isFollowing ? colorScheme.onSecondary : colorScheme.onPrimary,
+              backgroundColor: isFollowing
+                  ? colorScheme.secondary
+                  : colorScheme.primary,
+              foregroundColor: isFollowing
+                  ? colorScheme.onSecondary
+                  : colorScheme.onPrimary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
                 side: BorderSide(color: colorScheme.primary),
@@ -314,6 +353,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   _isCreator
@@ -322,11 +362,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   color: colorScheme.onPrimary,
                 ),
                 SizedBox(width: UiSizes.width_8),
-                Text(
-                  _isCreator
-                      ? (isFollowing ? l10n.following : l10n.follow)
-                      : l10n.editProfile,
-                  style: TextStyle(color: colorScheme.onPrimary),
+                Flexible(
+                  child: Text(
+                    _isCreator
+                        ? (isFollowing ? l10n.following : l10n.follow)
+                        : l10n.editProfile,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: colorScheme.onPrimary),
+                  ),
                 ),
               ],
             ),
@@ -334,11 +378,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         ),
         SizedBox(width: UiSizes.width_10),
         if (!_isCreator)
-          // Square button kept literal: UiSizes width/height scale on different
-          // axes, so a width_/height_ pair wouldn't stay square at runtime.
           SizedBox(
-            height: 50,
-            width: 50,
+            height: UiSizes.width_56,
+            width: UiSizes.width_56,
             child: ElevatedButton(
               onPressed: () => context.push(RoutePaths.settings),
               style: ElevatedButton.styleFrom(
@@ -359,8 +401,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget _buildFriendButton(BuildContext context, ColorScheme colorScheme) {
     final l10n = AppLocalizations.of(context)!;
     final friendsState = ref.watch(friendsProvider).value;
-    final FriendsModel? friendModel =
-        friendsState?.relationWith(widget.creator!.uid!);
+    final FriendsModel? friendModel = friendsState?.relationWith(
+      widget.creator!.uid!,
+    );
     final friendsNotifier = ref.read(friendsProvider.notifier);
 
     return ElevatedButton(
@@ -416,8 +459,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       style: ElevatedButton.styleFrom(
         backgroundColor: friendModel != null
             ? (friendModel.requestStatus == FriendRequestStatus.sent
-                ? colorScheme.primary
-                : colorScheme.secondary)
+                  ? colorScheme.primary
+                  : colorScheme.secondary)
             : colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         shape: RoundedRectangleBorder(
@@ -427,25 +470,30 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             friendModel != null
                 ? (friendModel.requestStatus == FriendRequestStatus.sent
-                    ? Icons.check
-                    : Icons.people)
+                      ? Icons.check
+                      : Icons.people)
                 : Icons.add,
             color: colorScheme.onPrimary,
           ),
           SizedBox(width: UiSizes.width_8),
-          Text(
-            friendModel != null
-                ? (friendModel.requestStatus == FriendRequestStatus.sent
-                    ? friendModel.senderId == widget.creator!.uid
-                        ? l10n.accept
-                        : l10n.requested
-                    : l10n.friends)
-                : l10n.addFriend,
-            style: TextStyle(color: colorScheme.onPrimary),
+          Flexible(
+            child: Text(
+              friendModel != null
+                  ? (friendModel.requestStatus == FriendRequestStatus.sent
+                        ? friendModel.senderId == widget.creator!.uid
+                              ? l10n.accept
+                              : l10n.requested
+                        : l10n.friends)
+                  : l10n.addFriend,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: colorScheme.onPrimary),
+            ),
           ),
         ],
       ),
@@ -524,12 +572,13 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Square image kept literal so it isn't distorted: UiSizes
-                // width/height scale on different axes (won't stay 1:1).
-                Image.asset(
-                  height: 150,
-                  width: 150,
-                  AppImages.emptyBoxImage,
+                Flexible(
+                  child: Image.asset(
+                    height: UiSizes.width_140,
+                    width: UiSizes.width_140,
+                    fit: BoxFit.contain,
+                    AppImages.emptyBoxImage,
+                  ),
                 ),
                 SizedBox(height: UiSizes.height_5),
                 Text(

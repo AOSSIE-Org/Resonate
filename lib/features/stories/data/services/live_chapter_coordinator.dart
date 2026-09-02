@@ -3,8 +3,9 @@ import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
+import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
@@ -12,6 +13,7 @@ import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/data/whisper_model_setting.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/live_chapter_coordinator.g.dart';
@@ -62,11 +64,17 @@ class LiveChapter extends _$LiveChapter {
     );
 
     final repo = ref.read(liveChapterRepositoryProvider);
-    await repo.createLiveChapterDocs(model);
-    final join = await repo.createLiveChapterRoom(
-      appwriteRoomId: roomId,
-      adminUid: user.uid,
-    );
+    final ({String liveKitUri, String roomToken}) join;
+    try {
+      await repo.createLiveChapterDocs(model);
+      join = await repo.createLiveChapterRoom(
+        appwriteRoomId: roomId,
+        adminUid: user.uid,
+      );
+      // Mapped here so the view never has to know what an AppwriteException is.
+    } on AppwriteException catch (e) {
+      throw StoriesFailure.unknown(e.message ?? 'Failed to start live chapter');
+    }
     final connected = await ref
         .read(liveKitControllerProvider.notifier)
         .connect(
@@ -142,8 +150,8 @@ class LiveChapter extends _$LiveChapter {
     _attendeesSub?.cancel();
     _attendeesSub = repo.attendeesStream(roomId).listen((event) async {
       try {
-        final eventName = event.events.first;
-        if (eventName.endsWith('.update')) {
+        final action = realtimeAction(event.events);
+        if (action == 'update') {
           final model = state.model;
           if (model == null || !ref.mounted) return;
           final newAttendees = LiveChapterAttendeesModel.fromJson(
@@ -152,7 +160,7 @@ class LiveChapter extends _$LiveChapter {
           state = state.copyWith(
             model: model.copyWith(attendees: newAttendees),
           );
-        } else if (eventName.endsWith('.delete')) {
+        } else if (action == 'delete') {
           if (!isAdmin) {
             await _attendeesSub?.cancel();
             await ref.read(liveKitControllerProvider.notifier).disconnect();

@@ -325,6 +325,21 @@ class AppLocalizationsMl extends AppLocalizations {
   String get appPreferences => 'ആപ്പ് മുൻഗണനകൾ';
 
   @override
+  String get features => 'Features';
+
+  @override
+  String get featuresDescription =>
+      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+
+  @override
+  String get pairChatFeatureDescription =>
+      'One-on-one voice chats with a random or a chosen user.';
+
+  @override
+  String get liveChapterFeatureDescription =>
+      'Record a story chapter live with an audience, and join the ones others host.';
+
+  @override
   String get transcriptionModel => 'ട്രാൻസ്ക്രിപ്ഷൻ മോഡൽ';
 
   @override
@@ -775,10 +790,10 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
   ) {
-    return '🚀 ഈ അത്ഭുതകരമായ മുറി പരിശോധിക്കൂ: $roomName!\n\n📖 വിവരണം: $description\n👥 ഇപ്പോൾ തന്നെ $participants പങ്കാളികളിൽ ചേരൂ!';
+    return '🚀 ഈ അത്ഭുതകരമായ മുറി പരിശോധിക്കൂ: $roomName!\n\n📖 വിവരണം: $roomDescription\n👥 ഇപ്പോൾ തന്നെ $participants പങ്കാളികളിൽ ചേരൂ!';
   }
 
   @override
@@ -1451,4 +1466,261 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get usernameAlreadyTaken =>
       'ഈ ഉപയോക്തൃനാമം ഇതിനകം എടുത്തിട്ടുണ്ട്. മറ്റൊന്ന് ശ്രമിക്കുക.';
+
+  @override
+  String get poll => 'Poll';
+
+  @override
+  String get createPoll => 'Create poll';
+
+  @override
+  String get pollQuestionLabel => 'Question';
+
+  @override
+  String get pollQuestionHint => 'Ask a question…';
+
+  @override
+  String pollOptionHint(int number) {
+    return 'Option $number';
+  }
+
+  @override
+  String get addPollOption => 'Add option';
+
+  @override
+  String get removePollOption => 'Remove option';
+
+  @override
+  String pollVotesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count votes',
+      one: '1 vote',
+      zero: 'No votes yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get endPoll => 'End poll';
+
+  @override
+  String get endPollConfirmTitle => 'End this poll?';
+
+  @override
+  String get endPollConfirmContent =>
+      'Voting will be closed for everyone. This cannot be undone.';
+
+  @override
+  String get pollFinalResults => 'Final results';
+
+  @override
+  String get pollEnterQuestion => 'Please enter a question';
+
+  @override
+  String get pollNeedTwoOptions => 'Please provide at least 2 options';
+
+  @override
+  String get pollUnavailable => 'This poll is no longer available';
+
+  @override
+  String get failedToCreatePoll => 'Failed to create poll';
+
+  @override
+  String get failedToVote => 'Failed to record your vote';
+
+  @override
+  String get failedToEndPoll => 'Failed to end the poll';
+
+  @override
+  String get activityStatus => 'Activity status';
+
+  @override
+  String get activityStatusSubtitle => 'Choose who can reach you';
+
+  @override
+  String get activityOnline => 'Online';
+
+  @override
+  String get activityOnlineDescription => 'Available for calls';
+
+  @override
+  String get activityDnd => 'Do Not Disturb';
+
+  @override
+  String get activityDndDescription => 'Incoming calls are blocked';
+
+  @override
+  String get activityInRoom => 'In a session';
+
+  @override
+  String get activityInRoomDescription =>
+      'In a live session, calls are blocked';
+
+  @override
+  String get activityInvisible => 'Invisible';
+
+  @override
+  String get activityInvisibleDescription =>
+      'You appear offline, calls still reach you';
+
+  @override
+  String get activityOffline => 'Offline';
+
+  @override
+  String get activityOfflineDescription => 'Not in the app right now';
+
+  @override
+  String get activityStatusUpdateFailed => 'Could not update your availability';
+
+  @override
+  String get callBlocked => 'Can\'t call right now';
+
+  @override
+  String callBlockedDnd(String username) {
+    return '$username has Do Not Disturb turned on.';
+  }
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String get achievementsSubtitle => 'What you have earned, and what is next.';
+
+  @override
+  String get creatorAchievementsSubtitle =>
+      'How active this user has been on Resonate.';
+
+  @override
+  String get noBadgesYet =>
+      'No badges yet. Host rooms, moderate, and join in to earn some.';
+
+  @override
+  String get badgeLocked => 'Locked';
+
+  @override
+  String badgeProgress(int current, int target) {
+    return '$current of $target';
+  }
+
+  @override
+  String get badgeUnlocked => 'Badge unlocked';
+
+  @override
+  String badgeUnlockedMessage(String badge) {
+    return 'You earned $badge.';
+  }
+
+  @override
+  String get badgeCategoryHosting => 'Hosting';
+
+  @override
+  String get badgeCategoryModeration => 'Moderation';
+
+  @override
+  String get badgeCategoryEcho => 'Participation';
+
+  @override
+  String get badgeCategoryRhythm => 'Consistency';
+
+  @override
+  String get badgeCategoryCore => 'Longevity';
+
+  @override
+  String get badgeWelcomer => 'Welcomer';
+
+  @override
+  String get badgeIcon => 'Icon';
+
+  @override
+  String get badgeMaestro => 'Maestro';
+
+  @override
+  String get badgeGuard => 'Guard';
+
+  @override
+  String get badgeSentinel => 'Sentinel';
+
+  @override
+  String get badgeWarden => 'Warden';
+
+  @override
+  String get badgeEcho => 'Echo';
+
+  @override
+  String get badgeRhythm => 'Rhythm';
+
+  @override
+  String get badgeCore => 'Core';
+
+  @override
+  String badgeHostingDescription(int count) {
+    return 'Hosted $count rooms with more than five people.';
+  }
+
+  @override
+  String badgeModerationDescription(int count) {
+    return 'Moderated $count rooms with more than five people.';
+  }
+
+  @override
+  String badgeEchoDescription(int count) {
+    return 'Took part $count times through chat, polls and votes.';
+  }
+
+  @override
+  String badgeRhythmDescription(int count) {
+    return 'Showed up $count days in a row.';
+  }
+
+  @override
+  String badgeCoreDescription(int count) {
+    return 'Active on $count different days.';
+  }
+
+  @override
+  String get statRoomsHosted => 'Rooms hosted';
+
+  @override
+  String get statRoomsModerated => 'Rooms moderated';
+
+  @override
+  String get statInteractions => 'Interactions';
+
+  @override
+  String get statActiveDays => 'Active days';
+
+  @override
+  String get statStreak => 'Day streak';
+
+  @override
+  String statStreakBest(int count) {
+    return 'Best $count';
+  }
+
+  @override
+  String get showOnProfile => 'Show on your profile';
+
+  @override
+  String get showOnProfileHint =>
+      'Pick up to two badges to sit next to your name, and one to wear on your avatar.';
+
+  @override
+  String get badgeShownAsPill => 'Next to your name';
+
+  @override
+  String get badgeShownOnAvatar => 'On your avatar';
+
+  @override
+  String get badgePillLimitReached =>
+      'You can show two badges next to your name.';
+
+  @override
+  String get badgeShowcaseFailed => 'Could not update your badges.';
+
+  @override
+  String callBlockedInRoom(String username) {
+    return '$username is in a live session.';
+  }
 }

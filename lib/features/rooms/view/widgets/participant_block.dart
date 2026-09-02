@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_mark.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/shared/widgets/speaking_avatar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
-import 'package:resonate/shared/widgets/report_widget.dart';
+import 'package:resonate/features/rooms/model/user_report_model.dart';
+import 'package:resonate/features/rooms/view/widgets/report_widget.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 
 class _FocusedMenuItemData {
   _FocusedMenuItemData(this.text, this.action);
@@ -40,10 +45,7 @@ class ParticipantBlock extends ConsumerWidget {
     return items
         .map(
           (item) => FocusedMenuItem(
-            title: Text(
-              item.text,
-              style: TextStyle(fontSize: UiSizes.size_14),
-            ),
+            title: Text(item.text, style: TextStyle(fontSize: UiSizes.size_14)),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
               color: colorScheme.error,
@@ -56,22 +58,25 @@ class ParticipantBlock extends ConsumerWidget {
         .toList();
   }
 
-  Future<void> _reportAndMaybeKick(
-    BuildContext context,
-    WidgetRef ref,
-  ) async {
-    final didSubmit = await showDialog<bool>(
+  Future<void> _reportAndMaybeKick(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context)!;
+    final draft = await showDialog<ReportDraft>(
       context: context,
       builder: (_) => ReportWidget(
         participantName: participant.name,
         participantId: participant.uid,
       ),
     );
-    if (didSubmit == true) {
-      await ref
-          .read(singleRoomProvider(room).notifier)
-          .reportAndKick(room, participant);
-    }
+    if (draft == null) return;
+
+    final filed = await ref
+        .read(roomSessionProvider(room).notifier)
+        .reportAndKick(room, participant, report: draft);
+    customSnackbar(
+      filed ? l10n.success : l10n.error,
+      filed ? l10n.reportSubmitted : l10n.reportFailed,
+      filed ? LogType.success : LogType.error,
+    );
   }
 
   List<FocusedMenuItem> _menuItems(
@@ -80,7 +85,7 @@ class ParticipantBlock extends ConsumerWidget {
     Participant me,
   ) {
     if ((!me.isAdmin && !me.isModerator) || participant.isAdmin) return [];
-    final notifier = ref.read(singleRoomProvider(room).notifier);
+    final notifier = ref.read(roomSessionProvider(room).notifier);
 
     if (me.isAdmin) {
       if (participant.isModerator) {
@@ -102,17 +107,20 @@ class ParticipantBlock extends ConsumerWidget {
         return _makeItems(context, [
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.addModerator,
-            () => notifier.setRole(room, participant, ParticipantRole.moderator),
+            () =>
+                notifier.setRole(room, participant, ParticipantRole.moderator),
           ),
           if (participant.hasRequestedToBeSpeaker)
             _FocusedMenuItemData(
               AppLocalizations.of(context)!.addSpeaker,
-              () => notifier.setRole(room, participant, ParticipantRole.speaker),
+              () =>
+                  notifier.setRole(room, participant, ParticipantRole.speaker),
             ),
           if (participant.isSpeaker)
             _FocusedMenuItemData(
               AppLocalizations.of(context)!.makeListener,
-              () => notifier.setRole(room, participant, ParticipantRole.listener),
+              () =>
+                  notifier.setRole(room, participant, ParticipantRole.listener),
             ),
           _FocusedMenuItemData(
             AppLocalizations.of(context)!.kickOut,
@@ -155,11 +163,11 @@ class ParticipantBlock extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(singleRoomProvider(room)).value?.me;
+    final me = ref.watch(roomSessionProvider(room)).value?.me;
     if (me == null) return const SizedBox.shrink();
 
-    final canOpenMenu = (me.isAdmin ||
-            (me.isModerator && !participant.isModerator)) &&
+    final canOpenMenu =
+        (me.isAdmin || (me.isModerator && !participant.isModerator)) &&
         !participant.isAdmin;
 
     return FocusedMenuHolder(
@@ -189,27 +197,44 @@ class ParticipantBlock extends ConsumerWidget {
         alignment: Alignment.center,
         child: Column(
           children: [
-            CircleAvatar(
-              radius: UiSizes.size_32,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(participant.dpUrl),
-                radius: UiSizes.size_30,
-                child: participant.hasRequestedToBeSpeaker
-                    ? Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Icon(
-                              Icons.waving_hand_rounded,
-                              color: Theme.of(context).colorScheme.primary,
-                              size: UiSizes.size_20,
-                            ),
-                          ),
-                        ],
-                      )
-                    : null,
-              ),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                SpeakingAvatar(
+                  uid: participant.uid,
+                  radius: UiSizes.size_32,
+                  child: CircleAvatar(
+                    radius: UiSizes.size_32,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(participant.dpUrl),
+                      radius: UiSizes.size_30,
+                      child: participant.hasRequestedToBeSpeaker
+                          ? Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Icon(
+                                    Icons.waving_hand_rounded,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    size: UiSizes.size_20,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : null,
+                    ),
+                  ),
+                ),
+                // A host can weigh up who to promote without leaving the room.
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: BadgeMark(uid: participant.uid, size: UiSizes.size_20),
+                ),
+              ],
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,

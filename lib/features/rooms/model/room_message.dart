@@ -24,6 +24,9 @@ abstract class RoomMessage with _$RoomMessage {
     required String content,
     required DateTime creationDateTime,
     @Default(false) bool isDeleted,
+    // Set when this message announces a poll; the chat list renders a
+    // PollCard for it instead of a regular bubble.
+    String? pollId,
     ReplyTo? replyTo,
     @JsonKey(includeFromJson: false, includeToJson: false)
     @Default(RoomMessageStatus.sent)

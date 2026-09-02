@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
+import 'package:resonate/features/achievements/view/widgets/achievements_sheet.dart';
 import 'package:resonate/features/settings/view/pages/settings_screen.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -12,7 +14,6 @@ import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../settings_test_helpers.dart';
-
 
 GoRouter recordingRouter(List<String> log) {
   GoRoute rec(String path) => GoRoute(
@@ -36,12 +37,12 @@ GoRouter recordingRouter(List<String> log) {
       rec(RoutePaths.themeScreen),
       rec(RoutePaths.aboutApp),
       rec(RoutePaths.appPreferencesScreen),
+      rec(RoutePaths.featuresScreen),
       rec(RoutePaths.contributeScreen),
       rec(RoutePaths.welcome),
     ],
   );
 }
-
 
 Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
   WidgetTester tester,
@@ -60,6 +61,13 @@ Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        // The activity status tile watches it, which would otherwise build
+        // the real Appwrite clients.
+        ...activityStatusOverrides(),
+        // Same for the achievements tile, whose sheet reads the stats table.
+        ...achievementOverrides(
+          myStats: const UserStats(roomsHosted: 12, badges: ['welcomer']),
+        ),
         authRepositoryProvider.overrideWithValue(repo),
         routerProvider.overrideWithValue(router),
       ],
@@ -80,6 +88,11 @@ Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
   return (router, repo, log);
 }
 
+Future<void> revealLogOut(WidgetTester tester) async {
+  await tester.scrollUntilVisible(find.text('Log out'), 200);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   stubFlutterSecureStorageChannel();
 
@@ -95,12 +108,15 @@ void main() {
 
     // navigation tiles
     expect(find.text('Account'), findsOneWidget);
+    expect(find.text('Achievements'), findsOneWidget);
     expect(find.text('Themes'), findsOneWidget);
     expect(find.text('About'), findsOneWidget);
     expect(find.text('App Preferences'), findsOneWidget);
+    expect(find.text('Features'), findsOneWidget);
     expect(find.text('Contribute'), findsOneWidget);
 
     // log out tile
+    await revealLogOut(tester);
     expect(find.text('Log out'), findsOneWidget);
     expect(find.byIcon(Icons.logout_rounded), findsOneWidget);
   });
@@ -135,6 +151,13 @@ void main() {
     expect(log, [RoutePaths.appPreferencesScreen]);
   });
 
+  testWidgets('Features tile pushes featuresScreen', (tester) async {
+    final (_, _, log) = await pumpSettings(tester);
+    await tester.tap(find.text('Features'));
+    await tester.pumpAndSettle();
+    expect(log, [RoutePaths.featuresScreen]);
+  });
+
   testWidgets('Contribute tile pushes contributeScreen', (tester) async {
     final (_, _, log) = await pumpSettings(tester);
     await tester.tap(find.text('Contribute'));
@@ -145,6 +168,7 @@ void main() {
   testWidgets('Log Out opens the confirmation dialog', (tester) async {
     await pumpSettings(tester);
 
+    await revealLogOut(tester);
     await tester.tap(find.text('Log out'));
     await tester.pumpAndSettle();
 
@@ -157,6 +181,7 @@ void main() {
   testWidgets('No dismisses the dialog without logging out', (tester) async {
     final (_, repo, log) = await pumpSettings(tester);
 
+    await revealLogOut(tester);
     await tester.tap(find.text('Log out'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('No'));
@@ -170,6 +195,7 @@ void main() {
   testWidgets('Yes logs out and navigates to welcome', (tester) async {
     final (_, repo, log) = await pumpSettings(tester);
 
+    await revealLogOut(tester);
     await tester.tap(find.text('Log out'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Yes'));
@@ -179,5 +205,18 @@ void main() {
     expect(find.text('Are you sure?'), findsNothing);
     expect(repo.logoutCount, 1);
     expect(log, [RoutePaths.welcome]);
+  });
+
+  testWidgets('Achievements tile opens the sheet rather than a route', (
+    tester,
+  ) async {
+    final (_, _, log) = await pumpSettings(tester);
+
+    await tester.tap(find.text('Achievements'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AchievementsSheet), findsOneWidget);
+    expect(find.text('Rooms hosted'), findsWidgets);
+    expect(log, isEmpty);
   });
 }
