@@ -1,3 +1,5 @@
+import 'package:resonate/features/interests/model/interest.dart';
+
 enum OnboardingStatus {
   success,
   usernameUnavailable,
@@ -27,6 +29,7 @@ class OnboardingState {
     this.profileImagePath,
     this.usernameAvailable = false,
     this.usernameChecking = false,
+    this.interests = const <Interest>{},
   });
 
   final bool isLoading;
@@ -34,11 +37,15 @@ class OnboardingState {
   final bool usernameAvailable;
   final bool usernameChecking;
 
+  // Optional by design: the user may finish onboarding without picking any.
+  final Set<Interest> interests;
+
   OnboardingState copyWith({
     bool? isLoading,
     String? profileImagePath,
     bool? usernameAvailable,
     bool? usernameChecking,
+    Set<Interest>? interests,
     bool clearProfileImagePath = false,
   }) => OnboardingState(
     isLoading: isLoading ?? this.isLoading,
@@ -47,5 +54,6 @@ class OnboardingState {
         : (profileImagePath ?? this.profileImagePath),
     usernameAvailable: usernameAvailable ?? this.usernameAvailable,
     usernameChecking: usernameChecking ?? this.usernameChecking,
+    interests: interests ?? this.interests,
   );
 }

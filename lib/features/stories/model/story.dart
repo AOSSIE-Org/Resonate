@@ -20,6 +20,8 @@ class Story {
   final int playDuration;
   final Color tintColor;
 
+  final List<String> tags;
+
   const Story({
     required this.title,
     required this.storyId,
@@ -35,6 +37,7 @@ class Story {
     required this.isLikedByCurrentUser,
     required this.playDuration,
     required this.tintColor,
+    this.tags = const [],
   });
 
   factory Story.fromMap(
@@ -58,6 +61,10 @@ class Story {
       isLikedByCurrentUser: false,
       playDuration: data['playDuration'],
       tintColor: Color(int.parse("0xff${data['tintColor']}")),
+      tags: switch (data['tags']) {
+        final List<dynamic> tags => tags.whereType<String>().toList(),
+        _ => const <String>[],
+      },
     );
   }
 
@@ -100,5 +107,6 @@ class Story {
     isLikedByCurrentUser: isLikedByCurrentUser ?? this.isLikedByCurrentUser,
     playDuration: playDuration ?? this.playDuration,
     tintColor: tintColor,
+    tags: tags,
   );
 }

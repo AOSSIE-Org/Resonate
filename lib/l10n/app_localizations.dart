@@ -3100,6 +3100,114 @@ abstract class AppLocalizations {
   /// **'Could not update your badges.'**
   String get badgeShowcaseFailed;
 
+  /// Title of the screen and settings tile where a user picks their interests.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests'**
+  String get interests;
+
+  /// Explains what selecting interests does and the selection limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up to {count} interests so people who like the same things can find you.'**
+  String interestsHint(int count);
+
+  /// Tells the user that sharing interests is opt-in.
+  ///
+  /// In en, this message translates to:
+  /// **'This is optional — leave it empty to keep your profile out of interest search.'**
+  String get interestsOptionalHint;
+
+  /// Heading for the optional interest picker during onboarding.
+  ///
+  /// In en, this message translates to:
+  /// **'Interests (optional)'**
+  String get interestsOptional;
+
+  /// Selects the display name of a predefined interest tag from its stored key.
+  ///
+  /// In en, this message translates to:
+  /// **'{interest, select, ai{AI} music{Music} fitness{Fitness} anime{Anime} gaming{Gaming} technology{Technology} movies{Movies} books{Books} art{Art} travel{Travel} food{Food} sports{Sports} business{Business} science{Science} comedy{Comedy} wellness{Wellness} other{Other}}'**
+  String interestLabel(String interest);
+
+  /// Shown when the user tries to select one interest too many.
+  ///
+  /// In en, this message translates to:
+  /// **'You can pick up to {count} interests.'**
+  String interestLimitReached(int count);
+
+  /// Snackbar body after saving the interest selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your interests were updated.'**
+  String get interestsUpdated;
+
+  /// Snackbar body when saving the interest selection fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update your interests.'**
+  String get interestsUpdateFailed;
+
+  /// Label for the search-bar option that filters profiles by interest tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by interest'**
+  String get filterByInterest;
+
+  /// Explains the interest picker opened from the search bar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick one or more interests to find people who share them.'**
+  String get interestFilterHint;
+
+  /// Empty state for the interest filter results.
+  ///
+  /// In en, this message translates to:
+  /// **'No profiles match those interests yet.'**
+  String get noProfilesForInterests;
+
+  /// Error state for the interest filter results.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load matching profiles.'**
+  String get interestFilterFailed;
+
+  /// Section header above the profiles matching the selected interests.
+  ///
+  /// In en, this message translates to:
+  /// **'Profiles'**
+  String get profiles;
+
+  /// Label for the free-form tag field when creating a story.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags (optional)'**
+  String get storyTags;
+
+  /// Explains what story tags are for.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your own tags, like “tech talks”, so listeners can find this story.'**
+  String get storyTagsHint;
+
+  /// Placeholder of the story tag input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a tag'**
+  String get addTag;
+
+  /// Shown when the creator tries to add one story tag too many.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add up to {count} tags.'**
+  String tagLimitReached(int count);
+
+  /// Accessibility label of the button that removes a story tag.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tag {tag}'**
+  String removeTag(String tag);
+
   /// Snackbar body when the callee is already in a live audio session.
   ///
   /// In en, this message translates to:

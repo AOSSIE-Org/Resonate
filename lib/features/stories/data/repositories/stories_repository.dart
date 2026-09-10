@@ -15,6 +15,7 @@ import 'package:resonate/features/stories/model/live_chapter_attendees_model.dar
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
+import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
@@ -28,6 +29,9 @@ StoriesRepository storiesRepository(Ref ref) => StoriesRepository(
   tables: ref.watch(appwriteTablesProvider),
   storage: ref.watch(appwriteStorageProvider),
   functions: ref.watch(appwriteFunctionsProvider),
+  meili: isUsingMeilisearch
+      ? MeiliSearchClient(meilisearchEndpoint, meilisearchApiKey)
+      : null,
 );
 
 class StoriesRepository {
@@ -39,16 +43,23 @@ class StoriesRepository {
   }) : _tables = tables,
        _storage = storage,
        _functions = functions,
-       _meili =
-           meili ?? MeiliSearchClient(meilisearchEndpoint, meilisearchApiKey);
+       _meili = meili;
 
   final TablesDB _tables;
   final Storage _storage;
   final Functions _functions;
-  final MeiliSearchClient _meili;
+  final MeiliSearchClient? _meili;
 
-  MeiliSearchIndex get _storyIndex => _meili.index('stories');
-  MeiliSearchIndex get _userIndex => _meili.index('users');
+  // Highlighted on the Meilisearch path, tags are searchable there by default.
+  static const _storyHighlights = [
+    'title',
+    'creatorName',
+    'description',
+    'tags',
+  ];
+
+  MeiliSearchIndex? get _storyIndex => _meili?.index('stories');
+  MeiliSearchIndex? get _userIndex => _meili?.index('users');
 
   // Loaders
 
@@ -249,17 +260,14 @@ class StoriesRepository {
   }
 
   Future<List<Story>> _searchStories(String query, String currentUid) async {
-    try {
-      if (isUsingMeilisearch) {
-        final result = await _storyIndex.search(
-          query,
-          SearchQuery(
-            attributesToHighlight: ['title', 'creatorName', 'description'],
-          ),
-        );
-        return _meiliHitsToStories(result.hits, currentUid);
-      }
+    if (_meili != null) {
+      final hits = await _searchStoryIndex(query);
+      if (hits != null) return _meiliHitsToStories(hits, currentUid);
+      // Meilisearch is optional infrastructure. If it cannot answer at all,
+      // the Appwrite query below still does.
+    }
 
+    try {
       final result = await _tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
@@ -268,6 +276,7 @@ class StoriesRepository {
             Query.search('title', query),
             Query.search('creatorName', query),
             Query.search('description', query),
+            Query.contains('tags', [normalizeStoryTag(query)]),
           ]),
           Query.limit(16),
         ],
@@ -279,17 +288,54 @@ class StoriesRepository {
     }
   }
 
+  Future<List<Map<String, dynamic>>?> _searchStoryIndex(String query) async {
+    final index = _storyIndex;
+    if (index == null) return null;
+
+    if (storySemanticEmbedder.isNotEmpty) {
+      try {
+        final result = await index.search(
+          query,
+          SearchQuery(
+            attributesToHighlight: _storyHighlights,
+            hybrid: HybridSearch(
+              embedder: storySemanticEmbedder,
+              semanticRatio: semanticSearchRatio,
+            ),
+            rankingScoreThreshold: semanticScoreThreshold,
+          ),
+        );
+        return result.hits;
+      } catch (e) {
+        log('Semantic story search unavailable, using keywords instead: $e');
+      }
+    }
+
+    try {
+      final result = await index.search(
+        query,
+        SearchQuery(attributesToHighlight: _storyHighlights),
+      );
+      return result.hits;
+    } catch (e) {
+      log('Meilisearch story search failed: $e');
+      return null;
+    }
+  }
+
   Future<List<ResonateUser>> _searchUsers(
     String query,
     String currentUid,
   ) async {
     try {
-      if (isUsingMeilisearch) {
-        final result = await _userIndex.search(
+      if (_userIndex case final index?) {
+        final result = await index.search(
           query,
           SearchQuery(attributesToHighlight: ['name', 'username']),
         );
-        return result.hits.map(_meiliHitToUser).toList();
+        return result.hits
+            .map((hit) => ResonateUser.fromRow(hit, hit[r'$id'] as String))
+            .toList();
       }
 
       final result = await _tables.listRows(
@@ -304,7 +350,9 @@ class StoriesRepository {
           Query.limit(16),
         ],
       );
-      return result.rows.map((doc) => _rowToUser(doc.data, doc.$id)).toList();
+      return result.rows
+          .map((doc) => ResonateUser.fromRow(doc.data, doc.$id))
+          .toList();
     } catch (e) {
       log('User search failed: $e');
       return [];
@@ -415,6 +463,7 @@ class StoriesRepository {
     required String coverImgRef,
     required int storyPlayDuration,
     required List<Chapter> chapters,
+    List<String> tags = const [],
   }) async {
     final storyId = ID.unique();
     var coverImgUrl = coverImgRef;
@@ -449,6 +498,7 @@ class StoriesRepository {
           'likes': 0,
           'playDuration': storyPlayDuration,
           'tintColor': _colorToHex(primaryColor),
+          'tags': normalizeStoryTags(tags),
         },
       );
     } on AppwriteException catch (e) {
@@ -680,21 +730,6 @@ class StoriesRepository {
     }
     return stories;
   }
-
-  ResonateUser _rowToUser(Map<String, dynamic> data, String id) {
-    final userData = Map<String, dynamic>.from(data);
-    userData['docId'] = id;
-    userData['uid'] = id;
-    userData['userName'] = userData['username'];
-    final ratingCount = (userData['ratingCount'] ?? 0) as num;
-    userData['userRating'] = ratingCount == 0
-        ? 0
-        : userData['ratingTotal'] / ratingCount;
-    return ResonateUser.fromJson(userData);
-  }
-
-  ResonateUser _meiliHitToUser(Map<String, dynamic> hit) =>
-      _rowToUser(hit, hit['\$id']);
 
   String _colorToHex(Color color) =>
       '${(color.a * 255).toInt().toRadixString(16).padLeft(2, '0')}'

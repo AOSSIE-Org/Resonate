@@ -2253,6 +2253,108 @@
     "@badgeShowcaseFailed": {
         "description": "Snackbar body when saving the badge display choice fails."
     },
+    "interests": "Interests",
+    "@interests": {
+        "description": "Title of the screen and settings tile where a user picks their interests."
+    },
+    "interestsHint": "Pick up to {count} interests so people who like the same things can find you.",
+    "@interestsHint": {
+        "description": "Explains what selecting interests does and the selection limit.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "interestsOptionalHint": "This is optional — leave it empty to keep your profile out of interest search.",
+    "@interestsOptionalHint": {
+        "description": "Tells the user that sharing interests is opt-in."
+    },
+    "interestsOptional": "Interests (optional)",
+    "@interestsOptional": {
+        "description": "Heading for the optional interest picker during onboarding."
+    },
+    "interestLabel": "{interest, select, ai{AI} music{Music} fitness{Fitness} anime{Anime} gaming{Gaming} technology{Technology} movies{Movies} books{Books} art{Art} travel{Travel} food{Food} sports{Sports} business{Business} science{Science} comedy{Comedy} wellness{Wellness} other{Other}}",
+    "@interestLabel": {
+        "description": "Selects the display name of a predefined interest tag from its stored key.",
+        "placeholders": {
+            "interest": {
+                "type": "String",
+                "example": "music"
+            }
+        }
+    },
+    "interestLimitReached": "You can pick up to {count} interests.",
+    "@interestLimitReached": {
+        "description": "Shown when the user tries to select one interest too many.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "interestsUpdated": "Your interests were updated.",
+    "@interestsUpdated": {
+        "description": "Snackbar body after saving the interest selection."
+    },
+    "interestsUpdateFailed": "Could not update your interests.",
+    "@interestsUpdateFailed": {
+        "description": "Snackbar body when saving the interest selection fails."
+    },
+    "filterByInterest": "Filter by interest",
+    "@filterByInterest": {
+        "description": "Label for the search-bar option that filters profiles by interest tags."
+    },
+    "interestFilterHint": "Pick one or more interests to find people who share them.",
+    "@interestFilterHint": {
+        "description": "Explains the interest picker opened from the search bar."
+    },
+    "noProfilesForInterests": "No profiles match those interests yet.",
+    "@noProfilesForInterests": {
+        "description": "Empty state for the interest filter results."
+    },
+    "interestFilterFailed": "Could not load matching profiles.",
+    "@interestFilterFailed": {
+        "description": "Error state for the interest filter results."
+    },
+    "profiles": "Profiles",
+    "@profiles": {
+        "description": "Section header above the profiles matching the selected interests."
+    },
+    "storyTags": "Tags (optional)",
+    "@storyTags": {
+        "description": "Label for the free-form tag field when creating a story."
+    },
+    "storyTagsHint": "Add your own tags, like “tech talks”, so listeners can find this story.",
+    "@storyTagsHint": {
+        "description": "Explains what story tags are for."
+    },
+    "addTag": "Add a tag",
+    "@addTag": {
+        "description": "Placeholder of the story tag input field."
+    },
+    "tagLimitReached": "You can add up to {count} tags.",
+    "@tagLimitReached": {
+        "description": "Shown when the creator tries to add one story tag too many.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "removeTag": "Remove tag {tag}",
+    "@removeTag": {
+        "description": "Accessibility label of the button that removes a story tag.",
+        "placeholders": {
+            "tag": {
+                "type": "String",
+                "example": "tech talks"
+            }
+        }
+    },
     "callBlockedInRoom": "{username} is in a live session.",
     "@callBlockedInRoom": {
         "description": "Snackbar body when the callee is already in a live audio session.",
@@ -2263,4 +2365,4 @@
             }
         }
     }
-}
+}

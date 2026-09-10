@@ -26,6 +26,19 @@ const bool isUsingMeilisearch = bool.fromEnvironment(
   defaultValue: false,
 );
 
+const String storySemanticEmbedder = String.fromEnvironment(
+  'MEILISEARCH_STORY_EMBEDDER',
+  defaultValue: 'stories-semantic',
+);
+
+const int semanticSearchPercent = int.fromEnvironment(
+  'MEILISEARCH_SEMANTIC_PERCENT',
+  defaultValue: 50,
+);
+const double semanticSearchRatio = semanticSearchPercent / 100;
+
+const double semanticScoreThreshold = 0.2;
+
 // Discussion related Database Constants
 const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";
 const String subscribedUserTableId = "6522fd267db6fdad3392";

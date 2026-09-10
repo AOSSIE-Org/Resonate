@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ResonateUser {
 
- String? get uid;@JsonKey(name: 'userName') String? get userName; String? get profileImageUrl; String? get name; String? get email;@JsonKey(name: 'dob') String? get dateOfBirth; String? get docId;@JsonKey(fromJson: toDouble) double? get userRating;
+ String? get uid;@JsonKey(name: 'userName') String? get userName; String? get profileImageUrl; String? get name; String? get email;@JsonKey(name: 'dob') String? get dateOfBirth; String? get docId;@JsonKey(fromJson: toDouble) double? get userRating; List<String> get interests;
 /// Create a copy of ResonateUser
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ResonateUserCopyWith<ResonateUser> get copyWith => _$ResonateUserCopyWithImpl<R
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResonateUser&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.userName, userName) || other.userName == userName)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.userRating, userRating) || other.userRating == userRating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ResonateUser&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.userName, userName) || other.userName == userName)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.userRating, userRating) || other.userRating == userRating)&&const DeepCollectionEquality().equals(other.interests, interests));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,userName,profileImageUrl,name,email,dateOfBirth,docId,userRating);
+int get hashCode => Object.hash(runtimeType,uid,userName,profileImageUrl,name,email,dateOfBirth,docId,userRating,const DeepCollectionEquality().hash(interests));
 
 @override
 String toString() {
-  return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating)';
+  return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating, interests: $interests)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ResonateUserCopyWith<$Res>  {
   factory $ResonateUserCopyWith(ResonateUser value, $Res Function(ResonateUser) _then) = _$ResonateUserCopyWithImpl;
 @useResult
 $Res call({
- String? uid,@JsonKey(name: 'userName') String? userName, String? profileImageUrl, String? name, String? email,@JsonKey(name: 'dob') String? dateOfBirth, String? docId,@JsonKey(fromJson: toDouble) double? userRating
+ String? uid,@JsonKey(name: 'userName') String? userName, String? profileImageUrl, String? name, String? email,@JsonKey(name: 'dob') String? dateOfBirth, String? docId,@JsonKey(fromJson: toDouble) double? userRating, List<String> interests
 });
 
 
@@ -65,7 +65,7 @@ class _$ResonateUserCopyWithImpl<$Res>
 
 /// Create a copy of ResonateUser
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = freezed,Object? userName = freezed,Object? profileImageUrl = freezed,Object? name = freezed,Object? email = freezed,Object? dateOfBirth = freezed,Object? docId = freezed,Object? userRating = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? uid = freezed,Object? userName = freezed,Object? profileImageUrl = freezed,Object? name = freezed,Object? email = freezed,Object? dateOfBirth = freezed,Object? docId = freezed,Object? userRating = freezed,Object? interests = null,}) {
   return _then(_self.copyWith(
 uid: freezed == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String?,userName: freezed == userName ? _self.userName : userName // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,8 @@ as String?,email: freezed == email ? _self.email : email // ignore: cast_nullabl
 as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,docId: freezed == docId ? _self.docId : docId // ignore: cast_nullable_to_non_nullable
 as String?,userRating: freezed == userRating ? _self.userRating : userRating // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,interests: null == interests ? _self.interests : interests // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating,  List<String> interests)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ResonateUser() when $default != null:
-return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating);case _:
+return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating,_that.interests);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating,  List<String> interests)  $default,) {final _that = this;
 switch (_that) {
 case _ResonateUser():
-return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating);case _:
+return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating,_that.interests);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? uid, @JsonKey(name: 'userName')  String? userName,  String? profileImageUrl,  String? name,  String? email, @JsonKey(name: 'dob')  String? dateOfBirth,  String? docId, @JsonKey(fromJson: toDouble)  double? userRating,  List<String> interests)?  $default,) {final _that = this;
 switch (_that) {
 case _ResonateUser() when $default != null:
-return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating);case _:
+return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.email,_that.dateOfBirth,_that.docId,_that.userRating,_that.interests);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.uid,_that.userName,_that.profileImageUrl,_that.name,_that.
 @JsonSerializable()
 
 class _ResonateUser implements ResonateUser {
-  const _ResonateUser({this.uid, @JsonKey(name: 'userName') this.userName, this.profileImageUrl, this.name, this.email, @JsonKey(name: 'dob') this.dateOfBirth, this.docId, @JsonKey(fromJson: toDouble) this.userRating});
+  const _ResonateUser({this.uid, @JsonKey(name: 'userName') this.userName, this.profileImageUrl, this.name, this.email, @JsonKey(name: 'dob') this.dateOfBirth, this.docId, @JsonKey(fromJson: toDouble) this.userRating, final  List<String> interests = const <String>[]}): _interests = interests;
   factory _ResonateUser.fromJson(Map<String, dynamic> json) => _$ResonateUserFromJson(json);
 
 @override final  String? uid;
@@ -227,6 +228,13 @@ class _ResonateUser implements ResonateUser {
 @override@JsonKey(name: 'dob') final  String? dateOfBirth;
 @override final  String? docId;
 @override@JsonKey(fromJson: toDouble) final  double? userRating;
+ final  List<String> _interests;
+@override@JsonKey() List<String> get interests {
+  if (_interests is EqualUnmodifiableListView) return _interests;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_interests);
+}
+
 
 /// Create a copy of ResonateUser
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +249,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResonateUser&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.userName, userName) || other.userName == userName)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.userRating, userRating) || other.userRating == userRating));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResonateUser&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.userName, userName) || other.userName == userName)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.docId, docId) || other.docId == docId)&&(identical(other.userRating, userRating) || other.userRating == userRating)&&const DeepCollectionEquality().equals(other._interests, _interests));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,userName,profileImageUrl,name,email,dateOfBirth,docId,userRating);
+int get hashCode => Object.hash(runtimeType,uid,userName,profileImageUrl,name,email,dateOfBirth,docId,userRating,const DeepCollectionEquality().hash(_interests));
 
 @override
 String toString() {
-  return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating)';
+  return 'ResonateUser(uid: $uid, userName: $userName, profileImageUrl: $profileImageUrl, name: $name, email: $email, dateOfBirth: $dateOfBirth, docId: $docId, userRating: $userRating, interests: $interests)';
 }
 
 
@@ -261,7 +269,7 @@ abstract mixin class _$ResonateUserCopyWith<$Res> implements $ResonateUserCopyWi
   factory _$ResonateUserCopyWith(_ResonateUser value, $Res Function(_ResonateUser) _then) = __$ResonateUserCopyWithImpl;
 @override @useResult
 $Res call({
- String? uid,@JsonKey(name: 'userName') String? userName, String? profileImageUrl, String? name, String? email,@JsonKey(name: 'dob') String? dateOfBirth, String? docId,@JsonKey(fromJson: toDouble) double? userRating
+ String? uid,@JsonKey(name: 'userName') String? userName, String? profileImageUrl, String? name, String? email,@JsonKey(name: 'dob') String? dateOfBirth, String? docId,@JsonKey(fromJson: toDouble) double? userRating, List<String> interests
 });
 
 
@@ -278,7 +286,7 @@ class __$ResonateUserCopyWithImpl<$Res>
 
 /// Create a copy of ResonateUser
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = freezed,Object? userName = freezed,Object? profileImageUrl = freezed,Object? name = freezed,Object? email = freezed,Object? dateOfBirth = freezed,Object? docId = freezed,Object? userRating = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? uid = freezed,Object? userName = freezed,Object? profileImageUrl = freezed,Object? name = freezed,Object? email = freezed,Object? dateOfBirth = freezed,Object? docId = freezed,Object? userRating = freezed,Object? interests = null,}) {
   return _then(_ResonateUser(
 uid: freezed == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String?,userName: freezed == userName ? _self.userName : userName // ignore: cast_nullable_to_non_nullable
@@ -288,7 +296,8 @@ as String?,email: freezed == email ? _self.email : email // ignore: cast_nullabl
 as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,docId: freezed == docId ? _self.docId : docId // ignore: cast_nullable_to_non_nullable
 as String?,userRating: freezed == userRating ? _self.userRating : userRating // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,interests: null == interests ? _self._interests : interests // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

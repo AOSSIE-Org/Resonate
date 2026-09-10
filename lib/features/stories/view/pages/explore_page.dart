@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/interests/data/interest_filter.dart';
+import 'package:resonate/features/interests/view/widgets/interest_filter_button.dart';
+import 'package:resonate/features/interests/view/widgets/interest_filter_panel.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/widgets/category_card.dart';
 import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
@@ -26,6 +29,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   final _debouncer = Debouncer(milliseconds: 500);
   bool _isSearching = false;
   bool _searchBarIsEmpty = true;
+  bool _isPickingInterests = false;
 
   void _onSearchChanged(String value) {
     setState(() {
@@ -46,6 +50,9 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context)!;
+    final interestFilterIsActive = ref
+        .watch(interestFilterProvider)
+        .isActive;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -89,10 +96,22 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
                       size: UiSizes.size_35,
                     ),
                   ),
+                  suffixIcon: InterestFilterButton(
+                    isOpen: _isPickingInterests,
+                    onPressed: () => setState(
+                      () => _isPickingInterests = !_isPickingInterests,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(height: UiSizes.height_30),
-              if (_searchBarIsEmpty)
+              SizedBox(height: UiSizes.height_20),
+              if (_isPickingInterests)
+                InterestFilterPanel(
+                  onDone: () => setState(() => _isPickingInterests = false),
+                )
+              else if (interestFilterIsActive)
+                const InterestFilterResults()
+              else if (_searchBarIsEmpty)
                 _ExploreContent()
               else
                 _searchResults(context),

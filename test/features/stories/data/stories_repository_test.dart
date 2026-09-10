@@ -22,6 +22,7 @@ Row storyRow({
   int likes = 0,
   int playDuration = 1000,
   String tintColor = 'cbc6c6',
+  List<String> tags = const [],
 }) =>
     buildRow(
       id: id,
@@ -38,6 +39,7 @@ Row storyRow({
         'likes': likes,
         'playDuration': playDuration,
         'tintColor': tintColor,
+        'tags': tags,
       },
     );
 
@@ -404,6 +406,35 @@ void main() {
       expect(state.users, hasLength(1));
       expect(state.users.first.userName, 'alice');
     });
+
+    test('matches creator-chosen tags as well as the text columns', () async {
+      stubStoryList([storyRow(tags: const ['tech talks'])]);
+      when(tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+
+      final state = await repo.search('Tech  Talks', 'me');
+
+      expect(state.stories.single.tags, ['tech talks']);
+
+      final queries = verify(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: captureAnyNamed('queries'),
+      )).captured.single as List<String>;
+      // The query is normalised the same way the stored tags were.
+      expect(
+        queries.first,
+        Query.or([
+          Query.search('title', 'Tech  Talks'),
+          Query.search('creatorName', 'Tech  Talks'),
+          Query.search('description', 'Tech  Talks'),
+          Query.contains('tags', ['tech talks']),
+        ]),
+      );
+    });
   });
 
   group('likeStory', () {
@@ -518,6 +549,34 @@ void main() {
         functionId: anyNamed('functionId'),
         body: anyNamed('body'),
       ));
+    });
+
+    test('stores the tags normalised', () async {
+      when(tables.createRow(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => storyRow());
+
+      await repo.createStory(
+        user: fakeAuthUser(uid: 'me'),
+        title: 'My Story',
+        description: 'desc',
+        category: StoryCategory.drama,
+        coverImgRef: 'https://example.com/cover.jpg',
+        storyPlayDuration: 100,
+        chapters: const [],
+        tags: const [' Tech Talks ', 'TECH TALKS', 'ai'],
+      );
+
+      final data = verify(tables.createRow(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map;
+      expect(data['tags'], ['tech talks', 'ai']);
     });
 
     test('throws StoriesFailure.unknown when the row write fails', () async {

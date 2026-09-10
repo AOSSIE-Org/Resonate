@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
+import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
@@ -207,6 +208,7 @@ class ProfileRepository {
     required String dob,
     required String email,
     String? profileImageID,
+    List<Interest> interests = const [],
   }) async {
     await _tables.createRow(
       databaseId: userDatabaseID,
@@ -219,6 +221,7 @@ class ProfileRepository {
         'dob': dob,
         'email': email,
         'profileImageID': profileImageID,
+        'interests': Interest.toWireList(interests),
       },
     );
   }
