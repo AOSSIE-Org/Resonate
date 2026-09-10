@@ -96,6 +96,12 @@ class SettingsScreen extends ConsumerWidget {
               );
             },
           ),
+          customTile(
+            str: AppLocalizations.of(context)!.interests,
+            func: () {
+              ref.read(routerProvider).push(RoutePaths.interestsScreen);
+            },
+          ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.appSettings),
           customTile(

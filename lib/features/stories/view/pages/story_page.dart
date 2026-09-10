@@ -121,6 +121,30 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                       ),
                     ),
                   ),
+                  if (story.tags.isNotEmpty) ...[
+                    SizedBox(height: UiSizes.height_16),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: UiSizes.width_16,
+                      ),
+                      child: Wrap(
+                        spacing: UiSizes.width_8,
+                        runSpacing: UiSizes.height_8,
+                        children: [
+                          for (final tag in story.tags)
+                            Chip(
+                              label: Text(tag),
+                              labelStyle: TextStyle(
+                                color: colorScheme.onSecondary,
+                                fontSize: UiSizes.size_13,
+                              ),
+                              backgroundColor: colorScheme.secondary,
+                              visualDensity: VisualDensity.compact,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
                   SizedBox(height: UiSizes.height_40),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),

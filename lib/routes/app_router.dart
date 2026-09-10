@@ -6,6 +6,7 @@ import 'package:resonate/features/auth/auth_routes.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/friends_routes.dart';
+import 'package:resonate/features/interests/interests_routes.dart';
 import 'package:resonate/features/profile/profile_routes.dart';
 import 'package:resonate/features/rooms/rooms_routes.dart';
 import 'package:resonate/features/settings/data/feature_flags.dart';
@@ -41,6 +42,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       // Account / settings (settings, account, about, contribute, preferences)
       ...settingsRoutes,
       ...themeRoutes,
+      ...interestsRoutes,
 
       // Pair chat / friend calls
       ...friendsRoutes,
