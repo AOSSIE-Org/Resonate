@@ -1,0 +1,63 @@
+## Github Actions CI workflow to keep the Score Summary table in
+## BestPracticesChecklist.md in sync with its checkboxes.
+name: CHECKLIST_SCORE
+
+on:
+  # Recalculate and commit whenever the checklist lands on a main branch
+  push:
+    branches: [dev, master]
+    paths:
+      - "BestPracticesChecklist.md"
+      - ".github/scripts/checklist_score.py"
+      - ".github/workflows/checklist-score.yml"
+  # On PRs, only report drift — the push run above is what actually rewrites the table
+  pull_request:
+    paths:
+      - "BestPracticesChecklist.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: checklist-score-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  score:
+    name: Update checklist score
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository codebase
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Setup Python in the VM
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Non-blocking: surfaces a warning annotation if a PR leaves the table stale
+      - name: 🔍 Check the score table is current
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        run: python .github/scripts/checklist_score.py --check
+
+      - name: 🧮 Regenerate the score table
+        if: github.event_name != 'pull_request'
+        run: python .github/scripts/checklist_score.py
+
+      # Pushes made with GITHUB_TOKEN do not retrigger workflows, so this cannot loop
+      - name: 📌 Commit the updated table
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- BestPracticesChecklist.md; then
+            echo "Score table already up to date — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add BestPracticesChecklist.md
+          git commit -m "chore: update best practices score summary"
+          git push

@@ -6,10 +6,10 @@ import '../rooms_test_helpers.dart';
 
 void main() {
   group('SearchOverlay', () {
-    testRoomsWidget('renders SizedBox.shrink and nothing when not visible', (
+    testAppWidget('renders SizedBox.shrink and nothing when not visible', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -29,10 +29,10 @@ void main() {
       expect(find.byType(Positioned), findsNothing);
     });
 
-    testRoomsWidget('renders the text field and back button when visible', (
+    testAppWidget('renders the text field and back button when visible', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -50,11 +50,11 @@ void main() {
       expect(find.byIcon(Icons.arrow_back), findsOneWidget);
     });
 
-    testRoomsWidget('typing fires onSearchChanged with the entered text', (
+    testAppWidget('typing fires onSearchChanged with the entered text', (
       tester,
     ) async {
       String? received;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -74,10 +74,10 @@ void main() {
       expect(received, 'jazz');
     });
 
-    testRoomsWidget('clear button is hidden until text is entered', (
+    testAppWidget('clear button is hidden until text is entered', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -100,11 +100,11 @@ void main() {
       expect(find.byIcon(Icons.clear), findsOneWidget);
     });
 
-    testRoomsWidget('tapping clear empties the field and reports empty text', (
+    testAppWidget('tapping clear empties the field and reports empty text', (
       tester,
     ) async {
       String? received;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -131,10 +131,10 @@ void main() {
       expect(find.text('jazz'), findsNothing);
     });
 
-    testRoomsWidget('isSearching shows a spinner instead of the clear button', (
+    testAppWidget('isSearching shows a spinner instead of the clear button', (
       tester,
     ) async {
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [
@@ -157,11 +157,11 @@ void main() {
       expect(find.byIcon(Icons.clear), findsNothing);
     });
 
-    testRoomsWidget('tapping back fires onClose after the reverse animation', (
+    testAppWidget('tapping back fires onClose after the reverse animation', (
       tester,
     ) async {
       var closed = false;
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         Stack(
           children: [

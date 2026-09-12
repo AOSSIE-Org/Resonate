@@ -4,8 +4,8 @@ targets:
       # Restrict json_serializable to data classes only.
       json_serializable:
         generate_for:
-          - lib/models/**.dart
           - lib/features/**/model/**.dart
+          - lib/shared/model/**.dart
 
       # Place .freezed.dart in a `generated/` sibling next to each source.
       freezed:

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 
 part 'generated/pair_chat_state.freezed.dart';
 

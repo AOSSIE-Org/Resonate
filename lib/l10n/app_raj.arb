@@ -960,7 +960,7 @@
   "@noSearchResults": {
     "description": "जद खोज में कुछ नहीं मिलै तो दिखावण वालो संदेश।"
   },
-  "shareRoomMessage": "🚀 ई बढ़िया रूम देखो: {roomName}!\n\n📖 विवरण: {description}\n👥 हाले {participants} भागीदारां सूं जूड़जो!",
+  "shareRoomMessage": "🚀 ई बढ़िया रूम देखो: {roomName}!\n\n📖 विवरण: {roomDescription}\n👥 हाले {participants} भागीदारां सूं जूड़जो!",
   "@shareRoomMessage": {
     "description": "रूम शेयर करवा समय उपयोग में आवण वालो डिफॉल्ट संदेश टेम्पलेट।",
     "placeholders": {
@@ -968,7 +968,7 @@
         "type": "String",
         "example": "Discussion Room"
       },
-      "description": {
+      "roomDescription": {
         "type": "String",
         "example": "A great place to discuss"
       },

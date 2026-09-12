@@ -5,7 +5,12 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
+import 'package:resonate/features/rooms/view/widgets/create_poll_sheet.dart';
+import 'package:resonate/features/rooms/view/widgets/message_status_indicator.dart';
+import 'package:resonate/features/rooms/view/widgets/poll_card.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/extensions/datetime_extension.dart';
@@ -18,11 +23,13 @@ class RoomChatPage extends ConsumerStatefulWidget {
     required this.roomId,
     required this.roomName,
     required this.isUpcoming,
+    this.isUserAdmin = false,
   });
 
   final String roomId;
   final String roomName;
   final bool isUpcoming;
+  final bool isUserAdmin;
 
   @override
   ConsumerState<RoomChatPage> createState() => _RoomChatPageState();
@@ -62,13 +69,21 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final providerKey = roomChatProvider(
+    final messagesKey = roomChatMessagesProvider(
       widget.roomId,
       widget.roomName,
       widget.isUpcoming,
     );
-    final asyncState = ref.watch(providerKey);
-    final messages = asyncState.value?.messages ?? const <RoomMessage>[];
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
+    );
+    final asyncState = ref.watch(messagesKey);
+    if (!widget.isUpcoming) {
+      ref.watch(roomPollsProvider(widget.roomId));
+    }
+    final messages = asyncState.value ?? const <RoomMessage>[];
     if (messages.length != _previousCount) {
       _previousCount = messages.length;
       _scrollToBottom();
@@ -93,12 +108,32 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) =>
                   Center(child: Text(AppLocalizations.of(context)!.error)),
-              data: (state) => ListView.builder(
+              data: (loaded) => ListView.builder(
                 controller: _scrollController,
                 padding: EdgeInsets.all(UiSizes.width_16),
-                itemCount: state.messages.length,
+                itemCount: loaded.length,
                 itemBuilder: (context, index) {
-                  final message = state.messages[index];
+                  final message = loaded[index];
+                  if (message.pollId != null) {
+                    return PollCard(
+                      message: message,
+                      isUserAdmin: widget.isUserAdmin,
+                      onRetry: () async {
+                        final ok = await ref.read(providerKey.notifier).retrySend(
+                          messageId: message.messageId,
+                        );
+                        if (!ok && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(context)!.failedToResend,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  }
                   final canEdit = ref.read(requireUserProvider).uid == message.creatorId &&
                       !message.isDeleted &&
                       !message.isEdited;
@@ -112,8 +147,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                           .read(providerKey.notifier)
                           .editMessage(
                             messageId: message.messageId,
-                            roomName: widget.roomName,
-                            isUpcoming: widget.isUpcoming,
                             newContent: newContent,
                           );
                     },
@@ -142,8 +175,6 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                     onRetry: () async {
                       final ok = await ref.read(providerKey.notifier).retrySend(
                         messageId: message.messageId,
-                        roomName: widget.roomName,
-                        isUpcoming: widget.isUpcoming,
                       );
                       if (!ok && context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -166,6 +197,7 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
             roomId: widget.roomId,
             roomName: widget.roomName,
             isUpcoming: widget.isUpcoming,
+            isUserAdmin: widget.isUserAdmin,
           ),
         ],
       ),
@@ -477,7 +509,7 @@ class _ChatMessageItemState extends State<ChatMessageItem> {
                                     ),
                                   ),
                                   SizedBox(width: UiSizes.width_6),
-                                  _StatusIndicator(
+                                  MessageStatusIndicator(
                                     status: widget.message.status,
                                     onRetry: widget.onRetry,
                                   ),
@@ -522,11 +554,13 @@ class ChatInputField extends ConsumerStatefulWidget {
     required this.roomId,
     required this.roomName,
     required this.isUpcoming,
+    this.isUserAdmin = false,
   });
 
   final String roomId;
   final String roomName;
   final bool isUpcoming;
+  final bool isUserAdmin;
 
   @override
   ConsumerState<ChatInputField> createState() => _ChatInputFieldState();
@@ -545,14 +579,14 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
     if (_messageController.text.isEmpty) return;
     final content = _messageController.text;
     _messageController.clear();
-    final providerKey =
-        roomChatProvider(widget.roomId, widget.roomName, widget.isUpcoming);
-    final ok = await ref.read(providerKey.notifier).sendMessage(
-      roomId: widget.roomId,
-      roomName: widget.roomName,
-      isUpcoming: widget.isUpcoming,
-      content: content,
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
     );
+    final ok = await ref
+        .read(providerKey.notifier)
+        .sendMessage(content: content);
     if (!ok && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -564,9 +598,12 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final providerKey =
-        roomChatProvider(widget.roomId, widget.roomName, widget.isUpcoming);
-    final replyingTo = ref.watch(providerKey).value?.replyingTo;
+    final providerKey = roomChatComposerProvider(
+      widget.roomId,
+      widget.roomName,
+      widget.isUpcoming,
+    );
+    final replyingTo = ref.watch(providerKey);
 
     return Column(
       children: [
@@ -616,6 +653,17 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
                 ),
               Row(
                 children: [
+                  // Polls exist only in live rooms and only the host starts them.
+                  if (!widget.isUpcoming && widget.isUserAdmin)
+                    IconButton(
+                      icon: const Icon(Icons.poll_outlined),
+                      tooltip: AppLocalizations.of(context)!.createPoll,
+                      onPressed: () => openCreatePollSheet(
+                        context,
+                        roomId: widget.roomId,
+                        roomName: widget.roomName,
+                      ),
+                    ),
                   Expanded(
                     child: TextField(
                       controller: _messageController,
@@ -659,6 +707,7 @@ Future<void> openLiveRoomChatSheet(BuildContext context, AppwriteRoom room) {
       roomId: room.id,
       roomName: room.name,
       isUpcoming: false,
+      isUserAdmin: room.isUserAdmin,
     ),
     useSafeArea: true,
     shape: const RoundedRectangleBorder(
@@ -691,49 +740,3 @@ Future<void> openUpcomingChatSheet(
   );
 }
 
-class _StatusIndicator extends StatelessWidget {
-  const _StatusIndicator({required this.status, required this.onRetry});
-
-  final RoomMessageStatus status;
-  final VoidCallback? onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    switch (status) {
-      case RoomMessageStatus.sent:
-        return const SizedBox.shrink();
-      case RoomMessageStatus.pending:
-        return Icon(
-          Icons.access_time,
-          size: UiSizes.size_12,
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
-        );
-      case RoomMessageStatus.failed:
-        return GestureDetector(
-          onTap: onRetry,
-          child: Tooltip(
-            message: AppLocalizations.of(context)!.tapToRetry,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: UiSizes.size_14,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                SizedBox(width: UiSizes.width_4),
-                Text(
-                  AppLocalizations.of(context)!.retry,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                    fontSize: UiSizes.size_12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-    }
-  }
-}

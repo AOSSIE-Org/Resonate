@@ -7,7 +7,8 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 
 import '../friends_test_helpers.dart';
 
@@ -181,6 +182,101 @@ void main() {
       // Error was swallowed via customSnackbar; button restored, not stuck.
       expect(calls.started, hasLength(1));
       expect(find.byIcon(Icons.call), findsOneWidget);
+      expect(find.byType(LoadingIndicator), findsNothing);
+    });
+  });
+
+  group('FriendListTile activity status', () {
+    testFriendsWidget('shows the friend activity status dot', (tester) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        overrides: buildOverrides(uid: 'me'),
+        activityStatuses: {'other': ActivityStatus.online},
+      );
+      await tester.pumpAndSettle();
+
+      final dot = tester.widget<ActivityDot>(find.byType(ActivityDot));
+      expect(dot.status, ActivityStatus.online);
+    });
+
+    testFriendsWidget('draws no dot until the activity status resolves', (tester) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        overrides: buildOverrides(uid: 'me'),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ActivityDot), findsNothing);
+    });
+
+    testFriendsWidget('a friend on dnd gets the disabled call icon', (
+      tester,
+    ) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        overrides: buildOverrides(uid: 'me'),
+        activityStatuses: {'other': ActivityStatus.dnd},
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.phone_disabled), findsOneWidget);
+      expect(find.byIcon(Icons.call), findsNothing);
+    });
+
+    testFriendsWidget('a friend in a session gets the disabled call icon', (
+      tester,
+    ) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        overrides: buildOverrides(uid: 'me'),
+        activityStatuses: {'other': ActivityStatus.inRoom},
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.phone_disabled), findsOneWidget);
+    });
+
+    testFriendsWidget('invisible friends stay callable', (tester) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        // What the tile actually receives is offline — UserActivityStatus never
+        // hands invisible to anyone else — and offline does not block.
+        activityStatuses: {'other': ActivityStatus.offline},
+        overrides: buildOverrides(uid: 'me'),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byIcon(Icons.call), findsOneWidget);
+    });
+
+    testFriendsWidget('a blocked call is reported and restores the button', (
+      tester,
+    ) async {
+      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
+      final calls = FakeFriendCallCoordinator(blockedBy: ActivityStatus.dnd);
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(friendModel: model, isRequest: false),
+        overrides: buildOverrides(uid: 'me', calls: calls),
+        activityStatuses: {'other': ActivityStatus.dnd},
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.phone_disabled));
+      await tester.pumpAndSettle();
+
+      expect(calls.started, hasLength(1));
+      expect(find.byIcon(Icons.phone_disabled), findsOneWidget);
       expect(find.byType(LoadingIndicator), findsNothing);
     });
   });
