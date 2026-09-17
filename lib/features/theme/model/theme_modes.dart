@@ -22,6 +22,8 @@ class ThemeModes {
         surfaceTint: Colors.transparent,
         surfaceContainerHighest: const Color.fromARGB(255, 122, 122, 122),
         onSurfaceVariant: const Color(0xFF616161),
+        error: const Color(0xFFD32F2F),
+        onError: Colors.white,
 
         secondaryContainer: const Color(0xFFEEEEEE),
       ),
@@ -97,6 +99,8 @@ class ThemeModes {
 
         surfaceContainerHighest: const Color(0xFF424242),
         onSurfaceVariant: const Color(0xFFBDBDBD),
+        error: const Color(0xFFE53935),
+        onError: Colors.white,
 
         secondaryContainer: const Color(0xFF616161),
       ),

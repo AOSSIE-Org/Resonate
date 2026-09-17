@@ -5,6 +5,7 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
+import 'package:resonate/features/theme/model/activity_status_colors.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/live_audio/data/speaking_levels.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
@@ -126,6 +127,15 @@ void main() {
   });
 
   group('mic icon', () {
+    Color micDotColor(WidgetTester tester, IconData icon) {
+      final container = tester.widget<Container>(
+        find
+            .ancestor(of: find.byIcon(icon), matching: find.byType(Container))
+            .first,
+      );
+      return (container.decoration as BoxDecoration).color!;
+    }
+
     testAppWidget('shows green mic icon when speaker with mic on', (
       tester,
     ) async {
@@ -143,17 +153,17 @@ void main() {
 
       expect(find.byIcon(Icons.mic), findsOneWidget);
       expect(find.byIcon(Icons.mic_off), findsNothing);
-      final icon = tester.widget<Icon>(find.byIcon(Icons.mic));
-      expect(icon.color, Colors.lightGreen);
+      final ctx = tester.element(find.byType(ParticipantBlock));
+      expect(
+        micDotColor(tester, Icons.mic),
+        ActivityStatusColors.of(ctx).online,
+      );
     });
 
     testAppWidget('shows red mic_off icon when speaker with mic off', (
       tester,
     ) async {
-      final participant = fakeParticipant(
-        name: 'Bob',
-        isSpeaker: true,
-      );
+      final participant = fakeParticipant(name: 'Bob', isSpeaker: true);
       await pumpTestApp(
         tester,
         ParticipantBlock(room: room, participant: participant),
@@ -163,8 +173,11 @@ void main() {
 
       expect(find.byIcon(Icons.mic_off), findsOneWidget);
       expect(find.byIcon(Icons.mic), findsNothing);
-      final icon = tester.widget<Icon>(find.byIcon(Icons.mic_off));
-      expect(icon.color, Colors.red);
+      final ctx = tester.element(find.byType(ParticipantBlock));
+      expect(
+        micDotColor(tester, Icons.mic_off),
+        Theme.of(ctx).colorScheme.error,
+      );
     });
 
     testAppWidget('shows no mic icon when participant is not a speaker', (

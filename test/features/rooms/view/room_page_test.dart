@@ -20,7 +20,10 @@ class LoadingSingleRoom extends RoomSession {
   Future<SingleRoomState> build(AppwriteRoom appwriteRoom) => _c.future;
 }
 
-SingleRoomState stateWith(Participant me, {List<Participant> participants = const []}) {
+SingleRoomState stateWith(
+  Participant me, {
+  List<Participant> participants = const [],
+}) {
   return SingleRoomState(me: me, participants: participants);
 }
 
@@ -29,10 +32,10 @@ List<Override> roomOverrides({
   required AppwriteRoom room,
   required RoomSession Function() fake,
 }) => [
-      requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-      currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
-      roomSessionProvider(room).overrideWith(fake),
-    ];
+  requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
+  currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
+  roomSessionProvider(room).overrideWith(fake),
+];
 
 void main() {
   group('RoomPage state rendering', () {
@@ -86,7 +89,7 @@ void main() {
       expect(find.byType(ParticipantBlock), findsNothing);
     });
 
-    testAppWidget('data with participants -> GridView of ParticipantBlock', (
+    testAppWidget('data with participants -> host card + listener grid', (
       tester,
     ) async {
       final room = fakeAppwriteRoom();
@@ -105,8 +108,14 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byType(GridView), findsOneWidget);
-      expect(find.byType(ParticipantBlock), findsNWidgets(2));
+      expect(find.byType(SliverGrid), findsOneWidget);
+      // The admin gets the featured card, the listener a grid tile.
+      final blocks = tester
+          .widgetList<ParticipantBlock>(find.byType(ParticipantBlock))
+          .toList();
+      expect(blocks.length, 2);
+      expect(blocks.first.featured, isTrue);
+      expect(blocks.last.featured, isFalse);
       expect(find.text('No participants yet'), findsNothing);
       // ParticipantBlock's tight cell can overflow by a couple px; ignore it.
       tester.takeException();

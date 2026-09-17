@@ -169,20 +169,24 @@ class RoomSession extends _$RoomSession {
     _participantSub = null;
   }
 
+  static int _rank(Participant p) {
+    if (p.isAdmin) return 0;
+    if (p.isModerator) return 1;
+    if (p.isSpeaker) return 2;
+    if (p.hasRequestedToBeSpeaker) return 3;
+    return 4;
+  }
+
   List<Participant> _sort(List<Participant> participants) {
-    final sorted = [...participants];
-    sorted.sort((a, b) {
-      if (b.isAdmin && !a.isAdmin) return 1;
-      if (!b.isAdmin && a.isAdmin) return -1;
-      if (b.isModerator && !a.isModerator) return 1;
-      if (!b.isModerator && a.isModerator) return -1;
-      if (b.isSpeaker && !a.isSpeaker) return 1;
-      if (!b.isSpeaker && a.isSpeaker) return -1;
-      if (b.hasRequestedToBeSpeaker && !a.hasRequestedToBeSpeaker) return 1;
-      if (!b.hasRequestedToBeSpeaker && a.hasRequestedToBeSpeaker) return -1;
-      return 0;
+    final indexed = [
+      for (var i = 0; i < participants.length; i++)
+        (position: i, participant: participants[i]),
+    ];
+    indexed.sort((a, b) {
+      final byRank = _rank(a.participant).compareTo(_rank(b.participant));
+      return byRank != 0 ? byRank : a.position.compareTo(b.position);
     });
-    return sorted;
+    return [for (final entry in indexed) entry.participant];
   }
 
   Future<void> turnOnMic(AppwriteRoom appwriteRoom) =>
@@ -264,6 +268,20 @@ class RoomSession extends _$RoomSession {
         'hasRequestedToBeSpeaker': false,
       },
     );
+    final current = state.value;
+    if (current == null) return;
+    final updated = current.participants
+        .map(
+          (p) => p.uid == participant.uid
+              ? p.copyWith(
+                  isModerator: role == ParticipantRole.moderator,
+                  isSpeaker: role != ParticipantRole.listener,
+                  hasRequestedToBeSpeaker: false,
+                )
+              : p,
+        )
+        .toList();
+    state = AsyncData(current.copyWith(participants: _sort(updated)));
   }
 
   Future<void> kickOutParticipant(
