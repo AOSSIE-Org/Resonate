@@ -9,9 +9,21 @@ import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 
 import '../rooms_test_helpers.dart';
+
+class SlowTeardownLauncher extends FakeRoomLauncher {
+  final Completer<void> gate = Completer<void>();
+
+  @override
+  Future<void> leave(AppwriteRoom room) {
+    leaveCount++;
+    lastLeft = room;
+    return gate.future;
+  }
+}
 
 // Loading fake: never completes build().
 class LoadingSingleRoom extends RoomSession {
@@ -31,10 +43,12 @@ SingleRoomState stateWith(
 List<Override> roomOverrides({
   required AppwriteRoom room,
   required RoomSession Function() fake,
+  RoomLauncher? launcher,
 }) => [
   requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
   roomSessionProvider(room).overrideWith(fake),
+  if (launcher != null) roomLauncherProvider.overrideWithValue(launcher),
 ];
 
 void main() {
@@ -124,12 +138,13 @@ void main() {
 
   group('Leave / delete button', () {
     // Push RoomPage as a route so Navigator.canPop() is true.
-    Future<FakeRoomSession> pumpRouted(
+    Future<FakeRoomLauncher> pumpRouted(
       WidgetTester tester,
       AppwriteRoom room,
-      SingleRoomState state,
-    ) async {
-      late FakeRoomSession fake;
+      SingleRoomState state, {
+      FakeRoomLauncher? launcher,
+    }) async {
+      final fake = launcher ?? FakeRoomLauncher();
       tester.view.physicalSize = const Size(1080, 2340);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
@@ -138,10 +153,8 @@ void main() {
         ProviderScope(
           overrides: roomOverrides(
             room: room,
-            fake: () {
-              fake = FakeRoomSession(state);
-              return fake;
-            },
+            fake: () => FakeRoomSession(state),
+            launcher: fake,
           ),
           child: testApp(
             Navigator(
@@ -164,7 +177,7 @@ void main() {
       return fake;
     }
 
-    testAppWidget('admin confirm=true -> deleteRoom + pops', (tester) async {
+    testAppWidget('admin confirm=true -> leave + pops', (tester) async {
       final room = fakeAppwriteRoom(isUserAdmin: true);
       final me = fakeParticipant(uid: 'me', isAdmin: true, isSpeaker: true);
       final fake = await pumpRouted(tester, room, stateWith(me));
@@ -176,14 +189,16 @@ void main() {
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
 
-      expect(fake.deleteRoomCount, 1);
-      expect(fake.leaveRoomCount, 0);
+      // The view just asks to leave; the launcher decides that a host
+      // leaving ends the room.
+      expect(fake.leaveCount, 1);
+      expect(fake.lastLeft?.isUserAdmin, isTrue);
       // Popped back to launcher screen.
       expect(find.byIcon(Icons.call_end), findsNothing);
       expect(find.text('open'), findsOneWidget);
     });
 
-    testAppWidget('non-admin confirm=true -> leaveRoom + pops', (tester) async {
+    testAppWidget('non-admin confirm=true -> leave + pops', (tester) async {
       final room = fakeAppwriteRoom(isUserAdmin: false);
       final me = fakeParticipant(uid: 'me', isSpeaker: true);
       final fake = await pumpRouted(tester, room, stateWith(me));
@@ -193,8 +208,8 @@ void main() {
       await tester.tap(find.text('Confirm'));
       await tester.pumpAndSettle();
 
-      expect(fake.leaveRoomCount, 1);
-      expect(fake.deleteRoomCount, 0);
+      expect(fake.leaveCount, 1);
+      expect(fake.lastLeft?.isUserAdmin, isFalse);
       expect(find.byIcon(Icons.call_end), findsNothing);
     });
 
@@ -208,10 +223,67 @@ void main() {
       await tester.tap(find.text('Cancel'));
       await tester.pumpAndSettle();
 
-      expect(fake.deleteRoomCount, 0);
-      expect(fake.leaveRoomCount, 0);
+      expect(fake.leaveCount, 0);
       // Still on the room page.
       expect(find.byIcon(Icons.call_end), findsOneWidget);
+    });
+
+    testAppWidget('back button closes the sheet without ending the room', (
+      tester,
+    ) async {
+      final room = fakeAppwriteRoom(isUserAdmin: true);
+      final me = fakeParticipant(uid: 'me', isAdmin: true, isSpeaker: true);
+      final fake = await pumpRouted(tester, room, stateWith(me));
+
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pumpAndSettle();
+
+      // No confirmation, no teardown — just gone from view.
+      expect(find.text('Confirm'), findsNothing);
+      expect(fake.leaveCount, 0);
+      expect(find.byIcon(Icons.call_end), findsNothing);
+      expect(find.text('open'), findsOneWidget);
+    });
+
+    testAppWidget('admin pops without waiting for the delete to finish', (
+      tester,
+    ) async {
+      final room = fakeAppwriteRoom(isUserAdmin: true);
+      final me = fakeParticipant(uid: 'me', isAdmin: true, isSpeaker: true);
+      final slow = SlowTeardownLauncher();
+      await pumpRouted(tester, room, stateWith(me), launcher: slow);
+
+      await tester.tap(find.byIcon(Icons.call_end));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Confirm'));
+      await tester.pumpAndSettle();
+
+      expect(slow.leaveCount, 1);
+      // Teardown is still in flight, but the room page is already gone.
+      expect(slow.gate.isCompleted, isFalse);
+      expect(find.byIcon(Icons.call_end), findsNothing);
+      expect(find.text('open'), findsOneWidget);
+      slow.gate.complete();
+    });
+
+    testAppWidget('participant pops without waiting for the leave to finish', (
+      tester,
+    ) async {
+      final room = fakeAppwriteRoom(isUserAdmin: false);
+      final me = fakeParticipant(uid: 'me', isSpeaker: true);
+      final slow = SlowTeardownLauncher();
+      await pumpRouted(tester, room, stateWith(me), launcher: slow);
+
+      await tester.tap(find.byIcon(Icons.call_end));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Confirm'));
+      await tester.pumpAndSettle();
+
+      expect(slow.leaveCount, 1);
+      expect(slow.gate.isCompleted, isFalse);
+      expect(find.byIcon(Icons.call_end), findsNothing);
+      expect(find.text('open'), findsOneWidget);
+      slow.gate.complete();
     });
   });
 

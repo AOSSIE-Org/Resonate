@@ -82,7 +82,7 @@ void main() {
   });
 
   group('CustomLiveRoomTile interactions', () {
-    testAppWidget('tapping Join calls RoomLauncher.joinRoom', (
+    testAppWidget('tapping Join calls RoomLauncher.enterRoom', (
       tester,
     ) async {
       final launcher = FakeRoomLauncher();

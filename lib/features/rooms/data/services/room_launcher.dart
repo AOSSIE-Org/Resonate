@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -16,7 +19,7 @@ class RoomLauncher {
 
   final Ref _ref;
 
-  Future<AppwriteRoom> createAndJoinLiveRoom({
+  Future<AppwriteRoom> createAndEnterLiveRoom({
     required String name,
     required String description,
     required List<String> tags,
@@ -57,18 +60,13 @@ class RoomLauncher {
     );
   }
 
-  /// Resolves a room id — a deep link, say — into a room the current user can
-  /// join, or null if there's no signed-in user or no such room.
-  ///
-  /// Exists so callers outside this feature don't have to reach into the rooms
-  /// repository, or know that resolving a room needs the user's uid.
   Future<AppwriteRoom?> findRoomById(String roomId) async {
     final uid = _ref.read(currentUserProvider)?.uid;
     if (uid == null) return null;
     return _ref.read(roomsRepositoryProvider).getRoomById(roomId, uid);
   }
 
-  Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
+  Future<AppwriteRoom> enterRoom(AppwriteRoom room) async {
     final repo = _ref.read(roomsRepositoryProvider);
     final userId = _ref.read(requireUserProvider).uid;
     final result = await repo.joinRoom(
@@ -90,5 +88,32 @@ class RoomLauncher {
       );
     }
     return room.copyWith(myDocId: result.myDocId);
+  }
+
+  // Takes the current user out ending it if they are the host.
+  Future<void> leave(AppwriteRoom room) async {
+    final repo = _ref.read(roomsRepositoryProvider);
+    final liveKit = _ref.read(liveKitControllerProvider.notifier);
+    final rooms = _ref.read(liveRoomsProvider.notifier);
+    final userId = _ref.read(requireUserProvider).uid;
+    final endsTheRoom = room.isUserAdmin;
+
+    // Before the first await, so the list is right the moment the page pops.
+    if (endsTheRoom) rooms.removeLocally(room.id);
+    try {
+      await liveKit.disconnect();
+    } catch (e) {
+      log('leave: disconnect failed: $e');
+    }
+    try {
+      if (endsTheRoom) {
+        await repo.deleteRoom(roomId: room.id);
+      } else {
+        await repo.leaveRoom(roomId: room.id, userId: userId);
+      }
+    } catch (e) {
+      log('leave: teardown failed: $e');
+    }
+    await rooms.refresh();
   }
 }

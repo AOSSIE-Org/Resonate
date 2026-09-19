@@ -36,8 +36,6 @@ class FakeRoomSession extends RoomSession {
   int setRoleCount = 0;
   int kickOutCount = 0;
   int reportAndKickCount = 0;
-  int leaveRoomCount = 0;
-  int deleteRoomCount = 0;
   Participant? lastRoleParticipant;
   ParticipantRole? lastRole;
   Participant? lastKicked;
@@ -90,10 +88,6 @@ class FakeRoomSession extends RoomSession {
     return !reportFails;
   }
 
-  @override
-  Future<void> leaveRoom(AppwriteRoom room) async => leaveRoomCount++;
-  @override
-  Future<void> deleteRoom(AppwriteRoom room) async => deleteRoomCount++;
 }
 
 // Fake data-layer live-rooms cache: serves an optional list, records refreshes.
@@ -109,7 +103,7 @@ class FakeLiveRooms extends LiveRooms {
   Future<void> refresh() async => refreshCount++;
 }
 
-// Fake RoomLauncher: records joinRoom and can make it throw.
+// Fake RoomLauncher: records enterRoom and can make it throw.
 class FakeRoomLauncher implements RoomLauncher {
   FakeRoomLauncher({this.joinThrows = false});
   final bool joinThrows;
@@ -120,6 +114,15 @@ class FakeRoomLauncher implements RoomLauncher {
   AppwriteRoom? roomById;
   String? lastFoundId;
 
+  int leaveCount = 0;
+  AppwriteRoom? lastLeft;
+
+  @override
+  Future<void> leave(AppwriteRoom room) async {
+    leaveCount++;
+    lastLeft = room;
+  }
+
   @override
   Future<AppwriteRoom?> findRoomById(String roomId) async {
     lastFoundId = roomId;
@@ -127,7 +130,7 @@ class FakeRoomLauncher implements RoomLauncher {
   }
 
   @override
-  Future<AppwriteRoom> joinRoom(AppwriteRoom room) async {
+  Future<AppwriteRoom> enterRoom(AppwriteRoom room) async {
     joinCount++;
     lastJoined = room;
     if (joinThrows) throw Exception('join failed');
@@ -135,7 +138,7 @@ class FakeRoomLauncher implements RoomLauncher {
   }
 
   @override
-  Future<AppwriteRoom> createAndJoinLiveRoom({
+  Future<AppwriteRoom> createAndEnterLiveRoom({
     required String name,
     required String description,
     required List<String> tags,

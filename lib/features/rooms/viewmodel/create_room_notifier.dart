@@ -2,7 +2,6 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
-import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,14 +19,12 @@ class CreateRoomNotifier extends _$CreateRoomNotifier {
   }) async {
     state = true;
     try {
-      return await ref.read(roomLauncherProvider).createAndJoinLiveRoom(
+      return await ref.read(roomLauncherProvider).createAndEnterLiveRoom(
             name: name,
             description: description,
             tags: tags,
           );
     } finally {
-      // Refresh the global rooms list after any attempt.
-      ref.invalidate(liveRoomsProvider);
       state = false;
     }
   }

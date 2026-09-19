@@ -1,4 +1,5 @@
 import 'package:appwrite/models.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
@@ -38,6 +39,7 @@ void main() {
   late MockFunctions functions;
 
   setUp(() {
+    stubFlutterSecureStorageChannel();
     tables = MockTablesDB();
     realtime = MockRealtime();
     functions = MockFunctions();
@@ -47,6 +49,11 @@ void main() {
       tableId: participantsTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
+    when(tables.deleteRow(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      rowId: anyNamed('rowId'),
+    )).thenAnswer((_) async => '');
   });
 
   // The live-rooms cache now lives in the data layer as a plain list (search is
@@ -96,7 +103,83 @@ void main() {
     });
   });
 
-  group('RoomLauncher.joinRoom', () {
+  // The room page pops before its teardown finishes, so the list has to be
+  // corrected in the cache or it shows the room the user just left.
+  group('LiveRooms optimistic removal', () {
+    Future<ProviderContainer> containerWith(List<Row> rows) async {
+      when(tables.listRows(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+      )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
+      await container.read(liveRoomsProvider.future);
+      return container;
+    }
+
+    List<String> idsIn(ProviderContainer container) => [
+      for (final room in container.read(liveRoomsProvider).value!) room.id,
+    ];
+
+    test('removeLocally drops just that room', () async {
+      final container = await containerWith([
+        _roomRow(id: 'r1'),
+        _roomRow(id: 'r2'),
+      ]);
+
+      container.read(liveRoomsProvider.notifier).removeLocally('r1');
+
+      expect(idsIn(container), ['r2']);
+    });
+
+    test('the host leaving drops the room before it awaits anything', () async {
+      final container = await containerWith([
+        _roomRow(id: 'r1'),
+        _roomRow(id: 'r2'),
+      ]);
+
+      // Deliberately not awaited: the page pops on the next frame, so the list
+      // has to be right synchronously, not once the teardown finishes.
+      final pending = container
+          .read(roomLauncherProvider)
+          .leave(fakeAppwriteRoom(id: 'r1', isUserAdmin: true));
+
+      expect(idsIn(container), ['r2']);
+      await pending;
+      // The host leaving is what ends the room.
+      verify(tables.deleteRow(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+        rowId: 'r1',
+      )).called(1);
+    });
+
+    // A room outlives anyone but its host, so it stays listed; the refresh at
+    // the end of leave picks up the new participant count.
+    test('a listener leaving keeps the room in the list', () async {
+      final container = await containerWith([
+        _roomRow(id: 'r1', totalParticipants: 3),
+        _roomRow(id: 'r2'),
+      ]);
+
+      await container
+          .read(roomLauncherProvider)
+          .leave(fakeAppwriteRoom(id: 'r1', isUserAdmin: false));
+
+      expect(idsIn(container), ['r1', 'r2']);
+      verifyNever(tables.deleteRow(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+        rowId: 'r1',
+      ));
+    });
+  });
+
+  group('RoomLauncher.enterRoom', () {
     test('returns room with myDocId populated', () async {
       when(tables.deleteRow(
         databaseId: anyNamed('databaseId'),
@@ -142,7 +225,7 @@ void main() {
 
       final joined = await container
           .read(roomLauncherProvider)
-          .joinRoom(fakeAppwriteRoom(id: 'r1', isUserAdmin: false));
+          .enterRoom(fakeAppwriteRoom(id: 'r1', isUserAdmin: false));
 
       expect(joined.myDocId, 'doc-mine');
     });
@@ -163,7 +246,7 @@ void main() {
       expect(
         () => container
             .read(roomLauncherProvider)
-            .joinRoom(fakeAppwriteRoom(id: 'r1')),
+            .enterRoom(fakeAppwriteRoom(id: 'r1')),
         throwsA(isA<Exception>()),
       );
     });

@@ -10,7 +10,9 @@ class Settings extends _$Settings {
   void build() {}
 
   Future<void> logout() async {
-    await ref.read(myActivityStatusProvider.notifier).goOffline();
-    await ref.read(authRepositoryProvider).logout();
+    final activityStatus = ref.read(myActivityStatusProvider.notifier);
+    final authRepository = ref.read(authRepositoryProvider);
+    await activityStatus.goOffline();
+    await authRepository.logout();
   }
 }

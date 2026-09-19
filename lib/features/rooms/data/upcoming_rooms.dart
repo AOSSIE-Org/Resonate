@@ -97,7 +97,7 @@ class UpcomingRoomsNotifier extends _$UpcomingRoomsNotifier {
     required String description,
     required List<String> tags,
   }) async {
-    await ref.read(roomLauncherProvider).createAndJoinLiveRoom(
+    await ref.read(roomLauncherProvider).createAndEnterLiveRoom(
           name: name,
           description: description,
           tags: tags,

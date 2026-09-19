@@ -106,9 +106,12 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     setState(() {
       _scheduledDateTimeIso = null;
     });
+    // clearTags() hands focus to the tag field
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   Future<AppwriteRoom?> submit() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (!(_formKey.currentState?.validate() ?? false)) return null;
 
     final name = _nameController.text;
