@@ -289,4 +289,36 @@ void main() {
       expect(find.text('Alice Wonderland Smith'), findsNothing);
     });
   });
+
+  group('role menu', () {
+    testAppWidget('fits a narrow screen with a large font setting', (
+      tester,
+    ) async {
+      final participant = fakeParticipant(uid: 'other', name: 'Alice');
+
+      // 240dp wide with the system font turned up: the menu's rows are a fixed
+      // height and sit next to a trailing icon, so a long action label used to
+      // run off the right edge.
+      tester.view.physicalSize = const Size(720, 1600);
+      tester.view.devicePixelRatio = 3.0;
+      tester.platformDispatcher.textScaleFactorTestValue = 1.6;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+      await pumpTestApp(
+        tester,
+        Center(child: ParticipantBlock(room: room, participant: participant)),
+        overrides: _overrides(room, state: stateWith(participant)),
+      );
+      await tester.pumpAndSettle();
+
+      // An admin opens the role menu with a tap.
+      await tester.tap(find.byType(ParticipantBlock));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Kick Out'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  });
 }

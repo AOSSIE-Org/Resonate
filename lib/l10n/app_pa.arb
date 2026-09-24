@@ -1324,18 +1324,6 @@
   "@resonateOpenSourceProject": {
     "description": "Message that Resonate is open source project."
   },
-  "mute": "ਮਿਊਟ",
-  "@mute": {
-    "description": "Button text to mute."
-  },
-  "speakerLabel": "ਸਪੀਕਰ",
-  "@speakerLabel": {
-    "description": "Label for speaker."
-  },
-  "audioOptions": "ਆਡੀਓ ਵਿਕਲਪ",
-  "@audioOptions": {
-    "description": "Label for the audio options/settings button."
-  },
   "end": "ਅੰਤ",
   "@end": {
     "description": "Label for end."

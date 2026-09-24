@@ -1594,6 +1594,12 @@ abstract class AppLocalizations {
   /// **'Join'**
   String get join;
 
+  /// Button on a live room the user is already inside, minimised to the miniplayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get returnToRoom;
+
   /// Error message prefix for an invalid tag.
   ///
   /// In en, this message translates to:
@@ -1959,24 +1965,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.'**
   String get resonateOpenSourceProject;
-
-  /// Button text to mute the microphone.
-  ///
-  /// In en, this message translates to:
-  /// **'Mute'**
-  String get mute;
-
-  /// Label for the speakerphone toggle.
-  ///
-  /// In en, this message translates to:
-  /// **'Speaker'**
-  String get speakerLabel;
-
-  /// Label for the audio options/settings button.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Options'**
-  String get audioOptions;
 
   /// Button text to end a call or session.
   ///

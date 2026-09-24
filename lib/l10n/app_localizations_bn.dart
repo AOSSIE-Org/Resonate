@@ -800,6 +800,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get join => 'যোগ দিন';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'অবৈধ ট্যাগ:';
 
   @override
@@ -1012,15 +1015,6 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'Resonate হল AOSSIE দ্বারা পরিচালিত একটি ওপেন সোর্স প্রকল্প। অবদান রাখতে আমাদের github দেখুন।';
-
-  @override
-  String get mute => 'মিউট';
-
-  @override
-  String get speakerLabel => 'স্পিকার';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'শেষ করুন';

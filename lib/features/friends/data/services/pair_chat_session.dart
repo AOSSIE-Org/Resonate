@@ -5,6 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
+import 'package:resonate/features/profile/data/user_avatars.dart';
 import 'package:resonate/utils/realtime_event.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -224,7 +225,9 @@ class PairChat extends _$PairChat {
     }
     final pairUsername =
         (amUser1 ? payload['userName2'] : payload['userName1']) as String?;
-    final pairProfileImageUrl = await repo.getUserProfileImageUrl(partnerUid);
+    final pairProfileImageUrl = await ref.read(
+      userAvatarUrlProvider(partnerUid).future,
+    );
     if (_activePairSub == null) return;
 
     final activePairDocId = payload['\$id'] as String;

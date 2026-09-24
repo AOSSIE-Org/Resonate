@@ -21,6 +21,13 @@ class LiveRooms extends _$LiveRooms {
     });
   }
 
+  void addLocally(AppwriteRoom room) {
+    final rooms = state.value;
+    if (rooms == null) return;
+    if (rooms.any((existing) => existing.id == room.id)) return;
+    state = AsyncData([room, ...rooms]);
+  }
+
   // Drops a room from the cache
   void removeLocally(String roomId) {
     final rooms = state.value;

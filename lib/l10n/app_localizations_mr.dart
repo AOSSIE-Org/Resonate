@@ -797,6 +797,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get join => 'सामील व्हा';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'अवैध टॅग:';
 
   @override
@@ -1007,15 +1010,6 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा GitHub पहा.';
-
-  @override
-  String get mute => 'मौन करा';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'ऑडिओ पर्याय';
 
   @override
   String get end => 'समाप्त करा';

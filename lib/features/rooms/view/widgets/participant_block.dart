@@ -50,7 +50,14 @@ class ParticipantBlock extends ConsumerWidget {
     return items
         .map(
           (item) => FocusedMenuItem(
-            title: Text(item.text, style: TextStyle(fontSize: UiSizes.size_14)),
+            title: Expanded(
+              child: Text(
+                item.text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: UiSizes.size_14),
+              ),
+            ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
               color: colorScheme.error,
@@ -181,8 +188,8 @@ class ParticipantBlock extends ConsumerWidget {
 
     return FocusedMenuHolder(
       onPressed: () {},
-      menuItemExtent: UiSizes.width_45,
-      menuWidth: UiSizes.width_200 * 1.05,
+      menuItemExtent: MediaQuery.textScalerOf(context).scale(UiSizes.height_45),
+      menuWidth: MediaQuery.sizeOf(context).width * 0.62,
       menuBoxDecoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(5.0),

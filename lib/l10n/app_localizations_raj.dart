@@ -789,6 +789,9 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get join => 'जूड़जो';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'अमान्य टैग:';
 
   @override
@@ -998,15 +1001,6 @@ class AppLocalizationsRaj extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'Resonate एक ओपन सोर्स प्रोजेक्ट है जे AOSSIE नै बनाए राख्यो है। योगदान करवा खातर अमारो GitHub देखो।';
-
-  @override
-  String get mute => 'म्यूट करो';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'समाप्त करो';

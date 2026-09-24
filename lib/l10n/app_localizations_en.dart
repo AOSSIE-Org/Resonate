@@ -793,6 +793,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get join => 'Join';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'Invalid Tag:';
 
   @override
@@ -1003,15 +1006,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.';
-
-  @override
-  String get mute => 'Mute';
-
-  @override
-  String get speakerLabel => 'Speaker';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'End';

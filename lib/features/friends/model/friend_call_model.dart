@@ -23,3 +23,22 @@ abstract class FriendCallModel with _$FriendCallModel {
   factory FriendCallModel.fromJson(Map<String, dynamic> json) =>
       _$FriendCallModelFromJson(json);
 }
+typedef CallSide = ({String uid, String name, String imageUrl});
+
+extension FriendCallSides on FriendCallModel {
+  ({CallSide local, CallSide remote}) sidesFor(String? myUid) {
+    final caller = (
+      uid: callerUid,
+      name: callerName,
+      imageUrl: callerProfileImageUrl,
+    );
+    final reciever = (
+      uid: recieverUid,
+      name: recieverName,
+      imageUrl: recieverProfileImageUrl,
+    );
+    return myUid == recieverUid
+        ? (local: reciever, remote: caller)
+        : (local: caller, remote: reciever);
+  }
+}

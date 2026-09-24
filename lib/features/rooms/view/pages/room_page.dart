@@ -11,15 +11,49 @@ import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
+import 'package:resonate/features/miniplayer/data/session_presented.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class RoomPage extends ConsumerWidget {
-  const RoomPage({super.key, required this.room});
+class RoomPage extends ConsumerStatefulWidget {
+  const RoomPage({
+    super.key,
+    required this.room,
+    this.confirmLeaveOnOpen = false,
+  });
 
   final AppwriteRoom room;
+
+  final bool confirmLeaveOnOpen;
+
+  @override
+  ConsumerState<RoomPage> createState() => _RoomPageState();
+}
+
+class _RoomPageState extends ConsumerState<RoomPage> {
+  AppwriteRoom get room => widget.room;
+
+  late final SessionPresented _presence;
+
+  @override
+  void initState() {
+    super.initState();
+    _presence = ref.read(sessionPresentedProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      // While this sheet is up the miniplayer stands down.
+      _presence.enter();
+      if (widget.confirmLeaveOnOpen) _confirmAndLeave();
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _presence.exit());
+    super.dispose();
+  }
 
   Future<bool> _confirmLeaveOrDelete(
     BuildContext context,
@@ -45,7 +79,7 @@ class RoomPage extends ConsumerWidget {
     return result ?? false;
   }
 
-  Future<void> _confirmAndLeave(BuildContext context, WidgetRef ref) async {
+  Future<void> _confirmAndLeave() async {
     final actionLabel = room.isUserAdmin
         ? AppLocalizations.of(context)!.delete
         : AppLocalizations.of(context)!.leave;
@@ -57,7 +91,7 @@ class RoomPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // If an admin kicks
     ref.listen(roomSessionProvider(room), (_, next) {
       if (next.value?.wasKicked ?? false) {
@@ -95,15 +129,12 @@ class RoomPage extends ConsumerWidget {
                   size: MediaQuery.of(context).devicePixelRatio * 20,
                 ),
               ),
-              error: (e, _) => _RoomBody(
-                room: room,
-                state: null,
-                onLeave: () => _confirmAndLeave(context, ref),
-              ),
+              error: (e, _) =>
+                  _RoomBody(room: room, state: null, onLeave: _confirmAndLeave),
               data: (state) => _RoomBody(
                 room: room,
                 state: state,
-                onLeave: () => _confirmAndLeave(context, ref),
+                onLeave: _confirmAndLeave,
               ),
             ),
           ),
@@ -177,6 +208,8 @@ class _ParticipantGrid extends StatelessWidget {
     if (participants.isEmpty) {
       return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
+    final textScale = MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 3.0);
+
     return SliverPadding(
       padding: _RoomBody.sectionPadding,
       sliver: SliverGrid.builder(
@@ -184,7 +217,7 @@ class _ParticipantGrid extends StatelessWidget {
           crossAxisCount: 3,
           crossAxisSpacing: UiSizes.width_8,
           mainAxisSpacing: UiSizes.height_8,
-          childAspectRatio: 0.79,
+          childAspectRatio: 0.79 / textScale,
         ),
         itemCount: participants.length,
         itemBuilder: (_, index) =>
@@ -374,10 +407,14 @@ class _Footer extends ConsumerWidget {
   }
 }
 
-Future<void> openRoomSheet(BuildContext context, AppwriteRoom room) {
+Future<void> openRoomSheet(
+  BuildContext context,
+  AppwriteRoom room, {
+  bool confirmLeave = false,
+}) {
   return showModalBottomSheet(
     context: context,
-    builder: (_) => RoomPage(room: room),
+    builder: (_) => RoomPage(room: room, confirmLeaveOnOpen: confirmLeave),
     useSafeArea: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(50)),

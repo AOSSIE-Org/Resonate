@@ -138,20 +138,6 @@ class PairChatRepository {
     }
   }
 
-  Future<String?> getUserProfileImageUrl(String uid) async {
-    try {
-      final userDoc = await _tables.getRow(
-        databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: uid,
-      );
-      return userDoc.data['profileImageUrl'] as String?;
-    } catch (_) {
-      // Missing user rows shouldn't kill a match.
-      return null;
-    }
-  }
-
   Future<void> updateUserRating({
     required String uid,
     required double ratingTotal,

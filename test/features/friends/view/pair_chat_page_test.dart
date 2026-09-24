@@ -114,7 +114,7 @@ void main() {
         buildOverrides(state: const PairChatState(), fake: fake),
       );
 
-      await tester.tap(find.byIcon(Icons.cancel_outlined));
+      await tester.tap(find.byIcon(Icons.call_end));
       await tester.pump();
       expect(fake.endChatCount, greaterThanOrEqualTo(1));
       await _disposePage(tester);

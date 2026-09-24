@@ -1317,14 +1317,6 @@
     "@resonateOpenSourceProject": {
         "description": "Informational text about the open-source nature of the project."
     },
-    "mute": "মিউট",
-    "@mute": {
-        "description": "Button text to mute the microphone."
-    },
-    "speakerLabel": "স্পিকার",
-    "@speakerLabel": {
-        "description": "Label for the speakerphone toggle."
-    },
     "end": "শেষ করুন",
     "@end": {
         "description": "Button text to end a call or session."

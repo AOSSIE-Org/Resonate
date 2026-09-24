@@ -1316,18 +1316,6 @@
     "@resonateOpenSourceProject": {
         "description": "Informational text about the open-source nature of the project."
     },
-    "mute": "മ്യൂട്ട്",
-    "@mute": {
-        "description": "Button text to mute the microphone."
-    },
-    "speakerLabel": "സ്പീക്കർ",
-    "@speakerLabel": {
-        "description": "Label for the speakerphone toggle."
-    },
-    "audioOptions": "ഓഡിയോ ഓപ്ഷനുകൾ",
-    "@audioOptions": {
-        "description": "Label for the audio options/settings button."
-    },
     "end": "അവസാനിപ്പിക്കുക",
     "@end": {
         "description": "Button text to end a call or session."

@@ -805,6 +805,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get join => 'ചേരുക';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'അസാധുവായ ടാഗ്:';
 
   @override
@@ -1017,15 +1020,6 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'AOSSIE പരിപാലിക്കുന്ന ഒരു ഓപ്പൺ സോഴ്‌സ് പ്രോജക്റ്റാണ് റെസൊണേറ്റ്. സംഭാവന ചെയ്യാൻ ഞങ്ങളുടെ ഗിത്തബ് പരിശോധിക്കുക.';
-
-  @override
-  String get mute => 'മ്യൂട്ട്';
-
-  @override
-  String get speakerLabel => 'സ്പീക്കർ';
-
-  @override
-  String get audioOptions => 'ഓഡിയോ ഓപ്ഷനുകൾ';
 
   @override
   String get end => 'അവസാനിപ്പിക്കുക';

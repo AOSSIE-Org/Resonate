@@ -797,6 +797,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get join => 'ಸೇರಿ';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'ಅಮಾನ್ಯ ಟ್ಯಾಗ್:';
 
   @override
@@ -1009,15 +1012,6 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'ರೆಸೋನೇಟ್ AOSSIE ನಿರ್ವಹಿಸುವ ಓಪನ್ ಸೋರ್ಸ್ ಪ್ರಾಜೆಕ್ಟ್ ಆಗಿದೆ.ನಿಮ್ಮ ಕೊಡುಗೆ ನೀಡಲು ನಮ್ಮ github ನೋಡಿ.';
-
-  @override
-  String get mute => 'ಮ್ಯೂಟ್';
-
-  @override
-  String get speakerLabel => 'ಮಾತನಾಡುವವರು';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'ಮುಗಿಸಿ';

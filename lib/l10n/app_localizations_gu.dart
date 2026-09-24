@@ -793,6 +793,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get join => 'જોડાવો';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'અમાન્ય ટૅગ:';
 
   @override
@@ -1004,15 +1007,6 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'રેઝોનેટ એ AOSSIE દ્વારા જાળવવામાં આવતો ઓપન સોર્સ પ્રોજેક્ટ છે. યોગદાન આપવા માટે અમારો ગિટહબ જુઓ.';
-
-  @override
-  String get mute => 'મ્યૂટ કરો';
-
-  @override
-  String get speakerLabel => 'સ્પીકર';
-
-  @override
-  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'સમાપ્ત';

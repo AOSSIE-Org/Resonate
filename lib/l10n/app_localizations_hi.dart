@@ -795,6 +795,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get join => 'शामिल हों';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'अमान्य टैग:';
 
   @override
@@ -1007,15 +1010,6 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get resonateOpenSourceProject =>
       'रेज़ोनेट एक ओपन-सोर्स प्रोजेक्ट है जिसे AOSSIE बनाए रखता है। योगदान देने के लिए हमारा GitHub देखें।';
-
-  @override
-  String get mute => 'म्यूट करें';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'ऑडियो विकल्प';
 
   @override
   String get end => 'समाप्त करें';

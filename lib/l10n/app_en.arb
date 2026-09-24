@@ -1028,6 +1028,10 @@
     "@join": {
         "description": "Generic button text to join an activity or group."
     },
+    "returnToRoom": "Return",
+    "@returnToRoom": {
+        "description": "Button on a live room the user is already inside, minimised to the miniplayer."
+    },
     "invalidTags": "Invalid Tag:",
     "@invalidTags": {
         "description": "Error message prefix for an invalid tag."
@@ -1335,18 +1339,6 @@
     "resonateOpenSourceProject": "Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.",
     "@resonateOpenSourceProject": {
         "description": "Informational text about the open-source nature of the project."
-    },
-    "mute": "Mute",
-    "@mute": {
-        "description": "Button text to mute the microphone."
-    },
-    "speakerLabel": "Speaker",
-    "@speakerLabel": {
-        "description": "Label for the speakerphone toggle."
-    },
-    "audioOptions": "Audio Options",
-    "@audioOptions": {
-        "description": "Label for the audio options/settings button."
     },
     "end": "End",
     "@end": {

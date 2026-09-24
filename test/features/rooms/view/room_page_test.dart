@@ -131,8 +131,40 @@ void main() {
       expect(blocks.first.featured, isTrue);
       expect(blocks.last.featured, isFalse);
       expect(find.text('No participants yet'), findsNothing);
-      // ParticipantBlock's tight cell can overflow by a couple px; ignore it.
-      tester.takeException();
+    });
+
+    testAppWidget('the grid survives a large font setting', (tester) async {
+      final room = fakeAppwriteRoom();
+      final participants = [
+        fakeParticipant(uid: 'me', isAdmin: true, isModerator: true, isSpeaker: true),
+        fakeParticipant(uid: 'a', name: 'Alice', isModerator: true, isSpeaker: true),
+        fakeParticipant(uid: 'b', name: 'Bob', isSpeaker: true),
+        fakeParticipant(uid: 'c', name: 'Carol'),
+      ];
+
+      // A narrow phone with the system font turned up: the tile's height comes
+      // from its width, so the name and role under the avatar used to spill out
+      // of the cell.
+      tester.view.physicalSize = const Size(720, 1600);
+      tester.view.devicePixelRatio = 3.0;
+      tester.platformDispatcher.textScaleFactorTestValue = 1.6;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+      await pumpTestApp(
+        tester,
+        RoomPage(room: room),
+        overrides: roomOverrides(
+          room: room,
+          fake: () => FakeRoomSession(
+            stateWith(participants.first, participants: participants),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
     });
   });
 

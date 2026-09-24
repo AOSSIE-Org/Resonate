@@ -49,6 +49,7 @@ Future<void> pumpTestApp(
     ProviderScope(
       // Parameters rather than extra entries: Riverpod asserts on a double override.
       overrides: [
+        ...avatarOverrides(),
         ...achievementOverrides(
           myStats: myStats,
           otherStats: otherStats,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
@@ -6,7 +7,9 @@ import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/view/pages/room_page.dart';
 
 import '../rooms_test_helpers.dart';
 
@@ -120,6 +123,49 @@ void main() {
 
       expect(launcher.joinCount, 1);
       expect(liveRooms.refreshCount, 1);
+    });
+
+    testAppWidget('a room we are already inside offers Return, not Join', (
+      tester,
+    ) async {
+      final launcher = FakeRoomLauncher();
+      final room = fakeAppwriteRoom(id: 'r1');
+      await pumpTestApp(
+        tester,
+        CustomLiveRoomTile(appwriteRoom: room),
+        overrides: buildOverrides(launcher: launcher),
+      );
+      // The miniplayer holds this room open behind the list.
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(CustomLiveRoomTile)),
+      );
+      container.read(activeRoomProvider.notifier).enter(room);
+      await tester.pump();
+
+      expect(find.widgetWithText(ElevatedButton, 'Join'), findsNothing);
+      await tester.tap(find.widgetWithText(ElevatedButton, 'Return'));
+      await tester.pumpAndSettle();
+
+      expect(launcher.joinCount, 0);
+      expect(find.byType(RoomPage), findsOneWidget);
+    });
+
+    testAppWidget('a different live room still offers Join', (tester) async {
+      final launcher = FakeRoomLauncher();
+      await pumpTestApp(
+        tester,
+        CustomLiveRoomTile(appwriteRoom: fakeAppwriteRoom(id: 'r2')),
+        overrides: buildOverrides(launcher: launcher),
+      );
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(CustomLiveRoomTile)),
+      );
+      container
+          .read(activeRoomProvider.notifier)
+          .enter(fakeAppwriteRoom(id: 'r1'));
+      await tester.pump();
+
+      expect(find.widgetWithText(ElevatedButton, 'Join'), findsOneWidget);
     });
 
     testAppWidget('tapping the share button does not throw', (tester) async {

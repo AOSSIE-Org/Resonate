@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -53,6 +54,9 @@ class CustomLiveRoomTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final activeRoom = ref.watch(activeRoomProvider);
+    final alreadyInside = activeRoom?.id == appwriteRoom.id;
+
     final memberAvatars = appwriteRoom.memberAvatarUrls.length > 3
         ? appwriteRoom.memberAvatarUrls.sublist(0, 3)
         : appwriteRoom.memberAvatarUrls;
@@ -134,59 +138,71 @@ class CustomLiveRoomTile extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      width: UiSizes.width_123_4,
-                      height: UiSizes.height_50,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: memberAvatars
-                            .asMap()
-                            .entries
-                            .map(
-                              (entry) => Positioned(
-                                left: 28.0 * entry.key,
-                                child: CustomCircleAvatar(
-                                  height: UiSizes.size_40,
-                                  width: UiSizes.size_40,
-                                  userImage: entry.value,
+                Flexible(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: UiSizes.width_123_4,
+                        height: UiSizes.height_50,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: memberAvatars
+                              .asMap()
+                              .entries
+                              .map(
+                                (entry) => Positioned(
+                                  left: 28.0 * entry.key,
+                                  child: CustomCircleAvatar(
+                                    height: UiSizes.size_40,
+                                    width: UiSizes.size_40,
+                                    userImage: entry.value,
+                                  ),
                                 ),
-                              ),
-                            )
-                            .toList(),
+                              )
+                              .toList(),
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.people_outline,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: UiSizes.size_20,
-                        ),
-                        SizedBox(width: UiSizes.width_4),
-                        Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.participantsCount(appwriteRoom.totalParticipants),
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontSize: UiSizes.size_14,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.people_outline,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: UiSizes.size_20,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          SizedBox(width: UiSizes.width_4),
+                          Flexible(
+                            child: Text(
+                              AppLocalizations.of(context)!.participantsCount(
+                                appwriteRoom.totalParticipants,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: UiSizes.size_14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _join(context, ref),
+                  onPressed: () => alreadyInside
+                      ? openRoomSheet(context, activeRoom!)
+                      : _join(context, ref),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  child: Text(AppLocalizations.of(context)!.join),
+                  child: Text(
+                    alreadyInside
+                        ? AppLocalizations.of(context)!.returnToRoom
+                        : AppLocalizations.of(context)!.join,
+                  ),
                 ),
               ],
             ),

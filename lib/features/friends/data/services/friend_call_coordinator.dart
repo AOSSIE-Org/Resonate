@@ -26,6 +26,7 @@ part 'generated/friend_call_coordinator.g.dart';
 @Riverpod(keepAlive: true)
 class FriendCallCoordinator extends _$FriendCallCoordinator {
   StreamSubscription<RealtimeMessage>? _callSub;
+  bool _showingRinging = false;
 
   @override
   FriendCallState build() {
@@ -88,6 +89,7 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
     _listenToCall(call.docId);
 
     ref.read(routerProvider).push(RoutePaths.ringingScreen);
+    _showingRinging = true;
   }
 
   // CallKit accept callback receiver side.
@@ -181,7 +183,13 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
       }
       if (!connected) throw Exception('LiveKit connection failed');
 
-      ref.read(routerProvider).push(RoutePaths.friendCallScreen);
+      final router = ref.read(routerProvider);
+      if (_showingRinging) {
+        _showingRinging = false;
+        router.pushReplacement(RoutePaths.friendCallScreen);
+      } else {
+        router.push(RoutePaths.friendCallScreen);
+      }
     } catch (e) {
       log('Joining call failed: $e');
       _notifyConnectionFailed();
@@ -246,6 +254,7 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
   }
 
   Future<void> _teardownCall() async {
+    _showingRinging = false;
     await _cancelSub();
     try {
       await ref.read(liveKitControllerProvider.notifier).disconnect();

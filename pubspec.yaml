@@ -82,6 +82,7 @@ dependencies:
   path_provider: ^2.1.5
   whisper_flutter_new: ^1.0.1
   ffmpeg_kit_flutter_new: ^4.1.0
+  simple_pip_mode: ^1.1.0
 
 dependency_overrides:
   flutter_web_auth_2: ^5.0.0-alpha.3

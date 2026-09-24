@@ -784,6 +784,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get join => 'ਸ਼ਾਮਲ ਹੋਵੋ';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'ਅਵੈਧ ਟੈਗ';
 
   @override
@@ -986,15 +989,6 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get resonateOpenSourceProject => 'ਰੇਜ਼ੋਨੇਟ ਖੁੱਲਾ ਸਰੋਤ ਪ੍ਰੋਜੈਕਟ ਹੈ';
-
-  @override
-  String get mute => 'ਮਿਊਟ';
-
-  @override
-  String get speakerLabel => 'ਸਪੀਕਰ';
-
-  @override
-  String get audioOptions => 'ਆਡੀਓ ਵਿਕਲਪ';
 
   @override
   String get end => 'ਅੰਤ';
