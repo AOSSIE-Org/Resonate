@@ -1160,6 +1160,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get followers => 'ಫಾಲ್ಲೋವರ್ಸ್';
 
   @override
+  String get stars => 'Stars';
+
+  @override
   String get friendRequests => 'ಸ್ನೇಹಿತರ ವಿನಂತಿಗಳು';
 
   @override
@@ -1320,6 +1323,12 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'ನಿಮ್ಮನ್ನು ವರದಿ ಮಾಡಲಾಗಿದೆ ಅಥವಾ ರೂಮ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

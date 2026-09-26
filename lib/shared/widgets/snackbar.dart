@@ -17,6 +17,8 @@ void _dismissToast() {
   _activeToast = null;
 }
 
+void dismissCustomSnackbar() => _dismissToast();
+
 void customSnackbar(
   String title,
   String message,

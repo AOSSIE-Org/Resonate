@@ -123,12 +123,10 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                           messageId: message.messageId,
                         );
                         if (!ok && context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                AppLocalizations.of(context)!.failedToResend,
-                              ),
-                            ),
+                          customSnackbar(
+                            AppLocalizations.of(context)!.error,
+                            AppLocalizations.of(context)!.failedToResend,
+                            LogType.error,
                           );
                         }
                       },
@@ -177,12 +175,10 @@ class _RoomChatPageState extends ConsumerState<RoomChatPage> {
                         messageId: message.messageId,
                       );
                       if (!ok && context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              AppLocalizations.of(context)!.failedToResend,
-                            ),
-                          ),
+                        customSnackbar(
+                          AppLocalizations.of(context)!.error,
+                          AppLocalizations.of(context)!.failedToResend,
+                          LogType.error,
                         );
                       }
                     },
@@ -588,10 +584,10 @@ class _ChatInputFieldState extends ConsumerState<ChatInputField> {
         .read(providerKey.notifier)
         .sendMessage(content: content);
     if (!ok && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.failedToSendTapRetry),
-        ),
+      customSnackbar(
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.failedToSendTapRetry,
+        LogType.error,
       );
     }
   }

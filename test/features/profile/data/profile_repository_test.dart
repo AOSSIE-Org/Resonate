@@ -47,7 +47,11 @@ final _userRowWithFollowers = Row(
   $permissions: const ['any'],
   $sequence: 0,
   data: {
+    'name': 'Test User 1',
     'username': 'testuser1',
+    'profileImageUrl': 'http://img/1',
+    'ratingTotal': 9,
+    'ratingCount': 2,
     'followers': [
       {
         'followerUserId': 'id2',
@@ -69,6 +73,17 @@ final _userRowWithFollowers = Row(
       },
     ],
   },
+);
+
+final _unratedUserRow = Row(
+  $id: 'fresh',
+  $tableId: usersTableID,
+  $databaseId: userDatabaseID,
+  $createdAt: DateTime(2024).toIso8601String(),
+  $updatedAt: DateTime(2024).toIso8601String(),
+  $permissions: const ['any'],
+  $sequence: 0,
+  data: const {'name': 'Fresh User'},
 );
 
 Row _genericRow() => Row(
@@ -170,6 +185,60 @@ void main() {
       ).thenThrow(AppwriteException('boom'));
 
       expect(await repo.fetchFollowers('id1'), isEmpty);
+    });
+  });
+
+  group('fetchProfileSummary', () {
+    test('reads the handle, rating and follower count from one row', () async {
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: [Query.select(['*', 'followers.*'])],
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.uid, 'id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.username, 'testuser1');
+      expect(summary.avatarUrl, 'http://img/1');
+      // 9 stars over 2 ratings.
+      expect(summary.rating, 4.5);
+      expect(summary.followerCount, 2);
+    });
+
+    test('reports an unrated user as 0 rather than dividing by zero', () async {
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: 'fresh',
+          queries: [Query.select(['*', 'followers.*'])],
+        ),
+      ).thenAnswer((_) async => _unratedUserRow);
+
+      final summary = await repo.fetchProfileSummary('fresh');
+      expect(summary.rating, 0);
+      expect(summary.followerCount, 0);
+      expect(summary.username, isEmpty);
+    });
+
+    test('lets the failure through so the caller can show it', () async {
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: [Query.select(['*', 'followers.*'])],
+        ),
+      ).thenThrow(AppwriteException('boom'));
+
+      expect(
+        () => repo.fetchProfileSummary('id1'),
+        throwsA(isA<AppwriteException>()),
+      );
     });
   });
 

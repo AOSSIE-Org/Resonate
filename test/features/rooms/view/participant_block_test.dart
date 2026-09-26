@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
+import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
@@ -11,6 +13,7 @@ import 'package:resonate/features/live_audio/data/speaking_levels.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/shared/widgets/audio_wave_ring.dart';
 
+import '../../profile/fake_profile_repository.dart';
 import '../rooms_test_helpers.dart';
 
 List<Override> _overrides(
@@ -290,15 +293,78 @@ void main() {
     });
   });
 
+  group('profile card', () {
+    // A listener: nobody they can moderate, so no role menu of their own.
+    final plainMe = fakeParticipant(uid: 'me');
+
+    testAppWidget('a long press opens the profile card', (tester) async {
+      final participant = fakeParticipant(uid: 'other', name: 'Alice');
+      await pumpTestApp(
+        tester,
+        ParticipantBlock(room: room, participant: participant),
+        overrides: [
+          ..._overrides(room, state: stateWith(participant, me: plainMe)),
+          profileRepositoryProvider.overrideWithValue(FakeProfileRepository()),
+        ],
+      );
+      await tester.pumpAndSettle();
+
+      await tester.longPress(find.byType(ParticipantBlock));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(UserProfileCard), findsOneWidget);
+    });
+
+    testAppWidget('the card wins the long press over the role menu', (
+      tester,
+    ) async {
+      final participant = fakeParticipant(uid: 'other', name: 'Alice');
+      // adminMe can moderate this participant, so the block also holds a menu.
+      await pumpTestApp(
+        tester,
+        ParticipantBlock(room: room, participant: participant),
+        overrides: [
+          ..._overrides(room, state: stateWith(participant)),
+          profileRepositoryProvider.overrideWithValue(FakeProfileRepository()),
+        ],
+      );
+      await tester.pumpAndSettle();
+
+      await tester.longPress(find.byType(ParticipantBlock));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(UserProfileCard), findsOneWidget);
+      expect(find.text('Kick Out'), findsNothing);
+    });
+
+    testAppWidget('a viewer with no menu is left with only the card', (
+      tester,
+    ) async {
+      final participant = fakeParticipant(uid: 'other', name: 'Alice');
+      await pumpTestApp(
+        tester,
+        ParticipantBlock(room: room, participant: participant),
+        overrides: [
+          ..._overrides(room, state: stateWith(participant, me: plainMe)),
+          profileRepositoryProvider.overrideWithValue(FakeProfileRepository()),
+        ],
+      );
+      await tester.pumpAndSettle();
+
+      // A tap used to open focused_menu with an empty item list.
+      await tester.tap(find.byType(ParticipantBlock));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(UserProfileCard), findsNothing);
+      expect(find.text('Kick Out'), findsNothing);
+    });
+  });
+
   group('role menu', () {
     testAppWidget('fits a narrow screen with a large font setting', (
       tester,
     ) async {
       final participant = fakeParticipant(uid: 'other', name: 'Alice');
-
-      // 240dp wide with the system font turned up: the menu's rows are a fixed
-      // height and sit next to a trailing icon, so a long action label used to
-      // run off the right edge.
       tester.view.physicalSize = const Size(720, 1600);
       tester.view.devicePixelRatio = 3.0;
       tester.platformDispatcher.textScaleFactorTestValue = 1.6;

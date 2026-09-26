@@ -296,6 +296,12 @@ class RoomsRepository {
     }
   }
 
+  Future<void> _deleteParticipantRow(String rowId) => _tables.deleteRow(
+    databaseId: masterDatabaseId,
+    tableId: participantsTableId,
+    rowId: rowId,
+  );
+
   Future<void> deleteRoom({required String roomId}) async {
     try {
       final token = await _secureStorage.read(key: 'createdRoomAdminToken');
@@ -315,13 +321,18 @@ class RoomsRepository {
             Query.equal('roomId', [roomId]),
           ],
         );
+        Row? adminRow;
+        for (final doc in participantDocs.rows) {
+          if ((doc.data['isAdmin'] as bool?) ?? false) {
+            adminRow = doc;
+            break;
+          }
+        }
+        if (adminRow != null) await _deleteParticipantRow(adminRow.$id);
+
         await Future.wait([
           for (final doc in participantDocs.rows)
-            _tables.deleteRow(
-              databaseId: masterDatabaseId,
-              tableId: participantsTableId,
-              rowId: doc.$id,
-            ),
+            if (doc.$id != adminRow?.$id) _deleteParticipantRow(doc.$id),
         ]);
       } catch (_) {}
       // Ensure the room doc is deleted even when the server call above failed

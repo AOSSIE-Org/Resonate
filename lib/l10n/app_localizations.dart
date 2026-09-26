@@ -2158,6 +2158,12 @@ abstract class AppLocalizations {
   /// **'Followers'**
   String get followers;
 
+  /// Label for a user's average star rating on their profile card.
+  ///
+  /// In en, this message translates to:
+  /// **'Stars'**
+  String get stars;
+
   /// Header for the list of incoming friend requests.
   ///
   /// In en, this message translates to:
@@ -2439,6 +2445,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have been reported or removed from the room'**
   String get removedFromRoom;
+
+  /// Title of the message shown when the host closes a room.
+  ///
+  /// In en, this message translates to:
+  /// **'Room ended'**
+  String get roomEnded;
+
+  /// Message shown to participants when the host closes the room they were in.
+  ///
+  /// In en, this message translates to:
+  /// **'This room has ended'**
+  String get roomEndedMessage;
 
   /// Selects the appropriate report type label based on a key.
   ///

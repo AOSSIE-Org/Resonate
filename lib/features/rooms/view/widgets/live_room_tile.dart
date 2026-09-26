@@ -7,6 +7,8 @@ import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -44,8 +46,10 @@ class CustomLiveRoomTile extends ConsumerWidget {
       closeDialog();
       await ref.read(liveRoomsProvider.notifier).refresh();
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.error)),
+        customSnackbar(
+          AppLocalizations.of(context)!.connectionFailed,
+          AppLocalizations.of(context)!.unableToJoinRoom,
+          LogType.error,
         );
       }
     }

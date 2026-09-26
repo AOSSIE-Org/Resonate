@@ -142,9 +142,6 @@ void main() {
         fakeParticipant(uid: 'c', name: 'Carol'),
       ];
 
-      // A narrow phone with the system font turned up: the tile's height comes
-      // from its width, so the name and role under the avatar used to spill out
-      // of the cell.
       tester.view.physicalSize = const Size(720, 1600);
       tester.view.devicePixelRatio = 3.0;
       tester.platformDispatcher.textScaleFactorTestValue = 1.6;
@@ -424,22 +421,26 @@ void main() {
     });
   });
 
-  group('wasKicked listener', () {
-    testAppWidget('shows removed snackbar and pops', (tester) async {
-      final room = fakeAppwriteRoom();
-      final me = fakeParticipant(uid: 'me');
-      // Controllable notifier so we can flip wasKicked after first frame.
+  group('departure listener', () {
+    final room = fakeAppwriteRoom();
+    final me = fakeParticipant(uid: 'me');
+
+    // Opens the room on a route that can be popped, with the real root
+    // navigator attached so customSnackbar's overlay has somewhere to go.
+    Future<RoomSession> openRoom(WidgetTester tester) async {
       tester.view.physicalSize = const Size(1080, 2340);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
       await tester.pumpWidget(
         ProviderScope(
+          // Controllable notifier so we can flip the flags after first frame.
           overrides: roomOverrides(
             room: room,
             fake: () => FakeRoomSession(stateWith(me)),
           ),
           child: testApp(
+            rootOverlay: true,
             Navigator(
               onGenerateRoute: (_) => MaterialPageRoute<void>(
                 builder: (context) => ElevatedButton(
@@ -459,11 +460,21 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byIcon(Icons.call_end), findsOneWidget);
 
-      // Emit a kicked state; ref.listen should fire.
       final container = ProviderScope.containerOf(
         tester.element(find.byType(RoomPage)),
       );
-      final notifier = container.read(roomSessionProvider(room).notifier);
+      return container.read(roomSessionProvider(room).notifier);
+    }
+
+    // Lets the toast time out so no timer outlives the test, then settles.
+    Future<void> settle(WidgetTester tester) async {
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pumpAndSettle();
+    }
+
+    testAppWidget('shows removed snackbar and pops', (tester) async {
+      final notifier = await openRoom(tester);
+
       notifier.state = AsyncData(stateWith(me).copyWith(wasKicked: true));
       await tester.pump();
 
@@ -471,8 +482,23 @@ void main() {
         find.text('You have been reported or removed from the room'),
         findsWidgets,
       );
-      await tester.pumpAndSettle();
+      await settle(tester);
       // Popped back to launcher.
+      expect(find.byIcon(Icons.call_end), findsNothing);
+    });
+
+    testAppWidget('shows the room ended snackbar and pops', (tester) async {
+      final notifier = await openRoom(tester);
+
+      notifier.state = AsyncData(stateWith(me).copyWith(roomEnded: true));
+      await tester.pump();
+
+      expect(find.text('This room has ended'), findsWidgets);
+      expect(
+        find.text('You have been reported or removed from the room'),
+        findsNothing,
+      );
+      await settle(tester);
       expect(find.byIcon(Icons.call_end), findsNothing);
     });
   });

@@ -7,14 +7,18 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/achievements/model/achievement_badge.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import 'test_root_container.dart';
 
 export 'package:flutter_riverpod/misc.dart' show Override;
 
-Widget testApp(Widget child) {
+// `rootOverlay` attaches the real root navigator key, which is where
+// customSnackbar inserts its toast — without it the toast silently no-ops.
+Widget testApp(Widget child, {bool rootOverlay = false}) {
   return MaterialApp(
+    navigatorKey: rootOverlay ? rootNavigatorKey : null,
     localizationsDelegates: const [
       AppLocalizations.delegate,
       GlobalMaterialLocalizations.delegate,
@@ -40,6 +44,7 @@ Future<void> pumpTestApp(
   List<AchievementBadge> catalogue = kDefaultBadges,
   FakeActivityRecorder? activityRecorder,
   FakeMyStats? myStatsNotifier,
+  bool rootOverlay = false,
 }) async {
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
@@ -59,7 +64,7 @@ Future<void> pumpTestApp(
         ),
         ...overrides,
       ],
-      child: testApp(child),
+      child: testApp(child, rootOverlay: rootOverlay),
     ),
   );
 }

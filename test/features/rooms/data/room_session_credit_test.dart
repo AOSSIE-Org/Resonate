@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/utils/constants.dart';
 
@@ -167,6 +169,87 @@ void main() {
     await flushStreams();
 
     expect(recorder.roomCredits, [_roomId]);
+  });
+
+  group('my own row being deleted', () {
+    // AppwriteRoom is freezed, so an identical room is the same family key.
+    final room = fakeAppwriteRoom(id: _roomId, isUserAdmin: false);
+
+    Future<void> deleteRow(Row row) async {
+      participantEvents.add(
+        RealtimeMessage(
+          events: ['$_participantChannel.${row.$id}.delete'],
+          payload: flatPayload(row),
+          channels: const [_participantChannel],
+          timestamp: '',
+        ),
+      );
+      await flushStreams();
+    }
+
+    Future<void> deleteMe(ProviderContainer container) =>
+        deleteRow(participantRow(id: 'p0', uid: 'me'));
+
+    Future<ProviderContainer> openInRoom() async {
+      participantRows = [participantRow(id: 'p0', uid: 'me'), ...crowd(2)];
+      final container = await open(
+        recorder: FakeActivityRecorder(),
+        isUserAdmin: false,
+      );
+      await container
+          .read(liveKitControllerProvider.notifier)
+          .connect(liveKitUri: 'uri', roomToken: 'token');
+      return container;
+    }
+
+    test('is a kick while the room is still mine', () async {
+      final container = await openInRoom();
+      container.read(activeRoomProvider.notifier).enter(room);
+
+      await deleteMe(container);
+
+      expect(container.read(roomSessionProvider(room)).value?.wasKicked, true);
+      expect(container.read(liveKitControllerProvider).isConnected, false);
+    });
+
+    test('is not a kick once I have given the room up', () async {
+      final container = await openInRoom();
+      // What RoomLauncher.leave does before it deletes the row.
+      container.read(activeRoomProvider.notifier).clear();
+
+      await deleteMe(container);
+
+      expect(container.read(roomSessionProvider(room)).value?.wasKicked, false);
+      // leave() owns the disconnect; doing it again could cut the next room.
+      expect(container.read(liveKitControllerProvider).isConnected, true);
+    });
+
+    test('reads as an ending, not a kick, once the host row has gone', () async {
+      final container = await openInRoom();
+      container.read(activeRoomProvider.notifier).enter(room);
+
+      // What deleteRoom broadcasts first when the host closes the room.
+      await deleteRow(participantRow(id: 'host', uid: 'u0', isAdmin: true));
+      await deleteMe(container);
+
+      final session = container.read(roomSessionProvider(room)).value;
+      expect(session?.roomEnded, true);
+      expect(session?.wasKicked, false);
+      // Still a departure: the audio session goes either way.
+      expect(container.read(liveKitControllerProvider).isConnected, false);
+    });
+
+    test('is not a kick when I have already moved to another room', () async {
+      final container = await openInRoom();
+      container
+          .read(activeRoomProvider.notifier)
+          .enter(fakeAppwriteRoom(id: 'room-2'));
+
+      await deleteMe(container);
+
+      expect(container.read(roomSessionProvider(room)).value?.wasKicked, false);
+      expect(container.read(liveKitControllerProvider).isConnected, true);
+    });
   });
 
   test('being made a moderator in a big room triggers the ask', () async {

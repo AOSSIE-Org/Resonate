@@ -15,6 +15,8 @@ import 'package:resonate/features/miniplayer/data/session_presented.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class RoomPage extends ConsumerStatefulWidget {
@@ -92,17 +94,19 @@ class _RoomPageState extends ConsumerState<RoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    // If an admin kicks
+    // If an admin kicks, or the host closes the room
     ref.listen(roomSessionProvider(room), (_, next) {
-      if (next.value?.wasKicked ?? false) {
-        final navigator = Navigator.of(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.removedFromRoom),
-          ),
-        );
-        if (navigator.canPop()) navigator.pop();
+      final session = next.value;
+      if (session == null || (!session.wasKicked && !session.roomEnded)) return;
+
+      final navigator = Navigator.of(context);
+      final l10n = AppLocalizations.of(context)!;
+      if (session.roomEnded) {
+        customSnackbar(l10n.roomEnded, l10n.roomEndedMessage, LogType.info);
+      } else {
+        customSnackbar(l10n.oops, l10n.removedFromRoom, LogType.warning);
       }
+      if (navigator.canPop()) navigator.pop();
     });
 
     final asyncState = ref.watch(roomSessionProvider(room));

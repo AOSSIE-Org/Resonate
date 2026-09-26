@@ -1163,6 +1163,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get followers => 'ফলোয়ার্স';
 
   @override
+  String get stars => 'Stars';
+
+  @override
   String get friendRequests => 'বন্ধুত্বের অনুরোধ';
 
   @override
@@ -1322,6 +1325,12 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'আপনার বিরুদ্ধে অভিযোগ করা হয়েছে অথবা আপনাকে রুম থেকে সরিয়ে দেওয়া হয়েছে।';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

@@ -5,6 +5,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
@@ -21,6 +22,7 @@ enum ParticipantRole { moderator, speaker, listener }
 @riverpod
 class RoomSession extends _$RoomSession {
   StreamSubscription<RealtimeMessage>? _participantSub;
+  bool _roomEnded = false;
 
   @override
   Future<SingleRoomState> build(AppwriteRoom appwriteRoom) async {
@@ -139,14 +141,25 @@ class RoomSession extends _$RoomSession {
           case 'delete':
             {
               final removedUid = event.payload['uid'] as String;
+              if ((event.payload['isAdmin'] as bool?) ?? false) {
+                _roomEnded = true;
+              }
               if (removedUid == current.me.uid) {
-                // kicked
+                final iLeft =
+                    ref.read(activeRoomProvider)?.id != appwriteRoom.id;
                 await _disposeStream();
+                if (iLeft) {
+                  break;
+                }
                 await ref.read(liveKitControllerProvider.notifier).disconnect();
                 if (!ref.mounted) return;
                 final latest = state.value;
                 if (latest != null) {
-                  state = AsyncData(latest.copyWith(wasKicked: true));
+                  state = AsyncData(
+                    _roomEnded
+                        ? latest.copyWith(roomEnded: true)
+                        : latest.copyWith(wasKicked: true),
+                  );
                 }
                 break;
               }

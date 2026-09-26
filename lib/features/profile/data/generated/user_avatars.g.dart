@@ -8,35 +8,13 @@ part of '../user_avatars.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The avatar a user has *now*, read from their user row.
-///
-/// Friend rows and call rows carry a copy of the URL taken when they were
-/// written, and nothing refreshes it — so a picture changed (or an endpoint
-/// moved) after the friendship was made never reaches those screens. Rooms
-/// already re-read the user row per participant; this is the same thing for
-/// everywhere else.
 
 @ProviderFor(userAvatarUrl)
 final userAvatarUrlProvider = UserAvatarUrlFamily._();
 
-/// The avatar a user has *now*, read from their user row.
-///
-/// Friend rows and call rows carry a copy of the URL taken when they were
-/// written, and nothing refreshes it — so a picture changed (or an endpoint
-/// moved) after the friendship was made never reaches those screens. Rooms
-/// already re-read the user row per participant; this is the same thing for
-/// everywhere else.
-
 final class UserAvatarUrlProvider
     extends $FunctionalProvider<AsyncValue<String?>, String?, FutureOr<String?>>
     with $FutureModifier<String?>, $FutureProvider<String?> {
-  /// The avatar a user has *now*, read from their user row.
-  ///
-  /// Friend rows and call rows carry a copy of the URL taken when they were
-  /// written, and nothing refreshes it — so a picture changed (or an endpoint
-  /// moved) after the friendship was made never reaches those screens. Rooms
-  /// already re-read the user row per participant; this is the same thing for
-  /// everywhere else.
   UserAvatarUrlProvider._({
     required UserAvatarUrlFamily super.from,
     required String super.argument,
@@ -82,14 +60,6 @@ final class UserAvatarUrlProvider
 
 String _$userAvatarUrlHash() => r'61b547f052a54a6a2792fa91e5d907b3aed2172f';
 
-/// The avatar a user has *now*, read from their user row.
-///
-/// Friend rows and call rows carry a copy of the URL taken when they were
-/// written, and nothing refreshes it — so a picture changed (or an endpoint
-/// moved) after the friendship was made never reaches those screens. Rooms
-/// already re-read the user row per participant; this is the same thing for
-/// everywhere else.
-
 final class UserAvatarUrlFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<String?>, String> {
   UserAvatarUrlFamily._()
@@ -100,14 +70,6 @@ final class UserAvatarUrlFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
-
-  /// The avatar a user has *now*, read from their user row.
-  ///
-  /// Friend rows and call rows carry a copy of the URL taken when they were
-  /// written, and nothing refreshes it — so a picture changed (or an endpoint
-  /// moved) after the friendship was made never reaches those screens. Rooms
-  /// already re-read the user row per participant; this is the same thing for
-  /// everywhere else.
 
   UserAvatarUrlProvider call(String uid) =>
       UserAvatarUrlProvider._(argument: uid, from: this);

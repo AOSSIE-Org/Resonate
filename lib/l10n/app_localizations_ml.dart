@@ -1168,6 +1168,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get followers => 'ഫോളോവേഴ്സ്';
 
   @override
+  String get stars => 'Stars';
+
+  @override
   String get friendRequests => 'സുഹൃത്ത് അഭ്യർത്ഥനകൾ';
 
   @override
@@ -1328,6 +1331,12 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'നിങ്ങളെ റിപ്പോർട്ട് ചെയ്തിരിക്കുന്നു അല്ലെങ്കിൽ മുറിയിൽ നിന്ന് നീക്കം ചെയ്തു';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

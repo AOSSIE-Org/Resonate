@@ -60,7 +60,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    dismissCustomSnackbar();
     final notifier = ref.read(editProfileProvider.notifier);
     final trimmed = value.trim();
 

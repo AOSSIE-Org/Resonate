@@ -1170,6 +1170,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get followers => 'உங்களை பின்தொடர்வோர்';
 
   @override
+  String get stars => 'Stars';
+
+  @override
   String get friendRequests => 'நண்பர் கோரிக்கைகள்';
 
   @override
@@ -1331,6 +1334,12 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'நீங்கள் அறையிலிருந்து புகாரளிக்கப்பட்டோ அல்லது நீக்கப்பட்டோ உள்ளீர்கள்';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

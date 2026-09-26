@@ -1149,6 +1149,9 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get followers => 'फॉलोअर';
 
   @override
+  String get stars => 'Stars';
+
+  @override
   String get friendRequests => 'दोस्ती अरजियां';
 
   @override
@@ -1304,6 +1307,12 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String get removedFromRoom => 'थूं रिपोर्ट या रूम स्यूं हटायो ग्यो';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

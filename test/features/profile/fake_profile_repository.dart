@@ -1,10 +1,13 @@
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
+import 'package:resonate/features/profile/model/user_profile_summary.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 
 class FakeProfileRepository implements ProfileRepository {
   // Configurable returns.
   List<FollowerUserModel> followers = const [];
+  UserProfileSummary? profileSummary;
+  Object? profileSummaryError;
   String? fcmToken = 'fake-token';
   bool usernameAvailableReturn = true;
   bool emailAvailableReturn = true;
@@ -13,6 +16,7 @@ class FakeProfileRepository implements ProfileRepository {
   Object? createUsernameRowError;
 
   // Recorded calls.
+  String? fetchProfileSummaryArg;
   String? isUsernameAvailableArg;
   String? isUsernameAvailableCurrent;
   FollowerUserModel? followedFollower;
@@ -38,6 +42,21 @@ class FakeProfileRepository implements ProfileRepository {
   @override
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async =>
       followers;
+
+  @override
+  Future<UserProfileSummary> fetchProfileSummary(String uid) async {
+    fetchProfileSummaryArg = uid;
+    if (profileSummaryError != null) throw profileSummaryError!;
+    return profileSummary ??
+        UserProfileSummary(
+          uid: uid,
+          name: 'Test User',
+          username: 'testuser',
+          avatarUrl: 'http://img/$uid',
+          rating: 0,
+          followerCount: 0,
+        );
+  }
 
   @override
   Future<String?> getFcmToken() async {
