@@ -114,6 +114,7 @@ void main() {
         tables.listRows(
           databaseId: masterDatabaseId,
           tableId: roomsTableId,
+          queries: anyNamed('queries'),
         ),
       ).thenAnswer(
         (_) async => RowList(
@@ -141,6 +142,113 @@ void main() {
       expect(rooms, hasLength(1));
       expect(rooms.first.id, 'r1');
       expect(rooms.first.isUserAdmin, isTrue);
+    });
+
+    test('resolves participants and avatars in one query each, however many '
+        'rooms there are', () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [roomRow(id: 'r1'), roomRow(id: 'r2'), roomRow(id: 'r3')],
+        ),
+      );
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 2,
+          rows: [
+            participantRow(id: 'p1', uid: 'user-1', roomId: 'r1'),
+            participantRow(id: 'p2', uid: 'user-2', roomId: 'r3'),
+          ],
+        ),
+      );
+      when(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 2,
+          rows: [userRow(id: 'user-1'), userRow(id: 'user-2')],
+        ),
+      );
+
+      final rooms = await repo.loadRooms('admin-uid');
+
+      expect(rooms, hasLength(3));
+      verify(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).called(1);
+      verify(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).called(1);
+      // The per-participant user read is what this replaced.
+      verifyNever(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: anyNamed('rowId'),
+        ),
+      );
+      // Avatars still land on the room their participant belongs to.
+      expect(rooms[0].memberAvatarUrls, hasLength(1));
+      expect(rooms[1].memberAvatarUrls, isEmpty);
+      expect(rooms[2].memberAvatarUrls, hasLength(1));
+    });
+
+    test('asks the participants query for every room id at once', () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async =>
+            RowList(total: 2, rows: [roomRow(id: 'r1'), roomRow(id: 'r2')]),
+      );
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 0, rows: []));
+
+      await repo.loadRooms('admin-uid');
+
+      final queries =
+          verify(
+                tables.listRows(
+                  databaseId: masterDatabaseId,
+                  tableId: participantsTableId,
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      expect(queries, contains(Query.equal('roomId', ['r1', 'r2'])));
+      expect(queries, contains(Query.select(['roomId', 'uid'])));
     });
   });
 
@@ -197,12 +305,17 @@ void main() {
         ),
       );
       when(
-        tables.getRow(
+        tables.listRows(
           databaseId: userDatabaseID,
           tableId: usersTableID,
-          rowId: 'user-1',
+          queries: anyNamed('queries'),
         ),
-      ).thenAnswer((_) async => userRow(id: 'user-1', name: 'Alice'));
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 1,
+          rows: [userRow(id: 'user-1', name: 'Alice')],
+        ),
+      );
 
       final participants = await repo.loadParticipants('room-1');
 
@@ -210,17 +323,63 @@ void main() {
       expect(participants.first.name, 'Alice');
       expect(participants.first.isAdmin, isTrue);
     });
+
+    test('reads every participant\'s user row in one query', () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [
+            participantRow(id: 'p1', uid: 'user-1'),
+            participantRow(id: 'p2', uid: 'user-2'),
+            participantRow(id: 'p3', uid: 'user-3'),
+          ],
+        ),
+      );
+      when(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [
+            userRow(id: 'user-1', name: 'Alice'),
+            userRow(id: 'user-2', name: 'Bob'),
+            userRow(id: 'user-3', name: 'Cass'),
+          ],
+        ),
+      );
+
+      final participants = await repo.loadParticipants('room-1');
+
+      expect(participants.map((p) => p.name), ['Alice', 'Bob', 'Cass']);
+      verify(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).called(1);
+      verifyNever(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: anyNamed('rowId'),
+        ),
+      );
+    });
   });
 
   group('leaveRoom', () {
-    test('decrements totalParticipants when others remain', () async {
-      when(
-        tables.getRow(
-          databaseId: masterDatabaseId,
-          tableId: roomsTableId,
-          rowId: 'room-1',
-        ),
-      ).thenAnswer((_) async => roomRow(totalParticipants: 3));
+    test('decrements totalParticipants atomically when others remain', () async {
       when(
         tables.listRows(
           databaseId: masterDatabaseId,
@@ -241,35 +400,47 @@ void main() {
         ),
       ).thenAnswer((_) async => '');
       when(
-        tables.updateRow(
+        tables.decrementRowColumn(
           databaseId: anyNamed('databaseId'),
           tableId: anyNamed('tableId'),
           rowId: anyNamed('rowId'),
-          data: anyNamed('data'),
+          column: anyNamed('column'),
+          value: anyNamed('value'),
         ),
-      ).thenAnswer((_) async => roomRow());
+      ).thenAnswer((_) async => roomRow(totalParticipants: 2));
 
       final ok = await repo.leaveRoom(roomId: 'room-1', userId: 'user-leaving');
 
       expect(ok, isTrue);
       verify(
-        tables.updateRow(
+        tables.decrementRowColumn(
           databaseId: masterDatabaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
-          data: {'totalParticipants': 2},
+          column: 'totalParticipants',
+          value: 1.0,
         ),
       ).called(1);
-    });
-
-    test('deletes the room when last participant leaves', () async {
-      when(
+      // The room is no longer read first just to work out the new count.
+      verifyNever(
         tables.getRow(
           databaseId: masterDatabaseId,
           tableId: roomsTableId,
-          rowId: 'room-1',
+          rowId: anyNamed('rowId'),
+          queries: anyNamed('queries'),
         ),
-      ).thenAnswer((_) async => roomRow(totalParticipants: 1));
+      );
+      verifyNever(
+        tables.updateRow(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
+    });
+
+    test('deletes the room when last participant leaves', () async {
       when(
         tables.listRows(
           databaseId: masterDatabaseId,
@@ -289,10 +460,67 @@ void main() {
           rowId: anyNamed('rowId'),
         ),
       ).thenAnswer((_) async => '');
+      // The decrement reports the count it landed on.
+      when(
+        tables.decrementRowColumn(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          column: anyNamed('column'),
+          value: anyNamed('value'),
+        ),
+      ).thenAnswer((_) async => roomRow(totalParticipants: 0));
 
       final ok = await repo.leaveRoom(roomId: 'room-1', userId: 'last-user');
 
       expect(ok, isTrue);
+      verify(
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          rowId: 'room-1',
+        ),
+      ).called(1);
+    });
+
+    test('with no participant row to remove, still tears down an empty room',
+        () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 0, rows: []));
+      when(
+        tables.getRow(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          rowId: 'room-1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => roomRow(totalParticipants: 0));
+      when(
+        tables.deleteRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      ).thenAnswer((_) async => '');
+
+      final ok = await repo.leaveRoom(roomId: 'room-1', userId: 'ghost');
+
+      expect(ok, isTrue);
+      // Nothing to decrement, so this path reads the count instead.
+      verifyNever(
+        tables.decrementRowColumn(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          column: anyNamed('column'),
+          value: anyNamed('value'),
+        ),
+      );
       verify(
         tables.deleteRow(
           databaseId: masterDatabaseId,

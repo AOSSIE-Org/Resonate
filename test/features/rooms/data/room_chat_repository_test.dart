@@ -142,12 +142,12 @@ void main() {
       );
       // No replies for these messages.
       when(
-        tables.getRow(
+        tables.listRows(
           databaseId: masterDatabaseId,
           tableId: chatMessageReplyTableId,
-          rowId: anyNamed('rowId'),
+          queries: anyNamed('queries'),
         ),
-      ).thenThrow(AppwriteException('not found', 404));
+      ).thenAnswer((_) async => RowList(total: 0, rows: []));
 
       final messages = await repo.loadMessages('room-1');
 
@@ -181,18 +181,69 @@ void main() {
         (_) async => RowList(total: 1, rows: [messageRow(id: 'm1', index: 0)]),
       );
       when(
-        tables.getRow(
+        tables.listRows(
           databaseId: masterDatabaseId,
           tableId: chatMessageReplyTableId,
-          rowId: 'm1',
+          queries: anyNamed('queries'),
         ),
-      ).thenAnswer((_) async => replyRow(id: 'm1'));
+      ).thenAnswer((_) async => RowList(total: 1, rows: [replyRow(id: 'm1')]));
 
       final messages = await repo.loadMessages('room-1');
 
       expect(messages, hasLength(1));
       expect(messages.first.replyTo, isNotNull);
       expect(messages.first.replyTo!.content, 'original');
+    });
+
+    test('fetches replies for the whole page in one query', () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: chatMessagesTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [
+            messageRow(id: 'm1', index: 1),
+            messageRow(id: 'm2', index: 2),
+            messageRow(id: 'm3', index: 3),
+          ],
+        ),
+      );
+      // Only the middle message is a reply; the other two have no row at all.
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: chatMessageReplyTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [replyRow(id: 'm2')]));
+
+      final messages = await repo.loadMessages('room-1');
+
+      expect(messages.map((m) => m.replyTo != null), [false, true, false]);
+      // One reply query for the whole page, not a getRow per message.
+      final captured = verify(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: chatMessageReplyTableId,
+          queries: captureAnyNamed('queries'),
+        ),
+      ).captured;
+      expect(captured, hasLength(1));
+      expect(
+        captured.single as List<String>,
+        contains(Query.equal(r'$id', ['m1', 'm2', 'm3'])),
+      );
+      verifyNever(
+        tables.getRow(
+          databaseId: masterDatabaseId,
+          tableId: chatMessageReplyTableId,
+          rowId: anyNamed('rowId'),
+        ),
+      );
     });
   });
 
@@ -268,7 +319,9 @@ void main() {
           databaseId: masterDatabaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
-          data: message.toJsonForUpload(),
+          // The scalar roomId realtime filters on, plus the relationship that
+          // cascades the row away with its room.
+          data: {...message.toJsonForUpload(), 'room': message.roomId},
         ),
       ).called(1);
       verifyNever(
@@ -300,7 +353,7 @@ void main() {
           databaseId: masterDatabaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
-          data: message.toJsonForUpload(),
+          data: {...message.toJsonForUpload(), 'room': message.roomId},
         ),
       ).called(1);
       verify(
@@ -308,7 +361,7 @@ void main() {
           databaseId: masterDatabaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
-          data: reply.toJson(),
+          data: {...reply.toJson(), 'message': 'msg-1'},
         ),
       ).called(1);
     });

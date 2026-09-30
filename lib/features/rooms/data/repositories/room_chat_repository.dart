@@ -31,6 +31,8 @@ class RoomChatRepository {
   final Realtime _realtime;
   final Functions _functions;
 
+  static const _pageSize = 100;
+
   Future<List<RoomMessage>> loadMessages(String roomId) async {
     final result = await _tables.listRows(
       databaseId: masterDatabaseId,
@@ -40,14 +42,18 @@ class RoomChatRepository {
         // Latest window, not the oldest: late joiners must see recent
         // messages (and poll cards). The sort below restores ascending order.
         Query.orderDesc('index'),
-        Query.limit(100),
+        Query.limit(_pageSize),
       ],
     );
 
+    final replies = await _fetchReplies([
+      for (final row in result.rows) row.$id,
+    ]);
+
     final messages = <RoomMessage>[];
     for (final row in result.rows) {
-      final replyTo = await _fetchReplyTo(row.$id);
       final json = Map<String, dynamic>.from(row.data);
+      final replyTo = replies[row.$id];
       if (replyTo != null) {
         json['replyTo'] = replyTo.toJson();
       }
@@ -55,6 +61,30 @@ class RoomChatRepository {
     }
     messages.sort((a, b) => a.index.compareTo(b.index));
     return messages;
+  }
+
+  Future<Map<String, ReplyTo>> _fetchReplies(List<String> messageIds) async {
+    if (messageIds.isEmpty) return const {};
+    final replies = <String, ReplyTo>{};
+    for (var i = 0; i < messageIds.length; i += _pageSize) {
+      final end = i + _pageSize > messageIds.length
+          ? messageIds.length
+          : i + _pageSize;
+      final chunk = messageIds.sublist(i, end);
+      final result = await _tables.listRows(
+        databaseId: masterDatabaseId,
+        tableId: chatMessageReplyTableId,
+        queries: [Query.equal(r'$id', chunk), Query.limit(chunk.length)],
+      );
+      for (final row in result.rows) {
+        try {
+          replies[row.$id] = ReplyTo.fromJson(row.data);
+        } catch (_) {
+          // Skiping rows that have missing/malformed fields.
+        }
+      }
+    }
+    return replies;
   }
 
   Future<ReplyTo?> _fetchReplyTo(String messageId) async {
@@ -81,14 +111,14 @@ class RoomChatRepository {
       databaseId: masterDatabaseId,
       tableId: chatMessagesTableId,
       rowId: message.messageId,
-      data: message.toJsonForUpload(),
+      data: {...message.toJsonForUpload(), 'room': message.roomId},
     );
     if (replyTo != null) {
       await _tables.createRow(
         databaseId: masterDatabaseId,
         tableId: chatMessageReplyTableId,
         rowId: message.messageId,
-        data: replyTo.toJson(),
+        data: {...replyTo.toJson(), 'message': message.messageId},
       );
     }
   }

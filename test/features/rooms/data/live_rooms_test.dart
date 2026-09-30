@@ -63,6 +63,7 @@ void main() {
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
             total: 2,
             rows: [_roomRow(id: 'r1'), _roomRow(id: 'r2')],
@@ -84,6 +85,7 @@ void main() {
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async {
         callCount++;
         return RowList(total: 0, rows: []);
@@ -110,6 +112,7 @@ void main() {
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
       final container = await installTestRootContainer(
         authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
@@ -185,6 +188,7 @@ void main() {
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async {
         roomListLoads++;
         return RowList(total: 0, rows: []);
@@ -210,6 +214,13 @@ void main() {
         tableId: anyNamed('tableId'),
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
+      )).thenAnswer((_) async => _roomRow(id: 'new-room'));
+      when(tables.incrementRowColumn(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        column: anyNamed('column'),
+        value: anyNamed('value'),
       )).thenAnswer((_) async => _roomRow(id: 'new-room'));
       when(functions.createExecution(
         functionId: createRoomServiceId,
@@ -274,6 +285,20 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _roomRow());
+      when(tables.incrementRowColumn(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        column: anyNamed('column'),
+        value: anyNamed('value'),
+      )).thenAnswer((_) async => _roomRow(totalParticipants: 2));
+      when(tables.decrementRowColumn(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        column: anyNamed('column'),
+        value: anyNamed('value'),
+      )).thenAnswer((_) async => _roomRow(totalParticipants: 0));
       when(functions.createExecution(
         functionId: joinRoomServiceId,
         body: anyNamed('body'),

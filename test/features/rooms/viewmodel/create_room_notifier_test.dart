@@ -112,6 +112,7 @@ void main() {
       when(tables.listRows(
         databaseId: masterDatabaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async {
         roomListLoads++;
         return RowList(total: 0, rows: []);

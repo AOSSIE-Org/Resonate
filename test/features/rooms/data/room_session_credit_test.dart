@@ -11,7 +11,6 @@ import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/utils/constants.dart';
 
-import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
 import '../rooms_test_helpers.dart';
 
@@ -79,24 +78,7 @@ void main() {
       (_) async =>
           RowList(total: participantRows.length, rows: participantRows),
     );
-    when(
-      tables.getRow(
-        databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: anyNamed('rowId'),
-      ),
-    ).thenAnswer(
-      (invocation) async => buildRow(
-        id: invocation.namedArguments[#rowId] as String,
-        tableId: usersTableID,
-        databaseId: userDatabaseID,
-        data: const {
-          'email': 'someone@test.com',
-          'name': 'Someone',
-          'profileImageUrl': '',
-        },
-      ),
-    );
+    stubBatchedUserRows(tables);
   });
 
   tearDown(() => participantEvents.close());

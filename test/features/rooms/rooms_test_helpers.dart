@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:appwrite/models.dart';
+import 'package:mockito/mockito.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
@@ -12,11 +16,55 @@ import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
+import 'package:resonate/utils/constants.dart';
 
 import '../../helpers/test_root_container.dart';
+import '../../helpers/test_root_container.mocks.dart';
 
 export '../../helpers/pump_widget.dart';
 export '../../helpers/test_root_container.dart';
+
+// Serves the batched user read the rooms repository now does: one listRows over
+// every uid on the page instead of a getRow each. Answers with a row per id the
+// Query.equal(r'$id', [...]) asked for.
+void stubBatchedUserRows(
+  MockTablesDB tables, {
+  Map<String, dynamic> Function(String uid)? rowData,
+}) {
+  when(
+    tables.listRows(
+      databaseId: userDatabaseID,
+      tableId: usersTableID,
+      queries: anyNamed('queries'),
+    ),
+  ).thenAnswer((invocation) async {
+    final queries = (invocation.namedArguments[#queries] as List)
+        .cast<String>();
+    final ids = <String>[];
+    for (final query in queries) {
+      final decoded = jsonDecode(query) as Map<String, dynamic>;
+      if (decoded['method'] == 'equal' && decoded['attribute'] == r'$id') {
+        ids.addAll((decoded['values'] as List).cast<String>());
+      }
+    }
+    final rows = [
+      for (final id in ids)
+        buildRow(
+          id: id,
+          tableId: usersTableID,
+          databaseId: userDatabaseID,
+          data:
+              rowData?.call(id) ??
+              const {
+                'email': 'someone@test.com',
+                'name': 'Someone',
+                'profileImageUrl': '',
+              },
+        ),
+    ];
+    return RowList(total: rows.length, rows: rows);
+  });
+}
 
 class FakeRoomSession extends RoomSession {
   FakeRoomSession(

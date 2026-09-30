@@ -41,6 +41,12 @@ void main() {
       tableId: chatMessageReplyTableId,
       rowId: anyNamed('rowId'),
     )).thenThrow(AppwriteException('not found', 404));
+    // loadMessages now fetches the whole page's replies in one query.
+    when(tables.listRows(
+      databaseId: masterDatabaseId,
+      tableId: chatMessageReplyTableId,
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
   tearDown(() => chatEvents.close());

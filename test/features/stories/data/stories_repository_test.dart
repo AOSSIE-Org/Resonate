@@ -213,21 +213,32 @@ void main() {
               likeRow(id: 'l2', storyId: 'missing'),
             ],
           ));
-      when(tables.getRow(
+      // One query for every liked story; 'missing' just does not come back.
+      when(tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
-        rowId: 's1',
-      )).thenAnswer((_) async => storyRow(id: 's1'));
-      when(tables.getRow(
-        databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: 'missing',
-      )).thenThrow(AppwriteException('not found', 404));
+        queries: anyNamed('queries'),
+      )).thenAnswer(
+        (_) async => RowList(total: 1, rows: [storyRow(id: 's1')]),
+      );
 
       final stories = await repo.fetchLikedStories('me');
 
       expect(stories, hasLength(1));
       expect(stories.first.storyId, 's1');
+
+      final queries = verify(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        queries: captureAnyNamed('queries'),
+      )).captured.single as List<String>;
+      expect(queries, contains(Query.equal(r'$id', ['s1', 'missing'])));
+      // The getRow per like is what this replaced.
+      verifyNever(tables.getRow(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: anyNamed('rowId'),
+      ));
     });
   });
 
@@ -446,27 +457,57 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => likeRow());
-      when(tables.updateRow(
+      when(tables.incrementRowColumn(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
         rowId: 's1',
-        data: anyNamed('data'),
+        column: anyNamed('column'),
       )).thenAnswer((_) async => storyRow(id: 's1'));
 
       await repo.likeStory(story, 'me');
 
-      verify(tables.createRow(
+      final data = verify(tables.createRow(
+        databaseId: storyDatabaseId,
+        tableId: likeTableId,
+        rowId: anyNamed('rowId'),
+        data: captureAnyNamed('data'),
+      )).captured.single as Map;
+      expect(data, containsPair('uId', 'me'));
+      expect(data, containsPair('storyId', 's1'));
+      // Relationship alongside the scalar, so the row cascades with its story.
+      expect(data, containsPair('story', 's1'));
+      // Server-side increment, rather than writing a count the client held.
+      verify(tables.incrementRowColumn(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: 's1',
+        column: 'likes',
+      )).called(1);
+      verifyNever(tables.updateRow(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      ));
+    });
+
+    test('a second like is rejected by the unique index and leaves the '
+        'counter alone', () async {
+      when(tables.createRow(
         databaseId: storyDatabaseId,
         tableId: likeTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
-      )).called(1);
-      verify(tables.updateRow(
-        databaseId: storyDatabaseId,
-        tableId: storyTableId,
-        rowId: 's1',
-        data: {'likes': 6},
-      )).called(1);
+      )).thenThrow(AppwriteException('already liked', 409));
+
+      await repo.likeStory(fakeStory(storyId: 's1'), 'me');
+
+      verifyNever(tables.incrementRowColumn(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        column: anyNamed('column'),
+      ));
     });
 
     test('throws StoriesFailure.unknown when the SDK errors', () async {
@@ -497,11 +538,12 @@ void main() {
         tableId: likeTableId,
         rowId: 'like-7',
       )).thenAnswer((_) async => '');
-      when(tables.updateRow(
+      when(tables.decrementRowColumn(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
         rowId: 's1',
-        data: anyNamed('data'),
+        column: anyNamed('column'),
+        min: anyNamed('min'),
       )).thenAnswer((_) async => storyRow(id: 's1'));
 
       await repo.unlikeStory(story, 'me');
@@ -511,12 +553,38 @@ void main() {
         tableId: likeTableId,
         rowId: 'like-7',
       )).called(1);
-      verify(tables.updateRow(
+      // Server-side decrement, floored at zero.
+      verify(tables.decrementRowColumn(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
         rowId: 's1',
-        data: {'likes': 4},
+        column: 'likes',
+        min: 0,
       )).called(1);
+      verifyNever(tables.updateRow(
+        databaseId: storyDatabaseId,
+        tableId: storyTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      ));
+    });
+
+    test('with no like row to remove, the counter is left alone', () async {
+      when(tables.listRows(
+        databaseId: storyDatabaseId,
+        tableId: likeTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: 0, rows: []));
+
+      await repo.unlikeStory(fakeStory(storyId: 's1'), 'me');
+
+      verifyNever(tables.decrementRowColumn(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        column: anyNamed('column'),
+        min: anyNamed('min'),
+      ));
     });
   });
 

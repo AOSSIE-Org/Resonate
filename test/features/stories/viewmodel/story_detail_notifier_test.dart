@@ -108,16 +108,17 @@ void main() {
       rowId: anyNamed('rowId'),
       data: anyNamed('data'),
     )).thenAnswer((_) async => _likeRow());
-    when(tables.updateRow(
+    // The counter moves through the server-side increment now, not updateRow.
+    when(tables.incrementRowColumn(
       databaseId: storyDatabaseId,
       tableId: storyTableId,
       rowId: 's1',
-      data: anyNamed('data'),
+      column: anyNamed('column'),
     )).thenAnswer((_) async => buildRow(
           id: 's1',
           tableId: storyTableId,
           databaseId: storyDatabaseId,
-          data: const {},
+          data: const {'likes': 4},
         ));
     when(tables.getRow(
       databaseId: storyDatabaseId,

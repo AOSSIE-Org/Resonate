@@ -46,24 +46,23 @@ class RoomsRepository {
 
   TablesDB get tables => _tables;
 
+  static const _pageSize = 100;
+
+  // How many member avatars the room card shows.
+  static const _avatarCount = 3;
+
   Future<List<AppwriteRoom>> loadRooms(String userUid) async {
     final result = await _tables.listRows(
       databaseId: masterDatabaseId,
       tableId: roomsTableId,
+      queries: [Query.limit(_pageSize)],
     );
 
-    final rooms = <AppwriteRoom>[];
-    for (final row in result.rows) {
-      try {
-        final room = await _buildAppwriteRoom(row, userUid);
-        if (!room.reportedUsers.contains(userUid)) {
-          rooms.add(room);
-        }
-      } catch (_) {
-        // Skiping rows that have missing/malformed fields.
-      }
-    }
-    return rooms;
+    final rooms = await _buildAppwriteRooms(result.rows, userUid);
+    return [
+      for (final room in rooms)
+        if (!room.reportedUsers.contains(userUid)) room,
+    ];
   }
 
   Future<AppwriteRoom?> getRoomById(String roomId, String userUid) async {
@@ -73,49 +72,125 @@ class RoomsRepository {
         tableId: roomsTableId,
         rowId: roomId,
       );
-      return _buildAppwriteRoom(row, userUid);
+      final rooms = await _buildAppwriteRooms([row], userUid);
+      return rooms.isEmpty ? null : rooms.first;
     } on AppwriteException catch (e) {
       if (e.code == 404) return null;
       throw RoomFailure.fromAppwrite(e);
     }
   }
 
-  Future<AppwriteRoom> _buildAppwriteRoom(Row row, String userUid) async {
-    final participantList = await _tables.listRows(
-      databaseId: masterDatabaseId,
-      tableId: participantsTableId,
-      queries: [Query.equal('roomId', row.$id), Query.limit(3)],
-    );
+  Future<List<AppwriteRoom>> _buildAppwriteRooms(
+    List<Row> rows,
+    String userUid,
+  ) async {
+    if (rows.isEmpty) return const [];
 
-    final memberAvatarUrls = <String>[];
-    for (final p in participantList.rows) {
+    final uidsByRoom = await _avatarUidsByRoom([for (final row in rows) row.$id]);
+    final avatars = await _avatarUrls({
+      for (final uids in uidsByRoom.values) ...uids,
+    });
+
+    final rooms = <AppwriteRoom>[];
+    for (final row in rows) {
       try {
-        final userDoc = await _tables.getRow(
-          databaseId: userDatabaseID,
-          tableId: usersTableID,
-          rowId: p.data['uid'] as String,
+        final data = row.data;
+        rooms.add(
+          AppwriteRoom(
+            id: row.$id,
+            name: (data['name'] as String?) ?? 'Untitled',
+            description: (data['description'] as String?) ?? '',
+            totalParticipants: (data['totalParticipants'] as num?)?.toInt() ?? 0,
+            tags: List<String>.from(data['tags'] as List? ?? const []),
+            memberAvatarUrls: [
+              for (final uid in uidsByRoom[row.$id] ?? const <String>[])
+                if (avatars[uid] case final url?) url,
+            ],
+            state: RoomState.live,
+            isUserAdmin: data['adminUid'] == userUid,
+            reportedUsers: List<String>.from(
+              data['reportedUsers'] as List? ?? const [],
+            ),
+          ),
         );
-        final url = userDoc.data['profileImageUrl'];
-        if (url is String) memberAvatarUrls.add(url);
       } catch (_) {
-        // Skiping avatars we can't fetch.
+        // Skiping rows that have missing/malformed fields.
       }
     }
+    return rooms;
+  }
 
-    final data = row.data;
-    return AppwriteRoom(
-      id: row.$id,
-      name: (data['name'] as String?) ?? 'Untitled',
-      description: (data['description'] as String?) ?? '',
-      totalParticipants: (data['totalParticipants'] as num?)?.toInt() ?? 0,
-      tags: List<String>.from(data['tags'] as List? ?? const []),
-      memberAvatarUrls: memberAvatarUrls,
-      state: RoomState.live,
-      isUserAdmin: data['adminUid'] == userUid,
-      reportedUsers: List<String>.from(
-        data['reportedUsers'] as List? ?? const [],
-      ),
-    );
+  // The first few participant uids of each room, in one query over all of them.
+  Future<Map<String, List<String>>> _avatarUidsByRoom(
+    List<String> roomIds,
+  ) async {
+    final byRoom = <String, List<String>>{};
+    if (roomIds.isEmpty) return byRoom;
+    try {
+      final result = await _tables.listRows(
+        databaseId: masterDatabaseId,
+        tableId: participantsTableId,
+        queries: [
+          Query.equal('roomId', roomIds),
+          Query.select(['roomId', 'uid']),
+          // Enough to fill _avatarCount slots per room with room to spare.
+          Query.limit(roomIds.length * _avatarCount * 4),
+        ],
+      );
+      for (final row in result.rows) {
+        final roomId = row.data['roomId'];
+        final uid = row.data['uid'];
+        if (roomId is! String || uid is! String) continue;
+        final slots = byRoom.putIfAbsent(roomId, () => <String>[]);
+        if (slots.length < _avatarCount) slots.add(uid);
+      }
+    } catch (_) {
+      // Skiping avatars we can't fetch; the rooms still render.
+    }
+    return byRoom;
+  }
+
+  Future<List<Row>> _usersByIds(Set<String> uids, List<String> columns) async {
+    if (uids.isEmpty) return const [];
+    final ids = uids.toList();
+    final rows = <Row>[];
+    for (var i = 0; i < ids.length; i += _pageSize) {
+      final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
+      final chunk = ids.sublist(i, end);
+      final result = await _tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        queries: [
+          Query.equal(r'$id', chunk),
+          Query.select([r'$id', ...columns]),
+          Query.limit(chunk.length),
+        ],
+      );
+      rows.addAll(result.rows);
+    }
+    return rows;
+  }
+
+  Future<Map<String, String>> _avatarUrls(Set<String> uids) async {
+    final urls = <String, String>{};
+    try {
+      for (final row in await _usersByIds(uids, const ['profileImageUrl'])) {
+        final url = row.data['profileImageUrl'];
+        if (url is String && url.isNotEmpty) urls[row.$id] = url;
+      }
+    } catch (_) {
+      // Skiping avatars we can't fetch.
+    }
+    return urls;
+  }
+
+  Future<Map<String, Row>> _userRows(Set<String> uids) async {
+    final rows = await _usersByIds(uids, const [
+      'email',
+      'name',
+      'profileImageUrl',
+    ]);
+    return {for (final row in rows) row.$id: row};
   }
 
   Future<({String roomId, String myDocId, String liveKitUri, String roomToken})>
@@ -216,6 +291,7 @@ class RoomsRepository {
       rowId: ID.unique(),
       data: {
         'roomId': roomId,
+        'room': roomId,
         'uid': uid,
         'isAdmin': isAdmin,
         'isModerator': isAdmin,
@@ -225,24 +301,30 @@ class RoomsRepository {
     );
 
     if (!isAdmin) {
-      final roomDoc = await _tables.getRow(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
-      );
-      final newCount =
-          ((roomDoc.data['totalParticipants'] as num?)?.toInt() ?? 0) -
-          existing.rows.length +
-          1;
-      await _tables.updateRow(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
-        data: {'totalParticipants': newCount},
-      );
+      await _bumpParticipantCount(roomId, 1 - existing.rows.length);
     }
 
     return participantDoc.$id;
+  }
+
+  Future<int?> _bumpParticipantCount(String roomId, int delta) async {
+    if (delta == 0) return null;
+    final row = delta > 0
+        ? await _tables.incrementRowColumn(
+            databaseId: masterDatabaseId,
+            tableId: roomsTableId,
+            rowId: roomId,
+            column: 'totalParticipants',
+            value: delta.toDouble(),
+          )
+        : await _tables.decrementRowColumn(
+            databaseId: masterDatabaseId,
+            tableId: roomsTableId,
+            rowId: roomId,
+            column: 'totalParticipants',
+            value: (-delta).toDouble(),
+          );
+    return (row.data['totalParticipants'] as num?)?.toInt();
   }
 
   Future<bool> leaveRoom({
@@ -250,12 +332,6 @@ class RoomsRepository {
     required String userId,
   }) async {
     try {
-      final roomDoc = await _tables.getRow(
-        databaseId: masterDatabaseId,
-        tableId: roomsTableId,
-        rowId: roomId,
-      );
-
       final participantDocs = await _tables.listRows(
         databaseId: masterDatabaseId,
         tableId: participantsTableId,
@@ -274,26 +350,31 @@ class RoomsRepository {
       ]);
 
       final remaining =
-          ((roomDoc.data['totalParticipants'] as num?)?.toInt() ?? 0) -
-          participantDocs.rows.length;
+          await _bumpParticipantCount(roomId, -participantDocs.rows.length) ??
+          await _participantCount(roomId);
       if (remaining <= 0) {
         await _tables.deleteRow(
           databaseId: masterDatabaseId,
           tableId: roomsTableId,
           rowId: roomId,
         );
-      } else {
-        await _tables.updateRow(
-          databaseId: masterDatabaseId,
-          tableId: roomsTableId,
-          rowId: roomId,
-          data: {'totalParticipants': remaining},
-        );
       }
       return true;
     } on AppwriteException catch (e) {
       throw RoomFailure.fromAppwrite(e);
     }
+  }
+
+  Future<int> _participantCount(String roomId) async {
+    final row = await _tables.getRow(
+      databaseId: masterDatabaseId,
+      tableId: roomsTableId,
+      rowId: roomId,
+      queries: [
+        Query.select(['totalParticipants']),
+      ],
+    );
+    return (row.data['totalParticipants'] as num?)?.toInt() ?? 0;
   }
 
   Future<void> _deleteParticipantRow(String rowId) => _tables.deleteRow(
@@ -354,13 +435,19 @@ class RoomsRepository {
     final result = await _tables.listRows(
       databaseId: masterDatabaseId,
       tableId: participantsTableId,
-      queries: [Query.equal('roomId', roomId)],
+      queries: [Query.equal('roomId', roomId), Query.limit(_pageSize)],
     );
+
+    // One user query for the whole room, not one per participant.
+    final users = await _userRows({
+      for (final row in result.rows)
+        if (row.data['uid'] case final String uid) uid,
+    });
 
     final participants = <Participant>[];
     for (final row in result.rows) {
       try {
-        participants.add(await buildParticipantFromRow(row));
+        participants.add(_participantFrom(row, users[row.data['uid']]));
       } catch (_) {
         // Skiping rows that have missing/malformed fields.
       }
@@ -369,11 +456,15 @@ class RoomsRepository {
   }
 
   Future<Participant> buildParticipantFromRow(Row row) async {
-    final userDoc = await _tables.getRow(
-      databaseId: userDatabaseID,
-      tableId: usersTableID,
-      rowId: row.data['uid'] as String,
-    );
+    final uid = row.data['uid'] as String;
+    final users = await _userRows({uid});
+    return _participantFrom(row, users[uid]);
+  }
+
+  Participant _participantFrom(Row row, Row? userDoc) {
+    if (userDoc == null) {
+      throw StateError('No user row for participant ${row.data['uid']}');
+    }
     return Participant(
       uid: row.data['uid'] as String,
       email: userDoc.data['email'] as String,

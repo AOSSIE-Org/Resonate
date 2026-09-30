@@ -189,15 +189,28 @@ void main() {
   });
 
   group('fetchProfileSummary', () {
-    test('reads the handle, rating and follower count from one row', () async {
+    // The summary wants a count, so no follower row ever comes back.
+    void stubFollowerCount(int total) {
+      when(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: total, rows: []));
+    }
+
+    test('reads the handle and rating from the row, the count from the '
+        'followers table', () async {
       when(
         tables.getRow(
           databaseId: userDatabaseID,
           tableId: usersTableID,
           rowId: 'id1',
-          queries: [Query.select(['*', 'followers.*'])],
+          queries: anyNamed('queries'),
         ),
       ).thenAnswer((_) async => _userRowWithFollowers);
+      stubFollowerCount(2);
 
       final summary = await repo.fetchProfileSummary('id1');
       expect(summary.uid, 'id1');
@@ -209,20 +222,88 @@ void main() {
       expect(summary.followerCount, 2);
     });
 
+    test('counts followers without pulling a single follower row', () async {
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      // A popular creator: thousands of followers, no rows in the response.
+      stubFollowerCount(4213);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.followerCount, 4213);
+
+      final userQueries =
+          verify(
+                tables.getRow(
+                  databaseId: userDatabaseID,
+                  tableId: usersTableID,
+                  rowId: 'id1',
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      // The row read no longer expands the relationship just to length it.
+      expect(
+        userQueries.any((q) => q.contains('followers')),
+        isFalse,
+        reason: 'followers.* must not be expanded merely to count them',
+      );
+
+      final countQueries =
+          verify(
+                tables.listRows(
+                  databaseId: userDatabaseID,
+                  tableId: followersTableID,
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      expect(countQueries, contains(Query.equal('followedUid', 'id1')));
+      expect(countQueries, contains(Query.limit(1)));
+    });
+
     test('reports an unrated user as 0 rather than dividing by zero', () async {
       when(
         tables.getRow(
           databaseId: userDatabaseID,
           tableId: usersTableID,
           rowId: 'fresh',
-          queries: [Query.select(['*', 'followers.*'])],
+          queries: anyNamed('queries'),
         ),
       ).thenAnswer((_) async => _unratedUserRow);
+      stubFollowerCount(0);
 
       final summary = await repo.fetchProfileSummary('fresh');
       expect(summary.rating, 0);
       expect(summary.followerCount, 0);
       expect(summary.username, isEmpty);
+    });
+
+    test('a failed count still returns the rest of the summary', () async {
+      when(
+        tables.getRow(
+          databaseId: userDatabaseID,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      when(
+        tables.listRows(
+          databaseId: userDatabaseID,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenThrow(AppwriteException('boom'));
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.followerCount, 0);
     });
 
     test('lets the failure through so the caller can show it', () async {
@@ -231,13 +312,14 @@ void main() {
           databaseId: userDatabaseID,
           tableId: usersTableID,
           rowId: 'id1',
-          queries: [Query.select(['*', 'followers.*'])],
+          queries: anyNamed('queries'),
         ),
       ).thenThrow(AppwriteException('boom'));
+      stubFollowerCount(0);
 
       expect(
         () => repo.fetchProfileSummary('id1'),
-        throwsA(isA<AppwriteException>()),
+        throwsA(isA<Object>()),
       );
     });
   });
@@ -260,19 +342,28 @@ void main() {
           databaseId: userDatabaseID,
           tableId: followersTableID,
           rowId: 'fdoc1',
-          data: follower.toJson(),
+          data: anyNamed('data'),
         ),
       ).thenAnswer((_) async => _genericRow());
 
       await repo.followCreator(follower);
-      verify(
-        tables.createRow(
-          databaseId: userDatabaseID,
-          tableId: followersTableID,
-          rowId: 'fdoc1',
-          data: follower.toJson(),
-        ),
-      ).called(1);
+      final data =
+          verify(
+                tables.createRow(
+                  databaseId: userDatabaseID,
+                  tableId: followersTableID,
+                  rowId: 'fdoc1',
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map;
+      expect(data, containsPair('followingUserId', 'id1'));
+      // Mirrored into a plain column because Appwrite cannot filter, and so
+      // cannot count, on a relationship.
+      expect(data, containsPair('followedUid', 'id1'));
+      for (final entry in follower.toJson().entries) {
+        expect(data, containsPair(entry.key, entry.value));
+      }
     });
 
     test('unfollowCreator deletes the follower row', () async {

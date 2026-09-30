@@ -59,14 +59,23 @@ class ProfileRepository {
   }
   
   Future<UserProfileSummary> fetchProfileSummary(String uid) async {
-    final row = await _tables.getRow(
-      databaseId: userDatabaseID,
-      tableId: usersTableID,
-      rowId: uid,
-      queries: [
-        Query.select(['*', 'followers.*']),
-      ],
-    );
+    final (row, followers) = await (
+      _tables.getRow(
+        databaseId: userDatabaseID,
+        tableId: usersTableID,
+        rowId: uid,
+        queries: [
+          Query.select([
+            'name',
+            'username',
+            'profileImageUrl',
+            'ratingCount',
+            'ratingTotal',
+          ]),
+        ],
+      ),
+      _followerCount(uid),
+    ).wait;
 
     final data = row.data;
     final ratingCount = (data['ratingCount'] as num?)?.toInt() ?? 0;
@@ -78,8 +87,26 @@ class ProfileRepository {
       username: data['username'] as String? ?? '',
       avatarUrl: data['profileImageUrl'] as String? ?? '',
       rating: ratingCount == 0 ? 0 : ratingTotal / ratingCount,
-      followerCount: (data['followers'] as List<dynamic>? ?? const []).length,
+      followerCount: followers,
     );
+  }
+
+  Future<int> _followerCount(String uid) async {
+    try {
+      final result = await _tables.listRows(
+        databaseId: userDatabaseID,
+        tableId: followersTableID,
+        queries: [
+          Query.equal('followedUid', uid),
+          Query.select([r'$id']),
+          Query.limit(1),
+        ],
+      );
+      return result.total;
+    } on AppwriteException catch (e) {
+      log('Failed to count followers: ${e.message}');
+      return 0;
+    }
   }
 
   Future<String?> getFcmToken() => _messaging.getToken();
@@ -89,7 +116,11 @@ class ProfileRepository {
       databaseId: userDatabaseID,
       tableId: followersTableID,
       rowId: follower.docId,
-      data: follower.toJson(),
+      data: {
+        ...follower.toJson(),
+        if (follower.followingUserId case final followed?)
+          'followedUid': followed,
+      },
     );
   }
 
