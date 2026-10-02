@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
@@ -41,6 +42,9 @@ import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/enums/story_category.dart';
+
+// No cycle: the generated mocks do not import this file back.
+import 'test_root_container.mocks.dart';
 
 @GenerateMocks([
   Account,
@@ -287,6 +291,22 @@ void stubFlutterSecureStorageChannel() {
         const MethodChannel('plugins.it_nomads.com/flutter_secure_storage'),
         (call) async => null,
       );
+}
+
+// Providers that follow a table open a realtime subscription as they build, so a
+// container test that constructs one needs the channel stubbed or it throws
+// MissingStubError. Returns the controller so a test can push events in.
+StreamController<RealtimeMessage> stubRealtimeChannel(
+  MockRealtime realtime, {
+  MockRealtimeSubscription? subscription,
+}) {
+  final controller = StreamController<RealtimeMessage>.broadcast();
+  final sub = subscription ?? MockRealtimeSubscription();
+  when(sub.stream).thenAnswer((_) => controller.stream);
+  when(sub.close).thenReturn(() async {});
+  when(realtime.subscribe(any)).thenReturn(sub);
+  addTearDown(controller.close);
+  return controller;
 }
 
 Row buildRow({

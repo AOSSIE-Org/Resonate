@@ -120,6 +120,8 @@ class RoomsRepository {
     return rooms;
   }
 
+  Stream<RealtimeMessage> roomStream() => _rowStream(roomsTableId);
+
   // The first few participant uids of each room, in one query over all of them.
   Future<Map<String, List<String>>> _avatarUidsByRoom(
     List<String> roomIds,
@@ -447,7 +449,7 @@ class RoomsRepository {
     final participants = <Participant>[];
     for (final row in result.rows) {
       try {
-        participants.add(_participantFrom(row, users[row.data['uid']]));
+        participants.add(_participantFrom(row.data, users[row.data['uid']]));
       } catch (_) {
         // Skiping rows that have missing/malformed fields.
       }
@@ -455,39 +457,44 @@ class RoomsRepository {
     return participants;
   }
 
-  Future<Participant> buildParticipantFromRow(Row row) async {
-    final uid = row.data['uid'] as String;
+  // Takes the map, not a Row: Row.fromMap throws without $sequence, which a
+  // realtime payload need not carry.
+  Future<Participant> buildParticipantFromData(Map<String, dynamic> data) async {
+    final uid = data['uid'] as String;
     final users = await _userRows({uid});
-    return _participantFrom(row, users[uid]);
+    return _participantFrom(data, users[uid]);
   }
 
-  Participant _participantFrom(Row row, Row? userDoc) {
+  Participant _participantFrom(Map<String, dynamic> data, Row? userDoc) {
     if (userDoc == null) {
-      throw StateError('No user row for participant ${row.data['uid']}');
+      throw StateError('No user row for participant ${data['uid']}');
     }
     return Participant(
-      uid: row.data['uid'] as String,
-      email: userDoc.data['email'] as String,
+      uid: data['uid'] as String,
+      // Soft: a user row with no email should not cost us the participant.
+      email: userDoc.data['email'] as String? ?? '',
       name: userDoc.data['name'] as String? ?? 'Unknown',
       dpUrl: userDoc.data['profileImageUrl'] as String? ?? '',
-      isAdmin: row.data['isAdmin'] as bool,
-      isMicOn: row.data['isMicOn'] as bool,
-      isModerator: row.data['isModerator'] as bool,
-      isSpeaker: row.data['isSpeaker'] as bool,
+      isAdmin: data['isAdmin'] as bool? ?? false,
+      isMicOn: data['isMicOn'] as bool? ?? false,
+      isModerator: data['isModerator'] as bool? ?? false,
+      isSpeaker: data['isSpeaker'] as bool? ?? false,
       hasRequestedToBeSpeaker:
-          row.data['hasRequestedToBeSpeaker'] as bool? ?? false,
+          data['hasRequestedToBeSpeaker'] as bool? ?? false,
     );
   }
 
-  Stream<RealtimeMessage> participantStream(String roomId) {
-    final channel =
-        'databases.$masterDatabaseId.tables.$participantsTableId.rows';
+  Stream<RealtimeMessage> participantStream(String roomId) =>
+      _rowStream(participantsTableId, roomId: roomId);
+
+  Stream<RealtimeMessage> _rowStream(String tableId, {String? roomId}) {
+    final channel = 'databases.$masterDatabaseId.tables.$tableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {
-      if (event.payload.isNotEmpty && event.payload['roomId'] == roomId) {
-        controller.add(event);
-      }
+      if (event.payload.isEmpty) return;
+      if (roomId != null && event.payload['roomId'] != roomId) return;
+      controller.add(event);
     });
     controller.onCancel = () async {
       await sub.cancel();

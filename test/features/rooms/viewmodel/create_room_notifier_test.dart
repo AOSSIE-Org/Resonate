@@ -27,6 +27,7 @@ void main() {
     stubFlutterSecureStorageChannel();
     tables = MockTablesDB();
     realtime = MockRealtime();
+    stubRealtimeChannel(realtime);
     functions = MockFunctions();
     messaging = MockFirebaseMessaging();
   });

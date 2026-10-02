@@ -70,7 +70,9 @@ class StoriesRepository {
       final result = await _tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
-        queries: [Query.limit(10)],
+        // Newest first. Without an order Appwrite returns the oldest rows,
+        // so a story published today never made it into the first 10.
+        queries: [Query.orderDesc(r'$createdAt'), Query.limit(10)],
       );
       return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
@@ -87,7 +89,11 @@ class StoriesRepository {
       final result = await _tables.listRows(
         databaseId: storyDatabaseId,
         tableId: storyTableId,
-        queries: [Query.limit(15), Query.equal('category', category.name)],
+        queries: [
+          Query.equal('category', category.name),
+          Query.orderDesc(r'$createdAt'),
+          Query.limit(15),
+        ],
       );
       return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {

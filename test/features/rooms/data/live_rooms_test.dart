@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,12 +40,14 @@ void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
   late MockFunctions functions;
+  late StreamController<RealtimeMessage> roomEvents;
 
   setUp(() {
     stubFlutterSecureStorageChannel();
     tables = MockTablesDB();
     realtime = MockRealtime();
     functions = MockFunctions();
+    roomEvents = stubRealtimeChannel(realtime);
     // Default: no participants for any room (avoids per-test boilerplate).
     when(tables.listRows(
       databaseId: masterDatabaseId,
@@ -102,6 +107,99 @@ void main() {
 
       await container.read(liveRoomsProvider.notifier).refresh();
       expect(callCount, 2);
+    });
+  });
+
+  // Without these the list only ever changed from this device: a room opened or
+  // closed on someone else's phone never arrived.
+  group('LiveRooms follows the rooms table', () {
+    const roomsChannel =
+        'databases.$masterDatabaseId.tables.$roomsTableId.rows';
+
+    Future<ProviderContainer> openWith(List<Row> rows) async {
+      when(tables.listRows(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+        queries: anyNamed('queries'),
+      )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
+      // A room arriving is fetched by id, the way getRoomById does.
+      when(tables.getRow(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+        rowId: anyNamed('rowId'),
+      )).thenAnswer(
+        (invocation) async =>
+            _roomRow(id: invocation.namedArguments[#rowId] as String),
+      );
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
+      await container.read(liveRoomsProvider.future);
+      return container;
+    }
+
+    // Realtime payloads are the row flattened: fields beside the $ keys.
+    Future<void> emit(String action, Row row) async {
+      roomEvents.add(RealtimeMessage(
+        events: ['$roomsChannel.${row.$id}.$action'],
+        payload: {...row.toMap()..remove('data'), ...row.data},
+        channels: const [roomsChannel],
+        timestamp: '',
+      ));
+      for (var i = 0; i < 5; i++) {
+        await Future<void>.delayed(Duration.zero);
+      }
+    }
+
+    List<String> idsIn(ProviderContainer container) =>
+        [for (final r in container.read(liveRoomsProvider).value!) r.id];
+
+    test('a room opened elsewhere arrives', () async {
+      final container = await openWith([_roomRow(id: 'r1')]);
+
+      await emit('create', _roomRow(id: 'r2', name: 'New'));
+
+      expect(idsIn(container), containsAll(['r1', 'r2']));
+    });
+
+    test('it arrives even when reported as an update', () async {
+      final container = await openWith([_roomRow(id: 'r1')]);
+
+      await emit('update', _roomRow(id: 'r2', name: 'New'));
+
+      expect(idsIn(container), containsAll(['r1', 'r2']));
+    });
+
+    test('a room deleted elsewhere goes away', () async {
+      final container = await openWith([_roomRow(id: 'r1'), _roomRow(id: 'r2')]);
+
+      await emit('delete', _roomRow(id: 'r2'));
+
+      expect(idsIn(container), ['r1']);
+    });
+
+    test('an update to a listed room patches it in place', () async {
+      final container = await openWith([_roomRow(id: 'r1', totalParticipants: 1)]);
+
+      await emit('update', _roomRow(id: 'r1', totalParticipants: 7));
+
+      final rooms = container.read(liveRoomsProvider).value!;
+      expect(rooms, hasLength(1));
+      expect(rooms.single.totalParticipants, 7);
+    });
+
+    test('a room I reported never joins the list', () async {
+      final container = await openWith([_roomRow(id: 'r1')]);
+
+      await emit(
+        'create',
+        _roomRow(id: 'r2', reportedUsers: const ['me']),
+      );
+
+      expect(idsIn(container), ['r1']);
     });
   });
 
