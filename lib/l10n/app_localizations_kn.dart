@@ -140,6 +140,13 @@ class AppLocalizationsKn extends AppLocalizations {
   String get setNewPassword => 'ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಸಿ';
 
   @override
+  String get passwordResetSuccess => 'ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ!';
+
+  @override
+  String get invalidOrMissingResetLink =>
+      'ಅಮಾನ್ಯ ಅಥವಾ ಅವಧಿ ಮೀರಿದ ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್. ದಯವಿಟ್ಟು ಹೊಸದನ್ನು ವಿನಂತಿಸಿ.';
+
+  @override
   String get emailChanged => 'ಇಮೇಲ್ ಬದಲಾಯಿಸಲಾಗಿದೆ';
 
   @override

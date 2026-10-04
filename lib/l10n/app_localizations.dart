@@ -350,6 +350,18 @@ abstract class AppLocalizations {
   /// **'Set New Password'**
   String get setNewPassword;
 
+  /// Success message after resetting the user's password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully!'**
+  String get passwordResetSuccess;
+
+  /// Error message when password reset link is missing userId or secret, or is invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or expired password reset link. Please request a new one.'**
+  String get invalidOrMissingResetLink;
+
   /// Title for the success dialog after an email change.
   ///
   /// In en, this message translates to:

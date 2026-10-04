@@ -170,6 +170,14 @@
     "@setNewPassword": {
         "description": "Button text to confirm setting a new password."
     },
+    "passwordResetSuccess": "Password reset successfully!",
+    "@passwordResetSuccess": {
+        "description": "Success message after resetting the user's password."
+    },
+    "invalidOrMissingResetLink": "Invalid or expired password reset link. Please request a new one.",
+    "@invalidOrMissingResetLink": {
+        "description": "Error message when password reset link is missing userId or secret, or is invalid."
+    },
     "emailChanged": "Email Changed",
     "@emailChanged": {
         "description": "Title for the success dialog after an email change."

@@ -50,6 +50,8 @@
     "enterNewPassword": "તમારો નવો પાસવર્ડ દાખલ કરો",
     "newPassword": "નવો પાસવર્ડ",
     "setNewPassword": "નવો પાસવર્ડ સેટ કરો",
+    "passwordResetSuccess": "પાસવર્ડ સફળતાપૂર્વક રીસેટ થયો!",
+    "invalidOrMissingResetLink": "અમાન્ય અથવા સમાપ્ત થયેલ પાસવર્ડ રીસેટ લિંક. કૃપા કરીને નવી વિનંતી કરો.",
     "emailChanged": "ઈમેઈલ બદલાયો",
     "emailChangeSuccess": "ઈમેઈલ સફળતાપૂર્વક બદલાયો!",
     "failed": "અસફળ",

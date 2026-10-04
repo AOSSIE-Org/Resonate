@@ -140,6 +140,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get setNewPassword => 'नया पासवर्ड सेट करो';
 
   @override
+  String get passwordResetSuccess => 'पासवर्ड सफलतापूर्वक रीसेट हो गया!';
+
+  @override
+  String get invalidOrMissingResetLink =>
+      'अमान्य या समाप्त हो चुका पासवर्ड रीसेट लिंक। कृपया नया लिंक अनुरोध करें।';
+
+  @override
   String get emailChanged => 'ईमेल बदल दी गई';
 
   @override

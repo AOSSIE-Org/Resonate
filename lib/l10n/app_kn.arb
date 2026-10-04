@@ -170,6 +170,14 @@
     "@setNewPassword": {
         "description": "Button text to confirm setting a new password."
     },
+    "passwordResetSuccess": "ಪಾಸ್‌ವರ್ಡ್ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ!",
+    "@passwordResetSuccess": {
+        "description": "Success message after resetting the user's password."
+    },
+    "invalidOrMissingResetLink": "ಅಮಾನ್ಯ ಅಥವಾ ಅವಧಿ ಮೀರಿದ ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್. ದಯವಿಟ್ಟು ಹೊಸದನ್ನು ವಿನಂತಿಸಿ.",
+    "@invalidOrMissingResetLink": {
+        "description": "Error message when password reset link is missing userId or secret, or is invalid."
+    },
     "emailChanged": "ಇಮೇಲ್ ಬದಲಾಯಿಸಲಾಗಿದೆ",
     "@emailChanged": {
         "description": "Title for the success dialog after an email change."

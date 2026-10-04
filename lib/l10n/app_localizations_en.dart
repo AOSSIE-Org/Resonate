@@ -140,6 +140,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setNewPassword => 'Set New Password';
 
   @override
+  String get passwordResetSuccess => 'Password reset successfully!';
+
+  @override
+  String get invalidOrMissingResetLink =>
+      'Invalid or expired password reset link. Please request a new one.';
+
+  @override
   String get emailChanged => 'Email Changed';
 
   @override

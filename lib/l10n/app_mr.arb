@@ -170,6 +170,14 @@
     "@setNewPassword": {
         "description": "नवीन पासवर्ड पुष्टी करण्यासाठी बटण मजकूर."
     },
+    "passwordResetSuccess": "पासवर्ड यशस्वीरीत्या रीसेट केला!",
+    "@passwordResetSuccess": {
+        "description": "वापरकर्त्याचा पासवर्ड रीसेट केल्यानंतर यशस्वी संदेश."
+    },
+    "invalidOrMissingResetLink": "अवैध किंवा कालबाह्य झालेली पासवर्ड रीसेट लिंक. कृपया नवीन विनंती करा.",
+    "@invalidOrMissingResetLink": {
+        "description": "पासवर्ड रीसेट लिंक अवैध किंवा कालबाह्य असल्यास त्रुटी संदेश."
+    },
     "emailChanged": "ईमेल बदलली",
     "@emailChanged": {
         "description": "ईमेल बदल नंतर यशस्वी संवाद शीर्षक."

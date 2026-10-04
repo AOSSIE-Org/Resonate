@@ -6,6 +6,7 @@ import 'package:resonate/services/appwrite_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:resonate/controllers/auth_state_controller.dart';
+import 'package:resonate/routes/app_routes.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/views/widgets/snackbar.dart';
@@ -136,6 +137,54 @@ class AuthenticationController extends GetxController {
       );
 
       SemanticsService.announce(e.message.toString(), TextDirection.ltr);
+    }
+  }
+
+  Future<bool> confirmPasswordReset({
+    required String userId,
+    required String secret,
+    required String newPassword,
+    required BuildContext context,
+  }) async {
+    try {
+      isLoading.value = true;
+      var account = AppwriteService.getAccount();
+      await account.updateRecovery(
+        userId: userId,
+        secret: secret,
+        password: newPassword,
+      );
+
+      if (!context.mounted) return true;
+      final l10n = AppLocalizations.of(context)!;
+
+      customSnackbar(l10n.success, l10n.passwordResetSuccess, LogType.success);
+
+      SemanticsService.announce(l10n.passwordResetSuccess, TextDirection.ltr);
+
+      Get.offNamed(AppRoutes.loginScreen);
+      return true;
+    } on AppwriteException catch (e) {
+      if (!context.mounted) return false;
+      log(e.message ?? 'AppwriteException in confirmPasswordReset');
+      final errorTitle = AppLocalizations.of(context)!.error;
+      final errorMessage = (e.message != null && e.message!.isNotEmpty)
+          ? e.message!
+          : errorTitle;
+      customSnackbar(errorTitle, errorMessage, LogType.error);
+
+      SemanticsService.announce(errorMessage, TextDirection.ltr);
+      return false;
+    } catch (e) {
+      if (!context.mounted) return false;
+      log(e.toString());
+      final errorTitle = AppLocalizations.of(context)!.error;
+      customSnackbar(errorTitle, e.toString(), LogType.error);
+
+      SemanticsService.announce(e.toString(), TextDirection.ltr);
+      return false;
+    } finally {
+      isLoading.value = false;
     }
   }
 }
