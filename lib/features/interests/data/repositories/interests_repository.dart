@@ -20,7 +20,7 @@ class InterestsRepository {
 
   Future<List<Interest>> loadInterests(String uid) async {
     final row = await _tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       queries: [
@@ -35,7 +35,7 @@ class InterestsRepository {
     required List<Interest> interests,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'interests': Interest.toWireList(interests)},
@@ -49,7 +49,7 @@ class InterestsRepository {
   }) async {
     if (interests.isEmpty) return const [];
     final result = await _tables.listRows(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       queries: [
         Query.contains('interests', Interest.toWireList(interests)),

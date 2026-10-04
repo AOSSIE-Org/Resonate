@@ -11,7 +11,7 @@ Future<String?> userAvatarUrl(Ref ref, String uid) async {
   try {
     final row = await ref
         .read(appwriteTablesProvider)
-        .getRow(databaseId: userDatabaseID, tableId: usersTableID, rowId: uid);
+        .getRow(databaseId: databaseId, tableId: usersTableID, rowId: uid);
     return row.data['profileImageUrl'] as String?;
   } catch (_) {
     return null;

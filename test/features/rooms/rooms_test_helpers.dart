@@ -33,7 +33,7 @@ void stubBatchedUserRows(
 }) {
   when(
     tables.listRows(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       queries: anyNamed('queries'),
     ),
@@ -52,7 +52,7 @@ void stubBatchedUserRows(
         buildRow(
           id: id,
           tableId: usersTableID,
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           data:
               rowData?.call(id) ??
               const {

@@ -35,7 +35,7 @@ class RoomChatRepository {
 
   Future<List<RoomMessage>> loadMessages(String roomId) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       queries: [
         Query.equal('roomId', roomId),
@@ -72,7 +72,7 @@ class RoomChatRepository {
           : i + _pageSize;
       final chunk = messageIds.sublist(i, end);
       final result = await _tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessageReplyTableId,
         queries: [Query.equal(r'$id', chunk), Query.limit(chunk.length)],
       );
@@ -90,7 +90,7 @@ class RoomChatRepository {
   Future<ReplyTo?> _fetchReplyTo(String messageId) async {
     try {
       final doc = await _tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessageReplyTableId,
         rowId: messageId,
       );
@@ -108,14 +108,14 @@ class RoomChatRepository {
     ReplyTo? replyTo,
   }) async {
     await _tables.createRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: message.messageId,
       data: {...message.toJsonForUpload(), 'room': message.roomId},
     );
     if (replyTo != null) {
       await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessageReplyTableId,
         rowId: message.messageId,
         data: {...replyTo.toJson(), 'message': message.messageId},
@@ -125,7 +125,7 @@ class RoomChatRepository {
 
   Future<void> editMessage(RoomMessage updated) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: updated.messageId,
       data: updated.toJsonForUpload(),
@@ -134,7 +134,7 @@ class RoomChatRepository {
 
   Future<void> deleteMessage(RoomMessage softDeleted) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: softDeleted.messageId,
       data: softDeleted.toJsonForUpload(),
@@ -159,7 +159,7 @@ class RoomChatRepository {
     String roomId,
   ) {
     final channel =
-        'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+        'databases.$databaseId.tables.$chatMessagesTableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller =
         StreamController<({RoomMessage message, String action})>();

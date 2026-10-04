@@ -24,7 +24,7 @@ Row upcomingRoomRow({
   return buildRow(
     id: id,
     tableId: upcomingRoomsTableId,
-    databaseId: upcomingRoomsDatabaseId,
+    databaseId: databaseId,
     data: {
       'name': name,
       'isTime': isTime,
@@ -46,7 +46,7 @@ Row subscriberRow({
   return buildRow(
     id: id,
     tableId: subscribedUserTableId,
-    databaseId: upcomingRoomsDatabaseId,
+    databaseId: databaseId,
     data: {
       'userID': userID,
       'upcomingRoomId': upcomingRoomId,
@@ -70,7 +70,7 @@ void main() {
     test('lists rows, filters hidden ids, and hydrates each', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -84,7 +84,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -99,7 +99,7 @@ void main() {
       expect(rooms.first.id, 'visible');
       verify(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).called(1);
@@ -108,7 +108,7 @@ void main() {
     test('marks userIsCreator when creatorUid matches userUid', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -120,7 +120,7 @@ void main() {
       // The creator is also a subscriber, but hasUserSubscribed stays false.
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -149,7 +149,7 @@ void main() {
       () async {
         when(
           tables.listRows(
-            databaseId: upcomingRoomsDatabaseId,
+            databaseId: databaseId,
             tableId: upcomingRoomsTableId,
           ),
         ).thenAnswer(
@@ -160,7 +160,7 @@ void main() {
         );
         when(
           tables.listRows(
-            databaseId: upcomingRoomsDatabaseId,
+            databaseId: databaseId,
             tableId: subscribedUserTableId,
             queries: anyNamed('queries'),
           ),
@@ -201,7 +201,7 @@ void main() {
     test('defaults tags to [] when data has null tags', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -212,7 +212,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -229,7 +229,7 @@ void main() {
     test('returns fallback Unknown room when hydration throws', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -241,7 +241,7 @@ void main() {
       // Subscriber lookup fails, so hydration falls into the catch block.
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -269,7 +269,7 @@ void main() {
     test('returns the set of row ids', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -311,7 +311,7 @@ void main() {
       verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -347,7 +347,7 @@ void main() {
       verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -364,7 +364,7 @@ void main() {
     test('is a no-op when no matching subscriber row exists', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -384,7 +384,7 @@ void main() {
     test('deletes the first matching subscriber row', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -406,7 +406,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 'match-1',
         ),
@@ -425,7 +425,7 @@ void main() {
       ).thenAnswer((_) async => '');
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -443,21 +443,21 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: 'up-1',
         ),
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 's1',
         ),
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 's2',
         ),

@@ -19,7 +19,7 @@ Row _storyRow(String id, String title, String category, String creatorId) =>
     Row(
       $id: id,
       $tableId: storyTableId,
-      $databaseId: storyDatabaseId,
+      $databaseId: databaseId,
       $createdAt: DateTime(2024).toIso8601String(),
       $updatedAt: DateTime(2024).toIso8601String(),
       $permissions: const ['any'],
@@ -41,7 +41,7 @@ Row _storyRow(String id, String title, String category, String creatorId) =>
 final _userRowWithFollowers = Row(
   $id: 'id1',
   $tableId: usersTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime(2024).toIso8601String(),
   $updatedAt: DateTime(2024).toIso8601String(),
   $permissions: const ['any'],
@@ -78,7 +78,7 @@ final _userRowWithFollowers = Row(
 final _unratedUserRow = Row(
   $id: 'fresh',
   $tableId: usersTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime(2024).toIso8601String(),
   $updatedAt: DateTime(2024).toIso8601String(),
   $permissions: const ['any'],
@@ -160,7 +160,7 @@ void main() {
     test('parses the followers relation', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: [Query.select(['*', 'followers.*'])],
@@ -177,7 +177,7 @@ void main() {
     test('returns [] when the lookup throws', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: [Query.select(['*', 'followers.*'])],
@@ -193,7 +193,7 @@ void main() {
     void stubFollowerCount(int total) {
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           queries: anyNamed('queries'),
         ),
@@ -204,7 +204,7 @@ void main() {
         'followers table', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: anyNamed('queries'),
@@ -225,7 +225,7 @@ void main() {
     test('counts followers without pulling a single follower row', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: anyNamed('queries'),
@@ -240,7 +240,7 @@ void main() {
       final userQueries =
           verify(
                 tables.getRow(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: usersTableID,
                   rowId: 'id1',
                   queries: captureAnyNamed('queries'),
@@ -257,7 +257,7 @@ void main() {
       final countQueries =
           verify(
                 tables.listRows(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: followersTableID,
                   queries: captureAnyNamed('queries'),
                 ),
@@ -270,7 +270,7 @@ void main() {
     test('reports an unrated user as 0 rather than dividing by zero', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'fresh',
           queries: anyNamed('queries'),
@@ -287,7 +287,7 @@ void main() {
     test('a failed count still returns the rest of the summary', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: anyNamed('queries'),
@@ -295,7 +295,7 @@ void main() {
       ).thenAnswer((_) async => _userRowWithFollowers);
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           queries: anyNamed('queries'),
         ),
@@ -309,7 +309,7 @@ void main() {
     test('lets the failure through so the caller can show it', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: anyNamed('queries'),
@@ -339,7 +339,7 @@ void main() {
     test('followCreator creates the follower row', () async {
       when(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
           data: anyNamed('data'),
@@ -350,7 +350,7 @@ void main() {
       final data =
           verify(
                 tables.createRow(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: followersTableID,
                   rowId: 'fdoc1',
                   data: captureAnyNamed('data'),
@@ -369,7 +369,7 @@ void main() {
     test('unfollowCreator deletes the follower row', () async {
       when(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
         ),
@@ -378,7 +378,7 @@ void main() {
       await repo.unfollowCreator('fdoc1');
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
         ),
@@ -405,7 +405,7 @@ void main() {
     test('returns false when the username row exists', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'taken',
         ),
@@ -416,7 +416,7 @@ void main() {
     test('returns true when the lookup throws (row not found)', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'free',
         ),
@@ -429,14 +429,14 @@ void main() {
     test('true when no rows, false when some exist', () async {
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           queries: [Query.equal('email', 'free@test.com')],
         ),
       ).thenAnswer((_) async => RowList(total: 0, rows: const []));
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           queries: [Query.equal('email', 'taken@test.com')],
         ),
@@ -495,7 +495,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'email': 'new@test.com'},
@@ -503,7 +503,7 @@ void main() {
       ).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'TestUser',
           data: {'email': 'new@test.com'},
@@ -547,7 +547,7 @@ void main() {
 
       verify(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'new',
           data: {'email': 'test@test.com'},
@@ -555,14 +555,14 @@ void main() {
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'old',
         ),
       ).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'username': 'new'},
@@ -589,7 +589,7 @@ void main() {
       verify(account.updateName(name: 'New Name')).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'name': 'New Name'},

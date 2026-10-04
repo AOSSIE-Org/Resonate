@@ -46,7 +46,7 @@ Row userRow({
   $id: id,
   $sequence: 0,
   $tableId: usersTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -57,7 +57,7 @@ Row friendRow({String id = 'friend-doc-1'}) => Row(
   $id: id,
   $sequence: 0,
   $tableId: friendsTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -108,7 +108,7 @@ void main() {
         () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -133,7 +133,7 @@ void main() {
     test('skips malformed rows via try/catch', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -158,7 +158,7 @@ void main() {
     test('selects Query.select(["*","friends.*"])', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -169,7 +169,7 @@ void main() {
 
       final captured = verify(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: captureAnyNamed('queries'),
@@ -210,7 +210,7 @@ void main() {
 
       verify(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: model.docId,
           data: anyNamed('data'),
@@ -290,7 +290,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: 'friend-doc-1',
           data: anyNamed('data'),
@@ -334,7 +334,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: 'friend-doc-1',
         ),
@@ -385,7 +385,7 @@ void main() {
       final sub = repo.friendsStream('me').listen(received.add);
 
       final channel =
-          'databases.$userDatabaseID.tables.$friendsTableID.rows';
+          'databases.$databaseId.tables.$friendsTableID.rows';
       // Matches on senderId.
       events.add(RealtimeMessage(
         events: ['$channel.a.create'],

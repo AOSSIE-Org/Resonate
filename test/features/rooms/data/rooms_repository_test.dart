@@ -25,7 +25,7 @@ Row roomRow({
     $id: id,
     $sequence: 0,
     $tableId: roomsTableId,
-    $databaseId: masterDatabaseId,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const [],
@@ -50,7 +50,7 @@ Row userRow({
     $id: id,
     $sequence: 0,
     $tableId: usersTableID,
-    $databaseId: userDatabaseID,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const [],
@@ -75,7 +75,7 @@ Row participantRow({
     $id: id,
     $sequence: 0,
     $tableId: participantsTableId,
-    $databaseId: masterDatabaseId,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const [],
@@ -112,7 +112,7 @@ void main() {
     test('returns rooms and filters out reported users', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           queries: anyNamed('queries'),
         ),
@@ -131,7 +131,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -148,7 +148,7 @@ void main() {
         'rooms there are', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           queries: anyNamed('queries'),
         ),
@@ -160,7 +160,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -175,7 +175,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -191,14 +191,14 @@ void main() {
       expect(rooms, hasLength(3));
       verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
       ).called(1);
       verify(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -206,7 +206,7 @@ void main() {
       // The per-participant user read is what this replaced.
       verifyNever(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: anyNamed('rowId'),
         ),
@@ -220,7 +220,7 @@ void main() {
     test('asks the participants query for every room id at once', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           queries: anyNamed('queries'),
         ),
@@ -230,7 +230,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -241,7 +241,7 @@ void main() {
       final queries =
           verify(
                 tables.listRows(
-                  databaseId: masterDatabaseId,
+                  databaseId: databaseId,
                   tableId: participantsTableId,
                   queries: captureAnyNamed('queries'),
                 ),
@@ -256,7 +256,7 @@ void main() {
     test('returns null on 404', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'missing',
         ),
@@ -269,14 +269,14 @@ void main() {
     test('builds AppwriteRoom on success', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'r1',
         ),
       ).thenAnswer((_) async => roomRow(id: 'r1', adminUid: 'someone-else'));
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -294,7 +294,7 @@ void main() {
     test('joins participant + user data', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -306,7 +306,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -327,7 +327,7 @@ void main() {
     test('reads every participant\'s user row in one query', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -343,7 +343,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -363,14 +363,14 @@ void main() {
       expect(participants.map((p) => p.name), ['Alice', 'Bob', 'Cass']);
       verify(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
       ).called(1);
       verifyNever(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: anyNamed('rowId'),
         ),
@@ -382,7 +382,7 @@ void main() {
     test('decrements totalParticipants atomically when others remain', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -414,7 +414,7 @@ void main() {
       expect(ok, isTrue);
       verify(
         tables.decrementRowColumn(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
           column: 'totalParticipants',
@@ -424,7 +424,7 @@ void main() {
       // The room is no longer read first just to work out the new count.
       verifyNever(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: anyNamed('rowId'),
           queries: anyNamed('queries'),
@@ -432,7 +432,7 @@ void main() {
       );
       verifyNever(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: anyNamed('rowId'),
           data: anyNamed('data'),
@@ -443,7 +443,7 @@ void main() {
     test('deletes the room when last participant leaves', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -476,7 +476,7 @@ void main() {
       expect(ok, isTrue);
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
         ),
@@ -487,14 +487,14 @@ void main() {
         () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
       ).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
           queries: anyNamed('queries'),
@@ -523,7 +523,7 @@ void main() {
       );
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
         ),
@@ -535,7 +535,7 @@ void main() {
     test('deletes the participant row', () async {
       when(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-7',
         ),
@@ -545,7 +545,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-7',
         ),
@@ -559,7 +559,7 @@ void main() {
       stubFlutterSecureStorageChannel();
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -589,22 +589,22 @@ void main() {
       // seeing the host go, so the host must not be deleted alongside them.
       verifyInOrder([
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-host',
         ),
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-1',
         ),
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-2',
         ),
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: 'room-1',
         ),
@@ -614,7 +614,7 @@ void main() {
     test('still deletes every participant when there is no host row', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: anyNamed('queries'),
         ),
@@ -629,7 +629,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           rowId: 'p-1',
         ),

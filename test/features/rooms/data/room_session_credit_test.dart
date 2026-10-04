@@ -16,7 +16,7 @@ import '../rooms_test_helpers.dart';
 
 const _roomId = 'room-1';
 const _participantChannel =
-    'databases.$masterDatabaseId.tables.$participantsTableId.rows';
+    'databases.$databaseId.tables.$participantsTableId.rows';
 
 void main() {
   late MockTablesDB tables;
@@ -34,7 +34,7 @@ void main() {
   }) => buildRow(
     id: id,
     tableId: participantsTableId,
-    databaseId: masterDatabaseId,
+    databaseId: databaseId,
     data: {
       'roomId': _roomId,
       'uid': uid,
@@ -71,7 +71,7 @@ void main() {
 
     when(
       tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: anyNamed('queries'),
       ),

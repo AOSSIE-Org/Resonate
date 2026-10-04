@@ -68,7 +68,7 @@ class StoriesRepository {
   Future<List<Story>> fetchRecommendedStories(String currentUid) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         // Newest first. Without an order Appwrite returns the oldest rows,
         // so a story published today never made it into the first 10.
@@ -87,7 +87,7 @@ class StoriesRepository {
   ) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [
           Query.equal('category', category.name),
@@ -110,7 +110,7 @@ class StoriesRepository {
   }) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [Query.equal('creatorId', creatorId)],
       );
@@ -124,7 +124,7 @@ class StoriesRepository {
   Future<List<Story>> fetchLikedStories(String uid, {String? viewerUid}) async {
     try {
       final likeDocs = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: [
           Query.equal('uId', uid),
@@ -155,7 +155,7 @@ class StoriesRepository {
       final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
       final chunk = ids.sublist(i, end);
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [Query.equal(r'$id', chunk), Query.limit(chunk.length)],
       );
@@ -195,7 +195,7 @@ class StoriesRepository {
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
     final result = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: chapterTableId,
       queries: [Query.equal('storyId', storyId)],
     );
@@ -217,7 +217,7 @@ class StoriesRepository {
 
   Future<int> fetchLikesCount(String storyId) async {
     final doc = await _tables.getRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: storyId,
       queries: [
@@ -229,7 +229,7 @@ class StoriesRepository {
 
   Future<bool> checkIfStoryLikedByUser(String storyId, String uid) async {
     final result = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       queries: [
         Query.and([Query.equal('uId', uid), Query.equal('storyId', storyId)]),
@@ -240,14 +240,14 @@ class StoriesRepository {
 
   Future<LiveChapterModel?> fetchLiveChapterForStory(String storyId) async {
     final liveDocs = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: liveChaptersTableId,
       queries: [Query.equal('storyId', storyId)],
     );
     if (liveDocs.rows.isEmpty) return null;
 
     final attendeesDoc = await _tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: liveDocs.rows.first.$id,
       queries: [
@@ -281,7 +281,7 @@ class StoriesRepository {
 
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [
           Query.or([
@@ -351,7 +351,7 @@ class StoriesRepository {
       }
 
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: [
           Query.or([
@@ -376,7 +376,7 @@ class StoriesRepository {
   Future<void> likeStory(Story story, String uid) async {
     try {
       await _tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: ID.unique(),
         data: <String, dynamic>{
@@ -391,7 +391,7 @@ class StoriesRepository {
     }
     try {
       await _tables.incrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
         column: 'likes',
@@ -404,7 +404,7 @@ class StoriesRepository {
   Future<void> unlikeStory(Story story, String uid) async {
     try {
       final likeDocs = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: [
           Query.and([
@@ -418,12 +418,12 @@ class StoriesRepository {
       // Nothing to undo, so the counter stays where it is.
       if (likeDocs.rows.isEmpty) return;
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: likeDocs.rows.first.$id,
       );
       await _tables.decrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
         column: 'likes',
@@ -508,7 +508,7 @@ class StoriesRepository {
 
     try {
       await _tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: storyId,
         data: <String, dynamic>{
@@ -584,7 +584,7 @@ class StoriesRepository {
 
       try {
         await _tables.createRow(
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           tableId: chapterTableId,
           rowId: chapter.chapterId,
           data: chapterData,
@@ -593,7 +593,7 @@ class StoriesRepository {
         if (e.code == 409) {
           log("Chapter row '${chapter.chapterId}' already exists; updating it");
           await _tables.updateRow(
-            databaseId: storyDatabaseId,
+            databaseId: databaseId,
             tableId: chapterTableId,
             rowId: chapter.chapterId,
             data: chapterData,
@@ -614,7 +614,7 @@ class StoriesRepository {
       final all = await fetchChaptersForStory(storyId);
       final total = all.fold(0, (sum, c) => sum + c.playDuration);
       await _tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: storyId,
         data: <String, dynamic>{"playDuration": total},
@@ -646,7 +646,7 @@ class StoriesRepository {
 
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
       );
@@ -674,7 +674,7 @@ class StoriesRepository {
     }
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         rowId: chapter.chapterId,
       );
@@ -685,7 +685,7 @@ class StoriesRepository {
 
   Future<void> _deleteAllStoryLikes(String storyId) async {
     final likeDocs = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       queries: [
         Query.equal('storyId', storyId),
@@ -696,7 +696,7 @@ class StoriesRepository {
     await Future.wait([
       for (final like in likeDocs.rows)
         _tables.deleteRow(
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           tableId: likeTableId,
           rowId: like.$id,
         ),

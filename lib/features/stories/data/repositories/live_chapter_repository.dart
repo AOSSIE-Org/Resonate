@@ -89,13 +89,13 @@ class LiveChapterRepository {
 
   Future<void> createLiveChapterDocs(LiveChapterModel model) async {
     await _tables.createRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: liveChaptersTableId,
       rowId: model.id,
       data: model.toJson(),
     );
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: model.id,
       data: model.attendees!.toJson(),
@@ -107,7 +107,7 @@ class LiveChapterRepository {
     LiveChapterAttendeesModel attendees,
   ) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: roomId,
       data: attendees.toJson(),
@@ -117,12 +117,12 @@ class LiveChapterRepository {
   Future<void> deleteLiveChapterDocs(String roomId) async {
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         rowId: roomId,
       );
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: roomId,
       );
@@ -134,7 +134,7 @@ class LiveChapterRepository {
   // Realtime
 
   static String attendeesChannel(String roomId) =>
-      "databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.$roomId";
+      "databases.$databaseId.tables.$liveChapterAttendeesTableId.rows.$roomId";
 
   // Stream of attendee-table events for a live chapter.
   Stream<RealtimeMessage> attendeesStream(String roomId) {

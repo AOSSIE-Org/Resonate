@@ -32,14 +32,14 @@ class PairChatRepository {
   final RoomJoinService _roomJoin;
 
   static String activePairsChannel() =>
-      'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
+      'databases.$databaseId.tables.$activePairsTableId.rows';
 
   Future<String> createPairRequest({
     required Map<String, dynamic> data,
   }) async {
     try {
       final requestDoc = await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: ID.unique(),
         data: data,
@@ -53,7 +53,7 @@ class PairChatRepository {
   Future<void> convertRequestToRandom(String requestDocId) async {
     try {
       await _tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: requestDocId,
         data: <String, dynamic>{'isRandom': true},
@@ -66,7 +66,7 @@ class PairChatRepository {
   Future<void> deletePairRequest(String requestDocId) async {
     try {
       await _tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: requestDocId,
       );
@@ -77,7 +77,7 @@ class PairChatRepository {
 
   Future<List<ResonateUser>> listOnlineUsers({required String excludeUid}) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pairRequestTableId,
       queries: [
         Query.notEqual('uid', excludeUid),
@@ -107,7 +107,7 @@ class PairChatRepository {
   }) async {
     try {
       await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: activePairsTableId,
         rowId: ID.unique(),
         data: <String, dynamic>{
@@ -128,7 +128,7 @@ class PairChatRepository {
   Future<void> deleteActivePair(String activePairDocId) async {
     try {
       await _tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: activePairsTableId,
         rowId: activePairDocId,
       );
@@ -145,7 +145,7 @@ class PairChatRepository {
   }) async {
     try {
       await _tables.updateRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: uid,
         data: <String, dynamic>{
@@ -172,7 +172,7 @@ class PairChatRepository {
   }
 
   Stream<RealtimeMessage> pairRequestsStream() {
-    final channel = 'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
+    final channel = 'databases.$databaseId.tables.$pairRequestTableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {

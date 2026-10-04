@@ -32,18 +32,18 @@ void main() {
 
     // Default: no historical messages, no replyTo rows.
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
     when(tables.getRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessageReplyTableId,
       rowId: anyNamed('rowId'),
     )).thenThrow(AppwriteException('not found', 404));
     // loadMessages now fetches the whole page's replies in one query.
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessageReplyTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -61,7 +61,7 @@ void main() {
   group('RoomChatNotifier', () {
     test('build loads messages from the repository', () async {
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -70,7 +70,7 @@ void main() {
               buildRow(
                 id: 'm1',
                 tableId: chatMessagesTableId,
-                databaseId: masterDatabaseId,
+                databaseId: databaseId,
                 data: {
                   'roomId': 'room-1',
                   'messageId': 'm1',
@@ -102,14 +102,14 @@ void main() {
       'sendMessage inserts optimistically and flips to sent on POST success',
       () async {
         when(tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: anyNamed('rowId'),
           data: anyNamed('data'),
         )).thenAnswer((_) async => buildRow(
               id: 'mid',
               tableId: chatMessagesTableId,
-              databaseId: masterDatabaseId,
+              databaseId: databaseId,
               data: const {},
             ));
 
@@ -132,7 +132,7 @@ void main() {
 
     test('sendMessage marks message as failed when POST throws', () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -156,7 +156,7 @@ void main() {
     test('retrySend flips a failed message back to sent on success', () async {
       var shouldFail = true;
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -165,7 +165,7 @@ void main() {
         return buildRow(
           id: 'mid',
           tableId: chatMessagesTableId,
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           data: const {},
         );
       });
@@ -198,14 +198,14 @@ void main() {
       'realtime create echo dedupes by messageId — no duplicate appended',
       () async {
         when(tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: anyNamed('rowId'),
           data: anyNamed('data'),
         )).thenAnswer((_) async => buildRow(
               id: 'mid',
               tableId: chatMessagesTableId,
-              databaseId: masterDatabaseId,
+              databaseId: databaseId,
               data: const {},
             ));
 
@@ -222,7 +222,7 @@ void main() {
 
         // Server echoes the same message back via realtime.
         final channel =
-            'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+            'databases.$databaseId.tables.$chatMessagesTableId.rows';
         chatEvents.add(RealtimeMessage(
           events: ['$channel.$sentId.create'],
           payload: {
@@ -260,9 +260,9 @@ void main() {
         container.listen(providerKey, (_, _) {});
         await container.read(providerKey.future);
         final rowsChannel =
-            'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+            'databases.$databaseId.tables.$chatMessagesTableId.rows';
         final colsChannel =
-            'databases.$masterDatabaseId.collections.$chatMessagesTableId.documents';
+            'databases.$databaseId.collections.$chatMessagesTableId.documents';
         chatEvents.add(RealtimeMessage(
           events: [
             '$colsChannel.other-msg.create',
@@ -308,14 +308,14 @@ void main() {
 
     void stubPost() {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'mid',
             tableId: chatMessagesTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
     }
@@ -351,7 +351,7 @@ void main() {
 
     test('a message that failed to post does not count', () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),

@@ -11,7 +11,7 @@ import '../../../helpers/test_root_container.mocks.dart';
 Row _chapterRow({String id = 'c1', int playDuration = 250}) => buildRow(
       id: id,
       tableId: chapterTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': 'Chapter $id',
         'description': 'desc',
@@ -26,7 +26,7 @@ Row _chapterRow({String id = 'c1', int playDuration = 250}) => buildRow(
 Row _likeRow({String id = 'like-1'}) => buildRow(
       id: id,
       tableId: likeTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {'uId': 'me', 'storyId': 's1'},
     );
 
@@ -51,29 +51,29 @@ void main() {
   // Stubs for StoryDetailNotifier tests
   void stubLoad({required bool liked, required int likes}) {
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: chapterTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 1, rows: [_chapterRow()]));
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async =>
         RowList(total: liked ? 1 : 0, rows: liked ? [_likeRow()] : []));
     when(tables.getRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => buildRow(
           id: 's1',
           tableId: storyTableId,
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           data: {'likes': likes},
         ));
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: liveChaptersTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -103,36 +103,36 @@ void main() {
     await container.read(key.future);
 
     when(tables.createRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       rowId: anyNamed('rowId'),
       data: anyNamed('data'),
     )).thenAnswer((_) async => _likeRow());
     // The counter moves through the server-side increment now, not updateRow.
     when(tables.incrementRowColumn(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
       column: anyNamed('column'),
     )).thenAnswer((_) async => buildRow(
           id: 's1',
           tableId: storyTableId,
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           data: const {'likes': 4},
         ));
     when(tables.getRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => buildRow(
           id: 's1',
           tableId: storyTableId,
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           data: {'likes': 4},
         ));
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 1, rows: [_likeRow()]));
@@ -155,7 +155,7 @@ void main() {
     await container.read(key.future);
 
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: chapterTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -164,7 +164,7 @@ void main() {
       fileId: anyNamed('fileId'),
     )).thenAnswer((_) async => null);
     when(tables.deleteRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
     )).thenAnswer((_) async => '');
@@ -172,7 +172,7 @@ void main() {
     await container.read(key.notifier).deleteStory(fakeStory(storyId: 's1'));
 
     verify(tables.deleteRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
     )).called(1);

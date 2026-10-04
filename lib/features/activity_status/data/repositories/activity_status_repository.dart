@@ -27,7 +27,7 @@ class ActivityStatusRepository {
 
   Future<ActivityStatus?> loadStatus(String uid) async {
     final row = await _tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       queries: [
@@ -45,7 +45,7 @@ class ActivityStatusRepository {
       final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
       final chunk = ids.sublist(i, end);
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: [
           Query.equal(r'$id', chunk),
@@ -66,7 +66,7 @@ class ActivityStatusRepository {
     required ActivityStatus status,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'status': status.wire},
@@ -74,7 +74,7 @@ class ActivityStatusRepository {
   }
 
   Stream<({String uid, ActivityStatus status})> activityStatusStream() {
-    final channel = 'databases.$userDatabaseID.tables.$usersTableID.rows';
+    final channel = 'databases.$databaseId.tables.$usersTableID.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<({String uid, ActivityStatus status})>();
 

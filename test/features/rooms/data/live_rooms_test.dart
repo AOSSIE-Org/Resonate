@@ -25,7 +25,7 @@ Row _roomRow({
     buildRow(
       id: id,
       tableId: roomsTableId,
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       data: {
         'name': name,
         'description': description,
@@ -50,7 +50,7 @@ void main() {
     roomEvents = stubRealtimeChannel(realtime);
     // Default: no participants for any room (avoids per-test boilerplate).
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -66,7 +66,7 @@ void main() {
   group('LiveRooms (data-layer cache)', () {
     test('build loads rooms from the repository', () async {
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -88,7 +88,7 @@ void main() {
     test('refresh re-invokes repository load', () async {
       var callCount = 0;
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async {
@@ -114,17 +114,17 @@ void main() {
   // closed on someone else's phone never arrived.
   group('LiveRooms follows the rooms table', () {
     const roomsChannel =
-        'databases.$masterDatabaseId.tables.$roomsTableId.rows';
+        'databases.$databaseId.tables.$roomsTableId.rows';
 
     Future<ProviderContainer> openWith(List<Row> rows) async {
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
       // A room arriving is fetched by id, the way getRoomById does.
       when(tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         rowId: anyNamed('rowId'),
       )).thenAnswer(
@@ -208,7 +208,7 @@ void main() {
   group('LiveRooms optimistic removal', () {
     Future<ProviderContainer> containerWith(List<Row> rows) async {
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
@@ -253,7 +253,7 @@ void main() {
       await pending;
       // The host leaving is what ends the room.
       verify(tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         rowId: 'r1',
       )).called(1);
@@ -273,7 +273,7 @@ void main() {
 
       expect(idsIn(container), ['r1', 'r2']);
       verifyNever(tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         rowId: 'r1',
       ));
@@ -284,7 +284,7 @@ void main() {
     test('the new room joins the list without a refetch', () async {
       var roomListLoads = 0;
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async {
@@ -292,14 +292,14 @@ void main() {
         return RowList(total: 0, rows: []);
       });
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'doc-mine',
             tableId: participantsTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
       when(tables.getRow(
@@ -362,18 +362,18 @@ void main() {
         rowId: anyNamed('rowId'),
       )).thenAnswer((_) async => '');
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((inv) async => buildRow(
             id: 'doc-mine',
             tableId: participantsTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
       when(tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         rowId: 'r1',
       )).thenAnswer((_) async => _roomRow(id: 'r1', totalParticipants: 1));

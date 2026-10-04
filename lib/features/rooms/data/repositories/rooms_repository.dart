@@ -53,7 +53,7 @@ class RoomsRepository {
 
   Future<List<AppwriteRoom>> loadRooms(String userUid) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: roomsTableId,
       queries: [Query.limit(_pageSize)],
     );
@@ -68,7 +68,7 @@ class RoomsRepository {
   Future<AppwriteRoom?> getRoomById(String roomId, String userUid) async {
     try {
       final row = await _tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
         rowId: roomId,
       );
@@ -86,7 +86,9 @@ class RoomsRepository {
   ) async {
     if (rows.isEmpty) return const [];
 
-    final uidsByRoom = await _avatarUidsByRoom([for (final row in rows) row.$id]);
+    final uidsByRoom = await _avatarUidsByRoom([
+      for (final row in rows) row.$id,
+    ]);
     final avatars = await _avatarUrls({
       for (final uids in uidsByRoom.values) ...uids,
     });
@@ -100,7 +102,8 @@ class RoomsRepository {
             id: row.$id,
             name: (data['name'] as String?) ?? 'Untitled',
             description: (data['description'] as String?) ?? '',
-            totalParticipants: (data['totalParticipants'] as num?)?.toInt() ?? 0,
+            totalParticipants:
+                (data['totalParticipants'] as num?)?.toInt() ?? 0,
             tags: List<String>.from(data['tags'] as List? ?? const []),
             memberAvatarUrls: [
               for (final uid in uidsByRoom[row.$id] ?? const <String>[])
@@ -130,7 +133,7 @@ class RoomsRepository {
     if (roomIds.isEmpty) return byRoom;
     try {
       final result = await _tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: [
           Query.equal('roomId', roomIds),
@@ -160,7 +163,7 @@ class RoomsRepository {
       final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
       final chunk = ids.sublist(i, end);
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: [
           Query.equal(r'$id', chunk),
@@ -272,7 +275,7 @@ class RoomsRepository {
     required bool isAdmin,
   }) async {
     final existing = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       queries: [
         Query.equal('uid', [uid]),
@@ -281,14 +284,14 @@ class RoomsRepository {
     );
     for (final doc in existing.rows) {
       await _tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         rowId: doc.$id,
       );
     }
 
     final participantDoc = await _tables.createRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       rowId: ID.unique(),
       data: {
@@ -313,14 +316,14 @@ class RoomsRepository {
     if (delta == 0) return null;
     final row = delta > 0
         ? await _tables.incrementRowColumn(
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             tableId: roomsTableId,
             rowId: roomId,
             column: 'totalParticipants',
             value: delta.toDouble(),
           )
         : await _tables.decrementRowColumn(
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             tableId: roomsTableId,
             rowId: roomId,
             column: 'totalParticipants',
@@ -335,7 +338,7 @@ class RoomsRepository {
   }) async {
     try {
       final participantDocs = await _tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: [
           Query.equal('uid', [userId]),
@@ -345,7 +348,7 @@ class RoomsRepository {
       await Future.wait([
         for (final doc in participantDocs.rows)
           _tables.deleteRow(
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             tableId: participantsTableId,
             rowId: doc.$id,
           ),
@@ -356,7 +359,7 @@ class RoomsRepository {
           await _participantCount(roomId);
       if (remaining <= 0) {
         await _tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: roomId,
         );
@@ -369,7 +372,7 @@ class RoomsRepository {
 
   Future<int> _participantCount(String roomId) async {
     final row = await _tables.getRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: roomsTableId,
       rowId: roomId,
       queries: [
@@ -380,7 +383,7 @@ class RoomsRepository {
   }
 
   Future<void> _deleteParticipantRow(String rowId) => _tables.deleteRow(
-    databaseId: masterDatabaseId,
+    databaseId: databaseId,
     tableId: participantsTableId,
     rowId: rowId,
   );
@@ -398,7 +401,7 @@ class RoomsRepository {
       }
       try {
         final participantDocs = await _tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: participantsTableId,
           queries: [
             Query.equal('roomId', [roomId]),
@@ -421,7 +424,7 @@ class RoomsRepository {
       // Ensure the room doc is deleted even when the server call above failed
       try {
         await _tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: roomsTableId,
           rowId: roomId,
         );
@@ -435,7 +438,7 @@ class RoomsRepository {
 
   Future<List<Participant>> loadParticipants(String roomId) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       queries: [Query.equal('roomId', roomId), Query.limit(_pageSize)],
     );
@@ -459,7 +462,9 @@ class RoomsRepository {
 
   // Takes the map, not a Row: Row.fromMap throws without $sequence, which a
   // realtime payload need not carry.
-  Future<Participant> buildParticipantFromData(Map<String, dynamic> data) async {
+  Future<Participant> buildParticipantFromData(
+    Map<String, dynamic> data,
+  ) async {
     final uid = data['uid'] as String;
     final users = await _userRows({uid});
     return _participantFrom(data, users[uid]);
@@ -487,8 +492,12 @@ class RoomsRepository {
   Stream<RealtimeMessage> participantStream(String roomId) =>
       _rowStream(participantsTableId, roomId: roomId);
 
+  // Participant rows carry only the uid and the role flags, so a rename or a
+  // new avatar never shows up on the participants channel. Watch users too.
+  Stream<RealtimeMessage> userProfileStream() => _rowStream(usersTableID);
+
   Stream<RealtimeMessage> _rowStream(String tableId, {String? roomId}) {
-    final channel = 'databases.$masterDatabaseId.tables.$tableId.rows';
+    final channel = 'databases.$databaseId.tables.$tableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {
@@ -508,7 +517,7 @@ class RoomsRepository {
     required String participantUid,
   }) async {
     final docs = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       queries: [
         Query.equal('roomId', roomId),
@@ -524,7 +533,7 @@ class RoomsRepository {
     required Map<String, dynamic> data,
   }) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       rowId: docId,
       data: data,
@@ -537,7 +546,7 @@ class RoomsRepository {
     required List<String> currentReported,
   }) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: roomsTableId,
       rowId: roomId,
       data: {
@@ -550,7 +559,7 @@ class RoomsRepository {
   /// dialog, which put an SDK call in a widget.
   Future<void> submitUserReport(UserReportModel report) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: userReportsTableID,
       rowId: ID.unique(),
       data: report.toJson(),
@@ -559,13 +568,12 @@ class RoomsRepository {
 
   Future<void> kickParticipant(String docId) async {
     await _tables.deleteRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: participantsTableId,
       rowId: docId,
     );
   }
 
   static String participantChannel() =>
-      'databases.$masterDatabaseId.tables.$participantsTableId.rows';
-
+      'databases.$databaseId.tables.$participantsTableId.rows';
 }

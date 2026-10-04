@@ -27,7 +27,7 @@ Row storyRow({
     buildRow(
       id: id,
       tableId: storyTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': title,
         'description': description,
@@ -56,7 +56,7 @@ Row chapterRow({
     buildRow(
       id: id,
       tableId: chapterTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': title,
         'description': description,
@@ -72,7 +72,7 @@ Row likeRow({String id = 'like-1', String uid = 'me', String storyId = 'story-1'
     buildRow(
       id: id,
       tableId: likeTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {'uId': uid, 'storyId': storyId},
     );
 
@@ -87,7 +87,7 @@ Row userRow({
     buildRow(
       id: id,
       tableId: usersTableID,
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       data: {
         'name': name,
         'username': username,
@@ -116,7 +116,7 @@ void main() {
 
   void stubStoryList(List<Row> rows) {
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: rows.length, rows: rows));
@@ -147,7 +147,7 @@ void main() {
 
     test('returns an empty list on AppwriteException', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       )).thenThrow(AppwriteException('boom', 500));
@@ -203,7 +203,7 @@ void main() {
   group('fetchLikedStories', () {
     test('resolves each like into its story and skips missing ones', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -215,7 +215,7 @@ void main() {
           ));
       // One query for every liked story; 'missing' just does not come back.
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       )).thenAnswer(
@@ -228,14 +228,14 @@ void main() {
       expect(stories.first.storyId, 's1');
 
       final queries = verify(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: captureAnyNamed('queries'),
       )).captured.single as List<String>;
       expect(queries, contains(Query.equal(r'$id', ['s1', 'missing'])));
       // The getRow per like is what this replaced.
       verifyNever(tables.getRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
       ));
@@ -245,7 +245,7 @@ void main() {
   group('fetchChaptersForStory', () {
     test('maps chapter rows into Chapter objects', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -264,14 +264,14 @@ void main() {
   group('fetchLikesCount', () {
     test('reads the likes attribute off the story row', () async {
       when(tables.getRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => buildRow(
             id: 's1',
             tableId: storyTableId,
-            databaseId: storyDatabaseId,
+            databaseId: databaseId,
             data: {'likes': 7},
           ));
 
@@ -282,7 +282,7 @@ void main() {
   group('checkIfStoryLikedByUser', () {
     test('returns true when a like row exists', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [likeRow()]));
@@ -292,7 +292,7 @@ void main() {
 
     test('returns false when no like row exists', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -304,7 +304,7 @@ void main() {
   group('fetchLiveChapterForStory', () {
     test('returns null when there is no live chapter', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -314,7 +314,7 @@ void main() {
 
     test('builds the model with attendees when one exists', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -323,7 +323,7 @@ void main() {
               buildRow(
                 id: 'lc1',
                 tableId: liveChaptersTableId,
-                databaseId: storyDatabaseId,
+                databaseId: databaseId,
                 data: {
                   '\$id': 'lc1',
                   'livekitRoomId': 'room-1',
@@ -339,14 +339,14 @@ void main() {
             ],
           ));
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: 'lc1',
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => buildRow(
             id: 'lc1',
             tableId: liveChapterAttendeesTableId,
-            databaseId: userDatabaseID,
+            databaseId: databaseId,
             data: {
               'liveChapterId': 'lc1',
               'users': [
@@ -367,28 +367,28 @@ void main() {
   group('loadStoryDetail', () {
     test('aggregates chapters, likes, like-status and live chapter', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [chapterRow()]));
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.getRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => buildRow(
             id: 's1',
             tableId: storyTableId,
-            databaseId: storyDatabaseId,
+            databaseId: databaseId,
             data: {'likes': 3},
           ));
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -406,7 +406,7 @@ void main() {
     test('returns matching stories and users', () async {
       stubStoryList([storyRow(title: 'Adventure')]);
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [userRow()]));
@@ -421,7 +421,7 @@ void main() {
     test('matches creator-chosen tags as well as the text columns', () async {
       stubStoryList([storyRow(tags: const ['tech talks'])]);
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -431,7 +431,7 @@ void main() {
       expect(state.stories.single.tags, ['tech talks']);
 
       final queries = verify(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: captureAnyNamed('queries'),
       )).captured.single as List<String>;
@@ -452,13 +452,13 @@ void main() {
     test('inserts a like row and increments the story counter', () async {
       final story = fakeStory(storyId: 's1', likesCount: 5);
       when(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => likeRow());
       when(tables.incrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         column: anyNamed('column'),
@@ -467,7 +467,7 @@ void main() {
       await repo.likeStory(story, 'me');
 
       final data = verify(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -478,13 +478,13 @@ void main() {
       expect(data, containsPair('story', 's1'));
       // Server-side increment, rather than writing a count the client held.
       verify(tables.incrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         column: 'likes',
       )).called(1);
       verifyNever(tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -494,7 +494,7 @@ void main() {
     test('a second like is rejected by the unique index and leaves the '
         'counter alone', () async {
       when(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -529,17 +529,17 @@ void main() {
     test('deletes the like row and decrements the counter', () async {
       final story = fakeStory(storyId: 's1', likesCount: 5);
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [likeRow(id: 'like-7')]));
       when(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: 'like-7',
       )).thenAnswer((_) async => '');
       when(tables.decrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         column: anyNamed('column'),
@@ -549,20 +549,20 @@ void main() {
       await repo.unlikeStory(story, 'me');
 
       verify(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: 'like-7',
       )).called(1);
       // Server-side decrement, floored at zero.
       verify(tables.decrementRowColumn(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         column: 'likes',
         min: 0,
       )).called(1);
       verifyNever(tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -571,7 +571,7 @@ void main() {
 
     test('with no like row to remove, the counter is left alone', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -591,7 +591,7 @@ void main() {
   group('createStory', () {
     test('writes the story row when the cover is already a URL', () async {
       when(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -608,7 +608,7 @@ void main() {
       );
 
       verify(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -621,7 +621,7 @@ void main() {
 
     test('stores the tags normalised', () async {
       when(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -639,7 +639,7 @@ void main() {
       );
 
       final data = verify(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -649,7 +649,7 @@ void main() {
 
     test('throws StoriesFailure.unknown when the row write fails', () async {
       when(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -673,7 +673,7 @@ void main() {
   group('addChaptersToStory', () {
     test('recomputes play duration from the persisted chapters', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -684,7 +684,7 @@ void main() {
             ],
           ));
       when(tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         data: anyNamed('data'),
@@ -693,7 +693,7 @@ void main() {
       await repo.addChaptersToStory(const [], 's1');
 
       verify(tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
         data: {'playDuration': 500},
@@ -709,17 +709,17 @@ void main() {
         fileId: anyNamed('fileId'),
       )).thenAnswer((_) async => null);
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
       )).thenAnswer((_) async => '');
@@ -727,7 +727,7 @@ void main() {
       await repo.deleteStory(story);
 
       verify(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
       )).called(1);
@@ -740,12 +740,12 @@ void main() {
         fileId: anyNamed('fileId'),
       )).thenAnswer((_) async => null);
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: anyNamed('tableId'),
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: 's1',
       )).thenThrow(AppwriteException('locked', 500));
@@ -762,7 +762,7 @@ void main() {
         fileId: anyNamed('fileId'),
       )).thenAnswer((_) async => null);
       when(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         rowId: 'c1',
       )).thenAnswer((_) async => '');
@@ -773,7 +773,7 @@ void main() {
       verify(storage.deleteFile(bucketId: storyBucketId, fileId: 'audioForc1'))
           .called(1);
       verify(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         rowId: 'c1',
       )).called(1);

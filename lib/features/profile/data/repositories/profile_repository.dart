@@ -41,7 +41,7 @@ class ProfileRepository {
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {
     try {
       final userRow = await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: userId,
         queries: [
@@ -61,7 +61,7 @@ class ProfileRepository {
   Future<UserProfileSummary> fetchProfileSummary(String uid) async {
     final (row, followers) = await (
       _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: uid,
         queries: [
@@ -94,7 +94,7 @@ class ProfileRepository {
   Future<int> _followerCount(String uid) async {
     try {
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: followersTableID,
         queries: [
           Query.equal('followedUid', uid),
@@ -113,7 +113,7 @@ class ProfileRepository {
 
   Future<void> followCreator(FollowerUserModel follower) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: followersTableID,
       rowId: follower.docId,
       data: {
@@ -126,7 +126,7 @@ class ProfileRepository {
 
   Future<void> unfollowCreator(String followerDocumentId) async {
     await _tables.deleteRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: followersTableID,
       rowId: followerDocumentId,
     );
@@ -141,7 +141,7 @@ class ProfileRepository {
     }
     try {
       await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usernameTableID,
         rowId: username,
       );
@@ -157,7 +157,7 @@ class ProfileRepository {
     required String email,
   }) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
       data: {'email': email},
@@ -166,7 +166,7 @@ class ProfileRepository {
 
   Future<void> deleteUsernameRow(String username) async {
     await _tables.deleteRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
     );
@@ -181,7 +181,7 @@ class ProfileRepository {
     await createUsernameRow(username: newUsername, email: email);
     await deleteUsernameRow(oldUsername);
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'username': newUsername},
@@ -198,7 +198,7 @@ class ProfileRepository {
   }) async {
     await updateAccountName(name);
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'name': name},
@@ -239,7 +239,7 @@ class ProfileRepository {
     required String id,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'profileImageUrl': url, 'profileImageID': id},
@@ -248,7 +248,7 @@ class ProfileRepository {
 
   Future<void> clearProfileImageRow(String uid) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'profileImageUrl': '', 'profileImageID': null},
@@ -267,7 +267,7 @@ class ProfileRepository {
     List<Interest> interests = const [],
   }) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {
@@ -292,7 +292,7 @@ class ProfileRepository {
   // Change email
   Future<bool> isEmailAvailable(String email) async {
     final docs = await _tables.listRows(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       queries: [Query.equal('email', email)],
     );
@@ -318,13 +318,13 @@ class ProfileRepository {
     required String email,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'email': email},
     );
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
       data: {'email': email},
@@ -346,7 +346,7 @@ class ProfileRepository {
   Future<void> deleteUsersCollectionDocument(String uid) async {
     try {
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: uid,
       );
@@ -358,7 +358,7 @@ class ProfileRepository {
   Future<void> deleteUsernamesCollectionDocument(String username) async {
     try {
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usernameTableID,
         rowId: username,
       );

@@ -19,7 +19,7 @@ Row _upcomingRow({
     buildRow(
       id: id,
       tableId: upcomingRoomsTableId,
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       data: {
         'name': name,
         'isTime': isTime,
@@ -40,7 +40,7 @@ void main() {
     when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
     // Default: no subscribers for any upcoming room.
     when(tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
@@ -51,7 +51,7 @@ void main() {
     FakeGetStorage? storage,
   }) {
     when(tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
     )).thenAnswer((_) async => RowList(total: upcomingRows.length, rows: upcomingRows));
 
@@ -86,25 +86,25 @@ void main() {
       clearInteractions(tables);
 
       when(tables.createRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 's-new',
             tableId: subscribedUserTableId,
-            databaseId: upcomingRoomsDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
       when(tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: upcomingRoomsTableId,
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
 
       await container.read(upcomingRoomsProvider.notifier).subscribe('u1');
 
       verify(tables.createRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -120,7 +120,7 @@ void main() {
 
       // The repo's removeSubscriber first lists rows to find the subscription.
       when(tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(
@@ -129,17 +129,17 @@ void main() {
               buildRow(
                 id: 'sub-doc-1',
                 tableId: subscribedUserTableId,
-                databaseId: upcomingRoomsDatabaseId,
+                databaseId: databaseId,
                 data: const {'userID': 'me', 'upcomingRoomId': 'u1'},
               ),
             ],
           ));
       when(tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: upcomingRoomsTableId,
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: 'sub-doc-1',
       )).thenAnswer((_) async => '');
@@ -147,7 +147,7 @@ void main() {
       await container.read(upcomingRoomsProvider.notifier).unsubscribe('u1');
 
       verify(tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: 'sub-doc-1',
       )).called(1);
@@ -161,17 +161,17 @@ void main() {
       clearInteractions(tables);
 
       when(tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: upcomingRoomsTableId,
         rowId: 'u1',
       )).thenAnswer((_) async => '');
       when(tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: upcomingRoomsTableId,
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
 
@@ -180,7 +180,7 @@ void main() {
           .deleteUpcoming('u1');
 
       verify(tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: upcomingRoomsTableId,
         rowId: 'u1',
       )).called(1);

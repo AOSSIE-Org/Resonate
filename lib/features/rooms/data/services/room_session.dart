@@ -21,6 +21,7 @@ enum ParticipantRole { moderator, speaker, listener }
 @riverpod
 class RoomSession extends _$RoomSession {
   StreamSubscription<RealtimeMessage>? _participantSub;
+  StreamSubscription<RealtimeMessage>? _profileSub;
   bool _roomEnded = false;
 
   @override
@@ -65,6 +66,8 @@ class RoomSession extends _$RoomSession {
 
   void _subscribe(AppwriteRoom appwriteRoom) {
     final repo = ref.read(roomsRepositoryProvider);
+
+    _profileSub = repo.userProfileStream().listen(_applyProfileUpdate);
 
     _participantSub = repo.participantStream(appwriteRoom.id).listen((
       event,
@@ -186,9 +189,51 @@ class RoomSession extends _$RoomSession {
     });
   }
 
+  // A profile edit lands on the user's own row, so the only thing tying it to
+  // this room is the uid. Ignore every other user on the table.
+  void _applyProfileUpdate(RealtimeMessage event) {
+    try {
+      if (realtimeAction(event.events) != 'update') return;
+
+      final current = state.value;
+      if (current == null) return;
+
+      final uid = event.payload[r'$id'] as String?;
+      if (uid == null) return;
+
+      final inRoom = current.participants.any((p) => p.uid == uid);
+      final isMe = uid == current.me.uid;
+      if (!inRoom && !isMe) return;
+
+      // Absent means the payload did not carry the field; empty is a real
+      // value, so a cleared avatar must fall through to the placeholder.
+      final name = event.payload['name'] as String?;
+      final imageUrl = event.payload['profileImageUrl'] as String?;
+      if (name == null && imageUrl == null) return;
+
+      Participant withProfile(Participant p) =>
+          p.copyWith(name: name ?? p.name, dpUrl: imageUrl ?? p.dpUrl);
+
+      state = AsyncData(
+        current.copyWith(
+          me: isMe ? withProfile(current.me) : current.me,
+          // Rank does not depend on the profile, so the order still holds.
+          participants: [
+            for (final p in current.participants)
+              if (p.uid == uid) withProfile(p) else p,
+          ],
+        ),
+      );
+    } catch (e) {
+      log('single room profile listener error: $e');
+    }
+  }
+
   Future<void> _disposeStream() async {
     await _participantSub?.cancel();
     _participantSub = null;
+    await _profileSub?.cancel();
+    _profileSub = null;
   }
 
   static int _rank(Participant p) {
@@ -231,10 +276,7 @@ class RoomSession extends _$RoomSession {
     final docId = appwriteRoom.myDocId;
     if (docId == null) return;
     try {
-      await repo.updateParticipantDoc(
-        docId: docId,
-        data: {'isMicOn': enabled},
-      );
+      await repo.updateParticipantDoc(docId: docId, data: {'isMicOn': enabled});
     } catch (_) {}
   }
 
@@ -351,5 +393,4 @@ class RoomSession extends _$RoomSession {
     await kickOutParticipant(appwriteRoom, participant);
     return true;
   }
-
 }

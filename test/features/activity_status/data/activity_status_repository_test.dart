@@ -14,7 +14,7 @@ import '../../../helpers/test_root_container.mocks.dart';
 Row userRow({required String id, String? status}) => buildRow(
   id: id,
   tableId: usersTableID,
-  databaseId: userDatabaseID,
+  databaseId: databaseId,
   data: {'status': status},
 );
 
@@ -33,7 +33,7 @@ void main() {
     test('maps the stored wire value onto the enum', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           queries: anyNamed('queries'),
@@ -45,7 +45,7 @@ void main() {
       final queries =
           verify(
                 tables.getRow(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: usersTableID,
                   rowId: 'u1',
                   queries: captureAnyNamed('queries'),
@@ -99,7 +99,7 @@ void main() {
     test('keys statuses by uid and drops rows with no status', () async {
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -124,7 +124,7 @@ void main() {
       final queries =
           verify(
                 tables.listRows(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: usersTableID,
                   queries: captureAnyNamed('queries'),
                 ),
@@ -149,7 +149,7 @@ void main() {
 
       final captured = verify(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: captureAnyNamed('queries'),
         ),
@@ -176,7 +176,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           data: {'status': 'dnd'},
@@ -194,7 +194,7 @@ void main() {
     setUp(() {
       sub = MockRealtimeSubscription();
       controller = StreamController<RealtimeMessage>.broadcast();
-      channel = 'databases.$userDatabaseID.tables.$usersTableID.rows';
+      channel = 'databases.$databaseId.tables.$usersTableID.rows';
       closeCalls = 0;
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);
@@ -213,7 +213,7 @@ void main() {
       events: [
         // Both channel forms, collections first — the shape the server
         // actually sends and the reason realtimeAction exists.
-        'databases.$userDatabaseID.collections.$usersTableID.documents.$uid.$action',
+        'databases.$databaseId.collections.$usersTableID.documents.$uid.$action',
         '$channel.$uid.$action',
       ],
       payload: payload ?? {r'$id': uid, 'status': 'dnd'},

@@ -16,11 +16,11 @@ import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
 
 const _roomId = 'room-1';
-const _pollChannel = 'databases.$masterDatabaseId.tables.$pollsTableId.rows';
+const _pollChannel = 'databases.$databaseId.tables.$pollsTableId.rows';
 const _voteChannel =
-    'databases.$masterDatabaseId.tables.$pollVotesTableId.rows';
+    'databases.$databaseId.tables.$pollVotesTableId.rows';
 const _chatChannel =
-    'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+    'databases.$databaseId.tables.$chatMessagesTableId.rows';
 
 Row _pollRow({
   String id = 'p1',
@@ -33,7 +33,7 @@ Row _pollRow({
     buildRow(
       id: id,
       tableId: pollsTableId,
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       data: {
         'roomId': roomId,
         'question': question,
@@ -53,7 +53,7 @@ Row _voteRow({
     buildRow(
       id: id,
       tableId: pollVotesTableId,
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       data: {
         'pollId': pollId,
         'roomId': roomId,
@@ -143,24 +143,24 @@ void main() {
     when(realtime.subscribe([_chatChannel])).thenReturn(chatSubscription);
 
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollsTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: pollRows.length, rows: pollRows));
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollVotesTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: voteRows.length, rows: voteRows));
 
     // Chat provider collaborators (used by the createPoll announcement path).
     when(tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(total: 0, rows: []));
     when(tables.getRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessageReplyTableId,
       rowId: anyNamed('rowId'),
     )).thenThrow(AppwriteException('not found', 404));
@@ -326,7 +326,7 @@ void main() {
       pollRows = [_pollRow(id: 'p1')];
       final gate = Completer<Row>();
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -351,7 +351,7 @@ void main() {
       // Voting the same option again short-circuits without a second write.
       expect(await notifier.vote(pollId: 'p1', optionIndex: 1), isTrue);
       verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -361,7 +361,7 @@ void main() {
     test('generic castVote failure rolls the optimistic vote back', () async {
       pollRows = [_pollRow(id: 'p1')];
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -379,7 +379,7 @@ void main() {
     test('409 on castVote reconciles votes to server truth', () async {
       pollRows = [_pollRow(id: 'p1')];
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -407,7 +407,7 @@ void main() {
       voteRows = [_voteRow(id: 'v1', uid: 'me', optionIndex: 0)];
       final gate = Completer<Row>();
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: 'v1',
         data: anyNamed('data'),
@@ -438,7 +438,7 @@ void main() {
         data: anyNamed('data'),
       ));
       final captured = verify(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: 'v1',
         data: captureAnyNamed('data'),
@@ -450,7 +450,7 @@ void main() {
       pollRows = [_pollRow(id: 'p1')];
       voteRows = [_voteRow(id: 'v1', uid: 'me', optionIndex: 0)];
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: 'v1',
         data: anyNamed('data'),
@@ -506,7 +506,7 @@ void main() {
       pollRows = [_pollRow(id: 'p1', isClosed: false)];
       final gate = Completer<Row>();
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: 'p1',
         data: anyNamed('data'),
@@ -529,7 +529,7 @@ void main() {
       expect(await pending, isTrue);
 
       final captured = verify(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: 'p1',
         data: captureAnyNamed('data'),
@@ -540,7 +540,7 @@ void main() {
     test('failure rolls the poll back to open', () async {
       pollRows = [_pollRow(id: 'p1', isClosed: false)];
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: 'p1',
         data: anyNamed('data'),
@@ -593,20 +593,20 @@ void main() {
         'creates the poll row, inserts it optimistically, and announces it '
         'through chat with the pollId attached', () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _pollRow(id: 'created'));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'msg',
             tableId: chatMessagesTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
 
@@ -628,7 +628,7 @@ void main() {
       expect(polls.single.createdBy, 'me');
 
       final captured = verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: captureAnyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -651,13 +651,13 @@ void main() {
     test('returns true even when the chat announcement fails to send',
         () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _pollRow(id: 'created'));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -689,7 +689,7 @@ void main() {
     test('returns false and sends no chat message when the poll row fails',
         () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -724,20 +724,20 @@ void main() {
         'works on a cold provider whose first build has not completed '
         '(bootstrap regression)', () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _pollRow(id: 'created'));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'msg',
             tableId: chatMessagesTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
 
@@ -757,7 +757,7 @@ void main() {
 
       expect(ok, isTrue);
       verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -774,7 +774,7 @@ void main() {
         () async {
       final gate = Completer<void>();
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async {
@@ -808,7 +808,7 @@ void main() {
       voteRows = [_voteRow(id: 'v1', uid: 'me', optionIndex: 0)];
       final gate = Completer<void>();
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: 'v1',
         data: anyNamed('data'),
@@ -847,7 +847,7 @@ void main() {
       ];
       final gate = Completer<Row>();
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -864,7 +864,7 @@ void main() {
       expect(await second, isTrue);
 
       verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -886,13 +886,13 @@ void main() {
         _voteRow(id: 'vb', pollId: 'p1', uid: 'bob', optionIndex: 1),
       ];
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 2, rows: [
             buildRow(
               id: 'alice',
-              databaseId: userDatabaseID,
+              databaseId: databaseId,
               tableId: usersTableID,
               data: {
                 'name': 'Alice',
@@ -902,7 +902,7 @@ void main() {
             ),
             buildRow(
               id: 'bob',
-              databaseId: userDatabaseID,
+              databaseId: databaseId,
               tableId: usersTableID,
               data: {
                 'name': 'Bob',
@@ -926,7 +926,7 @@ void main() {
     test('a failed lookup is non-fatal and leaves the map empty', () async {
       voteRows = [_voteRow(id: 'va', pollId: 'p1', uid: 'alice', optionIndex: 0)];
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenThrow(AppwriteException('denied', 401));
@@ -956,20 +956,20 @@ void main() {
 
     test('creating a poll counts once', () async {
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => _pollRow(id: 'created'));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessagesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'mid',
             tableId: chatMessagesTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
       final recorder = FakeActivityRecorder();
@@ -989,7 +989,7 @@ void main() {
     test('casting a first vote counts once', () async {
       pollRows = [_pollRow(id: 'p1')];
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -1009,7 +1009,7 @@ void main() {
       pollRows = [_pollRow(id: 'p1')];
       voteRows = [_voteRow(id: 'v1', uid: 'me', optionIndex: 0)];
       when(tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: 'v1',
         data: anyNamed('data'),
@@ -1027,7 +1027,7 @@ void main() {
     test('a vote that failed to write does not count', () async {
       pollRows = [_pollRow(id: 'p1')];
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),

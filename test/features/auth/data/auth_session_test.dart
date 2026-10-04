@@ -42,7 +42,7 @@ User _buildUser({
 Row _buildUserRow({String id = 'u1', int reportsCount = 0}) => buildRow(
       id: id,
       tableId: usersTableID,
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       data: {
         'username': 'foo',
         'profileImageUrl': 'https://example.com/p.jpg',
@@ -86,7 +86,7 @@ void main() {
     test('resolves to whatever the repository loads', () async {
       when(account.get()).thenAnswer((_) async => _buildUser());
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),
@@ -146,7 +146,7 @@ void main() {
         );
       });
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),
@@ -176,7 +176,7 @@ void main() {
         return _buildUser();
       });
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),

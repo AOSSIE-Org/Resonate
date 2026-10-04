@@ -65,7 +65,7 @@ class FriendCallRepository {
         docId: ID.unique(),
       );
       await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: callModel.docId,
         data: callModel.toJson(),
@@ -112,7 +112,7 @@ class FriendCallRepository {
   Future<FriendCallModel> getCall(String callId) async {
     try {
       final callDoc = await _tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: callId,
       );
@@ -129,7 +129,7 @@ class FriendCallRepository {
     try {
       final updated = call.copyWith(callStatus: status);
       await _tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: updated.docId,
         data: updated.toJson(),
@@ -142,7 +142,7 @@ class FriendCallRepository {
 
   Stream<RealtimeMessage> callStream(String callDocId) {
     final channel =
-        'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.$callDocId';
+        'databases.$databaseId.tables.$friendCallsTableId.rows.$callDocId';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {
