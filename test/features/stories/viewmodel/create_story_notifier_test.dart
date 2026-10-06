@@ -2,6 +2,10 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
+import 'dart:io' as io;
+
+import 'package:resonate/features/stories/data/repositories/recorded_chapters_repository.dart';
+import 'package:resonate/features/stories/data/services/recorded_chapter_store.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/utils/constants.dart';
@@ -9,6 +13,7 @@ import 'package:resonate/utils/enums/story_category.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
+import '../recording_fixtures.dart';
 
 Row _chapterRow({String id = 'c1', int playDuration = 250}) => buildRow(
       id: id,
@@ -111,5 +116,43 @@ void main() {
       rowId: 's1',
       data: {'playDuration': 500},
     )).called(1);
+  });
+
+  test('updateRecordedChapter carries the verified details into the archive',
+      () async {
+    final recordings =
+        io.Directory.systemTemp.createTempSync('resonate_recordings');
+    addTearDown(() {
+      if (recordings.existsSync()) recordings.deleteSync(recursive: true);
+    });
+    io.File('${recordings.path}/room-1.wav')
+        .writeAsBytesSync(wavBytes(seconds: 1));
+    final store = RecordedChapterStore(directory: () async => recordings);
+
+    final container = await installTestRootContainer(
+      authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+      tables: tables,
+      storage: storage,
+      functions: functions,
+      overrides: [recordedChapterStoreProvider.overrideWithValue(store)],
+    );
+    await container.read(recordedChaptersRepositoryProvider).save(
+          id: 'room-1',
+          title: 'working title',
+          description: 'rough',
+          transcript: 'raw',
+        );
+
+    await container.read(createStoryProvider.notifier).updateRecordedChapter(
+          chapterId: 'room-1',
+          title: 'Night Shift',
+          description: 'verified',
+          transcript: '[00:00.000]edited',
+        );
+
+    final archived = (await store.readIndex()).single;
+    expect(archived.title, 'Night Shift');
+    expect(archived.description, 'verified');
+    expect(archived.transcript, '[00:00.000]edited');
   });
 }

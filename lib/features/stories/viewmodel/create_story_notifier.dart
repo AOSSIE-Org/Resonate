@@ -1,4 +1,5 @@
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/stories/data/repositories/recorded_chapters_repository.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/story_tags.dart';
@@ -46,6 +47,20 @@ class CreateStory extends _$CreateStory {
         coverImgPath: coverImgPath,
         audioFilePath: audioFilePath,
         lyrics: lyrics,
+      );
+
+  Future<void> updateRecordedChapter({
+    required String chapterId,
+    required String title,
+    required String description,
+    required String transcript,
+  }) => ref
+      .read(recordedChaptersRepositoryProvider)
+      .updateDetails(
+        id: chapterId,
+        title: title,
+        description: description,
+        transcript: transcript,
       );
 
   Future<void> createStory({

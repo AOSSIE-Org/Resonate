@@ -5,14 +5,15 @@ import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/data/repositories/live_chapter_repository.dart';
+import 'package:resonate/features/stories/data/repositories/recorded_chapters_repository.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/data/whisper_model_setting.dart';
-import 'package:resonate/routes/app_router.dart';
-import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -212,26 +213,16 @@ class LiveChapter extends _$LiveChapter {
     ref.read(routerProvider).go(RoutePaths.tabview);
   }
 
-  Future<String> endLiveChapter() async {
+  Future<void> endLiveChapter() async {
     final model = state.model;
-    if (model == null) return '';
+    if (model == null) return;
     final repo = ref.read(liveChapterRepositoryProvider);
 
     await ref.read(liveKitControllerProvider.notifier).setRecording(false);
-    
     try {
       await repo.deleteLiveChapterDocs(model.id);
     } catch (e) {
       log('endLiveChapter: deleteLiveChapterDocs failed: $e');
-    }
-    String lyrics = '';
-    try {
-      final whisperModel = await ref.read(whisperModelSettingProvider.future);
-      lyrics = await ref
-          .read(whisperTranscriptionServiceProvider(whisperModel))
-          .transcribeChapter(model.livekitRoomId);
-    } catch (e) {
-      log('endLiveChapter: transcription failed: $e');
     }
     try {
       await repo.deleteLiveChapterRoom(model.livekitRoomId);
@@ -244,7 +235,32 @@ class LiveChapter extends _$LiveChapter {
     } catch (e) {
       log('endLiveChapter: disconnect failed: $e');
     }
-    return lyrics;
+
+    state = state.copyWith(transcript: const AsyncValue.loading());
+    unawaited(_transcribeAndArchive(model));
+  }
+
+  Future<void> _transcribeAndArchive(LiveChapterModel model) async {
+    final transcript = await AsyncValue.guard(() async {
+      final whisperModel = await ref.read(whisperModelSettingProvider.future);
+      return ref
+          .read(whisperTranscriptionServiceProvider(whisperModel))
+          .transcribeChapter(model.livekitRoomId);
+    });
+    // Archived when failed, so a recording whose chapter was never published is still listed and deletable.
+    try {
+      await ref.read(recordedChaptersRepositoryProvider).save(
+            id: model.livekitRoomId,
+            title: model.chapterTitle,
+            description: model.chapterDescription,
+            transcript: transcript.value ?? '',
+          );
+    } catch (e) {
+      log('endLiveChapter: archiving the recording failed: $e');
+    }
+    // A reset or a new chapter in the meantime owns the state now.
+    if (!ref.mounted || state.model?.id != model.id) return;
+    state = state.copyWith(transcript: transcript);
   }
 
   void reset() {

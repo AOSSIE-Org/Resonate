@@ -399,9 +399,6 @@ class FakeLiveKitController extends LiveKitController {
   Future<void> setMicrophoneEnabled(bool enabled) async {}
 
   @override
-  Future<void> setSpeakerphoneOn(bool enabled) async {}
-
-  @override
   Future<void> setRecording(bool recording) async {
     state = state.copyWith(isRecording: recording);
   }

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
 import 'package:resonate/features/achievements/data/badge_showcase.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_pill.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
@@ -93,16 +93,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
               (profileAsync?.isLoading ?? false) ||
               ref.watch(friendsProvider).isLoading;
           if (loading || authUser == null) {
-            return Center(
-              child: SizedBox(
-                height: UiSizes.height_200,
-                width: UiSizes.width_200,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballRotate,
-                  colors: [Theme.of(context).colorScheme.primary],
-                ),
-              ),
-            );
+            return const AppLoader();
           }
           return SingleChildScrollView(
             child: Column(

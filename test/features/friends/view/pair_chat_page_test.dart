@@ -81,6 +81,25 @@ void main() {
   });
 
   group('PairChatPage control wiring', () {
+    testFriendsWidget('hanging up is the leftmost control', (tester) async {
+      await _pumpPage(
+        tester,
+        buildOverrides(
+          state: const PairChatState(),
+          fake: FakePairChat(const PairChatState()),
+        ),
+      );
+
+      final leave = tester
+          .getCenter(find.byKey(const ValueKey('session-control-leave')))
+          .dx;
+      final mic = tester
+          .getCenter(find.byKey(const ValueKey('session-control-mic')))
+          .dx;
+      expect(leave, lessThan(mic));
+      await _disposePage(tester);
+    });
+
     testFriendsWidget('mic button calls toggleMic', (tester) async {
       final fake = FakePairChat(const PairChatState());
       await _pumpPage(
@@ -91,19 +110,6 @@ void main() {
       await tester.tap(find.byIcon(Icons.mic_off));
       await tester.pump();
       expect(fake.toggleMicCount, 1);
-      await _disposePage(tester);
-    });
-
-    testFriendsWidget('speaker button calls toggleLoudSpeaker', (tester) async {
-      final fake = FakePairChat(const PairChatState());
-      await _pumpPage(
-        tester,
-        buildOverrides(state: const PairChatState(), fake: fake),
-      );
-
-      await tester.tap(find.byIcon(Icons.volume_up));
-      await tester.pump();
-      expect(fake.toggleLoudSpeakerCount, 1);
       await _disposePage(tester);
     });
 

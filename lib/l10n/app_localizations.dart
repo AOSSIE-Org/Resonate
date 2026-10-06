@@ -3219,6 +3219,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{username} is in a live session.'**
   String callBlockedInRoom(String username);
+
+  /// Title of the screen listing live chapter recordings kept on the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded Chapters'**
+  String get recordedChapters;
+
+  /// Heading of the empty state on the recorded chapters screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded yet'**
+  String get noRecordedChapters;
+
+  /// Body of the empty state on the recorded chapters screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Live chapters you record stay on this device until you delete them.'**
+  String get noRecordedChaptersMessage;
+
+  /// Shown when the recorded chapters list fails to load.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your recordings'**
+  String get recordedChaptersLoadFailed;
+
+  /// Fallback title for a recording that was never given one.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled recording'**
+  String get untitledRecording;
+
+  /// Label of the date a chapter was recorded, on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded'**
+  String get recordedOn;
+
+  /// Label of a recording's duration on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Length'**
+  String get recordingLength;
+
+  /// Label of a recording's audio file name on the recording detail screen.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get audioFile;
+
+  /// Section heading for the transcript of a recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript'**
+  String get transcript;
+
+  /// Shown in place of the transcript when a recording has none.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcript was generated for this recording.'**
+  String get noTranscript;
+
+  /// Button that deletes a recording from the device.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete recording'**
+  String get deleteRecording;
+
+  /// Body of the dialog confirming that a recording will be deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the audio and the transcript from this device. It cannot be undone.'**
+  String get deleteRecordingMessage;
+
+  /// Confirmation shown after a recording has been deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording deleted'**
+  String get recordingDeleted;
+
+  /// Shown when deleting a recording's files failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the recording'**
+  String get deleteRecordingFailed;
+
+  /// Shown on the live chapter screen while nobody has joined to listen.
+  ///
+  /// In en, this message translates to:
+  /// **'No listeners yet'**
+  String get noListenersYet;
+
+  /// Shown on the room screen while nobody has joined.
+  ///
+  /// In en, this message translates to:
+  /// **'No participants yet'**
+  String get noParticipantsYet;
+
+  /// Shown on the verify screen while the recording is still being transcribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribing the recording…'**
+  String get transcribing;
+
+  /// Shown on the verify screen when transcribing the recording did not succeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcription failed — you can type the lyrics yourself.'**
+  String get transcriptionFailed;
 }
 
 class _AppLocalizationsDelegate

@@ -1,63 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/shared/widgets/speaking_avatar.dart';
-import 'package:resonate/utils/ui_sizes.dart';
+import 'package:resonate/shared/widgets/session_participant_card.dart';
 
 class LiveChapterAttendeeBlock extends ConsumerWidget {
-  const LiveChapterAttendeeBlock({super.key, required this.user});
+  const LiveChapterAttendeeBlock({
+    super.key,
+    required this.user,
+    this.featured = false,
+    this.isMicOn,
+  });
 
   final LiveChapterAttendee user;
 
+  final bool featured;
+  final bool? isMicOn;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final model = ref.watch(liveChapterProvider).model;
-    final isAuthorBlock = model?.authorUid == user.id;
-    return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: UiSizes.height_2,
-        horizontal: UiSizes.width_2,
+    final l10n = AppLocalizations.of(context)!;
+    final isAuthor =
+        ref.watch(liveChapterProvider).model?.authorUid == user.id;
+    final name = user.name ?? '';
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onLongPress: () => showUserProfileCard(
+        context,
+        uid: user.id,
+        name: name,
+        avatarUrl: resolveAvatarUrl(ref, user.profileImageUrl),
       ),
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          SpeakingAvatar(
-            uid: user.id,
-            radius: UiSizes.size_32,
-            child: CircleAvatar(
-              radius: UiSizes.size_32,
-              backgroundColor: colorScheme.primary,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(user.profileImageUrl ?? ''),
-                radius: UiSizes.size_30,
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  (user.name ?? '').split(' ').first,
-                  style: TextStyle(fontSize: UiSizes.size_16),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            isAuthorBlock
-                ? AppLocalizations.of(context)!.author
-                : AppLocalizations.of(context)!.listener,
-            style: TextStyle(
-              color: colorScheme.onSurface.withValues(alpha: 0.6),
-              fontSize: UiSizes.size_14,
-            ),
-          ),
-        ],
+      child: SessionParticipantCard(
+        uid: user.id,
+        name: name,
+        role: isAuthor ? l10n.author : l10n.listener,
+        avatarUrl: user.profileImageUrl,
+        featured: featured,
+        isMicOn: isMicOn,
       ),
     );
   }

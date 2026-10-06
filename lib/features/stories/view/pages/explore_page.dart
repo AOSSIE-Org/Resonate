@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
 import 'package:resonate/features/interests/data/interest_filter.dart';
 import 'package:resonate/features/interests/view/widgets/interest_filter_button.dart';
 import 'package:resonate/features/interests/view/widgets/interest_filter_panel.dart';
@@ -295,16 +296,8 @@ class _ExploreContent extends ConsumerWidget {
     );
   }
 
-  Widget _loader(BuildContext context) => Center(
-    child: SizedBox(
-      height: UiSizes.height_82,
-      width: UiSizes.width_80,
-      child: LoadingIndicator(
-        indicatorType: Indicator.ballRotate,
-        colors: [Theme.of(context).colorScheme.primary],
-      ),
-    ),
-  );
+  Widget _loader(BuildContext context) =>
+      AppLoader(height: UiSizes.height_82, width: UiSizes.width_80);
 
   Widget _emptyStories(BuildContext context) => Column(
     mainAxisAlignment: MainAxisAlignment.center,

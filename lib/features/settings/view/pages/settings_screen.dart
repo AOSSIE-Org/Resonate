@@ -5,6 +5,8 @@ import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_status_sheet.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/settings/data/feature_flags.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/settings/viewmodel/settings_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -96,6 +98,13 @@ class SettingsScreen extends ConsumerWidget {
               );
             },
           ),
+          if (ref.watch(featureEnabledProvider(AppFeature.liveChapter)))
+            customTile(
+              str: AppLocalizations.of(context)!.recordedChapters,
+              func: () {
+                ref.read(routerProvider).push(RoutePaths.recordedChapters);
+              },
+            ),
           customTile(
             str: AppLocalizations.of(context)!.interests,
             func: () {

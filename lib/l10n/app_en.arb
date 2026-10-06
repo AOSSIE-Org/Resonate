@@ -2368,5 +2368,77 @@
                 "example": "john_doe"
             }
         }
+    },
+    "recordedChapters": "Recorded Chapters",
+    "@recordedChapters": {
+        "description": "Title of the screen listing live chapter recordings kept on the device."
+    },
+    "noRecordedChapters": "Nothing recorded yet",
+    "@noRecordedChapters": {
+        "description": "Heading of the empty state on the recorded chapters screen."
+    },
+    "noRecordedChaptersMessage": "Live chapters you record stay on this device until you delete them.",
+    "@noRecordedChaptersMessage": {
+        "description": "Body of the empty state on the recorded chapters screen."
+    },
+    "recordedChaptersLoadFailed": "Could not load your recordings",
+    "@recordedChaptersLoadFailed": {
+        "description": "Shown when the recorded chapters list fails to load."
+    },
+    "untitledRecording": "Untitled recording",
+    "@untitledRecording": {
+        "description": "Fallback title for a recording that was never given one."
+    },
+    "recordedOn": "Recorded",
+    "@recordedOn": {
+        "description": "Label of the date a chapter was recorded, on the recording detail screen."
+    },
+    "recordingLength": "Length",
+    "@recordingLength": {
+        "description": "Label of a recording's duration on the recording detail screen."
+    },
+    "audioFile": "File",
+    "@audioFile": {
+        "description": "Label of a recording's audio file name on the recording detail screen."
+    },
+    "transcript": "Transcript",
+    "@transcript": {
+        "description": "Section heading for the transcript of a recording."
+    },
+    "noTranscript": "No transcript was generated for this recording.",
+    "@noTranscript": {
+        "description": "Shown in place of the transcript when a recording has none."
+    },
+    "deleteRecording": "Delete recording",
+    "@deleteRecording": {
+        "description": "Button that deletes a recording from the device."
+    },
+    "deleteRecordingMessage": "This removes the audio and the transcript from this device. It cannot be undone.",
+    "@deleteRecordingMessage": {
+        "description": "Body of the dialog confirming that a recording will be deleted."
+    },
+    "recordingDeleted": "Recording deleted",
+    "@recordingDeleted": {
+        "description": "Confirmation shown after a recording has been deleted."
+    },
+    "deleteRecordingFailed": "Could not delete the recording",
+    "@deleteRecordingFailed": {
+        "description": "Shown when deleting a recording's files failed."
+    },
+    "noListenersYet": "No listeners yet",
+    "@noListenersYet": {
+        "description": "Shown on the live chapter screen while nobody has joined to listen."
+    },
+    "noParticipantsYet": "No participants yet",
+    "@noParticipantsYet": {
+        "description": "Shown on the room screen while nobody has joined."
+    },
+    "transcribing": "Transcribing the recording…",
+    "@transcribing": {
+        "description": "Shown on the verify screen while the recording is still being transcribed."
+    },
+    "transcriptionFailed": "Transcription failed — you can type the lyrics yourself.",
+    "@transcriptionFailed": {
+        "description": "Shown on the verify screen when transcribing the recording did not succeed."
     }
 }

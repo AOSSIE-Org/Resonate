@@ -1796,4 +1796,61 @@ class AppLocalizationsMr extends AppLocalizations {
   String callBlockedInRoom(String username) {
     return '$username is in a live session.';
   }
+
+  @override
+  String get recordedChapters => 'Recorded Chapters';
+
+  @override
+  String get noRecordedChapters => 'Nothing recorded yet';
+
+  @override
+  String get noRecordedChaptersMessage =>
+      'Live chapters you record stay on this device until you delete them.';
+
+  @override
+  String get recordedChaptersLoadFailed => 'Could not load your recordings';
+
+  @override
+  String get untitledRecording => 'Untitled recording';
+
+  @override
+  String get recordedOn => 'Recorded';
+
+  @override
+  String get recordingLength => 'Length';
+
+  @override
+  String get audioFile => 'File';
+
+  @override
+  String get transcript => 'Transcript';
+
+  @override
+  String get noTranscript => 'No transcript was generated for this recording.';
+
+  @override
+  String get deleteRecording => 'Delete recording';
+
+  @override
+  String get deleteRecordingMessage =>
+      'This removes the audio and the transcript from this device. It cannot be undone.';
+
+  @override
+  String get recordingDeleted => 'Recording deleted';
+
+  @override
+  String get deleteRecordingFailed => 'Could not delete the recording';
+
+  @override
+  String get noListenersYet => 'No listeners yet';
+
+  @override
+  String get noParticipantsYet => 'No participants yet';
+
+  @override
+  String get transcribing => 'Transcribing the recording…';
+
+  @override
+  String get transcriptionFailed =>
+      'Transcription failed — you can type the lyrics yourself.';
 }

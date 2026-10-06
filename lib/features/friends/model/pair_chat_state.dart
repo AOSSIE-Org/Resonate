@@ -9,7 +9,6 @@ abstract class PairChatState with _$PairChatState {
     @Default(true) bool isAnonymous,
     @Default('en') String languageIso,
     @Default(false) bool isMicOn,
-    @Default(true) bool isLoudSpeakerOn,
     String? requestDocId,
     String? activePairDocId,
     String? pairUsername,

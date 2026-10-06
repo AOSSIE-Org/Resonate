@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LiveChapterState {
 
- LiveChapterModel? get model; bool get isMicOn;
+ LiveChapterModel? get model; bool get isMicOn;// Produced after the author has already left: transcribing takes about as
+// long as the recording, so it cannot sit in the way of the teardown.
+ AsyncValue<String> get transcript;
 /// Create a copy of LiveChapterState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +27,16 @@ $LiveChapterStateCopyWith<LiveChapterState> get copyWith => _$LiveChapterStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LiveChapterState&&(identical(other.model, model) || other.model == model)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LiveChapterState&&(identical(other.model, model) || other.model == model)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.transcript, transcript) || other.transcript == transcript));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,model,isMicOn);
+int get hashCode => Object.hash(runtimeType,model,isMicOn,transcript);
 
 @override
 String toString() {
-  return 'LiveChapterState(model: $model, isMicOn: $isMicOn)';
+  return 'LiveChapterState(model: $model, isMicOn: $isMicOn, transcript: $transcript)';
 }
 
 
@@ -45,7 +47,7 @@ abstract mixin class $LiveChapterStateCopyWith<$Res>  {
   factory $LiveChapterStateCopyWith(LiveChapterState value, $Res Function(LiveChapterState) _then) = _$LiveChapterStateCopyWithImpl;
 @useResult
 $Res call({
- LiveChapterModel? model, bool isMicOn
+ LiveChapterModel? model, bool isMicOn, AsyncValue<String> transcript
 });
 
 
@@ -62,11 +64,12 @@ class _$LiveChapterStateCopyWithImpl<$Res>
 
 /// Create a copy of LiveChapterState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? model = freezed,Object? isMicOn = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? model = freezed,Object? isMicOn = null,Object? transcript = null,}) {
   return _then(_self.copyWith(
 model: freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
 as LiveChapterModel?,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,transcript: null == transcript ? _self.transcript : transcript // ignore: cast_nullable_to_non_nullable
+as AsyncValue<String>,
   ));
 }
 /// Create a copy of LiveChapterState
@@ -163,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LiveChapterModel? model,  bool isMicOn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LiveChapterModel? model,  bool isMicOn,  AsyncValue<String> transcript)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LiveChapterState() when $default != null:
-return $default(_that.model,_that.isMicOn);case _:
+return $default(_that.model,_that.isMicOn,_that.transcript);case _:
   return orElse();
 
 }
@@ -184,10 +187,10 @@ return $default(_that.model,_that.isMicOn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LiveChapterModel? model,  bool isMicOn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LiveChapterModel? model,  bool isMicOn,  AsyncValue<String> transcript)  $default,) {final _that = this;
 switch (_that) {
 case _LiveChapterState():
-return $default(_that.model,_that.isMicOn);case _:
+return $default(_that.model,_that.isMicOn,_that.transcript);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +207,10 @@ return $default(_that.model,_that.isMicOn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LiveChapterModel? model,  bool isMicOn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LiveChapterModel? model,  bool isMicOn,  AsyncValue<String> transcript)?  $default,) {final _that = this;
 switch (_that) {
 case _LiveChapterState() when $default != null:
-return $default(_that.model,_that.isMicOn);case _:
+return $default(_that.model,_that.isMicOn,_that.transcript);case _:
   return null;
 
 }
@@ -219,11 +222,14 @@ return $default(_that.model,_that.isMicOn);case _:
 
 
 class _LiveChapterState implements LiveChapterState {
-  const _LiveChapterState({this.model, this.isMicOn = false});
+  const _LiveChapterState({this.model, this.isMicOn = false, this.transcript = const AsyncValue<String>.data('')});
   
 
 @override final  LiveChapterModel? model;
 @override@JsonKey() final  bool isMicOn;
+// Produced after the author has already left: transcribing takes about as
+// long as the recording, so it cannot sit in the way of the teardown.
+@override@JsonKey() final  AsyncValue<String> transcript;
 
 /// Create a copy of LiveChapterState
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +241,16 @@ _$LiveChapterStateCopyWith<_LiveChapterState> get copyWith => __$LiveChapterStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LiveChapterState&&(identical(other.model, model) || other.model == model)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LiveChapterState&&(identical(other.model, model) || other.model == model)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.transcript, transcript) || other.transcript == transcript));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,model,isMicOn);
+int get hashCode => Object.hash(runtimeType,model,isMicOn,transcript);
 
 @override
 String toString() {
-  return 'LiveChapterState(model: $model, isMicOn: $isMicOn)';
+  return 'LiveChapterState(model: $model, isMicOn: $isMicOn, transcript: $transcript)';
 }
 
 
@@ -255,7 +261,7 @@ abstract mixin class _$LiveChapterStateCopyWith<$Res> implements $LiveChapterSta
   factory _$LiveChapterStateCopyWith(_LiveChapterState value, $Res Function(_LiveChapterState) _then) = __$LiveChapterStateCopyWithImpl;
 @override @useResult
 $Res call({
- LiveChapterModel? model, bool isMicOn
+ LiveChapterModel? model, bool isMicOn, AsyncValue<String> transcript
 });
 
 
@@ -272,11 +278,12 @@ class __$LiveChapterStateCopyWithImpl<$Res>
 
 /// Create a copy of LiveChapterState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? model = freezed,Object? isMicOn = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? model = freezed,Object? isMicOn = null,Object? transcript = null,}) {
   return _then(_LiveChapterState(
 model: freezed == model ? _self.model : model // ignore: cast_nullable_to_non_nullable
 as LiveChapterModel?,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,transcript: null == transcript ? _self.transcript : transcript // ignore: cast_nullable_to_non_nullable
+as AsyncValue<String>,
   ));
 }
 

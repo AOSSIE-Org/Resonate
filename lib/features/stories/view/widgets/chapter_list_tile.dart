@@ -48,7 +48,7 @@ class ChapterListTile extends StatelessWidget {
           ),
         ),
         trailing: Text(
-          '${formatPlayDuration(chapter.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}',
+          formatChapterLength(chapter.playDuration, AppLocalizations.of(context)!),
         ),
       ),
     );

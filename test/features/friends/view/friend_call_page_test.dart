@@ -4,8 +4,8 @@ import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/view/pages/friend_call_page.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
 import 'package:resonate/features/friends/view/widgets/call_participant_tile.dart';
+import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -66,8 +66,24 @@ void main() {
       );
 
       expect(find.byType(CallParticipantTile), findsNothing);
-      expect(find.byType(CallControlPanel), findsNothing);
+      expect(find.byType(SessionControlBar), findsNothing);
       expect(find.byType(SizedBox), findsWidgets);
+    });
+
+    testFriendsWidget('hanging up is the leftmost control', (tester) async {
+      await _pump(
+        tester,
+        const FriendCallPage(),
+        overrides: _overrides(FriendCallState(activeCall: _fakeCall())),
+      );
+
+      final leave = tester
+          .getCenter(find.byKey(const ValueKey('session-control-leave')))
+          .dx;
+      final mic = tester
+          .getCenter(find.byKey(const ValueKey('session-control-mic')))
+          .dx;
+      expect(leave, lessThan(mic));
     });
 
     testFriendsWidget('mic toggle routes through the notifier', (tester) async {
@@ -83,23 +99,6 @@ void main() {
       await tester.tap(find.byIcon(Icons.mic_off));
       await tester.pump();
       expect(fake.toggleMicCount, 1);
-    });
-
-    testFriendsWidget('speaker toggle routes through the notifier', (
-      tester,
-    ) async {
-      final fake = FakeFriendCallCoordinator(
-        initial: FriendCallState(activeCall: _fakeCall()),
-      );
-      await _pump(
-        tester,
-        const FriendCallPage(),
-        overrides: _overrides(FriendCallState(), notifier: fake),
-      );
-
-      await tester.tap(find.byIcon(Icons.volume_up));
-      await tester.pump();
-      expect(fake.toggleLoudSpeakerCount, 1);
     });
 
     testFriendsWidget('end button routes through the notifier', (tester) async {

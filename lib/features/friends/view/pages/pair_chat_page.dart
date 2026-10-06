@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
+import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
@@ -117,13 +117,22 @@ class _PairChatPageState extends ConsumerState<PairChatPage> {
               ),
               const Spacer(),
               Center(
-                child: CallControlPanel(
-                  isMicOn: chatState.isMicOn,
-                  isLoudSpeakerOn: chatState.isLoudSpeakerOn,
-                  onToggleMic: _notifier.toggleMic,
-                  onToggleLoudSpeaker: _notifier.toggleLoudSpeaker,
-                  onAudioSettings: () => showAudioDeviceSelector(context),
-                  onEnd: () => _notifier.endChat(),
+                child: SessionControlBar(
+                  controls: [
+                    SessionControl(
+                      SessionControlKind.leave,
+                      onTap: () => _notifier.endChat(),
+                    ),
+                    SessionControl(
+                      SessionControlKind.mic,
+                      active: chatState.isMicOn,
+                      onTap: _notifier.toggleMic,
+                    ),
+                    SessionControl(
+                      SessionControlKind.audioDevice,
+                      onTap: () => showAudioDeviceSelector(context),
+                    ),
+                  ],
                 ),
               ),
             ],

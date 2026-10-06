@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FriendCallState {
 
- FriendCallModel? get activeCall; bool get isMicOn; bool get isLoudSpeakerOn;
+ FriendCallModel? get activeCall; bool get isMicOn;
 /// Create a copy of FriendCallState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $FriendCallStateCopyWith<FriendCallState> get copyWith => _$FriendCallStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendCallState&&(identical(other.activeCall, activeCall) || other.activeCall == activeCall)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.isLoudSpeakerOn, isLoudSpeakerOn) || other.isLoudSpeakerOn == isLoudSpeakerOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendCallState&&(identical(other.activeCall, activeCall) || other.activeCall == activeCall)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,activeCall,isMicOn,isLoudSpeakerOn);
+int get hashCode => Object.hash(runtimeType,activeCall,isMicOn);
 
 @override
 String toString() {
-  return 'FriendCallState(activeCall: $activeCall, isMicOn: $isMicOn, isLoudSpeakerOn: $isLoudSpeakerOn)';
+  return 'FriendCallState(activeCall: $activeCall, isMicOn: $isMicOn)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $FriendCallStateCopyWith<$Res>  {
   factory $FriendCallStateCopyWith(FriendCallState value, $Res Function(FriendCallState) _then) = _$FriendCallStateCopyWithImpl;
 @useResult
 $Res call({
- FriendCallModel? activeCall, bool isMicOn, bool isLoudSpeakerOn
+ FriendCallModel? activeCall, bool isMicOn
 });
 
 
@@ -62,11 +62,10 @@ class _$FriendCallStateCopyWithImpl<$Res>
 
 /// Create a copy of FriendCallState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? activeCall = freezed,Object? isMicOn = null,Object? isLoudSpeakerOn = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? activeCall = freezed,Object? isMicOn = null,}) {
   return _then(_self.copyWith(
 activeCall: freezed == activeCall ? _self.activeCall : activeCall // ignore: cast_nullable_to_non_nullable
 as FriendCallModel?,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nullable_to_non_nullable
-as bool,isLoudSpeakerOn: null == isLoudSpeakerOn ? _self.isLoudSpeakerOn : isLoudSpeakerOn // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -164,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FriendCallModel? activeCall,  bool isMicOn,  bool isLoudSpeakerOn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FriendCallModel? activeCall,  bool isMicOn)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FriendCallState() when $default != null:
-return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
+return $default(_that.activeCall,_that.isMicOn);case _:
   return orElse();
 
 }
@@ -185,10 +184,10 @@ return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FriendCallModel? activeCall,  bool isMicOn,  bool isLoudSpeakerOn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FriendCallModel? activeCall,  bool isMicOn)  $default,) {final _that = this;
 switch (_that) {
 case _FriendCallState():
-return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
+return $default(_that.activeCall,_that.isMicOn);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +204,10 @@ return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FriendCallModel? activeCall,  bool isMicOn,  bool isLoudSpeakerOn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FriendCallModel? activeCall,  bool isMicOn)?  $default,) {final _that = this;
 switch (_that) {
 case _FriendCallState() when $default != null:
-return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
+return $default(_that.activeCall,_that.isMicOn);case _:
   return null;
 
 }
@@ -220,12 +219,11 @@ return $default(_that.activeCall,_that.isMicOn,_that.isLoudSpeakerOn);case _:
 
 
 class _FriendCallState implements FriendCallState {
-  const _FriendCallState({this.activeCall, this.isMicOn = false, this.isLoudSpeakerOn = true});
+  const _FriendCallState({this.activeCall, this.isMicOn = false});
   
 
 @override final  FriendCallModel? activeCall;
 @override@JsonKey() final  bool isMicOn;
-@override@JsonKey() final  bool isLoudSpeakerOn;
 
 /// Create a copy of FriendCallState
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +235,16 @@ _$FriendCallStateCopyWith<_FriendCallState> get copyWith => __$FriendCallStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendCallState&&(identical(other.activeCall, activeCall) || other.activeCall == activeCall)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn)&&(identical(other.isLoudSpeakerOn, isLoudSpeakerOn) || other.isLoudSpeakerOn == isLoudSpeakerOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FriendCallState&&(identical(other.activeCall, activeCall) || other.activeCall == activeCall)&&(identical(other.isMicOn, isMicOn) || other.isMicOn == isMicOn));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,activeCall,isMicOn,isLoudSpeakerOn);
+int get hashCode => Object.hash(runtimeType,activeCall,isMicOn);
 
 @override
 String toString() {
-  return 'FriendCallState(activeCall: $activeCall, isMicOn: $isMicOn, isLoudSpeakerOn: $isLoudSpeakerOn)';
+  return 'FriendCallState(activeCall: $activeCall, isMicOn: $isMicOn)';
 }
 
 
@@ -257,7 +255,7 @@ abstract mixin class _$FriendCallStateCopyWith<$Res> implements $FriendCallState
   factory _$FriendCallStateCopyWith(_FriendCallState value, $Res Function(_FriendCallState) _then) = __$FriendCallStateCopyWithImpl;
 @override @useResult
 $Res call({
- FriendCallModel? activeCall, bool isMicOn, bool isLoudSpeakerOn
+ FriendCallModel? activeCall, bool isMicOn
 });
 
 
@@ -274,11 +272,10 @@ class __$FriendCallStateCopyWithImpl<$Res>
 
 /// Create a copy of FriendCallState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? activeCall = freezed,Object? isMicOn = null,Object? isLoudSpeakerOn = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? activeCall = freezed,Object? isMicOn = null,}) {
   return _then(_FriendCallState(
 activeCall: freezed == activeCall ? _self.activeCall : activeCall // ignore: cast_nullable_to_non_nullable
 as FriendCallModel?,isMicOn: null == isMicOn ? _self.isMicOn : isMicOn // ignore: cast_nullable_to_non_nullable
-as bool,isLoudSpeakerOn: null == isLoudSpeakerOn ? _self.isLoudSpeakerOn : isLoudSpeakerOn // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

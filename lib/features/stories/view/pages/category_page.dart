@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
 import 'package:resonate/features/stories/data/category_stories.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -27,16 +27,7 @@ class CategoryPage extends ConsumerWidget {
         title: Text(label),
       ),
       body: storiesAsync.when(
-        loading: () => Center(
-          child: SizedBox(
-            height: UiSizes.height_200,
-            width: UiSizes.width_200,
-            child: LoadingIndicator(
-              indicatorType: Indicator.ballRotate,
-              colors: [colorScheme.primary],
-            ),
-          ),
-        ),
+        loading: () => const AppLoader(),
         error: (e, _) => _empty(context, label),
         data: (stories) => stories.isNotEmpty
             ? Padding(
