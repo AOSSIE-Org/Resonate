@@ -3327,6 +3327,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transcription failed — you can type the lyrics yourself.'**
   String get transcriptionFailed;
+
+  /// Accessibility label of the button that starts playing a recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Play recording'**
+  String get playRecording;
+
+  /// Accessibility label of the button that pauses a playing recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause recording'**
+  String get pauseRecording;
+
+  /// Shown when playback is attempted while the user is connected to a live audio session.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the live session to play a recording.'**
+  String get playbackBlockedInSession;
 }
 
 class _AppLocalizationsDelegate

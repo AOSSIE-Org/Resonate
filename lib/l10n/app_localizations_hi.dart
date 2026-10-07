@@ -1856,4 +1856,14 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get transcriptionFailed =>
       'Transcription failed — you can type the lyrics yourself.';
+
+  @override
+  String get playRecording => 'Play recording';
+
+  @override
+  String get pauseRecording => 'Pause recording';
+
+  @override
+  String get playbackBlockedInSession =>
+      'Leave the live session to play a recording.';
 }

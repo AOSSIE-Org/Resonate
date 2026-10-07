@@ -139,7 +139,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "gu": [
@@ -311,7 +314,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "hi": [
@@ -431,7 +437,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "kn": [
@@ -593,7 +602,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "ml": [
@@ -722,7 +734,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "mr": [
@@ -851,7 +866,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "pa": [
@@ -971,7 +989,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "raj": [
@@ -1118,7 +1139,10 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ],
 
   "ta": [
@@ -1254,6 +1278,9 @@
     "noListenersYet",
     "noParticipantsYet",
     "transcribing",
-    "transcriptionFailed"
+    "transcriptionFailed",
+    "playRecording",
+    "pauseRecording",
+    "playbackBlockedInSession"
   ]
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
@@ -55,6 +56,7 @@ import 'test_root_container.mocks.dart';
   RealtimeSubscription,
   FirebaseMessaging,
   Execution,
+  AudioPlayer,
 ])
 // Data builders
 AuthUser fakeAuthUser({
@@ -293,9 +295,7 @@ void stubFlutterSecureStorageChannel() {
       );
 }
 
-// Providers that follow a table open a realtime subscription as they build, so a
-// container test that constructs one needs the channel stubbed or it throws
-// MissingStubError. Returns the controller so a test can push events in.
+
 StreamController<RealtimeMessage> stubRealtimeChannel(
   MockRealtime realtime, {
   MockRealtimeSubscription? subscription,
@@ -401,6 +401,62 @@ class FakeLiveKitController extends LiveKitController {
   @override
   Future<void> setRecording(bool recording) async {
     state = state.copyWith(isRecording: recording);
+  }
+}
+
+class FakeAudioPlayer extends MockAudioPlayer {
+  final _positions = StreamController<Duration>.broadcast();
+  final _durations = StreamController<Duration>.broadcast();
+  final _completions = StreamController<void>.broadcast();
+
+  // In call order, so a test can assert what the player was asked to do.
+  final calls = <String>[];
+  String? sourcePath;
+
+  @override
+  Stream<Duration> get onPositionChanged => _positions.stream;
+
+  @override
+  Stream<Duration> get onDurationChanged => _durations.stream;
+
+  @override
+  Stream<void> get onPlayerComplete => _completions.stream;
+
+  @override
+  Future<void> setSourceDeviceFile(String? path, {String? mimeType}) async {
+    sourcePath = path;
+    calls.add('load');
+  }
+
+  @override
+  Future<void> resume() async => calls.add('resume');
+
+  @override
+  Future<void> pause() async => calls.add('pause');
+
+  @override
+  Future<void> seek(Duration? position) async => calls.add('seek');
+
+  @override
+  Future<void> stop() async => calls.add('stop');
+
+  @override
+  Future<void> dispose() async {
+    await _positions.close();
+    await _durations.close();
+    await _completions.close();
+  }
+
+  void emitPosition(Duration position) => _positions.add(position);
+  void emitDuration(Duration duration) => _durations.add(duration);
+  void complete() => _completions.add(null);
+}
+
+class ConnectedLiveKitController extends FakeLiveKitController {
+  @override
+  LiveKitState build() {
+    super.build();
+    return const LiveKitState(hasSession: true, isConnected: true);
   }
 }
 

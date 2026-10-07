@@ -14,9 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LiveChapterState {
 
- LiveChapterModel? get model; bool get isMicOn;// Produced after the author has already left: transcribing takes about as
-// long as the recording, so it cannot sit in the way of the teardown.
- AsyncValue<String> get transcript;
+ LiveChapterModel? get model; bool get isMicOn; AsyncValue<String> get transcript;
 /// Create a copy of LiveChapterState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -227,8 +225,6 @@ class _LiveChapterState implements LiveChapterState {
 
 @override final  LiveChapterModel? model;
 @override@JsonKey() final  bool isMicOn;
-// Produced after the author has already left: transcribing takes about as
-// long as the recording, so it cannot sit in the way of the teardown.
 @override@JsonKey() final  AsyncValue<String> transcript;
 
 /// Create a copy of LiveChapterState

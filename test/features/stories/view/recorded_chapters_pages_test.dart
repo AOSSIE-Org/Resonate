@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/stories/data/services/recording_audio.dart';
 import 'package:resonate/features/stories/model/recorded_chapter.dart';
 import 'package:resonate/features/stories/view/pages/recorded_chapter_detail_page.dart';
 import 'package:resonate/features/stories/view/pages/recorded_chapters_page.dart';
@@ -16,6 +18,7 @@ Future<void> pumpDetailPage(
   WidgetTester tester,
   RecordedChapter chapter, {
   List<Override> overrides = const [],
+  FakeAudioPlayer? audio,
 }) async {
   await pumpStoriesPage(
     tester,
@@ -29,7 +32,13 @@ Future<void> pumpDetailPage(
         child: const Text('open'),
       ),
     ),
-    overrides: overrides,
+    // The real one builds an AudioPlayer, which talks to the platform.
+    overrides: [
+      recordingAudioPlayerProvider.overrideWithValue(
+        audio ?? FakeAudioPlayer(),
+      ),
+      ...overrides,
+    ],
   );
   await tester.tap(find.text('open'));
   await tester.pumpAndSettle();
@@ -164,14 +173,14 @@ void main() {
               '[re:Resonate App - AOSSIE]\n'
               '[ve:v1.0.0]\n'
               '[00:02.50]Welcome back\n'
-              '[01:05.00]And that is the end\n',
+              '[00:42.00]And that is the end\n',
         ),
       );
 
       expect(find.text('Welcome back'), findsOneWidget);
       expect(find.text('0:02'), findsOneWidget);
       expect(find.text('And that is the end'), findsOneWidget);
-      expect(find.text('1:05'), findsOneWidget);
+      expect(find.text('0:42'), findsOneWidget);
       // The LRC header lines are not transcript content.
       expect(find.textContaining('Resonate App - AOSSIE'), findsNothing);
     });
@@ -185,6 +194,91 @@ void main() {
         find.text('No transcript was generated for this recording.'),
         findsOneWidget,
       );
+    });
+
+    testStoryWidget('plays and pauses the recording', (tester) async {
+      final audio = FakeAudioPlayer();
+      await pumpDetailPage(tester, fakeRecordedChapter(), audio: audio);
+
+      expect(find.byIcon(Icons.play_arrow_rounded), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pumpAndSettle();
+
+      expect(audio.sourcePath, '/recordings/rec-1.wav');
+      expect(audio.calls, ['load', 'resume']);
+      expect(find.byIcon(Icons.pause_rounded), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.pause_rounded));
+      await tester.pumpAndSettle();
+
+      expect(audio.calls.last, 'pause');
+      expect(find.byIcon(Icons.play_arrow_rounded), findsOneWidget);
+    });
+
+    testStoryWidget('the scrubber follows the playhead', (tester) async {
+      final audio = FakeAudioPlayer();
+      await pumpDetailPage(tester, fakeRecordedChapter(), audio: audio);
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pumpAndSettle();
+
+      audio.emitPosition(const Duration(seconds: 30));
+      await tester.pumpAndSettle();
+
+      expect(find.text('0:30'), findsOneWidget);
+      expect(tester.widget<Slider>(find.byType(Slider)).value, 30000);
+    });
+
+    testStoryWidget('tapping a transcript line seeks to it', (tester) async {
+      final audio = FakeAudioPlayer();
+      await pumpDetailPage(
+        tester,
+        fakeRecordedChapter(transcript: '[00:42.00]And that is the end\n'),
+        audio: audio,
+      );
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('And that is the end'));
+      await tester.pumpAndSettle();
+
+      expect(audio.calls.last, 'seek');
+    });
+
+    testStoryWidget('playing is refused while a live session is up', (
+      tester,
+    ) async {
+      final audio = FakeAudioPlayer();
+      await pumpDetailPage(
+        tester,
+        fakeRecordedChapter(),
+        audio: audio,
+        overrides: [
+          liveKitControllerProvider.overrideWith(
+            ConnectedLiveKitController.new,
+          ),
+        ],
+      );
+
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pumpAndSettle();
+
+      expect(audio.calls, isEmpty);
+      expect(find.byIcon(Icons.play_arrow_rounded), findsOneWidget);
+    });
+
+    testStoryWidget('leaving the screen stops the audio', (tester) async {
+      final audio = FakeAudioPlayer();
+      await pumpDetailPage(tester, fakeRecordedChapter(), audio: audio);
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pumpAndSettle();
+
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+
+      expect(find.byType(RecordedChapterDetailPage), findsNothing);
+      expect(audio.calls, contains('stop'));
     });
 
     testStoryWidget('deletes the recording after the confirmation', (

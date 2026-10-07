@@ -2440,5 +2440,17 @@
     "transcriptionFailed": "Transcription failed — you can type the lyrics yourself.",
     "@transcriptionFailed": {
         "description": "Shown on the verify screen when transcribing the recording did not succeed."
+    },
+    "playRecording": "Play recording",
+    "@playRecording": {
+        "description": "Accessibility label of the button that starts playing a recording."
+    },
+    "pauseRecording": "Pause recording",
+    "@pauseRecording": {
+        "description": "Accessibility label of the button that pauses a playing recording."
+    },
+    "playbackBlockedInSession": "Leave the live session to play a recording.",
+    "@playbackBlockedInSession": {
+        "description": "Shown when playback is attempted while the user is connected to a live audio session."
     }
 }

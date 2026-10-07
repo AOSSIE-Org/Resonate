@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/stories/data/recording_playback.dart';
 import 'package:resonate/features/stories/model/recorded_chapter.dart';
 import 'package:resonate/features/stories/model/transcript_line.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
@@ -11,16 +15,50 @@ import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/utils/utils.dart';
 
-class RecordedChapterDetailPage extends ConsumerWidget {
+class RecordedChapterDetailPage extends ConsumerStatefulWidget {
   const RecordedChapterDetailPage({super.key, required this.chapter});
 
   final RecordedChapter chapter;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<RecordedChapterDetailPage> createState() =>
+      _RecordedChapterDetailPageState();
+}
+
+class _RecordedChapterDetailPageState
+    extends ConsumerState<RecordedChapterDetailPage> {
+  RecordedChapter get chapter => widget.chapter;
+  late final RecordingPlayback _playback;
+
+  late final List<TranscriptLine> _lines;
+
+  double? _scrubTo;
+
+  @override
+  void initState() {
+    super.initState();
+    _playback = ref.read(recordingPlaybackProvider.notifier);
+    _lines = parseTranscript(chapter.transcript);
+  }
+
+  @override
+  void dispose() {
+    unawaited(_playback.stop());
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final description = chapter.description.trim();
+
+    final playback = ref.watch(recordingPlaybackProvider);
+    final isCurrent = playback.chapterId == chapter.id;
+    final position = isCurrent ? playback.position : Duration.zero;
+    final total = isCurrent && playback.duration > Duration.zero
+        ? playback.duration
+        : Duration(milliseconds: chapter.durationMs);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -28,6 +66,21 @@ class RecordedChapterDetailPage extends ConsumerWidget {
       body: ListView(
         padding: EdgeInsets.all(UiSizes.width_16),
         children: [
+          _Section(
+            child: _Player(
+              isPlaying: isCurrent && playback.isPlaying,
+              position: position,
+              total: total,
+              scrubTo: _scrubTo,
+              onToggle: _toggle,
+              onScrub: (value) => setState(() => _scrubTo = value),
+              onScrubEnd: (value) {
+                setState(() => _scrubTo = null);
+                _playback.seek(Duration(milliseconds: value.round()));
+              },
+            ),
+          ),
+          SizedBox(height: UiSizes.height_16),
           _Section(
             child: Column(
               children: [
@@ -62,11 +115,15 @@ class RecordedChapterDetailPage extends ConsumerWidget {
           SizedBox(height: UiSizes.height_16),
           _Section(
             title: l10n.transcript,
-            child: _Transcript(transcript: chapter.transcript),
+            child: _Transcript(
+              lines: _lines,
+              position: isCurrent ? position : null,
+              onSeek: (at) => _playback.seek(at),
+            ),
           ),
           SizedBox(height: UiSizes.height_30),
           ElevatedButton.icon(
-            onPressed: () => _confirmDelete(context, ref),
+            onPressed: _confirmDelete,
             icon: const Icon(Icons.delete_outline_rounded),
             label: Text(l10n.deleteRecording),
             style: ElevatedButton.styleFrom(
@@ -83,7 +140,20 @@ class RecordedChapterDetailPage extends ConsumerWidget {
     );
   }
 
-  void _confirmDelete(BuildContext context, WidgetRef ref) {
+  Future<void> _toggle() async {
+    final l10n = AppLocalizations.of(context)!;
+    if (ref.read(liveKitControllerProvider).isConnected) {
+      customSnackbar(
+        l10n.actionBlocked,
+        l10n.playbackBlockedInSession,
+        LogType.info,
+      );
+      return;
+    }
+    await _playback.toggle(chapter);
+  }
+
+  void _confirmDelete() {
     final l10n = AppLocalizations.of(context)!;
     AppUtils.showDialog(
       context: context,
@@ -92,16 +162,18 @@ class RecordedChapterDetailPage extends ConsumerWidget {
       firstBtnText: l10n.deleteRecording,
       onFirstBtnPressed: () {
         Navigator.of(context).pop();
-        _delete(context, ref);
+        _delete();
       },
       onSecondBtnPressed: () => Navigator.of(context).pop(),
     );
   }
 
-  Future<void> _delete(BuildContext context, WidgetRef ref) async {
+  Future<void> _delete() async {
     final l10n = AppLocalizations.of(context)!;
     final title = recordedChapterTitle(chapter, l10n);
     final notifier = ref.read(recordedChaptersProvider.notifier);
+    await _playback.stop();
+    if (!mounted) return;
     Navigator.of(context).pop();
     try {
       await notifier.delete(chapter.id);
@@ -109,6 +181,67 @@ class RecordedChapterDetailPage extends ConsumerWidget {
     } catch (e) {
       customSnackbar(l10n.deleteRecordingFailed, e.toString(), LogType.error);
     }
+  }
+}
+
+class _Player extends StatelessWidget {
+  const _Player({
+    required this.isPlaying,
+    required this.position,
+    required this.total,
+    required this.scrubTo,
+    required this.onToggle,
+    required this.onScrub,
+    required this.onScrubEnd,
+  });
+
+  final bool isPlaying;
+  final Duration position;
+  final Duration total;
+  final double? scrubTo;
+  final VoidCallback onToggle;
+  final ValueChanged<double> onScrub;
+  final ValueChanged<double> onScrubEnd;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final max = total.inMilliseconds.toDouble();
+    final value = (scrubTo ?? position.inMilliseconds.toDouble()).clamp(0, max);
+
+    return Column(
+      children: [
+        if (max > 0)
+          Slider(
+            value: value.toDouble(),
+            max: max,
+            onChanged: onScrub,
+            onChangeEnd: onScrubEnd,
+          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              formatPlayDuration(value.round()),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
+            IconButton.filled(
+              onPressed: onToggle,
+              iconSize: UiSizes.size_32,
+              tooltip: isPlaying ? l10n.pauseRecording : l10n.playRecording,
+              icon: Icon(
+                isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+              ),
+            ),
+            Text(
+              formatPlayDuration(total.inMilliseconds),
+              style: TextStyle(color: colorScheme.onSurfaceVariant),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
@@ -187,15 +320,32 @@ class _DetailRow extends StatelessWidget {
 }
 
 class _Transcript extends StatelessWidget {
-  const _Transcript({required this.transcript});
+  const _Transcript({
+    required this.lines,
+    required this.position,
+    required this.onSeek,
+  });
 
-  final String transcript;
+  final List<TranscriptLine> lines;
+  // Null while this recording is not the one loaded in the player.
+  final Duration? position;
+  final ValueChanged<Duration> onSeek;
+  
+  int get _activeIndex {
+    final at = position;
+    if (at == null) return -1;
+    var active = -1;
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].at > at) break;
+      active = i;
+    }
+    return active;
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final lines = parseTranscript(transcript);
 
     if (lines.isEmpty) {
       return Text(
@@ -204,36 +354,45 @@ class _Transcript extends StatelessWidget {
       );
     }
 
+    final active = _activeIndex;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final line in lines)
-          Padding(
-            padding: EdgeInsets.only(bottom: UiSizes.height_10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: UiSizes.width_56,
-                  child: Text(
-                    formatPlayDuration(line.at.inMilliseconds),
-                    style: TextStyle(
-                      color: colorScheme.primary,
-                      fontSize: UiSizes.size_14,
-                      fontWeight: FontWeight.w600,
+        for (final (index, line) in lines.indexed)
+          InkWell(
+            onTap: () => onSeek(line.at),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_5),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: UiSizes.width_56,
+                    child: Text(
+                      formatPlayDuration(line.at.inMilliseconds),
+                      style: TextStyle(
+                        color: colorScheme.primary,
+                        fontSize: UiSizes.size_14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    line.text,
-                    style: TextStyle(
-                      fontSize: UiSizes.size_16,
-                      color: colorScheme.onSurface,
+                  Expanded(
+                    child: Text(
+                      line.text,
+                      style: TextStyle(
+                        fontSize: UiSizes.size_16,
+                        color: index == active
+                            ? colorScheme.onSurface
+                            : colorScheme.onSurface.withValues(alpha: 0.6),
+                        fontWeight: index == active
+                            ? FontWeight.w600
+                            : FontWeight.normal,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
       ],
