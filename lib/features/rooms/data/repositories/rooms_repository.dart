@@ -573,7 +573,4 @@ class RoomsRepository {
       rowId: docId,
     );
   }
-
-  static String participantChannel() =>
-      'databases.$databaseId.tables.$participantsTableId.rows';
 }

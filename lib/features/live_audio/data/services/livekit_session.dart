@@ -44,7 +44,6 @@ class LiveKitSession {
   bool get isRecording => _isRecording;
   Stream<bool> get connectionStates => _connectionStateController.stream;
   Stream<RoomEvent> get events => _eventsController.stream;
-  Stream<bool> get recordingStates => _recordingController.stream;
 
   Stream<SpeakerBands> get speakerBands => _bandsController.stream;
 

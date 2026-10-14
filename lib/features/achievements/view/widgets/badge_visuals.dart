@@ -49,13 +49,6 @@ extension BadgeCategoryPresentation on BadgeCategory {
     BadgeCategory.rhythm => l10n.badgeCategoryRhythm,
     BadgeCategory.core => l10n.badgeCategoryCore,
   };
-  String statLabel(AppLocalizations l10n) => switch (this) {
-    BadgeCategory.hosting => l10n.statRoomsHosted,
-    BadgeCategory.moderation => l10n.statRoomsModerated,
-    BadgeCategory.echo => l10n.statInteractions,
-    BadgeCategory.rhythm => l10n.statStreak,
-    BadgeCategory.core => l10n.statActiveDays,
-  };
 
   Color color(AchievementColors colors) => colors.forCategory(this);
 }
