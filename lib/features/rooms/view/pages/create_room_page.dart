@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

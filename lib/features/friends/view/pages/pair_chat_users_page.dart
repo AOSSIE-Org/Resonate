@@ -54,7 +54,6 @@ class _PairChatUsersPageState extends ConsumerState<PairChatUsersPage> {
           ? Center(child: Text(AppLocalizations.of(context)!.noOnlineUsers))
           : ListView.builder(
               itemCount: chatState.onlineUsers.length,
-              shrinkWrap: true,
               itemBuilder: (context, index) {
                 final user = chatState.onlineUsers[index];
                 return ListTile(

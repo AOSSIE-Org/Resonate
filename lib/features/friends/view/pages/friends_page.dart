@@ -23,7 +23,6 @@ class FriendsPage extends ConsumerWidget {
           }
           return ListView.builder(
             itemCount: state.friends.length,
-            shrinkWrap: true,
             itemBuilder: (context, index) {
               return FriendListTile(
                 friendModel: state.friends[index],

@@ -173,7 +173,9 @@ class ParticipantBlock extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(roomSessionProvider(room)).value?.me;
+    final me = ref.watch(
+      roomSessionProvider(room).select((session) => session.value?.me),
+    );
     if (me == null) return const SizedBox.shrink();
 
     final avatarUrl = resolveAvatarUrl(ref, participant.dpUrl);

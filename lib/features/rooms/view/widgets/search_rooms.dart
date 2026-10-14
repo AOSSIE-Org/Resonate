@@ -43,10 +43,11 @@ class _SearchOverlayState extends State<SearchOverlay>
     );
 
     _searchController.addListener(() {
-      setState(() {
-        _hasText = _searchController.text.isNotEmpty;
-      });
-      widget.onSearchChanged(_searchController.text);
+      final text = _searchController.text;
+      if (text.isNotEmpty != _hasText) {
+        setState(() => _hasText = text.isNotEmpty);
+      }
+      widget.onSearchChanged(text);
     });
 
     if (widget.isVisible) {
@@ -159,9 +160,6 @@ class _SearchOverlayState extends State<SearchOverlay>
                             vertical: UiSizes.height_12,
                           ),
                         ),
-                        onChanged: (value) {
-                          widget.onSearchChanged(value);
-                        },
                         onSubmitted: (value) {
                           _focusNode?.unfocus();
                         },

@@ -6,14 +6,17 @@ class SessionStage extends StatelessWidget {
   const SessionStage({
     super.key,
     required this.featured,
-    required this.tiles,
+    required this.tileCount,
+    required this.tileBuilder,
     required this.controls,
     this.emptyState,
   });
 
   final List<Widget> featured;
 
-  final List<Widget> tiles;
+  final int tileCount;
+
+  final IndexedWidgetBuilder tileBuilder;
 
   final Widget? emptyState;
 
@@ -39,7 +42,7 @@ class SessionStage extends StatelessWidget {
                 padding: sectionPadding,
                 sliver: SliverToBoxAdapter(child: card),
               ),
-            if (tiles.isEmpty)
+            if (tileCount == 0)
               if (emptyState != null)
                 SliverFillRemaining(hasScrollBody: false, child: emptyState!)
               else
@@ -54,8 +57,8 @@ class SessionStage extends StatelessWidget {
                     mainAxisSpacing: UiSizes.height_8,
                     childAspectRatio: 0.79 / textScale,
                   ),
-                  itemCount: tiles.length,
-                  itemBuilder: (_, index) => tiles[index],
+                  itemCount: tileCount,
+                  itemBuilder: tileBuilder,
                 ),
               ),
             // Clearance so the last row is not trapped under the controls.

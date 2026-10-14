@@ -92,10 +92,11 @@ class _Stage extends StatelessWidget {
           isMicOn: authorMicOn,
         ),
       ],
-      tiles: [
-        for (final listener in listeners)
-          LiveChapterAttendeeBlock(user: listener),
-      ],
+      tileCount: listeners.length,
+      tileBuilder: (_, index) => LiveChapterAttendeeBlock(
+        key: ValueKey(listeners[index].id),
+        user: listeners[index],
+      ),
       emptyState: SessionStageEmpty(
         message: AppLocalizations.of(context)!.noListenersYet,
       ),

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
@@ -12,6 +12,7 @@ import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/realtime_event.dart';
+import 'package:resonate/utils/trace.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/room_session.g.dart';
@@ -244,17 +245,18 @@ class RoomSession extends _$RoomSession {
     return 4;
   }
 
-  List<Participant> _sort(List<Participant> participants) {
-    final indexed = [
-      for (var i = 0; i < participants.length; i++)
-        (position: i, participant: participants[i]),
-    ];
-    indexed.sort((a, b) {
-      final byRank = _rank(a.participant).compareTo(_rank(b.participant));
-      return byRank != 0 ? byRank : a.position.compareTo(b.position);
-    });
-    return [for (final entry in indexed) entry.participant];
-  }
+  List<Participant> _sort(List<Participant> participants) =>
+      trace('RoomSession.sort', () {
+        final indexed = [
+          for (var i = 0; i < participants.length; i++)
+            (position: i, participant: participants[i]),
+        ];
+        indexed.sort((a, b) {
+          final byRank = _rank(a.participant).compareTo(_rank(b.participant));
+          return byRank != 0 ? byRank : a.position.compareTo(b.position);
+        });
+        return [for (final entry in indexed) entry.participant];
+      });
 
   Future<void> turnOnMic(AppwriteRoom appwriteRoom) =>
       _setMic(appwriteRoom, true);

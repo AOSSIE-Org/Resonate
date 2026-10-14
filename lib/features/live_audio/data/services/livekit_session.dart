@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -82,7 +82,9 @@ class LiveKitSession {
         return true;
       } catch (error) {
         _reconnectAttempts++;
-        log('LiveKit connect attempt $_reconnectAttempts/$maxAttempts failed: $error');
+        log(
+          'LiveKit connect attempt $_reconnectAttempts/$maxAttempts failed: $error',
+        );
         if (attempt != null) {
           try {
             await attempt.disconnect();
@@ -138,7 +140,30 @@ class LiveKitSession {
         _bandTracker?.syncSpeakers({
           for (final speaker in event.speakers) speaker.identity,
         });
-      });
+      })
+      // Keep the FFT warm for every live mic
+      ..on<TrackSubscribedEvent>((_) => _syncLiveMics())
+      ..on<TrackUnsubscribedEvent>((_) => _syncLiveMics())
+      ..on<TrackPublishedEvent>((_) => _syncLiveMics())
+      ..on<TrackUnpublishedEvent>((_) => _syncLiveMics())
+      ..on<LocalTrackPublishedEvent>((_) => _syncLiveMics())
+      ..on<TrackMutedEvent>((_) => _syncLiveMics())
+      ..on<TrackUnmutedEvent>((_) => _syncLiveMics())
+      ..on<ParticipantConnectedEvent>((_) => _syncLiveMics())
+      ..on<ParticipantDisconnectedEvent>((_) => _syncLiveMics());
+  }
+
+  void _syncLiveMics() {
+    final room = _room;
+    final tracker = _bandTracker;
+    if (room == null || tracker == null) return;
+
+    final local = room.localParticipant;
+    tracker.syncLiveMics({
+      if (local != null && local.hasAudio && !local.isMuted) local.identity,
+      for (final participant in room.remoteParticipants.values)
+        if (participant.hasAudio && !participant.isMuted) participant.identity,
+    });
   }
 
   void _listenToRecordingChanges() async {
@@ -161,6 +186,9 @@ class LiveKitSession {
     _bandTrackerSub = tracker.bands.listen((bands) {
       if (!_bandsController.isClosed) _bandsController.add(bands);
     });
+    // Mics already live when we joined would otherwise stay cold until their
+    // next mute/publish event.
+    _syncLiveMics();
   }
 
   Future<void> _disposeBandTracker() async {

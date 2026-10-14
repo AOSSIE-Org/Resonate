@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:resonate/features/achievements/data/repositories/achievements_repository.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';

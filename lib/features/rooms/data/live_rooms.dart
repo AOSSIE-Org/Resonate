@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/utils/realtime_event.dart';
+import 'package:resonate/utils/trace.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/live_rooms.g.dart';
@@ -68,7 +69,10 @@ class LiveRooms extends _$LiveRooms {
     });
   }
 
-  AppwriteRoom _patched(AppwriteRoom room, Map<String, dynamic> payload) {
+  AppwriteRoom _patched(AppwriteRoom room, Map<String, dynamic> payload) =>
+      trace('LiveRooms.patch', () => _patch(room, payload));
+
+  AppwriteRoom _patch(AppwriteRoom room, Map<String, dynamic> payload) {
     final tags = payload['tags'];
     return room.copyWith(
       name: (payload['name'] as String?) ?? room.name,

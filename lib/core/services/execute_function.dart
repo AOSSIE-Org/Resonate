@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 
@@ -12,7 +12,7 @@ extension AppwriteFunctionExecution on Functions {
       final response = await createExecution(
         functionId: functionId,
         body: json.encode(body),
-      );
+    );
       if (response.responseStatusCode == 200) {
         log(response.responseBody);
         return jsonDecode(response.responseBody) as Map<String, dynamic>;

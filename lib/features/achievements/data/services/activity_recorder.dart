@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:resonate/features/achievements/data/my_stats.dart';
 import 'package:resonate/features/achievements/data/repositories/achievements_repository.dart';
