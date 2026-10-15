@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
@@ -7,8 +9,10 @@ import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/features/profile/model/user_profile_summary.dart';
+import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/profile_repository.g.dart';
@@ -19,6 +23,7 @@ ProfileRepository profileRepository(Ref ref) => ProfileRepository(
   storage: ref.watch(appwriteStorageProvider),
   account: ref.watch(appwriteAccountProvider),
   messaging: ref.watch(firebaseMessagingProvider),
+  functions: ref.watch(appwriteFunctionsProvider),
 );
 
 class ProfileRepository {
@@ -27,15 +32,18 @@ class ProfileRepository {
     required Storage storage,
     required Account account,
     required FirebaseMessaging messaging,
+    required Functions functions,
   }) : _tables = tables,
        _storage = storage,
        _account = account,
-       _messaging = messaging;
+       _messaging = messaging,
+       _functions = functions;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
   final FirebaseMessaging _messaging;
+  final Functions _functions;
 
   // Profile viewing
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {
@@ -57,7 +65,7 @@ class ProfileRepository {
       return [];
     }
   }
-  
+
   Future<UserProfileSummary> fetchProfileSummary(String uid) async {
     final (row, followers) = await (
       _tables.getRow(
@@ -122,6 +130,30 @@ class ProfileRepository {
           'followedUid': followed,
       },
     );
+
+    final followed = follower.followingUserId;
+    if (followed == null || followed == follower.uid) return;
+    try {
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': followed,
+          'payload': {
+            'title': 'New follower',
+            'body': '${follower.username} started following you',
+          },
+          'data': NotificationModel(
+            notificationType: NotificationType.follow,
+            initiatorUsername: follower.username,
+            initiatorProfileImgUrl: follower.profileImageUrl,
+            subject: follower.name,
+            isTagInUpcomingRoom: false,
+          ).toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send follow notification: $e');
+    }
   }
 
   Future<void> unfollowCreator(String followerDocumentId) async {

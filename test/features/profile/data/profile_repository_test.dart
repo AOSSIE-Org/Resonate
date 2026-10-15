@@ -118,12 +118,13 @@ User _user() => User(
       hashOptions: const {},
     );
 
-@GenerateMocks([TablesDB, Storage, Account, FirebaseMessaging])
+@GenerateMocks([TablesDB, Storage, Account, FirebaseMessaging, Functions])
 void main() {
   late MockTablesDB tables;
   late MockStorage storage;
   late MockAccount account;
   late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late ProfileRepository repo;
 
   setUp(() {
@@ -131,11 +132,13 @@ void main() {
     storage = MockStorage();
     account = MockAccount();
     messaging = MockFirebaseMessaging();
+    functions = MockFunctions();
     repo = ProfileRepository(
       tables: tables,
       storage: storage,
       account: account,
       messaging: messaging,
+      functions: functions,
     );
   });
 

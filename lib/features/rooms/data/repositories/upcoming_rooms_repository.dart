@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
+import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/dev_log.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/upcoming_rooms_repository.g.dart';
@@ -14,17 +19,21 @@ UpcomingRoomsRepository upcomingRoomsRepository(Ref ref) =>
     UpcomingRoomsRepository(
       tables: ref.watch(appwriteTablesProvider),
       messaging: ref.watch(firebaseMessagingProvider),
+      functions: ref.watch(appwriteFunctionsProvider),
     );
 
 class UpcomingRoomsRepository {
   UpcomingRoomsRepository({
     required TablesDB tables,
     required FirebaseMessaging messaging,
+    required Functions functions,
   }) : _tables = tables,
-       _messaging = messaging;
+       _messaging = messaging,
+       _functions = functions;
 
   final TablesDB _tables;
   final FirebaseMessaging _messaging;
+  final Functions _functions;
 
   Future<List<AppwriteUpcomingRoom>> loadUpcoming({
     required String userUid,
@@ -36,8 +45,9 @@ class UpcomingRoomsRepository {
     );
 
     final visible = list.rows.where((r) => !hiddenRoomIds.contains(r.$id));
-    final upcomingFutures =
-        visible.map((row) => _hydrateUpcomingRoom(row, userUid));
+    final upcomingFutures = visible.map(
+      (row) => _hydrateUpcomingRoom(row, userUid),
+    );
     return Future.wait(upcomingFutures);
   }
 
@@ -142,6 +152,55 @@ class UpcomingRoomsRepository {
         'userProfileUrl': profileImageUrl,
       },
     );
+
+    await _notifyHostOfSubscriber(
+      upcomingRoomId: upcomingRoomId,
+      subscriberUid: userUid,
+    );
+  }
+
+  Future<void> _notifyHostOfSubscriber({
+    required String upcomingRoomId,
+    required String subscriberUid,
+  }) async {
+    try {
+      final room = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: upcomingRoomsTableId,
+        rowId: upcomingRoomId,
+      );
+      final hostUid = room.data['creatorUid'] as String?;
+      if (hostUid == null || hostUid == subscriberUid) return;
+
+      final subscriber = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: subscriberUid,
+      );
+      final username = (subscriber.data['username'] as String?) ?? '';
+      final roomName = (room.data['name'] as String?) ?? '';
+
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': hostUid,
+          'payload': {
+            'title': 'New subscriber',
+            'body': '$username subscribed to "$roomName"',
+          },
+          'data': NotificationModel(
+            notificationType: NotificationType.subscribe,
+            initiatorUsername: username,
+            initiatorProfileImgUrl:
+                (subscriber.data['profileImageUrl'] as String?) ?? '',
+            subject: roomName,
+            isTagInUpcomingRoom: true,
+          ).toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send subscribe notification: $e');
+    }
   }
 
   Future<void> removeSubscriber({

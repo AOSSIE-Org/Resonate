@@ -339,9 +339,19 @@ void main() {
       ));
     });
 
-    test('appends FCM token to every subscribed + created room', () async {
+    test('appends FCM token to the user row + subscribed/created rooms', () async {
       when(messaging.getToken()).thenAnswer((_) async => 'tok');
 
+      final user = Row(
+        $id: 'u1',
+        $tableId: usersTableID,
+        $databaseId: databaseId,
+        $createdAt: DateTime.now().toIso8601String(),
+        $updatedAt: DateTime.now().toIso8601String(),
+        $permissions: const ['any'],
+        $sequence: 0,
+        data: {'fcmTokens': <dynamic>[]},
+      );
       final sub = Row(
         $id: 'sub1',
         $tableId: subscribedUserTableId,
@@ -363,6 +373,13 @@ void main() {
         data: {'creator_fcm_tokens': <dynamic>[]},
       );
 
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [user]));
       when(
         tables.listRows(
           databaseId: databaseId,
@@ -388,6 +405,18 @@ void main() {
 
       await repo.addRegistrationToken(uid: 'u1');
 
+      // The per-user store — what lets a notification function find an
+      // arbitrary target's device.
+      verify(
+        tables.updateRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'u1',
+          data: {
+            'fcmTokens': ['tok'],
+          },
+        ),
+      ).called(1);
       verify(
         tables.updateRow(
           databaseId: databaseId,

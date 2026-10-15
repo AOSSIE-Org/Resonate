@@ -14,6 +14,8 @@ import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
+import 'package:resonate/features/shell/model/notification.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
@@ -169,7 +171,11 @@ class StoriesRepository {
     String storyId,
     String currentUid,
   ) async {
-    Future<T> attempt<T>(Future<T> Function() run, T fallback, String what) async {
+    Future<T> attempt<T>(
+      Future<T> Function() run,
+      T fallback,
+      String what,
+    ) async {
       try {
         return await run();
       } on AppwriteException catch (e) {
@@ -179,10 +185,22 @@ class StoriesRepository {
     }
 
     final (chapters, hasUserLiked, likes, liveChapter) = await (
-      attempt(() => fetchChaptersForStory(storyId), <Chapter>[], 'fetch story chapters'),
-      attempt(() => checkIfStoryLikedByUser(storyId, currentUid), false, 'check story like status'),
+      attempt(
+        () => fetchChaptersForStory(storyId),
+        <Chapter>[],
+        'fetch story chapters',
+      ),
+      attempt(
+        () => checkIfStoryLikedByUser(storyId, currentUid),
+        false,
+        'check story like status',
+      ),
       attempt(() => fetchLikesCount(storyId), 0, 'fetch story likes count'),
-      attempt<LiveChapterModel?>(() => fetchLiveChapterForStory(storyId), null, 'fetch live chapter'),
+      attempt<LiveChapterModel?>(
+        () => fetchLiveChapterForStory(storyId),
+        null,
+        'fetch live chapter',
+      ),
     ).wait;
 
     return StoryDetailState(
@@ -398,6 +416,41 @@ class StoriesRepository {
       );
     } on AppwriteException catch (e) {
       throw StoriesFailure.unknown(e.message ?? 'Failed to like story');
+    }
+
+    await _notifyLiked(story, uid);
+  }
+
+  Future<void> _notifyLiked(Story story, String likerUid) async {
+    if (story.creatorId == likerUid) return; // no self-notifications
+    try {
+      final liker = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: likerUid,
+      );
+      final username = (liker.data['username'] as String?) ?? '';
+      final notification = NotificationModel(
+        notificationType: NotificationType.like,
+        initiatorUsername: username,
+        initiatorProfileImgUrl:
+            (liker.data['profileImageUrl'] as String?) ?? '',
+        subject: story.title,
+        isTagInUpcomingRoom: false,
+      );
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': story.creatorId,
+          'payload': {
+            'title': 'Someone liked your story',
+            'body': '$username liked "${story.title}"',
+          },
+          'data': notification.toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send like notification: $e');
     }
   }
 

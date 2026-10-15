@@ -10,7 +10,7 @@ import 'package:resonate/utils/constants.dart';
 import '../../../helpers/test_root_container.dart';
 import 'upcoming_rooms_repository_test.mocks.dart';
 
-@GenerateMocks([TablesDB, FirebaseMessaging])
+@GenerateMocks([TablesDB, FirebaseMessaging, Functions])
 // Builds an upcoming room row with the fields the repo reads.
 Row upcomingRoomRow({
   String id = 'up-1',
@@ -58,12 +58,18 @@ Row subscriberRow({
 void main() {
   late MockTablesDB tables;
   late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late UpcomingRoomsRepository repo;
 
   setUp(() {
     tables = MockTablesDB();
     messaging = MockFirebaseMessaging();
-    repo = UpcomingRoomsRepository(tables: tables, messaging: messaging);
+    functions = MockFunctions();
+    repo = UpcomingRoomsRepository(
+      tables: tables,
+      messaging: messaging,
+      functions: functions,
+    );
   });
 
   group('loadUpcoming', () {

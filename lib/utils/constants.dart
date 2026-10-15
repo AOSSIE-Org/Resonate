@@ -108,6 +108,7 @@ const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
+const String sendSocialNotificationFunctionID = "send-social-notification";
 const String startFriendCallFunctionID = "68b76fe00027c243610e";
 const String recordActivityFunctionID = "record-activity";
 

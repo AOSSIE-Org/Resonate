@@ -55,4 +55,4 @@ final class UpcomingRoomsRepositoryProvider
 }
 
 String _$upcomingRoomsRepositoryHash() =>
-    r'43612b78945f87a341d0153960c104cfffba6e89';
+    r'327d646fb0f36cdac66c07d6df9651ecdd73375e';

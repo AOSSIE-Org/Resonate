@@ -146,6 +146,16 @@ class _FakeNotificationSettings_21 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+class _FakeExecutionList_22 extends _i1.SmartFake implements _i3.ExecutionList {
+  _FakeExecutionList_22(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeExecution_23 extends _i1.SmartFake implements _i3.Execution {
+  _FakeExecution_23(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [TablesDB].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -1894,4 +1904,105 @@ class MockFirebaseMessaging extends _i1.Mock implements _i12.FirebaseMessaging {
             returnValueForMissingStub: _i7.Future<void>.value(),
           )
           as _i7.Future<void>);
+}
+
+/// A class which mocks [Functions].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFunctions extends _i1.Mock implements _i6.Functions {
+  MockFunctions() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
+
+  @override
+  _i7.Future<_i3.ExecutionList> listExecutions({
+    required String? functionId,
+    List<String>? queries,
+    bool? total,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#listExecutions, [], {
+              #functionId: functionId,
+              #queries: queries,
+              #total: total,
+            }),
+            returnValue: _i7.Future<_i3.ExecutionList>.value(
+              _FakeExecutionList_22(
+                this,
+                Invocation.method(#listExecutions, [], {
+                  #functionId: functionId,
+                  #queries: queries,
+                  #total: total,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.ExecutionList>);
+
+  @override
+  _i7.Future<_i3.Execution> createExecution({
+    required String? functionId,
+    String? body,
+    bool? xasync,
+    String? path,
+    _i11.ExecutionMethod? method,
+    Map<dynamic, dynamic>? headers,
+    String? scheduledAt,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#createExecution, [], {
+              #functionId: functionId,
+              #body: body,
+              #xasync: xasync,
+              #path: path,
+              #method: method,
+              #headers: headers,
+              #scheduledAt: scheduledAt,
+            }),
+            returnValue: _i7.Future<_i3.Execution>.value(
+              _FakeExecution_23(
+                this,
+                Invocation.method(#createExecution, [], {
+                  #functionId: functionId,
+                  #body: body,
+                  #xasync: xasync,
+                  #path: path,
+                  #method: method,
+                  #headers: headers,
+                  #scheduledAt: scheduledAt,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.Execution>);
+
+  @override
+  _i7.Future<_i3.Execution> getExecution({
+    required String? functionId,
+    required String? executionId,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getExecution, [], {
+              #functionId: functionId,
+              #executionId: executionId,
+            }),
+            returnValue: _i7.Future<_i3.Execution>.value(
+              _FakeExecution_23(
+                this,
+                Invocation.method(#getExecution, [], {
+                  #functionId: functionId,
+                  #executionId: executionId,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.Execution>);
 }
