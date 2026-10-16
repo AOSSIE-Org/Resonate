@@ -234,6 +234,7 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
                                   context,
                                 )!.pleaseEnterScheduledDateTime,
                           readOnly: true,
+                          onTap: _chooseDateTime,
                           controller: _dateTimeController,
                           decoration: InputDecoration(
                             icon: Icon(
@@ -244,9 +245,9 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
                               context,
                             )!.scheduleDateTimeLabel,
                             labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                            suffix: GestureDetector(
-                              onTap: _chooseDateTime,
-                              child: const Icon(Icons.date_range),
+                            suffixIcon: IconButton(
+                              onPressed: _chooseDateTime,
+                              icon: const Icon(Icons.date_range),
                             ),
                           ),
                         ),

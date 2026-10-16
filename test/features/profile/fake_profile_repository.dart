@@ -19,6 +19,8 @@ class FakeProfileRepository implements ProfileRepository {
   String? fetchProfileSummaryArg;
   String? isUsernameAvailableArg;
   String? isUsernameAvailableCurrent;
+  // Lets a test tell a debounced lookup from one per keystroke.
+  int isUsernameAvailableCalls = 0;
   FollowerUserModel? followedFollower;
   String? unfollowedDocId;
   int getFcmTokenCount = 0;
@@ -29,7 +31,7 @@ class FakeProfileRepository implements ProfileRepository {
   ({String uid, String url, String id})? updateProfileImageRowArgs;
   String? clearedImageRowUid;
   ({String uid, String email, String oldUsername, String newUsername})?
-      changeUsernameArgs;
+  changeUsernameArgs;
   ({String uid, String name})? updateDisplayNameArgs;
   ({String username, String email})? createUsernameRowArgs;
   String? updateAccountNameArg;
@@ -81,6 +83,7 @@ class FakeProfileRepository implements ProfileRepository {
   }) async {
     isUsernameAvailableArg = username;
     isUsernameAvailableCurrent = currentUsername;
+    isUsernameAvailableCalls++;
     return usernameAvailableReturn;
   }
 
@@ -204,6 +207,6 @@ class FakeProfileRepository implements ProfileRepository {
 
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
-        '${invocation.memberName} not stubbed in FakeProfileRepository',
-      );
+    '${invocation.memberName} not stubbed in FakeProfileRepository',
+  );
 }

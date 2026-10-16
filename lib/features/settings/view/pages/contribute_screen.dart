@@ -22,10 +22,10 @@ class ContributeScreen extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Uri url = Uri.parse(githubRepoUrl);
                 try {
-                  launchUrl(url);
+                  await launchUrl(url);
                 } catch (e) {
                   log("Error launching URL: ${e.toString()}");
                 }
@@ -42,9 +42,11 @@ class ContributeScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context)!.sourceCodeOnGitHub,
-                      style: TextStyle(fontSize: UiSizes.size_16),
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(context)!.sourceCodeOnGitHub,
+                        style: TextStyle(fontSize: UiSizes.size_16),
+                      ),
                     ),
                     const Icon(Icons.arrow_forward_rounded),
                   ],
@@ -78,10 +80,10 @@ class ContributeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Uri url = Uri.parse(xPageUrl);
                           try {
-                            launchUrl(url);
+                            await launchUrl(url);
                           } catch (e) {
                             log("Error launching URL: ${e.toString()}");
                           }
@@ -93,10 +95,10 @@ class ContributeScreen extends StatelessWidget {
                         tooltip: AppLocalizations.of(context)!.followUsOnX,
                       ),
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Uri url = Uri.parse(discordRepoUrl);
                           try {
-                            launchUrl(url);
+                            await launchUrl(url);
                           } catch (e) {
                             log("Error launching URL: ${e.toString()}");
                           }

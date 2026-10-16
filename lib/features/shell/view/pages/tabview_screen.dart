@@ -67,115 +67,122 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
   @override
   Widget build(BuildContext context) {
     final index = ref.watch(tabViewProvider);
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: UiSizes.size_56,
-        automaticallyImplyLeading: false,
-        title: Text(
-          AppLocalizations.of(context)!.title,
-          style: TextStyle(
-            fontSize: UiSizes.size_26,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        centerTitle: false,
-        actions: [profileAvatar(context)],
-      ),
-      floatingActionButton: (index == 0)
-          ? SpeedDial(
-              icon: Icons.add_call,
-              childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
-              activeIcon: Icons.close,
-              elevation: 8.0,
-              spacing: 10,
-              spaceBetweenChildren: 6,
-              animationCurve: Curves.elasticInOut,
-              children: [
-                SpeedDialChild(
-                  child: Icon(Icons.multitrack_audio, size: UiSizes.size_24),
-                  label: AppLocalizations.of(context)!.audioRoom,
-                  labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                  onTap: () async {
-                    final user = ref.read(currentUserProvider);
-                    if (user == null) return;
-                    if (user.isEmailVerified) {
-                      ref.read(tabViewProvider.notifier).setIndex(2);
-                      return;
-                    }
-                    AppUtils.showDialog(
-                      context: context,
-                      title: AppLocalizations.of(
-                        context,
-                      )!.emailVerificationRequired,
-                      middleText: AppLocalizations.of(
-                        context,
-                      )!.emailVerificationMessage,
-                      onFirstBtnPressed: () {
-                        final router = GoRouter.of(context);
-                        Navigator.of(context).pop();
-                        router.push(RoutePaths.emailVerification);
-                      },
-                      onSecondBtnPressed: () => Navigator.of(context).pop(),
-                      firstBtnText: AppLocalizations.of(context)!.verify,
-                    );
-                  },
-                ),
-                if (ref.watch(featureEnabledProvider(AppFeature.pairChat)))
-                  SpeedDialChild(
-                    child: Icon(
-                      Icons.people_alt_rounded,
-                      size: UiSizes.size_24,
-                    ),
-                    label: AppLocalizations.of(context)!.pairChat,
-                    labelStyle: TextStyle(fontSize: UiSizes.size_14),
-                    onTap: () => showPairChatDialog(context),
-                  ),
-              ],
-            )
-          : FloatingActionButton(
-              shape: const CircleBorder(),
-              onPressed: _isRoomCreating ? null : () => _onDonePressed(context),
-              child: _isRoomCreating
-                  ? SizedBox(
-                      width: UiSizes.width_25,
-                      height: UiSizes.height_24_6,
-                      child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        strokeWidth: UiSizes.width_2,
-                      ),
-                    )
-                  : Icon(
-                      index == 2
-                          ? Icons.done
-                          : Icons.audiotrack_rounded,
-                      size: UiSizes.size_24,
-                    ),
+    return PopScope(
+      canPop: index == 0,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        ref.read(tabViewProvider.notifier).setIndex(0);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: UiSizes.size_56,
+          automaticallyImplyLeading: false,
+          title: Text(
+            AppLocalizations.of(context)!.title,
+            style: TextStyle(
+              fontSize: UiSizes.size_26,
+              color: Theme.of(context).colorScheme.primary,
             ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        height: UiSizes.size_56,
-        activeColor: Theme.of(context).colorScheme.primary,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        inactiveColor: Theme.of(context).colorScheme.onSurface.withAlpha(30),
-        splashRadius: 0,
-        shadow: const Shadow(color: Colors.transparent),
-        iconSize: UiSizes.size_30,
-        icons: const [Icons.home_rounded, Icons.search],
-        leftCornerRadius: 30.0,
-        rightCornerRadius: 30.0,
-        notchMargin: UiSizes.size_8,
-        activeIndex: index,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.defaultEdge,
-        borderWidth: 0.0,
-        borderColor: Colors.transparent,
-        onTap: (i) => ref.read(tabViewProvider.notifier).setIndex(i),
+          ),
+          centerTitle: false,
+          actions: [profileAvatar(context)],
+        ),
+        floatingActionButton: (index == 0)
+            ? SpeedDial(
+                icon: Icons.add_call,
+                childrenButtonSize: Size(UiSizes.width_56, UiSizes.height_56),
+                activeIcon: Icons.close,
+                elevation: 8.0,
+                spacing: 10,
+                spaceBetweenChildren: 6,
+                animationCurve: Curves.elasticInOut,
+                children: [
+                  SpeedDialChild(
+                    child: Icon(Icons.multitrack_audio, size: UiSizes.size_24),
+                    label: AppLocalizations.of(context)!.audioRoom,
+                    labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                    onTap: () async {
+                      final user = ref.read(currentUserProvider);
+                      if (user == null) return;
+                      if (user.isEmailVerified) {
+                        ref.read(tabViewProvider.notifier).setIndex(2);
+                        return;
+                      }
+                      AppUtils.showDialog(
+                        context: context,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationRequired,
+                        middleText: AppLocalizations.of(
+                          context,
+                        )!.emailVerificationMessage,
+                        onFirstBtnPressed: () {
+                          final router = GoRouter.of(context);
+                          Navigator.of(context).pop();
+                          router.push(RoutePaths.emailVerification);
+                        },
+                        onSecondBtnPressed: () => Navigator.of(context).pop(),
+                        firstBtnText: AppLocalizations.of(context)!.verify,
+                      );
+                    },
+                  ),
+                  if (ref.watch(featureEnabledProvider(AppFeature.pairChat)))
+                    SpeedDialChild(
+                      child: Icon(
+                        Icons.people_alt_rounded,
+                        size: UiSizes.size_24,
+                      ),
+                      label: AppLocalizations.of(context)!.pairChat,
+                      labelStyle: TextStyle(fontSize: UiSizes.size_14),
+                      onTap: () => showPairChatDialog(context),
+                    ),
+                ],
+              )
+            : FloatingActionButton(
+                shape: const CircleBorder(),
+                onPressed: _isRoomCreating
+                    ? null
+                    : () => _onDonePressed(context),
+                child: _isRoomCreating
+                    ? SizedBox(
+                        width: UiSizes.width_25,
+                        height: UiSizes.height_24_6,
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          strokeWidth: UiSizes.width_2,
+                        ),
+                      )
+                    : Icon(
+                        index == 2 ? Icons.done : Icons.audiotrack_rounded,
+                        size: UiSizes.size_24,
+                      ),
+              ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: AnimatedBottomNavigationBar(
+          height: UiSizes.size_56,
+          activeColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          inactiveColor: Theme.of(context).colorScheme.onSurface.withAlpha(30),
+          splashRadius: 0,
+          shadow: const Shadow(color: Colors.transparent),
+          iconSize: UiSizes.size_30,
+          icons: const [Icons.home_rounded, Icons.search],
+          leftCornerRadius: 30.0,
+          rightCornerRadius: 30.0,
+          notchMargin: UiSizes.size_8,
+          activeIndex: index,
+          gapLocation: GapLocation.center,
+          notchSmoothness: NotchSmoothness.defaultEdge,
+          borderWidth: 0.0,
+          borderColor: Colors.transparent,
+          onTap: (i) => ref.read(tabViewProvider.notifier).setIndex(i),
+        ),
+        body: (index == 0)
+            ? const HomeScreen()
+            : (index == 2)
+            ? CreateRoomPage()
+            : const ExplorePage(),
       ),
-      body: (index == 0)
-          ? const HomeScreen()
-          : (index == 2)
-              ? CreateRoomPage()
-              : const ExplorePage(),
     );
   }
 }

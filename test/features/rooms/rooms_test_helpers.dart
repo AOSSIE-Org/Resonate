@@ -135,7 +135,6 @@ class FakeRoomSession extends RoomSession {
     lastReportDraft = report;
     return !reportFails;
   }
-
 }
 
 // Fake data-layer live-rooms cache: serves an optional list, records refreshes.
@@ -190,8 +189,7 @@ class FakeRoomLauncher implements RoomLauncher {
     required String name,
     required String description,
     required List<String> tags,
-  }) =>
-      throw UnimplementedError();
+  }) => throw UnimplementedError();
 }
 
 // Fake UpcomingRoomsNotifier: build() returns empty, records every action.
@@ -252,7 +250,6 @@ class RoomChatState {
   final List<RoomMessage> messages;
   final ReplyTo? replyingTo;
 }
-
 
 class FakeRoomChat {
   FakeRoomChat(this.state, {this.error = false});
@@ -395,6 +392,8 @@ class FakeCreateRoom extends CreateRoomNotifier {
   }) async {
     scheduledCount++;
     lastName = name;
+    lastDescription = description;
+    lastTags = tags;
     lastScheduled = scheduledDateTime;
     if (throwOnCreate) throw Exception('boom');
     return true;

@@ -154,7 +154,9 @@ class UpcomingListTile extends ConsumerWidget {
                   ),
                 ),
                 const Spacer(),
-                ElevatedButton(
+                // Flexible so long labels shrink instead of overflowing.
+                Flexible(
+                  child: ElevatedButton(
                   onPressed: () async {
                     final l10n = AppLocalizations.of(context)!;
                     try {
@@ -175,9 +177,11 @@ class UpcomingListTile extends ConsumerWidget {
                     AppLocalizations.of(context)!.cancel,
                     style: const TextStyle(color: Colors.white),
                   ),
+                  ),
                 ),
                 SizedBox(width: UiSizes.width_10),
-                ElevatedButton(
+                Flexible(
+                  child: ElevatedButton(
                   onPressed: appwriteUpcomingRoom.isTime
                       ? () async {
                           final l10n = AppLocalizations.of(context)!;
@@ -210,6 +214,7 @@ class UpcomingListTile extends ConsumerWidget {
                     ),
                   ),
                   child: Text(AppLocalizations.of(context)!.start),
+                  ),
                 ),
               ],
             )

@@ -359,6 +359,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                     validator: (value) =>
                         value!.isNotEmpty ? null : l10n.requiredField,
                     controller: _nameController,
+                    // PopScope.canPop is recomputed in build; without this the
+                    // guard stays stale and a name-only edit is lost silently
+                    // on a back gesture.
+                    onChanged: (_) => setState(() {}),
                     keyboardType: TextInputType.text,
                     autocorrect: false,
                     decoration: InputDecoration(
