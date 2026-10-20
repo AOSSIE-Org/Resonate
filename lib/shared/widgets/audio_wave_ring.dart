@@ -27,7 +27,7 @@ class _AudioWaveRingState extends State<AudioWaveRing>
     with TickerProviderStateMixin {
   late final AnimationController _phase = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 14000),
+    duration: const Duration(milliseconds: 34000),
   );
   late final AnimationController _level = AnimationController(
     vsync: this,
@@ -132,9 +132,13 @@ class _AudioWaveRingState extends State<AudioWaveRing>
 const double _ringExtentFactor = 1.9;
 const Duration _attack = Duration(milliseconds: 70);
 const Duration _release = Duration(milliseconds: 300);
-const double _minPeakHeight = 0.14;
+const double _minPeakHeight = 0.28;
 const double _peakContrast = 1.5;
-const double _peakSharpness = 1.7;
+const double _peakSharpness = 1.5;
+
+const int _breathsPerTurn = 9;
+
+const double _breathDepth = 0.07;
 
 class _WaveRingPainter extends CustomPainter {
   _WaveRingPainter({
@@ -217,8 +221,10 @@ class _WaveRingPainter extends CustomPainter {
 
     final center = size.center(Offset.zero);
     final turn = phase.value * 2 * math.pi;
-    final base = radius * 1.06;
-    final span = radius * (0.08 + 0.42 * value);
+    final breath =
+        0.5 + 0.5 * math.sin(phase.value * 2 * math.pi * _breathsPerTurn);
+    final base = radius * (1.03 + _breathDepth * breath);
+    final span = radius * (0.06 + 0.30 * value);
 
     final path = Path();
     final steps = _cycleLength(toBands.length) * 10;
@@ -240,7 +246,9 @@ class _WaveRingPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = radius * 0.13
         ..strokeJoin = StrokeJoin.round
-        ..color = color.withValues(alpha: 0.22 + 0.30 * value)
+        ..color = color.withValues(
+          alpha: (0.18 + 0.26 * value + 0.10 * breath).clamp(0.0, 1.0),
+        )
         ..maskFilter = MaskFilter.blur(
           BlurStyle.normal,
           radius * (0.09 + 0.09 * value),

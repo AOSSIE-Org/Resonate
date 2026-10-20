@@ -186,5 +186,33 @@ void main() {
 
       expect(tester.widget<Slider>(find.byType(Slider)).value, 30000);
     });
+
+    testStoryWidget('survive a position past the stored duration', (
+      tester,
+    ) async {
+      await pumpPlayPage(
+        tester,
+        chapter: buildChapter(playDuration: 65000),
+        state: const ChapterPlayerState(sliderProgress: 99000),
+      );
+
+      expect(tester.takeException(), isNull);
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.value, slider.max);
+    });
+
+    testStoryWidget('survive a chapter with no stored duration', (
+      tester,
+    ) async {
+      await pumpPlayPage(
+        tester,
+        chapter: buildChapter(playDuration: 0),
+        state: const ChapterPlayerState(sliderProgress: 12000),
+      );
+
+      expect(tester.takeException(), isNull);
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.value, slider.max);
+    });
   });
 }

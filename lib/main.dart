@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_callkit_incoming/entities/android_params.dart';
 import 'package:flutter_callkit_incoming/entities/call_kit_params.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,6 +14,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_celebration.dart';
 import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/miniplayer/data/services/pip_controller.dart';
 import 'package:resonate/features/miniplayer/view/widgets/miniplayer_host.dart';
 import 'package:resonate/features/shell/viewmodel/network_notifier.dart';
@@ -32,6 +32,8 @@ import 'package:resonate/utils/ui_sizes.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (message.data['type'] == 'incoming_call') {
+    await GetStorage.init();
+
     final params = CallKitParams(
       id: message.data['call_id'],
       nameCaller: message.data['caller_name'],
@@ -45,7 +47,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         "call_id": message.data['call_id'],
       },
       appName: "Resonate",
-      android: AndroidParams(isShowFullLockedScreen: true),
+      android: resonateCallAndroidParams(),
     );
 
     await FlutterCallkitIncoming.showCallkitIncoming(params);

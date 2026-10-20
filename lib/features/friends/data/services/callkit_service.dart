@@ -2,14 +2,33 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart' show Color;
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/callkit_service.g.dart';
 
 @Riverpod(keepAlive: true)
 CallKitService callKitService(Ref ref) => CallKitService();
+
+AndroidParams resonateCallAndroidParams() {
+  final theme = storedThemeModel();
+  return AndroidParams(
+    isShowFullLockedScreen: true,
+    backgroundColor: _hex(theme.surfaceColor),
+    actionColor: _hex(theme.primaryColor),
+    textColor: _hex(theme.onSurfaceColor),
+  );
+}
+
+// Plugin to parse these 
+String _hex(Color color) {
+  String channel(double value) =>
+      (value * 255).round().toRadixString(16).padLeft(2, '0');
+  return '#${channel(color.r)}${channel(color.g)}${channel(color.b)}';
+}
 
 // Wraps the FlutterCallkitIncoming statics so callers stay testable.
 class CallKitService {
@@ -57,7 +76,7 @@ class CallKitService {
         "call_id": message.data['call_id'],
       },
       appName: "Resonate",
-      android: AndroidParams(isShowFullLockedScreen: true),
+      android: resonateCallAndroidParams(),
     );
     await FlutterCallkitIncoming.showCallkitIncoming(params);
   }

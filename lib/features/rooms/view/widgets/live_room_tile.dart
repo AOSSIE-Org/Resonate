@@ -144,6 +144,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
               children: [
                 Flexible(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: UiSizes.width_123_4,
