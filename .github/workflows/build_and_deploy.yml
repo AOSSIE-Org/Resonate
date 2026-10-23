@@ -7,14 +7,19 @@ on:
       - deploy-actions
   workflow_dispatch:
 
+concurrency:
+  group: build-and-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  build_android:
-    name: Build Android APK
+  build:
+    name: Build APK and AAB
     runs-on: ubuntu-latest
     env:
       JAVA_VERSION: 21.0.6
       FLUTTER_VERSION: 3.35.2
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
+      AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks
       KEY_PROPS_PATH: android/key.properties
       FIREBASE_OPTIONS_PATH: lib/firebase_options.dart
@@ -80,8 +85,30 @@ jobs:
       - name: Decode Firebase Options
         run: echo "${{ secrets.FIREBASE_OPTIONS }}" | base64 --decode > ${{ env.FIREBASE_OPTIONS_PATH }}
 
-      - name: Install Flutter dependencies
+      - name: Verify signing material decoded
+        run: |
+          set -euo pipefail
+          for f in "$KEYSTORE_PATH" "$KEY_PROPS_PATH" "$GOOGLE_SERVICES_ANDROID_PATH" "$FIREBASE_OPTIONS_PATH"; do
+            if [ ! -s "$f" ]; then
+              echo "::error::$f is empty - its secret is missing or not valid base64."
+              exit 1
+            fi
+          done
+          # build.gradle.kts resolves storeFile with file(), which is relative
+          # to android/app/ -- but the keystore is decoded into android/. A
+          # bare filename therefore points at a file that is not there, and
+          # the build signs nothing rather than failing (confirmed with
+          # :app:signingReport, which reports "Error: Missing keystore").
+          if ! grep -qE '^storeFile=\.\./|^storeFile=/' "$KEY_PROPS_PATH"; then
+            echo "::error::key.properties storeFile must be relative to android/app (e.g. ../upload-keystore.jks) or absolute."
+            exit 1
+          fi
+
+      - name: Install dependencies
         run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
 
       - name: Run tests
         run: flutter test
@@ -92,8 +119,14 @@ jobs:
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
 
-      - name: Verify APK file existence
-        run: ls -lh ${{ env.APK_PATH }}
+      - name: Build Android App Bundle
+        run: |
+          flutter build appbundle --release \
+          --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
+          --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }}
+
+      - name: Verify artifacts exist
+        run: ls -lh ${{ env.APK_PATH }} ${{ env.AAB_PATH }}
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -101,10 +134,17 @@ jobs:
           name: apk-release
           path: ${{ env.APK_PATH }}
 
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab-stores
+          path: ${{ env.AAB_PATH }}
+
   deploy_github_release:
     name: Deploy to GitHub Release
     runs-on: ubuntu-latest
-    needs: build_android
+    needs: build
+    if: github.ref_name == 'master'
     permissions:
       contents: write
     env:
@@ -117,7 +157,6 @@ jobs:
         id: parse_changelog
         run: |
           echo "Parsing CHANGELOG.md"
-
           awk '
             BEGIN {found=0}
             /^##[[:space:]]*\[?v?[0-9]+\.[0-9]+\.[0-9]+.*\]?/ && found==0 {
@@ -138,13 +177,13 @@ jobs:
               printf("build_tag=%s\n", tag)
               printf("release_notes<<EOF\n%s\nEOF\n", notes)
             }
-          ' CHANGELOG.md >> $GITHUB_OUTPUT
+          ' CHANGELOG.md >> "$GITHUB_OUTPUT"
 
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
           name: apk-release
-          path : apk-release
+          path: apk-release
 
       - name: Deploy to GitHub Release
         uses: ncipollo/release-action@v1.14.0
@@ -154,3 +193,36 @@ jobs:
           artifactContentType: apk
           tag: ${{ steps.parse_changelog.outputs.build_tag }}
           body: ${{ steps.parse_changelog.outputs.release_notes }}
+  deploy_play_store:
+    name: Deploy to Play Store (Internal testing)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref_name == 'master'
+    env:
+      AAB_PATH: aab-stores/app-release.aab
+      SERVICE_ACCOUNT_PATH: store_credentials.json
+    steps:
+      - name: Download AAB artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aab-stores
+          path: aab-stores
+
+      - name: Decode Android Service Account
+        run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
+
+      - name: Verify service account decoded
+        run: |
+          set -euo pipefail
+          if [ ! -s "$SERVICE_ACCOUNT_PATH" ]; then
+            echo "::error::$SERVICE_ACCOUNT_PATH is empty - ANDROID_RELEASE_SERVICE_ACCOUNT is missing or not valid base64."
+            exit 1
+          fi
+
+      - name: Deploy to Play Store (Internal testing)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
+          packageName: com.resonate.resonate
+          releaseFiles: ${{ env.AAB_PATH }}
+          track: internal

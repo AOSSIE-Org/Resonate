@@ -272,6 +272,9 @@ Priority: 🔴 MUST · 🟡 SHOULD · 🔵 SUGGESTED.
 ### Release
 - `version_unique`/`version_semver` — [pubspec.yaml](pubspec.yaml#L20) `3.0.0+7`: SemVer name +
   build number (Android `versionCode`, iOS `CFBundleVersion`), which must increase every upload.
+  Enforced on release PRs by
+  [version-check.yml](.github/workflows/version-check.yml), which compares `version:` against the
+  base branch and fails if the build number did not go up.
 - Artifacts are signed by construction (Play App Signing / Apple signing).
 
 ### Open Items
