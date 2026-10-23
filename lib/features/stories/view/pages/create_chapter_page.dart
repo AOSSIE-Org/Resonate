@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
@@ -43,40 +42,37 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
   }
 
   Future<void> _pickCoverImage() async {
-    final selected = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (selected != null) {
-      setState(() => chapterCoverImage = File(selected.path));
+    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    if (path != null) {
+      setState(() => chapterCoverImage = File(path));
     }
   }
 
   Future<void> _pickAudioFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: _audioExtensions,
-    );
+    final file = await ref
+        .read(mediaPickerServiceProvider)
+        .pickFile(allowedExtensions: _audioExtensions);
     if (!mounted) return;
-    final file = result?.files.single;
     if (file == null) return;
     if (!_hasAllowedExtension(file, _audioExtensions)) {
       _showFormatError(_audioExtensions);
       return;
     }
-    setState(() => audioFile = File(file.path!));
+    setState(() => audioFile = File(file.path));
   }
 
   Future<void> _pickLyricsFile() async {
-    final result = await FilePicker.platform.pickFiles(type: FileType.any);
+    final file = await ref.read(mediaPickerServiceProvider).pickFile();
     if (!mounted) return;
-    final file = result?.files.single;
     if (file == null) return;
     if (!_hasAllowedExtension(file, _lyricsExtensions)) {
       _showFormatError(_lyricsExtensions);
       return;
     }
-    setState(() => lyricsFile = File(file.path!));
+    setState(() => lyricsFile = File(file.path));
   }
 
-  bool _hasAllowedExtension(PlatformFile file, List<String> allowed) {
+  bool _hasAllowedExtension(PickedFile file, List<String> allowed) {
     final ext = file.extension?.toLowerCase();
     return ext != null && allowed.contains(ext);
   }

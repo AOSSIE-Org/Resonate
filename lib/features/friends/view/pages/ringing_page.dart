@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/shared/widgets/speaking_profile_avatar.dart';
 import 'package:resonate/l10n/app_localizations.dart';

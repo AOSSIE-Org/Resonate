@@ -118,6 +118,9 @@ class ProfileRepository {
   }
 
   Future<String?> getFcmToken() => _messaging.getToken();
+ 
+  // For callers to build the follower rather than reaching for the Appwrite SDK
+  String newFollowerDocumentId() => ID.unique();
 
   Future<void> followCreator(FollowerUserModel follower) async {
     await _tables.createRow(

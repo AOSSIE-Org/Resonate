@@ -21,7 +21,7 @@ import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
 import 'package:resonate/features/achievements/data/badge_catalogue.dart';
 import 'package:resonate/features/achievements/data/my_stats.dart';
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/achievements/data/user_stats_provider.dart';
 import 'package:resonate/features/achievements/model/achievement_badge.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';

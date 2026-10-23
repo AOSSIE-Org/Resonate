@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/view/widgets/start_live_chapter_dialog.dart';

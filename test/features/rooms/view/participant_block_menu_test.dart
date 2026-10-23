@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';

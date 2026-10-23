@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/achievements/model/known_badge.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/l10n/app_localizations.dart';

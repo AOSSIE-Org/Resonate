@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart' show AppwriteException, ID;
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_polls_repository.dart';
 import 'package:resonate/features/rooms/model/poll.dart';

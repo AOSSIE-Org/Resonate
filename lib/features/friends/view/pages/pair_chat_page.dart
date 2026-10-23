@@ -6,7 +6,7 @@ import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
-import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';

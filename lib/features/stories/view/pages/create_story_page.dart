@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/view/pages/create_chapter_page.dart';
@@ -61,8 +61,8 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
   }
 
   Future<void> _pickCoverImage() async {
-    final selected = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (selected != null) setState(() => coverImage = File(selected.path));
+    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    if (path != null) setState(() => coverImage = File(path));
   }
 
   Future<void> _createStory() async {

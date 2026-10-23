@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';

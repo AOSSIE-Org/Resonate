@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
+import 'package:resonate/features/stories/data/services/recorded_chapter_store.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -52,10 +52,9 @@ class _VerifyChapterDetailsPageState
   Future<void> _loadInitialData() async {
     final model = ref.read(liveChapterProvider).model;
     if (model == null) return;
-    final storagePath = await getApplicationDocumentsDirectory();
-    audioFile = File(
-      "${storagePath.path}/recordings/${model.livekitRoomId}.wav",
-    );
+    audioFile = await ref
+        .read(recordedChapterStoreProvider)
+        .audioFile(model.livekitRoomId);
     titleController.text = model.chapterTitle;
     aboutController.text = model.chapterDescription;
     // Transcription may already have finished while this page was opening.
@@ -65,9 +64,9 @@ class _VerifyChapterDetailsPageState
   }
 
   Future<void> _pickCoverImage() async {
-    final selected = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (selected != null) {
-      setState(() => chapterCoverImage = File(selected.path));
+    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    if (path != null) {
+      setState(() => chapterCoverImage = File(path));
     }
   }
 

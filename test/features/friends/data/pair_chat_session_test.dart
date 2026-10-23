@@ -5,7 +5,7 @@ import 'package:appwrite/models.dart' show RowList;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';

@@ -8,7 +8,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/data/services/recorded_chapter_store.dart';
 import 'package:resonate/features/stories/data/services/whisper_transcription_service.dart';
 import 'package:resonate/utils/constants.dart';

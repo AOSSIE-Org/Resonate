@@ -5,10 +5,10 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 
 import '../rooms_test_helpers.dart';

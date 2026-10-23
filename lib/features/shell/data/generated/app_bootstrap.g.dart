@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../app_bootstrap_notifier.dart';
+part of '../app_bootstrap.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -33,7 +33,7 @@ final class AppBootstrapProvider
   AppBootstrap create() => AppBootstrap();
 }
 
-String _$appBootstrapHash() => r'fd289d66500cd5fec89ffc7e98aa5f378131fe6a';
+String _$appBootstrapHash() => r'3f5fec684511e4b8cc0411e7b7c2b450fe9c846e';
 
 abstract class _$AppBootstrap extends $AsyncNotifier<void> {
   FutureOr<void> build();

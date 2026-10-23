@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/live_audio/data/speaking_levels.dart';
 import 'package:resonate/features/miniplayer/viewmodel/miniplayer_notifier.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 

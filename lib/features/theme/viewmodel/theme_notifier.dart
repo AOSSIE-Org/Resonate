@@ -1,18 +1,10 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/theme/data/stored_theme.dart';
 import 'package:resonate/features/theme/model/theme_enums.dart';
-import 'package:resonate/features/theme/model/theme_list.dart';
-import 'package:resonate/features/theme/model/theme_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/theme_notifier.g.dart';
-
-const _themeStorageKey = 'theme';
-
-ThemeModel storedThemeModel() => ThemeList.getThemeModel(
-  Themes.fromName(GetStorage().read<String>(_themeStorageKey)).name,
-);
 
 String _placeholderIdFor(Themes theme) {
   switch (theme) {
@@ -36,11 +28,11 @@ class AppTheme extends _$AppTheme {
   @override
   Themes build() {
     final box = ref.watch(getStorageBoxProvider);
-    return Themes.fromName(box.read<String>(_themeStorageKey));
+    return Themes.fromName(box.read<String>(themeStorageKey));
   }
 
   void setTheme(Themes theme) {
-    ref.read(getStorageBoxProvider).write(_themeStorageKey, theme.name);
+    ref.read(getStorageBoxProvider).write(themeStorageKey, theme.name);
     state = theme;
   }
 }

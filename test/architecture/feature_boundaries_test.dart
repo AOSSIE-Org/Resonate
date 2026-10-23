@@ -128,4 +128,80 @@ void main() {
           '${violations.join('\n')}',
     );
   });
+  // A service is the leaf of the data layer
+  test('no data-layer service imports a repository', () {
+    final importPattern = RegExp(
+      r"""import\s+['"]package:resonate/(features/\w+/data/repositories/[^'"]+)['"]""",
+    );
+    final violations = <String>[];
+
+    for (final file in Directory('lib/features')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))) {
+      final path = file.path.replaceAll(r'\', '/');
+      if (!path.contains('/data/services/') || path.contains('/generated/')) {
+        continue;
+      }
+      for (final line in file.readAsLinesSync()) {
+        final match = importPattern.firstMatch(line);
+        if (match == null) continue;
+        violations.add('$path -> ${match.group(1)}');
+      }
+    }
+
+    expect(
+      violations,
+      isEmpty,
+      reason:
+          'A file under `data/services/` imports a repository, inverting the '
+          'repository -> service direction. Either the dependency belongs the '
+          'other way round, or the file is a coordinator rather than a '
+          'service and should move up to `data/`:\n${violations.join('\n')}',
+    );
+  });
+
+  test('no view or view model imports a platform SDK', () {
+    const sdks = <String>[
+      'package:appwrite/',
+      'package:livekit_client/',
+      'package:firebase_',
+      'package:flutter_callkit_incoming/',
+      'package:get_storage/',
+      'package:image_picker/',
+      'package:file_picker/',
+      'package:path_provider/',
+      'package:audioplayers/',
+      'package:record/',
+      'package:flutter_local_notifications/',
+      'package:connectivity_plus/',
+    ];
+    final importPattern = RegExp(r"""import\s+['"]([^'"]+)['"]""");
+    final violations = <String>[];
+
+    for (final file in Directory('lib/features')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))) {
+      final path = file.path.replaceAll(r'\', '/');
+      final isUi = path.contains('/view/') || path.contains('/viewmodel/');
+      if (!isUi || path.contains('/generated/')) continue;
+      for (final line in file.readAsLinesSync()) {
+        final match = importPattern.firstMatch(line);
+        if (match == null) continue;
+        final uri = match.group(1)!;
+        if (sdks.any(uri.startsWith)) violations.add('$path -> $uri');
+      }
+    }
+
+    expect(
+      violations,
+      isEmpty,
+      reason:
+          'A view or view model imports a platform SDK directly. Wrap the I/O '
+          'in a `data/services/` service and depend on that instead, so the '
+          'UI stays testable without a platform channel:\n'
+          '${violations.join('\n')}',
+    );
+  });
 }

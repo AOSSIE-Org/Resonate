@@ -24,6 +24,7 @@ class FakeProfileRepository implements ProfileRepository {
   FollowerUserModel? followedFollower;
   String? unfollowedDocId;
   int getFcmTokenCount = 0;
+  int newFollowerIdCount = 0;
   int deleteProfileImageCount = 0;
   String? deletedImageId;
   int uploadProfileImageCount = 0;
@@ -65,6 +66,9 @@ class FakeProfileRepository implements ProfileRepository {
     getFcmTokenCount++;
     return fcmToken;
   }
+
+  @override
+  String newFollowerDocumentId() => 'follower-doc-${++newFollowerIdCount}';
 
   @override
   Future<void> followCreator(FollowerUserModel follower) async {

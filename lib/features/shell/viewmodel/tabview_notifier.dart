@@ -3,7 +3,7 @@ import 'package:resonate/utils/dev_log.dart';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';

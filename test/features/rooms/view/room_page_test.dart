@@ -9,8 +9,8 @@ import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 
 import '../rooms_test_helpers.dart';
 

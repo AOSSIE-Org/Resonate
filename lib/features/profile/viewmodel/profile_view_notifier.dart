@@ -1,4 +1,3 @@
-import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/profile_view_data.dart';
@@ -53,7 +52,7 @@ class ProfileView extends _$ProfileView {
     final fcmToken = await repo.getFcmToken();
 
     final follower = FollowerUserModel(
-      docId: ID.unique(),
+      docId: repo.newFollowerDocumentId(),
       uid: user.uid,
       username: user.userName ?? '',
       profileImageUrl: user.profileImageUrl ?? '',

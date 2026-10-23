@@ -5,7 +5,7 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';

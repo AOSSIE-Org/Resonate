@@ -5,7 +5,7 @@ import 'package:resonate/features/achievements/data/badge_showcase.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/friends.dart';
 import 'package:resonate/features/activity_status/data/user_activity_status.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
