@@ -17,10 +17,23 @@ class PickedFile {
 class MediaPickerService {
   const MediaPickerService();
 
+  static const double _coverMaxEdge = 1440;
+  static const int _coverQuality = 85;
+
+  Future<String?> pickCoverImage({
+    ImagePickSource source = ImagePickSource.gallery,
+  }) => pickImage(
+    source: source,
+    maxWidth: _coverMaxEdge,
+    maxHeight: _coverMaxEdge,
+    imageQuality: _coverQuality,
+  );
+
   Future<String?> pickImage({
     ImagePickSource source = ImagePickSource.gallery,
     double? maxWidth,
     double? maxHeight,
+    int? imageQuality,
   }) async {
     final file = await ImagePicker().pickImage(
       source: source == ImagePickSource.camera
@@ -28,6 +41,7 @@ class MediaPickerService {
           : ImageSource.gallery,
       maxWidth: maxWidth,
       maxHeight: maxHeight,
+      imageQuality: imageQuality,
     );
     return file?.path;
   }

@@ -31,7 +31,7 @@ ProviderContainer buildContainer({
 void main() {
   group('statsOf', () {
     // The by-uid cache would show the signed-in user stale numbers.
-    testWidgets('reads the signed-in user from MyStats', (tester) async {
+    test('reads the signed-in user from MyStats', () async {
       final container = buildContainer(
         mine: const UserStats(roomsHosted: 12),
         others: const {'me': UserStats(roomsHosted: 99)},
@@ -41,7 +41,7 @@ void main() {
       expect(container.read(statsOfProvider('me'))?.roomsHosted, 12);
     });
 
-    testWidgets('reads anyone else from the by-uid cache', (tester) async {
+    test('reads anyone else from the by-uid cache', () async {
       final container = buildContainer(
         others: const {'other': UserStats(roomsHosted: 7)},
       );
@@ -56,7 +56,7 @@ void main() {
   });
 
   group('avatarBadge', () {
-    testWidgets('resolves the worn badge', (tester) async {
+    test('resolves the worn badge', () async {
       final container = buildContainer(
         mine: const UserStats(badges: ['maestro'], avatarBadge: 'maestro'),
       );
@@ -65,7 +65,7 @@ void main() {
       expect(container.read(avatarBadgeProvider('me')), KnownBadge.maestro);
     });
 
-    testWidgets('is null when no badge is worn', (tester) async {
+    test('is null when no badge is worn', () async {
       final container = buildContainer(mine: const UserStats(badges: ['echo']));
       await container.read(myStatsProvider.future);
 
@@ -73,7 +73,7 @@ void main() {
     });
 
     // A badge the server knows about but this build has no artwork for.
-    testWidgets('is null for an unrecognised badge id', (tester) async {
+    test('is null for an unrecognised badge id', () async {
       final container = buildContainer(
         mine: const UserStats(
           badges: ['trailblazer'],
@@ -87,7 +87,7 @@ void main() {
   });
 
   group('displayedBadges', () {
-    testWidgets('resolves the chosen pills', (tester) async {
+    test('resolves the chosen pills', () async {
       final container = buildContainer(
         mine: const UserStats(
           badges: ['maestro', 'echo'],
@@ -103,7 +103,7 @@ void main() {
       ]);
     });
 
-    testWidgets('drops ids this build cannot draw', (tester) async {
+    test('drops ids this build cannot draw', () async {
       final container = buildContainer(
         mine: const UserStats(
           badges: ['echo', 'trailblazer'],
@@ -115,7 +115,7 @@ void main() {
       expect(container.read(displayedBadgesProvider('me')), [KnownBadge.echo]);
     });
 
-    testWidgets('is empty when nothing is displayed', (tester) async {
+    test('is empty when nothing is displayed', () async {
       final container = buildContainer(mine: const UserStats(badges: ['echo']));
       await container.read(myStatsProvider.future);
 

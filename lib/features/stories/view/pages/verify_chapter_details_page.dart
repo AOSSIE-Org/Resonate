@@ -64,7 +64,7 @@ class _VerifyChapterDetailsPageState
   }
 
   Future<void> _pickCoverImage() async {
-    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    final path = await ref.read(mediaPickerServiceProvider).pickCoverImage();
     if (path != null) {
       setState(() => chapterCoverImage = File(path));
     }
@@ -138,7 +138,11 @@ class _VerifyChapterDetailsPageState
       router.go(RoutePaths.tabview);
     } catch (e) {
       if (mounted) setState(() => _isCreating = false);
-      customSnackbar(l10n.error, e.toString(), LogType.error);
+      customSnackbar(
+        l10n.error,
+        storiesFailureMessage(e, l10n),
+        LogType.error,
+      );
     }
   }
 

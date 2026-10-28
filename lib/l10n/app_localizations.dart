@@ -1575,11 +1575,12 @@ abstract class AppLocalizations {
   /// The default message template used when sharing a room.
   ///
   /// In en, this message translates to:
-  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!'**
+  /// **'🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!\n\n🔗 {link}'**
   String shareRoomMessage(
     String roomName,
     String roomDescription,
     int participants,
+    String link,
   );
 
   /// Displays the number of participants in a room.
@@ -3345,6 +3346,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave the live session to play a recording.'**
   String get playbackBlockedInSession;
+
+  /// Shown when a chosen file is over the upload size limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {what} is {size}. Files must be smaller than {limit}.'**
+  String fileTooLarge(String what, String size, String limit);
+
+  /// Shown when a file upload fails for a reason other than its size.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not upload the {what}. Please try again.'**
+  String uploadFailed(String what);
 }
 
 class _AppLocalizationsDelegate

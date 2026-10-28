@@ -978,7 +978,7 @@
     },
     "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {roomDescription}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!", 
     "@shareRoomMessage": {
-        "description": "The default message template used when sharing a room.",
+        "description": "The default message template used when sharing a room.\n\n🔗 {link}",
         "placeholders": {
             "roomName": {
                 "type": "String",

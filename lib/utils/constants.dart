@@ -51,6 +51,9 @@ const String storyTableId = "670259e900321c12a5a2";
 const String chapterTableId = "670277ad002530531daf";
 const String likeTableId = "670259e20000ddda49a0";
 const String storyBucketId = "6703f4c70037edfd8429";
+
+// Anything larger than this doesn't uploads in single request
+const int maxUploadBytes = 5 * 1024 * 1024;
 const String chapterDefaultCoverImageId = "67012e19003d00f39e17";
 const String storyDefaultCoverImageId = "67012e19003d00f39e16";
 const String chapterCoverImagePlaceholderUrl =
@@ -113,6 +116,15 @@ const String startFriendCallFunctionID = "68b76fe00027c243610e";
 const String recordActivityFunctionID = "record-activity";
 
 const String verificationTableID = "64a7c0100eabfe8d3844";
+
+// Deep links. The Android manifest registers an app link for
+// https://<roomLinkHost>/<roomLinkSegment>/..., tabview_notifier parses it and
+// the room share builds it -- all three have to agree, so they read it here.
+const String roomLinkHost = "resonate.aossie.org";
+const String roomLinkSegment = "room";
+
+String roomLinkFor(String roomId) =>
+    "https://$roomLinkHost/$roomLinkSegment/$roomId";
 
 // Github Constants
 const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";

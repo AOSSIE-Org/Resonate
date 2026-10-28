@@ -3,9 +3,9 @@ import 'package:resonate/utils/dev_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/stories/model/stories_failure.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -60,12 +60,7 @@ class _StartLiveChapterDialogState
     } catch (e) {
       if (mounted) setState(() => _isStarting = false);
       log('startLiveChapter failed: $e');
-      final message = switch (e) {
-        StoriesFailureUnknown(:final message) => message,
-        StoriesFailureUpload(:final what) => what,
-        _ => e.toString(),
-      };
-      customSnackbar(l10n.error, message, LogType.error);
+      customSnackbar(l10n.error, storiesFailureMessage(e, l10n), LogType.error);
       return;
     }
     navigator.pop();

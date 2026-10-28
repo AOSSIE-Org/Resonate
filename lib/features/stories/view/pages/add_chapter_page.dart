@@ -45,7 +45,11 @@ class _AddChapterPageState extends ConsumerState<AddChapterPage> {
       navigator.pop();
       navigator.pop();
     } catch (e) {
-      customSnackbar(l10n.error, e.toString(), LogType.error);
+      customSnackbar(
+        l10n.error,
+        storiesFailureMessage(e, l10n),
+        LogType.error,
+      );
     }
   }
 

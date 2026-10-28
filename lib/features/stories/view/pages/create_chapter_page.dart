@@ -42,7 +42,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
   }
 
   Future<void> _pickCoverImage() async {
-    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    final path = await ref.read(mediaPickerServiceProvider).pickCoverImage();
     if (path != null) {
       setState(() => chapterCoverImage = File(path));
     }

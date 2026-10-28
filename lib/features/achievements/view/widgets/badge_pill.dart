@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/achievements/data/badge_showcase.dart';
 import 'package:resonate/features/achievements/model/known_badge.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
-import 'package:resonate/features/theme/model/achievement_colors.dart';
+import 'package:resonate/features/achievements/model/achievement_colors.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 

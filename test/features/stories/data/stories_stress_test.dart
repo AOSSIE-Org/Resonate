@@ -1,3 +1,5 @@
+import 'dart:io' as io;
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:appwrite/models.dart' as models show File;
@@ -289,6 +291,65 @@ void main() {
               as Map;
       expect(data['storyId'], 's1');
       expect(data['coverImgUrl'], contains('/files/c1/view'));
+    });
+
+    // Over the limit the Appwrite SDK would switch to a chunked upload, which
+    // the backend rejects with a misleading "empty file". Refuse it here, with
+    // the real numbers, before anything is sent.
+    test('a file over the upload limit is refused before it is sent', () async {
+      stubUpload();
+      final directory = io.Directory.systemTemp.createTempSync('upload_limit');
+      addTearDown(() => directory.deleteSync(recursive: true));
+      final oversized = io.File('${directory.path}/cover.png')
+        ..writeAsBytesSync(List<int>.filled(maxUploadBytes + 1, 0));
+
+      await expectLater(
+        repo.pushChaptersToStory([
+          fakeChapter(chapterId: 'c1', coverImageUrl: oversized.path),
+        ], 's1'),
+        throwsA(
+          isA<StoriesFailureTooLarge>()
+              .having((f) => f.what, 'what', 'chapter cover')
+              .having((f) => f.bytes, 'bytes', maxUploadBytes + 1)
+              .having((f) => f.maxBytes, 'maxBytes', maxUploadBytes),
+        ),
+      );
+
+      verifyNever(
+        storage.createFile(
+          bucketId: anyNamed('bucketId'),
+          fileId: anyNamed('fileId'),
+          file: anyNamed('file'),
+        ),
+      );
+    });
+
+    test('a file inside the limit is sent as normal', () async {
+      stubUpload();
+      when(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer((_) async => chapterRow());
+      final directory = io.Directory.systemTemp.createTempSync('upload_ok');
+      addTearDown(() => directory.deleteSync(recursive: true));
+      final sized = io.File('${directory.path}/cover.png')
+        ..writeAsBytesSync(List<int>.filled(1024, 0));
+
+      await repo.pushChaptersToStory([
+        fakeChapter(chapterId: 'c1', coverImageUrl: sized.path),
+      ], 's1');
+
+      verify(
+        storage.createFile(
+          bucketId: storyBucketId,
+          fileId: 'c1',
+          file: anyNamed('file'),
+        ),
+      ).called(1);
     });
 
     // Re-uploading the same file is how a retried publish behaves; the

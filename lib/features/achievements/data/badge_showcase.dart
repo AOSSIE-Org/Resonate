@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/badge_showcase.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 UserStats? statsOf(Ref ref, String uid) {
   final me = ref.watch(currentUserProvider)?.uid;
   return uid == me
@@ -15,11 +15,11 @@ UserStats? statsOf(Ref ref, String uid) {
       : ref.watch(userStatsProvider(uid)).value;
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 KnownBadge? avatarBadge(Ref ref, String uid) =>
     KnownBadge.fromId(ref.watch(statsOfProvider(uid))?.avatarBadge);
 
-@Riverpod(keepAlive: true)
+@riverpod
 List<KnownBadge> displayedBadges(Ref ref, String uid) {
   final displayed = ref.watch(statsOfProvider(uid))?.displayedBadges;
   if (displayed == null || displayed.isEmpty) return const [];

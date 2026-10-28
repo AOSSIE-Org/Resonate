@@ -780,8 +780,9 @@ class AppLocalizationsEn extends AppLocalizations {
     String roomName,
     String roomDescription,
     int participants,
+    String link,
   ) {
-    return '🚀 Check out this amazing room: $roomName!\n\n📖 Description: $roomDescription\n👥 Join $participants participants now!';
+    return '🚀 Check out this amazing room: $roomName!\n\n📖 Description: $roomDescription\n👥 Join $participants participants now!\n\n🔗 $link';
   }
 
   @override
@@ -1862,4 +1863,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get playbackBlockedInSession =>
       'Leave the live session to play a recording.';
+
+  @override
+  String fileTooLarge(String what, String size, String limit) {
+    return 'Your $what is $size. Files must be smaller than $limit.';
+  }
+
+  @override
+  String uploadFailed(String what) {
+    return 'Could not upload the $what. Please try again.';
+  }
 }

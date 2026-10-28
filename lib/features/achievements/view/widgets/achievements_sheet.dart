@@ -9,7 +9,7 @@ import 'package:resonate/features/achievements/model/known_badge.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_pill.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
-import 'package:resonate/features/theme/model/achievement_colors.dart';
+import 'package:resonate/features/achievements/model/achievement_colors.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 import 'package:resonate/utils/enums/log_type.dart';

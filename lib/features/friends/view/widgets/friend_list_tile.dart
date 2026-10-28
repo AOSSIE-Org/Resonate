@@ -3,61 +3,45 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/achievements/data/badge_showcase.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
-import 'package:resonate/features/friends/data/friends.dart';
-import 'package:resonate/features/activity_status/data/user_activity_status.dart';
-import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
-import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
-import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/profile/view/pages/profile_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/utils/enums/log_type.dart';
-import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/secondary_list_card.dart';
-import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/ui_sizes.dart';
 
-class FriendListTile extends ConsumerStatefulWidget {
-  final FriendsModel friendModel;
-  final bool isRequest;
 
+class FriendListTile extends ConsumerWidget {
   const FriendListTile({
     required this.friendModel,
     required this.isRequest,
+    required this.isProcessing,
+    this.onAccept,
+    this.onDecline,
+    this.onCall,
     super.key,
   });
 
-  @override
-  ConsumerState<FriendListTile> createState() => _FriendListTileState();
-}
-
-class _FriendListTileState extends ConsumerState<FriendListTile> {
-  bool _isProcessing = false;
-
-  FriendsModel get friendModel => widget.friendModel;
-
-  Future<void> _runAction(Future<void> Function() action) async {
-    setState(() => _isProcessing = true);
-    try {
-      await action();
-    } finally {
-      if (mounted) setState(() => _isProcessing = false);
-    }
-  }
+  final FriendsModel friendModel;
+  final bool isRequest;
+  final bool isProcessing;
+  final VoidCallback? onAccept;
+  final VoidCallback? onDecline;
+  final VoidCallback? onCall;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final bool userIsSender =
         friendModel.senderId == ref.read(requireUserProvider).uid;
     final otherUid = userIsSender
         ? friendModel.recieverId
         : friendModel.senderId;
-    final otherName = userIsSender
-        ? friendModel.recieverName
-        : friendModel.senderName;
     final status = ref.watch(userActivityStatusProvider)[otherUid];
     final worn = ref.watch(avatarBadgeProvider(otherUid));
+    final blocksCalls = status?.blocksCalls ?? false;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -85,71 +69,34 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
             badgeGlyph: worn?.icon,
             badgeLabel: worn?.label(AppLocalizations.of(context)!),
           ),
-          trailing: _isProcessing
+          trailing: isProcessing
               ? LoadingIndicator(
                   indicatorType: Indicator.ballRotate,
                   colors: [Theme.of(context).colorScheme.primary],
                 )
-              : widget.isRequest
+              : isRequest
               ? Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      onPressed: () => _runAction(() async {
-                        final l10n = AppLocalizations.of(context)!;
-                        await ref
-                            .read(friendsProvider.notifier)
-                            .acceptFriendRequest(friendModel);
-                        customSnackbar(
-                          l10n.friendRequestAccepted,
-                          l10n.friendRequestAcceptedTo(friendModel.senderName),
-                          LogType.success,
-                        );
-                      }),
+                      onPressed: onAccept,
                       icon: Icon(Icons.check),
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     IconButton(
-                      onPressed: () => _runAction(() async {
-                        final l10n = AppLocalizations.of(context)!;
-                        await ref
-                            .read(friendsProvider.notifier)
-                            .declineFriendRequest(friendModel);
-                        customSnackbar(
-                          l10n.friendRequestDeclined,
-                          l10n.friendRequestDeclinedTo(friendModel.senderName),
-                          LogType.info,
-                        );
-                      }),
+                      onPressed: onDecline,
                       icon: Icon(Icons.close),
                       color: Theme.of(context).colorScheme.error,
                     ),
                   ],
                 )
               : IconButton(
-                  onPressed: () => _runAction(() async {
-                    final l10n = AppLocalizations.of(context)!;
-                    try {
-                      await ref
-                          .read(friendCallCoordinatorProvider.notifier)
-                          .startCall(friendModel);
-                    } on CallBlockedByActivityStatus catch (e) {
-                      customSnackbar(
-                        l10n.callBlocked,
-                        e.status.callBlockedMessage(l10n, otherName),
-                        LogType.info,
-                      );
-                    } catch (e) {
-                      customSnackbar(l10n.error, e.toString(), LogType.error);
-                    }
-                  }),
-                  color: (status?.blocksCalls ?? false)
+                  onPressed: onCall,
+                  color: blocksCalls
                       ? Theme.of(context).colorScheme.onSurfaceVariant
                       : null,
                   icon: Icon(
-                    (status?.blocksCalls ?? false)
-                        ? Icons.phone_disabled
-                        : Icons.call,
+                    blocksCalls ? Icons.phone_disabled : Icons.call,
                   ),
                 ),
           title: Text(

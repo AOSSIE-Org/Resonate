@@ -61,7 +61,7 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
   }
 
   Future<void> _pickCoverImage() async {
-    final path = await ref.read(mediaPickerServiceProvider).pickImage();
+    final path = await ref.read(mediaPickerServiceProvider).pickCoverImage();
     if (path != null) setState(() => coverImage = File(path));
   }
 
@@ -100,7 +100,11 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
     } catch (e) {
       log('Story creation failed: $e');
       if (mounted) setState(() => _isCreating = false);
-      customSnackbar(l10n.error, e.toString(), LogType.error);
+      customSnackbar(
+        l10n.error,
+        storiesFailureMessage(e, l10n),
+        LogType.error,
+      );
       return;
     }
     router.go(RoutePaths.tabview);

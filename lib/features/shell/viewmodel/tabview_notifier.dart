@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:app_links/app_links.dart';
@@ -45,7 +46,7 @@ class TabView extends _$TabView {
   Future<void> _openAppLink(Uri uri) async {
     try {
       final segments = uri.pathSegments;
-      if (segments.length < 2 || segments.first != 'room') return;
+      if (segments.length < 2 || segments.first != roomLinkSegment) return;
       final roomId = segments[1];
       if (roomId.isEmpty) return;
 

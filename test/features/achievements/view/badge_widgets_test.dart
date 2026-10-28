@@ -7,8 +7,8 @@ import 'package:resonate/features/achievements/view/widgets/badge_pill.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_visuals.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
-import 'package:resonate/features/theme/model/achievement_colors.dart';
-import 'package:resonate/features/theme/model/activity_status_colors.dart';
+import 'package:resonate/features/achievements/model/achievement_colors.dart';
+import 'package:resonate/features/activity_status/model/activity_status_colors.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 
 import '../../../helpers/pump_widget.dart';

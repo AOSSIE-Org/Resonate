@@ -1,31 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/friend_list_tile.dart';
-import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
-import 'package:resonate/features/friends/data/friends.dart';
-import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 
 import '../friends_test_helpers.dart';
 
-// uid == senderId -> userIsSender true (shows receiver side); else sender side.
-List<Override> buildOverrides({
-  required String uid,
-  FakeFriendsNotifier? friends,
-  FakeFriendCallCoordinator? calls,
-}) {
-  return [
-    requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
-    currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
-    liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
-    friendsProvider.overrideWith(() => friends ?? FakeFriendsNotifier()),
-    friendCallCoordinatorProvider.overrideWith(() => calls ?? FakeFriendCallCoordinator()),
-  ];
-}
+
+List<Override> buildOverrides({required String uid}) => [
+  requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
+  currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
+  liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+];
 
 void main() {
   group('FriendListTile identity side', () {
@@ -40,7 +28,11 @@ void main() {
       );
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
@@ -61,7 +53,11 @@ void main() {
       );
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
@@ -79,7 +75,11 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
@@ -89,44 +89,48 @@ void main() {
       expect(find.byIcon(Icons.call), findsNothing);
     });
 
-    testFriendsWidget('tapping accept calls acceptFriendRequest', (
-      tester,
-    ) async {
-      final model = fakeFriendsModel(senderId: 'other', docId: 'req-1');
-      final friends = FakeFriendsNotifier();
+    testFriendsWidget('tapping accept reports to onAccept', (tester) async {
+      var accepted = 0;
+      final model = fakeFriendsModel(senderId: 'other');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
-        overrides: buildOverrides(uid: 'me', friends: friends),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: false,
+          onAccept: () => accepted++,
+          onDecline: () {},
+        ),
+        overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byIcon(Icons.check));
       await tester.pumpAndSettle();
 
-      expect(friends.accepted, hasLength(1));
-      expect(friends.accepted.first.docId, 'req-1');
-      expect(friends.declined, isEmpty);
+      expect(accepted, 1);
     });
 
-    testFriendsWidget('tapping decline calls declineFriendRequest', (
-      tester,
-    ) async {
-      final model = fakeFriendsModel(senderId: 'other', docId: 'req-2');
-      final friends = FakeFriendsNotifier();
+    testFriendsWidget('tapping decline reports to onDecline', (tester) async {
+      var declined = 0;
+      final model = fakeFriendsModel(senderId: 'other');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
-        overrides: buildOverrides(uid: 'me', friends: friends),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: false,
+          onAccept: () {},
+          onDecline: () => declined++,
+        ),
+        overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byIcon(Icons.close));
       await tester.pumpAndSettle();
 
-      expect(friends.declined, hasLength(1));
-      expect(friends.declined.first.docId, 'req-2');
-      expect(friends.accepted, isEmpty);
+      expect(declined, 1);
     });
   });
 
@@ -137,7 +141,11 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
@@ -147,42 +155,25 @@ void main() {
       expect(find.byIcon(Icons.close), findsNothing);
     });
 
-    testFriendsWidget('tapping call calls startCall', (tester) async {
-      final model = fakeFriendsModel(senderId: 'other', docId: 'call-1');
-      final calls = FakeFriendCallCoordinator();
-      await pumpFriendsPage(
-        tester,
-        FriendListTile(friendModel: model, isRequest: false),
-        overrides: buildOverrides(uid: 'me', calls: calls),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.call));
-      await tester.pumpAndSettle();
-
-      expect(calls.started, hasLength(1));
-      expect(calls.started.first.docId, 'call-1');
-    });
-
-    testFriendsWidget('startCall throwing is caught and restores the button', (
-      tester,
-    ) async {
+    testFriendsWidget('tapping call reports to onCall', (tester) async {
+      var calls = 0;
       final model = fakeFriendsModel(senderId: 'other');
-      final calls = FakeFriendCallCoordinator(throwError: true);
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
-        overrides: buildOverrides(uid: 'me', calls: calls),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+          onCall: () => calls++,
+        ),
+        overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byIcon(Icons.call));
       await tester.pumpAndSettle();
 
-      // Error was swallowed via customSnackbar; button restored, not stuck.
-      expect(calls.started, hasLength(1));
-      expect(find.byIcon(Icons.call), findsOneWidget);
-      expect(find.byType(LoadingIndicator), findsNothing);
+      expect(calls, 1);
     });
   });
 
@@ -191,7 +182,11 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
         activityStatuses: {'other': ActivityStatus.online},
       );
@@ -201,11 +196,17 @@ void main() {
       expect(dot.status, ActivityStatus.online);
     });
 
-    testFriendsWidget('draws no dot until the activity status resolves', (tester) async {
+    testFriendsWidget('draws no dot until the activity status resolves', (
+      tester,
+    ) async {
       final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
       );
       await tester.pumpAndSettle();
@@ -219,7 +220,11 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
         activityStatuses: {'other': ActivityStatus.dnd},
       );
@@ -235,7 +240,11 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
         overrides: buildOverrides(uid: 'me'),
         activityStatuses: {'other': ActivityStatus.inRoom},
       );
@@ -248,9 +257,13 @@ void main() {
       final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: false),
-        // What the tile actually receives is offline — UserActivityStatus never
-        // hands invisible to anyone else — and offline does not block.
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: false,
+        ),
+        // What the tile actually receives is offline -- UserActivityStatus never
+        // hands invisible to anyone else -- and offline does not block.
         activityStatuses: {'other': ActivityStatus.offline},
         overrides: buildOverrides(uid: 'me'),
       );
@@ -258,58 +271,46 @@ void main() {
 
       expect(find.byIcon(Icons.call), findsOneWidget);
     });
-
-    testFriendsWidget('a blocked call is reported and restores the button', (
-      tester,
-    ) async {
-      final model = fakeFriendsModel(senderId: 'other', recieverId: 'me');
-      final calls = FakeFriendCallCoordinator(blockedBy: ActivityStatus.dnd);
-      await pumpFriendsPage(
-        tester,
-        FriendListTile(friendModel: model, isRequest: false),
-        overrides: buildOverrides(uid: 'me', calls: calls),
-        activityStatuses: {'other': ActivityStatus.dnd},
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.phone_disabled));
-      await tester.pumpAndSettle();
-
-      expect(calls.started, hasLength(1));
-      expect(find.byIcon(Icons.phone_disabled), findsOneWidget);
-      expect(find.byType(LoadingIndicator), findsNothing);
-    });
   });
 
   group('FriendListTile in-flight loading', () {
-    testFriendsWidget('shows LoadingIndicator while action runs then restores', (
+    testFriendsWidget('isProcessing replaces the request actions', (
       tester,
     ) async {
-      final completer = Completer<void>();
       final model = fakeFriendsModel(senderId: 'other');
-      final friends = FakeFriendsNotifier(acceptFuture: () => completer.future);
       await pumpFriendsPage(
         tester,
-        FriendListTile(friendModel: model, isRequest: true),
-        overrides: buildOverrides(uid: 'me', friends: friends),
+        FriendListTile(
+          friendModel: model,
+          isRequest: true,
+          isProcessing: true,
+        ),
+        overrides: buildOverrides(uid: 'me'),
       );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.check));
+      // Not pumpAndSettle: the spinner animates forever and would never settle.
       await tester.pump();
 
-      // Action pending -> spinner replaces the action row.
       expect(find.byType(LoadingIndicator), findsOneWidget);
       expect(find.byIcon(Icons.check), findsNothing);
       expect(find.byIcon(Icons.close), findsNothing);
+    });
 
-      completer.complete();
-      await tester.pumpAndSettle();
+    testFriendsWidget('isProcessing replaces the call action', (tester) async {
+      final model = fakeFriendsModel(senderId: 'other');
+      await pumpFriendsPage(
+        tester,
+        FriendListTile(
+          friendModel: model,
+          isRequest: false,
+          isProcessing: true,
+        ),
+        overrides: buildOverrides(uid: 'me'),
+      );
+      // Not pumpAndSettle: the spinner animates forever and would never settle.
+      await tester.pump();
 
-      // Restored to the accept/decline buttons.
-      expect(find.byType(LoadingIndicator), findsNothing);
-      expect(find.byIcon(Icons.check), findsOneWidget);
-      expect(find.byIcon(Icons.close), findsOneWidget);
+      expect(find.byType(LoadingIndicator), findsOneWidget);
+      expect(find.byIcon(Icons.call), findsNothing);
     });
   });
 }

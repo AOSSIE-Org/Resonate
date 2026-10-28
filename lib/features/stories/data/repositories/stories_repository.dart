@@ -763,6 +763,13 @@ class StoriesRepository {
     required String filePath,
     required String what,
   }) async {
+    final source = io.File(filePath);
+    final length = await source.exists() ? await source.length() : 0;
+    if (length > maxUploadBytes) {
+      log("Refusing to upload $what: $length exceeds the $maxUploadBytes limit");
+      throw StoriesFailure.tooLarge(what, length, maxUploadBytes);
+    }
+
     try {
       await _storage.createFile(
         bucketId: storyBucketId,

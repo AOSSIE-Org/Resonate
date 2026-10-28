@@ -8,6 +8,7 @@ import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
@@ -104,6 +105,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
                           appwriteRoom.name,
                           appwriteRoom.description,
                           appwriteRoom.totalParticipants,
+                          roomLinkFor(appwriteRoom.id),
                         ),
                       ),
                     );

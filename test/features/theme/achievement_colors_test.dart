@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/achievements/model/badge_category.dart';
-import 'package:resonate/features/theme/model/achievement_colors.dart';
+import 'package:resonate/features/achievements/model/achievement_colors.dart';
 
 void main() {
   group('AchievementColors', () {
