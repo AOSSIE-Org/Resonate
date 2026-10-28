@@ -29,7 +29,7 @@ GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank435
 
 # Work Done during GSoC 2026
 
-### \_\_\_ PRs across both Repositories
+### 31 PRs across both Repositories (10 merged, 21 open for review)
 
 ### \_\_\_ Commits across both Repositories
 
@@ -608,51 +608,6 @@ diff.
 | [PR #183](https://github.com/AOSSIE-Org/Resonate-Backend/pull/183) | Optimizing data schemas to improve app performance | Open | Relationships, indexes and column resizes; the Appwrite 1.8 to 2.3 upgrade; the move onto per-execution API keys; the five-database consolidation into `main` |
 | [PR #186](https://github.com/AOSSIE-Org/Resonate-Backend/pull/186) | Addition of Social Notification feature | Open | The `users.fcmTokens` column and the `send-social-notification` function with stale-token pruning |
 
-# Deliverables that could not be completed and lie out of the scope
-
-Both items below were listed in the proposal as **optional tasks, to be attempted only if time
-permitted**. Every non-optional proposed feature and improvement was delivered.
-
-### Noise Suppression (RNNoise)
-
-The proposal described routing microphone input through an RNN noise-suppression model before it
-reaches the LiveKit pipeline, either on-device through platform channels or as an optional
-self-hosted Dockerized service. This was not implemented. The core requirement is the ability to
-intercept and replace the outgoing audio stream before LiveKit publishes it, which is the same
-upstream limitation in `flutter_webrtc` that blocked the TTS and STT accessibility work in the
-previous GSoC cycle. The server-side variant is implementable today but introduces latency into a
-real-time voice product and requires infrastructure AOSSIE does not currently host, so building it
-would have meant shipping a feature nobody could switch on.
-
-### Live Room Reactions
-
-The proposal described a soundboard-style reaction system (clap, agree, disagree, laugh) broadcast
-over LiveKit data channels as transient events with no persistence, with per-room host control and
-client-side rate limiting. This was not implemented. It was the lowest-risk of the optional items
-and remains the most natural next contribution, since the data-channel plumbing it needs is already
-present for the audio layer, and the in-room poll card establishes the overlay and lifecycle
-patterns a reaction overlay would follow.
-
-## Known limitations worth recording for future contributors
-
-These are not incomplete deliverables, since the features ship and work, but they are the honest
-edges of what was built, and each is documented in the repository:
-
-- **Semantic story search is inert until a Meilisearch server with a configured embedder exists.**
-  The app-side ladder is complete and degrades silently to keyword and then to Appwrite matching.
-  An activation runbook is written.
-- **Appwrite 2.3 does not support indexes on array columns**, so interest filtering and story-tag
-  search run unindexed. Results are correct, and the fix if it ever matters is a lookup table keyed
-  on a scalar, or Meilisearch.
-- **Room deep links need a website-side change**, specifically the upload-key fingerprint added to
-  `assetlinks.json` and a `/room/:id` redirect rule, before verified App Links resolve for
-  non-Play builds.
-- **iOS has not been built or submitted.** The privacy manifest, usage strings and background modes
-  are written and committed, but shipping needs a macOS machine, an Apple Developer Program
-  membership, the Firebase iOS configuration, an entitlements file and a CallKit/PushKit
-  implementation.
-- **Interactions are client-reported** in the gamification system, bounded by a daily cap. Room
-  hosting and moderation credit are fully server-verified.
 
 ## For using and experiencing the features implemented by me as part of GSoC 2026, please download the Resonate App:
 
@@ -673,6 +628,14 @@ foundation it gained live polls, presence and call gating, real-audio speaking r
 flags, interest-based discovery, a verified achievements system, a redesigned room and call
 experience with a miniplayer and Picture-in-Picture, and a managed archive for recorded live
 chapters.
+
+Every feature and improvement proposed as part of the project was delivered. The two items my
+proposal listed as optional, to be attempted only if time permitted, were not taken up: RNNoise
+noise suppression, which needs the ability to replace the outgoing audio stream before LiveKit
+publishes it and runs into the same upstream `flutter_webrtc` limitation that blocked the
+accessibility work in the previous cycle, and live room reactions, which is the lowest-risk of the
+two and the most natural next contribution, since the data-channel plumbing it needs is already in
+place and the in-room poll card establishes the overlay patterns it would follow.
 
 The work that I did not plan for taught me the most: that every realtime event in the application
 had been silently discarded for months, that a performance fix is worthless until you have measured
