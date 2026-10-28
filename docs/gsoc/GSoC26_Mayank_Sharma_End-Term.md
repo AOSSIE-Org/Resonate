@@ -29,9 +29,9 @@ GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank435
 
 # Work Done during GSoC 2026
 
-### 31 PRs across both Repositories (10 merged, 21 open for review)
+### 30+ PRs across both Repositories 
 
-### \_\_\_ Commits across both Repositories
+### 60 Commits across both Repositories
 
 ### \_\_\_ Lines of Code Contributed
 
