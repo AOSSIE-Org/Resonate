@@ -41,5 +41,5 @@ class AppTheme extends _$AppTheme {
 String userProfileImagePlaceholderUrl(Ref ref) {
   final theme = ref.watch(appThemeProvider);
   final placeholderId = _placeholderIdFor(theme);
-  return "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$placeholderId/view?project=resonate&mode=admin";
+  return "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$placeholderId/view?project=$appwriteProjectId&mode=admin";
 }

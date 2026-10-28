@@ -10,7 +10,13 @@ const String appwriteProjectId = String.fromEnvironment(
   'APPWRITE_PROJECT_ID',
   defaultValue: 'resonate',
 );
-const String appwriteEndpoint = "http://$baseDomain:80/v1";
+
+// http for a local Appwrite; release builds pass https
+const String appwriteScheme = String.fromEnvironment(
+  'APPWRITE_SCHEME',
+  defaultValue: 'http',
+);
+const String appwriteEndpoint = "$appwriteScheme://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
 const String meilisearchEndpoint = String.fromEnvironment(
   'MEILISEARCH_ENDPOINT',
@@ -57,9 +63,9 @@ const int maxUploadBytes = 5 * 1024 * 1024;
 const String chapterDefaultCoverImageId = "67012e19003d00f39e17";
 const String storyDefaultCoverImageId = "67012e19003d00f39e16";
 const String chapterCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$chapterDefaultCoverImageId/view?project=resonate&project=resonate&mode=admin";
+    "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$chapterDefaultCoverImageId/view?project=$appwriteProjectId&mode=admin";
 const String storyCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=resonate&mode=admin";
+    "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=$appwriteProjectId&mode=admin";
 
 // User related Database Constants
 const String usersTableID = "64a52f0a6c41ded09def";

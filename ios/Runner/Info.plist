@@ -61,16 +61,25 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Photo Library Access Warning</string>
+	<string>Resonate needs access to your photos so you can choose a profile picture and cover art for the stories and chapters you publish.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera Access Warning</string>
+	<string>Resonate needs access to your camera so you can take a new profile picture without leaving the app.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Resonate uses your microphone</string>
+	<string>Resonate needs access to your microphone so you can speak in live audio rooms, pair chats and calls with friends, and record story chapters.</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Allow access to music library to upload podcast files</string>
+	<string>Resonate needs access to your media library so you can upload an existing audio file as a story chapter.</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<!-- Live rooms and calls keep playing while the app is backgrounded. -->
 		<string>audio</string>
+		<!-- Required by firebase_messaging to handle notifications in the
+		     background; without it social and room alerts are dropped. -->
+		<string>remote-notification</string>
+		<!-- "voip" is deliberately NOT declared yet. flutter_callkit_incoming
+		     needs it, but App Review rejects a background mode the app does not
+		     actually use, and the iOS side is not wired up: AppDelegate has no
+		     PushKit registration and there is no VoIP Services certificate. Add
+		     it in the same change that implements those, not before. -->
 	</array>
 </dict>
 </plist>

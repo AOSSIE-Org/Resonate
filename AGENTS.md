@@ -123,17 +123,16 @@ assertions are active and will catch lifecycle misuse.
 - **`freezed` classes cannot declare a member named `call`** — it collides with generated code.
 - **Never run a blanket `appwrite push`** when working with the backend. It deploys every function
   and collection, including ones unrelated to the change. Push only what you touched.
-- **Endpoints are `http://` by construction** in `lib/utils/constants.dart`, with only the host
-  overridable via `--dart-define`. This is a known issue tracked in
-  [BestPracticesChecklist.md](BestPracticesChecklist.md); don't "fix" it incidentally inside an
-  unrelated PR.
-- **`usesCleartextTraffic="true"` cannot simply be removed**, and the comment above it in
-  `AndroidManifest.xml` is not the whole story. Because the scheme above is hardcoded, turning
-  cleartext off blocks every Appwrite call, **every image** (avatar/cover/badge URLs were written
-  into the database as `http://`) and LiveKit's `localhostLivekitEndpoint`. The app then reaches no
-  backend at all, local or hosted — and nothing in `flutter test` catches it, because the manifest
-  is not exercised by the suite. Removing it is a migration: configurable scheme → https backend →
-  rewrite the stored URLs → then the attribute.
+- **The endpoint scheme comes from `APPWRITE_SCHEME`** (`lib/utils/constants.dart`, default
+  `http`). Release builds pass `https` in `build_and_deploy.yml`; local dev keeps `http`. Every
+  storage URL in the app is built from `appwriteEndpoint`, so there is one place to change.
+- **Cleartext is allowed in the debug and profile manifests only** — the main manifest does not
+  permit it, so release builds cannot be downgraded to `http`. If a release build reaches no
+  backend, check that `APPWRITE_SCHEME=https` was passed and that the host actually serves https.
+  Nothing in `flutter test` catches this: the manifest is not exercised by the suite.
+- **Rows written before the https switch still hold `http://` URLs.** Avatars, covers and chapter
+  audio saved back then will not load in a release build, because the stored URL is absolute. This
+  was accepted knowingly rather than migrated; new uploads are written as `https://`.
 - **`setSelfSigned` is debug-only** (`lib/core/providers/appwrite_providers.dart`). If a profile or
   release build cannot reach an https backend while debug can, a self-signed certificate is why.
 

@@ -15,8 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:allowBackup="false"
-        android:fullBackupContent="false"
-        android:usesCleartextTraffic="true">
+        android:fullBackupContent="false">
 
         <!-- UCropActivity - For image cropper -->
         <activity
