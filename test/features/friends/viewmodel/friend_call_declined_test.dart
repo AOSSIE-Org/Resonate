@@ -124,6 +124,9 @@ void main() {
     when(realtime.subscribe(any)).thenAnswer(
       (invocation) => RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: List<String>.from(invocation.positionalArguments[0] as List),
         controller: realtimeEvents,
       ),

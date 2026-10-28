@@ -69,7 +69,7 @@ void main() {
     testAppWidget('the X button opens the X page', (tester) async {
       await pumpContribute(tester);
 
-      await tester.tap(find.byIcon(FontAwesomeIcons.xTwitter));
+      await tester.tap(find.byIcon(FontAwesomeIcons.xTwitter.data));
       await tester.pumpAndSettle();
 
       expect(launchedUrl(), xPageUrl);
@@ -90,7 +90,7 @@ void main() {
 
       await tester.tap(find.byIcon(Icons.discord));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(FontAwesomeIcons.xTwitter));
+      await tester.tap(find.byIcon(FontAwesomeIcons.xTwitter.data));
       await tester.pumpAndSettle();
 
       expect(launches, hasLength(2));

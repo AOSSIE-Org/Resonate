@@ -48,7 +48,7 @@ final class AppwriteClientProvider
   }
 }
 
-String _$appwriteClientHash() => r'e86231b604f873c7e15f197e6ababa2a4e9c2fc9';
+String _$appwriteClientHash() => r'8e4c7f6ae764ec94431c9af12747026194003494';
 
 @ProviderFor(appwriteAccount)
 final appwriteAccountProvider = AppwriteAccountProvider._();

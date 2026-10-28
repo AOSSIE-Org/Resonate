@@ -28,7 +28,7 @@ class NotificationService {
     );
 
     await _plugin.initialize(
-      settings,
+      settings: settings,
       onDidReceiveNotificationResponse: (response) {
         final payload = response.payload;
         if (payload != null && payload.isNotEmpty) _onTapPayload(payload);
@@ -41,6 +41,12 @@ class NotificationService {
     required String body,
     String? payload,
   }) async {
-    await _plugin.show(0, title, body, _details, payload: payload);
+    await _plugin.show(
+      id: 0,
+      title: title,
+      body: body,
+      notificationDetails: _details,
+      payload: payload,
+    );
   }
 }

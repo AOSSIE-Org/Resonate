@@ -58,7 +58,7 @@ final class ChapterPlayerProvider
   }
 }
 
-String _$chapterPlayerHash() => r'1606c1928fd16cb699d5c7fe757915dda49a468a';
+String _$chapterPlayerHash() => r'1e2e0378f37255d6c00dcd8f7b4bdcc2b5ffc801';
 
 final class ChapterPlayerFamily extends $Family
     with

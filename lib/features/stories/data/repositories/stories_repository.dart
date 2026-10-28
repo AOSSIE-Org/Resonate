@@ -4,7 +4,7 @@ import 'dart:io' as io;
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart' hide Chapter;
 import 'package:flutter/material.dart' hide Row;
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';

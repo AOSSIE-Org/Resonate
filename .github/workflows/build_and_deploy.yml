@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JAVA_VERSION: 21.0.6
-      FLUTTER_VERSION: 3.35.2
+      FLUTTER_VERSION: 3.38.1
       APK_PATH: build/app/outputs/flutter-apk/app-release.apk
       AAB_PATH: build/app/outputs/bundle/release/app-release.aab
       KEYSTORE_PATH: android/upload-keystore.jks

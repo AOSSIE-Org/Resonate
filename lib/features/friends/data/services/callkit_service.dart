@@ -34,12 +34,12 @@ String _hex(Color color) {
 class CallKitService {
   StreamSubscription<CallEvent?>? _sub;
 
-  // Not a dialog: on Android 14+ this sends the user out to a system settings
-  // page, and keeps doing so on every launch until they grant it. The plugin
-  // checks the grant itself and no-ops below Android 14.
   Future<void> requestFullScreenPermission() async {
     await FlutterCallkitIncoming.requestFullIntentPermission();
   }
+
+  static Map<String, dynamic> _extraOf(CallKitParams params) =>
+      Map<String, dynamic>.from(params.extra ?? const <String, dynamic>{});
 
   void start({
     required Future<void> Function(Map<String, dynamic> extra) onAccept,
@@ -48,14 +48,16 @@ class CallKitService {
     _sub?.cancel();
     _sub = FlutterCallkitIncoming.onEvent.listen((event) async {
       if (event == null) return;
-      final extra = Map<String, dynamic>.from(event.body['extra'] as Map);
-      switch (event.event) {
-        case Event.actionCallAccept:
-          await onAccept(extra);
-        case Event.actionCallDecline:
-          await onDecline(extra);
+      // 3.1 replaced the `event`/`body` pair with a sealed CallEvent whose
+      // subclasses carry a typed CallKitParams, so the payload is read off
+      // the matched case rather than an untyped map.
+      switch (event) {
+        case CallEventActionCallAccept(:final callKitParams):
+          await onAccept(_extraOf(callKitParams));
+        case CallEventActionCallDecline(:final callKitParams):
+          await onDecline(_extraOf(callKitParams));
           await FlutterCallkitIncoming.showMissCallNotification(
-            CallKitParams(),
+            CallKitParams(id: callKitParams.id),
           );
         default:
           break;

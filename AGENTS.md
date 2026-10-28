@@ -11,7 +11,7 @@ Resonate is an open-source social voice platform: a **Flutter** app (Android + i
 and optionally Meilisearch (search). There is no web target. The backend is a separate repository,
 [Resonate-Backend](https://github.com/AOSSIE-Org/Resonate-Backend).
 
-- Dart SDK `>=3.9.0 <4.0.0`, Flutter 3.35.2 (the version CI pins).
+- Dart SDK `>=3.10.0 <4.0.0`, Flutter 3.38.1 (the version CI pins).
 - Default branch for contributions: **`dev`**. Never open a PR against `master`.
 
 ## Commands

@@ -23,7 +23,7 @@ Row roomRow({
 }) {
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: roomsTableId,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
@@ -48,7 +48,7 @@ Row userRow({
 }) {
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: usersTableID,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
@@ -73,7 +73,7 @@ Row participantRow({
 }) {
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: participantsTableId,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),

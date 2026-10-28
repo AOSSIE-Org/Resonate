@@ -3,6 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i6;
 
 import 'package:appwrite/appwrite.dart' as _i5;
@@ -87,13 +88,22 @@ class MockTablesDB extends _i1.Mock implements _i5.TablesDB {
           as _i2.Client);
 
   @override
-  _i6.Future<_i3.TransactionList> listTransactions({List<String>? queries}) =>
+  _i6.Future<_i3.TransactionList> listTransactions({
+    List<String>? queries,
+    bool? total,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#listTransactions, [], {#queries: queries}),
+            Invocation.method(#listTransactions, [], {
+              #queries: queries,
+              #total: total,
+            }),
             returnValue: _i6.Future<_i3.TransactionList>.value(
               _FakeTransactionList_1(
                 this,
-                Invocation.method(#listTransactions, [], {#queries: queries}),
+                Invocation.method(#listTransactions, [], {
+                  #queries: queries,
+                  #total: total,
+                }),
               ),
             ),
           )
@@ -195,6 +205,7 @@ class MockTablesDB extends _i1.Mock implements _i5.TablesDB {
     List<String>? queries,
     String? transactionId,
     bool? total,
+    int? ttl,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#listRows, [], {
@@ -203,6 +214,7 @@ class MockTablesDB extends _i1.Mock implements _i5.TablesDB {
               #queries: queries,
               #transactionId: transactionId,
               #total: total,
+              #ttl: ttl,
             }),
             returnValue: _i6.Future<_i3.RowList>.value(
               _FakeRowList_3(
@@ -213,6 +225,7 @@ class MockTablesDB extends _i1.Mock implements _i5.TablesDB {
                   #queries: queries,
                   #transactionId: transactionId,
                   #total: total,
+                  #ttl: ttl,
                 }),
               ),
             ),
@@ -462,15 +475,43 @@ class MockRealtime extends _i1.Mock implements _i7.Realtime {
           as _i2.Client);
 
   @override
-  _i4.RealtimeSubscription subscribe(List<String>? channels) =>
+  _i4.RealtimeSubscription subscribe(
+    List<Object>? channels, {
+    List<String>? queries = const [],
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#subscribe, [channels]),
+            Invocation.method(#subscribe, [channels], {#queries: queries}),
             returnValue: _FakeRealtimeSubscription_5(
               this,
-              Invocation.method(#subscribe, [channels]),
+              Invocation.method(#subscribe, [channels], {#queries: queries}),
             ),
           )
           as _i4.RealtimeSubscription);
+
+  @override
+  _i6.Future<void> disconnect() =>
+      (super.noSuchMethod(
+            Invocation.method(#disconnect, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  void upsertPresence({
+    required String? status,
+    required String? presenceId,
+    List<String>? permissions,
+    Map<String, dynamic>? metadata,
+  }) => super.noSuchMethod(
+    Invocation.method(#upsertPresence, [], {
+      #status: status,
+      #presenceId: presenceId,
+      #permissions: permissions,
+      #metadata: metadata,
+    }),
+    returnValueForMissingStub: null,
+  );
 }
 
 /// A class which mocks [Functions].

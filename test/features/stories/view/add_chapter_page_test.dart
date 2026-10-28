@@ -1,4 +1,3 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
+import 'package:resonate/core/services/media_picker_service.dart';
 import '../fake_file_picker.dart';
 import '../fake_stories_repository.dart';
 import 'stories_test_helpers.dart';
@@ -68,7 +68,6 @@ void main() {
 
   setUp(() {
     picker = FakeFilePicker();
-    FilePicker.platform = picker;
     repo = _AddChaptersRepository();
   });
 
@@ -87,7 +86,10 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [storiesRepositoryProvider.overrideWithValue(repo)],
+        overrides: [
+        storiesRepositoryProvider.overrideWithValue(repo),
+        mediaPickerServiceProvider.overrideWithValue(picker),
+      ],
         child: MaterialApp(
           navigatorKey: navKey,
           localizationsDelegates: const [

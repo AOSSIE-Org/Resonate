@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' hide Account;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -49,7 +49,7 @@ Row buildUserRow({int reportsCount = 0}) {
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const ['any'],
-    $sequence: 0,
+    $sequence: '0',
     data: {
       'username': 'testuser',
       'profileImageUrl': 'https://example.com/p.jpg',
@@ -349,7 +349,7 @@ void main() {
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: const ['any'],
-        $sequence: 0,
+        $sequence: '0',
         data: {'fcmTokens': <dynamic>[]},
       );
       final sub = Row(
@@ -359,7 +359,7 @@ void main() {
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: const ['any'],
-        $sequence: 0,
+        $sequence: '0',
         data: {'registrationTokens': <dynamic>['old']},
       );
       final room = Row(
@@ -369,7 +369,7 @@ void main() {
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: const ['any'],
-        $sequence: 0,
+        $sequence: '0',
         data: {'creator_fcm_tokens': <dynamic>[]},
       );
 

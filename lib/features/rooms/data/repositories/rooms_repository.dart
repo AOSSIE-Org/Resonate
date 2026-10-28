@@ -107,7 +107,7 @@ class RoomsRepository {
             tags: List<String>.from(data['tags'] as List? ?? const []),
             memberAvatarUrls: [
               for (final uid in uidsByRoom[row.$id] ?? const <String>[])
-                if (avatars[uid] case final url?) url,
+                ?avatars[uid],
             ],
             state: RoomState.live,
             isUserAdmin: data['adminUid'] == userUid,

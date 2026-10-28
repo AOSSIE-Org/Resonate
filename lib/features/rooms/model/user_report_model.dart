@@ -13,11 +13,11 @@ typedef ReportDraft = ({ReportTypeEnum type, String? details});
 @freezed
 abstract class UserReportModel with _$UserReportModel {
   factory UserReportModel({
-    required final String reporterUid,
-    required final String reportedUid,
-    final String? reportText,
-    required final ReportTypeEnum reportType,
-    required final String reportedUser,
+    required String reporterUid,
+    required String reportedUid,
+    String? reportText,
+    required ReportTypeEnum reportType,
+    required String reportedUser,
   }) = _UserReportModel;
 
   factory UserReportModel.fromJson(Map<String, dynamic> json) =>

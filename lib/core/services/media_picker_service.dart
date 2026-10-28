@@ -47,11 +47,10 @@ class MediaPickerService {
   }
 
   Future<PickedFile?> pickFile({List<String>? allowedExtensions}) async {
-    final result = await FilePicker.platform.pickFiles(
+    final file = await FilePicker.pickFile(
       type: allowedExtensions == null ? FileType.any : FileType.custom,
       allowedExtensions: allowedExtensions,
     );
-    final file = result?.files.single;
     final path = file?.path;
     if (file == null || path == null) return null;
     return PickedFile(path: path, extension: file.extension);

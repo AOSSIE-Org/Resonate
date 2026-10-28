@@ -44,7 +44,7 @@ Row userRow({
   List<Map<String, dynamic>> friends = const [],
 }) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: usersTableID,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
@@ -55,7 +55,7 @@ Row userRow({
 
 Row friendRow({String id = 'friend-doc-1'}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: friendsTableID,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
