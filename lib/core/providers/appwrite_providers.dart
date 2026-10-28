@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/foundation.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,10 +7,16 @@ part 'generated/appwrite_providers.g.dart';
 
 
 @Riverpod(keepAlive: true)
-Client appwriteClient(Ref ref) => Client()
-    .setEndpoint(appwriteEndpoint)
-    .setProject(appwriteProjectId)
-    .setSelfSigned(status: true);
+Client appwriteClient(Ref ref) {
+  final client = Client()
+      .setEndpoint(appwriteEndpoint)
+      .setProject(appwriteProjectId);
+
+  // Allowing self-signed certificates only for development purposes
+  if (kDebugMode) client.setSelfSigned(status: true);
+
+  return client;
+}
 
 @Riverpod(keepAlive: true)
 Account appwriteAccount(Ref ref) => Account(ref.watch(appwriteClientProvider));

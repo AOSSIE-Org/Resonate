@@ -127,6 +127,15 @@ assertions are active and will catch lifecycle misuse.
   overridable via `--dart-define`. This is a known issue tracked in
   [BestPracticesChecklist.md](BestPracticesChecklist.md); don't "fix" it incidentally inside an
   unrelated PR.
+- **`usesCleartextTraffic="true"` cannot simply be removed**, and the comment above it in
+  `AndroidManifest.xml` is not the whole story. Because the scheme above is hardcoded, turning
+  cleartext off blocks every Appwrite call, **every image** (avatar/cover/badge URLs were written
+  into the database as `http://`) and LiveKit's `localhostLivekitEndpoint`. The app then reaches no
+  backend at all, local or hosted — and nothing in `flutter test` catches it, because the manifest
+  is not exercised by the suite. Removing it is a migration: configurable scheme → https backend →
+  rewrite the stored URLs → then the attribute.
+- **`setSelfSigned` is debug-only** (`lib/core/providers/appwrite_providers.dart`). If a profile or
+  release build cannot reach an https backend while debug can, a self-signed certificate is why.
 
 ## Scope
 
