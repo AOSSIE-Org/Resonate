@@ -38,7 +38,7 @@ final class UpcomingRoomsNotifierProvider
 }
 
 String _$upcomingRoomsNotifierHash() =>
-    r'40e98103208a8e0eba0223ee5c79a3b2d1fa2836';
+    r'48f4c6e27383113d2d37cea6e497061c91b7c177';
 
 abstract class _$UpcomingRoomsNotifier
     extends $AsyncNotifier<List<AppwriteUpcomingRoom>> {

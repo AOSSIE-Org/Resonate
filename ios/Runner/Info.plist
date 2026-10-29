@@ -72,10 +72,11 @@
 	<array>
 		<!-- Live rooms and calls keep playing while the app is backgrounded. -->
 		<string>audio</string>
-		<!-- Push now arrives over Appwrite's MQTT transport, which uses a
-		     background isolate rather than APNs. Kept until the iOS build is
-		     exercised: App Review rejects background modes the app does not
-		     use, so drop this if nothing turns out to need it. -->
+		<!-- Appwrite's MQTT transport has no background delivery on iOS: the
+		     SDK registers only an onForeground isolate handler, and iOS will
+		     not hold a socket while suspended. Anything arriving while the app
+		     is closed comes over APNs, against the push target registered in
+		     PushTargetRepository, so this mode is required. -->
 		<string>remote-notification</string>
 		<!-- "voip" is deliberately NOT declared yet. flutter_callkit_incoming
 		     needs it, but App Review rejects a background mode the app does not

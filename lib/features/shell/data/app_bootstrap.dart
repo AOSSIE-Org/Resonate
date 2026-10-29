@@ -10,6 +10,7 @@ import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/services/callkit_service.dart';
+import 'package:resonate/features/shell/data/repositories/push_target_repository.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -45,10 +46,15 @@ class AppBootstrap extends _$AppBootstrap {
       subscribedUid = uid;
       pushSubscription?.unsubscribe();
       pushSubscription = null;
+      final targets = ref.read(pushTargetRepositoryProvider);
       if (uid == null) {
         log('[push] no signed-in user, not subscribing');
+        if (!isTestMode) unawaited(targets.unregister());
         return;
       }
+      // iOS only: the MQTT transport has no background delivery there, so
+      // anything arriving while the app is closed comes over APNs.
+      if (!isTestMode) unawaited(targets.register());
       try {
         final subscription = await push.subscribe(
           null, //subscribes to signined-in user's topic, users/<uid>
