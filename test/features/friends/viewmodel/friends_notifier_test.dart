@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
@@ -41,6 +42,16 @@ void main() {
     recieverId: 'friend-3',
     requestStatus: FriendRequestStatus.sent,
   );
+
+  // Default: no friend row between these two yet, so sendFriendRequest's
+  // duplicate check falls through to the create.
+  void stubNoExistingFriendRow() {
+    when(tables.listRows(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
+  }
 
   void stubUserDoc(List<Map<String, dynamic>> friends) {
     when(tables.getRow(
@@ -118,6 +129,7 @@ void main() {
     test('sendFriendRequest creates a row and adds an outgoing request',
         () async {
       stubUserDoc([]);
+      stubNoExistingFriendRow();
       when(tables.createRow(
         databaseId: anyNamed('databaseId'),
         tableId: anyNamed('tableId'),
@@ -150,6 +162,68 @@ void main() {
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).called(1);
+    });
+
+    test('two quick taps on Add Friend create only one row', () async {
+      stubUserDoc([]);
+      stubNoExistingFriendRow();
+      when(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async {
+        // The button stays enabled across the write, so the second tap lands
+        // while this one is still in flight.
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        return buildRow(
+          id: invocation.namedArguments[#rowId] as String,
+          data: invocation.namedArguments[#data] as Map<String, dynamic>,
+        );
+      });
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      final notifier = container.read(friendsProvider.notifier);
+
+      Future<void> tap() => notifier.sendFriendRequest(
+            recieverId: 'friend-9',
+            recieverProfileImageUrl: 'https://example.com/f9.jpg',
+            recieverUsername: 'friend9',
+            recieverName: 'Friend Nine',
+            recieverRating: 4.2,
+          );
+      await Future.wait([tap(), tap()]);
+
+      verify(tables.createRow(
+        databaseId: databaseId,
+        tableId: friendsTableID,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).called(1);
+      expect(container.read(friendsProvider).value!.friendRequests,
+          hasLength(1));
+    });
+
+    test('a request to someone already on file is not sent again', () async {
+      stubUserDoc([_friendJson(accepted)]);
+      stubNoExistingFriendRow();
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+
+      await container.read(friendsProvider.notifier).sendFriendRequest(
+            recieverId: 'friend-1',
+            recieverProfileImageUrl: 'https://example.com/f1.jpg',
+            recieverUsername: 'friend1',
+            recieverName: 'Friend One',
+            recieverRating: 4.0,
+          );
+
+      verifyNever(tables.createRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      ));
     });
 
     test('acceptFriendRequest moves the request into friends', () async {

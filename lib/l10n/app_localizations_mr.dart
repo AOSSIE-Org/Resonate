@@ -637,9 +637,6 @@ class AppLocalizationsMr extends AppLocalizations {
   String get micOn => 'मायक्रोफोन';
 
   @override
-  String get speakerOn => 'स्पीकर';
-
-  @override
   String get endChat => 'चॅट समाप्त';
 
   @override
@@ -1403,12 +1400,6 @@ class AppLocalizationsMr extends AppLocalizations {
   String get selectPreferredSpeaker => 'आपला पसंतीचा स्पीकर निवडा';
 
   @override
-  String get noAudioOutputDevices => 'कोणतेही ऑडिओ आउटपुट उपकरण आढळले नाही';
-
-  @override
-  String get refresh => 'रीफ्रेश करा';
-
-  @override
   String get done => 'पूर्ण झाले';
 
   @override
@@ -1874,4 +1865,21 @@ class AppLocalizationsMr extends AppLocalizations {
   String uploadFailed(String what) {
     return 'Could not upload the $what. Please try again.';
   }
+
+  @override
+  String get earpiece => 'Earpiece';
+
+  @override
+  String get headsetTakesPriority =>
+      'A connected headset takes priority while it is plugged in or paired.';
+
+  @override
+  String get audioOutputNotSwitchable =>
+      'Audio output cannot be changed on this device.';
+
+  @override
+  String get loudspeaker => 'Loudspeaker';
+
+  @override
+  String get callReliability => 'Call reliability';
 }

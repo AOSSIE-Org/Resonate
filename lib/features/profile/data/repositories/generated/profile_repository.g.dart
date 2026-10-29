@@ -54,4 +54,4 @@ final class ProfileRepositoryProvider
   }
 }
 
-String _$profileRepositoryHash() => r'4e7dcb67bfc0f49d6fe085b4c32852c1904b8cac';
+String _$profileRepositoryHash() => r'ba53f4836d03171ffc9c1a90a26c46a8714bc4d2';

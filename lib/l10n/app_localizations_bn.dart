@@ -641,9 +641,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get micOn => 'মাইক';
 
   @override
-  String get speakerOn => 'স্পিকার';
-
-  @override
   String get endChat => 'চ্যাট বন্ধ করুন';
 
   @override
@@ -1411,12 +1408,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get selectPreferredSpeaker => 'Select your preferred speaker';
 
   @override
-  String get noAudioOutputDevices => 'No audio output devices detected';
-
-  @override
-  String get refresh => 'Refresh';
-
-  @override
   String get done => 'Done';
 
   @override
@@ -1884,4 +1875,21 @@ class AppLocalizationsBn extends AppLocalizations {
   String uploadFailed(String what) {
     return 'Could not upload the $what. Please try again.';
   }
+
+  @override
+  String get earpiece => 'Earpiece';
+
+  @override
+  String get headsetTakesPriority =>
+      'A connected headset takes priority while it is plugged in or paired.';
+
+  @override
+  String get audioOutputNotSwitchable =>
+      'Audio output cannot be changed on this device.';
+
+  @override
+  String get loudspeaker => 'Loudspeaker';
+
+  @override
+  String get callReliability => 'Call reliability';
 }

@@ -246,7 +246,7 @@
     "@continueWithGitHub": {
         "description": "Button text for signing in with a GitHub account."
     },
-    "resonateLogo": "রেজোনেট লোগো", 
+    "resonateLogo": "রেজোনেট লোগো",
     "@resonateLogo": {
         "description": "Accessibility text for the Resonate application logo image."
     },
@@ -754,7 +754,7 @@
     "@scheduledDateTimePast": {
         "description": "Error message when the user selects a past date-time for a scheduled event."
     },
-    "joinRoom": "রুমে যোগ দিন", 
+    "joinRoom": "রুমে যোগ দিন",
     "@joinRoom": {
         "description": "Button text to join an audio room."
     },
@@ -803,10 +803,6 @@
     "micOn": "মাইক",
     "@micOn": {
         "description": "Accessibility label for the microphone button when it is on."
-    },
-    "speakerOn": "স্পিকার",
-    "@speakerOn": {
-        "description": "Accessibility label for the speakerphone button when it is on."
     },
     "endChat": "চ্যাট বন্ধ করুন",
     "@endChat": {
@@ -879,7 +875,7 @@
     "forgotPasswordMessage": "আপনার পাসওয়ার্ড রিসেট করতে আপনার ইতিমধ্যে রেজিস্টার্ড ইমেইল ঠিকানাটি দিন",
     "@forgotPasswordMessage": {
         "description": "Instructional text on the forgot password screen."
-    }, 
+    },
     "usernameUnavailable": "ইউজারনেম অনুপলব্ধ!",
     "@usernameUnavailable": {
         "description": "Title for the error when a chosen username is taken."
@@ -976,7 +972,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {roomDescription}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!", 
+    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {roomDescription}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.\n\n🔗 {link}",
         "placeholders": {
@@ -1036,7 +1032,7 @@
     "@connectionFailed": {
         "description": "Generic title for connection-related errors."
     },
-    "unableToJoinRoom": "রুমে যোগ দেওয়া সম্ভব হচ্ছে না। অনুগ্রহ করে আপনার নেটওয়ার্ক চেক করুন এবং আবার চেষ্টা করুন।", 
+    "unableToJoinRoom": "রুমে যোগ দেওয়া সম্ভব হচ্ছে না। অনুগ্রহ করে আপনার নেটওয়ার্ক চেক করুন এবং আবার চেষ্টা করুন।",
     "@unableToJoinRoom": {
         "description": "Error message when a user fails to join a room due to connection issues."
     },
@@ -1044,7 +1040,7 @@
     "@connectionLost": {
         "description": "Title indicating that the connection to a service was lost."
     },
-    "unableToReconnect": "রুমে পুনরায় সংযোগ করা সম্ভব হচ্ছে না। অনুগ্রহ করে আবার যোগ দেওয়ার চেষ্টা করুন।", 
+    "unableToReconnect": "রুমে পুনরায় সংযোগ করা সম্ভব হচ্ছে না। অনুগ্রহ করে আবার যোগ দেওয়ার চেষ্টা করুন।",
     "@unableToReconnect": {
         "description": "Error message when the app fails to reconnect the user to a room."
     },
@@ -1216,9 +1212,8 @@
     },
     "exploreDiverseConversations": "বিভিন্ন ধরনের আলোচনায় যোগ দিন",
     "@exploreDiverseConversations": {
-    "description": "Prompt to explore diverse conversations."
+        "description": "Prompt to explore diverse conversations."
     },
-
     "yourVoiceMatters": "আপনার কণ্ঠস্বর গুরুত্বপূর্ণ",
     "@yourVoiceMatters": {
         "description": "Feature highlight on an onboarding screen."

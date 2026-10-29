@@ -66,6 +66,15 @@ void main() {
       tables: tables,
         functions: functions,
     );
+    // Default: this user is not subscribed yet, so addSubscriber's duplicate
+    // check falls through to the create.
+    when(
+      tables.listRows(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        queries: anyNamed('queries'),
+      ),
+    ).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
   group('loadUpcoming', () {
@@ -326,6 +335,38 @@ void main() {
   });
 
   group('addSubscriber', () {
+    test('an already-subscribed user is not added a second time', () async {
+      when(
+        tables.listRows(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [subscriberRow()]));
+
+      await repo.addSubscriber(
+        upcomingRoomId: 'up-1',
+        userUid: 'me',
+        profileImageUrl: 'https://example.com/me.jpg',
+      );
+
+      // No second row, and the host is not notified again either.
+      verifyNever(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
+      verifyNever(
+        functions.createExecution(
+          functionId: anyNamed('functionId'),
+          body: anyNamed('body'),
+        ),
+      );
+    });
+
     test('creates a subscriber row', () async {
       when(
         tables.createRow(

@@ -98,6 +98,13 @@ void main() {
       realtime: realtime,
       functions: functions,
     );
+    // Default: no friend row between the two users yet, so the duplicate check
+    // in sendFriendRequest falls through to the create.
+    when(tables.listRows(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
   tearDown(() => events.close());

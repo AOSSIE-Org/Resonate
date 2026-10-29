@@ -132,6 +132,21 @@ class UpcomingRoomsRepository {
     required String userUid,
     required String profileImageUrl,
   }) async {
+    // The row id is random, so nothing stops a second write creating a second
+    // subscriber row for the same user. The notifier guards the double tap;
+    // this covers a stale tile or a second device, where that guard cannot
+    // see the first write.
+    final existing = await _tables.listRows(
+      databaseId: databaseId,
+      tableId: subscribedUserTableId,
+      queries: [
+        Query.equal('userID', userUid),
+        Query.equal('upcomingRoomId', upcomingRoomId),
+        Query.limit(1),
+      ],
+    );
+    if (existing.rows.isNotEmpty) return;
+
     await _tables.createRow(
       databaseId: databaseId,
       tableId: subscribedUserTableId,

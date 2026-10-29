@@ -95,11 +95,31 @@ class AppBootstrap extends _$AppBootstrap {
             );
           },
           background: true,
-          title: 'Resonate',
         );
-        // An incoming call has to ring the moment it arrives
+        // Foreground mode is deliberately OFF. It keeps the connection open in
+        // a service, and Android requires every foreground service to show a
+        // permanent notification, which is not something to leave in a user's
+        // shade for the life of the install. Background delivery still works
+        // without it, on the plugin's scheduled wake-ups.
+        //
+        // Set explicitly rather than left uncalled: the flag is PERSISTED, so
+        // an install that once enabled it keeps resuming the service on every
+        // launch. Writing false is what clears it.
+        //
+        // The cost is that a message arriving while the app is closed waits for
+        // the next wake-up (15s, 60s privileged) instead of a live socket, and
+        // Doze throttles those `setAndAllowWhileIdle` alarms further, so an
+        // incoming call can miss CallKit's 30s ring window. That was the reason
+        // foreground mode was on.
+        //
+        // To turn it back on, pass true here: `NotificationService` already
+        // pins the plugin's `appwrite-push-service` channel to minimum
+        // importance, so the service notification carries no status-bar icon
+        // and collapses to the bottom of the shade. The open question is
+        // whether the battery-optimisation exemption makes the wake-up path
+        // punctual enough on its own; if it does, leave this off.
         if (!isTestMode) {
-          await push.setForeground(true);
+          await push.setForeground(false);
         }
 
         log('[push] subscribed as $uid (SUBACK received)');
@@ -132,15 +152,35 @@ class AppBootstrap extends _$AppBootstrap {
       ref.onDispose(callKit.stop);
 
       Future<void> openFromPush(PushNotificationOpened opened) async {
-        if (opened.data['type'] != 'incoming_call') return;
-        await ref.read(callKitServiceProvider).showIncomingCall(opened.data);
+        final type = opened.data['type'];
+        log('[push] notification tapped, type=$type');
+        if (type != 'incoming_call') return;
+        try {
+          await ref.read(callKitServiceProvider).showIncomingCall(opened.data);
+          log('[push] re-presented the incoming call from a tap');
+        } catch (e, st) {
+          log('[push] could not re-present the tapped call: $e');
+          developer.log('showIncomingCall failed', error: e, stackTrace: st);
+        }
       }
+
       ref.onDispose(
         push.onNotificationOpened((opened) => unawaited(openFromPush(opened))),
       );
       // The tap that launched the app is reported here instead
       final launchTap = await push.getInitialNotification();
+      log('[push] launch tap: ${launchTap == null ? 'none' : launchTap.topic}');
       if (launchTap != null) await openFromPush(launchTap);
+      final status = await push.backgroundStatus();
+      if (status != null) {
+        log(
+          '[push] background delivery: bestEffort=${status.bestEffort} '
+          'batteryExempt=${status.ignoringBatteryOptimizations} '
+          'restricted=${status.backgroundRestricted} '
+          'exactAlarms=${status.exactAlarms} '
+          'foregroundService=${status.foregroundService}',
+        );
+      }
     }
   }
 

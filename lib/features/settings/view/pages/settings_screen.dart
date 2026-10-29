@@ -8,6 +8,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/settings/data/feature_flags.dart';
 import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/settings/viewmodel/settings_notifier.dart';
+import 'package:resonate/features/settings/data/call_reliability.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -137,6 +138,11 @@ class SettingsScreen extends ConsumerWidget {
               ref.read(routerProvider).push(RoutePaths.featuresScreen);
             },
           ),
+          if (ref.watch(callDeliveryDegradedProvider).value ?? false)
+            customTile(
+              str: AppLocalizations.of(context)!.callReliability,
+              func: () => ref.read(requestCallReliabilityProvider)(),
+            ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.other),
           customTile(

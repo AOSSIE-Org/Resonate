@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:resonate/utils/dev_log.dart';
@@ -21,6 +22,7 @@ ProfileRepository profileRepository(Ref ref) => ProfileRepository(
   storage: ref.watch(appwriteStorageProvider),
   account: ref.watch(appwriteAccountProvider),
   functions: ref.watch(appwriteFunctionsProvider),
+  realtime: ref.watch(appwriteRealtimeProvider),
 );
 
 class ProfileRepository {
@@ -29,15 +31,33 @@ class ProfileRepository {
     required Storage storage,
     required Account account,
     required Functions functions,
+    required Realtime realtime,
   }) : _tables = tables,
        _storage = storage,
        _account = account,
-       _functions = functions;
+       _functions = functions,
+       _realtime = realtime;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
   final Functions _functions;
+  final Realtime _realtime;
+
+  Stream<void> followersChanged(String uid) {
+    final channel = 'databases.$databaseId.tables.$followersTableID.rows';
+    final subscription = _realtime.subscribe([channel]);
+    final controller = StreamController<void>();
+    final sub = subscription.stream.listen((event) {
+      if (event.payload.isEmpty) return;
+      if (event.payload['followedUid'] == uid) controller.add(null);
+    });
+    controller.onCancel = () async {
+      await sub.cancel();
+      await subscription.close();
+    };
+    return controller.stream;
+  }
 
   // Profile viewing
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {

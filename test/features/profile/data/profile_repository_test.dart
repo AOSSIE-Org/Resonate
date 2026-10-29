@@ -115,12 +115,13 @@ User _user() => User(
       hashOptions: const {},
     );
 
-@GenerateMocks([TablesDB, Storage, Account, Functions])
+@GenerateMocks([TablesDB, Storage, Account, Functions, Realtime])
 void main() {
   late MockTablesDB tables;
   late MockStorage storage;
   late MockAccount account;
   late MockFunctions functions;
+  late MockRealtime realtime;
   late ProfileRepository repo;
 
   setUp(() {
@@ -128,11 +129,13 @@ void main() {
     storage = MockStorage();
     account = MockAccount();
     functions = MockFunctions();
+    realtime = MockRealtime();
     repo = ProfileRepository(
       tables: tables,
       storage: storage,
       account: account,
-        functions: functions,
+      functions: functions,
+      realtime: realtime,
     );
   });
 

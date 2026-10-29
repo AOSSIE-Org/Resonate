@@ -35,8 +35,7 @@ class FriendsRepository {
   final Realtime _realtime;
   final Functions _functions;
 
-  // Best effort, like the like/follow/subscribe notifications: the row is
-  // already written, so a failed push must not fail the request itself.
+
   Future<void> _notify({
     required String targetUid,
     required String title,
@@ -103,6 +102,19 @@ class FriendsRepository {
     required double recieverRating,
   }) async {
     try {
+      final existing = await _tables.listRows(
+        databaseId: databaseId,
+        tableId: friendsTableID,
+        queries: [
+          Query.equal('senderId', sender.uid),
+          Query.equal('recieverId', recieverId),
+          Query.limit(1),
+        ],
+      );
+      if (existing.rows.isNotEmpty) {
+        return FriendsModel.fromJson(existing.rows.first.data);
+      }
+
       final docId = ID.unique();
       final friendModel = FriendsModel(
         senderId: sender.uid,

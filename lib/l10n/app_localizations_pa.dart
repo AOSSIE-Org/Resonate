@@ -632,9 +632,6 @@ class AppLocalizationsPa extends AppLocalizations {
   String get micOn => 'ਮਾਈਕ ਚਾਲੂ';
 
   @override
-  String get speakerOn => 'ਸਪੀਕਰ ਚਾਲੂ';
-
-  @override
   String get endChat => 'ਚੈਟ ਖਤਮ ਕਰੋ';
 
   @override
@@ -1363,12 +1360,6 @@ class AppLocalizationsPa extends AppLocalizations {
   String get selectPreferredSpeaker => 'ਆਪਣਾ ਪਸੰਦੀਦਾ ਸਪੀਕਰ ਚੁਣੋ';
 
   @override
-  String get noAudioOutputDevices => 'ਕੋਈ ਆਡੀਓ ਆਊਟਪੁੱਟ ਡਿਵਾਈਸ ਨਹੀਂ ਮਿਲੀ';
-
-  @override
-  String get refresh => 'ਰਿਫ੍ਰੈਸ਼ ਕਰੋ';
-
-  @override
   String get done => 'ਹੋ ਗਿਆ';
 
   @override
@@ -1835,4 +1826,21 @@ class AppLocalizationsPa extends AppLocalizations {
   String uploadFailed(String what) {
     return 'Could not upload the $what. Please try again.';
   }
+
+  @override
+  String get earpiece => 'Earpiece';
+
+  @override
+  String get headsetTakesPriority =>
+      'A connected headset takes priority while it is plugged in or paired.';
+
+  @override
+  String get audioOutputNotSwitchable =>
+      'Audio output cannot be changed on this device.';
+
+  @override
+  String get loudspeaker => 'Loudspeaker';
+
+  @override
+  String get callReliability => 'Call reliability';
 }

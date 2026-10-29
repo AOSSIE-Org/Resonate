@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:resonate/features/live_audio/model/audio_device_state.dart';
 import 'package:resonate/features/live_audio/viewmodel/audio_device_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
-import 'package:resonate/features/live_audio/model/audio_device.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 class AudioDeviceSelectorDialog extends ConsumerWidget {
@@ -10,12 +10,13 @@ class AudioDeviceSelectorDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncState = ref.watch(audioDeviceProvider);
-    final service = ref.read(audioDeviceServiceProvider);
+    final l10n = AppLocalizations.of(context)!;
+    final scheme = Theme.of(context).colorScheme;
+    final state = ref.watch(audioDeviceProvider);
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: scheme.surface,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(UiSizes.width_20),
         ),
@@ -36,33 +37,28 @@ class AudioDeviceSelectorDialog extends ConsumerWidget {
               height: UiSizes.height_4,
               margin: EdgeInsets.only(bottom: UiSizes.height_20),
               decoration: BoxDecoration(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.3),
+                color: scheme.onSurface.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(UiSizes.width_2),
               ),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.audioOutput,
+                      l10n.audioOutput,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: UiSizes.height_4),
                     Text(
-                      AppLocalizations.of(context)!.selectPreferredSpeaker,
+                      l10n.selectPreferredSpeaker,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: scheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -77,47 +73,52 @@ class AudioDeviceSelectorDialog extends ConsumerWidget {
           SizedBox(height: UiSizes.height_8),
           const Divider(),
           SizedBox(height: UiSizes.height_12),
-          Flexible(
-            child: SingleChildScrollView(
-              child: asyncState.when(
-                loading: () => Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(UiSizes.width_16),
-                    child: const CircularProgressIndicator(),
-                  ),
-                ),
-                error: (e, _) => Text('$e'),
-                data: (state) => _DeviceList(
-                  devices: state.devices,
-                  selectedDevice: state.selected,
-                  displayNameFor: service.displayNameFor,
-                  onSelect: (device) =>
-                      ref.read(audioDeviceProvider.notifier).selectOutput(device),
+          if (!state.canSwitch)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: UiSizes.height_12),
+              child: Text(
+                l10n.audioOutputNotSwitchable,
+                style: TextStyle(
+                  color: scheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
+            )
+          else ...[
+            _RouteTile(
+              route: AudioOutputRoute.speaker,
+              icon: Icons.volume_up,
+              label: l10n.loudspeaker,
+              selected: state.route == AudioOutputRoute.speaker,
             ),
-          ),
+            _RouteTile(
+              route: AudioOutputRoute.earpiece,
+              icon: Icons.phone_in_talk,
+              label: l10n.earpiece,
+              selected: state.route == AudioOutputRoute.earpiece,
+            ),
+            SizedBox(height: UiSizes.height_12),
+            // Android and iOS both hand a connected headset priority over the
+            // loudspeaker, and neither reports it as a separate choice here.
+            Text(
+              l10n.headsetTakesPriority,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: scheme.onSurface.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
           SizedBox(height: UiSizes.height_12),
           const Divider(),
           SizedBox(height: UiSizes.height_8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton.icon(
-                onPressed: () => ref.invalidate(audioDeviceProvider),
-                icon: Icon(Icons.refresh, size: UiSizes.size_18),
-                label: Text(AppLocalizations.of(context)!.refresh),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: scheme.primary,
+                foregroundColor: scheme.onPrimary,
               ),
-              SizedBox(width: UiSizes.width_8),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                ),
-                child: Text(AppLocalizations.of(context)!.done),
-              ),
-            ],
+              child: Text(l10n.done),
+            ),
           ),
         ],
       ),
@@ -125,144 +126,37 @@ class AudioDeviceSelectorDialog extends ConsumerWidget {
   }
 }
 
-class _DeviceList extends StatelessWidget {
-  const _DeviceList({
-    required this.devices,
-    required this.selectedDevice,
-    required this.displayNameFor,
-    required this.onSelect,
+class _RouteTile extends ConsumerWidget {
+  const _RouteTile({
+    required this.route,
+    required this.icon,
+    required this.label,
+    required this.selected,
   });
 
-  final List<AudioDevice> devices;
-  final AudioDevice? selectedDevice;
-  final String Function(AudioDevice) displayNameFor;
-  final ValueChanged<AudioDevice> onSelect;
+  final AudioOutputRoute route;
+  final IconData icon;
+  final String label;
+  final bool selected;
 
   @override
-  Widget build(BuildContext context) {
-    if (devices.isEmpty) {
-      return Padding(
-        padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),
-        child: Text(
-          AppLocalizations.of(context)!.noAudioOutputDevices,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.6),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-      );
-    }
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: devices.length,
-      itemBuilder: (context, index) {
-        final device = devices[index];
-        final isSelected = selectedDevice?.deviceId == device.deviceId;
-        return _DeviceItem(
-          device: device,
-          displayName: displayNameFor(device),
-          iconName: device.deviceType.iconName,
-          isSelected: isSelected,
-          onTap: () => onSelect(device),
-        );
-      },
-    );
-  }
-}
-
-class _DeviceItem extends StatelessWidget {
-  const _DeviceItem({
-    required this.device,
-    required this.displayName,
-    required this.iconName,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final AudioDevice device;
-  final String displayName;
-  final String iconName;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  IconData _icon() {
-    switch (iconName) {
-      case 'bluetooth_audio':
-        return Icons.bluetooth_audio;
-      case 'phone':
-        return Icons.phone;
-      case 'headset':
-        return Icons.headset;
-      case 'speaker':
-        return Icons.speaker;
-      default:
-        return Icons.volume_up;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(bottom: UiSizes.height_8),
-      elevation: isSelected ? 2 : 0,
-      color: isSelected
-          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-          : Theme.of(context).colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UiSizes.width_10),
-        side: BorderSide(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
-          width: isSelected ? 2 : 1,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scheme = Theme.of(context).colorScheme;
+    return ListTile(
+      key: ValueKey('audio-route-${route.name}'),
+      contentPadding: EdgeInsets.symmetric(horizontal: UiSizes.width_8),
+      leading: Icon(icon, color: selected ? scheme.primary : scheme.onSurface),
+      title: Text(
+        label,
+        style: TextStyle(
+          color: selected ? scheme.primary : scheme.onSurface,
+          fontWeight: selected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(UiSizes.width_10),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: UiSizes.width_10,
-            vertical: UiSizes.height_12,
-          ),
-          child: Row(
-            children: [
-              Icon(
-                _icon(),
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(
-                        context,
-                      ).colorScheme.onSurface.withValues(alpha: 0.6),
-                size: UiSizes.size_24,
-              ),
-              SizedBox(width: UiSizes.width_10),
-              Expanded(
-                child: Text(
-                  displayName,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight:
-                        isSelected ? FontWeight.w600 : FontWeight.normal,
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.onSurface,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              if (isSelected)
-                Icon(
-                  Icons.check_circle,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: UiSizes.size_20,
-                ),
-            ],
-          ),
-        ),
-      ),
+      trailing: selected
+          ? Icon(Icons.check_circle, color: scheme.primary)
+          : null,
+      onTap: () => ref.read(audioDeviceProvider.notifier).selectRoute(route),
     );
   }
 }
