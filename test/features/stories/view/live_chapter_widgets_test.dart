@@ -34,6 +34,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            ...authOverrides(),
             ...avatarOverrides(),
             ...achievementOverrides(),
             liveChapterProvider.overrideWith(

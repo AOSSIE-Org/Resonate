@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -70,7 +69,6 @@ void main() {
     senderName: 'Me',
     recieverName: 'Friend',
     requestStatus: FriendRequestStatus.accepted,
-    recieverFCMToken: 'their-token',
     docId: 'friendship-doc',
   );
 
@@ -168,7 +166,7 @@ void main() {
 
   group('FriendCallCoordinator', () {
     test(
-      'startCall creates the call row, rings over FCM, and sets waiting',
+      'startCall creates the call row, rings with a push, and sets waiting',
       () async {
         final container = await buildContainer();
 
@@ -198,22 +196,6 @@ void main() {
         ).called(1);
       },
     );
-
-    test('startCall throws when the friend has no FCM token', () async {
-      final container = await buildContainer();
-      final tokenless = fakeFriendsModel(
-        senderId: 'me',
-        recieverId: 'reciever-1',
-        recieverFCMToken: null,
-      );
-
-      expect(
-        () => container
-            .read(friendCallCoordinatorProvider.notifier)
-            .startCall(tokenless),
-        throwsA(isA<FriendsFailureUnknown>()),
-      );
-    });
 
     test('startCall refuses locally when the friend is on dnd', () async {
       final container = await buildContainer(

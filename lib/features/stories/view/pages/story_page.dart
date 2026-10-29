@@ -383,7 +383,15 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                     ),
                   ),
                 ),
-                child: Text(l10n.addChapter, textAlign: TextAlign.center),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    l10n.addChapter,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ),
             if (ref.watch(featureEnabledProvider(AppFeature.liveChapter)))
@@ -393,7 +401,15 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                     context: context,
                     builder: (_) => StartLiveChapterDialog(story: story),
                   ),
-                  child: Text(l10n.liveChapter, textAlign: TextAlign.center),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      l10n.liveChapter,
+                      maxLines: 1,
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
           ],

@@ -5,24 +5,20 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'dart:async' as _i5;
-import 'dart:typed_data' as _i13;
+import 'dart:typed_data' as _i11;
 
-import 'package:appwrite/appwrite.dart' as _i9;
-import 'package:appwrite/enums.dart' as _i10;
+import 'package:appwrite/appwrite.dart' as _i7;
+import 'package:appwrite/enums.dart' as _i8;
 import 'package:appwrite/models.dart' as _i3;
 import 'package:appwrite/src/client.dart' as _i2;
-import 'package:appwrite/src/input_file.dart' as _i11;
-import 'package:appwrite/src/realtime.dart' as _i14;
-import 'package:appwrite/src/realtime_message.dart' as _i15;
+import 'package:appwrite/src/input_file.dart' as _i9;
+import 'package:appwrite/src/realtime.dart' as _i12;
+import 'package:appwrite/src/realtime_message.dart' as _i13;
 import 'package:appwrite/src/realtime_subscription.dart' as _i4;
-import 'package:appwrite/src/upload_progress.dart' as _i12;
-import 'package:audioplayers/audioplayers.dart' as _i8;
-import 'package:firebase_core/firebase_core.dart' as _i6;
-import 'package:firebase_messaging/firebase_messaging.dart' as _i16;
-import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart'
-    as _i7;
+import 'package:appwrite/src/upload_progress.dart' as _i10;
+import 'package:audioplayers/audioplayers.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i17;
+import 'package:mockito/src/dummies.dart' as _i14;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -202,31 +198,20 @@ class _FakeStreamController_30<T> extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeFirebaseApp_31 extends _i1.SmartFake implements _i6.FirebaseApp {
-  _FakeFirebaseApp_31(Object parent, Invocation parentInvocation)
+class _FakeAudioCache_31 extends _i1.SmartFake implements _i6.AudioCache {
+  _FakeAudioCache_31(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeNotificationSettings_32 extends _i1.SmartFake
-    implements _i7.NotificationSettings {
-  _FakeNotificationSettings_32(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeAudioCache_33 extends _i1.SmartFake implements _i8.AudioCache {
-  _FakeAudioCache_33(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeCompleter_34<T> extends _i1.SmartFake implements _i5.Completer<T> {
-  _FakeCompleter_34(Object parent, Invocation parentInvocation)
+class _FakeCompleter_32<T> extends _i1.SmartFake implements _i5.Completer<T> {
+  _FakeCompleter_32(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
 /// A class which mocks [Account].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAccount extends _i1.Mock implements _i9.Account {
+class MockAccount extends _i1.Mock implements _i7.Account {
   MockAccount() {
     _i1.throwOnMissingStub(this);
   }
@@ -458,7 +443,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.MfaType> createMfaAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#createMfaAuthenticator, [], {#type: type}),
@@ -473,7 +458,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.MfaType> createMFAAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#createMFAAuthenticator, [], {#type: type}),
@@ -488,7 +473,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.User> updateMfaAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
     required String? otp,
   }) =>
       (super.noSuchMethod(
@@ -510,7 +495,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.User> updateMFAAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
     required String? otp,
   }) =>
       (super.noSuchMethod(
@@ -532,7 +517,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<dynamic> deleteMfaAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#deleteMfaAuthenticator, [], {#type: type}),
@@ -542,7 +527,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<dynamic> deleteMFAAuthenticator({
-    required _i10.AuthenticatorType? type,
+    required _i8.AuthenticatorType? type,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#deleteMFAAuthenticator, [], {#type: type}),
@@ -552,7 +537,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.MfaChallenge> createMfaChallenge({
-    required _i10.AuthenticationFactor? factor,
+    required _i8.AuthenticationFactor? factor,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#createMfaChallenge, [], {#factor: factor}),
@@ -567,7 +552,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.MfaChallenge> createMFAChallenge({
-    required _i10.AuthenticationFactor? factor,
+    required _i8.AuthenticationFactor? factor,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#createMFAChallenge, [], {#factor: factor}),
@@ -1063,7 +1048,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<_i3.Session> createIdTokenSession({
-    required _i10.IdTokenProvider? provider,
+    required _i8.IdTokenProvider? provider,
     required String? idToken,
     String? nonce,
     String? accessToken,
@@ -1119,7 +1104,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<dynamic> createOAuth2Session({
-    required _i10.OAuthProvider? provider,
+    required _i8.OAuthProvider? provider,
     String? success,
     String? failure,
     List<String>? scopes,
@@ -1335,7 +1320,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 
   @override
   _i5.Future<dynamic> createOAuth2Token({
-    required _i10.OAuthProvider? provider,
+    required _i8.OAuthProvider? provider,
     String? success,
     String? failure,
     List<String>? scopes,
@@ -1558,7 +1543,7 @@ class MockAccount extends _i1.Mock implements _i9.Account {
 /// A class which mocks [TablesDB].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTablesDB extends _i1.Mock implements _i9.TablesDB {
+class MockTablesDB extends _i1.Mock implements _i7.TablesDB {
   MockTablesDB() {
     _i1.throwOnMissingStub(this);
   }
@@ -1945,7 +1930,7 @@ class MockTablesDB extends _i1.Mock implements _i9.TablesDB {
 /// A class which mocks [Storage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStorage extends _i1.Mock implements _i9.Storage {
+class MockStorage extends _i1.Mock implements _i7.Storage {
   MockStorage() {
     _i1.throwOnMissingStub(this);
   }
@@ -1990,10 +1975,10 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
   _i5.Future<_i3.File> createFile({
     required String? bucketId,
     required String? fileId,
-    required _i11.InputFile? file,
+    required _i9.InputFile? file,
     List<String>? permissions,
     String? folder,
-    dynamic Function(_i12.UploadProgress)? onProgress,
+    dynamic Function(_i10.UploadProgress)? onProgress,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#createFile, [], {
@@ -2085,7 +2070,7 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
           as _i5.Future<dynamic>);
 
   @override
-  _i5.Future<_i13.Uint8List> getFileDownload({
+  _i5.Future<_i11.Uint8List> getFileDownload({
     required String? bucketId,
     required String? fileId,
     String? token,
@@ -2096,17 +2081,17 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
               #fileId: fileId,
               #token: token,
             }),
-            returnValue: _i5.Future<_i13.Uint8List>.value(_i13.Uint8List(0)),
+            returnValue: _i5.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
           )
-          as _i5.Future<_i13.Uint8List>);
+          as _i5.Future<_i11.Uint8List>);
 
   @override
-  _i5.Future<_i13.Uint8List> getFilePreview({
+  _i5.Future<_i11.Uint8List> getFilePreview({
     required String? bucketId,
     required String? fileId,
     int? width,
     int? height,
-    _i10.ImageGravity? gravity,
+    _i8.ImageGravity? gravity,
     int? quality,
     int? borderWidth,
     String? borderColor,
@@ -2114,7 +2099,7 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
     double? opacity,
     int? rotation,
     String? background,
-    _i10.ImageFormat? output,
+    _i8.ImageFormat? output,
     String? token,
   }) =>
       (super.noSuchMethod(
@@ -2134,12 +2119,12 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
               #output: output,
               #token: token,
             }),
-            returnValue: _i5.Future<_i13.Uint8List>.value(_i13.Uint8List(0)),
+            returnValue: _i5.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
           )
-          as _i5.Future<_i13.Uint8List>);
+          as _i5.Future<_i11.Uint8List>);
 
   @override
-  _i5.Future<_i13.Uint8List> getFileView({
+  _i5.Future<_i11.Uint8List> getFileView({
     required String? bucketId,
     required String? fileId,
     String? token,
@@ -2150,15 +2135,15 @@ class MockStorage extends _i1.Mock implements _i9.Storage {
               #fileId: fileId,
               #token: token,
             }),
-            returnValue: _i5.Future<_i13.Uint8List>.value(_i13.Uint8List(0)),
+            returnValue: _i5.Future<_i11.Uint8List>.value(_i11.Uint8List(0)),
           )
-          as _i5.Future<_i13.Uint8List>);
+          as _i5.Future<_i11.Uint8List>);
 }
 
 /// A class which mocks [Realtime].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRealtime extends _i1.Mock implements _i14.Realtime {
+class MockRealtime extends _i1.Mock implements _i12.Realtime {
   MockRealtime() {
     _i1.throwOnMissingStub(this);
   }
@@ -2214,7 +2199,7 @@ class MockRealtime extends _i1.Mock implements _i14.Realtime {
 /// A class which mocks [Functions].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFunctions extends _i1.Mock implements _i9.Functions {
+class MockFunctions extends _i1.Mock implements _i7.Functions {
   MockFunctions() {
     _i1.throwOnMissingStub(this);
   }
@@ -2258,7 +2243,7 @@ class MockFunctions extends _i1.Mock implements _i9.Functions {
     String? body,
     bool? xasync,
     String? path,
-    _i10.ExecutionMethod? method,
+    _i8.ExecutionMethod? method,
     Map<dynamic, dynamic>? headers,
     String? scheduledAt,
   }) =>
@@ -2322,23 +2307,23 @@ class MockRealtimeSubscription extends _i1.Mock
   }
 
   @override
-  _i5.Stream<_i15.RealtimeMessage> get stream =>
+  _i5.Stream<_i13.RealtimeMessage> get stream =>
       (super.noSuchMethod(
             Invocation.getter(#stream),
-            returnValue: _i5.Stream<_i15.RealtimeMessage>.empty(),
+            returnValue: _i5.Stream<_i13.RealtimeMessage>.empty(),
           )
-          as _i5.Stream<_i15.RealtimeMessage>);
+          as _i5.Stream<_i13.RealtimeMessage>);
 
   @override
-  _i5.StreamController<_i15.RealtimeMessage> get controller =>
+  _i5.StreamController<_i13.RealtimeMessage> get controller =>
       (super.noSuchMethod(
             Invocation.getter(#controller),
-            returnValue: _FakeStreamController_30<_i15.RealtimeMessage>(
+            returnValue: _FakeStreamController_30<_i13.RealtimeMessage>(
               this,
               Invocation.getter(#controller),
             ),
           )
-          as _i5.StreamController<_i15.RealtimeMessage>);
+          as _i5.StreamController<_i13.RealtimeMessage>);
 
   @override
   List<String> get channels =>
@@ -2392,207 +2377,6 @@ class MockRealtimeSubscription extends _i1.Mock
   );
 }
 
-/// A class which mocks [FirebaseMessaging].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockFirebaseMessaging extends _i1.Mock implements _i16.FirebaseMessaging {
-  MockFirebaseMessaging() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i6.FirebaseApp get app =>
-      (super.noSuchMethod(
-            Invocation.getter(#app),
-            returnValue: _FakeFirebaseApp_31(this, Invocation.getter(#app)),
-          )
-          as _i6.FirebaseApp);
-
-  @override
-  bool get isAutoInitEnabled =>
-      (super.noSuchMethod(
-            Invocation.getter(#isAutoInitEnabled),
-            returnValue: false,
-          )
-          as bool);
-
-  @override
-  _i5.Stream<String> get onTokenRefresh =>
-      (super.noSuchMethod(
-            Invocation.getter(#onTokenRefresh),
-            returnValue: _i5.Stream<String>.empty(),
-          )
-          as _i5.Stream<String>);
-
-  @override
-  set app(_i6.FirebaseApp? value) => super.noSuchMethod(
-    Invocation.setter(#app, value),
-    returnValueForMissingStub: null,
-  );
-
-  @override
-  Map<dynamic, dynamic> get pluginConstants =>
-      (super.noSuchMethod(
-            Invocation.getter(#pluginConstants),
-            returnValue: <dynamic, dynamic>{},
-          )
-          as Map<dynamic, dynamic>);
-
-  @override
-  _i5.Future<_i7.RemoteMessage?> getInitialMessage() =>
-      (super.noSuchMethod(
-            Invocation.method(#getInitialMessage, []),
-            returnValue: _i5.Future<_i7.RemoteMessage?>.value(),
-          )
-          as _i5.Future<_i7.RemoteMessage?>);
-
-  @override
-  _i5.Future<void> deleteToken() =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteToken, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<String?> getAPNSToken() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAPNSToken, []),
-            returnValue: _i5.Future<String?>.value(),
-          )
-          as _i5.Future<String?>);
-
-  @override
-  _i5.Future<String?> getToken({
-    String? vapidKey,
-    String? serviceWorkerScriptPath,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getToken, [], {
-              #vapidKey: vapidKey,
-              #serviceWorkerScriptPath: serviceWorkerScriptPath,
-            }),
-            returnValue: _i5.Future<String?>.value(),
-          )
-          as _i5.Future<String?>);
-
-  @override
-  _i5.Future<bool> isSupported() =>
-      (super.noSuchMethod(
-            Invocation.method(#isSupported, []),
-            returnValue: _i5.Future<bool>.value(false),
-          )
-          as _i5.Future<bool>);
-
-  @override
-  _i5.Future<_i7.NotificationSettings> getNotificationSettings() =>
-      (super.noSuchMethod(
-            Invocation.method(#getNotificationSettings, []),
-            returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_32(
-                this,
-                Invocation.method(#getNotificationSettings, []),
-              ),
-            ),
-          )
-          as _i5.Future<_i7.NotificationSettings>);
-
-  @override
-  _i5.Future<_i7.NotificationSettings> requestPermission({
-    bool? alert = true,
-    bool? announcement = false,
-    bool? badge = true,
-    bool? carPlay = false,
-    bool? criticalAlert = false,
-    bool? provisional = false,
-    bool? sound = true,
-    bool? providesAppNotificationSettings = false,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#requestPermission, [], {
-              #alert: alert,
-              #announcement: announcement,
-              #badge: badge,
-              #carPlay: carPlay,
-              #criticalAlert: criticalAlert,
-              #provisional: provisional,
-              #sound: sound,
-              #providesAppNotificationSettings: providesAppNotificationSettings,
-            }),
-            returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_32(
-                this,
-                Invocation.method(#requestPermission, [], {
-                  #alert: alert,
-                  #announcement: announcement,
-                  #badge: badge,
-                  #carPlay: carPlay,
-                  #criticalAlert: criticalAlert,
-                  #provisional: provisional,
-                  #sound: sound,
-                  #providesAppNotificationSettings:
-                      providesAppNotificationSettings,
-                }),
-              ),
-            ),
-          )
-          as _i5.Future<_i7.NotificationSettings>);
-
-  @override
-  _i5.Future<void> setAutoInitEnabled(bool? enabled) =>
-      (super.noSuchMethod(
-            Invocation.method(#setAutoInitEnabled, [enabled]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> setDeliveryMetricsExportToBigQuery(bool? enabled) =>
-      (super.noSuchMethod(
-            Invocation.method(#setDeliveryMetricsExportToBigQuery, [enabled]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> setForegroundNotificationPresentationOptions({
-    bool? alert = false,
-    bool? badge = false,
-    bool? sound = false,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(
-              #setForegroundNotificationPresentationOptions,
-              [],
-              {#alert: alert, #badge: badge, #sound: sound},
-            ),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> subscribeToTopic(String? topic) =>
-      (super.noSuchMethod(
-            Invocation.method(#subscribeToTopic, [topic]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> unsubscribeFromTopic(String? topic) =>
-      (super.noSuchMethod(
-            Invocation.method(#unsubscribeFromTopic, [topic]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-}
-
 /// A class which mocks [Execution].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -2605,7 +2389,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $id =>
       (super.noSuchMethod(
             Invocation.getter(#$id),
-            returnValue: _i17.dummyValue<String>(this, Invocation.getter(#$id)),
+            returnValue: _i14.dummyValue<String>(this, Invocation.getter(#$id)),
           )
           as String);
 
@@ -2613,7 +2397,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $createdAt =>
       (super.noSuchMethod(
             Invocation.getter(#$createdAt),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#$createdAt),
             ),
@@ -2624,7 +2408,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get $updatedAt =>
       (super.noSuchMethod(
             Invocation.getter(#$updatedAt),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#$updatedAt),
             ),
@@ -2643,7 +2427,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get resourceId =>
       (super.noSuchMethod(
             Invocation.getter(#resourceId),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#resourceId),
             ),
@@ -2651,18 +2435,18 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
           as String);
 
   @override
-  _i10.ExecutionResourceType get resourceType =>
+  _i8.ExecutionResourceType get resourceType =>
       (super.noSuchMethod(
             Invocation.getter(#resourceType),
-            returnValue: _i10.ExecutionResourceType.functions,
+            returnValue: _i8.ExecutionResourceType.functions,
           )
-          as _i10.ExecutionResourceType);
+          as _i8.ExecutionResourceType);
 
   @override
   String get deploymentId =>
       (super.noSuchMethod(
             Invocation.getter(#deploymentId),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#deploymentId),
             ),
@@ -2670,26 +2454,26 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
           as String);
 
   @override
-  _i10.ExecutionTrigger get trigger =>
+  _i8.ExecutionTrigger get trigger =>
       (super.noSuchMethod(
             Invocation.getter(#trigger),
-            returnValue: _i10.ExecutionTrigger.http,
+            returnValue: _i8.ExecutionTrigger.http,
           )
-          as _i10.ExecutionTrigger);
+          as _i8.ExecutionTrigger);
 
   @override
-  _i10.ExecutionStatus get status =>
+  _i8.ExecutionStatus get status =>
       (super.noSuchMethod(
             Invocation.getter(#status),
-            returnValue: _i10.ExecutionStatus.waiting,
+            returnValue: _i8.ExecutionStatus.waiting,
           )
-          as _i10.ExecutionStatus);
+          as _i8.ExecutionStatus);
 
   @override
   String get requestMethod =>
       (super.noSuchMethod(
             Invocation.getter(#requestMethod),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#requestMethod),
             ),
@@ -2700,7 +2484,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get requestPath =>
       (super.noSuchMethod(
             Invocation.getter(#requestPath),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#requestPath),
             ),
@@ -2727,7 +2511,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get responseBody =>
       (super.noSuchMethod(
             Invocation.getter(#responseBody),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#responseBody),
             ),
@@ -2746,7 +2530,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get logs =>
       (super.noSuchMethod(
             Invocation.getter(#logs),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#logs),
             ),
@@ -2757,7 +2541,7 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
   String get errors =>
       (super.noSuchMethod(
             Invocation.getter(#errors),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#errors),
             ),
@@ -2781,27 +2565,27 @@ class MockExecution extends _i1.Mock implements _i3.Execution {
 /// A class which mocks [AudioPlayer].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
+class MockAudioPlayer extends _i1.Mock implements _i6.AudioPlayer {
   MockAudioPlayer() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i8.AudioCache get audioCache =>
+  _i6.AudioCache get audioCache =>
       (super.noSuchMethod(
             Invocation.getter(#audioCache),
-            returnValue: _FakeAudioCache_33(
+            returnValue: _FakeAudioCache_31(
               this,
               Invocation.getter(#audioCache),
             ),
           )
-          as _i8.AudioCache);
+          as _i6.AudioCache);
 
   @override
   String get playerId =>
       (super.noSuchMethod(
             Invocation.getter(#playerId),
-            returnValue: _i17.dummyValue<String>(
+            returnValue: _i14.dummyValue<String>(
               this,
               Invocation.getter(#playerId),
             ),
@@ -2824,42 +2608,42 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as double);
 
   @override
-  _i8.PlayerMode get mode =>
+  _i6.PlayerMode get mode =>
       (super.noSuchMethod(
             Invocation.getter(#mode),
-            returnValue: _i8.PlayerMode.mediaPlayer,
+            returnValue: _i6.PlayerMode.mediaPlayer,
           )
-          as _i8.PlayerMode);
+          as _i6.PlayerMode);
 
   @override
-  _i8.ReleaseMode get releaseMode =>
+  _i6.ReleaseMode get releaseMode =>
       (super.noSuchMethod(
             Invocation.getter(#releaseMode),
-            returnValue: _i8.ReleaseMode.release,
+            returnValue: _i6.ReleaseMode.release,
           )
-          as _i8.ReleaseMode);
+          as _i6.ReleaseMode);
 
   @override
-  _i8.PlayerState get desiredState =>
+  _i6.PlayerState get desiredState =>
       (super.noSuchMethod(
             Invocation.getter(#desiredState),
-            returnValue: _i8.PlayerState.stopped,
+            returnValue: _i6.PlayerState.stopped,
           )
-          as _i8.PlayerState);
+          as _i6.PlayerState);
 
   @override
-  _i8.PlayerState get state =>
+  _i6.PlayerState get state =>
       (super.noSuchMethod(
             Invocation.getter(#state),
-            returnValue: _i8.PlayerState.stopped,
+            returnValue: _i6.PlayerState.stopped,
           )
-          as _i8.PlayerState);
+          as _i6.PlayerState);
 
   @override
   _i5.Completer<void> get creatingCompleter =>
       (super.noSuchMethod(
             Invocation.getter(#creatingCompleter),
-            returnValue: _FakeCompleter_34<void>(
+            returnValue: _FakeCompleter_32<void>(
               this,
               Invocation.getter(#creatingCompleter),
             ),
@@ -2867,20 +2651,20 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Completer<void>);
 
   @override
-  _i5.Stream<_i8.AudioEvent> get eventStream =>
+  _i5.Stream<_i6.AudioEvent> get eventStream =>
       (super.noSuchMethod(
             Invocation.getter(#eventStream),
-            returnValue: _i5.Stream<_i8.AudioEvent>.empty(),
+            returnValue: _i5.Stream<_i6.AudioEvent>.empty(),
           )
-          as _i5.Stream<_i8.AudioEvent>);
+          as _i5.Stream<_i6.AudioEvent>);
 
   @override
-  _i5.Stream<_i8.PlayerState> get onPlayerStateChanged =>
+  _i5.Stream<_i6.PlayerState> get onPlayerStateChanged =>
       (super.noSuchMethod(
             Invocation.getter(#onPlayerStateChanged),
-            returnValue: _i5.Stream<_i8.PlayerState>.empty(),
+            returnValue: _i5.Stream<_i6.PlayerState>.empty(),
           )
-          as _i5.Stream<_i8.PlayerState>);
+          as _i5.Stream<_i6.PlayerState>);
 
   @override
   _i5.Stream<Duration> get onPositionChanged =>
@@ -2923,25 +2707,25 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Stream<String>);
 
   @override
-  set audioCache(_i8.AudioCache? value) => super.noSuchMethod(
+  set audioCache(_i6.AudioCache? value) => super.noSuchMethod(
     Invocation.setter(#audioCache, value),
     returnValueForMissingStub: null,
   );
 
   @override
-  set desiredState(_i8.PlayerState? value) => super.noSuchMethod(
+  set desiredState(_i6.PlayerState? value) => super.noSuchMethod(
     Invocation.setter(#desiredState, value),
     returnValueForMissingStub: null,
   );
 
   @override
-  set state(_i8.PlayerState? state) => super.noSuchMethod(
+  set state(_i6.PlayerState? state) => super.noSuchMethod(
     Invocation.setter(#state, state),
     returnValueForMissingStub: null,
   );
 
   @override
-  set positionUpdater(_i8.PositionUpdater? positionUpdater) =>
+  set positionUpdater(_i6.PositionUpdater? positionUpdater) =>
       super.noSuchMethod(
         Invocation.setter(#positionUpdater, positionUpdater),
         returnValueForMissingStub: null,
@@ -2949,12 +2733,12 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
 
   @override
   _i5.Future<void> play(
-    _i8.Source? source, {
+    _i6.Source? source, {
     double? volume,
     double? balance,
-    _i8.AudioContext? ctx,
+    _i6.AudioContext? ctx,
     Duration? position,
-    _i8.PlayerMode? mode,
+    _i6.PlayerMode? mode,
   }) =>
       (super.noSuchMethod(
             Invocation.method(
@@ -2974,7 +2758,7 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setAudioContext(_i8.AudioContext? ctx) =>
+  _i5.Future<void> setAudioContext(_i6.AudioContext? ctx) =>
       (super.noSuchMethod(
             Invocation.method(#setAudioContext, [ctx]),
             returnValue: _i5.Future<void>.value(),
@@ -2983,7 +2767,7 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setPlayerMode(_i8.PlayerMode? mode) =>
+  _i5.Future<void> setPlayerMode(_i6.PlayerMode? mode) =>
       (super.noSuchMethod(
             Invocation.method(#setPlayerMode, [mode]),
             returnValue: _i5.Future<void>.value(),
@@ -3055,7 +2839,7 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setReleaseMode(_i8.ReleaseMode? releaseMode) =>
+  _i5.Future<void> setReleaseMode(_i6.ReleaseMode? releaseMode) =>
       (super.noSuchMethod(
             Invocation.method(#setReleaseMode, [releaseMode]),
             returnValue: _i5.Future<void>.value(),
@@ -3073,7 +2857,7 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setSource(_i8.Source? source) =>
+  _i5.Future<void> setSource(_i6.Source? source) =>
       (super.noSuchMethod(
             Invocation.method(#setSource, [source]),
             returnValue: _i5.Future<void>.value(),
@@ -3113,7 +2897,7 @@ class MockAudioPlayer extends _i1.Mock implements _i8.AudioPlayer {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<void> setSourceBytes(_i13.Uint8List? bytes, {String? mimeType}) =>
+  _i5.Future<void> setSourceBytes(_i11.Uint8List? bytes, {String? mimeType}) =>
       (super.noSuchMethod(
             Invocation.method(#setSourceBytes, [bytes], {#mimeType: mimeType}),
             returnValue: _i5.Future<void>.value(),

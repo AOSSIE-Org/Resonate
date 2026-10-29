@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/utils/constants.dart';
@@ -58,15 +57,12 @@ void main() {
   late MockAccount account;
   late MockTablesDB tables;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
 
   setUp(() {
     account = MockAccount();
     tables = MockTablesDB();
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
-    // Default: no FCM token, nothing in the upcoming-room tables.
-    when(messaging.getToken()).thenAnswer((_) async => null);
+    // Default: nothing in the upcoming-room tables.
   });
 
   ProviderContainer makeContainer() {
@@ -75,7 +71,6 @@ void main() {
         appwriteAccountProvider.overrideWithValue(account),
         appwriteTablesProvider.overrideWithValue(tables),
         appwriteFunctionsProvider.overrideWithValue(functions),
-        firebaseMessagingProvider.overrideWithValue(messaging),
       ],
     );
     addTearDown(c.dispose);

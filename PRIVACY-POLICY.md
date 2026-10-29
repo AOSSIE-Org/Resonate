@@ -81,7 +81,7 @@ The following information is publicly visible to other users:
 We may share your information in the following circumstances:
 
 - **With Other Users**: Your profile information is visible to other users when you participate in rooms or publish content
-- **Service Providers**: We use third-party services (Appwrite for backend services, LiveKit for audio communication, Firebase for notifications) that may process your data on our behalf
+- **Service Providers**: We use third-party services (Appwrite for backend services and push notifications, LiveKit for audio communication) that may process your data on our behalf
 - **Legal Requirements**: We may disclose information if required by law, court order, or government request
 - 
 
@@ -99,17 +99,12 @@ Our App integrates with the following third-party services:
 - **Data Processed**: Audio data during voice sessions, temporary connection tokens
 - **Privacy Policy**: https://livekit.io/legal/privacy-policy
 
-### 5.3 Firebase (Notifications - Optional)
-- **Purpose**: Push notifications for scheduled rooms and app updates
-- **Data Processed**: Device tokens, notification preferences
-- **Privacy Policy**: https://firebase.google.com/support/privacy
-
-### 5.4 GitHub (OAuth Authentication - Optional)
+### 5.3 GitHub (OAuth Authentication - Optional)
 - **Purpose**: Alternative login method
 - **Data Processed**: Public profile information when you choose to login with GitHub
 - **Privacy Policy**: https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement
 
-### 5.5 Google (OAuth Authentication - Optional)
+### 5.4 Google (OAuth Authentication - Optional)
 - **Purpose**: Alternative login method
 - **Data Processed**: Basic profile information when you choose to login with Google
 - **Privacy Policy**: https://policies.google.com/privacy

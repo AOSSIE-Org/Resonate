@@ -72,8 +72,10 @@
 	<array>
 		<!-- Live rooms and calls keep playing while the app is backgrounded. -->
 		<string>audio</string>
-		<!-- Required by firebase_messaging to handle notifications in the
-		     background; without it social and room alerts are dropped. -->
+		<!-- Push now arrives over Appwrite's MQTT transport, which uses a
+		     background isolate rather than APNs. Kept until the iOS build is
+		     exercised: App Review rejects background modes the app does not
+		     use, so drop this if nothing turns out to need it. -->
 		<string>remote-notification</string>
 		<!-- "voip" is deliberately NOT declared yet. flutter_callkit_incoming
 		     needs it, but App Review rejects a background mode the app does not

@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' hide Account;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -12,7 +11,7 @@ import 'package:resonate/utils/constants.dart';
 
 import 'auth_repository_test.mocks.dart';
 
-@GenerateMocks([Account, TablesDB, Functions, FirebaseMessaging])
+@GenerateMocks([Account, TablesDB, Functions])
 User buildUser({
   String id = '123',
   bool emailVerified = true,
@@ -66,20 +65,17 @@ void main() {
   late MockAccount account;
   late MockTablesDB tables;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
   late AuthRepository repo;
 
   setUp(() {
     account = MockAccount();
     tables = MockTablesDB();
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
     repo = AuthRepository(
       account: account,
       tables: tables,
       functions: functions,
-      messaging: messaging,
-    );
+      );
   });
 
   group('loadCurrentUser', () {
@@ -260,7 +256,6 @@ void main() {
 
     test('login success reloads the user into sessionState and emits '
         'loading → data on the stream', () async {
-      when(messaging.getToken()).thenAnswer((_) async => null);
       when(account.createEmailPasswordSession(email: 'a@b.c', password: 'pw'))
           .thenAnswer((_) async => Session(
                 $id: 'sess',
@@ -323,120 +318,6 @@ void main() {
 
       expect(repo.sessionState.value, isA<AuthStateUnauthenticated>());
       verify(account.get()).called(1);
-    });
-  });
-
-  group('addRegistrationToken', () {
-    test('no-op when FCM token is null', () async {
-      when(messaging.getToken()).thenAnswer((_) async => null);
-
-      await repo.addRegistrationToken(uid: 'u1');
-
-      verifyNever(tables.listRows(
-        databaseId: anyNamed('databaseId'),
-        tableId: anyNamed('tableId'),
-        queries: anyNamed('queries'),
-      ));
-    });
-
-    test('appends FCM token to the user row + subscribed/created rooms', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'tok');
-
-      final user = Row(
-        $id: 'u1',
-        $tableId: usersTableID,
-        $databaseId: databaseId,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: const ['any'],
-        $sequence: '0',
-        data: {'fcmTokens': <dynamic>[]},
-      );
-      final sub = Row(
-        $id: 'sub1',
-        $tableId: subscribedUserTableId,
-        $databaseId: databaseId,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: const ['any'],
-        $sequence: '0',
-        data: {'registrationTokens': <dynamic>['old']},
-      );
-      final room = Row(
-        $id: 'room1',
-        $tableId: upcomingRoomsTableId,
-        $databaseId: databaseId,
-        $createdAt: DateTime.now().toIso8601String(),
-        $updatedAt: DateTime.now().toIso8601String(),
-        $permissions: const ['any'],
-        $sequence: '0',
-        data: {'creator_fcm_tokens': <dynamic>[]},
-      );
-
-      when(
-        tables.listRows(
-          databaseId: databaseId,
-          tableId: usersTableID,
-          queries: anyNamed('queries'),
-        ),
-      ).thenAnswer((_) async => RowList(total: 1, rows: [user]));
-      when(
-        tables.listRows(
-          databaseId: databaseId,
-          tableId: subscribedUserTableId,
-          queries: anyNamed('queries'),
-        ),
-      ).thenAnswer((_) async => RowList(total: 1, rows: [sub]));
-      when(
-        tables.listRows(
-          databaseId: databaseId,
-          tableId: upcomingRoomsTableId,
-          queries: anyNamed('queries'),
-        ),
-      ).thenAnswer((_) async => RowList(total: 1, rows: [room]));
-      when(
-        tables.updateRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-          data: anyNamed('data'),
-        ),
-      ).thenAnswer((inv) async => sub);
-
-      await repo.addRegistrationToken(uid: 'u1');
-
-      // The per-user store — what lets a notification function find an
-      // arbitrary target's device.
-      verify(
-        tables.updateRow(
-          databaseId: databaseId,
-          tableId: usersTableID,
-          rowId: 'u1',
-          data: {
-            'fcmTokens': ['tok'],
-          },
-        ),
-      ).called(1);
-      verify(
-        tables.updateRow(
-          databaseId: databaseId,
-          tableId: subscribedUserTableId,
-          rowId: 'sub1',
-          data: {
-            'registrationTokens': ['old', 'tok'],
-          },
-        ),
-      ).called(1);
-      verify(
-        tables.updateRow(
-          databaseId: databaseId,
-          tableId: upcomingRoomsTableId,
-          rowId: 'room1',
-          data: {
-            'creator_fcm_tokens': ['tok'],
-          },
-        ),
-      ).called(1);
     });
   });
 }

@@ -8,7 +8,6 @@ class FakeProfileRepository implements ProfileRepository {
   List<FollowerUserModel> followers = const [];
   UserProfileSummary? profileSummary;
   Object? profileSummaryError;
-  String? fcmToken = 'fake-token';
   bool usernameAvailableReturn = true;
   bool emailAvailableReturn = true;
   Object? changeEmailInAuthError;
@@ -23,7 +22,6 @@ class FakeProfileRepository implements ProfileRepository {
   int isUsernameAvailableCalls = 0;
   FollowerUserModel? followedFollower;
   String? unfollowedDocId;
-  int getFcmTokenCount = 0;
   int newFollowerIdCount = 0;
   int deleteProfileImageCount = 0;
   String? deletedImageId;
@@ -59,12 +57,6 @@ class FakeProfileRepository implements ProfileRepository {
           rating: 0,
           followerCount: 0,
         );
-  }
-
-  @override
-  Future<String?> getFcmToken() async {
-    getFcmTokenCount++;
-    return fcmToken;
   }
 
   @override

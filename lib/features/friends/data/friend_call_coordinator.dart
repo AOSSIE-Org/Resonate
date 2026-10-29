@@ -7,7 +7,6 @@ import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/features/activity_status/data/user_activity_status.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -34,17 +33,10 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
     return const FriendCallState();
   }
 
-  // Starts a call to the other side and rings them over FCM.
+  // Starts a call to the other side and rings them with a push.
   Future<void> startCall(FriendsModel friend) async {
     final me = ref.read(requireUserProvider);
     final amSender = friend.senderId == me.uid;
-    final recieverFCMToken = amSender
-        ? friend.recieverFCMToken
-        : friend.senderFCMToken;
-    if (recieverFCMToken == null) {
-      throw const FriendsFailure.unknown('Friend has no notification token');
-    }
-
     final recieverUid = amSender ? friend.recieverId : friend.senderId;
     final cachedStatus = ref.read(userActivityStatusProvider)[recieverUid];
     if (cachedStatus != null && cachedStatus.blocksCalls) {
@@ -73,7 +65,6 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
     );
     final blockedBy = await repo.sendCallNotification(
       call: call,
-      recieverFCMToken: recieverFCMToken,
     );
     if (blockedBy != null) {
       try {

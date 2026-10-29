@@ -32,14 +32,11 @@ Row _upcomingRow({
 
 void main() {
   late MockTablesDB tables;
-  late MockFirebaseMessaging messaging;
   late MockFunctions functions;
 
   setUp(() {
     tables = MockTablesDB();
-    messaging = MockFirebaseMessaging();
     functions = MockFunctions();
-    when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
     // Default: no subscribers for any upcoming room.
     when(tables.listRows(
       databaseId: databaseId,
@@ -60,8 +57,7 @@ void main() {
     return installTestRootContainer(
       authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
       tables: tables,
-      messaging: messaging,
-      functions: functions,
+        functions: functions,
       getStorageBox: storage ?? FakeGetStorage(),
     );
   }

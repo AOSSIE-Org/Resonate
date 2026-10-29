@@ -5,10 +5,8 @@ import 'package:resonate/utils/dev_log.dart' as developer;
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart' as appwrite_models;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:random_string/random_string.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
@@ -24,7 +22,6 @@ AuthRepository authRepository(Ref ref) {
     account: ref.watch(appwriteAccountProvider),
     tables: ref.watch(appwriteTablesProvider),
     functions: ref.watch(appwriteFunctionsProvider),
-    messaging: ref.watch(firebaseMessagingProvider),
   );
   ref.onDispose(repo.dispose);
   return repo;
@@ -46,16 +43,13 @@ class AuthRepository {
     required Account account,
     required TablesDB tables,
     required Functions functions,
-    required FirebaseMessaging messaging,
   }) : _account = account,
        _tables = tables,
-       _functions = functions,
-       _messaging = messaging;
+       _functions = functions;
 
   final Account _account;
   final TablesDB _tables;
   final Functions _functions;
-  final FirebaseMessaging _messaging;
 
   final StreamController<AsyncValue<AuthState>> _sessionStateController =
       StreamController<AsyncValue<AuthState>>.broadcast(sync: true);
@@ -208,21 +202,9 @@ class AuthRepository {
   );
 
   Future<void> logout() async {
-    final user = _sessionState.value?.userOrNull;
     _setSessionState(const AsyncValue.loading());
     _setSessionState(
       await AsyncValue.guard(() async {
-        if (user != null) {
-          try {
-            await removeRegistrationToken(uid: user.uid);
-          } catch (e, st) {
-            developer.log(
-              'removeRegistrationToken failed during logout (non-fatal)',
-              error: e,
-              stackTrace: st,
-            );
-          }
-        }
         await _account.deleteSession(sessionId: 'current');
         return const AuthState.unauthenticated();
       }),
@@ -234,24 +216,9 @@ class AuthRepository {
     _setSessionState(
       await AsyncValue.guard(() async {
         await mutate();
-        final next = await loadCurrentUser();
-        await _tryRegisterToken(next.userOrNull);
-        return next;
+        return await loadCurrentUser();
       }),
     );
-  }
-
-  Future<void> _tryRegisterToken(AuthUser? user) async {
-    if (user == null) return;
-    try {
-      await addRegistrationToken(uid: user.uid);
-    } catch (e, st) {
-      developer.log(
-        'addRegistrationToken failed after login (non-fatal)',
-        error: e,
-        stackTrace: st,
-      );
-    }
   }
 
   // Password recovery
@@ -356,72 +323,6 @@ class AuthRepository {
       body: json.encode({'User_ID': uid, 'email': newEmail}),
     );
     return result.status.name;
-  }
-
-  // FCM token management
-  Future<void> addRegistrationToken({required String uid}) async {
-    final fcmToken = await _messaging.getToken();
-    if (fcmToken == null) return;
-    await _mutateFcmTokens(uid: uid, fcmToken: fcmToken, add: true);
-  }
-
-  Future<void> removeRegistrationToken({required String uid}) async {
-    final fcmToken = await _messaging.getToken();
-    if (fcmToken == null) return;
-    await _mutateFcmTokens(uid: uid, fcmToken: fcmToken, add: false);
-  }
-
-  Future<void> _mutateFcmTokens({
-    required String uid,
-    required String fcmToken,
-    required bool add,
-  }) async {
-    Future<void> mutate({
-      required String tableId,
-      required String fieldName,
-      required String queryField,
-    }) async {
-      final rows = await _tables.listRows(
-        databaseId: databaseId,
-        tableId: tableId,
-        queries: [
-          Query.equal(queryField, [uid]),
-        ],
-      );
-      for (final row in rows.rows) {
-        final existing = List<dynamic>.from(
-          (row.data[fieldName] as List?) ?? const [],
-        );
-        if (add) {
-          if (existing.contains(fcmToken)) continue; // already there
-          existing.add(fcmToken);
-        } else {
-          if (!existing.contains(fcmToken)) continue; // nothing to remove
-          existing.remove(fcmToken);
-        }
-        await _tables.updateRow(
-          databaseId: databaseId,
-          tableId: tableId,
-          rowId: row.$id,
-          data: {fieldName: existing},
-        );
-      }
-    }
-    await mutate(
-      tableId: usersTableID,
-      fieldName: 'fcmTokens',
-      queryField: r'$id',
-    );
-    await mutate(
-      tableId: subscribedUserTableId,
-      fieldName: 'registrationTokens',
-      queryField: 'userID',
-    );
-    await mutate(
-      tableId: upcomingRoomsTableId,
-      fieldName: 'creator_fcm_tokens',
-      queryField: 'creatorUid',
-    );
   }
 
   // Error mapping

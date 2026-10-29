@@ -154,9 +154,7 @@ class UpcomingListTile extends ConsumerWidget {
                   ),
                 ),
                 const Spacer(),
-                // Flexible so long labels shrink instead of overflowing.
-                Flexible(
-                  child: ElevatedButton(
+                ElevatedButton(
                   onPressed: () async {
                     final l10n = AppLocalizations.of(context)!;
                     try {
@@ -168,20 +166,25 @@ class UpcomingListTile extends ConsumerWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
                     backgroundColor: const Color.fromARGB(255, 234, 93, 83),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
+                  // Flexible lets the button shrink, which made the label wrap
+                  // onto two lines; keep it on one and ellipsize instead.
                   child: Text(
                     AppLocalizations.of(context)!.cancel,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: Colors.white),
-                  ),
                   ),
                 ),
                 SizedBox(width: UiSizes.width_10),
-                Flexible(
-                  child: ElevatedButton(
+                ElevatedButton(
                   onPressed: appwriteUpcomingRoom.isTime
                       ? () async {
                           final l10n = AppLocalizations.of(context)!;
@@ -204,6 +207,8 @@ class UpcomingListTile extends ConsumerWidget {
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
                     backgroundColor: appwriteUpcomingRoom.isTime
                         ? Theme.of(context).colorScheme.primary
                         : Theme.of(
@@ -213,7 +218,11 @@ class UpcomingListTile extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: Text(AppLocalizations.of(context)!.start),
+                  child: Text(
+                    AppLocalizations.of(context)!.start,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

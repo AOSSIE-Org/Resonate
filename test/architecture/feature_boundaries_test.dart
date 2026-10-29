@@ -165,7 +165,6 @@ void main() {
     const sdks = <String>[
       'package:appwrite/',
       'package:livekit_client/',
-      'package:firebase_',
       'package:flutter_callkit_incoming/',
       'package:get_storage/',
       'package:image_picker/',

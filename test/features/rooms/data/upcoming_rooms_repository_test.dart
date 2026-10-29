@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +9,7 @@ import 'package:resonate/utils/constants.dart';
 import '../../../helpers/test_root_container.dart';
 import 'upcoming_rooms_repository_test.mocks.dart';
 
-@GenerateMocks([TablesDB, FirebaseMessaging, Functions])
+@GenerateMocks([TablesDB, Functions])
 // Builds an upcoming room row with the fields the repo reads.
 Row upcomingRoomRow({
   String id = 'up-1',
@@ -57,18 +56,15 @@ Row subscriberRow({
 
 void main() {
   late MockTablesDB tables;
-  late MockFirebaseMessaging messaging;
   late MockFunctions functions;
   late UpcomingRoomsRepository repo;
 
   setUp(() {
     tables = MockTablesDB();
-    messaging = MockFirebaseMessaging();
     functions = MockFunctions();
     repo = UpcomingRoomsRepository(
       tables: tables,
-      messaging: messaging,
-      functions: functions,
+        functions: functions,
     );
   });
 
@@ -295,8 +291,7 @@ void main() {
   });
 
   group('createUpcomingRoom', () {
-    test('gets fcm token then creates the room row', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
+    test('creates the room row', () async {
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -314,7 +309,6 @@ void main() {
         creatorUid: 'creator-uid',
       );
 
-      verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
           databaseId: databaseId,
@@ -328,13 +322,11 @@ void main() {
       expect(captured['tags'], const ['t1']);
       expect(captured['description'], 'desc');
       expect(captured['creatorUid'], 'creator-uid');
-      expect(captured['creator_fcm_tokens'], ['fcm-token']);
     });
   });
 
   group('addSubscriber', () {
-    test('gets fcm token then creates a subscriber row', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
+    test('creates a subscriber row', () async {
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -350,7 +342,6 @@ void main() {
         profileImageUrl: 'https://example.com/me.jpg',
       );
 
-      verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
           databaseId: databaseId,
@@ -361,7 +352,6 @@ void main() {
       ).captured.single as Map;
       expect(captured['userID'], 'me');
       expect(captured['upcomingRoomId'], 'up-1');
-      expect(captured['registrationTokens'], ['fcm-token']);
       expect(captured['userProfileUrl'], 'https://example.com/me.jpg');
     });
   });

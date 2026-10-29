@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +14,7 @@ import 'package:resonate/utils/enums/friend_request_status.dart';
 
 import 'friends_repository_test.mocks.dart';
 
-@GenerateMocks([TablesDB, Realtime, RealtimeSubscription, FirebaseMessaging])
+@GenerateMocks([TablesDB, Realtime, RealtimeSubscription, Functions])
 // Builds a friends-row json payload as stored under user.data['friends'].
 Map<String, dynamic> friendJson({
   String docId = 'friend-doc-1',
@@ -84,7 +83,7 @@ void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
   late MockRealtimeSubscription subscription;
-  late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late StreamController<RealtimeMessage> events;
   late FriendsRepository repo;
 
@@ -92,12 +91,12 @@ void main() {
     tables = MockTablesDB();
     realtime = MockRealtime();
     subscription = MockRealtimeSubscription();
-    messaging = MockFirebaseMessaging();
+    functions = MockFunctions();
     events = StreamController<RealtimeMessage>.broadcast();
     repo = FriendsRepository(
       tables: tables,
       realtime: realtime,
-      messaging: messaging,
+      functions: functions,
     );
   });
 
@@ -182,9 +181,8 @@ void main() {
   });
 
   group('sendFriendRequest', () {
-    test('sets senderFCMToken and averaged senderRating, creates row',
+    test('sets the averaged senderRating, creates row',
         () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -203,7 +201,6 @@ void main() {
         recieverRating: 3.5,
       );
 
-      expect(model.senderFCMToken, 'fcm-token');
       expect(model.senderRating, 4.0);
       expect(model.requestStatus, FriendRequestStatus.sent);
       expect(model.users, ['sender-1', 'reciever-1']);
@@ -219,7 +216,6 @@ void main() {
     });
 
     test('uses 0 senderRating when ratingCount is 0', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -242,7 +238,6 @@ void main() {
     });
 
     test('maps 404 from createRow to notFound', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -267,9 +262,8 @@ void main() {
   });
 
   group('acceptFriendRequest', () {
-    test('copies with accepted status and recieverFCMToken, updates row',
+    test('copies with accepted status, updates row',
         () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'rec-token');
       when(
         tables.updateRow(
           databaseId: anyNamed('databaseId'),
@@ -285,7 +279,6 @@ void main() {
       final updated = await repo.acceptFriendRequest(original);
 
       expect(updated.requestStatus, FriendRequestStatus.accepted);
-      expect(updated.recieverFCMToken, 'rec-token');
       expect(updated.users, ['sender-1', 'reciever-1']);
 
       verify(
@@ -299,7 +292,6 @@ void main() {
     });
 
     test('maps 401 from updateRow to permissionDenied', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'rec-token');
       when(
         tables.updateRow(
           databaseId: anyNamed('databaseId'),

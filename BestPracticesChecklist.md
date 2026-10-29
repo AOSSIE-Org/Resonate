@@ -223,7 +223,7 @@ Priority: 🔴 MUST · 🟡 SHOULD · 🔵 SUGGESTED.
 ## 📎 Project-Specific Notes
 
 > Resonate is a **Flutter/Dart mobile app** (Android + iOS) on **Appwrite** (auth, DB, storage,
-> functions), **LiveKit** (WebRTC audio), FCM (push) and optionally Meilisearch. No web target, no
+> functions, Messaging for push), **LiveKit** (WebRTC audio) and optionally Meilisearch. No web target, no
 > contracts, no server code here — backend lives in
 > [Resonate-Backend](https://github.com/AOSSIE-Org/Resonate-Backend).
 
@@ -247,8 +247,8 @@ Priority: 🔴 MUST · 🟡 SHOULD · 🔵 SUGGESTED.
 ### Dynamic Analysis
 - `dynamic_analysis` — **none applied.** ZAP is inapplicable (no web frontend). Options by value:
   `package:integration_test` on device (no `integration_test/` exists; the LiveKit/realtime/background-call
-  paths are unreachable by widget tests), crash reporting (no Crashlytics or Sentry —
-  `firebase_messaging` is push, not observability), [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF)
+  paths are unreachable by widget tests), crash reporting (no Crashlytics or Sentry at all),
+  [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF)
   for APK scanning, `leak_tracker` + DevTools profiling.
 - `dynamic_analysis_enable_assertions` — **met.** Dart keeps `assert()` in debug/profile;
   `flutter test` runs debug, so the whole suite runs with framework assertions on.

@@ -20,7 +20,7 @@ Map<String, dynamic> _friendJson(FriendsModel model) => {
 void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
-  late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late StreamController<RealtimeMessage> realtimeEvents;
 
   final accepted = fakeFriendsModel(
@@ -34,14 +34,12 @@ void main() {
     senderId: 'friend-2',
     recieverId: 'me',
     requestStatus: FriendRequestStatus.sent,
-    recieverFCMToken: null,
   );
   final outgoing = fakeFriendsModel(
     docId: 'doc-outgoing',
     senderId: 'me',
     recieverId: 'friend-3',
     requestStatus: FriendRequestStatus.sent,
-    recieverFCMToken: null,
   );
 
   void stubUserDoc(List<Map<String, dynamic>> friends) {
@@ -61,10 +59,9 @@ void main() {
   setUp(() {
     tables = MockTablesDB();
     realtime = MockRealtime();
-    messaging = MockFirebaseMessaging();
+    functions = MockFunctions();
     realtimeEvents = StreamController<RealtimeMessage>.broadcast();
 
-    when(messaging.getToken()).thenAnswer((_) async => 'my-fcm-token');
     when(realtime.subscribe(any)).thenAnswer(
       (_) => RealtimeSubscription(
         close: () async {},
@@ -83,7 +80,7 @@ void main() {
         authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
         tables: tables,
         realtime: realtime,
-        messaging: messaging,
+        functions: functions,
       );
 
   group('FriendsNotifier', () {
@@ -145,7 +142,6 @@ void main() {
       expect(state.friendRequests, hasLength(1));
       final request = state.friendRequests.first;
       expect(request.recieverName, 'Friend Nine');
-      expect(request.senderFCMToken, 'my-fcm-token');
       expect(request.requestSentByUserId, 'me');
       expect(request.requestStatus, FriendRequestStatus.sent);
       verify(tables.createRow(
@@ -179,7 +175,6 @@ void main() {
       final acceptedNow =
           state.friends.firstWhere((f) => f.docId == 'doc-incoming');
       expect(acceptedNow.requestStatus, FriendRequestStatus.accepted);
-      expect(acceptedNow.recieverFCMToken, 'my-fcm-token');
       expect(state.friendRequests, isEmpty);
     });
 

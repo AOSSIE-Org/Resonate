@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' hide Account;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -57,7 +56,6 @@ final _userRowWithFollowers = Row(
         'followerUserId': 'id2',
         'followerUsername': 'testu2',
         'followerName': 'Test User 2',
-        'followerFCMToken': 'testToken2',
         'followerProfileImageUrl': 'http://img/2',
         'followerRating': 5,
         '\$id': 'doc2',
@@ -66,7 +64,6 @@ final _userRowWithFollowers = Row(
         'followerUserId': 'id3',
         'followerUsername': 'testu3',
         'followerName': 'Test User 3',
-        'followerFCMToken': 'testToken3',
         'followerProfileImageUrl': 'http://img/3',
         'followerRating': 5,
         '\$id': 'doc3',
@@ -118,12 +115,11 @@ User _user() => User(
       hashOptions: const {},
     );
 
-@GenerateMocks([TablesDB, Storage, Account, FirebaseMessaging, Functions])
+@GenerateMocks([TablesDB, Storage, Account, Functions])
 void main() {
   late MockTablesDB tables;
   late MockStorage storage;
   late MockAccount account;
-  late MockFirebaseMessaging messaging;
   late MockFunctions functions;
   late ProfileRepository repo;
 
@@ -131,14 +127,12 @@ void main() {
     tables = MockTablesDB();
     storage = MockStorage();
     account = MockAccount();
-    messaging = MockFirebaseMessaging();
     functions = MockFunctions();
     repo = ProfileRepository(
       tables: tables,
       storage: storage,
       account: account,
-      messaging: messaging,
-      functions: functions,
+        functions: functions,
     );
   });
 
@@ -334,7 +328,6 @@ void main() {
       username: 'testu2',
       profileImageUrl: 'http://img/2',
       name: 'Test User 2',
-      fcmToken: 'testToken2',
       followingUserId: 'id1',
       followerRating: 5,
     );

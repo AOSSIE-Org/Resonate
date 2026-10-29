@@ -50,7 +50,7 @@ final class ProfileViewProvider
   }
 }
 
-String _$profileViewHash() => r'c76bccafb6e5aab396a3b315bbf86e7b1cbe76d6';
+String _$profileViewHash() => r'b9c15f30635a8bdc0f98df379097c59f4f2ee9ea';
 
 final class ProfileViewFamily extends $Family
     with

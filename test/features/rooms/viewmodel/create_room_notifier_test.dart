@@ -21,7 +21,6 @@ void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
 
   setUp(() {
     stubFlutterSecureStorageChannel();
@@ -29,7 +28,6 @@ void main() {
     realtime = MockRealtime();
     stubRealtimeChannel(realtime);
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
   });
 
   group('CreateRoomNotifier', () {
@@ -63,8 +61,7 @@ void main() {
         tables: tables,
         realtime: realtime,
         functions: functions,
-        messaging: messaging,
-      );
+          );
 
       final room = await container
           .read(createRoomProvider.notifier)
@@ -124,8 +121,7 @@ void main() {
         tables: tables,
         realtime: realtime,
         functions: functions,
-        messaging: messaging,
-      );
+          );
       // The list is already on screen behind the create sheet.
       await container.read(liveRoomsProvider.future);
       container.listen(liveRoomsProvider, (_, _) {});
@@ -144,7 +140,6 @@ void main() {
     test(
       'createScheduledRoom triggers an upcoming-rooms refresh via invalidation',
       () async {
-        when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
         when(tables.createRow(
           databaseId: databaseId,
           tableId: upcomingRoomsTableId,
@@ -172,8 +167,7 @@ void main() {
           tables: tables,
           realtime: realtime,
           functions: functions,
-          messaging: messaging,
-          getStorageBox: FakeGetStorage(),
+                getStorageBox: FakeGetStorage(),
         );
         await container.read(upcomingRoomsProvider.future);
         final initialCount = listRowsCount;

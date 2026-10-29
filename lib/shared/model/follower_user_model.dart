@@ -14,7 +14,6 @@ abstract class FollowerUserModel with _$FollowerUserModel {
     @JsonKey(name: "followerUsername") required String username,
     @JsonKey(name: "followerProfileImageUrl") required String profileImageUrl,
     @JsonKey(name: "followerName") required String name,
-    @JsonKey(name: 'followerFCMToken') required String fcmToken,
     @JsonKey(name: "followingUserId") String? followingUserId,
     @JsonKey(name: 'followerRating', fromJson: toDouble)
     required double? followerRating,

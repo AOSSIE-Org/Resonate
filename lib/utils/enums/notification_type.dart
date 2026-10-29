@@ -1,1 +1,8 @@
-enum NotificationType { tag, follow, like, subscribe }
+enum NotificationType {
+  tag,
+  follow,
+  like,
+  subscribe,
+  friendRequest,
+  friendAccepted,
+}

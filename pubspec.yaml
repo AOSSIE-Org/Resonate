@@ -39,12 +39,6 @@ dependencies:
   cached_network_image: ^3.4.1
   circular_countdown_timer: ^0.2.4
   file_picker: ^13.3.0
-  # Pinned to the 4.x line that firebase_messaging 16.x requires.
-  firebase_core: ^4.15.2
-  # Held at 16.x: 17 deprecates getToken() for register()/onRegistered, which
-  # yields a Firebase Installation ID rather than an FCM token and would need
-  # every backend send path to change in lockstep.
-  firebase_messaging: ^16.7.1
   flutter:
     sdk: flutter
   flutter_local_notifications: ^22.3.3

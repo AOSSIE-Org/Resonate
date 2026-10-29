@@ -8,7 +8,6 @@ import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
@@ -65,7 +64,6 @@ void main() {
     senderUsername: 'them',
     recieverUsername: 'me',
     requestStatus: FriendRequestStatus.accepted,
-    senderFCMToken: 'their-token',
     docId: 'friendship-doc',
   );
 
@@ -176,25 +174,6 @@ void main() {
     expect(call.recieverName, 'Them');
     expect(call.callerUsername, 'me');
     expect(call.recieverUsername, 'them');
-  });
-
-  test('a friend with no token on either side is refused', () async {
-    final container = await buildContainer();
-    // I am the receiver, so it is the SENDER's token that must be missing.
-    final tokenless = fakeFriendsModel(
-      senderId: 'them',
-      recieverId: 'me',
-      requestStatus: FriendRequestStatus.accepted,
-      senderFCMToken: null,
-      docId: 'friendship-doc',
-    );
-
-    await expectLater(
-      container
-          .read(friendCallCoordinatorProvider.notifier)
-          .startCall(tokenless),
-      throwsA(isA<FriendsFailure>()),
-    );
   });
 
   group('when the other side declines', () {

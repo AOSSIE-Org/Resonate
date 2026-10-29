@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/features/profile/model/user_profile_summary.dart';
@@ -22,7 +20,6 @@ ProfileRepository profileRepository(Ref ref) => ProfileRepository(
   tables: ref.watch(appwriteTablesProvider),
   storage: ref.watch(appwriteStorageProvider),
   account: ref.watch(appwriteAccountProvider),
-  messaging: ref.watch(firebaseMessagingProvider),
   functions: ref.watch(appwriteFunctionsProvider),
 );
 
@@ -31,18 +28,15 @@ class ProfileRepository {
     required TablesDB tables,
     required Storage storage,
     required Account account,
-    required FirebaseMessaging messaging,
     required Functions functions,
   }) : _tables = tables,
        _storage = storage,
        _account = account,
-       _messaging = messaging,
        _functions = functions;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
-  final FirebaseMessaging _messaging;
   final Functions _functions;
 
   // Profile viewing
@@ -117,7 +111,6 @@ class ProfileRepository {
     }
   }
 
-  Future<String?> getFcmToken() => _messaging.getToken();
  
   // For callers to build the follower rather than reaching for the Appwrite SDK
   String newFollowerDocumentId() => ID.unique();

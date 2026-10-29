@@ -76,14 +76,12 @@ class FriendCallRepository {
     }
   }
 
-  // Triggers the cloud function that delivers the incoming-call FCM push.
+  // Triggers the cloud function that delivers the incoming-call push.
   Future<ActivityStatus?> sendCallNotification({
     required FriendCallModel call,
-    required String recieverFCMToken,
   }) async {
     final notificationData = {
-      "recieverFCMToken": recieverFCMToken,
-      // Top-level so the function can check activity status
+      // The function addresses the callee by uid and checks activity status
       "recieverUid": call.recieverUid,
       "data": {
         "caller_name": call.callerName,

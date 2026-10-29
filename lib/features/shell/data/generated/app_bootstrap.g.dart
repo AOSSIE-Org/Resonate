@@ -33,7 +33,7 @@ final class AppBootstrapProvider
   AppBootstrap create() => AppBootstrap();
 }
 
-String _$appBootstrapHash() => r'3f5fec684511e4b8cc0411e7b7c2b450fe9c846e';
+String _$appBootstrapHash() => r'c4b51ae87f55e8b60769522a326ddef756b13d1f';
 
 abstract class _$AppBootstrap extends $AsyncNotifier<void> {
   FutureOr<void> build();

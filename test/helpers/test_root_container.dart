@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:appwrite/appwrite.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:appwrite/models.dart' hide Account;
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -12,7 +11,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/friends/data/services/callkit_service.dart';
@@ -54,7 +52,6 @@ import 'test_root_container.mocks.dart';
   Realtime,
   Functions,
   RealtimeSubscription,
-  FirebaseMessaging,
   Execution,
   AudioPlayer,
 ])
@@ -161,8 +158,6 @@ FriendsModel fakeFriendsModel({
   String recieverUsername = 'reciever',
   String senderProfileImgUrl = 'https://example.com/s.jpg',
   String recieverProfileImgUrl = 'https://example.com/r.jpg',
-  String? senderFCMToken = 'sender-token',
-  String? recieverFCMToken = 'reciever-token',
   FriendRequestStatus requestStatus = FriendRequestStatus.sent,
   String? requestSentByUserId,
   double? senderRating = 4.0,
@@ -177,8 +172,6 @@ FriendsModel fakeFriendsModel({
   recieverUsername: recieverUsername,
   senderProfileImgUrl: senderProfileImgUrl,
   recieverProfileImgUrl: recieverProfileImgUrl,
-  senderFCMToken: senderFCMToken,
-  recieverFCMToken: recieverFCMToken,
   requestStatus: requestStatus,
   requestSentByUserId: requestSentByUserId ?? senderId,
   senderRating: senderRating,
@@ -255,7 +248,6 @@ LiveChapterModel fakeLiveChapterModel({
   String chapterTitle = 'Live Chapter',
   String chapterDescription = 'Live description',
   String storyId = 'story-1',
-  List<String> followersFCMToken = const [],
   LiveChapterAttendeesModel? attendees,
 }) => LiveChapterModel(
   livekitRoomId: livekitRoomId ?? id,
@@ -265,7 +257,6 @@ LiveChapterModel fakeLiveChapterModel({
   chapterTitle: chapterTitle,
   chapterDescription: chapterDescription,
   storyId: storyId,
-  followersFCMToken: followersFCMToken,
   attendees: attendees,
   id: id,
 );
@@ -474,7 +465,7 @@ class FakeCallKitService extends CallKitService {
   Future<void> stop() async {}
 
   @override
-  Future<void> showIncomingCall(RemoteMessage message) async {
+  Future<void> showIncomingCall(Map<String, dynamic> data) async {
     showIncomingCallCount++;
   }
 
@@ -568,16 +559,6 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> loginWithGithub() async {
     _setSessionState(AsyncData(state));
-  }
-
-  @override
-  Future<void> addRegistrationToken({required String uid}) async {
-    addTokenCount++;
-  }
-
-  @override
-  Future<void> removeRegistrationToken({required String uid}) async {
-    removeTokenCount++;
   }
 
   @override
@@ -686,6 +667,10 @@ List<Override> avatarOverrides([Map<String, String?> urls = const {}]) => [
   userAvatarUrlProvider.overrideWith((ref, uid) async => urls[uid]),
 ];
 
+List<Override> authOverrides([
+  AuthState state = const AuthState.unauthenticated(),
+]) => [authRepositoryProvider.overrideWithValue(FakeAuthRepository(state))];
+
 // Otherwise any badge widget builds the real repository and strands a timer.
 List<Override> achievementOverrides({
   UserStats myStats = UserStats.empty,
@@ -720,7 +705,6 @@ Future<ProviderContainer> installTestRootContainer({
   Storage? storage,
   Functions? functions,
   Realtime? realtime,
-  FirebaseMessaging? messaging,
   FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
   CallKitService? callKit,
@@ -755,8 +739,6 @@ Future<ProviderContainer> installTestRootContainer({
         appwriteFunctionsProvider.overrideWithValue(functions),
       if (realtime != null)
         appwriteRealtimeProvider.overrideWithValue(realtime),
-      if (messaging != null)
-        firebaseMessagingProvider.overrideWithValue(messaging),
       ...overrides,
     ],
   );

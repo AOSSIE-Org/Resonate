@@ -38,20 +38,17 @@ void main() {
   late MockAccount account;
   late MockTablesDB tables;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
   late AuthRepository repo;
 
   setUp(() {
     account = MockAccount();
     tables = MockTablesDB();
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
     repo = AuthRepository(
       account: account,
       tables: tables,
       functions: functions,
-      messaging: messaging,
-    );
+      );
   });
 
   MockExecution execution({

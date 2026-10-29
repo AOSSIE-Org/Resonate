@@ -1,8 +1,12 @@
 import 'dart:async';
-import 'package:resonate/utils/dev_log.dart';
+import 'dart:convert';
+import 'dart:developer' as developer;
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
+import 'package:appwrite/appwrite.dart';
+import 'package:resonate/utils/dev_log.dart';
+import 'package:resonate/core/providers/push_providers.dart';
+import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/friends/data/services/callkit_service.dart';
@@ -20,17 +24,7 @@ bool isTestMode = false;
 class AppBootstrap extends _$AppBootstrap {
   @override
   Future<void> build() async {
-    final messaging = ref.watch(firebaseMessagingProvider);
-
-    await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+    final push = ref.watch(appwritePushProvider);
 
     if (!isTestMode) {
       await ref.read(callKitServiceProvider).requestFullScreenPermission();
@@ -38,32 +32,92 @@ class AppBootstrap extends _$AppBootstrap {
 
     final notifications = NotificationService(onTapPayload: _openUpcomingRoom);
     await notifications.initialize();
+    PushSubscription? pushSubscription;
+    String? subscribedUid;
 
-    final fcmSub = FirebaseMessaging.onMessage.listen((message) async {
-      log('Got a message whilst in the foreground!');
-      if (message.data['type'] == 'incoming_call') {
-        log('saw incoming call');
-        if (!isTestMode) {
-          await ref.read(callKitServiceProvider).showIncomingCall(message);
-        }
+    Future<void> syncPush(String? uid) async {
+      if (uid == subscribedUid) return;
+      subscribedUid = uid;
+      pushSubscription?.unsubscribe();
+      pushSubscription = null;
+      if (uid == null) {
+        log('[push] no signed-in user, not subscribing');
         return;
       }
-      final notification = message.notification;
-      if (notification == null) return;
+      try {
+        final subscription = await push.subscribe(
+          null, //subscribes to signined-in user's topic, users/<uid>
+          (message) async {
+            log('[push] message on ${message.topic}');
+            final Map<String, dynamic> envelope;
+            try {
+              envelope = (jsonDecode(message.data) as Map)
+                  .cast<String, dynamic>();
+            } catch (e) {
+              log('[push] DROPPED, payload is not a JSON object: $e');
+              return;
+            }
+            // Appwrite publishes an envelope, not the bare payload:
+            // {messageId, notification: {title, body}, data: {...}, priority}.
+            final data =
+                (envelope['data'] as Map?)?.cast<String, dynamic>() ?? envelope;
+            final notification = (envelope['notification'] as Map?)
+                ?.cast<String, dynamic>();
 
-      final body = notification.body;
-      String? payload;
-      if (body != null) {
-        final match = RegExp(r'The room (\w+) will Start Soon').firstMatch(body);
-        payload = match?.group(1);
+            if (data['type'] == 'incoming_call') {
+              log('[push] incoming call');
+              if (!isTestMode) {
+                await ref.read(callKitServiceProvider).showIncomingCall(data);
+              }
+              return;
+            }
+
+            final title =
+                notification?['title'] as String? ?? data['title'] as String?;
+            final body =
+                notification?['body'] as String? ?? data['body'] as String?;
+            if (title == null && body == null) {
+              log('[push] DROPPED, payload carries no title or body');
+              return;
+            }
+
+            String? payload;
+            if (body != null) {
+              final match = RegExp(
+                r'The room (\w+) will Start Soon',
+              ).firstMatch(body);
+              payload = match?.group(1);
+            }
+            await notifications.show(
+              title: title ?? '',
+              body: body ?? '',
+              payload: payload,
+            );
+          },
+          background: true,
+          title: 'Resonate',
+        );
+        // An incoming call has to ring the moment it arrives
+        if (!isTestMode) {
+          await push.setForeground(true);
+        }
+
+        log('[push] subscribed as $uid (SUBACK received)');
+        pushSubscription = subscription;
+      } catch (e, st) {
+        // Push is degraded; the rest of the app is not.
+        log('[push] subscribe FAILED, continuing without push: $e');
+        developer.log('push subscribe failed', error: e, stackTrace: st);
+        subscribedUid = null;
       }
-      await notifications.show(
-        title: notification.title ?? '',
-        body: body ?? '',
-        payload: payload,
-      );
-    });
-    ref.onDispose(fcmSub.cancel);
+    }
+
+    ref.listen<AuthUser?>(
+      currentUserProvider,
+      (_, next) => unawaited(syncPush(next?.uid)),
+      fireImmediately: true,
+    );
+    ref.onDispose(() => pushSubscription?.unsubscribe());
 
     if (!isTestMode) {
       final callKit = ref.read(callKitServiceProvider)
@@ -76,6 +130,17 @@ class AppBootstrap extends _$AppBootstrap {
               .onDeclinedCall(extra),
         );
       ref.onDispose(callKit.stop);
+
+      Future<void> openFromPush(PushNotificationOpened opened) async {
+        if (opened.data['type'] != 'incoming_call') return;
+        await ref.read(callKitServiceProvider).showIncomingCall(opened.data);
+      }
+      ref.onDispose(
+        push.onNotificationOpened((opened) => unawaited(openFromPush(opened))),
+      );
+      // The tap that launched the app is reported here instead
+      final launchTap = await push.getInitialNotification();
+      if (launchTap != null) await openFromPush(launchTap);
     }
   }
 

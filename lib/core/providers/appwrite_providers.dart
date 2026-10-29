@@ -10,6 +10,7 @@ part 'generated/appwrite_providers.g.dart';
 Client appwriteClient(Ref ref) {
   final client = Client()
       .setEndpoint(appwriteEndpoint)
+      .setPushEndpoint(appwritePushEndpoint)
       .setProject(appwriteProjectId);
 
   // Allowing self-signed certificates only for development purposes

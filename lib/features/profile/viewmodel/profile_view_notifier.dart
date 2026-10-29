@@ -49,15 +49,12 @@ class ProfileView extends _$ProfileView {
     if (data == null || user == null) return;
 
     final repo = ref.read(profileRepositoryProvider);
-    final fcmToken = await repo.getFcmToken();
-
     final follower = FollowerUserModel(
       docId: repo.newFollowerDocumentId(),
       uid: user.uid,
       username: user.userName ?? '',
       profileImageUrl: user.profileImageUrl ?? '',
       name: user.displayName,
-      fcmToken: fcmToken ?? '',
       followingUserId: creatorId,
       followerRating:
           user.ratingCount == 0 ? 0 : user.ratingTotal / user.ratingCount,

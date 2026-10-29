@@ -39,7 +39,6 @@ FollowerUserModel _follower({required String uid, required String docId}) =>
       username: '$uid-name',
       profileImageUrl: 'http://img/$uid',
       name: 'Name $uid',
-      fcmToken: 'tok-$uid',
       followingUserId: 'creator1',
       followerRating: 5,
     );
@@ -110,7 +109,7 @@ void main() {
   group('ProfileView.followCreator', () {
     test('builds the follower from the current user and updates state',
         () async {
-      final repo = FakeProfileRepository()..fcmToken = 'my-token';
+      final repo = FakeProfileRepository();
       final container = await _buildContainer(repo);
       await container.read(profileViewProvider('creator1').future);
 
@@ -124,7 +123,6 @@ void main() {
       expect(follower.username, 'meuser');
       expect(follower.profileImageUrl, 'http://img/me');
       expect(follower.name, 'Me');
-      expect(follower.fcmToken, 'my-token');
       expect(follower.followingUserId, 'creator1');
       expect(follower.followerRating, 5); // 10 / 2
 

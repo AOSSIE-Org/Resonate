@@ -13,7 +13,6 @@ _FollowerUserModel _$FollowerUserModelFromJson(Map<String, dynamic> json) =>
       username: json['followerUsername'] as String,
       profileImageUrl: json['followerProfileImageUrl'] as String,
       name: json['followerName'] as String,
-      fcmToken: json['followerFCMToken'] as String,
       followingUserId: json['followingUserId'] as String?,
       followerRating: toDouble(json['followerRating']),
     );
@@ -24,7 +23,6 @@ Map<String, dynamic> _$FollowerUserModelToJson(_FollowerUserModel instance) =>
       'followerUsername': instance.username,
       'followerProfileImageUrl': instance.profileImageUrl,
       'followerName': instance.name,
-      'followerFCMToken': instance.fcmToken,
       'followingUserId': instance.followingUserId,
       'followerRating': instance.followerRating,
     };
