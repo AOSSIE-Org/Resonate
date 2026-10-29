@@ -93,13 +93,18 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
       return;
     }
 
+    final joinInfo = _startJoinInfo(
+      roomId: call.livekitRoomId,
+      userId: call.recieverUid,
+    );
+
     call = await repo.setCallStatus(call, FriendCallStatus.connected);
     state = state.copyWith(activeCall: call, isMicOn: false);
     _listenToCall(
       call.docId,
     ); // A leftover subscription could watch a previous call.
 
-    await _joinCall(roomId: call.livekitRoomId, userId: call.recieverUid);
+    await _joinCall(joinInfo: joinInfo);
   }
 
   Future<void> onDeclinedCall(Map<String, dynamic> extra) async {
@@ -138,33 +143,44 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
     }
   }
 
-  Future<void> _joinCall({
+  Future<({String liveKitUri, String roomToken})> _startJoinInfo({
     required String roomId,
     required String userId,
+  }) {
+    final future = ref
+        .read(friendCallRepositoryProvider)
+        .callJoinInfo(roomId: roomId, userId: userId);
+    unawaited(future.then((_) {}, onError: (Object _) {}));
+    return future;
+  }
+
+  Future<void> _joinCall({
+    required Future<({String liveKitUri, String roomToken})> joinInfo,
   }) async {
+    final router = ref.read(routerProvider);
+    if (_showingRinging) {
+      _showingRinging = false;
+      router.pushReplacement(RoutePaths.friendCallScreen);
+    } else {
+      router.push(RoutePaths.friendCallScreen);
+    }
+
     try {
-      final joinInfo = await ref
-          .read(friendCallRepositoryProvider)
-          .callJoinInfo(roomId: roomId, userId: userId);
+      final info = await joinInfo;
       final connected = await ref
           .read(liveKitControllerProvider.notifier)
           .connect(
-            liveKitUri: joinInfo.liveKitUri,
-            roomToken: joinInfo.roomToken,
+            liveKitUri: info.liveKitUri,
+            roomToken: info.roomToken,
           );
       if (state.activeCall?.callStatus != FriendCallStatus.connected) {
-        await ref.read(liveKitControllerProvider.notifier).disconnect();
+        // The call ended while we were connecting; the screen is already up,
+        // so it has to be taken back down here.
+        await _teardownCall();
+        router.go(RoutePaths.tabview);
         return;
       }
       if (!connected) throw Exception('LiveKit connection failed');
-
-      final router = ref.read(routerProvider);
-      if (_showingRinging) {
-        _showingRinging = false;
-        router.pushReplacement(RoutePaths.friendCallScreen);
-      } else {
-        router.push(RoutePaths.friendCallScreen);
-      }
     } catch (e) {
       log('Joining call failed: $e');
       _notifyConnectionFailed();
@@ -188,7 +204,12 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
             state = state.copyWith(
               activeCall: call.copyWith(callStatus: FriendCallStatus.connected),
             );
-            await _joinCall(roomId: call.livekitRoomId, userId: call.callerUid);
+            await _joinCall(
+              joinInfo: _startJoinInfo(
+                roomId: call.livekitRoomId,
+                userId: call.callerUid,
+              ),
+            );
           } else if (status == FriendCallStatus.ended.name &&
               call.callStatus != FriendCallStatus.ended) {
             state = state.copyWith(

@@ -15,7 +15,8 @@ CallKitService callKitService(Ref ref) => CallKitService();
 AndroidParams resonateCallAndroidParams() {
   final theme = storedThemeModel();
   return AndroidParams(
-    isShowFullLockedScreen: true,
+    isShowFullLockedScreen: false,
+    isImportant: true,
     backgroundColor: _hex(theme.surfaceColor),
     actionColor: _hex(theme.primaryColor),
     textColor: _hex(theme.onSurfaceColor),
@@ -32,6 +33,9 @@ String _hex(Color color) {
 // Wraps the FlutterCallkitIncoming statics so callers stay testable.
 class CallKitService {
   StreamSubscription<CallEvent?>? _sub;
+
+  Future<bool> canUseFullScreen() async =>
+      FlutterCallkitIncoming.canUseFullScreenIntent();
 
   Future<void> requestFullScreenPermission() async {
     await FlutterCallkitIncoming.requestFullIntentPermission();

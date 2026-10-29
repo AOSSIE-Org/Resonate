@@ -27,7 +27,12 @@ class AppBootstrap extends _$AppBootstrap {
     final push = ref.watch(appwritePushProvider);
 
     if (!isTestMode) {
-      await ref.read(callKitServiceProvider).requestFullScreenPermission();
+      final callKitService = ref.read(callKitServiceProvider);
+      final canFullScreen = await callKitService.canUseFullScreen();
+      log('[push] full-screen intent allowed: $canFullScreen');
+      if (!canFullScreen) {
+        await callKitService.requestFullScreenPermission();
+      }
     }
 
     final notifications = NotificationService(onTapPayload: _openUpcomingRoom);
@@ -57,8 +62,6 @@ class AppBootstrap extends _$AppBootstrap {
               log('[push] DROPPED, payload is not a JSON object: $e');
               return;
             }
-            // Appwrite publishes an envelope, not the bare payload:
-            // {messageId, notification: {title, body}, data: {...}, priority}.
             final data =
                 (envelope['data'] as Map?)?.cast<String, dynamic>() ?? envelope;
             final notification = (envelope['notification'] as Map?)
@@ -95,29 +98,9 @@ class AppBootstrap extends _$AppBootstrap {
             );
           },
           background: true,
+          title: 'Resonate',
         );
-        // Foreground mode is deliberately OFF. It keeps the connection open in
-        // a service, and Android requires every foreground service to show a
-        // permanent notification, which is not something to leave in a user's
-        // shade for the life of the install. Background delivery still works
-        // without it, on the plugin's scheduled wake-ups.
-        //
-        // Set explicitly rather than left uncalled: the flag is PERSISTED, so
-        // an install that once enabled it keeps resuming the service on every
-        // launch. Writing false is what clears it.
-        //
-        // The cost is that a message arriving while the app is closed waits for
-        // the next wake-up (15s, 60s privileged) instead of a live socket, and
-        // Doze throttles those `setAndAllowWhileIdle` alarms further, so an
-        // incoming call can miss CallKit's 30s ring window. That was the reason
-        // foreground mode was on.
-        //
-        // To turn it back on, pass true here: `NotificationService` already
-        // pins the plugin's `appwrite-push-service` channel to minimum
-        // importance, so the service notification carries no status-bar icon
-        // and collapses to the bottom of the shade. The open question is
-        // whether the battery-optimisation exemption makes the wake-up path
-        // punctual enough on its own; if it does, leave this off.
+        // Persisted, so set explicitly either way.
         if (!isTestMode) {
           await push.setForeground(false);
         }
