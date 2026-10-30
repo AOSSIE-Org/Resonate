@@ -1,7 +1,7 @@
 ![Google Summer of Code](https://summerofcode.withgoogle.com/assets/media/logo.svg)
 
 <p align="center">
-    <img src="https://aossie.org/logo1.png" alt="AOSSIE Logo" style="width: 150px; height: auto; margin-right: 20px;">
+    <img src="https://github.com/AOSSIE-Org/Resonate/blob/1cc1dca874891966fab3eb02884eed260cbacb95/assets/images/aossie_logo.png?raw=true" alt="AOSSIE Logo" style="width: 150px; height: auto; margin-right: 20px;">
     <img src="https://github.com/AOSSIE-Org/Resonate/blob/1cc1dca874891966fab3eb02884eed260cbacb95/assets/images/resonate_logo.png?raw=true" alt="Resonate Logo" style="width: 150px; height: auto;">
 </p>
 
@@ -31,7 +31,7 @@ GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank435
 
 ### 35 PRs across both Repositories
 
-### 85 Commits across both Repositories
+### 87 Commits across both Repositories
 
 ### \_\_\_ Lines of Code Contributed
 
