@@ -29,9 +29,9 @@ GitHub Profile URL: [https://github.com/Mayank4352](https://github.com/Mayank435
 
 # Work Done during GSoC 2026
 
-### 35 PRs across both Repositories
+### 36 PRs across both Repositories
 
-### 87 Commits across both Repositories
+### 89 Commits across both Repositories
 
 ### \_\_\_ Lines of Code Contributed
 
@@ -475,10 +475,13 @@ Likes, follows and room subscriptions now notify the person they concern. The bl
 this was that **there was no user-to-token mapping anywhere in the system**. FCM tokens were only
 ever written as per-row copies readable by a function that already had the row, and the one stored
 on a followers row belongs to the *follower*, which is the wrong direction. This required a new
-`fcmTokens` column on the users table, a `send-social-notification` function that targets one user
-rather than fanning out, and token pruning on the recognised "not registered" error codes so dead
-devices are not retried forever. All three trigger points are best-effort, because the row is
-already written and a failed push must never surface as a failed like, follow or subscribe.
+per-user token mapping and a `send-social-notification` function that targets one user rather than
+fanning out. All three trigger points are best-effort, because the row is already written and a
+failed push must never surface as a failed like, follow or subscribe. Friend requests were added to
+the same path afterwards.
+
+The token mapping described here was later removed entirely. Appwrite Messaging addresses a user by
+id, so the column and its stale-token pruning became dead weight; see *Removing Firebase* below.
 
 ### Security and transport hardening
 
@@ -494,6 +497,32 @@ carried the parameter twice.
 One consequence was accepted deliberately and should be stated. Rows written before the switch hold
 absolute `http://` URLs, so pre-existing avatars, covers and chapter audio do not load in a release
 build. The data was stale and the mentor's call was not to migrate it.
+
+### Removing Firebase, and readiness for F-Droid
+
+Resonate depended on Firebase Cloud Messaging for every notification, which is a proprietary
+dependency and disqualifies an app from F-Droid. Appwrite 2.5 ships its own Messaging service with a
+native push transport over MQTT, so the dependency could be removed outright rather than wrapped.
+
+Firebase is gone from both repositories: `firebase_core`, `firebase_messaging`, the google-services
+Gradle plugin, `google-services.json`, `firebase_options.dart`, two CI secret-injection steps, and
+five cloud functions moved off `firebase-admin` onto `messaging.createPush`. Seven token columns were
+dropped from the schema, including the `users.fcmTokens` column added only weeks earlier, because
+Appwrite addresses a user by id and the client subscribes to its own `users/<uid>` topic. No device
+token is stored anywhere now.
+
+Three findings were worth more than the migration itself. Messaging silently drops every push unless
+an enabled provider exists, reporting success from `createPush` and `deliveredTotal: 0` afterwards,
+so a green function execution means *queued*, never *delivered*. The client derived its broker host
+from the API host, which is a different machine, so delivery succeeded server-side while nothing
+arrived; the broker host is now configured independently. And incoming calls were rendering as a
+plain notification because `AndroidParams.isFullScreen` defaults to the notification path rather than
+CallKit's full-screen activity.
+
+The remaining F-Droid work is in the repository: Poppins is bundled rather than fetched from Google
+at runtime, the Play Store update check is compiled out of F-Droid builds, and a `.fdroid.yml` build
+recipe injects the backend configuration so the repository's defaults can stay pointed at a
+self-hosted instance for contributors.
 
 ### Performance work
 
@@ -569,7 +598,7 @@ clean clone. I intend to keep contributing to Resonate and AOSSIE after GSoC.
 | [PR #833](https://github.com/AOSSIE-Org/Resonate/pull/833) | Refactored the leftover logic to feature based MVVM architecture | Merged | Migrates theme, settings, network and shell; swaps `GetMaterialApp` for `MaterialApp.router`; removes the `get` dependency and the global `ProviderContainer` |
 | [PR #836](https://github.com/AOSSIE-Org/Resonate/pull/836) | Added the leftover tests and cleaning any inconsistencies | Merged | Post-migration cleanup pass and the tests the migration made possible |
 | [PR #838](https://github.com/AOSSIE-Org/Resonate/pull/838) | Removed unwanted assets files and redundancy | Merged | Removes dead assets, unused dependencies and duplicated code uncovered by the migration |
-| [PR #839](https://github.com/AOSSIE-Org/Resonate/pull/839) | Migrate Resonate to Feature Based MVVM with Riverpod | Open | The integration PR that merges the completed migration branch into `dev`; every later feature PR is stacked on it |
+| [PR #839](https://github.com/AOSSIE-Org/Resonate/pull/839) | Migrate Resonate to Feature Based MVVM with Riverpod | Merged | The integration PR that merges the completed migration branch into `dev`; every later feature PR is stacked on it |
 
 # PRs after Mid Term Evaluation
 
@@ -581,32 +610,36 @@ diff.
 
 | Pull Request # | Pull Request Title | Status | Pull Request Contributions |
 | --- | --- | --- | --- |
-| [PR #841](https://github.com/AOSSIE-Org/Resonate/pull/841) | Implemented polling feature | Open | Chat-integrated live polls with one vote per user, live result bars and voter avatars; also contains the app-wide realtime-event fix |
-| [PR #843](https://github.com/AOSSIE-Org/Resonate/pull/843) | Architectural design flaw in api_service.dart | Open | Splits a core god-service into a shared execute helper, one genuinely shared service, and per-feature repository methods |
-| [PR #845](https://github.com/AOSSIE-Org/Resonate/pull/845) | Implement presence states (Online, InRoom, DND, Invisible) | Open | Activity status system with derived status, a server-side call gate and themed status indicators |
-| [PR #847](https://github.com/AOSSIE-Org/Resonate/pull/847) | Audio-Wave animation around the speaker's avatar | Open | Real-audio-spectrum speaking rings driven by LiveKit's native FFT |
-| [PR #849](https://github.com/AOSSIE-Org/Resonate/pull/849) | Updating Expired Documentation and adding Workflows | Open | `AGENTS.md`, `MAINTAINERS.md`, brand guide, best-practices checklist with an automated scoring workflow, README refresh |
-| [PR #851](https://github.com/AOSSIE-Org/Resonate/pull/851) | Implemented local feature flags to dynamically enable/disable features | Open | User-controlled local feature flags with entry-point and router gating |
-| [PR #855](https://github.com/AOSSIE-Org/Resonate/pull/855) | Implement badge system using threshold-based logic | Open | User statistics and the five-category badge system, server-verified and write-protected |
-| [PR #857](https://github.com/AOSSIE-Org/Resonate/pull/857) | Added Onboarding interest selection and filtering logic for profiles | Open | Interest selection, interest-based profile filtering, free-form story tags and the hybrid/semantic story search ladder |
-| [PR #859](https://github.com/AOSSIE-Org/Resonate/pull/859) | Redesigned and Implemented Rooms screen UI | Open | Featured host card, participant grid, floating toolbar, mic dot, stable participant ordering and optimistic role updates |
-| [PR #861](https://github.com/AOSSIE-Org/Resonate/pull/861) | Bugs and improvements in Logout, Room creation and Room exit | Open | Fixes logout needing two taps, room teardown not running, rooms resurrecting after being ended, and the create-room keyboard |
-| [PR #863](https://github.com/AOSSIE-Org/Resonate/pull/863) | Improved Friend Call screen UI with mini-player addition and profile Pop-Out function | Open | Friend call stage, miniplayer, Android Picture-in-Picture, long-press profile card, and ten bugs fixed on top |
-| [PR #865](https://github.com/AOSSIE-Org/Resonate/pull/865) | Optimized data schemas to improve app performance | Open | App-side half of the schema work: N+1 removal, atomic counters, and the database consolidation |
-| [PR #869](https://github.com/AOSSIE-Org/Resonate/pull/869) | Implement UI for viewing, and deleting recorded sessions | Open | Recorded Chapters archive with playback and transcript seeking; moves transcription off the teardown path; consolidates the live-session screens |
-| [PR #871](https://github.com/AOSSIE-Org/Resonate/pull/871) | Improved room performance and improved app test coverage | Open | Rebuild-churn reduction, dead-code removal, the coverage programme to 88.7%, and the eight view-layer bugs it found |
-| [PR #873](https://github.com/AOSSIE-Org/Resonate/pull/873) | Updated the build scripts and improved feature implementation | Open | MVVM audit fixes and enforcement tests, social notifications, HTTPS and security hardening, room deep links and the iOS release groundwork |
+| [PR #841](https://github.com/AOSSIE-Org/Resonate/pull/841) | Implemented polling feature | Merged | Chat-integrated live polls with one vote per user, live result bars and voter avatars; also contains the app-wide realtime-event fix |
+| [PR #843](https://github.com/AOSSIE-Org/Resonate/pull/843) | Architectural design flaw in api_service.dart | Merged | Splits a core god-service into a shared execute helper, one genuinely shared service, and per-feature repository methods |
+| [PR #845](https://github.com/AOSSIE-Org/Resonate/pull/845) | Implement presence states (Online, InRoom, DND, Invisible) | Merged | Activity status system with derived status, a server-side call gate and themed status indicators |
+| [PR #847](https://github.com/AOSSIE-Org/Resonate/pull/847) | Audio-Wave animation around the speaker's avatar | Merged | Real-audio-spectrum speaking rings driven by LiveKit's native FFT |
+| [PR #849](https://github.com/AOSSIE-Org/Resonate/pull/849) | Updating Expired Documentation and adding Workflows | Merged | `AGENTS.md`, `MAINTAINERS.md`, brand guide, best-practices checklist with an automated scoring workflow, README refresh |
+| [PR #851](https://github.com/AOSSIE-Org/Resonate/pull/851) | Implemented local feature flags to dynamically enable/disable features | Merged | User-controlled local feature flags with entry-point and router gating |
+| [PR #855](https://github.com/AOSSIE-Org/Resonate/pull/855) | Implement badge system using threshold-based logic | Merged | User statistics and the five-category badge system, server-verified and write-protected |
+| [PR #857](https://github.com/AOSSIE-Org/Resonate/pull/857) | Added Onboarding interest selection and filtering logic for profiles | Merged | Interest selection, interest-based profile filtering, free-form story tags and the hybrid/semantic story search ladder |
+| [PR #859](https://github.com/AOSSIE-Org/Resonate/pull/859) | Redesigned and Implemented Rooms screen UI | Merged | Featured host card, participant grid, floating toolbar, mic dot, stable participant ordering and optimistic role updates |
+| [PR #861](https://github.com/AOSSIE-Org/Resonate/pull/861) | Bugs and improvements in Logout, Room creation and Room exit | Merged | Fixes logout needing two taps, room teardown not running, rooms resurrecting after being ended, and the create-room keyboard |
+| [PR #863](https://github.com/AOSSIE-Org/Resonate/pull/863) | Improved Friend Call screen UI with mini-player addition and profile Pop-Out function | Merged | Friend call stage, miniplayer, Android Picture-in-Picture, long-press profile card, and ten bugs fixed on top |
+| [PR #865](https://github.com/AOSSIE-Org/Resonate/pull/865) | Optimized data schemas to improve app performance | Merged | App-side half of the schema work: N+1 removal, atomic counters, and the database consolidation |
+| [PR #869](https://github.com/AOSSIE-Org/Resonate/pull/869) | Implement UI for viewing, and deleting recorded sessions | Merged | Recorded Chapters archive with playback and transcript seeking; moves transcription off the teardown path; consolidates the live-session screens |
+| [PR #871](https://github.com/AOSSIE-Org/Resonate/pull/871) | Improved room performance and improved app test coverage | Merged | Rebuild-churn reduction, dead-code removal, the coverage programme to 88.7%, and the eight view-layer bugs it found |
+| [PR #873](https://github.com/AOSSIE-Org/Resonate/pull/873) | Updated the build scripts and improved feature implementation | Merged | MVVM audit fixes and enforcement tests, social notifications, HTTPS and security hardening, room deep links and the iOS release groundwork |
+| [PR #877](https://github.com/AOSSIE-Org/Resonate/pull/877) | Updated Resonate's dependencies to the latest compatible ones | Merged | Dependency refresh across the app, with the toolchain ceiling identified and documented |
+| [PR #879](https://github.com/AOSSIE-Org/Resonate/pull/879) | Removed the FCM dependency from Resonate and switching to Appwrite push | Merged | Firebase removed entirely; push moved onto Appwrite Messaging over MQTT, plus the broker-host and full-screen-call fixes |
+| [PR #881](https://github.com/AOSSIE-Org/Resonate/pull/881) | Removed leftover google dependencies and updating the change | Merged | Bundled fonts instead of runtime fetching, the F-Droid build recipe, and the release notes for 4.0.0 |
 
 ## Backend Repo
 
 | Pull Request # | Pull Request Title | Status | Pull Request Contributions |
 | --- | --- | --- | --- |
-| [PR #175](https://github.com/AOSSIE-Org/Resonate-Backend/pull/175) | feat: implemented polling feature | Open | Poll and vote tables, the unique one-vote-per-user index, and poll cleanup in the room lifecycle |
-| [PR #177](https://github.com/AOSSIE-Org/Resonate-Backend/pull/177) | Implement presence states (Online, Idle, DND, Invisible) | Open | The `status` column and the `start-friend-call` presence gate; also repairs eight invalid SDK calls and thirteen stale environment keys left by the 1.8.0 upgrade |
-| [PR #179](https://github.com/AOSSIE-Org/Resonate-Backend/pull/179) | Added tracking metrics for users | Open | `user_stats`, `achievement_thresholds` and `room_credits` tables, the write-protected `record-activity` function and the nightly reconciler |
-| [PR #181](https://github.com/AOSSIE-Org/Resonate-Backend/pull/181) | Added Onboarding interest selection and filtering logic | Open | Interest and tag columns with their indexes |
-| [PR #183](https://github.com/AOSSIE-Org/Resonate-Backend/pull/183) | Optimizing data schemas to improve app performance | Open | Relationships, indexes and column resizes; the Appwrite 1.8 to 2.3 upgrade; the move onto per-execution API keys; the five-database consolidation into `main` |
-| [PR #186](https://github.com/AOSSIE-Org/Resonate-Backend/pull/186) | Addition of Social Notification feature | Open | The `users.fcmTokens` column and the `send-social-notification` function with stale-token pruning |
+| [PR #175](https://github.com/AOSSIE-Org/Resonate-Backend/pull/175) | feat: implemented polling feature | Merged | Poll and vote tables, the unique one-vote-per-user index, and poll cleanup in the room lifecycle |
+| [PR #177](https://github.com/AOSSIE-Org/Resonate-Backend/pull/177) | Implement presence states (Online, Idle, DND, Invisible) | Merged | The `status` column and the `start-friend-call` presence gate; also repairs eight invalid SDK calls and thirteen stale environment keys left by the 1.8.0 upgrade |
+| [PR #179](https://github.com/AOSSIE-Org/Resonate-Backend/pull/179) | Added tracking metrics for users | Merged | `user_stats`, `achievement_thresholds` and `room_credits` tables, the write-protected `record-activity` function and the nightly reconciler |
+| [PR #181](https://github.com/AOSSIE-Org/Resonate-Backend/pull/181) | Added Onboarding interest selection and filtering logic | Merged | Interest and tag columns with their indexes |
+| [PR #183](https://github.com/AOSSIE-Org/Resonate-Backend/pull/183) | Optimizing data schemas to improve app performance | Merged | Relationships, indexes and column resizes; the Appwrite 1.8 to 2.3 upgrade; the move onto per-execution API keys; the five-database consolidation into `main` |
+| [PR #186](https://github.com/AOSSIE-Org/Resonate-Backend/pull/186) | Addition of Social Notification feature | Merged | The `users.fcmTokens` column and the `send-social-notification` function with stale-token pruning |
+| [PR #188](https://github.com/AOSSIE-Org/Resonate-Backend/pull/188) | Removed the FCM dependency from Resonate and switching to Appwrite push | Merged | Five functions moved off `firebase-admin` onto Appwrite Messaging; seven token columns dropped from the schema |
 
 
 ## For using and experiencing the features implemented by me as part of GSoC 2026, please download the Resonate App:
