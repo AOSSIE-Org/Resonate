@@ -43,6 +43,10 @@ const String meilisearchApiKey = String.fromEnvironment(
   defaultValue: 'myMasterKey',
 );
 
+// F-Droid ships its own updates, so the in-app Play Store check must not run:
+// it would point users at a channel they did not install from.
+const bool isFDroidBuild = bool.fromEnvironment('FDROID');
+
 const bool isUsingMeilisearch = bool.fromEnvironment(
   'USE_MEILISEARCH',
   defaultValue: false,

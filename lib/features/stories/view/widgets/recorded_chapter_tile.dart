@@ -49,7 +49,6 @@ class RecordedChapterTile extends StatelessWidget {
             color: colorScheme.onSurface,
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_17,
-            fontFamily: 'Inter',
           ),
         ),
         subtitle: Text(
@@ -58,7 +57,6 @@ class RecordedChapterTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: theme.textTheme.bodyMedium!.copyWith(
             fontSize: UiSizes.size_12,
-            fontFamily: 'Inter',
           ),
         ),
         trailing: Text(

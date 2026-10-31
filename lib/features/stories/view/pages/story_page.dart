@@ -86,7 +86,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                         color: colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                         fontSize: UiSizes.size_20,
-                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
@@ -107,7 +106,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                             : TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: UiSizes.size_16,
-                          fontFamily: 'Inter',
                         ),
                       ),
                     ),
@@ -145,7 +143,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                         color: colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                         fontSize: UiSizes.size_20,
-                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
@@ -228,7 +225,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                           fontWeight: FontWeight.w500,
                           fontSize: UiSizes.size_35,
                           overflow: TextOverflow.ellipsis,
-                          fontFamily: 'Inter',
                         ),
                       ),
                       SizedBox(height: UiSizes.height_8),
@@ -243,7 +239,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
@@ -257,7 +252,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
@@ -271,7 +265,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                             style: Theme.of(context).textTheme.bodyLarge!
                                 .copyWith(
                                   fontSize: UiSizes.size_16,
-                                  fontFamily: 'Inter',
                                 ),
                           ),
                           SizedBox(width: UiSizes.width_16),
@@ -290,7 +283,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
@@ -307,7 +299,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontSize: UiSizes.size_16,
-                fontFamily: 'Inter',
               ),
             ),
           ],

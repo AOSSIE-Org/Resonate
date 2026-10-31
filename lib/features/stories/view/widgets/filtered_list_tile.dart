@@ -65,7 +65,6 @@ class FilteredListTile extends StatelessWidget {
                   formatPlayDuration(story!.playDuration),
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: UiSizes.size_14,
-                    fontFamily: 'Inter',
                   ),
                 )
               : Row(
@@ -84,7 +83,6 @@ class FilteredListTile extends StatelessWidget {
               color: colorScheme.onSurface,
               fontWeight: FontWeight.w500,
               fontSize: UiSizes.size_17,
-              fontFamily: 'Inter',
             ),
           ),
           subtitle: Text(
@@ -93,7 +91,6 @@ class FilteredListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: UiSizes.size_12,
-              fontFamily: 'Inter',
             ),
           ),
         ),
