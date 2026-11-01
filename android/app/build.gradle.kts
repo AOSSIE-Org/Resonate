@@ -25,10 +25,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
 val projectId: String = System.getenv("APPWRITE_PROJECT_ID") ?: "resonate"
 println("PROJECT_ID: $projectId")
     defaultConfig {
@@ -38,7 +34,7 @@ println("PROJECT_ID: $projectId")
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdk = 24
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode.toInt()
+        versionCode = flutter.versionCode
         versionName = flutter.versionName
         manifestPlaceholders += mapOf("auth0Domain" to "dev-5w4x3qxvszw8f0u6.us.auth0.com", "auth0Scheme" to "resonate", "PROJECT_ID" to projectId )
     }
@@ -60,6 +56,12 @@ println("PROJECT_ID: $projectId")
             signingConfig = signingConfigs.getByName("debug")
             signingConfig = signingConfigs.getByName("release")
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
     }
 }
 
