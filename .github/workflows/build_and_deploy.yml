@@ -221,4 +221,4 @@ jobs:
           serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
           packageName: com.resonate.resonate
           releaseFiles: ${{ env.AAB_PATH }}
-          tracks: qa
+          tracks: internal
