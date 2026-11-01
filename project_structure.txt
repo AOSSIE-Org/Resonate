@@ -17,8 +17,11 @@
 │   │   └── ui_ux_update.yml
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   ├── dependabot.yml
+│   ├── scripts
+│   │   └── checklist_score.py
 │   └── workflows
 │       ├── build_and_deploy.yml
+│       ├── checklist-score.yml
 │       ├── greet_contributors.yml
 │       ├── run_tests.yml
 │       ├── store_deploy_android.yml
@@ -26,12 +29,15 @@
 │       └── update-project-structure.yml
 ├── .gitignore
 ├── .metadata
+├── AGENTS.md
+├── BestPracticesChecklist.md
 ├── CHANGELOG.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── COPYRIGHT.md
 ├── CSAE_STANDARDS.md
 ├── LICENSE
+├── MAINTAINERS.md
 ├── ONBOARDING.md
 ├── PRIVACY-POLICY.md
 ├── README.md
@@ -127,6 +133,17 @@
 │   │   ├── proxy_image.png
 │   │   ├── resonate_logo.png
 │   │   └── user.jpeg
+│   └── svg
+│       └── resonate_logo_white.svg
+├── brands
+│   ├── Brand.md
+│   ├── images
+│   │   ├── aossie_logo.png
+│   │   ├── landing_first.png
+│   │   ├── landing_second.png
+│   │   ├── landing_third.png
+│   │   ├── no_room.svg
+│   │   └── resonate_logo.png
 │   └── svg
 │       └── resonate_logo_white.svg
 ├── build.yaml
@@ -510,12 +527,19 @@
 │   │   │       │   └── room_chat_notifier.g.dart
 │   │   │       └── room_chat_notifier.dart
 │   │   ├── settings
+│   │   │   ├── data
+│   │   │   │   ├── feature_flags.dart
+│   │   │   │   └── generated
+│   │   │   │       └── feature_flags.g.dart
+│   │   │   ├── model
+│   │   │   │   └── app_feature.dart
 │   │   │   ├── settings_routes.dart
 │   │   │   ├── view
 │   │   │   │   └── pages
 │   │   │   │       ├── about_app_screen.dart
 │   │   │   │       ├── app_preferences_screen.dart
 │   │   │   │       ├── contribute_screen.dart
+│   │   │   │       ├── features_screen.dart
 │   │   │   │       ├── settings_screen.dart
 │   │   │   │       └── user_account_screen.dart
 │   │   │   └── viewmodel
@@ -784,6 +808,7 @@
 │   │   │   ├── view
 │   │   │   │   ├── change_email_page_test.dart
 │   │   │   │   ├── delete_account_page_test.dart
+│   │   │   │   ├── profile_page_layout_test.dart
 │   │   │   │   └── profile_page_test.dart
 │   │   │   └── viewmodel
 │   │   │       ├── change_email_notifier_test.dart
@@ -820,12 +845,14 @@
 │   │   ├── settings
 │   │   │   ├── about_app_notifier_test.dart
 │   │   │   ├── about_app_notifier_test.mocks.dart
+│   │   │   ├── feature_flags_test.dart
 │   │   │   ├── locale_notifier_test.dart
 │   │   │   ├── settings_notifier_test.dart
 │   │   │   ├── settings_test_helpers.dart
 │   │   │   └── view
 │   │   │       ├── about_app_screen_test.dart
 │   │   │       ├── app_preferences_screen_test.dart
+│   │   │       ├── features_screen_test.dart
 │   │   │       └── settings_screen_test.dart
 │   │   ├── stories
 │   │   │   ├── data
@@ -861,4 +888,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-220 directories, 642 files
+227 directories, 662 files
