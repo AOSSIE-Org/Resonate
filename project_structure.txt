@@ -224,9 +224,11 @@
 ├── lib
 │   ├── core
 │   │   ├── providers
+│   │   │   ├── app_lifecycle_provider.dart
 │   │   │   ├── appwrite_providers.dart
 │   │   │   ├── firebase_providers.dart
 │   │   │   ├── generated
+│   │   │   │   ├── app_lifecycle_provider.g.dart
 │   │   │   │   ├── appwrite_providers.g.dart
 │   │   │   │   ├── firebase_providers.g.dart
 │   │   │   │   └── get_storage_provider.g.dart
@@ -237,6 +239,24 @@
 │   │       │   └── room_join_service.g.dart
 │   │       └── room_join_service.dart
 │   ├── features
+│   │   ├── activity_status
+│   │   │   ├── data
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── my_activity_status.g.dart
+│   │   │   │   │   └── user_activity_status.g.dart
+│   │   │   │   ├── my_activity_status.dart
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── activity_status_repository.dart
+│   │   │   │   │   └── generated
+│   │   │   │   │       └── activity_status_repository.g.dart
+│   │   │   │   └── user_activity_status.dart
+│   │   │   ├── model
+│   │   │   │   └── call_blocked_by_activity_status.dart
+│   │   │   └── view
+│   │   │       └── widgets
+│   │   │           ├── activity_avatar.dart
+│   │   │           ├── activity_dot.dart
+│   │   │           └── activity_status_sheet.dart
 │   │   ├── auth
 │   │   │   ├── auth_routes.dart
 │   │   │   ├── data
@@ -577,6 +597,7 @@
 │   │   │       └── story_detail_notifier.dart
 │   │   └── theme
 │   │       ├── model
+│   │       │   ├── activity_status_colors.dart
 │   │       │   ├── theme_enums.dart
 │   │       │   ├── theme_list.dart
 │   │       │   ├── theme_model.dart
@@ -644,6 +665,7 @@
 │       ├── constants.dart
 │       ├── debouncer.dart
 │       ├── enums
+│       │   ├── activity_status.dart
 │       │   ├── audio_device_enum.dart
 │       │   ├── friend_call_status.dart
 │       │   ├── friend_request_status.dart
@@ -671,6 +693,14 @@
 │   │       ├── execute_function_test.dart
 │   │       └── execute_function_test.mocks.dart
 │   ├── features
+│   │   ├── activity_status
+│   │   │   ├── activity_status_test_helpers.dart
+│   │   │   ├── data
+│   │   │   │   ├── activity_status_repository_test.dart
+│   │   │   │   ├── my_activity_status_test.dart
+│   │   │   │   └── user_activity_status_test.dart
+│   │   │   └── view
+│   │   │       └── activity_status_widgets_test.dart
 │   │   ├── auth
 │   │   │   ├── auth_test_helpers.dart
 │   │   │   ├── data
@@ -721,7 +751,8 @@
 │   │   │   ├── profile_test_helpers.dart
 │   │   │   ├── view
 │   │   │   │   ├── change_email_page_test.dart
-│   │   │   │   └── delete_account_page_test.dart
+│   │   │   │   ├── delete_account_page_test.dart
+│   │   │   │   └── profile_page_test.dart
 │   │   │   └── viewmodel
 │   │   │       ├── change_email_notifier_test.dart
 │   │   │       ├── delete_account_notifier_test.dart
@@ -761,36 +792,40 @@
 │   │   │   ├── about_app_notifier_test.dart
 │   │   │   ├── about_app_notifier_test.mocks.dart
 │   │   │   ├── locale_notifier_test.dart
+│   │   │   ├── settings_notifier_test.dart
 │   │   │   ├── settings_test_helpers.dart
 │   │   │   └── view
 │   │   │       ├── about_app_screen_test.dart
 │   │   │       ├── app_preferences_screen_test.dart
 │   │   │       └── settings_screen_test.dart
-│   │   └── stories
-│   │       ├── data
-│   │       │   ├── live_chapter_repository_test.dart
-│   │       │   └── stories_repository_test.dart
-│   │       ├── view
-│   │       │   ├── live_chapter_widgets_test.dart
-│   │       │   ├── stories_pages_test.dart
-│   │       │   ├── stories_test_helpers.dart
-│   │       │   ├── stories_widgets_test.dart
-│   │       │   └── story_format_test.dart
-│   │       └── viewmodel
-│   │           ├── category_stories_notifier_test.dart
-│   │           ├── chapter_player_notifier_test.dart
-│   │           ├── create_story_notifier_test.dart
-│   │           ├── explore_stories_notifier_test.dart
-│   │           ├── live_chapter_notifier_test.dart
-│   │           ├── story_detail_notifier_test.dart
-│   │           └── whisper_model_notifier_test.dart
+│   │   ├── stories
+│   │   │   ├── data
+│   │   │   │   ├── live_chapter_repository_test.dart
+│   │   │   │   └── stories_repository_test.dart
+│   │   │   ├── view
+│   │   │   │   ├── live_chapter_widgets_test.dart
+│   │   │   │   ├── stories_pages_test.dart
+│   │   │   │   ├── stories_test_helpers.dart
+│   │   │   │   ├── stories_widgets_test.dart
+│   │   │   │   └── story_format_test.dart
+│   │   │   └── viewmodel
+│   │   │       ├── category_stories_notifier_test.dart
+│   │   │       ├── chapter_player_notifier_test.dart
+│   │   │       ├── create_story_notifier_test.dart
+│   │   │       ├── explore_stories_notifier_test.dart
+│   │   │       ├── live_chapter_notifier_test.dart
+│   │   │       ├── story_detail_notifier_test.dart
+│   │   │       └── whisper_model_notifier_test.dart
+│   │   └── theme
+│   │       └── activity_status_colors_test.dart
 │   ├── helpers
 │   │   ├── test_root_container.dart
 │   │   └── test_root_container.mocks.dart
 │   ├── routes
 │   │   └── app_router_test.dart
 │   └── utils
+│       ├── activity_status_test.dart
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-193 directories, 601 files
+205 directories, 624 files
