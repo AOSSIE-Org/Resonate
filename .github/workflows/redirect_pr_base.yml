@@ -1,0 +1,86 @@
+name: Redirect PR Base Branch
+
+on:
+  pull_request_target:
+    types: [opened, reopened, edited]
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
+
+jobs:
+  redirect:
+    runs-on: ubuntu-latest
+    # Only react to "edited" events when the base branch itself was changed to master
+    if: github.event.action != 'edited' || github.event.changes.base != null
+
+    steps:
+      - name: Change base branch from master to dev
+        uses: actions/github-script@v7
+        env:
+          TARGET_BRANCH: dev
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const author = pr.user.login;
+            const targetBranch = process.env.TARGET_BRANCH;
+
+            // Bots (e.g. Dependabot) are exempted
+            if (pr.user.type === 'Bot') {
+              core.info(`Skipping: ${author} is a bot.`);
+              return;
+            }
+
+            // Maintainers and team members are exempted
+            if (['OWNER', 'MEMBER', 'COLLABORATOR'].includes(pr.author_association)) {
+              core.info(`Skipping: ${author} is a ${pr.author_association}.`);
+              return;
+            }
+
+            // author_association reports private org members as CONTRIBUTOR,
+            // so also check the author's permission level on the repository
+            try {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: author
+              });
+              if (['admin', 'maintain', 'write'].includes(data.permission)) {
+                core.info(`Skipping: ${author} has ${data.permission} permission.`);
+                return;
+              }
+            } catch (error) {
+              core.info(`Could not determine permission for ${author}: ${error.message}`);
+            }
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              base: targetBranch
+            });
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: [
+                `👋 **Hi @${author}!**`,
+                '',
+                `This pull request was opened against \`${pr.base.ref}\`, but contributions should target the \`${targetBranch}\` branch. 🔀`,
+                `The base branch has been **automatically changed to \`${targetBranch}\`**.`,
+                '',
+                `- If you now see merge conflicts or unrelated commits, please rebase your branch onto \`${targetBranch}\`:`,
+                '  ```bash',
+                `  git fetch upstream ${targetBranch}`,
+                `  git rebase upstream/${targetBranch}`,
+                '  git push --force-with-lease',
+                '  ```',
+                `- For future PRs, please select \`${targetBranch}\` as the base branch. ✅`,
+                '',
+                '_Automated notice by Redirect PR Base Branch workflow_'
+              ].join('\n')
+            });
