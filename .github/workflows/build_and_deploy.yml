@@ -198,6 +198,9 @@ jobs:
       AAB_PATH: aab-stores/app-release.aab
       SERVICE_ACCOUNT_PATH: store_credentials.json
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download AAB artifact
         uses: actions/download-artifact@v4
         with:
@@ -215,6 +218,23 @@ jobs:
             exit 1
           fi
 
+      # Play wants a directory of whatsnew-<locale> files, not fastlane's
+      # layout, so the changelog for this build number is staged into the
+      # shape the action expects.
+      - name: Stage release notes for Play
+        run: |
+          set -euo pipefail
+          code=$(grep "^version:" pubspec.yaml | sed "s/.*+//")
+          src="fastlane/metadata/android/en-US/changelogs/${code}.txt"
+          if [ ! -s "$src" ]; then
+            echo "::error::$src is missing - add the changelog for versionCode $code."
+            exit 1
+          fi
+          mkdir -p distribution/whatsnew
+          cp "$src" distribution/whatsnew/whatsnew-en-US
+          echo "Release notes for versionCode $code:"
+          cat distribution/whatsnew/whatsnew-en-US
+
       - name: Deploy to Play Store (Internal testing)
         uses: r0adkll/upload-google-play@v1
         with:
@@ -222,3 +242,4 @@ jobs:
           packageName: com.resonate.resonate
           releaseFiles: ${{ env.AAB_PATH }}
           tracks: qa
+          whatsNewDirectory: distribution/whatsnew
