@@ -236,22 +236,29 @@
 │   │   │   └── Main.storyboard
 │   │   ├── Info.plist
 │   │   ├── PrivacyInfo.xcprivacy
-│   │   └── Runner-Bridging-Header.h
+│   │   ├── Runner-Bridging-Header.h
+│   │   └── SceneDelegate.swift
 │   ├── Runner.xcodeproj
 │   │   ├── project.pbxproj
 │   │   ├── project.xcworkspace
 │   │   │   ├── contents.xcworkspacedata
 │   │   │   └── xcshareddata
 │   │   │       ├── IDEWorkspaceChecks.plist
-│   │   │       └── WorkspaceSettings.xcsettings
+│   │   │       ├── WorkspaceSettings.xcsettings
+│   │   │       └── swiftpm
+│   │   │           └── Package.resolved
 │   │   └── xcshareddata
+│   │       ├── xcodecloud
+│   │       │   └── manifest.json
 │   │       └── xcschemes
 │   │           └── Runner.xcscheme
 │   └── Runner.xcworkspace
 │       ├── contents.xcworkspacedata
 │       └── xcshareddata
 │           ├── IDEWorkspaceChecks.plist
-│           └── WorkspaceSettings.xcsettings
+│           ├── WorkspaceSettings.xcsettings
+│           └── swiftpm
+│               └── Package.resolved
 ├── l10n.yaml
 ├── lib
 │   ├── core
@@ -1130,4 +1137,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-283 directories, 848 files
+286 directories, 852 files
