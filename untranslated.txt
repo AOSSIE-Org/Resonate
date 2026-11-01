@@ -1,6 +1,15 @@
 {
   "bn": [
+    "rateYourExperience",
     "audioOptions",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -39,6 +48,7 @@
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "rateYourExperience",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -49,6 +59,14 @@
     "clear",
     "audioOptions",
     "failedToRemoveRoom",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "roomRemovedSuccessfully",
     "audioOutput",
     "selectPreferredSpeaker",
@@ -64,17 +82,13 @@
     "inviteToResonate"
   ],
 
-  "hi": [
-    "usernameInvalidFormat",
-    "usernameAlreadyTaken"
-  ],
-
   "kn": [
     "hide",
     "removeRoom",
     "removeRoomFromList",
     "removeRoomConfirmation",
     "searchFailed",
+    "rateYourExperience",
     "searchRooms",
     "searchingRooms",
     "clearSearch",
@@ -85,6 +99,14 @@
     "clear",
     "audioOptions",
     "failedToRemoveRoom",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "roomRemovedSuccessfully",
     "audioOutput",
     "selectPreferredSpeaker",
@@ -106,8 +128,41 @@
     "usernameAlreadyTaken"
   ],
 
+  "ml": [
+    "rateYourExperience",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry"
+  ],
+
+  "mr": [
+    "rateYourExperience",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry"
+  ],
+
   "raj": [
+    "rateYourExperience",
     "audioOptions",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "audioOutput",
     "selectPreferredSpeaker",
     "noAudioOutputDevices",
@@ -129,6 +184,15 @@
   ],
 
   "ta": [
+    "rateYourExperience",
+    "failedToCreateRoom",
+    "roomChat",
+    "failedToResend",
+    "edited",
+    "failedToSendTapRetry",
+    "saySomething",
+    "tapToRetry",
+    "retry",
     "noFriendsYet",
     "noFriendsDescription",
     "findFriends",

@@ -1,1 +1,0 @@
-enum SignedInBy { email, google }

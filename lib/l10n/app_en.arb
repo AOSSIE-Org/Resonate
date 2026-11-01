@@ -936,6 +936,10 @@
     "@submit": {
         "description": "Generic button text for submitting a form."
     },
+    "rateYourExperience": "Rate your experience",
+    "@rateYourExperience": {
+        "description": "Title prompting the user to rate their pair chat experience."
+    },
     "anonymous": "Anonymous",
     "@anonymous": {
         "description": "Label for an anonymous user or identity."
@@ -1672,6 +1676,38 @@
     "@failedToRemoveRoom": {
         "description": "Error message when unable to remove a room from the list"
     },
+    "failedToCreateRoom": "Failed to create room",
+    "@failedToCreateRoom": {
+        "description": "Error message when unable to create a room"
+    },
+    "roomChat": "Room Chat",
+    "@roomChat": {
+        "description": "Title of the in-room chat screen"
+    },
+    "failedToResend": "Failed to resend",
+    "@failedToResend": {
+        "description": "Snackbar shown when retrying a failed chat message fails again"
+    },
+    "edited": " (edited)",
+    "@edited": {
+        "description": "Inline suffix appended to an edited chat message"
+    },
+    "failedToSendTapRetry": "Failed to send. Tap the message to retry.",
+    "@failedToSendTapRetry": {
+        "description": "Snackbar shown when a chat message fails to send"
+    },
+    "saySomething": "Say Something",
+    "@saySomething": {
+        "description": "Hint text in the chat message input field"
+    },
+    "tapToRetry": "Tap to retry",
+    "@tapToRetry": {
+        "description": "Tooltip on the retry affordance of a failed chat message"
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "Label of the retry action on a failed chat message"
+    },
     "roomRemovedSuccessfully": "Room removed from your list successfully",
     "@roomRemovedSuccessfully": {
         "description": "Success message when a room is successfully removed from the user's list"
@@ -1830,11 +1866,6 @@
   "description": "Status text shown when a previously sent message has been deleted."
 },
 
-"failedToDeleteMessage": "Failed to delete message",
-"@failedToDeleteMessage": {
-  "description": "Error message shown when the system is unable to delete a message."
-},
-
 "usernameInvalidFormat": "Please enter a valid username. Only letters, numbers, dots, underscores, and hyphens are allowed.",
 "@usernameInvalidFormat": {
   "description": "Validation error displayed when the user enters a username with unsupported characters."
@@ -1846,4 +1877,4 @@
 }
 
 
-}
+}

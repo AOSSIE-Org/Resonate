@@ -719,6 +719,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get submit => 'ਸਬਮਿਟ ਕਰੋ';
 
   @override
+  String get rateYourExperience => 'ਆਪਣੇ ਅਨੁਭਵ ਨੂੰ ਰੇਟ ਕਰੋ';
+
+  @override
   String get anonymous => 'ਅਗਿਆਤ';
 
   @override
@@ -1232,6 +1235,31 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get failedToRemoveRoom => 'ਰੂਮ ਹਟਾਉਣ ਵਿੱਚ ਅਸਫਲ';
+
+  @override
+  String get failedToCreateRoom => 'ਰੂਮ ਬਣਾਉਣ ਵਿੱਚ ਅਸਫਲ';
+
+  @override
+  String get roomChat => 'ਰੂਮ ਚੈਟ';
+
+  @override
+  String get failedToResend => 'ਮੁੜ ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ';
+
+  @override
+  String get edited => ' (ਸੰਪਾਦਿਤ)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਲਈ ਸੁਨੇਹੇ ਉੱਤੇ ਟੈਪ ਕਰੋ।';
+
+  @override
+  String get saySomething => 'ਕੁਝ ਕਹੋ';
+
+  @override
+  String get tapToRetry => 'ਮੁੜ ਕੋਸ਼ਿਸ਼ ਲਈ ਟੈਪ ਕਰੋ';
+
+  @override
+  String get retry => 'ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ';
 
   @override
   String get roomRemovedSuccessfully => 'ਰੂਮ ਸਫਲਤਾਪੂਰਵਕ ਹਟਾਇਆ ਗਿਆ';

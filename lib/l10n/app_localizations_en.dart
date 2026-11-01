@@ -727,6 +727,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get submit => 'Submit';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'Anonymous';
 
   @override
@@ -1265,6 +1268,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToRemoveRoom => 'Failed to remove room';
+
+  @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
 
   @override
   String get roomRemovedSuccessfully =>

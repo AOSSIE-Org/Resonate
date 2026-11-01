@@ -920,6 +920,10 @@
     "@submit": {
         "description": "Generic button text for submitting a form."
     },
+    "rateYourExperience": "अपने अनुभव को रेट करें",
+    "@rateYourExperience": {
+        "description": "Title prompting the user to rate their pair chat experience."
+    },
     "anonymous": "गुमनाम",
     "@anonymous": {
         "description": "Label for an anonymous user or identity."
@@ -1672,6 +1676,38 @@
     "@failedToRemoveRoom": {
         "description": "Error message when unable to remove a room from the list"
     },
+    "failedToCreateRoom": "रूम बनाने में असफल",
+    "@failedToCreateRoom": {
+        "description": "Error message when unable to create a room"
+    },
+    "roomChat": "रूम चैट",
+    "@roomChat": {
+        "description": "Title of the in-room chat screen"
+    },
+    "failedToResend": "पुनः भेजने में असफल",
+    "@failedToResend": {
+        "description": "Snackbar shown when retrying a failed chat message fails again"
+    },
+    "edited": " (संपादित)",
+    "@edited": {
+        "description": "Inline suffix appended to an edited chat message"
+    },
+    "failedToSendTapRetry": "भेजने में विफल। पुनः प्रयास के लिए संदेश पर टैप करें।",
+    "@failedToSendTapRetry": {
+        "description": "Snackbar shown when a chat message fails to send"
+    },
+    "saySomething": "कुछ कहें",
+    "@saySomething": {
+        "description": "Hint text in the chat message input field"
+    },
+    "tapToRetry": "पुनः प्रयास के लिए टैप करें",
+    "@tapToRetry": {
+        "description": "Tooltip on the retry affordance of a failed chat message"
+    },
+    "retry": "पुनः प्रयास करें",
+    "@retry": {
+        "description": "Label of the retry action on a failed chat message"
+    },
     "roomRemovedSuccessfully": "रूम आपकी सूची से सफलतापूर्वक हटा दिया गया",
     "@roomRemovedSuccessfully": {
         "description": "Success message when a room is successfully removed from the user's list"
@@ -1826,6 +1862,13 @@
     }
   }
 }
-
-
+,
+"usernameInvalidFormat": "उपयोगकर्ता नाम अमान्य है। कृपया केवल अक्षर, अंक और अंडरस्कोर का उपयोग करें।",
+"@usernameInvalidFormat": {
+    "description": "Error shown when username contains invalid characters or has an invalid format."
+},
+"usernameAlreadyTaken": "यह उपयोगकर्ता नाम पहले से लिया जा चुका है। कृपया कोई और चुनें।",
+"@usernameAlreadyTaken": {
+    "description": "Error shown when the chosen username is already in use."
 }
+}

@@ -1,0 +1,21 @@
+targets:
+  $default:
+    builders:
+      # Restrict json_serializable to data classes only.
+      json_serializable:
+        generate_for:
+          - lib/models/**.dart
+          - lib/features/**/model/**.dart
+
+      # Place .freezed.dart in a `generated/` sibling next to each source.
+      freezed:
+        options:
+          build_extensions:
+            "^lib/{{dir}}/{{name}}.dart": "lib/{{dir}}/generated/{{name}}.freezed.dart"
+
+      # Place .g.dart (the combined output from json_serializable +
+      # riverpod_generator) in the same `generated/` sibling.
+      source_gen:combining_builder:
+        options:
+          build_extensions:
+            "^lib/{{dir}}/{{name}}.dart": "lib/{{dir}}/generated/{{name}}.g.dart"
