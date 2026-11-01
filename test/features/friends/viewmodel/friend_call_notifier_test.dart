@@ -181,7 +181,7 @@ void main() {
         expect(state.activeCall!.livekitRoomId, 'friendship-doc');
         verify(
           tables.createRow(
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             tableId: friendCallsTableId,
             rowId: anyNamed('rowId'),
             data: anyNamed('data'),
@@ -314,7 +314,7 @@ void main() {
       final data =
           verify(
                 tables.updateRow(
-                  databaseId: masterDatabaseId,
+                  databaseId: databaseId,
                   tableId: friendCallsTableId,
                   rowId: anyNamed('rowId'),
                   data: captureAnyNamed('data'),
@@ -334,13 +334,13 @@ void main() {
       realtimeEvents.add(
         RealtimeMessage(
           events: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
           ],
           payload: callJson(
             call.copyWith(callStatus: FriendCallStatus.connected),
           ),
           channels: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
           ],
           timestamp: DateTime.now().toIso8601String(),
         ),
@@ -366,13 +366,13 @@ void main() {
       realtimeEvents.add(
         RealtimeMessage(
           events: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
           ],
           payload: callJson(
             call.copyWith(callStatus: FriendCallStatus.connected),
           ),
           channels: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
           ],
           timestamp: DateTime.now().toIso8601String(),
         ),
@@ -424,11 +424,11 @@ void main() {
       realtimeEvents.add(
         RealtimeMessage(
           events: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
           ],
           payload: callJson(call.copyWith(callStatus: FriendCallStatus.ended)),
           channels: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
           ],
           timestamp: DateTime.now().toIso8601String(),
         ),
@@ -460,7 +460,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),
@@ -477,7 +477,7 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isTrue);
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
           data: anyNamed('data'),
@@ -502,7 +502,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),
@@ -542,7 +542,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),

@@ -44,14 +44,14 @@ Map<String, dynamic> voteData({
 Row pollRow({String id = 'poll-1', Map<String, dynamic>? data}) => buildRow(
   id: id,
   tableId: pollsTableId,
-  databaseId: masterDatabaseId,
+  databaseId: databaseId,
   data: data ?? pollData(),
 );
 
 Row voteRow({String id = 'vote-1', Map<String, dynamic>? data}) => buildRow(
   id: id,
   tableId: pollVotesTableId,
-  databaseId: masterDatabaseId,
+  databaseId: databaseId,
   data: data ?? voteData(),
 );
 
@@ -101,7 +101,7 @@ void main() {
         'roomId/orderAsc/limit', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollsTableId,
           queries: anyNamed('queries'),
         ),
@@ -121,7 +121,7 @@ void main() {
 
       final queries = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollsTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -136,7 +136,7 @@ void main() {
     test('defaults null options to [] and null isClosed to false', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollsTableId,
           queries: anyNamed('queries'),
         ),
@@ -162,7 +162,7 @@ void main() {
         () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: anyNamed('queries'),
         ),
@@ -181,7 +181,7 @@ void main() {
 
       final queries = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -197,7 +197,7 @@ void main() {
       var call = 0;
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: anyNamed('queries'),
         ),
@@ -216,7 +216,7 @@ void main() {
 
       final captured = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -239,7 +239,7 @@ void main() {
     test('filters by pollId', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: anyNamed('queries'),
         ),
@@ -254,7 +254,7 @@ void main() {
 
       final queries = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -283,7 +283,7 @@ void main() {
 
       final data = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollsTableId,
           rowId: 'poll-1',
           data: captureAnyNamed('data'),
@@ -321,7 +321,7 @@ void main() {
 
       final data = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           rowId: 'vote-1',
           data: captureAnyNamed('data'),
@@ -351,7 +351,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollVotesTableId,
           rowId: 'vote-1',
           data: {'optionIndex': 2},
@@ -375,7 +375,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pollsTableId,
           rowId: 'poll-1',
           data: {'isClosed': true},
@@ -393,7 +393,7 @@ void main() {
     setUp(() {
       sub = MockRealtimeSubscription();
       controller = StreamController<RealtimeMessage>.broadcast();
-      channel = 'databases.$masterDatabaseId.tables.$pollsTableId.rows';
+      channel = 'databases.$databaseId.tables.$pollsTableId.rows';
       closeCalls = 0;
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);
@@ -478,7 +478,7 @@ void main() {
     setUp(() {
       sub = MockRealtimeSubscription();
       controller = StreamController<RealtimeMessage>.broadcast();
-      channel = 'databases.$masterDatabaseId.tables.$pollVotesTableId.rows';
+      channel = 'databases.$databaseId.tables.$pollVotesTableId.rows';
       closeCalls = 0;
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);

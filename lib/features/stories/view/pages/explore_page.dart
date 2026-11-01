@@ -27,9 +27,27 @@ class ExplorePage extends ConsumerStatefulWidget {
 
 class _ExplorePageState extends ConsumerState<ExplorePage> {
   final _debouncer = Debouncer(milliseconds: 500);
+  final _searchController = TextEditingController();
   bool _isSearching = false;
   bool _searchBarIsEmpty = true;
   bool _isPickingInterests = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  // Back with a search open clears it; this page is a root tab, so letting the
+  // pop through closes the app.
+  void _clearSearch() {
+    _searchController.clear();
+    ref.read(exploreStoriesProvider.notifier).clearSearch();
+    setState(() {
+      _searchBarIsEmpty = true;
+      _isSearching = false;
+    });
+  }
 
   void _onSearchChanged(String value) {
     setState(() {
@@ -54,68 +72,84 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
         .watch(interestFilterProvider)
         .isActive;
 
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        backgroundColor: colorScheme.surface,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: UiSizes.width_16,
-            right: UiSizes.width_16,
-            top: UiSizes.height_30,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                style: TextStyle(color: colorScheme.onSecondary),
-                onChanged: _onSearchChanged,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: UiSizes.height_15,
-                  ),
-                  border: const OutlineInputBorder(
-                    gapPadding: 4,
-                    borderSide: BorderSide(style: BorderStyle.none, width: 0),
-                  ),
-                  fillColor: colorScheme.secondary,
-                  filled: true,
-                  hintText: l10n.whatDoYouWantToListenTo,
-                  hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: colorScheme.onSecondary,
-                    fontWeight: FontWeight.w600,
-                    fontSize: UiSizes.size_17,
-                    fontFamily: 'Inter',
-                  ),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(left: UiSizes.width_16),
-                    child: Icon(
-                      Icons.search,
-                      color: colorScheme.onSecondary,
-                      size: UiSizes.size_35,
-                    ),
-                  ),
-                  suffixIcon: InterestFilterButton(
-                    isOpen: _isPickingInterests,
-                    onPressed: () => setState(
-                      () => _isPickingInterests = !_isPickingInterests,
-                    ),
-                  ),
-                ),
+    return PopScope(
+      canPop: _searchBarIsEmpty,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) _clearSearch();
+      },
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          backgroundColor: colorScheme.surface,
+          body: RefreshIndicator(
+            onRefresh: () =>
+                ref.read(exploreStoriesProvider.notifier).refresh(),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.only(
+                left: UiSizes.width_16,
+                right: UiSizes.width_16,
+                top: UiSizes.height_30,
               ),
-              SizedBox(height: UiSizes.height_20),
-              if (_isPickingInterests)
-                InterestFilterPanel(
-                  onDone: () => setState(() => _isPickingInterests = false),
-                )
-              else if (interestFilterIsActive)
-                const InterestFilterResults()
-              else if (_searchBarIsEmpty)
-                _ExploreContent()
-              else
-                _searchResults(context),
-            ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    style: TextStyle(color: colorScheme.onSecondary),
+                    onChanged: _onSearchChanged,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: UiSizes.height_15,
+                      ),
+                      border: const OutlineInputBorder(
+                        gapPadding: 4,
+                        borderSide: BorderSide(
+                          style: BorderStyle.none,
+                          width: 0,
+                        ),
+                      ),
+                      fillColor: colorScheme.secondary,
+                      filled: true,
+                      hintText: l10n.whatDoYouWantToListenTo,
+                      hintStyle: Theme.of(context).textTheme.bodyMedium!
+                          .copyWith(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: UiSizes.size_17,
+                            fontFamily: 'Inter',
+                          ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: UiSizes.width_16),
+                        child: Icon(
+                          Icons.search,
+                          color: colorScheme.onSecondary,
+                          size: UiSizes.size_35,
+                        ),
+                      ),
+                      suffixIcon: InterestFilterButton(
+                        isOpen: _isPickingInterests,
+                        onPressed: () => setState(
+                          () => _isPickingInterests = !_isPickingInterests,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: UiSizes.height_20),
+                  if (_isPickingInterests)
+                    InterestFilterPanel(
+                      onDone: () => setState(() => _isPickingInterests = false),
+                    )
+                  else if (interestFilterIsActive)
+                    const InterestFilterResults()
+                  else if (_searchBarIsEmpty)
+                    _ExploreContent()
+                  else
+                    _searchResults(context),
+                ],
+              ),
+            ),
           ),
         ),
       ),

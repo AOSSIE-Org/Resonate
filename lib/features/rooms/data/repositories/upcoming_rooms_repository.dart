@@ -31,7 +31,7 @@ class UpcomingRoomsRepository {
     required Set<String> hiddenRoomIds,
   }) async {
     final list = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
     );
 
@@ -43,7 +43,7 @@ class UpcomingRoomsRepository {
 
   Future<Set<String>> liveUpcomingRoomIds() async {
     final list = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
     );
     return list.rows.map((r) => r.$id).toSet();
@@ -55,7 +55,7 @@ class UpcomingRoomsRepository {
   ) async {
     try {
       final subscribers = await _tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         queries: [
           Query.equal('upcomingRoomId', [upcomingRoom.$id]),
@@ -111,7 +111,7 @@ class UpcomingRoomsRepository {
   }) async {
     final fcmToken = await _messaging.getToken();
     await _tables.createRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
       rowId: ID.unique(),
       data: {
@@ -132,7 +132,7 @@ class UpcomingRoomsRepository {
   }) async {
     final fcmToken = await _messaging.getToken();
     await _tables.createRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       rowId: ID.unique(),
       data: {
@@ -149,7 +149,7 @@ class UpcomingRoomsRepository {
     required String userUid,
   }) async {
     final result = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       queries: [
         Query.and([
@@ -160,7 +160,7 @@ class UpcomingRoomsRepository {
     );
     if (result.rows.isEmpty) return;
     await _tables.deleteRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       rowId: result.rows.first.$id,
     );
@@ -168,12 +168,12 @@ class UpcomingRoomsRepository {
 
   Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await _tables.deleteRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
       rowId: upcomingRoomId,
     );
     final subscribers = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       queries: [
         Query.equal('upcomingRoomId', [upcomingRoomId]),
@@ -181,7 +181,7 @@ class UpcomingRoomsRepository {
     );
     for (final sub in subscribers.rows) {
       await _tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: sub.$id,
       );

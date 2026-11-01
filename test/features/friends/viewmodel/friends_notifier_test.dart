@@ -46,14 +46,14 @@ void main() {
 
   void stubUserDoc(List<Map<String, dynamic>> friends) {
     when(tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: 'me',
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => buildRow(
           id: 'me',
           tableId: usersTableID,
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           data: {'friends': friends},
         ));
   }
@@ -68,7 +68,7 @@ void main() {
     when(realtime.subscribe(any)).thenAnswer(
       (_) => RealtimeSubscription(
         close: () async {},
-        channels: ['databases.$userDatabaseID.tables.$friendsTableID.rows'],
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
         controller: realtimeEvents,
       ),
     );
@@ -146,7 +146,7 @@ void main() {
       expect(request.requestSentByUserId, 'me');
       expect(request.requestStatus, FriendRequestStatus.sent);
       verify(tables.createRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: friendsTableID,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
@@ -199,7 +199,7 @@ void main() {
       expect(state.friends, hasLength(1));
       expect(state.friendRequests, isEmpty);
       verify(tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: friendsTableID,
         rowId: 'doc-incoming',
       )).called(1);
@@ -232,10 +232,10 @@ void main() {
       stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
       realtimeEvents.add(RealtimeMessage(
         events: [
-          'databases.$userDatabaseID.tables.$friendsTableID.rows.doc-incoming.create',
+          'databases.$databaseId.tables.$friendsTableID.rows.doc-incoming.create',
         ],
         payload: _friendJson(incoming),
-        channels: ['databases.$userDatabaseID.tables.$friendsTableID.rows'],
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
         timestamp: DateTime.now().toIso8601String(),
       ));
       await pumpEventQueue();
@@ -252,10 +252,10 @@ void main() {
 
       realtimeEvents.add(RealtimeMessage(
         events: [
-          'databases.$userDatabaseID.tables.$friendsTableID.rows.other.create',
+          'databases.$databaseId.tables.$friendsTableID.rows.other.create',
         ],
         payload: {'senderId': 'someone', 'recieverId': 'else'},
-        channels: ['databases.$userDatabaseID.tables.$friendsTableID.rows'],
+        channels: ['databases.$databaseId.tables.$friendsTableID.rows'],
         timestamp: DateTime.now().toIso8601String(),
       ));
       await pumpEventQueue();

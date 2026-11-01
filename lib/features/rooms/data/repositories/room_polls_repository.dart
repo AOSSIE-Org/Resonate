@@ -31,7 +31,7 @@ class RoomPollsRepository {
 
   Future<List<Poll>> loadPolls(String roomId) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollsTableId,
       queries: [
         Query.equal('roomId', roomId),
@@ -56,7 +56,7 @@ class RoomPollsRepository {
     String? cursor;
     while (true) {
       final result = await _tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pollVotesTableId,
         queries: [
           filter,
@@ -83,7 +83,7 @@ class RoomPollsRepository {
       final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
       final chunk = ids.sublist(i, end);
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: [
           Query.equal(r'$id', chunk),
@@ -109,7 +109,7 @@ class RoomPollsRepository {
 
   Future<void> createPoll(Poll poll) async {
     await _tables.createRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollsTableId,
       rowId: poll.pollId,
       data: poll.toJsonForUpload(),
@@ -118,7 +118,7 @@ class RoomPollsRepository {
 
   Future<void> closePoll(String pollId) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollsTableId,
       rowId: pollId,
       data: {'isClosed': true},
@@ -127,7 +127,7 @@ class RoomPollsRepository {
 
   Future<void> castVote(PollVote vote) async {
     await _tables.createRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollVotesTableId,
       rowId: vote.voteId,
       data: vote.toJsonForUpload(),
@@ -136,7 +136,7 @@ class RoomPollsRepository {
 
   Future<void> changeVote(PollVote vote) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: pollVotesTableId,
       rowId: vote.voteId,
       data: {'optionIndex': vote.optionIndex},
@@ -144,7 +144,7 @@ class RoomPollsRepository {
   }
 
   Stream<({Poll poll, String action})> pollStream(String roomId) {
-    final channel = 'databases.$masterDatabaseId.tables.$pollsTableId.rows';
+    final channel = 'databases.$databaseId.tables.$pollsTableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<({Poll poll, String action})>();
 
@@ -166,7 +166,7 @@ class RoomPollsRepository {
   }
 
   Stream<({PollVote vote, String action})> voteStream(String roomId) {
-    final channel = 'databases.$masterDatabaseId.tables.$pollVotesTableId.rows';
+    final channel = 'databases.$databaseId.tables.$pollVotesTableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<({PollVote vote, String action})>();
 

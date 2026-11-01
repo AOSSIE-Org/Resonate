@@ -45,7 +45,7 @@ Row buildUserRow({int reportsCount = 0}) {
   return Row(
     $id: '123',
     $tableId: usersTableID,
-    $databaseId: userDatabaseID,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const ['any'],
@@ -108,7 +108,7 @@ void main() {
       when(account.get()).thenAnswer((_) async => buildUser());
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: '123',
           queries: anyNamed('queries'),
@@ -123,7 +123,7 @@ void main() {
       when(account.get()).thenAnswer((_) async => buildUser());
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: '123',
           queries: anyNamed('queries'),
@@ -298,7 +298,7 @@ void main() {
       when(account.get()).thenAnswer((_) async => buildUser());
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: '123',
           queries: anyNamed('queries'),
@@ -345,7 +345,7 @@ void main() {
       final sub = Row(
         $id: 'sub1',
         $tableId: subscribedUserTableId,
-        $databaseId: upcomingRoomsDatabaseId,
+        $databaseId: databaseId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: const ['any'],
@@ -355,7 +355,7 @@ void main() {
       final room = Row(
         $id: 'room1',
         $tableId: upcomingRoomsTableId,
-        $databaseId: upcomingRoomsDatabaseId,
+        $databaseId: databaseId,
         $createdAt: DateTime.now().toIso8601String(),
         $updatedAt: DateTime.now().toIso8601String(),
         $permissions: const ['any'],
@@ -365,14 +365,14 @@ void main() {
 
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
       ).thenAnswer((_) async => RowList(total: 1, rows: [sub]));
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           queries: anyNamed('queries'),
         ),
@@ -390,7 +390,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 'sub1',
           data: {
@@ -400,7 +400,7 @@ void main() {
       ).called(1);
       verify(
         tables.updateRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: 'room1',
           data: {

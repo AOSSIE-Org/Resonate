@@ -11,13 +11,12 @@ import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/utils/constants.dart';
 
-import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
 import '../rooms_test_helpers.dart';
 
 const _roomId = 'room-1';
 const _participantChannel =
-    'databases.$masterDatabaseId.tables.$participantsTableId.rows';
+    'databases.$databaseId.tables.$participantsTableId.rows';
 
 void main() {
   late MockTablesDB tables;
@@ -35,7 +34,7 @@ void main() {
   }) => buildRow(
     id: id,
     tableId: participantsTableId,
-    databaseId: masterDatabaseId,
+    databaseId: databaseId,
     data: {
       'roomId': _roomId,
       'uid': uid,
@@ -65,13 +64,14 @@ void main() {
     participantEvents = StreamController<RealtimeMessage>.broadcast();
     participantRows = [];
 
+    // Its own controller, so a test can push participant events into it.
     when(subscription.stream).thenAnswer((_) => participantEvents.stream);
     when(subscription.close).thenReturn(() async {});
     when(realtime.subscribe(any)).thenReturn(subscription);
 
     when(
       tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: anyNamed('queries'),
       ),
@@ -79,24 +79,7 @@ void main() {
       (_) async =>
           RowList(total: participantRows.length, rows: participantRows),
     );
-    when(
-      tables.getRow(
-        databaseId: userDatabaseID,
-        tableId: usersTableID,
-        rowId: anyNamed('rowId'),
-      ),
-    ).thenAnswer(
-      (invocation) async => buildRow(
-        id: invocation.namedArguments[#rowId] as String,
-        tableId: usersTableID,
-        databaseId: userDatabaseID,
-        data: const {
-          'email': 'someone@test.com',
-          'name': 'Someone',
-          'profileImageUrl': '',
-        },
-      ),
-    );
+    stubBatchedUserRows(tables);
   });
 
   tearDown(() => participantEvents.close());
@@ -169,6 +152,76 @@ void main() {
     await flushStreams();
 
     expect(recorder.roomCredits, [_roomId]);
+  });
+
+  group('a participant arriving', () {
+    final room = fakeAppwriteRoom(id: _roomId, isUserAdmin: false);
+
+    Future<ProviderContainer> openWithMe() async {
+      participantRows = [participantRow(id: 'p0', uid: 'me')];
+      return open(recorder: FakeActivityRecorder(), isUserAdmin: false);
+    }
+
+    Future<void> emit(String action, Row row) async {
+      participantEvents.add(
+        RealtimeMessage(
+          events: ['$_participantChannel.${row.$id}.$action'],
+          payload: flatPayload(row),
+          channels: const [_participantChannel],
+          timestamp: '',
+        ),
+      );
+      await flushStreams();
+    }
+
+    List<String> uidsIn(ProviderContainer container) => [
+      for (final p in container.read(roomSessionProvider(room)).value!.participants)
+        p.uid,
+    ];
+
+    test('shows up when the join is reported as a create', () async {
+      final container = await openWithMe();
+
+      await emit('create', participantRow(id: 'p1', uid: 'newcomer'));
+
+      expect(uidsIn(container), containsAll(['me', 'newcomer']));
+    });
+
+    test('shows up when the join is reported as an update', () async {
+      final container = await openWithMe();
+
+      // What a row carrying a relationship reports once realtimeAction has
+      // picked the update the server listed first.
+      await emit('update', participantRow(id: 'p1', uid: 'newcomer'));
+
+      expect(uidsIn(container), containsAll(['me', 'newcomer']));
+    });
+
+    test('is added once when both actions land for the same row', () async {
+      final container = await openWithMe();
+      final row = participantRow(id: 'p1', uid: 'newcomer');
+
+      await emit('create', row);
+      await emit('update', row);
+
+      expect(uidsIn(container).where((uid) => uid == 'newcomer').length, 1);
+    });
+
+    test('an update for someone already here still patches them', () async {
+      final container = await openWithMe();
+      await emit('create', participantRow(id: 'p1', uid: 'newcomer'));
+
+      await emit(
+        'update',
+        participantRow(id: 'p1', uid: 'newcomer', isModerator: true),
+      );
+
+      final participants =
+          container.read(roomSessionProvider(room)).value!.participants;
+      final newcomer = participants.firstWhere((p) => p.uid == 'newcomer');
+      expect(newcomer.isModerator, true);
+      expect(participants.length, 2);
+    });
   });
 
   group('my own row being deleted', () {

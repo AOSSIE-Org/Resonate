@@ -34,7 +34,7 @@ class AchievementsRepository {
   Future<UserStats> loadStats(String uid) async {
     try {
       final row = await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: userStatsTableID,
         rowId: uid,
       );
@@ -48,7 +48,7 @@ class AchievementsRepository {
   Future<List<AchievementBadge>> loadCatalogue() async {
     try {
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: achievementThresholdsTableID,
         queries: [Query.limit(_pageSize)],
       );

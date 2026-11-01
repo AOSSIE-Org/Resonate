@@ -11,7 +11,7 @@ import '../../../helpers/test_root_container.mocks.dart';
 Row _storyRow({String id = 's1', String creatorId = 'creator-1'}) => buildRow(
       id: id,
       tableId: storyTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': 'Story $id',
         'description': 'desc',
@@ -29,7 +29,7 @@ Row _storyRow({String id = 's1', String creatorId = 'creator-1'}) => buildRow(
 Row _userRow({String id = 'u1'}) => buildRow(
       id: id,
       tableId: usersTableID,
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       data: {
         'name': 'Alice',
         'username': 'alice',
@@ -62,7 +62,7 @@ void main() {
   group('ExploreStories', () {
     test('recommended loads stories from the repository', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async =>
@@ -80,12 +80,12 @@ void main() {
     test('search populates the search results with stories and users',
         () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [_storyRow()]));
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [_userRow()]));
@@ -101,12 +101,12 @@ void main() {
 
     test('clearSearch resets the search results', () async {
       when(tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 1, rows: [_storyRow()]));
       when(tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));

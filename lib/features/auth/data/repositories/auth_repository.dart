@@ -116,7 +116,7 @@ class AuthRepository {
 
     try {
       final row = await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: user.$id,
         queries: [
@@ -333,7 +333,7 @@ class AuthRepository {
     required String verificationId,
   }) async {
     final doc = await _tables.getRow(
-      databaseId: emailVerificationDatabaseID,
+      databaseId: databaseId,
       tableId: verificationTableID,
       rowId: verificationId,
     );
@@ -382,7 +382,7 @@ class AuthRepository {
       required String queryField,
     }) async {
       final rows = await _tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: tableId,
         queries: [
           Query.equal(queryField, [uid]),
@@ -400,7 +400,7 @@ class AuthRepository {
           existing.remove(fcmToken);
         }
         await _tables.updateRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: tableId,
           rowId: row.$id,
           data: {fieldName: existing},

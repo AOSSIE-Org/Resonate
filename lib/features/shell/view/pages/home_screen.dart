@@ -25,10 +25,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool _showSearchOverlay = false;
   String _liveQuery = '';
   String _upcomingQuery = '';
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: isLiveSelected ? 0 : 1);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pullToRefresh() async {
     await ref.read(upcomingRoomsProvider.notifier).refresh();
     await ref.read(liveRoomsProvider.notifier).refresh();
+  }
+
+  void _selectTab(bool live) {
+    if (isLiveSelected == live || !_pageController.hasClients) return;
+    _pageController.animateToPage(
+      live ? 0 : 1,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOut,
+    );
+  }
+
+  // The swipe and the header tap both land here, so the two cannot disagree.
+  void _onPageChanged(int page) {
+    setState(() {
+      isLiveSelected = page == 0;
+      _showSearchOverlay = false;
+      _liveQuery = '';
+      _upcomingQuery = '';
+    });
   }
 
   @override
@@ -47,34 +79,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   CustomAppBarLiveRoom(
                     isLiveSelected: isLiveSelected,
-                    onTabSelected: (selectedTab) {
-                      setState(() {
-                        isLiveSelected = selectedTab;
-                        _showSearchOverlay = false;
-                        _liveQuery = '';
-                        _upcomingQuery = '';
-                      });
-                    },
+                    onTabSelected: _selectTab,
                     onSearchTapped: () =>
                         setState(() => _showSearchOverlay = true),
                   ),
                   SizedBox(height: UiSizes.height_16),
                   Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: _pullToRefresh,
-                      child: isLiveSelected
-                          ? _LiveRoomsListView(
-                              loading: roomsAsync.isLoading,
-                              rooms: roomsAsync.value,
-                              error:
-                                  roomsAsync.hasError ? roomsAsync.error : null,
-                              query: _liveQuery,
-                            )
-                          : _UpcomingRoomsListView(
-                              loading: upcomingAsync.isLoading,
-                              rooms: upcomingAsync.value ?? const [],
-                              query: _upcomingQuery,
-                            ),
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: _onPageChanged,
+                      children: [
+                        RefreshIndicator(
+                          onRefresh: _pullToRefresh,
+                          child: _LiveRoomsListView(
+                            loading: roomsAsync.isLoading,
+                            rooms: roomsAsync.value,
+                            error: roomsAsync.hasError ? roomsAsync.error : null,
+                            query: _liveQuery,
+                          ),
+                        ),
+                        RefreshIndicator(
+                          onRefresh: _pullToRefresh,
+                          child: _UpcomingRoomsListView(
+                            loading: upcomingAsync.isLoading,
+                            rooms: upcomingAsync.value ?? const [],
+                            query: _upcomingQuery,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -201,7 +233,9 @@ class _LiveRoomsListView extends StatelessWidget {
 
     if (roomsToShow.isNotEmpty) {
       return ListView.builder(
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         itemCount: roomsToShow.length,
         itemBuilder: (context, index) {
           return Padding(
@@ -251,7 +285,9 @@ class _UpcomingRoomsListView extends StatelessWidget {
     if (roomsToShow.isNotEmpty) {
       return ListView.builder(
         itemCount: roomsToShow.length,
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),

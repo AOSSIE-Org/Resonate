@@ -103,6 +103,10 @@ void main() {
 
     await tester.tap(find.text(interestLabelInEnglish(Interest.music)));
     await tester.pumpAndSettle();
+    // A Wrap builds its off-screen children too, so the finder succeeds on a
+    // chip that is scrolled out of view and the tap lands on another one.
+    await tester.ensureVisible(find.text(interestLabelInEnglish(Interest.ai)));
+    await tester.pumpAndSettle();
     await tester.tap(find.text(interestLabelInEnglish(Interest.ai)));
     await tester.pumpAndSettle();
 

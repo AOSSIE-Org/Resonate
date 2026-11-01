@@ -48,7 +48,7 @@ Row callRow({
     $id: id,
     $sequence: 0,
     $tableId: friendCallsTableId,
-    $databaseId: masterDatabaseId,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const [],
@@ -141,7 +141,7 @@ void main() {
 
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: call.docId,
           data: captureAnyNamed('data'),
@@ -183,7 +183,7 @@ void main() {
     test('parses the row into a FriendCallModel', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
         ),
@@ -199,7 +199,7 @@ void main() {
       expect(call.callerUid, 'caller-uid');
       verify(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
         ),
@@ -239,7 +239,7 @@ void main() {
       expect(updated.callStatus, FriendCallStatus.ended);
       final captured = verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
           data: captureAnyNamed('data'),
@@ -310,7 +310,7 @@ void main() {
       final sub = MockRealtimeSubscription();
       final controller = StreamController<RealtimeMessage>.broadcast();
       final channel =
-          'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.call-1';
+          'databases.$databaseId.tables.$friendCallsTableId.rows.call-1';
 
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);

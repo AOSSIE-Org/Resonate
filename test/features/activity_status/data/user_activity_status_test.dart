@@ -28,7 +28,7 @@ class FakeFriends extends FriendsNotifier {
 Row userRow({required String id, String? status}) => buildRow(
   id: id,
   tableId: usersTableID,
-  databaseId: userDatabaseID,
+  databaseId: databaseId,
   data: {'status': status},
 );
 
@@ -93,7 +93,7 @@ void main() {
     realtime = MockRealtime();
     sub = MockRealtimeSubscription();
     events = StreamController<RealtimeMessage>.broadcast();
-    channel = 'databases.$userDatabaseID.tables.$usersTableID.rows';
+    channel = 'databases.$databaseId.tables.$usersTableID.rows';
 
     when(realtime.subscribe([channel])).thenReturn(sub);
     when(sub.stream).thenAnswer((_) => events.stream);
@@ -140,7 +140,7 @@ void main() {
     final queries =
         verify(
               tables.listRows(
-                databaseId: userDatabaseID,
+                databaseId: databaseId,
                 tableId: usersTableID,
                 queries: captureAnyNamed('queries'),
               ),

@@ -39,13 +39,14 @@ const double semanticSearchRatio = semanticSearchPercent / 100;
 
 const double semanticScoreThreshold = 0.2;
 
+// Every table lives in a single Appwrite database.
+const String databaseId = "main";
+
 // Discussion related Database Constants
-const String upcomingRoomsDatabaseId = "6522fcf27a1bbc4238df";
 const String subscribedUserTableId = "6522fd267db6fdad3392";
 const String upcomingRoomsTableId = "6522fd163103bd453183";
 
 // Story related Constants
-const String storyDatabaseId = "stories";
 const String storyTableId = "670259e900321c12a5a2";
 const String chapterTableId = "670277ad002530531daf";
 const String likeTableId = "670259e20000ddda49a0";
@@ -58,7 +59,6 @@ const String storyCoverImagePlaceholderUrl =
     "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=resonate&mode=admin";
 
 // User related Database Constants
-const String userDatabaseID = "64a1319104a149e16f5c";
 const String usersTableID = "64a52f0a6c41ded09def";
 const String usernameTableID = "64a131980b5388c2a0af";
 const String followersTableID = "68b16bae0027e57ba2c6";
@@ -83,7 +83,6 @@ const String timeUserProfileImagePlaceholderID = "67012e19003d00f39e14";
 const String vintageUserProfileImagePlaceholderID = "67012e19003d00f39e15";
 
 // Rooms related Database Constants
-const String masterDatabaseId = "64a521785f5be62b796f";
 const String roomsTableId = "64a5217e695bf2c4ec9c";
 const String participantsTableId = "64a63e508145d1084abf";
 const String chatMessagesTableId = "670d812c0002c33c09a8";
@@ -112,7 +111,6 @@ const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
 const String startFriendCallFunctionID = "68b76fe00027c243610e";
 const String recordActivityFunctionID = "record-activity";
 
-const String emailVerificationDatabaseID = "64a7bfd6b09121548bfe";
 const String verificationTableID = "64a7c0100eabfe8d3844";
 
 // Github Constants

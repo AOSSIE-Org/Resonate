@@ -12,7 +12,7 @@ import '../../../helpers/test_root_container.mocks.dart';
 Row _storyRow({String id = 's1', String category = 'horror'}) => buildRow(
       id: id,
       tableId: storyTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': 'Story $id',
         'description': 'desc',
@@ -47,7 +47,7 @@ void main() {
 
   test('build returns stories for the requested category', () async {
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async =>

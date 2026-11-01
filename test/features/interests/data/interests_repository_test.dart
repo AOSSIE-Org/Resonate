@@ -13,7 +13,7 @@ Row userRow({required String id, Object? interests, Object? rating}) =>
     buildRow(
       id: id,
       tableId: usersTableID,
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       data: {
         'name': 'Person $id',
         'username': id,
@@ -37,7 +37,7 @@ void main() {
     test('maps the stored wire values and selects only what it needs', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           queries: anyNamed('queries'),
@@ -51,7 +51,7 @@ void main() {
       final queries =
           verify(
                 tables.getRow(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: usersTableID,
                   rowId: 'u1',
                   queries: captureAnyNamed('queries'),
@@ -95,7 +95,7 @@ void main() {
     final data =
         verify(
               tables.updateRow(
-                databaseId: userDatabaseID,
+                databaseId: databaseId,
                 tableId: usersTableID,
                 rowId: 'u1',
                 data: captureAnyNamed('data'),
@@ -123,7 +123,7 @@ void main() {
     test('matches any of the selected interests and skips the caller', () async {
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           queries: anyNamed('queries'),
         ),
@@ -151,7 +151,7 @@ void main() {
       final queries =
           verify(
                 tables.listRows(
-                  databaseId: userDatabaseID,
+                  databaseId: databaseId,
                   tableId: usersTableID,
                   queries: captureAnyNamed('queries'),
                 ),

@@ -31,23 +31,29 @@ class RoomChatRepository {
   final Realtime _realtime;
   final Functions _functions;
 
+  static const _pageSize = 100;
+
   Future<List<RoomMessage>> loadMessages(String roomId) async {
     final result = await _tables.listRows(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       queries: [
         Query.equal('roomId', roomId),
         // Latest window, not the oldest: late joiners must see recent
         // messages (and poll cards). The sort below restores ascending order.
         Query.orderDesc('index'),
-        Query.limit(100),
+        Query.limit(_pageSize),
       ],
     );
 
+    final replies = await _fetchReplies([
+      for (final row in result.rows) row.$id,
+    ]);
+
     final messages = <RoomMessage>[];
     for (final row in result.rows) {
-      final replyTo = await _fetchReplyTo(row.$id);
       final json = Map<String, dynamic>.from(row.data);
+      final replyTo = replies[row.$id];
       if (replyTo != null) {
         json['replyTo'] = replyTo.toJson();
       }
@@ -57,10 +63,34 @@ class RoomChatRepository {
     return messages;
   }
 
+  Future<Map<String, ReplyTo>> _fetchReplies(List<String> messageIds) async {
+    if (messageIds.isEmpty) return const {};
+    final replies = <String, ReplyTo>{};
+    for (var i = 0; i < messageIds.length; i += _pageSize) {
+      final end = i + _pageSize > messageIds.length
+          ? messageIds.length
+          : i + _pageSize;
+      final chunk = messageIds.sublist(i, end);
+      final result = await _tables.listRows(
+        databaseId: databaseId,
+        tableId: chatMessageReplyTableId,
+        queries: [Query.equal(r'$id', chunk), Query.limit(chunk.length)],
+      );
+      for (final row in result.rows) {
+        try {
+          replies[row.$id] = ReplyTo.fromJson(row.data);
+        } catch (_) {
+          // Skiping rows that have missing/malformed fields.
+        }
+      }
+    }
+    return replies;
+  }
+
   Future<ReplyTo?> _fetchReplyTo(String messageId) async {
     try {
       final doc = await _tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessageReplyTableId,
         rowId: messageId,
       );
@@ -78,24 +108,24 @@ class RoomChatRepository {
     ReplyTo? replyTo,
   }) async {
     await _tables.createRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: message.messageId,
-      data: message.toJsonForUpload(),
+      data: {...message.toJsonForUpload(), 'room': message.roomId},
     );
     if (replyTo != null) {
       await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: chatMessageReplyTableId,
         rowId: message.messageId,
-        data: replyTo.toJson(),
+        data: {...replyTo.toJson(), 'message': message.messageId},
       );
     }
   }
 
   Future<void> editMessage(RoomMessage updated) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: updated.messageId,
       data: updated.toJsonForUpload(),
@@ -104,7 +134,7 @@ class RoomChatRepository {
 
   Future<void> deleteMessage(RoomMessage softDeleted) async {
     await _tables.updateRow(
-      databaseId: masterDatabaseId,
+      databaseId: databaseId,
       tableId: chatMessagesTableId,
       rowId: softDeleted.messageId,
       data: softDeleted.toJsonForUpload(),
@@ -129,7 +159,7 @@ class RoomChatRepository {
     String roomId,
   ) {
     final channel =
-        'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+        'databases.$databaseId.tables.$chatMessagesTableId.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller =
         StreamController<({RoomMessage message, String action})>();

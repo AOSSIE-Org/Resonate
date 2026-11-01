@@ -17,7 +17,7 @@ void main() {
   Row row(Object? interests) => buildRow(
     id: 'me',
     tableId: usersTableID,
-    databaseId: userDatabaseID,
+    databaseId: databaseId,
     data: {'interests': interests},
   );
 
@@ -48,7 +48,7 @@ void main() {
   List<Object?> writtenInterests() =>
       verify(
             tables.updateRow(
-              databaseId: userDatabaseID,
+              databaseId: databaseId,
               tableId: usersTableID,
               rowId: 'me',
               data: captureAnyNamed('data'),

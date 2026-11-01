@@ -14,8 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SingleRoomState {
 
- Participant get me; List<Participant> get participants; bool get wasKicked;// Set instead of [wasKicked] when the host closed the room down.
- bool get roomEnded;
+ Participant get me; List<Participant> get participants; bool get wasKicked; bool get roomEnded;
 /// Create a copy of SingleRoomState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -231,7 +230,6 @@ class _SingleRoomState implements SingleRoomState {
 }
 
 @override@JsonKey() final  bool wasKicked;
-// Set instead of [wasKicked] when the host closed the room down.
 @override@JsonKey() final  bool roomEnded;
 
 /// Create a copy of SingleRoomState

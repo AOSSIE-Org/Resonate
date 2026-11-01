@@ -13,7 +13,7 @@ import '../../../helpers/test_root_container.mocks.dart';
 Row _chapterRow({String id = 'c1', int playDuration = 250}) => buildRow(
       id: id,
       tableId: chapterTableId,
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       data: {
         'title': 'Chapter $id',
         'description': 'desc',
@@ -45,14 +45,14 @@ void main() {
 
   test('createStory writes the story row (URL cover, no chapters)', () async {
     when(tables.createRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: anyNamed('rowId'),
       data: anyNamed('data'),
     )).thenAnswer((_) async => buildRow(
           id: 's-new',
           tableId: storyTableId,
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           data: const {},
         ));
 
@@ -68,7 +68,7 @@ void main() {
         );
 
     verify(tables.createRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: anyNamed('rowId'),
       data: anyNamed('data'),
@@ -77,7 +77,7 @@ void main() {
 
   test('addChaptersToStory updates the story duration from the DB', () async {
     when(tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: chapterTableId,
       queries: anyNamed('queries'),
     )).thenAnswer((_) async => RowList(
@@ -88,14 +88,14 @@ void main() {
           ],
         ));
     when(tables.updateRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
       data: anyNamed('data'),
     )).thenAnswer((_) async => buildRow(
           id: 's1',
           tableId: storyTableId,
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           data: const {},
         ));
 
@@ -106,7 +106,7 @@ void main() {
         .addChaptersToStory(const <Chapter>[], 's1');
 
     verify(tables.updateRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: 's1',
       data: {'playDuration': 500},

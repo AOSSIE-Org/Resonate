@@ -17,7 +17,7 @@ import 'pair_chat_repository_test.mocks.dart';
 Row pairRow({
   String id = 'req-1',
   String tableId = pairRequestTableId,
-  String databaseId = masterDatabaseId,
+  String databaseId = databaseId,
   Map<String, dynamic>? data,
 }) {
   return Row(
@@ -100,7 +100,7 @@ void main() {
       expect(id, 'new-req');
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -141,7 +141,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: 'req-9',
           data: {'isRandom': true},
@@ -180,7 +180,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: 'req-3',
         ),
@@ -226,7 +226,7 @@ void main() {
 
       final captured = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -283,7 +283,7 @@ void main() {
 
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: activePairsTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -330,7 +330,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: activePairsTableId,
           rowId: 'pair-1',
         ),
@@ -392,7 +392,7 @@ void main() {
         (_) async => pairRow(
           id: 'user-1',
           tableId: usersTableID,
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
         ),
       );
 
@@ -404,7 +404,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'user-1',
           data: {'ratingTotal': 12.5, 'ratingCount': 3},
@@ -485,7 +485,7 @@ void main() {
       when(subscription.close).thenReturn(() async {});
 
       final channel =
-          'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
+          'databases.$databaseId.tables.$pairRequestTableId.rows';
       final received = <RealtimeMessage>[];
       final sub = repo.pairRequestsStream().listen(received.add);
 

@@ -27,6 +27,7 @@ void main() {
     stubFlutterSecureStorageChannel();
     tables = MockTablesDB();
     realtime = MockRealtime();
+    stubRealtimeChannel(realtime);
     functions = MockFunctions();
     messaging = MockFirebaseMessaging();
   });
@@ -41,19 +42,19 @@ void main() {
             '"access_token":"tok","livekit_socket_url":"wss://example.com"}',
           ));
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'doc-mine',
             tableId: participantsTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
 
@@ -93,25 +94,26 @@ void main() {
             '"access_token":"tok","livekit_socket_url":"wss://example.com"}',
           ));
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 0, rows: []));
       when(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: participantsTableId,
         rowId: anyNamed('rowId'),
         data: anyNamed('data'),
       )).thenAnswer((_) async => buildRow(
             id: 'doc-mine',
             tableId: participantsTableId,
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             data: const {},
           ));
       var roomListLoads = 0;
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: roomsTableId,
+        queries: anyNamed('queries'),
       )).thenAnswer((_) async {
         roomListLoads++;
         return RowList(total: 0, rows: []);
@@ -144,21 +146,21 @@ void main() {
       () async {
         when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
         when(tables.createRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: anyNamed('rowId'),
           data: anyNamed('data'),
         )).thenAnswer((_) async => buildRow(
               id: 'u-new',
               tableId: upcomingRoomsTableId,
-              databaseId: upcomingRoomsDatabaseId,
+              databaseId: databaseId,
               data: const {},
             ));
         // upcomingRoomsProvider.build() reads this table — count invocations
         // to confirm a refresh happened.
         var listRowsCount = 0;
         when(tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         )).thenAnswer((_) async {
           listRowsCount++;

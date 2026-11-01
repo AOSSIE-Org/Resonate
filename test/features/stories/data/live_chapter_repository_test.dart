@@ -132,13 +132,13 @@ void main() {
       );
 
       verify(tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         rowId: 'room-1',
         data: anyNamed('data'),
       )).called(1);
       verify(tables.createRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: 'room-1',
         data: anyNamed('data'),
@@ -161,7 +161,7 @@ void main() {
       );
 
       verify(tables.updateRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: 'room-1',
         data: anyNamed('data'),
@@ -180,12 +180,12 @@ void main() {
       await repo.deleteLiveChapterDocs('room-1');
 
       verify(tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         rowId: 'room-1',
       )).called(1);
       verify(tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: 'room-1',
       )).called(1);
@@ -223,7 +223,7 @@ void main() {
     test('builds the attendees channel string', () {
       expect(
         LiveChapterRepository.attendeesChannel('room-1'),
-        'databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.room-1',
+        'databases.$databaseId.tables.$liveChapterAttendeesTableId.rows.room-1',
       );
     });
   });

@@ -31,7 +31,7 @@ void main() {
   void stubAppwriteStories(List<Row> rows) {
     when(
       tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: anyNamed('queries'),
       ),
@@ -41,7 +41,7 @@ void main() {
   Row appwriteStoryRow({String id = 'appwrite-story'}) => buildRow(
     id: id,
     tableId: storyTableId,
-    databaseId: storyDatabaseId,
+    databaseId: databaseId,
     data: {
       'title': 'From Appwrite',
       'description': 'desc',
@@ -65,7 +65,7 @@ void main() {
     userIndex().hits = const [];
     when(
       tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: anyNamed('queries'),
       ),
@@ -129,7 +129,7 @@ void main() {
       ];
       when(
         tables.listRows(
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           tableId: storyTableId,
           queries: anyNamed('queries'),
         ),

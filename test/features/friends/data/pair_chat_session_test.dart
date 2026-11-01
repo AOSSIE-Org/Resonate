@@ -21,9 +21,9 @@ void main() {
   late StreamController<RealtimeMessage> pairRequestEvents;
 
   const activePairsChannel =
-      'databases.$masterDatabaseId.tables.$activePairsTableId.rows';
+      'databases.$databaseId.tables.$activePairsTableId.rows';
   const pairRequestsChannel =
-      'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
+      'databases.$databaseId.tables.$pairRequestTableId.rows';
 
   MockExecution joinExecution() {
     final exec = MockExecution();
@@ -110,7 +110,7 @@ void main() {
 
       expect(container.read(pairChatProvider).requestDocId, 'request-doc-1');
       final data = verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -128,7 +128,7 @@ void main() {
       await container.read(pairChatProvider.notifier).quickMatch();
 
       final data = verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -144,7 +144,7 @@ void main() {
 
       expect(container.read(pairChatProvider).isAnonymous, isFalse);
       final data = verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -157,7 +157,7 @@ void main() {
     test('a matching active pair joins LiveKit and stores partner info',
         () async {
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'partner-1',
       )).thenAnswer((_) async => buildRow(
@@ -192,7 +192,7 @@ void main() {
 
     test('a partner profile fetch failure still joins the chat', () async {
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'partner-1',
       )).thenThrow(AppwriteException('row_not_found', 404));
@@ -244,7 +244,7 @@ void main() {
     test('loadUsers populates the online list and skips malformed rows',
         () async {
       when(tables.listRows(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         queries: anyNamed('queries'),
       )).thenAnswer((_) async => RowList(total: 2, rows: [
@@ -333,7 +333,7 @@ void main() {
           );
 
       final data = verify(tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: activePairsTableId,
         rowId: anyNamed('rowId'),
         data: captureAnyNamed('data'),
@@ -356,7 +356,7 @@ void main() {
 
       expect(container.read(pairChatProvider).requestDocId, isNull);
       verify(tables.deleteRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: pairRequestTableId,
         rowId: 'request-doc-1',
       )).called(1);
@@ -399,7 +399,7 @@ void main() {
       await container.read(pairChatProvider.notifier).submitRating();
 
       final data = verify(tables.updateRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'me',
         data: captureAnyNamed('data'),

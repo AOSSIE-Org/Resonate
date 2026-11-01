@@ -36,7 +36,7 @@ class FriendsRepository {
   Future<({List<FriendsModel> friends, List<FriendsModel> requests})>
   loadFriends(String uid) async {
     final userDoc = await _tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       queries: [
@@ -93,7 +93,7 @@ class FriendsRepository {
         recieverRating: recieverRating,
       );
       await _tables.createRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: friendsTableID,
         rowId: docId,
         data: friendModel.toJson(),
@@ -114,7 +114,7 @@ class FriendsRepository {
         users: [friendModel.senderId, friendModel.recieverId],
       );
       await _tables.updateRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: friendsTableID,
         rowId: friendModel.docId,
         data: updated.toJson(),
@@ -129,7 +129,7 @@ class FriendsRepository {
   Future<void> deleteFriendRow(String docId) async {
     try {
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: friendsTableID,
         rowId: docId,
       );
@@ -140,7 +140,7 @@ class FriendsRepository {
 
   // Emits every friends-table change involving uid.
   Stream<RealtimeMessage> friendsStream(String uid) {
-    final channel = 'databases.$userDatabaseID.tables.$friendsTableID.rows';
+    final channel = 'databases.$databaseId.tables.$friendsTableID.rows';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {

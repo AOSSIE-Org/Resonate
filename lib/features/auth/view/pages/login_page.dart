@@ -192,6 +192,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           l10n.incorrectEmailOrPassword,
         ),
       AuthFailurePasswordTooShort() => (l10n.tryAgain, l10n.passwordShort),
+      // Carries what the server said; toString() would print the class name.
+      AuthFailureUnknown(:final message) => (l10n.oops, message),
       AuthFailure() => (l10n.oops, error.toString()),
       _ => (l10n.oops, error.toString()),
     };

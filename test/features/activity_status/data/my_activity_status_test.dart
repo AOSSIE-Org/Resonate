@@ -36,7 +36,7 @@ void main() {
   Row row(String? status) => buildRow(
     id: 'me',
     tableId: usersTableID,
-    databaseId: userDatabaseID,
+    databaseId: databaseId,
     data: {'status': status},
   );
 
@@ -44,7 +44,7 @@ void main() {
   List<String> writes() =>
       verify(
             tables.updateRow(
-              databaseId: userDatabaseID,
+              databaseId: databaseId,
               tableId: usersTableID,
               rowId: 'me',
               data: captureAnyNamed('data'),
