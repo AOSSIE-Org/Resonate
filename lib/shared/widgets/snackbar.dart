@@ -17,9 +17,6 @@ void _dismissToast() {
   _activeToast = null;
   if (entry?.mounted ?? false) {
     entry!.remove();
-    // The timer fires while the app may be idle, and the removal is only
-    // painted on the next frame. Without this the toast sits there until
-    // something else -- a tap, a navigation -- happens to schedule one.
     WidgetsBinding.instance.scheduleFrame();
   }
 }

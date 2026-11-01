@@ -252,6 +252,37 @@ void main() {
       expect(state.friendRequests, isEmpty);
     });
 
+    test('accepting twice adds the friend once', () async {
+      stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);
+      when(tables.updateRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((invocation) async => buildRow(
+            id: invocation.namedArguments[#rowId] as String,
+            data: invocation.namedArguments[#data] as Map<String, dynamic>,
+          ));
+      final container = await buildContainer();
+      await container.read(friendsProvider.future);
+      final notifier = container.read(friendsProvider.notifier);
+
+      // Both taps land before the first write comes back, which is what a
+      // double tap on the tick does.
+      await Future.wait<void>([
+        notifier.acceptFriendRequest(incoming),
+        notifier.acceptFriendRequest(incoming),
+      ]);
+
+      final state = container.read(friendsProvider).value!;
+      expect(state.friends, hasLength(2));
+      expect(
+        state.friends.where((f) => f.docId == 'doc-incoming'),
+        hasLength(1),
+      );
+      expect(state.friendRequests, isEmpty);
+    });
+
     test('declineFriendRequest deletes the row and removes the request only',
         () async {
       stubUserDoc([_friendJson(accepted), _friendJson(incoming)]);

@@ -57,7 +57,7 @@ class _RoomPageState extends ConsumerState<RoomPage> {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _presence.exit());
+    Future.microtask(_presence.exit);
     super.dispose();
   }
 
