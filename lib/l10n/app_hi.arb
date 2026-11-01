@@ -975,6 +975,10 @@
             "participants": {
                 "type": "int",
                 "example": "5"
+            },
+            "link": {
+                "type": "String",
+                "example": "https://resonate.aossie.org/room/abc123"
             }
         }
     },
@@ -1852,5 +1856,639 @@
     "usernameAlreadyTaken": "यह उपयोगकर्ता नाम पहले से लिया जा चुका है। कृपया कोई और चुनें।",
     "@usernameAlreadyTaken": {
         "description": "Error shown when the chosen username is already in use."
+    },
+    "features": "सुविधाएँ",
+    "@features": {
+        "description": "Label for the settings page where the user turns app features on or off."
+    },
+    "featuresDescription": "जिन सुविधाओं का आप उपयोग नहीं करते, उन्हें बंद कर दें। जब तक आप उन्हें दोबारा चालू नहीं करते, वे इस डिवाइस पर छिपी रहेंगी।",
+    "@featuresDescription": {
+        "description": "Explanation shown at the top of the features settings page."
+    },
+    "pairChatFeatureDescription": "किसी रैंडम या चुने हुए यूज़र के साथ आमने-सामने की वॉइस चैट।",
+    "@pairChatFeatureDescription": {
+        "description": "Description of the pair chat feature on the features settings page."
+    },
+    "liveChapterFeatureDescription": "श्रोताओं के सामने कहानी का अध्याय लाइव रिकॉर्ड करें, और दूसरों के होस्ट किए अध्यायों में शामिल हों।",
+    "@liveChapterFeatureDescription": {
+        "description": "Description of the live chapter feature on the features settings page."
+    },
+    "returnToRoom": "वापस जाएँ",
+    "@returnToRoom": {
+        "description": "Button on a live room the user is already inside, minimised to the miniplayer."
+    },
+    "stars": "सितारे",
+    "@stars": {
+        "description": "Label for a user's average star rating on their profile card."
+    },
+    "roomEnded": "रूम समाप्त हुआ",
+    "@roomEnded": {
+        "description": "Title of the message shown when the host closes a room."
+    },
+    "roomEndedMessage": "यह रूम समाप्त हो चुका है",
+    "@roomEndedMessage": {
+        "description": "Message shown to participants when the host closes the room they were in."
+    },
+    "poll": "पोल",
+    "@poll": {
+        "description": "Label identifying a poll card in the room chat."
+    },
+    "createPoll": "पोल बनाएँ",
+    "@createPoll": {
+        "description": "Title of the poll creation sheet and its submit button; also the tooltip of the poll button in the chat input."
+    },
+    "pollQuestionLabel": "प्रश्न",
+    "@pollQuestionLabel": {
+        "description": "Label for the poll question input field."
+    },
+    "pollQuestionHint": "कोई प्रश्न पूछें…",
+    "@pollQuestionHint": {
+        "description": "Hint text inside the poll question input field."
+    },
+    "pollOptionHint": "विकल्प {number}",
+    "@pollOptionHint": {
+        "description": "Hint text for a poll option input field, numbered from 1.",
+        "placeholders": {
+            "number": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "addPollOption": "विकल्प जोड़ें",
+    "@addPollOption": {
+        "description": "Button text to add another option field when creating a poll."
+    },
+    "removePollOption": "विकल्प हटाएँ",
+    "@removePollOption": {
+        "description": "Tooltip of the button that removes an option field when creating a poll."
+    },
+    "pollVotesCount": "{count, plural, =0{अभी तक कोई वोट नहीं} =1{1 वोट} other{{count} वोट}}",
+    "@pollVotesCount": {
+        "description": "Total number of votes cast on a poll.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "endPoll": "पोल समाप्त करें",
+    "@endPoll": {
+        "description": "Host-only button that closes voting on a poll."
+    },
+    "endPollConfirmTitle": "यह पोल समाप्त करें?",
+    "@endPollConfirmTitle": {
+        "description": "Title of the confirmation dialog before closing a poll."
+    },
+    "endPollConfirmContent": "सभी के लिए वोटिंग बंद हो जाएगी। इसे वापस नहीं किया जा सकता।",
+    "@endPollConfirmContent": {
+        "description": "Body of the confirmation dialog before closing a poll."
+    },
+    "pollFinalResults": "अंतिम परिणाम",
+    "@pollFinalResults": {
+        "description": "Tag shown on a poll card once voting has been closed."
+    },
+    "pollEnterQuestion": "कृपया एक प्रश्न दर्ज करें",
+    "@pollEnterQuestion": {
+        "description": "Validation message when the poll question is empty."
+    },
+    "pollNeedTwoOptions": "कृपया कम से कम 2 विकल्प दें",
+    "@pollNeedTwoOptions": {
+        "description": "Validation message when a poll has fewer than two non-empty options."
+    },
+    "pollUnavailable": "यह पोल अब उपलब्ध नहीं है",
+    "@pollUnavailable": {
+        "description": "Placeholder shown when a poll referenced by a chat message has been deleted."
+    },
+    "failedToCreatePoll": "पोल बनाने में विफल",
+    "@failedToCreatePoll": {
+        "description": "Error snackbar when creating a poll fails."
+    },
+    "failedToVote": "आपका वोट दर्ज नहीं हो सका",
+    "@failedToVote": {
+        "description": "Error snackbar when casting or changing a vote fails."
+    },
+    "failedToEndPoll": "पोल समाप्त नहीं की जा सकी",
+    "@failedToEndPoll": {
+        "description": "Error snackbar when closing a poll fails."
+    },
+    "activityStatus": "गतिविधि स्थिति",
+    "@activityStatus": {
+        "description": "Settings entry and title of the sheet where the user picks their activity status."
+    },
+    "activityStatusSubtitle": "चुनें कि आप तक कौन पहुँच सकता है",
+    "@activityStatusSubtitle": {
+        "description": "Supporting line under the activity status picker title."
+    },
+    "activityOnline": "ऑनलाइन",
+    "@activityOnline": {
+        "description": "Activity status: fully available for calls."
+    },
+    "activityOnlineDescription": "कॉल के लिए उपलब्ध",
+    "@activityOnlineDescription": {
+        "description": "Explanation of the Online activity status."
+    },
+    "activityDnd": "परेशान न करें",
+    "@activityDnd": {
+        "description": "Activity status: incoming calls are refused."
+    },
+    "activityDndDescription": "आने वाली कॉल ब्लॉक हैं",
+    "@activityDndDescription": {
+        "description": "Explanation of the Do Not Disturb activity status."
+    },
+    "activityInRoom": "सेशन में",
+    "@activityInRoom": {
+        "description": "Activity status: the user is in a live audio session. Set automatically."
+    },
+    "activityInRoomDescription": "लाइव सेशन में हैं, कॉल ब्लॉक हैं",
+    "@activityInRoomDescription": {
+        "description": "Explanation of the In a session activity status."
+    },
+    "activityInvisible": "अदृश्य",
+    "@activityInvisible": {
+        "description": "Activity status: the user appears offline to others."
+    },
+    "activityInvisibleDescription": "आप ऑफ़लाइन दिखते हैं, फिर भी कॉल आप तक पहुँचती हैं",
+    "@activityInvisibleDescription": {
+        "description": "Explanation of the Invisible activity status."
+    },
+    "activityOffline": "ऑफ़लाइन",
+    "@activityOffline": {
+        "description": "Activity status shown for a user who is signed out or has the app in the background."
+    },
+    "activityOfflineDescription": "अभी ऐप में नहीं हैं",
+    "@activityOfflineDescription": {
+        "description": "Explanation of the Offline activity status."
+    },
+    "activityStatusUpdateFailed": "आपकी उपलब्धता अपडेट नहीं हो सकी",
+    "@activityStatusUpdateFailed": {
+        "description": "Error snackbar when writing the new activity status fails."
+    },
+    "callBlocked": "अभी कॉल नहीं कर सकते",
+    "@callBlocked": {
+        "description": "Title of the snackbar shown when a call is refused by the recipient's activity status."
+    },
+    "callBlockedDnd": "{username} ने 'परेशान न करें' चालू किया हुआ है।",
+    "@callBlockedDnd": {
+        "description": "Snackbar body when the callee has Do Not Disturb enabled.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "achievements": "उपलब्धियाँ",
+    "@achievements": {
+        "description": "Title for the achievements sheet and the profile section listing a user's badges."
+    },
+    "achievementsSubtitle": "आपने क्या अर्जित किया, और आगे क्या है।",
+    "@achievementsSubtitle": {
+        "description": "Subtitle under the achievements sheet title."
+    },
+    "creatorAchievementsSubtitle": "यह यूज़र रेज़ोनेट पर कितना सक्रिय रहा है।",
+    "@creatorAchievementsSubtitle": {
+        "description": "Subtitle shown when viewing another user's achievements."
+    },
+    "noBadgesYet": "अभी तक कोई बैज नहीं। बैज अर्जित करने के लिए रूम होस्ट करें, मॉडरेट करें और भाग लें।",
+    "@noBadgesYet": {
+        "description": "Empty state shown when the signed-in user has not earned any badge."
+    },
+    "badgeLocked": "लॉक",
+    "@badgeLocked": {
+        "description": "Label on a badge the user has not earned yet."
+    },
+    "badgeProgress": "{target} में से {current}",
+    "@badgeProgress": {
+        "description": "Progress towards the next badge, e.g. 12 of 25.",
+        "placeholders": {
+            "current": {
+                "type": "int",
+                "example": "12"
+            },
+            "target": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeUnlocked": "बैज अनलॉक हुआ",
+    "@badgeUnlocked": {
+        "description": "Snackbar title shown when the user earns a new badge."
+    },
+    "badgeUnlockedMessage": "आपने {badge} अर्जित किया।",
+    "@badgeUnlockedMessage": {
+        "description": "Snackbar body naming the badge the user just earned.",
+        "placeholders": {
+            "badge": {
+                "type": "String",
+                "example": "Maestro"
+            }
+        }
+    },
+    "badgeCategoryHosting": "होस्टिंग",
+    "@badgeCategoryHosting": {
+        "description": "Achievement category covering rooms the user has hosted."
+    },
+    "badgeCategoryModeration": "मॉडरेशन",
+    "@badgeCategoryModeration": {
+        "description": "Achievement category covering rooms the user has moderated."
+    },
+    "badgeCategoryEcho": "भागीदारी",
+    "@badgeCategoryEcho": {
+        "description": "Achievement category covering chat, polls and other in-room interaction."
+    },
+    "badgeCategoryRhythm": "निरंतरता",
+    "@badgeCategoryRhythm": {
+        "description": "Achievement category covering how consistently the user shows up."
+    },
+    "badgeCategoryCore": "दीर्घकालिकता",
+    "@badgeCategoryCore": {
+        "description": "Achievement category covering how long the user has been active."
+    },
+    "badgeWelcomer": "स्वागतकर्ता",
+    "@badgeWelcomer": {
+        "description": "Name of the first hosting badge."
+    },
+    "badgeIcon": "प्रतीक",
+    "@badgeIcon": {
+        "description": "Name of the second hosting badge."
+    },
+    "badgeMaestro": "उस्ताद",
+    "@badgeMaestro": {
+        "description": "Name of the third hosting badge."
+    },
+    "badgeGuard": "रक्षक",
+    "@badgeGuard": {
+        "description": "Name of the first moderation badge."
+    },
+    "badgeSentinel": "प्रहरी",
+    "@badgeSentinel": {
+        "description": "Name of the second moderation badge."
+    },
+    "badgeWarden": "संरक्षक",
+    "@badgeWarden": {
+        "description": "Name of the third moderation badge."
+    },
+    "badgeEcho": "प्रतिध्वनि",
+    "@badgeEcho": {
+        "description": "Name of the participation badge."
+    },
+    "badgeRhythm": "लय",
+    "@badgeRhythm": {
+        "description": "Name of the consistency badge."
+    },
+    "badgeCore": "आधार",
+    "@badgeCore": {
+        "description": "Name of the longevity badge."
+    },
+    "badgeHostingDescription": "पाँच से अधिक लोगों वाले {count} रूम होस्ट किए।",
+    "@badgeHostingDescription": {
+        "description": "What a hosting badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeModerationDescription": "पाँच से अधिक लोगों वाले {count} रूम मॉडरेट किए।",
+    "@badgeModerationDescription": {
+        "description": "What a moderation badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "25"
+            }
+        }
+    },
+    "badgeEchoDescription": "चैट, पोल और वोट के ज़रिए {count} बार भाग लिया।",
+    "@badgeEchoDescription": {
+        "description": "What the participation badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "50"
+            }
+        }
+    },
+    "badgeRhythmDescription": "लगातार {count} दिन उपस्थित रहे।",
+    "@badgeRhythmDescription": {
+        "description": "What the consistency badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "7"
+            }
+        }
+    },
+    "badgeCoreDescription": "{count} अलग-अलग दिनों पर सक्रिय रहे।",
+    "@badgeCoreDescription": {
+        "description": "What the longevity badge is awarded for.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "statRoomsHosted": "होस्ट किए गए रूम",
+    "@statRoomsHosted": {
+        "description": "Label for the number of rooms a user has hosted."
+    },
+    "statRoomsModerated": "मॉडरेट किए गए रूम",
+    "@statRoomsModerated": {
+        "description": "Label for the number of rooms a user has moderated."
+    },
+    "statInteractions": "सहभागिताएँ",
+    "@statInteractions": {
+        "description": "Label for the number of chat messages, polls and votes a user has contributed."
+    },
+    "statActiveDays": "सक्रिय दिन",
+    "@statActiveDays": {
+        "description": "Label for the number of days a user has been active on the app."
+    },
+    "statStreak": "दिनों की लड़ी",
+    "@statStreak": {
+        "description": "Label for the user's current run of consecutive active days."
+    },
+    "statStreakBest": "सर्वश्रेष्ठ {count}",
+    "@statStreakBest": {
+        "description": "The user's longest ever streak, shown beside the current one.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "14"
+            }
+        }
+    },
+    "showOnProfile": "अपनी प्रोफ़ाइल पर दिखाएँ",
+    "@showOnProfile": {
+        "description": "Heading for the controls that pick which badges are displayed."
+    },
+    "showOnProfileHint": "अपने नाम के बगल में दिखाने के लिए दो बैज तक चुनें, और अवतार पर पहनने के लिए एक।",
+    "@showOnProfileHint": {
+        "description": "Explains the badge display limits."
+    },
+    "badgeShownAsPill": "आपके नाम के बगल में",
+    "@badgeShownAsPill": {
+        "description": "Toggle label for showing a badge as a pill beside the user's name."
+    },
+    "badgeShownOnAvatar": "आपके अवतार पर",
+    "@badgeShownOnAvatar": {
+        "description": "Toggle label for wearing a badge over the user's avatar."
+    },
+    "badgePillLimitReached": "आप अपने नाम के बगल में दो बैज दिखा सकते हैं।",
+    "@badgePillLimitReached": {
+        "description": "Shown when the user tries to display a third pill badge."
+    },
+    "badgeShowcaseFailed": "आपके बैज अपडेट नहीं हो सके।",
+    "@badgeShowcaseFailed": {
+        "description": "Snackbar body when saving the badge display choice fails."
+    },
+    "interests": "रुचियाँ",
+    "@interests": {
+        "description": "Title of the screen and settings tile where a user picks their interests."
+    },
+    "interestsHint": "{count} तक रुचियाँ चुनें ताकि समान पसंद वाले लोग आपको ढूँढ़ सकें।",
+    "@interestsHint": {
+        "description": "Explains what selecting interests does and the selection limit.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "interestsOptionalHint": "यह वैकल्पिक है — इसे खाली छोड़ें ताकि आपकी प्रोफ़ाइल रुचि खोज से बाहर रहे।",
+    "@interestsOptionalHint": {
+        "description": "Tells the user that sharing interests is opt-in."
+    },
+    "interestsOptional": "रुचियाँ (वैकल्पिक)",
+    "@interestsOptional": {
+        "description": "Heading for the optional interest picker during onboarding."
+    },
+    "interestLabel": "{interest, select, ai{एआई} music{संगीत} fitness{फ़िटनेस} anime{एनिमे} gaming{गेमिंग} technology{तकनीक} movies{फ़िल्में} books{किताबें} art{कला} travel{यात्रा} food{खानपान} sports{खेल} business{व्यापार} science{विज्ञान} comedy{कॉमेडी} wellness{स्वास्थ्य} other{अन्य}}",
+    "@interestLabel": {
+        "description": "Selects the display name of a predefined interest tag from its stored key.",
+        "placeholders": {
+            "interest": {
+                "type": "String",
+                "example": "music"
+            }
+        }
+    },
+    "interestLimitReached": "आप {count} तक रुचियाँ चुन सकते हैं।",
+    "@interestLimitReached": {
+        "description": "Shown when the user tries to select one interest too many.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "interestsUpdated": "आपकी रुचियाँ अपडेट हो गईं।",
+    "@interestsUpdated": {
+        "description": "Snackbar body after saving the interest selection."
+    },
+    "interestsUpdateFailed": "आपकी रुचियाँ अपडेट नहीं हो सकीं।",
+    "@interestsUpdateFailed": {
+        "description": "Snackbar body when saving the interest selection fails."
+    },
+    "filterByInterest": "रुचि के अनुसार छाँटें",
+    "@filterByInterest": {
+        "description": "Label for the search-bar option that filters profiles by interest tags."
+    },
+    "interestFilterHint": "समान रुचि वाले लोगों को ढूँढ़ने के लिए एक या अधिक रुचियाँ चुनें।",
+    "@interestFilterHint": {
+        "description": "Explains the interest picker opened from the search bar."
+    },
+    "noProfilesForInterests": "अभी तक उन रुचियों से मेल खाती कोई प्रोफ़ाइल नहीं है।",
+    "@noProfilesForInterests": {
+        "description": "Empty state for the interest filter results."
+    },
+    "interestFilterFailed": "मेल खाती प्रोफ़ाइलें लोड नहीं हो सकीं।",
+    "@interestFilterFailed": {
+        "description": "Error state for the interest filter results."
+    },
+    "profiles": "प्रोफ़ाइलें",
+    "@profiles": {
+        "description": "Section header above the profiles matching the selected interests."
+    },
+    "storyTags": "टैग (वैकल्पिक)",
+    "@storyTags": {
+        "description": "Label for the free-form tag field when creating a story."
+    },
+    "storyTagsHint": "अपने टैग जोड़ें, जैसे “टेक टॉक्स”, ताकि श्रोता यह कहानी ढूँढ़ सकें।",
+    "@storyTagsHint": {
+        "description": "Explains what story tags are for."
+    },
+    "addTag": "टैग जोड़ें",
+    "@addTag": {
+        "description": "Placeholder of the story tag input field."
+    },
+    "tagLimitReached": "आप {count} तक टैग जोड़ सकते हैं।",
+    "@tagLimitReached": {
+        "description": "Shown when the creator tries to add one story tag too many.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "removeTag": "टैग {tag} हटाएँ",
+    "@removeTag": {
+        "description": "Accessibility label of the button that removes a story tag.",
+        "placeholders": {
+            "tag": {
+                "type": "String",
+                "example": "tech talks"
+            }
+        }
+    },
+    "callBlockedInRoom": "{username} एक लाइव सेशन में हैं।",
+    "@callBlockedInRoom": {
+        "description": "Snackbar body when the callee is already in a live audio session.",
+        "placeholders": {
+            "username": {
+                "type": "String",
+                "example": "john_doe"
+            }
+        }
+    },
+    "recordedChapters": "रिकॉर्ड किए गए अध्याय",
+    "@recordedChapters": {
+        "description": "Title of the screen listing live chapter recordings kept on the device."
+    },
+    "noRecordedChapters": "अभी तक कुछ रिकॉर्ड नहीं हुआ",
+    "@noRecordedChapters": {
+        "description": "Heading of the empty state on the recorded chapters screen."
+    },
+    "noRecordedChaptersMessage": "आपके रिकॉर्ड किए लाइव अध्याय हटाए जाने तक इसी डिवाइस पर रहते हैं।",
+    "@noRecordedChaptersMessage": {
+        "description": "Body of the empty state on the recorded chapters screen."
+    },
+    "recordedChaptersLoadFailed": "आपकी रिकॉर्डिंग लोड नहीं हो सकीं",
+    "@recordedChaptersLoadFailed": {
+        "description": "Shown when the recorded chapters list fails to load."
+    },
+    "untitledRecording": "बिना शीर्षक रिकॉर्डिंग",
+    "@untitledRecording": {
+        "description": "Fallback title for a recording that was never given one."
+    },
+    "recordedOn": "रिकॉर्ड किया गया",
+    "@recordedOn": {
+        "description": "Label of the date a chapter was recorded, on the recording detail screen."
+    },
+    "recordingLength": "अवधि",
+    "@recordingLength": {
+        "description": "Label of a recording's duration on the recording detail screen."
+    },
+    "audioFile": "फ़ाइल",
+    "@audioFile": {
+        "description": "Label of a recording's audio file name on the recording detail screen."
+    },
+    "transcript": "प्रतिलेख",
+    "@transcript": {
+        "description": "Section heading for the transcript of a recording."
+    },
+    "noTranscript": "इस रिकॉर्डिंग के लिए कोई प्रतिलेख नहीं बना।",
+    "@noTranscript": {
+        "description": "Shown in place of the transcript when a recording has none."
+    },
+    "deleteRecording": "रिकॉर्डिंग हटाएँ",
+    "@deleteRecording": {
+        "description": "Button that deletes a recording from the device."
+    },
+    "deleteRecordingMessage": "इससे ऑडियो और प्रतिलेख इस डिवाइस से हट जाएँगे। इसे वापस नहीं किया जा सकता।",
+    "@deleteRecordingMessage": {
+        "description": "Body of the dialog confirming that a recording will be deleted."
+    },
+    "recordingDeleted": "रिकॉर्डिंग हटा दी गई",
+    "@recordingDeleted": {
+        "description": "Confirmation shown after a recording has been deleted."
+    },
+    "deleteRecordingFailed": "रिकॉर्डिंग हटाई नहीं जा सकी",
+    "@deleteRecordingFailed": {
+        "description": "Shown when deleting a recording's files failed."
+    },
+    "noListenersYet": "अभी तक कोई लिस्नर नहीं",
+    "@noListenersYet": {
+        "description": "Shown on the live chapter screen while nobody has joined to listen."
+    },
+    "noParticipantsYet": "अभी तक कोई प्रतिभागी नहीं",
+    "@noParticipantsYet": {
+        "description": "Shown on the room screen while nobody has joined."
+    },
+    "transcribing": "रिकॉर्डिंग का प्रतिलेख बन रहा है…",
+    "@transcribing": {
+        "description": "Shown on the verify screen while the recording is still being transcribed."
+    },
+    "transcriptionFailed": "प्रतिलेख नहीं बन सका — आप लिरिक्स स्वयं टाइप कर सकते हैं।",
+    "@transcriptionFailed": {
+        "description": "Shown on the verify screen when transcribing the recording did not succeed."
+    },
+    "playRecording": "रिकॉर्डिंग चलाएँ",
+    "@playRecording": {
+        "description": "Accessibility label of the button that starts playing a recording."
+    },
+    "pauseRecording": "रिकॉर्डिंग रोकें",
+    "@pauseRecording": {
+        "description": "Accessibility label of the button that pauses a playing recording."
+    },
+    "playbackBlockedInSession": "रिकॉर्डिंग चलाने के लिए लाइव सेशन छोड़ें।",
+    "@playbackBlockedInSession": {
+        "description": "Shown when playback is attempted while the user is connected to a live audio session."
+    },
+    "fileTooLarge": "आपकी {what} {size} है। फ़ाइलें {limit} से छोटी होनी चाहिए।",
+    "@fileTooLarge": {
+        "description": "Shown when a chosen file is over the upload size limit.",
+        "placeholders": {
+            "what": {
+                "type": "String",
+                "example": "story cover"
+            },
+            "size": {
+                "type": "String",
+                "example": "15.9 MB"
+            },
+            "limit": {
+                "type": "String",
+                "example": "5.0 MB"
+            }
+        }
+    },
+    "uploadFailed": "{what} अपलोड नहीं हो सकी। कृपया पुनः प्रयास करें।",
+    "@uploadFailed": {
+        "description": "Shown when a file upload fails for a reason other than its size.",
+        "placeholders": {
+            "what": {
+                "type": "String",
+                "example": "story cover"
+            }
+        }
+    },
+    "earpiece": "इयरपीस",
+    "@earpiece": {
+        "description": "Label for the phone earpiece option in the audio output picker."
+    },
+    "headsetTakesPriority": "कनेक्टेड हेडसेट जब तक लगा या जुड़ा रहता है, उसे प्राथमिकता मिलती है।",
+    "@headsetTakesPriority": {
+        "description": "Note under the audio output picker explaining that a wired or Bluetooth headset overrides the choice."
+    },
+    "audioOutputNotSwitchable": "इस डिवाइस पर ऑडियो आउटपुट बदला नहीं जा सकता।",
+    "@audioOutputNotSwitchable": {
+        "description": "Shown in the audio output picker when the platform offers no routing choice."
+    },
+    "loudspeaker": "लाउडस्पीकर",
+    "@loudspeaker": {
+        "description": "Label for the loudspeaker option in the audio output picker. Distinct from `speaker`, which is the Speaker user role in a room."
+    },
+    "callReliability": "कॉल विश्वसनीयता",
+    "@callReliability": {
+        "description": "Settings entry that opens the battery optimisation exemption prompt."
     }
 }

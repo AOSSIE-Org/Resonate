@@ -320,19 +320,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get appPreferences => 'ऐप प्राथमिकताएं';
 
   @override
-  String get features => 'Features';
+  String get features => 'सुविधाएँ';
 
   @override
   String get featuresDescription =>
-      'Turn off the features you don\'t use. They stay hidden on this device until you turn them back on.';
+      'जिन सुविधाओं का आप उपयोग नहीं करते, उन्हें बंद कर दें। जब तक आप उन्हें दोबारा चालू नहीं करते, वे इस डिवाइस पर छिपी रहेंगी।';
 
   @override
   String get pairChatFeatureDescription =>
-      'One-on-one voice chats with a random or a chosen user.';
+      'किसी रैंडम या चुने हुए यूज़र के साथ आमने-सामने की वॉइस चैट।';
 
   @override
   String get liveChapterFeatureDescription =>
-      'Record a story chapter live with an audience, and join the ones others host.';
+      'श्रोताओं के सामने कहानी का अध्याय लाइव रिकॉर्ड करें, और दूसरों के होस्ट किए अध्यायों में शामिल हों।';
 
   @override
   String get transcriptionModel => 'ट्रांसक्रिप्शन मॉडल';
@@ -793,7 +793,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get join => 'शामिल हों';
 
   @override
-  String get returnToRoom => 'Return';
+  String get returnToRoom => 'वापस जाएँ';
 
   @override
   String get invalidTags => 'अमान्य टैग:';
@@ -1156,7 +1156,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get followers => 'फॉलोअर्स';
 
   @override
-  String get stars => 'Stars';
+  String get stars => 'सितारे';
 
   @override
   String get friendRequests => 'फ्रेंड रिक्वेस्ट';
@@ -1320,10 +1320,10 @@ class AppLocalizationsHi extends AppLocalizations {
       'आपको कमरे से रिपोर्ट किया गया है या हटा दिया गया है';
 
   @override
-  String get roomEnded => 'Room ended';
+  String get roomEnded => 'रूम समाप्त हुआ';
 
   @override
-  String get roomEndedMessage => 'This room has ended';
+  String get roomEndedMessage => 'यह रूम समाप्त हो चुका है';
 
   @override
   String reportType(String type) {
@@ -1450,439 +1450,439 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह उपयोगकर्ता नाम पहले से लिया जा चुका है। कृपया कोई और चुनें।';
 
   @override
-  String get poll => 'Poll';
+  String get poll => 'पोल';
 
   @override
-  String get createPoll => 'Create poll';
+  String get createPoll => 'पोल बनाएँ';
 
   @override
-  String get pollQuestionLabel => 'Question';
+  String get pollQuestionLabel => 'प्रश्न';
 
   @override
-  String get pollQuestionHint => 'Ask a question…';
+  String get pollQuestionHint => 'कोई प्रश्न पूछें…';
 
   @override
   String pollOptionHint(int number) {
-    return 'Option $number';
+    return 'विकल्प $number';
   }
 
   @override
-  String get addPollOption => 'Add option';
+  String get addPollOption => 'विकल्प जोड़ें';
 
   @override
-  String get removePollOption => 'Remove option';
+  String get removePollOption => 'विकल्प हटाएँ';
 
   @override
   String pollVotesCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count votes',
-      one: '1 vote',
-      zero: 'No votes yet',
+      other: '$count वोट',
+      one: '1 वोट',
+      zero: 'अभी तक कोई वोट नहीं',
     );
     return '$_temp0';
   }
 
   @override
-  String get endPoll => 'End poll';
+  String get endPoll => 'पोल समाप्त करें';
 
   @override
-  String get endPollConfirmTitle => 'End this poll?';
+  String get endPollConfirmTitle => 'यह पोल समाप्त करें?';
 
   @override
   String get endPollConfirmContent =>
-      'Voting will be closed for everyone. This cannot be undone.';
+      'सभी के लिए वोटिंग बंद हो जाएगी। इसे वापस नहीं किया जा सकता।';
 
   @override
-  String get pollFinalResults => 'Final results';
+  String get pollFinalResults => 'अंतिम परिणाम';
 
   @override
-  String get pollEnterQuestion => 'Please enter a question';
+  String get pollEnterQuestion => 'कृपया एक प्रश्न दर्ज करें';
 
   @override
-  String get pollNeedTwoOptions => 'Please provide at least 2 options';
+  String get pollNeedTwoOptions => 'कृपया कम से कम 2 विकल्प दें';
 
   @override
-  String get pollUnavailable => 'This poll is no longer available';
+  String get pollUnavailable => 'यह पोल अब उपलब्ध नहीं है';
 
   @override
-  String get failedToCreatePoll => 'Failed to create poll';
+  String get failedToCreatePoll => 'पोल बनाने में विफल';
 
   @override
-  String get failedToVote => 'Failed to record your vote';
+  String get failedToVote => 'आपका वोट दर्ज नहीं हो सका';
 
   @override
-  String get failedToEndPoll => 'Failed to end the poll';
+  String get failedToEndPoll => 'पोल समाप्त नहीं की जा सकी';
 
   @override
-  String get activityStatus => 'Activity status';
+  String get activityStatus => 'गतिविधि स्थिति';
 
   @override
-  String get activityStatusSubtitle => 'Choose who can reach you';
+  String get activityStatusSubtitle => 'चुनें कि आप तक कौन पहुँच सकता है';
 
   @override
-  String get activityOnline => 'Online';
+  String get activityOnline => 'ऑनलाइन';
 
   @override
-  String get activityOnlineDescription => 'Available for calls';
+  String get activityOnlineDescription => 'कॉल के लिए उपलब्ध';
 
   @override
-  String get activityDnd => 'Do Not Disturb';
+  String get activityDnd => 'परेशान न करें';
 
   @override
-  String get activityDndDescription => 'Incoming calls are blocked';
+  String get activityDndDescription => 'आने वाली कॉल ब्लॉक हैं';
 
   @override
-  String get activityInRoom => 'In a session';
+  String get activityInRoom => 'सेशन में';
 
   @override
-  String get activityInRoomDescription =>
-      'In a live session, calls are blocked';
+  String get activityInRoomDescription => 'लाइव सेशन में हैं, कॉल ब्लॉक हैं';
 
   @override
-  String get activityInvisible => 'Invisible';
+  String get activityInvisible => 'अदृश्य';
 
   @override
   String get activityInvisibleDescription =>
-      'You appear offline, calls still reach you';
+      'आप ऑफ़लाइन दिखते हैं, फिर भी कॉल आप तक पहुँचती हैं';
 
   @override
-  String get activityOffline => 'Offline';
+  String get activityOffline => 'ऑफ़लाइन';
 
   @override
-  String get activityOfflineDescription => 'Not in the app right now';
+  String get activityOfflineDescription => 'अभी ऐप में नहीं हैं';
 
   @override
-  String get activityStatusUpdateFailed => 'Could not update your availability';
+  String get activityStatusUpdateFailed => 'आपकी उपलब्धता अपडेट नहीं हो सकी';
 
   @override
-  String get callBlocked => 'Can\'t call right now';
+  String get callBlocked => 'अभी कॉल नहीं कर सकते';
 
   @override
   String callBlockedDnd(String username) {
-    return '$username has Do Not Disturb turned on.';
+    return '$username ने \'परेशान न करें\' चालू किया हुआ है।';
   }
 
   @override
-  String get achievements => 'Achievements';
+  String get achievements => 'उपलब्धियाँ';
 
   @override
-  String get achievementsSubtitle => 'What you have earned, and what is next.';
+  String get achievementsSubtitle => 'आपने क्या अर्जित किया, और आगे क्या है।';
 
   @override
   String get creatorAchievementsSubtitle =>
-      'How active this user has been on Resonate.';
+      'यह यूज़र रेज़ोनेट पर कितना सक्रिय रहा है।';
 
   @override
   String get noBadgesYet =>
-      'No badges yet. Host rooms, moderate, and join in to earn some.';
+      'अभी तक कोई बैज नहीं। बैज अर्जित करने के लिए रूम होस्ट करें, मॉडरेट करें और भाग लें।';
 
   @override
-  String get badgeLocked => 'Locked';
+  String get badgeLocked => 'लॉक';
 
   @override
   String badgeProgress(int current, int target) {
-    return '$current of $target';
+    return '$target में से $current';
   }
 
   @override
-  String get badgeUnlocked => 'Badge unlocked';
+  String get badgeUnlocked => 'बैज अनलॉक हुआ';
 
   @override
   String badgeUnlockedMessage(String badge) {
-    return 'You earned $badge.';
+    return 'आपने $badge अर्जित किया।';
   }
 
   @override
-  String get badgeCategoryHosting => 'Hosting';
+  String get badgeCategoryHosting => 'होस्टिंग';
 
   @override
-  String get badgeCategoryModeration => 'Moderation';
+  String get badgeCategoryModeration => 'मॉडरेशन';
 
   @override
-  String get badgeCategoryEcho => 'Participation';
+  String get badgeCategoryEcho => 'भागीदारी';
 
   @override
-  String get badgeCategoryRhythm => 'Consistency';
+  String get badgeCategoryRhythm => 'निरंतरता';
 
   @override
-  String get badgeCategoryCore => 'Longevity';
+  String get badgeCategoryCore => 'दीर्घकालिकता';
 
   @override
-  String get badgeWelcomer => 'Welcomer';
+  String get badgeWelcomer => 'स्वागतकर्ता';
 
   @override
-  String get badgeIcon => 'Icon';
+  String get badgeIcon => 'प्रतीक';
 
   @override
-  String get badgeMaestro => 'Maestro';
+  String get badgeMaestro => 'उस्ताद';
 
   @override
-  String get badgeGuard => 'Guard';
+  String get badgeGuard => 'रक्षक';
 
   @override
-  String get badgeSentinel => 'Sentinel';
+  String get badgeSentinel => 'प्रहरी';
 
   @override
-  String get badgeWarden => 'Warden';
+  String get badgeWarden => 'संरक्षक';
 
   @override
-  String get badgeEcho => 'Echo';
+  String get badgeEcho => 'प्रतिध्वनि';
 
   @override
-  String get badgeRhythm => 'Rhythm';
+  String get badgeRhythm => 'लय';
 
   @override
-  String get badgeCore => 'Core';
+  String get badgeCore => 'आधार';
 
   @override
   String badgeHostingDescription(int count) {
-    return 'Hosted $count rooms with more than five people.';
+    return 'पाँच से अधिक लोगों वाले $count रूम होस्ट किए।';
   }
 
   @override
   String badgeModerationDescription(int count) {
-    return 'Moderated $count rooms with more than five people.';
+    return 'पाँच से अधिक लोगों वाले $count रूम मॉडरेट किए।';
   }
 
   @override
   String badgeEchoDescription(int count) {
-    return 'Took part $count times through chat, polls and votes.';
+    return 'चैट, पोल और वोट के ज़रिए $count बार भाग लिया।';
   }
 
   @override
   String badgeRhythmDescription(int count) {
-    return 'Showed up $count days in a row.';
+    return 'लगातार $count दिन उपस्थित रहे।';
   }
 
   @override
   String badgeCoreDescription(int count) {
-    return 'Active on $count different days.';
+    return '$count अलग-अलग दिनों पर सक्रिय रहे।';
   }
 
   @override
-  String get statRoomsHosted => 'Rooms hosted';
+  String get statRoomsHosted => 'होस्ट किए गए रूम';
 
   @override
-  String get statRoomsModerated => 'Rooms moderated';
+  String get statRoomsModerated => 'मॉडरेट किए गए रूम';
 
   @override
-  String get statInteractions => 'Interactions';
+  String get statInteractions => 'सहभागिताएँ';
 
   @override
-  String get statActiveDays => 'Active days';
+  String get statActiveDays => 'सक्रिय दिन';
 
   @override
-  String get statStreak => 'Day streak';
+  String get statStreak => 'दिनों की लड़ी';
 
   @override
   String statStreakBest(int count) {
-    return 'Best $count';
+    return 'सर्वश्रेष्ठ $count';
   }
 
   @override
-  String get showOnProfile => 'Show on your profile';
+  String get showOnProfile => 'अपनी प्रोफ़ाइल पर दिखाएँ';
 
   @override
   String get showOnProfileHint =>
-      'Pick up to two badges to sit next to your name, and one to wear on your avatar.';
+      'अपने नाम के बगल में दिखाने के लिए दो बैज तक चुनें, और अवतार पर पहनने के लिए एक।';
 
   @override
-  String get badgeShownAsPill => 'Next to your name';
+  String get badgeShownAsPill => 'आपके नाम के बगल में';
 
   @override
-  String get badgeShownOnAvatar => 'On your avatar';
+  String get badgeShownOnAvatar => 'आपके अवतार पर';
 
   @override
   String get badgePillLimitReached =>
-      'You can show two badges next to your name.';
+      'आप अपने नाम के बगल में दो बैज दिखा सकते हैं।';
 
   @override
-  String get badgeShowcaseFailed => 'Could not update your badges.';
+  String get badgeShowcaseFailed => 'आपके बैज अपडेट नहीं हो सके।';
 
   @override
-  String get interests => 'Interests';
+  String get interests => 'रुचियाँ';
 
   @override
   String interestsHint(int count) {
-    return 'Pick up to $count interests so people who like the same things can find you.';
+    return '$count तक रुचियाँ चुनें ताकि समान पसंद वाले लोग आपको ढूँढ़ सकें।';
   }
 
   @override
   String get interestsOptionalHint =>
-      'This is optional — leave it empty to keep your profile out of interest search.';
+      'यह वैकल्पिक है — इसे खाली छोड़ें ताकि आपकी प्रोफ़ाइल रुचि खोज से बाहर रहे।';
 
   @override
-  String get interestsOptional => 'Interests (optional)';
+  String get interestsOptional => 'रुचियाँ (वैकल्पिक)';
 
   @override
   String interestLabel(String interest) {
     String _temp0 = intl.Intl.selectLogic(interest, {
-      'ai': 'AI',
-      'music': 'Music',
-      'fitness': 'Fitness',
-      'anime': 'Anime',
-      'gaming': 'Gaming',
-      'technology': 'Technology',
-      'movies': 'Movies',
-      'books': 'Books',
-      'art': 'Art',
-      'travel': 'Travel',
-      'food': 'Food',
-      'sports': 'Sports',
-      'business': 'Business',
-      'science': 'Science',
-      'comedy': 'Comedy',
-      'wellness': 'Wellness',
-      'other': 'Other',
+      'ai': 'एआई',
+      'music': 'संगीत',
+      'fitness': 'फ़िटनेस',
+      'anime': 'एनिमे',
+      'gaming': 'गेमिंग',
+      'technology': 'तकनीक',
+      'movies': 'फ़िल्में',
+      'books': 'किताबें',
+      'art': 'कला',
+      'travel': 'यात्रा',
+      'food': 'खानपान',
+      'sports': 'खेल',
+      'business': 'व्यापार',
+      'science': 'विज्ञान',
+      'comedy': 'कॉमेडी',
+      'wellness': 'स्वास्थ्य',
+      'other': 'अन्य',
     });
     return '$_temp0';
   }
 
   @override
   String interestLimitReached(int count) {
-    return 'You can pick up to $count interests.';
+    return 'आप $count तक रुचियाँ चुन सकते हैं।';
   }
 
   @override
-  String get interestsUpdated => 'Your interests were updated.';
+  String get interestsUpdated => 'आपकी रुचियाँ अपडेट हो गईं।';
 
   @override
-  String get interestsUpdateFailed => 'Could not update your interests.';
+  String get interestsUpdateFailed => 'आपकी रुचियाँ अपडेट नहीं हो सकीं।';
 
   @override
-  String get filterByInterest => 'Filter by interest';
+  String get filterByInterest => 'रुचि के अनुसार छाँटें';
 
   @override
   String get interestFilterHint =>
-      'Pick one or more interests to find people who share them.';
+      'समान रुचि वाले लोगों को ढूँढ़ने के लिए एक या अधिक रुचियाँ चुनें।';
 
   @override
-  String get noProfilesForInterests => 'No profiles match those interests yet.';
+  String get noProfilesForInterests =>
+      'अभी तक उन रुचियों से मेल खाती कोई प्रोफ़ाइल नहीं है।';
 
   @override
-  String get interestFilterFailed => 'Could not load matching profiles.';
+  String get interestFilterFailed => 'मेल खाती प्रोफ़ाइलें लोड नहीं हो सकीं।';
 
   @override
-  String get profiles => 'Profiles';
+  String get profiles => 'प्रोफ़ाइलें';
 
   @override
-  String get storyTags => 'Tags (optional)';
+  String get storyTags => 'टैग (वैकल्पिक)';
 
   @override
   String get storyTagsHint =>
-      'Add your own tags, like “tech talks”, so listeners can find this story.';
+      'अपने टैग जोड़ें, जैसे “टेक टॉक्स”, ताकि श्रोता यह कहानी ढूँढ़ सकें।';
 
   @override
-  String get addTag => 'Add a tag';
+  String get addTag => 'टैग जोड़ें';
 
   @override
   String tagLimitReached(int count) {
-    return 'You can add up to $count tags.';
+    return 'आप $count तक टैग जोड़ सकते हैं।';
   }
 
   @override
   String removeTag(String tag) {
-    return 'Remove tag $tag';
+    return 'टैग $tag हटाएँ';
   }
 
   @override
   String callBlockedInRoom(String username) {
-    return '$username is in a live session.';
+    return '$username एक लाइव सेशन में हैं।';
   }
 
   @override
-  String get recordedChapters => 'Recorded Chapters';
+  String get recordedChapters => 'रिकॉर्ड किए गए अध्याय';
 
   @override
-  String get noRecordedChapters => 'Nothing recorded yet';
+  String get noRecordedChapters => 'अभी तक कुछ रिकॉर्ड नहीं हुआ';
 
   @override
   String get noRecordedChaptersMessage =>
-      'Live chapters you record stay on this device until you delete them.';
+      'आपके रिकॉर्ड किए लाइव अध्याय हटाए जाने तक इसी डिवाइस पर रहते हैं।';
 
   @override
-  String get recordedChaptersLoadFailed => 'Could not load your recordings';
+  String get recordedChaptersLoadFailed => 'आपकी रिकॉर्डिंग लोड नहीं हो सकीं';
 
   @override
-  String get untitledRecording => 'Untitled recording';
+  String get untitledRecording => 'बिना शीर्षक रिकॉर्डिंग';
 
   @override
-  String get recordedOn => 'Recorded';
+  String get recordedOn => 'रिकॉर्ड किया गया';
 
   @override
-  String get recordingLength => 'Length';
+  String get recordingLength => 'अवधि';
 
   @override
-  String get audioFile => 'File';
+  String get audioFile => 'फ़ाइल';
 
   @override
-  String get transcript => 'Transcript';
+  String get transcript => 'प्रतिलेख';
 
   @override
-  String get noTranscript => 'No transcript was generated for this recording.';
+  String get noTranscript => 'इस रिकॉर्डिंग के लिए कोई प्रतिलेख नहीं बना।';
 
   @override
-  String get deleteRecording => 'Delete recording';
+  String get deleteRecording => 'रिकॉर्डिंग हटाएँ';
 
   @override
   String get deleteRecordingMessage =>
-      'This removes the audio and the transcript from this device. It cannot be undone.';
+      'इससे ऑडियो और प्रतिलेख इस डिवाइस से हट जाएँगे। इसे वापस नहीं किया जा सकता।';
 
   @override
-  String get recordingDeleted => 'Recording deleted';
+  String get recordingDeleted => 'रिकॉर्डिंग हटा दी गई';
 
   @override
-  String get deleteRecordingFailed => 'Could not delete the recording';
+  String get deleteRecordingFailed => 'रिकॉर्डिंग हटाई नहीं जा सकी';
 
   @override
-  String get noListenersYet => 'No listeners yet';
+  String get noListenersYet => 'अभी तक कोई लिस्नर नहीं';
 
   @override
-  String get noParticipantsYet => 'No participants yet';
+  String get noParticipantsYet => 'अभी तक कोई प्रतिभागी नहीं';
 
   @override
-  String get transcribing => 'Transcribing the recording…';
+  String get transcribing => 'रिकॉर्डिंग का प्रतिलेख बन रहा है…';
 
   @override
   String get transcriptionFailed =>
-      'Transcription failed — you can type the lyrics yourself.';
+      'प्रतिलेख नहीं बन सका — आप लिरिक्स स्वयं टाइप कर सकते हैं।';
 
   @override
-  String get playRecording => 'Play recording';
+  String get playRecording => 'रिकॉर्डिंग चलाएँ';
 
   @override
-  String get pauseRecording => 'Pause recording';
+  String get pauseRecording => 'रिकॉर्डिंग रोकें';
 
   @override
   String get playbackBlockedInSession =>
-      'Leave the live session to play a recording.';
+      'रिकॉर्डिंग चलाने के लिए लाइव सेशन छोड़ें।';
 
   @override
   String fileTooLarge(String what, String size, String limit) {
-    return 'Your $what is $size. Files must be smaller than $limit.';
+    return 'आपकी $what $size है। फ़ाइलें $limit से छोटी होनी चाहिए।';
   }
 
   @override
   String uploadFailed(String what) {
-    return 'Could not upload the $what. Please try again.';
+    return '$what अपलोड नहीं हो सकी। कृपया पुनः प्रयास करें।';
   }
 
   @override
-  String get earpiece => 'Earpiece';
+  String get earpiece => 'इयरपीस';
 
   @override
   String get headsetTakesPriority =>
-      'A connected headset takes priority while it is plugged in or paired.';
+      'कनेक्टेड हेडसेट जब तक लगा या जुड़ा रहता है, उसे प्राथमिकता मिलती है।';
 
   @override
   String get audioOutputNotSwitchable =>
-      'Audio output cannot be changed on this device.';
+      'इस डिवाइस पर ऑडियो आउटपुट बदला नहीं जा सकता।';
 
   @override
-  String get loudspeaker => 'Loudspeaker';
+  String get loudspeaker => 'लाउडस्पीकर';
 
   @override
-  String get callReliability => 'Call reliability';
+  String get callReliability => 'कॉल विश्वसनीयता';
 }
