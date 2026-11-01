@@ -76,18 +76,31 @@ class FriendsRepository {
       ],
     );
 
-    final friends = <FriendsModel>[];
-    final requests = <FriendsModel>[];
+    // One pair can hold two rows, when both sides sent a request before either
+    // accepted. Keep a single row per person, preferring an accepted one.
+    final byOther = <String, FriendsModel>{};
     for (final friend in (userDoc.data['friends'] ?? []) as List<dynamic>) {
       try {
         final model = FriendsModel.fromJson(friend);
-        if (model.requestStatus == FriendRequestStatus.accepted) {
-          friends.add(model);
-        } else {
-          requests.add(model);
+        final other = model.senderId == uid ? model.recieverId : model.senderId;
+        final kept = byOther[other];
+        if (kept == null ||
+            (kept.requestStatus != FriendRequestStatus.accepted &&
+                model.requestStatus == FriendRequestStatus.accepted)) {
+          byOther[other] = model;
         }
       } catch (_) {
         // Skip rows that have missing/malformed fields.
+      }
+    }
+
+    final friends = <FriendsModel>[];
+    final requests = <FriendsModel>[];
+    for (final model in byOther.values) {
+      if (model.requestStatus == FriendRequestStatus.accepted) {
+        friends.add(model);
+      } else {
+        requests.add(model);
       }
     }
     return (friends: friends, requests: requests);
@@ -106,8 +119,18 @@ class FriendsRepository {
         databaseId: databaseId,
         tableId: friendsTableID,
         queries: [
-          Query.equal('senderId', sender.uid),
-          Query.equal('recieverId', recieverId),
+          // Either direction: if they already asked us, that row stands rather
+          // than a second one being created going the other way.
+          Query.or([
+            Query.and([
+              Query.equal('senderId', sender.uid),
+              Query.equal('recieverId', recieverId),
+            ]),
+            Query.and([
+              Query.equal('senderId', recieverId),
+              Query.equal('recieverId', sender.uid),
+            ]),
+          ]),
           Query.limit(1),
         ],
       );

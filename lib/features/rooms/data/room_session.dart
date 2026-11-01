@@ -23,7 +23,9 @@ enum ParticipantRole { moderator, speaker, listener }
 class RoomSession extends _$RoomSession {
   StreamSubscription<RealtimeMessage>? _participantSub;
   StreamSubscription<RealtimeMessage>? _profileSub;
+  StreamSubscription<RealtimeMessage>? _roomSub;
   bool _roomEnded = false;
+  bool _exited = false;
 
   @override
   Future<SingleRoomState> build(AppwriteRoom appwriteRoom) async {
@@ -69,6 +71,17 @@ class RoomSession extends _$RoomSession {
     final repo = ref.read(roomsRepositoryProvider);
 
     _profileSub = repo.userProfileStream().listen(_applyProfileUpdate);
+    // A host closing the room deletes the room row
+    _roomSub = repo.roomStream().listen((event) async {
+      try {
+        if (realtimeAction(event.events) != 'delete') return;
+        if (event.payload[r'$id'] != appwriteRoom.id) return;
+        _roomEnded = true;
+        await _exitSession(roomEnded: true);
+      } catch (e) {
+        log('single room listener error: $e');
+      }
+    });
 
     _participantSub = repo.participantStream(appwriteRoom.id).listen((
       event,
@@ -157,20 +170,11 @@ class RoomSession extends _$RoomSession {
               if (removedUid == current.me.uid) {
                 final iLeft =
                     ref.read(activeRoomProvider)?.id != appwriteRoom.id;
-                await _disposeStream();
                 if (iLeft) {
+                  await _disposeStream();
                   break;
                 }
-                await ref.read(liveKitControllerProvider.notifier).disconnect();
-                if (!ref.mounted) return;
-                final latest = state.value;
-                if (latest != null) {
-                  state = AsyncData(
-                    _roomEnded
-                        ? latest.copyWith(roomEnded: true)
-                        : latest.copyWith(wasKicked: true),
-                  );
-                }
+                await _exitSession(roomEnded: _roomEnded);
                 break;
               }
               final filtered = current.participants
@@ -224,11 +228,29 @@ class RoomSession extends _$RoomSession {
     }
   }
 
+  // Tears the session down once, whichever channel reported it first.
+  Future<void> _exitSession({required bool roomEnded}) async {
+    if (_exited) return;
+    _exited = true;
+    await _disposeStream();
+    await ref.read(liveKitControllerProvider.notifier).disconnect();
+    if (!ref.mounted) return;
+    final latest = state.value;
+    if (latest == null) return;
+    state = AsyncData(
+      roomEnded
+          ? latest.copyWith(roomEnded: true)
+          : latest.copyWith(wasKicked: true),
+    );
+  }
+
   Future<void> _disposeStream() async {
     await _participantSub?.cancel();
     _participantSub = null;
     await _profileSub?.cancel();
     _profileSub = null;
+    await _roomSub?.cancel();
+    _roomSub = null;
   }
 
   static int _rank(Participant p) {

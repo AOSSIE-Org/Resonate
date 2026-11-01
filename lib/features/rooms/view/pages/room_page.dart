@@ -41,6 +41,7 @@ class _RoomPageState extends ConsumerState<RoomPage> {
   AppwriteRoom get room => widget.room;
 
   late final SessionPresented _presence;
+  bool _departed = false;
 
   @override
   void initState() {
@@ -77,6 +78,8 @@ class _RoomPageState extends ConsumerState<RoomPage> {
     ref.listen(roomSessionProvider(room), (_, next) {
       final session = next.value;
       if (session == null || (!session.wasKicked && !session.roomEnded)) return;
+      if (_departed) return;
+      _departed = true;
 
       final navigator = Navigator.of(context);
       final l10n = AppLocalizations.of(context)!;
@@ -85,6 +88,7 @@ class _RoomPageState extends ConsumerState<RoomPage> {
       } else {
         customSnackbar(l10n.oops, l10n.removedFromRoom, LogType.warning);
       }
+      unawaited(ref.read(roomLauncherProvider).leave(room));
       if (navigator.canPop()) navigator.pop();
     });
 

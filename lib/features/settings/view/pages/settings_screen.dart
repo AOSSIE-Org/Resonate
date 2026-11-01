@@ -141,7 +141,13 @@ class SettingsScreen extends ConsumerWidget {
           if (ref.watch(callDeliveryDegradedProvider).value ?? false)
             customTile(
               str: AppLocalizations.of(context)!.callReliability,
-              func: () => ref.read(requestCallReliabilityProvider)(),
+              func: () async {
+                await ref.read(requestCallReliabilityProvider)();
+                // Drops the row once the exemption is granted.
+                if (context.mounted) {
+                  ref.invalidate(callDeliveryDegradedProvider);
+                }
+              },
             ),
           customDivider(),
           titleText(AppLocalizations.of(context)!.other),

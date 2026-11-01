@@ -43,14 +43,6 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _offerCallReliability());
   }
 
-  // Incoming calls ride a push, and Android stops delivering promptly once it
-  // puts the app to sleep, so a call after a long idle arrives as a silent
-  // notification instead of ringing. The exemption is what fixes that, and
-  // Android never offers it on its own: the app has to fire
-  // ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, which is what opens Android's
-  // own "Allow ... to run in the background?" dialog. Asked once, here rather
-  // than at launch, because it only matters to a signed-in user who can be
-  // called; Settings keeps offering it afterwards.
   Future<void> _offerCallReliability() async {
     final box = ref.read(getStorageBoxProvider);
     if (box.read<bool>(_callReliabilityAskedKey) ?? false) return;
@@ -58,6 +50,8 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
     if (!degraded || !mounted) return;
     await box.write(_callReliabilityAskedKey, true);
     await ref.read(requestCallReliabilityProvider)();
+    if (!mounted) return;
+    ref.invalidate(callDeliveryDegradedProvider);
   }
 
   Future<void> _onDonePressed(BuildContext context) async {

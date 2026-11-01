@@ -1,6 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
+import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/features/miniplayer/data/services/pip_controller.dart';
 import 'package:resonate/features/miniplayer/data/session_presented.dart';
 import 'package:resonate/features/miniplayer/model/miniplayer_session.dart';
@@ -24,6 +32,7 @@ class MiniplayerHost extends ConsumerStatefulWidget {
 class _MiniplayerHostState extends ConsumerState<MiniplayerHost>
     with WidgetsBindingObserver {
   bool _screenSeen = false;
+  bool _departed = false;
 
   @override
   void initState() {
@@ -74,12 +83,38 @@ class _MiniplayerHostState extends ConsumerState<MiniplayerHost>
     ref.listen(miniplayerProvider.select((s) => s != null), (_, hasSession) {
       ref.read(pipModeProvider.notifier).setSessionActive(active: hasSession);
       // A new session has to earn its miniplayer again.
-      if (!hasSession) _screenSeen = false;
+      if (!hasSession) {
+        _screenSeen = false;
+        _departed = false;
+      }
     });
 
     ref.listen(sessionPresentedProvider, (_, presented) {
       if (presented) _screenSeen = true;
     });
+
+    // While the room is minimised RoomPage is gone, so nothing reacts to the
+    // host closing it and the miniplayer sits on a room that no longer exists.
+    // RoomPage still owns the case where it is on screen.
+    final activeRoom = ref.watch(activeRoomProvider);
+    if (activeRoom != null) {
+      ref.listen(roomSessionProvider(activeRoom), (_, next) {
+        final session = next.value;
+        if (session == null) return;
+        if (!session.wasKicked && !session.roomEnded) return;
+        if (ref.read(sessionPresentedProvider)) return;
+        if (_departed) return;
+        _departed = true;
+
+        final l10n = AppLocalizations.of(context)!;
+        if (session.roomEnded) {
+          customSnackbar(l10n.roomEnded, l10n.roomEndedMessage, LogType.info);
+        } else {
+          customSnackbar(l10n.oops, l10n.removedFromRoom, LogType.warning);
+        }
+        unawaited(ref.read(roomLauncherProvider).leave(activeRoom));
+      });
+    }
 
     final session = ref.watch(miniplayerProvider);
     final inPip = session != null && ref.watch(pipModeProvider);

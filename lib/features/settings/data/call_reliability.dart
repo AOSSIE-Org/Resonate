@@ -13,11 +13,5 @@ Future<bool> callDeliveryDegraded(Ref ref) async {
 }
 
 @riverpod
-Future<bool> Function() requestCallReliability(Ref ref) {
-  final push = ref.watch(appwritePushProvider);
-  return () async {
-    final asked = await push.requestIgnoreBatteryOptimizations();
-    ref.invalidate(callDeliveryDegradedProvider);
-    return asked;
-  };
-}
+Future<bool> Function() requestCallReliability(Ref ref) =>
+    ref.watch(appwritePushProvider).requestIgnoreBatteryOptimizations;

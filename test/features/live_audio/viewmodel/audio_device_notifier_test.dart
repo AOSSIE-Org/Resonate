@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:resonate/features/live_audio/data/services/audio_device_service.dart';
 import 'package:resonate/features/live_audio/model/audio_device_state.dart';
 import 'package:resonate/features/live_audio/viewmodel/audio_device_notifier.dart';
 
@@ -65,7 +66,7 @@ void main() {
           AudioOutputRoute.speaker);
     });
 
-    test('selecting the route already in use touches nothing', () async {
+    test('re-selecting the shown route still re-applies it', () async {
       final service = FakeAudioDeviceService(speaker: true);
       final container = _container(service);
       container.read(audioDeviceProvider);
@@ -74,7 +75,13 @@ void main() {
           .read(audioDeviceProvider.notifier)
           .selectRoute(AudioOutputRoute.speaker);
 
-      expect(service.setCalls, isEmpty);
+      // The live route can have drifted from what the sheet shows, so picking
+      // the same entry has to reach LiveKit rather than being swallowed.
+      expect(service.setCalls, [true]);
+      expect(
+        container.read(audioDeviceProvider).route,
+        AudioOutputRoute.speaker,
+      );
     });
   });
 }

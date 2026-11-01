@@ -425,9 +425,12 @@ void main() {
     final room = fakeAppwriteRoom();
     final me = fakeParticipant(uid: 'me');
 
+    late FakeRoomLauncher launcher;
+
     // Opens the room on a route that can be popped, with the real root
     // navigator attached so customSnackbar's overlay has somewhere to go.
     Future<RoomSession> openRoom(WidgetTester tester) async {
+      launcher = FakeRoomLauncher();
       tester.view.physicalSize = const Size(1080, 2340);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.resetPhysicalSize);
@@ -438,6 +441,7 @@ void main() {
           overrides: roomOverrides(
             room: room,
             fake: () => FakeRoomSession(stateWith(me)),
+            launcher: launcher,
           ),
           child: testApp(
             rootOverlay: true,
@@ -485,6 +489,8 @@ void main() {
       await settle(tester);
       // Popped back to launcher.
       expect(find.byIcon(Icons.call_end), findsNothing);
+      // The sheet closing is only a minimise, so the session is torn down too.
+      expect(launcher.leaveCount, 1);
     });
 
     testAppWidget('shows the room ended snackbar and pops', (tester) async {
@@ -500,6 +506,7 @@ void main() {
       );
       await settle(tester);
       expect(find.byIcon(Icons.call_end), findsNothing);
+      expect(launcher.leaveCount, 1);
     });
   });
 }

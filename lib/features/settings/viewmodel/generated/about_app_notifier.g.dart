@@ -82,7 +82,7 @@ final class AboutAppProvider
   }
 }
 
-String _$aboutAppHash() => r'6ebea31ff47362a895a030b074e02d5d091822c0';
+String _$aboutAppHash() => r'd5f94794590939c32a0fc3fe07eced90769bc6ae';
 
 abstract class _$AboutApp extends $Notifier<AboutAppState> {
   AboutAppState build();

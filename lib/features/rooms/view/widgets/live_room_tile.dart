@@ -234,15 +234,16 @@ class CustomCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final scheme = Theme.of(context).colorScheme;
+    return SizedBox(
       width: width,
       height: height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(userImage),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(20),
+      // foregroundImage rather than a DecorationImage: a URL that fails to
+      // load falls back to the circle instead of rendering nothing at all.
+      child: CircleAvatar(
+        backgroundColor: scheme.surfaceContainerHighest,
+        foregroundImage:
+            userImage.isEmpty ? null : NetworkImage(userImage),
       ),
     );
   }

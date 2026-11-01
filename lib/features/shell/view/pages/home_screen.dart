@@ -236,6 +236,8 @@ class _LiveRoomsListView extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
+        // Clears the create button floating over the nav bar.
+        padding: EdgeInsets.only(bottom: UiSizes.height_80),
         itemCount: roomsToShow.length,
         itemBuilder: (context, index) {
           return Padding(
@@ -288,6 +290,8 @@ class _UpcomingRoomsListView extends StatelessWidget {
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
+        // Clears the create button floating over the nav bar.
+        padding: EdgeInsets.only(bottom: UiSizes.height_80),
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: UiSizes.height_8),

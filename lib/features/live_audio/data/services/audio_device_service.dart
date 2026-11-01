@@ -1,5 +1,10 @@
 import 'package:livekit_client/livekit_client.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'generated/audio_device_service.g.dart';
+
+@Riverpod(keepAlive: true)
+AudioDeviceService audioDeviceService(Ref ref) => AudioDeviceService();
 
 class AudioDeviceService {
   bool get canSwitchOutput => AudioManager.instance.canSwitchSpeakerphone;
