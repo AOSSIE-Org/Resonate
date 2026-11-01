@@ -920,6 +920,10 @@
     "@deleteAccountPermanent": {
         "description": "Prompt for permanent account deletion."
     },
+    "deleteAccountFailed": "ਤੁਹਾਡਾ ਅਕਾਊਂਟ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "@deleteAccountFailed": {
+        "description": "Shown when deleting the account did not succeed."
+    },
     "giveGreatName": "ਵਧੀਆ ਨਾਮ ਦਿਓ",
     "@giveGreatName": {
         "description": "Prompt to give a great name."

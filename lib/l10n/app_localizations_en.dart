@@ -714,6 +714,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'Give a great name..';
 
   @override

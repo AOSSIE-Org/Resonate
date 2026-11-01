@@ -920,6 +920,10 @@
     "@deleteAccountPermanent": {
         "description": "A detailed warning message explaining the consequences of deleting an account."
     },
+    "deleteAccountFailed": "Your account could not be deleted. Please try again.",
+    "@deleteAccountFailed": {
+        "description": "Shown when deleting the account did not succeed."
+    },
     "giveGreatName": "Give a great name..",
     "@giveGreatName": {
         "description": "Placeholder text for a name input field, encouraging a creative name."

@@ -23,7 +23,6 @@ class RoutePaths {
   static const changeEmail = '/changeEmail';
   static const settings = '/settings';
   static const themeScreen = '/themeScreen';
-  static const userAccountScreen = '/userAccountScreen';
   static const aboutApp = '/aboutApp';
   static const contributeScreen = '/contributeScreen';
   static const appPreferencesScreen = '/appPreferencesScreen';
@@ -56,7 +55,6 @@ class RoutePaths {
     emailVerification,
     settings,
     themeScreen,
-    userAccountScreen,
     aboutApp,
     contributeScreen,
     appPreferencesScreen,

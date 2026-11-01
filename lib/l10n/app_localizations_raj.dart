@@ -711,6 +711,10 @@ class AppLocalizationsRaj extends AppLocalizations {
       'ई क्रिया आपरो अकाउंट हमेशा खातर डिलीट कर देसी। ई उलट नहीं सकै। हम आपरो यूजरनेम, ईमेल पता और बाकी डेटा सब डिलीट कर देसू। फेर ओ वापस नहीं मिल सकै।';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'एक बढ़िया नाम डालो..';
 
   @override

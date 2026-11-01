@@ -727,6 +727,10 @@ class AppLocalizationsTa extends AppLocalizations {
       'இந்த செயல் உங்கள் கணக்கை நிரந்தரமாக நீக்கும். இதை மீட்டெடுக்க முடியாது. உங்கள் பயனர் பெயர், மின்னஞ்சல் முகவரி மற்றும் கணக்குடன் தொடர்புடைய அனைத்து தரவுகளும் நீக்கப்படும்.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'ஒரு சிறந்த பெயரை கொடுங்கள்..';
 
   @override

@@ -718,6 +718,10 @@ class AppLocalizationsKn extends AppLocalizations {
       'ಈ ಕ್ರಿಯೆ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಇದು ಬದಲಾಯಿಸಲಾಗದ ಪ್ರಕ್ರಿಯೆ. ನಾವು ನಿಮ್ಮ ಬಳಕೆದಾರ ಹೆಸರು, ಇಮೇಲ್ ವಿಳಾಸ ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಗೆ ಸಂಬಂಧಿಸಿದ ಎಲ್ಲಾ ಇತರ ಡೇಟಾವನ್ನು ಅಳಿಸುತ್ತೇವೆ. ನೀವು ಅದನ್ನು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'ಉತ್ತಮ ಹೆಸರು ನೀಡಿ..';
 
   @override

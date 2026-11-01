@@ -721,6 +721,10 @@ class AppLocalizationsBn extends AppLocalizations {
       'এই পদক্ষেপটি আপনার অ্যাকাউন্ট স্থায়ীভাবে ডিলিট করে দেবে। এটি একটি অপরিবর্তনীয় প্রক্রিয়া। আমরা আপনার ইউজারনেম, ইমেইল ঠিকানা এবং আপনার অ্যাকাউন্টের সাথে সম্পর্কিত অন্যান্য সমস্ত ডেটা ডিলিট করে দেব। আপনি এটি পুনরুদ্ধার করতে পারবেন না।';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'দারুন একটা নাম দিন..';
 
   @override

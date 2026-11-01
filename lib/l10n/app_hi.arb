@@ -888,6 +888,10 @@
     "@deleteAccountPermanent": {
         "description": "A detailed warning message explaining the consequences of deleting an account."
     },
+    "deleteAccountFailed": "आपका अकाउंट हटाया नहीं जा सका। कृपया पुनः प्रयास करें।",
+    "@deleteAccountFailed": {
+        "description": "Shown when deleting the account did not succeed."
+    },
     "giveGreatName": "एक अच्छा नाम सोचें...",
     "@giveGreatName": {
         "description": "Placeholder text for a name input field, encouraging a creative name."

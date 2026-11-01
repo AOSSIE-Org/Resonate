@@ -715,6 +715,10 @@ class AppLocalizationsGu extends AppLocalizations {
       'આ ક્રિયા તમારો એકાઉન્ટ કાયમ માટે ડિલીટ કરશે. આ અપરિવર્તનીય પ્રક્રિયા છે. અમે તમારું યુઝરનેમ, ઈમેઈલ એડ્રેસ અને તમારા એકાઉન્ટ સાથે સંકળાયેલ બધો ડેટા ડિલીટ કરીશું. તમે તેને પુનઃપ્રાપ્ત કરી શકશો નહીં.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'એક સરસ નામ આપો..';
 
   @override

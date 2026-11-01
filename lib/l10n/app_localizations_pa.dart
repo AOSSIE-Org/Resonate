@@ -708,6 +708,10 @@ class AppLocalizationsPa extends AppLocalizations {
   String get deleteAccountPermanent => 'ਅਕਾਊਂਟ ਸਥਾਈ ਤੌਰ \'ਤੇ ਹਟਾਓ';
 
   @override
+  String get deleteAccountFailed =>
+      'ਤੁਹਾਡਾ ਅਕਾਊਂਟ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।';
+
+  @override
   String get giveGreatName => 'ਵਧੀਆ ਨਾਮ ਦਿਓ';
 
   @override

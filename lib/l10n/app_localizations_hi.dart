@@ -715,6 +715,10 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह प्रक्रिया आपके अकाउंट को हमेशा के लिए डिलीट कर देगी। आपका यूज़रनेम, ईमेल और सारा डेटा हटा दिया जाएगा। यह वापस नहीं लिया जा सकता।';
 
   @override
+  String get deleteAccountFailed =>
+      'आपका अकाउंट हटाया नहीं जा सका। कृपया पुनः प्रयास करें।';
+
+  @override
   String get giveGreatName => 'एक अच्छा नाम सोचें...';
 
   @override

@@ -1458,6 +1458,12 @@ abstract class AppLocalizations {
   /// **'This action will Delete Your Account Permanently. It is irreversible process. We will delete your username, email address, and all other data associated with your account. You will not be able to recover it.'**
   String get deleteAccountPermanent;
 
+  /// Shown when deleting the account did not succeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account could not be deleted. Please try again.'**
+  String get deleteAccountFailed;
+
   /// Placeholder text for a name input field, encouraging a creative name.
   ///
   /// In en, this message translates to:

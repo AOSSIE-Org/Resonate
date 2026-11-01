@@ -35,7 +35,7 @@ GoRouter recordingRouter(List<String> log) {
           return SettingsScreen();
         },
       ),
-      rec(RoutePaths.userAccountScreen),
+      rec(RoutePaths.deleteAccount),
       rec(RoutePaths.themeScreen),
       rec(RoutePaths.aboutApp),
       rec(RoutePaths.appPreferencesScreen),
@@ -114,7 +114,6 @@ void main() {
     expect(find.text('Other'), findsOneWidget);
 
     // navigation tiles
-    expect(find.text('Account'), findsOneWidget);
     expect(find.text('Achievements'), findsOneWidget);
     expect(find.text('Themes'), findsOneWidget);
     expect(find.text('About'), findsOneWidget);
@@ -129,13 +128,20 @@ void main() {
     await revealLogOut(tester);
     expect(find.text('Log out'), findsOneWidget);
     expect(find.byIcon(Icons.logout_rounded), findsOneWidget);
+
+    // delete account sits below log out
+    await tester.scrollUntilVisible(find.text('Delete account'), 200);
+    expect(find.text('Delete account'), findsOneWidget);
+    expect(find.byIcon(Icons.delete_forever_rounded), findsOneWidget);
   });
 
-  testWidgets('Account tile pushes userAccountScreen', (tester) async {
+  testWidgets('Delete account tile pushes deleteAccount', (tester) async {
     final (_, _, log) = await pumpSettings(tester);
-    await tester.tap(find.text('Account'));
+    await tester.scrollUntilVisible(find.text('Delete account'), 200);
     await tester.pumpAndSettle();
-    expect(log, [RoutePaths.userAccountScreen]);
+    await tester.tap(find.text('Delete account'));
+    await tester.pumpAndSettle();
+    expect(log, [RoutePaths.deleteAccount]);
   });
 
   testWidgets('Themes tile pushes themeScreen', (tester) async {

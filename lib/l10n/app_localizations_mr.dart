@@ -717,6 +717,10 @@ class AppLocalizationsMr extends AppLocalizations {
       'ही क्रिया आपल्या खात्याला कायमचा हटवेल. ही अपरिवर्तनीय प्रक्रिया आहे. आम्ही आपल्या वापरकर्तानाव, ईमेल पत्ता, आणि आपल्या खात्याशी संबंधित सर्व इतर डेटा हटवू. आपण ते पुनर्प्राप्त करू शकणार नाही.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'एक चांगले नाव द्या..';
 
   @override

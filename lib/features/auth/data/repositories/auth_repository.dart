@@ -7,6 +7,7 @@ import 'package:appwrite/enums.dart';
 import 'package:appwrite/models.dart' as appwrite_models;
 import 'package:random_string/random_string.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
+import 'package:resonate/core/services/execute_function.dart';
 import 'package:resonate/features/auth/model/auth_failure.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
@@ -209,6 +210,12 @@ class AuthRepository {
         return const AuthState.unauthenticated();
       }),
     );
+  }
+
+  // The function erases the user's data and then the account itself
+  Future<void> deleteAccount() async {
+    await _functions.execute(functionId: deleteAccountFunctionID);
+    _setSessionState(const AsyncValue.data(AuthState.unauthenticated()));
   }
 
   Future<void> _mutateSession(Future<void> Function() mutate) async {

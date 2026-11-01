@@ -725,6 +725,10 @@ class AppLocalizationsMl extends AppLocalizations {
       'ഈ പ്രവർത്തനം നിങ്ങളുടെ അക്കൗണ്ട് സ്ഥിരമായി ഇല്ലാതാക്കും. ഇത് തിരികെ വരാനാകാത്ത പ്രക്രിയയാണ്. നിങ്ങളുടെ ഉപയോക്തൃനാമം, ഇമെയിൽ വിലാസം, നിങ്ങളുടെ അക്കൗണ്ടുമായി ബന്ധപ്പെട്ട എല്ലാ മറ്റ് ഡാറ്റയും ഞങ്ങൾ ഇല്ലാതാക്കും. നിങ്ങൾ അത് പുനരുദ്ധരിക്കാൻ കഴിയില്ല.';
 
   @override
+  String get deleteAccountFailed =>
+      'Your account could not be deleted. Please try again.';
+
+  @override
   String get giveGreatName => 'നല്ലൊരു പേര് പറയൂ...';
 
   @override
