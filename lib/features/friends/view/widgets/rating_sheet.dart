@@ -1,4 +1,4 @@
-import 'package:animated_rating_stars/animated_rating_stars.dart';
+import 'package:animated_rating_stars_v2/animated_rating_stars_v2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/friends/data/pair_chat_session.dart';
@@ -12,8 +12,7 @@ class RatingSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pairRating =
-        ref.watch(pairChatProvider.select((s) => s.pairRating));
+    final pairRating = ref.watch(pairChatProvider.select((s) => s.pairRating));
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
@@ -39,9 +38,7 @@ class RatingSheet extends ConsumerWidget {
               onChanged: (double rating) {
                 ref.read(pairChatProvider.notifier).setPairRating(rating);
               },
-              customFilledIcon: Icons.star,
-              customHalfFilledIcon: Icons.star_half,
-              customEmptyIcon: Icons.star_border_outlined,
+
               displayRatingValue: true,
               initialRating: 2.5,
               minRating: 0.0,

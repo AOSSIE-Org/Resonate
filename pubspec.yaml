@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 4.0.0+8
+version: 4.0.1+9
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
@@ -78,12 +78,15 @@ dependencies:
   # Already present transitively via freezed_annotation; json_serializable
   # requires it declared directly with a lower bound of 4.9.0.
   json_annotation: ^4.9.0
-  animated_rating_stars: ^1.0.1
+  animated_rating_stars_v2: ^1.0.0
   flutter_callkit_incoming: ^3.1.6
   meilisearch: ^0.19.0
   flutter_webrtc: ^1.2.0
   path_provider: ^2.1.5
-  whisper_flutter_new: ^1.0.1
+  whisper_flutter_new:
+    git:
+      url: https://github.com/M4dhav/whisper_flutter_new.git
+      ref: main
   ffmpeg_kit_flutter_new: ^4.1.0
   simple_pip_mode: ^1.1.0
 
