@@ -50,7 +50,7 @@ final class RoomSessionProvider
   }
 }
 
-String _$roomSessionHash() => r'bb1ee638eb97f6446d589245f30ac845163ccb3c';
+String _$roomSessionHash() => r'678b8effbe2dea1da0eaa3c05a1388c10fbdca91';
 
 final class RoomSessionFamily extends $Family
     with

@@ -264,18 +264,19 @@ class RoomsRepository {
           Query.equal('roomId', [roomId]),
         ],
       );
-      for (final doc in participantDocs.rows) {
-        await _tables.deleteRow(
-          databaseId: masterDatabaseId,
-          tableId: participantsTableId,
-          rowId: doc.$id,
-        );
-      }
+      await Future.wait([
+        for (final doc in participantDocs.rows)
+          _tables.deleteRow(
+            databaseId: masterDatabaseId,
+            tableId: participantsTableId,
+            rowId: doc.$id,
+          ),
+      ]);
 
       final remaining =
           ((roomDoc.data['totalParticipants'] as num?)?.toInt() ?? 0) -
           participantDocs.rows.length;
-      if (remaining == 0) {
+      if (remaining <= 0) {
         await _tables.deleteRow(
           databaseId: masterDatabaseId,
           tableId: roomsTableId,
@@ -306,21 +307,23 @@ class RoomsRepository {
           );
         } catch (_) {}
       }
-
-      final participantDocs = await _tables.listRows(
-        databaseId: masterDatabaseId,
-        tableId: participantsTableId,
-        queries: [
-          Query.equal('roomId', [roomId]),
-        ],
-      );
-      for (final doc in participantDocs.rows) {
-        await _tables.deleteRow(
+      try {
+        final participantDocs = await _tables.listRows(
           databaseId: masterDatabaseId,
           tableId: participantsTableId,
-          rowId: doc.$id,
+          queries: [
+            Query.equal('roomId', [roomId]),
+          ],
         );
-      }
+        await Future.wait([
+          for (final doc in participantDocs.rows)
+            _tables.deleteRow(
+              databaseId: masterDatabaseId,
+              tableId: participantsTableId,
+              rowId: doc.$id,
+            ),
+        ]);
+      } catch (_) {}
       // Ensure the room doc is deleted even when the server call above failed
       try {
         await _tables.deleteRow(

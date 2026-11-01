@@ -107,6 +107,63 @@ void main() {
       expect(fake.scheduledCount, 0);
     });
 
+    // A focused field is what holds the keyboard up, so that is what these
+    // assert on rather than the platform channel.
+    bool aFieldIsFocused(WidgetTester tester) => tester
+        .widgetList<EditableText>(find.byType(EditableText))
+        .any((field) => field.focusNode.hasFocus);
+
+    testAppWidget('submit dismisses the keyboard', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(TextFormField).first, 'My Room');
+      await tester.pumpAndSettle();
+      expect(aFieldIsFocused(tester), isTrue);
+
+      await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(
+        aFieldIsFocused(tester),
+        isFalse,
+        reason: 'the keyboard should not stay up after Done',
+      );
+    });
+
+    testAppWidget('submit dismisses the keyboard even when the form is '
+        'invalid', (tester) async {
+      final key = GlobalKey<CreateRoomPageState>();
+      final fake = FakeCreateRoom();
+      await pumpTestApp(
+        tester,
+        CreateRoomPage(key: key),
+        overrides: buildOverrides(fake),
+      );
+      await tester.pumpAndSettle();
+
+      // Scheduled with no date-time is the one thing that fails validation.
+      await tester.tap(find.text('Scheduled'));
+      await tester.pumpAndSettle();
+      // The date field is readOnly, so type in the name field instead.
+      await tester.enterText(find.byType(TextField).at(1), 'My Room');
+      await tester.pumpAndSettle();
+      expect(aFieldIsFocused(tester), isTrue);
+
+      final result = await key.currentState!.submit();
+      await tester.pumpAndSettle();
+
+      expect(result, isNull);
+      expect(fake.scheduledCount, 0);
+      expect(aFieldIsFocused(tester), isFalse);
+    });
+
     testAppWidget('live mode submit calls createLiveRoom and clears', (
       tester,
     ) async {

@@ -15,10 +15,19 @@ class LiveRooms extends _$LiveRooms {
   }
 
   Future<void> refresh() async {
-    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final userUid = ref.read(requireUserProvider).uid;
       return ref.read(roomsRepositoryProvider).loadRooms(userUid);
     });
+  }
+
+  // Drops a room from the cache
+  void removeLocally(String roomId) {
+    final rooms = state.value;
+    if (rooms == null) return;
+    state = AsyncData([
+      for (final room in rooms)
+        if (room.id != roomId) room,
+    ]);
   }
 }

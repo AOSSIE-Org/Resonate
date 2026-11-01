@@ -170,9 +170,11 @@ class SettingsScreen extends ConsumerWidget {
                         foregroundColor: scheme.onPrimary,
                       ),
                       onPressed: () async {
+                        final settings = ref.read(settingsProvider.notifier);
+                        final router = ref.read(routerProvider);
                         Navigator.of(dialogContext).pop();
-                        await ref.read(settingsProvider.notifier).logout();
-                        ref.read(routerProvider).go(RoutePaths.welcome);
+                        await settings.logout();
+                        router.go(RoutePaths.welcome);
                       },
                       child: Text(l10n.yes),
                     ),

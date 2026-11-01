@@ -12,7 +12,6 @@ import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/realtime_event.dart';
-import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/room_session.g.dart';
@@ -195,6 +194,8 @@ class RoomSession extends _$RoomSession {
       _setMic(appwriteRoom, false);
 
   Future<void> _setMic(AppwriteRoom appwriteRoom, bool enabled) async {
+    final liveKit = ref.read(liveKitControllerProvider.notifier);
+    final repo = ref.read(roomsRepositoryProvider);
     final current = state.value;
     if (current != null) {
       state = AsyncData(
@@ -202,16 +203,15 @@ class RoomSession extends _$RoomSession {
       );
     }
     try {
-      await ref
-          .read(liveKitControllerProvider.notifier)
-          .setMicrophoneEnabled(enabled);
+      await liveKit.setMicrophoneEnabled(enabled);
     } catch (_) {}
     final docId = appwriteRoom.myDocId;
     if (docId == null) return;
     try {
-      await ref
-          .read(roomsRepositoryProvider)
-          .updateParticipantDoc(docId: docId, data: {'isMicOn': enabled});
+      await repo.updateParticipantDoc(
+        docId: docId,
+        data: {'isMicOn': enabled},
+      );
     } catch (_) {}
   }
 
@@ -222,6 +222,7 @@ class RoomSession extends _$RoomSession {
           docId: appwriteRoom.myDocId!,
           data: {'hasRequestedToBeSpeaker': true},
         );
+    if (!ref.mounted) return;
     final current = state.value;
     if (current != null) {
       state = AsyncData(
@@ -239,6 +240,7 @@ class RoomSession extends _$RoomSession {
           docId: appwriteRoom.myDocId!,
           data: {'hasRequestedToBeSpeaker': false},
         );
+    if (!ref.mounted) return;
     final current = state.value;
     if (current != null) {
       state = AsyncData(
@@ -268,6 +270,7 @@ class RoomSession extends _$RoomSession {
         'hasRequestedToBeSpeaker': false,
       },
     );
+    if (!ref.mounted) return;
     final current = state.value;
     if (current == null) return;
     final updated = current.participants
@@ -326,41 +329,4 @@ class RoomSession extends _$RoomSession {
     return true;
   }
 
-  Future<void> leaveRoom(AppwriteRoom appwriteRoom) async {
-    await _disposeStream();
-    try {
-      await ref
-          .read(roomsRepositoryProvider)
-          .leaveRoom(
-            roomId: appwriteRoom.id,
-            userId: ref.read(requireUserProvider).uid,
-          );
-    } catch (e) {
-      log('leaveRoom: repo.leaveRoom failed: $e');
-    }
-    try {
-      await ref.read(liveKitControllerProvider.notifier).disconnect();
-    } catch (e) {
-      log('leaveRoom: disconnect failed: $e');
-    }
-    ref.invalidate(liveRoomsProvider);
-  }
-
-  Future<void> deleteRoom(AppwriteRoom appwriteRoom) async {
-    await _disposeStream();
-    // never strand the admin on delete.
-    try {
-      await ref
-          .read(roomsRepositoryProvider)
-          .deleteRoom(roomId: appwriteRoom.id);
-    } catch (e) {
-      log('deleteRoom: repo.deleteRoom failed: $e');
-    }
-    try {
-      await ref.read(liveKitControllerProvider.notifier).disconnect();
-    } catch (e) {
-      log('deleteRoom: disconnect failed: $e');
-    }
-    ref.invalidate(liveRoomsProvider);
-  }
 }

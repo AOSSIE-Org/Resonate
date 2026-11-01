@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -9,6 +11,7 @@ import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
+import 'package:resonate/features/rooms/data/services/room_launcher.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
@@ -40,6 +43,17 @@ class RoomPage extends ConsumerWidget {
       ),
     );
     return result ?? false;
+  }
+
+  Future<void> _confirmAndLeave(BuildContext context, WidgetRef ref) async {
+    final actionLabel = room.isUserAdmin
+        ? AppLocalizations.of(context)!.delete
+        : AppLocalizations.of(context)!.leave;
+    final navigator = Navigator.of(context);
+    final confirmed = await _confirmLeaveOrDelete(context, actionLabel);
+    if (!confirmed) return;
+    unawaited(ref.read(roomLauncherProvider).leave(room));
+    if (navigator.canPop()) navigator.pop();
   }
 
   @override
@@ -84,12 +98,12 @@ class RoomPage extends ConsumerWidget {
               error: (e, _) => _RoomBody(
                 room: room,
                 state: null,
-                onConfirm: _confirmLeaveOrDelete,
+                onLeave: () => _confirmAndLeave(context, ref),
               ),
               data: (state) => _RoomBody(
                 room: room,
                 state: state,
-                onConfirm: _confirmLeaveOrDelete,
+                onLeave: () => _confirmAndLeave(context, ref),
               ),
             ),
           ),
@@ -103,12 +117,12 @@ class _RoomBody extends StatelessWidget {
   const _RoomBody({
     required this.room,
     required this.state,
-    required this.onConfirm,
+    required this.onLeave,
   });
 
   final AppwriteRoom room;
   final SingleRoomState? state;
-  final Future<bool> Function(BuildContext, String) onConfirm;
+  final VoidCallback onLeave;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +153,7 @@ class _RoomBody extends StatelessWidget {
               SliverToBoxAdapter(child: SizedBox(height: UiSizes.height_131)),
             ],
           ),
-        _Footer(room: room, onConfirm: onConfirm),
+        _Footer(room: room, onLeave: onLeave),
       ],
     );
   }
@@ -253,10 +267,10 @@ class _RoundAction extends StatelessWidget {
 }
 
 class _Footer extends ConsumerWidget {
-  const _Footer({required this.room, required this.onConfirm});
+  const _Footer({required this.room, required this.onLeave});
 
   final AppwriteRoom room;
-  final Future<bool> Function(BuildContext, String) onConfirm;
+  final VoidCallback onLeave;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -296,26 +310,7 @@ class _Footer extends ConsumerWidget {
                 diameter: UiSizes.width_66,
                 background: scheme.error,
                 foreground: scheme.onError,
-                onTap: () async {
-                  final actionLabel = room.isUserAdmin
-                      ? AppLocalizations.of(context)!.delete
-                      : AppLocalizations.of(context)!.leave;
-                  final navigator = Navigator.of(context);
-                  final confirmed = await onConfirm(context, actionLabel);
-                  if (!confirmed) return;
-
-                  final notifier = ref.read(roomSessionProvider(room).notifier);
-                  try {
-                    if (room.isUserAdmin) {
-                      await notifier.deleteRoom(room);
-                    } else {
-                      await notifier.leaveRoom(room);
-                    }
-                  } finally {
-                    // Always close the sheet, even if teardown throws.
-                    if (navigator.canPop()) navigator.pop();
-                  }
-                },
+                onTap: onLeave,
               ),
               // Mic
               _RoundAction(

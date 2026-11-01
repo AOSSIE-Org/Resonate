@@ -34,7 +34,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
 
     try {
       final joined =
-          await ref.read(roomLauncherProvider).joinRoom(appwriteRoom);
+          await ref.read(roomLauncherProvider).enterRoom(appwriteRoom);
       closeDialog();
       if (context.mounted) {
         await openRoomSheet(context, joined);
