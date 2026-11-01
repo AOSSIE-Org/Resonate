@@ -16,6 +16,11 @@ _ResonateUser _$ResonateUserFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['dob'] as String?,
       docId: json['docId'] as String?,
       userRating: toDouble(json['userRating']),
+      interests:
+          (json['interests'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const <String>[],
     );
 
 Map<String, dynamic> _$ResonateUserToJson(_ResonateUser instance) =>
@@ -28,4 +33,5 @@ Map<String, dynamic> _$ResonateUserToJson(_ResonateUser instance) =>
       'dob': instance.dateOfBirth,
       'docId': instance.docId,
       'userRating': instance.userRating,
+      'interests': instance.interests,
     };

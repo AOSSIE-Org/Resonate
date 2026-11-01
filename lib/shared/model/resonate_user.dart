@@ -14,10 +14,23 @@ abstract class ResonateUser with _$ResonateUser {
     @JsonKey(name: 'dob') String? dateOfBirth,
     String? docId,
     @JsonKey(fromJson: toDouble) double? userRating,
+    @Default(<String>[]) List<String> interests,
   }) = _ResonateUser;
 
   factory ResonateUser.fromJson(Map<String, dynamic> json) =>
       _$ResonateUserFromJson(json);
+
+  static ResonateUser fromRow(Map<String, dynamic> data, String id) {
+    final userData = Map<String, dynamic>.from(data);
+    userData['docId'] = id;
+    userData['uid'] = id;
+    userData['userName'] = userData['username'];
+    final ratingCount = (userData['ratingCount'] ?? 0) as num;
+    userData['userRating'] = ratingCount == 0
+        ? 0
+        : userData['ratingTotal'] / ratingCount;
+    return ResonateUser.fromJson(userData);
+  }
 }
 
 double? toDouble(dynamic value) {

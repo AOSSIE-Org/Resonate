@@ -6,9 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
+import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/view/pages/create_chapter_page.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
+import 'package:resonate/features/stories/view/widgets/tag_input.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -29,6 +31,7 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
   final titleController = TextEditingController();
   final aboutController = TextEditingController();
   final List<Chapter> chapters = [];
+  final List<String> tags = [];
   StoryCategory selectedCategory = StoryCategory.drama;
   File? coverImage;
   bool _isCreating = false;
@@ -41,6 +44,21 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
   }
 
   void _addChapter(Chapter chapter) => setState(() => chapters.add(chapter));
+
+  bool _addTag(String tag) {
+    if (tags.contains(tag)) return false;
+    if (tags.length >= kMaxStoryTags) {
+      customSnackbar(
+        AppLocalizations.of(context)!.storyTags,
+        AppLocalizations.of(context)!.tagLimitReached(kMaxStoryTags),
+        LogType.warning,
+        snackbarDuration: 1,
+      );
+      return false;
+    }
+    setState(() => tags.add(tag));
+    return true;
+  }
 
   Future<void> _pickCoverImage() async {
     final selected = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -77,6 +95,7 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
             coverImgRef: coverImage?.path ?? storyCoverImagePlaceholderUrl,
             storyPlayDuration: totalPlayDuration,
             chapters: chapters,
+            tags: tags,
           );
     } catch (e) {
       log('Story creation failed: $e');
@@ -154,6 +173,29 @@ class _CreateStoryPageState extends ConsumerState<CreateStoryPage> {
                     focusedBorder: _border(colorScheme.primary),
                     counterText: '',
                   ),
+                ),
+                SizedBox(height: UiSizes.height_20),
+                Text(
+                  l10n.storyTags,
+                  style: TextStyle(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
+                    fontSize: UiSizes.size_16,
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_4),
+                Text(
+                  l10n.storyTagsHint,
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: UiSizes.size_13,
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_10),
+                TagInput(
+                  tags: tags,
+                  onAdd: _addTag,
+                  onRemove: (tag) => setState(() => tags.remove(tag)),
                 ),
                 SizedBox(height: UiSizes.height_20),
                 CoverImagePicker(

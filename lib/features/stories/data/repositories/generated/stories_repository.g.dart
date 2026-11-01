@@ -54,4 +54,4 @@ final class StoriesRepositoryProvider
   }
 }
 
-String _$storiesRepositoryHash() => r'f15b1bf7232d7b46f8667acd431259046b8cfba0';
+String _$storiesRepositoryHash() => r'30d80f1ac904c9c9714e66d6f37aaacb65dddc9f';

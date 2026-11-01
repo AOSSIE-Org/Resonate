@@ -1,6 +1,7 @@
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
+import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/data/category_stories.dart';
 import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -54,6 +55,7 @@ class CreateStory extends _$CreateStory {
     required String coverImgRef,
     required int storyPlayDuration,
     required List<Chapter> chapters,
+    List<String> tags = const [],
   }) async {
     await ref
         .read(storiesRepositoryProvider)
@@ -65,6 +67,7 @@ class CreateStory extends _$CreateStory {
           coverImgRef: coverImgRef,
           storyPlayDuration: storyPlayDuration,
           chapters: chapters,
+          tags: normalizeStoryTags(tags),
         );
     ref.invalidate(exploreStoriesProvider);
     ref.invalidate(categoryStoriesProvider(category));

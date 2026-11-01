@@ -1710,6 +1710,92 @@ class AppLocalizationsKn extends AppLocalizations {
   String get badgeShowcaseFailed => 'Could not update your badges.';
 
   @override
+  String get interests => 'Interests';
+
+  @override
+  String interestsHint(int count) {
+    return 'Pick up to $count interests so people who like the same things can find you.';
+  }
+
+  @override
+  String get interestsOptionalHint =>
+      'This is optional — leave it empty to keep your profile out of interest search.';
+
+  @override
+  String get interestsOptional => 'Interests (optional)';
+
+  @override
+  String interestLabel(String interest) {
+    String _temp0 = intl.Intl.selectLogic(interest, {
+      'ai': 'AI',
+      'music': 'Music',
+      'fitness': 'Fitness',
+      'anime': 'Anime',
+      'gaming': 'Gaming',
+      'technology': 'Technology',
+      'movies': 'Movies',
+      'books': 'Books',
+      'art': 'Art',
+      'travel': 'Travel',
+      'food': 'Food',
+      'sports': 'Sports',
+      'business': 'Business',
+      'science': 'Science',
+      'comedy': 'Comedy',
+      'wellness': 'Wellness',
+      'other': 'Other',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String interestLimitReached(int count) {
+    return 'You can pick up to $count interests.';
+  }
+
+  @override
+  String get interestsUpdated => 'Your interests were updated.';
+
+  @override
+  String get interestsUpdateFailed => 'Could not update your interests.';
+
+  @override
+  String get filterByInterest => 'Filter by interest';
+
+  @override
+  String get interestFilterHint =>
+      'Pick one or more interests to find people who share them.';
+
+  @override
+  String get noProfilesForInterests => 'No profiles match those interests yet.';
+
+  @override
+  String get interestFilterFailed => 'Could not load matching profiles.';
+
+  @override
+  String get profiles => 'Profiles';
+
+  @override
+  String get storyTags => 'Tags (optional)';
+
+  @override
+  String get storyTagsHint =>
+      'Add your own tags, like “tech talks”, so listeners can find this story.';
+
+  @override
+  String get addTag => 'Add a tag';
+
+  @override
+  String tagLimitReached(int count) {
+    return 'You can add up to $count tags.';
+  }
+
+  @override
+  String removeTag(String tag) {
+    return 'Remove tag $tag';
+  }
+
+  @override
   String callBlockedInRoom(String username) {
     return '$username is in a live session.';
   }

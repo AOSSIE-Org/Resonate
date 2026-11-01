@@ -1,3 +1,4 @@
+import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 
@@ -163,6 +164,7 @@ class FakeProfileRepository implements ProfileRepository {
     required String dob,
     required String email,
     String? profileImageID,
+    List<Interest> interests = const [],
   }) async {
     createUserRowUid = uid;
     createUserRowData = {
@@ -172,6 +174,7 @@ class FakeProfileRepository implements ProfileRepository {
       'dob': dob,
       'email': email,
       'profileImageID': profileImageID,
+      'interests': Interest.toWireList(interests),
     };
   }
 
