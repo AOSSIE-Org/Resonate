@@ -1,6 +1,13 @@
 # Translation Guide for Resonate
 
-Thank you for your interest in helping translate Resonate! This guide will walk you through the process of adding translations to make the app accessible to users worldwide.
+Thank you for your interest in contributing to **Resonate** by adding translations!  
+Your support helps make the platform accessible to people from different languages and cultures around the world.
+
+By contributing translations, you are helping build a more **inclusive and global community**, ensuring that users everywhere can enjoy and benefit from Resonate.
+
+This guide will walk you step-by-step through the process of adding new translations and improving existing ones. Whether you're fixing a small phrase or translating the entire interface, **every contribution makes a difference**.
+
+Let’s work together to make Resonate truly **global and accessible to everyone**!
 
 ## Overview
 
