@@ -42,7 +42,7 @@ than the last one they accepted, and Flutter takes that number from the `+<build
 `version:` in `pubspec.yaml`:
 
 ```yaml
-version: 3.0.0+7   # 3.0.0 -> versionName / CFBundleShortVersionString
+version: 4.0.0+8   # 4.0.0 -> versionName / CFBundleShortVersionString
                    # +7    -> versionCode / CFBundleVersion, must always increase
 ```
 

@@ -52,8 +52,16 @@ With social voice platforms like Spotify, Clubhouse, and Twitter Spaces experien
 7. **Activity status** — online, do-not-disturb, in-room or invisible, so people know when you're
    reachable.
 8. **Speaking indicators** — live waveform rings around the avatar of whoever is talking.
-9. **Six themes and ten languages** — light and dark palettes, with the UI localised into English,
-   Hindi, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Rajasthani and Tamil.
+9. **Interest-based discovery** — pick the topics you care about and find people and stories that
+   match them.
+10. **Badges and stats** — recognition earned for hosting, moderating and taking part.
+11. **Recorded chapters** — live chapters you host are archived on your device with their
+    transcript, so a session is never lost.
+12. **Miniplayer and picture-in-picture** — keep a room or call running while you use the rest of
+    the app, or the rest of the phone.
+13. **Feature flags** — hide the parts of the app you do not use.
+14. **Six themes and ten languages** — light and dark palettes, with the UI localised into English,
+    Hindi, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Rajasthani and Tamil.
 
 ## :computer: Technologies Used
 
