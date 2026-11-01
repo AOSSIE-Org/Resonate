@@ -250,7 +250,7 @@
     "anonymous": "અજ્ઞાત",
     "resonate": "રેઝોનેટ",
     "noSearchResults": "કોઈ શોધ પરિણામો નથી",
-    "shareRoomMessage": "🚀 આ અદ્ભુત રૂમ જુઓ: {roomName}!\n\n📖 વર્ણન: {description}\n👥 હવે જ {participants} સહભાગીઓ સાથે જોડાવો!",
+    "shareRoomMessage": "🚀 આ અદ્ભુત રૂમ જુઓ: {roomName}!\n\n📖 વર્ણન: {roomDescription}\n👥 હવે જ {participants} સહભાગીઓ સાથે જોડાવો!",
     "@shareRoomMessage": {
         "description": "Message to share room information",
         "placeholders": {
@@ -258,7 +258,7 @@
                 "type": "String",
                 "example": "Discussion Room"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "A great place to discuss"
             },

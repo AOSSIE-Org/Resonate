@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,10 +8,12 @@ import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friends_state.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
@@ -97,13 +100,26 @@ void main() {
 
   tearDown(() => realtimeEvents.close());
 
-  Future<dynamic> buildContainer() => installTestRootContainer(
+  Future<dynamic> buildContainer({
+    Map<String, ActivityStatus> activityStatuses = const {},
+  }) => installTestRootContainer(
     authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
     tables: tables,
     realtime: realtime,
     functions: functions,
     callKit: callKit,
+    activityStatuses: activityStatuses,
   );
+
+  // A start-friend-call response where the activity-status gate refused the call.
+  MockExecution blockedExecution(String reason) {
+    final exec = MockExecution();
+    when(exec.responseStatusCode).thenReturn(200);
+    when(
+      exec.responseBody,
+    ).thenReturn('{"blocked":true,"reason":"$reason"}');
+    return exec;
+  }
 
   group('FriendCallCoordinator', () {
     test(
@@ -152,6 +168,119 @@ void main() {
             .startCall(tokenless),
         throwsA(isA<FriendsFailureUnknown>()),
       );
+    });
+
+    test('startCall refuses locally when the friend is on dnd', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.dnd},
+      );
+
+      await expectLater(
+        container
+            .read(friendCallCoordinatorProvider.notifier)
+            .startCall(friend),
+        throwsA(isA<CallBlockedByActivityStatus>()),
+      );
+
+      // Refused before anything was written, so no orphan call row and no push.
+      verifyNever(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
+      verifyNever(
+        functions.createExecution(
+          functionId: startFriendCallFunctionID,
+          body: anyNamed('body'),
+        ),
+      );
+      expect(container.read(friendCallCoordinatorProvider).activeCall, isNull);
+    });
+
+    test('startCall refuses locally when the friend is in a session', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.inRoom},
+      );
+
+      await expectLater(
+        container
+            .read(friendCallCoordinatorProvider.notifier)
+            .startCall(friend),
+        throwsA(isA<CallBlockedByActivityStatus>()),
+      );
+    });
+
+    test('startCall proceeds for a friend who is merely offline', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.offline},
+      );
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .startCall(friend);
+
+      expect(
+        container.read(friendCallCoordinatorProvider).activeCall,
+        isNotNull,
+      );
+    });
+
+    test('startCall sends the callee uid for the server-side gate', () async {
+      final container = await buildContainer();
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .startCall(friend);
+
+      final body =
+          verify(
+                functions.createExecution(
+                  functionId: startFriendCallFunctionID,
+                  body: captureAnyNamed('body'),
+                ),
+              ).captured.single
+              as String;
+      expect(jsonDecode(body)['recieverUid'], 'reciever-1');
+    });
+
+    test('a server-side block closes the row out and throws', () async {
+      final container = await buildContainer();
+      when(
+        functions.createExecution(
+          functionId: startFriendCallFunctionID,
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer((_) async => blockedExecution('inroom'));
+
+      await expectLater(
+        container
+            .read(friendCallCoordinatorProvider.notifier)
+            .startCall(friend),
+        throwsA(
+          isA<CallBlockedByActivityStatus>().having(
+            (e) => e.status,
+            'status',
+            ActivityStatus.inRoom,
+          ),
+        ),
+      );
+
+      // The row was already created, so it must not be left ringing forever.
+      final data =
+          verify(
+                tables.updateRow(
+                  databaseId: masterDatabaseId,
+                  tableId: friendCallsTableId,
+                  rowId: anyNamed('rowId'),
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map;
+      expect(data['callStatus'], FriendCallStatus.declined.name);
+      expect(container.read(friendCallCoordinatorProvider).activeCall, isNull);
     });
 
     test('realtime connected update joins LiveKit on the caller side', () async {

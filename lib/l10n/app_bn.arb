@@ -976,7 +976,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {description}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!", 
+    "shareRoomMessage": "🚀এই অসাধারণ রুমটি দেখুন: {roomName}!\n\n📖 বিবরণ: {roomDescription}\n👥 এখনই {participants} অংশগ্রহণকারীদের সাথে যোগ দিন!", 
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
@@ -984,7 +984,7 @@
                 "type": "String",
                 "example": "Discussion Room"
             },
-            "description": {
+            "roomDescription": {
                 "type": "String",
                 "example": "A great place to discuss"
             },

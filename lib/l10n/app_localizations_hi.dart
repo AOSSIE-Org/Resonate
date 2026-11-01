@@ -765,10 +765,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String shareRoomMessage(
     String roomName,
-    String description,
+    String roomDescription,
     int participants,
   ) {
-    return '🚀 इस शानदार रूम को देखें: $roomName!\n\n📖 विवरण: $description\n👥 अभी $participants लोग जुड़ चुके हैं!';
+    return '🚀 इस शानदार रूम को देखें: $roomName!\n\n📖 विवरण: $roomDescription\n👥 अभी $participants लोग जुड़ चुके हैं!';
   }
 
   @override
@@ -1504,4 +1504,58 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get failedToEndPoll => 'Failed to end the poll';
+
+  @override
+  String get activityStatus => 'Activity status';
+
+  @override
+  String get activityStatusSubtitle => 'Choose who can reach you';
+
+  @override
+  String get activityOnline => 'Online';
+
+  @override
+  String get activityOnlineDescription => 'Available for calls';
+
+  @override
+  String get activityDnd => 'Do Not Disturb';
+
+  @override
+  String get activityDndDescription => 'Incoming calls are blocked';
+
+  @override
+  String get activityInRoom => 'In a session';
+
+  @override
+  String get activityInRoomDescription =>
+      'In a live session, calls are blocked';
+
+  @override
+  String get activityInvisible => 'Invisible';
+
+  @override
+  String get activityInvisibleDescription =>
+      'You appear offline, calls still reach you';
+
+  @override
+  String get activityOffline => 'Offline';
+
+  @override
+  String get activityOfflineDescription => 'Not in the app right now';
+
+  @override
+  String get activityStatusUpdateFailed => 'Could not update your availability';
+
+  @override
+  String get callBlocked => 'Can\'t call right now';
+
+  @override
+  String callBlockedDnd(String username) {
+    return '$username has Do Not Disturb turned on.';
+  }
+
+  @override
+  String callBlockedInRoom(String username) {
+    return '$username is in a live session.';
+  }
 }
