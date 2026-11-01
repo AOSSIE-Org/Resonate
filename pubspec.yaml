@@ -35,7 +35,7 @@ dependencies:
   # exactly what prod runs (verified via /v1/health/version). 28.1+ moved to
   # format 2.6.2, ahead of the server.
   appwrite: ">=28.0.0 <28.1.0"
-  audioplayers: ^6.5.1
+  audioplayers: ^6.8.1
   cached_network_image: ^3.4.1
   circular_countdown_timer: ^0.2.4
   file_picker: ^13.3.0
