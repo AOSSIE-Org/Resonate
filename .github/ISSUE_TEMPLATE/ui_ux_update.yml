@@ -1,0 +1,63 @@
+name: 🎨 UI/UX Update
+description: Propose improvements to the user interface or user experience
+title: "UI/UX: <Please write a comprehensive title after the 'UI/UX: ' prefix>"
+
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Use this template for proposing changes to the user interface, visual design, or user experience improvements.
+
+  - type: textarea
+    id: ui-ux-update
+    attributes:
+      label: 🎨 The UI/UX Update
+      description: >
+        Describe the UI/UX change you're proposing. Which screen, component, or interaction are you looking to improve?
+      placeholder: |
+        I propose updating the home screen layout to improve readability and visual hierarchy.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Current Design Issues
+      description: >
+        What problems exist with the current design? (e.g., poor contrast, confusing navigation, inconsistent styling)
+      placeholder: |
+        - Low contrast makes text hard to read
+        - Navigation is not intuitive
+        - Inconsistent button styles across screens
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Proposed Solution
+      description: >
+        How would you improve the design? Please be as specific as possible. Include mockups, screenshots, or design references if available.
+      placeholder: |
+        - Increase text contrast to meet WCAG AA standards
+        - Reorganize navigation menu with clear labels
+        - Implement consistent button design system
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Design Considerations
+      description: What aspects does this update address?
+      options:
+        - label: "Accessibility"
+        - label: "Visual consistency"
+        - label: "User flow/navigation"
+        - label: "Responsive design"
+        - label: "Dark mode support"
+        - label: "Other"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for helping improve Resonate's design! 🎨

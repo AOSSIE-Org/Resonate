@@ -1,0 +1,2150 @@
+{
+  "@@locale": "ta",
+
+  "title": "Resonate",
+  "@title": {
+    "description": "The title of the application."
+  },
+
+  "roomDescription": "மற்றவர்களின் கருத்துகளை மதித்து மரியாதையாக பேசுங்கள். தவறான அல்லது கடுமையான கருத்துகளை தவிர்க்கவும்.",
+  "@roomDescription": {
+    "description": "Guideline message for users in a chat room."
+  },
+
+  "hidePassword": "கடவுச்சொல்லை மறை",
+  "@hidePassword": {
+    "description": "Button text to conceal the password field."
+  },
+
+  "showPassword": "கடவுச்சொல்லை காண்பி",
+  "@showPassword": {
+    "description": "Button text to reveal the password field."
+  },
+
+  "passwordEmpty": "கடவுச்சொல் காலியாக இருக்கக்கூடாது",
+  "@passwordEmpty": {
+    "description": "Error message when the password field is left blank."
+  },
+
+  "password": "கடவுச்சொல்",
+  "@password": {
+    "description": "Label for the password input field."
+  },
+
+  "confirmPassword": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+  "@confirmPassword": {
+    "description": "Label for the confirm password input field."
+  },
+
+  "passwordsNotMatch": "கடவுச்சொற்கள் பொருந்தவில்லை",
+  "@passwordsNotMatch": {
+    "description": "Error message when password and confirmation password do not match."
+  },
+
+  "userCreatedStories": "பயனர் உருவாக்கிய கதைகள்",
+  "@userCreatedStories": {
+    "description": "Header for the section showing stories created by another user."
+  },
+
+  "yourStories": "உங்கள் கதைகள்",
+  "@yourStories": {
+    "description": "Header for the section showing stories created by the current user."
+  },
+
+  "userNoStories": "இந்த பயனர் எந்தக் கதையும் உருவாக்கவில்லை",
+  "@userNoStories": {
+    "description": "Message displayed when viewing another user's profile and they have no stories."
+  },
+
+  "youNoStories": "நீங்கள் எந்தக் கதையும் உருவாக்கவில்லை",
+  "@youNoStories": {
+    "description": "Message displayed on the current user's profile when they have no stories."
+  },
+
+  "follow": "பின்தொடர்",
+  "@follow": {
+    "description": "Button text to follow a user."
+  },
+
+  "editProfile": "சுயவிவரத்தை திருத்து",
+  "@editProfile": {
+    "description": "Button text to navigate to the profile editing screen."
+  },
+
+  "verifyEmail": "மின்னஞ்சலை சரிபார்க்கவும்",
+  "@verifyEmail": {
+    "description": "Button or link text to start the email verification process."
+  },
+
+  "verified": "சரிபார்க்கப்பட்டது",
+  "@verified": {
+    "description": "A status label indicating that the user's email has been verified."
+  },
+
+  "profile": "சுயவிவரம்",
+  "@profile": {
+    "description": "Label for the user profile section or page."
+  },
+
+  "userLikedStories": "பயனர் விரும்பிய கதைகள்",
+  "@userLikedStories": {
+    "description": "Header for the section showing stories liked by another user."
+  },
+
+  "yourLikedStories": "நீங்கள் விரும்பிய கதைகள்",
+  "@yourLikedStories": {
+    "description": "Header for the section showing stories liked by the current user."
+  },
+
+  "userNoLikedStories": "இந்த பயனர் எந்தக் கதையையும் விரும்பவில்லை",
+  "@userNoLikedStories": {
+    "description": "Message displayed when viewing another user's profile and they have no liked stories."
+  },
+
+  "youNoLikedStories": "நீங்கள் எந்தக் கதையையும் விரும்பவில்லை",
+  "@youNoLikedStories": {
+    "description": "Message displayed on the current user's profile when they have no liked stories."
+  },
+
+  "live": "நேரலை",
+  "@live": {
+    "description": "Tab or label for live audio rooms."
+  },
+
+  "upcoming": "வரவிருக்கும்",
+  "@upcoming": {
+    "description": "Tab or label for scheduled/upcoming audio rooms."
+  },
+
+  "noAvailableRoom": "{isRoom, select, true{எந்த அறையும் கிடைக்கவில்லை} false{வரவிருக்கும் அறைகள் இல்லை} other{அறை தொடர்பான தகவல் இல்லை}}\nகீழே ஒன்றை சேர்த்து தொடங்குங்கள்!",
+  "@noAvailableRoom": {
+    "description": "Message when no room or upcoming room is available, with a call to action.",
+    "placeholders": {
+      "isRoom": {
+        "type": "String",
+        "example": "true"
+      }
+    }
+  },
+
+  "user1": "பயனர் 1",
+  "@user1": {
+    "description": "A generic placeholder name for a user."
+  },
+
+  "user2": "பயனர் 2",
+  "@user2": {
+    "description": "A second generic placeholder name for a user."
+  },
+
+  "you": "நீங்கள்",
+  "@you": {
+    "description": "Label to identify the current user in a list or chat."
+  },
+
+  "areYouSure": "நிச்சயமாகவா?",
+  "@areYouSure": {
+    "description": "Confirmation prompt title."
+  },
+
+  "loggingOut": "நீங்கள் Resonate இலிருந்து வெளியேறுகிறீர்கள்.",
+  "@loggingOut": {
+    "description": "Confirmation prompt message for logging out."
+  },
+
+  "yes": "ஆம்",
+  "@yes": {
+    "description": "Generic confirmation button text."
+  },
+
+  "no": "இல்லை",
+  "@no": {
+    "description": "Generic cancellation button text."
+  },
+
+  "incorrectEmailOrPassword": "தவறான மின்னஞ்சல் அல்லது கடவுச்சொல்",
+  "@incorrectEmailOrPassword": {
+    "description": "Error message for failed login attempt."
+  },
+
+  "passwordShort": "கடவுச்சொல் 8 எழுத்துகளுக்கு குறைவாக உள்ளது",
+  "@passwordShort": {
+    "description": "Error message for a password that is too short."
+  },
+
+  "tryAgain": "மீண்டும் முயற்சிக்கவும்!",
+  "@tryAgain": {
+    "description": "Button text to retry a failed action."
+  },
+
+  "success": "வெற்றி",
+  "@success": {
+    "description": "Generic title for a successful operation."
+  },
+
+  "passwordResetSent": "கடவுச்சொல் மீட்டமைப்பு மின்னஞ்சல் அனுப்பப்பட்டது!",
+  "@passwordResetSent": {
+    "description": "Success message after a password reset email has been dispatched."
+  },
+
+  "error": "பிழை",
+  "@error": {
+    "description": "Generic title for a failed operation."
+  },
+
+  "resetPassword": "கடவுச்சொல்லை மீட்டமை",
+  "@resetPassword": {
+    "description": "Title or button text for the reset password feature."
+  },
+
+  "enterNewPassword": "புதிய கடவுச்சொல்லை உள்ளிடவும்",
+  "@enterNewPassword": {
+    "description": "Instructional text on the reset password screen."
+  },
+
+  "newPassword": "புதிய கடவுச்சொல்",
+  "@newPassword": {
+    "description": "Label for the new password input field."
+  },
+
+  "setNewPassword": "புதிய கடவுச்சொல்லை அமைக்கவும்",
+  "@setNewPassword": {
+    "description": "Button text to confirm setting a new password."
+  },
+
+  "emailChanged": "மின்னஞ்சல் மாற்றப்பட்டது",
+  "@emailChanged": {
+    "description": "Title for the success dialog after an email change."
+  },
+
+  "emailChangeSuccess": "மின்னஞ்சல் வெற்றிகரமாக மாற்றப்பட்டது!",
+  "@emailChangeSuccess": {
+    "description": "Success message after changing the user's email."
+  },
+
+  "failed": "தோல்வி",
+  "@failed": {
+    "description": "Generic title for a failed operation."
+  },
+
+  "emailChangeFailed": "மின்னஞ்சலை மாற்ற முடியவில்லை",
+  "@emailChangeFailed": {
+    "description": "Error message when an email change operation fails."
+  },
+
+  "oops": "அச்சச்சோ!",
+  "@oops": {
+    "description": "An informal title for an error or warning message."
+  },
+
+  "emailExists": "இந்த மின்னஞ்சல் ஏற்கனவே உள்ளது",
+  "@emailExists": {
+    "description": "Error message when a user tries to register or change to an email that is already in use."
+  },
+
+  "changeEmail": "மின்னஞ்சலை மாற்றவும்",
+  "@changeEmail": {
+    "description": "Title or button text for the change email feature."
+  },
+
+  "enterValidEmail": "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+  "@enterValidEmail": {
+    "description": "Error message for an invalid email format."
+  },
+
+  "newEmail": "புதிய மின்னஞ்சல்",
+  "@newEmail": {
+    "description": "Label for the new email input field."
+  },
+
+  "currentPassword": "தற்போதைய கடவுச்சொல்",
+  "@currentPassword": {
+    "description": "Label for the current password input field, used for verification."
+  },
+
+  "emailChangeInfo": "கூடுதல் பாதுகாப்பிற்காக, உங்கள் மின்னஞ்சலை மாற்றும்போது தற்போதைய கடவுச்சொல்லை வழங்க வேண்டும். மின்னஞ்சல் மாற்றப்பட்ட பிறகு, எதிர்கால உள்நுழைவுகளுக்கு புதிய மின்னஞ்சலை பயன்படுத்தவும்.",
+  "@emailChangeInfo": {
+    "description": "Informational text explaining the process and security requirements for changing an email address for standard users."
+  },
+
+  "oauthUsersMessage": "(Google அல்லது Github மூலம் உள்நுழைந்த பயனர்களுக்கு மட்டும்)",
+  "@oauthUsersMessage": {
+    "description": "A message to specify that the following instructions are for OAuth users."
+  },
+
+  "oauthUsersEmailChangeInfo": "உங்கள் மின்னஞ்சலை மாற்ற, \"தற்போதைய கடவுச்சொல்\" பகுதியில் ஒரு புதிய கடவுச்சொல்லை உள்ளிடவும். இதை நினைவில் வைத்துக் கொள்ளுங்கள், ஏனெனில் எதிர்கால மின்னஞ்சல் மாற்றங்களுக்கு இது தேவைப்படும். இனிமேல் Google/GitHub அல்லது உங்கள் புதிய மின்னஞ்சல் மற்றும் கடவுச்சொல் மூலம் உள்நுழையலாம்.",
+  "@oauthUsersEmailChangeInfo": {
+    "description": "Informational text explaining how users who signed up via Google or GitHub can change their email by setting a new password."
+  },
+
+  "resonateTagline": "வரம்பில்லா\nஉரையாடல்களின் உலகிற்கு நுழையுங்கள்.",
+  "@resonateTagline": {
+    "description": "The application's tagline, used on splash or login screens."
+  },
+
+  "signInWithEmail": "மின்னஞ்சல் மூலம் உள்நுழையவும்",
+  "@signInWithEmail": {
+    "description": "Button text for signing in using email and password."
+  },
+  "or": "அல்லது",
+  "@or": {
+    "description": "A separator text, typically used between different login options."
+  },
+
+  "continueWith": "இதன் மூலம் தொடரவும்",
+  "@continueWith": {
+    "description": "Informational text preceding a list of third-party login providers."
+  },
+
+  "continueWithGoogle": "Google மூலம் தொடரவும்",
+  "@continueWithGoogle": {
+    "description": "Button text for signing in with a Google account."
+  },
+
+  "continueWithGitHub": "GitHub மூலம் தொடரவும்",
+  "@continueWithGitHub": {
+    "description": "Button text for signing in with a GitHub account."
+  },
+
+  "resonateLogo": "Resonate லோகோ",
+  "@resonateLogo": {
+    "description": "Accessibility text for the Resonate application logo image."
+  },
+
+  "iAlreadyHaveAnAccount": "எனக்கு ஏற்கனவே கணக்கு உள்ளது",
+  "@iAlreadyHaveAnAccount": {
+    "description": "Text for a link or button to navigate to the login screen from the sign-up screen."
+  },
+
+  "createNewAccount": "புதிய கணக்கை உருவாக்கவும்",
+  "@createNewAccount": {
+    "description": "Text for a link or button to navigate to the sign-up screen from the login screen."
+  },
+
+  "userProfile": "பயனர் சுயவிவரம்",
+  "@userProfile": {
+    "description": "Accessibility text for a user's profile picture or avatar."
+  },
+
+  "passwordIsStrong": "கடவுச்சொல் வலுவாக உள்ளது",
+  "@passwordIsStrong": {
+    "description": "Validation message indicating that the entered password meets all strength requirements."
+  },
+
+  "admin": "நிர்வாகி",
+  "@admin": {
+    "description": "Label for the Admin user role in a room."
+  },
+
+  "moderator": "மேற்பார்வையாளர்",
+  "@moderator": {
+    "description": "Label for the Moderator user role in a room."
+  },
+
+  "speaker": "பேச்சாளர்",
+  "@speaker": {
+    "description": "Label for the Speaker user role in a room."
+  },
+
+  "listener": "கேட்பவர்",
+  "@listener": {
+    "description": "Label for the Listener user role in a room."
+  },
+
+  "removeModerator": "மேற்பார்வையாளரை நீக்கு",
+  "@removeModerator": {
+    "description": "Menu item text to revoke moderator privileges from a user."
+  },
+
+  "kickOut": "வெளியேற்று",
+  "@kickOut": {
+    "description": "Menu item text to remove a user from a room."
+  },
+
+  "addModerator": "மேற்பார்வையாளரை சேர்க்கவும்",
+  "@addModerator": {
+    "description": "Menu item text to grant moderator privileges to a user."
+  },
+
+  "addSpeaker": "பேச்சாளராக மாற்றவும்",
+  "@addSpeaker": {
+    "description": "Menu item text to grant speaker privileges to a listener."
+  },
+
+  "makeListener": "கேட்பவராக மாற்றவும்",
+  "@makeListener": {
+    "description": "Menu item text to change a speaker's role to listener."
+  },
+
+  "pairChat": "ஜோடி உரையாடல்",
+  "@pairChat": {
+    "description": "A feature name for one-on-one random chat."
+  },
+
+  "chooseIdentity": "அடையாளத்தை தேர்வு செய்யவும்",
+  "@chooseIdentity": {
+    "description": "Prompt for the user to choose their identity, e.g., anonymous or public."
+  },
+
+  "selectLanguage": "மொழியை தேர்வு செய்யவும்",
+  "@selectLanguage": {
+    "description": "Label for the language selection setting."
+  },
+
+  "noConnection": "இணைப்பு இல்லை",
+  "@noConnection": {
+    "description": "Title indicating that there is no internet connection."
+  },
+
+  "loadingDialog": "ஏற்றப்படுகிறது",
+  "@loadingDialog": {
+    "description": "Accessibility text for a loading indicator or spinner."
+  },
+
+  "createAccount": "கணக்கை உருவாக்கவும்",
+  "@createAccount": {
+    "description": "Button text or page title for the account creation screen."
+  },
+
+  "enterValidEmailAddress": "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+  "@enterValidEmailAddress": {
+    "description": "Error message shown for an invalid email format."
+  },
+
+  "email": "மின்னஞ்சல்",
+  "@email": {
+    "description": "Label for the email input field."
+  },
+
+  "passwordRequirements": "கடவுச்சொல் குறைந்தது 8 எழுத்துகள் இருக்க வேண்டும்",
+  "@passwordRequirements": {
+    "description": "Instructional text listing the requirements for a valid password, part 1."
+  },
+
+  "includeNumericDigit": "குறைந்தது 1 எண் சேர்க்கவும்",
+  "@includeNumericDigit": {
+    "description": "Instructional text listing the requirements for a valid password, part 2."
+  },
+
+  "includeUppercase": "குறைந்தது 1 பெரிய எழுத்து சேர்க்கவும்",
+  "@includeUppercase": {
+    "description": "Instructional text listing the requirements for a valid password, part 3."
+  },
+
+  "includeLowercase": "குறைந்தது 1 சிறிய எழுத்து சேர்க்கவும்",
+  "@includeLowercase": {
+    "description": "Instructional text listing the requirements for a valid password, part 4."
+  },
+
+  "includeSymbol": "குறைந்தது 1 சிறப்பு குறியீடு சேர்க்கவும்",
+  "@includeSymbol": {
+    "description": "Instructional text listing the requirements for a valid password, part 5."
+  },
+
+  "signedUpSuccessfully": "பதிவு வெற்றிகரமாக முடிந்தது",
+  "@signedUpSuccessfully": {
+    "description": "Title for a success message after account creation."
+  },
+
+  "newAccountCreated": "நீங்கள் புதிய கணக்கை வெற்றிகரமாக உருவாக்கியுள்ளீர்கள்",
+  "@newAccountCreated": {
+    "description": "Success message confirming that a new account has been created."
+  },
+
+  "signUp": "பதிவு செய்யவும்",
+  "@signUp": {
+    "description": "Button text to submit the sign-up form."
+  },
+
+  "login": "உள்நுழை",
+  "@login": {
+    "description": "Button text to submit the login form."
+  },
+
+  "settings": "அமைப்புகள்",
+  "@settings": {
+    "description": "Title for the settings page."
+  },
+
+  "accountSettings": "கணக்கு அமைப்புகள்",
+  "@accountSettings": {
+    "description": "Sub-header for account-related settings."
+  },
+
+  "account": "கணக்கு",
+  "@account": {
+    "description": "Label for the account settings section."
+  },
+
+  "appSettings": "செயலி அமைப்புகள்",
+  "@appSettings": {
+    "description": "Sub-header for application-related settings."
+  },
+
+  "themes": "தீம்கள்",
+  "@themes": {
+    "description": "Label for the theme selection setting."
+  },
+
+  "about": "பற்றி",
+  "@about": {
+    "description": "Label for the 'About' section or page of the app or a story."
+  },
+
+  "other": "மற்றவை",
+  "@other": {
+    "description": "A generic category label for miscellaneous settings or items."
+  },
+
+  "contribute": "பங்களிக்கவும்",
+  "@contribute": {
+    "description": "Label for a section encouraging users to contribute to the project."
+  },
+
+  "appPreferences": "செயலி விருப்பங்கள்",
+  "@appPreferences": {
+    "description": "Label for the app preferences settings page."
+  },
+
+  "transcriptionModel": "மொழிபெயர்ப்பு மாடல்",
+  "@transcriptionModel": {
+    "description": "Section title for choosing AI transcription model."
+  },
+
+  "transcriptionModelDescription": "குரல் உரை மாற்றத்திற்கு AI மாடலை தேர்வு செய்யவும். பெரிய மாடல்கள் அதிக துல்லியமானவை ஆனால் மெதுவாகவும் அதிக சேமிப்பிடம் தேவைப்படும்.",
+  "@transcriptionModelDescription": {
+    "description": "Description text explaining transcription model choices."
+  },
+
+  "whisperModelTiny": "சிறியது",
+  "@whisperModelTiny": {
+    "description": "Name of the smallest Whisper AI model."
+  },
+
+  "whisperModelTinyDescription": "மிக வேகமானது, குறைந்த துல்லியம் (~39 MB)",
+  "@whisperModelTinyDescription": {
+    "description": "Description of the Tiny Whisper model performance and size."
+  },
+
+  "whisperModelBase": "அடிப்படை",
+  "@whisperModelBase": {
+    "description": "Name of the base Whisper AI model."
+  },
+
+  "whisperModelBaseDescription": "வேகம் மற்றும் துல்லியத்தின் சமநிலை (~74 MB)",
+  "@whisperModelBaseDescription": {
+    "description": "Description of the Base Whisper model performance and size."
+  },
+
+  "whisperModelSmall": "சிறிய",
+  "@whisperModelSmall": {
+    "description": "Name of the small Whisper AI model."
+  },
+
+  "whisperModelSmallDescription": "நல்ல துல்லியம், மெதுவாக (~244 MB)",
+  "@whisperModelSmallDescription": {
+    "description": "Description of the Small Whisper model performance and size."
+  },
+
+  "whisperModelMedium": "நடுத்தர",
+  "@whisperModelMedium": {
+    "description": "Name of the medium Whisper AI model."
+  },
+
+  "whisperModelMediumDescription": "உயர் துல்லியம், மெதுவாக (~769 MB)",
+  "@whisperModelMediumDescription": {
+    "description": "Description of the Medium Whisper model performance and size."
+  },
+
+  "whisperModelLargeV1": "பெரியது V1",
+  "@whisperModelLargeV1": {
+    "description": "Name of the large V1 Whisper AI model."
+  },
+
+  "whisperModelLargeV1Description": "மிக உயர்ந்த துல்லியம், மிகவும் மெதுவாக (~1.55 GB)",
+  "@whisperModelLargeV1Description": {
+    "description": "Description of the Large V1 Whisper model performance and size."
+  },
+
+  "whisperModelLargeV2": "பெரியது V2",
+  "@whisperModelLargeV2": {
+    "description": "Name of the large V2 Whisper AI model."
+  },
+
+  "whisperModelLargeV2Description": "மேம்படுத்தப்பட்ட பெரிய மாடல், அதிக துல்லியம் (~1.55 GB)",
+  "@whisperModelLargeV2Description": {
+    "description": "Description of the Large V2 Whisper model performance and size."
+  },
+
+  "modelDownloadInfo": "மாடல்கள் முதல் முறையாக பயன்படுத்தும்போது பதிவிறக்கப்படும். Base, Small அல்லது Medium பயன்படுத்த பரிந்துரைக்கப்படுகிறது. Large மாடல்களுக்கு மிக உயர்தர சாதனங்கள் தேவை.",
+  "@modelDownloadInfo": {
+    "description": "Information message about model download."
+  },
+
+  "logOut": "வெளியேறு",
+  "@logOut": {
+    "description": "Button text to log the user out of their account."
+  },
+
+  "participants": "பங்கேற்பாளர்கள்",
+  "@participants": {
+    "description": "Label or title for the list of participants in a room."
+  },
+
+  "delete": "நீக்கு",
+  "@delete": {
+    "description": "Generic button text for a delete action. Parameter for toRoomAction."
+  },
+
+  "leave": "வெளியேறு",
+  "@leave": {
+    "description": "Generic button text for a leave action. Parameter for toRoomAction."
+  },
+
+  "leaveButton": "வெளியேறு",
+  "@leaveButton": {
+    "description": "Button text to leave a room or conversation."
+  },
+
+  "findingRandomPartner": "உங்களுக்கு ஒரு சீரற்ற இணைப்பாளரை தேடுகிறது",
+  "@findingRandomPartner": {
+    "description": "Status message shown while the system is searching for a random chat partner."
+  },
+
+  "quickFact": "விரைவான தகவல்",
+  "@quickFact": {
+    "description": "Header for a quick fact or tip, often shown during loading."
+  },
+
+  "cancel": "ரத்து",
+  "@cancel": {
+    "description": "Generic button text for a cancel action."
+  },
+
+  "hide": "மறை",
+  "@hide": {
+    "description": "Button text to remove an item from view."
+  },
+
+  "removeRoom": "அறையை நீக்கு",
+  "@removeRoom": {
+    "description": "Dialog title for removing an upcoming room."
+  },
+
+  "removeRoomFromList": "பட்டியலிலிருந்து நீக்கு",
+  "@removeRoomFromList": {
+    "description": "Tooltip text for the remove room button."
+  },
+
+  "removeRoomConfirmation": "இந்த வரவிருக்கும் அறையை உங்கள் பட்டியலிலிருந்து நீக்க விரும்புகிறீர்களா?",
+  "@removeRoomConfirmation": {
+    "description": "Confirmation message asking if the user wants to remove an upcoming room from their list."
+  },
+
+  "completeYourProfile": "உங்கள் சுயவிவரத்தை முழுமைப்படுத்தவும்",
+  "@completeYourProfile": {
+    "description": "Page title or prompt for the user to finish setting up their profile."
+  },
+
+  "uploadProfilePicture": "சுயவிவர புகைப்படத்தை பதிவேற்றவும்",
+  "@uploadProfilePicture": {
+    "description": "Instructional text or button to upload a profile picture."
+  },
+
+  "enterValidName": "சரியான பெயரை உள்ளிடவும்",
+  "@enterValidName": {
+    "description": "Error message for an invalid name format."
+  },
+
+  "name": "பெயர்",
+  "@name": {
+    "description": "Label for the name input field."
+  },
+
+  "username": "பயனர் பெயர்",
+  "@username": {
+    "description": "Label for the username input field."
+  },
+
+  "enterValidDOB": "சரியான பிறந்த தேதியை உள்ளிடவும்",
+  "@enterValidDOB": {
+    "description": "Error message for an invalid date of birth."
+  },
+
+  "dateOfBirth": "பிறந்த தேதி",
+  "@dateOfBirth": {
+    "description": "Label for the date of birth input field."
+  },
+
+  "forgotPassword": "கடவுச்சொல்லை மறந்துவிட்டீர்களா?",
+  "@forgotPassword": {
+    "description": "Link text for users who have forgotten their password."
+  },
+
+  "next": "அடுத்தது",
+  "@next": {
+    "description": "Button text to proceed to the next step in a process."
+  },
+
+  "noStoriesExist": "காண்பிக்க எந்தக் கதைகளும் இல்லை",
+  "@noStoriesExist": {
+    "description": "Message displayed when there are no stories available in a list."
+  },
+
+  "enterVerificationCode": "உங்கள்\nசரிபார்ப்பு குறியீட்டை உள்ளிடவும்",
+  "@enterVerificationCode": {
+    "description": "Prompt for the user to enter the verification code sent to their email."
+  },
+
+  "verificationCodeSent": "6 இலக்க சரிபார்ப்பு குறியீடு அனுப்பப்பட்டுள்ளது\n",
+  "@verificationCodeSent": {
+    "description": "Message informing the user that a verification code has been sent. The email address is appended in the code."
+  },
+
+  "verificationComplete": "சரிபார்ப்பு முடிந்தது",
+  "@verificationComplete": {
+    "description": "Title for a success message after email verification."
+  },
+
+  "verificationCompleteMessage": "வாழ்த்துகள்! உங்கள் மின்னஞ்சல் சரிபார்க்கப்பட்டுள்ளது",
+  "@verificationCompleteMessage": {
+    "description": "Success message confirming email verification."
+  },
+
+  "verificationFailed": "சரிபார்ப்பு தோல்வியடைந்தது",
+  "@verificationFailed": {
+    "description": "Title for an error message when verification fails."
+  },
+
+  "otpMismatch": "OTP பொருந்தவில்லை, மீண்டும் முயற்சிக்கவும்",
+  "@otpMismatch": {
+    "description": "Error message when the entered OTP is incorrect."
+  },
+
+  "otpResent": "OTP மீண்டும் அனுப்பப்பட்டது",
+  "@otpResent": {
+    "description": "Confirmation message that the OTP has been resent."
+  },
+
+  "requestNewCode": "புதிய குறியீட்டை கோரவும்",
+  "@requestNewCode": {
+    "description": "Button text to request a new verification code."
+  },
+
+  "requestNewCodeIn": "புதிய குறியீட்டை கோரவும்",
+  "@requestNewCodeIn": {
+    "description": "Text displayed before a countdown timer for requesting a new code."
+  },
+
+  "clickPictureCamera": "கேமராவைப் பயன்படுத்தி படம் எடுக்கவும்",
+  "@clickPictureCamera": {
+    "description": "Option to take a new photo using the device camera."
+  },
+
+  "pickImageGallery": "கேலரியிலிருந்து படத்தை தேர்வு செய்யவும்",
+  "@pickImageGallery": {
+    "description": "Option to choose an existing image from the device gallery."
+  },
+
+  "deleteMyAccount": "என் கணக்கை நீக்கு",
+  "@deleteMyAccount": {
+    "description": "Button text for the account deletion feature."
+  },
+
+  "createNewRoom": "புதிய அறையை உருவாக்கவும்",
+  "@createNewRoom": {
+    "description": "Button text or page title for creating a new audio room."
+  },
+
+  "pleaseEnterScheduledDateTime": "தயவுசெய்து திட்டமிட்ட தேதி மற்றும் நேரத்தை உள்ளிடவும்",
+  "@pleaseEnterScheduledDateTime": {
+    "description": "Error message when the scheduled date and time for a room is not provided."
+  },
+
+  "scheduleDateTimeLabel": "திட்டமிட்ட தேதி & நேரம்",
+  "@scheduleDateTimeLabel": {
+    "description": "Label for the input field to schedule a room's date and time."
+  },
+
+  "enterTags": "குறிச்சொற்களை உள்ளிடவும்",
+  "@enterTags": {
+    "description": "Placeholder or label for the input field for adding tags to a room or story."
+  },
+
+  "joinCommunity": "சமூகத்தில் சேரவும்",
+  "@joinCommunity": {
+    "description": "Button text or header for the community section."
+  },
+
+  "followUsOnX": "X-ல் எங்களை பின்தொடரவும்",
+  "@followUsOnX": {
+    "description": "Link text to the company's profile on X (formerly Twitter)."
+  },
+
+  "joinDiscordServer": "Discord சர்வரில் சேரவும்",
+  "@joinDiscordServer": {
+    "description": "Link text to join the project's Discord server."
+  },
+
+  "noLyrics": "வரிகள் கிடைக்கவில்லை",
+  "@noLyrics": {
+    "description": "Message displayed when lyrics for an audio file are not available."
+  },
+
+  "noStoriesInCategory": "{categoryName} பிரிவில் தற்போது எந்தக் கதைகளும் இல்லை",
+  "@noStoriesInCategory": {
+    "description": "Message when no stories exist in a specific category.",
+    "placeholders": {
+      "categoryName": {
+        "type": "String",
+        "example": "drama"
+      }
+    }
+  },
+
+  "newChapters": "புதிய அத்தியாயங்கள்",
+  "@newChapters": {
+    "description": "Header or label for the section to add or view new chapters of a story."
+  },
+
+  "helpToGrow": "வளர உதவுங்கள்",
+  "@helpToGrow": {
+    "description": "A call to action asking users to help the platform grow, often a header for sharing/rating."
+  },
+
+  "share": "பகிர்",
+  "@share": {
+    "description": "Button text for sharing content."
+  },
+
+  "rate": "மதிப்பிடு",
+  "@rate": {
+    "description": "Button text for rating the app or content."
+  },
+
+  "aboutResonate": "Resonate பற்றி",
+  "@aboutResonate": {
+    "description": "Title for the 'About' page of the Resonate application."
+  },
+
+  "description": "விளக்கம்",
+  "@description": {
+    "description": "Label for a description field."
+  },
+
+  "confirm": "உறுதிப்படுத்து",
+  "@confirm": {
+    "description": "Generic button text for a confirm action."
+  },
+
+  "classic": "பாரம்பரியம்",
+  "@classic": {
+    "description": "Name of a theme option."
+  },
+
+  "time": "நேரம்",
+  "@time": {
+    "description": "Name of a theme option."
+  },
+
+  "vintage": "பழமையான",
+  "@vintage": {
+    "description": "Name of a theme option."
+  },
+
+  "amber": "அம்பர்",
+  "@amber": {
+    "description": "Name of a theme option."
+  },
+
+  "forest": "காடு",
+  "@forest": {
+    "description": "Name of a theme option."
+  },
+
+  "cream": "க்ரீம்",
+  "@cream": {
+    "description": "Name of a theme option."
+  },
+
+  "none": "எதுவும் இல்லை",
+  "@none": {
+    "description": "Text representing no selection or absence of a value."
+  },
+
+  "checkOutGitHub": "எங்கள் GitHub repository-யை பார்க்கவும்: {url}",
+  "@checkOutGitHub": {
+    "description": "Share message for the GitHub repository, including a placeholder for the URL.",
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "https://github.com/AOSSIE-Org/Resonate"
+      }
+    }
+  },
+
+  "aossie": "AOSSIE",
+  "@aossie": {
+    "description": "The name of the organization."
+  },
+
+  "aossieLogo": "AOSSIE லோகோ",
+  "@aossieLogo": {
+    "description": "Accessibility text for the AOSSIE organization logo."
+  },
+
+  "errorLoadPackageInfo": "பேக்கேஜ் தகவலை ஏற்ற முடியவில்லை",
+  "@errorLoadPackageInfo": {
+    "description": "Error message when the application fails to load its package information (e.g., version)."
+  },
+
+  "searchFailed": "அறைகளை தேட முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  "@searchFailed": {
+    "description": "Error message when searching for rooms fails."
+  },
+
+  "updateAvailable": "புதுப்பிப்பு கிடைக்கிறது",
+  "@updateAvailable": {
+    "description": "Title indicating that a new version of the app is available."
+  },
+
+  "newVersionAvailable": "ஒரு புதிய பதிப்பு கிடைக்கிறது!",
+  "@newVersionAvailable": {
+    "description": "Message informing the user about an available update."
+  },
+
+  "upToDate": "புதுப்பித்த நிலையில் உள்ளது",
+  "@upToDate": {
+    "description": "Title indicating the application is on the latest version."
+  },
+
+  "latestVersion": "நீங்கள் சமீபத்திய பதிப்பை பயன்படுத்துகிறீர்கள்",
+  "@latestVersion": {
+    "description": "Message confirming the user has the latest version of the app."
+  },
+
+  "profileCreatedSuccessfully": "சுயவிவரம் வெற்றிகரமாக உருவாக்கப்பட்டது",
+  "@profileCreatedSuccessfully": {
+    "description": "Success message after a user's profile is created."
+  },
+
+  "invalidScheduledDateTime": "தவறான திட்டமிட்ட தேதி மற்றும் நேரம்",
+  "@invalidScheduledDateTime": {
+    "description": "Error message for an invalid date-time format."
+  },
+
+  "scheduledDateTimePast": "திட்டமிட்ட தேதி மற்றும் நேரம் கடந்ததாக இருக்கக்கூடாது",
+  "@scheduledDateTimePast": {
+    "description": "Error message when the user selects a past date-time for a scheduled event."
+  },
+
+  "joinRoom": "அறையில் சேரவும்",
+  "@joinRoom": {
+    "description": "Button text to join an audio room."
+  },
+
+  "unknownUser": "அறியப்படாதவர்",
+  "@unknownUser": {
+    "description": "Placeholder text for a user whose name is not available."
+  },
+
+  "canceled": "ரத்து செய்யப்பட்டது",
+  "@canceled": {
+    "description": "A status label indicating that an action was canceled."
+  },
+
+  "english": "en",
+  "@english": {
+    "description": "The language code for English."
+  },
+
+  "emailVerificationRequired": "மின்னஞ்சல் சரிபார்ப்பு தேவை",
+  "@emailVerificationRequired": {
+    "description": "A title or message indicating that email verification is needed to proceed."
+  },
+
+  "verify": "சரிபார்க்கவும்",
+  "@verify": {
+    "description": "Button text to initiate a verification process."
+  },
+
+  "audioRoom": "ஒலி அறை",
+  "@audioRoom": {
+    "description": "Generic title for an audio room."
+  },
+
+  "toRoomAction": "அறையை {action} செய்ய",
+  "@toRoomAction": {
+    "description": "A dynamic message for confirming an action on a room, like deleting or leaving.",
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "example": "delete"
+      }
+    }
+  },
+
+  "mailSentMessage": "மின்னஞ்சல் அனுப்பப்பட்டது",
+  "@mailSentMessage": {
+    "description": "A confirmation message indicating an email has been sent."
+  },
+
+  "disconnected": "இணைப்பு துண்டிக்கப்பட்டது",
+  "@disconnected": {
+    "description": "A status label indicating a loss of connection."
+  },
+
+  "micOn": "மைக்",
+  "@micOn": {
+    "description": "Accessibility label for the microphone button when it is on."
+  },
+
+  "speakerOn": "ஸ்பீக்கர்",
+  "@speakerOn": {
+    "description": "Accessibility label for the speakerphone button when it is on."
+  },
+
+  "endChat": "உரையாடலை முடிக்கவும்",
+  "@endChat": {
+    "description": "Accessibility label for the end chat/call button."
+  },
+
+  "monthJan": "ஜன",
+  "@monthJan": {
+    "description": "Abbreviation for January."
+  },
+
+  "monthFeb": "பிப்",
+  "@monthFeb": {
+    "description": "Abbreviation for February."
+  },
+
+  "monthMar": "மார்ச்",
+  "@monthMar": {
+    "description": "Full name for March."
+  },
+
+  "monthApr": "ஏப்ரல்",
+  "@monthApr": {
+    "description": "Full name for April."
+  },
+
+  "monthMay": "மே",
+  "@monthMay": {
+    "description": "Full name for May."
+  },
+
+  "monthJun": "ஜூன்",
+  "@monthJun": {
+    "description": "Full name for June."
+  },
+
+  "monthJul": "ஜூலை",
+  "@monthJul": {
+    "description": "Full name for July."
+  },
+
+  "monthAug": "ஆக",
+  "@monthAug": {
+    "description": "Abbreviation for August."
+  },
+
+  "monthSep": "செப்",
+  "@monthSep": {
+    "description": "Abbreviation for September."
+  },
+
+  "monthOct": "அக்",
+  "@monthOct": {
+    "description": "Abbreviation for October."
+  },
+
+  "monthNov": "நவ",
+  "@monthNov": {
+    "description": "Abbreviation for November."
+  },
+
+  "monthDec": "டிச",
+  "@monthDec": {
+    "description": "Abbreviation for December."
+  },
+
+  "register": "பதிவு செய்யவும்",
+  "@register": {
+    "description": "Button text to register a new account."
+  },
+
+  "newToResonate": "Resonate-க்கு புதியவரா? ",
+  "@newToResonate": {
+    "description": "Text preceding the 'Create new account' link on the login screen."
+  },
+
+  "alreadyHaveAccount": "ஏற்கனவே கணக்கு உள்ளதா? ",
+  "@alreadyHaveAccount": {
+    "description": "Text preceding the 'Login' link on the sign-up screen."
+  },
+
+  "checking": "சரிபார்க்கப்படுகிறது...",
+  "@checking": {
+    "description": "A temporary status message indicating a check is in progress."
+  },
+
+  "forgotPasswordMessage": "உங்கள் கடவுச்சொல்லை மீட்டமைக்க பதிவு செய்யப்பட்ட மின்னஞ்சலை உள்ளிடவும்.",
+  "@forgotPasswordMessage": {
+    "description": "Instructional text on the forgot password screen."
+  },
+
+  "usernameUnavailable": "பயனர் பெயர் கிடைக்கவில்லை!",
+  "@usernameUnavailable": {
+    "description": "Title for the error when a chosen username is taken."
+  },
+
+  "usernameInvalidOrTaken": "இந்த பயனர் பெயர் தவறானது அல்லது ஏற்கனவே பயன்படுத்தப்படுகிறது.",
+  "@usernameInvalidOrTaken": {
+    "description": "Error message explaining why a username cannot be used."
+  },
+
+  "otpResentMessage": "புதிய OTP-க்கு உங்கள் மின்னஞ்சலை சரிபார்க்கவும்.",
+  "@otpResentMessage": {
+    "description": "Message informing the user to check their email for a new OTP."
+  },
+
+  "connectionError": "இணைப்பு பிழை ஏற்பட்டுள்ளது. உங்கள் இணைய இணைப்பை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+  "@connectionError": {
+    "description": "Generic error message for network connection issues."
+  },
+
+  "seconds": "வினாடிகள்.",
+  "@seconds": {
+    "description": "The word 'seconds', often used after a countdown number."
+  },
+
+  "unsavedChangesWarning": "சேமிக்காமல் தொடர்ந்தால், சேமிக்கப்படாத மாற்றங்கள் அனைத்தும் இழக்கப்படும்.",
+  "@unsavedChangesWarning": {
+    "description": "A warning message shown when a user tries to leave a screen with unsaved changes."
+  },
+
+  "deleteAccountPermanent": "இந்த செயல் உங்கள் கணக்கை நிரந்தரமாக நீக்கும். இதை மீட்டெடுக்க முடியாது. உங்கள் பயனர் பெயர், மின்னஞ்சல் முகவரி மற்றும் கணக்குடன் தொடர்புடைய அனைத்து தரவுகளும் நீக்கப்படும்.",
+  "@deleteAccountPermanent": {
+    "description": "A detailed warning message explaining the consequences of deleting an account."
+  },
+
+  "giveGreatName": "ஒரு சிறந்த பெயரை கொடுங்கள்..",
+  "@giveGreatName": {
+    "description": "Placeholder text for a name input field, encouraging a creative name."
+  },
+
+  "joinCommunityDescription": "சமூகத்தில் சேர்வதன் மூலம் உங்கள் சந்தேகங்களை தீர்க்கலாம், புதிய அம்சங்களை பரிந்துரைக்கலாம், நீங்கள் சந்தித்த பிரச்சனைகளை அறிக்கையிடலாம் மற்றும் பலவற்றை செய்யலாம்.",
+  "@joinCommunityDescription": {
+    "description": "A description of the benefits of joining the community."
+  },
+
+  "resonateDescription": "Resonate என்பது ஒவ்வொரு குரலும் மதிக்கப்படும் ஒரு சமூக ஊடக தளம். உங்கள் எண்ணங்கள், கதைகள் மற்றும் அனுபவங்களை மற்றவர்களுடன் பகிருங்கள். இப்போதே உங்கள் ஒலி பயணத்தை தொடங்குங்கள்.",
+  "@resonateDescription": {
+    "description": "A short, user-facing description of the Resonate application."
+  },
+
+  "resonateFullDescription": "Resonate என்பது ஒவ்வொரு குரலும் முக்கியமானதாக கருதப்படும் ஒரு புரட்சிகர ஒலி அடிப்படையிலான சமூக ஊடக தளம்.\nநேரடி ஒலி உரையாடல்களில் கலந்து கொள்ளுங்கள், பல்வேறு விவாதங்களில் பங்கேற்கவும், ஒரே எண்ணம் கொண்டவர்களுடன் இணைக்கவும்.\nஎங்கள் தளத்தின் அம்சங்கள்:\n- தலைப்புகளின் அடிப்படையிலான நேரடி ஒலி அறைகள்\n- குரல் மூலம் எளிய சமூக இணைப்பு\n- சமூக இயக்கப்படும் உள்ளடக்க மேலாண்மை\n- பல தள ஆதரவு\n- முழுமையான குறியாக்கத்துடன் தனிப்பட்ட உரையாடல்கள்\n\nAOSSIE திறந்த மூல சமூகத்தால் உருவாக்கப்பட்ட Resonate, பயனர் தனியுரிமை மற்றும் சமூக வளர்ச்சியை முன்னுரிமையாகக் கொள்கிறது. சமூக ஒலியின் எதிர்காலத்தை உருவாக்க எங்களுடன் சேருங்கள்!",
+  "@resonateFullDescription": {
+    "description": "A comprehensive, detailed description of the Resonate application, its features, and its mission."
+  },
+
+  "stable": "நிலையானது",
+  "@stable": {
+    "description": "A label indicating a stable, non-beta version of the app."
+  },
+
+  "usernameCharacterLimit": "பயனர் பெயர் குறைந்தது 8 எழுத்துகள் கொண்டிருக்க வேண்டும்.",
+  "@usernameCharacterLimit": {
+    "description": "Error message when a chosen username is too short."
+  },
+
+  "submit": "சமர்ப்பிக்கவும்",
+  "@submit": {
+    "description": "Generic button text for submitting a form."
+  },
+
+  "anonymous": "அடையாளமற்ற",
+  "@anonymous": {
+    "description": "Label for an anonymous user or identity."
+  },
+
+  "noSearchResults": "தேடல் முடிவுகள் இல்லை",
+  "@noSearchResults": {
+    "description": "Message displayed when a search returns no results."
+  },
+
+  "searchRooms": "அறைகளை தேடுங்கள்...",
+  "@searchRooms": {
+    "description": "Placeholder text for room search input field."
+  },
+
+  "searchingRooms": "அறைகள் தேடப்படுகின்றன...",
+  "@searchingRooms": {
+    "description": "Loading message shown while searching for rooms."
+  },
+
+  "clearSearch": "தேடலை அழிக்கவும்",
+  "@clearSearch": {
+    "description": "Text for button to clear search results."
+  },
+
+  "searchError": "தேடல் பிழை",
+  "@searchError": {
+    "description": "Title for search error messages."
+  },
+
+  "searchRoomsError": "அறைகளை தேட முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  "@searchRoomsError": {
+    "description": "Error message when room search fails."
+  },
+
+  "searchUpcomingRoomsError": "வரவிருக்கும் அறைகளை தேட முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  "@searchUpcomingRoomsError": {
+    "description": "Error message when upcoming room search fails."
+  },
+
+  "search": "தேடல்",
+  "@search": {
+    "description": "Tooltip text for search button."
+  },
+
+  "clear": "அழி",
+  "@clear": {
+    "description": "Tooltip text for clear button."
+  },
+
+  "shareRoomMessage": "🚀 இந்த அற்புதமான அறையைப் பாருங்கள்: {roomName}!\n\n📖 விளக்கம்: {description}\n👥 இப்போது {participants} பேர் கலந்து கொள்ளுங்கள்!",
+  "@shareRoomMessage": {
+    "description": "The default message template used when sharing a room.",
+    "placeholders": {
+      "roomName": {
+        "type": "String",
+        "example": "Discussion Room"
+      },
+      "description": {
+        "type": "String",
+        "example": "A great place to discuss"
+      },
+      "participants": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "participantsCount": "{count} பங்கேற்பாளர்கள்",
+  "@participantsCount": {
+    "description": "Displays the number of participants in a room.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "join": "சேரவும்",
+  "@join": {
+    "description": "Generic button text to join an activity or group."
+  },
+
+  "invalidTags": "தவறான குறிச்சொல்:",
+  "@invalidTags": {
+    "description": "Error message prefix for an invalid tag."
+  },
+
+  "cropImage": "படத்தை வெட்டு",
+  "@cropImage": {
+    "description": "Title or button text for the image cropping tool."
+  },
+
+  "profileSavedSuccessfully": "சுயவிவரம் புதுப்பிக்கப்பட்டது",
+  "@profileSavedSuccessfully": {
+    "description": "Short success message indicating profile changes have been saved."
+  },
+
+  "profileUpdatedSuccessfully": "அனைத்து மாற்றங்களும் வெற்றிகரமாக சேமிக்கப்பட்டுள்ளன.",
+  "@profileUpdatedSuccessfully": {
+    "description": "Detailed success message confirming profile update."
+  },
+
+  "profileUpToDate": "சுயவிவரம் புதுப்பித்த நிலையில் உள்ளது",
+  "@profileUpToDate": {
+    "description": "Title for the message when there are no changes to save on the profile."
+  },
+
+  "noChangesToSave": "புதிய மாற்றங்கள் எதுவும் இல்லை, சேமிக்க எதுவும் இல்லை.",
+  "@noChangesToSave": {
+    "description": "Message displayed when the user tries to save their profile without making any changes."
+  },
+
+  "connectionFailed": "இணைப்பு தோல்வியடைந்தது",
+  "@connectionFailed": {
+    "description": "Generic title for connection-related errors."
+  },
+
+  "unableToJoinRoom": "அறையில் சேர முடியவில்லை. உங்கள் இணைய இணைப்பை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+  "@unableToJoinRoom": {
+    "description": "Error message when a user fails to join a room due to connection issues."
+  },
+
+  "connectionLost": "இணைப்பு துண்டிக்கப்பட்டது",
+  "@connectionLost": {
+    "description": "Title indicating that the connection to a service was lost."
+  },
+
+  "unableToReconnect": "அறையுடன் மீண்டும் இணைக்க முடியவில்லை. மீண்டும் சேர முயற்சிக்கவும்.",
+  "@unableToReconnect": {
+    "description": "Error message when the app fails to reconnect the user to a room."
+  },
+
+  "invalidFormat": "தவறான வடிவம்!",
+  "@invalidFormat": {
+    "description": "Generic error message for data with an incorrect format."
+  },
+
+  "usernameAlphanumeric": "பயனர் பெயர் எழுத்துகள் மற்றும் எண்கள் மட்டும் கொண்டிருக்க வேண்டும். சிறப்பு குறியீடுகள் இருக்கக்கூடாது.",
+  "@usernameAlphanumeric": {
+    "description": "Error message detailing the character requirements for a valid username."
+  },
+
+  "userProfileCreatedSuccessfully": "உங்கள் பயனர் சுயவிவரம் வெற்றிகரமாக உருவாக்கப்பட்டுள்ளது.",
+  "@userProfileCreatedSuccessfully": {
+    "description": "Success message after a user completes their profile setup."
+  },
+
+  "emailVerificationMessage": "தொடர்வதற்கு, உங்கள் மின்னஞ்சல் முகவரியை சரிபார்க்கவும்.",
+  "@emailVerificationMessage": {
+    "description": "An instructional message prompting the user to verify their email."
+  },
+
+  "addNewChaptersToStory": "{storyName} கதைக்கு புதிய அத்தியாயங்களை சேர்க்கவும்",
+  "@addNewChaptersToStory": {
+    "description": "Title for the screen where new chapters are added to an existing story.",
+    "placeholders": {
+      "storyName": {
+        "type": "String",
+        "example": "My Story"
+      }
+    }
+  },
+
+  "currentChapters": "தற்போதைய அத்தியாயங்கள்",
+  "@currentChapters": {
+    "description": "Header for the list of existing chapters in a story."
+  },
+
+  "sourceCodeOnGitHub": "GitHub-இல் மூலக் குறியீடு",
+  "@sourceCodeOnGitHub": {
+    "description": "Link text to the project's source code on GitHub."
+  },
+
+  "createAChapter": "ஒரு அத்தியாயத்தை உருவாக்கவும்",
+  "@createAChapter": {
+    "description": "Title for the screen where a new chapter is created."
+  },
+
+  "chapterTitle": "அத்தியாய தலைப்பு *",
+  "@chapterTitle": {
+    "description": "Label for the chapter title input field, indicating it is required."
+  },
+
+  "aboutRequired": "பற்றி *",
+  "@aboutRequired": {
+    "description": "Label for the 'About' or description input field, indicating it is required."
+  },
+
+  "changeCoverImage": "முகப்பு படத்தை மாற்றவும்",
+  "@changeCoverImage": {
+    "description": "Button text to change the cover image of a story or chapter."
+  },
+
+  "uploadAudioFile": "ஒலி கோப்பை பதிவேற்றவும்",
+  "@uploadAudioFile": {
+    "description": "Button text to upload an audio file."
+  },
+
+  "uploadLyricsFile": "வரிகள் கோப்பை பதிவேற்றவும்",
+  "@uploadLyricsFile": {
+    "description": "Button text to upload a lyrics file."
+  },
+
+  "createChapter": "அத்தியாயத்தை உருவாக்கவும்",
+  "@createChapter": {
+    "description": "Button text to finalize and create a new chapter."
+  },
+
+  "audioFileSelected": "தேர்ந்தெடுக்கப்பட்ட ஒலி கோப்பு: {fileName}",
+  "@audioFileSelected": {
+    "description": "Message shown after an audio file has been selected for upload.",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "audio.mp3"
+      }
+    }
+  },
+
+  "lyricsFileSelected": "தேர்ந்தெடுக்கப்பட்ட வரிகள் கோப்பு: {fileName}",
+  "@lyricsFileSelected": {
+    "description": "Message shown after a lyrics file has been selected for upload.",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "example": "lyrics.txt"
+      }
+    }
+  },
+
+  "fillAllRequiredFields": "தயவுசெய்து அனைத்து தேவையான புலங்களையும் நிரப்பி, ஒலி கோப்பும் வரிகள் கோப்பையும் பதிவேற்றவும்",
+  "@fillAllRequiredFields": {
+    "description": "Error message when required fields or files are missing from a form."
+  },
+
+  "scheduled": "திட்டமிடப்பட்டது",
+  "@scheduled": {
+    "description": "A status label indicating an event is scheduled for the future."
+  },
+
+  "ok": "சரி",
+  "@ok": {
+    "description": "Generic confirmation button text, often for closing a dialog."
+  },
+
+  "roomDescriptionOptional": "அறை விளக்கம் (விருப்பம்)",
+  "@roomDescriptionOptional": {
+    "description": "Label for the room description input field, indicating it is not required."
+  },
+
+  "deleteAccount": "கணக்கை நீக்கு",
+  "@deleteAccount": {
+    "description": "Button text to initiate the account deletion process."
+  },
+
+  "createYourStory": "உங்கள் கதையை உருவாக்கவும்",
+  "@createYourStory": {
+    "description": "Title for the screen where a new story is created."
+  },
+
+  "titleRequired": "தலைப்பு *",
+  "@titleRequired": {
+    "description": "Label for the title input field, indicating it is required."
+  },
+
+  "category": "வகை *",
+  "@category": {
+    "description": "Label for the category selection, indicating it is required."
+  },
+
+  "addChapter": "அத்தியாயம் சேர்க்கவும்",
+  "@addChapter": {
+    "description": "Button text to add a chapter to a story."
+  },
+
+  "createStory": "கதையை உருவாக்கவும்",
+  "@createStory": {
+    "description": "Button text to finalize and create a new story."
+  },
+
+  "fillAllRequiredFieldsAndChapter": "தயவுசெய்து அனைத்து தேவையான புலங்களையும் நிரப்பி, குறைந்தது ஒரு அத்தியாயத்தை சேர்த்து, ஒரு முகப்பு படத்தை தேர்வு செய்யவும்.",
+  "@fillAllRequiredFieldsAndChapter": {
+    "description": "Error message for the story creation form when requirements are not met."
+  },
+
+  "toConfirmType": "உறுதிப்படுத்த, தட்டச்சு செய்யவும்",
+  "@toConfirmType": {
+    "description": "Instructional text in a confirmation dialog, preceding the text to be typed."
+  },
+
+  "inTheBoxBelow": "கீழே உள்ள பெட்டியில்",
+  "@inTheBoxBelow": {
+    "description": "Instructional text in a confirmation dialog, following the text to be typed."
+  },
+
+  "iUnderstandDeleteMyAccount": "நான் புரிந்துகொண்டேன், என் கணக்கை நீக்கு",
+  "@iUnderstandDeleteMyAccount": {
+    "description": "The specific phrase a user must type to confirm account deletion."
+  },
+
+  "whatDoYouWantToListenTo": "நீங்கள் என்ன கேட்க விரும்புகிறீர்கள்?",
+  "@whatDoYouWantToListenTo": {
+    "description": "A prompt on the main screen, encouraging user engagement."
+  },
+
+  "categories": "வகைகள்",
+  "@categories": {
+    "description": "Header for the list of categories."
+  },
+
+  "stories": "கதைகள்",
+  "@stories": {
+    "description": "Header for the list of stories."
+  },
+
+  "someSuggestions": "சில பரிந்துரைகள்",
+  "@someSuggestions": {
+    "description": "Header for a list of suggested content."
+  },
+
+  "getStarted": "தொடங்குங்கள்",
+  "@getStarted": {
+    "description": "Button text on an onboarding screen to begin using the app."
+  },
+
+  "skip": "தவிர்க்கவும்",
+  "@skip": {
+    "description": "Button text to skip an optional step, like onboarding."
+  },
+
+  "welcomeToResonate": "Resonate-க்கு வரவேற்கிறோம்",
+  "@welcomeToResonate": {
+    "description": "Onboarding screen title."
+  },
+
+  "exploreDiverseConversations": "பல்வேறு உரையாடல்களை ஆராயுங்கள்",
+  "@exploreDiverseConversations": {
+    "description": "Feature highlight on an onboarding screen."
+  },
+
+  "yourVoiceMatters": "உங்கள் குரல் முக்கியம்",
+  "@yourVoiceMatters": {
+    "description": "Feature highlight on an onboarding screen."
+  },
+
+  "joinConversationExploreRooms": "உரையாடலில் சேருங்கள்! அறைகளை ஆராயுங்கள், நண்பர்களுடன் இணைக, உங்கள் குரலை உலகுடன் பகிருங்கள்.",
+  "@joinConversationExploreRooms": {
+    "description": "Descriptive text on an onboarding screen."
+  },
+
+  "diveIntoDiverseDiscussions": "பல்வேறு விவாதங்களிலும் தலைப்புகளிலும் ஆழமாக ஈடுபடுங்கள்.\nஉங்களுக்கு பொருந்தும் அறைகளை கண்டுபிடித்து சமூகத்தின் ஒரு பகுதியாகுங்கள்.",
+  "@diveIntoDiverseDiscussions": {
+    "description": "Descriptive text on an onboarding screen."
+  },
+
+  "atResonateEveryVoiceValued": "Resonate-இல், ஒவ்வொரு குரலும் மதிக்கப்படுகிறது. உங்கள் எண்ணங்கள், கதைகள் மற்றும் அனுபவங்களை மற்றவர்களுடன் பகிருங்கள். இப்போதே உங்கள் ஒலி பயணத்தை தொடங்குங்கள்.",
+  "@atResonateEveryVoiceValued": {
+    "description": "Descriptive text on an onboarding screen."
+  },
+
+  "notifications": "அறிவிப்புகள்",
+  "@notifications": {
+    "description": "Title for the notifications screen."
+  },
+
+  "taggedYouInUpcomingRoom": "{username} உங்களை ஒரு வரவிருக்கும் அறையில் குறித்துள்ளார்: {subject}",
+  "@taggedYouInUpcomingRoom": {
+    "description": "Notification message when tagged in an upcoming room.",
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "john_doe"
+      },
+      "subject": {
+        "type": "String",
+        "example": "Discussion Room"
+      }
+    }
+  },
+  "taggedYouInRoom": "{username} உங்களை ஒரு அறையில் குறித்துள்ளார்: {subject}",
+  "@taggedYouInRoom": {
+    "description": "Notification message when tagged in a live room.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" },
+      "subject": { "type": "String", "example": "Discussion Room" }
+    }
+  },
+
+  "likedYourStory": "{username} உங்கள் கதையை விரும்பினார்: {subject}",
+  "@likedYourStory": {
+    "description": "Notification message when someone likes your story.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" },
+      "subject": { "type": "String", "example": "My Story" }
+    }
+  },
+
+  "subscribedToYourRoom": "{username} உங்கள் அறையை சந்தாதாரராக இணைந்தார்: {subject}",
+  "@subscribedToYourRoom": {
+    "description": "Notification message when someone subscribes to your room.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" },
+      "subject": { "type": "String", "example": "My Room" }
+    }
+  },
+
+  "startedFollowingYou": "{username} உங்களை பின்தொடர தொடங்கினார்",
+  "@startedFollowingYou": {
+    "description": "Notification message when someone starts following you.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "youHaveNewNotification": "உங்களுக்கு புதிய அறிவிப்பு உள்ளது",
+  "@youHaveNewNotification": {
+    "description": "Generic title for a new notification."
+  },
+
+  "hangOnGoodThingsTakeTime": "சற்றுக் காத்திருக்கவும், நல்ல விஷயங்களுக்கு நேரம் எடுக்கும் 🔍",
+  "@hangOnGoodThingsTakeTime": {
+    "description": "A friendly message displayed during a long loading process."
+  },
+
+  "resonateOpenSourceProject": "Resonate என்பது AOSSIE பராமரிக்கும் ஒரு திறந்த மூல திட்டம். பங்களிக்க எங்கள் GitHub-ஐ பாருங்கள்.",
+  "@resonateOpenSourceProject": {
+    "description": "Informational text about the open-source nature of the project."
+  },
+
+  "mute": "மியூட்",
+  "@mute": {
+    "description": "Button text to mute the microphone."
+  },
+
+  "speakerLabel": "ஸ்பீக்கர்",
+  "@speakerLabel": {
+    "description": "Label for the speakerphone toggle."
+  },
+
+  "audioOptions": "ஒலி விருப்பங்கள்",
+  "@audioOptions": {
+    "description": "Label for the audio options/settings button."
+  },
+
+  "end": "முடிக்கவும்",
+  "@end": {
+    "description": "Button text to end a call or session."
+  },
+
+  "saveChanges": "மாற்றங்களை சேமிக்கவும்",
+  "@saveChanges": {
+    "description": "Button text to save modified settings or profile information."
+  },
+
+  "discard": "கைவிடு",
+  "@discard": {
+    "description": "Button text to discard changes."
+  },
+
+  "save": "சேமி",
+  "@save": {
+    "description": "Button text to save changes."
+  },
+
+  "changeProfilePicture": "சுயவிவரப் புகைப்படத்தை மாற்றவும்",
+  "@changeProfilePicture": {
+    "description": "Button text to open the profile picture selection options."
+  },
+
+  "camera": "கேமரா",
+  "@camera": {
+    "description": "Option to use the camera to take a picture."
+  },
+
+  "gallery": "கேலரி",
+  "@gallery": {
+    "description": "Option to choose a picture from the gallery."
+  },
+
+  "remove": "நீக்கு",
+  "@remove": {
+    "description": "Button text to remove an item, like a profile picture."
+  },
+
+  "created": "{date} அன்று உருவாக்கப்பட்டது",
+  "@created": {
+    "description": "Displays the creation date of a story or content.",
+    "placeholders": {
+      "date": { "type": "String", "example": "Jan 15, 2023" }
+    }
+  },
+
+  "chapters": "அத்தியாயங்கள்",
+  "@chapters": {
+    "description": "Header for the list of chapters in a story."
+  },
+
+  "deleteStory": "கதையை நீக்கு",
+  "@deleteStory": {
+    "description": "Button text to delete a story."
+  },
+
+  "createdBy": "{creatorName} உருவாக்கியது",
+  "@createdBy": {
+    "description": "Displays the name of the content creator.",
+    "placeholders": {
+      "creatorName": { "type": "String", "example": "John Doe" }
+    }
+  },
+
+  "start": "தொடங்கு",
+  "@start": {
+    "description": "Button text to start an activity or session."
+  },
+
+  "unsubscribe": "சந்தாவை ரத்து செய்",
+  "@unsubscribe": {
+    "description": "Button text to unsubscribe from a room or notification."
+  },
+
+  "subscribe": "சந்தா பெற",
+  "@subscribe": {
+    "description": "Button text to subscribe to a room or notification."
+  },
+
+  "storyCategory": "{category, select, drama{நாடகம்} comedy{நகைச்சுவை} horror{திகில்} romance{காதல்} thriller{திரில்லர்} spiritual{ஆன்மீகம்} other{மற்றவை}}",
+  "@storyCategory": {
+    "description": "Selects the appropriate category name for a story based on a key.",
+    "placeholders": {
+      "category": { "type": "String", "example": "drama" }
+    }
+  },
+
+  "chooseTheme": "{category, select, classicTheme{பாரம்பரியம்} timeTheme{நேரம்} vintageTheme{பழமையான} amberTheme{அம்பர்} forestTheme{காடு} creamTheme{க்ரீம்} other{மற்றவை}}",
+  "@chooseTheme": {
+    "description": "Selects the appropriate theme name based on a key.",
+    "placeholders": {
+      "category": { "type": "String", "example": "classic" }
+    }
+  },
+
+  "minutesAgo": "{count, plural, =1{1 நிமிடம் முன்பு} other{{count} நிமிடங்கள் முன்பு}}",
+  "@minutesAgo": {
+    "description": "Displays time in a relative format for minutes.",
+    "placeholders": {
+      "count": { "type": "int", "example": "5" }
+    }
+  },
+
+  "hoursAgo": "{count, plural, =1{1 மணி நேரம் முன்பு} other{{count} மணி நேரங்கள் முன்பு}}",
+  "@hoursAgo": {
+    "description": "Displays time in a relative format for hours.",
+    "placeholders": {
+      "count": { "type": "int", "example": "2" }
+    }
+  },
+
+  "daysAgo": "{count, plural, =1{1 நாள் முன்பு} other{{count} நாட்கள் முன்பு}}",
+  "@daysAgo": {
+    "description": "Displays time in a relative format for days.",
+    "placeholders": {
+      "count": { "type": "int", "example": "3" }
+    }
+  },
+
+  "by": "மூலம்",
+  "@by": {
+    "description": "A preposition, typically used between a content title and the author's name."
+  },
+
+  "likes": "விருப்பங்கள்",
+  "@likes": {
+    "description": "Label for the number of likes."
+  },
+
+  "lengthMinutes": "நிமி.",
+  "@lengthMinutes": {
+    "description": "Abbreviation for 'minutes', used to display audio length."
+  },
+
+  "requiredField": "தேவையான புலம்",
+  "@requiredField": {
+    "description": "Error message for a mandatory field that was left empty."
+  },
+
+  "onlineUsers": "ஆன்லைன் பயனர்கள்",
+  "@onlineUsers": {
+    "description": "Header for the list of users who are currently online."
+  },
+
+  "noOnlineUsers": "தற்போது ஆன்லைனில் யாரும் இல்லை",
+  "@noOnlineUsers": {
+    "description": "Message displayed when no users are online."
+  },
+
+  "chooseUser": "உரையாட பயனரை தேர்வு செய்யவும்",
+  "@chooseUser": {
+    "description": "Instructional text to select a user to start a chat."
+  },
+
+  "quickMatch": "விரைவு இணைப்பு",
+  "@quickMatch": {
+    "description": "Button text for a feature that quickly matches the user with a random chat partner."
+  },
+
+  "story": "கதை",
+  "@story": {
+    "description": "Label for a story."
+  },
+  "user": "பயனர்",
+  "@user": {
+    "description": "Label for a user."
+  },
+
+  "following": "நீங்கள் பின்தொடர்பவர்கள்",
+  "@following": {
+    "description": "Label for the list of users that the current user is following."
+  },
+
+  "followers": "உங்களை பின்தொடர்வோர்",
+  "@followers": {
+    "description": "Label for the list of users who are following the current user."
+  },
+
+  "friendRequests": "நண்பர் கோரிக்கைகள்",
+  "@friendRequests": {
+    "description": "Header for the list of incoming friend requests."
+  },
+
+  "friendRequestSent": "நண்பர் கோரிக்கை அனுப்பப்பட்டது",
+  "@friendRequestSent": {
+    "description": "Title for the confirmation message after sending a friend request."
+  },
+
+  "friendRequestSentTo": "{username} அவர்களுக்கு உங்கள் நண்பர் கோரிக்கை அனுப்பப்பட்டுள்ளது.",
+  "@friendRequestSentTo": {
+    "description": "Confirmation message after sending a friend request to a specific user.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "friendRequestCancelled": "நண்பர் கோரிக்கை ரத்து செய்யப்பட்டது",
+  "@friendRequestCancelled": {
+    "description": "Title for the confirmation message after cancelling a friend request."
+  },
+
+  "friendRequestCancelledTo": "{username} அவர்களுக்கு அனுப்பிய நண்பர் கோரிக்கை ரத்து செய்யப்பட்டது.",
+  "@friendRequestCancelledTo": {
+    "description": "Confirmation message after cancelling a friend request to a specific user.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "requested": "கோரப்பட்டது",
+  "@requested": {
+    "description": "A status label on a button indicating a friend request has been sent."
+  },
+
+  "friends": "நண்பர்கள்",
+  "@friends": {
+    "description": "A status label or header for the list of friends."
+  },
+
+  "addFriend": "நண்பரை சேர்க்கவும்",
+  "@addFriend": {
+    "description": "Button text to send a friend request."
+  },
+
+  "friendRequestAccepted": "நண்பர் கோரிக்கை ஏற்கப்பட்டது",
+  "@friendRequestAccepted": {
+    "description": "Title for the confirmation message after accepting a friend request."
+  },
+
+  "friendRequestAcceptedTo": "நீங்கள் இப்போது {username} அவர்களின் நண்பர்.",
+  "@friendRequestAcceptedTo": {
+    "description": "Confirmation message after accepting a friend request from a specific user.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "friendRequestDeclined": "நண்பர் கோரிக்கை நிராகரிக்கப்பட்டது",
+  "@friendRequestDeclined": {
+    "description": "Title for the confirmation message after declining a friend request."
+  },
+
+  "friendRequestDeclinedTo": "{username} அவர்களிடமிருந்து வந்த நண்பர் கோரிக்கையை நீங்கள் நிராகரித்துள்ளீர்கள்.",
+  "@friendRequestDeclinedTo": {
+    "description": "Confirmation message after declining a friend request from a specific user.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "accept": "ஏற்கவும்",
+  "@accept": {
+    "description": "Button text to accept a request or invitation."
+  },
+
+  "callDeclined": "அழைப்பு நிராகரிக்கப்பட்டது",
+  "@callDeclined": {
+    "description": "Title for the message when a call is declined."
+  },
+
+  "callDeclinedTo": "{username} அழைப்பை நிராகரித்தார்.",
+  "@callDeclinedTo": {
+    "description": "Message indicating that a specific user declined a call.",
+    "placeholders": {
+      "username": { "type": "String", "example": "john_doe" }
+    }
+  },
+
+  "checkForUpdates": "புதுப்பிப்புகளை சரிபார்க்கவும்",
+  "@checkForUpdates": {
+    "description": "Button text to manually check for application updates."
+  },
+
+  "updateNow": "இப்போதே புதுப்பிக்கவும்",
+  "@updateNow": {
+    "description": "Button text to start the update process."
+  },
+
+  "updateLater": "பின்னர்",
+  "@updateLater": {
+    "description": "Button text to postpone an update."
+  },
+
+  "updateSuccessful": "புதுப்பிப்பு வெற்றிகரமாக முடிந்தது",
+  "@updateSuccessful": {
+    "description": "Title for the success message after an update."
+  },
+
+  "updateSuccessfulMessage": "Resonate வெற்றிகரமாக புதுப்பிக்கப்பட்டுள்ளது!",
+  "@updateSuccessfulMessage": {
+    "description": "Success message confirming the application has been updated."
+  },
+
+  "updateCancelled": "புதுப்பிப்பு ரத்து செய்யப்பட்டது",
+  "@updateCancelled": {
+    "description": "Title for the message when an update is cancelled."
+  },
+
+  "updateCancelledMessage": "புதுப்பிப்பு பயனரால் ரத்து செய்யப்பட்டது",
+  "@updateCancelledMessage": {
+    "description": "Message indicating the user cancelled the update process."
+  },
+
+  "updateFailed": "புதுப்பிப்பு தோல்வியடைந்தது",
+  "@updateFailed": {
+    "description": "Title for the message when an update fails."
+  },
+
+  "updateFailedMessage": "புதுப்பிக்க முடியவில்லை. தயவுசெய்து Play Store-இல் இருந்து கைமுறையாக புதுப்பிக்கவும்.",
+  "@updateFailedMessage": {
+    "description": "Error message when an in-app update fails, suggesting a manual update."
+  },
+
+  "updateError": "புதுப்பிப்பு பிழை",
+  "@updateError": {
+    "description": "Generic title for an update-related error."
+  },
+
+  "updateErrorMessage": "புதுப்பிக்கும் போது பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.",
+  "@updateErrorMessage": {
+    "description": "Generic error message for an update that failed due to an unknown error."
+  },
+
+  "platformNotSupported": "இந்த தளம் ஆதரிக்கப்படவில்லை",
+  "@platformNotSupported": {
+    "description": "Title for an error when a feature is not supported on the current platform."
+  },
+
+  "platformNotSupportedMessage": "புதுப்பிப்பு சரிபார்ப்பு Android சாதனங்களில் மட்டுமே கிடைக்கும்",
+  "@platformNotSupportedMessage": {
+    "description": "Message explaining that the in-app update feature is platform-specific."
+  },
+
+  "updateCheckFailed": "புதுப்பிப்பு சரிபார்ப்பு தோல்வியடைந்தது",
+  "@updateCheckFailed": {
+    "description": "Title for an error when the app fails to check for updates."
+  },
+
+  "updateCheckFailedMessage": "புதுப்பிப்புகளை சரிபார்க்க முடியவில்லை. பின்னர் மீண்டும் முயற்சிக்கவும்.",
+  "@updateCheckFailedMessage": {
+    "description": "Error message when the check for updates process fails."
+  },
+
+  "upToDateTitle": "நீங்கள் புதுப்பித்த நிலையில் உள்ளீர்கள்!",
+  "@upToDateTitle": {
+    "description": "Title for the message when the app is already up to date."
+  },
+
+  "upToDateMessage": "நீங்கள் Resonate-இன் சமீபத்திய பதிப்பை பயன்படுத்துகிறீர்கள்",
+  "@upToDateMessage": {
+    "description": "Message confirming that no update is needed."
+  },
+
+  "updateAvailableTitle": "புதுப்பிப்பு கிடைக்கிறது!",
+  "@updateAvailableTitle": {
+    "description": "Title for the dialog informing the user about a new update."
+  },
+
+  "updateAvailableMessage": "Resonate-இன் புதிய பதிப்பு Play Store-இல் கிடைக்கிறது",
+  "@updateAvailableMessage": {
+    "description": "Message prompting the user to update the app from the Play Store."
+  },
+
+  "updateFeaturesImprovement": "புதிய அம்சங்களையும் மேம்பாடுகளையும் பெறுங்கள்!",
+  "@updateFeaturesImprovement": {
+    "description": "A message highlighting the benefit of updating the application."
+  },
+
+  "failedToRemoveRoom": "அறையை நீக்க முடியவில்லை",
+  "@failedToRemoveRoom": {
+    "description": "Error message when unable to remove a room from the list"
+  },
+
+  "roomRemovedSuccessfully": "அறை உங்கள் பட்டியலிலிருந்து வெற்றிகரமாக நீக்கப்பட்டது",
+  "@roomRemovedSuccessfully": {
+    "description": "Success message when a room is successfully removed from the user's list"
+  },
+
+  "alert": "எச்சரிக்கை",
+  "@alert": {
+    "description": "Title for an alert dialog."
+  },
+
+  "removedFromRoom": "நீங்கள் அறையிலிருந்து புகாரளிக்கப்பட்டோ அல்லது நீக்கப்பட்டோ உள்ளீர்கள்",
+  "@removedFromRoom": {
+    "description": "Message shown when a user is removed or reported from a room."
+  },
+
+  "reportType": "{type, select, harassment{தொந்தரவு / வெறுப்பு பேச்சு} abuse{அவமதிக்கும் உள்ளடக்கம் / வன்முறை} spam{ஸ்பாம் / மோசடி} impersonation{போலி அடையாளம்} illegal{சட்டவிரோத செயல்கள்} selfharm{சுயதீங்கு / தற்கொலை / மனநலம்} misuse{தளத்தின் தவறான பயன்பாடு} other{மற்றவை}}",
+  "@reportType": {
+    "description": "Selects the appropriate report type label based on a key.",
+    "placeholders": {
+      "type": { "type": "String", "example": "harassment" }
+    }
+  },
+
+  "userBlockedFromResonate": "பல பயனர்களிடமிருந்து புகார்கள் வந்துள்ளதால், Resonate-ஐ பயன்படுத்த நீங்கள் தடைசெய்யப்பட்டுள்ளீர்கள். இது தவறு என நினைத்தால் AOSSIE-யை தொடர்புகொள்ளவும்.",
+  "@userBlockedFromResonate": {
+    "description": "Message shown when a user is blocked from using Resonate."
+  },
+
+  "reportParticipant": "பங்கேற்பாளரை புகாரளிக்கவும்",
+  "@reportParticipant": {
+    "description": "Label for the button to report a participant."
+  },
+
+  "selectReportType": "புகார் வகையை தேர்வு செய்யவும்",
+  "@selectReportType": {
+    "description": "Prompt for the user to select a report type."
+  },
+
+  "reportSubmitted": "புகார் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது",
+  "@reportSubmitted": {
+    "description": "Message shown when a report is submitted successfully."
+  },
+
+  "reportFailed": "புகார் சமர்ப்பிப்பு தோல்வியடைந்தது",
+  "@reportFailed": {
+    "description": "Message shown when a report submission fails."
+  },
+
+  "additionalDetailsOptional": "கூடுதல் விவரங்கள் (விருப்பம்)",
+  "@additionalDetailsOptional": {
+    "description": "Label for an optional input field for additional details in a report."
+  },
+
+  "submitReport": "புகாரை சமர்ப்பிக்கவும்",
+  "@submitReport": {
+    "description": "Button text to submit a report."
+  },
+
+  "actionBlocked": "செயல் தடுக்கப்பட்டது",
+  "@actionBlocked": {
+    "description": "Title for a message indicating that a user action is blocked."
+  },
+
+  "cannotStopRecording": "பதிவை கைமுறையாக நிறுத்த முடியாது; அறை மூடப்படும் போது பதிவு தானாக நிறுத்தப்படும்.",
+  "@cannotStopRecording": {
+    "description": "Message explaining why a user cannot stop a recording manually."
+  },
+
+  "liveChapter": "நேரடி அத்தியாயம்",
+  "@liveChapter": {
+    "description": "Label indicating that a chapter is currently live."
+  },
+
+  "viewOrEditLyrics": "வரிகளை பார்க்க அல்லது திருத்த",
+  "@viewOrEditLyrics": {
+    "description": "Button text to view or edit the lyrics of a chapter."
+  },
+
+  "close": "மூடு",
+  "@close": {
+    "description": "Label for the button to close a dialog."
+  },
+
+  "verifyChapterDetails": "அத்தியாய விவரங்களை சரிபார்க்கவும்",
+  "@verifyChapterDetails": {
+    "description": "Title for the screen where Live chapter details are verified before publishing."
+  },
+
+  "author": "ஆசிரியர்",
+  "@author": {
+    "description": "Label for the author of a story or chapter."
+  },
+
+  "startLiveChapter": "நேரடி அத்தியாயத்தை தொடங்கவும்",
+  "@startLiveChapter": {
+    "description": "Title for the screen where a live chapter is initiated."
+  },
+  "fillAllFields": "தயவுசெய்து அனைத்து தேவையான புலங்களையும் நிரப்பவும்",
+  "@fillAllFields": {
+    "description": "Error message when required fields are not filled in a form."
+  },
+
+  "noRecordingError": "இந்த அத்தியாயத்திற்கு எந்த பதிவும் செய்யப்படவில்லை. அறையை விட்டு வெளியேறும் முன் தயவுசெய்து ஒரு பதிவை செய்யவும்",
+  "@noRecordingError": {
+    "description": "Error message when trying to exit a live chapter room without any recording."
+  },
+
+  "audioOutput": "ஒலி வெளியீடு",
+  "@audioOutput": {
+    "description": "Title for audio output device selector."
+  },
+
+  "selectPreferredSpeaker": "உங்களுக்கு விருப்பமான ஸ்பீக்கரை தேர்வு செய்யவும்",
+  "@selectPreferredSpeaker": {
+    "description": "Subtitle for audio device selector dialog."
+  },
+
+  "noAudioOutputDevices": "ஒலி வெளியீட்டு சாதனங்கள் எதுவும் கண்டறியப்படவில்லை",
+  "@noAudioOutputDevices": {
+    "description": "Message shown when no audio output devices are available."
+  },
+
+  "refresh": "புதுப்பி",
+  "@refresh": {
+    "description": "Button text to refresh audio device list."
+  },
+
+  "done": "முடிந்தது",
+  "@done": {
+    "description": "Button text to close audio device selector."
+  },
+
+  "deleteMessageTitle": "செய்தியை நீக்கு",
+  "@deleteMessageTitle": {
+    "description": "Title shown in the delete message confirmation dialog."
+  },
+
+  "deleteMessageContent": "இந்த செய்தியை நீக்க விரும்புகிறீர்களா?",
+  "@deleteMessageContent": {
+    "description": "Confirmation text asking the user if they want to delete a message."
+  },
+
+  "thisMessageWasDeleted": "இந்த செய்தி நீக்கப்பட்டது",
+  "@thisMessageWasDeleted": {
+    "description": "Status text shown when a previously sent message has been deleted."
+  },
+
+  "failedToDeleteMessage": "செய்தியை நீக்க முடியவில்லை",
+  "@failedToDeleteMessage": {
+    "description": "Error message shown when the system is unable to delete a message."
+  },
+
+  "usernameInvalidFormat": "சரியான பயனர் பெயரை உள்ளிடவும். எழுத்துகள், எண்கள், புள்ளிகள், அடிக்கோடுகள் மற்றும் ஹைபன்கள் மட்டுமே அனுமதிக்கப்படுகின்றன.",
+  "@usernameInvalidFormat": {
+    "description": "Validation error displayed when the user enters a username with unsupported characters."
+  },
+
+  "usernameAlreadyTaken": "இந்த பயனர் பெயர் ஏற்கனவே பயன்படுத்தப்படுகிறது. வேறு ஒன்றை முயற்சிக்கவும்.",
+  "@usernameAlreadyTaken": {
+    "description": "Error shown when the chosen username is unavailable because another user has already registered it."
+  }
+}

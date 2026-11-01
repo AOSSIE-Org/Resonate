@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'resonate_user.freezed.dart';
-part 'resonate_user.g.dart';
+part 'generated/resonate_user.freezed.dart';
+part 'generated/resonate_user.g.dart';
 
 @freezed
 abstract class ResonateUser with _$ResonateUser {

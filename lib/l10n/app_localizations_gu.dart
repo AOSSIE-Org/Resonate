@@ -727,6 +727,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get submit => 'સબમિટ કરો';
 
   @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
   String get anonymous => 'અજ્ઞાત';
 
   @override
@@ -992,6 +995,9 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get speakerLabel => 'સ્પીકર';
+
+  @override
+  String get audioOptions => 'Audio Options';
 
   @override
   String get end => 'સમાપ્ત';
@@ -1264,6 +1270,31 @@ class AppLocalizationsGu extends AppLocalizations {
   String get failedToRemoveRoom => 'Failed to remove room';
 
   @override
+  String get failedToCreateRoom => 'Failed to create room';
+
+  @override
+  String get roomChat => 'Room Chat';
+
+  @override
+  String get failedToResend => 'Failed to resend';
+
+  @override
+  String get edited => ' (edited)';
+
+  @override
+  String get failedToSendTapRetry =>
+      'Failed to send. Tap the message to retry.';
+
+  @override
+  String get saySomething => 'Say Something';
+
+  @override
+  String get tapToRetry => 'Tap to retry';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
   String get roomRemovedSuccessfully =>
       'Room removed from your list successfully';
 
@@ -1342,4 +1373,64 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get noRecordingError =>
       'તમે અધ્યાય માટે કઈ પણ રેકોર્ડિંગ નથી કર્યું. રૂમમાંથી બહાર નીકળતા પહેલાં કૃપા કરીને અધ્યાય રેકોર્ડ કરો.';
+
+  @override
+  String get audioOutput => 'Audio Output';
+
+  @override
+  String get selectPreferredSpeaker => 'Select your preferred speaker';
+
+  @override
+  String get noAudioOutputDevices => 'No audio output devices detected';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get deleteMessageTitle => 'સંદેશ કાઢી નાખો';
+
+  @override
+  String get deleteMessageContent =>
+      'શું તમે ખરેખર આ સંદેશ કાઢી નાખવા માંગો છો?';
+
+  @override
+  String get thisMessageWasDeleted => 'આ સંદેશ ડિલીટ કરવામાં આવ્યો છે';
+
+  @override
+  String get failedToDeleteMessage => 'સંદેશ ડિલીટ કરવામાં નિષ્ફળ';
+
+  @override
+  String get noFriendsYet => 'No Friends Yet';
+
+  @override
+  String get noFriendsDescription =>
+      'Your friends list is empty. Start connecting with people and grow your network!';
+
+  @override
+  String get findFriends => 'Find Friends';
+
+  @override
+  String get inviteFriend => 'Invite a Friend';
+
+  @override
+  String get noFriendRequestsYet => 'No Friend Requests';
+
+  @override
+  String get noFriendRequestsDescription =>
+      'You don\'t have any pending friend requests. Invite your friends to connect!';
+
+  @override
+  String inviteToResonate(String url) {
+    return 'Hey! Join me on Resonate - a social audio platform where every voice is valued. Download now: $url';
+  }
+
+  @override
+  String get usernameInvalidFormat =>
+      'યુઝરનેમમાં માત્ર અક્ષરો, નંબરો, બિંદુ, અન્ડરસ્કોર અને ડેશ હોવા જોઈએ';
+
+  @override
+  String get usernameAlreadyTaken => 'આ યુઝરનેમ પહેલેથી લેવામાં આવ્યું છે';
 }

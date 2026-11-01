@@ -1,0 +1,59 @@
+name: ✨ New Release
+description: Prepare for a new version release of Resonate
+title: "RELEASE: <Please write a comprehensive title after the 'RELEASE: ' prefix>"
+
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Use this template for tasks related to preparing a new release, including version bumps, changelog updates, and release notes preparation.
+
+  - type: input
+    id: release-version
+    attributes:
+      label: 📦 Release Version
+      description: >
+        What version are you preparing to release? (e.g., v1.2.0, v2.0.0-beta.1)
+      placeholder: "v1.2.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: changelog-summary
+    attributes:
+      label: 📝 Changelog Summary
+      description: >
+        Provide a brief summary of the key changes in this release. What's new, what's fixed, what's improved?
+      placeholder: |
+        - Added new feature X
+        - Fixed bug Y
+        - Improved performance of Z
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Breaking Changes
+      description: Does this release include any breaking changes?
+      options:
+        - label: "This release includes breaking changes"
+          required: false
+
+  - type: textarea
+    attributes:
+      label: Release Checklist
+      description: >
+        List any tasks that need to be completed before this release can be published.
+      placeholder: |
+        - [ ] Update version in pubspec.yaml
+        - [ ] Update CHANGELOG.md
+        - [ ] Create release notes
+        - [ ] Tag the release
+        - [ ] Test on all platforms
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: >
+        Thanks for helping with the release process! 🎉
