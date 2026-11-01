@@ -25,7 +25,6 @@ class StoryListTile extends StatelessWidget {
           color: colorScheme.onSurface,
           fontWeight: FontWeight.w500,
           fontSize: UiSizes.size_17,
-          fontFamily: 'Inter',
         ),
       ),
       subtitle: Column(
@@ -37,7 +36,6 @@ class StoryListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               fontSize: UiSizes.size_12,
-              fontFamily: 'Inter',
             ),
           ),
           Container(
@@ -57,7 +55,6 @@ class StoryListTile extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: UiSizes.size_12,
-                fontFamily: 'Inter',
                 fontWeight: FontWeight.bold,
               ),
             ),

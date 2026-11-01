@@ -36,7 +36,6 @@ class CategoryCard extends StatelessWidget {
               AppLocalizations.of(context)!.storyCategory(category.name),
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Colors.white,
-                fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
                 fontSize: UiSizes.size_17,
               ),

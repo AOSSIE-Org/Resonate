@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/update_enums.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:upgrader/upgrader.dart';
@@ -84,6 +85,10 @@ class AboutApp extends _$AboutApp {
     required bool Function() onLater,
     bool Function()? onUpdate,
   }) async {
+    // upgrader queries the Play Store, which an F-Droid install never came
+    // from. Reported as unsupported rather than failed, since nothing is wrong.
+    if (isFDroidBuild) return UpdateCheckResult.platformNotSupported;
+
     state = state.copyWith(isCheckingForUpdate: true);
     final upgrader = ref.read(upgraderProvider);
     try {

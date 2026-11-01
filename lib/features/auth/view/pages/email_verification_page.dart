@@ -4,7 +4,6 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/utils/utils.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
@@ -88,7 +87,7 @@ class _EmailVerificationPageState extends ConsumerState<EmailVerificationPage> {
                       child: RichText(
                         text: TextSpan(
                           style: TextStyle(
-                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            fontFamily: 'Poppins',
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
                           children: [

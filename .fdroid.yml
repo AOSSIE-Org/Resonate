@@ -1,0 +1,53 @@
+# F-Droid build metadata, owned by this repository rather than by fdroiddata.
+#
+# It exists so the F-Droid build can inject the production backend without
+# changing the defaults in lib/utils/constants.dart, which stay pointed at a
+# LAN address on purpose: contributors run their own self-hosted Appwrite and
+# pass --dart-define to reach it.
+#
+# None of the values below are secrets. Every one of them is readable from any
+# released APK, so publishing them here gives nothing away.
+
+Categories:
+  - Internet
+  - Multimedia
+License: GPL-3.0-only
+AuthorName: AOSSIE
+AuthorWebSite: https://aossie.org
+SourceCode: https://github.com/AOSSIE-Org/Resonate
+IssueTracker: https://github.com/AOSSIE-Org/Resonate/issues
+
+RepoType: git
+Repo: https://github.com/AOSSIE-Org/Resonate.git
+
+Builds:
+  - versionName: 4.0.0
+    versionCode: 8
+    commit: v4.0.0
+    subdir: android/app
+    sudo:
+      - apt-get update
+      - apt-get install -y clang cmake ninja-build pkg-config
+    srclibs:
+      - flutter@3.38.1
+    output: build/app/outputs/flutter-apk/app-release.apk
+    prebuild:
+      - $$flutter$$/bin/flutter config --no-analytics
+      - $$flutter$$/bin/flutter packages pub get
+    build:
+      - $$flutter$$/bin/flutter build apk --release
+        --dart-define=FDROID=true
+        --dart-define=APPWRITE_BASE_DOMAIN=appwrite.mayank4352.me
+        --dart-define=APPWRITE_PROJECT_ID=6ae1c1d9003b3cba2f8a
+        --dart-define=APPWRITE_SCHEME=https
+        --dart-define=APPWRITE_MQTT_HOST=mqtt.appwrite.mayank4352.me
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 4.0.0
+CurrentVersionCode: 8
+
+# Notes for whoever maintains this next:
+#
+# FDROID=true disables the in-app Play Store update check (upgrader), which an
+# F-Droid install never came from. See lib/utils/constants.dart.

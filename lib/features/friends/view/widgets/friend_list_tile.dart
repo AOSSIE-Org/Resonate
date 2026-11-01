@@ -106,7 +106,6 @@ class FriendListTile extends ConsumerWidget {
               fontWeight: FontWeight.w500,
               fontSize: UiSizes.size_17,
               fontStyle: FontStyle.normal,
-              fontFamily: 'Inter',
             ),
           ),
           subtitle: Column(
@@ -122,7 +121,6 @@ class FriendListTile extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: UiSizes.size_12,
                   fontStyle: FontStyle.normal,
-                  fontFamily: 'Inter',
                 ),
               ),
               Row(

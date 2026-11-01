@@ -1,0 +1,5 @@
+Resonate 4.0.0
+
+New: one-to-one calls with friends, polls in rooms, availability status, speaking animations, interest-based discovery, badges and stats, redesigned room and call screens with a miniplayer and picture-in-picture, recorded chapters, and notifications for likes, follows and friend requests.
+
+Push no longer needs Google services. Also: encrypted connections and audio output switching.

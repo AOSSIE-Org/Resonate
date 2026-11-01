@@ -123,7 +123,6 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
                             color: colorScheme.onSecondary,
                             fontWeight: FontWeight.w600,
                             fontSize: UiSizes.size_17,
-                            fontFamily: 'Inter',
                           ),
                       prefixIcon: Padding(
                         padding: EdgeInsets.only(left: UiSizes.width_16),
@@ -212,7 +211,6 @@ class _ExploreContent extends ConsumerWidget {
       color: colorScheme.onSurface,
       fontWeight: FontWeight.w900,
       fontSize: UiSizes.size_20,
-      fontFamily: 'Inter',
     );
 
     return Column(
@@ -283,7 +281,6 @@ class _ExploreContent extends ConsumerWidget {
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w900,
               fontSize: UiSizes.size_20,
-              fontFamily: 'Inter',
             ),
           ),
           SizedBox(height: UiSizes.height_10),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:resonate/features/achievements/model/achievement_colors.dart';
 import 'package:resonate/features/activity_status/model/activity_status_colors.dart';
 import 'package:resonate/features/theme/model/theme_model.dart';
@@ -8,7 +7,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 class ThemeModes {
   static ThemeData setLightTheme(ThemeModel theme) {
     return ThemeData(
-      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontFamily: 'Poppins',
       scaffoldBackgroundColor: theme.surfaceColor,
       extensions: const [ActivityStatusColors.light, AchievementColors.light],
       colorScheme: ColorScheme.light(
@@ -42,7 +41,7 @@ class ThemeModes {
           foregroundColor: theme.onPrimaryColor,
           fixedSize: const Size.fromHeight(48),
           textStyle: TextStyle(
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_16,
           ),
@@ -53,7 +52,7 @@ class ThemeModes {
           side: BorderSide(color: theme.primaryColor),
           fixedSize: const Size.fromHeight(48),
           textStyle: TextStyle(
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_16,
           ),
@@ -84,7 +83,7 @@ class ThemeModes {
 
   static ThemeData setDarkTheme(ThemeModel theme) {
     return ThemeData(
-      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontFamily: 'Poppins',
       scaffoldBackgroundColor: theme.surfaceColor,
       extensions: const [ActivityStatusColors.dark, AchievementColors.dark],
       colorScheme: ColorScheme.dark(
@@ -119,7 +118,7 @@ class ThemeModes {
           foregroundColor: theme.onPrimaryColor,
           fixedSize: const Size.fromHeight(48),
           textStyle: TextStyle(
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_16,
           ),
@@ -130,7 +129,7 @@ class ThemeModes {
           side: BorderSide(color: theme.primaryColor),
           fixedSize: const Size.fromHeight(48),
           textStyle: TextStyle(
-            fontFamily: GoogleFonts.poppins().fontFamily,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_16,
           ),

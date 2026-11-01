@@ -110,14 +110,16 @@ jobs:
           flutter build apk --release \
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }} \
-          --dart-define=APPWRITE_SCHEME=https
+          --dart-define=APPWRITE_SCHEME=https \
+          --dart-define=APPWRITE_MQTT_HOST=${{ secrets.APPWRITE_MQTT_HOST }}
 
       - name: Build Android App Bundle
         run: |
           flutter build appbundle --release \
           --dart-define=APPWRITE_BASE_DOMAIN=${{ secrets.APPWRITE_BASE_DOMAIN }} \
           --dart-define=APPWRITE_PROJECT_ID=${{ secrets.APPWRITE_PROJECT_ID }} \
-          --dart-define=APPWRITE_SCHEME=https
+          --dart-define=APPWRITE_SCHEME=https \
+          --dart-define=APPWRITE_MQTT_HOST=${{ secrets.APPWRITE_MQTT_HOST }}
 
       - name: Verify artifacts exist
         run: ls -lh ${{ env.APK_PATH }} ${{ env.AAB_PATH }}

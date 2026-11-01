@@ -34,7 +34,6 @@ class StoryCard extends StatelessWidget {
               // Overlaid on the cover image
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Colors.white,
-                fontFamily: 'Inter',
                 fontWeight: FontWeight.w900,
                 fontSize: UiSizes.size_19,
               ),

@@ -35,7 +35,6 @@ class ChapterListTile extends StatelessWidget {
             color: colorScheme.onSurface,
             fontWeight: FontWeight.w500,
             fontSize: UiSizes.size_17,
-            fontFamily: 'Inter',
           ),
         ),
         subtitle: Text(
@@ -44,7 +43,6 @@ class ChapterListTile extends StatelessWidget {
           maxLines: 2,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontSize: UiSizes.size_12,
-            fontFamily: 'Inter',
           ),
         ),
         trailing: Text(
