@@ -805,6 +805,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get join => 'ചേരുക';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'അസാധുവായ ടാഗ്:';
 
   @override
@@ -1019,15 +1022,6 @@ class AppLocalizationsMl extends AppLocalizations {
       'AOSSIE പരിപാലിക്കുന്ന ഒരു ഓപ്പൺ സോഴ്‌സ് പ്രോജക്റ്റാണ് റെസൊണേറ്റ്. സംഭാവന ചെയ്യാൻ ഞങ്ങളുടെ ഗിത്തബ് പരിശോധിക്കുക.';
 
   @override
-  String get mute => 'മ്യൂട്ട്';
-
-  @override
-  String get speakerLabel => 'സ്പീക്കർ';
-
-  @override
-  String get audioOptions => 'ഓഡിയോ ഓപ്ഷനുകൾ';
-
-  @override
   String get end => 'അവസാനിപ്പിക്കുക';
 
   @override
@@ -1172,6 +1166,9 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get followers => 'ഫോളോവേഴ്സ്';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'സുഹൃത്ത് അഭ്യർത്ഥനകൾ';
@@ -1334,6 +1331,12 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'നിങ്ങളെ റിപ്പോർട്ട് ചെയ്തിരിക്കുന്നു അല്ലെങ്കിൽ മുറിയിൽ നിന്ന് നീക്കം ചെയ്തു';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

@@ -1300,14 +1300,6 @@
   "@resonateOpenSourceProject": {
     "description": "प्रोजेक्ट री ओपन-सोर्स प्रकृति बारे जानकारी।"
   },
-  "mute": "म्यूट करो",
-  "@mute": {
-    "description": "माइक्रोफोन बंद करवा वालो बटन टेक्स्ट।"
-  },
-  "speakerLabel": "स्पीकर",
-  "@speakerLabel": {
-    "description": "स्पीकर टॉगल खातर रो लेबल।"
-  },
   "end": "समाप्त करो",
   "@end": {
     "description": "कॉल या सत्र खत्म करवा वालो बटन टेक्स्ट।"

@@ -9,5 +9,6 @@ abstract class SingleRoomState with _$SingleRoomState {
     required Participant me,
     @Default(<Participant>[]) List<Participant> participants,
     @Default(false) bool wasKicked,
+    @Default(false) bool roomEnded,
   }) = _SingleRoomState;
 }

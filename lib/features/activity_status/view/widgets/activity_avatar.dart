@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
+import 'package:resonate/features/profile/data/user_avatars.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-class ActivityAvatar extends StatelessWidget {
+class ActivityAvatar extends ConsumerWidget {
   const ActivityAvatar({
     required this.imageUrl,
+    this.uid,
     required this.status,
     required this.radius,
     this.dotSize,
@@ -16,6 +19,9 @@ class ActivityAvatar extends StatelessWidget {
   });
 
   final String? imageUrl;
+
+  final String? uid;
+
   final ActivityStatus? status;
   final double radius;
   final double? dotSize;
@@ -27,9 +33,12 @@ class ActivityAvatar extends StatelessWidget {
   static const double _badgedDotScale = 1.45;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scheme = Theme.of(context).colorScheme;
-    final url = imageUrl;
+    final owner = uid;
+    final url = owner == null
+        ? imageUrl
+        : bestAvatarUrl(ref, uid: owner, stored: imageUrl ?? '');
     final baseDotSize = dotSize ?? UiSizes.size_14;
 
     return Stack(

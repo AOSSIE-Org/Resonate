@@ -76,6 +76,7 @@ class _FriendListTileState extends ConsumerState<FriendListTile> {
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: ActivityAvatar(
+            uid: otherUid,
             imageUrl: userIsSender
                 ? friendModel.recieverProfileImgUrl
                 : friendModel.senderProfileImgUrl,

@@ -789,6 +789,9 @@ class AppLocalizationsRaj extends AppLocalizations {
   String get join => 'जूड़जो';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'अमान्य टैग:';
 
   @override
@@ -1000,15 +1003,6 @@ class AppLocalizationsRaj extends AppLocalizations {
       'Resonate एक ओपन सोर्स प्रोजेक्ट है जे AOSSIE नै बनाए राख्यो है। योगदान करवा खातर अमारो GitHub देखो।';
 
   @override
-  String get mute => 'म्यूट करो';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'Audio Options';
-
-  @override
   String get end => 'समाप्त करो';
 
   @override
@@ -1153,6 +1147,9 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String get followers => 'फॉलोअर';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'दोस्ती अरजियां';
@@ -1310,6 +1307,12 @@ class AppLocalizationsRaj extends AppLocalizations {
 
   @override
   String get removedFromRoom => 'थूं रिपोर्ट या रूम स्यूं हटायो ग्यो';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

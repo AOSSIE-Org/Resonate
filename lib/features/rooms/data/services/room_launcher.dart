@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
@@ -46,7 +47,7 @@ class RoomLauncher {
       );
     }
 
-    return AppwriteRoom(
+    final room = AppwriteRoom(
       id: result.roomId,
       name: name,
       description: description,
@@ -58,6 +59,9 @@ class RoomLauncher {
       myDocId: result.myDocId,
       reportedUsers: const [],
     );
+    _ref.read(activeRoomProvider.notifier).enter(room);
+    _ref.read(liveRoomsProvider.notifier).addLocally(room);
+    return room;
   }
 
   Future<AppwriteRoom?> findRoomById(String roomId) async {
@@ -87,7 +91,9 @@ class RoomLauncher {
         'Could not connect to the audio session.',
       );
     }
-    return room.copyWith(myDocId: result.myDocId);
+    final entered = room.copyWith(myDocId: result.myDocId);
+    _ref.read(activeRoomProvider.notifier).enter(entered);
+    return entered;
   }
 
   // Takes the current user out ending it if they are the host.
@@ -98,7 +104,9 @@ class RoomLauncher {
     final userId = _ref.read(requireUserProvider).uid;
     final endsTheRoom = room.isUserAdmin;
 
-    // Before the first await, so the list is right the moment the page pops.
+    // Before the first await, so the list is right the moment the page pops
+    // and the miniplayer goes away with it.
+    _ref.read(activeRoomProvider.notifier).clear();
     if (endsTheRoom) rooms.removeLocally(room.id);
     try {
       await liveKit.disconnect();

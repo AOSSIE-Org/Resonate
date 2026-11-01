@@ -25,6 +25,7 @@ import 'package:resonate/features/achievements/model/achievement_badge.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/profile/data/user_avatars.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
@@ -608,6 +609,10 @@ class FakeActivityRecorder extends ActivityRecorder {
   Future<void> recordRoomCredit(String roomId) async => roomCredits.add(roomId);
 }
 
+List<Override> avatarOverrides([Map<String, String?> urls = const {}]) => [
+  userAvatarUrlProvider.overrideWith((ref, uid) async => urls[uid]),
+];
+
 // Otherwise any badge widget builds the real repository and strands a timer.
 List<Override> achievementOverrides({
   UserStats myStats = UserStats.empty,
@@ -651,6 +656,7 @@ Future<ProviderContainer> installTestRootContainer({
   UserStats myStats = UserStats.empty,
   Map<String, UserStats> otherStats = const {},
   FakeActivityRecorder? activityRecorder,
+  List<Override> overrides = const [],
 }) async {
   final container = ProviderContainer(
     overrides: [
@@ -678,6 +684,7 @@ Future<ProviderContainer> installTestRootContainer({
         appwriteRealtimeProvider.overrideWithValue(realtime),
       if (messaging != null)
         firebaseMessagingProvider.overrideWithValue(messaging),
+      ...overrides,
     ],
   );
   if (authRepository != null || authState != null || account != null) {

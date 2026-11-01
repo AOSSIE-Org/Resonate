@@ -8,6 +8,7 @@ import 'package:resonate/features/rooms/model/room_failure.dart';
 import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 
+import '../../../helpers/test_root_container.dart';
 import 'rooms_repository_test.mocks.dart';
 
 @GenerateMocks([TablesDB, Realtime, Functions])
@@ -319,6 +320,90 @@ void main() {
           databaseId: masterDatabaseId,
           tableId: participantsTableId,
           rowId: 'p-7',
+        ),
+      ).called(1);
+    });
+  });
+
+  group('deleteRoom', () {
+    setUp(() {
+      // deleteRoom reads the admin token before anything else.
+      stubFlutterSecureStorageChannel();
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [
+            participantRow(id: 'p-1', uid: 'listener-1'),
+            participantRow(id: 'p-host', uid: 'admin-uid', isAdmin: true),
+            participantRow(id: 'p-2', uid: 'listener-2'),
+          ],
+        ),
+      );
+      when(
+        tables.deleteRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      ).thenAnswer((_) async {});
+    });
+
+    test('removes the host row before anyone else, then the room', () async {
+      await repo.deleteRoom(roomId: 'room-1');
+
+      // Participants read "the room ended" rather than "you were removed" from
+      // seeing the host go, so the host must not be deleted alongside them.
+      verifyInOrder([
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          rowId: 'p-host',
+        ),
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          rowId: 'p-1',
+        ),
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          rowId: 'p-2',
+        ),
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: roomsTableId,
+          rowId: 'room-1',
+        ),
+      ]);
+    });
+
+    test('still deletes every participant when there is no host row', () async {
+      when(
+        tables.listRows(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 1,
+          rows: [participantRow(id: 'p-1', uid: 'listener-1')],
+        ),
+      );
+
+      await repo.deleteRoom(roomId: 'room-1');
+
+      verify(
+        tables.deleteRow(
+          databaseId: masterDatabaseId,
+          tableId: participantsTableId,
+          rowId: 'p-1',
         ),
       ).called(1);
     });

@@ -1028,6 +1028,10 @@
     "@join": {
         "description": "Generic button text to join an activity or group."
     },
+    "returnToRoom": "Return",
+    "@returnToRoom": {
+        "description": "Button on a live room the user is already inside, minimised to the miniplayer."
+    },
     "invalidTags": "Invalid Tag:",
     "@invalidTags": {
         "description": "Error message prefix for an invalid tag."
@@ -1336,18 +1340,6 @@
     "@resonateOpenSourceProject": {
         "description": "Informational text about the open-source nature of the project."
     },
-    "mute": "Mute",
-    "@mute": {
-        "description": "Button text to mute the microphone."
-    },
-    "speakerLabel": "Speaker",
-    "@speakerLabel": {
-        "description": "Label for the speakerphone toggle."
-    },
-    "audioOptions": "Audio Options",
-    "@audioOptions": {
-        "description": "Label for the audio options/settings button."
-    },
     "end": "End",
     "@end": {
         "description": "Button text to end a call or session."
@@ -1517,6 +1509,10 @@
     "followers": "Followers",
     "@followers": {
         "description": "Label for the list of users who are following the current user."
+    },
+    "stars": "Stars",
+    "@stars": {
+        "description": "Label for a user's average star rating on their profile card."
     },
     "friendRequests": "Friend Requests",
     "@friendRequests": {
@@ -1735,6 +1731,14 @@
     "removedFromRoom": "You have been reported or removed from the room",
     "@removedFromRoom": {
         "description": "Message shown when a user is removed or reported from a room."
+    },
+    "roomEnded": "Room ended",
+    "@roomEnded": {
+        "description": "Title of the message shown when the host closes a room."
+    },
+    "roomEndedMessage": "This room has ended",
+    "@roomEndedMessage": {
+        "description": "Message shown to participants when the host closes the room they were in."
     },
     "reportType": "{type, select, harassment{Harassment / Hate Speech} abuse{Abusive content / Violence} spam{Spam / Scams / Fraud} impersonation{Impersonation / Fake Accounts} illegal{Illegal Activities} selfharm{Self-harm / Suicide / Mental health} misuse{Misuse of platform} other{Other}}",
     "@reportType": {

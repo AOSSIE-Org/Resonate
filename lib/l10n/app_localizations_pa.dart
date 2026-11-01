@@ -784,6 +784,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get join => 'ਸ਼ਾਮਲ ਹੋਵੋ';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'ਅਵੈਧ ਟੈਗ';
 
   @override
@@ -988,15 +991,6 @@ class AppLocalizationsPa extends AppLocalizations {
   String get resonateOpenSourceProject => 'ਰੇਜ਼ੋਨੇਟ ਖੁੱਲਾ ਸਰੋਤ ਪ੍ਰੋਜੈਕਟ ਹੈ';
 
   @override
-  String get mute => 'ਮਿਊਟ';
-
-  @override
-  String get speakerLabel => 'ਸਪੀਕਰ';
-
-  @override
-  String get audioOptions => 'ਆਡੀਓ ਵਿਕਲਪ';
-
-  @override
   String get end => 'ਅੰਤ';
 
   @override
@@ -1132,6 +1126,9 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get followers => 'ਫਾਲੋਅਰ';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'ਦੋਸਤ ਅਰਜ਼ੀਆਂ';
@@ -1284,6 +1281,12 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get removedFromRoom => 'ਰੂਮ ਤੋਂ ਹਟਾਇਆ ਗਿਆ';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

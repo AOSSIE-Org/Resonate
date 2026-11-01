@@ -8,6 +8,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -81,10 +83,10 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     );
 
     if (!pickedDateTime.isAfter(now)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.scheduledDateTimePast),
-        ),
+      customSnackbar(
+        AppLocalizations.of(context)!.error,
+        AppLocalizations.of(context)!.scheduledDateTimePast,
+        LogType.error,
       );
       return;
     }
@@ -143,10 +145,10 @@ class CreateRoomPageState extends ConsumerState<CreateRoomPage> {
     } catch (e) {
       log('createRoom failed: $e');
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.failedToCreateRoom),
-          ),
+        customSnackbar(
+          AppLocalizations.of(context)!.error,
+          AppLocalizations.of(context)!.failedToCreateRoom,
+          LogType.error,
         );
       }
       return null;

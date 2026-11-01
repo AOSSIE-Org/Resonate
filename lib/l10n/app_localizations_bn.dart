@@ -800,6 +800,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get join => 'যোগ দিন';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'অবৈধ ট্যাগ:';
 
   @override
@@ -1014,15 +1017,6 @@ class AppLocalizationsBn extends AppLocalizations {
       'Resonate হল AOSSIE দ্বারা পরিচালিত একটি ওপেন সোর্স প্রকল্প। অবদান রাখতে আমাদের github দেখুন।';
 
   @override
-  String get mute => 'মিউট';
-
-  @override
-  String get speakerLabel => 'স্পিকার';
-
-  @override
-  String get audioOptions => 'Audio Options';
-
-  @override
   String get end => 'শেষ করুন';
 
   @override
@@ -1167,6 +1161,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get followers => 'ফলোয়ার্স';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'বন্ধুত্বের অনুরোধ';
@@ -1328,6 +1325,12 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'আপনার বিরুদ্ধে অভিযোগ করা হয়েছে অথবা আপনাকে রুম থেকে সরিয়ে দেওয়া হয়েছে।';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

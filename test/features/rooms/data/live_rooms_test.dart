@@ -179,6 +179,72 @@ void main() {
     });
   });
 
+  group('RoomLauncher.createAndEnterLiveRoom', () {
+    test('the new room joins the list without a refetch', () async {
+      var roomListLoads = 0;
+      when(tables.listRows(
+        databaseId: masterDatabaseId,
+        tableId: roomsTableId,
+      )).thenAnswer((_) async {
+        roomListLoads++;
+        return RowList(total: 0, rows: []);
+      });
+      when(tables.createRow(
+        databaseId: masterDatabaseId,
+        tableId: participantsTableId,
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => buildRow(
+            id: 'doc-mine',
+            tableId: participantsTableId,
+            databaseId: masterDatabaseId,
+            data: const {},
+          ));
+      when(tables.getRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+      )).thenAnswer((_) async => _roomRow(id: 'new-room'));
+      when(tables.updateRow(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        rowId: anyNamed('rowId'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => _roomRow(id: 'new-room'));
+      when(functions.createExecution(
+        functionId: createRoomServiceId,
+        body: anyNamed('body'),
+      )).thenAnswer((_) async => _execution({
+            'livekit_room': {'name': 'new-room'},
+            'access_token': 'tok',
+            'livekit_socket_url': 'wss://example.com',
+          }));
+
+      final container = await installTestRootContainer(
+        authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
+        tables: tables,
+        realtime: realtime,
+        functions: functions,
+      );
+      expect(await container.read(liveRoomsProvider.future), isEmpty);
+
+      final created = await container
+          .read(roomLauncherProvider)
+          .createAndEnterLiveRoom(
+            name: 'Standup',
+            description: 'daily',
+            tags: const ['work'],
+          );
+
+      // Minimising the sheet drops the host back here, and nothing else
+      // reloads the list, so the room has to be in it already.
+      final rooms = container.read(liveRoomsProvider).value;
+      expect(rooms?.map((r) => r.id), contains(created.id));
+      expect(rooms?.first.name, 'Standup');
+      expect(roomListLoads, 1, reason: 'a refetch would race local edits');
+    });
+  });
+
   group('RoomLauncher.enterRoom', () {
     test('returns room with myDocId populated', () async {
       when(tables.deleteRow(

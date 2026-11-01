@@ -797,6 +797,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get join => 'ಸೇರಿ';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'ಅಮಾನ್ಯ ಟ್ಯಾಗ್:';
 
   @override
@@ -1011,15 +1014,6 @@ class AppLocalizationsKn extends AppLocalizations {
       'ರೆಸೋನೇಟ್ AOSSIE ನಿರ್ವಹಿಸುವ ಓಪನ್ ಸೋರ್ಸ್ ಪ್ರಾಜೆಕ್ಟ್ ಆಗಿದೆ.ನಿಮ್ಮ ಕೊಡುಗೆ ನೀಡಲು ನಮ್ಮ github ನೋಡಿ.';
 
   @override
-  String get mute => 'ಮ್ಯೂಟ್';
-
-  @override
-  String get speakerLabel => 'ಮಾತನಾಡುವವರು';
-
-  @override
-  String get audioOptions => 'Audio Options';
-
-  @override
   String get end => 'ಮುಗಿಸಿ';
 
   @override
@@ -1164,6 +1158,9 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get followers => 'ಫಾಲ್ಲೋವರ್ಸ್';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'ಸ್ನೇಹಿತರ ವಿನಂತಿಗಳು';
@@ -1326,6 +1323,12 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'ನಿಮ್ಮನ್ನು ವರದಿ ಮಾಡಲಾಗಿದೆ ಅಥವಾ ರೂಮ್‌ನಿಂದ ತೆಗೆದುಹಾಕಲಾಗಿದೆ';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

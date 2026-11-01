@@ -226,6 +226,8 @@ void main() {
         tester,
         CreateRoomPage(key: key),
         overrides: buildOverrides(fake),
+        // The toast goes into the root navigator's overlay.
+        rootOverlay: true,
       );
       await tester.pumpAndSettle();
 
@@ -238,6 +240,9 @@ void main() {
       expect(fake.liveCount, 1);
       expect(result, isNull);
       expect(find.text('Failed to create room'), findsOneWidget);
+
+      // Let it time out so no timer outlives the test.
+      await tester.pump(const Duration(seconds: 3));
     });
   });
 

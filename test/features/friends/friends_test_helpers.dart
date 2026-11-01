@@ -53,6 +53,7 @@ Future<void> pumpFriendsPage(
   Map<String, ActivityStatus> activityStatuses = const {},
   UserStats myStats = UserStats.empty,
   Map<String, UserStats> otherStats = const {},
+  Map<String, String?> avatarUrls = const {},
 }) async {
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
@@ -66,6 +67,7 @@ Future<void> pumpFriendsPage(
           others: activityStatuses,
         ),
         ...achievementOverrides(myStats: myStats, otherStats: otherStats),
+        ...avatarOverrides(avatarUrls),
         ...overrides,
       ],
       child: friendsTestApp(child),

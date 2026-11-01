@@ -7,20 +7,28 @@ class SessionHeader extends StatelessWidget {
     required this.title,
     required this.description,
     this.tags = const [],
+    this.centered = false,
   });
   final String title;
   final String description;
 
   final List<String> tags;
 
+  // The call screens centre the header over the stage, rooms keep it left.
+  final bool centered;
+
   @override
   Widget build(BuildContext context) {
     final mutedColor = Theme.of(context).colorScheme.onSurfaceVariant;
+    final align = centered ? TextAlign.center : TextAlign.start;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: centered
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
         Text(
           title,
+          textAlign: align,
           style: TextStyle(
             fontSize: UiSizes.size_32,
             fontWeight: FontWeight.bold,
@@ -31,12 +39,14 @@ class SessionHeader extends StatelessWidget {
           SizedBox(height: UiSizes.height_7),
           Text(
             description,
+            textAlign: align,
             style: TextStyle(color: mutedColor, fontSize: UiSizes.size_14),
           ),
         ],
         if (tags.isNotEmpty) ...[
           SizedBox(height: UiSizes.height_8),
           Wrap(
+            alignment: centered ? WrapAlignment.center : WrapAlignment.start,
             spacing: UiSizes.width_6,
             runSpacing: UiSizes.height_5,
             children: [for (final tag in tags) _TagChip(label: tag)],

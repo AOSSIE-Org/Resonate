@@ -797,6 +797,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get join => 'सामील व्हा';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'अवैध टॅग:';
 
   @override
@@ -1009,15 +1012,6 @@ class AppLocalizationsMr extends AppLocalizations {
       'रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा GitHub पहा.';
 
   @override
-  String get mute => 'मौन करा';
-
-  @override
-  String get speakerLabel => 'स्पीकर';
-
-  @override
-  String get audioOptions => 'ऑडिओ पर्याय';
-
-  @override
   String get end => 'समाप्त करा';
 
   @override
@@ -1162,6 +1156,9 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get followers => 'अनुयायी';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'मित्र विनंत्या';
@@ -1322,6 +1319,12 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'आपल्यावर तक्रार नोंदवण्यात आली आहे किंवा आपल्याला कक्षातून काढून देण्यात आले आहे';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

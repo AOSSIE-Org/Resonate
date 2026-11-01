@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_mark.dart';
 import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
+import 'package:resonate/features/friends/view/widgets/call_participant_tile.dart';
 import 'package:resonate/features/friends/view/widgets/friends_empty_view.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 
 import '../friends_test_helpers.dart';
 
@@ -97,6 +101,11 @@ void main() {
   });
 
   group('CallControlPanel', () {
+    // Each control is a keyed Material disc, matching the room footer.
+    Finder control(String id) => find.byKey(ValueKey('call-control-$id'));
+    Color? discColor(WidgetTester tester, String id) =>
+        tester.widget<Material>(control(id)).color;
+
     // Convenience builder with recording callbacks.
     Widget panel({
       required bool isMicOn,
@@ -154,12 +163,7 @@ void main() {
       final scheme = Theme.of(
         tester.element(find.byType(CallControlPanel)),
       ).colorScheme;
-      final speakerFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      expect(speakerFab.backgroundColor, scheme.primary);
+      expect(discColor(tester, 'speaker'), scheme.primary);
     });
 
     testFriendsWidget('speaker button uses inactive color when off', (
@@ -171,12 +175,7 @@ void main() {
       final scheme = Theme.of(
         tester.element(find.byType(CallControlPanel)),
       ).colorScheme;
-      final speakerFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      expect(speakerFab.backgroundColor, isNot(scheme.primary));
+      expect(discColor(tester, 'speaker'), isNot(scheme.primary));
     });
 
     testFriendsWidget('End button uses the error color', (tester) async {
@@ -186,12 +185,7 @@ void main() {
       final scheme = Theme.of(
         tester.element(find.byType(CallControlPanel)),
       ).colorScheme;
-      final endFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'end-chat',
-        ),
-      );
-      expect(endFab.backgroundColor, scheme.error);
+      expect(discColor(tester, 'end-chat'), scheme.error);
     });
 
     testFriendsWidget('each control button invokes its callback', (
@@ -211,32 +205,85 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'mic',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'audio-settings',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'end-chat',
-        ),
-      );
+      await tester.tap(control('mic'));
+      await tester.tap(control('speaker'));
+      await tester.tap(control('audio-settings'));
+      await tester.tap(control('end-chat'));
       await tester.pumpAndSettle();
 
       expect(mic, 1);
       expect(speaker, 1);
       expect(audio, 1);
       expect(end, 1);
+    });
+  });
+
+  group('CallParticipantTile', () {
+    const placeholder = 'https://example.com/placeholder.png';
+
+    Future<void> pumpTile(WidgetTester tester, CallParticipantTile tile) =>
+        pumpFriendsPage(
+          tester,
+          SizedBox(width: 200, child: tile),
+          overrides: [
+            userProfileImagePlaceholderUrlProvider.overrideWithValue(
+              placeholder,
+            ),
+          ],
+          otherStats: const {'u-1': UserStats.empty},
+        );
+
+    testFriendsWidget('the stage tile shows the name and a badge slot', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        const CallParticipantTile(
+          uid: 'u-1',
+          name: 'Alice',
+          imageUrl: 'https://example.com/a.jpg',
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Alice'), findsOneWidget);
+      expect(find.byType(BadgeMark), findsOneWidget);
+    });
+
+    testFriendsWidget('the compact tile drops the badge', (tester) async {
+      await pumpTile(
+        tester,
+        const CallParticipantTile(
+          uid: 'u-1',
+          name: 'You',
+          imageUrl: 'https://example.com/a.jpg',
+          compact: true,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('You'), findsOneWidget);
+      expect(find.byType(BadgeMark), findsNothing);
+    });
+
+    testFriendsWidget('an empty image url falls back to the placeholder', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        const CallParticipantTile(uid: 'u-1', name: 'Alice', imageUrl: ''),
+      );
+      await tester.pumpAndSettle();
+
+      final avatars = tester
+          .widgetList<CircleAvatar>(find.byType(CircleAvatar))
+          .where((a) => a.foregroundImage != null);
+      expect(
+        avatars.every(
+          (a) => (a.foregroundImage! as NetworkImage).url == placeholder,
+        ),
+        isTrue,
+      );
     });
   });
 }

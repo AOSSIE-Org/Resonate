@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/model/friend_call_model.dart';
+import 'package:resonate/shared/widgets/speaking_profile_avatar.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
@@ -38,11 +40,7 @@ class RingingPage extends ConsumerWidget {
                 ),
               ),
               const Spacer(),
-              _buildLoadingIndicator(
-                context,
-                primaryColor,
-                call.recieverProfileImageUrl,
-              ),
+              _buildLoadingIndicator(context, primaryColor, call),
               const Spacer(),
               _buildFooter(context, ref, primaryColor, onPrimaryColor),
             ],
@@ -55,7 +53,7 @@ class RingingPage extends ConsumerWidget {
   Widget _buildLoadingIndicator(
     BuildContext context,
     Color primaryColor,
-    String profileImageUrl,
+    FriendCallModel call,
   ) {
     return Stack(
       children: [
@@ -77,9 +75,10 @@ class RingingPage extends ConsumerWidget {
         Positioned.fill(
           child: Align(
             alignment: Alignment.center,
-            child: CircleAvatar(
+            child: SpeakingProfileAvatar(
+              uid: call.recieverUid,
+              imageUrl: call.recieverProfileImageUrl,
               radius: MediaQuery.of(context).size.height * 0.05,
-              backgroundImage: NetworkImage(profileImageUrl),
             ),
           ),
         ),

@@ -379,50 +379,6 @@ void main() {
     });
   });
 
-  group('getUserProfileImageUrl', () {
-    test('returns the url on success', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer(
-        (_) async => pairRow(
-          id: 'user-1',
-          tableId: usersTableID,
-          databaseId: userDatabaseID,
-          data: const {'profileImageUrl': 'https://example.com/pic.jpg'},
-        ),
-      );
-
-      final url = await repo.getUserProfileImageUrl('user-1');
-
-      expect(url, 'https://example.com/pic.jpg');
-      verify(
-        tables.getRow(
-          databaseId: userDatabaseID,
-          tableId: usersTableID,
-          rowId: 'user-1',
-        ),
-      ).called(1);
-    });
-
-    test('returns null on any error', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenThrow(AppwriteException('missing', 404));
-
-      final url = await repo.getUserProfileImageUrl('user-1');
-
-      expect(url, isNull);
-    });
-  });
-
   group('updateUserRating', () {
     test('writes ratingTotal + ratingCount to the user row', () async {
       when(

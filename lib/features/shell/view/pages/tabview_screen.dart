@@ -16,6 +16,8 @@ import 'package:resonate/features/shell/view/widgets/profile_avatar.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/pages/explore_page.dart';
 import 'package:resonate/l10n/app_localizations.dart';
+import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/utils/utils.dart';
@@ -48,13 +50,10 @@ class _TabViewScreenState extends ConsumerState<TabViewScreen> {
       } catch (e) {
         log('Room creation error: $e');
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                '${AppLocalizations.of(context)!.failedToCreateRoom}: $e',
-              ),
-              backgroundColor: Theme.of(context).colorScheme.error,
-            ),
+          customSnackbar(
+            AppLocalizations.of(context)!.error,
+            '${AppLocalizations.of(context)!.failedToCreateRoom}: $e',
+            LogType.error,
           );
         }
       } finally {

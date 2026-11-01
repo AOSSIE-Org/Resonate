@@ -1594,6 +1594,12 @@ abstract class AppLocalizations {
   /// **'Join'**
   String get join;
 
+  /// Button on a live room the user is already inside, minimised to the miniplayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get returnToRoom;
+
   /// Error message prefix for an invalid tag.
   ///
   /// In en, this message translates to:
@@ -1960,24 +1966,6 @@ abstract class AppLocalizations {
   /// **'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.'**
   String get resonateOpenSourceProject;
 
-  /// Button text to mute the microphone.
-  ///
-  /// In en, this message translates to:
-  /// **'Mute'**
-  String get mute;
-
-  /// Label for the speakerphone toggle.
-  ///
-  /// In en, this message translates to:
-  /// **'Speaker'**
-  String get speakerLabel;
-
-  /// Label for the audio options/settings button.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Options'**
-  String get audioOptions;
-
   /// Button text to end a call or session.
   ///
   /// In en, this message translates to:
@@ -2169,6 +2157,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Followers'**
   String get followers;
+
+  /// Label for a user's average star rating on their profile card.
+  ///
+  /// In en, this message translates to:
+  /// **'Stars'**
+  String get stars;
 
   /// Header for the list of incoming friend requests.
   ///
@@ -2451,6 +2445,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have been reported or removed from the room'**
   String get removedFromRoom;
+
+  /// Title of the message shown when the host closes a room.
+  ///
+  /// In en, this message translates to:
+  /// **'Room ended'**
+  String get roomEnded;
+
+  /// Message shown to participants when the host closes the room they were in.
+  ///
+  /// In en, this message translates to:
+  /// **'This room has ended'**
+  String get roomEndedMessage;
 
   /// Selects the appropriate report type label based on a key.
   ///

@@ -785,10 +785,6 @@
         "description": "ऑडियो कक्षसाठी सामान्य शीर्षक."
     },
 
-    "audioOptions": "ऑडिओ पर्याय",
-    "@audioOptions": {
-        "description": "ऑडिओ संबंधित सेटिंग्ज किंवा पर्याय उघडण्यासाठी वापरले जाणारे शीर्षक."
-    },
 
     "failedToRemoveRoom": "कक्ष काढून टाकण्यात अयशस्वी",
     "@failedToRemoveRoom": {
@@ -1374,14 +1370,6 @@
     "resonateOpenSourceProject": "रेजोनेट AOSSIE द्वारे राखलेला मुक्त स्रोत प्रकल्प आहे. योगदान देण्यासाठी आमचा GitHub पहा.",
     "@resonateOpenSourceProject": {
         "description": "प्रकल्पच्या मुक्त-स्रोत स्वरूपबद्दल माहितीपूर्ण मजकूर."
-    },
-    "mute": "मौन करा",
-    "@mute": {
-        "description": "मायक्रोफोन मौन करण्यासाठी बटण मजकूर."
-    },
-    "speakerLabel": "स्पीकर",
-    "@speakerLabel": {
-        "description": "स्पीकरफोन टॉगलचा लेबल."
     },
     "end": "समाप्त करा",
     "@end": {

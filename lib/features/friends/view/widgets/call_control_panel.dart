@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
+
 
 class CallControlPanel extends StatelessWidget {
   const CallControlPanel({
@@ -20,65 +20,64 @@ class CallControlPanel extends StatelessWidget {
   final VoidCallback onAudioSettings;
   final VoidCallback onEnd;
 
-  static Color _inactiveButtonColor(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return scheme.brightness == Brightness.light
-        ? scheme.onPrimary.withValues(alpha: 0.5)
-        : scheme.onSurface.withValues(alpha: 0.5);
-  }
-
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final l10n = AppLocalizations.of(context)!;
-    final inactive = _inactiveButtonColor(context);
-
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: UiSizes.height_20),
-      color: scheme.brightness == Brightness.light
-          ? scheme.primary
-          : scheme.surfaceContainerHighest,
-      height: UiSizes.height_131,
-      child: Row(
-        children: [
-          // Equal-width cells so long labels ellipsize instead of overflowing.
-          Expanded(
-            child: _CallControlButton(
-              icon: isMicOn ? Icons.mic : Icons.mic_off,
-              label: l10n.mute,
-              onPressed: onToggleMic,
-              backgroundColor: isMicOn ? inactive : scheme.primary,
-              heroTag: 'mic',
+    final inactive = scheme.surfaceContainerHighest;
+    return Padding(
+      padding: EdgeInsets.only(bottom: UiSizes.height_16),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: UiSizes.width_10,
+          vertical: UiSizes.height_10,
+        ),
+        decoration: BoxDecoration(
+          color: scheme.secondary,
+          borderRadius: BorderRadius.circular(UiSizes.width_56),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: UiSizes.width_10,
+              offset: Offset(0, UiSizes.height_2),
             ),
-          ),
-          Expanded(
-            child: _CallControlButton(
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Highlighted while the mic is live.
+            _CallControlButton(
+              id: 'mic',
+              icon: isMicOn ? Icons.mic : Icons.mic_off,
+              onPressed: onToggleMic,
+              backgroundColor: isMicOn ? scheme.primary : inactive,
+              foregroundColor: isMicOn ? scheme.onPrimary : scheme.onSurface,
+            ),
+            _CallControlButton(
+              id: 'speaker',
               icon: Icons.volume_up,
-              label: l10n.speakerLabel,
               onPressed: onToggleLoudSpeaker,
               backgroundColor: isLoudSpeakerOn ? scheme.primary : inactive,
-              heroTag: 'speaker',
+              foregroundColor: isLoudSpeakerOn
+                  ? scheme.onPrimary
+                  : scheme.onSurface,
             ),
-          ),
-          Expanded(
-            child: _CallControlButton(
+            _CallControlButton(
+              id: 'audio-settings',
               icon: Icons.settings_voice,
-              label: l10n.audioOptions,
               onPressed: onAudioSettings,
               backgroundColor: inactive,
-              heroTag: 'audio-settings',
+              foregroundColor: scheme.onSurface,
             ),
-          ),
-          Expanded(
-            child: _CallControlButton(
-              icon: Icons.cancel_outlined,
-              label: l10n.end,
+            _CallControlButton(
+              id: 'end-chat',
+              icon: Icons.call_end,
               onPressed: onEnd,
               backgroundColor: scheme.error,
-              heroTag: 'end-chat',
+              foregroundColor: scheme.onError,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -86,43 +85,40 @@ class CallControlPanel extends StatelessWidget {
 
 class _CallControlButton extends StatelessWidget {
   const _CallControlButton({
+    required this.id,
     required this.icon,
-    required this.label,
     required this.onPressed,
     required this.backgroundColor,
-    required this.heroTag,
+    required this.foregroundColor,
   });
 
+  final String id;
+
   final IconData icon;
-  final String label;
   final VoidCallback onPressed;
   final Color backgroundColor;
-  final String heroTag;
+  final Color foregroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: UiSizes.height_56,
-          width: UiSizes.width_56,
-          child: FloatingActionButton(
-            elevation: 0,
-            heroTag: heroTag,
-            onPressed: onPressed,
-            backgroundColor: backgroundColor,
-            child: Icon(icon, size: UiSizes.size_24),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: UiSizes.width_5),
+      child: Material(
+        key: ValueKey('call-control-$id'),
+        color: backgroundColor,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onPressed,
+          child: SizedBox(
+            width: UiSizes.width_56,
+            height: UiSizes.width_56,
+            child: Center(
+              child: Icon(icon, size: UiSizes.size_26, color: foregroundColor),
+            ),
           ),
         ),
-        SizedBox(height: UiSizes.height_4),
-        Text(
-          label,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: UiSizes.height_14),
-        ),
-      ],
+      ),
     );
   }
 }

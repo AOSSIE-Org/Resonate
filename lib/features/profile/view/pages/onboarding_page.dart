@@ -68,7 +68,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    dismissCustomSnackbar();
     final notifier = ref.read(onboardingProvider.notifier);
     if (value.isValidUsername()) {
       notifier.setUsernameChecking(true);

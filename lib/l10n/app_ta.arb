@@ -1596,20 +1596,8 @@
     "description": "Informational text about the open-source nature of the project."
   },
 
-  "mute": "மியூட்",
-  "@mute": {
-    "description": "Button text to mute the microphone."
-  },
 
-  "speakerLabel": "ஸ்பீக்கர்",
-  "@speakerLabel": {
-    "description": "Label for the speakerphone toggle."
-  },
 
-  "audioOptions": "ஒலி விருப்பங்கள்",
-  "@audioOptions": {
-    "description": "Label for the audio options/settings button."
-  },
 
   "end": "முடிக்கவும்",
   "@end": {

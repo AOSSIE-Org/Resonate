@@ -6,6 +6,7 @@ import 'package:resonate/core/providers/appwrite_providers.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
+import 'package:resonate/features/profile/model/user_profile_summary.dart';
 import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -55,6 +56,30 @@ class ProfileRepository {
       log('Failed to fetch followers: ${e.message}');
       return [];
     }
+  }
+  
+  Future<UserProfileSummary> fetchProfileSummary(String uid) async {
+    final row = await _tables.getRow(
+      databaseId: userDatabaseID,
+      tableId: usersTableID,
+      rowId: uid,
+      queries: [
+        Query.select(['*', 'followers.*']),
+      ],
+    );
+
+    final data = row.data;
+    final ratingCount = (data['ratingCount'] as num?)?.toInt() ?? 0;
+    final ratingTotal = (data['ratingTotal'] as num?)?.toDouble() ?? 0;
+
+    return UserProfileSummary(
+      uid: uid,
+      name: data['name'] as String? ?? '',
+      username: data['username'] as String? ?? '',
+      avatarUrl: data['profileImageUrl'] as String? ?? '',
+      rating: ratingCount == 0 ? 0 : ratingTotal / ratingCount,
+      followerCount: (data['followers'] as List<dynamic>? ?? const []).length,
+    );
   }
 
   Future<String?> getFcmToken() => _messaging.getToken();

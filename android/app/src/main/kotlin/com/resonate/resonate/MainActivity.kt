@@ -1,6 +1,7 @@
 package com.resonate.resonate
 
-import io.flutter.embedding.android.FlutterActivity
+import cl.puntito.simple_pip_mode.PipCallbackHelperActivityWrapper
 
-class MainActivity: FlutterActivity() {
+// The wrapper forwards Android's picture-in-picture mode changes to Flutter
+class MainActivity: PipCallbackHelperActivityWrapper() {
 }

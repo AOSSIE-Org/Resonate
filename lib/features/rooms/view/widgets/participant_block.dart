@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:resonate/features/achievements/view/widgets/badge_mark.dart';
+import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/theme/model/activity_status_colors.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
@@ -50,7 +51,14 @@ class ParticipantBlock extends ConsumerWidget {
     return items
         .map(
           (item) => FocusedMenuItem(
-            title: Text(item.text, style: TextStyle(fontSize: UiSizes.size_14)),
+            title: Expanded(
+              child: Text(
+                item.text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: UiSizes.size_14),
+              ),
+            ),
             trailingIcon: Icon(
               Icons.remove_circle_outline,
               color: colorScheme.error,
@@ -179,10 +187,25 @@ class ParticipantBlock extends ConsumerWidget {
         (me.isAdmin || (me.isModerator && !participant.isModerator)) &&
         !participant.isAdmin;
 
+    final card = GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onLongPress: () => showUserProfileCard(
+        context,
+        uid: participant.uid,
+        name: participant.name,
+        avatarUrl: avatarUrl,
+      ),
+      child: featured
+          ? _featuredCard(context, avatarUrl)
+          : _gridCard(context, avatarUrl),
+    );
+
+    if (!canOpenMenu) return card;
+
     return FocusedMenuHolder(
       onPressed: () {},
-      menuItemExtent: UiSizes.width_45,
-      menuWidth: UiSizes.width_200 * 1.05,
+      menuItemExtent: MediaQuery.textScalerOf(context).scale(UiSizes.height_45),
+      menuWidth: MediaQuery.sizeOf(context).width * 0.62,
       menuBoxDecoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(5.0),
@@ -197,10 +220,8 @@ class ParticipantBlock extends ConsumerWidget {
         context,
       ).colorScheme.surface.withValues(alpha: 0.54),
       menuItems: _menuItems(context, ref, me),
-      openWithTap: canOpenMenu,
-      child: featured
-          ? _featuredCard(context, avatarUrl)
-          : _gridCard(context, avatarUrl),
+      openWithTap: true,
+      child: card,
     );
   }
 

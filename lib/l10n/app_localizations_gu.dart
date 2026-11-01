@@ -793,6 +793,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get join => 'જોડાવો';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'અમાન્ય ટૅગ:';
 
   @override
@@ -1006,15 +1009,6 @@ class AppLocalizationsGu extends AppLocalizations {
       'રેઝોનેટ એ AOSSIE દ્વારા જાળવવામાં આવતો ઓપન સોર્સ પ્રોજેક્ટ છે. યોગદાન આપવા માટે અમારો ગિટહબ જુઓ.';
 
   @override
-  String get mute => 'મ્યૂટ કરો';
-
-  @override
-  String get speakerLabel => 'સ્પીકર';
-
-  @override
-  String get audioOptions => 'Audio Options';
-
-  @override
   String get end => 'સમાપ્ત';
 
   @override
@@ -1159,6 +1153,9 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get followers => 'ફોલોવર્સ';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'મિત્ર વિનંતીઓ';
@@ -1319,6 +1316,12 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'તમને રૂમમાંથી દૂર કરવામાં આવ્યા છે અથવા રિપોર્ટ કરવામાં આવ્યા છે.';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

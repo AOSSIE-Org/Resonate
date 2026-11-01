@@ -793,6 +793,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get join => 'Join';
 
   @override
+  String get returnToRoom => 'Return';
+
+  @override
   String get invalidTags => 'Invalid Tag:';
 
   @override
@@ -1005,15 +1008,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Resonate is an open source project maintained by AOSSIE. Checkout our github to contribute.';
 
   @override
-  String get mute => 'Mute';
-
-  @override
-  String get speakerLabel => 'Speaker';
-
-  @override
-  String get audioOptions => 'Audio Options';
-
-  @override
   String get end => 'End';
 
   @override
@@ -1158,6 +1152,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get followers => 'Followers';
+
+  @override
+  String get stars => 'Stars';
 
   @override
   String get friendRequests => 'Friend Requests';
@@ -1319,6 +1316,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get removedFromRoom =>
       'You have been reported or removed from the room';
+
+  @override
+  String get roomEnded => 'Room ended';
+
+  @override
+  String get roomEndedMessage => 'This room has ended';
 
   @override
   String reportType(String type) {

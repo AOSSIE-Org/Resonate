@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
@@ -10,6 +12,8 @@ import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
 import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
@@ -17,6 +21,40 @@ import 'package:resonate/utils/enums/activity_status.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
+
+
+class _RecordingRouter extends GoRouter {
+  _RecordingRouter()
+    : super.routingConfig(
+        routingConfig: ValueNotifier(
+          RoutingConfig(
+            routes: [
+              GoRoute(path: '/', builder: (_, _) => const SizedBox.shrink()),
+            ],
+          ),
+        ),
+      );
+
+  final List<String> calls = [];
+
+  @override
+  Future<T?> push<T extends Object?>(String location, {Object? extra}) async {
+    calls.add('push $location');
+    return null;
+  }
+
+  @override
+  Future<T?> pushReplacement<T extends Object?>(
+    String location, {
+    Object? extra,
+  }) async {
+    calls.add('pushReplacement $location');
+    return null;
+  }
+
+  @override
+  void go(String location, {Object? extra}) => calls.add('go $location');
+}
 
 void main() {
   late MockTablesDB tables;
@@ -102,7 +140,11 @@ void main() {
 
   Future<dynamic> buildContainer({
     Map<String, ActivityStatus> activityStatuses = const {},
+    _RecordingRouter? router,
   }) => installTestRootContainer(
+    overrides: [
+      if (router != null) routerProvider.overrideWithValue(router),
+    ],
     authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
     tables: tables,
     realtime: realtime,
@@ -310,6 +352,67 @@ void main() {
         FriendCallStatus.connected,
       );
       expect(container.read(liveKitControllerProvider).isConnected, isTrue);
+    });
+
+    test('connecting replaces the ringing screen instead of stacking on it', () async {
+      final router = _RecordingRouter();
+      final container = await buildContainer(router: router);
+      final notifier = container.read(friendCallCoordinatorProvider.notifier);
+      await notifier.startCall(friend);
+      final call = container.read(friendCallCoordinatorProvider).activeCall!;
+
+      expect(router.calls, ['push ${RoutePaths.ringingScreen}']);
+
+      realtimeEvents.add(
+        RealtimeMessage(
+          events: [
+            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+          ],
+          payload: callJson(
+            call.copyWith(callStatus: FriendCallStatus.connected),
+          ),
+          channels: [
+            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+          ],
+          timestamp: DateTime.now().toIso8601String(),
+        ),
+      );
+      await pumpEventQueue();
+
+      // Stacked, minimising the call would land back on "Calling...", whose
+      // Cancel button ends the call.
+      expect(router.calls.last, 'pushReplacement ${RoutePaths.friendCallScreen}');
+    });
+
+    test('the answering side pushes the call screen, with nothing to replace', () async {
+      final router = _RecordingRouter();
+      final container = await buildContainer(router: router);
+      final call = FriendCallModel(
+        callerName: 'Friend',
+        recieverName: 'Me',
+        callerUsername: 'friend',
+        recieverUsername: 'me',
+        callerUid: 'reciever-1',
+        recieverUid: 'me',
+        callerProfileImageUrl: 'https://example.com/c.jpg',
+        recieverProfileImageUrl: 'https://example.com/r.jpg',
+        livekitRoomId: 'friendship-doc',
+        callStatus: FriendCallStatus.waiting,
+        docId: 'incoming-call',
+      );
+      when(
+        tables.getRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      ).thenAnswer((_) async => buildRow(id: call.docId, data: callJson(call)));
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .onAnswerCall({'call_id': call.docId});
+
+      expect(router.calls, ['push ${RoutePaths.friendCallScreen}']);
     });
 
     test('realtime ended update tears the call down', () async {
