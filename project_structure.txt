@@ -223,6 +223,8 @@
 ├── l10n.yaml
 ├── lib
 │   ├── core
+│   │   ├── errors
+│   │   │   └── appwrite_error.dart
 │   │   ├── providers
 │   │   │   ├── app_lifecycle_provider.dart
 │   │   │   ├── appwrite_providers.dart
@@ -266,12 +268,8 @@
 │   │   │   │   ├── repositories
 │   │   │   │   │   ├── auth_repository.dart
 │   │   │   │   │   └── generated
-│   │   │   │   │       ├── auth_repository.g.dart
-│   │   │   │   │       └── callkit_service.g.dart
+│   │   │   │   │       └── auth_repository.g.dart
 │   │   │   │   └── services
-│   │   │   │       ├── callkit_service.dart
-│   │   │   │       ├── generated
-│   │   │   │       │   └── callkit_service.g.dart
 │   │   │   │       └── notification_service.dart
 │   │   │   ├── model
 │   │   │   │   ├── auth_failure.dart
@@ -327,44 +325,76 @@
 │   │   │   │   │   │   └── pair_chat_repository.g.dart
 │   │   │   │   │   └── pair_chat_repository.dart
 │   │   │   │   └── services
+│   │   │   │       ├── callkit_service.dart
 │   │   │   │       ├── friend_call_coordinator.dart
-│   │   │   │       └── generated
-│   │   │   │           └── friend_call_coordinator.g.dart
+│   │   │   │       ├── generated
+│   │   │   │       │   ├── callkit_service.g.dart
+│   │   │   │       │   ├── friend_call_coordinator.g.dart
+│   │   │   │       │   └── pair_chat_session.g.dart
+│   │   │   │       └── pair_chat_session.dart
 │   │   │   ├── friends_routes.dart
 │   │   │   ├── model
 │   │   │   │   ├── friend_call_model.dart
 │   │   │   │   ├── friend_call_state.dart
+│   │   │   │   ├── friends_failure.dart
 │   │   │   │   ├── friends_model.dart
 │   │   │   │   ├── friends_state.dart
 │   │   │   │   ├── generated
 │   │   │   │   │   ├── friend_call_model.freezed.dart
 │   │   │   │   │   ├── friend_call_model.g.dart
 │   │   │   │   │   ├── friend_call_state.freezed.dart
+│   │   │   │   │   ├── friends_failure.freezed.dart
 │   │   │   │   │   ├── friends_model.freezed.dart
 │   │   │   │   │   ├── friends_model.g.dart
 │   │   │   │   │   ├── friends_state.freezed.dart
 │   │   │   │   │   └── pair_chat_state.freezed.dart
 │   │   │   │   └── pair_chat_state.dart
+│   │   │   └── view
+│   │   │       ├── pages
+│   │   │       │   ├── friend_call_page.dart
+│   │   │       │   ├── friend_requests_page.dart
+│   │   │       │   ├── friends_page.dart
+│   │   │       │   ├── pair_chat_page.dart
+│   │   │       │   ├── pair_chat_users_page.dart
+│   │   │       │   ├── pairing_page.dart
+│   │   │       │   └── ringing_page.dart
+│   │   │       └── widgets
+│   │   │           ├── call_control_panel.dart
+│   │   │           ├── call_user_info_row.dart
+│   │   │           ├── friend_list_tile.dart
+│   │   │           ├── friends_empty_view.dart
+│   │   │           ├── pair_chat_dialog.dart
+│   │   │           └── rating_sheet.dart
+│   │   ├── live_audio
+│   │   │   ├── data
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── speaking_bands.g.dart
+│   │   │   │   │   └── speaking_levels.g.dart
+│   │   │   │   ├── livekit_join.dart
+│   │   │   │   ├── services
+│   │   │   │   │   ├── audio_band_tracker.dart
+│   │   │   │   │   ├── audio_device_service.dart
+│   │   │   │   │   ├── generated
+│   │   │   │   │   │   └── livekit_controller.g.dart
+│   │   │   │   │   ├── livekit_controller.dart
+│   │   │   │   │   └── livekit_session.dart
+│   │   │   │   ├── speaking_bands.dart
+│   │   │   │   ├── speaking_levels.dart
+│   │   │   │   └── speaking_throttle.dart
+│   │   │   ├── model
+│   │   │   │   ├── audio_device.dart
+│   │   │   │   ├── audio_device_state.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── audio_device_state.freezed.dart
+│   │   │   │   │   └── livekit_state.freezed.dart
+│   │   │   │   └── livekit_state.dart
 │   │   │   ├── view
-│   │   │   │   ├── pages
-│   │   │   │   │   ├── friend_call_page.dart
-│   │   │   │   │   ├── friend_requests_page.dart
-│   │   │   │   │   ├── friends_page.dart
-│   │   │   │   │   ├── pair_chat_page.dart
-│   │   │   │   │   ├── pair_chat_users_page.dart
-│   │   │   │   │   ├── pairing_page.dart
-│   │   │   │   │   └── ringing_page.dart
 │   │   │   │   └── widgets
-│   │   │   │       ├── call_control_panel.dart
-│   │   │   │       ├── call_user_info_row.dart
-│   │   │   │       ├── friend_list_tile.dart
-│   │   │   │       ├── friends_empty_view.dart
-│   │   │   │       ├── pair_chat_dialog.dart
-│   │   │   │       └── rating_sheet.dart
+│   │   │   │       └── audio_selector_dialog.dart
 │   │   │   └── viewmodel
-│   │   │       ├── generated
-│   │   │       │   └── pair_chat_notifier.g.dart
-│   │   │       └── pair_chat_notifier.dart
+│   │   │       ├── audio_device_notifier.dart
+│   │   │       └── generated
+│   │   │           └── audio_device_notifier.g.dart
 │   │   ├── profile
 │   │   │   ├── data
 │   │   │   │   └── repositories
@@ -406,7 +436,6 @@
 │   │   │   │   │   ├── upcoming_rooms.g.dart
 │   │   │   │   │   └── voter_profiles.g.dart
 │   │   │   │   ├── live_rooms.dart
-│   │   │   │   ├── livekit_join.dart
 │   │   │   │   ├── repositories
 │   │   │   │   │   ├── generated
 │   │   │   │   │   │   ├── room_chat_repository.g.dart
@@ -420,25 +449,19 @@
 │   │   │   │   ├── room_chat.dart
 │   │   │   │   ├── room_polls.dart
 │   │   │   │   ├── services
-│   │   │   │   │   ├── audio_device_service.dart
 │   │   │   │   │   ├── generated
-│   │   │   │   │   │   ├── livekit_controller.g.dart
-│   │   │   │   │   │   └── room_launcher.g.dart
-│   │   │   │   │   ├── livekit_controller.dart
-│   │   │   │   │   ├── livekit_session.dart
-│   │   │   │   │   └── room_launcher.dart
+│   │   │   │   │   │   ├── room_launcher.g.dart
+│   │   │   │   │   │   └── room_session.g.dart
+│   │   │   │   │   ├── room_launcher.dart
+│   │   │   │   │   └── room_session.dart
 │   │   │   │   ├── upcoming_rooms.dart
 │   │   │   │   └── voter_profiles.dart
 │   │   │   ├── model
 │   │   │   │   ├── appwrite_room.dart
 │   │   │   │   ├── appwrite_upcoming_room.dart
-│   │   │   │   ├── audio_device.dart
-│   │   │   │   ├── audio_device_state.dart
 │   │   │   │   ├── generated
 │   │   │   │   │   ├── appwrite_room.freezed.dart
 │   │   │   │   │   ├── appwrite_upcoming_room.freezed.dart
-│   │   │   │   │   ├── audio_device_state.freezed.dart
-│   │   │   │   │   ├── livekit_state.freezed.dart
 │   │   │   │   │   ├── participant.freezed.dart
 │   │   │   │   │   ├── participant.g.dart
 │   │   │   │   │   ├── poll.freezed.dart
@@ -451,8 +474,9 @@
 │   │   │   │   │   ├── room_message.freezed.dart
 │   │   │   │   │   ├── room_message.g.dart
 │   │   │   │   │   ├── room_polls_state.freezed.dart
-│   │   │   │   │   └── single_room_state.freezed.dart
-│   │   │   │   ├── livekit_state.dart
+│   │   │   │   │   ├── single_room_state.freezed.dart
+│   │   │   │   │   ├── user_report_model.freezed.dart
+│   │   │   │   │   └── user_report_model.g.dart
 │   │   │   │   ├── participant.dart
 │   │   │   │   ├── poll.dart
 │   │   │   │   ├── poll_vote.dart
@@ -461,6 +485,7 @@
 │   │   │   │   ├── room_message.dart
 │   │   │   │   ├── room_polls_state.dart
 │   │   │   │   ├── single_room_state.dart
+│   │   │   │   ├── user_report_model.dart
 │   │   │   │   └── voter_profile.dart
 │   │   │   ├── rooms_routes.dart
 │   │   │   ├── view
@@ -469,25 +494,21 @@
 │   │   │   │   │   ├── room_chat_page.dart
 │   │   │   │   │   └── room_page.dart
 │   │   │   │   └── widgets
-│   │   │   │       ├── audio_selector_dialog.dart
 │   │   │   │       ├── create_poll_sheet.dart
 │   │   │   │       ├── live_room_tile.dart
 │   │   │   │       ├── message_status_indicator.dart
 │   │   │   │       ├── no_room_view.dart
 │   │   │   │       ├── participant_block.dart
 │   │   │   │       ├── poll_card.dart
+│   │   │   │       ├── report_widget.dart
 │   │   │   │       ├── search_rooms.dart
 │   │   │   │       └── upcoming_room_tile.dart
 │   │   │   └── viewmodel
-│   │   │       ├── audio_device_notifier.dart
 │   │   │       ├── create_room_notifier.dart
 │   │   │       ├── generated
-│   │   │       │   ├── audio_device_notifier.g.dart
 │   │   │       │   ├── create_room_notifier.g.dart
-│   │   │       │   ├── room_chat_notifier.g.dart
-│   │   │       │   └── single_room_notifier.g.dart
-│   │   │       ├── room_chat_notifier.dart
-│   │   │       └── single_room_notifier.dart
+│   │   │       │   └── room_chat_notifier.g.dart
+│   │   │       └── room_chat_notifier.dart
 │   │   ├── settings
 │   │   │   ├── settings_routes.dart
 │   │   │   ├── view
@@ -524,6 +545,11 @@
 │   │   │       └── tabview_notifier.dart
 │   │   ├── stories
 │   │   │   ├── data
+│   │   │   │   ├── category_stories.dart
+│   │   │   │   ├── explore_stories.dart
+│   │   │   │   ├── generated
+│   │   │   │   │   ├── category_stories.g.dart
+│   │   │   │   │   └── explore_stories.g.dart
 │   │   │   │   ├── repositories
 │   │   │   │   │   ├── generated
 │   │   │   │   │   │   ├── live_chapter_repository.g.dart
@@ -584,15 +610,11 @@
 │   │   │   │       ├── story_card.dart
 │   │   │   │       └── story_list_tile.dart
 │   │   │   └── viewmodel
-│   │   │       ├── category_stories_notifier.dart
 │   │   │       ├── chapter_player_notifier.dart
 │   │   │       ├── create_story_notifier.dart
-│   │   │       ├── explore_stories_notifier.dart
 │   │   │       ├── generated
-│   │   │       │   ├── category_stories_notifier.g.dart
 │   │   │       │   ├── chapter_player_notifier.g.dart
 │   │   │       │   ├── create_story_notifier.g.dart
-│   │   │       │   ├── explore_stories_notifier.g.dart
 │   │   │       │   └── story_detail_notifier.g.dart
 │   │   │       └── story_detail_notifier.dart
 │   │   └── theme
@@ -637,28 +659,26 @@
 │   │   ├── app_ta.arb
 │   │   └── raj_intl.dart
 │   ├── main.dart
-│   ├── models
-│   │   ├── follower_user_model.dart
-│   │   ├── generated
-│   │   │   ├── follower_user_model.freezed.dart
-│   │   │   ├── follower_user_model.g.dart
-│   │   │   ├── resonate_user.freezed.dart
-│   │   │   ├── resonate_user.g.dart
-│   │   │   ├── user_report_model.freezed.dart
-│   │   │   └── user_report_model.g.dart
-│   │   ├── resonate_user.dart
-│   │   └── user_report_model.dart
 │   ├── routes
 │   │   ├── app_router.dart
 │   │   └── route_paths.dart
 │   ├── shared
+│   │   ├── model
+│   │   │   ├── follower_user_model.dart
+│   │   │   ├── generated
+│   │   │   │   ├── follower_user_model.freezed.dart
+│   │   │   │   ├── follower_user_model.g.dart
+│   │   │   │   ├── resonate_user.freezed.dart
+│   │   │   │   └── resonate_user.g.dart
+│   │   │   └── resonate_user.dart
 │   │   └── widgets
+│   │       ├── audio_wave_ring.dart
 │   │       ├── no_match_view.dart
-│   │       ├── report_widget.dart
 │   │       ├── secondary_list_card.dart
 │   │       ├── session_app_bar.dart
 │   │       ├── session_header.dart
-│   │       └── snackbar.dart
+│   │       ├── snackbar.dart
+│   │       └── speaking_avatar.dart
 │   └── utils
 │       ├── app_images.dart
 │       ├── colors.dart
@@ -689,6 +709,8 @@
 │   ├── architecture
 │   │   └── feature_boundaries_test.dart
 │   ├── core
+│   │   ├── errors
+│   │   │   └── appwrite_error_test.dart
 │   │   └── services
 │   │       ├── execute_function_test.dart
 │   │       └── execute_function_test.mocks.dart
@@ -726,7 +748,8 @@
 │   │   │   │   ├── friends_repository_test.dart
 │   │   │   │   ├── friends_repository_test.mocks.dart
 │   │   │   │   ├── pair_chat_repository_test.dart
-│   │   │   │   └── pair_chat_repository_test.mocks.dart
+│   │   │   │   ├── pair_chat_repository_test.mocks.dart
+│   │   │   │   └── pair_chat_session_test.dart
 │   │   │   ├── friends_test_helpers.dart
 │   │   │   ├── view
 │   │   │   │   ├── friend_call_page_test.dart
@@ -741,8 +764,17 @@
 │   │   │   │   └── ringing_page_test.dart
 │   │   │   └── viewmodel
 │   │   │       ├── friend_call_notifier_test.dart
-│   │   │       ├── friends_notifier_test.dart
-│   │   │       └── pair_chat_notifier_test.dart
+│   │   │       └── friends_notifier_test.dart
+│   │   ├── live_audio
+│   │   │   ├── data
+│   │   │   │   ├── audio_device_service_test.dart
+│   │   │   │   ├── livekit_join_test.dart
+│   │   │   │   ├── speaking_bands_test.dart
+│   │   │   │   ├── speaking_levels_test.dart
+│   │   │   │   └── speaking_throttle_test.dart
+│   │   │   ├── live_audio_test_helpers.dart
+│   │   │   └── view
+│   │   │       └── audio_selector_dialog_test.dart
 │   │   ├── profile
 │   │   │   ├── data
 │   │   │   │   ├── profile_repository_test.dart
@@ -761,9 +793,7 @@
 │   │   │       └── profile_view_notifier_test.dart
 │   │   ├── rooms
 │   │   │   ├── data
-│   │   │   │   ├── audio_device_service_test.dart
 │   │   │   │   ├── live_rooms_test.dart
-│   │   │   │   ├── livekit_join_test.dart
 │   │   │   │   ├── room_chat_repository_test.dart
 │   │   │   │   ├── room_chat_repository_test.mocks.dart
 │   │   │   │   ├── room_chat_test.dart
@@ -775,7 +805,6 @@
 │   │   │   │   └── upcoming_rooms_repository_test.mocks.dart
 │   │   │   ├── rooms_test_helpers.dart
 │   │   │   ├── view
-│   │   │   │   ├── audio_selector_dialog_test.dart
 │   │   │   │   ├── create_poll_sheet_test.dart
 │   │   │   │   ├── create_room_page_test.dart
 │   │   │   │   ├── live_room_tile_test.dart
@@ -800,8 +829,11 @@
 │   │   │       └── settings_screen_test.dart
 │   │   ├── stories
 │   │   │   ├── data
+│   │   │   │   ├── category_stories_test.dart
+│   │   │   │   ├── explore_stories_test.dart
 │   │   │   │   ├── live_chapter_repository_test.dart
 │   │   │   │   └── stories_repository_test.dart
+│   │   │   ├── fake_stories_repository.dart
 │   │   │   ├── view
 │   │   │   │   ├── live_chapter_widgets_test.dart
 │   │   │   │   ├── stories_pages_test.dart
@@ -809,23 +841,24 @@
 │   │   │   │   ├── stories_widgets_test.dart
 │   │   │   │   └── story_format_test.dart
 │   │   │   └── viewmodel
-│   │   │       ├── category_stories_notifier_test.dart
 │   │   │       ├── chapter_player_notifier_test.dart
 │   │   │       ├── create_story_notifier_test.dart
-│   │   │       ├── explore_stories_notifier_test.dart
 │   │   │       ├── live_chapter_notifier_test.dart
 │   │   │       ├── story_detail_notifier_test.dart
 │   │   │       └── whisper_model_notifier_test.dart
 │   │   └── theme
 │   │       └── activity_status_colors_test.dart
 │   ├── helpers
+│   │   ├── pump_widget.dart
 │   │   ├── test_root_container.dart
 │   │   └── test_root_container.mocks.dart
 │   ├── routes
 │   │   └── app_router_test.dart
+│   ├── shared
+│   │   └── audio_wave_ring_test.dart
 │   └── utils
 │       ├── activity_status_test.dart
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-205 directories, 624 files
+220 directories, 642 files
