@@ -168,6 +168,15 @@
 │               ├── 7.png
 │               ├── 8.png
 │               └── 9.png
+├── fastlane
+│   └── metadata
+│       └── android
+│           └── en-US
+│               ├── changelogs
+│               │   └── 7.txt
+│               ├── full_description.txt
+│               ├── short_description.txt
+│               └── title.txt
 ├── flutter_native_splash.yaml
 ├── ios
 │   ├── .gitignore
@@ -1111,4 +1120,4 @@
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-275 directories, 837 files
+280 directories, 841 files
