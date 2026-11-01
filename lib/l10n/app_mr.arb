@@ -1031,7 +1031,7 @@
     "@noSearchResults": {
         "description": "शोध कोणतेही परिणाम परत न आल्यास संदेश."
     },
-    "shareRoomMessage": "🚀 या अद्भुत कक्ष पहा: {roomName}!\n\n📖 वर्णन: {roomDescription}\n👥 आता {participants} सहभागींशी सामील व्हा!",
+    "shareRoomMessage": "🚀 या अद्भुत कक्ष पहा: {roomName}!\n\n📖 वर्णन: {roomDescription}\n👥 आता {participants} सहभागींशी सामील व्हा!\n\n🔗 {link}",
     "@shareRoomMessage": {
         "description": "कक्ष शेअर करताना वापरला जाणारा डिफॉल्ट संदेश टेम्पलेट.",
         "placeholders": {

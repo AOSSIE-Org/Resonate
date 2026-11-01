@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -13,7 +14,6 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/tabview_notifier.g.dart';
-
 
 @Riverpod(keepAlive: true)
 class TabView extends _$TabView {
@@ -45,7 +45,11 @@ class TabView extends _$TabView {
 
   Future<void> _openAppLink(Uri uri) async {
     try {
-      final roomId = uri.pathSegments.last;
+      final segments = uri.pathSegments;
+      if (segments.length < 2 || segments.first != roomLinkSegment) return;
+      final roomId = segments[1];
+      if (roomId.isEmpty) return;
+
       // Rooms owns resolving this, including the signed-out case.
       final room = await ref.read(roomLauncherProvider).findRoomById(roomId);
       if (room == null) return;
@@ -56,9 +60,20 @@ class TabView extends _$TabView {
     }
   }
 
-  void _showJoinRoomDialog(AppwriteRoom room) {
+  static const _maxDialogAttempts = 60;
+
+  void _showJoinRoomDialog(AppwriteRoom room, {int attempt = 0}) {
     final ctx = rootNavigatorKey.currentContext;
-    if (ctx == null) return;
+    if (ctx == null) {
+      if (attempt >= _maxDialogAttempts) {
+        log('Open App Link: no navigator after $attempt frames, dropping');
+        return;
+      }
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _showJoinRoomDialog(room, attempt: attempt + 1),
+      );
+      return;
+    }
     showDialog<void>(
       context: ctx,
       builder: (dialogCtx) => AlertDialog(

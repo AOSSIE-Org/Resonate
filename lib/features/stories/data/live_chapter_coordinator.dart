@@ -13,7 +13,7 @@ import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
-import 'package:resonate/features/stories/data/whisper_model_setting.dart';
+import 'package:resonate/features/settings/data/whisper_model_setting.dart';
 import 'package:resonate/utils/realtime_event.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

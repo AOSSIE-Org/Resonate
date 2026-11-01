@@ -6,6 +6,7 @@
 import 'dart:async' as _i7;
 
 import 'package:appwrite/appwrite.dart' as _i6;
+import 'package:appwrite/enums.dart' as _i9;
 import 'package:appwrite/models.dart' as _i3;
 import 'package:appwrite/src/client.dart' as _i2;
 import 'package:firebase_core/firebase_core.dart' as _i4;
@@ -63,6 +64,16 @@ class _FakeFirebaseApp_5 extends _i1.SmartFake implements _i4.FirebaseApp {
 class _FakeNotificationSettings_6 extends _i1.SmartFake
     implements _i5.NotificationSettings {
   _FakeNotificationSettings_6(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeExecutionList_7 extends _i1.SmartFake implements _i3.ExecutionList {
+  _FakeExecutionList_7(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeExecution_8 extends _i1.SmartFake implements _i3.Execution {
+  _FakeExecution_8(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -634,4 +645,105 @@ class MockFirebaseMessaging extends _i1.Mock implements _i8.FirebaseMessaging {
             returnValueForMissingStub: _i7.Future<void>.value(),
           )
           as _i7.Future<void>);
+}
+
+/// A class which mocks [Functions].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFunctions extends _i1.Mock implements _i6.Functions {
+  MockFunctions() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.Client get client =>
+      (super.noSuchMethod(
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
+          )
+          as _i2.Client);
+
+  @override
+  _i7.Future<_i3.ExecutionList> listExecutions({
+    required String? functionId,
+    List<String>? queries,
+    bool? total,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#listExecutions, [], {
+              #functionId: functionId,
+              #queries: queries,
+              #total: total,
+            }),
+            returnValue: _i7.Future<_i3.ExecutionList>.value(
+              _FakeExecutionList_7(
+                this,
+                Invocation.method(#listExecutions, [], {
+                  #functionId: functionId,
+                  #queries: queries,
+                  #total: total,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.ExecutionList>);
+
+  @override
+  _i7.Future<_i3.Execution> createExecution({
+    required String? functionId,
+    String? body,
+    bool? xasync,
+    String? path,
+    _i9.ExecutionMethod? method,
+    Map<dynamic, dynamic>? headers,
+    String? scheduledAt,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#createExecution, [], {
+              #functionId: functionId,
+              #body: body,
+              #xasync: xasync,
+              #path: path,
+              #method: method,
+              #headers: headers,
+              #scheduledAt: scheduledAt,
+            }),
+            returnValue: _i7.Future<_i3.Execution>.value(
+              _FakeExecution_8(
+                this,
+                Invocation.method(#createExecution, [], {
+                  #functionId: functionId,
+                  #body: body,
+                  #xasync: xasync,
+                  #path: path,
+                  #method: method,
+                  #headers: headers,
+                  #scheduledAt: scheduledAt,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.Execution>);
+
+  @override
+  _i7.Future<_i3.Execution> getExecution({
+    required String? functionId,
+    required String? executionId,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#getExecution, [], {
+              #functionId: functionId,
+              #executionId: executionId,
+            }),
+            returnValue: _i7.Future<_i3.Execution>.value(
+              _FakeExecution_8(
+                this,
+                Invocation.method(#getExecution, [], {
+                  #functionId: functionId,
+                  #executionId: executionId,
+                }),
+              ),
+            ),
+          )
+          as _i7.Future<_i3.Execution>);
 }

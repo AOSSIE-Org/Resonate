@@ -976,7 +976,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀 ഈ അത്ഭുതകരമായ മുറി പരിശോധിക്കൂ: {roomName}!\n\n📖 വിവരണം: {roomDescription}\n👥 ഇപ്പോൾ തന്നെ {participants} പങ്കാളികളിൽ ചേരൂ!",
+    "shareRoomMessage": "🚀 ഈ അത്ഭുതകരമായ മുറി പരിശോധിക്കൂ: {roomName}!\n\n📖 വിവരണം: {roomDescription}\n👥 ഇപ്പോൾ തന്നെ {participants} പങ്കാളികളിൽ ചേരൂ!\n\n🔗 {link}",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {

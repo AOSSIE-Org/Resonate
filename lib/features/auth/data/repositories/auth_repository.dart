@@ -407,7 +407,11 @@ class AuthRepository {
         );
       }
     }
-
+    await mutate(
+      tableId: usersTableID,
+      fieldName: 'fcmTokens',
+      queryField: r'$id',
+    );
     await mutate(
       tableId: subscribedUserTableId,
       fieldName: 'registrationTokens',

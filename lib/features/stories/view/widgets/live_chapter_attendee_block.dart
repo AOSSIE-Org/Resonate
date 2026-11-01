@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/session_participant_card.dart';
 

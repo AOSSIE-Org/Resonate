@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/achievements/data/my_stats.dart';
 import 'package:resonate/features/achievements/data/repositories/achievements_repository.dart';
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';

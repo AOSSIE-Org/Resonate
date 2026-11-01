@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/repositories/rooms_repository.dart';
@@ -79,9 +79,6 @@ class RoomSession extends _$RoomSession {
         if (current == null) return;
 
         switch (action) {
-          // One upsert for both: a row carrying a relationship is reported as
-          // a create and an update, and realtimeAction sees whichever came
-          // first, so an arrival can be either.
           case 'create':
           case 'update':
             {
@@ -141,7 +138,6 @@ class RoomSession extends _$RoomSession {
                 participants: _sort(updated),
               );
               state = AsyncData(next);
-              // A promotion in a big room is the other way a credit becomes due.
               _maybeCreditRoom(appwriteRoom.id, next);
               // If we got demoted from speaker while mic was on, mute.
               if (updatedUid == current.me.uid &&
@@ -190,8 +186,6 @@ class RoomSession extends _$RoomSession {
     });
   }
 
-  // A profile edit lands on the user's own row, so the only thing tying it to
-  // this room is the uid. Ignore every other user on the table.
   void _applyProfileUpdate(RealtimeMessage event) {
     try {
       if (realtimeAction(event.events) != 'update') return;

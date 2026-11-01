@@ -10,7 +10,7 @@ import 'package:resonate/features/stories/model/live_chapter_attendees_model.dar
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/view/pages/live_chapter_page.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/shared/widgets/session_app_bar.dart';
 import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/l10n/app_localizations.dart';

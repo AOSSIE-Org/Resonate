@@ -2,22 +2,20 @@ import 'dart:async';
 import 'package:resonate/utils/dev_log.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:resonate/core/providers/firebase_providers.dart';
-import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/data/services/notification_service.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/app_bootstrap_notifier.g.dart';
-
+part 'generated/app_bootstrap.g.dart';
 
 bool isTestMode = false;
 
-// Boots app-wide services that need to be initialized after auth state is known.
+// Boots app-wide services that need to be initialized after auth state
 @Riverpod(keepAlive: true)
 class AppBootstrap extends _$AppBootstrap {
   @override
@@ -35,13 +33,10 @@ class AppBootstrap extends _$AppBootstrap {
     );
 
     if (!isTestMode) {
-      await FlutterCallkitIncoming.canUseFullScreenIntent();
-      await FlutterCallkitIncoming.requestFullIntentPermission();
+      await ref.read(callKitServiceProvider).requestFullScreenPermission();
     }
 
-    final notifications = NotificationService(
-      onTapPayload: _openUpcomingRoom,
-    );
+    final notifications = NotificationService(onTapPayload: _openUpcomingRoom);
     await notifications.initialize();
 
     final fcmSub = FirebaseMessaging.onMessage.listen((message) async {
@@ -73,10 +68,12 @@ class AppBootstrap extends _$AppBootstrap {
     if (!isTestMode) {
       final callKit = ref.read(callKitServiceProvider)
         ..start(
-          onAccept: (extra) =>
-              ref.read(friendCallCoordinatorProvider.notifier).onAnswerCall(extra),
-          onDecline: (extra) =>
-              ref.read(friendCallCoordinatorProvider.notifier).onDeclinedCall(extra),
+          onAccept: (extra) => ref
+              .read(friendCallCoordinatorProvider.notifier)
+              .onAnswerCall(extra),
+          onDecline: (extra) => ref
+              .read(friendCallCoordinatorProvider.notifier)
+              .onDeclinedCall(extra),
         );
       ref.onDispose(callKit.stop);
     }

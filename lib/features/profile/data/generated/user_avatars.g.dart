@@ -58,7 +58,7 @@ final class UserAvatarUrlProvider
   }
 }
 
-String _$userAvatarUrlHash() => r'61b547f052a54a6a2792fa91e5d907b3aed2172f';
+String _$userAvatarUrlHash() => r'9e829791256198c6d0b301c69e027735836238d7';
 
 final class UserAvatarUrlFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<String?>, String> {

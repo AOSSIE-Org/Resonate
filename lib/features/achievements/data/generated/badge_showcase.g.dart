@@ -21,7 +21,7 @@ final class StatsOfProvider
   }) : super(
          retry: null,
          name: r'statsOfProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -66,7 +66,7 @@ final class StatsOfProvider
   }
 }
 
-String _$statsOfHash() => r'bbcd4a10f6436158c40f7554a0c59e01b73b6496';
+String _$statsOfHash() => r'077b5b7fc72b19219c4920fc83b97ded2305f1a9';
 
 final class StatsOfFamily extends $Family
     with $FunctionalFamilyOverride<UserStats?, String> {
@@ -76,7 +76,7 @@ final class StatsOfFamily extends $Family
         name: r'statsOfProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
   StatsOfProvider call(String uid) =>
@@ -98,7 +98,7 @@ final class AvatarBadgeProvider
   }) : super(
          retry: null,
          name: r'avatarBadgeProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -143,7 +143,7 @@ final class AvatarBadgeProvider
   }
 }
 
-String _$avatarBadgeHash() => r'45289fb26babbf8f98e15f074067c10a99467fab';
+String _$avatarBadgeHash() => r'8b01bf16ef265486ac90a5ba2fbbc0c3f828e617';
 
 final class AvatarBadgeFamily extends $Family
     with $FunctionalFamilyOverride<KnownBadge?, String> {
@@ -153,7 +153,7 @@ final class AvatarBadgeFamily extends $Family
         name: r'avatarBadgeProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
   AvatarBadgeProvider call(String uid) =>
@@ -180,7 +180,7 @@ final class DisplayedBadgesProvider
   }) : super(
          retry: null,
          name: r'displayedBadgesProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -225,7 +225,7 @@ final class DisplayedBadgesProvider
   }
 }
 
-String _$displayedBadgesHash() => r'5eb4a4cb961d667998f0052b4cde225052ed557b';
+String _$displayedBadgesHash() => r'08ba9966e2b53eb91f045b61865f88555a1c8d33';
 
 final class DisplayedBadgesFamily extends $Family
     with $FunctionalFamilyOverride<List<KnownBadge>, String> {
@@ -235,7 +235,7 @@ final class DisplayedBadgesFamily extends $Family
         name: r'displayedBadgesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
   DisplayedBadgesProvider call(String uid) =>

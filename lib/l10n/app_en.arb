@@ -996,7 +996,7 @@
     "@clear": {
         "description": "Tooltip text for clear button."
     },
-    "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!",
+    "shareRoomMessage": "🚀 Check out this amazing room: {roomName}!\n\n📖 Description: {roomDescription}\n👥 Join {participants} participants now!\n\n🔗 {link}",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {
@@ -1011,6 +1011,10 @@
             "participants": {
                 "type": "int",
                 "example": "5"
+            },
+            "link": {
+                "type": "String",
+                "example": "https://resonate.aossie.org/room/abc123"
             }
         }
     },
@@ -2452,5 +2456,33 @@
     "playbackBlockedInSession": "Leave the live session to play a recording.",
     "@playbackBlockedInSession": {
         "description": "Shown when playback is attempted while the user is connected to a live audio session."
+    },
+    "fileTooLarge": "Your {what} is {size}. Files must be smaller than {limit}.",
+    "@fileTooLarge": {
+        "description": "Shown when a chosen file is over the upload size limit.",
+        "placeholders": {
+            "what": {
+                "type": "String",
+                "example": "story cover"
+            },
+            "size": {
+                "type": "String",
+                "example": "15.9 MB"
+            },
+            "limit": {
+                "type": "String",
+                "example": "5.0 MB"
+            }
+        }
+    },
+    "uploadFailed": "Could not upload the {what}. Please try again.",
+    "@uploadFailed": {
+        "description": "Shown when a file upload fails for a reason other than its size.",
+        "placeholders": {
+            "what": {
+                "type": "String",
+                "example": "story cover"
+            }
+        }
     }
 }

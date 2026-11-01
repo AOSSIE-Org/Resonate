@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/miniplayer/data/services/pip_controller.dart';
 import 'package:resonate/features/miniplayer/data/session_presented.dart';
 import 'package:resonate/features/miniplayer/model/miniplayer_session.dart';

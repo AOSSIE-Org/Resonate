@@ -1,6 +1,6 @@
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

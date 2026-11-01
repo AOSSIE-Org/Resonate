@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:resonate/features/achievements/model/achievement_badge.dart';
 import 'package:resonate/features/achievements/model/badge_category.dart';
 import 'package:resonate/features/achievements/model/known_badge.dart';
-import 'package:resonate/features/theme/model/achievement_colors.dart';
+import 'package:resonate/features/achievements/model/achievement_colors.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 
 extension KnownBadgePresentation on KnownBadge {

@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/utils/constants.dart';
 
 import '../../../helpers/test_root_container.mocks.dart';

@@ -26,7 +26,7 @@ final class UserStatsProvider
   }) : super(
          retry: null,
          name: r'userStatsProvider',
-         isAutoDispose: false,
+         isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
@@ -63,7 +63,7 @@ final class UserStatsProvider
   }
 }
 
-String _$userStatsHash() => r'0c3b6f8800515960eff6f651d7650486857f5ab6';
+String _$userStatsHash() => r'93991a57a58407ed796d20661a06d5ce3949c10e';
 
 final class UserStatsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<UserStats>, String> {
@@ -73,7 +73,7 @@ final class UserStatsFamily extends $Family
         name: r'userStatsProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
-        isAutoDispose: false,
+        isAutoDispose: true,
       );
 
   UserStatsProvider call(String uid) =>

@@ -32,6 +32,25 @@ We welcome contributions in the form of pull requests only to the `dev` branch. 
 5.  Submit the pull request, providing a clear title and description of the changes made.
 6.  Engage in any feedback or discussions related to your pull request.
 
+### Releasing (version bumps)
+
+Feature PRs into `dev` do **not** need a version bump — if every contributor edited the same line,
+`pubspec.yaml` would conflict constantly.
+
+A release PR (`dev` → `master`) does. Both stores reject an upload whose build number is not higher
+than the last one they accepted, and Flutter takes that number from the `+<build>` half of
+`version:` in `pubspec.yaml`:
+
+```yaml
+version: 3.0.0+7   # 3.0.0 -> versionName / CFBundleShortVersionString
+                   # +7    -> versionCode / CFBundleVersion, must always increase
+```
+
+[`version-check.yml`](.github/workflows/version-check.yml) enforces this: it compares `version:`
+against the base branch and fails the PR if the build number did not go up. It skips automatically
+when a PR touches no shippable code (docs, workflows), and can be bypassed with the
+`skip-version-check` label.
+
 ### Code Style and Guidelines
 
 To maintain consistency throughout the project's codebase, please adhere to the following guidelines:

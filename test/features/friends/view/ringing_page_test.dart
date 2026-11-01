@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
 import 'package:resonate/features/friends/model/friend_call_state.dart';
 import 'package:resonate/features/friends/view/pages/ringing_page.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
 import '../friends_test_helpers.dart';

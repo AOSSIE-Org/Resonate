@@ -924,7 +924,7 @@
     "@noSearchResults": {
         "description": "Message displayed when a search returns no results."
     },
-    "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {roomDescription}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!",
+    "shareRoomMessage": "🚀 ಈ ಅದ್ಭುತ ರೂಮ್ ನೋಡಿ: {roomName}!\n\n📖 ವಿವರಣೆ: {roomDescription}\n👥 ಈಗಲೇ {participants} ಭಾಗವಹಿಸುವವರೊಂದಿಗೆ ಸೇರಿ!\n\n🔗 {link}",
     "@shareRoomMessage": {
         "description": "The default message template used when sharing a room.",
         "placeholders": {

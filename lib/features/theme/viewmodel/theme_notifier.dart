@@ -1,11 +1,10 @@
 import 'package:resonate/core/providers/get_storage_provider.dart';
+import 'package:resonate/features/theme/data/stored_theme.dart';
 import 'package:resonate/features/theme/model/theme_enums.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/theme_notifier.g.dart';
-
-const _themeStorageKey = 'theme';
 
 String _placeholderIdFor(Themes theme) {
   switch (theme) {
@@ -29,11 +28,11 @@ class AppTheme extends _$AppTheme {
   @override
   Themes build() {
     final box = ref.watch(getStorageBoxProvider);
-    return Themes.fromName(box.read<String>(_themeStorageKey));
+    return Themes.fromName(box.read<String>(themeStorageKey));
   }
 
   void setTheme(Themes theme) {
-    ref.read(getStorageBoxProvider).write(_themeStorageKey, theme.name);
+    ref.read(getStorageBoxProvider).write(themeStorageKey, theme.name);
     state = theme;
   }
 }
@@ -42,5 +41,5 @@ class AppTheme extends _$AppTheme {
 String userProfileImagePlaceholderUrl(Ref ref) {
   final theme = ref.watch(appThemeProvider);
   final placeholderId = _placeholderIdFor(theme);
-  return "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$placeholderId/view?project=resonate&mode=admin";
+  return "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$placeholderId/view?project=$appwriteProjectId&mode=admin";
 }

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/widgets/rating_sheet.dart';
-import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
 
 import '../friends_test_helpers.dart';
 

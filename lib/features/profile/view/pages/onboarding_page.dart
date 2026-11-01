@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
@@ -34,7 +34,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final _usernameController = TextEditingController();
   final _dobController = TextEditingController();
   final _debouncer = Debouncer(milliseconds: 800);
-  final _imagePicker = ImagePicker();
 
   @override
   void dispose() {
@@ -46,13 +45,11 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   Future<void> _pickImage() async {
-    final file = await _imagePicker.pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 400,
-      maxWidth: 400,
-    );
-    if (file == null) return;
-    ref.read(onboardingProvider.notifier).setProfileImagePath(file.path);
+    final path = await ref
+        .read(mediaPickerServiceProvider)
+        .pickImage(maxHeight: 400, maxWidth: 400);
+    if (path == null) return;
+    ref.read(onboardingProvider.notifier).setProfileImagePath(path);
   }
 
   Future<void> _chooseDate() async {

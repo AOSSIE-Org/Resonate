@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,7 +10,8 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/data/repositories/recorded_chapters_repository.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/services/recorded_chapter_store.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/view/pages/verify_chapter_details_page.dart';
@@ -99,9 +102,15 @@ void main() {
   late _FakeRecordedChapters recordings;
   late _RecordingTabView tabView;
   late GoRouter router;
+  late Directory recordingsDir;
 
   setUp(() {
     stubPathProviderChannel();
+    // The page resolves the recording through RecordedChapterStore, which only
+    // returns a file that actually exists -- so lay one down for it to find.
+    recordingsDir = Directory.systemTemp.createTempSync('verify_recordings');
+    File('${recordingsDir.path}/room-1.wav').writeAsStringSync('audio');
+    addTearDown(() => recordingsDir.deleteSync(recursive: true));
     repo = _RecordedChapterRepository();
     recordings = _FakeRecordedChapters();
     tabView = _RecordingTabView();
@@ -153,6 +162,9 @@ void main() {
           recordedChaptersRepositoryProvider.overrideWithValue(recordings),
           liveChapterProvider.overrideWith(() => FakeLiveChapter(state)),
           tabViewProvider.overrideWith(() => tabView),
+          recordedChapterStoreProvider.overrideWithValue(
+            RecordedChapterStore(directory: () async => recordingsDir),
+          ),
         ],
         child: MaterialApp.router(
           routerConfig: router,

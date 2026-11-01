@@ -7,10 +7,10 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/participant_block.dart';
-import 'package:resonate/features/theme/model/activity_status_colors.dart';
+import 'package:resonate/features/activity_status/model/activity_status_colors.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/live_audio/data/speaking_levels.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/shared/widgets/audio_wave_ring.dart';
 
 import '../../profile/fake_profile_repository.dart';

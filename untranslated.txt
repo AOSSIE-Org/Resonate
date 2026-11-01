@@ -142,7 +142,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "gu": [
@@ -317,7 +319,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "hi": [
@@ -440,7 +444,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "kn": [
@@ -605,7 +611,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "ml": [
@@ -737,7 +745,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "mr": [
@@ -869,7 +879,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "pa": [
@@ -992,7 +1004,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "raj": [
@@ -1142,7 +1156,9 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ],
 
   "ta": [
@@ -1281,6 +1297,8 @@
     "transcriptionFailed",
     "playRecording",
     "pauseRecording",
-    "playbackBlockedInSession"
+    "playbackBlockedInSession",
+    "fileTooLarge",
+    "uploadFailed"
   ]
 }

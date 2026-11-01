@@ -7,7 +7,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/view/widgets/call_participant_tile.dart';
 import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/shared/widgets/session_header.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
 import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 

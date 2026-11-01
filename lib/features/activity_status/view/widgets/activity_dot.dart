@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resonate/features/theme/model/activity_status_colors.dart';
+import 'package:resonate/features/activity_status/model/activity_status_colors.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/utils/ui_sizes.dart';

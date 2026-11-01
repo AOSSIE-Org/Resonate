@@ -23,6 +23,8 @@ class ChapterPlayerView extends ConsumerWidget {
       chapterPlayerProvider(chapter.chapterId).notifier,
     );
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final durationMs = notifier.chapterDuration.inMilliseconds.toDouble();
+    final sliderMax = durationMs > 0 ? durationMs : 1000.0;
 
     return Center(
       child: Container(
@@ -94,13 +96,13 @@ class ChapterPlayerView extends ConsumerWidget {
                 child: Column(
                   children: [
                     Slider(
-                      value: playerState.sliderProgress,
+                      value: playerState.sliderProgress
+                          .clamp(0, sliderMax)
+                          .toDouble(),
                       onChanged: notifier.onSliderChanged,
                       onChangeEnd: notifier.onSliderChangeEnd,
                       min: 0,
-                      max:
-                          notifier.chapterDuration.inMilliseconds.toDouble() +
-                          1000,
+                      max: sliderMax,
                       activeColor: Colors.white,
                       inactiveColor: Colors.grey.shade300,
                     ),

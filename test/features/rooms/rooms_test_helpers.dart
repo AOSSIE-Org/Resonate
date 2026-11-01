@@ -13,8 +13,8 @@ import 'package:resonate/features/rooms/model/user_report_model.dart';
 import 'package:resonate/features/rooms/viewmodel/create_room_notifier.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/features/rooms/data/upcoming_rooms.dart';
 import 'package:resonate/utils/constants.dart';
 

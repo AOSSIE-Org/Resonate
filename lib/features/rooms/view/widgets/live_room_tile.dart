@@ -5,9 +5,10 @@ import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/view/pages/room_page.dart';
 import 'package:resonate/features/rooms/data/active_room.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
+import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:share_plus/share_plus.dart';
@@ -104,6 +105,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
                           appwriteRoom.name,
                           appwriteRoom.description,
                           appwriteRoom.totalParticipants,
+                          roomLinkFor(appwriteRoom.id),
                         ),
                       ),
                     );
@@ -144,6 +146,7 @@ class CustomLiveRoomTile extends ConsumerWidget {
               children: [
                 Flexible(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: UiSizes.width_123_4,

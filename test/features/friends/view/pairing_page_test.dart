@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pairing_page.dart';
-import 'package:resonate/features/friends/data/services/pair_chat_session.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';

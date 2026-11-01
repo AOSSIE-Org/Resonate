@@ -4,7 +4,7 @@ import 'package:resonate/features/activity_status/data/my_activity_status.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_avatar.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_dot.dart';
 import 'package:resonate/features/activity_status/view/widgets/activity_status_sheet.dart';
-import 'package:resonate/features/theme/model/activity_status_colors.dart';
+import 'package:resonate/features/activity_status/model/activity_status_colors.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
 import '../activity_status_test_helpers.dart';

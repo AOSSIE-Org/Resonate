@@ -1,5 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'dart:async';
+
 import 'package:flutter_lyric/flutter_lyric.dart';
+import 'package:resonate/features/stories/data/services/chapter_audio.dart';
 import 'package:resonate/features/stories/model/chapter_player_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -7,8 +9,9 @@ part 'generated/chapter_player_notifier.g.dart';
 
 @riverpod
 class ChapterPlayer extends _$ChapterPlayer {
-  AudioPlayer? _player;
+  ChapterAudio? _audio;
   final LyricController _lyricController = LyricController();
+  final _subscriptions = <StreamSubscription<void>>[];
   Duration _chapterDuration = Duration.zero;
 
   LyricController get lyricController => _lyricController;
@@ -17,7 +20,11 @@ class ChapterPlayer extends _$ChapterPlayer {
   @override
   ChapterPlayerState build(String chapterId) {
     ref.onDispose(() {
-      _player?.release();
+      for (final subscription in _subscriptions) {
+        unawaited(subscription.cancel());
+      }
+      _subscriptions.clear();
+      unawaited(_audio?.release());
       _lyricController.dispose();
     });
     return const ChapterPlayerState();
@@ -31,32 +38,38 @@ class ChapterPlayer extends _$ChapterPlayer {
     _chapterDuration = duration;
     _lyricController.loadLyric(lyrics);
 
-    final player = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
-    _player = player;
-    player.setSourceUrl(audioUrl);
+    final audio = ref.read(chapterAudioFactoryProvider)();
+    _audio = audio;
+    unawaited(audio.load(audioUrl));
 
-    _lyricController.setOnTapLineCallback((start) => player.seek(start));
+    _lyricController.setOnTapLineCallback(
+      (start) => unawaited(audio.seek(start)),
+    );
 
-    player.onPositionChanged.listen((event) {
-      if (!ref.mounted) return;
-      state = state.copyWith(sliderProgress: event.inMilliseconds.toDouble());
-      _lyricController.setProgress(event);
-    });
-    player.onPlayerStateChanged.listen((s) {
-      if (!ref.mounted) return;
-      state = state.copyWith(isPlaying: s == PlayerState.playing);
-    });
+    _subscriptions.addAll([
+      audio.positionChanges.listen((position) {
+        if (!ref.mounted) return;
+        state = state.copyWith(
+          sliderProgress: position.inMilliseconds.toDouble(),
+        );
+        _lyricController.setProgress(position);
+      }),
+      audio.playingChanges.listen((isPlaying) {
+        if (!ref.mounted) return;
+        state = state.copyWith(isPlaying: isPlaying);
+      }),
+    ]);
   }
 
   void togglePlayPause() {
     if (state.isPlaying) {
-      _player?.pause();
+      unawaited(_audio?.pause());
     } else {
-      _player?.resume();
+      unawaited(_audio?.play());
     }
   }
 
-  void seek(Duration position) => _player?.seek(position);
+  void seek(Duration position) => unawaited(_audio?.seek(position));
 
   void onSliderChanged(double value) =>
       state = state.copyWith(sliderProgress: value);
@@ -64,6 +77,6 @@ class ChapterPlayer extends _$ChapterPlayer {
   void onSliderChangeEnd(double value) {
     final position = Duration(milliseconds: value.toInt());
     _lyricController.setProgress(position);
-    _player?.seek(position);
+    unawaited(_audio?.seek(position));
   }
 }

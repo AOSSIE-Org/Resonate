@@ -55,11 +55,12 @@ extension StoriesFailurePatterns on StoriesFailure {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( StoriesFailureUpload value)?  upload,TResult Function( StoriesFailureTooLarge value)?  tooLarge,TResult Function( StoriesFailureUnknown value)?  unknown,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that);case StoriesFailureUnknown() when unknown != null:
+return upload(_that);case StoriesFailureTooLarge() when tooLarge != null:
+return tooLarge(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return orElse();
 
@@ -78,11 +79,12 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureUnknown value)  unknown,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( StoriesFailureUpload value)  upload,required TResult Function( StoriesFailureTooLarge value)  tooLarge,required TResult Function( StoriesFailureUnknown value)  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
-return upload(_that);case StoriesFailureUnknown():
+return upload(_that);case StoriesFailureTooLarge():
+return tooLarge(_that);case StoriesFailureUnknown():
 return unknown(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -97,11 +99,12 @@ return unknown(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( StoriesFailureUpload value)?  upload,TResult? Function( StoriesFailureTooLarge value)?  tooLarge,TResult? Function( StoriesFailureUnknown value)?  unknown,}){
 final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that);case StoriesFailureUnknown() when unknown != null:
+return upload(_that);case StoriesFailureTooLarge() when tooLarge != null:
+return tooLarge(_that);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that);case _:
   return null;
 
@@ -119,10 +122,11 @@ return unknown(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String what)?  upload,TResult Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult Function( String message)?  unknown,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that.what);case StoriesFailureUnknown() when unknown != null:
+return upload(_that.what);case StoriesFailureTooLarge() when tooLarge != null:
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return orElse();
 
@@ -141,10 +145,11 @@ return unknown(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function( String message)  unknown,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String what)  upload,required TResult Function( String what,  int bytes,  int maxBytes)  tooLarge,required TResult Function( String message)  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload():
-return upload(_that.what);case StoriesFailureUnknown():
+return upload(_that.what);case StoriesFailureTooLarge():
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown():
 return unknown(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -159,10 +164,11 @@ return unknown(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function( String message)?  unknown,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String what)?  upload,TResult? Function( String what,  int bytes,  int maxBytes)?  tooLarge,TResult? Function( String message)?  unknown,}) {final _that = this;
 switch (_that) {
 case StoriesFailureUpload() when upload != null:
-return upload(_that.what);case StoriesFailureUnknown() when unknown != null:
+return upload(_that.what);case StoriesFailureTooLarge() when tooLarge != null:
+return tooLarge(_that.what,_that.bytes,_that.maxBytes);case StoriesFailureUnknown() when unknown != null:
 return unknown(_that.message);case _:
   return null;
 
@@ -231,6 +237,76 @@ class _$StoriesFailureUploadCopyWithImpl<$Res>
   return _then(StoriesFailureUpload(
 null == what ? _self.what : what // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class StoriesFailureTooLarge implements StoriesFailure {
+  const StoriesFailureTooLarge(this.what, this.bytes, this.maxBytes);
+  
+
+ final  String what;
+ final  int bytes;
+ final  int maxBytes;
+
+/// Create a copy of StoriesFailure
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StoriesFailureTooLargeCopyWith<StoriesFailureTooLarge> get copyWith => _$StoriesFailureTooLargeCopyWithImpl<StoriesFailureTooLarge>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoriesFailureTooLarge&&(identical(other.what, what) || other.what == what)&&(identical(other.bytes, bytes) || other.bytes == bytes)&&(identical(other.maxBytes, maxBytes) || other.maxBytes == maxBytes));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,what,bytes,maxBytes);
+
+@override
+String toString() {
+  return 'StoriesFailure.tooLarge(what: $what, bytes: $bytes, maxBytes: $maxBytes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StoriesFailureTooLargeCopyWith<$Res> implements $StoriesFailureCopyWith<$Res> {
+  factory $StoriesFailureTooLargeCopyWith(StoriesFailureTooLarge value, $Res Function(StoriesFailureTooLarge) _then) = _$StoriesFailureTooLargeCopyWithImpl;
+@useResult
+$Res call({
+ String what, int bytes, int maxBytes
+});
+
+
+
+
+}
+/// @nodoc
+class _$StoriesFailureTooLargeCopyWithImpl<$Res>
+    implements $StoriesFailureTooLargeCopyWith<$Res> {
+  _$StoriesFailureTooLargeCopyWithImpl(this._self, this._then);
+
+  final StoriesFailureTooLarge _self;
+  final $Res Function(StoriesFailureTooLarge) _then;
+
+/// Create a copy of StoriesFailure
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? what = null,Object? bytes = null,Object? maxBytes = null,}) {
+  return _then(StoriesFailureTooLarge(
+null == what ? _self.what : what // ignore: cast_nullable_to_non_nullable
+as String,null == bytes ? _self.bytes : bytes // ignore: cast_nullable_to_non_nullable
+as int,null == maxBytes ? _self.maxBytes : maxBytes // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

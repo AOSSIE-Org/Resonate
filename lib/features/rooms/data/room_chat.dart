@@ -4,7 +4,7 @@ import 'package:resonate/utils/dev_log.dart';
 import 'package:appwrite/appwrite.dart' show ID;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
     hide Message;
-import 'package:resonate/features/achievements/data/services/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/data/repositories/room_chat_repository.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';

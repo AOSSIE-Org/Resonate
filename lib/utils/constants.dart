@@ -10,7 +10,13 @@ const String appwriteProjectId = String.fromEnvironment(
   'APPWRITE_PROJECT_ID',
   defaultValue: 'resonate',
 );
-const String appwriteEndpoint = "http://$baseDomain:80/v1";
+
+// http for a local Appwrite; release builds pass https
+const String appwriteScheme = String.fromEnvironment(
+  'APPWRITE_SCHEME',
+  defaultValue: 'http',
+);
+const String appwriteEndpoint = "$appwriteScheme://$baseDomain/v1";
 const String localhostLivekitEndpoint = "http://$baseDomain:7880";
 const String meilisearchEndpoint = String.fromEnvironment(
   'MEILISEARCH_ENDPOINT',
@@ -51,12 +57,15 @@ const String storyTableId = "670259e900321c12a5a2";
 const String chapterTableId = "670277ad002530531daf";
 const String likeTableId = "670259e20000ddda49a0";
 const String storyBucketId = "6703f4c70037edfd8429";
+
+// Anything larger than this doesn't uploads in single request
+const int maxUploadBytes = 5 * 1024 * 1024;
 const String chapterDefaultCoverImageId = "67012e19003d00f39e17";
 const String storyDefaultCoverImageId = "67012e19003d00f39e16";
 const String chapterCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$chapterDefaultCoverImageId/view?project=resonate&project=resonate&mode=admin";
+    "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$chapterDefaultCoverImageId/view?project=$appwriteProjectId&mode=admin";
 const String storyCoverImagePlaceholderUrl =
-    "http://$baseDomain/v1/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=resonate&mode=admin";
+    "$appwriteEndpoint/storage/buckets/$userProfileImageBucketId/files/$storyDefaultCoverImageId/view?project=$appwriteProjectId&mode=admin";
 
 // User related Database Constants
 const String usersTableID = "64a52f0a6c41ded09def";
@@ -108,10 +117,20 @@ const String verifyUserFunctionID = "6513df34a0de595ccfb3";
 const String updateEmailFunctionID = "64b27d2e813dd152f0edz";
 const String sendMessageNotificationFunctionID = "65368a58ef47cf6861206";
 const String sendStoryNotificationFunctionID = "68b241f500012870fca3";
+const String sendSocialNotificationFunctionID = "send-social-notification";
 const String startFriendCallFunctionID = "68b76fe00027c243610e";
 const String recordActivityFunctionID = "record-activity";
 
 const String verificationTableID = "64a7c0100eabfe8d3844";
+
+// Deep links. The Android manifest registers an app link for
+// https://<roomLinkHost>/<roomLinkSegment>/..., tabview_notifier parses it and
+// the room share builds it -- all three have to agree, so they read it here.
+const String roomLinkHost = "resonate.aossie.org";
+const String roomLinkSegment = "room";
+
+String roomLinkFor(String roomId) =>
+    "https://$roomLinkHost/$roomLinkSegment/$roomId";
 
 // Github Constants
 const String githubRepoUrl = "https://github.com/AOSSIE-Org/Resonate";

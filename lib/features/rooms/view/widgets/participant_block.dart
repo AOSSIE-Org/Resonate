@@ -5,7 +5,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/shared/widgets/session_participant_card.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';

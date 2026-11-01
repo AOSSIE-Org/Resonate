@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
-import 'package:resonate/features/rooms/data/services/room_session.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/utils/constants.dart';

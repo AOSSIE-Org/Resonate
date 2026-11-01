@@ -3,7 +3,7 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
 import 'package:resonate/features/rooms/data/repositories/upcoming_rooms_repository.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
