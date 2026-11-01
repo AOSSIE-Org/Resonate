@@ -410,7 +410,6 @@
 │   │   │       │   ├── pairing_page.dart
 │   │   │       │   └── ringing_page.dart
 │   │   │       └── widgets
-│   │   │           ├── call_control_panel.dart
 │   │   │           ├── call_participant_tile.dart
 │   │   │           ├── call_user_info_row.dart
 │   │   │           ├── friend_list_tile.dart
@@ -661,17 +660,25 @@
 │   │   │   │   ├── explore_stories.dart
 │   │   │   │   ├── generated
 │   │   │   │   │   ├── category_stories.g.dart
-│   │   │   │   │   └── explore_stories.g.dart
+│   │   │   │   │   ├── explore_stories.g.dart
+│   │   │   │   │   └── recording_playback.g.dart
+│   │   │   │   ├── recording_playback.dart
 │   │   │   │   ├── repositories
 │   │   │   │   │   ├── generated
 │   │   │   │   │   │   ├── live_chapter_repository.g.dart
+│   │   │   │   │   │   ├── recorded_chapters_repository.g.dart
 │   │   │   │   │   │   └── stories_repository.g.dart
 │   │   │   │   │   ├── live_chapter_repository.dart
+│   │   │   │   │   ├── recorded_chapters_repository.dart
 │   │   │   │   │   └── stories_repository.dart
 │   │   │   │   ├── services
 │   │   │   │   │   ├── generated
-│   │   │   │   │   │   └── live_chapter_coordinator.g.dart
+│   │   │   │   │   │   ├── live_chapter_coordinator.g.dart
+│   │   │   │   │   │   ├── recorded_chapter_store.g.dart
+│   │   │   │   │   │   └── recording_audio.g.dart
 │   │   │   │   │   ├── live_chapter_coordinator.dart
+│   │   │   │   │   ├── recorded_chapter_store.dart
+│   │   │   │   │   ├── recording_audio.dart
 │   │   │   │   │   └── whisper_transcription_service.dart
 │   │   │   │   └── whisper_model_setting.dart
 │   │   │   ├── model
@@ -685,17 +692,23 @@
 │   │   │   │   │   ├── live_chapter_model.freezed.dart
 │   │   │   │   │   ├── live_chapter_model.g.dart
 │   │   │   │   │   ├── live_chapter_state.freezed.dart
+│   │   │   │   │   ├── recorded_chapter.freezed.dart
+│   │   │   │   │   ├── recorded_chapter.g.dart
+│   │   │   │   │   ├── recording_playback_state.freezed.dart
 │   │   │   │   │   ├── stories_failure.freezed.dart
 │   │   │   │   │   ├── story_detail_state.freezed.dart
 │   │   │   │   │   └── story_search_state.freezed.dart
 │   │   │   │   ├── live_chapter_attendees_model.dart
 │   │   │   │   ├── live_chapter_model.dart
 │   │   │   │   ├── live_chapter_state.dart
+│   │   │   │   ├── recorded_chapter.dart
+│   │   │   │   ├── recording_playback_state.dart
 │   │   │   │   ├── stories_failure.dart
 │   │   │   │   ├── story.dart
 │   │   │   │   ├── story_detail_state.dart
 │   │   │   │   ├── story_search_state.dart
-│   │   │   │   └── story_tags.dart
+│   │   │   │   ├── story_tags.dart
+│   │   │   │   └── transcript_line.dart
 │   │   │   ├── stories_routes.dart
 │   │   │   ├── view
 │   │   │   │   ├── pages
@@ -706,6 +719,8 @@
 │   │   │   │   │   ├── create_story_page.dart
 │   │   │   │   │   ├── explore_page.dart
 │   │   │   │   │   ├── live_chapter_page.dart
+│   │   │   │   │   ├── recorded_chapter_detail_page.dart
+│   │   │   │   │   ├── recorded_chapters_page.dart
 │   │   │   │   │   ├── story_page.dart
 │   │   │   │   │   └── verify_chapter_details_page.dart
 │   │   │   │   ├── story_format.dart
@@ -717,8 +732,8 @@
 │   │   │   │       ├── filtered_list_tile.dart
 │   │   │   │       ├── like_button.dart
 │   │   │   │       ├── live_chapter_attendee_block.dart
-│   │   │   │       ├── live_chapter_header.dart
 │   │   │   │       ├── live_chapter_list_tile.dart
+│   │   │   │       ├── recorded_chapter_tile.dart
 │   │   │   │       ├── start_live_chapter_dialog.dart
 │   │   │   │       ├── story_card.dart
 │   │   │   │       ├── story_list_tile.dart
@@ -729,7 +744,9 @@
 │   │   │       ├── generated
 │   │   │       │   ├── chapter_player_notifier.g.dart
 │   │   │       │   ├── create_story_notifier.g.dart
+│   │   │       │   ├── recorded_chapters_notifier.g.dart
 │   │   │       │   └── story_detail_notifier.g.dart
+│   │   │       ├── recorded_chapters_notifier.dart
 │   │   │       └── story_detail_notifier.dart
 │   │   └── theme
 │   │       ├── model
@@ -787,11 +804,16 @@
 │   │   │   │   └── resonate_user.g.dart
 │   │   │   └── resonate_user.dart
 │   │   └── widgets
+│   │       ├── app_loader.dart
 │   │       ├── audio_wave_ring.dart
 │   │       ├── no_match_view.dart
 │   │       ├── secondary_list_card.dart
 │   │       ├── session_app_bar.dart
+│   │       ├── session_control_bar.dart
+│   │       ├── session_exit_dialog.dart
 │   │       ├── session_header.dart
+│   │       ├── session_participant_card.dart
+│   │       ├── session_stage.dart
 │   │       ├── snackbar.dart
 │   │       ├── speaking_avatar.dart
 │   │       └── speaking_profile_avatar.dart
@@ -986,14 +1008,20 @@
 │   │   │   │   ├── category_stories_test.dart
 │   │   │   │   ├── explore_stories_test.dart
 │   │   │   │   ├── live_chapter_repository_test.dart
+│   │   │   │   ├── recorded_chapters_repository_test.dart
+│   │   │   │   ├── recording_playback_test.dart
 │   │   │   │   ├── stories_repository_test.dart
 │   │   │   │   └── stories_search_test.dart
 │   │   │   ├── fake_meili_client.dart
 │   │   │   ├── fake_stories_repository.dart
 │   │   │   ├── model
-│   │   │   │   └── story_tags_test.dart
+│   │   │   │   ├── story_tags_test.dart
+│   │   │   │   └── transcript_line_test.dart
+│   │   │   ├── recording_fixtures.dart
 │   │   │   ├── view
+│   │   │   │   ├── live_chapter_page_test.dart
 │   │   │   │   ├── live_chapter_widgets_test.dart
+│   │   │   │   ├── recorded_chapters_pages_test.dart
 │   │   │   │   ├── stories_pages_test.dart
 │   │   │   │   ├── stories_test_helpers.dart
 │   │   │   │   ├── stories_widgets_test.dart
@@ -1002,6 +1030,7 @@
 │   │   │       ├── chapter_player_notifier_test.dart
 │   │   │       ├── create_story_notifier_test.dart
 │   │   │       ├── live_chapter_notifier_test.dart
+│   │   │       ├── recorded_chapters_notifier_test.dart
 │   │   │       ├── story_detail_notifier_test.dart
 │   │   │       └── whisper_model_notifier_test.dart
 │   │   └── theme
@@ -1015,10 +1044,11 @@
 │   │   └── app_router_test.dart
 │   ├── shared
 │   │   ├── audio_wave_ring_test.dart
+│   │   ├── session_control_bar_test.dart
 │   │   └── speaking_profile_avatar_test.dart
 │   └── utils
 │       ├── activity_status_test.dart
 │       └── realtime_event_test.dart
 └── untranslated.txt
 
-271 directories, 751 files
+271 directories, 781 files
