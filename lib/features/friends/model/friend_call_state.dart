@@ -8,6 +8,5 @@ abstract class FriendCallState with _$FriendCallState {
   const factory FriendCallState({
     FriendCallModel? activeCall,
     @Default(false) bool isMicOn,
-    @Default(true) bool isLoudSpeakerOn,
   }) = _FriendCallState;
 }

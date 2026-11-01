@@ -3,18 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
 import 'dart:async' as _i5;
 
-import 'package:appwrite/appwrite.dart' as _i8;
+import 'package:appwrite/appwrite.dart' as _i6;
+import 'package:appwrite/enums.dart' as _i9;
 import 'package:appwrite/models.dart' as _i3;
 import 'package:appwrite/src/client.dart' as _i2;
-import 'package:appwrite/src/realtime.dart' as _i9;
-import 'package:appwrite/src/realtime_message.dart' as _i10;
+import 'package:appwrite/src/realtime.dart' as _i7;
+import 'package:appwrite/src/realtime_message.dart' as _i8;
 import 'package:appwrite/src/realtime_subscription.dart' as _i4;
-import 'package:firebase_core/firebase_core.dart' as _i6;
-import 'package:firebase_messaging/firebase_messaging.dart' as _i11;
-import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart'
-    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -70,21 +68,20 @@ class _FakeStreamController_6<T> extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeFirebaseApp_7 extends _i1.SmartFake implements _i6.FirebaseApp {
-  _FakeFirebaseApp_7(Object parent, Invocation parentInvocation)
+class _FakeExecutionList_7 extends _i1.SmartFake implements _i3.ExecutionList {
+  _FakeExecutionList_7(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeNotificationSettings_8 extends _i1.SmartFake
-    implements _i7.NotificationSettings {
-  _FakeNotificationSettings_8(Object parent, Invocation parentInvocation)
+class _FakeExecution_8 extends _i1.SmartFake implements _i3.Execution {
+  _FakeExecution_8(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
 /// A class which mocks [TablesDB].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
+class MockTablesDB extends _i1.Mock implements _i6.TablesDB {
   MockTablesDB() {
     _i1.throwOnMissingStub(this);
   }
@@ -98,13 +95,22 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
           as _i2.Client);
 
   @override
-  _i5.Future<_i3.TransactionList> listTransactions({List<String>? queries}) =>
+  _i5.Future<_i3.TransactionList> listTransactions({
+    List<String>? queries,
+    bool? total,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#listTransactions, [], {#queries: queries}),
+            Invocation.method(#listTransactions, [], {
+              #queries: queries,
+              #total: total,
+            }),
             returnValue: _i5.Future<_i3.TransactionList>.value(
               _FakeTransactionList_1(
                 this,
-                Invocation.method(#listTransactions, [], {#queries: queries}),
+                Invocation.method(#listTransactions, [], {
+                  #queries: queries,
+                  #total: total,
+                }),
               ),
             ),
           )
@@ -206,6 +212,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
     List<String>? queries,
     String? transactionId,
     bool? total,
+    int? ttl,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#listRows, [], {
@@ -214,6 +221,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
               #queries: queries,
               #transactionId: transactionId,
               #total: total,
+              #ttl: ttl,
             }),
             returnValue: _i5.Future<_i3.RowList>.value(
               _FakeRowList_3(
@@ -224,6 +232,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
                   #queries: queries,
                   #transactionId: transactionId,
                   #total: total,
+                  #ttl: ttl,
                 }),
               ),
             ),
@@ -459,7 +468,7 @@ class MockTablesDB extends _i1.Mock implements _i8.TablesDB {
 /// A class which mocks [Realtime].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRealtime extends _i1.Mock implements _i9.Realtime {
+class MockRealtime extends _i1.Mock implements _i7.Realtime {
   MockRealtime() {
     _i1.throwOnMissingStub(this);
   }
@@ -473,15 +482,43 @@ class MockRealtime extends _i1.Mock implements _i9.Realtime {
           as _i2.Client);
 
   @override
-  _i4.RealtimeSubscription subscribe(List<String>? channels) =>
+  _i4.RealtimeSubscription subscribe(
+    List<Object>? channels, {
+    List<String>? queries = const [],
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#subscribe, [channels]),
+            Invocation.method(#subscribe, [channels], {#queries: queries}),
             returnValue: _FakeRealtimeSubscription_5(
               this,
-              Invocation.method(#subscribe, [channels]),
+              Invocation.method(#subscribe, [channels], {#queries: queries}),
             ),
           )
           as _i4.RealtimeSubscription);
+
+  @override
+  _i5.Future<void> disconnect() =>
+      (super.noSuchMethod(
+            Invocation.method(#disconnect, []),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  void upsertPresence({
+    required String? status,
+    required String? presenceId,
+    List<String>? permissions,
+    Map<String, dynamic>? metadata,
+  }) => super.noSuchMethod(
+    Invocation.method(#upsertPresence, [], {
+      #status: status,
+      #presenceId: presenceId,
+      #permissions: permissions,
+      #metadata: metadata,
+    }),
+    returnValueForMissingStub: null,
+  );
 }
 
 /// A class which mocks [RealtimeSubscription].
@@ -494,28 +531,54 @@ class MockRealtimeSubscription extends _i1.Mock
   }
 
   @override
-  _i5.Stream<_i10.RealtimeMessage> get stream =>
+  _i5.Stream<_i8.RealtimeMessage> get stream =>
       (super.noSuchMethod(
             Invocation.getter(#stream),
-            returnValue: _i5.Stream<_i10.RealtimeMessage>.empty(),
+            returnValue: _i5.Stream<_i8.RealtimeMessage>.empty(),
           )
-          as _i5.Stream<_i10.RealtimeMessage>);
+          as _i5.Stream<_i8.RealtimeMessage>);
 
   @override
-  _i5.StreamController<_i10.RealtimeMessage> get controller =>
+  _i5.StreamController<_i8.RealtimeMessage> get controller =>
       (super.noSuchMethod(
             Invocation.getter(#controller),
-            returnValue: _FakeStreamController_6<_i10.RealtimeMessage>(
+            returnValue: _FakeStreamController_6<_i8.RealtimeMessage>(
               this,
               Invocation.getter(#controller),
             ),
           )
-          as _i5.StreamController<_i10.RealtimeMessage>);
+          as _i5.StreamController<_i8.RealtimeMessage>);
 
   @override
   List<String> get channels =>
       (super.noSuchMethod(Invocation.getter(#channels), returnValue: <String>[])
           as List<String>);
+
+  @override
+  List<String> get queries =>
+      (super.noSuchMethod(Invocation.getter(#queries), returnValue: <String>[])
+          as List<String>);
+
+  @override
+  _i5.Future<void> Function() get unsubscribe =>
+      (super.noSuchMethod(
+            Invocation.getter(#unsubscribe),
+            returnValue: () => _i5.Future<void>.value(),
+          )
+          as _i5.Future<void> Function());
+
+  @override
+  _i5.Future<void> Function({List<Object>? channels, List<String>? queries})
+  get update =>
+      (super.noSuchMethod(
+            Invocation.getter(#update),
+            returnValue: ({List<Object>? channels, List<String>? queries}) =>
+                _i5.Future<void>.value(),
+          )
+          as _i5.Future<void> Function({
+            List<Object>? channels,
+            List<String>? queries,
+          }));
 
   @override
   _i5.Future<void> Function() get close =>
@@ -530,199 +593,111 @@ class MockRealtimeSubscription extends _i1.Mock
     Invocation.setter(#channels, value),
     returnValueForMissingStub: null,
   );
+
+  @override
+  set queries(List<String>? value) => super.noSuchMethod(
+    Invocation.setter(#queries, value),
+    returnValueForMissingStub: null,
+  );
 }
 
-/// A class which mocks [FirebaseMessaging].
+/// A class which mocks [Functions].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirebaseMessaging extends _i1.Mock implements _i11.FirebaseMessaging {
-  MockFirebaseMessaging() {
+class MockFunctions extends _i1.Mock implements _i6.Functions {
+  MockFunctions() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.FirebaseApp get app =>
+  _i2.Client get client =>
       (super.noSuchMethod(
-            Invocation.getter(#app),
-            returnValue: _FakeFirebaseApp_7(this, Invocation.getter(#app)),
+            Invocation.getter(#client),
+            returnValue: _FakeClient_0(this, Invocation.getter(#client)),
           )
-          as _i6.FirebaseApp);
+          as _i2.Client);
 
   @override
-  bool get isAutoInitEnabled =>
-      (super.noSuchMethod(
-            Invocation.getter(#isAutoInitEnabled),
-            returnValue: false,
-          )
-          as bool);
-
-  @override
-  _i5.Stream<String> get onTokenRefresh =>
-      (super.noSuchMethod(
-            Invocation.getter(#onTokenRefresh),
-            returnValue: _i5.Stream<String>.empty(),
-          )
-          as _i5.Stream<String>);
-
-  @override
-  set app(_i6.FirebaseApp? value) => super.noSuchMethod(
-    Invocation.setter(#app, value),
-    returnValueForMissingStub: null,
-  );
-
-  @override
-  Map<dynamic, dynamic> get pluginConstants =>
-      (super.noSuchMethod(
-            Invocation.getter(#pluginConstants),
-            returnValue: <dynamic, dynamic>{},
-          )
-          as Map<dynamic, dynamic>);
-
-  @override
-  _i5.Future<_i7.RemoteMessage?> getInitialMessage() =>
-      (super.noSuchMethod(
-            Invocation.method(#getInitialMessage, []),
-            returnValue: _i5.Future<_i7.RemoteMessage?>.value(),
-          )
-          as _i5.Future<_i7.RemoteMessage?>);
-
-  @override
-  _i5.Future<void> deleteToken() =>
-      (super.noSuchMethod(
-            Invocation.method(#deleteToken, []),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<String?> getAPNSToken() =>
-      (super.noSuchMethod(
-            Invocation.method(#getAPNSToken, []),
-            returnValue: _i5.Future<String?>.value(),
-          )
-          as _i5.Future<String?>);
-
-  @override
-  _i5.Future<String?> getToken({String? vapidKey}) =>
-      (super.noSuchMethod(
-            Invocation.method(#getToken, [], {#vapidKey: vapidKey}),
-            returnValue: _i5.Future<String?>.value(),
-          )
-          as _i5.Future<String?>);
-
-  @override
-  _i5.Future<bool> isSupported() =>
-      (super.noSuchMethod(
-            Invocation.method(#isSupported, []),
-            returnValue: _i5.Future<bool>.value(false),
-          )
-          as _i5.Future<bool>);
-
-  @override
-  _i5.Future<_i7.NotificationSettings> getNotificationSettings() =>
-      (super.noSuchMethod(
-            Invocation.method(#getNotificationSettings, []),
-            returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_8(
-                this,
-                Invocation.method(#getNotificationSettings, []),
-              ),
-            ),
-          )
-          as _i5.Future<_i7.NotificationSettings>);
-
-  @override
-  _i5.Future<_i7.NotificationSettings> requestPermission({
-    bool? alert = true,
-    bool? announcement = false,
-    bool? badge = true,
-    bool? carPlay = false,
-    bool? criticalAlert = false,
-    bool? provisional = false,
-    bool? sound = true,
-    bool? providesAppNotificationSettings = false,
+  _i5.Future<_i3.ExecutionList> listExecutions({
+    required String? functionId,
+    List<String>? queries,
+    bool? total,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(#requestPermission, [], {
-              #alert: alert,
-              #announcement: announcement,
-              #badge: badge,
-              #carPlay: carPlay,
-              #criticalAlert: criticalAlert,
-              #provisional: provisional,
-              #sound: sound,
-              #providesAppNotificationSettings: providesAppNotificationSettings,
+            Invocation.method(#listExecutions, [], {
+              #functionId: functionId,
+              #queries: queries,
+              #total: total,
             }),
-            returnValue: _i5.Future<_i7.NotificationSettings>.value(
-              _FakeNotificationSettings_8(
+            returnValue: _i5.Future<_i3.ExecutionList>.value(
+              _FakeExecutionList_7(
                 this,
-                Invocation.method(#requestPermission, [], {
-                  #alert: alert,
-                  #announcement: announcement,
-                  #badge: badge,
-                  #carPlay: carPlay,
-                  #criticalAlert: criticalAlert,
-                  #provisional: provisional,
-                  #sound: sound,
-                  #providesAppNotificationSettings:
-                      providesAppNotificationSettings,
+                Invocation.method(#listExecutions, [], {
+                  #functionId: functionId,
+                  #queries: queries,
+                  #total: total,
                 }),
               ),
             ),
           )
-          as _i5.Future<_i7.NotificationSettings>);
+          as _i5.Future<_i3.ExecutionList>);
 
   @override
-  _i5.Future<void> setAutoInitEnabled(bool? enabled) =>
-      (super.noSuchMethod(
-            Invocation.method(#setAutoInitEnabled, [enabled]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> setDeliveryMetricsExportToBigQuery(bool? enabled) =>
-      (super.noSuchMethod(
-            Invocation.method(#setDeliveryMetricsExportToBigQuery, [enabled]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> setForegroundNotificationPresentationOptions({
-    bool? alert = false,
-    bool? badge = false,
-    bool? sound = false,
+  _i5.Future<_i3.Execution> createExecution({
+    required String? functionId,
+    String? body,
+    bool? xasync,
+    String? path,
+    _i9.ExecutionMethod? method,
+    Map<dynamic, dynamic>? headers,
+    String? scheduledAt,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #setForegroundNotificationPresentationOptions,
-              [],
-              {#alert: alert, #badge: badge, #sound: sound},
+            Invocation.method(#createExecution, [], {
+              #functionId: functionId,
+              #body: body,
+              #xasync: xasync,
+              #path: path,
+              #method: method,
+              #headers: headers,
+              #scheduledAt: scheduledAt,
+            }),
+            returnValue: _i5.Future<_i3.Execution>.value(
+              _FakeExecution_8(
+                this,
+                Invocation.method(#createExecution, [], {
+                  #functionId: functionId,
+                  #body: body,
+                  #xasync: xasync,
+                  #path: path,
+                  #method: method,
+                  #headers: headers,
+                  #scheduledAt: scheduledAt,
+                }),
+              ),
             ),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
           )
-          as _i5.Future<void>);
+          as _i5.Future<_i3.Execution>);
 
   @override
-  _i5.Future<void> subscribeToTopic(String? topic) =>
+  _i5.Future<_i3.Execution> getExecution({
+    required String? functionId,
+    required String? executionId,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#subscribeToTopic, [topic]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
+            Invocation.method(#getExecution, [], {
+              #functionId: functionId,
+              #executionId: executionId,
+            }),
+            returnValue: _i5.Future<_i3.Execution>.value(
+              _FakeExecution_8(
+                this,
+                Invocation.method(#getExecution, [], {
+                  #functionId: functionId,
+                  #executionId: executionId,
+                }),
+              ),
+            ),
           )
-          as _i5.Future<void>);
-
-  @override
-  _i5.Future<void> unsubscribeFromTopic(String? topic) =>
-      (super.noSuchMethod(
-            Invocation.method(#unsubscribeFromTopic, [topic]),
-            returnValue: _i5.Future<void>.value(),
-            returnValueForMissingStub: _i5.Future<void>.value(),
-          )
-          as _i5.Future<void>);
+          as _i5.Future<_i3.Execution>);
 }

@@ -3,13 +3,14 @@ import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/rooms/data/livekit_join.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/data/repositories/friends_repository.dart'
-    show mapAppwriteFriendsException;
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
+import 'package:resonate/core/services/execute_function.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/friend_call_repository.g.dart';
@@ -19,7 +20,7 @@ FriendCallRepository friendCallRepository(Ref ref) => FriendCallRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
   functions: ref.watch(appwriteFunctionsProvider),
-  apiService: ref.watch(apiServiceProvider),
+  roomJoin: ref.watch(roomJoinServiceProvider),
 );
 
 class FriendCallRepository {
@@ -27,16 +28,16 @@ class FriendCallRepository {
     required TablesDB tables,
     required Realtime realtime,
     required Functions functions,
-    required ApiService apiService,
+    required RoomJoinService roomJoin,
   }) : _tables = tables,
        _realtime = realtime,
        _functions = functions,
-       _api = apiService;
+       _roomJoin = roomJoin;
 
   final TablesDB _tables;
   final Realtime _realtime;
   final Functions _functions;
-  final ApiService _api;
+  final RoomJoinService _roomJoin;
 
   Future<FriendCallModel> createCall({
     required String callerName,
@@ -64,24 +65,24 @@ class FriendCallRepository {
         docId: ID.unique(),
       );
       await _tables.createRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: callModel.docId,
         data: callModel.toJson(),
       );
       return callModel;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
-  // Triggers the cloud function that delivers the incoming-call FCM push.
-  Future<void> sendCallNotification({
+  // Triggers the cloud function that delivers the incoming-call push.
+  Future<ActivityStatus?> sendCallNotification({
     required FriendCallModel call,
-    required String recieverFCMToken,
   }) async {
     final notificationData = {
-      "recieverFCMToken": recieverFCMToken,
+      // The function addresses the callee by uid and checks activity status
+      "recieverUid": call.recieverUid,
       "data": {
         "caller_name": call.callerName,
         "caller_username": call.callerUsername,
@@ -94,22 +95,28 @@ class FriendCallRepository {
         "livekit_room_id": call.livekitRoomId,
       },
     };
-    await _functions.createExecution(
+    final response = await _functions.execute(
       functionId: startFriendCallFunctionID,
-      body: jsonEncode(notificationData),
+      body: notificationData,
     );
+
+    if (response['blocked'] == true) {
+      return ActivityStatus.fromWire(response['reason'] as String?) ??
+          ActivityStatus.dnd;
+    }
+    return null;
   }
 
   Future<FriendCallModel> getCall(String callId) async {
     try {
       final callDoc = await _tables.getRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: callId,
       );
       return FriendCallModel.fromJson(callDoc.data);
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
@@ -120,20 +127,20 @@ class FriendCallRepository {
     try {
       final updated = call.copyWith(callStatus: status);
       await _tables.updateRow(
-        databaseId: masterDatabaseId,
+        databaseId: databaseId,
         tableId: friendCallsTableId,
         rowId: updated.docId,
         data: updated.toJson(),
       );
       return updated;
     } on AppwriteException catch (e) {
-      throw mapAppwriteFriendsException(e);
+      throw FriendsFailure.fromAppwrite(e);
     }
   }
 
   Stream<RealtimeMessage> callStream(String callDocId) {
     final channel =
-        'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.$callDocId';
+        'databases.$databaseId.tables.$friendCallsTableId.rows.$callDocId';
     final subscription = _realtime.subscribe([channel]);
     final controller = StreamController<RealtimeMessage>();
     final sub = subscription.stream.listen((event) {
@@ -150,7 +157,7 @@ class FriendCallRepository {
     required String roomId,
     required String userId,
   }) async {
-    final response = await _api.joinRoom(roomId, userId);
+    final response = await _roomJoin.joinRoom(roomId, userId);
     return liveKitJoinFromResponse(response);
   }
 }

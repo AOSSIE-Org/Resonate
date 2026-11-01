@@ -1,0 +1,120 @@
+name: VERSION_BUMP_CHECK
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check_version_bump:
+    name: Check pubspec version bump
+    runs-on: ubuntu-latest
+    steps:
+      # Full history: the base branch's pubspec.yaml has to be readable.
+      - name: Checkout the code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide whether this PR needs a bump
+        id: scope
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          SKIP_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'skip-version-check') }}
+        run: |
+          set -euo pipefail
+          if [ "$SKIP_LABEL" = "true" ]; then
+            echo "reason=labelled skip-version-check" >> "$GITHUB_OUTPUT"
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if ! git rev-parse --verify --quiet "origin/$BASE_REF^{commit}" >/dev/null; then
+            echo "::error::Cannot resolve origin/$BASE_REF - the checkout needs fetch-depth: 0."
+            exit 1
+          fi
+          changed=$(git diff --name-only "origin/$BASE_REF...HEAD" \
+            -- lib android ios pubspec.yaml pubspec.lock assets)
+          if [ -z "$changed" ]; then
+            echo "reason=no app code changed" >> "$GITHUB_OUTPUT"
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Read the base branch's pubspec
+        if: steps.scope.outputs.needed == 'true'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git show "origin/$BASE_REF:pubspec.yaml" > /tmp/base_pubspec.yaml
+
+      - name: Compare versions
+        id: compare
+        if: steps.scope.outputs.needed == 'true'
+        run: |
+          set +e
+          output=$(python3 .github/scripts/check_version_bump.py \
+            --base-file /tmp/base_pubspec.yaml \
+            --head-file pubspec.yaml 2>&1)
+          status=$?
+          set -e
+          echo "$output"
+          {
+            echo "result<<VERDICT"
+            echo "$output"
+            echo "VERDICT"
+          } >> "$GITHUB_OUTPUT"
+          exit $status
+
+      - name: Explain the failure on the PR
+        if: failure() && steps.compare.outcome == 'failure'
+        uses: actions/github-script@v7
+        env:
+          VERDICT: ${{ steps.compare.outputs.result }}
+        with:
+          script: |
+            const marker = '<!-- version-bump-check -->';
+            const body = [
+              marker,
+              '### ⚠️ pubspec version not bumped',
+              '',
+              '```',
+              process.env.VERDICT || 'See the workflow log for details.',
+              '```',
+              '',
+              'Both stores reject an upload whose build number is not higher',
+              'than the last accepted one. Bump the `+<build>` half of',
+              '`version:` in `pubspec.yaml` before merging.',
+              '',
+              'If this PR ships nothing to the stores, add the',
+              '`skip-version-check` label.',
+            ].join('\n');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({
+              owner, repo, issue_number,
+            });
+            const existing = comments.data.find(
+              (c) => c.body && c.body.includes(marker),
+            );
+
+            // Update in place so a re-pushed branch does not stack comments.
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner, repo, comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner, repo, issue_number, body,
+              });
+            }
+
+      - name: Report a skip
+        if: steps.scope.outputs.needed != 'true'
+        run: echo "Version bump not required - ${{ steps.scope.outputs.reason }}."

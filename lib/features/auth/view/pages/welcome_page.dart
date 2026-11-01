@@ -139,7 +139,7 @@ class _OAuthButton extends StatelessWidget {
   });
 
   final String tooltip;
-  final IconData icon;
+  final FaIconData icon;
   final VoidCallback onPressed;
 
   @override

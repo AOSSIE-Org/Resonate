@@ -192,55 +192,61 @@ class AboutAppScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: UiSizes.height_10),
-              Container(
-                height: UiSizes.height_80,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () => _handleUpdateCheck(context, ref),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          aboutApp.isCheckingForUpdate
-                              ? SizedBox(
-                                  width: UiSizes.width_25,
-                                  height: UiSizes.height_26,
-                                  child: LoadingIndicator(
-                                    indicatorType: Indicator.ballPulse,
-                                    colors: [
-                                      Theme.of(context).colorScheme.primary,
-                                    ],
-                                    strokeWidth: UiSizes.width_2,
+              // Hidden on F-Droid, which updates through its own client.
+              if (!isFDroidBuild)
+                Container(
+                  height: UiSizes.height_80,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: UiSizes.width_20),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () => _handleUpdateCheck(context, ref),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            aboutApp.isCheckingForUpdate
+                                ? SizedBox(
+                                    width: UiSizes.width_25,
+                                    height: UiSizes.height_26,
+                                    child: LoadingIndicator(
+                                      indicatorType: Indicator.ballPulse,
+                                      colors: [
+                                        Theme.of(context).colorScheme.primary,
+                                      ],
+                                      strokeWidth: UiSizes.width_2,
+                                    ),
+                                  )
+                                : Icon(
+                                    aboutApp.updateAvailable
+                                        ? Icons.system_update
+                                        : Icons.update,
+                                    size: UiSizes.size_24,
                                   ),
-                                )
-                              : Icon(
-                                  aboutApp.updateAvailable
-                                      ? Icons.system_update
-                                      : Icons.update,
-                                  size: UiSizes.size_24,
-                                ),
-                          SizedBox(width: UiSizes.width_10),
-                          Text(
-                            aboutApp.updateAvailable
-                                ? AppLocalizations.of(context)!.updateAvailable
-                                : AppLocalizations.of(context)!.checkForUpdates,
-                            style: TextStyle(
-                              fontSize: UiSizes.size_16,
-                              fontWeight: FontWeight.w500,
+                            SizedBox(width: UiSizes.width_10),
+                            Text(
+                              aboutApp.updateAvailable
+                                  ? AppLocalizations.of(
+                                      context,
+                                    )!.updateAvailable
+                                  : AppLocalizations.of(
+                                      context,
+                                    )!.checkForUpdates,
+                              style: TextStyle(
+                                fontSize: UiSizes.size_16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
               SizedBox(height: UiSizes.height_40),
               Align(
                 alignment: Alignment.centerLeft,

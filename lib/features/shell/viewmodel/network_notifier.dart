@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';

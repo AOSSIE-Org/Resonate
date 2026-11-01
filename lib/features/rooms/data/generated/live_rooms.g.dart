@@ -33,7 +33,7 @@ final class LiveRoomsProvider
   LiveRooms create() => LiveRooms();
 }
 
-String _$liveRoomsHash() => r'8a4dacfaa8ab74cb5d99c4901cde4f4154cbb528';
+String _$liveRoomsHash() => r'07138dd1dc826f4e5ea8581b3d7b84cda9ee6f7e';
 
 abstract class _$LiveRooms extends $AsyncNotifier<List<AppwriteRoom>> {
   FutureOr<List<AppwriteRoom>> build();

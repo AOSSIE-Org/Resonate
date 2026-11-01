@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 
-/// Collapse-style app bar shared by the live-room sheet and pair chat.
 class SessionAppBar extends StatelessWidget {
-  const SessionAppBar({super.key});
+  const SessionAppBar({
+    super.key,
+    this.icon = Icons.keyboard_arrow_down,
+    this.onPressed,
+  });
+
+  final IconData icon;
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +18,8 @@ class SessionAppBar extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 0,
       leading: IconButton(
-        icon: Icon(
-          Icons.keyboard_arrow_down,
-          size: UiSizes.size_35,
-        ),
-        onPressed: () => Navigator.of(context).pop(),
+        icon: Icon(icon, size: UiSizes.size_30),
+        onPressed: onPressed ?? () => Navigator.of(context).pop(),
       ),
     );
   }

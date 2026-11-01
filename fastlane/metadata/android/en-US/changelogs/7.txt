@@ -1,0 +1,1 @@
+Dependency refresh: Flutter 3.47, Appwrite SDK 28, and updates across the app.

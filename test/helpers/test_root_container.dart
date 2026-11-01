@@ -1,34 +1,49 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:appwrite/models.dart' hide Account;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
-import 'package:resonate/features/auth/data/services/callkit_service.dart';
+import 'package:resonate/features/friends/data/services/callkit_service.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
+import 'package:resonate/features/achievements/data/badge_catalogue.dart';
+import 'package:resonate/features/achievements/data/my_stats.dart';
+import 'package:resonate/features/achievements/data/activity_recorder.dart';
+import 'package:resonate/features/achievements/data/user_stats_provider.dart';
+import 'package:resonate/features/achievements/model/achievement_badge.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
+import 'package:resonate/features/activity_status/data/my_activity_status.dart';
+import 'package:resonate/features/activity_status/data/user_activity_status.dart';
+import 'package:resonate/features/profile/data/user_avatars.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
-import 'package:resonate/features/rooms/model/livekit_state.dart';
+import 'package:resonate/features/live_audio/model/livekit_state.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/live_audio/data/services/audio_band_tracker.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/enums/room_state.dart';
 import 'package:resonate/utils/enums/story_category.dart';
+
+// No cycle: the generated mocks do not import this file back.
+import 'test_root_container.mocks.dart';
 
 @GenerateMocks([
   Account,
@@ -37,8 +52,8 @@ import 'package:resonate/utils/enums/story_category.dart';
   Realtime,
   Functions,
   RealtimeSubscription,
-  FirebaseMessaging,
   Execution,
+  AudioPlayer,
 ])
 // Data builders
 AuthUser fakeAuthUser({
@@ -143,8 +158,6 @@ FriendsModel fakeFriendsModel({
   String recieverUsername = 'reciever',
   String senderProfileImgUrl = 'https://example.com/s.jpg',
   String recieverProfileImgUrl = 'https://example.com/r.jpg',
-  String? senderFCMToken = 'sender-token',
-  String? recieverFCMToken = 'reciever-token',
   FriendRequestStatus requestStatus = FriendRequestStatus.sent,
   String? requestSentByUserId,
   double? senderRating = 4.0,
@@ -159,8 +172,6 @@ FriendsModel fakeFriendsModel({
   recieverUsername: recieverUsername,
   senderProfileImgUrl: senderProfileImgUrl,
   recieverProfileImgUrl: recieverProfileImgUrl,
-  senderFCMToken: senderFCMToken,
-  recieverFCMToken: recieverFCMToken,
   requestStatus: requestStatus,
   requestSentByUserId: requestSentByUserId ?? senderId,
   senderRating: senderRating,
@@ -237,7 +248,6 @@ LiveChapterModel fakeLiveChapterModel({
   String chapterTitle = 'Live Chapter',
   String chapterDescription = 'Live description',
   String storyId = 'story-1',
-  List<String> followersFCMToken = const [],
   LiveChapterAttendeesModel? attendees,
 }) => LiveChapterModel(
   livekitRoomId: livekitRoomId ?? id,
@@ -247,7 +257,6 @@ LiveChapterModel fakeLiveChapterModel({
   chapterTitle: chapterTitle,
   chapterDescription: chapterDescription,
   storyId: storyId,
-  followersFCMToken: followersFCMToken,
   attendees: attendees,
   id: id,
 );
@@ -277,6 +286,20 @@ void stubFlutterSecureStorageChannel() {
       );
 }
 
+
+StreamController<RealtimeMessage> stubRealtimeChannel(
+  MockRealtime realtime, {
+  MockRealtimeSubscription? subscription,
+}) {
+  final controller = StreamController<RealtimeMessage>.broadcast();
+  final sub = subscription ?? MockRealtimeSubscription();
+  when(sub.stream).thenAnswer((_) => controller.stream);
+  when(sub.close).thenReturn(() async {});
+  when(realtime.subscribe(any)).thenReturn(sub);
+  addTearDown(controller.close);
+  return controller;
+}
+
 Row buildRow({
   required String id,
   required Map<String, dynamic> data,
@@ -284,7 +307,7 @@ Row buildRow({
   String databaseId = 'test-db',
 }) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: tableId,
   $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
@@ -324,8 +347,29 @@ class FakeGetStorage implements GetStorage {
 }
 
 class FakeLiveKitController extends LiveKitController {
+  final _speakerLevels = StreamController<Map<String, double>>.broadcast();
+  final _speakerBands = StreamController<SpeakerBands>.broadcast();
+
   @override
-  LiveKitState build() => const LiveKitState();
+  Stream<Map<String, double>> get speakerLevels => _speakerLevels.stream;
+
+  @override
+  Stream<SpeakerBands> get speakerBands => _speakerBands.stream;
+
+  void emitSpeakerLevels(Map<String, double> levels) {
+    if (!_speakerLevels.isClosed) _speakerLevels.add(levels);
+  }
+
+  void emitSpeakerBands(String uid, List<double> bands) {
+    if (!_speakerBands.isClosed) _speakerBands.add((uid: uid, bands: bands));
+  }
+
+  @override
+  LiveKitState build() {
+    ref.onDispose(_speakerLevels.close);
+    ref.onDispose(_speakerBands.close);
+    return const LiveKitState();
+  }
 
   @override
   Future<bool> connect({
@@ -346,11 +390,64 @@ class FakeLiveKitController extends LiveKitController {
   Future<void> setMicrophoneEnabled(bool enabled) async {}
 
   @override
-  Future<void> setSpeakerphoneOn(bool enabled) async {}
-
-  @override
   Future<void> setRecording(bool recording) async {
     state = state.copyWith(isRecording: recording);
+  }
+}
+
+class FakeAudioPlayer extends MockAudioPlayer {
+  final _positions = StreamController<Duration>.broadcast();
+  final _durations = StreamController<Duration>.broadcast();
+  final _completions = StreamController<void>.broadcast();
+
+  // In call order, so a test can assert what the player was asked to do.
+  final calls = <String>[];
+  String? sourcePath;
+
+  @override
+  Stream<Duration> get onPositionChanged => _positions.stream;
+
+  @override
+  Stream<Duration> get onDurationChanged => _durations.stream;
+
+  @override
+  Stream<void> get onPlayerComplete => _completions.stream;
+
+  @override
+  Future<void> setSourceDeviceFile(String? path, {String? mimeType}) async {
+    sourcePath = path;
+    calls.add('load');
+  }
+
+  @override
+  Future<void> resume() async => calls.add('resume');
+
+  @override
+  Future<void> pause() async => calls.add('pause');
+
+  @override
+  Future<void> seek(Duration? position) async => calls.add('seek');
+
+  @override
+  Future<void> stop() async => calls.add('stop');
+
+  @override
+  Future<void> dispose() async {
+    await _positions.close();
+    await _durations.close();
+    await _completions.close();
+  }
+
+  void emitPosition(Duration position) => _positions.add(position);
+  void emitDuration(Duration duration) => _durations.add(duration);
+  void complete() => _completions.add(null);
+}
+
+class ConnectedLiveKitController extends FakeLiveKitController {
+  @override
+  LiveKitState build() {
+    super.build();
+    return const LiveKitState(hasSession: true, isConnected: true);
   }
 }
 
@@ -368,7 +465,7 @@ class FakeCallKitService extends CallKitService {
   Future<void> stop() async {}
 
   @override
-  Future<void> showIncomingCall(RemoteMessage message) async {
+  Future<void> showIncomingCall(Map<String, dynamic> data) async {
     showIncomingCallCount++;
   }
 
@@ -378,12 +475,6 @@ class FakeCallKitService extends CallKitService {
   }
 }
 
-// Stateful, like the real AuthRepository: the seeded [state] is what every
-// load/mutation resolves the session to, and [sessionStateChanges] mirrors it
-// so authSessionProvider / currentUserProvider / the router all observe it.
-// Deterministic by construction — refresh() re-yields the seeded state with no
-// network, so tests that trigger refresh() (e.g. pair-chat submitRating) can't
-// go flaky the way the old half-stubbed auth path could.
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository(this.state);
 
@@ -437,13 +528,19 @@ class FakeAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> loginWithEmail({required String email, required String password}) async {
+  Future<void> loginWithEmail({
+    required String email,
+    required String password,
+  }) async {
     loginCount++;
     _setSessionState(AsyncData(state));
   }
 
   @override
-  Future<void> signupWithEmail({required String email, required String password}) async {
+  Future<void> signupWithEmail({
+    required String email,
+    required String password,
+  }) async {
     signupCount++;
     _setSessionState(AsyncData(state));
   }
@@ -465,16 +562,6 @@ class FakeAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> addRegistrationToken({required String uid}) async {
-    addTokenCount++;
-  }
-
-  @override
-  Future<void> removeRegistrationToken({required String uid}) async {
-    removeTokenCount++;
-  }
-
-  @override
   void dispose() {
     _sessionStateController.close();
   }
@@ -485,6 +572,131 @@ class FakeAuthRepository implements AuthRepository {
   );
 }
 
+class FakeMyActivityStatus extends MyActivityStatus {
+  FakeMyActivityStatus([this.initial = ActivityStatus.online]);
+
+  final ActivityStatus initial;
+  final List<ActivityStatus> setStatusCalls = [];
+  int goOfflineCount = 0;
+
+  @override
+  ActivityStatus build() => initial;
+
+  @override
+  ActivityStatus get chosen => state;
+
+  @override
+  Future<void> setStatus(ActivityStatus status) async {
+    setStatusCalls.add(status);
+    state = status;
+  }
+
+  @override
+  Future<void> goOffline() async => goOfflineCount++;
+}
+
+class FakeUserActivityStatus extends UserActivityStatus {
+  FakeUserActivityStatus([this.statuses = const {}]);
+
+  final Map<String, ActivityStatus> statuses;
+
+  @override
+  Map<String, ActivityStatus> build() => statuses;
+
+  @override
+  ActivityStatus? statusOf(String uid) => statuses[uid];
+}
+
+class FakeMyStats extends MyStats {
+  FakeMyStats([this.initial = UserStats.empty]);
+
+  final UserStats initial;
+  final List<({List<String> displayedBadges, String? avatarBadge})>
+  showcaseCalls = [];
+  bool showcaseSucceeds = true;
+
+  @override
+  Future<UserStats> build() async => initial;
+
+  @override
+  Future<bool> setShowcase({
+    required List<String> displayedBadges,
+    required String? avatarBadge,
+  }) async {
+    showcaseCalls.add((
+      displayedBadges: displayedBadges,
+      avatarBadge: avatarBadge,
+    ));
+    if (!showcaseSucceeds) return false;
+    state = AsyncData(
+      (state.value ?? initial).copyWith(
+        displayedBadges: displayedBadges,
+        avatarBadge: avatarBadge,
+      ),
+    );
+    return true;
+  }
+}
+
+class FakeActivityRecorder extends ActivityRecorder {
+  final List<int> interactions = [];
+  final List<String> roomCredits = [];
+  final StreamController<List<String>> _earned =
+      StreamController<List<String>>.broadcast();
+
+  @override
+  void build() {
+    ref.onDispose(_earned.close);
+  }
+
+  @override
+  Stream<List<String>> get badgesEarned => _earned.stream;
+
+  void emitBadgesEarned(List<String> badgeIds) {
+    if (!_earned.isClosed) _earned.add(badgeIds);
+  }
+
+  @override
+  void recordInteraction([int count = 1]) => interactions.add(count);
+
+  @override
+  Future<void> recordRoomCredit(String roomId) async => roomCredits.add(roomId);
+}
+
+List<Override> avatarOverrides([Map<String, String?> urls = const {}]) => [
+  userAvatarUrlProvider.overrideWith((ref, uid) async => urls[uid]),
+];
+
+List<Override> authOverrides([
+  AuthState state = const AuthState.unauthenticated(),
+]) => [authRepositoryProvider.overrideWithValue(FakeAuthRepository(state))];
+
+// Otherwise any badge widget builds the real repository and strands a timer.
+List<Override> achievementOverrides({
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
+  List<AchievementBadge> catalogue = kDefaultBadges,
+  FakeActivityRecorder? recorder,
+  FakeMyStats? myStatsNotifier,
+}) => [
+  myStatsProvider.overrideWith(() => myStatsNotifier ?? FakeMyStats(myStats)),
+  userStatsProvider.overrideWith(
+    (ref, uid) => otherStats[uid] ?? UserStats.empty,
+  ),
+  badgeCatalogueProvider.overrideWith((ref) => catalogue),
+  activityRecorderProvider.overrideWith(
+    () => recorder ?? FakeActivityRecorder(),
+  ),
+];
+
+List<Override> activityStatusOverrides({
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> others = const {},
+}) => [
+  myActivityStatusProvider.overrideWith(() => FakeMyActivityStatus(myStatus)),
+  userActivityStatusProvider.overrideWith(() => FakeUserActivityStatus(others)),
+];
+
 Future<ProviderContainer> installTestRootContainer({
   AuthState? authState,
   Account? account,
@@ -493,10 +705,15 @@ Future<ProviderContainer> installTestRootContainer({
   Storage? storage,
   Functions? functions,
   Realtime? realtime,
-  FirebaseMessaging? messaging,
   FakeAuthRepository? authRepository,
   GetStorage? getStorageBox,
   CallKitService? callKit,
+  ActivityStatus myStatus = ActivityStatus.online,
+  Map<String, ActivityStatus> activityStatuses = const {},
+  UserStats myStats = UserStats.empty,
+  Map<String, UserStats> otherStats = const {},
+  FakeActivityRecorder? activityRecorder,
+  List<Override> overrides = const [],
 }) async {
   final container = ProviderContainer(
     overrides: [
@@ -507,6 +724,12 @@ Future<ProviderContainer> installTestRootContainer({
       if (getStorageBox != null)
         getStorageBoxProvider.overrideWithValue(getStorageBox),
       liveKitControllerProvider.overrideWith(FakeLiveKitController.new),
+      ...activityStatusOverrides(myStatus: myStatus, others: activityStatuses),
+      ...achievementOverrides(
+        myStats: myStats,
+        otherStats: otherStats,
+        recorder: activityRecorder,
+      ),
       callKitServiceProvider.overrideWithValue(callKit ?? FakeCallKitService()),
       if (account != null) appwriteAccountProvider.overrideWithValue(account),
       if (tables != null) appwriteTablesProvider.overrideWithValue(tables),
@@ -516,8 +739,7 @@ Future<ProviderContainer> installTestRootContainer({
         appwriteFunctionsProvider.overrideWithValue(functions),
       if (realtime != null)
         appwriteRealtimeProvider.overrideWithValue(realtime),
-      if (messaging != null)
-        firebaseMessagingProvider.overrideWithValue(messaging),
+      ...overrides,
     ],
   );
   if (authRepository != null || authState != null || account != null) {

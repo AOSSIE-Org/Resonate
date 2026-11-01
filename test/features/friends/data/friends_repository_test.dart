@@ -2,20 +2,19 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_user.dart';
 import 'package:resonate/features/friends/data/repositories/friends_repository.dart';
 import 'package:resonate/features/friends/model/friends_model.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
 
 import 'friends_repository_test.mocks.dart';
 
-@GenerateMocks([TablesDB, Realtime, RealtimeSubscription, FirebaseMessaging])
+@GenerateMocks([TablesDB, Realtime, RealtimeSubscription, Functions])
 // Builds a friends-row json payload as stored under user.data['friends'].
 Map<String, dynamic> friendJson({
   String docId = 'friend-doc-1',
@@ -44,9 +43,9 @@ Row userRow({
   List<Map<String, dynamic>> friends = const [],
 }) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: usersTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -55,9 +54,9 @@ Row userRow({
 
 Row friendRow({String id = 'friend-doc-1'}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: friendsTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -84,7 +83,7 @@ void main() {
   late MockTablesDB tables;
   late MockRealtime realtime;
   late MockRealtimeSubscription subscription;
-  late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late StreamController<RealtimeMessage> events;
   late FriendsRepository repo;
 
@@ -92,13 +91,20 @@ void main() {
     tables = MockTablesDB();
     realtime = MockRealtime();
     subscription = MockRealtimeSubscription();
-    messaging = MockFirebaseMessaging();
+    functions = MockFunctions();
     events = StreamController<RealtimeMessage>.broadcast();
     repo = FriendsRepository(
       tables: tables,
       realtime: realtime,
-      messaging: messaging,
+      functions: functions,
     );
+    // Default: no friend row between the two users yet, so the duplicate check
+    // in sendFriendRequest falls through to the create.
+    when(tables.listRows(
+      databaseId: anyNamed('databaseId'),
+      tableId: anyNamed('tableId'),
+      queries: anyNamed('queries'),
+    )).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
   tearDown(() => events.close());
@@ -108,7 +114,7 @@ void main() {
         () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -133,7 +139,7 @@ void main() {
     test('skips malformed rows via try/catch', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -158,7 +164,7 @@ void main() {
     test('selects Query.select(["*","friends.*"])', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: anyNamed('queries'),
@@ -169,7 +175,7 @@ void main() {
 
       final captured = verify(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'me',
           queries: captureAnyNamed('queries'),
@@ -182,9 +188,8 @@ void main() {
   });
 
   group('sendFriendRequest', () {
-    test('sets senderFCMToken and averaged senderRating, creates row',
+    test('sets the averaged senderRating, creates row',
         () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -203,14 +208,13 @@ void main() {
         recieverRating: 3.5,
       );
 
-      expect(model.senderFCMToken, 'fcm-token');
       expect(model.senderRating, 4.0);
       expect(model.requestStatus, FriendRequestStatus.sent);
       expect(model.users, ['sender-1', 'reciever-1']);
 
       verify(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: model.docId,
           data: anyNamed('data'),
@@ -219,7 +223,6 @@ void main() {
     });
 
     test('uses 0 senderRating when ratingCount is 0', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -242,7 +245,6 @@ void main() {
     });
 
     test('maps 404 from createRow to notFound', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -267,9 +269,8 @@ void main() {
   });
 
   group('acceptFriendRequest', () {
-    test('copies with accepted status and recieverFCMToken, updates row',
+    test('copies with accepted status, updates row',
         () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'rec-token');
       when(
         tables.updateRow(
           databaseId: anyNamed('databaseId'),
@@ -285,12 +286,11 @@ void main() {
       final updated = await repo.acceptFriendRequest(original);
 
       expect(updated.requestStatus, FriendRequestStatus.accepted);
-      expect(updated.recieverFCMToken, 'rec-token');
       expect(updated.users, ['sender-1', 'reciever-1']);
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: 'friend-doc-1',
           data: anyNamed('data'),
@@ -299,7 +299,6 @@ void main() {
     });
 
     test('maps 401 from updateRow to permissionDenied', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'rec-token');
       when(
         tables.updateRow(
           databaseId: anyNamed('databaseId'),
@@ -334,7 +333,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: friendsTableID,
           rowId: 'friend-doc-1',
         ),
@@ -385,7 +384,7 @@ void main() {
       final sub = repo.friendsStream('me').listen(received.add);
 
       final channel =
-          'databases.$userDatabaseID.tables.$friendsTableID.rows';
+          'databases.$databaseId.tables.$friendsTableID.rows';
       // Matches on senderId.
       events.add(RealtimeMessage(
         events: ['$channel.a.create'],

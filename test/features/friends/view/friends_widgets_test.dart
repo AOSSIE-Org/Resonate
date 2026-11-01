@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
+import 'package:resonate/features/achievements/model/user_stats.dart';
+import 'package:resonate/features/achievements/view/widgets/badge_mark.dart';
+import 'package:resonate/features/friends/view/widgets/call_participant_tile.dart';
 import 'package:resonate/features/friends/view/widgets/friends_empty_view.dart';
 import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/routes/app_router.dart';
 import 'package:resonate/routes/route_paths.dart';
+import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 
 import '../friends_test_helpers.dart';
 
@@ -96,147 +98,72 @@ void main() {
     });
   });
 
-  group('CallControlPanel', () {
-    // Convenience builder with recording callbacks.
-    Widget panel({
-      required bool isMicOn,
-      required bool isLoudSpeakerOn,
-      VoidCallback? onToggleMic,
-      VoidCallback? onToggleLoudSpeaker,
-      VoidCallback? onAudioSettings,
-      VoidCallback? onEnd,
-    }) => CallControlPanel(
-      isMicOn: isMicOn,
-      isLoudSpeakerOn: isLoudSpeakerOn,
-      onToggleMic: onToggleMic ?? () {},
-      onToggleLoudSpeaker: onToggleLoudSpeaker ?? () {},
-      onAudioSettings: onAudioSettings ?? () {},
-      onEnd: onEnd ?? () {},
-    );
+  group('CallParticipantTile', () {
+    const placeholder = 'https://example.com/placeholder.png';
 
-    Future<void> pumpPanel(WidgetTester tester, Widget child) async {
-      tester.view.physicalSize = const Size(2400, 1200);
-      tester.view.devicePixelRatio = 2.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      await tester.pumpWidget(
-        ProviderScope(
-          child: friendsTestApp(child),
-        ),
-      );
-    }
+    Future<void> pumpTile(WidgetTester tester, CallParticipantTile tile) =>
+        pumpFriendsPage(
+          tester,
+          SizedBox(width: 200, child: tile),
+          overrides: [
+            userProfileImagePlaceholderUrlProvider.overrideWithValue(
+              placeholder,
+            ),
+          ],
+          otherStats: const {'u-1': UserStats.empty},
+        );
 
-    testFriendsWidget('shows the mic icon when the mic is on', (tester) async {
-      await pumpPanel(tester, panel(isMicOn: true, isLoudSpeakerOn: false));
-      await tester.pumpAndSettle();
-
-      expect(find.byIcon(Icons.mic), findsOneWidget);
-      expect(find.byIcon(Icons.mic_off), findsNothing);
-    });
-
-    testFriendsWidget('shows the mic_off icon when the mic is off', (
+    testFriendsWidget('the stage tile shows the name and a badge slot', (
       tester,
     ) async {
-      await pumpPanel(tester, panel(isMicOn: false, isLoudSpeakerOn: false));
-      await tester.pumpAndSettle();
-
-      expect(find.byIcon(Icons.mic_off), findsOneWidget);
-      expect(find.byIcon(Icons.mic), findsNothing);
-    });
-
-    testFriendsWidget('speaker button color reflects isLoudSpeakerOn', (
-      tester,
-    ) async {
-      // On: uses colorScheme.primary. Off: uses the inactive color.
-      await pumpPanel(tester, panel(isMicOn: true, isLoudSpeakerOn: true));
-      await tester.pumpAndSettle();
-
-      final scheme = Theme.of(
-        tester.element(find.byType(CallControlPanel)),
-      ).colorScheme;
-      final speakerFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      expect(speakerFab.backgroundColor, scheme.primary);
-    });
-
-    testFriendsWidget('speaker button uses inactive color when off', (
-      tester,
-    ) async {
-      await pumpPanel(tester, panel(isMicOn: true, isLoudSpeakerOn: false));
-      await tester.pumpAndSettle();
-
-      final scheme = Theme.of(
-        tester.element(find.byType(CallControlPanel)),
-      ).colorScheme;
-      final speakerFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      expect(speakerFab.backgroundColor, isNot(scheme.primary));
-    });
-
-    testFriendsWidget('End button uses the error color', (tester) async {
-      await pumpPanel(tester, panel(isMicOn: true, isLoudSpeakerOn: false));
-      await tester.pumpAndSettle();
-
-      final scheme = Theme.of(
-        tester.element(find.byType(CallControlPanel)),
-      ).colorScheme;
-      final endFab = tester.widget<FloatingActionButton>(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'end-chat',
-        ),
-      );
-      expect(endFab.backgroundColor, scheme.error);
-    });
-
-    testFriendsWidget('each control button invokes its callback', (
-      tester,
-    ) async {
-      var mic = 0, speaker = 0, audio = 0, end = 0;
-      await pumpPanel(
+      await pumpTile(
         tester,
-        panel(
-          isMicOn: true,
-          isLoudSpeakerOn: false,
-          onToggleMic: () => mic++,
-          onToggleLoudSpeaker: () => speaker++,
-          onAudioSettings: () => audio++,
-          onEnd: () => end++,
+        const CallParticipantTile(
+          uid: 'u-1',
+          name: 'Alice',
+          imageUrl: 'https://example.com/a.jpg',
         ),
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'mic',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'speaker',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'audio-settings',
-        ),
-      );
-      await tester.tap(
-        find.byWidgetPredicate(
-          (w) => w is FloatingActionButton && w.heroTag == 'end-chat',
+      expect(find.text('Alice'), findsOneWidget);
+      expect(find.byType(BadgeMark), findsOneWidget);
+    });
+
+    testFriendsWidget('the compact tile drops the badge', (tester) async {
+      await pumpTile(
+        tester,
+        const CallParticipantTile(
+          uid: 'u-1',
+          name: 'You',
+          imageUrl: 'https://example.com/a.jpg',
+          compact: true,
         ),
       );
       await tester.pumpAndSettle();
 
-      expect(mic, 1);
-      expect(speaker, 1);
-      expect(audio, 1);
-      expect(end, 1);
+      expect(find.text('You'), findsOneWidget);
+      expect(find.byType(BadgeMark), findsNothing);
+    });
+
+    testFriendsWidget('an empty image url falls back to the placeholder', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        const CallParticipantTile(uid: 'u-1', name: 'Alice', imageUrl: ''),
+      );
+      await tester.pumpAndSettle();
+
+      final avatars = tester
+          .widgetList<CircleAvatar>(find.byType(CircleAvatar))
+          .where((a) => a.foregroundImage != null);
+      expect(
+        avatars.every(
+          (a) => (a.foregroundImage! as NetworkImage).url == placeholder,
+        ),
+        isTrue,
+      );
     });
   });
 }

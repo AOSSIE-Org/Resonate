@@ -1,13 +1,15 @@
+import 'dart:async';
+
+import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
-import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/features/profile/model/user_profile_summary.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 
 class FakeProfileRepository implements ProfileRepository {
   // Configurable returns.
-  List<Story> createdStories = const [];
-  List<Story> likedStories = const [];
   List<FollowerUserModel> followers = const [];
-  String? fcmToken = 'fake-token';
+  UserProfileSummary? profileSummary;
+  Object? profileSummaryError;
   bool usernameAvailableReturn = true;
   bool emailAvailableReturn = true;
   Object? changeEmailInAuthError;
@@ -15,11 +17,14 @@ class FakeProfileRepository implements ProfileRepository {
   Object? createUsernameRowError;
 
   // Recorded calls.
+  String? fetchProfileSummaryArg;
   String? isUsernameAvailableArg;
   String? isUsernameAvailableCurrent;
+  // Lets a test tell a debounced lookup from one per keystroke.
+  int isUsernameAvailableCalls = 0;
   FollowerUserModel? followedFollower;
   String? unfollowedDocId;
-  int getFcmTokenCount = 0;
+  int newFollowerIdCount = 0;
   int deleteProfileImageCount = 0;
   String? deletedImageId;
   int uploadProfileImageCount = 0;
@@ -27,7 +32,7 @@ class FakeProfileRepository implements ProfileRepository {
   ({String uid, String url, String id})? updateProfileImageRowArgs;
   String? clearedImageRowUid;
   ({String uid, String email, String oldUsername, String newUsername})?
-      changeUsernameArgs;
+  changeUsernameArgs;
   ({String uid, String name})? updateDisplayNameArgs;
   ({String username, String email})? createUsernameRowArgs;
   String? updateAccountNameArg;
@@ -38,21 +43,34 @@ class FakeProfileRepository implements ProfileRepository {
   ({String uid, String username, String email})? changeEmailInDatabasesArgs;
 
   @override
-  Future<List<Story>> fetchCreatedStories(String creatorId) async =>
-      createdStories;
-
-  @override
-  Future<List<Story>> fetchLikedStories(String creatorId) async => likedStories;
-
-  @override
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async =>
       followers;
 
+  // Never emits on its own: tests drive a follower change by adding to
+  // `followersController`.
+  final StreamController<void> followersController =
+      StreamController<void>.broadcast();
+
   @override
-  Future<String?> getFcmToken() async {
-    getFcmTokenCount++;
-    return fcmToken;
+  Stream<void> followersChanged(String uid) => followersController.stream;
+
+  @override
+  Future<UserProfileSummary> fetchProfileSummary(String uid) async {
+    fetchProfileSummaryArg = uid;
+    if (profileSummaryError != null) throw profileSummaryError!;
+    return profileSummary ??
+        UserProfileSummary(
+          uid: uid,
+          name: 'Test User',
+          username: 'testuser',
+          avatarUrl: 'http://img/$uid',
+          rating: 0,
+          followerCount: 0,
+        );
   }
+
+  @override
+  String newFollowerDocumentId() => 'follower-doc-${++newFollowerIdCount}';
 
   @override
   Future<void> followCreator(FollowerUserModel follower) async {
@@ -71,6 +89,7 @@ class FakeProfileRepository implements ProfileRepository {
   }) async {
     isUsernameAvailableArg = username;
     isUsernameAvailableCurrent = currentUsername;
+    isUsernameAvailableCalls++;
     return usernameAvailableReturn;
   }
 
@@ -173,6 +192,7 @@ class FakeProfileRepository implements ProfileRepository {
     required String dob,
     required String email,
     String? profileImageID,
+    List<Interest> interests = const [],
   }) async {
     createUserRowUid = uid;
     createUserRowData = {
@@ -182,6 +202,7 @@ class FakeProfileRepository implements ProfileRepository {
       'dob': dob,
       'email': email,
       'profileImageID': profileImageID,
+      'interests': Interest.toWireList(interests),
     };
   }
 
@@ -192,6 +213,6 @@ class FakeProfileRepository implements ProfileRepository {
 
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
-        '${invocation.memberName} not stubbed in FakeProfileRepository',
-      );
+    '${invocation.memberName} not stubbed in FakeProfileRepository',
+  );
 }

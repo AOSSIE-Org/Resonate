@@ -8,7 +8,7 @@ abstract class SingleRoomState with _$SingleRoomState {
   const factory SingleRoomState({
     required Participant me,
     @Default(<Participant>[]) List<Participant> participants,
-    @Default(false) bool isLoading,
     @Default(false) bool wasKicked,
+    @Default(false) bool roomEnded,
   }) = _SingleRoomState;
 }

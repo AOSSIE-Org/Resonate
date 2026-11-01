@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -7,7 +7,7 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
@@ -34,7 +34,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   final _nameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _debouncer = Debouncer(milliseconds: 800);
-  final _imagePicker = ImagePicker();
 
   @override
   void initState() {
@@ -60,7 +59,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    dismissCustomSnackbar();
     final notifier = ref.read(editProfileProvider.notifier);
     final trimmed = value.trim();
 
@@ -98,12 +97,14 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     );
   }
 
-  Future<void> _pickAndSet(ImageSource source, AppLocalizations l10n) async {
+  Future<void> _pickAndSet(ImagePickSource source, AppLocalizations l10n) async {
     AppUtils.showBlurredLoaderDialog(context);
     try {
-      final file = await _imagePicker.pickImage(source: source);
-      if (file == null) return;
-      final cropped = await _cropImage(file.path, l10n);
+      final path = await ref
+          .read(mediaPickerServiceProvider)
+          .pickImage(source: source);
+      if (path == null) return;
+      final cropped = await _cropImage(path, l10n);
       if (cropped != null) {
         ref.read(editProfileProvider.notifier).setProfileImagePath(cropped.path);
       }
@@ -234,7 +235,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                     tooltip: l10n.clickPictureCamera,
                     onPressed: () {
                       Navigator.pop(sheetContext);
-                      _pickAndSet(ImageSource.camera, l10n);
+                      _pickAndSet(ImagePickSource.camera, l10n);
                     },
                     icon: Icon(
                       Icons.camera_alt,
@@ -251,7 +252,7 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                     tooltip: l10n.pickImageGallery,
                     onPressed: () {
                       Navigator.pop(sheetContext);
-                      _pickAndSet(ImageSource.gallery, l10n);
+                      _pickAndSet(ImagePickSource.gallery, l10n);
                     },
                     icon: Icon(
                       Icons.image,
@@ -359,6 +360,10 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                     validator: (value) =>
                         value!.isNotEmpty ? null : l10n.requiredField,
                     controller: _nameController,
+                    // PopScope.canPop is recomputed in build; without this the
+                    // guard stays stale and a name-only edit is lost silently
+                    // on a back gesture.
+                    onChanged: (_) => setState(() {}),
                     keyboardType: TextInputType.text,
                     autocorrect: false,
                     decoration: InputDecoration(

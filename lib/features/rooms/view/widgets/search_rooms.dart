@@ -42,12 +42,7 @@ class _SearchOverlayState extends State<SearchOverlay>
       CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic),
     );
 
-    _searchController.addListener(() {
-      setState(() {
-        _hasText = _searchController.text.isNotEmpty;
-      });
-      widget.onSearchChanged(_searchController.text);
-    });
+    _searchController.addListener(_onTextChanged);
 
     if (widget.isVisible) {
       _animationController.forward();
@@ -69,14 +64,25 @@ class _SearchOverlayState extends State<SearchOverlay>
       } else {
         _focusNode?.unfocus();
         _animationController.reverse();
+        _searchController.removeListener(_onTextChanged);
         _searchController.clear();
+        _searchController.addListener(_onTextChanged);
         _hasText = false;
       }
     }
   }
 
+  void _onTextChanged() {
+    final text = _searchController.text;
+    if (text.isNotEmpty != _hasText) {
+      setState(() => _hasText = text.isNotEmpty);
+    }
+    widget.onSearchChanged(text);
+  }
+
   @override
   void dispose() {
+    _searchController.removeListener(_onTextChanged);
     _searchController.dispose();
     _focusNode?.dispose();
     _animationController.dispose();
@@ -159,9 +165,6 @@ class _SearchOverlayState extends State<SearchOverlay>
                             vertical: UiSizes.height_12,
                           ),
                         ),
-                        onChanged: (value) {
-                          widget.onSearchChanged(value);
-                        },
                         onSubmitted: (value) {
                           _focusNode?.unfocus();
                         },

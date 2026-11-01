@@ -1,8 +1,10 @@
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/stories/data/repositories/recorded_chapters_repository.dart';
 import 'package:resonate/features/stories/data/repositories/stories_repository.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
-import 'package:resonate/features/stories/viewmodel/category_stories_notifier.dart';
-import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
+import 'package:resonate/features/stories/model/story_tags.dart';
+import 'package:resonate/features/stories/data/category_stories.dart';
+import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -47,6 +49,20 @@ class CreateStory extends _$CreateStory {
         lyrics: lyrics,
       );
 
+  Future<void> updateRecordedChapter({
+    required String chapterId,
+    required String title,
+    required String description,
+    required String transcript,
+  }) => ref
+      .read(recordedChaptersRepositoryProvider)
+      .updateDetails(
+        id: chapterId,
+        title: title,
+        description: description,
+        transcript: transcript,
+      );
+
   Future<void> createStory({
     required String title,
     required String description,
@@ -54,6 +70,7 @@ class CreateStory extends _$CreateStory {
     required String coverImgRef,
     required int storyPlayDuration,
     required List<Chapter> chapters,
+    List<String> tags = const [],
   }) async {
     await ref
         .read(storiesRepositoryProvider)
@@ -65,6 +82,7 @@ class CreateStory extends _$CreateStory {
           coverImgRef: coverImgRef,
           storyPlayDuration: storyPlayDuration,
           chapters: chapters,
+          tags: normalizeStoryTags(tags),
         );
     ref.invalidate(exploreStoriesProvider);
     ref.invalidate(categoryStoriesProvider(category));

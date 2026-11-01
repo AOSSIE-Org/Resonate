@@ -12,9 +12,9 @@ List<Override> _overridesWith(FakeUpcomingRooms fake) {
 
 void main() {
   group('UpcomingListTile creator branch', () {
-    testRoomsWidget('renders chat FAB, Cancel and Start', (tester) async {
+    testAppWidget('renders chat FAB, Cancel and Start', (tester) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(userIsCreator: true),
@@ -31,11 +31,11 @@ void main() {
       expect(find.byIcon(Icons.delete_forever), findsNothing);
     });
 
-    testRoomsWidget('Start is disabled and grey when isTime is false', (
+    testAppWidget('Start is disabled and grey when isTime is false', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -56,9 +56,9 @@ void main() {
       expect(startButton.onPressed, isNull);
     });
 
-    testRoomsWidget('Start is enabled when isTime is true', (tester) async {
+    testAppWidget('Start is enabled when isTime is true', (tester) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -79,11 +79,11 @@ void main() {
       expect(startButton.onPressed, isNotNull);
     });
 
-    testRoomsWidget('tapping Start calls convertToLive with room details', (
+    testAppWidget('tapping Start calls convertToLive with room details', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -109,11 +109,11 @@ void main() {
       expect(fake.convertedTags, ['work', 'sync']);
     });
 
-    testRoomsWidget('tapping Cancel calls deleteUpcoming with the id', (
+    testAppWidget('tapping Cancel calls deleteUpcoming with the id', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -134,11 +134,11 @@ void main() {
   });
 
   group('UpcomingListTile non-creator branch', () {
-    testRoomsWidget('renders delete-from-list IconButton, chat FAB, Subscribe', (
+    testAppWidget('renders delete-from-list IconButton, chat FAB, Subscribe', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -159,11 +159,11 @@ void main() {
       expect(find.text('Start'), findsNothing);
     });
 
-    testRoomsWidget('shows Unsubscribe label when already subscribed', (
+    testAppWidget('shows Unsubscribe label when already subscribed', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -179,12 +179,12 @@ void main() {
       expect(find.text('Subscribe'), findsNothing);
     });
 
-    testRoomsWidget('subscribe button color toggles on hasUserSubscribed', (
+    testAppWidget('subscribe button color toggles on hasUserSubscribed', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
       // Subscribed -> error (destructive) background.
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -209,11 +209,11 @@ void main() {
       expect(bg, expectedError);
     });
 
-    testRoomsWidget('tapping Subscribe calls subscribe with the id', (
+    testAppWidget('tapping Subscribe calls subscribe with the id', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -233,11 +233,11 @@ void main() {
       expect(fake.unsubscribed, isEmpty);
     });
 
-    testRoomsWidget('tapping Unsubscribe calls unsubscribe with the id', (
+    testAppWidget('tapping Unsubscribe calls unsubscribe with the id', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -257,11 +257,11 @@ void main() {
       expect(fake.subscribed, isEmpty);
     });
 
-    testRoomsWidget('delete_forever opens remove dialog; Hide calls hideLocally', (
+    testAppWidget('delete_forever opens remove dialog; Hide calls hideLocally', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -295,10 +295,10 @@ void main() {
   });
 
   group('UpcomingListTile content', () {
-    testRoomsWidget('renders the scheduled date/time string', (tester) async {
+    testAppWidget('renders the scheduled date/time string', (tester) async {
       final fake = FakeUpcomingRooms();
       final scheduled = DateTime(2025, 3, 4, 15, 30);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(
@@ -313,11 +313,11 @@ void main() {
       expect(find.text(expected), findsOneWidget);
     });
 
-    testRoomsWidget('renders up to 3 avatars when more are provided', (
+    testAppWidget('renders up to 3 avatars when more are provided', (
       tester,
     ) async {
       final fake = FakeUpcomingRooms();
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         UpcomingListTile(
           appwriteUpcomingRoom: fakeUpcomingRoom(

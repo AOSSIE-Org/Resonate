@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter/material.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -16,6 +16,8 @@ void _dismissToast() {
   if (_activeToast?.mounted ?? false) _activeToast!.remove();
   _activeToast = null;
 }
+
+void dismissCustomSnackbar() => _dismissToast();
 
 void customSnackbar(
   String title,

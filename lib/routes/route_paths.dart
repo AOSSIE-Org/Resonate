@@ -27,6 +27,8 @@ class RoutePaths {
   static const aboutApp = '/aboutApp';
   static const contributeScreen = '/contributeScreen';
   static const appPreferencesScreen = '/appPreferencesScreen';
+  static const featuresScreen = '/featuresScreen';
+  static const interestsScreen = '/interestsScreen';
 
   // Pair chat / friend calls
   static const pairing = '/pairing';
@@ -40,6 +42,8 @@ class RoutePaths {
   static const createStoryScreen = '/createStoryScreen';
   static const liveChapterScreen = '/liveChapterScreen';
   static const verifyChapterDetails = '/verifyChapterDetails';
+  static const recordedChapters = '/recordedChapters';
+  static const recordedChapterDetail = '/recordedChapterDetail';
 
   static const Set<String> protected = {
     tabview,
@@ -56,6 +60,8 @@ class RoutePaths {
     aboutApp,
     contributeScreen,
     appPreferencesScreen,
+    featuresScreen,
+    interestsScreen,
     pairing,
     pairChat,
     pairChatUsers,
@@ -65,6 +71,8 @@ class RoutePaths {
     createStoryScreen,
     liveChapterScreen,
     verifyChapterDetails,
+    recordedChapters,
+    recordedChapterDetail,
   };
 
   static const Set<String> authOnly = {

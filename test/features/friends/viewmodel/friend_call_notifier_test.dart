@@ -1,19 +1,59 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
-import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/friends/data/friend_call_coordinator.dart';
+import 'package:resonate/features/activity_status/model/call_blocked_by_activity_status.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/routes/app_router.dart';
+import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 import 'package:resonate/utils/enums/friend_request_status.dart';
+import 'package:resonate/utils/enums/activity_status.dart';
 
 import '../../../helpers/test_root_container.dart';
 import '../../../helpers/test_root_container.mocks.dart';
+
+
+class _RecordingRouter extends GoRouter {
+  _RecordingRouter()
+    : super.routingConfig(
+        routingConfig: ValueNotifier(
+          RoutingConfig(
+            routes: [
+              GoRoute(path: '/', builder: (_, _) => const SizedBox.shrink()),
+            ],
+          ),
+        ),
+      );
+
+  final List<String> calls = [];
+
+  @override
+  Future<T?> push<T extends Object?>(String location, {Object? extra}) async {
+    calls.add('push $location');
+    return null;
+  }
+
+  @override
+  Future<T?> pushReplacement<T extends Object?>(
+    String location, {
+    Object? extra,
+  }) async {
+    calls.add('pushReplacement $location');
+    return null;
+  }
+
+  @override
+  void go(String location, {Object? extra}) => calls.add('go $location');
+}
 
 void main() {
   late MockTablesDB tables;
@@ -29,7 +69,6 @@ void main() {
     senderName: 'Me',
     recieverName: 'Friend',
     requestStatus: FriendRequestStatus.accepted,
-    recieverFCMToken: 'their-token',
     docId: 'friendship-doc',
   );
 
@@ -89,6 +128,9 @@ void main() {
     when(realtime.subscribe(any)).thenAnswer(
       (invocation) => RealtimeSubscription(
         close: () async {},
+        unsubscribe: () async {},
+        update: ({List<Object>? channels, List<String>? queries}) async {},
+        queries: const [],
         channels: List<String>.from(invocation.positionalArguments[0] as List),
         controller: realtimeEvents,
       ),
@@ -97,17 +139,34 @@ void main() {
 
   tearDown(() => realtimeEvents.close());
 
-  Future<dynamic> buildContainer() => installTestRootContainer(
+  Future<dynamic> buildContainer({
+    Map<String, ActivityStatus> activityStatuses = const {},
+    _RecordingRouter? router,
+  }) => installTestRootContainer(
+    overrides: [
+      if (router != null) routerProvider.overrideWithValue(router),
+    ],
     authState: AuthState.authenticated(fakeAuthUser(uid: 'me')),
     tables: tables,
     realtime: realtime,
     functions: functions,
     callKit: callKit,
+    activityStatuses: activityStatuses,
   );
+
+  // A start-friend-call response where the activity-status gate refused the call.
+  MockExecution blockedExecution(String reason) {
+    final exec = MockExecution();
+    when(exec.responseStatusCode).thenReturn(200);
+    when(
+      exec.responseBody,
+    ).thenReturn('{"blocked":true,"reason":"$reason"}');
+    return exec;
+  }
 
   group('FriendCallCoordinator', () {
     test(
-      'startCall creates the call row, rings over FCM, and sets waiting',
+      'startCall creates the call row, rings with a push, and sets waiting',
       () async {
         final container = await buildContainer();
 
@@ -123,7 +182,7 @@ void main() {
         expect(state.activeCall!.livekitRoomId, 'friendship-doc');
         verify(
           tables.createRow(
-            databaseId: masterDatabaseId,
+            databaseId: databaseId,
             tableId: friendCallsTableId,
             rowId: anyNamed('rowId'),
             data: anyNamed('data'),
@@ -138,20 +197,117 @@ void main() {
       },
     );
 
-    test('startCall throws when the friend has no FCM token', () async {
-      final container = await buildContainer();
-      final tokenless = fakeFriendsModel(
-        senderId: 'me',
-        recieverId: 'reciever-1',
-        recieverFCMToken: null,
+    test('startCall refuses locally when the friend is on dnd', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.dnd},
       );
 
-      expect(
-        () => container
+      await expectLater(
+        container
             .read(friendCallCoordinatorProvider.notifier)
-            .startCall(tokenless),
-        throwsA(isA<FriendsFailureUnknown>()),
+            .startCall(friend),
+        throwsA(isA<CallBlockedByActivityStatus>()),
       );
+
+      // Refused before anything was written, so no orphan call row and no push.
+      verifyNever(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
+      verifyNever(
+        functions.createExecution(
+          functionId: startFriendCallFunctionID,
+          body: anyNamed('body'),
+        ),
+      );
+      expect(container.read(friendCallCoordinatorProvider).activeCall, isNull);
+    });
+
+    test('startCall refuses locally when the friend is in a session', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.inRoom},
+      );
+
+      await expectLater(
+        container
+            .read(friendCallCoordinatorProvider.notifier)
+            .startCall(friend),
+        throwsA(isA<CallBlockedByActivityStatus>()),
+      );
+    });
+
+    test('startCall proceeds for a friend who is merely offline', () async {
+      final container = await buildContainer(
+        activityStatuses: {'reciever-1': ActivityStatus.offline},
+      );
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .startCall(friend);
+
+      expect(
+        container.read(friendCallCoordinatorProvider).activeCall,
+        isNotNull,
+      );
+    });
+
+    test('startCall sends the callee uid for the server-side gate', () async {
+      final container = await buildContainer();
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .startCall(friend);
+
+      final body =
+          verify(
+                functions.createExecution(
+                  functionId: startFriendCallFunctionID,
+                  body: captureAnyNamed('body'),
+                ),
+              ).captured.single
+              as String;
+      expect(jsonDecode(body)['recieverUid'], 'reciever-1');
+    });
+
+    test('a server-side block closes the row out and throws', () async {
+      final container = await buildContainer();
+      when(
+        functions.createExecution(
+          functionId: startFriendCallFunctionID,
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer((_) async => blockedExecution('inroom'));
+
+      await expectLater(
+        container
+            .read(friendCallCoordinatorProvider.notifier)
+            .startCall(friend),
+        throwsA(
+          isA<CallBlockedByActivityStatus>().having(
+            (e) => e.status,
+            'status',
+            ActivityStatus.inRoom,
+          ),
+        ),
+      );
+
+      // The row was already created, so it must not be left ringing forever.
+      final data =
+          verify(
+                tables.updateRow(
+                  databaseId: databaseId,
+                  tableId: friendCallsTableId,
+                  rowId: anyNamed('rowId'),
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map;
+      expect(data['callStatus'], FriendCallStatus.declined.name);
+      expect(container.read(friendCallCoordinatorProvider).activeCall, isNull);
     });
 
     test('realtime connected update joins LiveKit on the caller side', () async {
@@ -163,13 +319,13 @@ void main() {
       realtimeEvents.add(
         RealtimeMessage(
           events: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
           ],
           payload: callJson(
             call.copyWith(callStatus: FriendCallStatus.connected),
           ),
           channels: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
           ],
           timestamp: DateTime.now().toIso8601String(),
         ),
@@ -183,6 +339,67 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isTrue);
     });
 
+    test('connecting replaces the ringing screen instead of stacking on it', () async {
+      final router = _RecordingRouter();
+      final container = await buildContainer(router: router);
+      final notifier = container.read(friendCallCoordinatorProvider.notifier);
+      await notifier.startCall(friend);
+      final call = container.read(friendCallCoordinatorProvider).activeCall!;
+
+      expect(router.calls, ['push ${RoutePaths.ringingScreen}']);
+
+      realtimeEvents.add(
+        RealtimeMessage(
+          events: [
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+          ],
+          payload: callJson(
+            call.copyWith(callStatus: FriendCallStatus.connected),
+          ),
+          channels: [
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
+          ],
+          timestamp: DateTime.now().toIso8601String(),
+        ),
+      );
+      await pumpEventQueue();
+
+      // Stacked, minimising the call would land back on "Calling...", whose
+      // Cancel button ends the call.
+      expect(router.calls.last, 'pushReplacement ${RoutePaths.friendCallScreen}');
+    });
+
+    test('the answering side pushes the call screen, with nothing to replace', () async {
+      final router = _RecordingRouter();
+      final container = await buildContainer(router: router);
+      final call = FriendCallModel(
+        callerName: 'Friend',
+        recieverName: 'Me',
+        callerUsername: 'friend',
+        recieverUsername: 'me',
+        callerUid: 'reciever-1',
+        recieverUid: 'me',
+        callerProfileImageUrl: 'https://example.com/c.jpg',
+        recieverProfileImageUrl: 'https://example.com/r.jpg',
+        livekitRoomId: 'friendship-doc',
+        callStatus: FriendCallStatus.waiting,
+        docId: 'incoming-call',
+      );
+      when(
+        tables.getRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+        ),
+      ).thenAnswer((_) async => buildRow(id: call.docId, data: callJson(call)));
+
+      await container
+          .read(friendCallCoordinatorProvider.notifier)
+          .onAnswerCall({'call_id': call.docId});
+
+      expect(router.calls, ['push ${RoutePaths.friendCallScreen}']);
+    });
+
     test('realtime ended update tears the call down', () async {
       final container = await buildContainer();
       final notifier = container.read(friendCallCoordinatorProvider.notifier);
@@ -192,11 +409,11 @@ void main() {
       realtimeEvents.add(
         RealtimeMessage(
           events: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}.update',
           ],
           payload: callJson(call.copyWith(callStatus: FriendCallStatus.ended)),
           channels: [
-            'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.${call.docId}',
+            'databases.$databaseId.tables.$friendCallsTableId.rows.${call.docId}',
           ],
           timestamp: DateTime.now().toIso8601String(),
         ),
@@ -228,7 +445,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),
@@ -245,7 +462,7 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isTrue);
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
           data: anyNamed('data'),
@@ -270,7 +487,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),
@@ -310,7 +527,7 @@ void main() {
       );
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-doc',
         ),
@@ -341,23 +558,13 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isFalse);
     });
 
-    test('toggleMic and toggleLoudSpeaker flip their flags', () async {
+    test('toggleMic flips the mic flag', () async {
       final container = await buildContainer();
       final notifier = container.read(friendCallCoordinatorProvider.notifier);
 
       expect(container.read(friendCallCoordinatorProvider).isMicOn, isFalse);
       await notifier.toggleMic();
       expect(container.read(friendCallCoordinatorProvider).isMicOn, isTrue);
-
-      expect(
-        container.read(friendCallCoordinatorProvider).isLoudSpeakerOn,
-        isTrue,
-      );
-      await notifier.toggleLoudSpeaker();
-      expect(
-        container.read(friendCallCoordinatorProvider).isLoudSpeakerOn,
-        isFalse,
-      );
     });
   });
 }

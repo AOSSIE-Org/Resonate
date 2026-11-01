@@ -1,5 +1,6 @@
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
+import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,6 +20,16 @@ class Onboarding extends _$Onboarding {
 
   void setUsernameAvailable(bool value) =>
       state = state.copyWith(usernameAvailable: value);
+
+  bool toggleInterest(Interest interest) {
+    final interests = {...state.interests};
+    if (!interests.remove(interest)) {
+      if (interests.length >= Interest.maxSelectable) return false;
+      interests.add(interest);
+    }
+    state = state.copyWith(interests: interests);
+    return true;
+  }
 
   Future<bool> isUsernameAvailable(String username) =>
       ref.read(profileRepositoryProvider).isUsernameAvailable(username);
@@ -66,6 +77,7 @@ class Onboarding extends _$Onboarding {
         dob: dob,
         email: user.email,
         profileImageID: imageId,
+        interests: state.interests.toList(),
       );
       await repo.markProfileComplete();
       await ref.read(authRepositoryProvider).refresh();

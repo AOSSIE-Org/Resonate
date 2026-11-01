@@ -48,7 +48,7 @@ final class AuthRepositoryProvider
   }
 }
 
-String _$authRepositoryHash() => r'808a0339953ced6d61e663e4598b1d4226a116b0';
+String _$authRepositoryHash() => r'b4acc60586bf227dc074acccee7c45b6f937e2e4';
 
 @ProviderFor(AuthSession)
 final authSessionProvider = AuthSessionProvider._();

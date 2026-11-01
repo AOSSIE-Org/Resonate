@@ -1,15 +1,14 @@
 import 'dart:ui';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:appwrite/models.dart' hide Account;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/profile/data/repositories/profile_repository.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
 import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 
@@ -19,11 +18,11 @@ Row _storyRow(String id, String title, String category, String creatorId) =>
     Row(
       $id: id,
       $tableId: storyTableId,
-      $databaseId: storyDatabaseId,
+      $databaseId: databaseId,
       $createdAt: DateTime(2024).toIso8601String(),
       $updatedAt: DateTime(2024).toIso8601String(),
       $permissions: const ['any'],
-      $sequence: 0,
+      $sequence: '0',
       data: {
         'title': title,
         'description': 'Description of $title',
@@ -41,19 +40,22 @@ Row _storyRow(String id, String title, String category, String creatorId) =>
 final _userRowWithFollowers = Row(
   $id: 'id1',
   $tableId: usersTableID,
-  $databaseId: userDatabaseID,
+  $databaseId: databaseId,
   $createdAt: DateTime(2024).toIso8601String(),
   $updatedAt: DateTime(2024).toIso8601String(),
   $permissions: const ['any'],
-  $sequence: 0,
+  $sequence: '0',
   data: {
+    'name': 'Test User 1',
     'username': 'testuser1',
+    'profileImageUrl': 'http://img/1',
+    'ratingTotal': 9,
+    'ratingCount': 2,
     'followers': [
       {
         'followerUserId': 'id2',
         'followerUsername': 'testu2',
         'followerName': 'Test User 2',
-        'followerFCMToken': 'testToken2',
         'followerProfileImageUrl': 'http://img/2',
         'followerRating': 5,
         '\$id': 'doc2',
@@ -62,13 +64,23 @@ final _userRowWithFollowers = Row(
         'followerUserId': 'id3',
         'followerUsername': 'testu3',
         'followerName': 'Test User 3',
-        'followerFCMToken': 'testToken3',
         'followerProfileImageUrl': 'http://img/3',
         'followerRating': 5,
         '\$id': 'doc3',
       },
     ],
   },
+);
+
+final _unratedUserRow = Row(
+  $id: 'fresh',
+  $tableId: usersTableID,
+  $databaseId: databaseId,
+  $createdAt: DateTime(2024).toIso8601String(),
+  $updatedAt: DateTime(2024).toIso8601String(),
+  $permissions: const ['any'],
+  $sequence: '0',
+  data: const {'name': 'Fresh User'},
 );
 
 Row _genericRow() => Row(
@@ -78,7 +90,7 @@ Row _genericRow() => Row(
       $createdAt: DateTime(2024).toIso8601String(),
       $updatedAt: DateTime(2024).toIso8601String(),
       $permissions: const ['any'],
-      $sequence: 0,
+      $sequence: '0',
       data: const {},
     );
 
@@ -103,24 +115,27 @@ User _user() => User(
       hashOptions: const {},
     );
 
-@GenerateMocks([TablesDB, Storage, Account, FirebaseMessaging])
+@GenerateMocks([TablesDB, Storage, Account, Functions, Realtime])
 void main() {
   late MockTablesDB tables;
   late MockStorage storage;
   late MockAccount account;
-  late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
+  late MockRealtime realtime;
   late ProfileRepository repo;
 
   setUp(() {
     tables = MockTablesDB();
     storage = MockStorage();
     account = MockAccount();
-    messaging = MockFirebaseMessaging();
+    functions = MockFunctions();
+    realtime = MockRealtime();
     repo = ProfileRepository(
       tables: tables,
       storage: storage,
       account: account,
-      messaging: messaging,
+      functions: functions,
+      realtime: realtime,
     );
   });
 
@@ -141,115 +156,11 @@ void main() {
     });
   });
 
-  group('fetchCreatedStories', () {
-    test('queries by creatorId and maps the rows', () async {
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          queries: [Query.equal('creatorId', 'id1')],
-        ),
-      ).thenAnswer(
-        (_) async =>
-            RowList(total: 1, rows: [_storyRow('doc1', 'Story 1', 'comedy', 'id1')]),
-      );
-
-      final stories = await repo.fetchCreatedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
-    });
-
-    test('returns empty on AppwriteException', () async {
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          queries: [Query.equal('creatorId', 'id1')],
-        ),
-      ).thenThrow(AppwriteException('nope'));
-
-      expect(await repo.fetchCreatedStories('id1'), isEmpty);
-    });
-  });
-
-  group('fetchLikedStories', () {
-    test('resolves the liked story rows', () async {
-      final likeRow = Row(
-        $id: 'like1',
-        $tableId: likeTableId,
-        $databaseId: storyDatabaseId,
-        $createdAt: DateTime(2024).toIso8601String(),
-        $updatedAt: DateTime(2024).toIso8601String(),
-        $permissions: const ['any'],
-        $sequence: 0,
-        data: const {'storyId': 'doc1'},
-      );
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: likeTableId,
-          queries: [Query.equal('uId', 'id1')],
-        ),
-      ).thenAnswer((_) async => RowList(total: 1, rows: [likeRow]));
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'doc1',
-        ),
-      ).thenAnswer((_) async => _storyRow('doc1', 'Story 1', 'comedy', 'id1'));
-
-      final stories = await repo.fetchLikedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
-    });
-
-    test('skips liked stories whose lookup fails', () async {
-      Row likeRow(String storyId) => Row(
-            $id: 'like-$storyId',
-            $tableId: likeTableId,
-            $databaseId: storyDatabaseId,
-            $createdAt: DateTime(2024).toIso8601String(),
-            $updatedAt: DateTime(2024).toIso8601String(),
-            $permissions: const ['any'],
-            $sequence: 0,
-            data: {'storyId': storyId},
-          );
-      when(
-        tables.listRows(
-          databaseId: storyDatabaseId,
-          tableId: likeTableId,
-          queries: [Query.equal('uId', 'id1')],
-        ),
-      ).thenAnswer(
-        (_) async => RowList(total: 2, rows: [likeRow('doc1'), likeRow('gone')]),
-      );
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'doc1',
-        ),
-      ).thenAnswer((_) async => _storyRow('doc1', 'Story 1', 'comedy', 'id1'));
-      when(
-        tables.getRow(
-          databaseId: storyDatabaseId,
-          tableId: storyTableId,
-          rowId: 'gone',
-        ),
-      ).thenThrow(AppwriteException('not found', 404));
-
-      final stories = await repo.fetchLikedStories('id1');
-      expect(stories.length, 1);
-      expect(stories[0].storyId, 'doc1');
-    });
-  });
-
   group('fetchFollowers', () {
     test('parses the followers relation', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: [Query.select(['*', 'followers.*'])],
@@ -266,7 +177,7 @@ void main() {
     test('returns [] when the lookup throws', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'id1',
           queries: [Query.select(['*', 'followers.*'])],
@@ -277,6 +188,142 @@ void main() {
     });
   });
 
+  group('fetchProfileSummary', () {
+    // The summary wants a count, so no follower row ever comes back.
+    void stubFollowerCount(int total) {
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: total, rows: []));
+    }
+
+    test('reads the handle and rating from the row, the count from the '
+        'followers table', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      stubFollowerCount(2);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.uid, 'id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.username, 'testuser1');
+      expect(summary.avatarUrl, 'http://img/1');
+      // 9 stars over 2 ratings.
+      expect(summary.rating, 4.5);
+      expect(summary.followerCount, 2);
+    });
+
+    test('counts followers without pulling a single follower row', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      // A popular creator: thousands of followers, no rows in the response.
+      stubFollowerCount(4213);
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.followerCount, 4213);
+
+      final userQueries =
+          verify(
+                tables.getRow(
+                  databaseId: databaseId,
+                  tableId: usersTableID,
+                  rowId: 'id1',
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      // The row read no longer expands the relationship just to length it.
+      expect(
+        userQueries.any((q) => q.contains('followers')),
+        isFalse,
+        reason: 'followers.* must not be expanded merely to count them',
+      );
+
+      final countQueries =
+          verify(
+                tables.listRows(
+                  databaseId: databaseId,
+                  tableId: followersTableID,
+                  queries: captureAnyNamed('queries'),
+                ),
+              ).captured.single
+              as List<String>;
+      expect(countQueries, contains(Query.equal('followedUid', 'id1')));
+      expect(countQueries, contains(Query.limit(1)));
+    });
+
+    test('reports an unrated user as 0 rather than dividing by zero', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'fresh',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _unratedUserRow);
+      stubFollowerCount(0);
+
+      final summary = await repo.fetchProfileSummary('fresh');
+      expect(summary.rating, 0);
+      expect(summary.followerCount, 0);
+      expect(summary.username, isEmpty);
+    });
+
+    test('a failed count still returns the rest of the summary', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => _userRowWithFollowers);
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: followersTableID,
+          queries: anyNamed('queries'),
+        ),
+      ).thenThrow(AppwriteException('boom'));
+
+      final summary = await repo.fetchProfileSummary('id1');
+      expect(summary.name, 'Test User 1');
+      expect(summary.followerCount, 0);
+    });
+
+    test('lets the failure through so the caller can show it', () async {
+      when(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: usersTableID,
+          rowId: 'id1',
+          queries: anyNamed('queries'),
+        ),
+      ).thenThrow(AppwriteException('boom'));
+      stubFollowerCount(0);
+
+      expect(
+        () => repo.fetchProfileSummary('id1'),
+        throwsA(isA<Object>()),
+      );
+    });
+  });
+
   group('follow / unfollow', () {
     final follower = FollowerUserModel(
       docId: 'fdoc1',
@@ -284,7 +331,6 @@ void main() {
       username: 'testu2',
       profileImageUrl: 'http://img/2',
       name: 'Test User 2',
-      fcmToken: 'testToken2',
       followingUserId: 'id1',
       followerRating: 5,
     );
@@ -292,28 +338,37 @@ void main() {
     test('followCreator creates the follower row', () async {
       when(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
-          data: follower.toJson(),
+          data: anyNamed('data'),
         ),
       ).thenAnswer((_) async => _genericRow());
 
       await repo.followCreator(follower);
-      verify(
-        tables.createRow(
-          databaseId: userDatabaseID,
-          tableId: followersTableID,
-          rowId: 'fdoc1',
-          data: follower.toJson(),
-        ),
-      ).called(1);
+      final data =
+          verify(
+                tables.createRow(
+                  databaseId: databaseId,
+                  tableId: followersTableID,
+                  rowId: 'fdoc1',
+                  data: captureAnyNamed('data'),
+                ),
+              ).captured.single
+              as Map;
+      expect(data, containsPair('followingUserId', 'id1'));
+      // Mirrored into a plain column because Appwrite cannot filter, and so
+      // cannot count, on a relationship.
+      expect(data, containsPair('followedUid', 'id1'));
+      for (final entry in follower.toJson().entries) {
+        expect(data, containsPair(entry.key, entry.value));
+      }
     });
 
     test('unfollowCreator deletes the follower row', () async {
       when(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
         ),
@@ -322,7 +377,7 @@ void main() {
       await repo.unfollowCreator('fdoc1');
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: followersTableID,
           rowId: 'fdoc1',
         ),
@@ -349,7 +404,7 @@ void main() {
     test('returns false when the username row exists', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'taken',
         ),
@@ -360,7 +415,7 @@ void main() {
     test('returns true when the lookup throws (row not found)', () async {
       when(
         tables.getRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'free',
         ),
@@ -373,14 +428,14 @@ void main() {
     test('true when no rows, false when some exist', () async {
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           queries: [Query.equal('email', 'free@test.com')],
         ),
       ).thenAnswer((_) async => RowList(total: 0, rows: const []));
       when(
         tables.listRows(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           queries: [Query.equal('email', 'taken@test.com')],
         ),
@@ -439,7 +494,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'email': 'new@test.com'},
@@ -447,7 +502,7 @@ void main() {
       ).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'TestUser',
           data: {'email': 'new@test.com'},
@@ -491,7 +546,7 @@ void main() {
 
       verify(
         tables.createRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'new',
           data: {'email': 'test@test.com'},
@@ -499,14 +554,14 @@ void main() {
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usernameTableID,
           rowId: 'old',
         ),
       ).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'username': 'new'},
@@ -533,7 +588,7 @@ void main() {
       verify(account.updateName(name: 'New Name')).called(1);
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'u1',
           data: {'name': 'New Name'},
@@ -561,6 +616,11 @@ void main() {
           signature: 'sig',
           mimeType: 'image/jpeg',
           sizeOriginal: 100,
+          sizeActual: 100,
+          folder: '',
+          key: '',
+          encryption: false,
+          compression: '',
           chunksTotal: 1,
           chunksUploaded: 1,
         ),

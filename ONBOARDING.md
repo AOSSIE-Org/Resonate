@@ -4,8 +4,8 @@ Client-side set-up is straightforward and standard, i.e., clone the repo [Resona
 
 Please strictly stick to the guide; do not go off installing stuff on your own.
 
-> #### **Setting up Firebase for FCM**
-> To ensure that new contributors do not have to setup firebase projects, all Firebase functionality (Only used for Notifications via FCM) has been disabled in the application. To enable this functionality (if you want to test notifications), set up a project on firebase, configure Resonate to use your project using this [guide](https://firebase.google.com/docs/flutter/setup) and uncomment the Firebase and FCM-specific code in the files: ```main.dart, auth_state_controller.dart, and upcomming_rooms_controller.dart``` Also, in the [Resonate Backend Repo](https://github.com/AOSSIE-Org/Resonate-Backend), uncomment the FCM and Firebase code in the `Upcoming Rooms Time Checker Function` and add your google-services.json in the folder for that function before setting up the localhost backend. 
+> #### **Push notifications**
+> Push runs on Appwrite Messaging over MQTT, so there is nothing extra to set up: no Firebase project, no service account and no `google-services.json`. The app subscribes to the signed-in user's own topic, so no device token is stored anywhere. To receive anything locally, your Appwrite instance needs an enabled push provider (`appwrite messaging create-appwrite-provider`) and its MQTT port reachable from the device.
 <br/>
 
 ### Prerequisits (must be installed) for Backend Env Set-Up

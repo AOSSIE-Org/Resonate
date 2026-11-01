@@ -1,14 +1,17 @@
-import 'dart:developer';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
+import 'package:resonate/features/interests/model/interest.dart';
 import 'package:resonate/features/profile/model/change_email_state.dart';
-import 'package:resonate/features/stories/model/story.dart';
-import 'package:resonate/models/follower_user_model.dart';
+import 'package:resonate/features/profile/model/user_profile_summary.dart';
+import 'package:resonate/features/shell/model/notification.dart';
+import 'package:resonate/shared/model/follower_user_model.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/profile_repository.g.dart';
@@ -18,7 +21,8 @@ ProfileRepository profileRepository(Ref ref) => ProfileRepository(
   tables: ref.watch(appwriteTablesProvider),
   storage: ref.watch(appwriteStorageProvider),
   account: ref.watch(appwriteAccountProvider),
-  messaging: ref.watch(firebaseMessagingProvider),
+  functions: ref.watch(appwriteFunctionsProvider),
+  realtime: ref.watch(appwriteRealtimeProvider),
 );
 
 class ProfileRepository {
@@ -26,69 +30,40 @@ class ProfileRepository {
     required TablesDB tables,
     required Storage storage,
     required Account account,
-    required FirebaseMessaging messaging,
+    required Functions functions,
+    required Realtime realtime,
   }) : _tables = tables,
        _storage = storage,
        _account = account,
-       _messaging = messaging;
+       _functions = functions,
+       _realtime = realtime;
 
   final TablesDB _tables;
   final Storage _storage;
   final Account _account;
-  final FirebaseMessaging _messaging;
+  final Functions _functions;
+  final Realtime _realtime;
+
+  Stream<void> followersChanged(String uid) {
+    final channel = 'databases.$databaseId.tables.$followersTableID.rows';
+    final subscription = _realtime.subscribe([channel]);
+    final controller = StreamController<void>();
+    final sub = subscription.stream.listen((event) {
+      if (event.payload.isEmpty) return;
+      if (event.payload['followedUid'] == uid) controller.add(null);
+    });
+    controller.onCancel = () async {
+      await sub.cancel();
+      await subscription.close();
+    };
+    return controller.stream;
+  }
 
   // Profile viewing
-  Future<List<Story>> fetchCreatedStories(String creatorId) async {
-    List<Row> rows = [];
-    try {
-      rows = await _tables
-          .listRows(
-            databaseId: storyDatabaseId,
-            tableId: storyTableId,
-            queries: [Query.equal('creatorId', creatorId)],
-          )
-          .then((value) => value.rows);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch user created stories: ${e.message}');
-    }
-    return Story.fromRows(rows);
-  }
-
-  Future<List<Story>> fetchLikedStories(String creatorId) async {
-    try {
-      final likeRows = await _tables
-          .listRows(
-            databaseId: storyDatabaseId,
-            tableId: likeTableId,
-            queries: [Query.equal('uId', creatorId)],
-          )
-          .then((value) => value.rows);
-
-      final storyRows = <Row>[];
-      for (final like in likeRows) {
-        try {
-          storyRows.add(
-            await _tables.getRow(
-              databaseId: storyDatabaseId,
-              tableId: storyTableId,
-              rowId: like.data['storyId'],
-            ),
-          );
-        } on AppwriteException catch (e) {
-          log('Skipping liked story ${like.data['storyId']}: ${e.message}');
-        }
-      }
-      return Story.fromRows(storyRows);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch liked stories: ${e.message}');
-      return [];
-    }
-  }
-
   Future<List<FollowerUserModel>> fetchFollowers(String userId) async {
     try {
       final userRow = await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: userId,
         queries: [
@@ -105,20 +80,100 @@ class ProfileRepository {
     }
   }
 
-  Future<String?> getFcmToken() => _messaging.getToken();
+  Future<UserProfileSummary> fetchProfileSummary(String uid) async {
+    final (row, followers) = await (
+      _tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: uid,
+        queries: [
+          Query.select([
+            'name',
+            'username',
+            'profileImageUrl',
+            'ratingCount',
+            'ratingTotal',
+          ]),
+        ],
+      ),
+      _followerCount(uid),
+    ).wait;
+
+    final data = row.data;
+    final ratingCount = (data['ratingCount'] as num?)?.toInt() ?? 0;
+    final ratingTotal = (data['ratingTotal'] as num?)?.toDouble() ?? 0;
+
+    return UserProfileSummary(
+      uid: uid,
+      name: data['name'] as String? ?? '',
+      username: data['username'] as String? ?? '',
+      avatarUrl: data['profileImageUrl'] as String? ?? '',
+      rating: ratingCount == 0 ? 0 : ratingTotal / ratingCount,
+      followerCount: followers,
+    );
+  }
+
+  Future<int> _followerCount(String uid) async {
+    try {
+      final result = await _tables.listRows(
+        databaseId: databaseId,
+        tableId: followersTableID,
+        queries: [
+          Query.equal('followedUid', uid),
+          Query.select([r'$id']),
+          Query.limit(1),
+        ],
+      );
+      return result.total;
+    } on AppwriteException catch (e) {
+      log('Failed to count followers: ${e.message}');
+      return 0;
+    }
+  }
+
+ 
+  // For callers to build the follower rather than reaching for the Appwrite SDK
+  String newFollowerDocumentId() => ID.unique();
 
   Future<void> followCreator(FollowerUserModel follower) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: followersTableID,
       rowId: follower.docId,
-      data: follower.toJson(),
+      data: {
+        ...follower.toJson(),
+        'followedUid': ?follower.followingUserId,
+      },
     );
+
+    final followed = follower.followingUserId;
+    if (followed == null || followed == follower.uid) return;
+    try {
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': followed,
+          'payload': {
+            'title': 'New follower',
+            'body': '${follower.username} started following you',
+          },
+          'data': NotificationModel(
+            notificationType: NotificationType.follow,
+            initiatorUsername: follower.username,
+            initiatorProfileImgUrl: follower.profileImageUrl,
+            subject: follower.name,
+            isTagInUpcomingRoom: false,
+          ).toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send follow notification: $e');
+    }
   }
 
   Future<void> unfollowCreator(String followerDocumentId) async {
     await _tables.deleteRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: followersTableID,
       rowId: followerDocumentId,
     );
@@ -133,7 +188,7 @@ class ProfileRepository {
     }
     try {
       await _tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usernameTableID,
         rowId: username,
       );
@@ -149,7 +204,7 @@ class ProfileRepository {
     required String email,
   }) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
       data: {'email': email},
@@ -158,7 +213,7 @@ class ProfileRepository {
 
   Future<void> deleteUsernameRow(String username) async {
     await _tables.deleteRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
     );
@@ -173,7 +228,7 @@ class ProfileRepository {
     await createUsernameRow(username: newUsername, email: email);
     await deleteUsernameRow(oldUsername);
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'username': newUsername},
@@ -190,7 +245,7 @@ class ProfileRepository {
   }) async {
     await updateAccountName(name);
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'name': name},
@@ -231,7 +286,7 @@ class ProfileRepository {
     required String id,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'profileImageUrl': url, 'profileImageID': id},
@@ -240,7 +295,7 @@ class ProfileRepository {
 
   Future<void> clearProfileImageRow(String uid) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'profileImageUrl': '', 'profileImageID': null},
@@ -256,9 +311,10 @@ class ProfileRepository {
     required String dob,
     required String email,
     String? profileImageID,
+    List<Interest> interests = const [],
   }) async {
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {
@@ -268,6 +324,7 @@ class ProfileRepository {
         'dob': dob,
         'email': email,
         'profileImageID': profileImageID,
+        'interests': Interest.toWireList(interests),
       },
     );
   }
@@ -282,7 +339,7 @@ class ProfileRepository {
   // Change email
   Future<bool> isEmailAvailable(String email) async {
     final docs = await _tables.listRows(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       queries: [Query.equal('email', email)],
     );
@@ -308,13 +365,13 @@ class ProfileRepository {
     required String email,
   }) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usersTableID,
       rowId: uid,
       data: {'email': email},
     );
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: usernameTableID,
       rowId: username,
       data: {'email': email},
@@ -336,7 +393,7 @@ class ProfileRepository {
   Future<void> deleteUsersCollectionDocument(String uid) async {
     try {
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: uid,
       );
@@ -348,7 +405,7 @@ class ProfileRepository {
   Future<void> deleteUsernamesCollectionDocument(String username) async {
     try {
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usernameTableID,
         rowId: username,
       );

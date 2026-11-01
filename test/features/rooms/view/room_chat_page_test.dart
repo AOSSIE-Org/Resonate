@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/reply_to.dart';
-import 'package:resonate/features/rooms/model/room_chat_state.dart';
+import 'package:resonate/features/rooms/data/room_chat.dart';
 import 'package:resonate/features/rooms/model/room_message.dart';
+import 'package:resonate/features/rooms/model/room_polls_state.dart';
 import 'package:resonate/features/rooms/view/pages/room_chat_page.dart';
 import 'package:resonate/features/rooms/viewmodel/room_chat_notifier.dart';
+import 'package:resonate/features/rooms/data/room_polls.dart';
 
 import '../rooms_test_helpers.dart';
 
@@ -42,14 +44,29 @@ RoomMessage fakeMessage({
   status: status,
 );
 
-// Builds the overrides with the fake chat + a current user of the given uid.
+
+class _FakeRoomPolls extends RoomPollsNotifier {
+  @override
+  Future<RoomPollsState> build(String roomId) async => const RoomPollsState();
+}
+
 List<Override> buildOverrides(
   FakeRoomChat fake, {
   String uid = 'me',
   bool isUpcoming = false,
 }) {
   return [
-    roomChatProvider(_roomId, _roomName, isUpcoming).overrideWith(() => fake),
+    roomChatMessagesProvider(
+      _roomId,
+      _roomName,
+      isUpcoming,
+    ).overrideWith(() => FakeChatMessages(fake)),
+    roomChatComposerProvider(
+      _roomId,
+      _roomName,
+      isUpcoming,
+    ).overrideWith(() => FakeChatComposer(fake)),
+    roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: uid)),
   ];
@@ -63,33 +80,43 @@ Widget page({bool isUpcoming = false}) => RoomChatPage(
 
 void main() {
   group('RoomChatPage state rendering', () {
-    testRoomsWidget('loading shows a CircularProgressIndicator', (tester) async {
-      final completer = Completer<RoomChatState>();
+    testAppWidget('loading shows a CircularProgressIndicator', (tester) async {
+      final completer = Completer<List<RoomMessage>>();
       // A fake whose build never completes until we complete it.
       final fake = _PendingRoomChat(completer.future);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         page(),
         overrides: [
-          roomChatProvider(_roomId, _roomName, false).overrideWith(() => fake),
+          roomChatMessagesProvider(
+            _roomId,
+            _roomName,
+            false,
+          ).overrideWith(() => fake),
+          roomChatComposerProvider(
+            _roomId,
+            _roomName,
+            false,
+          ).overrideWith(() => FakeChatComposer(FakeRoomChat(const RoomChatState()))),
+          roomPollsProvider(_roomId).overrideWith(_FakeRoomPolls.new),
           requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
           currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
         ],
       );
       await tester.pump();
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      completer.complete(const RoomChatState());
+      completer.complete(const []);
       await tester.pumpAndSettle();
     });
 
-    testRoomsWidget('error shows the localized error text', (tester) async {
+    testAppWidget('error shows the localized error text', (tester) async {
       final fake = FakeRoomChat(const RoomChatState(), error: true);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.text('Error'), findsWidgets);
     });
 
-    testRoomsWidget('data renders one ChatMessageItem per message', (tester) async {
+    testAppWidget('data renders one ChatMessageItem per message', (tester) async {
       final state = RoomChatState(
         messages: [
           fakeMessage(messageId: 'm-1', content: 'first'),
@@ -97,7 +124,7 @@ void main() {
         ],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.byType(ChatMessageItem), findsNWidgets(2));
       expect(find.text('first'), findsOneWidget);
@@ -106,12 +133,12 @@ void main() {
   });
 
   group('ChatMessageItem content variants', () {
-    testRoomsWidget('deleted message shows italic deleted text', (tester) async {
+    testAppWidget('deleted message shows italic deleted text', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(isDeleted: true, content: '')],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       final finder = find.text('This message was deleted');
       expect(finder, findsOneWidget);
@@ -119,17 +146,17 @@ void main() {
       expect(textWidget.style?.fontStyle, FontStyle.italic);
     });
 
-    testRoomsWidget('edited message shows the edited tag', (tester) async {
+    testAppWidget('edited message shows the edited tag', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(isEdited: true, content: 'hi')],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.text(' (edited)'), findsOneWidget);
     });
 
-    testRoomsWidget('reply preview renders when replyTo is set', (tester) async {
+    testAppWidget('reply preview renders when replyTo is set', (tester) async {
       final state = RoomChatState(
         messages: [
           fakeMessage(
@@ -145,7 +172,7 @@ void main() {
         ],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.text('@bob'), findsOneWidget);
       expect(find.text('original text'), findsOneWidget);
@@ -153,35 +180,35 @@ void main() {
   });
 
   group('_StatusIndicator', () {
-    testRoomsWidget('sent renders no indicator', (tester) async {
+    testAppWidget('sent renders no indicator', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(status: RoomMessageStatus.sent)],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.byIcon(Icons.access_time), findsNothing);
       expect(find.text('Retry'), findsNothing);
     });
 
-    testRoomsWidget('pending shows the access_time icon', (tester) async {
+    testAppWidget('pending shows the access_time icon', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(status: RoomMessageStatus.pending)],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.byIcon(Icons.access_time), findsOneWidget);
     });
 
-    testRoomsWidget('failed shows a retry row and tapping calls retrySend', (
+    testAppWidget('failed shows a retry row and tapping calls retrySend', (
       tester,
     ) async {
       final state = RoomChatState(
         messages: [fakeMessage(status: RoomMessageStatus.failed)],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
       expect(find.text('Retry'), findsOneWidget);
       expect(find.byIcon(Icons.error_outline), findsOneWidget);
@@ -202,12 +229,12 @@ void main() {
 
   group('canEdit / canDelete gating', () {
     // Owner + not deleted/edited -> context menu shows Delete -> confirm calls delete.
-    testRoomsWidget('owner can delete via context menu confirm', (tester) async {
+    testAppWidget('owner can delete via context menu confirm', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(messageId: 'm-x', creatorId: 'me')],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         page(),
         overrides: buildOverrides(fake, uid: 'me'),
@@ -230,12 +257,12 @@ void main() {
       expect(fake.lastDeletedId, 'm-x');
     });
 
-    testRoomsWidget('non-owner sees no Delete in context menu', (tester) async {
+    testAppWidget('non-owner sees no Delete in context menu', (tester) async {
       final state = RoomChatState(
         messages: [fakeMessage(creatorId: 'other')],
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         page(),
         overrides: buildOverrides(fake, uid: 'me'),
@@ -251,9 +278,9 @@ void main() {
   });
 
   group('ChatInputField', () {
-    testRoomsWidget('empty send is a no-op', (tester) async {
+    testAppWidget('empty send is a no-op', (tester) async {
       final fake = FakeRoomChat(const RoomChatState());
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byIcon(Icons.send));
@@ -261,11 +288,11 @@ void main() {
       expect(fake.sendCount, 0);
     });
 
-    testRoomsWidget('non-empty send calls sendMessage and clears field', (
+    testAppWidget('non-empty send calls sendMessage and clears field', (
       tester,
     ) async {
       final fake = FakeRoomChat(const RoomChatState());
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byType(TextField), 'hi there');
@@ -278,7 +305,7 @@ void main() {
       expect(field.controller?.text, '');
     });
 
-    testRoomsWidget('reply banner shows and close calls clearReplyingTo', (
+    testAppWidget('reply banner shows and close calls clearReplyingTo', (
       tester,
     ) async {
       final state = const RoomChatState(
@@ -291,7 +318,7 @@ void main() {
         ),
       );
       final fake = FakeRoomChat(state);
-      await pumpRoomsPage(tester, page(), overrides: buildOverrides(fake));
+      await pumpTestApp(tester, page(), overrides: buildOverrides(fake));
       await tester.pumpAndSettle();
 
       expect(find.text('@carol'), findsOneWidget);
@@ -305,11 +332,14 @@ void main() {
 }
 
 // A fake whose build stays pending until the supplied future completes.
-class _PendingRoomChat extends RoomChatNotifier {
+class _PendingRoomChat extends RoomChatMessages {
   _PendingRoomChat(this._future);
-  final Future<RoomChatState> _future;
+  final Future<List<RoomMessage>> _future;
 
   @override
-  Future<RoomChatState> build(String roomId, String roomName, bool isUpcoming) =>
-      _future;
+  Future<List<RoomMessage>> build(
+    String roomId,
+    String roomName,
+    bool isUpcoming,
+  ) => _future;
 }

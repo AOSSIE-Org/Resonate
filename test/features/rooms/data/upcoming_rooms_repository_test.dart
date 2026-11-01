@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,7 +9,7 @@ import 'package:resonate/utils/constants.dart';
 import '../../../helpers/test_root_container.dart';
 import 'upcoming_rooms_repository_test.mocks.dart';
 
-@GenerateMocks([TablesDB, FirebaseMessaging])
+@GenerateMocks([TablesDB, Functions])
 // Builds an upcoming room row with the fields the repo reads.
 Row upcomingRoomRow({
   String id = 'up-1',
@@ -24,7 +23,7 @@ Row upcomingRoomRow({
   return buildRow(
     id: id,
     tableId: upcomingRoomsTableId,
-    databaseId: upcomingRoomsDatabaseId,
+    databaseId: databaseId,
     data: {
       'name': name,
       'isTime': isTime,
@@ -46,7 +45,7 @@ Row subscriberRow({
   return buildRow(
     id: id,
     tableId: subscribedUserTableId,
-    databaseId: upcomingRoomsDatabaseId,
+    databaseId: databaseId,
     data: {
       'userID': userID,
       'upcomingRoomId': upcomingRoomId,
@@ -57,20 +56,32 @@ Row subscriberRow({
 
 void main() {
   late MockTablesDB tables;
-  late MockFirebaseMessaging messaging;
+  late MockFunctions functions;
   late UpcomingRoomsRepository repo;
 
   setUp(() {
     tables = MockTablesDB();
-    messaging = MockFirebaseMessaging();
-    repo = UpcomingRoomsRepository(tables: tables, messaging: messaging);
+    functions = MockFunctions();
+    repo = UpcomingRoomsRepository(
+      tables: tables,
+        functions: functions,
+    );
+    // Default: this user is not subscribed yet, so addSubscriber's duplicate
+    // check falls through to the create.
+    when(
+      tables.listRows(
+        databaseId: anyNamed('databaseId'),
+        tableId: anyNamed('tableId'),
+        queries: anyNamed('queries'),
+      ),
+    ).thenAnswer((_) async => RowList(total: 0, rows: []));
   });
 
   group('loadUpcoming', () {
     test('lists rows, filters hidden ids, and hydrates each', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -84,7 +95,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -99,7 +110,7 @@ void main() {
       expect(rooms.first.id, 'visible');
       verify(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).called(1);
@@ -108,7 +119,7 @@ void main() {
     test('marks userIsCreator when creatorUid matches userUid', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -120,7 +131,7 @@ void main() {
       // The creator is also a subscriber, but hasUserSubscribed stays false.
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -149,7 +160,7 @@ void main() {
       () async {
         when(
           tables.listRows(
-            databaseId: upcomingRoomsDatabaseId,
+            databaseId: databaseId,
             tableId: upcomingRoomsTableId,
           ),
         ).thenAnswer(
@@ -160,7 +171,7 @@ void main() {
         );
         when(
           tables.listRows(
-            databaseId: upcomingRoomsDatabaseId,
+            databaseId: databaseId,
             tableId: subscribedUserTableId,
             queries: anyNamed('queries'),
           ),
@@ -201,7 +212,7 @@ void main() {
     test('defaults tags to [] when data has null tags', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -212,7 +223,7 @@ void main() {
       );
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -229,7 +240,7 @@ void main() {
     test('returns fallback Unknown room when hydration throws', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -241,7 +252,7 @@ void main() {
       // Subscriber lookup fails, so hydration falls into the catch block.
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -269,7 +280,7 @@ void main() {
     test('returns the set of row ids', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
         ),
       ).thenAnswer(
@@ -289,8 +300,7 @@ void main() {
   });
 
   group('createUpcomingRoom', () {
-    test('gets fcm token then creates the room row', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
+    test('creates the room row', () async {
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -308,10 +318,9 @@ void main() {
         creatorUid: 'creator-uid',
       );
 
-      verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -322,13 +331,43 @@ void main() {
       expect(captured['tags'], const ['t1']);
       expect(captured['description'], 'desc');
       expect(captured['creatorUid'], 'creator-uid');
-      expect(captured['creator_fcm_tokens'], ['fcm-token']);
     });
   });
 
   group('addSubscriber', () {
-    test('gets fcm token then creates a subscriber row', () async {
-      when(messaging.getToken()).thenAnswer((_) async => 'fcm-token');
+    test('an already-subscribed user is not added a second time', () async {
+      when(
+        tables.listRows(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [subscriberRow()]));
+
+      await repo.addSubscriber(
+        upcomingRoomId: 'up-1',
+        userUid: 'me',
+        profileImageUrl: 'https://example.com/me.jpg',
+      );
+
+      // No second row, and the host is not notified again either.
+      verifyNever(
+        tables.createRow(
+          databaseId: anyNamed('databaseId'),
+          tableId: anyNamed('tableId'),
+          rowId: anyNamed('rowId'),
+          data: anyNamed('data'),
+        ),
+      );
+      verifyNever(
+        functions.createExecution(
+          functionId: anyNamed('functionId'),
+          body: anyNamed('body'),
+        ),
+      );
+    });
+
+    test('creates a subscriber row', () async {
       when(
         tables.createRow(
           databaseId: anyNamed('databaseId'),
@@ -344,10 +383,9 @@ void main() {
         profileImageUrl: 'https://example.com/me.jpg',
       );
 
-      verify(messaging.getToken()).called(1);
       final captured = verify(
         tables.createRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -355,7 +393,6 @@ void main() {
       ).captured.single as Map;
       expect(captured['userID'], 'me');
       expect(captured['upcomingRoomId'], 'up-1');
-      expect(captured['registrationTokens'], ['fcm-token']);
       expect(captured['userProfileUrl'], 'https://example.com/me.jpg');
     });
   });
@@ -364,7 +401,7 @@ void main() {
     test('is a no-op when no matching subscriber row exists', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -384,7 +421,7 @@ void main() {
     test('deletes the first matching subscriber row', () async {
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -406,7 +443,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 'match-1',
         ),
@@ -425,7 +462,7 @@ void main() {
       ).thenAnswer((_) async => '');
       when(
         tables.listRows(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           queries: anyNamed('queries'),
         ),
@@ -443,21 +480,21 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: upcomingRoomsTableId,
           rowId: 'up-1',
         ),
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 's1',
         ),
       ).called(1);
       verify(
         tables.deleteRow(
-          databaseId: upcomingRoomsDatabaseId,
+          databaseId: databaseId,
           tableId: subscribedUserTableId,
           rowId: 's2',
         ),

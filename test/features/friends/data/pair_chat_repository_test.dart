@@ -6,8 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/features/friends/data/repositories/pair_chat_repository.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 
 import 'pair_chat_repository_test.mocks.dart';
@@ -17,12 +17,12 @@ import 'pair_chat_repository_test.mocks.dart';
 Row pairRow({
   String id = 'req-1',
   String tableId = pairRequestTableId,
-  String databaseId = masterDatabaseId,
+  String databaseId = databaseId,
   Map<String, dynamic>? data,
 }) {
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: tableId,
     $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
@@ -77,7 +77,7 @@ void main() {
     repo = PairChatRepository(
       tables: tables,
       realtime: realtime,
-      apiService: ApiService(functions: functions),
+      roomJoin: RoomJoinService(functions: functions),
     );
   });
 
@@ -100,7 +100,7 @@ void main() {
       expect(id, 'new-req');
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -141,7 +141,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: 'req-9',
           data: {'isRandom': true},
@@ -180,7 +180,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           rowId: 'req-3',
         ),
@@ -226,7 +226,7 @@ void main() {
 
       final captured = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: pairRequestTableId,
           queries: captureAnyNamed('queries'),
         ),
@@ -283,7 +283,7 @@ void main() {
 
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: activePairsTableId,
           rowId: anyNamed('rowId'),
           data: captureAnyNamed('data'),
@@ -330,7 +330,7 @@ void main() {
 
       verify(
         tables.deleteRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: activePairsTableId,
           rowId: 'pair-1',
         ),
@@ -379,50 +379,6 @@ void main() {
     });
   });
 
-  group('getUserProfileImageUrl', () {
-    test('returns the url on success', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenAnswer(
-        (_) async => pairRow(
-          id: 'user-1',
-          tableId: usersTableID,
-          databaseId: userDatabaseID,
-          data: const {'profileImageUrl': 'https://example.com/pic.jpg'},
-        ),
-      );
-
-      final url = await repo.getUserProfileImageUrl('user-1');
-
-      expect(url, 'https://example.com/pic.jpg');
-      verify(
-        tables.getRow(
-          databaseId: userDatabaseID,
-          tableId: usersTableID,
-          rowId: 'user-1',
-        ),
-      ).called(1);
-    });
-
-    test('returns null on any error', () async {
-      when(
-        tables.getRow(
-          databaseId: anyNamed('databaseId'),
-          tableId: anyNamed('tableId'),
-          rowId: anyNamed('rowId'),
-        ),
-      ).thenThrow(AppwriteException('missing', 404));
-
-      final url = await repo.getUserProfileImageUrl('user-1');
-
-      expect(url, isNull);
-    });
-  });
-
   group('updateUserRating', () {
     test('writes ratingTotal + ratingCount to the user row', () async {
       when(
@@ -436,7 +392,7 @@ void main() {
         (_) async => pairRow(
           id: 'user-1',
           tableId: usersTableID,
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
         ),
       );
 
@@ -448,7 +404,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: userDatabaseID,
+          databaseId: databaseId,
           tableId: usersTableID,
           rowId: 'user-1',
           data: {'ratingTotal': 12.5, 'ratingCount': 3},
@@ -529,7 +485,7 @@ void main() {
       when(subscription.close).thenReturn(() async {});
 
       final channel =
-          'databases.$masterDatabaseId.tables.$pairRequestTableId.rows';
+          'databases.$databaseId.tables.$pairRequestTableId.rows';
       final received = <RealtimeMessage>[];
       final sub = repo.pairRequestsStream().listen(received.add);
 

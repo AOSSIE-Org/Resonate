@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/utils/constants.dart';
@@ -42,7 +41,7 @@ User _buildUser({
 Row _buildUserRow({String id = 'u1', int reportsCount = 0}) => buildRow(
       id: id,
       tableId: usersTableID,
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       data: {
         'username': 'foo',
         'profileImageUrl': 'https://example.com/p.jpg',
@@ -58,15 +57,12 @@ void main() {
   late MockAccount account;
   late MockTablesDB tables;
   late MockFunctions functions;
-  late MockFirebaseMessaging messaging;
 
   setUp(() {
     account = MockAccount();
     tables = MockTablesDB();
     functions = MockFunctions();
-    messaging = MockFirebaseMessaging();
-    // Default: no FCM token, nothing in the upcoming-room tables.
-    when(messaging.getToken()).thenAnswer((_) async => null);
+    // Default: nothing in the upcoming-room tables.
   });
 
   ProviderContainer makeContainer() {
@@ -75,7 +71,6 @@ void main() {
         appwriteAccountProvider.overrideWithValue(account),
         appwriteTablesProvider.overrideWithValue(tables),
         appwriteFunctionsProvider.overrideWithValue(functions),
-        firebaseMessagingProvider.overrideWithValue(messaging),
       ],
     );
     addTearDown(c.dispose);
@@ -86,7 +81,7 @@ void main() {
     test('resolves to whatever the repository loads', () async {
       when(account.get()).thenAnswer((_) async => _buildUser());
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),
@@ -146,7 +141,7 @@ void main() {
         );
       });
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),
@@ -176,7 +171,7 @@ void main() {
         return _buildUser();
       });
       when(tables.getRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         rowId: 'u1',
         queries: anyNamed('queries'),

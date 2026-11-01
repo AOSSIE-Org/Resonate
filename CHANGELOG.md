@@ -1,3 +1,65 @@
+## 4.0.0
+
+<en-IN>
+
+✨ **What's New:**
+
+🗳️ Polls: ask the room a question and see live results  
+🟢 Availability status: see who is online, busy or already in a room  
+🎙️ Speaking animation: a ring around the avatar of whoever is talking  
+📞 One-to-one calls with friends  
+🔍 Interest-based discovery: find people and stories by what you care about  
+🏅 Badges and stats: earn recognition for hosting, moderating and taking part  
+🎧 Redesigned room and call screens, with a miniplayer and picture-in-picture  
+📼 Recorded chapters: your live chapters are kept on your device  
+🔔 Notifications for likes, follows, subscriptions and friend requests  
+⚙️ Feature flags: hide the parts of the app you do not use  
+
+🛠️ **Fixes and improvements:**
+
+🔒 Connections to the backend are now encrypted end to end  
+🔊 Audio output switching between speaker and earpiece now works  
+👥 Friend requests and room subscriptions no longer duplicate on a double tap  
+🔍 Search results are no longer hidden behind the create button  
+👤 Follower counts update as they change instead of at sign-in  
+
+Push notifications no longer depend on Google services, so Resonate runs on
+devices without them.
+
+Update now for a better Resonate experience! 🎉
+
+</en-IN>
+
+<hn-IN>
+
+✨ **नया क्या है:**
+
+🗳️ पोल: रूम में सवाल पूछें और नतीजे लाइव देखें  
+🟢 उपलब्धता स्थिति: देखें कौन ऑनलाइन है, व्यस्त है या किसी रूम में है  
+🎙️ बोलने का एनिमेशन: जो बोल रहा है उसके अवतार के चारों ओर एक रिंग  
+📞 दोस्तों के साथ वन-टू-वन कॉल  
+🔍 रुचि के आधार पर खोज: अपनी पसंद के अनुसार लोग और कहानियाँ ढूँढ़ें  
+🏅 बैज और आँकड़े: होस्टिंग, मॉडरेशन और भागीदारी के लिए पहचान पाएँ  
+🎧 नए रूम और कॉल स्क्रीन, मिनीप्लेयर और पिक्चर-इन-पिक्चर के साथ  
+📼 रिकॉर्ड किए गए चैप्टर: आपके लाइव चैप्टर आपके डिवाइस पर सहेजे जाते हैं  
+🔔 लाइक, फॉलो, सब्सक्रिप्शन और फ्रेंड रिक्वेस्ट की सूचनाएँ  
+⚙️ फीचर फ्लैग: ऐप के जिन हिस्सों का आप उपयोग नहीं करते, उन्हें छिपाएँ  
+
+🛠️ **सुधार और बदलाव:**
+
+🔒 बैकएंड से कनेक्शन अब पूरी तरह एन्क्रिप्टेड हैं  
+🔊 स्पीकर और इयरपीस के बीच ऑडियो आउटपुट बदलना अब काम करता है  
+👥 दो बार टैप करने पर फ्रेंड रिक्वेस्ट और रूम सब्सक्रिप्शन दोहराए नहीं जाते  
+🔍 सर्च परिणाम अब क्रिएट बटन के पीछे नहीं छिपते  
+👤 फॉलोअर की संख्या साइन-इन के बजाय बदलते ही अपडेट होती है  
+
+पुश नोटिफिकेशन अब Google सेवाओं पर निर्भर नहीं हैं, इसलिए Resonate उन
+डिवाइसों पर भी चलता है जिनमें वे नहीं हैं।
+
+बेहतर अनुभव के लिए अभी अपडेट करें! 🎉
+
+</hn-IN>
+
 ## 3.0.0
 
 <en-IN>

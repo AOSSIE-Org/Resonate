@@ -33,7 +33,7 @@ final class FriendsNotifierProvider
   FriendsNotifier create() => FriendsNotifier();
 }
 
-String _$friendsNotifierHash() => r'c9543f6e01ebabdb6d564ed03ed5d72298e06d60';
+String _$friendsNotifierHash() => r'919bffcd5ea5206704145f8396688a04577ed96d';
 
 abstract class _$FriendsNotifier extends $AsyncNotifier<FriendsState> {
   FutureOr<FriendsState> build();

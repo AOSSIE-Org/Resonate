@@ -45,9 +45,9 @@ Map<String, dynamic> messageData({
 
 Row messageRow({String id = 'msg-1', int index = 0}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: chatMessagesTableId,
-  $databaseId: masterDatabaseId,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -70,9 +70,9 @@ Map<String, dynamic> replyData({
 
 Row replyRow({String id = 'msg-1'}) => Row(
   $id: id,
-  $sequence: 0,
+  $sequence: '0',
   $tableId: chatMessageReplyTableId,
-  $databaseId: masterDatabaseId,
+  $databaseId: databaseId,
   $createdAt: DateTime.now().toIso8601String(),
   $updatedAt: DateTime.now().toIso8601String(),
   $permissions: const [],
@@ -127,10 +127,10 @@ void main() {
   });
 
   group('loadMessages', () {
-    test('queries with equal/orderAsc/limit and sorts ascending', () async {
+    test('queries the latest window (orderDesc) and sorts ascending', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           queries: anyNamed('queries'),
         ),
@@ -142,12 +142,12 @@ void main() {
       );
       // No replies for these messages.
       when(
-        tables.getRow(
-          databaseId: masterDatabaseId,
+        tables.listRows(
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
-          rowId: anyNamed('rowId'),
+          queries: anyNamed('queries'),
         ),
-      ).thenThrow(AppwriteException('not found', 404));
+      ).thenAnswer((_) async => RowList(total: 0, rows: []));
 
       final messages = await repo.loadMessages('room-1');
 
@@ -158,14 +158,14 @@ void main() {
 
       final queries = verify(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           queries: captureAnyNamed('queries'),
         ),
       ).captured.single as List<String>;
       expect(queries, [
         Query.equal('roomId', 'room-1'),
-        Query.orderAsc('index'),
+        Query.orderDesc('index'),
         Query.limit(100),
       ]);
     });
@@ -173,7 +173,7 @@ void main() {
     test('merges fetched replyTo into the message json', () async {
       when(
         tables.listRows(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           queries: anyNamed('queries'),
         ),
@@ -181,12 +181,12 @@ void main() {
         (_) async => RowList(total: 1, rows: [messageRow(id: 'm1', index: 0)]),
       );
       when(
-        tables.getRow(
-          databaseId: masterDatabaseId,
+        tables.listRows(
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
-          rowId: 'm1',
+          queries: anyNamed('queries'),
         ),
-      ).thenAnswer((_) async => replyRow(id: 'm1'));
+      ).thenAnswer((_) async => RowList(total: 1, rows: [replyRow(id: 'm1')]));
 
       final messages = await repo.loadMessages('room-1');
 
@@ -194,13 +194,64 @@ void main() {
       expect(messages.first.replyTo, isNotNull);
       expect(messages.first.replyTo!.content, 'original');
     });
+
+    test('fetches replies for the whole page in one query', () async {
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: chatMessagesTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer(
+        (_) async => RowList(
+          total: 3,
+          rows: [
+            messageRow(id: 'm1', index: 1),
+            messageRow(id: 'm2', index: 2),
+            messageRow(id: 'm3', index: 3),
+          ],
+        ),
+      );
+      // Only the middle message is a reply; the other two have no row at all.
+      when(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: chatMessageReplyTableId,
+          queries: anyNamed('queries'),
+        ),
+      ).thenAnswer((_) async => RowList(total: 1, rows: [replyRow(id: 'm2')]));
+
+      final messages = await repo.loadMessages('room-1');
+
+      expect(messages.map((m) => m.replyTo != null), [false, true, false]);
+      // One reply query for the whole page, not a getRow per message.
+      final captured = verify(
+        tables.listRows(
+          databaseId: databaseId,
+          tableId: chatMessageReplyTableId,
+          queries: captureAnyNamed('queries'),
+        ),
+      ).captured;
+      expect(captured, hasLength(1));
+      expect(
+        captured.single as List<String>,
+        contains(Query.equal(r'$id', ['m1', 'm2', 'm3'])),
+      );
+      verifyNever(
+        tables.getRow(
+          databaseId: databaseId,
+          tableId: chatMessageReplyTableId,
+          rowId: anyNamed('rowId'),
+        ),
+      );
+    });
   });
 
   group('fetchReplyTo', () {
     test('returns ReplyTo on success', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
         ),
@@ -212,7 +263,7 @@ void main() {
       expect(reply!.messageId, 'reply-1');
       verify(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
         ),
@@ -222,7 +273,7 @@ void main() {
     test('returns null on AppwriteException 404', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
         ),
@@ -236,7 +287,7 @@ void main() {
     test('rethrows for non-404 codes', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
         ),
@@ -265,15 +316,17 @@ void main() {
 
       verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
-          data: message.toJsonForUpload(),
+          // The scalar roomId realtime filters on, plus the relationship that
+          // cascades the row away with its room.
+          data: {...message.toJsonForUpload(), 'room': message.roomId},
         ),
       ).called(1);
       verifyNever(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: anyNamed('rowId'),
           data: anyNamed('data'),
@@ -297,18 +350,18 @@ void main() {
 
       verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
-          data: message.toJsonForUpload(),
+          data: {...message.toJsonForUpload(), 'room': message.roomId},
         ),
       ).called(1);
       verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'msg-1',
-          data: reply.toJson(),
+          data: {...reply.toJson(), 'message': 'msg-1'},
         ),
       ).called(1);
     });
@@ -330,7 +383,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
           data: message.toJsonForUpload(),
@@ -355,7 +408,7 @@ void main() {
 
       verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessagesTableId,
           rowId: 'msg-1',
           data: message.toJsonForUpload(),
@@ -383,7 +436,8 @@ void main() {
             $createdAt: '2023-01-01',
             $updatedAt: '2023-01-01',
             $permissions: const [],
-            functionId: sendMessageNotificationFunctionID,
+            resourceId: sendMessageNotificationFunctionID,
+            resourceType: enums.ExecutionResourceType.functions,
             trigger: enums.ExecutionTrigger.http,
             status: enums.ExecutionStatus.completed,
             requestMethod: 'POST',
@@ -427,7 +481,7 @@ void main() {
     setUp(() {
       sub = MockRealtimeSubscription();
       controller = StreamController<RealtimeMessage>.broadcast();
-      channel = 'databases.$masterDatabaseId.tables.$chatMessagesTableId.rows';
+      channel = 'databases.$databaseId.tables.$chatMessagesTableId.rows';
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);
       when(sub.close).thenReturn(() async {});
@@ -448,7 +502,7 @@ void main() {
     test('filters empty and mismatched roomId payloads', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: anyNamed('rowId'),
         ),
@@ -485,7 +539,7 @@ void main() {
         () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: anyNamed('rowId'),
         ),
@@ -510,7 +564,7 @@ void main() {
       // Non-404 error from replyTo lookup is swallowed by the stream.
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: anyNamed('rowId'),
         ),
@@ -531,7 +585,7 @@ void main() {
     test('merges replyTo into the emitted message when present', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: chatMessageReplyTableId,
           rowId: 'a',
         ),

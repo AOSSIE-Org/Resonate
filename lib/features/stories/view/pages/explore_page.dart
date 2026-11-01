@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
+import 'package:resonate/features/interests/data/interest_filter.dart';
+import 'package:resonate/features/interests/view/widgets/interest_filter_button.dart';
+import 'package:resonate/features/interests/view/widgets/interest_filter_panel.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/view/widgets/category_card.dart';
 import 'package:resonate/features/stories/view/widgets/filtered_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/story_card.dart';
 import 'package:resonate/features/stories/view/widgets/story_list_tile.dart';
-import 'package:resonate/features/stories/viewmodel/explore_stories_notifier.dart';
+import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/app_images.dart';
 import 'package:resonate/utils/colors.dart';
@@ -24,14 +28,36 @@ class ExplorePage extends ConsumerStatefulWidget {
 
 class _ExplorePageState extends ConsumerState<ExplorePage> {
   final _debouncer = Debouncer(milliseconds: 500);
+  final _searchController = TextEditingController();
   bool _isSearching = false;
   bool _searchBarIsEmpty = true;
+  bool _isPickingInterests = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  // Back with a search open clears it; this page is a root tab, so letting the
+  // pop through closes the app.
+  void _clearSearch() {
+    _searchController.clear();
+    ref.read(exploreStoriesProvider.notifier).clearSearch();
+    setState(() {
+      _searchBarIsEmpty = true;
+      _isSearching = false;
+    });
+  }
 
   void _onSearchChanged(String value) {
-    setState(() {
-      _searchBarIsEmpty = value.isEmpty;
-      if (value.isNotEmpty) _isSearching = true;
-    });
+    final isEmpty = value.isEmpty;
+    if (isEmpty != _searchBarIsEmpty || (!isEmpty && !_isSearching)) {
+      setState(() {
+        _searchBarIsEmpty = isEmpty;
+        if (!isEmpty) _isSearching = true;
+      });
+    }
     if (value.isEmpty) {
       ref.read(exploreStoriesProvider.notifier).clearSearch();
       return;
@@ -46,57 +72,88 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context)!;
+    final interestFilterIsActive = ref
+        .watch(interestFilterProvider)
+        .isActive;
 
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        backgroundColor: colorScheme.surface,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            left: UiSizes.width_16,
-            right: UiSizes.width_16,
-            top: UiSizes.height_30,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                style: TextStyle(color: colorScheme.onSecondary),
-                onChanged: _onSearchChanged,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: UiSizes.height_15,
-                  ),
-                  border: const OutlineInputBorder(
-                    gapPadding: 4,
-                    borderSide: BorderSide(style: BorderStyle.none, width: 0),
-                  ),
-                  fillColor: colorScheme.secondary,
-                  filled: true,
-                  hintText: l10n.whatDoYouWantToListenTo,
-                  hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: colorScheme.onSecondary,
-                    fontWeight: FontWeight.w600,
-                    fontSize: UiSizes.size_17,
-                    fontFamily: 'Inter',
-                  ),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(left: UiSizes.width_16),
-                    child: Icon(
-                      Icons.search,
-                      color: colorScheme.onSecondary,
-                      size: UiSizes.size_35,
+    return PopScope(
+      canPop: _searchBarIsEmpty,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) _clearSearch();
+      },
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          backgroundColor: colorScheme.surface,
+          body: RefreshIndicator(
+            onRefresh: () =>
+                ref.read(exploreStoriesProvider.notifier).refresh(),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: EdgeInsets.only(
+                left: UiSizes.width_16,
+                right: UiSizes.width_16,
+                top: UiSizes.height_30,
+                bottom: UiSizes.height_80,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    style: TextStyle(color: colorScheme.onSecondary),
+                    onChanged: _onSearchChanged,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: UiSizes.height_15,
+                      ),
+                      border: const OutlineInputBorder(
+                        gapPadding: 4,
+                        borderSide: BorderSide(
+                          style: BorderStyle.none,
+                          width: 0,
+                        ),
+                      ),
+                      fillColor: colorScheme.secondary,
+                      filled: true,
+                      hintText: l10n.whatDoYouWantToListenTo,
+                      hintStyle: Theme.of(context).textTheme.bodyMedium!
+                          .copyWith(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: UiSizes.size_17,
+                          ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: UiSizes.width_16),
+                        child: Icon(
+                          Icons.search,
+                          color: colorScheme.onSecondary,
+                          size: UiSizes.size_35,
+                        ),
+                      ),
+                      suffixIcon: InterestFilterButton(
+                        isOpen: _isPickingInterests,
+                        onPressed: () => setState(
+                          () => _isPickingInterests = !_isPickingInterests,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(height: UiSizes.height_20),
+                  if (_isPickingInterests)
+                    InterestFilterPanel(
+                      onDone: () => setState(() => _isPickingInterests = false),
+                    )
+                  else if (interestFilterIsActive)
+                    const InterestFilterResults()
+                  else if (_searchBarIsEmpty)
+                    _ExploreContent()
+                  else
+                    _searchResults(context),
+                ],
               ),
-              SizedBox(height: UiSizes.height_30),
-              if (_searchBarIsEmpty)
-                _ExploreContent()
-              else
-                _searchResults(context),
-            ],
+            ),
           ),
         ),
       ),
@@ -154,7 +211,6 @@ class _ExploreContent extends ConsumerWidget {
       color: colorScheme.onSurface,
       fontWeight: FontWeight.w900,
       fontSize: UiSizes.size_20,
-      fontFamily: 'Inter',
     );
 
     return Column(
@@ -225,7 +281,6 @@ class _ExploreContent extends ConsumerWidget {
               color: Theme.of(context).colorScheme.onSurface,
               fontWeight: FontWeight.w900,
               fontSize: UiSizes.size_20,
-              fontFamily: 'Inter',
             ),
           ),
           SizedBox(height: UiSizes.height_10),
@@ -242,16 +297,8 @@ class _ExploreContent extends ConsumerWidget {
     );
   }
 
-  Widget _loader(BuildContext context) => Center(
-    child: SizedBox(
-      height: UiSizes.height_82,
-      width: UiSizes.width_80,
-      child: LoadingIndicator(
-        indicatorType: Indicator.ballRotate,
-        colors: [Theme.of(context).colorScheme.primary],
-      ),
-    ),
-  );
+  Widget _loader(BuildContext context) =>
+      AppLoader(height: UiSizes.height_82, width: UiSizes.width_80);
 
   Widget _emptyStories(BuildContext context) => Column(
     mainAxisAlignment: MainAxisAlignment.center,

@@ -14,7 +14,6 @@ abstract class LiveChapterModel with _$LiveChapterModel {
     required String chapterTitle,
     required String chapterDescription,
     required String storyId,
-    required List<String> followersFCMToken,
     @JsonKey(includeToJson: false, includeFromJson: false)
     LiveChapterAttendeesModel? attendees,
     @JsonKey(name: '\$id', includeToJson: false) required String id,

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:language_picker/language_picker_dropdown.dart';
 import 'package:language_picker/languages.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/enums/log_type.dart';

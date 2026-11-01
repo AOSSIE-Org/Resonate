@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/features/rooms/data/livekit_join.dart';
+import 'package:resonate/features/live_audio/data/livekit_join.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/core/services/execute_function.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -21,7 +22,7 @@ LiveChapterRepository liveChapterRepository(Ref ref) => LiveChapterRepository(
   tables: ref.watch(appwriteTablesProvider),
   realtime: ref.watch(appwriteRealtimeProvider),
   functions: ref.watch(appwriteFunctionsProvider),
-  apiService: ref.watch(apiServiceProvider),
+  roomJoin: ref.watch(roomJoinServiceProvider),
 );
 
 // Appwrite docs, realtime feed, cloud-function room ops and follower notification
@@ -30,18 +31,18 @@ class LiveChapterRepository {
     required TablesDB tables,
     required Realtime realtime,
     required Functions functions,
-    required ApiService apiService,
+    required RoomJoinService roomJoin,
     FlutterSecureStorage? secureStorage,
   }) : _tables = tables,
        _realtime = realtime,
        _functions = functions,
-       _api = apiService,
+       _roomJoin = roomJoin,
        _secureStorage = secureStorage ?? const FlutterSecureStorage();
 
   final TablesDB _tables;
   final Realtime _realtime;
   final Functions _functions;
-  final ApiService _api;
+  final RoomJoinService _roomJoin;
   final FlutterSecureStorage _secureStorage;
 
   // LiveKit room (cloud functions)
@@ -50,7 +51,10 @@ class LiveChapterRepository {
     required String appwriteRoomId,
     required String adminUid,
   }) async {
-    final response = await _api.createLiveChapterRoom(appwriteRoomId, adminUid);
+    final response = await _functions.execute(
+      functionId: createLiveChapterRoomFunctionId,
+      body: {'adminUid': adminUid, 'appwriteRoomId': appwriteRoomId},
+    );
     final join = liveKitJoinFromResponse(response);
     // The admin token is needed later to delete the room.
     await _secureStorage.write(
@@ -68,27 +72,30 @@ class LiveChapterRepository {
     required String roomId,
     required String userId,
   }) async {
-    final response = await _api.joinRoom(roomId, userId);
+    final response = await _roomJoin.joinRoom(roomId, userId);
     return liveKitJoinFromResponse(response);
   }
 
   Future<void> deleteLiveChapterRoom(String roomId) async {
     final token = await _secureStorage.read(key: "createdRoomAdminToken");
     if (token == null) return;
-    await _api.deleteLiveChapterRoom(roomId, token);
+    await _functions.execute(
+      functionId: deleteLiveChapterRoomFunctionId,
+      body: {'appwriteRoomDocId': roomId, 'token': token},
+    );
   }
 
   // Appwrite documents
 
   Future<void> createLiveChapterDocs(LiveChapterModel model) async {
     await _tables.createRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: liveChaptersTableId,
       rowId: model.id,
       data: model.toJson(),
     );
     await _tables.createRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: model.id,
       data: model.attendees!.toJson(),
@@ -100,7 +107,7 @@ class LiveChapterRepository {
     LiveChapterAttendeesModel attendees,
   ) async {
     await _tables.updateRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: roomId,
       data: attendees.toJson(),
@@ -110,12 +117,12 @@ class LiveChapterRepository {
   Future<void> deleteLiveChapterDocs(String roomId) async {
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: liveChaptersTableId,
         rowId: roomId,
       );
       await _tables.deleteRow(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: liveChapterAttendeesTableId,
         rowId: roomId,
       );
@@ -127,7 +134,7 @@ class LiveChapterRepository {
   // Realtime
 
   static String attendeesChannel(String roomId) =>
-      "databases.$userDatabaseID.tables.$liveChapterAttendeesTableId.rows.$roomId";
+      "databases.$databaseId.tables.$liveChapterAttendeesTableId.rows.$roomId";
 
   // Stream of attendee-table events for a live chapter.
   Stream<RealtimeMessage> attendeesStream(String roomId) {

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
+import 'package:resonate/features/settings/data/feature_flags.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
@@ -13,7 +15,7 @@ import 'package:resonate/features/stories/view/widgets/chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/like_button.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/start_live_chapter_dialog.dart';
-import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/data/live_chapter_coordinator.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
@@ -49,16 +51,7 @@ class _StoryPageState extends ConsumerState<StoryPage> {
     return Scaffold(
       body: SafeArea(
         child: detailAsync.when(
-          loading: () => Center(
-            child: SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_200,
-              child: LoadingIndicator(
-                indicatorType: Indicator.ballRotate,
-                colors: [Theme.of(context).colorScheme.primary],
-              ),
-            ),
-          ),
+          loading: () => const AppLoader(),
           error: (e, _) =>
               Center(child: Text(AppLocalizations.of(context)!.error)),
           data: (detail) => _content(context, story, detail),
@@ -93,7 +86,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                         color: colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                         fontSize: UiSizes.size_20,
-                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
@@ -114,11 +106,34 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                             : TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: UiSizes.size_16,
-                          fontFamily: 'Inter',
                         ),
                       ),
                     ),
                   ),
+                  if (story.tags.isNotEmpty) ...[
+                    SizedBox(height: UiSizes.height_16),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: UiSizes.width_16,
+                      ),
+                      child: Wrap(
+                        spacing: UiSizes.width_8,
+                        runSpacing: UiSizes.height_8,
+                        children: [
+                          for (final tag in story.tags)
+                            Chip(
+                              label: Text(tag),
+                              labelStyle: TextStyle(
+                                color: colorScheme.onSecondary,
+                                fontSize: UiSizes.size_13,
+                              ),
+                              backgroundColor: colorScheme.secondary,
+                              visualDensity: VisualDensity.compact,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
                   SizedBox(height: UiSizes.height_40),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: UiSizes.width_16),
@@ -128,7 +143,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                         color: colorScheme.onSurface,
                         fontWeight: FontWeight.w900,
                         fontSize: UiSizes.size_20,
-                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
@@ -211,7 +225,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                           fontWeight: FontWeight.w500,
                           fontSize: UiSizes.size_35,
                           overflow: TextOverflow.ellipsis,
-                          fontFamily: 'Inter',
                         ),
                       ),
                       SizedBox(height: UiSizes.height_8),
@@ -226,21 +239,19 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
                           SizedBox(width: UiSizes.width_16),
                           Flexible(
                             child: Text(
-                              '${formatPlayDuration(story.playDuration)} ${l10n.lengthMinutes}',
+                              formatChapterLength(story.playDuration, l10n),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.end,
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
@@ -254,7 +265,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                             style: Theme.of(context).textTheme.bodyLarge!
                                 .copyWith(
                                   fontSize: UiSizes.size_16,
-                                  fontFamily: 'Inter',
                                 ),
                           ),
                           SizedBox(width: UiSizes.width_16),
@@ -273,7 +283,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                               style: Theme.of(context).textTheme.bodyLarge!
                                   .copyWith(
                                     fontSize: UiSizes.size_16,
-                                    fontFamily: 'Inter',
                                   ),
                             ),
                           ),
@@ -290,7 +299,6 @@ class _StoryPageState extends ConsumerState<StoryPage> {
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
                 fontSize: UiSizes.size_16,
-                fontFamily: 'Inter',
               ),
             ),
           ],
@@ -313,7 +321,9 @@ class _StoryPageState extends ConsumerState<StoryPage> {
   }
 
   Widget _chaptersList(BuildContext context, StoryDetailState detail) {
-    final hasLive = detail.liveChapter != null;
+    final hasLive =
+        detail.liveChapter != null &&
+        ref.watch(featureEnabledProvider(AppFeature.liveChapter));
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -350,27 +360,49 @@ class _StoryPageState extends ConsumerState<StoryPage> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          spacing: UiSizes.width_10,
           children: [
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => AddChapterPage(
-                    storyName: story.title,
-                    storyId: story.storyId,
-                    currentChapters: detail.chapters,
+            Flexible(
+              child: ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AddChapterPage(
+                      storyName: story.title,
+                      storyId: story.storyId,
+                      currentChapters: detail.chapters,
+                    ),
+                  ),
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    l10n.addChapter,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              child: Text(l10n.addChapter),
             ),
-            ElevatedButton(
-              onPressed: () => showDialog(
-                context: context,
-                builder: (_) => StartLiveChapterDialog(story: story),
+            if (ref.watch(featureEnabledProvider(AppFeature.liveChapter)))
+              Flexible(
+                child: ElevatedButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (_) => StartLiveChapterDialog(story: story),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      l10n.liveChapter,
+                      maxLines: 1,
+                      softWrap: false,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ),
-              child: Text(l10n.liveChapter),
-            ),
           ],
         ),
         SizedBox(height: UiSizes.height_20),

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:resonate/core/services/media_picker_service.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resonate/features/auth/view/string_validators.dart';
+import 'package:resonate/features/interests/model/interest.dart';
+import 'package:resonate/features/interests/view/widgets/interest_selector.dart';
 import 'package:resonate/features/profile/model/onboarding_state.dart';
 import 'package:resonate/features/profile/viewmodel/onboarding_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
@@ -32,7 +34,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final _usernameController = TextEditingController();
   final _dobController = TextEditingController();
   final _debouncer = Debouncer(milliseconds: 800);
-  final _imagePicker = ImagePicker();
 
   @override
   void dispose() {
@@ -44,13 +45,11 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   Future<void> _pickImage() async {
-    final file = await _imagePicker.pickImage(
-      source: ImageSource.gallery,
-      maxHeight: 400,
-      maxWidth: 400,
-    );
-    if (file == null) return;
-    ref.read(onboardingProvider.notifier).setProfileImagePath(file.path);
+    final path = await ref
+        .read(mediaPickerServiceProvider)
+        .pickImage(maxHeight: 400, maxWidth: 400);
+    if (path == null) return;
+    ref.read(onboardingProvider.notifier).setProfileImagePath(path);
   }
 
   Future<void> _chooseDate() async {
@@ -66,7 +65,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   }
 
   void _onUsernameChanged(String value, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    dismissCustomSnackbar();
     final notifier = ref.read(onboardingProvider.notifier);
     if (value.isValidUsername()) {
       notifier.setUsernameChecking(true);
@@ -85,6 +84,20 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
       });
     } else {
       notifier.setUsernameAvailable(false);
+    }
+  }
+
+  void _toggleInterest(Interest interest, AppLocalizations l10n) {
+    final accepted = ref
+        .read(onboardingProvider.notifier)
+        .toggleInterest(interest);
+    if (!accepted) {
+      customSnackbar(
+        l10n.interests,
+        l10n.interestLimitReached(Interest.maxSelectable),
+        LogType.warning,
+        snackbarDuration: 1,
+      );
     }
   }
 
@@ -253,6 +266,33 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.calendar_month_rounded),
                     labelText: l10n.dateOfBirth,
+                  ),
+                ),
+                SizedBox(height: UiSizes.height_30),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.interestsOptional,
+                        style: Theme.of(context).textTheme.titleMedium!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(height: UiSizes.height_4),
+                      Text(
+                        l10n.interestsHint(Interest.maxSelectable),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: UiSizes.size_13,
+                        ),
+                      ),
+                      SizedBox(height: UiSizes.height_10),
+                      InterestSelector(
+                        selected: state.interests,
+                        onToggle: (interest) => _toggleInterest(interest, l10n),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: UiSizes.height_40),

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
@@ -14,6 +14,8 @@ part 'generated/friends.g.dart';
 @Riverpod(keepAlive: true)
 class FriendsNotifier extends _$FriendsNotifier {
   StreamSubscription<RealtimeMessage>? _friendsSub;
+
+  final Set<String> _requestsInFlight = <String>{};
 
   @override
   Future<FriendsState> build() async {
@@ -37,20 +39,27 @@ class FriendsNotifier extends _$FriendsNotifier {
     required String recieverName,
     required double recieverRating,
   }) async {
-    final model = await ref.read(friendsRepositoryProvider).sendFriendRequest(
-      sender: ref.read(requireUserProvider),
-      recieverId: recieverId,
-      recieverProfileImageUrl: recieverProfileImageUrl,
-      recieverUsername: recieverUsername,
-      recieverName: recieverName,
-      recieverRating: recieverRating,
-    );
+    if (!_requestsInFlight.add(recieverId)) return;
+    try {
+      if (state.value?.relationWith(recieverId) != null) return;
 
-    final current = state.value;
-    if (current == null || !ref.mounted) return;
-    state = AsyncData(
-      current.copyWith(friendRequests: [...current.friendRequests, model]),
-    );
+      final model = await ref.read(friendsRepositoryProvider).sendFriendRequest(
+        sender: ref.read(requireUserProvider),
+        recieverId: recieverId,
+        recieverProfileImageUrl: recieverProfileImageUrl,
+        recieverUsername: recieverUsername,
+        recieverName: recieverName,
+        recieverRating: recieverRating,
+      );
+
+      final current = state.value;
+      if (current == null || !ref.mounted) return;
+      state = AsyncData(
+        current.copyWith(friendRequests: [...current.friendRequests, model]),
+      );
+    } finally {
+      _requestsInFlight.remove(recieverId);
+    }
   }
 
   Future<void> acceptFriendRequest(FriendsModel friendModel) async {

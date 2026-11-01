@@ -7,10 +7,10 @@ import 'package:appwrite/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:resonate/core/services/api_service.dart';
+import 'package:resonate/core/services/room_join_service.dart';
 import 'package:resonate/features/friends/data/repositories/friend_call_repository.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/model/friends_state.dart';
+import 'package:resonate/features/friends/model/friends_failure.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/friend_call_status.dart';
 
@@ -46,9 +46,9 @@ Row callRow({
   );
   return Row(
     $id: id,
-    $sequence: 0,
+    $sequence: '0',
     $tableId: friendCallsTableId,
-    $databaseId: masterDatabaseId,
+    $databaseId: databaseId,
     $createdAt: DateTime.now().toIso8601String(),
     $updatedAt: DateTime.now().toIso8601String(),
     $permissions: const [],
@@ -79,7 +79,8 @@ Execution joinExecution(Map<String, dynamic> data) => Execution(
   $createdAt: '2023-01-01',
   $updatedAt: '2023-01-01',
   $permissions: const [],
-  functionId: 'func-1',
+  resourceId: 'func-1',
+  resourceType: enums.ExecutionResourceType.functions,
   trigger: enums.ExecutionTrigger.http,
   status: enums.ExecutionStatus.completed,
   requestMethod: 'POST',
@@ -108,7 +109,7 @@ void main() {
       tables: tables,
       realtime: realtime,
       functions: functions,
-      apiService: ApiService(functions: functions),
+      roomJoin: RoomJoinService(functions: functions),
     );
   });
 
@@ -141,7 +142,7 @@ void main() {
 
       final captured = verify(
         tables.createRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: call.docId,
           data: captureAnyNamed('data'),
@@ -183,7 +184,7 @@ void main() {
     test('parses the row into a FriendCallModel', () async {
       when(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
         ),
@@ -199,7 +200,7 @@ void main() {
       expect(call.callerUid, 'caller-uid');
       verify(
         tables.getRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
         ),
@@ -239,7 +240,7 @@ void main() {
       expect(updated.callStatus, FriendCallStatus.ended);
       final captured = verify(
         tables.updateRow(
-          databaseId: masterDatabaseId,
+          databaseId: databaseId,
           tableId: friendCallsTableId,
           rowId: 'call-1',
           data: captureAnyNamed('data'),
@@ -278,7 +279,6 @@ void main() {
       final call = fakeCall();
       await repo.sendCallNotification(
         call: call,
-        recieverFCMToken: 'fcm-token-1',
       );
 
       final body = verify(
@@ -289,7 +289,6 @@ void main() {
       ).captured.single as String;
 
       final decoded = jsonDecode(body) as Map<String, dynamic>;
-      expect(decoded['recieverFCMToken'], 'fcm-token-1');
       final data = decoded['data'] as Map<String, dynamic>;
       expect(data['type'], 'incoming_call');
       expect(data['call_id'], call.docId);
@@ -310,7 +309,7 @@ void main() {
       final sub = MockRealtimeSubscription();
       final controller = StreamController<RealtimeMessage>.broadcast();
       final channel =
-          'databases.$masterDatabaseId.tables.$friendCallsTableId.rows.call-1';
+          'databases.$databaseId.tables.$friendCallsTableId.rows.call-1';
 
       when(realtime.subscribe([channel])).thenReturn(sub);
       when(sub.stream).thenAnswer((_) => controller.stream);
@@ -349,7 +348,7 @@ void main() {
   });
 
   group('callJoinInfo', () {
-    test('delegates to ApiService.joinRoom and maps the response', () async {
+    test('delegates to RoomJoinService.joinRoom and maps the response', () async {
       when(
         functions.createExecution(
           functionId: joinRoomServiceId,

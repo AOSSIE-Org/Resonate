@@ -1,9 +1,10 @@
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 
 import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter_new/return_code.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:resonate/utils/trace.dart';
 import 'package:whisper_flutter_new/whisper_flutter_new.dart';
 
 /// Hand-written (not @riverpod) for the same reason as
@@ -27,15 +28,22 @@ class WhisperTranscriptionService {
 
   Future<String> transcribeChapter(String chapterId) async {
     log('Starting to Transcribe');
-    final convertResult = await _convertMp4ToWav(chapterId);
+    final convertResult = await traceAsync(
+      'Whisper.convertToWav',
+      () => _convertMp4ToWav(chapterId),
+    );
     if (!convertResult) return "Transcription Failed";
 
     final storagePath = await getApplicationDocumentsDirectory();
-    final transcription = await whisper.transcribe(
-      transcribeRequest: TranscribeRequest(
-        audio: '${storagePath.path}/recordings/$chapterId.wav',
-        isTranslate: true, // Translate result from audio lang to english text
-        isNoTimestamps: false,
+    // Runs in its own isolate, so this span measures wall time, not UI cost.
+    final transcription = await traceAsync(
+      'Whisper.transcribe',
+      () => whisper.transcribe(
+        transcribeRequest: TranscribeRequest(
+          audio: '${storagePath.path}/recordings/$chapterId.wav',
+          isTranslate: true, // Translate result from audio lang to english text
+          isNoTimestamps: false,
+        ),
       ),
     );
 

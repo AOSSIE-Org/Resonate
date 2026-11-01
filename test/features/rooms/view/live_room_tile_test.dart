@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/rooms/model/single_room_state.dart';
 import 'package:resonate/features/rooms/view/widgets/live_room_tile.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
-import 'package:resonate/features/rooms/data/services/room_launcher.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
+import 'package:resonate/features/rooms/data/room_launcher.dart';
 import 'package:resonate/features/rooms/data/live_rooms.dart';
-import 'package:resonate/features/rooms/viewmodel/single_room_notifier.dart';
+import 'package:resonate/features/rooms/data/active_room.dart';
+import 'package:resonate/features/rooms/data/room_session.dart';
+import 'package:resonate/features/rooms/view/pages/room_page.dart';
 
 import '../rooms_test_helpers.dart';
 
@@ -22,13 +25,13 @@ List<Override> buildOverrides({
     roomLauncherProvider.overrideWithValue(launcher ?? FakeRoomLauncher()),
     liveRoomsProvider.overrideWith(() => liveRooms ?? FakeLiveRooms()),
     // Any room the sheet opens resolves to this deterministic state.
-    singleRoomProvider.overrideWith(() => FakeSingleRoom(SingleRoomState(me: me))),
+    roomSessionProvider.overrideWith(() => FakeRoomSession(SingleRoomState(me: me))),
   ];
 }
 
 void main() {
   group('CustomLiveRoomTile rendering', () {
-    testRoomsWidget('shows at most 3 avatars even with more members', (
+    testAppWidget('shows at most 3 avatars even with more members', (
       tester,
     ) async {
       final room = fakeAppwriteRoom(
@@ -40,7 +43,7 @@ void main() {
           'https://example.com/5.jpg',
         ],
       );
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
         overrides: buildOverrides(),
@@ -50,7 +53,7 @@ void main() {
       expect(find.byType(CustomCircleAvatar), findsNWidgets(3));
     });
 
-    testRoomsWidget('renders one avatar per member when 3 or fewer', (
+    testAppWidget('renders one avatar per member when 3 or fewer', (
       tester,
     ) async {
       final room = fakeAppwriteRoom(
@@ -59,7 +62,7 @@ void main() {
           'https://example.com/2.jpg',
         ],
       );
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
         overrides: buildOverrides(),
@@ -69,8 +72,8 @@ void main() {
       expect(find.byType(CustomCircleAvatar), findsNWidgets(2));
     });
 
-    testRoomsWidget('renders a share IconButton', (tester) async {
-      await pumpRoomsPage(
+    testAppWidget('renders a share IconButton', (tester) async {
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: fakeAppwriteRoom()),
         overrides: buildOverrides(),
@@ -82,12 +85,12 @@ void main() {
   });
 
   group('CustomLiveRoomTile interactions', () {
-    testRoomsWidget('tapping Join calls RoomLauncher.joinRoom', (
+    testAppWidget('tapping Join calls RoomLauncher.enterRoom', (
       tester,
     ) async {
       final launcher = FakeRoomLauncher();
       final room = fakeAppwriteRoom(id: 'r1', isUserAdmin: false);
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
         overrides: buildOverrides(launcher: launcher),
@@ -104,11 +107,11 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testRoomsWidget('a failed join refreshes the rooms list', (tester) async {
+    testAppWidget('a failed join refreshes the rooms list', (tester) async {
       final launcher = FakeRoomLauncher(joinThrows: true);
       final liveRooms = FakeLiveRooms();
       final room = fakeAppwriteRoom(id: 'r1');
-      await pumpRoomsPage(
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: room),
         overrides: buildOverrides(launcher: launcher, liveRooms: liveRooms),
@@ -122,8 +125,51 @@ void main() {
       expect(liveRooms.refreshCount, 1);
     });
 
-    testRoomsWidget('tapping the share button does not throw', (tester) async {
-      await pumpRoomsPage(
+    testAppWidget('a room we are already inside offers Return, not Join', (
+      tester,
+    ) async {
+      final launcher = FakeRoomLauncher();
+      final room = fakeAppwriteRoom(id: 'r1');
+      await pumpTestApp(
+        tester,
+        CustomLiveRoomTile(appwriteRoom: room),
+        overrides: buildOverrides(launcher: launcher),
+      );
+      // The miniplayer holds this room open behind the list.
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(CustomLiveRoomTile)),
+      );
+      container.read(activeRoomProvider.notifier).enter(room);
+      await tester.pump();
+
+      expect(find.widgetWithText(ElevatedButton, 'Join'), findsNothing);
+      await tester.tap(find.widgetWithText(ElevatedButton, 'Return'));
+      await tester.pumpAndSettle();
+
+      expect(launcher.joinCount, 0);
+      expect(find.byType(RoomPage), findsOneWidget);
+    });
+
+    testAppWidget('a different live room still offers Join', (tester) async {
+      final launcher = FakeRoomLauncher();
+      await pumpTestApp(
+        tester,
+        CustomLiveRoomTile(appwriteRoom: fakeAppwriteRoom(id: 'r2')),
+        overrides: buildOverrides(launcher: launcher),
+      );
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(CustomLiveRoomTile)),
+      );
+      container
+          .read(activeRoomProvider.notifier)
+          .enter(fakeAppwriteRoom(id: 'r1'));
+      await tester.pump();
+
+      expect(find.widgetWithText(ElevatedButton, 'Join'), findsOneWidget);
+    });
+
+    testAppWidget('tapping the share button does not throw', (tester) async {
+      await pumpTestApp(
         tester,
         CustomLiveRoomTile(appwriteRoom: fakeAppwriteRoom()),
         overrides: buildOverrides(),

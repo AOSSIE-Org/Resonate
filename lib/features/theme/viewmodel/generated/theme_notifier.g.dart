@@ -40,7 +40,7 @@ final class AppThemeProvider extends $NotifierProvider<AppTheme, Themes> {
   }
 }
 
-String _$appThemeHash() => r'073797184596b9098b1e2c2c8e2524a7c72f268d';
+String _$appThemeHash() => r'79e20a1b84eb9decb7c76e404b2c0ec710e947e4';
 
 abstract class _$AppTheme extends $Notifier<Themes> {
   Themes build();
@@ -101,4 +101,4 @@ final class UserProfileImagePlaceholderUrlProvider
 }
 
 String _$userProfileImagePlaceholderUrlHash() =>
-    r'b838baa88309d28dc61d146d8c90221c78295d59';
+    r'9cc4f777c50c3766185fd80fb02dace8edcbd9ed';

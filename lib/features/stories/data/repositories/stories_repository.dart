@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'package:resonate/utils/dev_log.dart';
 import 'dart:io' as io;
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
+import 'package:audio_metadata_reader/audio_metadata_reader.dart' hide Chapter;
 import 'package:flutter/material.dart' hide Row;
 import 'package:meilisearch/meilisearch.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
@@ -14,9 +14,12 @@ import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
 import 'package:resonate/features/stories/model/stories_failure.dart';
+import 'package:resonate/features/shell/model/notification.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
+import 'package:resonate/features/stories/model/story_tags.dart';
 import 'package:resonate/features/stories/model/story_search_state.dart';
-import 'package:resonate/models/resonate_user.dart';
+import 'package:resonate/shared/model/resonate_user.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/story_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -28,6 +31,9 @@ StoriesRepository storiesRepository(Ref ref) => StoriesRepository(
   tables: ref.watch(appwriteTablesProvider),
   storage: ref.watch(appwriteStorageProvider),
   functions: ref.watch(appwriteFunctionsProvider),
+  meili: isUsingMeilisearch
+      ? MeiliSearchClient(meilisearchEndpoint, meilisearchApiKey)
+      : null,
 );
 
 class StoriesRepository {
@@ -39,25 +45,36 @@ class StoriesRepository {
   }) : _tables = tables,
        _storage = storage,
        _functions = functions,
-       _meili =
-           meili ?? MeiliSearchClient(meilisearchEndpoint, meilisearchApiKey);
+       _meili = meili;
 
   final TablesDB _tables;
   final Storage _storage;
   final Functions _functions;
-  final MeiliSearchClient _meili;
+  final MeiliSearchClient? _meili;
 
-  MeiliSearchIndex get _storyIndex => _meili.index('stories');
-  MeiliSearchIndex get _userIndex => _meili.index('users');
+  // Highlighted on the Meilisearch path, tags are searchable there by default.
+  static const _storyHighlights = [
+    'title',
+    'creatorName',
+    'description',
+    'tags',
+  ];
+
+  static const _pageSize = 100;
+
+  MeiliSearchIndex? get _storyIndex => _meili?.index('stories');
+  MeiliSearchIndex? get _userIndex => _meili?.index('users');
 
   // Loaders
 
   Future<List<Story>> fetchRecommendedStories(String currentUid) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
-        queries: [Query.limit(10)],
+        // Newest first. Without an order Appwrite returns the oldest rows,
+        // so a story published today never made it into the first 10.
+        queries: [Query.orderDesc(r'$createdAt'), Query.limit(10)],
       );
       return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
@@ -72,9 +89,13 @@ class StoriesRepository {
   ) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
-        queries: [Query.limit(15), Query.equal('category', category.name)],
+        queries: [
+          Query.equal('category', category.name),
+          Query.orderDesc(r'$createdAt'),
+          Query.limit(15),
+        ],
       );
       return Story.fromRows(result.rows, currentUid: currentUid);
     } on AppwriteException catch (e) {
@@ -85,47 +106,64 @@ class StoriesRepository {
     }
   }
 
-  Future<List<Story>> fetchCreatedStories(String creatorId) async {
+  Future<List<Story>> fetchCreatedStories(
+    String creatorId, {
+    String? viewerUid,
+  }) async {
     try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [Query.equal('creatorId', creatorId)],
       );
-      return Story.fromRows(result.rows, currentUid: creatorId);
+      return Story.fromRows(result.rows, currentUid: viewerUid);
     } on AppwriteException catch (e) {
       log('Failed to fetch created stories: ${e.message}');
       return [];
     }
   }
 
-  Future<List<Story>> fetchLikedStories(String uid) async {
+  Future<List<Story>> fetchLikedStories(String uid, {String? viewerUid}) async {
     try {
       final likeDocs = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
-        queries: [Query.equal('uId', uid)],
+        queries: [
+          Query.equal('uId', uid),
+          Query.select(['storyId']),
+          Query.limit(_pageSize),
+        ],
       );
 
-      final storyRows = <Row>[];
-      for (final like in likeDocs.rows) {
-        try {
-          storyRows.add(
-            await _tables.getRow(
-              databaseId: storyDatabaseId,
-              tableId: storyTableId,
-              rowId: like.data['storyId'],
-            ),
-          );
-        } on AppwriteException catch (e) {
-          log('Liked story row missing, skipping: ${e.message}');
-        }
-      }
-      return Story.fromRows(storyRows, currentUid: uid);
+      final storyIds = <String>{
+        for (final like in likeDocs.rows)
+          if (like.data['storyId'] case final String id) id,
+      };
+      return Story.fromRows(
+        await _storiesByIds(storyIds),
+        currentUid: viewerUid,
+      );
     } on AppwriteException catch (e) {
       log('Failed to fetch liked stories: ${e.message}');
       return [];
     }
+  }
+
+  Future<List<Row>> _storiesByIds(Set<String> storyIds) async {
+    if (storyIds.isEmpty) return const [];
+    final ids = storyIds.toList();
+    final rows = <Row>[];
+    for (var i = 0; i < ids.length; i += _pageSize) {
+      final end = i + _pageSize > ids.length ? ids.length : i + _pageSize;
+      final chunk = ids.sublist(i, end);
+      final result = await _tables.listRows(
+        databaseId: databaseId,
+        tableId: storyTableId,
+        queries: [Query.equal(r'$id', chunk), Query.limit(chunk.length)],
+      );
+      rows.addAll(result.rows);
+    }
+    return rows;
   }
 
   // Loads the reactive slice of a story on the detail page.
@@ -133,33 +171,37 @@ class StoriesRepository {
     String storyId,
     String currentUid,
   ) async {
-    List<Chapter> chapters = [];
-    try {
-      chapters = await fetchChaptersForStory(storyId);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch story chapters: ${e.message}');
+    Future<T> attempt<T>(
+      Future<T> Function() run,
+      T fallback,
+      String what,
+    ) async {
+      try {
+        return await run();
+      } on AppwriteException catch (e) {
+        log('Failed to $what: ${e.message}');
+        return fallback;
+      }
     }
 
-    bool hasUserLiked = false;
-    try {
-      hasUserLiked = await checkIfStoryLikedByUser(storyId, currentUid);
-    } on AppwriteException catch (e) {
-      log('Failed to check story like status: ${e.message}');
-    }
-
-    int likes = 0;
-    try {
-      likes = await fetchLikesCount(storyId);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch story likes count: ${e.message}');
-    }
-
-    LiveChapterModel? liveChapter;
-    try {
-      liveChapter = await fetchLiveChapterForStory(storyId);
-    } on AppwriteException catch (e) {
-      log('Failed to fetch live chapter: ${e.message}');
-    }
+    final (chapters, hasUserLiked, likes, liveChapter) = await (
+      attempt(
+        () => fetchChaptersForStory(storyId),
+        <Chapter>[],
+        'fetch story chapters',
+      ),
+      attempt(
+        () => checkIfStoryLikedByUser(storyId, currentUid),
+        false,
+        'check story like status',
+      ),
+      attempt(() => fetchLikesCount(storyId), 0, 'fetch story likes count'),
+      attempt<LiveChapterModel?>(
+        () => fetchLiveChapterForStory(storyId),
+        null,
+        'fetch live chapter',
+      ),
+    ).wait;
 
     return StoryDetailState(
       chapters: chapters,
@@ -171,7 +213,7 @@ class StoriesRepository {
 
   Future<List<Chapter>> fetchChaptersForStory(String storyId) async {
     final result = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: chapterTableId,
       queries: [Query.equal('storyId', storyId)],
     );
@@ -193,7 +235,7 @@ class StoriesRepository {
 
   Future<int> fetchLikesCount(String storyId) async {
     final doc = await _tables.getRow(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: storyTableId,
       rowId: storyId,
       queries: [
@@ -205,7 +247,7 @@ class StoriesRepository {
 
   Future<bool> checkIfStoryLikedByUser(String storyId, String uid) async {
     final result = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
       queries: [
         Query.and([Query.equal('uId', uid), Query.equal('storyId', storyId)]),
@@ -216,14 +258,14 @@ class StoriesRepository {
 
   Future<LiveChapterModel?> fetchLiveChapterForStory(String storyId) async {
     final liveDocs = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: liveChaptersTableId,
       queries: [Query.equal('storyId', storyId)],
     );
     if (liveDocs.rows.isEmpty) return null;
 
     final attendeesDoc = await _tables.getRow(
-      databaseId: userDatabaseID,
+      databaseId: databaseId,
       tableId: liveChapterAttendeesTableId,
       rowId: liveDocs.rows.first.$id,
       queries: [
@@ -240,31 +282,31 @@ class StoriesRepository {
   // Search
 
   Future<StorySearchState> search(String query, String currentUid) async {
-    final stories = await _searchStories(query, currentUid);
-    final users = await _searchUsers(query, currentUid);
+    final (stories, users) = await (
+      _searchStories(query, currentUid),
+      _searchUsers(query, currentUid),
+    ).wait;
     return StorySearchState(stories: stories, users: users);
   }
 
   Future<List<Story>> _searchStories(String query, String currentUid) async {
-    try {
-      if (isUsingMeilisearch) {
-        final result = await _storyIndex.search(
-          query,
-          SearchQuery(
-            attributesToHighlight: ['title', 'creatorName', 'description'],
-          ),
-        );
-        return _meiliHitsToStories(result.hits, currentUid);
-      }
+    if (_meili != null) {
+      final hits = await _searchStoryIndex(query);
+      if (hits != null) return _meiliHitsToStories(hits, currentUid);
+      // Meilisearch is optional infrastructure. If it cannot answer at all,
+      // the Appwrite query below still does.
+    }
 
+    try {
       final result = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         queries: [
           Query.or([
             Query.search('title', query),
             Query.search('creatorName', query),
             Query.search('description', query),
+            Query.contains('tags', [normalizeStoryTag(query)]),
           ]),
           Query.limit(16),
         ],
@@ -276,21 +318,58 @@ class StoriesRepository {
     }
   }
 
+  Future<List<Map<String, dynamic>>?> _searchStoryIndex(String query) async {
+    final index = _storyIndex;
+    if (index == null) return null;
+
+    if (storySemanticEmbedder.isNotEmpty) {
+      try {
+        final result = await index.search(
+          query,
+          SearchQuery(
+            attributesToHighlight: _storyHighlights,
+            hybrid: HybridSearch(
+              embedder: storySemanticEmbedder,
+              semanticRatio: semanticSearchRatio,
+            ),
+            rankingScoreThreshold: semanticScoreThreshold,
+          ),
+        );
+        return result.hits;
+      } catch (e) {
+        log('Semantic story search unavailable, using keywords instead: $e');
+      }
+    }
+
+    try {
+      final result = await index.search(
+        query,
+        SearchQuery(attributesToHighlight: _storyHighlights),
+      );
+      return result.hits;
+    } catch (e) {
+      log('Meilisearch story search failed: $e');
+      return null;
+    }
+  }
+
   Future<List<ResonateUser>> _searchUsers(
     String query,
     String currentUid,
   ) async {
     try {
-      if (isUsingMeilisearch) {
-        final result = await _userIndex.search(
+      if (_userIndex case final index?) {
+        final result = await index.search(
           query,
           SearchQuery(attributesToHighlight: ['name', 'username']),
         );
-        return result.hits.map(_meiliHitToUser).toList();
+        return result.hits
+            .map((hit) => ResonateUser.fromRow(hit, hit[r'$id'] as String))
+            .toList();
       }
 
       final result = await _tables.listRows(
-        databaseId: userDatabaseID,
+        databaseId: databaseId,
         tableId: usersTableID,
         queries: [
           Query.or([
@@ -301,7 +380,9 @@ class StoriesRepository {
           Query.limit(16),
         ],
       );
-      return result.rows.map((doc) => _rowToUser(doc.data, doc.$id)).toList();
+      return result.rows
+          .map((doc) => ResonateUser.fromRow(doc.data, doc.$id))
+          .toList();
     } catch (e) {
       log('User search failed: $e');
       return [];
@@ -313,46 +394,93 @@ class StoriesRepository {
   Future<void> likeStory(Story story, String uid) async {
     try {
       await _tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         rowId: ID.unique(),
-        data: <String, dynamic>{'uId': uid, 'storyId': story.storyId},
+        data: <String, dynamic>{
+          'uId': uid,
+          'storyId': story.storyId,
+          'story': story.storyId,
+        },
       );
-      await _tables.updateRow(
-        databaseId: storyDatabaseId,
+    } on AppwriteException catch (e) {
+      if (e.code == 409) return;
+      throw StoriesFailure.unknown(e.message ?? 'Failed to like story');
+    }
+    try {
+      await _tables.incrementRowColumn(
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
-        data: <String, dynamic>{"likes": story.likesCount + 1},
+        column: 'likes',
       );
     } on AppwriteException catch (e) {
       throw StoriesFailure.unknown(e.message ?? 'Failed to like story');
+    }
+
+    await _notifyLiked(story, uid);
+  }
+
+  Future<void> _notifyLiked(Story story, String likerUid) async {
+    if (story.creatorId == likerUid) return; // no self-notifications
+    try {
+      final liker = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: likerUid,
+      );
+      final username = (liker.data['username'] as String?) ?? '';
+      final notification = NotificationModel(
+        notificationType: NotificationType.like,
+        initiatorUsername: username,
+        initiatorProfileImgUrl:
+            (liker.data['profileImageUrl'] as String?) ?? '',
+        subject: story.title,
+        isTagInUpcomingRoom: false,
+      );
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': story.creatorId,
+          'payload': {
+            'title': 'Someone liked your story',
+            'body': '$username liked "${story.title}"',
+          },
+          'data': notification.toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send like notification: $e');
     }
   }
 
   Future<void> unlikeStory(Story story, String uid) async {
     try {
       final likeDocs = await _tables.listRows(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: likeTableId,
         queries: [
           Query.and([
             Query.equal('uId', uid),
             Query.equal('storyId', story.storyId),
           ]),
+          Query.select([r'$id']),
+          Query.limit(1),
         ],
       );
-      if (likeDocs.rows.isNotEmpty) {
-        await _tables.deleteRow(
-          databaseId: storyDatabaseId,
-          tableId: likeTableId,
-          rowId: likeDocs.rows.first.$id,
-        );
-      }
-      await _tables.updateRow(
-        databaseId: storyDatabaseId,
+      // Nothing to undo, so the counter stays where it is.
+      if (likeDocs.rows.isEmpty) return;
+      await _tables.deleteRow(
+        databaseId: databaseId,
+        tableId: likeTableId,
+        rowId: likeDocs.rows.first.$id,
+      );
+      await _tables.decrementRowColumn(
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
-        data: <String, dynamic>{"likes": story.likesCount - 1},
+        column: 'likes',
+        min: 0,
       );
     } on AppwriteException catch (e) {
       throw StoriesFailure.unknown(e.message ?? 'Failed to unlike story');
@@ -412,6 +540,7 @@ class StoriesRepository {
     required String coverImgRef,
     required int storyPlayDuration,
     required List<Chapter> chapters,
+    List<String> tags = const [],
   }) async {
     final storyId = ID.unique();
     var coverImgUrl = coverImgRef;
@@ -432,7 +561,7 @@ class StoriesRepository {
 
     try {
       await _tables.createRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: storyId,
         data: <String, dynamic>{
@@ -446,6 +575,7 @@ class StoriesRepository {
           'likes': 0,
           'playDuration': storyPlayDuration,
           'tintColor': _colorToHex(primaryColor),
+          'tags': normalizeStoryTags(tags),
         },
       );
     } on AppwriteException catch (e) {
@@ -501,12 +631,13 @@ class StoriesRepository {
         'playDuration': chapter.playDuration,
         'tintColor': _colorToHex(chapter.tintColor),
         'storyId': storyId,
+        'story': storyId,
         'audioFileUrl': audioFileUrl,
       };
 
       try {
         await _tables.createRow(
-          databaseId: storyDatabaseId,
+          databaseId: databaseId,
           tableId: chapterTableId,
           rowId: chapter.chapterId,
           data: chapterData,
@@ -515,7 +646,7 @@ class StoriesRepository {
         if (e.code == 409) {
           log("Chapter row '${chapter.chapterId}' already exists; updating it");
           await _tables.updateRow(
-            databaseId: storyDatabaseId,
+            databaseId: databaseId,
             tableId: chapterTableId,
             rowId: chapter.chapterId,
             data: chapterData,
@@ -536,7 +667,7 @@ class StoriesRepository {
       final all = await fetchChaptersForStory(storyId);
       final total = all.fold(0, (sum, c) => sum + c.playDuration);
       await _tables.updateRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: storyId,
         data: <String, dynamic>{"playDuration": total},
@@ -553,12 +684,9 @@ class StoriesRepository {
       log('Failed to delete story cover image: ${e.message}');
     }
 
-    // Deleting the live chapters from the DB
     try {
       final chapters = await fetchChaptersForStory(story.storyId);
-      for (final chapter in chapters) {
-        await deleteChapter(chapter);
-      }
+      await Future.wait(chapters.map(deleteChapter));
     } on AppwriteException catch (e) {
       log('Failed to delete story chapters: ${e.message}');
     }
@@ -571,7 +699,7 @@ class StoriesRepository {
 
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: storyTableId,
         rowId: story.storyId,
       );
@@ -599,7 +727,7 @@ class StoriesRepository {
     }
     try {
       await _tables.deleteRow(
-        databaseId: storyDatabaseId,
+        databaseId: databaseId,
         tableId: chapterTableId,
         rowId: chapter.chapterId,
       );
@@ -610,17 +738,22 @@ class StoriesRepository {
 
   Future<void> _deleteAllStoryLikes(String storyId) async {
     final likeDocs = await _tables.listRows(
-      databaseId: storyDatabaseId,
+      databaseId: databaseId,
       tableId: likeTableId,
-      queries: [Query.equal('storyId', storyId)],
+      queries: [
+        Query.equal('storyId', storyId),
+        Query.select([r'$id']),
+        Query.limit(_pageSize),
+      ],
     );
-    for (final like in likeDocs.rows) {
-      await _tables.deleteRow(
-        databaseId: storyDatabaseId,
-        tableId: likeTableId,
-        rowId: like.$id,
-      );
-    }
+    await Future.wait([
+      for (final like in likeDocs.rows)
+        _tables.deleteRow(
+          databaseId: databaseId,
+          tableId: likeTableId,
+          rowId: like.$id,
+        ),
+    ]);
   }
 
   // Helpers
@@ -630,6 +763,13 @@ class StoriesRepository {
     required String filePath,
     required String what,
   }) async {
+    final source = io.File(filePath);
+    final length = await source.exists() ? await source.length() : 0;
+    if (length > maxUploadBytes) {
+      log("Refusing to upload $what: $length exceeds the $maxUploadBytes limit");
+      throw StoriesFailure.tooLarge(what, length, maxUploadBytes);
+    }
+
     try {
       await _storage.createFile(
         bucketId: storyBucketId,
@@ -677,21 +817,6 @@ class StoriesRepository {
     }
     return stories;
   }
-
-  ResonateUser _rowToUser(Map<String, dynamic> data, String id) {
-    final userData = Map<String, dynamic>.from(data);
-    userData['docId'] = id;
-    userData['uid'] = id;
-    userData['userName'] = userData['username'];
-    final ratingCount = (userData['ratingCount'] ?? 0) as num;
-    userData['userRating'] = ratingCount == 0
-        ? 0
-        : userData['ratingTotal'] / ratingCount;
-    return ResonateUser.fromJson(userData);
-  }
-
-  ResonateUser _meiliHitToUser(Map<String, dynamic> hit) =>
-      _rowToUser(hit, hit['\$id']);
 
   String _colorToHex(Color color) =>
       '${(color.a * 255).toInt().toRadixString(16).padLeft(2, '0')}'

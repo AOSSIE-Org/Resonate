@@ -4,8 +4,8 @@ import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/pair_chat_state.dart';
 import 'package:resonate/features/friends/view/pages/pair_chat_page.dart';
 import 'package:resonate/features/friends/view/widgets/call_user_info_row.dart';
-import 'package:resonate/features/friends/viewmodel/pair_chat_notifier.dart';
-import 'package:resonate/features/rooms/data/services/livekit_controller.dart';
+import 'package:resonate/features/friends/data/pair_chat_session.dart';
+import 'package:resonate/features/live_audio/data/services/livekit_controller.dart';
 import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 
 import '../friends_test_helpers.dart';
@@ -28,9 +28,9 @@ Future<void> _disposePage(WidgetTester tester) async {
 
 List<Override> buildOverrides({
   required PairChatState state,
-  FakePairChatNotifier? fake,
+  FakePairChat? fake,
 }) {
-  final chat = fake ?? FakePairChatNotifier(state);
+  final chat = fake ?? FakePairChat(state);
   return [
     requireUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
     currentUserProvider.overrideWithValue(fakeAuthUser(uid: 'me')),
@@ -81,8 +81,27 @@ void main() {
   });
 
   group('PairChatPage control wiring', () {
+    testFriendsWidget('hanging up is the leftmost control', (tester) async {
+      await _pumpPage(
+        tester,
+        buildOverrides(
+          state: const PairChatState(),
+          fake: FakePairChat(const PairChatState()),
+        ),
+      );
+
+      final leave = tester
+          .getCenter(find.byKey(const ValueKey('session-control-leave')))
+          .dx;
+      final mic = tester
+          .getCenter(find.byKey(const ValueKey('session-control-mic')))
+          .dx;
+      expect(leave, lessThan(mic));
+      await _disposePage(tester);
+    });
+
     testFriendsWidget('mic button calls toggleMic', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await _pumpPage(
         tester,
         buildOverrides(state: const PairChatState(), fake: fake),
@@ -94,27 +113,14 @@ void main() {
       await _disposePage(tester);
     });
 
-    testFriendsWidget('speaker button calls toggleLoudSpeaker', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
-      await _pumpPage(
-        tester,
-        buildOverrides(state: const PairChatState(), fake: fake),
-      );
-
-      await tester.tap(find.byIcon(Icons.volume_up));
-      await tester.pump();
-      expect(fake.toggleLoudSpeakerCount, 1);
-      await _disposePage(tester);
-    });
-
     testFriendsWidget('end button calls endChat', (tester) async {
-      final fake = FakePairChatNotifier(const PairChatState());
+      final fake = FakePairChat(const PairChatState());
       await _pumpPage(
         tester,
         buildOverrides(state: const PairChatState(), fake: fake),
       );
 
-      await tester.tap(find.byIcon(Icons.cancel_outlined));
+      await tester.tap(find.byIcon(Icons.call_end));
       await tester.pump();
       expect(fake.endChatCount, greaterThanOrEqualTo(1));
       await _disposePage(tester);

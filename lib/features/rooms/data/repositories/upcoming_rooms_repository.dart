@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:resonate/core/providers/appwrite_providers.dart';
-import 'package:resonate/core/providers/firebase_providers.dart';
 import 'package:resonate/features/rooms/model/appwrite_upcoming_room.dart';
+import 'package:resonate/features/shell/model/notification.dart';
 import 'package:resonate/utils/constants.dart';
+import 'package:resonate/utils/dev_log.dart';
+import 'package:resonate/utils/enums/notification_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'generated/upcoming_rooms_repository.g.dart';
@@ -13,37 +16,38 @@ part 'generated/upcoming_rooms_repository.g.dart';
 UpcomingRoomsRepository upcomingRoomsRepository(Ref ref) =>
     UpcomingRoomsRepository(
       tables: ref.watch(appwriteTablesProvider),
-      messaging: ref.watch(firebaseMessagingProvider),
+      functions: ref.watch(appwriteFunctionsProvider),
     );
 
 class UpcomingRoomsRepository {
   UpcomingRoomsRepository({
     required TablesDB tables,
-    required FirebaseMessaging messaging,
+    required Functions functions,
   }) : _tables = tables,
-       _messaging = messaging;
+       _functions = functions;
 
   final TablesDB _tables;
-  final FirebaseMessaging _messaging;
+  final Functions _functions;
 
   Future<List<AppwriteUpcomingRoom>> loadUpcoming({
     required String userUid,
     required Set<String> hiddenRoomIds,
   }) async {
     final list = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
     );
 
     final visible = list.rows.where((r) => !hiddenRoomIds.contains(r.$id));
-    final upcomingFutures =
-        visible.map((row) => _hydrateUpcomingRoom(row, userUid));
+    final upcomingFutures = visible.map(
+      (row) => _hydrateUpcomingRoom(row, userUid),
+    );
     return Future.wait(upcomingFutures);
   }
 
   Future<Set<String>> liveUpcomingRoomIds() async {
     final list = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
     );
     return list.rows.map((r) => r.$id).toSet();
@@ -55,7 +59,7 @@ class UpcomingRoomsRepository {
   ) async {
     try {
       final subscribers = await _tables.listRows(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         queries: [
           Query.equal('upcomingRoomId', [upcomingRoom.$id]),
@@ -109,9 +113,8 @@ class UpcomingRoomsRepository {
     required String scheduledDateTime,
     required String creatorUid,
   }) async {
-    final fcmToken = await _messaging.getToken();
     await _tables.createRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
       rowId: ID.unique(),
       data: {
@@ -120,7 +123,6 @@ class UpcomingRoomsRepository {
         'tags': tags,
         'description': description,
         'creatorUid': creatorUid,
-        'creator_fcm_tokens': [fcmToken],
       },
     );
   }
@@ -130,18 +132,80 @@ class UpcomingRoomsRepository {
     required String userUid,
     required String profileImageUrl,
   }) async {
-    final fcmToken = await _messaging.getToken();
+    // The row id is random, so nothing stops a second write creating a second
+    // subscriber row for the same user. The notifier guards the double tap;
+    // this covers a stale tile or a second device, where that guard cannot
+    // see the first write.
+    final existing = await _tables.listRows(
+      databaseId: databaseId,
+      tableId: subscribedUserTableId,
+      queries: [
+        Query.equal('userID', userUid),
+        Query.equal('upcomingRoomId', upcomingRoomId),
+        Query.limit(1),
+      ],
+    );
+    if (existing.rows.isNotEmpty) return;
+
     await _tables.createRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       rowId: ID.unique(),
       data: {
         'userID': userUid,
         'upcomingRoomId': upcomingRoomId,
-        'registrationTokens': [fcmToken],
         'userProfileUrl': profileImageUrl,
       },
     );
+
+    await _notifyHostOfSubscriber(
+      upcomingRoomId: upcomingRoomId,
+      subscriberUid: userUid,
+    );
+  }
+
+  Future<void> _notifyHostOfSubscriber({
+    required String upcomingRoomId,
+    required String subscriberUid,
+  }) async {
+    try {
+      final room = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: upcomingRoomsTableId,
+        rowId: upcomingRoomId,
+      );
+      final hostUid = room.data['creatorUid'] as String?;
+      if (hostUid == null || hostUid == subscriberUid) return;
+
+      final subscriber = await _tables.getRow(
+        databaseId: databaseId,
+        tableId: usersTableID,
+        rowId: subscriberUid,
+      );
+      final username = (subscriber.data['username'] as String?) ?? '';
+      final roomName = (room.data['name'] as String?) ?? '';
+
+      await _functions.createExecution(
+        functionId: sendSocialNotificationFunctionID,
+        body: json.encode({
+          'targetUid': hostUid,
+          'payload': {
+            'title': 'New subscriber',
+            'body': '$username subscribed to "$roomName"',
+          },
+          'data': NotificationModel(
+            notificationType: NotificationType.subscribe,
+            initiatorUsername: username,
+            initiatorProfileImgUrl:
+                (subscriber.data['profileImageUrl'] as String?) ?? '',
+            subject: roomName,
+            isTagInUpcomingRoom: true,
+          ).toJson(),
+        }),
+      );
+    } catch (e) {
+      log('Failed to send subscribe notification: $e');
+    }
   }
 
   Future<void> removeSubscriber({
@@ -149,7 +213,7 @@ class UpcomingRoomsRepository {
     required String userUid,
   }) async {
     final result = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       queries: [
         Query.and([
@@ -160,7 +224,7 @@ class UpcomingRoomsRepository {
     );
     if (result.rows.isEmpty) return;
     await _tables.deleteRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       rowId: result.rows.first.$id,
     );
@@ -168,12 +232,12 @@ class UpcomingRoomsRepository {
 
   Future<void> deleteUpcomingRoom(String upcomingRoomId) async {
     await _tables.deleteRow(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: upcomingRoomsTableId,
       rowId: upcomingRoomId,
     );
     final subscribers = await _tables.listRows(
-      databaseId: upcomingRoomsDatabaseId,
+      databaseId: databaseId,
       tableId: subscribedUserTableId,
       queries: [
         Query.equal('upcomingRoomId', [upcomingRoomId]),
@@ -181,7 +245,7 @@ class UpcomingRoomsRepository {
     );
     for (final sub in subscribers.rows) {
       await _tables.deleteRow(
-        databaseId: upcomingRoomsDatabaseId,
+        databaseId: databaseId,
         tableId: subscribedUserTableId,
         rowId: sub.$id,
       );
