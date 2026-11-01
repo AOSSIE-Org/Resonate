@@ -1,4 +1,4 @@
-Copyright © 2025 AOSSIE <br />
+Copyright © 2026 AOSSIE <br />
 All rights reserved.
 
 All works in this repository may be used according to the conditions 
