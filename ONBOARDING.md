@@ -8,7 +8,7 @@ Please strictly stick to the guide; do not go off installing stuff on your own.
 > Push runs on Appwrite Messaging over MQTT, so there is nothing extra to set up: no Firebase project, no service account and no `google-services.json`. The app subscribes to the signed-in user's own topic, so no device token is stored anywhere. To receive anything locally, your Appwrite instance needs an enabled push provider (`appwrite messaging create-appwrite-provider`) and its MQTT port reachable from the device.
 <br/>
 
-### Prerequisits (must be installed) for Backend Env Set-Up
+### Prerequisites (must be installed) for Backend Env Set-Up
 
 - Docker
 
@@ -68,7 +68,7 @@ For the team Id, while the creation of an appwrite account you must be asked of 
 
 ![Screenshot 2024-06-28 at 3 05 06 AM](https://github.com/Aarush-Acharya/Resonate/assets/92685647/9717d9e5-41ad-4fd8-8f71-bac79e73cea7)
 
-Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will create a new project named Resonate in your instace with its id being 'resonate'.
+Thus my Team Id is `666ce18b003caf6274b6`, enter your team id in the terminal, once this is done the script will create a new project named Resonate in your instance with its id being 'resonate'.
 
 
 #### Auth Set Up
