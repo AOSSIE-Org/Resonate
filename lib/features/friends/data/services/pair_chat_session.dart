@@ -149,16 +149,6 @@ class PairChat extends _$PairChat {
     }
   }
 
-  Future<void> toggleLoudSpeaker() async {
-    final next = !state.isLoudSpeakerOn;
-    state = state.copyWith(isLoudSpeakerOn: next);
-    try {
-      await ref.read(liveKitControllerProvider.notifier).setSpeakerphoneOn(next);
-    } catch (e) {
-      log('Speaker toggle failed: $e');
-    }
-  }
-
   Future<void> endChat() async {
     if (state.ended) return;
     state = state.copyWith(ended: true);
@@ -236,7 +226,6 @@ class PairChat extends _$PairChat {
       pairUsername: pairUsername,
       pairProfileImageUrl: pairProfileImageUrl,
       isMicOn: false,
-      isLoudSpeakerOn: true,
       ended: false,
     );
 

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:resonate/features/shell/viewmodel/tabview_notifier.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/route_paths.dart';
 import 'package:resonate/utils/constants.dart';
@@ -17,8 +19,7 @@ import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/shared/widgets/snackbar.dart';
 
 class VerifyChapterDetailsPage extends ConsumerStatefulWidget {
-  const VerifyChapterDetailsPage({super.key, required this.lyricsString});
-  final String lyricsString;
+  const VerifyChapterDetailsPage({super.key});
 
   @override
   ConsumerState<VerifyChapterDetailsPage> createState() =>
@@ -57,7 +58,9 @@ class _VerifyChapterDetailsPageState
     );
     titleController.text = model.chapterTitle;
     aboutController.text = model.chapterDescription;
-    lyricsController.text = widget.lyricsString;
+    // Transcription may already have finished while this page was opening.
+    lyricsController.text =
+        ref.read(liveChapterProvider).transcript.value ?? '';
     setState(() {});
   }
 
@@ -118,12 +121,20 @@ class _VerifyChapterDetailsPageState
       await ref.read(createStoryProvider.notifier).addChaptersToStory([
         chapter,
       ], model.storyId);
+      try {
+        await ref
+            .read(createStoryProvider.notifier)
+            .updateRecordedChapter(
+              chapterId: model.livekitRoomId,
+              title: titleController.text,
+              description: aboutController.text,
+              transcript: lyricsController.text,
+            );
+      } catch (e) {
+        log('verifyChapterDetails: updating the archived recording failed: $e');
+      }
 
       ref.read(liveChapterProvider.notifier).reset();
-      // Land on the explore tab (categories + global search). A deterministic
-      // go() rather than pop(): the story page was pushed imperatively (not a
-      // GoRoute), so there's no reliable route under the live/verify GoRoutes to
-      // pop back to.
       ref.read(tabViewProvider.notifier).setIndex(1);
       router.go(RoutePaths.tabview);
     } catch (e) {
@@ -136,6 +147,18 @@ class _VerifyChapterDetailsPageState
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
+    final transcript = ref.watch(
+      liveChapterProvider.select((state) => state.transcript),
+    );
+    ref.listen(liveChapterProvider.select((state) => state.transcript), (
+      _,
+      next,
+    ) {
+      final text = next.value;
+      if (text != null && text.isNotEmpty && lyricsController.text.isEmpty) {
+        lyricsController.text = text;
+      }
+    });
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -177,18 +200,24 @@ class _VerifyChapterDetailsPageState
                 context,
                 onTap: null,
                 label: audioFile != null
-                    ? l10n.audioFileSelected(audioFile!.path.split('/').last)
+                    ? l10n.audioFileSelected(fileNameOf(audioFile!.path))
                     : l10n.uploadAudioFile,
               ),
               SizedBox(height: UiSizes.height_20),
               _infoTile(
                 context,
-                onTap: _viewOrEditLyrics,
-                label: l10n.viewOrEditLyrics,
+                onTap: transcript.isLoading ? null : _viewOrEditLyrics,
+                label: switch (transcript) {
+                  AsyncLoading() => l10n.transcribing,
+                  AsyncError() => l10n.transcriptionFailed,
+                  _ => l10n.viewOrEditLyrics,
+                },
               ),
               SizedBox(height: UiSizes.height_40),
               ElevatedButton(
-                onPressed: _isCreating ? null : _createChapter,
+                onPressed: _isCreating || transcript.isLoading
+                    ? null
+                    : _createChapter,
                 child: _isCreating
                     ? SizedBox(
                         height: UiSizes.size_18,

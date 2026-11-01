@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:resonate/features/stories/model/chapter.dart';
 import 'package:resonate/features/stories/view/widgets/cover_image_picker.dart';
 import 'package:resonate/features/stories/viewmodel/create_story_notifier.dart';
+import 'package:resonate/features/stories/view/story_format.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/constants.dart';
 import 'package:resonate/utils/enums/log_type.dart';
@@ -158,7 +159,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
                 context,
                 onTap: _pickAudioFile,
                 label: audioFile != null
-                    ? l10n.audioFileSelected(audioFile!.path.split('/').last)
+                    ? l10n.audioFileSelected(fileNameOf(audioFile!.path))
                     : l10n.uploadAudioFile,
               ),
               SizedBox(height: UiSizes.height_20),
@@ -166,7 +167,7 @@ class _CreateChapterPageState extends ConsumerState<CreateChapterPage> {
                 context,
                 onTap: _pickLyricsFile,
                 label: lyricsFile != null
-                    ? l10n.lyricsFileSelected(lyricsFile!.path.split('/').last)
+                    ? l10n.lyricsFileSelected(fileNameOf(lyricsFile!.path))
                     : l10n.uploadLyricsFile,
               ),
               SizedBox(height: UiSizes.height_40),

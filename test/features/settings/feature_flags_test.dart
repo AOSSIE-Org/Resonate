@@ -81,10 +81,15 @@ void main() {
     );
   });
 
-  test('live chapter owns its two routes', () {
+  test('live chapter owns its four routes', () {
     expect(
       AppFeature.liveChapter.routes,
-      {'/liveChapterScreen', '/verifyChapterDetails'},
+      {
+        '/liveChapterScreen',
+        '/verifyChapterDetails',
+        '/recordedChapters',
+        '/recordedChapterDetail',
+      },
     );
   });
 

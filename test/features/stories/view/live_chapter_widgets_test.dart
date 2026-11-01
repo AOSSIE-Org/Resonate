@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:resonate/features/stories/model/live_chapter_attendees_model.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_attendee_block.dart';
-import 'package:resonate/features/stories/view/widgets/live_chapter_header.dart';
 import 'package:resonate/features/stories/view/widgets/live_chapter_list_tile.dart';
 import 'package:resonate/features/stories/view/widgets/start_live_chapter_dialog.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
@@ -12,21 +11,6 @@ import 'package:resonate/features/stories/data/services/live_chapter_coordinator
 import 'stories_test_helpers.dart';
 
 void main() {
-  group('LiveChapterHeader', () {
-    testStoryWidget('shows the chapter name and description', (tester) async {
-      await tester.pumpWidget(
-        storiesTestApp(
-          const LiveChapterHeader(
-            chapterName: 'Header Title',
-            chapterDescription: 'Header description',
-          ),
-        ),
-      );
-      expect(find.text('Header Title'), findsOneWidget);
-      expect(find.text('Header description'), findsOneWidget);
-    });
-  });
-
   group('LiveChapterListTile', () {
     testStoryWidget('shows title, description and the Live label', (
       tester,
@@ -50,6 +34,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            ...avatarOverrides(),
+            ...achievementOverrides(),
             liveChapterProvider.overrideWith(
               () => FakeLiveChapter(
                 LiveChapterState(

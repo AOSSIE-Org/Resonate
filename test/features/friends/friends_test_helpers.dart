@@ -175,7 +175,6 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
   int startCallCount = 0;
   int endCallCount = 0;
   int toggleMicCount = 0;
-  int toggleLoudSpeakerCount = 0;
 
   @override
   FriendCallState build() => initial;
@@ -194,9 +193,6 @@ class FakeFriendCallCoordinator extends FriendCallCoordinator {
 
   @override
   Future<void> toggleMic() async => toggleMicCount++;
-
-  @override
-  Future<void> toggleLoudSpeaker() async => toggleLoudSpeakerCount++;
 }
 
 class FakePairChat extends PairChat {
@@ -219,7 +215,6 @@ class FakePairChat extends PairChat {
   int submitCount = 0;
   int endChatCount = 0;
   int toggleMicCount = 0;
-  int toggleLoudSpeakerCount = 0;
 
   @override
   PairChatState build() => initial;
@@ -273,7 +268,4 @@ class FakePairChat extends PairChat {
 
   @override
   Future<void> toggleMic() async => toggleMicCount++;
-
-  @override
-  Future<void> toggleLoudSpeaker() async => toggleLoudSpeakerCount++;
 }

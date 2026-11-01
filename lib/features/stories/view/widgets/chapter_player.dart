@@ -111,14 +111,14 @@ class ChapterPlayerView extends ConsumerWidget {
                           duration: const Duration(milliseconds: 100),
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Text(
-                            "${formatPlayDuration(playerState.sliderProgress.toInt())} ${AppLocalizations.of(context)!.lengthMinutes}",
+                            formatChapterLength(playerState.sliderProgress.toInt(), AppLocalizations.of(context)!),
                           ),
                         ),
                         AnimatedOpacity(
                           duration: const Duration(milliseconds: 100),
                           opacity: progress > 0.70 ? 0 : 1,
                           child: Text(
-                            "${formatPlayDuration(chapter.playDuration)} ${AppLocalizations.of(context)!.lengthMinutes}",
+                            formatChapterLength(chapter.playDuration, AppLocalizations.of(context)!),
                           ),
                         ),
                       ],

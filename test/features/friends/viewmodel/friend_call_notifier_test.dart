@@ -573,23 +573,13 @@ void main() {
       expect(container.read(liveKitControllerProvider).isConnected, isFalse);
     });
 
-    test('toggleMic and toggleLoudSpeaker flip their flags', () async {
+    test('toggleMic flips the mic flag', () async {
       final container = await buildContainer();
       final notifier = container.read(friendCallCoordinatorProvider.notifier);
 
       expect(container.read(friendCallCoordinatorProvider).isMicOn, isFalse);
       await notifier.toggleMic();
       expect(container.read(friendCallCoordinatorProvider).isMicOn, isTrue);
-
-      expect(
-        container.read(friendCallCoordinatorProvider).isLoudSpeakerOn,
-        isTrue,
-      );
-      await notifier.toggleLoudSpeaker();
-      expect(
-        container.read(friendCallCoordinatorProvider).isLoudSpeakerOn,
-        isFalse,
-      );
     });
   });
 }

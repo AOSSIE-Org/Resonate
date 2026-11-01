@@ -103,11 +103,7 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
     }
 
     call = await repo.setCallStatus(call, FriendCallStatus.connected);
-    state = state.copyWith(
-      activeCall: call,
-      isMicOn: false,
-      isLoudSpeakerOn: true,
-    );
+    state = state.copyWith(activeCall: call, isMicOn: false);
     _listenToCall(
       call.docId,
     ); // A leftover subscription could watch a previous call.
@@ -148,18 +144,6 @@ class FriendCallCoordinator extends _$FriendCallCoordinator {
           .setMicrophoneEnabled(next);
     } catch (e) {
       log('Mic toggle failed: $e');
-    }
-  }
-
-  Future<void> toggleLoudSpeaker() async {
-    final next = !state.isLoudSpeakerOn;
-    state = state.copyWith(isLoudSpeakerOn: next);
-    try {
-      await ref
-          .read(liveKitControllerProvider.notifier)
-          .setSpeakerphoneOn(next);
-    } catch (e) {
-      log('Speaker toggle failed: $e');
     }
   }
 

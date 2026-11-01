@@ -3,10 +3,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:resonate/core/providers/get_storage_provider.dart';
 import 'package:resonate/features/auth/data/repositories/auth_repository.dart';
 import 'package:resonate/features/auth/model/auth_state.dart';
 import 'package:resonate/features/achievements/model/user_stats.dart';
 import 'package:resonate/features/achievements/view/widgets/achievements_sheet.dart';
+import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/settings/view/pages/settings_screen.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/routes/app_router.dart';
@@ -38,6 +40,7 @@ GoRouter recordingRouter(List<String> log) {
       rec(RoutePaths.aboutApp),
       rec(RoutePaths.appPreferencesScreen),
       rec(RoutePaths.featuresScreen),
+      rec(RoutePaths.recordedChapters),
       rec(RoutePaths.contributeScreen),
       rec(RoutePaths.welcome),
     ],
@@ -45,13 +48,16 @@ GoRouter recordingRouter(List<String> log) {
 }
 
 Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
-  WidgetTester tester,
-) async {
+  WidgetTester tester, {
+  bool liveChapterEnabled = true,
+}) async {
   final repo = FakeAuthRepository(
     AuthState.authenticated(fakeAuthUser(uid: 'me')),
   );
   final log = <String>[];
   final router = recordingRouter(log);
+  final storage = FakeGetStorage();
+  await storage.write(AppFeature.liveChapter.storageKey, liveChapterEnabled);
 
   tester.view.physicalSize = const Size(1080, 2340);
   tester.view.devicePixelRatio = 3.0;
@@ -68,6 +74,7 @@ Future<(GoRouter, FakeAuthRepository, List<String>)> pumpSettings(
         ...achievementOverrides(
           myStats: const UserStats(roomsHosted: 12, badges: ['welcomer']),
         ),
+        getStorageBoxProvider.overrideWithValue(storage),
         authRepositoryProvider.overrideWithValue(repo),
         routerProvider.overrideWithValue(router),
       ],
@@ -113,6 +120,9 @@ void main() {
     expect(find.text('About'), findsOneWidget);
     expect(find.text('App Preferences'), findsOneWidget);
     expect(find.text('Features'), findsOneWidget);
+    expect(find.text('Recorded Chapters'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Contribute'), 200);
+    await tester.pumpAndSettle();
     expect(find.text('Contribute'), findsOneWidget);
 
     // log out tile
@@ -160,6 +170,8 @@ void main() {
 
   testWidgets('Contribute tile pushes contributeScreen', (tester) async {
     final (_, _, log) = await pumpSettings(tester);
+    await tester.scrollUntilVisible(find.text('Contribute'), 200);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Contribute'));
     await tester.pumpAndSettle();
     expect(log, [RoutePaths.contributeScreen]);
@@ -205,6 +217,22 @@ void main() {
     expect(find.text('Are you sure?'), findsNothing);
     expect(repo.logoutCount, 1);
     expect(log, [RoutePaths.welcome]);
+  });
+
+  testWidgets('Recorded Chapters tile pushes recordedChapters', (tester) async {
+    final (_, _, log) = await pumpSettings(tester);
+    await tester.tap(find.text('Recorded Chapters'));
+    await tester.pumpAndSettle();
+    expect(log, [RoutePaths.recordedChapters]);
+  });
+
+  testWidgets('Recorded Chapters is hidden while live chapters are off', (
+    tester,
+  ) async {
+    await pumpSettings(tester, liveChapterEnabled: false);
+
+    expect(find.text('Recorded Chapters'), findsNothing);
+    expect(find.text('Interests'), findsOneWidget);
   });
 
   testWidgets('Achievements tile opens the sheet rather than a route', (

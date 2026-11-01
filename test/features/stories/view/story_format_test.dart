@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:resonate/features/stories/view/story_format.dart';
 
 void main() {
@@ -16,6 +17,18 @@ void main() {
     test('handles zero and multi-minute durations', () {
       expect(formatPlayDuration(0), '0:00');
       expect(formatPlayDuration(600000), '10:00');
+    });
+  });
+
+  group('formatRecordedAt', () {
+    test('renders a stored UTC timestamp in local time', () {
+      final utc = DateTime.utc(2026, 3, 4, 10, 30);
+
+      expect(formatRecordedAt(utc), contains('2026'));
+      expect(
+        formatRecordedAt(utc),
+        contains(DateFormat.jm().format(utc.toLocal())),
+      );
     });
   });
 }

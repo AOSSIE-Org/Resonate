@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resonate/features/auth/data/current_user.dart';
 import 'package:resonate/features/friends/model/friend_call_model.dart';
-import 'package:resonate/features/friends/view/widgets/call_control_panel.dart';
+import 'package:resonate/shared/widgets/session_control_bar.dart';
 import 'package:resonate/features/live_audio/view/widgets/audio_selector_dialog.dart';
 import 'package:resonate/features/friends/view/widgets/call_participant_tile.dart';
 import 'package:resonate/features/friends/data/services/friend_call_coordinator.dart';
@@ -77,13 +77,22 @@ class _FriendCallPageState extends ConsumerState<FriendCallPage> {
                   child: _CallStage(remote: sides.remote, local: sides.local),
                 ),
                 Center(
-                  child: CallControlPanel(
-                    isMicOn: callState.isMicOn,
-                    isLoudSpeakerOn: callState.isLoudSpeakerOn,
-                    onToggleMic: notifier.toggleMic,
-                    onToggleLoudSpeaker: notifier.toggleLoudSpeaker,
-                    onAudioSettings: () => showAudioDeviceSelector(context),
-                    onEnd: () => notifier.endCall(),
+                  child: SessionControlBar(
+                    controls: [
+                      SessionControl(
+                        SessionControlKind.leave,
+                        onTap: () => notifier.endCall(),
+                      ),
+                      SessionControl(
+                        SessionControlKind.mic,
+                        active: callState.isMicOn,
+                        onTap: notifier.toggleMic,
+                      ),
+                      SessionControl(
+                        SessionControlKind.audioDevice,
+                        onTap: () => showAudioDeviceSelector(context),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:resonate/shared/widgets/app_loader.dart';
 import 'package:resonate/features/settings/data/feature_flags.dart';
 import 'package:resonate/features/settings/model/app_feature.dart';
 import 'package:resonate/features/stories/model/live_chapter_model.dart';
@@ -51,16 +51,7 @@ class _StoryPageState extends ConsumerState<StoryPage> {
     return Scaffold(
       body: SafeArea(
         child: detailAsync.when(
-          loading: () => Center(
-            child: SizedBox(
-              height: UiSizes.height_200,
-              width: UiSizes.width_200,
-              child: LoadingIndicator(
-                indicatorType: Indicator.ballRotate,
-                colors: [Theme.of(context).colorScheme.primary],
-              ),
-            ),
-          ),
+          loading: () => const AppLoader(),
           error: (e, _) =>
               Center(child: Text(AppLocalizations.of(context)!.error)),
           data: (detail) => _content(context, story, detail),
@@ -259,7 +250,7 @@ class _StoryPageState extends ConsumerState<StoryPage> {
                           SizedBox(width: UiSizes.width_16),
                           Flexible(
                             child: Text(
-                              '${formatPlayDuration(story.playDuration)} ${l10n.lengthMinutes}',
+                              formatChapterLength(story.playDuration, l10n),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.end,

@@ -42,6 +42,8 @@ class RoutePaths {
   static const createStoryScreen = '/createStoryScreen';
   static const liveChapterScreen = '/liveChapterScreen';
   static const verifyChapterDetails = '/verifyChapterDetails';
+  static const recordedChapters = '/recordedChapters';
+  static const recordedChapterDetail = '/recordedChapterDetail';
 
   static const Set<String> protected = {
     tabview,
@@ -69,6 +71,8 @@ class RoutePaths {
     createStoryScreen,
     liveChapterScreen,
     verifyChapterDetails,
+    recordedChapters,
+    recordedChapterDetail,
   };
 
   static const Set<String> authOnly = {

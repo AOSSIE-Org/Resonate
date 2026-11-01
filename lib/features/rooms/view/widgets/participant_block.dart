@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:resonate/features/achievements/view/widgets/badge_mark.dart';
 import 'package:resonate/features/profile/view/widgets/user_profile_card.dart';
 import 'package:resonate/features/rooms/model/appwrite_room.dart';
-import 'package:resonate/features/theme/model/activity_status_colors.dart';
-import 'package:resonate/features/theme/viewmodel/theme_notifier.dart';
 import 'package:resonate/features/rooms/model/participant.dart';
 import 'package:resonate/features/rooms/data/services/room_session.dart';
-import 'package:resonate/shared/widgets/speaking_avatar.dart';
+import 'package:resonate/shared/widgets/session_participant_card.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/ui_sizes.dart';
 import 'package:resonate/features/rooms/model/user_report_model.dart';
@@ -179,10 +176,7 @@ class ParticipantBlock extends ConsumerWidget {
     final me = ref.watch(roomSessionProvider(room)).value?.me;
     if (me == null) return const SizedBox.shrink();
 
-    final avatarUrl = participant.dpUrl.isEmpty
-        ? ref.watch(userProfileImagePlaceholderUrlProvider)
-        : participant.dpUrl;
-
+    final avatarUrl = resolveAvatarUrl(ref, participant.dpUrl);
     final canOpenMenu =
         (me.isAdmin || (me.isModerator && !participant.isModerator)) &&
         !participant.isAdmin;
@@ -195,9 +189,7 @@ class ParticipantBlock extends ConsumerWidget {
         name: participant.name,
         avatarUrl: avatarUrl,
       ),
-      child: featured
-          ? _featuredCard(context, avatarUrl)
-          : _gridCard(context, avatarUrl),
+      child: _card(context),
     );
 
     if (!canOpenMenu) return card;
@@ -225,191 +217,13 @@ class ParticipantBlock extends ConsumerWidget {
     );
   }
 
-  Widget _featuredCard(BuildContext context, String avatarUrl) {
-    return _Card(
-      padding: EdgeInsets.symmetric(
-        horizontal: UiSizes.width_25,
-        vertical: UiSizes.height_26,
-      ),
-      child: Row(
-        children: [
-          _avatar(
-            context,
-            avatarUrl,
-            radius: UiSizes.size_65,
-            badgeSize: UiSizes.size_30,
-          ),
-          SizedBox(width: UiSizes.width_16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  participant.name.split(' ').first,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: UiSizes.size_30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  _userRole(context),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontSize: UiSizes.size_20,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// The square tile used for speakers and listeners in the participant grid.
-  Widget _gridCard(BuildContext context, String avatarUrl) {
-    return _Card(
-      padding: EdgeInsets.symmetric(
-        vertical: UiSizes.height_15,
-        horizontal: UiSizes.width_4,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _avatar(
-            context,
-            avatarUrl,
-            radius: UiSizes.size_26,
-            badgeSize: UiSizes.size_18,
-          ),
-          SizedBox(height: UiSizes.height_8),
-          Text(
-            participant.name.split(' ').first,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: UiSizes.size_18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Text(
-            _userRole(context),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              fontSize: UiSizes.size_15,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _avatar(
-    BuildContext context,
-    String avatarUrl, {
-    required double radius,
-    required double badgeSize,
-  }) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        SpeakingAvatar(
-          uid: participant.uid,
-          radius: radius,
-          child: CircleAvatar(
-            radius: radius,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: CircleAvatar(
-              radius: radius - UiSizes.width_2,
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.surfaceContainerHighest,
-              foregroundImage: NetworkImage(avatarUrl),
-            ),
-          ),
-        ),
-        Positioned(
-          left: 0,
-          bottom: 0,
-          child: BadgeMark(uid: participant.uid, size: badgeSize),
-        ),
-        if (participant.isSpeaker)
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: _MicDot(isMicOn: participant.isMicOn, size: badgeSize),
-          ),
-        if (participant.hasRequestedToBeSpeaker)
-          Positioned(
-            right: 0,
-            top: 0,
-            child: Icon(
-              Icons.waving_hand_rounded,
-              color: Theme.of(context).colorScheme.primary,
-              size: badgeSize,
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-// Shared surface for both participant card shapes.
-class _Card extends StatelessWidget {
-  const _Card({required this.padding, required this.child});
-
-  final EdgeInsetsGeometry padding;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(UiSizes.width_16),
-      ),
-      child: child,
-    );
-  }
-}
-
-// Mic state as a filled disc on the avatar: green live, red muted.
-class _MicDot extends StatelessWidget {
-  const _MicDot({required this.isMicOn, required this.size});
-
-  final bool isMicOn;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    final statusColors = ActivityStatusColors.of(context);
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isMicOn
-            ? statusColors.online
-            : Theme.of(context).colorScheme.error,
-        border: Border.all(
-          color: Theme.of(context).colorScheme.secondary,
-          width: UiSizes.width_1_5,
-        ),
-      ),
-      child: Center(
-        child: Icon(
-          isMicOn ? Icons.mic : Icons.mic_off,
-          size: size * 0.6,
-          color: statusColors.onStatus,
-        ),
-      ),
-    );
-  }
+  Widget _card(BuildContext context) => SessionParticipantCard(
+    uid: participant.uid,
+    name: participant.name,
+    role: _userRole(context),
+    avatarUrl: participant.dpUrl,
+    featured: featured,
+    isMicOn: participant.isSpeaker ? participant.isMicOn : null,
+    handRaised: participant.hasRequestedToBeSpeaker,
+  );
 }

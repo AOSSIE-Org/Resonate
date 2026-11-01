@@ -15,6 +15,8 @@ enum AppFeature {
     routes: {
       RoutePaths.liveChapterScreen,
       RoutePaths.verifyChapterDetails,
+      RoutePaths.recordedChapters,
+      RoutePaths.recordedChapterDetail,
     },
   );
 

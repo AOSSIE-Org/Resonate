@@ -7,12 +7,14 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:resonate/features/stories/model/chapter_player_state.dart';
 import 'package:resonate/features/stories/model/explore_state.dart';
 import 'package:resonate/features/stories/model/live_chapter_state.dart';
+import 'package:resonate/features/stories/model/recorded_chapter.dart';
 import 'package:resonate/features/stories/model/story.dart';
 import 'package:resonate/features/stories/model/story_detail_state.dart';
 import 'package:resonate/features/stories/data/category_stories.dart';
 import 'package:resonate/features/stories/viewmodel/chapter_player_notifier.dart';
 import 'package:resonate/features/stories/data/explore_stories.dart';
 import 'package:resonate/features/stories/data/services/live_chapter_coordinator.dart';
+import 'package:resonate/features/stories/viewmodel/recorded_chapters_notifier.dart';
 import 'package:resonate/features/stories/viewmodel/story_detail_notifier.dart';
 import 'package:resonate/l10n/app_localizations.dart';
 import 'package:resonate/utils/enums/story_category.dart';
@@ -107,3 +109,28 @@ class FakeChapterPlayer extends ChapterPlayer {
   @override
   ChapterPlayerState build(String chapterId) => _state;
 }
+
+class FakeRecordedChapters extends RecordedChapters {
+  FakeRecordedChapters(this._future);
+  final Future<List<RecordedChapter>> _future;
+  @override
+  Future<List<RecordedChapter>> build() => _future;
+}
+
+RecordedChapter fakeRecordedChapter({
+  String id = 'rec-1',
+  String title = 'Night Shift',
+  String description = 'A late recording',
+  String transcript = '',
+  int durationMs = 65000,
+  DateTime? recordedAt,
+}) =>
+    RecordedChapter(
+      id: id,
+      title: title,
+      description: description,
+      audioFilePath: '/recordings/$id.wav',
+      durationMs: durationMs,
+      transcript: transcript,
+      recordedAt: recordedAt ?? DateTime.utc(2026, 3, 4, 10, 30),
+    );
